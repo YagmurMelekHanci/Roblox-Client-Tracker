@@ -27,6 +27,9 @@ local getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity =
 local getEngineFeatureEngineUGCValidateLCCagingRelevancy =
 	require(root.flags.getEngineFeatureEngineUGCValidateLCCagingRelevancy)
 
+local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
+	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
+
 local function joinTables(...)
 	local result = {}
 	for i = 1, select("#", ...) do
@@ -186,6 +189,11 @@ if getEngineFeatureUGCValidateMeshInsideMesh() then
 		"validateRenderMeshInsideOuterCageMesh_FailedToExecute"
 	Analytics.ErrorType.validateRenderMeshInsideOuterCageMesh_MaxOutsideCageMeshExceeded =
 		"validateRenderMeshInsideOuterCageMesh_MaxOutsideCageMeshExceeded"
+end
+
+if getFFlagUGCValidatePartSizeWithinRenderSizeLimits() then
+	Analytics.ErrorType.validatePartSizeWithinRenderSizeLimits_SizeExceeded =
+		"validatePartSizeWithinRenderSizeLimits_SizeExceeded"
 end
 
 setmetatable(Analytics.ErrorType, {

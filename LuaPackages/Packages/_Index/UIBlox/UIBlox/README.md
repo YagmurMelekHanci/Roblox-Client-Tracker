@@ -76,7 +76,9 @@ Once your PR is merged to master, you should update the UIBlox dependency in [Lu
 
 - Create a branch for your upgrade PR for [LuaApps](https://github.com/Roblox/lua-apps) repo
 - Navigate to `content/LuaPackages` in your [LuaApps](https://github.com/Roblox/lua-apps) repo
-- Run `rotrieve upgrade --packages UIBlox` to pull in the latest changes
+- Find the most recent version in the tags page of the UIBlox repo https://github.com/Roblox/uiblox/tags
+- Bump the version to the most recent version number (e.g. 0.2.1 -> 0.2.2) in the [rotriever.toml](https://github.com/Roblox/lua-apps/blob/master/content/LuaPackages/rotriever.toml) file
+- Run `rotrieve install` to pull in the latest changes
 - Commit everything to your upgrade branch and create a PR for review
 - Squash and merge once approved
 

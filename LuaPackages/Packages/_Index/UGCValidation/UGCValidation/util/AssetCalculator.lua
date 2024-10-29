@@ -1,5 +1,9 @@
 --!strict
 --[[
+calculatePartCFrameFromRigAttachments
+	calculates a cframe where the y axis is from the parts rig attachment to parent to the parts rig attachment to child
+calculateStraightenedLimb
+	calculates the part cframes after straightning the limb at the elbow/knee
 calculateAssetCFrame:
 	calculate the cframe for the asset, where the y vector of the matrix for the asset is calculated from the top to the bottom of the asset
 calculateAllTransformsForAsset:
@@ -11,6 +15,8 @@ calculatePartsLocalToAsset:
 ]]
 
 local root = script.Parent.Parent
+local Cryo = require(root.Parent.Cryo)
+
 local ConstantsInterface = require(root.ConstantsInterface)
 
 local Types = require(root.util.Types)
@@ -35,18 +41,17 @@ local fullBodyAssetHierarchy = {
 
 local AssetCalculator = {}
 
--- calculate the cframe for the asset, where the y vector of the matrix for the asset is calculated from the top to the bottom of the asset
-local function calculateAssetCFrame(top: Vector3, bottom: Vector3): CFrame?
+local function calculateCFrame(top: Vector3, bottom: Vector3): CFrame?
 	local yVector = top - bottom
 
 	if not canBeNormalized(yVector) then
-		return -- error, upper arm and lower arm are in the same location
+		return -- error, top and bottom are in the same location
 	end
 
 	yVector = yVector.Unit
 
 	local xVector = yVector:Cross(Vector3.zAxis).Unit
-	if not canBeNormalized(xVector) then -- asset is pointing along the world z axis
+	if not canBeNormalized(xVector) then -- yVector is pointing along the world z axis
 		local crossWith = if yVector.Z < 0 then Vector3.yAxis else -Vector3.yAxis
 		xVector = yVector:Cross(crossWith).Unit
 	end
@@ -117,7 +122,99 @@ local function calculateAssetCFrameFromPartsCFrames(
 	local top = partsCFrames[partNamesHierarchyOrder[1]].Position
 	local bottom = partsCFrames[partNamesHierarchyOrder[3]].Position
 
-	return calculateAssetCFrame(top, bottom)
+	return calculateCFrame(top, bottom)
+end
+
+local function assertTypesToOrient(singleAsset: Enum.AssetType)
+	assert(
+		singleAsset == Enum.AssetType.LeftArm
+			or singleAsset == Enum.AssetType.RightArm
+			or singleAsset == Enum.AssetType.LeftLeg
+			or singleAsset == Enum.AssetType.RightLeg
+	)
+end
+
+local function getAttachmentCFrame(part: MeshPart, rigAttachmentName: string, transform: CFrame): CFrame
+	local rigAttachment: Attachment? = part:FindFirstChild(rigAttachmentName) :: Attachment
+	assert(rigAttachment)
+	return transform * rigAttachment.CFrame
+end
+
+function AssetCalculator.calculatePartCFrameFromRigAttachments(
+	singleAsset: Enum.AssetType,
+	part: MeshPart,
+	transform: CFrame
+): CFrame?
+	assertTypesToOrient(singleAsset)
+
+	local attachmentToRigParentName = ConstantsInterface.getRigAttachmentToParent(singleAsset, part.Name)
+	if attachmentToRigParentName == "" then
+		return
+	end
+	local attachmentToRigParentCFrame = getAttachmentCFrame(part, attachmentToRigParentName, transform)
+
+	local rigChildPartName = AssetTraversalUtils.getAssetRigChild(singleAsset, part.Name)
+	if not rigChildPartName then
+		return
+	end
+	local attachmentToRigChildName =
+		ConstantsInterface.getRigAttachmentToParent(singleAsset, rigChildPartName :: string)
+	local attachmentToRigChildCFrame = getAttachmentCFrame(part, attachmentToRigChildName, transform)
+
+	return calculateCFrame(attachmentToRigParentCFrame.Position, attachmentToRigChildCFrame.Position)
+end
+
+function AssetCalculator.calculateStraightenedLimb(
+	singleAsset: Enum.AssetType,
+	partsCFrames: { string: CFrame },
+	findMeshHandle: (string) -> MeshPart
+): { string: CFrame }
+	assertTypesToOrient(singleAsset)
+
+	local result = Cryo.Dictionary.join(partsCFrames) -- make a copy
+
+	local rigParentAttachmentPos: Vector3?
+	local rigParentSpaceCFrame = CFrame.new()
+	for _, partName in getPartNamesInHierarchyOrder(singleAsset) do
+		local part = findMeshHandle(partName)
+
+		-- partSpaceCFrame is initialized with the rig parent's value, but will get recalculated if the part is not at the end of the hierarchy
+		local partSpaceCFrame = rigParentSpaceCFrame
+		local rigChildPartName = AssetTraversalUtils.getAssetRigChild(singleAsset, partName)
+
+		local isEndOfHierarchy = rigChildPartName == nil
+		if not isEndOfHierarchy then -- calculations which require a next in the hierarchy are only done for parts not at the end of the hierarchy
+			-- partSpaceCFrame is calculated from the diff between the parts's attachment to rig parent and rig child (or fails if they are in the same place)
+			partSpaceCFrame = AssetCalculator.calculatePartCFrameFromRigAttachments(
+				singleAsset,
+				part,
+				partsCFrames[partName]
+			) or partSpaceCFrame
+		end
+
+		-- updating orientation of the part
+		result[partName] = calculateLocalSpaceTransform(partSpaceCFrame :: CFrame, partsCFrames[partName])
+
+		if rigParentAttachmentPos then -- fixing up the position of the part
+			local updatedAttachmentToRigParentCFrame = getAttachmentCFrame(
+				part,
+				ConstantsInterface.getRigAttachmentToParent(singleAsset, partName),
+				result[partName]
+			)
+			local posFix = rigParentAttachmentPos - updatedAttachmentToRigParentCFrame.Position
+			result[partName] = CFrame.new(result[partName].Position + posFix) * result[partName].Rotation
+		end
+
+		if not isEndOfHierarchy then -- set the variables needed by the next part down in the hierarchy
+			rigParentSpaceCFrame = partSpaceCFrame -- will be used by the end of hierarchy part, or any part where the attachments are in the same place
+			rigParentAttachmentPos = getAttachmentCFrame(
+				part,
+				ConstantsInterface.getRigAttachmentToParent(singleAsset, rigChildPartName :: string) :: string,
+				result[partName]
+			).Position
+		end
+	end
+	return result
 end
 
 function AssetCalculator.calculateAssetCFrame(singleAsset: Enum.AssetType, inst: Instance): CFrame?

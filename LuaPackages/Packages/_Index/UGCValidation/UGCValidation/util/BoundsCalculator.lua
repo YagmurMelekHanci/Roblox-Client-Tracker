@@ -22,10 +22,15 @@ local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+local getFFlagUGCValidateStraightenLimbs = require(root.flags.getFFlagUGCValidateStraightenLimbs)
 
 local BoundsCalculator = {}
 
-local function orientSingleAssetToWorldAxes(partsCFrames: { string: CFrame }, singleAsset: Enum.AssetType)
+local function orientSingleAssetToWorldAxes(
+	partsCFrames: { string: CFrame },
+	singleAsset: Enum.AssetType,
+	findMeshHandle: (string) -> MeshPart
+)
 	if
 		singleAsset ~= Enum.AssetType.LeftArm
 		and singleAsset ~= Enum.AssetType.RightArm
@@ -35,15 +40,21 @@ local function orientSingleAssetToWorldAxes(partsCFrames: { string: CFrame }, si
 		return
 	end
 
-	local localToAssetPartsCFrames = AssetCalculator.calculatePartsLocalToAsset(singleAsset, partsCFrames)
-	for name, newCFrame in localToAssetPartsCFrames do
+	local results
+	if getFFlagUGCValidateStraightenLimbs() then
+		results = AssetCalculator.calculateStraightenedLimb(singleAsset, partsCFrames, findMeshHandle)
+	else
+		results = AssetCalculator.calculatePartsLocalToAsset(singleAsset, partsCFrames)
+	end
+
+	for name, newCFrame in results do
 		partsCFrames[name] = newCFrame
 	end
 end
 
 local function orientFullBodyArmsLegsToWorldAxes(partsCFrames: { string: CFrame }, findMeshHandle: (string) -> MeshPart)
 	local function orientAndMoveParts(singleAsset: Enum.AssetType, parentPartName: string)
-		orientSingleAssetToWorldAxes(partsCFrames, singleAsset)
+		orientSingleAssetToWorldAxes(partsCFrames, singleAsset, findMeshHandle)
 
 		local partNames = getPartNamesInHierarchyOrder(singleAsset)
 		local upperPart = findMeshHandle(partNames[1])
@@ -192,11 +203,12 @@ function BoundsCalculator.calculateAssetBounds(
 	end
 
 	local partsCFrames = AssetCalculator.calculateAllTransformsForAsset(singleAsset, inst)
-	orientSingleAssetToWorldAxes(partsCFrames, singleAsset)
 
 	local function findMeshHandle(name: string): MeshPart
 		return inst:FindFirstChild(name) :: MeshPart
 	end
+
+	orientSingleAssetToWorldAxes(partsCFrames, singleAsset, findMeshHandle)
 
 	local success, failureReasons, resultOpt =
 		calculateTotalBoundsForAsset(partsCFrames, findMeshHandle, validationContext)
@@ -216,7 +228,6 @@ function BoundsCalculator.calculateIndividualAssetPartsData(
 	assert(singleAsset)
 
 	local partsCFrames = AssetCalculator.calculateAllTransformsForAsset(singleAsset, inst)
-	orientSingleAssetToWorldAxes(partsCFrames, singleAsset)
 
 	local function findMeshHandle(name: string): MeshPart
 		if singleAsset == Enum.AssetType.DynamicHead then
@@ -224,6 +235,8 @@ function BoundsCalculator.calculateIndividualAssetPartsData(
 		end
 		return inst:FindFirstChild(name) :: MeshPart
 	end
+
+	orientSingleAssetToWorldAxes(partsCFrames, singleAsset, findMeshHandle)
 
 	local success, failureReasons, allPartsBoundsDataOpt =
 		calculateAllPartsBoundsData(partsCFrames, findMeshHandle, validationContext)

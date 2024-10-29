@@ -1,4 +1,5 @@
---!strict
+--!nolint UnknownGlobal
+--!nocheck
 
 local root = script.Parent.Parent
 
@@ -24,9 +25,9 @@ end
 local function createEditableInstanceFromId(content, contentIdMap, contentType)
 	local success, result = pcall(function()
 		if contentType == "EditableMesh" then
-			AssetService:CreateEditableMeshStripSkinningAsync(content.Uri)
+			return AssetService:CreateEditableMeshStripSkinningAsync(content.Uri) :: any
 		else
-			AssetService:CreateEditableImageAsync(content.Uri)
+			return (AssetService :: any):CreateEditableImageAsync(content) :: any
 		end
 	end)
 
@@ -73,30 +74,40 @@ local function getTextureContentMap(instance, contentIdToContentMap)
 	if instance:IsA("MeshPart") then
 		addContent(contentIdToContentMap, "TextureID", (instance :: MeshPart).TextureContent, "EditableImage")
 	elseif instance:IsA("SpecialMesh") then
-		addContent(contentIdToContentMap, "TextureId", { Uri = (instance :: SpecialMesh).TextureId }, "EditableImage")
+		-- selene: allow(undefined_variable) | Content global will be added later
+		addContent(
+			contentIdToContentMap,
+			"TextureId",
+			Content.fromUri((instance :: SpecialMesh).TextureId),
+			"EditableImage"
+		)
 	elseif instance:IsA("SurfaceAppearance") then
 		addContent(
 			contentIdToContentMap,
 			"ColorMap",
-			{ Uri = (instance :: SurfaceAppearance).ColorMap },
+			-- selene: allow(undefined_variable) | Content global will be added later
+			Content.fromUri((instance :: SurfaceAppearance).ColorMap),
 			"EditableImage"
 		)
 		addContent(
 			contentIdToContentMap,
 			"MetalnessMap",
-			{ Uri = (instance :: SurfaceAppearance).MetalnessMap },
+			-- selene: allow(undefined_variable) | Content global will be added later
+			Content.fromUri((instance :: SurfaceAppearance).MetalnessMap),
 			"EditableImage"
 		)
 		addContent(
 			contentIdToContentMap,
 			"NormalMap",
-			{ Uri = (instance :: SurfaceAppearance).NormalMap },
+			-- selene: allow(undefined_variable) | Content global will be added later
+			Content.fromUri((instance :: SurfaceAppearance).NormalMap),
 			"EditableImage"
 		)
 		addContent(
 			contentIdToContentMap,
 			"RoughnessMap",
-			{ Uri = (instance :: SurfaceAppearance).RoughnessMap },
+			-- selene: allow(undefined_variable) | Content global will be added later
+			Content.fromUri((instance :: SurfaceAppearance).RoughnessMap),
 			"EditableImage"
 		)
 	end
@@ -130,7 +141,8 @@ local function getMeshContentMap(instance, contentIdToContentMap, allowEditableI
 		)
 		addContent(contentIdToContentMap, "ReferenceMeshId", (instance :: any).ReferenceMeshContent, "EditableMesh")
 	elseif instance:IsA("SpecialMesh") then
-		addContent(contentIdToContentMap, "MeshId", { Uri = (instance :: SpecialMesh).MeshId }, "EditableMesh")
+		-- selene: allow(undefined_variable) | Content global will be added later
+		addContent(contentIdToContentMap, "MeshId", Content.fromUri((instance :: SpecialMesh).MeshId), "EditableMesh")
 	end
 end
 
@@ -147,7 +159,7 @@ local function getOrCreateEditableInstances(
 	for key, contentInfo in contentIdToContentMap do
 		local contentType = contentInfo.contentType
 		local success, result =
-			getEditableInstanceInfo(contentInfo.content, contentIdMap, contentType, allowEditableInstances)
+			getEditableInstanceInfo(contentInfo.content :: any, contentIdMap, contentType, allowEditableInstances)
 		if not success then
 			return success, result
 		end

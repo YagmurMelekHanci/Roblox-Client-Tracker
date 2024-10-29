@@ -5,6 +5,7 @@ local tryYield = require(root.util.tryYield)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local AssetCalculator = require(root.util.AssetCalculator)
+local BoundsCalculator = require(root.util.BoundsCalculator)
 local RasterUtil = require(root.util.RasterUtil)
 local ConstantsTransparencyValidation = require(root.ConstantsTransparencyValidation)
 
@@ -13,6 +14,8 @@ local getEngineFeatureEditableImageDrawTriangleEnabled =
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
+local getFFlagUGCValidateStraightenLimbsTransparency =
+	require(root.flags.getFFlagUGCValidateStraightenLimbsTransparency)
 
 local function checkFlags()
 	return getEngineFeatureEditableImageDrawTriangleEnabled()
@@ -105,7 +108,7 @@ local function getScaleFactor(meshSize, viewId)
 	return scaleFactor
 end
 
-local function addTransformedTriangle(srcMesh, combinedMeshData, triangleId, transform, origin)
+local function addTransformedTriangle(srcMesh, combinedMeshData, triangleId, transformDeprecated, origin)
 	local triangleData = {
 		orderedVerts = {},
 	}
@@ -120,9 +123,18 @@ local function addTransformedTriangle(srcMesh, combinedMeshData, triangleId, tra
 	local edge2 = p3_local - p1_local
 	triangleData.normal = edge1:Cross(edge2).Unit
 
-	local p1_world = transform:inverse() * (origin * p1_local)
-	local p2_world = transform:inverse() * (origin * p2_local)
-	local p3_world = transform:inverse() * (origin * p3_local)
+	local p1_world
+	local p2_world
+	local p3_world
+	if getFFlagUGCValidateStraightenLimbsTransparency() then
+		p1_world = origin * p1_local
+		p2_world = origin * p2_local
+		p3_world = origin * p3_local
+	else
+		p1_world = transformDeprecated:inverse() * (origin * p1_local)
+		p2_world = transformDeprecated:inverse() * (origin * p2_local)
+		p3_world = transformDeprecated:inverse() * (origin * p3_local)
+	end
 
 	table.insert(triangleData.orderedVerts, p1_world)
 	table.insert(triangleData.orderedVerts, p2_world)
@@ -156,10 +168,10 @@ local function updateMinMaxBounds(boundsData, triangle)
 	boundsData.max = Vector3.new(maxX, maxY, maxZ)
 end
 
-local function getCombinedMeshData(srcMesh, combinedMeshData, transform, origin, boundsData)
+local function getCombinedMeshData(srcMesh, combinedMeshData, transformDeprecated, origin, boundsData)
 	local triangles = srcMesh:GetFaces()
 	for _, triangleId in triangles do
-		local newTriangle = addTransformedTriangle(srcMesh, combinedMeshData, triangleId, transform, origin)
+		local newTriangle = addTransformedTriangle(srcMesh, combinedMeshData, triangleId, transformDeprecated, origin)
 		updateMinMaxBounds(boundsData, newTriangle)
 	end
 end
@@ -211,8 +223,14 @@ local function validateAssetTransparency(inst: Instance, validationContext: Type
 		end
 	end
 
-	local transform = AssetCalculator.calculateAssetCFrame(assetTypeEnum, inst)
-	local origins = AssetCalculator.calculateAllTransformsForAsset(assetTypeEnum, inst)
+	local transformDeprecated -- remove with getFFlagUGCValidateStraightenLimbsTransparency()
+	local origins
+	if getFFlagUGCValidateStraightenLimbsTransparency() then
+		origins = BoundsCalculator.calculateIndividualAssetPartsData(inst, validationContext)
+	else
+		transformDeprecated = AssetCalculator.calculateAssetCFrame(assetTypeEnum, inst)
+		origins = AssetCalculator.calculateAllTransformsForAsset(assetTypeEnum, inst)
+	end
 
 	local combinedMeshData = {}
 	local boundsData = {
@@ -231,7 +249,15 @@ local function validateAssetTransparency(inst: Instance, validationContext: Type
 				}
 		end
 		srcMesh:Triangulate()
-		getCombinedMeshData(srcMesh, combinedMeshData, transform, origins[meshPart.Name], boundsData)
+		getCombinedMeshData(
+			srcMesh,
+			combinedMeshData,
+			transformDeprecated,
+			if getFFlagUGCValidateStraightenLimbsTransparency()
+				then origins[meshPart.Name].cframe
+				else origins[meshPart.Name],
+			boundsData
+		)
 		tryYield(validationContext)
 	end
 

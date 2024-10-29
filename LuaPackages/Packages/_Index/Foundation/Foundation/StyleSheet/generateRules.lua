@@ -70,6 +70,10 @@ local ColorPurpose = {
 	None = {},
 }
 
+local KeepPrefix = {
+	System = true,
+}
+
 function pascalToKebab(str)
 	-- Replace underscores with hyphens
 	str = str:gsub("_", "-")
@@ -122,7 +126,8 @@ local function createTokens(tokens: Tokens): (
 			-- General colors
 			colors[name] = {}
 			for innerName, innerValue in value do
-				colors[name][pascalToKebab(innerName)] = innerValue
+				local tagName = if KeepPrefix[name] then name .. innerName else innerName
+				colors[name][pascalToKebab(tagName)] = innerValue
 			end
 		end
 	end
@@ -211,11 +216,31 @@ local function DefaultRules(tokens: Tokens): { StyleRule }
 		{
 			tag = "text-defaults",
 			properties = {
-				TextColor3 = tokens.Color.Content.Default.Color3,
-				TextTransparency = tokens.Color.Content.Default.Transparency,
 				Font = tokens.Typography.BodyLarge.Font,
+			},
+		},
+	}
+end
+
+local function DefaultSizeRules(tokens: Tokens): { StyleRule }
+	return {
+		{
+			tag = "text-size-defaults",
+			properties = {
 				TextSize = tokens.Typography.BodyLarge.FontSize,
 				LineHeight = tokens.Typography.BodyLarge.LineHeight,
+			},
+		},
+	}
+end
+
+local function DefaultColorRules(tokens: Tokens): { StyleRule }
+	return {
+		{
+			tag = "text-color-defaults",
+			properties = {
+				TextColor3 = tokens.Color.Content.Default.Color3,
+				TextTransparency = tokens.Color.Content.Default.Transparency,
 			},
 		},
 	}
@@ -514,8 +539,8 @@ local function BackgroundRules(colors: ColorScopes, variants: Variants)
 	return rules
 end
 
-local function StrokeRules(strokes: Strokes, colors: ColorScopes, variants: Variants)
-	local rules: { StyleRule } = {}
+local function StrokeSizeRules(strokes: Strokes)
+	local rules = {}
 
 	for _, stroke in strokes do
 		table.insert(rules, {
@@ -526,6 +551,12 @@ local function StrokeRules(strokes: Strokes, colors: ColorScopes, variants: Vari
 			},
 		})
 	end
+
+	return rules
+end
+
+local function StrokeRules(colors: ColorScopes, variants: Variants)
+	local rules: { StyleRule } = {}
 
 	for name, scope in colors do
 		if table.find(ColorPurpose[name], STROKE) then
@@ -858,6 +889,53 @@ local function AspectRatioRules()
 	return rules
 end
 
+local function DeprecatedColorRules(colors: ColorScopes, variants: Variants)
+	local rules: { StyleRule } = {}
+
+	-- Add System colors for backwards compatibility, deprecated
+	local system = colors.System
+
+	for name, color in system do
+		-- remove stystem- to get old name
+		local oldName = name:sub(8)
+		-- add background color
+		table.insert(rules, {
+			tag = `bg-{oldName}`,
+			properties = {
+				BackgroundColor3 = color.Color3,
+				BackgroundTransparency = color.Transparency,
+			},
+			deprecatedFor = `bg-{name}`,
+		})
+
+		-- add content and stroke color, skip emphasis
+		if oldName ~= "emphasis" then
+			table.insert(rules, {
+				tag = `content-{oldName}`,
+				properties = {
+					ImageColor3 = color.Color3,
+					ImageTransparency = color.Transparency,
+					TextColor3 = color.Color3,
+					TextTransparency = color.Transparency,
+				},
+				deprecatedFor = `content-{name}`,
+			})
+
+			table.insert(rules, {
+				tag = `stroke-{oldName}`,
+				pseudo = "UIStroke",
+				properties = {
+					Color = color.Color3,
+					Transparency = color.Transparency,
+				},
+				deprecatedFor = `stroke-{name}`,
+			})
+		end
+	end
+
+	return rules
+end
+
 local function _addModifiers(rules: { StyleRule })
 	local modifierRules = {}
 
@@ -881,18 +959,10 @@ end
 local function generateRules(tokens: Tokens)
 	local colors, variants, strokes, gaps, radii, sizes, typography, paddings, gutters, margins = createTokens(tokens)
 
-	local rules = Cryo.List.join(
+	local common = Cryo.List.join(
 		DefaultRules(tokens),
-		ListLayoutRules(gaps, gutters),
 		FlexItemRules(),
-		CornerRules(radii),
-		SizeRules(sizes),
-		BackgroundRules(colors, variants),
-		StrokeRules(strokes, colors, variants),
-		ContentRules(colors, variants),
-		TypographyRules(typography, tokens.Config.Text.NominalScale),
 		TextRules(),
-		PaddingRules(paddings, margins),
 		AutomaticSizeRules(),
 		PositionRules(),
 		AnchorPointRules(),
@@ -900,7 +970,27 @@ local function generateRules(tokens: Tokens)
 		AspectRatioRules()
 	)
 
-	return rules
+	local size = Cryo.List.join(
+		DefaultSizeRules(tokens),
+		ListLayoutRules(gaps, gutters),
+		CornerRules(radii),
+		SizeRules(sizes),
+		StrokeSizeRules(strokes),
+		TypographyRules(typography, tokens.Config.Text.NominalScale),
+		PaddingRules(paddings, margins)
+	)
+
+	local theme = Cryo.List.join(
+		DefaultColorRules(tokens),
+		DeprecatedColorRules(colors, variants),
+		BackgroundRules(colors, variants),
+		StrokeRules(colors, variants),
+		ContentRules(colors, variants)
+	)
+
+	local rules = Cryo.List.join(common, size, theme)
+
+	return rules, common, size, theme
 end
 
 return generateRules

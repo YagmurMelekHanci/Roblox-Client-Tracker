@@ -136,4 +136,7 @@ return {
 
 	-- Enable the update of AppNav components
 	enableAppNavUpdate = false,
+
+	-- Enable Panel managed anchoring for Panel3D
+	enablePanelManagedAnchoring = false,
 }
