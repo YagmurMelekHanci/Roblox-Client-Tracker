@@ -91,3 +91,5 @@ Studio.App.GenerativeAI.DataCollection.Nudge.CloseStudio,,Close Studio,Close Stu
 Studio.App.GenerativeAI.DataCollection.Nudge.GoBack,,Go Back,Go Back
 Studio.App.GenerativeAI.DataCollection.Nudge.MainContent,,The legal consent dialog for our updated <a href='%1'>Supplemental Terms</a> will be displayed next time you open Studio.,The legal consent dialog for our updated <a href='%1'>Supplemental Terms</a> will be displayed next time you open Studio.
 Studio.App.GenerativeAI.DataCollection.Nudge.Header,,"<b>Closing this dialog will close Studio, are you sure?</b>","<b>Closing this dialog will close Studio, are you sure?</b>"
+Studio.App.GenerativeAI.ShowMoreSuggestions,,Show more,Show more
+Studio.App.GenerativeAI.ShowLessSuggestions,,Show less,Show less

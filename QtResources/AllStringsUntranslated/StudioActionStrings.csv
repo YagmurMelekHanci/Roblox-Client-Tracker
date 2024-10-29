@@ -484,6 +484,8 @@ Studio.App.RobloxRibbonMainWindow.Frame,,Frame,Frame
 Studio.App.RobloxRibbonMainWindow.ContainerLayoutTooltip,,A container object used to layout other GUI objects,A container object used to layout other GUI objects
 Studio.App.UIEditor.ScrollingFrame,ui editor menu,Scrolling Frame,Scrolling Frame
 Studio.App.Actions.ScrollingFrame,"A container object used to layout other GUI objects, and allows for scrolling. A special Frame that handles all scrolling for you, with a range of different ways to customize how the scrolling works.",ScrollingFrame,ScrollingFrame
+Studio.App.Actions.Storybook,Name of the action to display the Storybook plugin,Storybook,Storybook
+Studio.App.Actions.Inspector,Name of the action to display the Inspector plugin,Inspector,Inspector
 Studio.App.Actions.VideoFrame,,VideoFrame,VideoFrame
 Studio.App.Actions.ViewportFrame,,ViewportFrame,ViewportFrame
 Studio.App.Actions.CanvasGroup,,CanvasGroup,CanvasGroup
@@ -518,6 +520,8 @@ Studio.App.RobloxRibbonMainWindow.ImageLabel,,Image Label,Image Label
 Studio.App.Actions.ImageLabel,"An ImageLabel renders a rectangle, like a Frame does, with an image.",ImageLabel,ImageLabel
 Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture,,Specifies the asset id of the texture to display,Specifies the asset id of the texture to display
 Studio.App.Actions.LogoutMenu,,Username,Username
+Studio.App.Actions.ExitClient,Exit the client in a multi-client testing session,Exit Client,Exit Client
 Studio.App.Help.OpenDocumentationUrl,Launches documentation DevHub URL,Documentation,Documentation
 Studio.App.Help.OpenTutorialsUrl,Launches tutorials DevHub URL,Tutorials,Tutorials
 Studio.App.Help.OpenDeveloperForumUrl,Launches Developer Forum URL,Developer Forum,Developer Forum
+Studio.App.PlaceAnnotations.Toggle,Opens the Place Comments feature.,Comments,Comments
