@@ -136,6 +136,7 @@ local GetFFlagUseFriendsPropsInMuteToggles = require(RobloxGui.Modules.Settings.
 local GetFFlagDefaultFriendingLabelTextNonEmpty = require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
 local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
+local FFlagInExperienceMenuResetButtonTextToRespawn = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuResetButtonTextToRespawn)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
@@ -165,6 +166,17 @@ local function Initialize()
 		this.PageListLayout.Padding = UDim.new(0, 16)
 	else
 		this.PageListLayout.Padding = UDim.new(0, PLAYER_ROW_SPACING - PLAYER_ROW_HEIGHT)
+	end
+
+	--[[ Localization Package Initialization ]]
+	local LocalizationStrings
+	local localeId
+	if FFlagInExperienceMenuResetButtonTextToRespawn then
+		LocalizationStrings = {}
+		localeId = LocalizationService.RobloxLocaleId
+		if not LocalizationStrings[localeId] then
+			LocalizationStrings[localeId] = Localization.new(localeId)
+		end
 	end
 
 	------ TAB CUSTOMIZATION -------
@@ -758,7 +770,10 @@ local function Initialize()
 	local resetFunc = function()
 		this.HubRef:SwitchToPage(this.HubRef.ResetCharacterPage, false, 1)
 	end
-	local resetButton, resetLabel = utility:MakeStyledButton("ResetButton", "Reset Character", UDim2.new(1 / 3, -buttonPadding, 1, 0), resetFunc)
+
+	-- Adds to mobile
+	local RESET_TEXT = if FFlagInExperienceMenuResetButtonTextToRespawn then LocalizationStrings[localeId]:Format(Constants.RespawnLocalizedKey) else "Reset Character"
+	local resetButton, resetLabel = utility:MakeStyledButton("ResetButton", RESET_TEXT, UDim2.new(1 / 3, -buttonPadding, 1, 0), resetFunc)
 	resetButton.AnchorPoint = Vector2.new(0.5, 0)
 	resetButton.Position = UDim2.new(0.5, 0, 0, 0)
 

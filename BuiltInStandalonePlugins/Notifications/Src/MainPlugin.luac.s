@@ -483,7 +483,7 @@ MAIN:
   GETTABLEKS R28 R26 K35 ["App"]
   CALL R27 1 1
   GETIMPORT R28 K37 [game]
-  LOADK R30 K38 ["NotificationsRibbonAttachment"]
+  LOADK R30 K38 ["EnableRibbonPlugin"]
   NAMECALL R28 R28 K39 ["GetFastFlag"]
   CALL R28 2 1
   GETTABLEKS R29 R1 K40 ["PureComponent"]

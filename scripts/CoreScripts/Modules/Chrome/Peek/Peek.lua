@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local React = require(CorePackages.Packages.React)
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
-local ReactUtils = require(CorePackages.Workspace.Packages.ReactUtils)
+local ReactUtils = require(CorePackages.Packages.ReactUtils)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local UIBlox = require(CorePackages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
@@ -25,8 +25,6 @@ local useRef = React.useRef
 local useCallback = React.useCallback
 
 local GetFFlagEnableSongbirdPeek = require(Chrome.Flags.GetFFlagEnableSongbirdPeek)
-local GetFFlagPeekShowsOneSongOverLifetime =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekShowsOneSongOverLifetime
 local GetFFlagPeekMobilePortraitResizing =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekMobilePortraitResizing
 local GetFFlagPeekHoverStateFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekHoverStateFix
@@ -43,19 +41,12 @@ local StateLayerAffordance = Foundation.Enums.StateLayerAffordance
 function configurePeek()
 	if GetFFlagEnableSongbirdPeek() then
 		ChromeService:configurePeek("music_peek", {
-			integrations = if GetFFlagPeekShowsOneSongOverLifetime()
-				then {
-					"peek_close",
-					if GetFFlagEnablePeekStaticMusicIconIntegration() then "music_icon" else "music_playing_icon",
-					"peek_track_details",
-					"like_button",
-				}
-				else {
-					"peek_close",
-					if GetFFlagEnablePeekStaticMusicIconIntegration() then "music_icon" else "music_playing_icon",
-					"now_playing",
-					"like_button",
-				},
+			integrations = {
+				"peek_close",
+				if GetFFlagEnablePeekStaticMusicIconIntegration() then "music_icon" else "music_playing_icon",
+				"peek_track_details",
+				"like_button",
+			},
 		})
 	end
 

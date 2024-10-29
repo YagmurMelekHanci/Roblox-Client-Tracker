@@ -40,6 +40,7 @@ local initiatePurchasePrecheck = require(Root.Thunks.initiatePurchasePrecheck)
 local isMockingPurchases = require(Root.Utils.isMockingPurchases)
 local connectToStore = require(Root.connectToStore)
 local sendEvent = require(Root.Thunks.sendEvent)
+local PublishAssetAnalytics = require(Root.Utils.PublishAssetAnalytics)
 
 local PurchasePromptPolicy = require(Root.Components.Connection.PurchasePromptPolicy)
 local ExternalEventConnection = require(Root.Components.Connection.ExternalEventConnection)
@@ -47,7 +48,8 @@ local MultiTextLocalizer = require(Root.Components.Connection.MultiTextLocalizer
 local LocalizationService = require(Root.Localization.LocalizationService)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse)
-local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
+local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
+local FFlagCoreScriptPublishAssetAnalytics = require(RobloxGui.Modules.Flags.FFlagCoreScriptPublishAssetAnalytics)
 
 local initiateUserPurchaseSettingsPrecheck = require(Root.Thunks.initiateUserPurchaseSettingsPrecheck)
 local GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow = require(Root.Flags.GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow)
@@ -94,7 +96,7 @@ local function isRelevantRequestType(requestType, purchaseFlow)
 		or requestType == RequestType.Bundle
 		or requestType == RequestType.GamePass
 		or requestType == RequestType.Product
-		or (GetFFlagEnableAvatarCreationFeePurchase() and requestType == RequestType.AvatarCreationFee)
+		or (FFlagPublishAvatarPromptEnabled and requestType == RequestType.AvatarCreationFee)
 end
 
 function ProductPurchaseContainer:init()
@@ -199,6 +201,13 @@ function ProductPurchaseContainer:init()
 	end
 
 	self.confirmButtonPressed = function()
+		if
+			FFlagCoreScriptPublishAssetAnalytics
+			and self.props.requestType == RequestType.AvatarCreationFee
+			and self.props.promptState == PromptState.PromptPurchase
+		then
+			PublishAssetAnalytics.sendButtonClicked(PublishAssetAnalytics.Section.BuyItemModal, PublishAssetAnalytics.Element.Buy)
+		end
 		local confirmButtonAction = self.getConfirmButtonAction(self.props.promptState,
 			self.props.requestType, self.props.purchaseError)
 		if confirmButtonAction ~= nil and self.canConfirmInput() then
@@ -208,6 +217,13 @@ function ProductPurchaseContainer:init()
 	end
 
 	self.cancelButtonPressed = function()
+		if
+			FFlagCoreScriptPublishAssetAnalytics
+			and self.props.requestType == RequestType.AvatarCreationFee
+			and self.props.promptState == PromptState.PromptPurchase
+		then
+			PublishAssetAnalytics.sendButtonClicked(PublishAssetAnalytics.Section.BuyItemModal, PublishAssetAnalytics.Element.Cancel)
+		end
 		local cancelButtonAction = self.getCancelButtonAction(self.props.promptState, self.props.requestType)
 		if cancelButtonAction ~= nil then
 			cancelButtonAction()
@@ -286,6 +302,15 @@ function ProductPurchaseContainer:didUpdate(prevProps, prevState)
 		self.configContextActionService(self.props.windowState)
 
 		GuiService:SetPurchasePromptIsShown(self.props.windowState == WindowState.Shown)
+	end
+
+	if
+		FFlagCoreScriptPublishAssetAnalytics
+		and requestType == RequestType.AvatarCreationFee
+		and self.props.promptState == PromptState.PurchaseComplete
+		and prevProps.promptState ~= PromptState.PurchaseComplete
+	then
+		PublishAssetAnalytics.sendPageLoad(PublishAssetAnalytics.Section.ProcessCompleteModal)
 	end
 end
 
@@ -391,7 +416,7 @@ function ProductPurchaseContainer:render()
 			screenSize = self.state.screenSize,
 
 			isDisabled = promptState == PromptState.PurchaseInProgress,
-			model = if self.props.serializedModel then AssetService:DeserializeInstance(self.props.serializedModel) else nil,
+			model = self.props.humanoidModel,
 			itemIcon = productInfo.imageUrl,
 			itemName = productInfo.name,
 			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
@@ -415,7 +440,7 @@ function ProductPurchaseContainer:render()
 			screenSize = self.state.screenSize,
 
 			isDisabled = promptState == PromptState.UpsellInProgress,
-			model = if self.props.serializedModel then AssetService:DeserializeInstance(self.props.serializedModel) else nil,
+			model = self.props.humanoidModel,
 			itemIcon = productInfo.imageUrl,
 			itemName = productInfo.name,
 			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
@@ -442,7 +467,7 @@ function ProductPurchaseContainer:render()
 				continueActivated = self.confirmButtonPressed,
 			})
 	elseif
-		GetFFlagEnableAvatarCreationFeePurchase()
+		FFlagPublishAvatarPromptEnabled
 		and promptState == PromptState.PurchaseComplete
 		and requestType == RequestType.AvatarCreationFee
 	then
@@ -496,9 +521,9 @@ function ProductPurchaseContainer:render()
 				})
 			end
 		})
-	elseif 
-		GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow() 
-		and promptState == PromptState.EnablePurchaseVPCModal 
+	elseif
+		GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow()
+		and promptState == PromptState.EnablePurchaseVPCModal
 	then
 		prompt = Roact.createElement(IAPAnimator, {
 			shouldAnimate = true,
@@ -547,6 +572,13 @@ function ProductPurchaseContainer:render()
 		Animator = Roact.createElement(Animator, {
 			shouldShow = self.props.windowState ~= WindowState.Hidden,
 			onShown = function()
+				if
+					FFlagCoreScriptPublishAssetAnalytics
+					and self.props.requestType == RequestType.AvatarCreationFee
+					and promptState == PromptState.PromptPurchase
+				then
+					PublishAssetAnalytics.sendPageLoad(PublishAssetAnalytics.Section.BuyItemModal)
+				end
 				self:setState({
 					isAnimating = false,
 					doneAnimatingTime = os.clock()
@@ -596,7 +628,7 @@ local function mapStateToProps(state)
 		purchaseFlow = state.purchaseFlow,
 		promptState = state.promptState,
 		requestType = state.promptRequest.requestType,
-		serializedModel = state.promptRequest.serializedModel,
+		humanoidModel = state.promptRequest.humanoidModel,
 		expectedPrice = state.promptRequest.expectedPrice,
 		windowState = state.windowState,
 		purchaseError = state.purchaseError,
@@ -629,7 +661,7 @@ local function mapDispatchToProps(dispatch)
 		onRobuxUpsell = function()
 			if GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow() then
 				dispatch(initiateUserPurchaseSettingsPrecheck())
-			else 
+			else
 				dispatch(initiatePurchasePrecheck())
 			end
 		end,

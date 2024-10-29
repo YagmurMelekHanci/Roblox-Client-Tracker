@@ -8,8 +8,8 @@ local React = require(CorePackages.Packages.React)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local ContainerSlotSignal = require(Chrome.Service.ContainerSlotSignal)
 
-local Constants = require(script.Parent.Constants)
-local shouldUseSmallPeek = require(script.Parent.shouldUseSmallPeek)
+local Constants = require(Chrome.Integrations.MusicUtility.Constants)
+local shouldUseSmallPeek = require(Chrome.Integrations.MusicUtility.shouldUseSmallPeek)
 
 local GetFFlagPeekSizeConstraints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekSizeConstraints
 

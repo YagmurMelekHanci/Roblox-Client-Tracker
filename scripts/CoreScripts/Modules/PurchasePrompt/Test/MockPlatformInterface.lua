@@ -7,7 +7,7 @@ local Root = script.Parent.Parent
 local PlatformInterface = require(Root.Services.PlatformInterface)
 local CorePackages = game:GetService("CorePackages")
 
-local JestGlobals = require(CorePackages.JestGlobals)
+local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals)
 local jest = JestGlobals.jest
 
 local MockPlatformInterface = {}

@@ -1,42 +1,44 @@
+local Chrome = script:FindFirstAncestor("Chrome")
+
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 
-local ChromeService = require(script.Parent.Parent.Service)
-local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
+local ChromeService = require(Chrome.Service)
+local ChromeUtils = require(Chrome.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
-local CommonIcon = require(script.Parent.CommonIcon)
-local CommonFtuxTooltip = require(script.Parent.CommonFtuxTooltip)
+local CommonIcon = require(Chrome.Integrations.CommonIcon)
+local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
 local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
-local Types = require(script.Parent.Parent.Service.Types)
-local useMappedSignal = require(script.Parent.Parent.Hooks.useMappedSignal)
+local Types = require(Chrome.Service.Types)
+local useMappedSignal = require(Chrome.Hooks.useMappedSignal)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
-local Constants = require(script.Parent.Parent.Unibar.Constants)
+local Constants = require(Chrome.Unibar.Constants)
 local SelfieView = require(RobloxGui.Modules.SelfieView)
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 
 local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
-local GetFFlagUnpinUnavailable = require(script.Parent.Parent.Flags.GetFFlagUnpinUnavailable)
-local GetFFlagEnableHamburgerIcon = require(script.Parent.Parent.Flags.GetFFlagEnableHamburgerIcon)
+local GetFFlagUnpinUnavailable = require(Chrome.Flags.GetFFlagUnpinUnavailable)
+local GetFFlagEnableHamburgerIcon = require(Chrome.Flags.GetFFlagEnableHamburgerIcon)
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
-local GetFStringConnectTooltipLocalStorageKey =
-	require(script.Parent.Parent.Flags.GetFStringConnectTooltipLocalStorageKey)
-local FFlagEnableUnibarFtuxTooltips = require(script.Parent.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
-local GetFIntRobloxConnectFtuxShowDelayMs = require(script.Parent.Parent.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
-local GetFIntRobloxConnectFtuxDismissDelayMs =
-	require(script.Parent.Parent.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
+local GetFFlagPostLaunchUnibarDesignTweaks = require(RobloxGui.Modules.Flags.GetFFlagPostLaunchUnibarDesignTweaks)
+local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
+local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
+local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
+local GetFFlagFixCapturesAvailability = require(Chrome.Flags.GetFFlagFixCapturesAvailability)
 local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 
@@ -97,7 +99,7 @@ local leaderboard = ChromeService:register({
 		end,
 	},
 })
-if GetFFlagUnpinUnavailable() then
+if not GetFFlagFixCapturesAvailability() and GetFFlagUnpinUnavailable() then
 	checkCoreGui(leaderboard, Enum.CoreGuiType.PlayerList)
 else
 	ChromeUtils.setCoreGuiAvailability(leaderboard, Enum.CoreGuiType.PlayerList)
@@ -140,7 +142,7 @@ function updateEmoteAvailability()
 	end
 end
 
-if GetFFlagUnpinUnavailable() then
+if not GetFFlagFixCapturesAvailability() and GetFFlagUnpinUnavailable() then
 	checkCoreGui(emotes, Enum.CoreGuiType.EmotesMenu, function(available)
 		coreGuiEmoteAvailable = available
 		updateEmoteAvailability()
@@ -178,7 +180,7 @@ local backpack = ChromeService:register({
 		end,
 	},
 })
-if GetFFlagUnpinUnavailable() then
+if not GetFFlagFixCapturesAvailability() and GetFFlagUnpinUnavailable() then
 	checkCoreGui(backpack, Enum.CoreGuiType.Backpack)
 else
 	ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
@@ -275,38 +277,59 @@ function HamburgerButton(props)
 				return value * style.Theme.IconEmphasis.Transparency
 			end),
 		}) :: any,
-		React.createElement("Frame", {
-			Name = "X1",
-			Position = toggleIconTransition:map(function(value): any
-				return UDim2.new(0.5, 0, 0.5, 0)
-			end),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Size = toggleIconTransition:map(function(value: any): any
-				return UDim2.new(0, 16 * value, 0, 2)
-			end),
-			BorderSizePixel = 0,
-			BackgroundColor3 = iconColor.Color,
-			BackgroundTransparency = toggleIconTransition:map(function(value: any): any
-				return 1 - value
-			end),
-			Rotation = 45,
-		}) :: any,
-		React.createElement("Frame", {
-			Name = "X2",
-			Position = toggleIconTransition:map(function(value): any
-				return UDim2.new(0.5, 0, 0.5, 0)
-			end),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Size = toggleIconTransition:map(function(value: any): any
-				return UDim2.new(0, 16 * value, 0, 2)
-			end),
-			BorderSizePixel = 0,
-			BackgroundColor3 = iconColor.Color,
-			BackgroundTransparency = toggleIconTransition:map(function(value: any): any
-				return 1 - value
-			end),
-			Rotation = -45,
-		}) :: any,
+		if GetFFlagPostLaunchUnibarDesignTweaks()
+			then React.createElement(ImageSetLabel, {
+				Name = "Close",
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				BackgroundTransparency = 1,
+				Image = Images["icons/navigation/close"],
+				Size = toggleIconTransition:map(function(value: any): any
+					return UDim2.new(0, Constants.MEDIUM_ICON_SIZE * value, 0, Constants.MEDIUM_ICON_SIZE * value)
+				end),
+				ImageColor3 = style.Theme.IconEmphasis.Color,
+
+				ImageTransparency = toggleIconTransition:map(function(value: any): any
+					return (1 - value) * style.Theme.IconEmphasis.Transparency
+				end),
+			})
+			else nil,
+		if not GetFFlagPostLaunchUnibarDesignTweaks()
+			then React.createElement("Frame", {
+				Name = "X1",
+				Position = toggleIconTransition:map(function(value): any
+					return UDim2.new(0.5, 0, 0.5, 0)
+				end),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Size = toggleIconTransition:map(function(value: any): any
+					return UDim2.new(0, 16 * value, 0, 2)
+				end),
+				BorderSizePixel = 0,
+				BackgroundColor3 = iconColor.Color,
+				BackgroundTransparency = toggleIconTransition:map(function(value: any): any
+					return 1 - value
+				end),
+				Rotation = 45,
+			}) :: any
+			else nil,
+		if not GetFFlagPostLaunchUnibarDesignTweaks()
+			then React.createElement("Frame", {
+				Name = "X2",
+				Position = toggleIconTransition:map(function(value): any
+					return UDim2.new(0.5, 0, 0.5, 0)
+				end),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Size = toggleIconTransition:map(function(value: any): any
+					return UDim2.new(0, 16 * value, 0, 2)
+				end),
+				BorderSizePixel = 0,
+				BackgroundColor3 = iconColor.Color,
+				BackgroundTransparency = toggleIconTransition:map(function(value: any): any
+					return 1 - value
+				end),
+				Rotation = -45,
+			}) :: any
+			else nil,
 		if GetFFlagSelfieViewV4()
 				and SelfieView.useCameraOn()
 				and not ChromeService:isWindowOpen(SELFIE_ID)

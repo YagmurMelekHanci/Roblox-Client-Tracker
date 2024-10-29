@@ -1,3 +1,5 @@
+local Chrome = script:FindFirstAncestor("Chrome")
+
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
@@ -5,9 +7,9 @@ local GetFFlagEnablePartyMicIconInChrome =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
 local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
 
-local ChromeService = require(script.Parent.Parent.Parent.Service)
-local PartyMicIcon = require(script.Parent.PartyMicIcon)
-local Constants = require(script.Parent.Constants)
+local ChromeService = require(Chrome.Service)
+local PartyMicIcon = require(Chrome.Integrations.Party.PartyMicIcon)
+local Constants = require(Chrome.Integrations.Party.Constants)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 

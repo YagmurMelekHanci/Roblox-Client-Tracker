@@ -28,10 +28,8 @@ PROTO_0:
   GETTABLEKS R3 R2 K19 ["CreationTimeUnix"]
   SETTABLEKS R3 R2 K20 ["LastModifiedTimeUnix"]
   SETTABLEKS R1 R2 K21 ["Adornee"]
-  GETIMPORT R3 K24 [CFrame.identity]
-  SETTABLEKS R3 R2 K25 ["Position"]
   JUMPIFNOT R0 [+2]
-  SETTABLEKS R0 R2 K26 ["Contents"]
+  SETTABLEKS R0 R2 K22 ["Contents"]
   RETURN R2 1
 
 MAIN:

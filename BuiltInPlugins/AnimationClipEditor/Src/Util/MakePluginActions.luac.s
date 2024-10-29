@@ -75,11 +75,14 @@ PROTO_1:
   GETTABLEKS R3 R2 K34 ["ToggleBoneVis"]
   LOADK R4 K35 ["V"]
   SETTABLEKS R4 R3 K10 ["defaultShortcut"]
-  GETTABLEKS R3 R2 K36 ["FocusCamera"]
-  LOADK R4 K37 ["F"]
+  GETTABLEKS R3 R2 K36 ["ToggleGridVis"]
+  LOADK R4 K37 ["G"]
   SETTABLEKS R4 R3 K10 ["defaultShortcut"]
-  GETTABLEKS R3 R2 K38 ["ResizeCanvas"]
-  LOADK R4 K39 ["H"]
+  GETTABLEKS R3 R2 K38 ["FocusCamera"]
+  LOADK R4 K39 ["F"]
+  SETTABLEKS R4 R3 K10 ["defaultShortcut"]
+  GETTABLEKS R3 R2 K40 ["ResizeCanvas"]
+  LOADK R4 K41 ["H"]
   SETTABLEKS R4 R3 K10 ["defaultShortcut"]
   RETURN R2 1
 
@@ -89,7 +92,7 @@ MAIN:
   LOADK R2 K2 ["AnimationClipEditor"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  NEWTABLE R1 0 33
+  NEWTABLE R1 0 34
   LOADK R2 K4 ["CopySelected"]
   LOADK R3 K5 ["CutSelected"]
   LOADK R4 K6 ["DeleteSelected"]
@@ -119,19 +122,20 @@ MAIN:
   LOADK R11 K29 ["TogglePlay"]
   LOADK R12 K30 ["ToggleTool"]
   LOADK R13 K31 ["ToggleBoneVis"]
-  LOADK R14 K32 ["ClearBothTangents"]
-  LOADK R15 K33 ["ZeroBothTangents"]
-  LOADK R16 K34 ["ClearTangent"]
-  LOADK R17 K35 ["ZeroTangent"]
+  LOADK R14 K32 ["ToggleGridVis"]
+  LOADK R15 K33 ["ClearBothTangents"]
+  LOADK R16 K34 ["ZeroBothTangents"]
+  LOADK R17 K35 ["ClearTangent"]
   SETLIST R1 R2 16 [17]
-  LOADK R2 K36 ["ResizeCanvas"]
-  SETLIST R1 R2 1 [33]
-  FASTCALL2K TABLE_INSERT R1 K37 [+5]
+  LOADK R2 K36 ["ZeroTangent"]
+  LOADK R3 K37 ["ResizeCanvas"]
+  SETLIST R1 R2 2 [33]
+  FASTCALL2K TABLE_INSERT R1 K38 [+5]
   MOVE R3 R1
-  LOADK R4 K37 ["FocusCamera"]
-  GETIMPORT R2 K40 [table.insert]
+  LOADK R4 K38 ["FocusCamera"]
+  GETIMPORT R2 K41 [table.insert]
   CALL R2 2 0
-  DUPCLOSURE R2 K41 [PROTO_0]
-  DUPCLOSURE R3 K42 [PROTO_1]
+  DUPCLOSURE R2 K42 [PROTO_0]
+  DUPCLOSURE R3 K43 [PROTO_1]
   CAPTURE VAL R1
   RETURN R3 1

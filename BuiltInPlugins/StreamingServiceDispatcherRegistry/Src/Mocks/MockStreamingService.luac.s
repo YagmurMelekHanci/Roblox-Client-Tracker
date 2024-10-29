@@ -66,8 +66,8 @@ PROTO_3:
   RETURN R3 1
 
 PROTO_4:
-  GETTABLEKS R3 R0 K0 ["_commandStore"]
-  SETTABLE R2 R3 R1
+  GETTABLEKS R5 R0 K0 ["_commandStore"]
+  SETTABLE R2 R5 R1
   RETURN R0 0
 
 PROTO_5:
@@ -76,21 +76,26 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETTABLEKS R3 R0 K0 ["_collectorStore"]
+  GETTABLEKS R3 R0 K0 ["_commandStore"]
   SETTABLE R2 R3 R1
   RETURN R0 0
 
 PROTO_7:
+  GETTABLEKS R3 R0 K0 ["_collectorStore"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_8:
   GETTABLEKS R4 R0 K0 ["_variableStore"]
   SETTABLE R2 R4 R1
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   GETTABLEKS R3 R0 K0 ["_variableStore"]
   GETTABLE R2 R3 R1
   RETURN R2 1
 
-PROTO_9:
+PROTO_10:
   MOVE R4 R3
   JUMPIF R4 [+2]
   NEWTABLE R4 0 0
@@ -104,7 +109,7 @@ PROTO_9:
   CALL R6 1 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   MOVE R4 R3
   JUMPIF R4 [+2]
   NEWTABLE R4 0 0
@@ -118,16 +123,16 @@ PROTO_10:
   CALL R6 1 -1
   RETURN R6 -1
 
-PROTO_11:
+PROTO_12:
   SETTABLEKS R1 R0 K0 ["_pluginInfoCallback"]
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
   GETTABLEKS R3 R0 K0 ["_boundCodeGuids"]
   SETTABLE R2 R3 R1
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETUPVAL R1 0
   FASTCALL2K ASSERT R1 K0 [+4]
   LOADK R2 K0 ["Loaded code is nil!"]
@@ -137,7 +142,7 @@ PROTO_13:
   CALL R0 0 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETTABLEKS R4 R0 K0 ["_boundCodeGuids"]
   GETTABLE R3 R4 R1
   JUMPIF R3 [+7]
@@ -179,7 +184,7 @@ PROTO_14:
   LOADNIL R9
   RETURN R8 2
 
-PROTO_15:
+PROTO_16:
   FASTCALL1 TYPE R1 [+3]
   MOVE R4 R1
   GETIMPORT R3 K1 [type]
@@ -213,7 +218,7 @@ PROTO_15:
   RETURN R3 1
   RETURN R1 1
 
-PROTO_16:
+PROTO_17:
   DUPTABLE R0 K4 [{"ClientVersionContext", "use_inventory_assets", "ClientFlagContext", "MessageIdentifier"}]
   LOADK R1 K5 ["1.0.0"]
   SETTABLEKS R1 R0 K0 ["ClientVersionContext"]
@@ -237,7 +242,7 @@ PROTO_16:
   SETTABLEKS R1 R0 K3 ["MessageIdentifier"]
   RETURN R0 1
 
-PROTO_17:
+PROTO_18:
   LOADK R5 K0 ["native_injector"]
   NEWCLOSURE R6 P0
   CAPTURE VAL R1
@@ -265,7 +270,7 @@ PROTO_17:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_19:
   GETTABLEKS R3 R0 K0 ["_pluginInfoCallback"]
   JUMPIFNOT R3 [+6]
   GETTABLEKS R3 R0 K0 ["_pluginInfoCallback"]
@@ -300,29 +305,31 @@ MAIN:
   DUPCLOSURE R4 K17 [PROTO_3]
   SETTABLEKS R4 R3 K18 ["GetInstance"]
   DUPCLOSURE R4 K19 [PROTO_4]
-  SETTABLEKS R4 R3 K20 ["RegisterCommand"]
+  SETTABLEKS R4 R3 K20 ["RegisterCommandInternal"]
   DUPCLOSURE R4 K21 [PROTO_5]
-  SETTABLEKS R4 R3 K22 ["RegisterSequentialCommand"]
+  SETTABLEKS R4 R3 K22 ["DEPRECATED_RegisterCommand"]
   DUPCLOSURE R4 K23 [PROTO_6]
-  SETTABLEKS R4 R3 K24 ["RegisterContextCollector"]
+  SETTABLEKS R4 R3 K24 ["DEPRECATED_RegisterSequentialCommand"]
   DUPCLOSURE R4 K25 [PROTO_7]
-  SETTABLEKS R4 R3 K26 ["SetEphemeralVariable"]
+  SETTABLEKS R4 R3 K26 ["RegisterContextCollector"]
   DUPCLOSURE R4 K27 [PROTO_8]
-  SETTABLEKS R4 R3 K28 ["GetEphemeralVariable"]
+  SETTABLEKS R4 R3 K28 ["SetEphemeralVariable"]
   DUPCLOSURE R4 K29 [PROTO_9]
-  SETTABLEKS R4 R3 K30 ["InvokeCommand"]
+  SETTABLEKS R4 R3 K30 ["GetEphemeralVariable"]
   DUPCLOSURE R4 K31 [PROTO_10]
-  SETTABLEKS R4 R3 K32 ["ExecuteCommandAsync"]
+  SETTABLEKS R4 R3 K32 ["InvokeCommand"]
   DUPCLOSURE R4 K33 [PROTO_11]
-  SETTABLEKS R4 R3 K34 ["SetPluginInfoCallback"]
+  SETTABLEKS R4 R3 K34 ["ExecuteCommandAsync"]
   DUPCLOSURE R4 K35 [PROTO_12]
-  SETTABLEKS R4 R3 K36 ["BindCodeToGuid"]
-  DUPCLOSURE R4 K37 [PROTO_14]
-  SETTABLEKS R4 R3 K38 ["RunSandboxedCode"]
+  SETTABLEKS R4 R3 K36 ["SetPluginInfoCallback"]
+  DUPCLOSURE R4 K37 [PROTO_13]
+  SETTABLEKS R4 R3 K38 ["BindCodeToGuid"]
   DUPCLOSURE R4 K39 [PROTO_15]
-  SETTABLEKS R4 R3 K40 ["_replaceInstances"]
-  DUPCLOSURE R4 K41 [PROTO_17]
-  SETTABLEKS R4 R3 K42 ["CollectContexts"]
+  SETTABLEKS R4 R3 K40 ["RunSandboxedCode"]
+  DUPCLOSURE R4 K41 [PROTO_16]
+  SETTABLEKS R4 R3 K42 ["_replaceInstances"]
   DUPCLOSURE R4 K43 [PROTO_18]
-  SETTABLEKS R4 R3 K44 ["GetPluginInfo"]
+  SETTABLEKS R4 R3 K44 ["CollectContexts"]
+  DUPCLOSURE R4 K45 [PROTO_19]
+  SETTABLEKS R4 R3 K46 ["GetPluginInfo"]
   RETURN R3 1

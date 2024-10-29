@@ -3,7 +3,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 local CorePackages = game:GetService("CorePackages")
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
-local Cryo = require(CorePackages.Workspace.Packages.Cryo)
+local Cryo = require(CorePackages.Packages.Cryo)
 
 local Types = require(Chrome.Service.Types)
 

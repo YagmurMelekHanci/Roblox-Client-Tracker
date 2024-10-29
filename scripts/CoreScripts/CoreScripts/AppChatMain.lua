@@ -4,7 +4,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
-local Rodux = require(CorePackages.Workspace.Packages.Rodux)
+local Rodux = require(CorePackages.Packages.Rodux)
 local SocialCommon = require(CorePackages.Workspace.Packages.SocialCommon)
 local ChatEntryPointNames = SocialCommon.Enums.ChatEntryPointNames
 
@@ -19,6 +19,7 @@ local InExperienceAppChatProviders = AppChat.App.InExperienceAppChatProviders
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local ParentContainerContext = AppChat.Contexts.ParentContainer.ParentContainerContext
+local ViewportUtil = require(RobloxGui.Modules.Chrome.Service.ViewportUtil)
 
 local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
 	require(RobloxGui.Modules.Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
@@ -60,7 +61,7 @@ local parentContainerContext: AppChat.ParentContainerContextType = {
 }
 
 if shouldUseIndependentAppChatContainer then
-	InExperienceAppChatModal.default:initialize(TopBarTopMargin, SettingsHub)
+	InExperienceAppChatModal.default:initialize(TopBarTopMargin, SettingsHub, ViewportUtil)
 
 	updateAppChatUnreadMessagesCount = function(newCount)
 		InExperienceAppChatModal:setUnreadCount(newCount)

@@ -55,9 +55,14 @@ PROTO_3:
   MOVE R6 R1
   GETUPVAL R7 1
   CALL R5 2 1
+  GETUPVAL R6 2
+  JUMPIFNOT R6 [+3]
+  JUMPIF R5 [+5]
+  RETURN R0 0
+  JUMP [+3]
   JUMPIFEQKN R5 K3 [1] [+2]
   RETURN R0 0
-  GETUPVAL R6 2
+  GETUPVAL R6 3
   JUMPIFNOT R6 [+7]
   GETIMPORT R6 K5 [string.match]
   MOVE R7 R0
@@ -65,8 +70,15 @@ PROTO_3:
   CALL R6 2 1
   JUMPIFNOT R6 [+1]
   RETURN R0 0
+  GETUPVAL R7 2
+  JUMPIFNOT R7 [+6]
   GETIMPORT R6 K8 [string.format]
-  LOADK R7 K9 ["^(%s_%%a+%%.rbxm)"]
+  LOADK R7 K9 ["(%s_%%a+%%.rbxm)"]
+  GETUPVAL R8 1
+  CALL R6 2 1
+  JUMP [+5]
+  GETIMPORT R6 K8 [string.format]
+  LOADK R7 K10 ["^(%s_%%a+%%.rbxm)"]
   GETUPVAL R8 1
   CALL R6 2 1
   GETIMPORT R7 K5 [string.match]
@@ -75,22 +87,22 @@ PROTO_3:
   CALL R7 2 1
   JUMPIFNOTEQKNIL R7 [+2]
   RETURN R0 0
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K10 ["unstable_parseReactError"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K11 ["unstable_parseReactError"]
   MOVE R9 R0
   CALL R8 1 2
-  GETTABLEKS R0 R8 K11 ["message"]
-  GETTABLEKS R10 R8 K12 ["stack"]
+  GETTABLEKS R0 R8 K12 ["message"]
+  GETTABLEKS R10 R8 K13 ["stack"]
   JUMPIFNOT R10 [+3]
-  GETTABLEKS R1 R8 K12 ["stack"]
+  GETTABLEKS R1 R8 K13 ["stack"]
   JUMP [0]
   OR R3 R3 R9
-  GETUPVAL R10 4
+  GETUPVAL R10 5
   MOVE R12 R7
   MOVE R13 R0
   MOVE R14 R1
   MOVE R15 R3
-  NAMECALL R10 R10 K13 ["_reportError"]
+  NAMECALL R10 R10 K14 ["_reportError"]
   CALL R10 5 0
   RETURN R0 0
 
@@ -179,13 +191,14 @@ PROTO_4:
   JUMPIFNOTEQKS R10 K35 ["0.0.0.1"] [+2]
   LOADB R14 0 +1
   LOADB R14 1
-  JUMPIFNOT R14 [+13]
+  JUMPIFNOT R14 [+14]
   GETTABLEKS R15 R13 K11 ["errorSignal"]
   NEWCLOSURE R17 P2
   CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE UPVAL U12
   CAPTURE UPVAL U13
+  CAPTURE UPVAL U14
   CAPTURE VAL R13
   NAMECALL R15 R15 K36 ["Connect"]
   CALL R15 2 1
@@ -303,133 +316,138 @@ MAIN:
   NAMECALL R1 R1 K3 ["GetFastFlag"]
   CALL R1 2 1
   GETIMPORT R2 K1 [game]
-  LOADK R4 K5 ["RbxAnalyticsService"]
-  NAMECALL R2 R2 K6 ["GetService"]
+  LOADK R4 K5 ["StudioErrorReporterFixNameFiltering"]
+  NAMECALL R2 R2 K3 ["GetFastFlag"]
   CALL R2 2 1
   GETIMPORT R3 K1 [game]
-  LOADK R5 K7 ["ContentProvider"]
-  NAMECALL R3 R3 K6 ["GetService"]
+  LOADK R5 K6 ["RbxAnalyticsService"]
+  NAMECALL R3 R3 K7 ["GetService"]
   CALL R3 2 1
   GETIMPORT R4 K1 [game]
-  LOADK R6 K8 ["HttpService"]
-  NAMECALL R4 R4 K6 ["GetService"]
+  LOADK R6 K8 ["ContentProvider"]
+  NAMECALL R4 R4 K7 ["GetService"]
   CALL R4 2 1
   GETIMPORT R5 K1 [game]
-  LOADK R7 K9 ["RunService"]
-  NAMECALL R5 R5 K6 ["GetService"]
+  LOADK R7 K9 ["HttpService"]
+  NAMECALL R5 R5 K7 ["GetService"]
   CALL R5 2 1
   GETIMPORT R6 K1 [game]
-  LOADK R8 K10 ["ScriptContext"]
-  NAMECALL R6 R6 K6 ["GetService"]
+  LOADK R8 K10 ["RunService"]
+  NAMECALL R6 R6 K7 ["GetService"]
   CALL R6 2 1
   GETIMPORT R7 K1 [game]
-  LOADK R9 K11 ["PluginManagementService"]
-  NAMECALL R7 R7 K6 ["GetService"]
+  LOADK R9 K11 ["ScriptContext"]
+  NAMECALL R7 R7 K7 ["GetService"]
   CALL R7 2 1
-  GETIMPORT R10 K13 [script]
-  GETTABLEKS R9 R10 K14 ["Parent"]
-  GETTABLEKS R8 R9 K14 ["Parent"]
-  GETIMPORT R9 K16 [require]
-  GETTABLEKS R11 R8 K17 ["Packages"]
-  GETTABLEKS R10 R11 K18 ["Framework"]
-  CALL R9 1 1
-  GETIMPORT R10 K16 [require]
-  GETTABLEKS R12 R8 K17 ["Packages"]
-  GETTABLEKS R11 R12 K19 ["React"]
+  GETIMPORT R8 K1 [game]
+  LOADK R10 K12 ["PluginManagementService"]
+  NAMECALL R8 R8 K7 ["GetService"]
+  CALL R8 2 1
+  GETIMPORT R11 K14 [script]
+  GETTABLEKS R10 R11 K15 ["Parent"]
+  GETTABLEKS R9 R10 K15 ["Parent"]
+  GETIMPORT R10 K17 [require]
+  GETTABLEKS R12 R9 K18 ["Packages"]
+  GETTABLEKS R11 R12 K19 ["Framework"]
   CALL R10 1 1
-  GETTABLEKS R12 R9 K20 ["Http"]
-  GETTABLEKS R11 R12 K21 ["Networking"]
-  GETTABLEKS R14 R9 K22 ["Util"]
-  GETTABLEKS R13 R14 K23 ["Typecheck"]
-  GETTABLEKS R12 R13 K24 ["t"]
-  GETIMPORT R13 K16 [require]
-  GETIMPORT R17 K13 [script]
-  GETTABLEKS R16 R17 K14 ["Parent"]
-  GETTABLEKS R15 R16 K25 ["Backtrace"]
-  GETTABLEKS R14 R15 K26 ["BacktraceReporter"]
-  CALL R13 1 1
-  GETIMPORT R14 K28 [settings]
-  CALL R14 0 1
-  LOADK R16 K29 ["StudioPluginsBacktraceToken"]
-  NAMECALL R14 R14 K30 ["GetFVariable"]
-  CALL R14 2 1
-  GETTABLEKS R15 R12 K31 ["strictInterface"]
-  DUPTABLE R16 K37 [{"expectedSecurityLevel", "expectedPrefix", "networking", "errorSignal", "services"}]
-  GETTABLEKS R17 R12 K38 ["integer"]
-  SETTABLEKS R17 R16 K32 ["expectedSecurityLevel"]
-  GETTABLEKS R17 R12 K39 ["string"]
-  SETTABLEKS R17 R16 K33 ["expectedPrefix"]
-  GETTABLEKS R17 R12 K40 ["optional"]
-  GETTABLEKS R18 R12 K41 ["interface"]
-  DUPTABLE R19 K43 [{"request"}]
-  GETTABLEKS R20 R12 K44 ["callback"]
-  SETTABLEKS R20 R19 K42 ["request"]
-  CALL R18 1 -1
-  CALL R17 -1 1
-  SETTABLEKS R17 R16 K34 ["networking"]
-  GETTABLEKS R17 R12 K40 ["optional"]
-  GETTABLEKS R18 R12 K41 ["interface"]
-  DUPTABLE R19 K46 [{"Connect"}]
-  GETTABLEKS R20 R12 K44 ["callback"]
-  SETTABLEKS R20 R19 K45 ["Connect"]
-  CALL R18 1 -1
-  CALL R17 -1 1
-  SETTABLEKS R17 R16 K35 ["errorSignal"]
-  GETTABLEKS R17 R12 K40 ["optional"]
-  GETTABLEKS R18 R12 K41 ["interface"]
-  DUPTABLE R19 K47 [{"HttpService", "RunService", "ContentProvider"}]
-  GETTABLEKS R20 R12 K40 ["optional"]
-  GETTABLEKS R21 R12 K41 ["interface"]
-  DUPTABLE R22 K49 [{"GetUserAgent"}]
-  GETTABLEKS R23 R12 K44 ["callback"]
-  SETTABLEKS R23 R22 K48 ["GetUserAgent"]
-  CALL R21 1 -1
-  CALL R20 -1 1
-  SETTABLEKS R20 R19 K8 ["HttpService"]
-  GETTABLEKS R20 R12 K40 ["optional"]
-  GETTABLEKS R21 R12 K41 ["interface"]
-  DUPTABLE R22 K51 [{"GetRobloxVersion"}]
-  GETTABLEKS R23 R12 K44 ["callback"]
-  SETTABLEKS R23 R22 K50 ["GetRobloxVersion"]
-  CALL R21 1 -1
-  CALL R20 -1 1
-  SETTABLEKS R20 R19 K9 ["RunService"]
-  GETTABLEKS R20 R12 K40 ["optional"]
-  GETTABLEKS R21 R12 K41 ["interface"]
-  DUPTABLE R22 K53 [{"BaseUrl"}]
-  GETTABLEKS R23 R12 K39 ["string"]
-  SETTABLEKS R23 R22 K52 ["BaseUrl"]
-  CALL R21 1 -1
-  CALL R20 -1 1
-  SETTABLEKS R20 R19 K7 ["ContentProvider"]
-  CALL R18 1 -1
-  CALL R17 -1 1
-  SETTABLEKS R17 R16 K36 ["services"]
-  CALL R15 1 1
-  DUPCLOSURE R16 K54 [PROTO_0]
-  NEWTABLE R17 8 0
-  SETTABLEKS R17 R17 K55 ["__index"]
-  DUPCLOSURE R18 K56 [PROTO_4]
-  CAPTURE VAL R15
-  CAPTURE VAL R11
+  GETIMPORT R11 K17 [require]
+  GETTABLEKS R13 R9 K18 ["Packages"]
+  GETTABLEKS R12 R13 K20 ["React"]
+  CALL R11 1 1
+  GETTABLEKS R13 R10 K21 ["Http"]
+  GETTABLEKS R12 R13 K22 ["Networking"]
+  GETTABLEKS R15 R10 K23 ["Util"]
+  GETTABLEKS R14 R15 K24 ["Typecheck"]
+  GETTABLEKS R13 R14 K25 ["t"]
+  GETIMPORT R14 K17 [require]
+  GETIMPORT R18 K14 [script]
+  GETTABLEKS R17 R18 K15 ["Parent"]
+  GETTABLEKS R16 R17 K26 ["Backtrace"]
+  GETTABLEKS R15 R16 K27 ["BacktraceReporter"]
+  CALL R14 1 1
+  GETIMPORT R15 K29 [settings]
+  CALL R15 0 1
+  LOADK R17 K30 ["StudioPluginsBacktraceToken"]
+  NAMECALL R15 R15 K31 ["GetFVariable"]
+  CALL R15 2 1
+  GETTABLEKS R16 R13 K32 ["strictInterface"]
+  DUPTABLE R17 K38 [{"expectedSecurityLevel", "expectedPrefix", "networking", "errorSignal", "services"}]
+  GETTABLEKS R18 R13 K39 ["integer"]
+  SETTABLEKS R18 R17 K33 ["expectedSecurityLevel"]
+  GETTABLEKS R18 R13 K40 ["string"]
+  SETTABLEKS R18 R17 K34 ["expectedPrefix"]
+  GETTABLEKS R18 R13 K41 ["optional"]
+  GETTABLEKS R19 R13 K42 ["interface"]
+  DUPTABLE R20 K44 [{"request"}]
+  GETTABLEKS R21 R13 K45 ["callback"]
+  SETTABLEKS R21 R20 K43 ["request"]
+  CALL R19 1 -1
+  CALL R18 -1 1
+  SETTABLEKS R18 R17 K35 ["networking"]
+  GETTABLEKS R18 R13 K41 ["optional"]
+  GETTABLEKS R19 R13 K42 ["interface"]
+  DUPTABLE R20 K47 [{"Connect"}]
+  GETTABLEKS R21 R13 K45 ["callback"]
+  SETTABLEKS R21 R20 K46 ["Connect"]
+  CALL R19 1 -1
+  CALL R18 -1 1
+  SETTABLEKS R18 R17 K36 ["errorSignal"]
+  GETTABLEKS R18 R13 K41 ["optional"]
+  GETTABLEKS R19 R13 K42 ["interface"]
+  DUPTABLE R20 K48 [{"HttpService", "RunService", "ContentProvider"}]
+  GETTABLEKS R21 R13 K41 ["optional"]
+  GETTABLEKS R22 R13 K42 ["interface"]
+  DUPTABLE R23 K50 [{"GetUserAgent"}]
+  GETTABLEKS R24 R13 K45 ["callback"]
+  SETTABLEKS R24 R23 K49 ["GetUserAgent"]
+  CALL R22 1 -1
+  CALL R21 -1 1
+  SETTABLEKS R21 R20 K9 ["HttpService"]
+  GETTABLEKS R21 R13 K41 ["optional"]
+  GETTABLEKS R22 R13 K42 ["interface"]
+  DUPTABLE R23 K52 [{"GetRobloxVersion"}]
+  GETTABLEKS R24 R13 K45 ["callback"]
+  SETTABLEKS R24 R23 K51 ["GetRobloxVersion"]
+  CALL R22 1 -1
+  CALL R21 -1 1
+  SETTABLEKS R21 R20 K10 ["RunService"]
+  GETTABLEKS R21 R13 K41 ["optional"]
+  GETTABLEKS R22 R13 K42 ["interface"]
+  DUPTABLE R23 K54 [{"BaseUrl"}]
+  GETTABLEKS R24 R13 K40 ["string"]
+  SETTABLEKS R24 R23 K53 ["BaseUrl"]
+  CALL R22 1 -1
+  CALL R21 -1 1
+  SETTABLEKS R21 R20 K8 ["ContentProvider"]
+  CALL R19 1 -1
+  CALL R18 -1 1
+  SETTABLEKS R18 R17 K37 ["services"]
+  CALL R16 1 1
+  DUPCLOSURE R17 K55 [PROTO_0]
+  NEWTABLE R18 8 0
+  SETTABLEKS R18 R18 K56 ["__index"]
+  DUPCLOSURE R19 K57 [PROTO_4]
+  CAPTURE VAL R16
+  CAPTURE VAL R12
+  CAPTURE VAL R7
+  CAPTURE VAL R3
   CAPTURE VAL R6
-  CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R17
-  CAPTURE VAL R13
+  CAPTURE VAL R18
   CAPTURE VAL R14
+  CAPTURE VAL R15
   CAPTURE VAL R1
-  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R2
   CAPTURE VAL R0
-  CAPTURE VAL R10
-  SETTABLEKS R18 R17 K57 ["new"]
-  DUPCLOSURE R18 K58 [PROTO_5]
+  CAPTURE VAL R11
+  SETTABLEKS R19 R18 K58 ["new"]
+  DUPCLOSURE R19 K59 [PROTO_5]
   CAPTURE VAL R1
-  SETTABLEKS R18 R17 K59 ["_reportError"]
-  DUPCLOSURE R18 K60 [PROTO_6]
-  SETTABLEKS R18 R17 K61 ["report"]
-  DUPCLOSURE R18 K62 [PROTO_7]
-  SETTABLEKS R18 R17 K63 ["stop"]
-  RETURN R17 1
+  SETTABLEKS R19 R18 K60 ["_reportError"]
+  DUPCLOSURE R19 K61 [PROTO_6]
+  SETTABLEKS R19 R18 K62 ["report"]
+  DUPCLOSURE R19 K63 [PROTO_7]
+  SETTABLEKS R19 R18 K64 ["stop"]
+  RETURN R18 1

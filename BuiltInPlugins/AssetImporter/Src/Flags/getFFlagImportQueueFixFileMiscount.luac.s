@@ -17,7 +17,7 @@ MAIN:
   GETIMPORT R1 K5 [require]
   GETTABLEKS R4 R0 K6 ["Src"]
   GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["getFFlagAssetImportEnableMultipleFiles"]
+  GETTABLEKS R2 R3 K8 ["getFFlagAssetImportQueuedSessionRefactor"]
   CALL R1 1 1
   GETIMPORT R2 K10 [game]
   LOADK R4 K11 ["ImportQueueFixFileMiscount"]

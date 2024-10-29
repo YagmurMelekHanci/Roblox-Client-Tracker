@@ -1,3 +1,5 @@
+local Chrome = script:FindFirstAncestor("Chrome")
+
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
@@ -5,16 +7,15 @@ local React = require(CorePackages.Packages.React)
 
 local UIBlox = require(CorePackages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
-local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.Service.ChromeUtils)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 
 local _integrations = require(Chrome.Integrations)
-local SubMenu = require(script.Parent.SubMenu)
-local WindowManager = require(script.Parent.WindowManager)
-local Constants = require(script.Parent.Constants)
-local HealthBar = require(script.Parent.HealthBar)
+local SubMenu = require(Chrome.Unibar.SubMenu)
+local WindowManager = require(Chrome.Unibar.WindowManager)
+local Constants = require(Chrome.Unibar.Constants)
+local HealthBar = require(Chrome.Unibar.HealthBar)
 
 local useChromeMenuItems = require(Chrome.Hooks.useChromeMenuItems)
 local useChromeMenuStatus = require(Chrome.Hooks.useChromeMenuStatus)
@@ -25,8 +26,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerListInitialVisibleState = require(RobloxGui.Modules.PlayerList.PlayerListInitialVisibleState)
 
-local IconHost = require(script.Parent.ComponentHosts.IconHost)
-local ContainerHost = require(script.Parent.ComponentHosts.ContainerHost)
+local IconHost = require(Chrome.Unibar.ComponentHosts.IconHost)
+local ContainerHost = require(Chrome.Unibar.ComponentHosts.ContainerHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
@@ -55,6 +56,7 @@ local GetFFlagEnableHamburgerIcon = require(Chrome.Flags.GetFFlagEnableHamburger
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 local GetFFlagChromeUsePreferredTransparency =
 	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
+local GetFFlagPostLaunchUnibarDesignTweaks = require(RobloxGui.Modules.Flags.GetFFlagPostLaunchUnibarDesignTweaks)
 
 local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
@@ -459,7 +461,14 @@ function IconPositionBinding(
 			end
 			local openDelta = open - closedPos
 
-			return UDim2.new(0, closedPos + openDelta * val[1], 0, 0)
+			return UDim2.new(
+				0,
+				(if GetFFlagPostLaunchUnibarDesignTweaks() then Constants.UNIBAR_END_PADDING else 0)
+					+ closedPos
+					+ openDelta * val[1],
+				0,
+				0
+			)
 		end) :: any
 end
 
@@ -661,7 +670,11 @@ function Unibar(props: UnibarProp)
 	if props.onMinWidthChanged then
 		props.onMinWidthChanged(minSize)
 	end
-	expandSize = xOffset
+	if GetFFlagPostLaunchUnibarDesignTweaks() then
+		expandSize = Constants.UNIBAR_END_PADDING * 2 + xOffset
+	else
+		expandSize = xOffset
+	end
 
 	React.useEffect(function()
 		local lastUnibarWidth = unibarWidth:getValue()

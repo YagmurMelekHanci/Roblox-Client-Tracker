@@ -11298,7 +11298,7 @@ PROTO_13:
   SETTABLEKS R15 R14 K237 ["viewOnRobloxLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K563 [121] [+105]
+  JUMPIFNOTEQKN R14 K563 [121] [+142]
   DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
@@ -11318,9 +11318,38 @@ PROTO_13:
   LOADK R15 K35 ["🤷🏻‍♀️"]
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
+  GETUPVAL R16 4
+  JUMPIFNOT R16 [+35]
   LOADNIL R16
   NEWTABLE R18 0 0
   LOADK R19 K53 [2]
+  LOADK R21 K37 ["([^.]+)"]
+  NAMECALL R19 R19 K38 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K39 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K40 [""]
+  JUMP [+46]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K41 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  JUMP [+34]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K54 ["viewBasicSettingsLink"]
   LOADK R21 K37 ["([^.]+)"]
   NAMECALL R19 R19 K38 ["gmatch"]
   CALL R19 2 3
@@ -11368,16 +11397,16 @@ PROTO_13:
   GETIMPORT R19 K4 [tostring]
   CALL R19 1 1
   MOVE R17 R19
-  LOADK R18 K54 ["viewBasicSettingsLink"]
+  LOADK R18 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   CONCAT R15 R16 R18
   SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
   GETTABLEKS R14 R2 K17 ["eventType"]
-  JUMPIFNOTEQKN R14 K567 [122] [+173]
+  JUMPIFNOTEQKN R14 K568 [122] [+173]
   DUPTABLE R14 K55 [{"id", "eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "headerText", "footerText", "viewBasicSettingsLink"}]
   GETTABLEKS R15 R2 K19 ["id"]
   SETTABLEKS R15 R14 K19 ["id"]
-  LOADK R15 K56 ["PlayabilityChanged"]
+  LOADK R15 K57 ["Description.PlayabilityChanged"]
   SETTABLEKS R15 R14 K17 ["eventType"]
   LOADK R15 K91 [8]
   SETTABLEKS R15 R14 K20 ["eventCategory"]
@@ -11394,7 +11423,7 @@ PROTO_13:
   JUMP [0]
   SETTABLEKS R15 R14 K21 ["date"]
   MOVE R15 R12
-  LOADK R16 K57 ["Description.PlayabilityChanged"]
+  LOADK R16 K58 ["playability"]
   DUPTABLE R17 K142 [{"action"}]
   GETTABLEKS R22 R2 K46 ["metaData"]
   GETTABLEKS R21 R22 K45 ["Action"]
@@ -11500,8 +11529,8 @@ PROTO_13:
   CONCAT R15 R16 R18
   SETTABLEKS R15 R14 K54 ["viewBasicSettingsLink"]
   RETURN R14 1
-  DUPTABLE R14 K570 [{"id", "universeId", "eventType", "date", "translation", "actorId", "actorName", "iconId", "iconType", "eventCategory"}]
-  GETIMPORT R16 K573 [math.random]
+  DUPTABLE R14 K571 [{"id", "universeId", "eventType", "date", "translation", "actorId", "actorName", "iconId", "iconType", "eventCategory"}]
+  GETIMPORT R16 K574 [math.random]
   CALL R16 0 -1
   FASTCALL TOSTRING [+2]
   GETIMPORT R15 K4 [tostring]
@@ -11513,11 +11542,11 @@ PROTO_13:
   SETTABLEKS R15 R14 K17 ["eventType"]
   LOADK R15 K40 [""]
   SETTABLEKS R15 R14 K21 ["date"]
-  LOADK R15 K62 ["Description.ActionPublic"]
+  LOADK R15 K63 ["Private"]
   SETTABLEKS R15 R14 K22 ["translation"]
   LOADN R15 0
   SETTABLEKS R15 R14 K23 ["actorId"]
-  LOADK R15 K63 ["Private"]
+  LOADK R15 K64 ["Description.ActionPrivate"]
   SETTABLEKS R15 R14 K24 ["actorName"]
   LOADN R15 0
   SETTABLEKS R15 R14 K26 ["iconId"]
@@ -11911,48 +11940,53 @@ MAIN:
   GETTABLEKS R3 R4 K6 ["Util"]
   GETTABLEKS R2 R3 K7 ["SharedTypes"]
   CALL R1 1 1
-  LOADK R2 K8 ["https://www.roblox.com/"]
-  LOADK R3 K9 ["https://create.roblox.com/"]
-  GETIMPORT R4 K11 [pcall]
-  NEWCLOSURE R5 P0
-  CAPTURE REF R2
+  GETIMPORT R2 K9 [game]
+  LOADK R4 K10 ["EnableContentMaturityStringChanges"]
+  NAMECALL R2 R2 K11 ["GetFastFlag"]
+  CALL R2 2 1
+  LOADK R3 K12 ["https://www.roblox.com/"]
+  LOADK R4 K13 ["https://create.roblox.com/"]
+  GETIMPORT R5 K15 [pcall]
+  NEWCLOSURE R6 P0
   CAPTURE REF R3
-  CALL R4 1 0
-  DUPCLOSURE R4 K12 [PROTO_1]
-  DUPCLOSURE R5 K13 [PROTO_2]
-  DUPCLOSURE R6 K14 [PROTO_3]
-  DUPCLOSURE R7 K15 [PROTO_4]
-  DUPCLOSURE R8 K16 [PROTO_5]
-  SETGLOBAL R8 K17 ["joinStrings"]
-  DUPCLOSURE R8 K18 [PROTO_6]
-  DUPCLOSURE R9 K19 [PROTO_7]
-  DUPCLOSURE R10 K20 [PROTO_9]
-  NEWTABLE R11 0 5
-  LOADK R12 K21 ["Computer"]
-  LOADK R13 K22 ["Phone"]
-  LOADK R14 K23 ["Tablet"]
-  LOADK R15 K24 ["Console"]
-  LOADK R16 K25 ["VR"]
-  SETLIST R11 R12 5 [1]
-  NEWTABLE R12 8 0
-  LOADK R13 K26 ["DeviceType.Desktop"]
-  SETTABLEKS R13 R12 K21 ["Computer"]
-  LOADK R13 K27 ["DeviceType.Mobile"]
-  SETTABLEKS R13 R12 K22 ["Phone"]
-  LOADK R13 K28 ["DeviceType.Tablet"]
-  SETTABLEKS R13 R12 K23 ["Tablet"]
-  LOADK R13 K29 ["DeviceType.Console"]
-  SETTABLEKS R13 R12 K24 ["Console"]
-  LOADK R13 K30 ["DeviceType.VR"]
-  SETTABLEKS R13 R12 K25 ["VR"]
-  NEWCLOSURE R13 P9
+  CAPTURE REF R4
+  CALL R5 1 0
+  DUPCLOSURE R5 K16 [PROTO_1]
+  DUPCLOSURE R6 K17 [PROTO_2]
+  DUPCLOSURE R7 K18 [PROTO_3]
+  DUPCLOSURE R8 K19 [PROTO_4]
+  DUPCLOSURE R9 K20 [PROTO_5]
+  SETGLOBAL R9 K21 ["joinStrings"]
+  DUPCLOSURE R9 K22 [PROTO_6]
+  DUPCLOSURE R10 K23 [PROTO_7]
+  DUPCLOSURE R11 K24 [PROTO_9]
+  NEWTABLE R12 0 5
+  LOADK R13 K25 ["Computer"]
+  LOADK R14 K26 ["Phone"]
+  LOADK R15 K27 ["Tablet"]
+  LOADK R16 K28 ["Console"]
+  LOADK R17 K29 ["VR"]
+  SETLIST R12 R13 5 [1]
+  NEWTABLE R13 8 0
+  LOADK R14 K30 ["DeviceType.Desktop"]
+  SETTABLEKS R14 R13 K25 ["Computer"]
+  LOADK R14 K31 ["DeviceType.Mobile"]
+  SETTABLEKS R14 R13 K26 ["Phone"]
+  LOADK R14 K32 ["DeviceType.Tablet"]
+  SETTABLEKS R14 R13 K27 ["Tablet"]
+  LOADK R14 K33 ["DeviceType.Console"]
+  SETTABLEKS R14 R13 K28 ["Console"]
+  LOADK R14 K34 ["DeviceType.VR"]
+  SETTABLEKS R14 R13 K29 ["VR"]
+  NEWCLOSURE R14 P9
+  CAPTURE REF R4
   CAPTURE REF R3
-  CAPTURE REF R2
-  CAPTURE VAL R11
   CAPTURE VAL R12
-  DUPCLOSURE R14 K31 [PROTO_14]
-  DUPTABLE R15 K34 [{"translateEvent", "eventTypeToCategory"}]
-  SETTABLEKS R13 R15 K32 ["translateEvent"]
-  SETTABLEKS R14 R15 K33 ["eventTypeToCategory"]
-  CLOSEUPVALS R2
-  RETURN R15 1
+  CAPTURE VAL R13
+  CAPTURE VAL R2
+  DUPCLOSURE R15 K35 [PROTO_14]
+  DUPTABLE R16 K38 [{"translateEvent", "eventTypeToCategory"}]
+  SETTABLEKS R14 R16 K36 ["translateEvent"]
+  SETTABLEKS R15 R16 K37 ["eventTypeToCategory"]
+  CLOSEUPVALS R3
+  RETURN R16 1

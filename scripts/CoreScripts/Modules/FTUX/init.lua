@@ -47,7 +47,7 @@ return {
 		local root = Roact.mount(ftuxTree, CoreGui, "FTUXMenu")
 
 		if hasInternalPermission then
-			local DeveloperTools = require(CorePackages.DeveloperTools)
+			local DeveloperTools = require(CorePackages.Packages.Dev.DeveloperTools)
 			local inspector = DeveloperTools.forCoreGui("FTUX", {
 				rootInstance = "FTUX",
 			})

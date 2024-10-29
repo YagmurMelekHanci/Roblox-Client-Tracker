@@ -544,7 +544,7 @@ MAIN:
   GETIMPORT R16 K5 [require]
   GETTABLEKS R19 R0 K21 ["Src"]
   GETTABLEKS R18 R19 K27 ["Flags"]
-  GETTABLEKS R17 R18 K28 ["getFFlagAssetImportUseQueueItem"]
+  GETTABLEKS R17 R18 K28 ["getFFlagAssetImportQueuedSessionRefactor"]
   CALL R16 1 1
   GETIMPORT R17 K5 [require]
   GETTABLEKS R20 R0 K21 ["Src"]

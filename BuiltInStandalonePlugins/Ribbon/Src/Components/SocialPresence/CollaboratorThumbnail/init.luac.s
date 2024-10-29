@@ -50,36 +50,30 @@ PROTO_1:
   GETTABLEKS R5 R6 K0 ["createElement"]
   LOADK R6 K14 ["ImageLabel"]
   NEWTABLE R7 4 0
-  GETUPVAL R9 2
-  JUMPIFNOT R9 [+2]
-  LOADNIL R8
-  JUMP [+2]
-  GETTABLEKS R8 R0 K9 ["RingColor"]
-  SETTABLEKS R8 R7 K15 ["BackgroundColor3"]
-  GETTABLEKS R9 R0 K16 ["UserId"]
-  GETIMPORT R10 K19 [Vector2.new]
+  GETTABLEKS R9 R0 K15 ["UserId"]
+  GETIMPORT R10 K18 [Vector2.new]
   LOADN R11 60
   LOADN R12 60
   CALL R10 2 1
-  LOADK R11 K20 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
+  LOADK R11 K19 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
   MOVE R13 R9
-  GETTABLEKS R14 R10 K21 ["X"]
-  GETTABLEKS R15 R10 K22 ["Y"]
-  NAMECALL R11 R11 K23 ["format"]
+  GETTABLEKS R14 R10 K20 ["X"]
+  GETTABLEKS R15 R10 K21 ["Y"]
+  NAMECALL R11 R11 K22 ["format"]
   CALL R11 4 1
   MOVE R8 R11
-  SETTABLEKS R8 R7 K24 ["Image"]
-  GETUPVAL R9 3
+  SETTABLEKS R8 R7 K23 ["Image"]
+  GETUPVAL R9 2
   JUMPIFNOT R9 [+3]
-  GETTABLEKS R8 R0 K25 ["Username"]
+  GETTABLEKS R8 R0 K24 ["Username"]
   JUMP [+1]
   LOADNIL R8
-  SETTABLEKS R8 R7 K26 ["Name"]
+  SETTABLEKS R8 R7 K25 ["Name"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K2 ["Tag"]
   GETTABLEKS R10 R0 K7 ["IsIdle"]
   JUMPIFNOT R10 [+2]
-  LOADK R9 K27 ["Idle"]
+  LOADK R9 K26 ["Idle"]
   JUMP [+1]
   LOADNIL R9
   SETTABLE R9 R7 R8
@@ -101,25 +95,18 @@ MAIN:
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K8 ["Src"]
   GETTABLEKS R4 R5 K9 ["SharedFlags"]
-  GETTABLEKS R3 R4 K10 ["getFFlagLuaRibbonSocialPresenceBGColorUpdate"]
+  GETTABLEKS R3 R4 K10 ["getFFlagAddUsernameToRibbonAvatars"]
   CALL R2 1 1
   CALL R2 0 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["SharedFlags"]
-  GETTABLEKS R4 R5 K11 ["getFFlagAddUsernameToRibbonAvatars"]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
   CALL R3 1 1
-  CALL R3 0 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["Framework"]
-  CALL R4 1 1
-  GETTABLEKS R6 R4 K13 ["Styling"]
-  GETTABLEKS R5 R6 K14 ["joinTags"]
-  DUPCLOSURE R6 K15 [PROTO_0]
-  DUPCLOSURE R7 K16 [PROTO_1]
+  GETTABLEKS R5 R3 K12 ["Styling"]
+  GETTABLEKS R4 R5 K13 ["joinTags"]
+  DUPCLOSURE R5 K14 [PROTO_0]
+  DUPCLOSURE R6 K15 [PROTO_1]
   CAPTURE VAL R1
-  CAPTURE VAL R5
+  CAPTURE VAL R4
   CAPTURE VAL R2
-  CAPTURE VAL R3
-  RETURN R7 1
+  RETURN R6 1

@@ -156,7 +156,7 @@ return {
 			and game:GetService("StudioService"):HasInternalPermission()
 		local root = Roact.mount(menuTree, CoreGui, "InGameMenu")
 		if hasInternalPermission then
-			local DeveloperTools = require(CorePackages.DeveloperTools)
+			local DeveloperTools = require(CorePackages.Packages.Dev.DeveloperTools)
 			local inspector = DeveloperTools.forCoreGui("InGameMenu", {
 				rootInstance = "InGameMenu",
 			})

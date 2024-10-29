@@ -15,6 +15,7 @@ local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBu
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
+local FFlagFixBundleThumbnailOnDetailPage = game:DefineFastFlag("FixBundleThumbnailOnDetailPage", false)
 
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
 
@@ -37,7 +38,11 @@ function DetailsThumbnail:getUrl()
 	-- not include a costumeId with which to get a thumbnail,
 	-- use the asset's thumbnail url
 	if partOfBundleAndOffsale and bundles[bundleId] and bundles[bundleId].costumeId then
-		url = "rbxthumb://type=Outfit&id=" .. bundles[bundleId].costumeId .. "&w=420&h=420"
+		if FFlagFixBundleThumbnailOnDetailPage then
+			url = "rbxthumb://type=BundleThumbnail&id=" .. tostring(bundleId) .. "&w=420&h=420"
+		else
+			url = "rbxthumb://type=Outfit&id=" .. bundles[bundleId].costumeId .. "&w=420&h=420"
+		end
 	else
 		local assetId = detailsInformation.assetId
 		url = "rbxthumb://type=Asset&id=" .. assetId .. "&w=420&h=420"

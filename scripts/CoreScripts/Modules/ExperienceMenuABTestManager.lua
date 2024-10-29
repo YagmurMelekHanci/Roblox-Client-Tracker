@@ -41,20 +41,12 @@ local ACTION_TRIGGER_LATCHED = 10000
 
 local TEST_VERSION = "t10" -- bump on new A/B campaigns
 local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
-local CONSOLE_MODERNIZATION_TEST_VERSION = "m2"
 local SONGBIRD_TEST_VERSION = "s1"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
 local MENU_VERSION_V3 = "v3"..TEST_VERSION
 local REPORT_ABUSE_MENU_VERSION_V2 = "ARv2"..REPORT_ABUSE_MENU_TEST_VERSION
-
-local MENU_VERSION_MODERNIZATION_ENUM = {
-	MODERNIZED = "v5.1"..TEST_VERSION,
-	BIG_TEXT = "v5.2"..TEST_VERSION,
-	STICKY_BAR = "v5.3"..TEST_VERSION,
-	CONSOLE = "v5.4"..CONSOLE_MODERNIZATION_TEST_VERSION
-}
 
 local MENU_VERSION_CHROME_ENUM = {
 	UNIBAR = "v6.1"..TEST_VERSION,
@@ -94,10 +86,6 @@ local validVersion = {
 	[DEFAULT_MENU_VERSION] = true,
 	[MENU_VERSION_V2] = false,
 	[MENU_VERSION_V3] = false,
-	[MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED] = true,
-	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = false,
-	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = false,
-	[MENU_VERSION_MODERNIZATION_ENUM.CONSOLE] = true,
 	[MENU_VERSION_CHROME_ENUM.UNIBAR] = not GetFFlagDisableChromeUnibar,
 	[MENU_VERSION_CHROME_ENUM.PINNED_CHAT] = not GetFFlagDisableChromePinnedChat,
 	[MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN] = not GetFFlagDisableChromeDefaultOpen,
@@ -157,22 +145,6 @@ end
 
 function ExperienceMenuABTestManager.reportAbuseMenuV2VersionId()
 	return REPORT_ABUSE_MENU_VERSION_V2
-end
-
-function ExperienceMenuABTestManager.modernizationModernizedVersionId()
-	return MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED
-end
-
-function ExperienceMenuABTestManager.modernizationBigTextVersionId()
-	return MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT
-end
-
-function ExperienceMenuABTestManager.modernizationStickyBarVersionId()
-	return MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR
-end
-
-function ExperienceMenuABTestManager.consoleModernizationVersionId()
-	return MENU_VERSION_MODERNIZATION_ENUM.CONSOLE
 end
 
 function ExperienceMenuABTestManager.chromeVersionId()
@@ -295,24 +267,6 @@ end
 
 function ExperienceMenuABTestManager:isReportAbuseMenuV2Enabled()
 	return self:getVersion() == REPORT_ABUSE_MENU_VERSION_V2
-end
-
-function ExperienceMenuABTestManager:isMenuModernizationEnabled()
-	for _, version in pairs(MENU_VERSION_MODERNIZATION_ENUM) do
-		if(self:getVersion() == version) then
-			return true
-		end
-	end
-
-	return false
-end
-
-function ExperienceMenuABTestManager:shouldShowBiggerText()
-	return self:getVersion() == MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT
-end
-
-function ExperienceMenuABTestManager:shouldShowStickyBar()
-	return self:getVersion() == MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR
 end
 
 function ExperienceMenuABTestManager:isChromeEnabled()

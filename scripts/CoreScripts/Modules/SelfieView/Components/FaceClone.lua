@@ -21,6 +21,7 @@ local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.Ge
 local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
+local FFlagFixSelfieViewErrorLoop = game:DefineFastFlag("FixSelfieViewErrorLoop", false)
 
 local RunService = game:GetService("RunService")
 
@@ -466,6 +467,11 @@ local function addHumanoidStateChangedObserver(humanoid: any)
 end
 
 local function characterAdded(character)
+	if FFlagFixSelfieViewErrorLoop then
+		if viewportFrame == nil or wrapperFrame == nil then
+			return
+		end
+	end
 	if GetFFlagSelfieViewDontWaitForCharacter() then
 		if not character then
 			return
@@ -494,6 +500,11 @@ local function characterAdded(character)
 
 	-- listen for updates on the original character's structure
 	observerInstances[Observer.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
+		if FFlagFixSelfieViewErrorLoop then
+			if viewportFrame == nil or wrapperFrame == nil then
+				return
+			end
+		end
 		if descendant.Name == "Head" then
 			headRef = ModelUtils.getHead(character)
 
@@ -517,6 +528,11 @@ local function characterAdded(character)
 		end
 	end)
 	observerInstances[Observer.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
+		if FFlagFixSelfieViewErrorLoop then
+			if viewportFrame == nil or wrapperFrame == nil then
+				return
+			end
+		end
 		--these checks are to avoid unnecessary additional refreshes
 		if descendant and (descendant:IsA("MeshPart") or descendant:IsA("Accessory")) then
 			if descendant:IsA("MeshPart") then

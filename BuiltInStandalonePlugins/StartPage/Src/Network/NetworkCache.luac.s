@@ -196,6 +196,9 @@ PROTO_10:
   NAMECALL R3 R0 K0 ["getList"]
   CALL R3 2 1
   SETTABLEKS R2 R3 K1 ["targetCount"]
+  MOVE R6 R3
+  NAMECALL R4 R0 K2 ["dirtyList"]
+  CALL R4 2 0
   RETURN R0 0
 
 PROTO_11:

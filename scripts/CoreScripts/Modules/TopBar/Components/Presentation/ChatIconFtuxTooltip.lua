@@ -14,7 +14,7 @@ local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
-local LuauPolyfill = require(CorePackages.Workspace.Packages.LuauPolyfill)
+local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local clearTimeout = LuauPolyfill.clearTimeout
 local setTimeout = LuauPolyfill.setTimeout
 

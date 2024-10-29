@@ -107,8 +107,15 @@ PROTO_1:
   GETTABLEKS R10 R11 K2 ["createElement"]
   LOADK R11 K22 ["TextLabel"]
   NEWTABLE R12 4 0
+  GETUPVAL R14 10
+  JUMPIFNOT R14 [+6]
   LOADK R15 K23 ["Plugin"]
-  LOADK R16 K24 ["NewFile"]
+  LOADK R16 K24 ["NewExperience"]
+  NAMECALL R13 R2 K25 ["getText"]
+  CALL R13 3 1
+  JUMP [+5]
+  LOADK R15 K23 ["Plugin"]
+  LOADK R16 K26 ["NewFile"]
   NAMECALL R13 R2 K25 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K13 ["Text"]
@@ -117,7 +124,7 @@ PROTO_1:
   SETTABLEKS R13 R12 K19 ["LayoutOrder"]
   GETUPVAL R14 4
   GETTABLEKS R13 R14 K10 ["Tag"]
-  LOADK R14 K26 ["X-Fit X-Pad X-Transparent StartPage-TextSize StartPage-FontBold StartPage-TextColor"]
+  LOADK R14 K27 ["X-Fit X-Pad X-Transparent StartPage-TextSize StartPage-FontBold StartPage-TextColor"]
   SETTABLE R14 R12 R13
   CALL R10 2 1
   SETTABLEKS R10 R9 K13 ["Text"]
@@ -161,32 +168,39 @@ MAIN:
   GETTABLEKS R11 R12 K21 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
   CALL R10 1 1
   CALL R10 0 1
-  GETIMPORT R11 K23 [game]
-  LOADK R13 K24 ["FixPSCMissingUniverseIdFromLuaStartPage"]
-  LOADB R14 0
-  NAMECALL R11 R11 K25 ["DefineFastFlag"]
-  CALL R11 3 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R16 R0 K15 ["Src"]
-  GETTABLEKS R15 R16 K11 ["Util"]
-  GETTABLEKS R14 R15 K26 ["Telemetry"]
-  GETTABLEKS R13 R14 K27 ["TelemetryContext"]
-  CALL R12 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K15 ["Src"]
+  GETTABLEKS R13 R14 K20 ["SharedFlags"]
+  GETTABLEKS R12 R13 K22 ["getFFlagLuaStartPageNewExperienceInsteadNotFile"]
+  CALL R11 1 1
+  CALL R11 0 1
+  GETIMPORT R12 K24 [game]
+  LOADK R14 K25 ["FixPSCMissingUniverseIdFromLuaStartPage"]
+  LOADB R15 0
+  NAMECALL R12 R12 K26 ["DefineFastFlag"]
+  CALL R12 3 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R17 R0 K15 ["Src"]
   GETTABLEKS R16 R17 K11 ["Util"]
-  GETTABLEKS R15 R16 K26 ["Telemetry"]
-  GETTABLEKS R14 R15 K28 ["StartPageTelemetryEvent"]
+  GETTABLEKS R15 R16 K27 ["Telemetry"]
+  GETTABLEKS R14 R15 K28 ["TelemetryContext"]
   CALL R13 1 1
-  DUPCLOSURE R14 K29 [PROTO_1]
-  CAPTURE VAL R12
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R18 R0 K15 ["Src"]
+  GETTABLEKS R17 R18 K11 ["Util"]
+  GETTABLEKS R16 R17 K27 ["Telemetry"]
+  GETTABLEKS R15 R16 K29 ["StartPageTelemetryEvent"]
+  CALL R14 1 1
+  DUPCLOSURE R15 K30 [PROTO_1]
+  CAPTURE VAL R13
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R9
   CAPTURE VAL R1
-  CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R8
   CAPTURE VAL R10
-  CAPTURE VAL R13
+  CAPTURE VAL R14
   CAPTURE VAL R6
-  RETURN R14 1
+  CAPTURE VAL R11
+  RETURN R15 1

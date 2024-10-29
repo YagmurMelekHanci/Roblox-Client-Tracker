@@ -4,6 +4,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
+local TextChatService = game:GetService("TextChatService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -16,9 +17,11 @@ local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local Images = UIBlox.App.ImageSet.Images
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
+local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
 local GetFFlagChromePeekArchitecture = require(RobloxGui.Modules.Flags.GetFFlagChromePeekArchitecture)
+local GetFFlagFixUnibarVirtualCursor = require(RobloxGui.Modules.Flags.GetFFlagFixUnibarVirtualCursor)
 
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
@@ -45,7 +48,11 @@ local UnibarConstants = require(Chrome.Unibar.Constants)
 local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
-local GetFFlagPeekUseUpdatedDesign = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekUseUpdatedDesign
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagPeekUseUpdatedDesign = SharedFlags.GetFFlagPeekUseUpdatedDesign
+local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
+local GetFFlagEnableSceneAnalysisPerformanceTest = SharedFlags.GetFFlagEnableSceneAnalysisPerformanceTest
 
 local Unibar
 local Peek
@@ -135,6 +142,22 @@ function TopBarApp:init()
 			unibarAlignment = ChromeService:orderAlignment():get(),
 		})
 	end
+
+	if GetFFlagReenableTextChatForTenFootInterfaces() then
+		-- This chatVersion may be inaccurate if the game isn't loaded
+		self:setState({
+			chatVersion = TextChatService.ChatVersion,
+		})
+
+		-- If the game isn't loaded, then set the real chat version when the game is loaded
+		if not game:IsLoaded() then
+			game.Loaded:Connect(function()
+				self:setState({
+					chatVersion = TextChatService.ChatVersion
+				})
+			end)
+		end
+	end
 end
 
 function TopBarApp:didMount()
@@ -210,6 +233,18 @@ function TopBarApp:renderWithStyle(style)
 			end),
 		})
 		else Roact.createElement(VRBottomBar)
+
+	local newMenuIcon = Roact.createElement(MenuIcon, {
+		iconScale = if self.props.menuOpen then 1.25 else 1,
+		layoutOrder = 1,
+		showBadgeOver12 = self.props.showBadgeOver12,
+	})
+	if GetFFlagFixUnibarVirtualCursor() then 
+		newMenuIcon = Roact.createElement(SelectionCursorProvider, {}, {
+			Icon = newMenuIcon 
+		})
+	end
+
 	return Roact.createElement("ScreenGui", {
 		IgnoreGuiInset = true,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
@@ -221,7 +256,11 @@ function TopBarApp:renderWithStyle(style)
 		end,
 	}, {
 		Connection = Roact.createElement(Connection),
-		GamepadMenu = Roact.createElement(GamepadMenu),
+		GamepadMenu = if GetFFlagReenableTextChatForTenFootInterfaces()
+			then Roact.createElement(GamepadMenu, {
+				chatVersion = self.state.chatVersion,
+			})
+			else Roact.createElement(GamepadMenu),
 		GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
 			then Roact.createElement(GamepadNavigationDialog)
 			else nil,
@@ -254,11 +293,7 @@ function TopBarApp:renderWithStyle(style)
 				if GetFFlagChangeTopbarHeightCalculation() then topBarFrameHeight else topBarHeight
 			),
 		}, {
-			MenuIcon = Roact.createElement(MenuIcon, {
-				iconScale = if self.props.menuOpen then 1.25 else 1,
-				layoutOrder = 1,
-				showBadgeOver12 = self.props.showBadgeOver12,
-			}),
+			MenuIcon = newMenuIcon,
 		}),
 
 		--Remove with isNewInGameMenuEnabled
@@ -348,6 +383,10 @@ function TopBarApp:renderWithStyle(style)
 				end,
 			}) or nil,
 		}),
+
+		SongbirdPerformanceExperiment = if GetFFlagEnableSceneAnalysisPerformanceTest()
+			then Roact.createElement(Songbird.PerformanceExperiment)
+			else nil,
 
 		PeekFrame = ChromeEnabled() and GetFFlagChromePeekArchitecture() and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,

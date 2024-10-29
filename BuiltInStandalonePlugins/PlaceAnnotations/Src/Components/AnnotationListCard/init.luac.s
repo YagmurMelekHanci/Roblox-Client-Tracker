@@ -118,7 +118,10 @@ PROTO_7:
   GETUPVAL R1 1
   GETUPVAL R3 2
   GETTABLEKS R2 R3 K1 ["Annotation"]
-  LOADB R3 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["Annotation"]
+  GETTABLEKS R4 R5 K2 ["Resolved"]
+  NOT R3 R4
   CALL R0 3 0
   RETURN R0 0
 
@@ -245,32 +248,41 @@ PROTO_8:
   LOADK R35 K35 ["HeaderText"]
   NAMECALL R33 R33 K36 ["GetAttribute"]
   CALL R33 2 1
+  JUMPIF R33 [+10]
+  LOADK R34 K37 ["(%*)"]
+  LOADK R38 K38 ["Card"]
+  LOADK R39 K39 ["DeletedInstance"]
+  NAMECALL R36 R2 K40 ["getText"]
+  CALL R36 3 1
+  NAMECALL R34 R34 K41 ["format"]
+  CALL R34 2 1
+  MOVE R33 R34
   SETTABLEKS R33 R32 K14 ["Text"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K29 ["Adornee"]
   GETTABLEKS R32 R0 K5 ["Annotation"]
-  GETTABLEKS R31 R32 K37 ["AuthorId"]
+  GETTABLEKS R31 R32 K42 ["AuthorId"]
   GETUPVAL R32 7
-  NAMECALL R32 R32 K38 ["GetUserId"]
+  NAMECALL R32 R32 K43 ["GetUserId"]
   CALL R32 1 1
   JUMPIFNOTEQ R31 R32 [+43]
   GETUPVAL R31 3
   GETTABLEKS R30 R31 K6 ["createElement"]
   GETUPVAL R31 8
-  DUPTABLE R32 K40 [{"DropdownItems"}]
+  DUPTABLE R32 K45 [{"DropdownItems"}]
   NEWTABLE R33 0 1
   GETUPVAL R35 3
   GETTABLEKS R34 R35 K6 ["createElement"]
   LOADK R35 K11 ["TextButton"]
   NEWTABLE R36 4 0
-  LOADK R39 K41 ["Dropdown"]
-  LOADK R40 K42 ["Delete"]
-  NAMECALL R37 R2 K43 ["getText"]
+  LOADK R39 K46 ["Dropdown"]
+  LOADK R40 K47 ["Delete"]
+  NAMECALL R37 R2 K40 ["getText"]
   CALL R37 3 1
   SETTABLEKS R37 R36 K14 ["Text"]
   GETUPVAL R39 3
   GETTABLEKS R38 R39 K15 ["Event"]
-  GETTABLEKS R37 R38 K44 ["Activated"]
+  GETTABLEKS R37 R38 K48 ["Activated"]
   NEWCLOSURE R38 P4
   CAPTURE UPVAL U6
   CAPTURE VAL R1
@@ -278,11 +290,11 @@ PROTO_8:
   SETTABLE R38 R36 R37
   GETUPVAL R38 3
   GETTABLEKS R37 R38 K8 ["Tag"]
-  LOADK R38 K45 ["Component-DropdownItem Delete"]
+  LOADK R38 K49 ["Component-DropdownItem Delete"]
   SETTABLE R38 R36 R37
   CALL R34 2 -1
   SETLIST R33 R34 -1 [1]
-  SETTABLEKS R33 R32 K39 ["DropdownItems"]
+  SETTABLEKS R33 R32 K44 ["DropdownItems"]
   CALL R30 2 1
   JUMP [+1]
   LOADNIL R30
@@ -290,12 +302,15 @@ PROTO_8:
   GETUPVAL R31 3
   GETTABLEKS R30 R31 K6 ["createElement"]
   GETUPVAL R31 9
-  DUPTABLE R32 K47 [{"OnClick"}]
+  DUPTABLE R32 K52 [{"Resolved", "OnClick"}]
+  GETTABLEKS R34 R0 K5 ["Annotation"]
+  GETTABLEKS R33 R34 K50 ["Resolved"]
+  SETTABLEKS R33 R32 K50 ["Resolved"]
   NEWCLOSURE R33 P5
   CAPTURE UPVAL U6
   CAPTURE VAL R1
   CAPTURE VAL R0
-  SETTABLEKS R33 R32 K46 ["OnClick"]
+  SETTABLEKS R33 R32 K51 ["OnClick"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K31 ["ResolveButton"]
   CALL R26 3 1
@@ -308,7 +323,7 @@ PROTO_8:
   SETTABLEKS R29 R28 K12 ["LayoutOrder"]
   GETUPVAL R30 3
   GETTABLEKS R29 R30 K8 ["Tag"]
-  LOADK R30 K48 ["Component-Divider"]
+  LOADK R30 K53 ["Component-Divider"]
   SETTABLE R30 R28 R29
   CALL R26 2 1
   SETTABLEKS R26 R25 K26 ["Divider"]
@@ -317,7 +332,7 @@ PROTO_8:
   GETUPVAL R23 3
   GETTABLEKS R22 R23 K6 ["createElement"]
   GETUPVAL R23 10
-  DUPTABLE R24 K49 [{"LayoutOrder", "Annotation"}]
+  DUPTABLE R24 K54 [{"LayoutOrder", "Annotation"}]
   LOADN R25 0
   SETTABLEKS R25 R24 K12 ["LayoutOrder"]
   GETTABLEKS R25 R0 K5 ["Annotation"]
@@ -326,35 +341,35 @@ PROTO_8:
   SETTABLEKS R22 R21 K22 ["Comment"]
   GETTABLEKS R24 R0 K5 ["Annotation"]
   GETTABLEKS R23 R24 K23 ["ReplyCount"]
-  JUMPIFEQKN R23 K50 [0] [+50]
+  JUMPIFEQKN R23 K55 [0] [+50]
   GETUPVAL R23 3
   GETTABLEKS R22 R23 K6 ["createElement"]
   LOADK R23 K33 ["TextLabel"]
-  DUPTABLE R24 K51 [{"Text", "LayoutOrder"}]
+  DUPTABLE R24 K56 [{"Text", "LayoutOrder"}]
   GETTABLEKS R27 R0 K5 ["Annotation"]
   GETTABLEKS R26 R27 K23 ["ReplyCount"]
-  JUMPIFNOTEQKN R26 K52 [1] [+7]
-  LOADK R27 K53 ["List"]
-  LOADK R28 K54 ["SingleReply"]
-  NAMECALL R25 R2 K43 ["getText"]
+  JUMPIFNOTEQKN R26 K57 [1] [+7]
+  LOADK R27 K38 ["Card"]
+  LOADK R28 K58 ["SingleReply"]
+  NAMECALL R25 R2 K40 ["getText"]
   CALL R25 3 1
   JUMP [+25]
-  LOADK R27 K53 ["List"]
-  LOADK R28 K55 ["ManyReplies"]
-  DUPTABLE R29 K57 [{"replyCount"}]
+  LOADK R27 K38 ["Card"]
+  LOADK R28 K59 ["ManyReplies"]
+  DUPTABLE R29 K61 [{"replyCount"}]
   GETTABLEKS R32 R0 K5 ["Annotation"]
   GETTABLEKS R31 R32 K23 ["ReplyCount"]
   LOADN R32 100
   JUMPIFNOTLT R31 R32 [+10]
-  GETIMPORT R30 K60 [string.format]
-  LOADK R31 K61 ["%d"]
+  GETIMPORT R30 K63 [string.format]
+  LOADK R31 K64 ["%d"]
   GETTABLEKS R33 R0 K5 ["Annotation"]
   GETTABLEKS R32 R33 K23 ["ReplyCount"]
   CALL R30 2 1
   JUMP [+1]
-  LOADK R30 K62 ["99+"]
-  SETTABLEKS R30 R29 K56 ["replyCount"]
-  NAMECALL R25 R2 K43 ["getText"]
+  LOADK R30 K65 ["99+"]
+  SETTABLEKS R30 R29 K60 ["replyCount"]
+  NAMECALL R25 R2 K40 ["getText"]
   CALL R25 4 1
   SETTABLEKS R25 R24 K14 ["Text"]
   LOADN R25 2

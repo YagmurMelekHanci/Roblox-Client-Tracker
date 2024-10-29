@@ -1,3 +1,5 @@
+local Chrome = script:FindFirstAncestor("Chrome")
+
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
@@ -16,7 +18,6 @@ local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOv
 local Symbol = require(CorePackages.Symbol)
 local INGAME_SELFVIEW_CURSOR_OVERRIDE_KEY = Symbol.named("SelfieViewCursorOverride")
 
-local Chrome = script.Parent.Parent.Parent
 local debounce = require(Chrome.Utility.debounce)
 local ChromeService = require(Chrome.Service)
 local Constants = require(Chrome.Unibar.Constants)
@@ -35,7 +36,7 @@ local FIntChromeWindowLayoutOrder = game:DefineFastInt("ChromeWindowLayoutOrder"
 local FFlagWindowDragDetection = game:DefineFastFlag("WindowDragDetection", false)
 local FIntWindowMinDragDistance = game:DefineFastInt("WindowMinDragDistance", 25)
 
-local useWindowSize = require(script.Parent.Parent.Parent.Hooks.useWindowSize)
+local useWindowSize = require(Chrome.Hooks.useWindowSize)
 
 export type WindowHostProps = {
 	integration: ChromeTypes.IntegrationComponentProps,

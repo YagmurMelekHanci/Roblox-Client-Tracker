@@ -378,7 +378,7 @@ MAIN:
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K10 ["Src"]
   GETTABLEKS R16 R17 K22 ["Flags"]
-  GETTABLEKS R15 R16 K24 ["getFFlagAssetImportRefactorUploadWidgets"]
+  GETTABLEKS R15 R16 K24 ["getFFlagAssetImportQueuedSessionRefactor"]
   CALL R14 1 1
   GETTABLEKS R15 R2 K25 ["PureComponent"]
   LOADK R17 K26 ["FailureWidget"]

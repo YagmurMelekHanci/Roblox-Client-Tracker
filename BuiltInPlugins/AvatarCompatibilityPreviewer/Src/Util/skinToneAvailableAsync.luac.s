@@ -107,7 +107,7 @@ MAIN:
   GETTABLEKS R5 R6 K15 ["getFFlagAvatarPreviewerSkinToneAlphaDetection"]
   CALL R4 1 1
   GETIMPORT R5 K1 [game]
-  LOADK R7 K16 ["EmergencyDisableSkinToneAlphaDetection"]
+  LOADK R7 K16 ["DebugEmergencyDisableSkinToneAlphaDetection"]
   LOADB R8 0
   NAMECALL R5 R5 K17 ["DefineFastFlag"]
   CALL R5 3 1

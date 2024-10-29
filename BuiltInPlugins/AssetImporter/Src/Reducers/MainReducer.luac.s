@@ -22,7 +22,7 @@ MAIN:
   GETIMPORT R6 K5 [require]
   GETTABLEKS R9 R0 K8 ["Src"]
   GETTABLEKS R8 R9 K13 ["Flags"]
-  GETTABLEKS R7 R8 K14 ["getFFlagAssetImportEnableMultipleFiles"]
+  GETTABLEKS R7 R8 K14 ["getFFlagAssetImportQueuedSessionRefactor"]
   CALL R6 1 1
   GETTABLEKS R7 R1 K15 ["combineReducers"]
   DUPTABLE R8 K16 [{"Preview", "Dialogs", "Sessions"}]

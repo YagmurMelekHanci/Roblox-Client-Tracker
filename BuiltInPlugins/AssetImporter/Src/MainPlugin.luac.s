@@ -199,7 +199,7 @@ MAIN:
   GETIMPORT R12 K4 [require]
   GETTABLEKS R15 R0 K9 ["Src"]
   GETTABLEKS R14 R15 K21 ["Flags"]
-  GETTABLEKS R13 R14 K22 ["getFFlagAssetImportEnableMultipleFiles"]
+  GETTABLEKS R13 R14 K22 ["getFFlagAssetImportEnableImportQueueModal"]
   CALL R12 1 1
   GETIMPORT R13 K4 [require]
   GETTABLEKS R16 R0 K9 ["Src"]

@@ -49,7 +49,7 @@ MAIN:
   SETTABLEKS R12 R11 K26 ["AutomaticSize"]
   LOADN R12 1
   SETTABLEKS R12 R11 K27 ["BackgroundTransparency"]
-  NEWTABLE R12 0 2
+  NEWTABLE R12 0 3
   MOVE R13 R3
   LOADK R14 K34 ["::UIPadding"]
   DUPTABLE R15 K39 [{"PaddingTop", "PaddingLeft", "PaddingRight", "PaddingBottom"}]
@@ -134,18 +134,84 @@ MAIN:
   SETTABLEKS R24 R23 K38 ["PaddingBottom"]
   CALL R21 2 -1
   SETLIST R17 R18 -1 [1]
-  CALL R14 3 -1
+  CALL R14 3 1
+  MOVE R15 R3
+  LOADK R16 K61 ["> #FilterWrapper"]
+  DUPTABLE R17 K65 [{"Size", "Position", "AnchorPoint", "BackgroundTransparency", "BorderSizePixel"}]
+  GETIMPORT R18 K67 [UDim2.fromOffset]
+  LOADN R19 18
+  LOADN R20 18
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K25 ["Size"]
+  GETIMPORT R18 K69 [UDim2.fromScale]
+  LOADN R19 1
+  LOADK R20 K70 [0.5]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K62 ["Position"]
+  GETIMPORT R18 K23 [Vector2.new]
+  LOADN R19 1
+  LOADK R20 K70 [0.5]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K63 ["AnchorPoint"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K27 ["BackgroundTransparency"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K64 ["BorderSizePixel"]
+  NEWTABLE R18 0 3
+  MOVE R19 R3
+  LOADK R20 K71 ["> .FilterDropdown"]
+  DUPTABLE R21 K73 [{"Image", "Size", "BackgroundTransparency", "AnchorPoint", "Position"}]
+  LOADK R22 K74 ["$Filter"]
+  SETTABLEKS R22 R21 K72 ["Image"]
+  GETIMPORT R22 K67 [UDim2.fromOffset]
+  LOADN R23 16
+  LOADN R24 16
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K25 ["Size"]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K27 ["BackgroundTransparency"]
+  GETIMPORT R22 K23 [Vector2.new]
+  LOADK R23 K70 [0.5]
+  LOADK R24 K70 [0.5]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K63 ["AnchorPoint"]
+  GETIMPORT R22 K30 [UDim2.new]
+  LOADK R23 K70 [0.5]
+  LOADK R24 K75 [-0.5]
+  LOADK R25 K70 [0.5]
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K62 ["Position"]
+  CALL R19 2 1
+  MOVE R20 R3
+  LOADK R21 K57 [":hover"]
+  DUPTABLE R22 K76 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADN R23 0
+  SETTABLEKS R23 R22 K27 ["BackgroundTransparency"]
+  LOADK R23 K77 ["$ResolveIconBase"]
+  SETTABLEKS R23 R22 K13 ["BackgroundColor3"]
+  CALL R20 2 1
+  MOVE R21 R3
+  LOADK R22 K59 [":pressed"]
+  DUPTABLE R23 K76 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADN R24 0
+  SETTABLEKS R24 R23 K27 ["BackgroundTransparency"]
+  LOADK R24 K78 ["$ResolveIconSelected"]
+  SETTABLEKS R24 R23 K13 ["BackgroundColor3"]
+  CALL R21 2 -1
+  SETLIST R18 R19 -1 [1]
+  CALL R15 3 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 1
   MOVE R10 R3
-  LOADK R11 K61 [">> #AnnotationScrollingFrame"]
-  DUPTABLE R12 K62 [{"BackgroundTransparency"}]
+  LOADK R11 K79 [">> #AnnotationScrollingFrame"]
+  DUPTABLE R12 K80 [{"BackgroundTransparency"}]
   LOADN R13 1
   SETTABLEKS R13 R12 K27 ["BackgroundTransparency"]
   NEWTABLE R13 0 2
   MOVE R14 R3
-  LOADK R15 K63 ["> #BottomPadding"]
-  DUPTABLE R16 K64 [{"BackgroundTransparency", "Size"}]
+  LOADK R15 K81 ["> #BottomPadding"]
+  DUPTABLE R16 K82 [{"BackgroundTransparency", "Size"}]
   LOADN R17 1
   SETTABLEKS R17 R16 K27 ["BackgroundTransparency"]
   GETIMPORT R17 K30 [UDim2.new]
@@ -158,7 +224,7 @@ MAIN:
   CALL R14 2 1
   MOVE R15 R3
   LOADK R16 K34 ["::UIPadding"]
-  DUPTABLE R17 K65 [{"PaddingLeft", "PaddingRight"}]
+  DUPTABLE R17 K83 [{"PaddingLeft", "PaddingRight"}]
   GETIMPORT R18 K41 [UDim.new]
   LOADN R19 0
   LOADN R20 16

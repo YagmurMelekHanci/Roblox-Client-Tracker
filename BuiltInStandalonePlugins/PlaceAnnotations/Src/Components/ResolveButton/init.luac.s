@@ -10,14 +10,21 @@ PROTO_0:
   SETTABLE R5 R3 R4
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K5 ["Tag"]
-  LOADK R5 K6 ["Component-ResolveButton"]
+  GETUPVAL R5 1
+  LOADK R6 K6 ["Component-ResolveButton"]
+  GETTABLEKS R8 R0 K7 ["Resolved"]
+  JUMPIFNOT R8 [+2]
+  LOADK R7 K7 ["Resolved"]
+  JUMP [+1]
+  LOADNIL R7
+  CALL R5 2 1
   SETTABLE R5 R3 R4
-  DUPTABLE R4 K8 [{"Icon"}]
+  DUPTABLE R4 K9 [{"Icon"}]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K9 ["ImageLabel"]
+  LOADK R6 K10 ["ImageLabel"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K7 ["Icon"]
+  SETTABLEKS R5 R4 K8 ["Icon"]
   CALL R1 3 -1
   RETURN R1 -1
 
@@ -31,6 +38,13 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_0]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K9 ["Styling"]
+  GETTABLEKS R3 R4 K10 ["joinTags"]
+  DUPCLOSURE R4 K11 [PROTO_0]
   CAPTURE VAL R1
-  RETURN R2 1
+  CAPTURE VAL R3
+  RETURN R4 1

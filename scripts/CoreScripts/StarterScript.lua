@@ -21,7 +21,7 @@ if FFlagDebugCoreScriptRoactInspector then
 		and game:GetService("StudioService"):HasInternalPermission()
 
 	if hasInternalPermission then
-		local DeveloperTools = require(CorePackages.DeveloperTools)
+		local DeveloperTools = require(CorePackages.Packages.Dev.DeveloperTools)
 		local inspector = DeveloperTools.forCoreGui("Core UI", {
 			rootInstance = "RobloxGui",
 		})
@@ -87,6 +87,8 @@ local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement"
 local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagCoreGuiEnableAnalytics = game:DefineFastFlag("CoreGuiEnableAnalytics", false)
 local FFlagEnableExperienceGenericChallengeRendering = game:DefineFastFlag("EnableExperienceGenericChallengeRendering", false)
+
+local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -501,6 +503,9 @@ if FFlagEnableCancelSubscriptionApp and FFlagEnableCancelSubscriptionAppLua then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CancelSubscriptionApp", RobloxGui)
 end
 
+if FFlagEnableRobloxCommerce then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/CommercePurchaseApp", RobloxGui)
+end
 if FFlagCoreGuiEnableAnalytics then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CoreGuiEnableAnalytics", RobloxGui)
 end
@@ -519,4 +524,13 @@ if FFlagEnableExperienceGenericChallengeRendering then
 		local initChallengeInterceptor = require(CorePackages.Workspace.Packages.GenericChallenges).Middleware.InitExperienceChallengeInterceptor
 		initChallengeInterceptor()
 	end)()
+end
+
+local ReactPerfTracker = require(CoreGuiModules.Common.ReactPerfTracker)
+if ReactPerfTracker then
+	local reactPerfTracker = ReactPerfTracker.new()
+	-- delay for 5 seconds to reduce startup noise
+	task.delay(5, function()
+		reactPerfTracker:start()
+	end)
 end

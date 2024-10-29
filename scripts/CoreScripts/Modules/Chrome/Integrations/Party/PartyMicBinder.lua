@@ -1,3 +1,5 @@
+local Chrome = script:FindFirstAncestor("Chrome")
+
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
@@ -7,9 +9,9 @@ local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 
 local dependencyArray = RoactUtils.Hooks.dependencyArray
 
-local ChromeEnabled = require(script.Parent.Parent.Parent.Enabled)
-local ChromeService = if ChromeEnabled() then require(script.Parent.Parent.Parent.Service) else nil
-local Constants = require(script.Parent.Constants)
+local ChromeEnabled = require(Chrome.Enabled)
+local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
+local Constants = require(Chrome.Integrations.Party.Constants)
 local useIsVoiceFocused = CrossExperienceVoice.Hooks.useIsVoiceFocused
 local useIsVoiceConnected = CrossExperienceVoice.Hooks.useIsVoiceConnected
 

@@ -10,367 +10,335 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  GETIMPORT R3 K11 [game]
-  LOADK R5 K12 ["LuaRibbonSocialPresence"]
-  NAMECALL R3 R3 K13 ["GetFastFlag"]
-  CALL R3 2 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K14 ["Src"]
-  GETTABLEKS R6 R7 K15 ["SharedFlags"]
-  GETTABLEKS R5 R6 K16 ["getFFlagLuaRibbonSocialPresenceBGColorUpdate"]
+  NEWTABLE R3 128 0
+  GETIMPORT R4 K12 [Vector2.new]
+  LOADK R5 K13 [0.5]
+  LOADK R6 K13 [0.5]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K14 ["AnchorCenter"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K15 ["BorderNone"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K16 ["BorderMedium"]
+  GETIMPORT R4 K19 [UDim2.fromOffset]
+  LOADN R5 24
+  LOADN R6 24
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K20 ["AvatarXS"]
+  GETIMPORT R4 K19 [UDim2.fromOffset]
+  LOADN R5 16
+  LOADN R6 16
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K21 ["IconSmall"]
+  GETIMPORT R4 K19 [UDim2.fromOffset]
+  LOADN R5 24
+  LOADN R6 24
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K22 ["IconLarge"]
+  GETIMPORT R4 K24 [UDim2.fromScale]
+  LOADK R5 K13 [0.5]
+  LOADK R6 K13 [0.5]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K25 ["PositionCenter"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K26 ["BackgroundTransparent"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K27 ["BackgroundNonTransparent"]
+  LOADK R4 K13 [0.5]
+  SETTABLEKS R4 R3 K28 ["HalfTransparent"]
+  LOADK R4 K29 [0.62]
+  SETTABLEKS R4 R3 K30 ["IconDisabled"]
+  LOADK R4 K31 [0.4]
+  SETTABLEKS R4 R3 K32 ["IconMuted"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 4
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K35 ["GlobalRadiusXSmall"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 6
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K36 ["GlobalRadiusSmall"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 8
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K37 ["GlobalRadiusMedium"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 100
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K38 ["GlobalRadiusCircle"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 2
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K39 ["GlobalSpace25"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 4
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K40 ["GlobalSpace50"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 6
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K41 ["GlobalSpace75"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 8
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K42 ["GlobalSpace100"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 12
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K43 ["GlobalSpace150"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 16
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K44 ["GlobalSpace200"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 20
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K45 ["GlobalSpace250"]
+  GETIMPORT R4 K34 [UDim.new]
+  LOADN R5 0
+  LOADN R6 28
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K46 ["GlobalSpace350"]
+  LOADN R4 10
+  SETTABLEKS R4 R3 K47 ["FontSize25"]
+  LOADN R4 12
+  SETTABLEKS R4 R3 K48 ["FontSize50"]
+  LOADN R4 14
+  SETTABLEKS R4 R3 K49 ["FontSize75"]
+  LOADN R4 16
+  SETTABLEKS R4 R3 K50 ["FontSize100"]
+  LOADN R4 18
+  SETTABLEKS R4 R3 K51 ["FontSize150"]
+  LOADN R4 20
+  SETTABLEKS R4 R3 K52 ["FontSize200"]
+  LOADN R4 24
+  SETTABLEKS R4 R3 K53 ["FontSize300"]
+  GETIMPORT R4 K57 [Enum.Font.SourceSans]
+  SETTABLEKS R4 R3 K58 ["FontWeight400"]
+  GETIMPORT R4 K60 [Enum.Font.SourceSansBold]
+  SETTABLEKS R4 R3 K61 ["FontWeight700"]
+  GETIMPORT R4 K63 [ColorSequence.new]
+  GETIMPORT R5 K66 [Color3.fromHex]
+  LOADK R6 K67 ["#000000"]
+  CALL R5 1 -1
+  CALL R4 -1 1
+  SETTABLEKS R4 R3 K68 ["SemanticColorStateLayerPressGradient"]
+  LOADN R4 45
+  SETTABLEKS R4 R3 K69 ["SemanticColorStateLayerPressGradientRotation"]
+  GETIMPORT R4 K71 [NumberSequence.new]
+  NEWTABLE R5 0 3
+  GETIMPORT R6 K73 [NumberSequenceKeypoint.new]
+  LOADN R7 0
+  LOADN R8 1
+  CALL R6 2 1
+  GETIMPORT R7 K73 [NumberSequenceKeypoint.new]
+  LOADK R8 K13 [0.5]
+  LOADN R9 1
+  CALL R7 2 1
+  GETIMPORT R8 K73 [NumberSequenceKeypoint.new]
+  LOADN R9 1
+  LOADK R10 K74 [0.84]
+  CALL R8 2 -1
+  SETLIST R5 R6 -1 [1]
   CALL R4 1 1
-  CALL R4 0 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K14 ["Src"]
-  GETTABLEKS R7 R8 K15 ["SharedFlags"]
-  GETTABLEKS R6 R7 K17 ["getFFlagLoginAvatarThumbnail"]
-  CALL R5 1 1
-  CALL R5 0 1
-  NEWTABLE R6 128 0
-  JUMPIF R3 [+1]
-  JUMPIFNOT R5 [+6]
-  GETIMPORT R7 K20 [Vector2.new]
-  LOADK R8 K21 [0.5]
-  LOADK R9 K21 [0.5]
-  CALL R7 2 1
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K22 ["AnchorCenter"]
+  SETTABLEKS R4 R3 K75 ["SemanticColorStateLayerPressGradientTransparency"]
+  GETIMPORT R4 K63 [ColorSequence.new]
+  GETIMPORT R5 K66 [Color3.fromHex]
+  LOADK R6 K67 ["#000000"]
+  CALL R5 1 -1
+  CALL R4 -1 1
+  SETTABLEKS R4 R3 K76 ["SemanticColorStateLayerHoverGradient"]
+  LOADN R4 45
+  SETTABLEKS R4 R3 K77 ["SemanticColorStateLayerHoverGradientRotation"]
+  GETIMPORT R4 K71 [NumberSequence.new]
+  NEWTABLE R5 0 3
+  GETIMPORT R6 K73 [NumberSequenceKeypoint.new]
   LOADN R7 0
-  SETTABLEKS R7 R6 K23 ["BorderNone"]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K24 ["BorderMedium"]
-  JUMPIF R3 [+1]
-  JUMPIFNOT R5 [+6]
-  GETIMPORT R7 K27 [UDim2.fromOffset]
-  LOADN R8 24
-  LOADN R9 24
+  LOADN R8 1
+  CALL R6 2 1
+  GETIMPORT R7 K73 [NumberSequenceKeypoint.new]
+  LOADK R8 K13 [0.5]
+  LOADN R9 1
   CALL R7 2 1
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K28 ["AvatarXS"]
-  GETIMPORT R7 K27 [UDim2.fromOffset]
-  LOADN R8 16
-  LOADN R9 16
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K29 ["IconSmall"]
-  GETIMPORT R7 K27 [UDim2.fromOffset]
-  LOADN R8 24
-  LOADN R9 24
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K30 ["IconLarge"]
-  JUMPIF R3 [+1]
-  JUMPIFNOT R5 [+6]
-  GETIMPORT R7 K32 [UDim2.fromScale]
-  LOADK R8 K21 [0.5]
-  LOADK R9 K21 [0.5]
-  CALL R7 2 1
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K33 ["PositionCenter"]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K34 ["BackgroundTransparent"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K35 ["BackgroundNonTransparent"]
-  LOADK R7 K21 [0.5]
-  SETTABLEKS R7 R6 K36 ["HalfTransparent"]
-  LOADK R7 K37 [0.62]
-  SETTABLEKS R7 R6 K38 ["IconDisabled"]
-  LOADK R7 K39 [0.4]
-  SETTABLEKS R7 R6 K40 ["IconMuted"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 4
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K43 ["GlobalRadiusXSmall"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 6
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K44 ["GlobalRadiusSmall"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 8
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K45 ["GlobalRadiusMedium"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 100
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K46 ["GlobalRadiusCircle"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 2
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K47 ["GlobalSpace25"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 4
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K48 ["GlobalSpace50"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 6
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K49 ["GlobalSpace75"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 8
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K50 ["GlobalSpace100"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 12
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K51 ["GlobalSpace150"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 16
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K52 ["GlobalSpace200"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 20
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K53 ["GlobalSpace250"]
-  GETIMPORT R7 K42 [UDim.new]
-  LOADN R8 0
-  LOADN R9 28
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K54 ["GlobalSpace350"]
-  LOADN R7 10
-  SETTABLEKS R7 R6 K55 ["FontSize25"]
-  LOADN R7 12
-  SETTABLEKS R7 R6 K56 ["FontSize50"]
-  LOADN R7 14
-  SETTABLEKS R7 R6 K57 ["FontSize75"]
-  LOADN R7 16
-  SETTABLEKS R7 R6 K58 ["FontSize100"]
-  LOADN R7 18
-  SETTABLEKS R7 R6 K59 ["FontSize150"]
-  LOADN R7 20
-  SETTABLEKS R7 R6 K60 ["FontSize200"]
-  LOADN R7 24
-  SETTABLEKS R7 R6 K61 ["FontSize300"]
-  GETIMPORT R7 K65 [Enum.Font.SourceSans]
-  SETTABLEKS R7 R6 K66 ["FontWeight400"]
-  GETIMPORT R7 K68 [Enum.Font.SourceSansBold]
-  SETTABLEKS R7 R6 K69 ["FontWeight700"]
-  GETIMPORT R7 K71 [ColorSequence.new]
-  GETIMPORT R8 K74 [Color3.fromHex]
-  LOADK R9 K75 ["#000000"]
-  CALL R8 1 -1
-  CALL R7 -1 1
-  SETTABLEKS R7 R6 K76 ["SemanticColorStateLayerPressGradient"]
-  LOADN R7 45
-  SETTABLEKS R7 R6 K77 ["SemanticColorStateLayerPressGradientRotation"]
-  GETIMPORT R7 K79 [NumberSequence.new]
-  NEWTABLE R8 0 3
-  GETIMPORT R9 K81 [NumberSequenceKeypoint.new]
-  LOADN R10 0
-  LOADN R11 1
-  CALL R9 2 1
-  GETIMPORT R10 K81 [NumberSequenceKeypoint.new]
-  LOADK R11 K21 [0.5]
-  LOADN R12 1
-  CALL R10 2 1
-  GETIMPORT R11 K81 [NumberSequenceKeypoint.new]
-  LOADN R12 1
-  LOADK R13 K82 [0.84]
-  CALL R11 2 -1
-  SETLIST R8 R9 -1 [1]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K83 ["SemanticColorStateLayerPressGradientTransparency"]
-  GETIMPORT R7 K71 [ColorSequence.new]
-  GETIMPORT R8 K74 [Color3.fromHex]
-  LOADK R9 K75 ["#000000"]
-  CALL R8 1 -1
-  CALL R7 -1 1
-  SETTABLEKS R7 R6 K84 ["SemanticColorStateLayerHoverGradient"]
-  LOADN R7 45
-  SETTABLEKS R7 R6 K85 ["SemanticColorStateLayerHoverGradientRotation"]
-  GETIMPORT R7 K79 [NumberSequence.new]
-  NEWTABLE R8 0 3
-  GETIMPORT R9 K81 [NumberSequenceKeypoint.new]
-  LOADN R10 0
-  LOADN R11 1
-  CALL R9 2 1
-  GETIMPORT R10 K81 [NumberSequenceKeypoint.new]
-  LOADK R11 K21 [0.5]
-  LOADN R12 1
-  CALL R10 2 1
-  GETIMPORT R11 K81 [NumberSequenceKeypoint.new]
-  LOADN R12 1
-  LOADK R13 K86 [0.92]
-  CALL R11 2 -1
-  SETLIST R8 R9 -1 [1]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K87 ["SemanticColorStateLayerHoverGradientTransparency"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K88 ["#111216"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K89 ["SemanticColorActionPrimaryFill"]
-  JUMPIF R4 [+1]
-  JUMPIFNOT R5 [+5]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K90 ["#E5E5E6"]
-  CALL R7 1 1
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K91 ["SemanticColorComponentMediaFill"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K92 ["#BBBCBE"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K93 ["SemanticColorContentDisabled"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K94 ["#696A6D"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K95 ["SemanticColorContentMuted"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K88 ["#111216"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K96 ["SemanticColorContentStandard"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K97 ["#F9F9F9"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K98 ["SemanticColorContentStandardInverse"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K99 ["#FFFFFF"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K100 ["SemanticColorContentStaticLight"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K101 ["#333B4C"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K102 ["SemanticColorComponentInputFill"]
-  LOADK R7 K86 [0.92]
-  SETTABLEKS R7 R6 K103 ["SemanticColorComponentInputFillTransparency"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K101 ["#333B4C"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K104 ["SemanticColorComponentInputHover"]
-  LOADK R7 K82 [0.84]
-  SETTABLEKS R7 R6 K105 ["SemanticColorComponentInputHoverTransparency"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K75 ["#000000"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K106 ["SemanticColorDivider"]
-  LOADK R7 K107 [0.88]
-  SETTABLEKS R7 R6 K108 ["SemanticColorDividerTransparency"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K109 ["#3C64FA"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K110 ["SemanticColorFocusBorderPrimaryBrand"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K101 ["#333B4C"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K111 ["SemanticColorStatesHover"]
-  LOADK R7 K112 [0.94]
-  SETTABLEKS R7 R6 K113 ["SemanticColorStatesHoverTransparency"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K75 ["#000000"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K114 ["SemanticColorStateLayerHover"]
-  LOADK R7 K86 [0.92]
-  SETTABLEKS R7 R6 K115 ["SemanticColorStateLayerHoverTransparency"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K75 ["#000000"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K116 ["SemanticColorStateLayerPress"]
-  LOADK R7 K82 [0.84]
-  SETTABLEKS R7 R6 K117 ["SemanticColorStateLayerPressTransparency"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K99 ["#FFFFFF"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K118 ["SemanticColorStateLayerHoverInverse"]
-  LOADK R7 K86 [0.92]
-  SETTABLEKS R7 R6 K119 ["SemanticColorStateLayerHoverTransparencyInverse"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K99 ["#FFFFFF"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K120 ["SemanticColorStateLayerPressInverse"]
-  LOADK R7 K82 [0.84]
-  SETTABLEKS R7 R6 K121 ["SemanticColorStateLayerPressTransparencyInverse"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K99 ["#FFFFFF"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K122 ["SemanticColorSurface100"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K99 ["#FFFFFF"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K123 ["SemanticColorSurface200"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K124 ["#F2F2F3"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K125 ["SemanticColorSurface300"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K126 ["#2B2D33"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K127 ["SemanticColorSurface300Inverse"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K101 ["#333B4C"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K128 ["SemanticColorStatesSelected"]
-  LOADK R7 K107 [0.88]
-  SETTABLEKS R7 R6 K129 ["SemanticColorStatesSelectedTransparency"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K99 ["#FFFFFF"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K130 ["DEPRECATED_MainBackground"]
-  GETIMPORT R7 K74 [Color3.fromHex]
-  LOADK R8 K99 ["#FFFFFF"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K131 ["White"]
-  LOADK R7 K132 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonArrowDownAngleSmall.png"]
-  SETTABLEKS R7 R6 K133 ["ArrowDownAngleSmall"]
-  LOADK R7 K134 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonArrowRightSmall.png"]
-  SETTABLEKS R7 R6 K135 ["ArrowRightSmall"]
-  LOADK R7 K136 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowDown.png"]
-  SETTABLEKS R7 R6 K137 ["ArrowDown"]
-  LOADK R7 K138 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowUp.png"]
-  SETTABLEKS R7 R6 K139 ["ArrowUp"]
-  LOADK R7 K140 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxCheckedDefaultSmall.png"]
-  SETTABLEKS R7 R6 K141 ["CheckboxCheckedDefault"]
-  LOADK R7 K142 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxCheckedDisabledSmall.png"]
-  SETTABLEKS R7 R6 K143 ["CheckboxCheckedDisabled"]
-  LOADK R7 K144 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxMixDefaultSmall.png"]
-  SETTABLEKS R7 R6 K145 ["CheckboxMixDefault"]
-  LOADK R7 K146 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxMixDisabledSmall.png"]
-  SETTABLEKS R7 R6 K147 ["CheckboxMixDisabled"]
-  LOADK R7 K148 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxOffDefaultSmall.png"]
-  SETTABLEKS R7 R6 K149 ["CheckboxOffDefault"]
-  LOADK R7 K150 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxOffDisabledSmall.png"]
-  SETTABLEKS R7 R6 K151 ["CheckboxOffDisabled"]
-  LOADK R7 K152 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxOffHoverSmall.png"]
-  SETTABLEKS R7 R6 K153 ["CheckboxOffHover"]
-  LOADK R7 K154 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonCheckedDefaultSmall.png"]
-  SETTABLEKS R7 R6 K155 ["RadioButtonCheckedDefault"]
-  LOADK R7 K156 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonCheckedDisabledSmall.png"]
-  SETTABLEKS R7 R6 K157 ["RadioButtonCheckedDisabled"]
-  LOADK R7 K158 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonUncheckedDefaultSmall.png"]
-  SETTABLEKS R7 R6 K159 ["RadioButtonUncheckedDefault"]
-  LOADK R7 K160 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonUncheckedDisabledSmall.png"]
-  SETTABLEKS R7 R6 K161 ["RadioButtonUncheckedDisabled"]
-  LOADK R7 K162 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonUncheckedHoverSmall.png"]
-  SETTABLEKS R7 R6 K163 ["RadioButtonUncheckedHover"]
-  LOADK R7 K164 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerUpDefaultSmall.png"]
-  SETTABLEKS R7 R6 K165 ["SpinboxControllerUpDefault"]
-  LOADK R7 K166 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerUpDisabledSmall.png"]
-  SETTABLEKS R7 R6 K167 ["SpinboxControllerUpDisabled"]
-  LOADK R7 K168 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerUpHoverSmall.png"]
-  SETTABLEKS R7 R6 K169 ["SpinboxControllerUpHover"]
-  LOADK R7 K170 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerDownDefaultSmall.png"]
-  SETTABLEKS R7 R6 K171 ["SpinboxControllerDownDefault"]
-  LOADK R7 K172 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerDownDisabledSmall.png"]
-  SETTABLEKS R7 R6 K173 ["SpinboxControllerDownDisabled"]
-  LOADK R7 K174 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerDownHoverSmall.png"]
-  SETTABLEKS R7 R6 K175 ["SpinboxControllerDownHover"]
-  LOADK R7 K176 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Light/Standard/AddCollaborator.png"]
-  SETTABLEKS R7 R6 K177 ["AddCollaborator"]
-  LOADK R7 K178 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Light/Standard/AddCollaboratorInverse.png"]
-  SETTABLEKS R7 R6 K179 ["AddCollaboratorInverse"]
-  MOVE R7 R2
-  LOADK R8 K180 ["RibbonLightTheme"]
-  NEWTABLE R9 0 0
-  MOVE R10 R6
-  CALL R7 3 -1
-  RETURN R7 -1
+  GETIMPORT R8 K73 [NumberSequenceKeypoint.new]
+  LOADN R9 1
+  LOADK R10 K78 [0.92]
+  CALL R8 2 -1
+  SETLIST R5 R6 -1 [1]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K79 ["SemanticColorStateLayerHoverGradientTransparency"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K80 ["#111216"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K81 ["SemanticColorActionPrimaryFill"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K82 ["#E5E5E6"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K83 ["SemanticColorComponentMediaFill"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K84 ["#BBBCBE"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K85 ["SemanticColorContentDisabled"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K86 ["#696A6D"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K87 ["SemanticColorContentMuted"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K80 ["#111216"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K88 ["SemanticColorContentStandard"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K89 ["#F9F9F9"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K90 ["SemanticColorContentStandardInverse"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K91 ["#FFFFFF"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K92 ["SemanticColorContentStaticLight"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K93 ["#333B4C"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K94 ["SemanticColorComponentInputFill"]
+  LOADK R4 K78 [0.92]
+  SETTABLEKS R4 R3 K95 ["SemanticColorComponentInputFillTransparency"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K93 ["#333B4C"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K96 ["SemanticColorComponentInputHover"]
+  LOADK R4 K74 [0.84]
+  SETTABLEKS R4 R3 K97 ["SemanticColorComponentInputHoverTransparency"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K67 ["#000000"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K98 ["SemanticColorDivider"]
+  LOADK R4 K99 [0.88]
+  SETTABLEKS R4 R3 K100 ["SemanticColorDividerTransparency"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K101 ["#3C64FA"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K102 ["SemanticColorFocusBorderPrimaryBrand"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K93 ["#333B4C"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K103 ["SemanticColorStatesHover"]
+  LOADK R4 K104 [0.94]
+  SETTABLEKS R4 R3 K105 ["SemanticColorStatesHoverTransparency"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K67 ["#000000"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K106 ["SemanticColorStateLayerHover"]
+  LOADK R4 K78 [0.92]
+  SETTABLEKS R4 R3 K107 ["SemanticColorStateLayerHoverTransparency"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K67 ["#000000"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K108 ["SemanticColorStateLayerPress"]
+  LOADK R4 K74 [0.84]
+  SETTABLEKS R4 R3 K109 ["SemanticColorStateLayerPressTransparency"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K91 ["#FFFFFF"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K110 ["SemanticColorStateLayerHoverInverse"]
+  LOADK R4 K78 [0.92]
+  SETTABLEKS R4 R3 K111 ["SemanticColorStateLayerHoverTransparencyInverse"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K91 ["#FFFFFF"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K112 ["SemanticColorStateLayerPressInverse"]
+  LOADK R4 K74 [0.84]
+  SETTABLEKS R4 R3 K113 ["SemanticColorStateLayerPressTransparencyInverse"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K91 ["#FFFFFF"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K114 ["SemanticColorSurface100"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K91 ["#FFFFFF"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K115 ["SemanticColorSurface200"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K116 ["#F2F2F3"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K117 ["SemanticColorSurface300"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K118 ["#2B2D33"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K119 ["SemanticColorSurface300Inverse"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K93 ["#333B4C"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K120 ["SemanticColorStatesSelected"]
+  LOADK R4 K99 [0.88]
+  SETTABLEKS R4 R3 K121 ["SemanticColorStatesSelectedTransparency"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K91 ["#FFFFFF"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K122 ["DEPRECATED_MainBackground"]
+  GETIMPORT R4 K66 [Color3.fromHex]
+  LOADK R5 K91 ["#FFFFFF"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K123 ["White"]
+  LOADK R4 K124 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonArrowDownAngleSmall.png"]
+  SETTABLEKS R4 R3 K125 ["ArrowDownAngleSmall"]
+  LOADK R4 K126 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonArrowRightSmall.png"]
+  SETTABLEKS R4 R3 K127 ["ArrowRightSmall"]
+  LOADK R4 K128 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowDown.png"]
+  SETTABLEKS R4 R3 K129 ["ArrowDown"]
+  LOADK R4 K130 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowUp.png"]
+  SETTABLEKS R4 R3 K131 ["ArrowUp"]
+  LOADK R4 K132 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxCheckedDefaultSmall.png"]
+  SETTABLEKS R4 R3 K133 ["CheckboxCheckedDefault"]
+  LOADK R4 K134 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxCheckedDisabledSmall.png"]
+  SETTABLEKS R4 R3 K135 ["CheckboxCheckedDisabled"]
+  LOADK R4 K136 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxMixDefaultSmall.png"]
+  SETTABLEKS R4 R3 K137 ["CheckboxMixDefault"]
+  LOADK R4 K138 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxMixDisabledSmall.png"]
+  SETTABLEKS R4 R3 K139 ["CheckboxMixDisabled"]
+  LOADK R4 K140 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxOffDefaultSmall.png"]
+  SETTABLEKS R4 R3 K141 ["CheckboxOffDefault"]
+  LOADK R4 K142 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxOffDisabledSmall.png"]
+  SETTABLEKS R4 R3 K143 ["CheckboxOffDisabled"]
+  LOADK R4 K144 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonCheckboxOffHoverSmall.png"]
+  SETTABLEKS R4 R3 K145 ["CheckboxOffHover"]
+  LOADK R4 K146 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonCheckedDefaultSmall.png"]
+  SETTABLEKS R4 R3 K147 ["RadioButtonCheckedDefault"]
+  LOADK R4 K148 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonCheckedDisabledSmall.png"]
+  SETTABLEKS R4 R3 K149 ["RadioButtonCheckedDisabled"]
+  LOADK R4 K150 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonUncheckedDefaultSmall.png"]
+  SETTABLEKS R4 R3 K151 ["RadioButtonUncheckedDefault"]
+  LOADK R4 K152 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonUncheckedDisabledSmall.png"]
+  SETTABLEKS R4 R3 K153 ["RadioButtonUncheckedDisabled"]
+  LOADK R4 K154 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonRadioButtonUncheckedHoverSmall.png"]
+  SETTABLEKS R4 R3 K155 ["RadioButtonUncheckedHover"]
+  LOADK R4 K156 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerUpDefaultSmall.png"]
+  SETTABLEKS R4 R3 K157 ["SpinboxControllerUpDefault"]
+  LOADK R4 K158 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerUpDisabledSmall.png"]
+  SETTABLEKS R4 R3 K159 ["SpinboxControllerUpDisabled"]
+  LOADK R4 K160 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerUpHoverSmall.png"]
+  SETTABLEKS R4 R3 K161 ["SpinboxControllerUpHover"]
+  LOADK R4 K162 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerDownDefaultSmall.png"]
+  SETTABLEKS R4 R3 K163 ["SpinboxControllerDownDefault"]
+  LOADK R4 K164 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerDownDisabledSmall.png"]
+  SETTABLEKS R4 R3 K165 ["SpinboxControllerDownDisabled"]
+  LOADK R4 K166 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonSpinboxControllerDownHoverSmall.png"]
+  SETTABLEKS R4 R3 K167 ["SpinboxControllerDownHover"]
+  LOADK R4 K168 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Light/Standard/AddCollaborator.png"]
+  SETTABLEKS R4 R3 K169 ["AddCollaborator"]
+  LOADK R4 K170 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Light/Standard/AddCollaboratorInverse.png"]
+  SETTABLEKS R4 R3 K171 ["AddCollaboratorInverse"]
+  MOVE R4 R2
+  LOADK R5 K172 ["RibbonLightTheme"]
+  NEWTABLE R6 0 0
+  MOVE R7 R3
+  CALL R4 3 -1
+  RETURN R4 -1

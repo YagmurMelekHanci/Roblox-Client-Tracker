@@ -1,20 +1,21 @@
+local Chrome = script:FindFirstAncestor("Chrome")
+
 local CorePackages = game:GetService("CorePackages")
 
 local React = require(CorePackages.Packages.React)
-local ChromeService = require(script.Parent.Parent.Service)
+local ChromeService = require(Chrome.Service)
 local ConnectIcon = require(script.ConnectIcon)
 local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
-local LocalStore = require(script.Parent.Parent.Service.LocalStore)
+local LocalStore = require(Chrome.Service.LocalStore)
 
 local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
-	require(script.Parent.Parent.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
-local GetFStringConnectTooltipLocalStorageKey =
-	require(script.Parent.Parent.Flags.GetFStringConnectTooltipLocalStorageKey)
-local FFlagEnableUnibarFtuxTooltips = require(script.Parent.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+	require(Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
+local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
+local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
 
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local Symbol = require(CorePackages.Symbol)

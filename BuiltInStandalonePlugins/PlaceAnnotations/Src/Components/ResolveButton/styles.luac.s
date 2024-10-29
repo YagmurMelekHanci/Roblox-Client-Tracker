@@ -48,7 +48,7 @@ MAIN:
   JUMP [+1]
   LOADK R7 K34 [0.3]
   SETTABLEKS R7 R6 K18 ["BackgroundTransparency"]
-  NEWTABLE R7 0 4
+  NEWTABLE R7 0 5
   MOVE R8 R2
   LOADK R9 K35 [":hover"]
   DUPTABLE R10 K36 [{"BackgroundColor3", "BackgroundTransparency"}]
@@ -112,7 +112,19 @@ MAIN:
   SETTABLEKS R14 R13 K14 ["Size"]
   LOADN R14 1
   SETTABLEKS R14 R13 K18 ["BackgroundTransparency"]
-  CALL R11 2 -1
+  CALL R11 2 1
+  MOVE R12 R2
+  LOADK R13 K51 [".Resolved"]
+  NEWTABLE R14 0 0
+  NEWTABLE R15 0 1
+  MOVE R16 R2
+  LOADK R17 K47 ["> ImageLabel"]
+  DUPTABLE R18 K52 [{"Image"}]
+  LOADK R19 K53 ["$ResolveIconResolved"]
+  SETTABLEKS R19 R18 K48 ["Image"]
+  CALL R16 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 -1
   SETLIST R7 R8 -1 [1]
   CALL R4 3 -1
   RETURN R4 -1

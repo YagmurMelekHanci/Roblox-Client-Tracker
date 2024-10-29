@@ -10,6 +10,7 @@ local FFlagSendLikelySpeakingUsers = game:DefineFastFlag("SendLikelySpeakingUser
 local FFlagReceiveLikelySpeakingUsersEvent = game:DefineFastFlag("ReceiveLikelySpeakingUsersEventV3", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("VoiceDefaultUseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
+local FFlagUseGetAudioInstances = game:DefineFastFlag("VoiceDefaultUseGetAudioInstances", false)
 
 local function log(...)
 	if FFlagDebugLogVoiceDefault then
@@ -187,13 +188,25 @@ if (VoiceChatService :: any).UseNewAudioApi then
 		end)
 	end
 
-	for _, inst in game:GetDescendants() do
-		if inst:IsA("AudioDeviceInput") then
-			local device = inst :: AudioDeviceInput
-			if FFlagSetNewDeviceToFalse then
-				device.Active = false
+	if FFlagUseGetAudioInstances then
+		for _, inst in SoundService:GetAudioInstances() do
+			if inst:IsA("AudioDeviceInput") then
+				local device = inst :: AudioDeviceInput
+				if FFlagSetNewDeviceToFalse then
+					device.Active = false
+				end
+				trackDevice(device)
 			end
-			trackDevice(device)
+		end
+	else
+		for _, inst in game:GetDescendants() do
+			if inst:IsA("AudioDeviceInput") then
+				local device = inst :: AudioDeviceInput
+				if FFlagSetNewDeviceToFalse then
+					device.Active = false
+				end
+				trackDevice(device)
+			end
 		end
 	end
 

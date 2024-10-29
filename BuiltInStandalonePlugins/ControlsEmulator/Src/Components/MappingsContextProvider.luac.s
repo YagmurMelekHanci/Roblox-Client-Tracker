@@ -276,6 +276,19 @@ PROTO_3:
   CALL R2 2 -1
   CLOSEUPVALS R0
   RETURN R2 -1
+  GETTABLEKS R2 R1 K4 ["type"]
+  JUMPIFNOTEQKS R2 K42 ["SetVRActiveUserCFrame"] [+17]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K44 [{"vrActiveUserCFrame"}]
+  GETTABLEKS R6 R1 K6 ["payload"]
+  GETTABLEKS R5 R6 K43 ["vrActiveUserCFrame"]
+  SETTABLEKS R5 R4 K43 ["vrActiveUserCFrame"]
+  CALL R2 2 -1
+  CLOSEUPVALS R0
+  RETURN R2 -1
   CLOSEUPVALS R0
   RETURN R0 1
 
@@ -792,6 +805,32 @@ PROTO_19:
   RETURN R0 0
 
 PROTO_20:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["SetVRActiveUserCFrameAsync"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_21:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+6]
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CALL R1 1 0
+  GETUPVAL R1 2
+  DUPTABLE R2 K4 [{"type", "payload"}]
+  LOADK R3 K5 ["SetVRActiveUserCFrame"]
+  SETTABLEKS R3 R2 K2 ["type"]
+  DUPTABLE R3 K7 [{"vrActiveUserCFrame"}]
+  SETTABLEKS R0 R3 K6 ["vrActiveUserCFrame"]
+  SETTABLEKS R3 R2 K3 ["payload"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_22:
   GETUPVAL R1 0
   JUMPIF R1 [+6]
   GETUPVAL R3 1
@@ -801,7 +840,7 @@ PROTO_20:
   LOADB R1 1
   RETURN R1 1
 
-PROTO_21:
+PROTO_23:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["emulatedDeviceId"]
   GETTABLEKS R2 R0 K1 ["deviceId"]
@@ -861,7 +900,7 @@ PROTO_21:
   CALL R5 1 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_24:
   NEWCLOSURE R3 P0
   CAPTURE VAL R2
   NEWCLOSURE R4 P1
@@ -920,6 +959,10 @@ PROTO_22:
   CAPTURE UPVAL U5
   CAPTURE VAL R0
   NEWCLOSURE R13 P10
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U5
+  CAPTURE VAL R0
+  NEWCLOSURE R14 P11
   CAPTURE VAL R1
   CAPTURE UPVAL U3
   CAPTURE UPVAL U11
@@ -931,19 +974,20 @@ PROTO_22:
   CAPTURE UPVAL U8
   CAPTURE VAL R0
   CAPTURE VAL R6
-  DUPTABLE R14 K9 [{"connectGamepadId", "setMapping", "loadMappingsForGamepad", "setIsUpdatingMappingFor", "restoreDefaults", "saveMappings", "setIsMappingsDialogOpen", "setVRConnected", "changeEmulatedDevice"}]
-  SETTABLEKS R6 R14 K0 ["connectGamepadId"]
-  SETTABLEKS R8 R14 K1 ["setMapping"]
-  SETTABLEKS R4 R14 K2 ["loadMappingsForGamepad"]
-  SETTABLEKS R7 R14 K3 ["setIsUpdatingMappingFor"]
-  SETTABLEKS R9 R14 K4 ["restoreDefaults"]
-  SETTABLEKS R11 R14 K5 ["saveMappings"]
-  SETTABLEKS R10 R14 K6 ["setIsMappingsDialogOpen"]
-  SETTABLEKS R12 R14 K7 ["setVRConnected"]
-  SETTABLEKS R13 R14 K8 ["changeEmulatedDevice"]
-  RETURN R14 1
+  DUPTABLE R15 K10 [{"connectGamepadId", "setMapping", "loadMappingsForGamepad", "setIsUpdatingMappingFor", "restoreDefaults", "saveMappings", "setIsMappingsDialogOpen", "setVRConnected", "changeEmulatedDevice", "setVRActiveUserCFrame"}]
+  SETTABLEKS R6 R15 K0 ["connectGamepadId"]
+  SETTABLEKS R8 R15 K1 ["setMapping"]
+  SETTABLEKS R4 R15 K2 ["loadMappingsForGamepad"]
+  SETTABLEKS R7 R15 K3 ["setIsUpdatingMappingFor"]
+  SETTABLEKS R9 R15 K4 ["restoreDefaults"]
+  SETTABLEKS R11 R15 K5 ["saveMappings"]
+  SETTABLEKS R10 R15 K6 ["setIsMappingsDialogOpen"]
+  SETTABLEKS R12 R15 K7 ["setVRConnected"]
+  SETTABLEKS R14 R15 K8 ["changeEmulatedDevice"]
+  SETTABLEKS R13 R15 K9 ["setVRActiveUserCFrame"]
+  RETURN R15 1
 
-PROTO_23:
+PROTO_25:
   GETUPVAL R0 0
   GETUPVAL R1 1
   GETUPVAL R2 2
@@ -952,7 +996,7 @@ PROTO_23:
   CALL R0 3 1
   RETURN R0 1
 
-PROTO_24:
+PROTO_26:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["gamepadId"]
   GETUPVAL R1 1
@@ -963,7 +1007,7 @@ PROTO_24:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_27:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useReducer"]
   GETUPVAL R2 1
@@ -1108,7 +1152,7 @@ MAIN:
   CAPTURE VAL R5
   CAPTURE VAL R18
   CAPTURE VAL R19
-  DUPCLOSURE R25 K35 [PROTO_25]
+  DUPCLOSURE R25 K35 [PROTO_27]
   CAPTURE VAL R1
   CAPTURE VAL R22
   CAPTURE VAL R5

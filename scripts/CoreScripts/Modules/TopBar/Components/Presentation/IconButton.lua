@@ -14,6 +14,8 @@ local withStyle = UIBlox.Core.Style.withStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local Images = UIBlox.App.ImageSet.Images
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local TopBar = script.Parent.Parent.Parent
@@ -29,6 +31,7 @@ local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Paren
 local GetFFlagChromeUsePreferredTransparency = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
 
 local FFlagEnableTopBarIconButtonBackgroundProps = game:DefineFastFlag("EnableTopBarIconButtonBackgroundProps", false)
+local GetFFlagFixUnibarVirtualCursor = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagFixUnibarVirtualCursor)
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
@@ -99,6 +102,16 @@ function IconButton:init()
 end
 
 function IconButton:render()
+	if GetFFlagFixUnibarVirtualCursor() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
+	else
+		return self:renderWithSelectionCursor(nil)
+	end
+end
+
+function IconButton:renderWithSelectionCursor(getSelectionCursor)
 	local hasBackgroundFrame = FFlagEnableTopBarIconButtonBackgroundProps and not isNewTiltIconEnabled() and self.props.backgroundColor3
 	return withStyle(function(style: any)
 		local overlayTheme = {
@@ -125,6 +138,7 @@ function IconButton:render()
 			Size = UDim2.fromOffset(BACKGROUND_SIZE, BACKGROUND_SIZE),
 			Image = if not isNewTiltIconEnabled() then "rbxasset://textures/ui/TopBar/iconBase.png" else nil,
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
+			SelectionImageObject = if GetFFlagFixUnibarVirtualCursor() and isNewTiltIconEnabled() then getSelectionCursor(CursorKind.SelectedKnob) else nil,
 			[Roact.Event.Activated] = self.props.onActivated,
 			[Roact.Ref] = self.props.forwardRef,
 		}, {

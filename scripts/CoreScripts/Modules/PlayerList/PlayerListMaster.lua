@@ -42,7 +42,6 @@ local SetSubjectToChinaPolicies = require(PlayerList.Actions.SetSubjectToChinaPo
 local SetSettings = require(PlayerList.Actions.SetSettings)
 
 local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
-local FFlagPlayerListChangesForInspector = game:DefineFastFlag("PlayerListChangesForInspector", false)
 local FFlagRemoveSideBarABTest = require(PlayerList.Flags.FFlagRemoveSideBarABTest)
 local FFlagXboxRemoveLatentVoiceChatPrivilegeCheck = game:DefineFastFlag("XboxRemoveLatentVoiceChatPrivilegeCheck", false)
 
@@ -57,16 +56,6 @@ local function isSmallTouchScreen()
 		return false
 	end
 	return SettingsUtil:IsSmallTouchScreen()
-end
-
-local layerCollector
-if not FFlagPlayerListChangesForInspector then
-	layerCollector = Instance.new("ScreenGui")
-	layerCollector.Parent = CoreGui
-	layerCollector.Name = "PlayerList"
-	layerCollector.DisplayOrder = 1
-	layerCollector.IgnoreGuiInset = true
-	layerCollector.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 end
 
 local function setupSettings(store)
@@ -158,14 +147,10 @@ function PlayerListMaster.new()
 		Switcher = Roact.createElement(PlayerListSwitcher, {
 			appStyleForUiModeStyleProvider = appStyleForUiModeStyleProvider,
 			setLayerCollectorEnabled = function(enabled)
-				if FFlagPlayerListChangesForInspector then
-					if not self.layerCollectorRef.current then
-						return
-					end
-					self.layerCollectorRef.current.Enabled = enabled
-				else
-					layerCollector.Enabled = enabled
+				if not self.layerCollectorRef.current then
+					return
 				end
+				self.layerCollectorRef.current.Enabled = enabled
 			end,
 		})
 	})
@@ -178,17 +163,15 @@ function PlayerListMaster.new()
 		})
 	end
 
-	if FFlagPlayerListChangesForInspector then
-		self.root = Roact.createElement("ScreenGui", {
-			AutoLocalize = false,
-			IgnoreGuiInset = true,
-			DisplayOrder = 1,
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			[Roact.Ref] = self.layerCollectorRef,
-		}, {
-			PlayerListMaster = self.root
-		})
-	end
+	self.root = Roact.createElement("ScreenGui", {
+		AutoLocalize = false,
+		IgnoreGuiInset = true,
+		DisplayOrder = 1,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+		[Roact.Ref] = self.layerCollectorRef,
+	}, {
+		PlayerListMaster = self.root
+	})
 
 	if FFlagRemoveSideBarABTest then
 		self.root = Roact.createElement(RoactAppExperiment.Provider, {
@@ -198,8 +181,7 @@ function PlayerListMaster.new()
 		})
 	end
 
-	local parent = if FFlagPlayerListChangesForInspector then CoreGui else layerCollector
-	self.element = Roact.mount(self.root, parent, "PlayerList")
+	self.element = Roact.mount(self.root, CoreGui, "PlayerList")
 
 	self.topBarEnabled = true
 	self.mounted = true
@@ -221,13 +203,7 @@ function PlayerListMaster:_updateMounted()
 	if not TenFootInterface:IsEnabled() then
 		local shouldMount = self.coreGuiEnabled and self.topBarEnabled
 		if shouldMount and not self.mounted then
-			local root
-			if FFlagPlayerListChangesForInspector then
-				root = CoreGui
-			else
-				root = layerCollector	
-			end
-			self.element = Roact.mount(self.root, root, "PlayerList")
+			self.element = Roact.mount(self.root, CoreGui, "PlayerList")
 			self.mounted = true
 		elseif not shouldMount and self.mounted then
 			Roact.unmount(self.element)

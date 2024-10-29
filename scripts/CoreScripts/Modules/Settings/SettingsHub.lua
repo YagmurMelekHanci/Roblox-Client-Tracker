@@ -62,6 +62,7 @@ local BOTTOM_BUTTON_BAR_HEIGHT = 80
 local BOTTOM_BUTTON_10FT_SIZE = 72
 
 local CHECK_LEAVE_GAME_UPSELL_COOLDOWN = game:DefineFastInt("CheckLeaveGameUpsellCooldown", 300)
+local GET_SERVER_CHANNEL_RETRIES = game:DefineFastInt("GetServerChannelRetries", 10)
 
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
@@ -107,6 +108,7 @@ local FFlagCoreGuiFinalStateAnalytic = require(RobloxGui.Modules.Flags.FFlagCore
 local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagSettingsHubIndependentBackgroundVisibility = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagSettingsHubIndependentBackgroundVisibility()
 local FFlagAppChatReappearIfClosedByTiltMenu = game:DefineFastFlag("AppChatReappearIfClosedByTiltMenu", true)
+local FFlagInExperienceMenuResetButtonTextToRespawn = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuResetButtonTextToRespawn)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -202,6 +204,16 @@ if GetFFlagVoiceRecordingIndicatorsEnabled() then
 	}
 end
 
+--[[ Localization Package Initialization ]]
+local Localization
+if FFlagInExperienceMenuResetButtonTextToRespawn then
+	if GetFFlagSwitchInExpTranslationsPackage() then
+		Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+	else
+		Localization = require(RobloxGui.Modules.InGameMenu.Localization.Localization)
+	end
+end
+
 --[[ Localization Fixes for Version Labels]]
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
 local RobloxTranslator = nil
@@ -261,7 +273,7 @@ local function GetServerChannelBlocking()
 		return connectedServerChannel
 	end
 
-	local repeatTimes = 10
+	local repeatTimes = GET_SERVER_CHANNEL_RETRIES
 	if not GetServerChannelRemote then
 		repeat
 			task.wait()
@@ -447,6 +459,13 @@ local function CreateSettingsHub()
 		MicOff = "",
 		MicOn = "",
 	}
+
+	local localeId
+	local localization
+	if FFlagInExperienceMenuResetButtonTextToRespawn then
+		localeId = LocalizationService.RobloxLocaleId
+		localization = Localization.new(localeId)
+	end
 
 	local function pollVoiceTextLabel()
 		-- Lazy load and cache strings from IGMv3
@@ -2023,13 +2042,14 @@ local function CreateSettingsHub()
 			end
 		end
 
+		local RESET_TEXT = if FFlagInExperienceMenuResetButtonTextToRespawn then localization:Format(Constants.RespawnLocalizedKey) else "Reset Character"
 		if Theme.UseIconButtons then
-			addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", "Reset Character", buttonY,
+			addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", RESET_TEXT, buttonY,
 				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
 				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
 			)
 		else
-			addBottomBarButtonOld("ResetCharacter", "Reset Character", buttonY,
+			addBottomBarButtonOld("ResetCharacter", RESET_TEXT, buttonY,
 				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
 				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}, resetCharFunc
 			)

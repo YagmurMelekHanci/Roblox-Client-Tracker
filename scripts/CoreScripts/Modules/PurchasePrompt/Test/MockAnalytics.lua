@@ -8,7 +8,7 @@ local Analytics = require(Root.Services.Analytics)
 
 local CorePackages = game:GetService("CorePackages")
 
-local JestGlobals = require(CorePackages.JestGlobals)
+local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals)
 local jest = JestGlobals.jest
 
 local MockAnalytics = {}

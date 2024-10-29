@@ -33,6 +33,10 @@ local Constants = require(script.Parent.Parent.Constants)
 local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
 local PreviewViewport = require(Components.Common.PreviewViewport)
 local ValidationErrorModal = require(Components.ValidationErrorModal)
+local PurchasePrompt = require(RobloxGui.Modules.PurchasePrompt)
+local Analytics = PurchasePrompt.PublishAssetAnalytics
+
+local FFlagCoreScriptPublishAssetAnalytics = require(RobloxGui.Modules.Flags.FFlagCoreScriptPublishAssetAnalytics)
 
 local NAME_HEIGHT_PIXELS = 30
 local DISCLAIMER_HEIGHT_PIXELS = 50
@@ -117,6 +121,10 @@ function BasePublishPrompt:init()
 		self:setState({
 			showUnsavedDataWarning = true,
 		})
+
+		if FFlagCoreScriptPublishAssetAnalytics then
+			Analytics.sendButtonClicked(Analytics.Section.BuyCreationPage, Analytics.Element.X)
+		end
 	end
 
 	self.cancelClosePrompt = function()

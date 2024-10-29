@@ -179,61 +179,57 @@ PROTO_5:
   GETTABLEKS R13 R9 K6 ["item"]
   GETTABLEKS R12 R13 K7 ["source"]
   GETTABLEKS R11 R12 K8 ["type"]
-  JUMPIFNOTEQKS R11 K9 ["studioAction"] [+28]
-  DUPTABLE R13 K11 [{"type", "action"}]
-  LOADK R14 K10 ["action"]
+  JUMPIFNOTEQKS R11 K9 ["studioAction"] [+25]
+  GETTABLEKS R11 R1 K10 ["getStudioActionState"]
+  GETTABLEKS R14 R9 K6 ["item"]
+  GETTABLEKS R13 R14 K7 ["source"]
+  GETTABLEKS R12 R13 K11 ["uri"]
+  CALL R11 1 1
+  GETTABLEKS R12 R9 K12 ["index"]
+  DUPTABLE R13 K14 [{"type", "action"}]
+  LOADK R14 K13 ["action"]
   SETTABLEKS R14 R13 K8 ["type"]
-  DUPTABLE R14 K14 [{"key", "state"}]
-  SETTABLEKS R7 R14 K12 ["key"]
-  GETTABLEKS R15 R1 K15 ["getStudioActionState"]
-  GETTABLEKS R18 R9 K6 ["item"]
-  GETTABLEKS R17 R18 K7 ["source"]
-  GETTABLEKS R16 R17 K16 ["uri"]
-  CALL R15 1 1
-  SETTABLEKS R15 R14 K13 ["state"]
-  SETTABLEKS R14 R13 K10 ["action"]
-  FASTCALL2 TABLE_INSERT R10 R13 [+4]
-  MOVE R12 R10
-  GETIMPORT R11 K19 [table.insert]
-  CALL R11 2 0
-  JUMP [+75]
+  DUPTABLE R14 K17 [{"key", "state"}]
+  SETTABLEKS R7 R14 K15 ["key"]
+  SETTABLEKS R11 R14 K16 ["state"]
+  SETTABLEKS R14 R13 K13 ["action"]
+  SETTABLE R13 R10 R12
+  JUMP [+72]
   GETTABLEKS R13 R9 K6 ["item"]
   GETTABLEKS R12 R13 K7 ["source"]
   GETTABLEKS R11 R12 K8 ["type"]
-  JUMPIFNOTEQKS R11 K20 ["core"] [+42]
-  DUPTABLE R13 K11 [{"type", "action"}]
-  LOADK R14 K10 ["action"]
-  SETTABLEKS R14 R13 K8 ["type"]
-  DUPTABLE R14 K14 [{"key", "state"}]
-  SETTABLEKS R7 R14 K12 ["key"]
-  DUPTABLE R15 K26 [{"Text", "Icon", "Enabled", "Visible", "Shortcuts"}]
-  LOADK R17 K27 ["todo: i18n core item (%*)"]
-  MOVE R19 R7
-  NAMECALL R17 R17 K3 ["format"]
-  CALL R17 2 1
-  MOVE R16 R17
-  SETTABLEKS R16 R15 K21 ["Text"]
-  LOADK R16 K28 [""]
-  SETTABLEKS R16 R15 K22 ["Icon"]
-  GETTABLEKS R16 R8 K29 ["enabled"]
-  SETTABLEKS R16 R15 K23 ["Enabled"]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K24 ["Visible"]
-  NEWTABLE R16 0 0
-  SETTABLEKS R16 R15 K25 ["Shortcuts"]
-  SETTABLEKS R15 R14 K13 ["state"]
-  SETTABLEKS R14 R13 K10 ["action"]
-  FASTCALL2 TABLE_INSERT R10 R13 [+4]
-  MOVE R12 R10
-  GETIMPORT R11 K19 [table.insert]
-  CALL R11 2 0
+  JUMPIFNOTEQKS R11 K18 ["core"] [+39]
+  GETTABLEKS R11 R9 K12 ["index"]
+  DUPTABLE R12 K14 [{"type", "action"}]
+  LOADK R13 K13 ["action"]
+  SETTABLEKS R13 R12 K8 ["type"]
+  DUPTABLE R13 K17 [{"key", "state"}]
+  SETTABLEKS R7 R13 K15 ["key"]
+  DUPTABLE R14 K24 [{"Text", "Icon", "Enabled", "Visible", "Shortcuts"}]
+  LOADK R16 K25 ["todo: i18n core item (%*)"]
+  MOVE R18 R7
+  NAMECALL R16 R16 K3 ["format"]
+  CALL R16 2 1
+  MOVE R15 R16
+  SETTABLEKS R15 R14 K19 ["Text"]
+  LOADK R15 K26 [""]
+  SETTABLEKS R15 R14 K20 ["Icon"]
+  GETTABLEKS R15 R8 K27 ["enabled"]
+  SETTABLEKS R15 R14 K21 ["Enabled"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K22 ["Visible"]
+  NEWTABLE R15 0 0
+  SETTABLEKS R15 R14 K23 ["Shortcuts"]
+  SETTABLEKS R14 R13 K16 ["state"]
+  SETTABLEKS R13 R12 K13 ["action"]
+  SETTABLE R12 R10 R11
   JUMP [+26]
   GETTABLEKS R13 R9 K6 ["item"]
   GETTABLEKS R12 R13 K7 ["source"]
   GETTABLEKS R11 R12 K8 ["type"]
-  JUMPIFNOTEQKS R11 K30 ["submenu"] [+11]
+  JUMPIFNOTEQKS R11 K28 ["submenu"] [+11]
   GETIMPORT R11 K1 [error]
-  LOADK R13 K31 ["Submenu is being sent as something that is enabled, but this should just be real actions: %*"]
+  LOADK R13 K29 ["Submenu is being sent as something that is enabled, but this should just be real actions: %*"]
   MOVE R15 R7
   NAMECALL R13 R13 K3 ["format"]
   CALL R13 2 1
@@ -245,7 +241,7 @@ PROTO_5:
   GETTABLEKS R13 R14 K7 ["source"]
   GETTABLEKS R12 R13 K8 ["type"]
   CALL R11 1 0
-  FORGLOOP R4 2 [-130]
+  FORGLOOP R4 2 [-124]
   RETURN R2 1
 
 PROTO_6:

@@ -1,14 +1,16 @@
 --!strict
+local Chrome = script:FindFirstAncestor("Chrome")
+
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local ChromeService = require(script.Parent.Parent.Service)
-local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
-local LocalStore = require(script.Parent.Parent.Service.LocalStore)
+local ChromeService = require(Chrome.Service)
+local ChromeUtils = require(Chrome.Service.ChromeUtils)
+local LocalStore = require(Chrome.Service.LocalStore)
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local SocialService = game:GetService("SocialService")
 local StarterGui = game:GetService("StarterGui")
-local CommonIcon = require(script.Parent.CommonIcon)
+local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local MappedSignal = ChromeUtils.MappedSignal
 
 local CoreGui = game:GetService("CoreGui")
@@ -17,33 +19,33 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TopBar = RobloxGui.Modules.TopBar
 local TopBarConstants = require(TopBar.Constants)
 
-local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
+local SelfieViewModule = Chrome.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
-local GetFFlagTweakedMicPinning = require(script.Parent.Parent.Flags.GetFFlagTweakedMicPinning)
-local FFlagSelfViewFixes = require(script.Parent.Parent.Flags.GetFFlagSelfViewFixes)()
-local FFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)()
+local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
+local FFlagSelfViewFixes = require(Chrome.Flags.GetFFlagSelfViewFixes)()
+local FFlagEnableChromeFTUX = require(Chrome.Flags.GetFFlagEnableChromeFTUX)()
 local FFlagFixSelfViewPopin = game:DefineFastFlag("FixSelfViewPopin", false)
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
-local GetFFlagUseSelfieViewFlatIcon = require(script.Parent.Parent.Flags.GetFFlagUseSelfieViewFlatIcon)
+local GetFFlagUseSelfieViewFlatIcon = require(Chrome.Flags.GetFFlagUseSelfieViewFlatIcon)
 local GetFFlagSelfieViewRedStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewRedStatusDot)
 local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
-local GetFFlagDisableSelfViewDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagDisableSelfViewDefaultOpen)
-local GetFFlagChromeSupportSocialService = require(script.Parent.Parent.Flags.GetFFlagChromeSupportSocialService)
-local GetFFlagChromeSelfViewIgnoreCoreGui = require(script.Parent.Parent.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
+local GetFFlagDisableSelfViewDefaultOpen = require(Chrome.Flags.GetFFlagDisableSelfViewDefaultOpen)
+local GetFFlagChromeSupportSocialService = require(Chrome.Flags.GetFFlagChromeSupportSocialService)
+local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
 local SizingUtils = require(SelfieViewModule.Utils.SizingUtils)
-local AvailabilitySignalState = require(script.Parent.Parent.Service.ChromeUtils).AvailabilitySignalState
-local WindowSizeSignal = require(script.Parent.Parent.Service.WindowSizeSignal)
+local AvailabilitySignalState = require(Chrome.Service.ChromeUtils).AvailabilitySignalState
+local WindowSizeSignal = require(Chrome.Service.WindowSizeSignal)
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local activatedSignal = AppCommonLib.Signal.new()
 
-local ViewportUtil = require(script.Parent.Parent.Service.ViewportUtil)
+local ViewportUtil = require(Chrome.Service.ViewportUtil)
 local startingSize = SizingUtils.getSize(ViewportUtil.screenSize:get(), false)
 local windowSize = WindowSizeSignal.new(startingSize.X, startingSize.Y)
-local Constants = require(script.Parent.Parent.Unibar.Constants)
+local Constants = require(Chrome.Unibar.Constants)
 local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
