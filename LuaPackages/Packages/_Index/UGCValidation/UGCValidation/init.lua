@@ -19,6 +19,7 @@ local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local Types = require(root.util.Types)
 local createEditableInstancesForContext = require(root.util.createEditableInstancesForContext)
 local destroyEditableInstances = require(root.util.destroyEditableInstances)
+local ValidationHints = require(root.util.ValidationHints)
 
 local validateInternal = require(root.validation.validateInternal)
 local validateLayeredClothingAccessoryMeshPartAssetFormat =
@@ -432,6 +433,74 @@ function UGCValidation.validateFullBody(
 	end
 
 	return validationSuccess, reasons
+end
+
+function UGCValidation.calculateScaleToValidateBoundsAsync(
+	allBodyData: Types.AllBodyParts,
+	isServer: boolean?,
+	allowEditableInstances: boolean?,
+	bypassFlags: Types.BypassFlags?,
+	shouldYield: boolean?
+): Types.ValidateBoundsResult
+	Analytics.setMetadata({
+		entrypoint = "calculateScaleToValidateBoundsAsync",
+		assetType = "",
+		isServer = isServer,
+	})
+
+	local startTime = tick()
+
+	local resultEditableMeshesImages
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		local instances = {}
+		for _, instance in allBodyData do
+			table.insert(instances, instance)
+		end
+
+		local successEditableInstancesForContext
+		successEditableInstancesForContext, resultEditableMeshesImages =
+			createEditableInstancesForContext(instances, allowEditableInstances)
+		if not successEditableInstancesForContext then
+			if isServer then
+				error(resultEditableMeshesImages[1])
+			else
+				return {
+					ok = false,
+					errors = resultEditableMeshesImages,
+				}
+			end
+		end
+	end
+
+	local validationContext = {
+		isServer = isServer :: boolean,
+		allowEditableInstances = allowEditableInstances :: boolean,
+		bypassFlags = bypassFlags,
+		validateMeshPartAccessories = false,
+	} :: Types.ValidationContext
+
+	if getFFlagUGCValidationShouldYield() then
+		validationContext.lastTickSeconds = tick()
+		validationContext.shouldYield = shouldYield
+	end
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		validationContext.editableMeshes = resultEditableMeshesImages.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = resultEditableMeshesImages.editableImages :: Types.EditableImages
+	end
+
+	local validationResults = ValidationHints.calculateScaleToValidateBoundsAsync(allBodyData, validationContext)
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
+	end
+
+	if validationResults.ok then
+		Analytics.recordScriptTime("calculateScaleToValidateBoundsAsync", startTime, validationContext)
+		Analytics.reportScriptTimes(validationContext)
+	end
+
+	return validationResults
 end
 
 UGCValidation.GUIDAttributeName = Constants.GUIDAttributeName

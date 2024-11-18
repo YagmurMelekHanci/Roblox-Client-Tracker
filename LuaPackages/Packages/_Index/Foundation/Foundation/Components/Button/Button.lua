@@ -145,7 +145,6 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 				0,
 				variantProps.container.height
 			),
-			aspectRatio = if not hasText and props.fillBehavior ~= FillBehavior.Fill then 1 else nil,
 			-- Allow focus to be set if inputDelay is responsible for disabling the button
 			selection = {
 				Selectable = not props.isDisabled,

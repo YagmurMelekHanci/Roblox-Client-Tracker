@@ -24,6 +24,7 @@ local getFFlagUGCValidateOrientedAttachmentPositionCheck =
 	require(root.flags.getFFlagUGCValidateOrientedAttachmentPositionCheck)
 local getFFlagUGCValidateOrientedAttachmentOrientationCheck =
 	require(root.flags.getFFlagUGCValidateOrientedAttachmentOrientationCheck)
+local getFFlagUGCValidateFixAttachmentErrorMessage = require(root.flags.getFFlagUGCValidateFixAttachmentErrorMessage)
 
 local maxOrientationOffsets = {
 	["RootAttachment"] = game:DefineFastInt("UGCValidationRootAttachmentThreshold", 0),
@@ -87,14 +88,21 @@ local function validateInMeshSpace(
 			Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_InvalidAttachmentPosition)
 			return false,
 				{
-					string.format(
-						"Attachment (%s) in %s is placed at a position [%s] that is outside the valid range of ([%s] to [%s]). You need to adjust the attachment position.",
-						att.Name,
-						part.Name,
-						prettyPrintVector3(att.CFrame.Position),
-						prettyPrintVector3(minMeshSpace * meshHalfSize),
-						prettyPrintVector3(maxMeshSpace * meshHalfSize)
-					),
+					if getFFlagUGCValidateFixAttachmentErrorMessage()
+						then string.format(
+							"Attachment (%s) in %s is placed at a position [%s] that is outside the valid range. You need to adjust the attachment position.",
+							att.Name,
+							part.Name,
+							prettyPrintVector3(att.CFrame.Position)
+						)
+						else string.format(
+							"Attachment (%s) in %s is placed at a position [%s] that is outside the valid range of ([%s] to [%s]). You need to adjust the attachment position.",
+							att.Name,
+							part.Name,
+							prettyPrintVector3(att.CFrame.Position),
+							prettyPrintVector3(minMeshSpace * meshHalfSize),
+							prettyPrintVector3(maxMeshSpace * meshHalfSize)
+						),
 				}
 		end
 	end

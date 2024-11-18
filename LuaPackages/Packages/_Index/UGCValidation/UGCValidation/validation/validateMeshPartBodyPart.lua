@@ -100,13 +100,13 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
 
-	if not skipSnapshot then
+	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagRefactorValidateAssetTransparency() then
 		local startTime = tick()
-		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagRefactorValidateAssetTransparency() then
-			reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
-		else
-			reasonsAccumulator:updateReasons(DEPRECATED_validateAssetTransparency(inst, assetTypeEnum, isServer))
-		end
+		reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
+		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
+	elseif not skipSnapshot then
+		local startTime = tick()
+		reasonsAccumulator:updateReasons(DEPRECATED_validateAssetTransparency(inst, assetTypeEnum, isServer))
 		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
 	end
 

@@ -12,7 +12,7 @@ dependencies = [
     "Roact RoactCompat 17.1.2 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.2.0 registry",
-    "UIBlox UIBlox 0.2.9 registry",
+    "UIBlox UIBlox 0.2.17 registry",
     "UrlBuilder UrlBuilder 1.2.2 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.5 registry",

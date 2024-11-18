@@ -22,6 +22,7 @@ export type NativeCommonProps = {
 
 export type CommonProps = {
 	onAbsoluteSizeChanged: (instance: GuiObject) -> ()?,
+	testId: string?,
 } & NativeCommonProps
 
 export type FlexItem = {

@@ -224,9 +224,13 @@ local function validateAssetTransparency(inst: Instance, validationContext: Type
 	end
 
 	local transformDeprecated -- remove with getFFlagUGCValidateStraightenLimbsTransparency()
-	local origins
+	local origins, boundsSuccess, boundsErrors
 	if getFFlagUGCValidateStraightenLimbsTransparency() then
-		origins = BoundsCalculator.calculateIndividualAssetPartsData(inst, validationContext)
+		boundsSuccess, boundsErrors, origins =
+			BoundsCalculator.calculateIndividualAssetPartsData(inst, validationContext)
+		if not boundsSuccess then
+			return false, boundsErrors
+		end
 	else
 		transformDeprecated = AssetCalculator.calculateAssetCFrame(assetTypeEnum, inst)
 		origins = AssetCalculator.calculateAllTransformsForAsset(assetTypeEnum, inst)

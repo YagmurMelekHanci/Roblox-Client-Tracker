@@ -72,6 +72,13 @@ local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, basePr
 	fullProps[React.Change.AbsoluteSize] = props.onAbsoluteSizeChanged
 	fullProps.onAbsoluteSizeChanged = nil
 
+	if fullProps[React.Tag] and fullProps.testId then
+		fullProps[React.Tag] ..= " " .. fullProps.testId
+	else
+		fullProps[React.Tag] = fullProps[React.Tag] or fullProps.testId
+	end
+	fullProps.testId = nil
+
 	return fullProps :: T & AppliedGuiObjectProps
 end
 

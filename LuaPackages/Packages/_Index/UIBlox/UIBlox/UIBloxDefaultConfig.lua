@@ -113,9 +113,6 @@ return {
 	-- Removes math error absoluteSize setting statement
 	fixLayerCollectorProviderAbsoluteSize = false,
 
-	-- Fix the horizontalAlignment prop on Tile
-	tileHorizontalAlignmentFix = false,
-
 	-- Set name text in playertile to richtext
 	enableRichTextPlayerTileName = false,
 
@@ -139,4 +136,22 @@ return {
 
 	-- Enable Panel managed anchoring for Panel3D
 	enablePanelManagedAnchoring = false,
+
+	-- Fix press state for modal bottom sheet
+	fixModalBottomSheetPressState = false,
+
+	-- Fix padding on GenericButton Hover background with standard sizes
+	fixGenericButtonHoverBackgroundPadding = false,
+
+	-- Enable custom hover image support
+	enableGenericButtonHoverImage = false,
+
+	-- Disable the default icon used in ExperienceActionRow
+	disableExperienceActionRowDefaultIcon = false,
+
+	-- Enable ComboButton support in ActionBar
+	enableComboButtonInActionBar = false,
+
+	-- Pass TextXAlignment property to ImageTextLabel
+	imageTextLabelTextXAlignment = false,
 }

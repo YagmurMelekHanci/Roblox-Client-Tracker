@@ -5,6 +5,9 @@ calculateAssetBounds:
 calculateIndividualAssetPartsData:
 	returns back a table of part names to their individual bounds data and cframe transform
 		e.g { "LeftUpperArm" = { boundsData = {}, cframe = CFrame.new() }, "LeftLowerArm" = { boundsData = {}, cframe = CFrame.new() }, ... }
+calculateIndividualFullBodyPartsData:
+	returns back a table of part names to their individual bounds data and cframe transform
+		e.g { "LeftUpperArm" = { boundsData = {}, cframe = CFrame.new() }, "LeftLowerArm" = { boundsData = {}, cframe = CFrame.new() }, ... }
 calculateFullBodyBounds:
 	traverses through the hierarchy of each part of the full body in order to determine the total bounds
 ]]
@@ -23,6 +26,9 @@ local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateStraightenLimbs = require(root.flags.getFFlagUGCValidateStraightenLimbs)
+local getFFlagUGCValidateCalculateScaleToValidateBounds =
+	require(root.flags.getFFlagUGCValidateCalculateScaleToValidateBounds)
+local getFFlagUGCValidateUseMeshSizeProperty = require(root.flags.getFFlagUGCValidateUseMeshSizeProperty)
 
 local BoundsCalculator = {}
 
@@ -90,18 +96,22 @@ local function calculateBoundsDataForPart(
 	cframe: CFrame,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?, Types.BoundsData?)
-	local success, failureReasons, meshMinOpt, meshMaxOpt = getMeshMinMax(meshInfo, validationContext)
-	if not success then
-		return success, failureReasons
+	local meshBounds = nil
+	if getFFlagUGCValidateUseMeshSizeProperty() then
+		meshBounds = part.MeshSize
+	else
+		local success, failureReasons, meshMinOpt, meshMaxOpt = getMeshMinMax(meshInfo, validationContext)
+		if not success then
+			return success, failureReasons
+		end
+		meshBounds = (meshMaxOpt :: Vector3) - (meshMinOpt :: Vector3)
 	end
-	local meshBounds = (meshMaxOpt :: Vector3) - (meshMinOpt :: Vector3)
 	local partSize = if getEngineFeatureUGCValidateEditableMeshAndImage()
 		then getExpectedPartSize(part, validationContext)
 		else part.Size
 	local scale = partSize / meshBounds
 
-	local vertsOpt
-	success, failureReasons, vertsOpt = getMeshVerts(meshInfo, validationContext)
+	local success, failureReasons, vertsOpt = getMeshVerts(meshInfo, validationContext)
 	if not success then
 		return success, failureReasons
 	end
@@ -113,13 +123,25 @@ local function calculateBoundsDataForPart(
 	end
 
 	for _, attachName in ConstantsInterface.getAttachments(nil, part.Name) do
-		local attach: Attachment? = part:FindFirstChild(attachName) :: Attachment
-		assert(attach)
+		local attach
+		if getFFlagUGCValidateCalculateScaleToValidateBounds() then
+			local isRigAttachment = string.match(attachName, "RigAttachment$") ~= nil
+			if not isRigAttachment then
+				continue
+			end
 
-		local isRigAttachment = string.match(attach.Name, "RigAttachment$") ~= nil
-		if not isRigAttachment then
-			continue
+			attach = part:FindFirstChild(attachName) :: Attachment
+			assert(attach)
+		else
+			attach = part:FindFirstChild(attachName) :: Attachment
+			assert(attach)
+
+			local isRigAttachment = string.match(attach.Name, "RigAttachment$") ~= nil
+			if not isRigAttachment then
+				continue
+			end
 		end
+
 		local world = cframe * attach.CFrame
 		BoundsDataUtils.expandRigAttachmentBounds(resultMinMaxBounds, world.Position)
 	end
@@ -237,6 +259,33 @@ function BoundsCalculator.calculateIndividualAssetPartsData(
 	end
 
 	orientSingleAssetToWorldAxes(partsCFrames, singleAsset, findMeshHandle)
+
+	local success, failureReasons, allPartsBoundsDataOpt =
+		calculateAllPartsBoundsData(partsCFrames, findMeshHandle, validationContext)
+	if not success then
+		return success, failureReasons
+	end
+	local allPartsBoundsData = allPartsBoundsDataOpt :: { string: Types.BoundsData }
+
+	local result = {}
+	for name, partMinMaxBounds in allPartsBoundsData do
+		result[name] = { boundsData = partMinMaxBounds, cframe = partsCFrames[name] }
+	end
+	return true, nil, result
+end
+
+-- returns back a table of part names to their bounds data and cframe transform
+-- e.g { "LeftUpperArm" = { boundsData = {}, cframe = CFrame.new() }, "LeftLowerArm" = { boundsData = {}, cframe = CFrame.new() }, ... }
+function BoundsCalculator.calculateIndividualFullBodyPartsData(
+	fullBodyAssets: Types.AllBodyParts,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?, { string: any }?)
+	local function findMeshHandle(name: string): MeshPart
+		return fullBodyAssets[name] :: MeshPart
+	end
+
+	local partsCFrames = AssetCalculator.calculateAllTransformsForFullBody(fullBodyAssets)
+	orientFullBodyArmsLegsToWorldAxes(partsCFrames, findMeshHandle)
 
 	local success, failureReasons, allPartsBoundsDataOpt =
 		calculateAllPartsBoundsData(partsCFrames, findMeshHandle, validationContext)

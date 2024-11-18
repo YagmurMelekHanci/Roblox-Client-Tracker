@@ -40,7 +40,7 @@ local function Story(props)
 end
 
 return {
-	summary = "Button",
+	summary = "Button Stack",
 	story = function(props)
 		return Story({
 			text = props.controls.text,

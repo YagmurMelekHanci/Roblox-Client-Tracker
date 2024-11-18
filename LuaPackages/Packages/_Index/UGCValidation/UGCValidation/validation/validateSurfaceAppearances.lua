@@ -37,7 +37,8 @@ local function validateSurfaceAppearances(
 		local meshPartHasTexture = (descendant :: MeshPart).TextureID ~= ""
 		if allowEditableInstances and not meshPartHasTexture then
 			local textureContent = (descendant :: MeshPart).TextureContent
-			meshPartHasTexture = textureContent.Uri ~= "" or textureContent.Object ~= nil
+			meshPartHasTexture = (textureContent.Uri ~= nil and textureContent.Uri ~= "")
+				or textureContent.Object ~= nil
 		end
 		local surfaceAppearance = descendant:FindFirstChildWhichIsA("SurfaceAppearance")
 
