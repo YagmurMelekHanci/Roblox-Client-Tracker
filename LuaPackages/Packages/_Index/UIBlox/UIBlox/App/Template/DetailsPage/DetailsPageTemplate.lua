@@ -63,6 +63,10 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	-- See [[ButtonStack]] for more information.
 	actionBarProps = t.optional(ActionBar.validateProps),
 
+	-- The width of the action bar component. If unspecified, a default value
+	-- will be used.
+	actionBarWidth = t.optional(t.number),
+
 	-- The table of props for the content of the details page
 	componentList = t.optional(validateDetailsPageComponentList),
 	-- The dual panel breakpoint
@@ -279,6 +283,7 @@ function DetailsPageTemplate:render()
 					}, {
 						StickyActionBar = Roact.createElement(StickyActionBar, {
 							actionBarProps = self.props.actionBarProps,
+							actionBarWidth = self.props.actionbarwidth,
 							infoProps = {
 								icon = self.props.thumbnailImageUrl,
 								title = self.props.titleText,
@@ -334,6 +339,7 @@ function DetailsPageTemplate:render()
 									then self.props.actionBarProps
 									else nil
 								else self.props.actionBarProps,
+							actionBarWidth = self.props.actionBarWidth,
 
 							headerBarBackgroundHeight = headerBarBackgroundHeight,
 							sideMargin = sideMargin,

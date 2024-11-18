@@ -65,12 +65,10 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 
 	local tokens = useTokens()
 
-	local width = if props.width ~= nil then props.width else defaultProps.width
-
 	return React.createElement(
 		InputField,
 		withCommonProps(props, {
-			Size = UDim2.new(width, UDim.new(0, 0)),
+			width = props.width,
 			ref = ref,
 			label = props.label,
 			size = InputLabelSize.Small,

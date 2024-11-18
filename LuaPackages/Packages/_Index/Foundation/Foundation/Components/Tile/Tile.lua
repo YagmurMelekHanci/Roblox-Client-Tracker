@@ -25,7 +25,6 @@ type TileProps = {
 	backgroundStyle: ColorStyle?,
 	onStateChanged: StateChangedCallback?,
 	Size: Bindable<UDim2>,
-	AnchorPoint: Bindable<Vector2>?,
 	children: React.ReactElement<any, string>?,
 } & Types.CommonProps
 
@@ -44,7 +43,6 @@ local function Tile(tileProps: TileProps, ref: React.Ref<GuiObject>?)
 		withCommonProps(props, {
 			backgroundStyle = props.backgroundStyle,
 			Size = props.Size,
-			AnchorPoint = props.AnchorPoint,
 			onStateChanged = props.onStateChanged,
 			layout = {
 				FillDirection = props.fillDirection,

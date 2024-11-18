@@ -127,7 +127,14 @@ local function NavigationBar(providedProps: Props)
 
 	local renderAnimatedList = React.useCallback(function(items, renderItem)
 		local children = Cryo.List.map(items, function(item, key)
-			return renderItem(key)
+			if UIBloxConfig.fixAppNavTestIssues then
+				local listItem = renderItem(key)
+				-- workaround: remove the key property set by InteractableList's renderItem function to avoid conflict
+				listItem["key"] = nil
+				return listItem
+			else
+				return renderItem(key)
+			end
 		end)
 		return React.createElement("Frame", {
 			BackgroundColor3 = if props.rootBackgroundColor

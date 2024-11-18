@@ -32,7 +32,6 @@ type AppliedGuiObjectProps = {
 
 local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, baseProps: T)
 	if type(baseProps) == "table" then
-		baseProps.AnchorPoint = props.AnchorPoint
 		baseProps.AutoLocalize = props.AutoLocalize
 		baseProps.AutomaticSize = props.AutomaticSize
 		baseProps.BackgroundColor3 = if props.backgroundStyle
@@ -72,10 +71,12 @@ local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, basePr
 	fullProps[React.Change.AbsoluteSize] = props.onAbsoluteSizeChanged
 	fullProps.onAbsoluteSizeChanged = nil
 
-	if fullProps[React.Tag] and fullProps.testId then
-		fullProps[React.Tag] ..= " " .. fullProps.testId
+	local fullTestId = if fullProps.testId then "data-testid=" .. fullProps.testId else nil
+
+	if fullProps[React.Tag] and fullTestId then
+		fullProps[React.Tag] ..= " " .. fullTestId
 	else
-		fullProps[React.Tag] = fullProps[React.Tag] or fullProps.testId
+		fullProps[React.Tag] = fullProps[React.Tag] or fullTestId
 	end
 	fullProps.testId = nil
 

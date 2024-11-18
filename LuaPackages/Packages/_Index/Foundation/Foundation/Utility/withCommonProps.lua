@@ -5,6 +5,7 @@ type CommonProps = Types.CommonProps
 
 local function withCommonProps<T>(props: CommonProps, baseProps: T)
 	if type(baseProps) == "table" then
+		baseProps.AnchorPoint = props.AnchorPoint
 		baseProps.LayoutOrder = props.LayoutOrder
 		baseProps.Position = props.Position
 		baseProps.Visible = props.Visible

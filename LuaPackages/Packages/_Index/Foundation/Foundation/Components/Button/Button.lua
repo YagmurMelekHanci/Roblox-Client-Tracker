@@ -124,6 +124,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
+			AutomaticSize = if props.width.Scale == 0 then Enum.AutomaticSize.X else nil,
 			GroupTransparency = if props.isDisabled and not isDelaying then DISABLED_TRANSPARENCY else nil,
 			backgroundStyle = variantProps.container.background,
 			flexItem = if props.fillBehavior

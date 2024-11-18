@@ -107,6 +107,15 @@ return {
 	-- Use colors from Foundation tokens
 	useFoundationColors = false,
 
+	-- Use new Foundation components
+	useFoundationSkeleton = false,
+
+	-- Use Foundation button
+	useFoundationButton = false,
+
+	-- Use Foundation provider
+	useFoundationProvider = false,
+
 	-- Update FullPageModal sizing on mount
 	didMountUpdateFullPageModal = false,
 
@@ -154,4 +163,7 @@ return {
 
 	-- Pass TextXAlignment property to ImageTextLabel
 	imageTextLabelTextXAlignment = false,
+
+	-- Fix the AppNav related test issues
+	fixAppNavTestIssues = false,
 }

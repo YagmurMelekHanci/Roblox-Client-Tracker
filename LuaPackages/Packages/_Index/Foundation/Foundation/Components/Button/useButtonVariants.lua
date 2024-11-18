@@ -50,7 +50,7 @@ end
 local variants = function(tokens: Tokens)
 	local common = {
 		container = {
-			tag = "row gap-xsmall auto-x align-y-center align-x-center clip",
+			tag = "row gap-xsmall align-y-center align-x-center clip",
 		},
 		icon = {
 			size = IconSize.Medium,

@@ -20,6 +20,7 @@ local getFFlagUGCValidateTotalSurfaceAreaTestBody = require(root.flags.getFFlagU
 local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
 	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
 local getEngineFeatureUGCValidateMeshInsideMesh = require(root.flags.getEngineFeatureUGCValidateMeshInsideMesh)
+local getEngineFeatureUGCValidateCageMeshDistance = require(root.flags.getEngineFeatureUGCValidateCageMeshDistance)
 
 local getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity =
 	require(root.flags.getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity)
@@ -189,6 +190,13 @@ if getEngineFeatureUGCValidateMeshInsideMesh() then
 		"validateRenderMeshInsideOuterCageMesh_FailedToExecute"
 	Analytics.ErrorType.validateRenderMeshInsideOuterCageMesh_MaxOutsideCageMeshExceeded =
 		"validateRenderMeshInsideOuterCageMesh_MaxOutsideCageMeshExceeded"
+end
+
+if getEngineFeatureUGCValidateCageMeshDistance() then
+	Analytics.ErrorType.validateCageMeshDistance_InvalidRefMeshId = "validateCageMeshDistance_InvalidRefMeshId"
+	Analytics.ErrorType.validateCageMeshDistance_FailedToExecute = "validateCageMeshDistance_FailedToExecute"
+	Analytics.ErrorType.validateCageMeshDistance_OuterCageToMeshDistance =
+		"validateCageMeshDistance_OuterCageToMeshDistance"
 end
 
 if getFFlagUGCValidatePartSizeWithinRenderSizeLimits() then

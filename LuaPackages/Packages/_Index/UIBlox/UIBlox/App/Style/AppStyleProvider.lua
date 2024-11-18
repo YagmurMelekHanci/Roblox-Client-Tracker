@@ -9,6 +9,11 @@ local getTextSizeOffset = require(UIBlox.Utility.getTextSizeOffset)
 local Packages = UIBlox.Parent
 local React = require(Packages.React)
 local Roact = require(Packages.Roact)
+
+local Foundation = require(Packages.Foundation)
+local FoundationProvider = Foundation.FoundationProvider
+
+local useTokens = Foundation.Hooks.useTokens
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 
@@ -19,6 +24,7 @@ local StyleTypes = require(script.Parent.StyleTypes)
 local TokenPackage = require(script.Parent.Tokens)
 local StyleContext = require(UIBlox.Core.Style.StyleContext)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local Logger = require(UIBlox.Logger)
 
 local getTokens = TokenPackage.getTokens
 local validateTokens = TokenPackage.validateTokens
@@ -31,6 +37,11 @@ type ThemeName = Constants.ThemeName
 type FontName = Constants.FontName
 type DeviceType = Constants.DeviceType
 type Settings = StyleTypes.Settings
+
+local FOUNDATION_THEME_MAP = {
+	["dark"] = Foundation.Enums.Theme.Dark,
+	["light"] = Foundation.Enums.Theme.Light,
+}
 
 -- We accept both strings and enum values for theme and font name
 -- in case there are any casing inconsistencies.
@@ -65,6 +76,7 @@ local function AppStyleProvider(props: Props)
 	local tokens: Tokens = getTokens(style.deviceType, themeName) :: Tokens
 	local textSizeOffset, setTextSizeOffset = React.useState(0)
 	local theme = getThemeFromName(themeName)
+	local foundationProviderPresent = if UIBloxConfig.useFoundationProvider then useTokens().Config ~= nil else false
 
 	if UIBloxConfig.useFoundationColors then
 		local foundationTokens = getFoundationTokens(style.deviceType, themeName)
@@ -121,7 +133,7 @@ local function AppStyleProvider(props: Props)
 		end, { themeName })
 		else nil
 
-	return React.createElement(StyleContext.Provider, {
+	local styleProvider = React.createElement(StyleContext.Provider, {
 		value = {
 			style = appStyle,
 			updateTheme = handleThemeUpdate,
@@ -135,6 +147,22 @@ local function AppStyleProvider(props: Props)
 				else nil,
 		},
 	}, Roact.oneChild(props.children :: any))
+
+	if not foundationProviderPresent and UIBloxConfig.useFoundationProvider then
+		Logger:warning(
+			debug.traceback(
+				"FoundationProvider not found. Please ensure that the FoundationProvider is present in the component tree."
+			)
+		)
+		return React.createElement(FoundationProvider, {
+			theme = FOUNDATION_THEME_MAP[themeName:lower()],
+			device = style.deviceType,
+			preferences = style.settings,
+			DONOTUSE_colorUpdate = UIBloxConfig.useFoundationColors,
+		}, styleProvider)
+	else
+		return styleProvider
+	end
 end
 
 return AppStyleProvider

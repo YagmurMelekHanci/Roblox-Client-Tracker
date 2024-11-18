@@ -14,6 +14,7 @@ local React = require(Packages.React)
 export type Bindable<T> = T | React.Binding<T>
 
 export type NativeCommonProps = {
+	AnchorPoint: Bindable<Vector2>?,
 	LayoutOrder: Bindable<number>?,
 	Position: Bindable<UDim2>?,
 	Visible: Bindable<boolean>?,
@@ -88,7 +89,6 @@ export type GuiObjectProps = {
 	selection: Selection?,
 	selectionGroup: Bindable<boolean>? | SelectionGroup?,
 
-	AnchorPoint: Bindable<Vector2>?,
 	AutoLocalize: Bindable<boolean>?,
 	AutomaticSize: Bindable<Enum.AutomaticSize>?,
 	BorderSizePixel: Bindable<number>?,

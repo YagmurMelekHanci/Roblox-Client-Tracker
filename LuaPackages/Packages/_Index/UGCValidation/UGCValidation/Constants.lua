@@ -19,6 +19,8 @@ local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFla
 local getFFlagUGCValidateAddSpecificPropertyRequirements =
 	require(root.flags.getFFlagUGCValidateAddSpecificPropertyRequirements)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
+local getEngineFeatureUGCValidateFullBodyBoundsAvatarRules =
+	require(root.flags.getEngineFeatureUGCValidateFullBodyBoundsAvatarRules)
 local getFFlagUGCValidateConfigurableFullBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableFullBodyBounds)
 
 -- switch this to Cryo.List.toSet when available
@@ -169,7 +171,9 @@ Constants.ASSET_STATUS = {
 Constants.ASSET_TYPE_INFO = {}
 ValidationRulesUtil:getAccessoryRules(Constants.ASSET_TYPE_INFO)
 
-if getFFlagUGCValidateConfigurableFullBodyBounds() then
+if getEngineFeatureUGCValidateFullBodyBoundsAvatarRules() then
+	Constants.FULL_BODY_BOUNDS = ValidationRulesUtil:getFullBodyRulesBounds()
+elseif getFFlagUGCValidateConfigurableFullBodyBounds() then
 	Constants.FULL_BODY_BOUNDS = ConstantBounds.getFullBodyBounds()
 end
 

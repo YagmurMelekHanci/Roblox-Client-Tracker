@@ -66,7 +66,7 @@ local function validateLCCagingRelevancy(
 		return false,
 			{
 				string.format(
-					"Validation detected %d%% of the outer cage edits don’t cover the accessory. Make sure you are moving the outer cage only where needed.",
+					"Validation detected %d%% of the outer cage edits do not cover the accessory. Make sure you are moving the outer cage only where needed.",
 					100 - score
 				),
 			}

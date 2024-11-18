@@ -32,7 +32,7 @@ local function containerPadding(size, hasText, hasIcon): (string, string)
 	return horizontalPadding, verticalPadding
 end
 
-local textStyle = {
+local textStyle: { [BadgeSize]: string } = {
 	[BadgeSize.Small] = "text-caption-small",
 	[BadgeSize.Medium] = "text-label-small",
 }
@@ -60,7 +60,7 @@ return function(
 		},
 	}
 
-	local minSize = {
+	local minSize: { [BadgeSize]: number } = {
 		[BadgeSize.Small] = tokens.Typography.CaptionSmall.FontSize,
 		[BadgeSize.Medium] = tokens.Typography.LabelSmall.FontSize,
 	}

@@ -97,7 +97,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 				then React.createElement(Image, {
 					LayoutOrder = 1,
 					Image = props.icon,
-					tag = "radius-circle bg-transparency-100 size-1200-1200",
+					tag = "bg-transparency-100 size-1200-1200",
 				})
 				else nil,
 			Content = React.createElement(View, {

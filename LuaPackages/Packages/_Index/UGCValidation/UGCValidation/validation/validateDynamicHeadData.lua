@@ -13,6 +13,8 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
+local getFFlagValidateFacialBounds = require(root.flags.getFFlagValidateFacialBounds)
+local getFFlagValidateFacialExpressiveness = require(root.flags.getFFlagValidateFacialExpressiveness)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getEngineFeatureUGCValidateGetInactiveControls =
 	require(root.flags.getEngineFeatureUGCValidateGetInactiveControls)
@@ -22,11 +24,18 @@ local getEngineFeatureUGCValidateEditableMeshAndImage =
 local EngineFeatureGCValidateCompareTextureOverlap = game:GetEngineFeature("UGCValidateCompareTextureOverlap")
 local getEngineFeatureViewportFrameSnapshotEngineFeature =
 	require(root.flags.getEngineFeatureViewportFrameSnapshotEngineFeature)
-local UGCValidateFacsDataOperationalThreshold = game:DefineFastInt("UGCValidateFacsDataOperationalThreshold", 200)
+local UGCValidateFacialBoundsScale = game:DefineFastInt("UGCValidateFacialBoundsScale", 120) / 100
+local UGCValidateFacialExpressivenessThreshold = game:DefineFastInt("UGCValidateFacialExpressivenessThreshold", 10)
+	/ 100
+local UGCValidateFacialExpressivenessMinVertDelta = game:DefineFastInt("UGCValidateFacialExpressivenessMinVertDelta", 2)
+	/ 100
+local UGCValidateFacsDataOperationalThreshold = game:DefineFastInt("UGCValidateFacsDataOperationalThreshold", 200) -- TODO: Remove with FFlagValidateFacialExpressiveness
 	* 1e-3
 local setupDynamicHead = require(root.util.setupDynamicHead)
+local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local Thumbnailer = require(root.util.Thumbnailer)
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
 local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningValidation)
 
 local requiredActiveFACSControls = {
@@ -63,6 +72,8 @@ local function downloadFailure(isServer: boolean?, name: string?): (boolean, { s
 	return false, { errorMessage }
 end
 
+local MESH_DATA_LOAD_FAILED_STRING: string =
+	"Failed to load mesh data for '%s'. Make sure the mesh exists and try again."
 local CAPTURE_ERROR_STRING: string = "Unable to capture snapshot of DynamicHead (%s)"
 local READ_ERROR_STRING: string = "Failed to read data from snapshot of DynamicHead (%s)"
 local VALIDATION_FAILED_STRING: string =
@@ -74,6 +85,7 @@ local THRESHOLD: number = UGCValidateFacsDataOperationalThreshold
 local FILL: number = 1
 local DIRECTION: Vector3 = Vector3.new(0, 0, -1)
 
+-- TODO: remove with FFlagValidateFacialExpressiveness
 local function checkFACSDataOperational(head: MeshPart, isServer: boolean): (boolean, { string }?)
 	if not isServer and not getEngineFeatureViewportFrameSnapshotEngineFeature() then
 		return true
@@ -137,6 +149,76 @@ local function checkFACSDataOperational(head: MeshPart, isServer: boolean): (boo
 	if fraction < THRESHOLD then
 		return false, { string.format(VALIDATION_FAILED_STRING, head.MeshId, fraction, THRESHOLD) }
 	end
+	return true
+end
+
+local function validateFacialBounds(
+	meshPartHead: MeshPart,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	local isServer = validationContext.isServer
+	local allowEditableInstances = validationContext.allowEditableInstances
+
+	local success, result = pcallDeferred(function()
+		local meshId = getMeshIdForSkinningValidation(meshPartHead, allowEditableInstances)
+		local partSize = getExpectedPartSize(meshPartHead, validationContext)
+		return UGCValidationService:ValidateFacialBounds(meshId, UGCValidateFacialBoundsScale, partSize)
+	end, validationContext)
+
+	if not success then
+		local errorMessage = string.format(MESH_DATA_LOAD_FAILED_STRING, meshPartHead.fullName)
+		if nil ~= isServer and isServer then
+			error(errorMessage)
+		end
+		return false, { errorMessage }
+	elseif not result then
+		return false,
+			{
+				string.format(
+					"DynamicHead (%s) when emoting surpasses the expected bounding box",
+					meshPartHead:GetFullName()
+				),
+			}
+	end
+
+	return true
+end
+
+local function validateFacialExpressiveness(
+	meshPartHead: MeshPart,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	local isServer = validationContext.isServer
+	local allowEditableInstances = validationContext.allowEditableInstances
+
+	local success, result = pcallDeferred(function()
+		local meshId = getMeshIdForSkinningValidation(meshPartHead, allowEditableInstances)
+		local partSize = getExpectedPartSize(meshPartHead, validationContext)
+		return UGCValidationService:ValidateFacialExpressiveness(
+			meshId,
+			UGCValidateFacialExpressivenessMinVertDelta,
+			partSize
+		)
+	end, validationContext)
+
+	if not success then
+		local errorMessage = string.format(MESH_DATA_LOAD_FAILED_STRING, meshPartHead.fullName)
+		if nil ~= isServer and isServer then
+			error(errorMessage)
+		end
+		return false, { errorMessage }
+	elseif result < UGCValidateFacialExpressivenessThreshold then
+		return false,
+			{
+				string.format(
+					VALIDATION_FAILED_STRING,
+					meshPartHead:GetFullName(),
+					result,
+					UGCValidateFacialExpressivenessThreshold
+				),
+			}
+	end
+
 	return true
 end
 
@@ -229,9 +311,15 @@ local function validateDynamicHeadData(
 		end
 	end
 
-	if EngineFeatureGCValidateCompareTextureOverlap and not skipSnapshot then
+	if getFFlagValidateFacialExpressiveness() then
+		reasonsAccumulator:updateReasons(validateFacialExpressiveness(meshPartHead, validationContext))
+	elseif EngineFeatureGCValidateCompareTextureOverlap and not skipSnapshot then
 		local succ, errorMessage = checkFACSDataOperational(meshPartHead, isServer)
 		reasonsAccumulator:updateReasons(succ, errorMessage)
+	end
+
+	if getFFlagValidateFacialBounds() then
+		reasonsAccumulator:updateReasons(validateFacialBounds(meshPartHead, validationContext))
 	end
 
 	Analytics.recordScriptTime(script.Name, startTime, validationContext)

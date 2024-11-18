@@ -168,11 +168,19 @@ local function updateMinMaxBounds(boundsData, triangle)
 	boundsData.max = Vector3.new(maxX, maxY, maxZ)
 end
 
-local function getCombinedMeshData(srcMesh, combinedMeshData, transformDeprecated, origin, boundsData)
+local function getCombinedMeshData(
+	srcMesh,
+	combinedMeshData,
+	transformDeprecated,
+	origin,
+	boundsData,
+	validationContext
+)
 	local triangles = srcMesh:GetFaces()
 	for _, triangleId in triangles do
 		local newTriangle = addTransformedTriangle(srcMesh, combinedMeshData, triangleId, transformDeprecated, origin)
 		updateMinMaxBounds(boundsData, newTriangle)
+		tryYield(validationContext)
 	end
 end
 
@@ -260,9 +268,9 @@ local function validateAssetTransparency(inst: Instance, validationContext: Type
 			if getFFlagUGCValidateStraightenLimbsTransparency()
 				then origins[meshPart.Name].cframe
 				else origins[meshPart.Name],
-			boundsData
+			boundsData,
+			validationContext
 		)
-		tryYield(validationContext)
 	end
 
 	if (boundsData.max - boundsData.min).Magnitude == 0 then

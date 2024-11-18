@@ -19,6 +19,16 @@ local getFFlagUGCValidateRestrictAttachmentPositions =
 	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
 local getFFlagUGCValidateConfigurableBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableBodyBounds)
 local getFFlagUGCValidateConfigurableFullBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableFullBodyBounds)
+local getFFlagUGCValidateConfigurableAssetTriangleLimits =
+	require(root.flags.getFFlagUGCValidateConfigurableAssetTriangleLimits)
+
+local FIntUGCValidateTriangleLimitDynamicHead = game:DefineFastInt("UGCValidateTriangleLimitDynamicHead", 4000)
+local FIntUGCValidateTriangleLimitLeftArm = game:DefineFastInt("UGCValidateTriangleLimitLeftArm", 1248)
+local FIntUGCValidateTriangleLimitRightArm = game:DefineFastInt("UGCValidateTriangleLimitRightArm", 1248)
+
+local FIntUGCValidateTriangleLimitTorso = game:DefineFastInt("UGCValidateTriangleLimitTorso", 1750)
+local FIntUGCValidateTriangleLimitLeftLeg = game:DefineFastInt("UGCValidateTriangleLimitLeftLeg", 1248)
+local FIntUGCValidateTriangleLimitRightLeg = game:DefineFastInt("UGCValidateTriangleLimitRightLeg", 1248)
 
 local ConstantBounds = require(root.ConstantBounds)
 
@@ -911,14 +921,23 @@ Constants.TEXTURE_CONTENT_ID_FIELDS = {
 	SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
 }
 
-Constants.ASSET_RENDER_MESH_MAX_TRIANGLES = {
-	DynamicHead = 4000,
-	LeftArm = 1248,
-	RightArm = 1248,
-	Torso = 1750,
-	LeftLeg = 1248,
-	RightLeg = 1248,
-}
+Constants.ASSET_RENDER_MESH_MAX_TRIANGLES = if getFFlagUGCValidateConfigurableAssetTriangleLimits()
+	then {
+		DynamicHead = FIntUGCValidateTriangleLimitDynamicHead,
+		LeftArm = FIntUGCValidateTriangleLimitLeftArm,
+		RightArm = FIntUGCValidateTriangleLimitRightArm,
+		Torso = FIntUGCValidateTriangleLimitTorso,
+		LeftLeg = FIntUGCValidateTriangleLimitLeftLeg,
+		RightLeg = FIntUGCValidateTriangleLimitRightLeg,
+	}
+	else {
+		DynamicHead = 4000,
+		LeftArm = 1248,
+		RightArm = 1248,
+		Torso = 1750,
+		LeftLeg = 1248,
+		RightLeg = 1248,
+	}
 
 Constants.WRAP_TARGET_CAGE_MESH_UV_COUNTS = {
 	Head = 343,

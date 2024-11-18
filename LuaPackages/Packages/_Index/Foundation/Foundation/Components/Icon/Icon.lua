@@ -19,7 +19,6 @@ type IconProps = {
 	style: ColorStyle?,
 	size: IconSize?,
 	Rotation: Bindable<number>?,
-	AnchorPoint: Vector2?,
 	children: React.ReactNode?,
 } & Types.CommonProps
 
@@ -47,7 +46,6 @@ local function Icon(iconProps: IconProps, ref: React.Ref<GuiObject>?)
 			-- Pass through props
 			ref = ref,
 			Rotation = props.Rotation,
-			AnchorPoint = props.AnchorPoint,
 		}),
 		props.children
 	)
