@@ -9,9 +9,9 @@ Class EditableImage : Object [NotCreatable]
 	Property EditableImage.Size: Vector2 [ReadOnly]
 	Function EditableImage:Destroy() -> ()
 	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawImage(position: Vector2, image: Object, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawImageProjected(mesh: Object, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
-	Function EditableImage:DrawImageTransformed(position: Vector2, scale: Vector2, rotation: number, image: Object, options: { [string]: any }?) -> ()
+	Function EditableImage:DrawImage(position: Vector2, image: EditableImage, combineType: Enum.ImageCombineType) -> ()
+	Function EditableImage:DrawImageProjected(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
+	Function EditableImage:DrawImageTransformed(position: Vector2, scale: Vector2, rotation: number, image: EditableImage, options: { [string]: any }?) -> ()
 	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:DrawTriangle(p1: Vector2, p2: Vector2, p3: Vector2, color: Color3, transparency: number) -> () {RobloxScriptSecurity}
@@ -310,7 +310,10 @@ Class Annotation : Instance
 	Property Annotation.ReplyCount: number {RobloxScriptSecurity} [Hidden]
 	Property Annotation.Resolved: boolean {RobloxScriptSecurity} [Hidden]
 	Property Annotation.TaggedUsers: string {RobloxScriptSecurity} [Hidden]
+	Function Annotation:GetRequests() -> { [string]: any } {RobloxScriptSecurity}
 	Function Annotation:GetStringUniqueId() -> string {RobloxScriptSecurity}
+	Event Annotation.RequestCompleted(requestId: string, requestType: Enum.AnnotationRequestType, result: Enum.AnnotationRequestResult) {RobloxScriptSecurity}
+	Event Annotation.RequestInitiated(requestId: string, requestType: Enum.AnnotationRequestType) {RobloxScriptSecurity}
 Class WorkspaceAnnotation : Annotation
 	Property WorkspaceAnnotation.Adornee: PVInstance? {RobloxScriptSecurity} [Hidden]
 	Property WorkspaceAnnotation.AdorneeOffset: Vector3 {RobloxScriptSecurity} [Hidden]
@@ -327,9 +330,9 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:LoadResolvedAnnotations(count: number) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:ResolveAnnotation(annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
-	Event AnnotationsService.AnnotationAdded(annotation: Annotation, parentId: string) {RobloxScriptSecurity}
-	Event AnnotationsService.AnnotationDeleted(annotation: Annotation) {RobloxScriptSecurity}
-	Event AnnotationsService.AnnotationResolved(annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationAdded(requestId: string, annotation: Annotation, parentId: string) {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationDeleted(requestId: string, annotation: Annotation) {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationResolved(requestId: string, annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
 	Event AnnotationsService.ServerLoadAnnotationReplies(annotation: Annotation) {RobloxSecurity}
 	Event AnnotationsService.ServerLoadResolvedAnnotations(count: number) {RobloxSecurity}
 Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -411,12 +414,12 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.PatchId: string
 Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CheckTextureAlphaAsync(textureId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function AssetService:CreateEditableImage(editableImageOptions: { [string]: any }?) -> Object
-	Function AssetService:CreateEditableImageAsync(content: Content, editableImageOptions: { [string]: any }?) -> Object [Yields]
-	Function AssetService:CreateEditableMesh(editableMeshOptions: { [string]: any }?) -> Object
-	Function AssetService:CreateEditableMeshAsync(content: Content, editableMeshOptions: { [string]: any }?) -> Object [Yields]
-	Function AssetService:CreateEditableMeshFromPartAsync(meshPart: Instance) -> Object [Yields] [Deprecated]
-	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: string) -> Object {RobloxScriptSecurity} [Yields]
+	Function AssetService:CreateEditableImage(editableImageOptions: { [string]: any }?) -> EditableImage
+	Function AssetService:CreateEditableImageAsync(content: Content, editableImageOptions: { [string]: any }?) -> EditableImage [Yields]
+	Function AssetService:CreateEditableMesh(editableMeshOptions: { [string]: any }?) -> EditableMesh
+	Function AssetService:CreateEditableMeshAsync(content: Content, editableMeshOptions: { [string]: any }?) -> EditableMesh [Yields]
+	Function AssetService:CreateEditableMeshFromPartAsync(meshPart: Instance) -> EditableMesh [Yields] [Deprecated]
+	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: string) -> EditableMesh {RobloxScriptSecurity} [Yields]
 	Function AssetService:CreateMeshPartAsync(meshContent: Content, options: { [string]: any }? = nil) -> MeshPart [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
@@ -652,7 +655,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:GetValidationRules() -> { [string]: any } [CustomLuaState]
 	Function AvatarCreationService:LoadAvatarHumanoidDescriptionAsync(id: string) -> HumanoidDescription [Yields]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
-	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> Object [Yields]
+	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(tokenId: string, player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
 	Function AvatarCreationService:PromptSelectAvatarGenerationImageAsync(player: Player) -> string [Yields]
 	Function AvatarCreationService:RequestAvatarGenerationSessionAsync(player: Player, callback: (...any) -> ...any) -> ...any [Yields]
@@ -882,8 +885,8 @@ Class BaseWrap : Instance [NotCreatable]
 	Function BaseWrap:IsHSRReady() -> boolean {RobloxScriptSecurity}
 	Function BaseWrap:ModifyVertices(cageType: Enum.CageType, vertices: { any }) -> () {RobloxScriptSecurity}
 	Event BaseWrap.VerticesModified(vertices: { any }) {RobloxScriptSecurity}
-Class WrapDeformer : BaseWrap [NotBrowsable]
-	Function WrapDeformer:CreateEditableMeshAsync() -> Object [Yields]
+Class WrapDeformer : BaseWrap
+	Function WrapDeformer:CreateEditableMeshAsync() -> EditableMesh [Yields]
 	Function WrapDeformer:GetDeformedCFrameAsync(originalCFrame: CFrame) -> CFrame [Yields]
 	Function WrapDeformer:SetCageMeshContent(content: Content) -> ()
 Class WrapLayer : BaseWrap
@@ -1074,7 +1077,6 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:OnCaptureShared(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {RobloxScriptSecurity}
-	Function CaptureService:PostToFeedAsync(capturePath: string, feedCategory: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CaptureService:PromptSaveCapturesToGallery(contentIds: { any }, resultCallback: (...any) -> ...any) -> ()
 	Function CaptureService:PromptShareCapture(contentId: string, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
@@ -2461,6 +2463,11 @@ Class PluginGui : LayerCollector [NotCreatable] [NotReplicated]
 	Property PluginGui.Title: string
 	Function PluginGui:BindToClose(function: ((...any) -> ...any)?) -> ()
 	Function PluginGui:GetRelativeMousePosition() -> Vector2 {PluginSecurity}
+	Event PluginGui.InputBegan(input: InputObject, gameProcessedEvent: boolean) {RobloxScriptSecurity}
+	Event PluginGui.InputChanged(input: InputObject, gameProcessedEvent: boolean) {RobloxScriptSecurity}
+	Event PluginGui.InputEnded(input: InputObject, gameProcessedEvent: boolean) {RobloxScriptSecurity}
+	Event PluginGui.MouseEnter() {RobloxScriptSecurity}
+	Event PluginGui.MouseLeave() {RobloxScriptSecurity}
 	Event PluginGui.PluginDragDropped(dragData: { [string]: any }) {PluginSecurity}
 	Event PluginGui.PluginDragEntered(dragData: { [string]: any }) {PluginSecurity}
 	Event PluginGui.PluginDragLeft(dragData: { [string]: any }) {PluginSecurity}
@@ -2678,6 +2685,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:GetHardwareSafeViewport() -> Vector2 {RobloxScriptSecurity}
 	Function GuiService:GetInspectMenuEnabled() -> boolean
 	Function GuiService:GetNotificationTypeList() -> { [string]: any } {RobloxScriptSecurity}
+	Function GuiService:GetRawScreenScale() -> number {RobloxScriptSecurity}
 	Function GuiService:GetResolutionScale() -> number {RobloxScriptSecurity}
 	Function GuiService:GetSafeZoneOffsets() -> { [string]: any } {RobloxScriptSecurity}
 	Function GuiService:GetScreenResolution() -> Vector2 {RobloxScriptSecurity} [Yields]
@@ -4458,6 +4466,7 @@ Class PlayerViewService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PlayerViewService:OnCameraCFrameReplicationRequest() -> () {RobloxScriptSecurity}
 	Function PlayerViewService:UpdateDeviceCFrame(player: Player? = nil, cframe: CFrame?, timestamp: number? = 0) -> () {RobloxScriptSecurity}
 Class Players : Instance [NotCreatable] [Service]
+	Property Players.BanningEnabled: boolean [NotReplicated] [NotScriptable]
 	Property Players.CharacterAutoLoads: boolean [NotReplicated]
 	Property Players.UseStrafingAnimations: boolean [NotScriptable]
 	Property Players.BubbleChat: boolean [ReadOnly]
@@ -4538,7 +4547,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:GetItem(key: string, defaultValue: any) -> any {RobloxScriptSecurity}
 	Function Plugin:GetJoinMode() -> Enum.JointCreationMode {PluginSecurity}
 	Function Plugin:GetMouse() -> PluginMouse {PluginSecurity}
-	Function Plugin:GetPluginComponent(name: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
+	Function Plugin:GetPluginComponent(name: string) -> any {RobloxScriptSecurity} [CustomLuaState]
 	Function Plugin:GetSelectedRibbonTool() -> Enum.RibbonTool {PluginSecurity}
 	Function Plugin:GetSetting(key: string) -> any {PluginSecurity}
 	Function Plugin:GetStudioUserId() -> number {PluginSecurity} [Deprecated]
@@ -4581,7 +4590,7 @@ Class PluginAction : Instance [NotReplicated]
 	Property PluginAction.DefaultShortcut: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property PluginAction.Enabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property PluginAction.StatusTip: string [ReadOnly]
-	Property PluginAction.Text: string [ReadOnly]
+	Property PluginAction.Text: string {✏️RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Event PluginAction.Triggered() {PluginSecurity}
 Class PluginCapabilities : Instance
 	Property PluginCapabilities.Manifest: string {RobloxScriptSecurity}
@@ -5490,6 +5499,7 @@ Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:RegisterCommandInternal(commandName: string, function: ((...any) -> ...any)?, isSequential: boolean? = false, isPublic: boolean? = false) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterContextCollector(collectorName: string, function: ((...any) -> ...any)?) -> () {RobloxScriptSecurity}
 	Function StreamingService:RunSandboxedCode(runCodeGuid: string, requestId: string) -> ...any {RobloxScriptSecurity} [Yields]
+	Function StreamingService:SearchForAssets(body: any) -> any {RobloxScriptSecurity} [Yields]
 	Function StreamingService:SetEphemeralVariable(key: string, value: any, timeToLive: number? = -1) -> () {RobloxScriptSecurity}
 	Function StreamingService:SetPluginInfoCallback(function: ((...any) -> ...any)?) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterCommand(commandName: string) -> () {RobloxScriptSecurity}
@@ -5859,6 +5869,12 @@ Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Teams : Instance [NotCreatable] [Service]
 	Function Teams:GetTeams() -> { Instance }
 	Function Teams:RebalanceTeams() -> () [Deprecated]
+Class TelemetryService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function TelemetryService:LogCounter(config: { [string]: any }, data: { [string]: any }?, value: number? = 1) -> any {RobloxScriptSecurity}
+	Function TelemetryService:LogDurationEvent(key: string) -> any {RobloxScriptSecurity}
+	Function TelemetryService:LogDurationEventWithTimestamp(key: string, timestamp: number) -> any {RobloxScriptSecurity}
+	Function TelemetryService:LogEvent(config: { [string]: any }, data: { [string]: any }? = nil) -> any {RobloxScriptSecurity}
+	Function TelemetryService:LogStat(config: { [string]: any }, data: { [string]: any }?, value: number) -> any {RobloxScriptSecurity}
 Class TeleportAsyncResult : Instance [NotCreatable]
 	Property TeleportAsyncResult.PrivateServerId: string [ReadOnly]
 	Property TeleportAsyncResult.ReservedServerAccessCode: string [ReadOnly]
@@ -5942,9 +5958,11 @@ Class TestService : Instance [Service]
 	Event TestService.ServerCollectResult(text: string, script: Instance, line: number)
 Class TextBoxService : Instance [NotCreatable] [Service]
 Class TextChannel : Instance
+	Property TextChannel.DirectChatRequester: Player? [ReadOnly]
 	Function TextChannel:AddUserAsync(userId: number) -> ...any [Yields]
 	Function TextChannel:DisplaySystemMessage(systemMessage: string, metadata: string? = "") -> TextChatMessage
 	Function TextChannel:SendAsync(message: string, metadata: string? = "") -> TextChatMessage [Yields]
+	Function TextChannel:SetDirectChatRequester(requester: Player) -> ()
 	Event TextChannel.MessageReceived(incomingMessage: TextChatMessage)
 	Callback TextChannel.OnIncomingMessage(message: TextChatMessage) -> ...any
 	Callback TextChannel.ShouldDeliverCallback(message: TextChatMessage, textSource: TextSource) -> ...any
@@ -6199,28 +6217,30 @@ Class TweenService : Instance [NotCreatable] [Service]
 	Function TweenService:SmoothDamp(current: any, target: any, velocity: any, smoothTime: number, maxSpeed: number?, dt: number?) -> (any, any)
 Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function UGCValidationService:CalculateEditableMeshInsideMeshPercentage(editableMeshRoot: Object, editableMeshQuery: Object, meshQueryTransform: CFrame, meshQueryScale: Vector3) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:CalculateEditableMeshTotalSurfaceArea(editableMesh: Object, meshScale: Vector3) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:CalculateEditableMeshUniqueUVCount(editableMesh: Object) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateAverageCageMeshDistance(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, innerTransform: CFrame, outerTransform: CFrame) -> number {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:CalculateAverageEditableCageMeshDistance(innerCage: EditableMesh, outerCage: EditableMesh, refMesh: EditableMesh, innerTransform: CFrame, outerTransform: CFrame) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateEditableMeshInsideMeshPercentage(editableMeshRoot: EditableMesh, editableMeshQuery: EditableMesh, meshQueryTransform: CFrame, meshQueryScale: Vector3) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateEditableMeshTotalSurfaceArea(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:CalculateEditableMeshUniqueUVCount(editableMesh: EditableMesh) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:CalculateMeshInsideMeshPercentage(meshIdRoot: string, meshIdQuery: string, meshqueryTransform: CFrame, meshQueryScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CalculateTotalSurfaceArea(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CalculateUniqueUVCount(meshId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CanLoadAsset(assetId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:CheckEditableMeshInCameraFrustum(editableMesh: Object, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:CheckEditableMeshInCameraFrustum(editableMesh: EditableMesh, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:CheckMeshInCameraFrustum(meshId: string, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CompareTextureOverlapByteString(byteStringBaseline: string, byteStringFollowup: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CompareTextureOverlapTextureId(textureIdBaseline: string, textureIdFollowup: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:FetchAssetWithFormat(url: string, assetFormat: string) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetCagingRelevancyMetrics(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: Object, controlNames: { any }) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: EditableMesh, controlNames: { any }) -> ...any {RobloxScriptSecurity}
 	Function UGCValidationService:GetDynamicHeadMeshInactiveControls(meshId: string, controlNames: { any }) -> ...any {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:GetEditableCagingRelevancyMetrics(innerCage: Object, outerCage: Object, refMesh: Object, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableImageSize(editableImage: Object) -> Vector2 {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshMaxNearbyVerticesCollisions(editableMesh: Object, meshScale: Vector3) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshTriCount(editableMesh: Object) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshVertColors(editableMesh: Object) -> { any } {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshVerticesSimilarityRate(editableMesh: Object, meshScale: Vector3) -> number {RobloxScriptSecurity}
-	Function UGCValidationService:GetEditableMeshVerts(editableMesh: Object) -> { any } {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableCagingRelevancyMetrics(innerCage: EditableMesh, outerCage: EditableMesh, refMesh: EditableMesh, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableImageSize(editableImage: EditableImage) -> Vector2 {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshMaxNearbyVerticesCollisions(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshTriCount(editableMesh: EditableMesh) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshVertColors(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshVerticesSimilarityRate(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableMeshVerts(editableMesh: EditableMesh) -> { any } {RobloxScriptSecurity}
 	Function UGCValidationService:GetImageTransparencyWithByteString(textureId: string) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetImageTransparencyWithTextureID(textureId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMaxNearbyVerticesCollisions(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
@@ -6230,35 +6250,37 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetPropertyValue(instance: Instance, property: string) -> any {RobloxScriptSecurity}
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:IsEditableMeshNumCoplanarIntersectionsOverLimit(editableMesh: Object, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:IsEditableMeshNumCoplanarIntersectionsOverLimit(editableMesh: EditableMesh, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:IsNumCoplanarIntersectionsOverLimit(meshId: string, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:RegisterUGCValidationFunction(setFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ReportUGCValidationTelemetry(assetType: string, data: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ResetCollisionFidelity(meshPart: Instance, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
-	Function UGCValidationService:ResetCollisionFidelityWithEditableMeshDataLua(meshPart: MeshPart, editableMesh: Object, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
+	Function UGCValidationService:ResetCollisionFidelityWithEditableMeshDataLua(meshPart: MeshPart, editableMesh: EditableMesh, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
 	Function UGCValidationService:SetMeshIdBlocking(meshPart: Instance, meshId: string) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateCageMeshIntersection(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageNonManifoldAndHoles(meshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageUVCoincident(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageUVTriangleArea(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:ValidateDynamicHeadEditableMesh(editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateDynamicHeadEditableMesh(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateDynamicHeadMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:ValidateEditableImageNumTextureChannels(editableImage: Object, numTextureChannelsRequired: number) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableImageSize(editableImage: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshBounds(editableMesh: Object, meshScale: Vector3, boundsOffset: Vector3, attachmentCF: CFrame, handleCF: CFrame) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshCageMeshIntersection(innerCage: Object, outerCage: Object, refMesh: Object) -> ...any {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(editableMesh: Object) -> ...any {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshCageUVCoincident(editableMesh: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshCageUVTriangleArea(editableMesh: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshFullBodyCageDeletion(editableMesh: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshMisMatchUV(innerCage: Object, outerCage: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshOverlappingVertices(editableMesh: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshTriangleArea(editableMesh: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshTriangles(editableMesh: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshUVSpace(editableMesh: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshUVValuesInReference(referenceValues: { any }, editableMesh: Object) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshUniqueUVCount(editableMesh: Object, numRequired: number) -> boolean {RobloxScriptSecurity}
-	Function UGCValidationService:ValidateEditableMeshVertColors(editableMesh: Object, includeAlpha: boolean? = true) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableImageNumTextureChannels(editableImage: EditableImage, numTextureChannelsRequired: number) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableImageSize(editableImage: EditableImage) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshBounds(editableMesh: EditableMesh, meshScale: Vector3, boundsOffset: Vector3, attachmentCF: CFrame, handleCF: CFrame) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshCageMeshIntersection(innerCage: EditableMesh, outerCage: EditableMesh, refMesh: EditableMesh) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(editableMesh: EditableMesh) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshCageUVCoincident(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshCageUVTriangleArea(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshFullBodyCageDeletion(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshMisMatchUV(innerCage: EditableMesh, outerCage: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshOverlappingVertices(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshTriangleArea(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshTriangles(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshUVSpace(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshUVValuesInReference(referenceValues: { any }, editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshUniqueUVCount(editableMesh: EditableMesh, numRequired: number) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshVertColors(editableMesh: EditableMesh, includeAlpha: boolean? = true) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateFacialBounds(meshId: string, boundsScale: number, partSize: Vector3) -> boolean {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:ValidateFacialExpressiveness(meshId: string, minDelta: number, partSize: Vector3) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateFullBodyCageDeletion(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateImageTransparencyThresholdByteString(image: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateImageTransparencyThresholdByteString_V2(image: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
@@ -6271,7 +6293,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateMisMatchUV(innerCageMeshId: string, outerCageMeshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateNumTextureChannels(textureId: string, numChannelsRequired: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateOverlappingVertices(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:ValidateSkinnedEditableMesh(editableMesh: Object) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateSkinnedEditableMesh(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateSkinnedMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureAlpha(textureId: string, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureAlphaByteString(byteString: string, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]
@@ -6977,6 +6999,16 @@ Enum AnnotationEditingMode
 	EnumItem AnnotationEditingMode.None : 0
 	EnumItem AnnotationEditingMode.PlacingNew : 1
 	EnumItem AnnotationEditingMode.WritingNew : 2
+Enum AnnotationRequestResult
+	EnumItem AnnotationRequestResult.Success : 0
+	EnumItem AnnotationRequestResult.ErrorInternalFailure : 1
+	EnumItem AnnotationRequestResult.ErrorNotFound : 2
+Enum AnnotationRequestType
+	EnumItem AnnotationRequestType.Unknown : 0
+	EnumItem AnnotationRequestType.Create : 1
+	EnumItem AnnotationRequestType.Resolve : 2
+	EnumItem AnnotationRequestType.Delete : 3
+	EnumItem AnnotationRequestType.Edit : 4
 Enum AppLifecycleManagerState
 	EnumItem AppLifecycleManagerState.Detached : 0
 	EnumItem AppLifecycleManagerState.Active : 1
@@ -7449,8 +7481,6 @@ Enum CompletionItemTag
 	EnumItem CompletionItemTag.ClientServerBoundaryViolation : 9
 	EnumItem CompletionItemTag.Invalidated : 10
 	EnumItem CompletionItemTag.PutCursorBeforeEnd : 11
-	EnumItem CompletionItemTag.ElideLeftOverride : 12
-	EnumItem CompletionItemTag.UseTextEditForAutocompleteScore : 13
 Enum CompletionTriggerKind
 	EnumItem CompletionTriggerKind.Invoked : 1
 	EnumItem CompletionTriggerKind.TriggerCharacter : 2
@@ -9564,6 +9594,7 @@ Enum TextChatMessageStatus
 	EnumItem TextChatMessageStatus.InvalidPrivacySettings : 6
 	EnumItem TextChatMessageStatus.InvalidTextChannelPermissions : 7
 	EnumItem TextChatMessageStatus.MessageTooLong : 8
+	EnumItem TextChatMessageStatus.ModerationTimeout : 9
 Enum TextDirection
 	EnumItem TextDirection.Auto : 0
 	EnumItem TextDirection.LeftToRight : 1

@@ -3597,7 +3597,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">AvatarJointUpgrade</string>
-            <string name="FFlag">AvatarJointUpgrade</string>
+            <string name="FFlag">AvatarJointUpgradeCpp</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

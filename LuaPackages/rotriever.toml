@@ -15,23 +15,21 @@ RoactNavigation = "0.5.10"
 Cryo = "1.1.0"
 Dash = "0.1"
 llama = "1.0.0"
-LuaSocialLibrariesDeps = "1.5.4"
+LuaSocialLibrariesDeps = "1.5.5"
 AvatarExperienceDeps = "0.0.1"
-PurchasePromptDeps = "1.0.1"
-IAPExperience = "1.0.2"
-UIBlox = "0.2.17"
-Foundation = "1.6.0"
-FoundationImages = "1.8.0"
+UIBlox = "0.2.25"
+Foundation = "1.7.0"
+FoundationImages = "1.10.0"
 Thumbnailing = "0.3.0"
 Otter = "1.2.1"
 ReactOtter = "1.2.1"
 t = "3.0.0"
 enumerate = "1.0.0"
-PolicyProvider = { version = "0.1.1", package = "LuaRoactPolicyProvider" }
+PolicyProvider = { version = "0.1.2", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
-StringUtilities = "1.0.0"
+StringUtilities = { version = "1.0.0", package = "string-utilities" }
 UrlBuilder = "1.2.2"
-FitFrame = "2.0.0"
+FitFrame = { version = "2.0.0", package = "RoactFitComponents" }
 NetworkingFriends = "2.12.1"
 EmojiList = "1.0.0"
 RoduxGames = "1.4.1"
@@ -57,7 +55,7 @@ QRCode = "0.1.0"
 Merge = "0.3.1"
 GraphqlToolsUtils = { version = "0.3.1", package = "Utils" }
 DataLoader = "0.2.0"
-UGCValidation = "1.12.25"
+UGCValidation = "1.12.26"
 RoduxPresence = "3.2.3"
 RoduxFriends = "4.3.0"
 RoduxUsers = "1.5.1"
@@ -95,16 +93,7 @@ ReactTestingUtils = "1.2.0"
 [config.patch."https://github.com/roblox/rodux"]
 Rodux = "3.2.0"
 
-[config.patch_git."https://github.com/roblox/rodux"]
-Rodux = "3.2.0"
-
 [config.patch."https://github.com/roblox/roblox-lua-promise"]
-Promise = "3.5.0"
-
-[config.patch_git."https://github.com/roblox/roblox-lua-promise"]
-Promise = "3.5.0"
-
-[config.patch_git."https://github.com/roblox/lua-promise"]
 Promise = "3.5.0"
 
 [config.patch."https://github.com/roblox/roact-navigation"]
@@ -114,58 +103,10 @@ RoactNavigation = "0.5.10"
 [config.patch."github.com/roblox/roact"]
 Roact = { version = "17.1.2", package = "RoactCompat" }
 
-[config.patch_git."https://github.com/roblox/roact-17-upgrade"]
-RoactProxy = { version = "17.1.2", package = "RoactCompat" }
-ReactProxy = { version = "17.1.2", package = "React" }
-ReactIsProxy = { version = "17.1.2", package = "ReactIs" }
-ReactRobloxProxy = { version = "17.1.2", package = "ReactRoblox" }
-Roact = { version = "17.1.2", package = "RoactCompat" }
-React = "17.1.2"
-ReactIs = "17.1.2"
-ReactRoblox = "17.1.2"
-
 [config.patch."github.com/roblox/roact-rodux"]
 RoactRodux = "0.5.1"
-
-[config.patch."github.com/roblox/roact-gamepad"]
-RoactGamepad = "0.5.13"
-
-[config.patch."github.com/roblox/virtualized-list-lua"]
-VirtualizedList = "1.4.3"
 
 # Patch over a deep jest dependency in order to preempt a new analysis error
 # that caught several mistranslation bugs
 [config.patch."github.com/roblox/picomatch-lua"]
 Picomatch = "0.3.1"
-
-# Patching over a dependency of ReactTestingLibrary remove when mirrored in artifactory
-[config.patch."github.com/roblox/dom-testing-library-lua"]
-DomTestingLibrary = "8.14.7"
-
-# registry patches
-[config.patch."github.com/roblox/roact-fit-components"]
-FitFrame = { version = "2.0.0", package = "RoactFitComponents" }
-
-[config.patch."github.com/roblox/string-utilities"]
-StringUtilities = { version = "1.0.0", package = "string-utilities" }
-
-[config.patch."github.com/roblox/chalk-lua"]
-Chalk = { version = "0.2.0", package = "ChalkLua" }
-
-[config.patch."github.com/roblox/luau-regexp"]
-LuauRegExp = { version = "0.2.0", package = "RegExp" }
-
-[config.patch."github.com/Roblox/apollo-client-lua"]
-ApolloClient = "0.3.10"
-
-[config.patch."github.com/Roblox/graphql-tag-lua"]
-GraphQLTag = { version = "2.12.9", package = "GraphqlTag" }
-
-[config.patch_git."github.com/Roblox/UIBlox"]
-UIBlox = "0.2.17"
-
-[config.patch_git."github.com/Roblox/lua-roact-policy-provider"]
-PolicyProvider = { version = "0.1.1", package = "LuaRoactPolicyProvider" }
-
-[config.patch_git."github.com/Roblox/mock"]
-Mock = { version = "1.1.0", package = "mock" }

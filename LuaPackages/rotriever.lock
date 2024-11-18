@@ -23,7 +23,7 @@ name = "ApolloClientTesting"
 version = "0.3.10"
 source = "registry"
 dependencies = [
-    "ApolloClient <patched> ApolloClient 0.3.10 registry",
+    "ApolloClient ApolloClient 0.3.10 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphQLTag GraphqlTag 2.12.9 registry",
     "Jest Jest 3.8.1 registry",
@@ -82,7 +82,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 name = "CorePackages"
 version = "0.1.0"
 dependencies = [
-    "ApolloClient <patched> ApolloClient 0.3.10 registry",
+    "ApolloClient ApolloClient 0.3.10 registry",
     "ApolloClientTesting ApolloClientTesting 0.3.10 registry",
     "AvatarExperienceDeps AvatarExperienceDeps 0.0.1 registry",
     "Cryo Cryo 1.1.0 registry",
@@ -90,20 +90,19 @@ dependencies = [
     "DataLoader DataLoader 0.2.0 registry",
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
-    "FitFrame <patched> RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.6.0 registry",
-    "FoundationImages FoundationImages 1.8.0 registry",
+    "FitFrame RoactFitComponents 2.0.0 registry",
+    "Foundation Foundation 1.7.0 registry",
+    "FoundationImages FoundationImages 1.10.0 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
-    "IAPExperience IAPExperience 1.0.2 registry",
     "InGameMenuDependencies InGameMenuDependencies 0.3.0 registry",
     "InputHandlers InputHandlers 1.3.1 registry",
     "Jest Jest 3.8.1 registry",
     "JestBenchmark JestBenchmark 3.8.1 registry",
     "JestGlobals JestGlobals 2.4.1 registry",
     "JestGlobals3 JestGlobals 3.8.1 registry",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1.5.4 registry",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1.5.5 registry",
     "LuauPolyfill LuauPolyfill 0.4.2 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Merge Merge 0.3.1 registry",
@@ -111,9 +110,8 @@ dependencies = [
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
     "Otter Otter 1.2.1 registry",
-    "PolicyProvider LuaRoactPolicyProvider 0.1.1 registry",
+    "PolicyProvider LuaRoactPolicyProvider 0.1.2 registry",
     "Promise <patched> Promise 3.5.0 registry",
-    "PurchasePromptDeps PurchasePromptDeps 1.0.1 registry",
     "QRCode QRCode 0.1.0 registry",
     "React React 17.1.2 registry",
     "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.1.2 registry",
@@ -131,7 +129,7 @@ dependencies = [
     "Rhodium Rhodium 0.5.0 registry",
     "Roact RoactCompat 17.1.2 registry",
     "RoactAppExperiment RoactAppExperiment 0.4.1 registry",
-    "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
+    "RoactGamepad RoactGamepad 0.5.13 registry",
     "RoactNavigation <patched> RoactNavigation 0.5.10 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.2.0 registry",
@@ -141,16 +139,16 @@ dependencies = [
     "RoduxGames RoduxGames 1.4.1 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
-    "RoduxUsers RoduxUsers 1.5.1 registry",
+    "RoduxUsers RoduxUsers 1.6.0 registry",
     "Signal Signal 1.0.0 registry",
-    "StringUtilities <patched> string-utilities 1.0.0 registry",
+    "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.3.0 registry",
-    "UGCValidation UGCValidation 1.12.25 registry",
-    "UIBlox UIBlox 0.2.17 registry",
+    "UGCValidation UGCValidation 1.12.26 registry",
+    "UIBlox UIBlox 0.2.25 registry",
     "UrlBuilder UrlBuilder 1.2.2 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
-    "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
+    "VirtualizedList VirtualizedList 1.4.3 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 3.0.0 registry",
@@ -291,12 +289,12 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.6.0"
+version = "1.7.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Dash Dash 1.1.0 registry",
-    "FoundationImages FoundationImages 1.8.0 registry",
+    "FoundationImages FoundationImages 1.10.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.2.1 registry",
     "RbxDesignFoundations RbxDesignFoundations 2.0.143 registry",
@@ -306,14 +304,14 @@ dependencies = [
     "ReactRoblox ReactRoblox 17.1.2 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
     "Roact RoactCompat 17.1.2 registry",
-    "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
+    "RoactGamepad RoactGamepad 0.5.13 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
 ]
 
 [[package]]
 name = "FoundationImages"
-version = "1.8.0"
+version = "1.10.0"
 source = "registry"
 
 [[package]]
@@ -322,7 +320,7 @@ version = "0.1.0"
 source = "registry"
 dependencies = [
     "Promise <patched> Promise 3.5.0 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -363,24 +361,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "IAPExperience"
-version = "1.0.2"
-source = "registry"
-dependencies = [
-    "Cryo Cryo 1.1.0 registry",
-    "Otter Otter 0.1.4 registry",
-    "React React 17.1.2 registry",
-    "ReactOtter ReactOtter 1.2.1 registry",
-    "Roact RoactCompat 17.1.2 registry",
-    "RoactFitComponents RoactFitComponents 2.0.0 registry",
-    "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
-    "Thumbnailing Thumbnailing 0.3.0 registry",
-    "UIBlox UIBlox 0.2.17 registry",
-    "enumerate enumerate 1.1.0 registry",
-    "t t 1.2.5 registry",
-]
-
-[[package]]
 name = "InGameMenuDependencies"
 version = "0.3.0"
 source = "registry"
@@ -388,13 +368,13 @@ dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Mock mock 1.1.0 registry",
     "Otter Otter 0.1.4 registry",
-    "PolicyProvider LuaRoactPolicyProvider 0.1.1 registry",
+    "PolicyProvider LuaRoactPolicyProvider 0.1.2 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "Roact RoactCompat 17.1.2 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.2.0 registry",
-    "UIBlox UIBlox 0.2.17 registry",
-    "t t 1.2.5 registry",
+    "UIBlox UIBlox 0.2.25 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -911,7 +891,7 @@ dependencies = [
 
 [[package]]
 name = "LuaRoactPolicyProvider"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -925,7 +905,7 @@ dependencies = [
 
 [[package]]
 name = "LuaSocialLibrariesDeps"
-version = "1.5.4"
+version = "1.5.5"
 source = "registry"
 dependencies = [
     "CollisionMatchers CollisionMatchers2D 1.1.0 registry",
@@ -957,7 +937,7 @@ dependencies = [
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxShareLinks RoduxShareLinks 1.5.1 registry",
     "RoduxUserPermissions RoduxUserPermissions 0.5.0 registry",
-    "RoduxUsers RoduxUsers 1.5.1 registry",
+    "RoduxUsers RoduxUsers 1.6.0 registry",
     "SocialLibraries SocialLibraries 4.0.2 registry",
     "httpRequest HttpRequest 1.1.1 registry",
     "llama llama 1.0.0 registry",
@@ -1180,26 +1160,6 @@ version = "3.5.0"
 source = "registry"
 
 [[package]]
-name = "PurchasePromptDeps"
-version = "1.0.1"
-source = "registry"
-dependencies = [
-    "Cryo Cryo 1.1.0 registry",
-    "FitFrame RoactFitComponents 2.0.0 registry",
-    "IAPExperience IAPExperience 1.0.2 registry",
-    "Otter Otter 0.1.4 registry",
-    "PolicyProvider LuaRoactPolicyProvider 0.1.1 registry",
-    "Promise <patched> Promise 3.5.0 registry",
-    "Roact RoactCompat 17.1.2 registry",
-    "RoactRodux <patched> RoactRodux 0.5.1 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
-    "UIBlox UIBlox 0.2.17 registry",
-    "UrlBuilder UrlBuilder 1.2.2 registry",
-    "enumerate enumerate 1.1.0 registry",
-    "t t 1.2.5 registry",
-]
-
-[[package]]
 name = "QRCode"
 version = "0.1.0"
 source = "registry"
@@ -1208,13 +1168,13 @@ source = "registry"
 name = "RbxDesignFoundations"
 version = "1.1.107"
 source = "registry"
-dependencies = ["t t 1.2.5 registry"]
+dependencies = ["t t 1.2.6 registry"]
 
 [[package]]
 name = "RbxDesignFoundations"
 version = "2.0.143"
 source = "registry"
-dependencies = ["t t 1.2.5 registry"]
+dependencies = ["t t 1.2.6 registry"]
 
 [[package]]
 name = "React"
@@ -1329,7 +1289,7 @@ name = "ReactTestingLibrary"
 version = "12.2.0"
 source = "registry"
 dependencies = [
-    "DomTestingLibrary <patched> DomTestingLibrary 8.14.7 registry",
+    "DomTestingLibrary DomTestingLibrary 8.14.7 registry",
     "JestGlobals JestGlobals 3.8.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise <patched> Promise 3.5.0 registry",
@@ -1404,7 +1364,7 @@ dependencies = [
     "React React 17.1.2 registry",
     "ReactRoblox ReactRoblox 17.1.2 registry",
     "Roact RoactCompat 17.1.2 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -1436,7 +1396,7 @@ dependencies = [
     "React React 17.1.2 registry",
     "Roact RoactCompat 17.1.2 registry",
     "enumerate enumerate 1.1.0 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -1510,7 +1470,7 @@ dependencies = [
     "NetworkingCall NetworkingCall 1.16.0 registry",
     "Rodux <patched> Rodux 3.2.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -1523,7 +1483,7 @@ dependencies = [
     "Rodux <patched> Rodux 3.2.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -1536,7 +1496,7 @@ dependencies = [
     "Rodux <patched> Rodux 3.2.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -1556,7 +1516,7 @@ dependencies = [
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -1569,7 +1529,7 @@ dependencies = [
     "Rodux <patched> Rodux 3.2.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -1593,7 +1553,7 @@ dependencies = [
     "Rodux <patched> Rodux 3.2.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -1623,7 +1583,7 @@ dependencies = [
 
 [[package]]
 name = "RoduxUsers"
-version = "1.5.1"
+version = "1.6.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1689,10 +1649,10 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.17 registry",
+    "UIBlox UIBlox 0.2.25 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
     "tutils tutils 0.1.2 registry",
 ]
 
@@ -1777,7 +1737,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.12.25"
+version = "1.12.26"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1786,12 +1746,13 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.17"
+version = "0.2.25"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "FoundationImages FoundationImages 1.8.0 registry",
+    "Foundation Foundation 1.7.0 registry",
+    "FoundationImages FoundationImages 1.10.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Lumberyak lumberyak 0.1.1 registry",
@@ -1804,12 +1765,12 @@ dependencies = [
     "ReactRoblox ReactRoblox 17.1.2 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
     "Roact RoactCompat 17.1.2 registry",
-    "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
+    "RoactGamepad RoactGamepad 0.5.13 registry",
     "Shared Shared 17.1.2 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
-    "VirtualizedList <patched> VirtualizedList 1.4.3 registry",
+    "VirtualizedList VirtualizedList 1.4.3 registry",
     "enumerate enumerate 1.1.0 registry",
-    "t t 1.2.5 registry",
+    "t t 1.2.6 registry",
 ]
 
 [[package]]
@@ -1924,7 +1885,7 @@ source = "registry"
 
 [[package]]
 name = "t"
-version = "1.2.5"
+version = "1.2.6"
 source = "registry"
 
 [[package]]
