@@ -3,10 +3,10 @@ local Chrome = script:FindFirstAncestor("Chrome")
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 
-local ChromeService = require(Chrome.Service)
+local ChromeService = require(Chrome.ChromeShared.Service)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
-local Constants = require(Chrome.Unibar.Constants)
-local WindowSizeSignal = require(Chrome.Service.WindowSizeSignal)
+local Constants = require(Chrome.ChromeShared.Unibar.Constants)
+local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images

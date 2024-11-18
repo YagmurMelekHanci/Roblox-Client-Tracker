@@ -19,15 +19,14 @@ local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
-local GetFFlagUpdateHealthBar = require(RobloxGui.Modules.Flags.GetFFlagUpdateHealthBar)
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
-local ChromeService = if GetFFlagFixChromeReferences() then 
-	if ChromeEnabled() then require(Chrome.Service) else nil
-	else if ChromeEnabled then require(Chrome.Service) else nil
+local ChromeService = if GetFFlagFixChromeReferences() then
+	if ChromeEnabled() then require(Chrome.ChromeShared.Service) else nil
+	else if ChromeEnabled then require(Chrome.ChromeShared.Service) else nil
 
-local UseUpdatedHealthBar = GetFFlagUpdateHealthBar() and ChromeEnabled()
+local UseUpdatedHealthBar = ChromeEnabled()
 
 
 local HEALTHBAR_SIZE = UDim2.new(0, 80, 0, 6)

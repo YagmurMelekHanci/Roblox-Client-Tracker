@@ -45,6 +45,44 @@ PROTO_1:
   RETURN R1 1
 
 PROTO_2:
+  LOADNIL R1
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  JUMPIFEQKS R6 K0 ["ProportionsNormal"] [+5]
+  JUMPIFEQKS R6 K1 ["ProportionsSlender"] [+3]
+  JUMPIFNOTEQKS R6 K2 ["Classic"] [+9]
+  JUMPIFNOTEQKNIL R1 [+3]
+  MOVE R1 R6
+  JUMP [+5]
+  JUMPIFEQ R1 R6 [+4]
+  LOADK R1 K3 ["Mixed"]
+  JUMP [+1]
+  LOADK R1 K3 ["Mixed"]
+  FORGLOOP R2 2 [-16]
+  JUMPIFNOTEQKNIL R1 [+3]
+  LOADK R2 K0 ["ProportionsNormal"]
+  RETURN R2 1
+  RETURN R1 1
+
+PROTO_3:
+  LOADK R3 K0 ["AvatarPartScaleType"]
+  NAMECALL R1 R0 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  LOADK R4 K2 ["StringValue"]
+  NAMECALL R2 R1 K3 ["IsA"]
+  CALL R2 2 1
+  JUMPIF R2 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETTABLEKS R2 R1 K4 ["Value"]
+  RETURN R2 1
+
+PROTO_4:
   GETUPVAL R5 0
   GETTABLEKS R2 R5 K0 ["LIMBS"]
   LOADNIL R3
@@ -105,7 +143,7 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Src"]
   GETTABLEKS R3 R4 K9 ["Types"]
   CALL R2 1 1
-  NEWTABLE R3 4 0
+  NEWTABLE R3 8 0
   DUPCLOSURE R4 K10 [PROTO_0]
   DUPTABLE R5 K14 [{"Classic", "ProportionsSlender", "ProportionsNormal"}]
   DUPTABLE R7 K18 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
@@ -140,6 +178,10 @@ MAIN:
   CAPTURE VAL R1
   SETTABLEKS R5 R3 K24 ["allAvatarPartScaleTypeValueObjects"]
   DUPCLOSURE R5 K25 [PROTO_2]
+  SETTABLEKS R5 R3 K26 ["computeAvatarPartScaleType"]
+  DUPCLOSURE R5 K27 [PROTO_3]
+  SETTABLEKS R5 R3 K28 ["getAvatarPartScaleType"]
+  DUPCLOSURE R5 K29 [PROTO_4]
   CAPTURE VAL R1
-  SETTABLEKS R5 R3 K26 ["setAvatarPartScaleTypeValueObjects"]
+  SETTABLEKS R5 R3 K30 ["setAvatarPartScaleTypeValueObjects"]
   RETURN R3 1

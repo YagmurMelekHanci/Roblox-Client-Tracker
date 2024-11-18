@@ -8,6 +8,7 @@
 local AssetService = game:GetService("AssetService")
 local AvatarCreationService = game:GetService("AvatarCreationService")
 local ExpAuthSvc = game:GetService("ExperienceAuthService")
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
 local PublishAssetPrompt = script.Parent
 local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAssetPrompt)
@@ -21,6 +22,33 @@ local FFlagPublishAvatarPromptEnabled = require(script.Parent.FFlagPublishAvatar
 
 local EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled =
 	game:GetEngineFeature("PromptImportAnimationClipFromVideoAsyncEnabled")
+
+local FFlagAvatarPublishPromptUpdateAttachments = game:DefineFastFlag("AvatarPublishPromptUpdateAttachments", false)
+local EngineFeatureWrapDeformerUpdateAttachments = game:GetEngineFeature("WrapDeformerUpdateAttachments")
+
+local function updateModelAttachmentsWithWrapDeformers(avatarModel: Instance)
+	-- The Avatar model needs to be parented to the DataModel for GetDeformedCFrameAsync to work
+	avatarModel.Parent = RobloxReplicatedStorage
+
+	for _, child in avatarModel:GetChildren() do
+		if not child:IsA("MeshPart") then
+			continue
+		end
+
+		local wrapDeformer = child:FindFirstChildWhichIsA("WrapDeformer")
+		if not wrapDeformer then
+			continue
+		end
+
+		for _, meshPartChild in child:GetChildren() do
+			if not meshPartChild:IsA("Attachment") then
+				continue
+			end
+
+			meshPartChild.CFrame = wrapDeformer:GetDeformedCFrameAsync(meshPartChild.CFrame)
+		end
+	end
+end
 
 local function ConnectAssetServiceEvents(store)
 	local connections = {}
@@ -72,7 +100,13 @@ local function ConnectAssetServiceEvents(store)
 
 				-- check that guid matches for the prompt to update humanoid model
 				if state and state.promptRequest.promptInfo.guid == guid then
-					store:dispatch(SetHumanoidModel(AvatarCreationService:DeserializeAvatarModel(serializedModel)))
+					local deserializedModel = AvatarCreationService:DeserializeAvatarModel(serializedModel)
+
+					if EngineFeatureWrapDeformerUpdateAttachments and FFlagAvatarPublishPromptUpdateAttachments then
+						updateModelAttachmentsWithWrapDeformers(deserializedModel)
+					end
+
+					store:dispatch(SetHumanoidModel(deserializedModel))
 					if FFlagPublishAvatarPromptEnabled then
 						store:dispatch(SetPriceInRobux(priceFromToken))
 					else

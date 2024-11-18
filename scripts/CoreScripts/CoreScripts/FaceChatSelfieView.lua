@@ -36,7 +36,7 @@ local newTrackerStreamAnimation = nil
 local cloneStreamTrack = nil
 
 local EngineFeatureAvatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
-local EngineFeatureAnimatorAndADFRefactorInternal = game:GetEngineFeature("AnimatorAndADFRefactorInternal")
+local EngineFeatureAnimatorAndADFRefactor = game:GetEngineFeature("AnimatorAndADFRefactor")
 local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerViewRemoteEventSupport")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
@@ -669,8 +669,8 @@ function initVoiceChatServiceManager()
 					end)
 					VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
 						updateSelfViewButtonVisibility()
-						if bottomButtonsFrame then 
-							bottomButtonsFrame:Destroy() 
+						if bottomButtonsFrame then
+							bottomButtonsFrame:Destroy()
 						end
 						bottomButtonsFrame = nil
 						ReInit(Players.LocalPlayer)
@@ -1081,11 +1081,11 @@ function createViewportFrame()
 	viewportFrame.IsMirrored = true
 
 	local uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = selfViewFrame	
+	uiCorner.Parent = selfViewFrame
 
 	uiCorner = Instance.new("UICorner")
 	uiCorner.Parent = viewportFrame
-	
+
 	local uiStroke = Instance.new("UIStroke")
 	uiStroke.Parent = selfViewFrame
 	uiStroke.Thickness = 3
@@ -1149,14 +1149,14 @@ local function createViewport()
 	frame.InputBegan:Connect(function(input)
 		inputBegan(frame, input)
 	end)
-	
+
 	frame.MouseEnter:Connect(function()
 		mouseEntered()
 	end)
 	frame.MouseLeave:Connect(function()
 		mouseLeft()
 	end)
-	
+
 	-- TODO AVBURST-10067 Disconnect event when applicable.
 	--gets enabled once we have a usable avatar
 	frame.Visible = false
@@ -1354,7 +1354,7 @@ local function createViewport()
 		if isOpen then
 			getViewportFrame()
 		end
-		
+
 		indicatorCircle = Instance.new("ImageLabel")
 		indicatorCircle.Name = "IndicatorCircle"
 		indicatorCircle.Parent = frame
@@ -1514,7 +1514,7 @@ local function createViewport()
 				elseif newTrackerStreamAnimation then
 					newTrackerStreamAnimation:Destroy()
 					newTrackerStreamAnimation = nil
-				end	
+				end
 
 				if shouldDisplaySelfViewTooltip("ShowSelfieViewClosedTooltip") then
 					mountSelfViewOnCloseTooltip({
@@ -1633,7 +1633,7 @@ local function createViewport()
 		selfViewFrame.Position = UDim2.new(0, 0, 0, 0)
 		selfViewFrame.Size = UDim2.new(1, 0, 1, 0)
 		selfViewFrame.BackgroundTransparency = 1
-		selfViewFrame.Parent = frame		
+		selfViewFrame.Parent = frame
 
 		viewportFrame = Instance.new("ViewportFrame")
 		viewportFrame.Position = UDim2.new(0, 0, 0, 0)
@@ -1649,7 +1649,7 @@ local function createViewport()
 		viewportFrame.LightDirection = Vector3.new(9.5, -12, 7.5)
 		viewportFrame.BackgroundColor3 = Color3.new(0.0990616, 0.138109, 0.452827)
 		viewportFrame.IsMirrored = true
-		
+
 		indicatorCircle = Instance.new("ImageLabel")
 		indicatorCircle.Name = "IndicatorCircle"
 		indicatorCircle.Parent = frame
@@ -1809,7 +1809,7 @@ local function createViewport()
 				elseif newTrackerStreamAnimation then
 					newTrackerStreamAnimation:Destroy()
 					newTrackerStreamAnimation = nil
-				end	
+				end
 
 				if shouldDisplaySelfViewTooltip("ShowSelfieViewClosedTooltip") then
 					mountSelfViewOnCloseTooltip({
@@ -2130,7 +2130,7 @@ function getNeck(character, head)
 			end
 		end
 	end
-	
+
 	--in case no neck found it could be using AnimationConstraint, do fallback neck loockup for that
 	if FFlagSelfViewUpdatedCamFraming then
 		for _, child in descendants do
@@ -2153,7 +2153,7 @@ function findObjectOfNameAndTypeName(name, typeName, character)
 		if FFlagSelfViewTweaksPass then
 			if child:IsA(typeName) and child.Name == name then
 				return child
-			end			
+			end
 		else
 			if child.Name == name and child:IsA(typeName) then
 				return child
@@ -2368,11 +2368,11 @@ local function updateClone(player)
 	local orgHead = getHead(character)
 
 	clone = character:Clone()
-	
+
 	if FFlagSelfViewMoreNilChecks and clone == nil then
 		return
 	end
-	
+
 	if not FFlagSelfViewTweaksPass then
 		--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
 		removeTagsFromSelfViewClone(clone)
@@ -2405,7 +2405,7 @@ local function updateClone(player)
 			if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
 				part.Transparency = 0
 			end
-			
+
 			if FFlagSelfViewTweaksPass then
 				if CollectionService:HasTag(part, ALWAYS_TRANSPARENT_PART_TAG) then
 					part.Transparency = 1
@@ -2413,10 +2413,10 @@ local function updateClone(player)
 			end
 		end
 	end
-	
+
 	if FFlagSelfViewTweaksPass then
 		--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
-		removeTagsFromSelfViewClone(clone)	
+		removeTagsFromSelfViewClone(clone)
 	end
 
 	clone.Name = cloneCharacterName
@@ -2522,7 +2522,7 @@ local function updateClone(player)
 
 	-- --prep sync streaming tracks
 	if cloneAnimator then
-		if not EngineFeatureAnimatorAndADFRefactorInternal then
+		if not EngineFeatureAnimatorAndADFRefactor then
 			-- clear cloned tracks
 			local clonedTracks = cloneAnimator:GetPlayingAnimationTracks()
 			local coreScriptTracks = cloneAnimator:GetPlayingAnimationTracksCoreScript()
@@ -2548,7 +2548,7 @@ local function updateClone(player)
 		end
 
 		if animator then
-			if EngineFeatureAnimatorAndADFRefactorInternal then
+			if EngineFeatureAnimatorAndADFRefactor then
 				cloneAnimator:SynchronizeWith(animator)
 			else
 				-- clone tracks manually
@@ -2698,7 +2698,7 @@ local function characterAdded(character)
 				return
 			end
 		end
-		
+
 		--these checks are to avoid unnecessary additional refreshes
 		if descendant and (descendant:IsA("MeshPart") or descendant:IsA("Accessory")) then
 			if descendant:IsA("MeshPart") then
@@ -2961,7 +2961,7 @@ function startRenderStepped(player)
 				if cloneAnimator ~= nil and animator ~= nil then
 					gotUsableClone = true
 
-					if not EngineFeatureAnimatorAndADFRefactorInternal then
+					if not EngineFeatureAnimatorAndADFRefactor then
 						local playingAnims = cloneAnimator:GetPlayingAnimationTracks()
 						for _, track in pairs(playingAnims) do
 							if track ~= nil then
@@ -3001,7 +3001,7 @@ function startRenderStepped(player)
 							if track then
 								anim = track.Animation
 								if anim then
-									if not orgAnimationTracks[anim.AnimationId] then					
+									if not orgAnimationTracks[anim.AnimationId] then
 										if cloneAnimationTracks[anim.AnimationId] ~= nil then
 											cloneAnimationTracks[anim.AnimationId]:Stop(0)
 										end
@@ -3107,7 +3107,7 @@ function startRenderStepped(player)
 					else
 						debugPrint("Self View: no neck found")
 					end
-					
+
 					if FFlagSelfViewUpdatedCamFraming then
 						--if webcam is on (FaceAnimatorService.VideoAnimationEnabled) we use the Iris style self view cam framing
 						if FaceAnimatorService and FaceAnimatorService.VideoAnimationEnabled and GetFFlagIrisGyroEnabled() and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport) then
@@ -3152,9 +3152,9 @@ function startRenderStepped(player)
 									local hrpGameWorld = character:FindFirstChild("HumanoidRootPart")
 									if hrpGameWorld then
 										local calc = hrpGameWorld.CFrame:Inverse() * headGameWorld.CFrame
-										
+
 										local targetPos = Vector3.new( (calc.Position.x * 0.15) + 0.125, calc.Position.y, calc.Position.z * 0.05)
-										viewportCamera.CFrame = CFrame.lookAt(center + offset + targetPos, centerLowXimpact)				
+										viewportCamera.CFrame = CFrame.lookAt(center + offset + targetPos, centerLowXimpact)
 										viewportCamera.Focus = headClone.CFrame
 									end
 								end
@@ -3194,9 +3194,9 @@ function startRenderStepped(player)
 							end
 						else
 							local offset = Vector3.new(0, (headHeight * 0.25), -((boundsSize.Z) + 1))
-							viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)											
+							viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
 							viewportCamera.Focus = headClone.CFrame
-						end						
+						end
 					end
 				end
 			end

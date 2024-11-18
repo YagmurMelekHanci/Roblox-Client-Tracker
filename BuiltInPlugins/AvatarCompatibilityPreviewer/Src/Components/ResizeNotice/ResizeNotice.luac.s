@@ -31,73 +31,130 @@ PROTO_1:
   GETTABLEKS R8 R9 K7 ["WorldModel"]
   SETLIST R7 R8 1 [1]
   CALL R5 2 0
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K8 ["createElement"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K9 ["UI"]
-  GETTABLEKS R6 R7 K10 ["Pane"]
-  DUPTABLE R7 K16 [{"Size", "Position", "AnchorPoint", "AutomaticSize", "Visible"}]
-  GETTABLEKS R8 R2 K11 ["Size"]
-  SETTABLEKS R8 R7 K11 ["Size"]
-  GETTABLEKS R8 R2 K12 ["Position"]
-  SETTABLEKS R8 R7 K12 ["Position"]
-  GETTABLEKS R8 R2 K13 ["AnchorPoint"]
-  SETTABLEKS R8 R7 K13 ["AnchorPoint"]
-  GETIMPORT R8 K19 [Enum.AutomaticSize.Y]
-  SETTABLEKS R8 R7 K14 ["AutomaticSize"]
-  GETTABLEKS R8 R4 K20 ["enabled"]
-  JUMPIFNOT R8 [+13]
-  LOADB R8 0
-  GETTABLEKS R9 R3 K21 ["originalScale"]
-  JUMPIFEQKNIL R9 [+9]
-  GETTABLEKS R10 R0 K5 ["Avatar"]
-  GETTABLEKS R9 R10 K22 ["WorldModelScale"]
-  JUMPIFEQKN R9 K23 [1] [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  SETTABLEKS R8 R7 K15 ["Visible"]
-  DUPTABLE R8 K25 [{"Alert"}]
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K8 ["createElement"]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K9 ["UI"]
-  GETTABLEKS R10 R11 K24 ["Alert"]
-  DUPTABLE R11 K31 [{"Title", "Description", "PrimaryAction", "OnClose", "Style"}]
-  LOADK R14 K4 ["ResizeNotice"]
-  LOADK R15 K26 ["Title"]
-  NAMECALL R12 R1 K32 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K26 ["Title"]
-  LOADK R14 K4 ["ResizeNotice"]
-  LOADK R15 K27 ["Description"]
-  DUPTABLE R16 K34 [{"resizePercent"}]
-  GETTABLEKS R18 R3 K35 ["resizeProportion"]
-  JUMPIFNOT R18 [+4]
-  GETTABLEKS R18 R3 K35 ["resizeProportion"]
-  MULK R17 R18 K36 [100]
+  LOADNIL R5
+  LOADNIL R6
+  GETTABLEKS R7 R3 K8 ["autoSetupScaleErrorList"]
+  JUMPIFNOT R7 [+55]
+  LOADK R9 K4 ["ResizeNotice"]
+  LOADK R10 K9 ["TitleError"]
+  NAMECALL R7 R1 K10 ["getText"]
+  CALL R7 3 1
+  MOVE R5 R7
+  LOADK R9 K4 ["ResizeNotice"]
+  LOADK R10 K11 ["DescriptionError"]
+  DUPTABLE R11 K13 [{"resizePercent"}]
+  GETTABLEKS R13 R3 K14 ["autoSetupResizeProportion"]
+  JUMPIFNOT R13 [+4]
+  GETTABLEKS R13 R3 K14 ["autoSetupResizeProportion"]
+  MULK R12 R13 K15 [100]
   JUMP [+1]
-  LOADN R17 100
-  SETTABLEKS R17 R16 K33 ["resizePercent"]
-  NAMECALL R12 R1 K32 ["getText"]
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K27 ["Description"]
-  DUPTABLE R12 K39 [{"Text", "OnClick"}]
-  LOADK R15 K4 ["ResizeNotice"]
-  LOADK R16 K40 ["RevertAction"]
-  NAMECALL R13 R1 K32 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K37 ["Text"]
-  GETTABLEKS R13 R3 K41 ["revertScale"]
-  SETTABLEKS R13 R12 K38 ["OnClick"]
-  SETTABLEKS R12 R11 K28 ["PrimaryAction"]
-  GETTABLEKS R12 R4 K42 ["disable"]
-  SETTABLEKS R12 R11 K29 ["OnClose"]
-  LOADK R12 K43 ["Success"]
-  SETTABLEKS R12 R11 K30 ["Style"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K24 ["Alert"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  LOADN R12 100
+  SETTABLEKS R12 R11 K12 ["resizePercent"]
+  NAMECALL R7 R1 K10 ["getText"]
+  CALL R7 4 1
+  MOVE R6 R7
+  GETTABLEKS R7 R3 K8 ["autoSetupScaleErrorList"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K16 ["ERROR_NO_VALID_SCALE_ERROR"]
+  JUMPIFNOTEQ R11 R12 [+7]
+  LOADK R14 K4 ["ResizeNotice"]
+  LOADK R15 K17 ["NoValidScaleError"]
+  NAMECALL R12 R1 K10 ["getText"]
+  CALL R12 3 1
+  MOVE R11 R12
+  MOVE R12 R6
+  LOADK R13 K18 [" "]
+  MOVE R14 R11
+  CONCAT R6 R12 R14
+  GETIMPORT R12 K21 [string.match]
+  MOVE R13 R11
+  LOADK R14 K22 ["%p%s*$"]
+  CALL R12 2 1
+  JUMPIF R12 [+3]
+  MOVE R12 R6
+  LOADK R13 K23 ["."]
+  CONCAT R6 R12 R13
+  FORGLOOP R7 2 [-25]
+  JUMP [+23]
+  LOADK R9 K4 ["ResizeNotice"]
+  LOADK R10 K24 ["Title"]
+  NAMECALL R7 R1 K10 ["getText"]
+  CALL R7 3 1
+  MOVE R5 R7
+  LOADK R9 K4 ["ResizeNotice"]
+  LOADK R10 K25 ["Description"]
+  DUPTABLE R11 K13 [{"resizePercent"}]
+  GETTABLEKS R13 R3 K14 ["autoSetupResizeProportion"]
+  JUMPIFNOT R13 [+4]
+  GETTABLEKS R13 R3 K14 ["autoSetupResizeProportion"]
+  MULK R12 R13 K15 [100]
+  JUMP [+1]
+  LOADN R12 100
+  SETTABLEKS R12 R11 K12 ["resizePercent"]
+  NAMECALL R7 R1 K10 ["getText"]
+  CALL R7 4 1
+  MOVE R6 R7
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K26 ["createElement"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K27 ["UI"]
+  GETTABLEKS R8 R9 K28 ["Pane"]
+  DUPTABLE R9 K34 [{"Size", "Position", "AnchorPoint", "AutomaticSize", "Visible"}]
+  GETTABLEKS R10 R2 K29 ["Size"]
+  SETTABLEKS R10 R9 K29 ["Size"]
+  GETTABLEKS R10 R2 K30 ["Position"]
+  SETTABLEKS R10 R9 K30 ["Position"]
+  GETTABLEKS R10 R2 K31 ["AnchorPoint"]
+  SETTABLEKS R10 R9 K31 ["AnchorPoint"]
+  GETIMPORT R10 K37 [Enum.AutomaticSize.Y]
+  SETTABLEKS R10 R9 K32 ["AutomaticSize"]
+  GETTABLEKS R10 R4 K38 ["enabled"]
+  JUMPIFNOT R10 [+18]
+  LOADB R10 0
+  GETTABLEKS R11 R3 K39 ["autoSetupOriginalScale"]
+  JUMPIFEQKNIL R11 [+14]
+  LOADB R10 0
+  GETTABLEKS R11 R3 K39 ["autoSetupOriginalScale"]
+  JUMPIFEQKN R11 K40 [1] [+9]
+  GETTABLEKS R12 R0 K5 ["Avatar"]
+  GETTABLEKS R11 R12 K41 ["WorldModelScale"]
+  JUMPIFEQKN R11 K40 [1] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K33 ["Visible"]
+  DUPTABLE R10 K43 [{"Alert"}]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K26 ["createElement"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K27 ["UI"]
+  GETTABLEKS R12 R13 K42 ["Alert"]
+  DUPTABLE R13 K47 [{"Title", "Description", "PrimaryAction", "OnClose", "Style"}]
+  SETTABLEKS R5 R13 K24 ["Title"]
+  SETTABLEKS R6 R13 K25 ["Description"]
+  DUPTABLE R14 K50 [{"Text", "OnClick"}]
+  LOADK R17 K4 ["ResizeNotice"]
+  LOADK R18 K51 ["RevertAction"]
+  NAMECALL R15 R1 K10 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K48 ["Text"]
+  GETTABLEKS R15 R3 K52 ["revertScale"]
+  SETTABLEKS R15 R14 K49 ["OnClick"]
+  SETTABLEKS R14 R13 K44 ["PrimaryAction"]
+  GETTABLEKS R14 R4 K53 ["disable"]
+  SETTABLEKS R14 R13 K45 ["OnClose"]
+  GETTABLEKS R15 R3 K8 ["autoSetupScaleErrorList"]
+  JUMPIFNOT R15 [+2]
+  LOADK R14 K54 ["Info"]
+  JUMP [+1]
+  LOADK R14 K55 ["Success"]
+  SETTABLEKS R14 R13 K46 ["Style"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K42 ["Alert"]
+  CALL R7 3 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0
@@ -106,35 +163,41 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["Constants"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Resources"]
-  GETTABLEKS R4 R5 K11 ["Theme"]
+  GETTABLEKS R5 R0 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["React"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Types"]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Resources"]
+  GETTABLEKS R5 R6 K13 ["Theme"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Hooks"]
-  GETTABLEKS R6 R7 K14 ["useToggleState"]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Types"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Hooks"]
-  GETTABLEKS R7 R8 K15 ["useResizeAvatarHelper"]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Hooks"]
+  GETTABLEKS R7 R8 K16 ["useResizeAvatarHelper"]
   CALL R6 1 1
-  DUPCLOSURE R7 K16 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R6
-  CAPTURE VAL R5
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Hooks"]
+  GETTABLEKS R8 R9 K17 ["useToggleState"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K18 [PROTO_1]
   CAPTURE VAL R2
-  RETURN R7 1
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R8 1

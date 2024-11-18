@@ -3,8 +3,8 @@ local Chrome = script:FindFirstAncestor("Chrome")
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 
-local ChromeService = require(Chrome.Service)
-local ChromeUtils = require(Chrome.Service.ChromeUtils)
+local ChromeService = require(Chrome.ChromeShared.Service)
+local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
@@ -15,8 +15,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
-local Types = require(Chrome.Service.Types)
-local useMappedSignal = require(Chrome.Hooks.useMappedSignal)
+local Types = require(Chrome.ChromeShared.Service.Types)
+local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
+local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
@@ -25,7 +26,11 @@ local Images = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
-local Constants = require(Chrome.Unibar.Constants)
+local useCallback = React.useCallback
+local useState = React.useState
+
+local Constants = require(Chrome.ChromeShared.Unibar.Constants)
+
 local SelfieView = require(RobloxGui.Modules.SelfieView)
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
@@ -33,7 +38,6 @@ local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperi
 
 local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 local GetFFlagUnpinUnavailable = require(Chrome.Flags.GetFFlagUnpinUnavailable)
-local GetFFlagEnableHamburgerIcon = require(Chrome.Flags.GetFFlagEnableHamburgerIcon)
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 local GetFFlagPostLaunchUnibarDesignTweaks = require(RobloxGui.Modules.Flags.GetFFlagPostLaunchUnibarDesignTweaks)
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
@@ -45,11 +49,20 @@ local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeA
 local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
+local GetFFlagShouldShowMusicFtuxTooltip = require(Chrome.Flags.GetFFlagShouldShowMusicFtuxTooltip)
+local GetFStringMusicTooltipLocalStorageKey = require(Chrome.Flags.GetFStringMusicTooltipLocalStorageKey)
+local GetFIntMusicFtuxShowDelayMs = require(Chrome.Flags.GetFIntMusicFtuxShowDelayMs)
+local GetFIntMusicFtuxDismissDelayMs = require(Chrome.Flags.GetFIntMusicFtuxDismissDelayMs)
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
 
 local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 	and FFlagEnableUnibarFtuxTooltips
 	and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
 	and GetShouldShowPlatformChatBasedOnPolicy()
+
+local shouldShowMusicTooltip = FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip()
 
 local SELFIE_ID = Constants.SELFIE_VIEW_ID
 local ICON_SIZE = Constants.ICON_SIZE
@@ -290,16 +303,63 @@ function HamburgerButton(props)
 
 	local submenuOpen = submenuVisibility and useMappedSignal(submenuVisibility) or false
 
+	-- Tooltips should be shown one after the other (Connect, then Music)
+	local hasUserAlreadySeenConnectTooltip = LocalStore.getValue(GetFStringConnectTooltipLocalStorageKey())
+	local hasUserAlreadySeenMusicTooltip = LocalStore.getValue(GetFStringMusicTooltipLocalStorageKey())
+	local isMusicTooltipVisible, setMusicTooltipVisibility =
+		useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip)
+	local onConnectTooltipDismissed = useCallback(function()
+		setMusicTooltipVisibility(true)
+	end)
+
 	local connectTooltip = if shouldShowConnectTooltip
+		then if shouldShowMusicTooltip and not hasUserAlreadySeenConnectTooltip
+			then CommonFtuxTooltip({
+				isIconVisible = props.visible,
+
+				headerKey = if GetFFlagAppChatRebrandStringUpdates()
+					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
+					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
+				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
+					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
+					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
+
+				localStorageKey = GetFStringConnectTooltipLocalStorageKey(),
+
+				showDelay = GetFIntRobloxConnectFtuxShowDelayMs(),
+				dismissDelay = GetFIntRobloxConnectFtuxDismissDelayMs(),
+				onDismissed = if shouldShowMusicTooltip then onConnectTooltipDismissed else nil,
+			})
+			else CommonFtuxTooltip({
+				isIconVisible = props.visible,
+
+				headerKey = if GetFFlagAppChatRebrandStringUpdates()
+					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
+					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
+				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
+					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
+					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
+
+				localStorageKey = GetFStringConnectTooltipLocalStorageKey(),
+
+				showDelay = GetFIntRobloxConnectFtuxShowDelayMs(),
+				dismissDelay = GetFIntRobloxConnectFtuxDismissDelayMs(),
+			})
+		else nil
+
+	local musicTooltip = if isMusicTooltipVisible and not hasUserAlreadySeenMusicTooltip
 		then CommonFtuxTooltip({
 			isIconVisible = props.visible,
 
-			headerKey = "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
-			bodyKey = "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
-			localStorageKey = GetFStringConnectTooltipLocalStorageKey(),
+			headerKey = "CoreScripts.FTUX.Heading.MusicIsAvailable",
+			bodyKey = "CoreScripts.FTUX.Label.MusicViewCurrentTrack",
 
-			showDelay = GetFIntRobloxConnectFtuxShowDelayMs(),
-			dismissDelay = GetFIntRobloxConnectFtuxDismissDelayMs(),
+			-- TODO - MUS-1470: show tooltip once per user per experience
+			-- currently showing once per user overall
+			localStorageKey = GetFStringMusicTooltipLocalStorageKey(),
+
+			showDelay = GetFIntMusicFtuxShowDelayMs(),
+			dismissDelay = GetFIntMusicFtuxDismissDelayMs(),
 		})
 		else nil
 
@@ -395,6 +455,7 @@ function HamburgerButton(props)
 			})
 			else nil,
 		connectTooltip,
+		musicTooltip,
 	})
 end
 
@@ -407,32 +468,7 @@ return ChromeService:register({
 	label = "CoreScripts.TopBar.MoreMenu",
 	components = {
 		Icon = function(props)
-			if GetFFlagEnableHamburgerIcon() then
-				return React.createElement(HamburgerButton, props)
-			else
-				local icon = CommonIcon("icons/menu/9dot", "icons/menu/9dot", submenuVisibility)
-				if shouldShowConnectTooltip then
-					return React.createElement("Frame", {
-						Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-						BorderSizePixel = 0,
-						BackgroundTransparency = 1,
-					}, {
-						icon,
-						CommonFtuxTooltip({
-							isIconVisible = (props :: any).visible,
-
-							headerKey = "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
-							bodyKey = "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
-							localStorageKey = GetFStringConnectTooltipLocalStorageKey(),
-
-							showDelay = GetFIntRobloxConnectFtuxShowDelayMs(),
-							dismissDelay = GetFIntRobloxConnectFtuxDismissDelayMs(),
-						}) :: any,
-					}) :: any
-				else
-					return icon
-				end
-			end
+			return React.createElement(HamburgerButton, props)
 		end,
 	},
 })

@@ -1,7 +1,7 @@
 PROTO_0:
   GETUPVAL R1 0
   GETTABLEKS R2 R0 K0 ["ParentId"]
-  JUMPIFNOT R2 [+26]
+  JUMPIFNOT R2 [+21]
   GETUPVAL R2 0
   GETTABLEKS R4 R0 K0 ["ParentId"]
   LOADB R5 1
@@ -17,39 +17,36 @@ PROTO_0:
   MOVE R3 R1
   GETIMPORT R2 K5 [assert]
   CALL R2 2 0
-  GETTABLEKS R2 R1 K6 ["ReplyCount"]
-  ADDK R2 R2 K7 [1]
-  SETTABLEKS R2 R1 K6 ["ReplyCount"]
-  GETIMPORT R2 K10 [Instance.new]
-  LOADK R3 K11 ["Annotation"]
+  GETIMPORT R2 K8 [Instance.new]
+  LOADK R3 K9 ["Annotation"]
   CALL R2 1 1
-  SETTABLEKS R1 R2 K12 ["Parent"]
-  GETTABLEKS R3 R0 K13 ["UniqueId"]
-  SETTABLEKS R3 R2 K14 ["Name"]
-  GETTABLEKS R3 R0 K15 ["AuthorId"]
-  SETTABLEKS R3 R2 K15 ["AuthorId"]
-  GETTABLEKS R3 R0 K16 ["CreationTimeUnix"]
-  SETTABLEKS R3 R2 K16 ["CreationTimeUnix"]
-  GETTABLEKS R3 R0 K17 ["LastModifiedTimeUnix"]
-  SETTABLEKS R3 R2 K17 ["LastModifiedTimeUnix"]
-  GETTABLEKS R3 R0 K18 ["Contents"]
-  SETTABLEKS R3 R2 K18 ["Contents"]
-  GETTABLEKS R3 R0 K19 ["Resolved"]
-  SETTABLEKS R3 R2 K19 ["Resolved"]
-  GETTABLEKS R3 R0 K20 ["HeaderInfo"]
+  SETTABLEKS R1 R2 K10 ["Parent"]
+  GETTABLEKS R3 R0 K11 ["UniqueId"]
+  SETTABLEKS R3 R2 K12 ["Name"]
+  GETTABLEKS R3 R0 K13 ["AuthorId"]
+  SETTABLEKS R3 R2 K13 ["AuthorId"]
+  GETTABLEKS R3 R0 K14 ["CreationTimeUnix"]
+  SETTABLEKS R3 R2 K14 ["CreationTimeUnix"]
+  GETTABLEKS R3 R0 K15 ["LastModifiedTimeUnix"]
+  SETTABLEKS R3 R2 K15 ["LastModifiedTimeUnix"]
+  GETTABLEKS R3 R0 K16 ["Contents"]
+  SETTABLEKS R3 R2 K16 ["Contents"]
+  GETTABLEKS R3 R0 K17 ["Resolved"]
+  SETTABLEKS R3 R2 K17 ["Resolved"]
+  GETTABLEKS R3 R0 K18 ["HeaderInfo"]
   JUMPIFNOT R3 [+16]
-  LOADK R5 K21 ["HeaderText"]
-  GETTABLEKS R7 R0 K20 ["HeaderInfo"]
-  GETTABLEKS R6 R7 K21 ["HeaderText"]
-  NAMECALL R3 R2 K22 ["SetAttribute"]
+  LOADK R5 K19 ["HeaderText"]
+  GETTABLEKS R7 R0 K18 ["HeaderInfo"]
+  GETTABLEKS R6 R7 K19 ["HeaderText"]
+  NAMECALL R3 R2 K20 ["SetAttribute"]
   CALL R3 3 0
-  LOADK R5 K23 ["AdorneeClass"]
-  GETTABLEKS R7 R0 K20 ["HeaderInfo"]
-  GETTABLEKS R6 R7 K23 ["AdorneeClass"]
-  NAMECALL R3 R2 K22 ["SetAttribute"]
+  LOADK R5 K21 ["AdorneeClass"]
+  GETTABLEKS R7 R0 K18 ["HeaderInfo"]
+  GETTABLEKS R6 R7 K21 ["AdorneeClass"]
+  NAMECALL R3 R2 K20 ["SetAttribute"]
   CALL R3 3 0
-  GETTABLEKS R3 R0 K6 ["ReplyCount"]
-  SETTABLEKS R3 R2 K6 ["ReplyCount"]
+  GETTABLEKS R3 R0 K22 ["ReplyCount"]
+  SETTABLEKS R3 R2 K22 ["ReplyCount"]
   RETURN R0 0
 
 PROTO_1:
@@ -80,6 +77,10 @@ PROTO_1:
   JUMPIFEQKNIL R3 [+5]
   GETTABLEKS R3 R1 K6 ["Contents"]
   SETTABLEKS R3 R2 K6 ["Contents"]
+  GETTABLEKS R3 R1 K7 ["ReplyCount"]
+  JUMPIFEQKNIL R3 [+5]
+  GETTABLEKS R3 R1 K7 ["ReplyCount"]
+  SETTABLEKS R3 R2 K7 ["ReplyCount"]
   RETURN R0 0
 
 PROTO_2:
@@ -90,16 +91,7 @@ PROTO_2:
   CALL R1 3 1
   JUMPIF R1 [+1]
   RETURN R0 0
-  GETTABLEKS R2 R1 K1 ["Parent"]
-  LOADK R4 K2 ["Annotation"]
-  NAMECALL R2 R2 K3 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+7]
-  GETTABLEKS R2 R1 K1 ["Parent"]
-  GETTABLEKS R3 R2 K4 ["ReplyCount"]
-  SUBK R3 R3 K5 [1]
-  SETTABLEKS R3 R2 K4 ["ReplyCount"]
-  NAMECALL R2 R1 K6 ["Destroy"]
+  NAMECALL R2 R1 K1 ["Destroy"]
   CALL R2 1 0
   RETURN R0 0
 
@@ -259,7 +251,7 @@ PROTO_11:
   NAMECALL R7 R6 K8 ["IsA"]
   CALL R7 2 1
   JUMPIFNOT R7 [+7]
-  LOADK R9 K9 ["RequestInProgress"]
+  LOADK R9 K9 ["IsDraft"]
   NAMECALL R7 R6 K10 ["GetAttribute"]
   CALL R7 2 1
   JUMPIF R7 [+2]
@@ -311,7 +303,7 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R3 R4 K7 ["Enums"]
   GETTABLEKS R2 R3 K8 ["AnnotationEditingMode"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
@@ -320,24 +312,20 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K7 ["Util"]
-  GETTABLEKS R4 R5 K10 ["zoomToAnnotation"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["zoomToAnnotation"]
   CALL R3 1 1
-  GETIMPORT R4 K12 [game]
-  LOADK R6 K13 ["AnnotationsService"]
-  NAMECALL R4 R4 K14 ["GetService"]
+  GETIMPORT R4 K13 [game]
+  LOADK R6 K14 ["AnnotationsService"]
+  NAMECALL R4 R4 K15 ["GetService"]
   CALL R4 2 1
-  GETIMPORT R5 K12 [game]
-  LOADK R7 K15 ["StudioService"]
-  NAMECALL R5 R5 K14 ["GetService"]
-  CALL R5 2 1
-  DUPTABLE R6 K18 [{"registerStandaloneCallbacks", "registerEditCallbacks"}]
-  DUPCLOSURE R7 K19 [PROTO_5]
+  DUPTABLE R5 K18 [{"registerStandaloneCallbacks", "registerEditCallbacks"}]
+  DUPCLOSURE R6 K19 [PROTO_5]
   CAPTURE VAL R4
-  SETTABLEKS R7 R6 K16 ["registerStandaloneCallbacks"]
-  DUPCLOSURE R7 K20 [PROTO_12]
+  SETTABLEKS R6 R5 K16 ["registerStandaloneCallbacks"]
+  DUPCLOSURE R6 K20 [PROTO_12]
   CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLEKS R7 R6 K17 ["registerEditCallbacks"]
-  RETURN R6 1
+  SETTABLEKS R6 R5 K17 ["registerEditCallbacks"]
+  RETURN R5 1

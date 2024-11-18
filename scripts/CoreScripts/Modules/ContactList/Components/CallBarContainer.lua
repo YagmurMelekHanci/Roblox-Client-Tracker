@@ -22,9 +22,9 @@ local ChromeEnabled = if GetFFlagFixChromeReferences()
 	then require(Chrome.Enabled)
 	else require(RobloxGui.Modules.Chrome.Enabled)
 local ChromeService = if GetFFlagFixChromeReferences()
-	then if ChromeEnabled() then require(Chrome.Service) else nil
-	else require(Chrome.Service)
-local ChromeConstants = require(Chrome.Unibar.Constants)
+	then if ChromeEnabled() then require(Chrome.ChromeShared.Service) else nil
+	else require(Chrome.ChromeShared.Service)
+local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
 
 local TopBar = RobloxGui.Modules.TopBar
 local TopBarConstants = require(TopBar.Constants)

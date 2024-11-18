@@ -21,9 +21,9 @@ local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixC
 local TopBar = script.Parent.Parent.Parent
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
-local ChromeService = if GetFFlagFixChromeReferences() 
-    then if ChromeEnabled() then require(Chrome.Service) else nil
-    else if ChromeEnabled then require(Chrome.Service) else nil 
+local ChromeService = if GetFFlagFixChromeReferences()
+    then if ChromeEnabled() then require(Chrome.ChromeShared.Service) else nil
+    else if ChromeEnabled then require(Chrome.ChromeShared.Service) else nil
 
 local COPY_ID_TO_LOCALIZATION_KEY = {
     TextFilter = "InGame.CommonUI.Badge.Popup.TextFilterOnlyInfo",
@@ -46,7 +46,7 @@ return function(props)
 
     local chromeClosed = true
     if ChromeService then
-        local menuStatus = require(Chrome.Hooks.useChromeMenuStatus)()
+        local menuStatus = require(Chrome.ChromeShared.Hooks.useChromeMenuStatus)()
         chromeClosed = menuStatus == ChromeService.MenuStatus.Closed
     end
 

@@ -4,12 +4,12 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local ChromeService = require(Chrome.Service)
+local ChromeService = require(Chrome.ChromeShared.Service)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
-local ChromeUtils = require(Chrome.Service.ChromeUtils)
+local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
 local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)

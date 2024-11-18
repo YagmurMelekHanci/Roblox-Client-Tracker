@@ -23,7 +23,7 @@ MAIN:
   JUMPIFNOT R8 [+2]
   LOADK R7 K18 ["$SemanticColorSurface200"]
   JUMP [+1]
-  LOADK R7 K19 ["$ForegroundMain"]
+  LOADK R7 K19 ["$ForegroundContrast"]
   SETTABLEKS R7 R6 K13 ["BackgroundColor3"]
   LOADK R7 K20 [0.1]
   SETTABLEKS R7 R6 K14 ["BackgroundTransparency"]

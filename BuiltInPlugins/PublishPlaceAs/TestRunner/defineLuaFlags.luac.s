@@ -20,5 +20,10 @@ MAIN:
   LOADB R3 0
   NAMECALL R0 R0 K6 ["DefineFastFlag"]
   CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K10 ["CU1320ExperienceGenre"]
+  LOADB R3 0
+  NAMECALL R0 R0 K6 ["DefineFastFlag"]
+  CALL R0 3 0
   LOADNIL R0
   RETURN R0 1

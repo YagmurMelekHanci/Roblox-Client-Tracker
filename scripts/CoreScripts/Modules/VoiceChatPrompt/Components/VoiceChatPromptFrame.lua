@@ -269,6 +269,7 @@ VoiceChatPromptFrame.validateProps = t.strictInterface({
 	VoiceChatServiceManager = t.optional(t.table),
 	showNewContent = t.optional(t.boolean),
 	showCheckbox = t.optional(t.boolean),
+	showDataConsentToast = t.optional(t.boolean),
 	policyMapper = t.optional(t.callback),
 	appStyle = validateStyle,
 	settingsAppAvailable = t.optional(t.boolean),
@@ -732,6 +733,11 @@ function VoiceChatPromptFrame:render()
 			end
 		end
 
+		local showThisToast = self.state.showPrompt
+		if self.state.promptType == PromptType.VoiceDataConsentOptOutToast and GetFFlagEnableSeamlessVoiceDataConsentToast() then
+			showThisToast = if self.props.showDataConsentToast then self.props.showDataConsentToast else false
+		end
+
 		voiceChatPromptFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
@@ -743,6 +749,7 @@ function VoiceChatPromptFrame:render()
 					elseif GetFFlagEnableSeamlessVoiceUX() then toastDuration
 					else TOAST_DURATION,
 				toastContent = self.state.toastContent,
+				show = showThisToast,
 			}),
 			EventConnection = self.props.promptSignal and Roact.createElement(ExternalEventConnection, {
 				event = self.props.promptSignal,
@@ -775,6 +782,7 @@ VoiceChatPromptFrame = InGameMenuPolicy.connect(function(appPolicy, props)
 	return {
 		showNewContent = appPolicy.getGameInfoShowChatFeatures(),
 		showCheckbox = if GetFFlagEnableInExpVoiceUpsell() then appPolicy.getDisplayCheckboxInVoiceConsent() else true,
+		showDataConsentToast = if appPolicy.getDisplayCheckboxInVoiceConsent() == nil then false else appPolicy.getDisplayCheckboxInVoiceConsent(),
 	}
 end)(VoiceChatPromptFrame)
 

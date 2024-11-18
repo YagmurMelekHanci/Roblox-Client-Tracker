@@ -5,8 +5,6 @@ local LocalizationService = game:GetService("LocalizationService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local GetFFlagIrisUseLocalizationProvider =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 local renderWithCoreScriptsStyleProvider = require(script.Parent.Common.renderWithCoreScriptsStyleProvider)
 
 local React = require(CorePackages.Packages.React)
@@ -15,11 +13,8 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 
-local Localization, LocalizationProvider
-if GetFFlagIrisUseLocalizationProvider() then
-	Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
-	LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
-end
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
 local ApolloProvider = require(CorePackages.Packages.ApolloClient).ApolloProvider
 local ApolloClient = require(RobloxGui.Modules.ApolloClient)
@@ -49,15 +44,11 @@ function ContactList.new()
 	initCall(CallProtocol.CallProtocol.default :: CallProtocol.CallProtocolModule)
 
 	local renderLocalizationProvider = function(element)
-		if GetFFlagIrisUseLocalizationProvider() then
-			return React.createElement(LocalizationProvider, {
-				localization = Localization.new(LocalizationService.RobloxLocaleId),
-			}, {
-				App = element,
-			})
-		else
-			return element
-		end
+		return React.createElement(LocalizationProvider, {
+			localization = Localization.new(LocalizationService.RobloxLocaleId),
+		}, {
+			App = element,
+		})
 	end
 
 	-- Mount component

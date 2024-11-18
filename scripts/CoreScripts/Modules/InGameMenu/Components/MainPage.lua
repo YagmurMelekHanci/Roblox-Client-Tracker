@@ -50,6 +50,7 @@ local Flags = InGameMenu.Flags
 local FFlagRecordRecording = require(Flags.FFlagRecordRecording)
 local FFlagTakeAScreenshotOfThis = game:DefineFastFlag("TakeAScreenshotOfThis", false)
 local FFlagShowContextMenuWhenButtonsArePresent = game:DefineFastFlag("ShowContextMenuWhenButtonsArePresent", false)
+local FFlagUseVRSpecificLeaveButton = game:DefineFastFlag("UseVRSpecificLeaveButton", false)
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagSideNavControllerBar = require(Flags.GetFFlagSideNavControllerBar)
 local Images = UIBlox.App.ImageSet.Images
@@ -372,7 +373,7 @@ function MainPage:render()
 			end
 
 			local inputType = self.props.inputType
-			local leaveGameKeyCode = LEAVE_GAME_KEY_CODE_LABEL[inputType]
+			local leaveGameKeyCode = if VRService.VREnabled and FFlagUseVRSpecificLeaveButton then Enum.KeyCode.ButtonX else LEAVE_GAME_KEY_CODE_LABEL[inputType]
 
 			local leaveGameSizeOffset = showContextMenu and -(BOTTOM_MENU_ICON_SIZE + 12) or 0
 

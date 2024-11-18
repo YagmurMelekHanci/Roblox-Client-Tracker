@@ -1,6 +1,6 @@
 --!strict
 --[[
-    Viewport for the SelfieView Module. 
+    Viewport for the SelfieView Module.
 
     Draggable display on the screen that shows the status of SelfieView as well
 	as the current facial expression of the avatar.
@@ -17,8 +17,8 @@ local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local setTimeout = LuauPolyfill.setTimeout
 local clearTimeout = LuauPolyfill.clearTimeout
-local WindowSizeSignal = require(script.Parent.Parent.Parent.Chrome.Service.WindowSizeSignal)
-local useWindowSizeIsLarge = require(script.Parent.Parent.Parent.Chrome.Hooks.useWindowSizeIsLarge)
+local WindowSizeSignal = require(script.Parent.Parent.Parent.Chrome.ChromeShared.Service.WindowSizeSignal)
+local useWindowSizeIsLarge = require(script.Parent.Parent.Parent.Chrome.ChromeShared.Hooks.useWindowSizeIsLarge)
 
 local UIBlox = require(Packages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
@@ -39,13 +39,13 @@ local useCameraOn = require(script.Parent.Parent.Hooks.useCameraOn)
 local useLocalPlayer = require(script.Parent.Parent.Hooks.useLocalPlayer)
 local useTrackerMessage = require(script.Parent.Parent.Hooks.useTrackerMessage)
 local useTooltipDismissal = require(script.Parent.Parent.Hooks.useTooltipDismissal)
-local Constants = require(script.Parent.Parent.Parent.Chrome.Unibar.Constants)
+local Constants = require(script.Parent.Parent.Parent.Chrome.ChromeShared.Unibar.Constants)
 local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
 local Chrome = script.Parent.Parent.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
 local ChromeService = if GetFFlagFixChromeReferences()
-	then if ChromeEnabled() then require(Chrome.Service) else nil
-	else require(script.Parent.Parent.Parent.Chrome.Service)
+	then if ChromeEnabled() then require(Chrome.ChromeShared.Service) else nil
+	else require(script.Parent.Parent.Parent.Chrome.ChromeShared.Service)
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewPreviewShrinkIcon = require(SelfieViewModule.Flags.GetFFlagSelfieViewPreviewShrinkIcon)

@@ -3,10 +3,10 @@ local Chrome = script:FindFirstAncestor("Chrome")
 
 local CorePackages = game:GetService("CorePackages")
 
-local ChromeService = require(Chrome.Service)
+local ChromeService = require(Chrome.ChromeShared.Service)
 local React = require(CorePackages.Packages.React)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
-local ContainerSlotSignal = require(Chrome.Service.ContainerSlotSignal)
+local ContainerSlotSignal = require(Chrome.ChromeShared.Service.ContainerSlotSignal)
 
 local Constants = require(Chrome.Integrations.MusicUtility.Constants)
 local shouldUseSmallPeek = require(Chrome.Integrations.MusicUtility.shouldUseSmallPeek)

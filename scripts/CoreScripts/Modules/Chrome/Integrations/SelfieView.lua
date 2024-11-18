@@ -3,9 +3,8 @@ local Chrome = script:FindFirstAncestor("Chrome")
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local ChromeService = require(Chrome.Service)
-local ChromeUtils = require(Chrome.Service.ChromeUtils)
-local LocalStore = require(Chrome.Service.LocalStore)
+local ChromeService = require(Chrome.ChromeShared.Service)
+local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local SocialService = game:GetService("SocialService")
@@ -23,7 +22,6 @@ local SelfieViewModule = Chrome.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local FFlagSelfViewFixes = require(Chrome.Flags.GetFFlagSelfViewFixes)()
-local FFlagEnableChromeFTUX = require(Chrome.Flags.GetFFlagEnableChromeFTUX)()
 local FFlagFixSelfViewPopin = game:DefineFastFlag("FixSelfViewPopin", false)
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 local GetFFlagUseSelfieViewFlatIcon = require(Chrome.Flags.GetFFlagUseSelfieViewFlatIcon)
@@ -37,16 +35,16 @@ local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeA
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
 local SizingUtils = require(SelfieViewModule.Utils.SizingUtils)
-local AvailabilitySignalState = require(Chrome.Service.ChromeUtils).AvailabilitySignalState
-local WindowSizeSignal = require(Chrome.Service.WindowSizeSignal)
+local AvailabilitySignalState = require(Chrome.ChromeShared.Service.ChromeUtils).AvailabilitySignalState
+local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local activatedSignal = AppCommonLib.Signal.new()
 
-local ViewportUtil = require(Chrome.Service.ViewportUtil)
+local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
 local startingSize = SizingUtils.getSize(ViewportUtil.screenSize:get(), false)
 local windowSize = WindowSizeSignal.new(startingSize.X, startingSize.Y)
-local Constants = require(Chrome.Unibar.Constants)
+local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -79,9 +77,6 @@ local selfieViewChromeIntegration = ChromeService:register({
 	windowAnchorPoint = if GetFFlagSelfieViewV4() then Vector2.new(0, 0) else nil,
 	initialAvailability = AvailabilitySignalState.Unavailable,
 	activated = function()
-		if FFlagEnableChromeFTUX then
-			LocalStore.storeForLocalPlayer(ID, true)
-		end
 		ChromeService:toggleWindow(ID)
 	end,
 	isActivated = if GetFFlagAddChromeActivatedEvents()

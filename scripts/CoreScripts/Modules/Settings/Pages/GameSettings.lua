@@ -121,7 +121,7 @@ local VOICE_DISCONNECT_FRAME_KEY = "VoiceDisconnectFrame"
 ----------- LAYOUT ORDER ------------
 local SETTINGS_MENU_LAYOUT_ORDER
 if FFlagInExperienceMenuReorderVariant1 or FFlagOverrideInExperienceMenuReorderVariant1 then
-	GameSettingsConstants = require(RobloxGui.Modules.Settings.Resources.GameSettingsConstants) 
+	GameSettingsConstants = require(RobloxGui.Modules.Settings.Resources.GameSettingsConstants)
 	SETTINGS_MENU_LAYOUT_ORDER = GameSettingsConstants.SETTINGS_MENU_LAYOUT_ORDER
 else
 	-- Recall that layout order values are relative
@@ -1967,7 +1967,7 @@ local function Initialize()
 							-- update current language when new language is selected
 							this.LanguageSelectorMode.CurrentLanguage = new_lang
 							reportSettingsChangeForAnalytics('experience_language', old_lang, new_lang)
-						end	
+						end
 					end
 
 					local payload =
@@ -2647,7 +2647,7 @@ local function Initialize()
 			overscan = require(RobloxGui.Modules.Shell.Components.Overscan10ft.Overscan)
 			overscan = require(RobloxGui.Modules.Settings.Components.OverscanWrapper)(overscan)
 
-			local roact = require(RobloxGui.Modules.Common.Roact)
+			local roact = require(CorePackages.Packages.Roact)
 			local overscanComponent = nil
 
 			local props = {}
@@ -3083,11 +3083,7 @@ local function Initialize()
 
 		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
 			if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-				if game:GetEngineFeature("UseFmodForInputDevices") then
-					return SoundService:GetInputDevices()
-				else
-					return VoiceChatService:GetMicDevices()
-				end
+				return SoundService:GetInputDevices()
 			else
 				return SoundService:GetOutputDevices()
 			end
@@ -3272,7 +3268,7 @@ local function Initialize()
 			voiceConnectButton.Size = UDim2.new(0.6, 0, 0, 40)
 			voiceConnectButton.Position = UDim2.new(0.4, 0, 0.5, 0)
 			voiceConnectButton.AnchorPoint = Vector2.new(0, 0.5)
-			
+
 			voiceConnectButton.ZIndex = 2
 			voiceConnectButton.Selectable = true
 			voiceConnectText.ZIndex = 2
@@ -3280,7 +3276,7 @@ local function Initialize()
 			voiceDisconnectButton.Size = UDim2.new(0.6, 0, 0, 40)
 			voiceDisconnectButton.Position = UDim2.new(0.4, 0, 0.5, 0)
 			voiceDisconnectButton.AnchorPoint = Vector2.new(0, 0.5)
-			
+
 			voiceDisconnectButton.ZIndex = 2
 			voiceDisconnectButton.Selectable = true
 			voiceDisconnectText.ZIndex = 2

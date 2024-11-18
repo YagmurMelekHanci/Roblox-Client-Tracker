@@ -69,16 +69,18 @@ PROTO_2:
   NAMECALL R0 R0 K2 ["setState"]
   CALL R0 2 0
   GETUPVAL R0 1
-  JUMPIFNOT R0 [+14]
+  JUMPIFNOT R0 [+17]
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K3 ["design"]
   LOADK R2 K4 [".Role-Surface100"]
   NAMECALL R0 R0 K5 ["FindFirstChild"]
   CALL R0 2 1
-  DUPTABLE R3 K7 [{"BackgroundColor3"}]
-  LOADK R4 K8 ["$DEPRECATED_MainBackground"]
+  DUPTABLE R3 K8 [{"BackgroundColor3", "BorderSizePixel"}]
+  LOADK R4 K9 ["$DEPRECATED_MainBackground"]
   SETTABLEKS R4 R3 K6 ["BackgroundColor3"]
-  NAMECALL R1 R0 K9 ["SetProperties"]
+  LOADK R4 K10 ["$BorderNone"]
+  SETTABLEKS R4 R3 K7 ["BorderSizePixel"]
+  NAMECALL R1 R0 K11 ["SetProperties"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -90,16 +92,18 @@ PROTO_3:
   NAMECALL R0 R0 K2 ["setState"]
   CALL R0 2 0
   GETUPVAL R0 1
-  JUMPIFNOT R0 [+14]
+  JUMPIFNOT R0 [+17]
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K3 ["design"]
   LOADK R2 K4 [".Role-Surface100"]
   NAMECALL R0 R0 K5 ["FindFirstChild"]
   CALL R0 2 1
-  DUPTABLE R3 K7 [{"BackgroundColor3"}]
-  LOADK R4 K8 ["$SemanticColorSurface100"]
+  DUPTABLE R3 K8 [{"BackgroundColor3", "BorderSizePixel"}]
+  LOADK R4 K9 ["$SemanticColorSurface100"]
   SETTABLEKS R4 R3 K6 ["BackgroundColor3"]
-  NAMECALL R1 R0 K9 ["SetProperties"]
+  LOADK R4 K10 ["$BorderNone"]
+  SETTABLEKS R4 R3 K7 ["BorderSizePixel"]
+  NAMECALL R1 R0 K11 ["SetProperties"]
   CALL R1 2 0
   RETURN R0 0
 

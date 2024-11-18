@@ -29,9 +29,6 @@ local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreens
 
 local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
 
-local GetFFlagShareInviteLinkContextMenuABTestEnabled =
-	require(RobloxGui.Modules.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
-local ShareInviteLinkABTestManager = require(RobloxGui.Modules.ShareInviteLinkABTestManager)
 local IsExperienceMenuABTestEnabled = require(CoreGuiModules.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(CoreGuiModules.ExperienceMenuABTestManager)
 local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
@@ -72,7 +69,6 @@ local FFlagCoreGuiEnableAnalytics = game:DefineFastFlag("CoreGuiEnableAnalytics"
 local FFlagEnableExperienceGenericChallengeRendering = game:DefineFastFlag("EnableExperienceGenericChallengeRendering", false)
 
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
-local FFlagEnableRobloxCommerceLuaSignals = game:DefineFastFlag("EnableRobloxCommerceLuaSignals", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -341,11 +337,7 @@ coroutine.wrap(function()
 	if IsExperienceMenuABTestEnabled() then
 		ExperienceMenuABTestManager.default:initialize()
 	end
-
-	if GetFFlagShareInviteLinkContextMenuABTestEnabled() then
-		ShareInviteLinkABTestManager.default:initialize()
-	end
-
+	
 	if GetFFlagEnableNewInviteMenuIXP() then
 		NewInviteMenuExperimentManager.default:initialize()
 	end
@@ -487,7 +479,7 @@ if FFlagEnableCancelSubscriptionApp and FFlagEnableCancelSubscriptionAppLua then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CancelSubscriptionApp", RobloxGui)
 end
 
-if FFlagEnableRobloxCommerce and FFlagEnableRobloxCommerceLuaSignals then
+if FFlagEnableRobloxCommerce then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CommercePurchaseApp", RobloxGui)
 end
 if FFlagCoreGuiEnableAnalytics then

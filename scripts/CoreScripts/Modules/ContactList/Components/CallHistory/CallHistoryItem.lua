@@ -10,8 +10,6 @@ local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
-local GetFFlagIrisUseLocalizationProvider =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
@@ -20,13 +18,7 @@ local UIBlox = dependencies.UIBlox
 local dependencyArray = dependencies.Hooks.dependencyArray
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 
-local useLocalization
-local RobloxTranslator
-if GetFFlagIrisUseLocalizationProvider() then
-	useLocalization = dependencies.Hooks.useLocalization
-else
-	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-end
+local useLocalization = dependencies.Hooks.useLocalization
 
 local useSelector = dependencies.Hooks.useSelector
 
@@ -169,19 +161,12 @@ local function CallHistoryItem(props: Props)
 		userName = UserProfiles.Formatters.formatUsername(userName)
 	end
 
-	local callStatusLabel
-	local yesterdayLabel
-	if GetFFlagIrisUseLocalizationProvider() then
-		local localized = useLocalization({
-			callStatusLabel = getCallStatusText(callRecord, localUserId),
-			yesterdayLabel = "Feature.Call.Label.Yesterday",
-		})
-		callStatusLabel = localized.callStatusLabel
-		yesterdayLabel = localized.yesterdayLabel
-	else
-		callStatusLabel = RobloxTranslator:FormatByKey(getCallStatusText(callRecord, localUserId))
-		yesterdayLabel = RobloxTranslator:FormatByKey("Feature.Call.Label.Yesterday")
-	end
+	local localized = useLocalization({
+		callStatusLabel = getCallStatusText(callRecord, localUserId),
+		yesterdayLabel = "Feature.Call.Label.Yesterday",
+	})
+	local callStatusLabel = localized.callStatusLabel
+	local yesterdayLabel = localized.yesterdayLabel
 
 	local analytics = useAnalytics()
 	local style = useStyle()

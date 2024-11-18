@@ -98,6 +98,16 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
+  DUPTABLE R0 K2 [{"ok", "errors"}]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["ok"]
+  NEWTABLE R1 0 1
+  LOADK R2 K3 ["Not implemented"]
+  SETLIST R1 R2 1 [1]
+  SETTABLEKS R1 R0 K1 ["errors"]
+  RETURN R0 1
+
+PROTO_7:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useState"]
   GETUPVAL R3 1
@@ -130,31 +140,37 @@ PROTO_6:
   CAPTURE UPVAL U2
   NEWTABLE R8 0 0
   CALL R6 2 1
-  GETUPVAL R7 3
-  GETTABLEKS R8 R0 K2 ["canUploadBundlesAsync"]
-  JUMPIF R8 [+1]
-  GETUPVAL R8 4
-  CALL R7 1 2
-  DUPTABLE R9 K10 [{"cachedResponses", "DEPRECATED_cachedResponses", "validateBundle", "revalidateBundle", "findCachedValidationResponse", "canUploadBundles", "requestCanUploadBundles"}]
-  SETTABLEKS R3 R9 K3 ["cachedResponses"]
-  SETTABLEKS R1 R9 K4 ["DEPRECATED_cachedResponses"]
-  SETTABLEKS R6 R9 K5 ["validateBundle"]
-  SETTABLEKS R6 R9 K6 ["revalidateBundle"]
-  SETTABLEKS R5 R9 K7 ["findCachedValidationResponse"]
-  SETTABLEKS R7 R9 K8 ["canUploadBundles"]
-  SETTABLEKS R8 R9 K9 ["requestCanUploadBundles"]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K11 ["createElement"]
-  GETUPVAL R13 5
-  GETTABLEKS R12 R13 K12 ["Context"]
-  GETTABLEKS R11 R12 K13 ["Provider"]
-  DUPTABLE R12 K15 [{"value"}]
-  SETTABLEKS R9 R12 K14 ["value"]
-  GETTABLEKS R13 R0 K16 ["children"]
-  CALL R10 3 -1
-  RETURN R10 -1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["useCallback"]
+  DUPCLOSURE R8 K2 [PROTO_6]
+  NEWTABLE R9 0 0
+  CALL R7 2 1
+  GETUPVAL R8 3
+  GETTABLEKS R9 R0 K3 ["canUploadBundlesAsync"]
+  JUMPIF R9 [+1]
+  GETUPVAL R9 4
+  CALL R8 1 2
+  DUPTABLE R10 K12 [{"cachedResponses", "DEPRECATED_cachedResponses", "validateBundle", "revalidateBundle", "calculateScaleToValidateBoundsAsync", "findCachedValidationResponse", "canUploadBundles", "requestCanUploadBundles"}]
+  SETTABLEKS R3 R10 K4 ["cachedResponses"]
+  SETTABLEKS R1 R10 K5 ["DEPRECATED_cachedResponses"]
+  SETTABLEKS R6 R10 K6 ["validateBundle"]
+  SETTABLEKS R6 R10 K7 ["revalidateBundle"]
+  SETTABLEKS R7 R10 K8 ["calculateScaleToValidateBoundsAsync"]
+  SETTABLEKS R5 R10 K9 ["findCachedValidationResponse"]
+  SETTABLEKS R8 R10 K10 ["canUploadBundles"]
+  SETTABLEKS R9 R10 K11 ["requestCanUploadBundles"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K13 ["createElement"]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K14 ["Context"]
+  GETTABLEKS R12 R13 K15 ["Provider"]
+  DUPTABLE R13 K17 [{"value"}]
+  SETTABLEKS R10 R13 K16 ["value"]
+  GETTABLEKS R14 R0 K18 ["children"]
+  CALL R11 3 -1
+  RETURN R11 -1
 
-PROTO_7:
+PROTO_8:
   DUPTABLE R0 K2 [{"completed", "ugcValidationResponse"}]
   LOADB R1 1
   SETTABLEKS R1 R0 K0 ["completed"]
@@ -166,7 +182,7 @@ PROTO_7:
   SETTABLEKS R1 R0 K1 ["ugcValidationResponse"]
   RETURN R0 1
 
-PROTO_8:
+PROTO_9:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
@@ -175,13 +191,13 @@ PROTO_8:
   SETTABLEKS R4 R3 K1 ["waitForSignal"]
   GETTABLEKS R4 R0 K2 ["canUploadBundlesAsync"]
   SETTABLEKS R4 R3 K2 ["canUploadBundlesAsync"]
-  DUPCLOSURE R4 K5 [PROTO_7]
+  DUPCLOSURE R4 K5 [PROTO_8]
   SETTABLEKS R4 R3 K3 ["createCachedResponse"]
   GETTABLEKS R4 R0 K6 ["children"]
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_9:
+PROTO_10:
   DUPTABLE R0 K2 [{"completed", "ugcValidationResponse"}]
   LOADB R1 1
   SETTABLEKS R1 R0 K0 ["completed"]
@@ -219,33 +235,33 @@ PROTO_9:
   SETTABLEKS R1 R0 K1 ["ugcValidationResponse"]
   RETURN R0 1
 
-PROTO_10:
+PROTO_11:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
   DUPTABLE R3 K2 [{"createCachedResponse"}]
-  DUPCLOSURE R4 K3 [PROTO_9]
+  DUPCLOSURE R4 K3 [PROTO_10]
   SETTABLEKS R4 R3 K1 ["createCachedResponse"]
   GETTABLEKS R4 R0 K4 ["children"]
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_11:
+PROTO_12:
   LOADNIL R0
   RETURN R0 1
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
   DUPTABLE R3 K2 [{"createCachedResponse"}]
-  DUPCLOSURE R4 K3 [PROTO_11]
+  DUPCLOSURE R4 K3 [PROTO_12]
   SETTABLEKS R4 R3 K1 ["createCachedResponse"]
   GETTABLEKS R4 R0 K4 ["children"]
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_13:
+PROTO_14:
   DUPTABLE R0 K2 [{"completed", "ugcValidationResponse"}]
   LOADB R1 0
   SETTABLEKS R1 R0 K0 ["completed"]
@@ -257,18 +273,18 @@ PROTO_13:
   SETTABLEKS R1 R0 K1 ["ugcValidationResponse"]
   RETURN R0 1
 
-PROTO_14:
+PROTO_15:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
   DUPTABLE R3 K2 [{"createCachedResponse"}]
-  DUPCLOSURE R4 K3 [PROTO_13]
+  DUPCLOSURE R4 K3 [PROTO_14]
   SETTABLEKS R4 R3 K1 ["createCachedResponse"]
   GETTABLEKS R4 R0 K4 ["children"]
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_15:
+PROTO_16:
   DUPTABLE R0 K2 [{"completed", "ugcValidationResponse"}]
   LOADB R1 0
   SETTABLEKS R1 R0 K0 ["completed"]
@@ -290,12 +306,12 @@ PROTO_15:
   SETTABLEKS R1 R0 K1 ["ugcValidationResponse"]
   RETURN R0 1
 
-PROTO_16:
+PROTO_17:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
   DUPTABLE R3 K2 [{"createCachedResponse"}]
-  DUPCLOSURE R4 K3 [PROTO_15]
+  DUPCLOSURE R4 K3 [PROTO_16]
   SETTABLEKS R4 R3 K1 ["createCachedResponse"]
   GETTABLEKS R4 R0 K4 ["children"]
   CALL R1 3 -1
@@ -343,30 +359,30 @@ MAIN:
   CALL R7 1 1
   NEWTABLE R8 8 0
   DUPCLOSURE R9 K18 [PROTO_0]
-  DUPCLOSURE R10 K19 [PROTO_6]
+  DUPCLOSURE R10 K19 [PROTO_7]
   CAPTURE VAL R2
   CAPTURE VAL R7
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R9
   CAPTURE VAL R5
-  DUPCLOSURE R11 K20 [PROTO_8]
+  DUPCLOSURE R11 K20 [PROTO_9]
   CAPTURE VAL R2
   CAPTURE VAL R10
   SETTABLEKS R11 R8 K21 ["AlwaysPassesProvider"]
-  DUPCLOSURE R11 K22 [PROTO_10]
+  DUPCLOSURE R11 K22 [PROTO_11]
   CAPTURE VAL R2
   CAPTURE VAL R10
   SETTABLEKS R11 R8 K23 ["AlwaysFailsProvider"]
-  DUPCLOSURE R11 K24 [PROTO_12]
+  DUPCLOSURE R11 K24 [PROTO_13]
   CAPTURE VAL R2
   CAPTURE VAL R10
   SETTABLEKS R11 R8 K25 ["NeverReturnsProvider"]
-  DUPCLOSURE R11 K26 [PROTO_14]
+  DUPCLOSURE R11 K26 [PROTO_15]
   CAPTURE VAL R2
   CAPTURE VAL R10
   SETTABLEKS R11 R8 K27 ["InProgressProvider"]
-  DUPCLOSURE R11 K28 [PROTO_16]
+  DUPCLOSURE R11 K28 [PROTO_17]
   CAPTURE VAL R2
   CAPTURE VAL R10
   SETTABLEKS R11 R8 K29 ["InProgressErrorsProvider"]

@@ -9,8 +9,8 @@ local useLocalization = require(CorePackages.Workspace.Packages.Localization).Ho
 
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Cryo)
-local ChromeService = require(Chrome.Service)
-local LocalStore = require(Chrome.Service.LocalStore)
+local ChromeService = require(Chrome.ChromeShared.Service)
+local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local clearTimeout = LuauPolyfill.clearTimeout

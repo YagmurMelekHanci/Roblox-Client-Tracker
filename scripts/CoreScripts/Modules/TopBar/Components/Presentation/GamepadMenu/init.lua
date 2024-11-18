@@ -84,7 +84,6 @@ local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
-local GetFFlagSupportCompactUtility = SharedFlags.GetFFlagSupportCompactUtility
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
 local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
@@ -288,7 +287,7 @@ function GamepadMenu.openRootMenu()
 end
 
 function GamepadMenu.openUnibarMenu()
-	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+	local ChromeService = require(RobloxGui.Modules.Chrome.ChromeShared.Service)
 
 	if GetFFlagEnableAlwaysOpenUnibar() then
 		ChromeService:enableFocusNav()
@@ -300,13 +299,11 @@ function GamepadMenu.openUnibarMenu()
 end
 
 function GamepadMenu.closeUnibarMenu()
-	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+	local ChromeService = require(RobloxGui.Modules.Chrome.ChromeShared.Service)
 	if GetFFlagEnableAlwaysOpenUnibar() then
 		ChromeService:disableFocusNav()
-	elseif GetFFlagSupportCompactUtility() then
-		ChromeService:close(true)
 	else
-		ChromeService:close()
+		ChromeService:close(true)
 	end
 end
 

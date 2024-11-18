@@ -8,9 +8,6 @@ local ChromeEnabled = require(Modules.Chrome.Enabled)
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
 
-local GetFFlagEnableScreenshotUtility =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
-local GetFFlagEnableCapturesInChrome = require(Modules.Chrome.Flags.GetFFlagEnableCapturesInChrome)
 local FFlagScreenshotsSetupEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagScreenshotsSetupEnabled
 local FFlagUpdateComposerScreenInsets =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagUpdateComposerScreenInsets
@@ -59,24 +56,12 @@ if FFlagScreenshotsSetupEnabled then
 	SubmissionModal.Parent = CoreGui
 	SubmissionModal.ScreenInsets = Enum.ScreenInsets.None
 	ScreenshotsApp.mountSubmissionModal(SubmissionModal)
-
-	local EventSplashModal = Instance.new("ScreenGui")
-	EventSplashModal.DisplayOrder = Screenshots.Constants.EventSplashModalDisplayOrder
-	EventSplashModal.Name = "EventSplashModal"
-	EventSplashModal.ResetOnSpawn = false
-	EventSplashModal.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	EventSplashModal.Parent = CoreGui
-	EventSplashModal.ScreenInsets = Enum.ScreenInsets.None
-	ScreenshotsApp.mountEventSplashModal(EventSplashModal)
 end
 
 ScreenshotsApp.mountCaptureManager(CaptureManagerScreenGui)
 ScreenshotsApp.mountCarousel(CarouselScreenGui)
 ScreenshotsApp.mountComposer(ComposerScreenGui)
-ScreenshotsApp.mountCoreUI(
-	RobloxGui,
-	if GetFFlagEnableScreenshotUtility() then GetFFlagEnableCapturesInChrome() and ChromeEnabled() else nil
-)
+ScreenshotsApp.mountCoreUI(RobloxGui, ChromeEnabled())
 ScreenshotsApp.mountCaptureOverlay(OverlayScreenGui)
 
 return ScreenshotsApp

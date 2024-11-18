@@ -17,11 +17,13 @@ PROTO_1:
   GETUPVAL R5 2
   GETUPVAL R6 3
   CALL R4 2 1
-  DUPTABLE R5 K6 [{"openInsertObjectMenu"}]
+  DUPTABLE R5 K7 [{"openInsertObjectMenu", "openScript"}]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U2
   SETTABLEKS R6 R5 K5 ["openInsertObjectMenu"]
+  GETUPVAL R6 5
+  SETTABLEKS R6 R5 K6 ["openScript"]
   CALL R1 4 -1
   RETURN R1 -1
 
@@ -30,7 +32,9 @@ PROTO_2:
   CALL R0 0 0
   GETUPVAL R0 1
   CALL R0 0 0
-  GETUPVAL R1 2
+  GETUPVAL R0 2
+  CALL R0 0 0
+  GETUPVAL R1 3
   GETTABLEKS R0 R1 K0 ["destroy"]
   CALL R0 0 0
   RETURN R0 0
@@ -39,29 +43,35 @@ PROTO_3:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
-  GETUPVAL R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["connectGuest"]
   MOVE R3 R0
-  CALL R2 1 2
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K0 ["Guest"]
-  GETTABLEKS R4 R5 K1 ["startGuest"]
-  DUPTABLE R5 K4 [{"guestConnectionObservable", "createGuestRpcInterface"}]
-  SETTABLEKS R2 R5 K2 ["guestConnectionObservable"]
-  NEWCLOSURE R6 P0
-  CAPTURE UPVAL U2
+  CALL R2 1 1
+  GETUPVAL R3 2
+  MOVE R4 R0
+  CALL R3 1 2
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K1 ["Guest"]
+  GETTABLEKS R5 R6 K2 ["startGuest"]
+  DUPTABLE R6 K5 [{"guestConnectionObservable", "createGuestRpcInterface"}]
+  SETTABLEKS R3 R6 K3 ["guestConnectionObservable"]
+  NEWCLOSURE R7 P0
   CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CAPTURE VAL R0
   CAPTURE VAL R1
-  CAPTURE UPVAL U4
-  SETTABLEKS R6 R5 K3 ["createGuestRpcInterface"]
-  CALL R4 1 1
-  GETTABLEKS R5 R0 K5 ["Unloading"]
-  NEWCLOSURE R7 P1
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  SETTABLEKS R7 R6 K4 ["createGuestRpcInterface"]
+  CALL R5 1 1
+  GETTABLEKS R6 R0 K6 ["Unloading"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R5
   CAPTURE VAL R4
-  CAPTURE VAL R3
+  CAPTURE VAL R2
   CAPTURE VAL R1
-  NAMECALL R5 R5 K6 ["Connect"]
-  CALL R5 2 0
+  NAMECALL R6 R6 K7 ["Connect"]
+  CALL R6 2 0
   RETURN R0 0
 
 MAIN:
@@ -76,28 +86,42 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["ContextMenu"]
-  GETTABLEKS R3 R4 K10 ["createContextMenuActionWatcher"]
+  GETTABLEKS R4 R5 K9 ["SharedFeatures"]
+  GETTABLEKS R3 R4 K10 ["StudioSelectAll"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Guest"]
-  GETTABLEKS R4 R5 K12 ["createStudioGuestConnection"]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["SharedFeatures"]
+  GETTABLEKS R5 R6 K11 ["ContextMenu"]
+  GETTABLEKS R4 R5 K12 ["createContextMenuActionWatcher"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K9 ["ContextMenu"]
-  GETTABLEKS R5 R6 K13 ["createStudioGuestContextMenuActions"]
+  GETTABLEKS R6 R7 K13 ["Guest"]
+  GETTABLEKS R5 R6 K14 ["createStudioGuestConnection"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Guest"]
-  GETTABLEKS R6 R7 K14 ["openInsertObjectMenu"]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K9 ["SharedFeatures"]
+  GETTABLEKS R7 R8 K11 ["ContextMenu"]
+  GETTABLEKS R6 R7 K15 ["createStudioGuestContextMenuActions"]
   CALL R5 1 1
-  DUPCLOSURE R6 K15 [PROTO_3]
-  CAPTURE VAL R2
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Guest"]
+  GETTABLEKS R7 R8 K16 ["openInsertObjectMenu"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K13 ["Guest"]
+  GETTABLEKS R8 R9 K17 ["openScript"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K18 [PROTO_3]
   CAPTURE VAL R3
-  CAPTURE VAL R1
+  CAPTURE VAL R2
   CAPTURE VAL R4
+  CAPTURE VAL R1
   CAPTURE VAL R5
-  RETURN R6 1
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  RETURN R8 1

@@ -5,7 +5,6 @@ local FFlagEnableSocialCaptureTakenIXPLayer = require(CorePackages.Workspace.Pac
 local FStringCapturesIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringCapturesIXPLayer
 local FStringSocialCaptureIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringSocialCaptureIXPLayer
 local FStringSocialCaptureTakenIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringSocialCaptureTakenIXPLayer
-local GetFFlagShareInviteLinkContextMenuABTestEnabled = require(script.Parent.Parent.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
 local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
 local GetFStringLargerRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLargerRobuxUpsellIxpLayer
 local GetFStringLuaAppExperienceMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLuaAppExperienceMenuLayer
@@ -42,7 +41,6 @@ return function()
 	}
 
 	if IsExperienceMenuABTestEnabled()
-		or GetFFlagShareInviteLinkContextMenuABTestEnabled()
 		or GetFFlagEnableNewInviteMenuIXP()
 		or GetFFlagReportTabShareIXPLayerWithMenu()
 	then

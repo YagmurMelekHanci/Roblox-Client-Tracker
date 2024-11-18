@@ -15,7 +15,7 @@ local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 
-local ChromeService = require(Chrome.Service)
+local ChromeService = require(Chrome.ChromeShared.Service)
 
 local joinVoice
 joinVoice = ChromeService:register({

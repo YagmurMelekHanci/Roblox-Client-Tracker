@@ -79,19 +79,16 @@ local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFF
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
-local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics)
 local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local GetFFlagOpenControlsOnMenuOpen = require(RobloxGui.Modules.Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
-local GetFFlagEnableCapturesInChrome = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableCapturesInChrome)
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = require(SharedFlags).GetFStringGameInviteMenuLayer
 local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
-local GetFFlagEnableScreenshotUtility = require(SharedFlags).GetFFlagEnableScreenshotUtility
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
 local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM2", false)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
@@ -109,6 +106,7 @@ local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags
 local FFlagSettingsHubIndependentBackgroundVisibility = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagSettingsHubIndependentBackgroundVisibility()
 local FFlagAppChatReappearIfClosedByTiltMenu = game:DefineFastFlag("AppChatReappearIfClosedByTiltMenu", true)
 local FFlagInExperienceMenuResetButtonTextToRespawn = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuResetButtonTextToRespawn)
+local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -3278,9 +3276,13 @@ local function CreateSettingsHub()
 
 			playerList:HideTemp('SettingsMenu', true)
 
-			if chat:GetVisibility() then
-				chatWasVisible = true
-				chat:ToggleVisibility()
+			if getFFlagAppChatCoreUIConflictFix() then
+				chat:HideTemp('SettingsMenu', true)
+			else
+				if chat:GetVisibility() then
+					chatWasVisible = true
+					chat:ToggleVisibility()
+				end
 			end
 			
 			if GetFFlagEnableAppChatInExperience() and InExperienceAppChatModal:getVisible() then
@@ -3428,10 +3430,14 @@ local function CreateSettingsHub()
 			end
 
 			playerList:HideTemp('SettingsMenu', false)
-
-			if chatWasVisible then
-				chat:ToggleVisibility()
-				chatWasVisible = false
+			
+			if getFFlagAppChatCoreUIConflictFix() then
+				chat:HideTemp('SettingsMenu', false)
+			else
+				if chatWasVisible then
+					chat:ToggleVisibility()
+					chatWasVisible = false
+				end
 			end
 
 			if not VRService.VREnabled then
@@ -3449,10 +3455,8 @@ local function CreateSettingsHub()
 
 			this.GameSettingsPage:CloseSettingsPage()
 
-			if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-				if this.ShareGamePage then
-					this.ShareGamePage:ClearShareInviteLink(this.ShareGameApp)
-				end
+			if this.ShareGamePage then
+				this.ShareGamePage:ClearShareInviteLink(this.ShareGameApp)
 			end
 		end
 
@@ -3733,11 +3737,7 @@ local function CreateSettingsHub()
 		end
 
 		this.ScreenshotsApp = ScreenshotsApp
-		if GetFFlagEnableScreenshotUtility() then
-			this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, GetFFlagEnableCapturesInChrome() and ChromeEnabled)
-		else
-			this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu)
-		end
+		this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, ChromeEnabled)
 
 		this.ShotsPage = ShotsPageWrapper
 		this.ShotsPage:ConnectHubToApp(this, this.PageViewClipper, this.ScreenshotsApp)

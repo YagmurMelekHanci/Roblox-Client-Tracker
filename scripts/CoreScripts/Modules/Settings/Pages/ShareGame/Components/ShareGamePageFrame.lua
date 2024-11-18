@@ -14,8 +14,6 @@ local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 local GetFFlagInviteFriendsDesignUpdates = require(Modules.Settings.Flags.GetFFlagInviteFriendsDesignUpdates)
-local GetFFlagShareInviteLinkContextMenuV1Enabled =
-	require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -45,17 +43,14 @@ local ShareGamePageFrame = Roact.PureComponent:extend("ShareGamePageFrame")
 local ToasterComponent = require(ShareGame.Components.ErrorToaster)
 
 function ShareGamePageFrame:init()
-	if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-		self.state = {
-			serverType = nil,
-		}
-	end
+	self.state = {
+		serverType = nil,
+	}
 end
 
 function ShareGamePageFrame:shouldShowInviteLink(gameInfo)
 	if
-		GetFFlagShareInviteLinkContextMenuV1Enabled()
-		and self.props.experienceInviteShareLinkEnabled
+		self.props.experienceInviteShareLinkEnabled
 		and self.state.serverType == CommonConstants.STANDARD_SERVER
 		and utility:IsExperienceOlderThanOneWeek(gameInfo)
 	then
@@ -66,16 +61,14 @@ function ShareGamePageFrame:shouldShowInviteLink(gameInfo)
 end
 
 function ShareGamePageFrame:didMount()
-	if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-		self.props.fetchGameInfo()
-		if self.state.serverType == nil then
-			Promise.try(function()
-				local serverTypeRemote = RobloxReplicatedStorage:WaitForChild("GetServerType", math.huge)
-				return serverTypeRemote:InvokeServer()
-			end):andThen(function(serverType)
-				self:setState({ serverType = serverType })
-			end)
-		end
+	self.props.fetchGameInfo()
+	if self.state.serverType == nil then
+		Promise.try(function()
+			local serverTypeRemote = RobloxReplicatedStorage:WaitForChild("GetServerType", math.huge)
+			return serverTypeRemote:InvokeServer()
+		end):andThen(function(serverType)
+			self:setState({ serverType = serverType })
+		end)
 	end
 end
 
@@ -149,22 +142,20 @@ function ShareGamePageFrame:render()
 	})
 end
 
-if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-	ShareGamePageFrame = RoactRodux.connect(function(state)
-		return {
-			gameInfo = state.GameInfo,
-		}
-	end, function(dispatch)
-		return {
-			fetchGameInfo = function()
-				local httpImpl = httpRequest(HttpRbxApiService)
-				GetGameNameAndDescription(httpImpl, game.GameId):andThen(function(result)
-					dispatch(SetGameInfoCreated(result.Created))
-				end)
-			end,
-		}
-	end)(ShareGamePageFrame)
-end
+ShareGamePageFrame = RoactRodux.connect(function(state)
+	return {
+		gameInfo = state.GameInfo,
+	}
+end, function(dispatch)
+	return {
+		fetchGameInfo = function()
+			local httpImpl = httpRequest(HttpRbxApiService)
+			GetGameNameAndDescription(httpImpl, game.GameId):andThen(function(result)
+				dispatch(SetGameInfoCreated(result.Created))
+			end)
+		end,
+	}
+end)(ShareGamePageFrame)
 
 ShareGamePageFrame = RoactAppPolicy.connect(function(appPolicy)
 	return {

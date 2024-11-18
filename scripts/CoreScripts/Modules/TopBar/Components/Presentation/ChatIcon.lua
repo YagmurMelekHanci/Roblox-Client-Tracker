@@ -30,9 +30,12 @@ local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local Constants = require(TopBar.Constants)
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
-local GetFFlagEnableAppChatInExperience = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 local ChatIconFtuxTooltip = require(script.Parent.ChatIconFtuxTooltip)
+local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
+local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local FIntInExperienceChatTooltipShowDelayMs = game:DefineFastInt("InExperienceChatTooltipShowDelayMs", 1000)
 local FIntInExperienceChatTooltipDismissDelayMs = game:DefineFastInt("InExperienceChatTooltipDismissDelayMs", 7000)
 
@@ -93,17 +96,29 @@ function ChatIcon:render()
 	return withStyle(function(style)
 		local chatEnabled = self.props.topBarEnabled and self.props.chatEnabled and not TenFootInterface:IsEnabled() and not VRService.VREnabled
 
-		local iconSize = ICON_SIZE
-		local chatIcon = "rbxasset://textures/ui/TopBar/chatOn.png"
-		if not self.props.chatVisible then
-			chatIcon = "rbxasset://textures/ui/TopBar/chatOff.png"
-		end
-		
-		if shouldShowNewIcon then
-			iconSize = NEW_ICON_SIZE
-			chatIcon = Images["icons/menu/publicChatOn"]
+		local iconSize = nil :: never
+		local chatIcon = nil :: never
+
+		if getFFlagExpChatGetLabelAndIconFromUtil() then
+			local visualConfig = getExperienceChatVisualConfig()
+			iconSize = visualConfig.iconSize
+			chatIcon = Images[visualConfig.icon.on]
 			if not self.props.chatVisible then
-				chatIcon = Images["icons/menu/publicChatOff"]
+				chatIcon = Images[visualConfig.icon.off]
+			end
+		else
+			iconSize = ICON_SIZE
+			chatIcon = "rbxasset://textures/ui/TopBar/chatOn.png"
+			if not self.props.chatVisible then
+				chatIcon = "rbxasset://textures/ui/TopBar/chatOff.png"
+			end
+			
+			if shouldShowNewIcon then
+				iconSize = NEW_ICON_SIZE
+				chatIcon = Images["icons/menu/publicChatOn"]
+				if not self.props.chatVisible then
+					chatIcon = Images["icons/menu/publicChatOff"]
+				end
 			end
 		end
 

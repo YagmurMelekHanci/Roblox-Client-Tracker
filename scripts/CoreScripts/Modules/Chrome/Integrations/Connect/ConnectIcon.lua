@@ -7,16 +7,19 @@ local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
-local ChromeConstants = require(Chrome.Unibar.Constants)
-local ChromeUtils = require(Chrome.Service.ChromeUtils)
-local useMappedSignal = require(Chrome.Hooks.useMappedSignal)
+local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
+local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
+local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local usePartyIcon = require(Chrome.Integrations.Party.usePartyIcon)
+
+local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
+local dependencyArray = RoactUtils.Hooks.dependencyArray
 
 local MappedSignal = ChromeUtils.MappedSignal
 local useStyle = UIBlox.Core.Style.useStyle
 local useTokens = Foundation.Hooks.useTokens
 
-local SubMenuContext = require(Chrome.Unibar.SubMenuContext)
+local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
 local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
@@ -24,17 +27,27 @@ local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 
 local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
-local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
-	require(Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
 local GetFFlagAppChatInExpConnectIconRedesign = require(Chrome.Flags.GetFFlagAppChatInExpConnectIconRedesign)
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
 local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
+local getAppChatNavbarItemConfig = AppChat.Utils.getAppChatNavbarItemConfig
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
+local FFlagConnectIconUsesAppChatConfig = game:DefineFastFlag("ConnectIconUsesAppChatConfig", false)
 
 local AVATAR_SIZE = 24
 
 local ICON_OFF = "icons/menu/platformChatOff"
 local ICON_ON = "icons/menu/platformChatOn"
+
+if FFlagConnectIconUsesAppChatConfig then
+	local visualConfig = getAppChatNavbarItemConfig()
+	ICON_OFF = visualConfig.icon.off
+	ICON_ON = visualConfig.icon.on
+end
+
 local ICON_SIZE = ChromeConstants.ICON_SIZE
 
 local BADGE_OFFSET = 2
@@ -42,12 +55,16 @@ local BADGE_STROKE_WIDTH = 2
 local BADGE_SIZE = UDim2.fromOffset(10, 10)
 
 export type Props = {
+	integrationId: string,
 	isIconVisible: boolean,
 	shouldShowCustomBadge: boolean,
+	isSquadIndicatorEnabled: boolean,
 }
 
 local defaultProps = {
+	integrationId = "",
 	shouldShowCustomBadge = true,
+	isSquadIndicatorEnabled = false,
 }
 
 local function ConnectIcon(_props: Props): React.ReactElement
@@ -70,11 +87,12 @@ local function ConnectIcon(_props: Props): React.ReactElement
 	end
 
 	local currentSquadId, setCurrentSquadId, badgeColor
-
-	if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() then
+	if props.isSquadIndicatorEnabled then
 		currentSquadId, setCurrentSquadId = React.useState(InExperienceAppChatModal.default.currentSquadId)
+	end
 
-		React.useEffect(function()
+	React.useEffect(function()
+		if props.isSquadIndicatorEnabled then
 			local connection = InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(
 				function(currentSquadId)
 					setCurrentSquadId(currentSquadId)
@@ -83,8 +101,11 @@ local function ConnectIcon(_props: Props): React.ReactElement
 			return function()
 				connection:Disconnect()
 			end
-		end, { setCurrentSquadId })
+		end
+		return function() end
+	end, dependencyArray(props.isSquadIndicatorEnabled, setCurrentSquadId))
 
+	if props.isSquadIndicatorEnabled then
 		if GetFFlagAppChatInExpConnectIconRedesign() then
 			local tokens = useTokens()
 			if currentSquadId ~= "" then
@@ -101,9 +122,7 @@ local function ConnectIcon(_props: Props): React.ReactElement
 		end
 	end
 
-	local shouldShowBadge = if GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
-		then badgeColor
-		else unreadMessageCount > 0
+	local shouldShowBadge = if props.isSquadIndicatorEnabled then badgeColor else unreadMessageCount > 0
 
 	local visibilitySignal = MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function(visible)
 		return InExperienceAppChatModal:getVisible()
@@ -114,8 +133,12 @@ local function ConnectIcon(_props: Props): React.ReactElement
 		then CommonFtuxTooltip({
 			isIconVisible = props.isIconVisible,
 
-			headerKey = "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
-			bodyKey = "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
+			headerKey = if GetFFlagAppChatRebrandStringUpdates()
+				then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
+				else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
+			bodyKey = if GetFFlagAppChatRebrandStringUpdates()
+				then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
+				else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 			localStorageKey = GetFStringConnectTooltipLocalStorageKey(),
 
 			showDelay = GetFIntRobloxConnectFtuxShowDelayMs(),
@@ -164,7 +187,7 @@ local function ConnectIcon(_props: Props): React.ReactElement
 			Badge = if shouldShowBadge
 				then React.createElement(Foundation.View, {
 					Position = UDim2.new(1, -tokens.Stroke.Thicker, 0, tokens.Stroke.Thicker),
-					backgroundStyle = if GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
+					backgroundStyle = if props.isSquadIndicatorEnabled
 						then {
 							Color3 = badgeColor.Color3,
 							Transparency = getTransparency(badgeColor.Transparency),
@@ -208,7 +231,7 @@ local function ConnectIcon(_props: Props): React.ReactElement
 			Tooltip = tooltip,
 			Badge = if shouldShowBadge
 				then React.createElement("Frame", {
-					BackgroundColor3 = if GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
+					BackgroundColor3 = if props.isSquadIndicatorEnabled
 						then badgeColor
 						else style.Theme.IconEmphasis.Color,
 					Position = UDim2.new(1, -BADGE_OFFSET, 0, BADGE_OFFSET),

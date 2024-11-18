@@ -2,29 +2,40 @@ PROTO_0:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   LOADK R2 K1 ["TextButton"]
-  NEWTABLE R3 2 0
+  NEWTABLE R3 4 0
+  GETTABLEKS R5 R0 K2 ["Disabled"]
+  NOT R4 R5
+  SETTABLEKS R4 R3 K3 ["Interactable"]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["Event"]
-  GETTABLEKS R4 R5 K3 ["Activated"]
-  GETTABLEKS R5 R0 K4 ["OnClick"]
+  GETTABLEKS R5 R6 K4 ["Event"]
+  GETTABLEKS R4 R5 K5 ["Activated"]
+  GETTABLEKS R5 R0 K6 ["OnClick"]
   SETTABLE R5 R3 R4
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["Tag"]
+  GETTABLEKS R4 R5 K7 ["Tag"]
   GETUPVAL R5 1
-  LOADK R6 K6 ["Component-ResolveButton"]
-  GETTABLEKS R8 R0 K7 ["Resolved"]
+  LOADK R6 K8 ["Component-ResolveButton"]
+  GETTABLEKS R8 R0 K9 ["Resolved"]
   JUMPIFNOT R8 [+2]
-  LOADK R7 K7 ["Resolved"]
+  LOADK R7 K9 ["Resolved"]
   JUMP [+1]
   LOADNIL R7
-  CALL R5 2 1
+  GETTABLEKS R9 R0 K2 ["Disabled"]
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K2 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R8
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["Tag"]
+  GETTABLE R9 R0 R10
+  CALL R5 4 1
   SETTABLE R5 R3 R4
-  DUPTABLE R4 K9 [{"Icon"}]
+  DUPTABLE R4 K11 [{"Icon"}]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K10 ["ImageLabel"]
+  LOADK R6 K12 ["ImageLabel"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K8 ["Icon"]
+  SETTABLEKS R5 R4 K10 ["Icon"]
   CALL R1 3 -1
   RETURN R1 -1
 

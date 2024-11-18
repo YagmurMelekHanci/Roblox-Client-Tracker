@@ -6,6 +6,9 @@
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CorePackages = game:GetService("CorePackages")
+local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
+local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 local FFlagVRBackpackImproved = game:DefineFastFlag("VRBackpackImproved", false)
 
 local BackpackScript = {}
@@ -1934,6 +1937,14 @@ GuiService.MenuOpened:Connect(function()
 		BackpackScript.OpenClose()
 	end
 end)
+
+if getFFlagAppChatCoreUIConflictFix() then
+	InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
+		if visible and BackpackScript.IsOpen then
+			BackpackScript.OpenClose()
+		end
+	end)
+end
 
 if not FFlagVRBackpackImproved then
 	local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil

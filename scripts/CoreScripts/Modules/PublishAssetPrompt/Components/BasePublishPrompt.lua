@@ -23,6 +23,7 @@ local FullPageModal = UIBlox.App.Dialog.Modal.FullPageModal
 local Overlay = UIBlox.App.Dialog.Overlay
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
+local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 
 local Components = script.Parent
 local LabeledTextBox = require(Components.Common.LabeledTextBox)
@@ -37,6 +38,7 @@ local PurchasePrompt = require(RobloxGui.Modules.PurchasePrompt)
 local Analytics = PurchasePrompt.PublishAssetAnalytics
 
 local FFlagCoreScriptPublishAssetAnalytics = require(RobloxGui.Modules.Flags.FFlagCoreScriptPublishAssetAnalytics)
+local FFlagCoreScriptPublishPromptModal = require(RobloxGui.Modules.Flags.FFlagCoreScriptPublishPromptModal)
 
 local NAME_HEIGHT_PIXELS = 30
 local DISCLAIMER_HEIGHT_PIXELS = 50
@@ -59,6 +61,8 @@ local BasePublishPrompt = Roact.PureComponent:extend("BasePublishPrompt")
 local STICK_MAX_SPEED = 1000
 -- full height is more than 1 because the footer covers part of the bottom
 local FULL_HEIGHT = UDim.new(1.5, 0)
+
+local CURSOR_OVERRIDE_KEY = "BasePublishPromptOverrideKey"
 
 BasePublishPrompt.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -188,6 +192,14 @@ function BasePublishPrompt:didMount()
 
 	-- Prompt should be visible when this component is mounted
 	self.props.SetPromptVisibility(true)
+
+	if FFlagCoreScriptPublishPromptModal then
+		local overrideStatus = if UserInputService.GamepadEnabled
+			then Enum.OverrideMouseIconBehavior.ForceHide
+			else Enum.OverrideMouseIconBehavior.ForceShow
+
+		MouseIconOverrideService.push(CURSOR_OVERRIDE_KEY, overrideStatus)
+	end
 end
 
 function BasePublishPrompt:didUpdate(prevProps)
@@ -319,6 +331,8 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 					Size = UDim2.fromScale(1, 1),
 					BackgroundTransparency = 1,
 					Text = "",
+					-- Prevents mouse from being locked while rendered
+					Modal = if FFlagCoreScriptPublishPromptModal then true else nil,
 				}),
 			}),
 
@@ -415,6 +429,10 @@ function BasePublishPrompt:render()
 end
 
 function BasePublishPrompt:willUnmount()
+	if FFlagCoreScriptPublishPromptModal then
+		MouseIconOverrideService.pop(CURSOR_OVERRIDE_KEY)
+	end
+
 	self:cleanupGamepad()
 
 	-- Make sure state reflects that the prompt is no longer visible

@@ -18,113 +18,115 @@ MAIN:
   CALL R3 1 1
   MOVE R4 R2
   LOADK R5 K12 [".Component-ResolveButton"]
-  DUPTABLE R6 K19 [{"Text", "Size", "Position", "AnchorPoint", "BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R7 K20 [""]
+  DUPTABLE R6 K17 [{"Text", "Size", "BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R7 K18 [""]
   SETTABLEKS R7 R6 K13 ["Text"]
-  GETIMPORT R7 K23 [UDim2.fromOffset]
+  GETIMPORT R7 K21 [UDim2.fromOffset]
   LOADN R8 24
   LOADN R9 24
   CALL R7 2 1
   SETTABLEKS R7 R6 K14 ["Size"]
-  GETIMPORT R7 K25 [UDim2.fromScale]
-  LOADN R8 1
-  LOADK R9 K26 [0.5]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K15 ["Position"]
-  GETIMPORT R7 K29 [Vector2.new]
-  LOADN R8 1
-  LOADK R9 K26 [0.5]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K16 ["AnchorPoint"]
-  GETTABLEKS R8 R3 K30 ["fflagAnnotationsModernColors"]
+  GETTABLEKS R8 R3 K22 ["fflagAnnotationsModernColors"]
   JUMPIFNOT R8 [+2]
-  LOADK R7 K31 ["$SemanticColorActionSecondaryFill"]
+  LOADK R7 K23 ["$SemanticColorActionSecondaryFill"]
   JUMP [+1]
-  LOADK R7 K32 ["$ResolveIconBase"]
-  SETTABLEKS R7 R6 K17 ["BackgroundColor3"]
-  GETTABLEKS R8 R3 K30 ["fflagAnnotationsModernColors"]
+  LOADK R7 K24 ["$ResolveIconBase"]
+  SETTABLEKS R7 R6 K15 ["BackgroundColor3"]
+  GETTABLEKS R8 R3 K22 ["fflagAnnotationsModernColors"]
   JUMPIFNOT R8 [+2]
-  LOADK R7 K33 ["$SemanticColorActionSecondaryFillTransparency"]
+  LOADK R7 K25 ["$SemanticColorActionSecondaryFillTransparency"]
   JUMP [+1]
-  LOADK R7 K34 [0.3]
-  SETTABLEKS R7 R6 K18 ["BackgroundTransparency"]
-  NEWTABLE R7 0 5
+  LOADK R7 K26 [0.3]
+  SETTABLEKS R7 R6 K16 ["BackgroundTransparency"]
+  NEWTABLE R7 0 6
   MOVE R8 R2
-  LOADK R9 K35 [":hover"]
-  DUPTABLE R10 K36 [{"BackgroundColor3", "BackgroundTransparency"}]
-  GETTABLEKS R12 R3 K30 ["fflagAnnotationsModernColors"]
+  LOADK R9 K27 [":hover"]
+  DUPTABLE R10 K28 [{"BackgroundColor3", "BackgroundTransparency"}]
+  GETTABLEKS R12 R3 K22 ["fflagAnnotationsModernColors"]
   JUMPIFNOT R12 [+2]
   LOADNIL R11
   JUMP [+1]
-  LOADK R11 K37 ["$ResolveIconHovered"]
-  SETTABLEKS R11 R10 K17 ["BackgroundColor3"]
-  GETTABLEKS R12 R3 K30 ["fflagAnnotationsModernColors"]
+  LOADK R11 K29 ["$ResolveIconHovered"]
+  SETTABLEKS R11 R10 K15 ["BackgroundColor3"]
+  GETTABLEKS R12 R3 K22 ["fflagAnnotationsModernColors"]
   JUMPIFNOT R12 [+2]
-  LOADK R11 K38 ["$SemanticColorActionSecondaryFillHoverTransparency"]
+  LOADK R11 K30 ["$SemanticColorActionSecondaryFillHoverTransparency"]
   JUMP [+1]
   LOADNIL R11
-  SETTABLEKS R11 R10 K18 ["BackgroundTransparency"]
+  SETTABLEKS R11 R10 K16 ["BackgroundTransparency"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K39 [":pressed"]
-  DUPTABLE R11 K36 [{"BackgroundColor3", "BackgroundTransparency"}]
-  GETTABLEKS R13 R3 K30 ["fflagAnnotationsModernColors"]
+  LOADK R10 K31 [":pressed"]
+  DUPTABLE R11 K28 [{"BackgroundColor3", "BackgroundTransparency"}]
+  GETTABLEKS R13 R3 K22 ["fflagAnnotationsModernColors"]
   JUMPIFNOT R13 [+2]
   LOADNIL R12
   JUMP [+1]
-  LOADK R12 K40 ["$ResolveIconSelected"]
-  SETTABLEKS R12 R11 K17 ["BackgroundColor3"]
-  GETTABLEKS R13 R3 K30 ["fflagAnnotationsModernColors"]
+  LOADK R12 K32 ["$ResolveIconSelected"]
+  SETTABLEKS R12 R11 K15 ["BackgroundColor3"]
+  GETTABLEKS R13 R3 K22 ["fflagAnnotationsModernColors"]
   JUMPIFNOT R13 [+2]
-  LOADK R12 K41 ["$SemanticColorActionSecondaryFillPressTransparency"]
+  LOADK R12 K33 ["$SemanticColorActionSecondaryFillPressTransparency"]
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K18 ["BackgroundTransparency"]
+  SETTABLEKS R12 R11 K16 ["BackgroundTransparency"]
   CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K42 ["::UICorner"]
-  DUPTABLE R12 K44 [{"CornerRadius"}]
-  GETIMPORT R13 K46 [UDim.new]
+  LOADK R11 K34 ["::UICorner"]
+  DUPTABLE R12 K36 [{"CornerRadius"}]
+  GETIMPORT R13 K39 [UDim.new]
   LOADN R14 1
   LOADN R15 0
   CALL R13 2 1
-  SETTABLEKS R13 R12 K43 ["CornerRadius"]
+  SETTABLEKS R13 R12 K35 ["CornerRadius"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K47 ["> ImageLabel"]
-  DUPTABLE R13 K49 [{"AnchorPoint", "Position", "Image", "Size", "BackgroundTransparency"}]
-  GETIMPORT R14 K29 [Vector2.new]
-  LOADK R15 K26 [0.5]
-  LOADK R16 K26 [0.5]
+  LOADK R12 K40 ["> ImageLabel"]
+  DUPTABLE R13 K44 [{"AnchorPoint", "Position", "Size", "Image", "BackgroundTransparency"}]
+  GETIMPORT R14 K46 [Vector2.new]
+  LOADK R15 K47 [0.5]
+  LOADK R16 K47 [0.5]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K16 ["AnchorPoint"]
-  GETIMPORT R14 K25 [UDim2.fromScale]
-  LOADK R15 K26 [0.5]
-  LOADK R16 K26 [0.5]
+  SETTABLEKS R14 R13 K41 ["AnchorPoint"]
+  GETIMPORT R14 K49 [UDim2.fromScale]
+  LOADK R15 K47 [0.5]
+  LOADK R16 K47 [0.5]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K15 ["Position"]
-  LOADK R14 K50 ["$ResolveIcon"]
-  SETTABLEKS R14 R13 K48 ["Image"]
-  GETIMPORT R14 K23 [UDim2.fromOffset]
+  SETTABLEKS R14 R13 K42 ["Position"]
+  GETIMPORT R14 K21 [UDim2.fromOffset]
   LOADN R15 14
   LOADN R16 14
   CALL R14 2 1
   SETTABLEKS R14 R13 K14 ["Size"]
+  LOADK R14 K50 ["$ResolveIcon"]
+  SETTABLEKS R14 R13 K43 ["Image"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K18 ["BackgroundTransparency"]
+  SETTABLEKS R14 R13 K16 ["BackgroundTransparency"]
   CALL R11 2 1
   MOVE R12 R2
   LOADK R13 K51 [".Resolved"]
   NEWTABLE R14 0 0
   NEWTABLE R15 0 1
   MOVE R16 R2
-  LOADK R17 K47 ["> ImageLabel"]
+  LOADK R17 K40 ["> ImageLabel"]
   DUPTABLE R18 K52 [{"Image"}]
   LOADK R19 K53 ["$ResolveIconResolved"]
-  SETTABLEKS R19 R18 K48 ["Image"]
+  SETTABLEKS R19 R18 K43 ["Image"]
   CALL R16 2 -1
   SETLIST R15 R16 -1 [1]
-  CALL R12 3 -1
+  CALL R12 3 1
+  MOVE R13 R2
+  LOADK R14 K54 [".Disabled"]
+  NEWTABLE R15 0 0
+  NEWTABLE R16 0 1
+  MOVE R17 R2
+  LOADK R18 K40 ["> ImageLabel"]
+  DUPTABLE R19 K56 [{"ImageTransparency"}]
+  LOADK R20 K57 [0.4]
+  SETTABLEKS R20 R19 K55 ["ImageTransparency"]
+  CALL R17 2 -1
+  SETLIST R16 R17 -1 [1]
+  CALL R13 3 -1
   SETLIST R7 R8 -1 [1]
   CALL R4 3 -1
   RETURN R4 -1

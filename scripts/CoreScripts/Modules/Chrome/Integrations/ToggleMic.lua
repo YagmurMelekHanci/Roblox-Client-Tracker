@@ -12,17 +12,16 @@ local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndic
 local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalytics)
 local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
 
-local GetFFlagEnableChromeFTUX = require(Chrome.Flags.GetFFlagEnableChromeFTUX)
 local GetFFlagFixMicSelection = require(Chrome.Flags.GetFFlagFixMicSelection)
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
 local FFlagEnableChromeAudioFocusManagement = game:DefineFastFlag("EnableChromeAudioFocusManagement", false)
 local EnableChromeAudioFocusManagement = AudioFocusManagementEnabled and FFlagEnableChromeAudioFocusManagement
 
-local ChromeService = require(Chrome.Service)
+local ChromeService = require(Chrome.ChromeShared.Service)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
 
-local Constants = require(Chrome.Unibar.Constants)
+local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -65,7 +64,7 @@ muteSelf = ChromeService:register({
 					userId = tostring((Players.LocalPlayer :: Player).UserId),
 					hideOnError = false,
 					iconStyle = "MicLight",
-					selectable = if GetFFlagEnableChromeFTUX() or GetFFlagFixMicSelection() then false else nil,
+					selectable = if GetFFlagFixMicSelection() then false else nil,
 					size = ICON_SIZE,
 					showConnectingShimmer = true,
 				}) :: any,

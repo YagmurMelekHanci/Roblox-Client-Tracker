@@ -23,7 +23,7 @@ MAIN:
   SETTABLEKS R6 R5 K11 ["BackgroundTransparency"]
   LOADN R6 0
   SETTABLEKS R6 R5 K12 ["BorderSizePixel"]
-  NEWTABLE R6 0 2
+  NEWTABLE R6 0 3
   MOVE R7 R2
   LOADK R8 K17 [":hover"]
   DUPTABLE R9 K19 [{"BackgroundTransparency", "BackgroundColor3"}]
@@ -39,7 +39,13 @@ MAIN:
   SETTABLEKS R11 R10 K11 ["BackgroundTransparency"]
   LOADK R11 K22 ["$ResolveIconSelected"]
   SETTABLEKS R11 R10 K18 ["BackgroundColor3"]
-  CALL R8 2 -1
+  CALL R8 2 1
+  MOVE R9 R2
+  LOADK R10 K23 [".Disabled"]
+  DUPTABLE R11 K25 [{"ImageTransparency"}]
+  LOADK R12 K26 [0.4]
+  SETTABLEKS R12 R11 K24 ["ImageTransparency"]
+  CALL R9 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

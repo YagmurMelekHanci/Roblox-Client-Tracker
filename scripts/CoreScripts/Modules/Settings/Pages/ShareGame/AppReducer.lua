@@ -22,9 +22,6 @@ local RoduxNetworking = dependencies.RoduxNetworking
 local NetworkStatus = RoduxNetworking.installReducer()
 local ShareLinks = RoduxShareLinks.installReducer()
 
-local GetFFlagShareInviteLinkContextMenuV1Enabled =
-	require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
-
 return function(state, action)
 	state = state or {}
 
@@ -38,12 +35,8 @@ return function(state, action)
 		Users = Users(state.Users, action),
 		Friends = Friends(state.Friends, action),
 		FriendCount = FriendCount(state.FriendCount, action),
-		ShareLinks = if GetFFlagShareInviteLinkContextMenuV1Enabled()
-			then ShareLinks(state.ShareLinks, action)
-			else nil,
-		GameInfo = if GetFFlagShareInviteLinkContextMenuV1Enabled() then GameInfo(state.GameInfo, action) else nil,
-		NetworkStatus = if GetFFlagShareInviteLinkContextMenuV1Enabled()
-			then NetworkStatus(state.NetworkStatus, action)
-			else nil,
+		ShareLinks = ShareLinks(state.ShareLinks, action),
+		GameInfo = GameInfo(state.GameInfo, action),
+		NetworkStatus = NetworkStatus(state.NetworkStatus, action),
 	}
 end

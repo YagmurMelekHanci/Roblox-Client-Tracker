@@ -5,7 +5,7 @@ local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 
-local chromeService = require(Chrome.Service)
+local chromeService = require(Chrome.ChromeShared.Service)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
 
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)

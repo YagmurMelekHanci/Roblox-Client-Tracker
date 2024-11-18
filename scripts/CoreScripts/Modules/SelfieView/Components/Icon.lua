@@ -1,5 +1,5 @@
 --!strict
---[[ 
+--[[
     Wrapper for the SelfieView Module. Injected into Chrome module Unibar.
 ]]
 local CorePackages = game:GetService("CorePackages")
@@ -17,7 +17,7 @@ local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 
 local Chrome = script.Parent.Parent.Parent.Chrome
-local IconSize = require(Chrome.Unibar.Constants).ICON_SIZE
+local IconSize = require(Chrome.ChromeShared.Unibar.Constants).ICON_SIZE
 
 local CameraStatusDot = require(script.Parent.CameraStatusDot)
 local FaceClone = require(script.Parent.FaceClone)

@@ -1,107 +1,106 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["PlotAbsoluteSize"]
-  GETTABLEKS R2 R0 K1 ["CurveHook"]
+  GETTABLEKS R1 R0 K0 ["CurveHook"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["makePolarCurve"]
+  GETTABLEKS R3 R1 K2 ["keypoints"]
+  LOADB R4 0
+  GETTABLEKS R5 R0 K3 ["PlotAbsoluteSize"]
+  CALL R2 3 1
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["makePolarCurve"]
-  GETTABLEKS R4 R2 K3 ["keypoints"]
-  LOADB R5 0
-  GETTABLEKS R6 R0 K0 ["PlotAbsoluteSize"]
+  GETTABLEKS R3 R4 K1 ["makePolarCurve"]
+  GETTABLEKS R4 R1 K2 ["keypoints"]
+  LOADB R5 1
+  GETTABLEKS R6 R0 K3 ["PlotAbsoluteSize"]
   CALL R3 3 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["makePolarCurve"]
-  GETTABLEKS R5 R2 K3 ["keypoints"]
-  LOADB R6 1
-  GETTABLEKS R7 R0 K0 ["PlotAbsoluteSize"]
-  CALL R4 3 1
-  NEWTABLE R5 0 0
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K4 ["createElement"]
-  GETUPVAL R7 2
-  DUPTABLE R8 K7 [{"ControlPoints", "Tag"}]
-  SETTABLEKS R3 R8 K5 ["ControlPoints"]
-  LOADK R9 K8 ["CurveLinePath2D"]
-  SETTABLEKS R9 R8 K6 ["Tag"]
+  NEWTABLE R4 0 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K7 [{"ControlPoints", "Tag"}]
+  SETTABLEKS R2 R7 K5 ["ControlPoints"]
+  LOADK R8 K8 ["CurveLinePath2D"]
+  SETTABLEKS R8 R7 K6 ["Tag"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K9 ["CurveLeft"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K7 [{"ControlPoints", "Tag"}]
+  SETTABLEKS R3 R7 K5 ["ControlPoints"]
+  LOADK R8 K8 ["CurveLinePath2D"]
+  SETTABLEKS R8 R7 K6 ["Tag"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["CurveRight"]
+  GETTABLEKS R6 R1 K2 ["keypoints"]
+  LENGTH R5 R6
+  LOADN R6 0
+  JUMPIFNOTLT R6 R5 [+78]
+  GETTABLEKS R6 R1 K2 ["keypoints"]
+  GETTABLEN R5 R6 1
+  GETIMPORT R6 K13 [Vector2.new]
+  GETTABLEKS R8 R5 K14 ["X"]
+  MINUS R7 R8
+  GETTABLEKS R8 R5 K15 ["Y"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K9 ["CurveLeft"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K4 ["createElement"]
-  GETUPVAL R7 2
-  DUPTABLE R8 K7 [{"ControlPoints", "Tag"}]
-  SETTABLEKS R4 R8 K5 ["ControlPoints"]
-  LOADK R9 K8 ["CurveLinePath2D"]
-  SETTABLEKS R9 R8 K6 ["Tag"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K10 ["CurveRight"]
-  GETTABLEKS R7 R2 K3 ["keypoints"]
-  LENGTH R6 R7
-  LOADN R7 0
-  JUMPIFNOTLT R7 R6 [+78]
-  GETTABLEKS R7 R2 K3 ["keypoints"]
-  GETTABLEN R6 R7 1
-  GETIMPORT R7 K13 [Vector2.new]
-  GETTABLEKS R9 R6 K14 ["X"]
-  MINUS R8 R9
-  GETTABLEKS R9 R6 K15 ["Y"]
-  CALL R7 2 1
-  GETTABLEKS R9 R2 K3 ["keypoints"]
-  GETTABLEKS R11 R2 K3 ["keypoints"]
-  LENGTH R10 R11
-  GETTABLE R8 R9 R10
-  GETIMPORT R9 K13 [Vector2.new]
-  GETTABLEKS R11 R8 K14 ["X"]
-  SUBRK R10 R16 K11 ["Vector2"]
-  GETTABLEKS R11 R8 K15 ["Y"]
+  GETTABLEKS R8 R1 K2 ["keypoints"]
+  GETTABLEKS R10 R1 K2 ["keypoints"]
+  LENGTH R9 R10
+  GETTABLE R7 R8 R9
+  GETIMPORT R8 K13 [Vector2.new]
+  GETTABLEKS R10 R7 K14 ["X"]
+  SUBRK R9 R16 K10 ["CurveRight"]
+  GETTABLEKS R10 R7 K15 ["Y"]
+  CALL R8 2 1
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K7 [{"ControlPoints", "Tag"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K1 ["makePolarCurve"]
+  NEWTABLE R13 0 2
+  MOVE R14 R6
+  MOVE R15 R5
+  SETLIST R13 R14 2 [1]
+  LOADB R14 1
+  GETTABLEKS R15 R0 K3 ["PlotAbsoluteSize"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K5 ["ControlPoints"]
+  LOADK R12 K17 ["EndLinePath2D"]
+  SETTABLEKS R12 R11 K6 ["Tag"]
   CALL R9 2 1
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K4 ["createElement"]
-  GETUPVAL R11 2
-  DUPTABLE R12 K7 [{"ControlPoints", "Tag"}]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K2 ["makePolarCurve"]
-  NEWTABLE R14 0 2
-  MOVE R15 R7
-  MOVE R16 R6
-  SETLIST R14 R15 2 [1]
-  LOADB R15 1
-  GETTABLEKS R16 R0 K0 ["PlotAbsoluteSize"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K5 ["ControlPoints"]
-  LOADK R13 K17 ["EndLinePath2D"]
-  SETTABLEKS R13 R12 K6 ["Tag"]
-  CALL R10 2 1
-  SETTABLEKS R10 R5 K18 ["EndLine1"]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K4 ["createElement"]
-  GETUPVAL R11 2
-  DUPTABLE R12 K7 [{"ControlPoints", "Tag"}]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K2 ["makePolarCurve"]
-  NEWTABLE R14 0 2
+  SETTABLEKS R9 R4 K18 ["EndLine1"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K7 [{"ControlPoints", "Tag"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K1 ["makePolarCurve"]
+  NEWTABLE R13 0 2
+  MOVE R14 R7
   MOVE R15 R8
-  MOVE R16 R9
-  SETLIST R14 R15 2 [1]
-  LOADB R15 1
-  GETTABLEKS R16 R0 K0 ["PlotAbsoluteSize"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K5 ["ControlPoints"]
-  LOADK R13 K17 ["EndLinePath2D"]
-  SETTABLEKS R13 R12 K6 ["Tag"]
-  CALL R10 2 1
-  SETTABLEKS R10 R5 K19 ["EndLine2"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K4 ["createElement"]
-  GETUPVAL R7 3
-  DUPTABLE R8 K22 [{"Size", "BackgroundTransparency"}]
-  GETIMPORT R9 K25 [UDim2.fromScale]
-  LOADN R10 1
-  LOADN R11 1
+  SETLIST R13 R14 2 [1]
+  LOADB R14 1
+  GETTABLEKS R15 R0 K3 ["PlotAbsoluteSize"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K5 ["ControlPoints"]
+  LOADK R12 K17 ["EndLinePath2D"]
+  SETTABLEKS R12 R11 K6 ["Tag"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K20 ["Size"]
+  SETTABLEKS R9 R4 K19 ["EndLine2"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K22 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R8 K25 [UDim2.fromScale]
   LOADN R9 1
-  SETTABLEKS R9 R8 K21 ["BackgroundTransparency"]
-  MOVE R9 R5
-  CALL R6 3 -1
-  RETURN R6 -1
+  LOADN R10 1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K20 ["Size"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K21 ["BackgroundTransparency"]
+  MOVE R8 R4
+  CALL R5 3 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0

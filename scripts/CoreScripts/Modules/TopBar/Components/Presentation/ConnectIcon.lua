@@ -45,10 +45,19 @@ function ConnectIcon(props: Props)
 	local buttonRef = React.useRef(nil) :: { current: GuiObject? }
 	local currentSquadId, setCurrentSquadId = React.useState(InExperienceAppChatModal.default.currentSquadId)
 	local isAppChatOpened, setIsAppChatOpened = React.useState(InExperienceAppChatModal:getVisible())
-	local isVisible = React.useCallback(function()
+	local isVisible = React.useMemo(function()
 		return currentSquadId ~= "" and InExperienceAppChatExperimentation.default and InExperienceAppChatExperimentation.default.getShowPlatformChatInNonChrome()
 	end, { currentSquadId })
 
+	React.useEffect(function() 
+		local connection = InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(function(nextSquadId)
+			setCurrentSquadId(nextSquadId)
+		end)
+		return function()
+			connection:Disconnect()
+		end
+	end, { setCurrentSquadId })
+	
 	local partyIcon = usePartyIcon(ICON_SIZE, AVATAR_SIZE, if isAppChatOpened then ICON_ON else ICON_OFF)
 
 	React.useEffect(function()

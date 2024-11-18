@@ -8,9 +8,9 @@ local Chat = game:GetService("Chat")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
-local ChromeService = require(Chrome.Service)
-local ChromeUtils = require(Chrome.Service.ChromeUtils)
-local ViewportUtil = require(Chrome.Service.ViewportUtil)
+local ChromeService = require(Chrome.ChromeShared.Service)
+local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
+local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
 local MappedSignal = ChromeUtils.MappedSignal
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local GameSettings = UserSettings().GameSettings
@@ -19,11 +19,15 @@ local GuiService = game:GetService("GuiService")
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
+local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
+local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local EnabledPinnedChat = require(Chrome.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
+local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
+local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -50,15 +54,27 @@ chatChromeIntegration = ChromeService:register({
 	label = "CoreScripts.TopBar.Chat",
 	activated = function(self)
 		if chatVisibility then
-			ChatSelector:ToggleVisibility()
+			if getFFlagAppChatCoreUIConflictFix() then
+				ChatSelector:SetVisible(false)
+			else
+				ChatSelector:ToggleVisibility()
+			end
 		else
 			ChromeUtils.dismissRobloxMenuAndRun(function(menuWasOpen)
-				if menuWasOpen then
-					if not chatVisibility then
+				if getFFlagAppChatCoreUIConflictFix() then
+					if InExperienceAppChatModal:getVisible() then
+						InExperienceAppChatModal.default:setVisible(false)
+					end
+
+					ChatSelector:SetVisible(true)
+				else
+					if menuWasOpen then
+						if not chatVisibility then
+							ChatSelector:ToggleVisibility()
+						end
+					else
 						ChatSelector:ToggleVisibility()
 					end
-				else
-					ChatSelector:ToggleVisibility()
 				end
 			end)
 		end
@@ -70,13 +86,18 @@ chatChromeIntegration = ChromeService:register({
 		else nil,
 	components = {
 		Icon = function(props)
-			if
-				GetFFlagEnableAppChatInExperience()
-				and InExperienceAppChatExperimentation.default.variant.ShowInExperienceChatNewIcon
-			then
-				return CommonIcon("icons/menu/publicChatOff", "icons/menu/publicChatOn", chatVisibilitySignal)
+			if getFFlagExpChatGetLabelAndIconFromUtil() then
+				local visualConfig = getExperienceChatVisualConfig()
+				return CommonIcon(visualConfig.icon.off, visualConfig.icon.on, chatVisibilitySignal)
 			else
-				return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibilitySignal)
+				if
+					GetFFlagEnableAppChatInExperience()
+					and InExperienceAppChatExperimentation.default.variant.ShowInExperienceChatNewIcon
+				then
+					return CommonIcon("icons/menu/publicChatOff", "icons/menu/publicChatOn", chatVisibilitySignal)
+				else
+					return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibilitySignal)
+				end
 			end
 		end,
 	},

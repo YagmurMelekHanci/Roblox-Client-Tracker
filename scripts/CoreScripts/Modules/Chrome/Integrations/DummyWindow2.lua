@@ -3,9 +3,9 @@ local Chrome = script:FindFirstAncestor("Chrome")
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 
-local ChromeService = require(Chrome.Service)
+local ChromeService = require(Chrome.ChromeShared.Service)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
-local Constants = require(Chrome.Unibar.Constants)
+local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 
 local GetFFlagDebugEnableUnibarDummyIntegrations = require(Chrome.Flags.GetFFlagDebugEnableUnibarDummyIntegrations)
 

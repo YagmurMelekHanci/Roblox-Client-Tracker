@@ -42,11 +42,9 @@ MAIN:
   CALL R7 2 1
   MOVE R8 R2
   LOADK R9 K25 ["> .Blend2D"]
-  DUPTABLE R10 K26 [{"BackgroundColor3", "BackgroundTransparency", "BackgroundTransparency", "BorderColor3", "BorderSizePixel", "Size", "Position"}]
+  DUPTABLE R10 K18 [{"BackgroundColor3", "BackgroundTransparency", "BorderColor3", "BorderSizePixel", "Size", "Position"}]
   LOADK R11 K19 ["$BackgroundPaper"]
   SETTABLEKS R11 R10 K12 ["BackgroundColor3"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K13 ["BackgroundTransparency"]
   LOADN R11 0
   SETTABLEKS R11 R10 K13 ["BackgroundTransparency"]
   LOADK R11 K20 ["$TextPrimary"]
@@ -60,33 +58,33 @@ MAIN:
   LOADN R15 208
   CALL R11 4 1
   SETTABLEKS R11 R10 K16 ["Size"]
-  GETIMPORT R11 K28 [UDim2.fromOffset]
+  GETIMPORT R11 K27 [UDim2.fromOffset]
   LOADN R12 15
   LOADN R13 33
   CALL R11 2 1
   SETTABLEKS R11 R10 K17 ["Position"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K29 ["> #Canvas"]
+  LOADK R10 K28 ["> #Canvas"]
   NEWTABLE R11 0 0
   NEWTABLE R12 0 8
   MOVE R13 R2
-  LOADK R14 K30 ["> #Grid"]
-  DUPTABLE R15 K32 [{"ClipsDescendants", "Size"}]
+  LOADK R14 K29 ["> #Grid"]
+  DUPTABLE R15 K31 [{"ClipsDescendants", "Size"}]
   LOADB R16 1
-  SETTABLEKS R16 R15 K31 ["ClipsDescendants"]
-  GETIMPORT R16 K34 [UDim2.fromScale]
+  SETTABLEKS R16 R15 K30 ["ClipsDescendants"]
+  GETIMPORT R16 K33 [UDim2.fromScale]
   LOADN R17 1
   LOADN R18 1
   CALL R16 2 1
   SETTABLEKS R16 R15 K16 ["Size"]
   CALL R13 2 1
   MOVE R14 R2
-  LOADK R15 K35 ["> #Reset"]
-  DUPTABLE R16 K39 [{"Image", "Size", "Position", "ImageColor3", "AnchorPoint", "BackgroundTransparency"}]
-  LOADK R17 K40 ["rbxasset://textures/CompositorDebugger/clear.png"]
-  SETTABLEKS R17 R16 K36 ["Image"]
-  GETIMPORT R17 K28 [UDim2.fromOffset]
+  LOADK R15 K34 ["> #Reset"]
+  DUPTABLE R16 K38 [{"Image", "Size", "Position", "ImageColor3", "AnchorPoint", "BackgroundTransparency"}]
+  LOADK R17 K39 ["rbxasset://textures/CompositorDebugger/clear.png"]
+  SETTABLEKS R17 R16 K35 ["Image"]
+  GETIMPORT R17 K27 [UDim2.fromOffset]
   LOADN R18 12
   LOADN R19 12
   CALL R17 2 1
@@ -99,69 +97,69 @@ MAIN:
   CALL R17 4 1
   SETTABLEKS R17 R16 K17 ["Position"]
   LOADK R17 K20 ["$TextPrimary"]
-  SETTABLEKS R17 R16 K37 ["ImageColor3"]
-  GETIMPORT R17 K42 [Vector2.new]
+  SETTABLEKS R17 R16 K36 ["ImageColor3"]
+  GETIMPORT R17 K41 [Vector2.new]
   LOADN R18 1
   LOADN R19 1
   CALL R17 2 1
-  SETTABLEKS R17 R16 K38 ["AnchorPoint"]
+  SETTABLEKS R17 R16 K37 ["AnchorPoint"]
   LOADN R17 1
   SETTABLEKS R17 R16 K13 ["BackgroundTransparency"]
   CALL R14 2 1
   MOVE R15 R2
-  LOADK R16 K43 ["> .Dot"]
-  DUPTABLE R17 K44 [{"Image", "Size", "ImageColor3", "AnchorPoint", "BackgroundTransparency"}]
-  LOADK R18 K45 ["rbxasset://textures/CompositorDebugger/dot.png"]
-  SETTABLEKS R18 R17 K36 ["Image"]
-  GETIMPORT R18 K28 [UDim2.fromOffset]
+  LOADK R16 K42 ["> .Dot"]
+  DUPTABLE R17 K43 [{"Image", "Size", "ImageColor3", "AnchorPoint", "BackgroundTransparency"}]
+  LOADK R18 K44 ["rbxasset://textures/CompositorDebugger/dot.png"]
+  SETTABLEKS R18 R17 K35 ["Image"]
+  GETIMPORT R18 K27 [UDim2.fromOffset]
   LOADN R19 9
   LOADN R20 9
   CALL R18 2 1
   SETTABLEKS R18 R17 K16 ["Size"]
   LOADK R18 K20 ["$TextPrimary"]
-  SETTABLEKS R18 R17 K37 ["ImageColor3"]
-  GETIMPORT R18 K42 [Vector2.new]
+  SETTABLEKS R18 R17 K36 ["ImageColor3"]
+  GETIMPORT R18 K41 [Vector2.new]
   LOADK R19 K24 [0.5]
   LOADK R20 K24 [0.5]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K38 ["AnchorPoint"]
+  SETTABLEKS R18 R17 K37 ["AnchorPoint"]
   LOADN R18 1
   SETTABLEKS R18 R17 K13 ["BackgroundTransparency"]
   CALL R15 2 1
   MOVE R16 R2
-  LOADK R17 K46 ["> .Cursor"]
-  DUPTABLE R18 K47 [{"Image", "ImageColor3"}]
-  LOADK R19 K48 ["rbxasset://textures/CompositorDebugger/cursor.png"]
-  SETTABLEKS R19 R18 K36 ["Image"]
-  LOADK R19 K49 ["$Blue60"]
-  SETTABLEKS R19 R18 K37 ["ImageColor3"]
+  LOADK R17 K45 ["> .Cursor"]
+  DUPTABLE R18 K46 [{"Image", "ImageColor3"}]
+  LOADK R19 K47 ["rbxasset://textures/CompositorDebugger/cursor.png"]
+  SETTABLEKS R19 R18 K35 ["Image"]
+  LOADK R19 K48 ["$Blue60"]
+  SETTABLEKS R19 R18 K36 ["ImageColor3"]
   CALL R16 2 1
   MOVE R17 R2
-  LOADK R18 K50 [">> .Trail"]
-  DUPTABLE R19 K52 [{"BackgroundColor3", "Width"}]
-  LOADK R20 K49 ["$Blue60"]
+  LOADK R18 K49 [">> .Trail"]
+  DUPTABLE R19 K51 [{"BackgroundColor3", "Width"}]
+  LOADK R20 K48 ["$Blue60"]
   SETTABLEKS R20 R19 K12 ["BackgroundColor3"]
   LOADN R20 2
-  SETTABLEKS R20 R19 K51 ["Width"]
+  SETTABLEKS R20 R19 K50 ["Width"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K53 ["> .Override"]
-  DUPTABLE R20 K54 [{"ImageColor3"}]
-  LOADK R21 K55 ["$TextError"]
-  SETTABLEKS R21 R20 K37 ["ImageColor3"]
+  LOADK R19 K52 ["> .Override"]
+  DUPTABLE R20 K53 [{"ImageColor3"}]
+  LOADK R21 K54 ["$TextError"]
+  SETTABLEKS R21 R20 K36 ["ImageColor3"]
   CALL R18 2 1
   MOVE R19 R2
-  LOADK R20 K56 [">> .Axis"]
-  DUPTABLE R21 K57 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R20 K55 [">> .Axis"]
+  DUPTABLE R21 K56 [{"BackgroundColor3", "BackgroundTransparency"}]
   LOADK R22 K20 ["$TextPrimary"]
   SETTABLEKS R22 R21 K12 ["BackgroundColor3"]
   LOADN R22 0
   SETTABLEKS R22 R21 K13 ["BackgroundTransparency"]
   CALL R19 2 1
   MOVE R20 R2
-  LOADK R21 K58 [">> .Grid"]
-  DUPTABLE R22 K57 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R23 K59 ["$TextDisabled"]
+  LOADK R21 K57 [">> .Grid"]
+  DUPTABLE R22 K56 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R23 K58 ["$TextDisabled"]
   SETTABLEKS R23 R22 K12 ["BackgroundColor3"]
   LOADN R23 0
   SETTABLEKS R23 R22 K13 ["BackgroundTransparency"]
@@ -169,8 +167,8 @@ MAIN:
   SETLIST R12 R13 -1 [1]
   CALL R9 3 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K61 [{"DotSize"}]
+  DUPTABLE R7 K60 [{"DotSize"}]
   LOADN R8 9
-  SETTABLEKS R8 R7 K60 ["DotSize"]
+  SETTABLEKS R8 R7 K59 ["DotSize"]
   CALL R3 4 -1
   RETURN R3 -1

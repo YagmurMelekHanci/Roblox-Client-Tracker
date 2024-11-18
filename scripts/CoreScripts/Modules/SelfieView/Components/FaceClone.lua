@@ -7,7 +7,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
 local CFrameUtility = require(CorePackages.Thumbnailing).CFrameUtility
 
-local EngineFeatureAnimatorAndADFRefactorInternal = game:GetEngineFeature("AnimatorAndADFRefactorInternal")
+local EngineFeatureAnimatorAndADFRefactor = game:GetEngineFeature("AnimatorAndADFRefactor")
 
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
@@ -367,7 +367,7 @@ local function updateClone(player: Player?)
 
 	--prep sync streaming tracks
 	if cloneAnimator then
-		if not GetFFlagSelfieViewMoreFixMigration() or not EngineFeatureAnimatorAndADFRefactorInternal then
+		if not GetFFlagSelfieViewMoreFixMigration() or not EngineFeatureAnimatorAndADFRefactor then
 			-- clear cloned tracks
 			local clonedTracks = cloneAnimator:GetPlayingAnimationTracks()
 			local coreScriptTracks = cloneAnimator:GetPlayingAnimationTracksCoreScript()
@@ -393,7 +393,7 @@ local function updateClone(player: Player?)
 		end
 
 		if animator then
-			if GetFFlagSelfieViewMoreFixMigration() and EngineFeatureAnimatorAndADFRefactorInternal then
+			if GetFFlagSelfieViewMoreFixMigration() and EngineFeatureAnimatorAndADFRefactor then
 				cloneAnimator:SynchronizeWith(animator)
 			else
 				-- clone tracks manually

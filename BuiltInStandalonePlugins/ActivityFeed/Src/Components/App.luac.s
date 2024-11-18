@@ -76,8 +76,8 @@ PROTO_6:
   GETTABLEKS R0 R1 K0 ["plugin"]
   LOADK R2 K1 ["ActivityHistoryManager"]
   NAMECALL R0 R0 K2 ["GetPluginComponent"]
-  CALL R0 2 -1
-  RETURN R0 -1
+  CALL R0 2 1
+  RETURN R0 1
 
 PROTO_7:
   GETUPVAL R1 0

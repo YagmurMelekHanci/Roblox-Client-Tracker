@@ -4,10 +4,10 @@ local CorePackages = game:GetService("CorePackages")
 
 local React = require(CorePackages.Packages.React)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
-local ChromeService = require(Chrome.Service)
+local ChromeService = require(Chrome.ChromeShared.Service)
 local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
-local WindowSizeSignal = require(Chrome.Service.WindowSizeSignal)
+local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
 
 local GetFFlagChromeSongbirdWindow = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSongbirdWindow
 
@@ -44,9 +44,7 @@ else
 		initialAvailability = ChromeService.AvailabilitySignal.Available,
 		id = "music_entrypoint",
 		label = "CoreScripts.TopBar.Music",
-		activated = function(self)
-			ChromeService:toggleCompactUtility("music_utility")
-		end,
+		activated = function(self) end,
 		components = {
 			Icon = function(props)
 				-- MUS-1201 TODO: Add final icon

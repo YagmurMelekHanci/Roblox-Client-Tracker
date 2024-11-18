@@ -1,6 +1,6 @@
 local Chrome = script:FindFirstAncestor("Chrome")
 
-local ViewportUtil = require(Chrome.Service.ViewportUtil)
+local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
 
 local function shouldUseSmallPeek()
 	local isSmallTouchScreen = ViewportUtil.isSmallTouchScreen()

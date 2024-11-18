@@ -25,6 +25,13 @@ PROTO_3:
   RETURN R3 1
 
 PROTO_4:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["DataModelSessionStarted"]
+  RETURN R0 1
+
+PROTO_5:
   MOVE R3 R0
   MOVE R4 R1
   MOVE R5 R2
@@ -33,13 +40,13 @@ PROTO_4:
   CALL R3 4 -1
   RETURN R3 -1
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["GetCurrentlyEmulatedDeviceAsync"]
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R1 0
   GETTABLEKS R2 R0 K0 ["platform"]
   GETUPVAL R4 1
@@ -61,7 +68,7 @@ PROTO_6:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   LOADNIL R0
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["EmulatedDeviceChanged"]
@@ -76,7 +83,7 @@ PROTO_7:
   CLOSEUPVALS R0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["Name"]
   SETTABLEKS R2 R0 K0 ["Name"]
@@ -93,104 +100,110 @@ PROTO_8:
   SETTABLEKS R3 R2 K5 ["clickableWhenViewportHidden"]
   LOADB R3 0
   SETTABLEKS R3 R2 K6 ["enabled"]
-  DUPTABLE R3 K18 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
-  SETTABLEKS R0 R3 K12 ["plugin"]
-  LOADK R4 K19 ["ControlsEmulator"]
-  SETTABLEKS R4 R3 K13 ["pluginName"]
-  GETUPVAL R4 1
-  SETTABLEKS R4 R3 K14 ["translationResourceTable"]
-  GETUPVAL R4 2
-  SETTABLEKS R4 R3 K15 ["fallbackResourceTable"]
-  DUPCLOSURE R4 K20 [PROTO_3]
-  SETTABLEKS R4 R3 K16 ["getToolbarName"]
-  SETTABLEKS R2 R3 K17 ["buttonInfo"]
-  GETIMPORT R4 K22 [game]
-  LOADK R6 K23 ["RunService"]
-  NAMECALL R4 R4 K24 ["GetService"]
-  CALL R4 2 1
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K25 ["get"]
-  CALL R6 0 1
+  GETTABLEKS R3 R0 K12 ["MultipleDocumentInterfaceInstance"]
+  DUPTABLE R4 K20 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo", "extraTriggers"}]
+  SETTABLEKS R0 R4 K13 ["plugin"]
+  LOADK R5 K21 ["ControlsEmulator"]
+  SETTABLEKS R5 R4 K14 ["pluginName"]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K15 ["translationResourceTable"]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R4 K16 ["fallbackResourceTable"]
+  DUPCLOSURE R5 K22 [PROTO_3]
+  SETTABLEKS R5 R4 K17 ["getToolbarName"]
+  SETTABLEKS R2 R4 K18 ["buttonInfo"]
+  DUPTABLE R5 K24 [{"SessionStarted"}]
+  NEWCLOSURE R6 P4
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K23 ["SessionStarted"]
+  SETTABLEKS R5 R4 K19 ["extraTriggers"]
+  GETIMPORT R5 K26 [game]
+  LOADK R7 K27 ["RunService"]
+  NAMECALL R5 R5 K28 ["GetService"]
+  CALL R5 2 1
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K26 ["Standalone"]
-  JUMPIFEQ R6 R7 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  NAMECALL R6 R4 K27 ["IsEdit"]
-  CALL R6 1 1
-  JUMPIF R5 [+1]
-  JUMPIFNOT R6 [+88]
-  LOADB R7 1
-  SETTABLEKS R7 R2 K6 ["enabled"]
-  DUPTABLE R7 K32 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R8 K19 ["ControlsEmulator"]
-  SETTABLEKS R8 R7 K28 ["id"]
-  GETIMPORT R8 K35 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R9 K39 [Enum.InitialDockState.Bottom]
-  LOADB R10 0
-  LOADB R11 0
-  LOADN R12 128
-  LOADN R13 224
-  LOADN R14 250
-  LOADN R15 200
-  CALL R8 7 1
-  SETTABLEKS R8 R7 K29 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R8 K40 [PROTO_4]
-  SETTABLEKS R8 R7 K30 ["getDockTitle"]
-  GETIMPORT R8 K43 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R8 R7 K31 ["zIndexBehavior"]
-  SETTABLEKS R7 R3 K44 ["dockWidgetInfo"]
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K45 ["build"]
-  MOVE R8 R3
+  GETTABLEKS R7 R8 K29 ["get"]
+  CALL R7 0 1
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K30 ["Standalone"]
+  JUMPIFEQ R7 R8 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  NAMECALL R7 R5 K31 ["IsEdit"]
   CALL R7 1 1
-  LOADNIL R8
-  GETIMPORT R9 K47 [pcall]
-  DUPCLOSURE R10 K48 [PROTO_5]
+  JUMPIF R6 [+1]
+  JUMPIFNOT R7 [+88]
+  LOADB R8 1
+  SETTABLEKS R8 R2 K6 ["enabled"]
+  DUPTABLE R8 K36 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+  LOADK R9 K21 ["ControlsEmulator"]
+  SETTABLEKS R9 R8 K32 ["id"]
+  GETIMPORT R9 K39 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R10 K43 [Enum.InitialDockState.Bottom]
+  LOADB R11 0
+  LOADB R12 0
+  LOADN R13 128
+  LOADN R14 224
+  LOADN R15 250
+  LOADN R16 200
+  CALL R9 7 1
+  SETTABLEKS R9 R8 K33 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R9 K44 [PROTO_5]
+  SETTABLEKS R9 R8 K34 ["getDockTitle"]
+  GETIMPORT R9 K47 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R9 R8 K35 ["zIndexBehavior"]
+  SETTABLEKS R8 R4 K48 ["dockWidgetInfo"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K49 ["build"]
+  MOVE R9 R4
+  CALL R8 1 1
+  LOADNIL R9
+  GETIMPORT R10 K51 [pcall]
+  DUPCLOSURE R11 K52 [PROTO_6]
   CAPTURE UPVAL U5
-  CALL R9 1 2
-  JUMPIFNOT R9 [+20]
-  GETUPVAL R11 6
-  GETTABLEKS R12 R10 K49 ["platform"]
-  GETUPVAL R14 7
-  CALL R14 0 1
-  JUMPIFNOT R14 [+3]
-  GETTABLEKS R13 R10 K50 ["deviceId"]
+  CALL R10 1 2
+  JUMPIFNOT R10 [+20]
+  GETUPVAL R12 6
+  GETTABLEKS R13 R11 K53 ["platform"]
+  GETUPVAL R15 7
+  CALL R15 0 1
+  JUMPIFNOT R15 [+3]
+  GETTABLEKS R14 R11 K54 ["deviceId"]
   JUMP [+1]
-  LOADNIL R13
-  CALL R11 2 1
-  MOVE R8 R11
-  JUMPIFEQKNIL R8 [+12]
-  GETTABLEKS R11 R7 K51 ["mainDockWidget"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K52 ["Enabled"]
+  LOADNIL R14
+  CALL R12 2 1
+  MOVE R9 R12
+  JUMPIFEQKNIL R9 [+12]
+  GETTABLEKS R12 R8 K55 ["mainDockWidget"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K56 ["Enabled"]
   JUMP [+5]
-  GETIMPORT R11 K54 [warn]
-  LOADK R12 K55 ["Failed to get currently emulated device: "]
-  MOVE R13 R10
-  CALL R11 2 0
-  JUMPIFNOTEQKNIL R8 [+9]
-  GETIMPORT R11 K47 [pcall]
-  NEWCLOSURE R12 P6
+  GETIMPORT R12 K58 [warn]
+  LOADK R13 K59 ["Failed to get currently emulated device: "]
+  MOVE R14 R11
+  CALL R12 2 0
+  JUMPIFNOTEQKNIL R9 [+9]
+  GETIMPORT R12 K51 [pcall]
+  NEWCLOSURE R13 P7
   CAPTURE UPVAL U5
   CAPTURE UPVAL U6
   CAPTURE UPVAL U7
-  CAPTURE VAL R7
-  CALL R11 1 0
-  GETTABLEKS R11 R7 K56 ["pluginLoader"]
-  NAMECALL R11 R11 K57 ["waitForUserInteraction"]
-  CALL R11 1 1
-  JUMPIF R11 [+1]
+  CAPTURE VAL R8
+  CALL R12 1 0
+  GETTABLEKS R12 R8 K60 ["pluginLoader"]
+  NAMECALL R12 R12 K61 ["waitForUserInteraction"]
+  CALL R12 1 1
+  JUMPIF R12 [+1]
   RETURN R0 0
-  MOVE R12 R1
-  MOVE R13 R0
-  MOVE R14 R7
-  CALL R12 2 0
+  MOVE R13 R1
+  MOVE R14 R0
+  MOVE R15 R8
+  CALL R13 2 0
   RETURN R0 0
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K45 ["build"]
-  MOVE R8 R3
-  CALL R7 1 0
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K49 ["build"]
+  MOVE R9 R4
+  CALL R8 1 0
   RETURN R0 0
 
 MAIN:
@@ -234,7 +247,7 @@ MAIN:
   GETTABLEKS R10 R11 K19 ["Common"]
   GETTABLEKS R9 R10 K22 ["pluginType"]
   CALL R8 1 1
-  DUPCLOSURE R9 K23 [PROTO_8]
+  DUPCLOSURE R9 K23 [PROTO_9]
   CAPTURE VAL R0
   CAPTURE VAL R3
   CAPTURE VAL R2

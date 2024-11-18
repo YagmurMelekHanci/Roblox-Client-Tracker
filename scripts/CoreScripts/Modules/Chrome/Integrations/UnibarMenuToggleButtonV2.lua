@@ -12,10 +12,10 @@ local Images = UIBlox.App.ImageSet.Images
 local SelfieViewModule = Chrome.Parent.SelfieView
 local SelfieView = require(SelfieViewModule)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local ChromeService = require(Chrome.Service)
+local ChromeService = require(Chrome.ChromeShared.Service)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
-local Constants = require(Chrome.Unibar.Constants)
-local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
+
+local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local GetFFlagUseNewUnibarIcon = require(Chrome.Flags.GetFFlagUseNewUnibarIcon)
 local GetFFlagUsePolishedAnimations = require(Chrome.Flags.GetFFlagUsePolishedAnimations)
@@ -32,9 +32,7 @@ function ToggleMenuButton(props)
 	local style = useStyle()
 
 	local hasCurrentUtility = false
-	if GetFFlagSupportCompactUtility() then
-		hasCurrentUtility = if ChromeService:getCurrentUtility():get() then true else false
-	end
+	hasCurrentUtility = if ChromeService:getCurrentUtility():get() then true else false
 
 	local iconColor = style.Theme.IconEmphasis
 
@@ -82,7 +80,7 @@ function ToggleMenuButton(props)
 			Size = toggleIconTransition:map(function(value: any): any
 				return UDim2.new(0, 16 * value, 0, 2)
 			end),
-			Visible = if GetFFlagSupportCompactUtility() then not hasCurrentUtility else nil,
+			Visible = not hasCurrentUtility,
 			BorderSizePixel = 0,
 			BackgroundColor3 = iconColor.Color,
 			BackgroundTransparency = if GetFFlagUsePolishedAnimations()
@@ -103,7 +101,7 @@ function ToggleMenuButton(props)
 			Size = toggleIconTransition:map(function(value: any): any
 				return UDim2.new(0, 16 * value, 0, 2)
 			end),
-			Visible = if GetFFlagSupportCompactUtility() then not hasCurrentUtility else nil,
+			Visible = not hasCurrentUtility,
 			BorderSizePixel = 0,
 			BackgroundColor3 = iconColor.Color,
 			BackgroundTransparency = if GetFFlagUsePolishedAnimations()
@@ -183,11 +181,9 @@ return ChromeService:register({
 	hideNotificationCountWhileOpen = true,
 	flashNotificationSource = true,
 	activated = function()
-		if GetFFlagSupportCompactUtility() and not GetFFlagUsePolishedAnimations() then
+		if not GetFFlagUsePolishedAnimations() then
 			local currentUtility = ChromeService:getCurrentUtility():get()
-			if currentUtility then
-				ChromeService:toggleCompactUtility(currentUtility)
-			else
+			if not currentUtility then
 				ChromeService:toggleOpen()
 			end
 		else

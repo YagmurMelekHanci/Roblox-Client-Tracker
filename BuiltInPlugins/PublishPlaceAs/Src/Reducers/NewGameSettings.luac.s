@@ -160,62 +160,58 @@ MAIN:
   GETTABLEKS R6 R7 K12 ["PublishPlaceAsUtilities"]
   CALL R5 1 1
   GETTABLEKS R4 R5 K13 ["shouldShowDevPublishLocations"]
-  GETIMPORT R5 K15 [game]
-  LOADK R7 K16 ["RemoveVRToggleDialog2"]
-  NAMECALL R5 R5 K17 ["GetFastFlag"]
-  CALL R5 2 1
-  LOADNIL R6
-  MOVE R7 R4
-  CALL R7 0 1
-  JUMPIFNOT R7 [+2]
-  NEWTABLE R6 0 0
-  DUPCLOSURE R7 K18 [PROTO_0]
+  LOADNIL R5
+  MOVE R6 R4
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  NEWTABLE R5 0 0
+  DUPCLOSURE R6 K14 [PROTO_0]
   CAPTURE VAL R3
-  DUPTABLE R8 K22 [{"current", "changed", "errors"}]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K19 ["current"]
-  DUPTABLE R9 K32 [{"name", "creatorId", "description", "genre", "playableDevices", "teamCreateEnabled", "OptInLocations", "isActive", "isFriendsOnly"}]
-  LOADK R10 K33 ["Untitled Game"]
-  SETTABLEKS R10 R9 K23 ["name"]
-  LOADN R10 0
-  SETTABLEKS R10 R9 K24 ["creatorId"]
-  LOADK R10 K34 [""]
-  SETTABLEKS R10 R9 K25 ["description"]
-  GETTABLEKS R11 R1 K35 ["GENRE_IDS"]
-  GETTABLEN R10 R11 1
-  SETTABLEKS R10 R9 K26 ["genre"]
-  DUPTABLE R10 K40 [{"Computer", "Phone", "Tablet", "VR"}]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K36 ["Computer"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K37 ["Phone"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K38 ["Tablet"]
-  ORK R11 R5 K41 []
-  SETTABLEKS R11 R10 K39 ["VR"]
-  SETTABLEKS R10 R9 K27 ["playableDevices"]
+  DUPTABLE R7 K18 [{"current", "changed", "errors"}]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K15 ["current"]
+  DUPTABLE R8 K28 [{"name", "creatorId", "description", "genre", "playableDevices", "teamCreateEnabled", "OptInLocations", "isActive", "isFriendsOnly"}]
+  LOADK R9 K29 ["Untitled Game"]
+  SETTABLEKS R9 R8 K19 ["name"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K20 ["creatorId"]
+  LOADK R9 K30 [""]
+  SETTABLEKS R9 R8 K21 ["description"]
+  GETTABLEKS R10 R1 K31 ["GENRE_IDS"]
+  GETTABLEN R9 R10 1
+  SETTABLEKS R9 R8 K22 ["genre"]
+  DUPTABLE R9 K36 [{"Computer", "Phone", "Tablet", "VR"}]
   LOADB R10 1
-  SETTABLEKS R10 R9 K28 ["teamCreateEnabled"]
-  SETTABLEKS R6 R9 K29 ["OptInLocations"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K30 ["isActive"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K31 ["isFriendsOnly"]
-  SETTABLEKS R9 R8 K20 ["changed"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K21 ["errors"]
-  GETTABLEKS R9 R2 K42 ["createReducer"]
-  MOVE R10 R8
-  DUPTABLE R11 K46 [{"AddChange", "AddErrors", "ResetInfo"}]
-  DUPCLOSURE R12 K47 [PROTO_1]
+  SETTABLEKS R10 R9 K32 ["Computer"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K33 ["Phone"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K34 ["Tablet"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K35 ["VR"]
+  SETTABLEKS R9 R8 K23 ["playableDevices"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K24 ["teamCreateEnabled"]
+  SETTABLEKS R5 R8 K25 ["OptInLocations"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K26 ["isActive"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K27 ["isFriendsOnly"]
+  SETTABLEKS R8 R7 K16 ["changed"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K17 ["errors"]
+  GETTABLEKS R8 R2 K37 ["createReducer"]
+  MOVE R9 R7
+  DUPTABLE R10 K41 [{"AddChange", "AddErrors", "ResetInfo"}]
+  DUPCLOSURE R11 K42 [PROTO_1]
   CAPTURE VAL R3
-  CAPTURE VAL R7
-  SETTABLEKS R12 R11 K43 ["AddChange"]
-  DUPCLOSURE R12 K48 [PROTO_2]
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K38 ["AddChange"]
+  DUPCLOSURE R11 K43 [PROTO_2]
   CAPTURE VAL R3
-  SETTABLEKS R12 R11 K44 ["AddErrors"]
-  DUPCLOSURE R12 K49 [PROTO_3]
+  SETTABLEKS R11 R10 K39 ["AddErrors"]
+  DUPCLOSURE R11 K44 [PROTO_3]
   CAPTURE VAL R3
-  SETTABLEKS R12 R11 K45 ["ResetInfo"]
-  CALL R9 2 -1
-  RETURN R9 -1
+  SETTABLEKS R11 R10 K40 ["ResetInfo"]
+  CALL R8 2 -1
+  RETURN R8 -1

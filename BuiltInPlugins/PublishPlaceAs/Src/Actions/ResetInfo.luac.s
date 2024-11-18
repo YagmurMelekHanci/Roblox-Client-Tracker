@@ -38,26 +38,25 @@ PROTO_0:
   SETTABLEKS R6 R5 K29 ["Phone"]
   LOADB R6 1
   SETTABLEKS R6 R5 K30 ["Tablet"]
-  GETUPVAL R7 1
-  ORK R6 R7 K33 []
+  LOADB R6 1
   SETTABLEKS R6 R5 K31 ["VR"]
   SETTABLEKS R5 R4 K23 ["playableDevices"]
-  GETUPVAL R5 2
+  GETUPVAL R5 1
   SETTABLEKS R5 R4 K24 ["OptInLocations"]
   SETTABLEKS R4 R3 K7 ["changed"]
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K8 ["errors"]
-  DUPTABLE R4 K38 [{"id", "name", "parentGameName", "parentGameId", "settings"}]
+  DUPTABLE R4 K37 [{"id", "name", "parentGameName", "parentGameId", "settings"}]
   LOADN R5 0
-  SETTABLEKS R5 R4 K34 ["id"]
+  SETTABLEKS R5 R4 K33 ["id"]
   LOADK R5 K26 [""]
   SETTABLEKS R5 R4 K20 ["name"]
   LOADK R5 K26 [""]
-  SETTABLEKS R5 R4 K35 ["parentGameName"]
+  SETTABLEKS R5 R4 K34 ["parentGameName"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K36 ["parentGameId"]
+  SETTABLEKS R5 R4 K35 ["parentGameId"]
   NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K37 ["settings"]
+  SETTABLEKS R5 R4 K36 ["settings"]
   SETTABLEKS R4 R3 K9 ["publishInfo"]
   LOADB R4 0
   SETTABLEKS R4 R3 K10 ["isPublishing"]
@@ -86,22 +85,17 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["PublishPlaceAsUtilities"]
   CALL R4 1 1
   GETTABLEKS R3 R4 K11 ["shouldShowDevPublishLocations"]
-  GETIMPORT R4 K13 [game]
-  LOADK R6 K14 ["RemoveVRToggleDialog2"]
-  NAMECALL R4 R4 K15 ["GetFastFlag"]
-  CALL R4 2 1
-  LOADNIL R5
-  MOVE R6 R3
-  CALL R6 0 1
-  JUMPIFNOT R6 [+2]
-  NEWTABLE R5 0 0
-  MOVE R6 R2
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K16 ["Name"]
-  NEWCLOSURE R8 P0
+  LOADNIL R4
+  MOVE R5 R3
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  NEWTABLE R4 0 0
+  MOVE R5 R2
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K12 ["Name"]
+  NEWCLOSURE R7 P0
   CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE REF R5
-  CALL R6 2 -1
-  CLOSEUPVALS R5
-  RETURN R6 -1
+  CAPTURE REF R4
+  CALL R5 2 -1
+  CLOSEUPVALS R4
+  RETURN R5 -1

@@ -82,24 +82,6 @@ PROTO_4:
   LOADB R1 0 +1
   LOADB R1 1
   SETTABLEKS R1 R0 K1 ["Visible"]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K0 ["Selected"]
-  GETUPVAL R1 2
-  JUMPIFNOTEQ R0 R1 [+20]
-  GETUPVAL R1 2
-  GETTABLEKS R0 R1 K2 ["LoadingReplies"]
-  JUMPIF R0 [+15]
-  GETUPVAL R1 2
-  NAMECALL R1 R1 K3 ["GetChildren"]
-  CALL R1 1 1
-  LENGTH R0 R1
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K4 ["ReplyCount"]
-  JUMPIFEQ R0 R1 [+6]
-  GETUPVAL R0 1
-  GETUPVAL R2 2
-  NAMECALL R0 R0 K5 ["LoadAnnotationReplies"]
-  CALL R0 2 0
   RETURN R0 0
 
 PROTO_5:
@@ -119,9 +101,6 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
-  RETURN R0 0
-
-PROTO_8:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["Disconnect"]
   CALL R0 1 0
@@ -142,7 +121,7 @@ PROTO_8:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_8:
   LOADK R4 K0 ["Highlight"]
   NAMECALL R2 R1 K1 ["FindFirstChild"]
   CALL R2 2 1
@@ -194,22 +173,12 @@ PROTO_9:
   CAPTURE VAL R1
   NAMECALL R8 R8 K3 ["Connect"]
   CALL R8 2 1
-  GETTABLEKS R10 R0 K11 ["Adornee"]
-  FASTCALL2K ASSERT R10 K12 [+4]
-  LOADK R11 K12 ["Annotation must have an adornee."]
-  GETIMPORT R9 K14 [assert]
+  GETTABLEKS R9 R0 K11 ["Destroying"]
+  DUPCLOSURE R11 K12 [PROTO_6]
+  NAMECALL R9 R9 K13 ["Once"]
   CALL R9 2 0
-  GETTABLEKS R10 R0 K11 ["Adornee"]
-  GETTABLEKS R9 R10 K15 ["Destroying"]
-  DUPCLOSURE R11 K16 [PROTO_6]
-  NAMECALL R9 R9 K17 ["Once"]
-  CALL R9 2 0
-  GETTABLEKS R9 R0 K15 ["Destroying"]
-  DUPCLOSURE R11 K18 [PROTO_7]
-  NAMECALL R9 R9 K17 ["Once"]
-  CALL R9 2 0
-  GETTABLEKS R9 R1 K15 ["Destroying"]
-  NEWCLOSURE R11 P8
+  GETTABLEKS R9 R1 K11 ["Destroying"]
+  NEWCLOSURE R11 P7
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R3
@@ -220,25 +189,28 @@ PROTO_9:
   CALL R9 2 0
   RETURN R0 0
 
-PROTO_10:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K0 ["AnnotationsVisible"]
-  SETTABLEKS R1 R0 K1 ["Enabled"]
-  GETUPVAL R0 0
-  LOADK R2 K2 ["RequestInProgress"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["SetAttribute"]
-  CALL R0 3 0
+PROTO_9:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Success"]
+  JUMPIFNOTEQ R2 R3 [+13]
+  GETUPVAL R3 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["AnnotationsVisible"]
+  SETTABLEKS R4 R3 K2 ["Enabled"]
+  GETUPVAL R3 1
+  LOADK R5 K3 ["IsDraft"]
+  LOADNIL R6
+  NAMECALL R3 R3 K4 ["SetAttribute"]
+  CALL R3 3 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_10:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["Destroy"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_11:
   GETTABLEKS R2 R0 K0 ["Adornee"]
   JUMPIFNOT R2 [+2]
   GETTABLEKS R2 R0 K1 ["AdorneeOffset"]
@@ -285,43 +257,46 @@ PROTO_12:
   LOADB R3 1
   SETTABLEKS R3 R2 K26 ["Active"]
   SETTABLEKS R1 R2 K27 ["Parent"]
-  GETTABLEKS R3 R0 K28 ["CreationTimeUnix"]
-  JUMPIFNOTEQKN R3 K29 [0] [+17]
-  LOADK R5 K30 ["RequestInProgress"]
+  LOADK R5 K28 ["IsDraft"]
+  NAMECALL R3 R0 K29 ["GetAttribute"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+18]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K30 ["Enabled"]
+  LOADK R5 K28 ["IsDraft"]
   LOADB R6 1
   NAMECALL R3 R2 K31 ["SetAttribute"]
   CALL R3 3 0
-  LOADK R5 K28 ["CreationTimeUnix"]
-  NAMECALL R3 R0 K32 ["GetPropertyChangedSignal"]
-  CALL R3 2 1
+  GETTABLEKS R3 R0 K32 ["RequestCompleted"]
   NEWCLOSURE R5 P0
-  CAPTURE VAL R2
   CAPTURE UPVAL U0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U1
   NAMECALL R3 R3 K33 ["Once"]
   CALL R3 2 0
   JUMP [+5]
-  GETUPVAL R4 0
+  GETUPVAL R4 1
   GETTABLEKS R3 R4 K34 ["AnnotationsVisible"]
-  SETTABLEKS R3 R2 K35 ["Enabled"]
-  GETTABLEKS R3 R0 K36 ["Destroying"]
+  SETTABLEKS R3 R2 K30 ["Enabled"]
+  GETTABLEKS R3 R0 K35 ["Destroying"]
   NEWCLOSURE R5 P1
   CAPTURE VAL R2
-  NAMECALL R3 R3 K37 ["Connect"]
+  NAMECALL R3 R3 K36 ["Connect"]
   CALL R3 2 0
   GETIMPORT R3 K13 [Instance.new]
-  LOADK R4 K38 ["ImageButton"]
+  LOADK R4 K37 ["ImageButton"]
   MOVE R5 R2
   CALL R3 2 1
-  LOADK R4 K39 ["Indicator"]
+  LOADK R4 K38 ["Indicator"]
   SETTABLEKS R4 R3 K15 ["Name"]
-  LOADK R4 K40 ["rbxasset://textures/PlaceAnnotations/AnnotationSingle.png"]
-  SETTABLEKS R4 R3 K41 ["Image"]
+  LOADK R4 K39 ["rbxasset://textures/PlaceAnnotations/AnnotationSingle.png"]
+  SETTABLEKS R4 R3 K40 ["Image"]
   LOADN R4 0
-  SETTABLEKS R4 R3 K42 ["BorderSizePixel"]
+  SETTABLEKS R4 R3 K41 ["BorderSizePixel"]
   LOADN R4 1
-  SETTABLEKS R4 R3 K43 ["BackgroundTransparency"]
-  LOADK R4 K44 [0.2]
-  SETTABLEKS R4 R3 K45 ["ImageTransparency"]
+  SETTABLEKS R4 R3 K42 ["BackgroundTransparency"]
+  LOADK R4 K43 [0.2]
+  SETTABLEKS R4 R3 K44 ["ImageTransparency"]
   GETIMPORT R4 K20 [UDim2.fromScale]
   LOADN R5 1
   LOADN R6 1
@@ -331,40 +306,38 @@ PROTO_12:
   LOADN R5 0
   LOADN R6 1
   CALL R4 2 1
-  SETTABLEKS R4 R3 K46 ["AnchorPoint"]
+  SETTABLEKS R4 R3 K45 ["AnchorPoint"]
   GETIMPORT R4 K20 [UDim2.fromScale]
   LOADN R5 0
   LOADN R6 1
   CALL R4 2 1
-  SETTABLEKS R4 R3 K47 ["Position"]
+  SETTABLEKS R4 R3 K46 ["Position"]
   GETIMPORT R4 K13 [Instance.new]
-  LOADK R5 K48 ["UISizeConstraint"]
+  LOADK R5 K47 ["UISizeConstraint"]
   MOVE R6 R3
   CALL R4 2 1
   GETIMPORT R5 K23 [Vector2.new]
   LOADN R6 48
   LOADN R7 48
   CALL R5 2 1
-  SETTABLEKS R5 R4 K49 ["MaxSize"]
+  SETTABLEKS R5 R4 K48 ["MaxSize"]
   GETIMPORT R5 K13 [Instance.new]
-  LOADK R6 K50 ["ImageLabel"]
+  LOADK R6 K49 ["ImageLabel"]
   MOVE R7 R3
   CALL R5 2 1
-  LOADK R7 K51 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=150&h=150"]
-  GETTABLEKS R9 R0 K52 ["AuthorId"]
-  NAMECALL R7 R7 K53 ["format"]
+  LOADK R7 K50 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=150&h=150"]
+  GETTABLEKS R9 R0 K51 ["AuthorId"]
+  NAMECALL R7 R7 K52 ["format"]
   CALL R7 2 1
   MOVE R6 R7
-  SETTABLEKS R6 R5 K41 ["Image"]
+  SETTABLEKS R6 R5 K40 ["Image"]
   LOADN R6 0
-  SETTABLEKS R6 R5 K42 ["BorderSizePixel"]
+  SETTABLEKS R6 R5 K41 ["BorderSizePixel"]
   LOADN R6 0
-  SETTABLEKS R6 R5 K43 ["BackgroundTransparency"]
-  GETIMPORT R6 K56 [Color3.fromRGB]
-  LOADN R7 242
-  LOADN R8 69
-  LOADN R9 61
-  CALL R6 3 1
+  SETTABLEKS R6 R5 K42 ["BackgroundTransparency"]
+  GETIMPORT R6 K55 [Color3.fromHex]
+  LOADK R7 K56 ["#989898"]
+  CALL R6 1 1
   SETTABLEKS R6 R5 K57 ["BackgroundColor3"]
   GETIMPORT R6 K20 [UDim2.fromScale]
   LOADK R7 K58 [0.8]
@@ -375,12 +348,12 @@ PROTO_12:
   LOADK R7 K24 [0.5]
   LOADK R8 K24 [0.5]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K47 ["Position"]
+  SETTABLEKS R6 R5 K46 ["Position"]
   GETIMPORT R6 K23 [Vector2.new]
   LOADK R7 K24 [0.5]
   LOADK R8 K24 [0.5]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K46 ["AnchorPoint"]
+  SETTABLEKS R6 R5 K45 ["AnchorPoint"]
   GETIMPORT R6 K13 [Instance.new]
   LOADK R7 K59 ["UICorner"]
   MOVE R8 R5
@@ -391,31 +364,31 @@ PROTO_12:
   CALL R7 2 1
   SETTABLEKS R7 R6 K62 ["CornerRadius"]
   GETIMPORT R7 K13 [Instance.new]
-  LOADK R8 K50 ["ImageLabel"]
+  LOADK R8 K49 ["ImageLabel"]
   MOVE R9 R3
   CALL R7 2 1
   LOADK R8 K63 ["Highlight"]
   SETTABLEKS R8 R7 K15 ["Name"]
   LOADK R8 K64 ["rbxasset://textures/PlaceAnnotations/AnnotationSingleHighlight.png"]
-  SETTABLEKS R8 R7 K41 ["Image"]
+  SETTABLEKS R8 R7 K40 ["Image"]
   LOADN R8 0
-  SETTABLEKS R8 R7 K42 ["BorderSizePixel"]
+  SETTABLEKS R8 R7 K41 ["BorderSizePixel"]
   LOADN R8 1
-  SETTABLEKS R8 R7 K43 ["BackgroundTransparency"]
+  SETTABLEKS R8 R7 K42 ["BackgroundTransparency"]
   GETIMPORT R8 K20 [UDim2.fromScale]
   LOADN R9 1
   LOADN R10 1
   CALL R8 2 1
   SETTABLEKS R8 R7 K21 ["Size"]
-  GETIMPORT R8 K56 [Color3.fromRGB]
+  GETIMPORT R8 K66 [Color3.fromRGB]
   LOADN R9 69
   LOADN R10 153
   LOADN R11 255
   CALL R8 3 1
-  SETTABLEKS R8 R7 K65 ["ImageColor3"]
+  SETTABLEKS R8 R7 K67 ["ImageColor3"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K66 ["Visible"]
-  GETUPVAL R8 1
+  SETTABLEKS R8 R7 K68 ["Visible"]
+  GETUPVAL R8 2
   MOVE R9 R0
   MOVE R10 R3
   CALL R8 2 0
@@ -435,17 +408,23 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R4 R5 K8 ["Enums"]
   GETTABLEKS R3 R4 K9 ["AnnotationEditingMode"]
   CALL R2 1 1
-  GETIMPORT R3 K11 [game]
-  LOADK R5 K12 ["AnnotationsService"]
-  NAMECALL R3 R3 K13 ["GetService"]
-  CALL R3 2 1
-  DUPCLOSURE R4 K14 [PROTO_9]
-  CAPTURE VAL R3
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K8 ["Enums"]
+  GETTABLEKS R4 R5 K10 ["AnnotationRequestResult"]
+  CALL R3 1 1
+  GETIMPORT R4 K12 [game]
+  LOADK R6 K13 ["AnnotationsService"]
+  NAMECALL R4 R4 K14 ["GetService"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K15 [PROTO_8]
+  CAPTURE VAL R4
   CAPTURE VAL R2
-  DUPCLOSURE R5 K15 [PROTO_12]
+  DUPCLOSURE R6 K16 [PROTO_11]
   CAPTURE VAL R3
   CAPTURE VAL R4
-  RETURN R5 1
+  CAPTURE VAL R5
+  RETURN R6 1

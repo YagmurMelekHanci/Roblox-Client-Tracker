@@ -4,4 +4,4 @@
 
 local CorePackages = game:GetService("CorePackages")
 
-return require(CorePackages.Packages.PurchasePromptDeps)
+return require(CorePackages.Workspace.Packages.PurchasePromptDeps)

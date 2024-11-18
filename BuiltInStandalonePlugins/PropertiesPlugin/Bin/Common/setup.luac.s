@@ -33,7 +33,7 @@ PROTO_4:
   SETTABLEKS R3 R2 K1 ["getName"]
   DUPCLOSURE R3 K8 [PROTO_1]
   SETTABLEKS R3 R2 K2 ["getDescription"]
-  LOADK R3 K9 ["rbxlocaltheme://GameSettings"]
+  LOADK R3 K9 [""]
   SETTABLEKS R3 R2 K3 ["icon"]
   LOADB R3 0
   SETTABLEKS R3 R2 K4 ["enabled"]

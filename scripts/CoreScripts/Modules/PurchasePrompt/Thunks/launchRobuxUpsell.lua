@@ -27,7 +27,7 @@ local GetFStringVNGWebshopUrl =
 
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
-local IAPExperience = require(CorePackages.Packages.IAPExperience)
+local IAPExperience = require(CorePackages.Workspace.Packages.IAPExperience)
 local PreparePaymentCheck = IAPExperience.PreparePaymentCheck
 local GetFFlagEnableConsolePreparePaymentCheck = IAPExperience.GetEnableConsolePreparePaymentCheck
 

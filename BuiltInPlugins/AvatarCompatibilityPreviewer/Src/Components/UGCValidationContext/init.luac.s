@@ -401,21 +401,24 @@ PROTO_12:
   GETTABLEKS R14 R15 K8 ["util"]
   GETTABLEKS R13 R14 K9 ["canUploadBundlesAsync"]
   CALL R12 1 2
-  DUPTABLE R14 K17 [{"DEPRECATED_cachedResponses", "cachedResponses", "validateBundle", "revalidateBundle", "findCachedValidationResponse", "canUploadBundles", "requestCanUploadBundles"}]
+  DUPTABLE R14 K18 [{"DEPRECATED_cachedResponses", "cachedResponses", "validateBundle", "revalidateBundle", "calculateScaleToValidateBoundsAsync", "findCachedValidationResponse", "canUploadBundles", "requestCanUploadBundles"}]
   SETTABLEKS R2 R14 K10 ["DEPRECATED_cachedResponses"]
   SETTABLEKS R5 R14 K11 ["cachedResponses"]
   SETTABLEKS R10 R14 K12 ["validateBundle"]
   SETTABLEKS R11 R14 K13 ["revalidateBundle"]
-  SETTABLEKS R9 R14 K14 ["findCachedValidationResponse"]
-  SETTABLEKS R12 R14 K15 ["canUploadBundles"]
-  SETTABLEKS R13 R14 K16 ["requestCanUploadBundles"]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K14 ["calculateScaleToValidateBoundsAsync"]
+  SETTABLEKS R15 R14 K14 ["calculateScaleToValidateBoundsAsync"]
+  SETTABLEKS R9 R14 K15 ["findCachedValidationResponse"]
+  SETTABLEKS R12 R14 K16 ["canUploadBundles"]
+  SETTABLEKS R13 R14 K17 ["requestCanUploadBundles"]
   GETUPVAL R16 1
-  GETTABLEKS R15 R16 K18 ["createElement"]
+  GETTABLEKS R15 R16 K19 ["createElement"]
   GETUPVAL R17 8
-  GETTABLEKS R16 R17 K19 ["Provider"]
-  DUPTABLE R17 K21 [{"value"}]
-  SETTABLEKS R14 R17 K20 ["value"]
-  GETTABLEKS R18 R0 K22 ["children"]
+  GETTABLEKS R16 R17 K20 ["Provider"]
+  DUPTABLE R17 K22 [{"value"}]
+  SETTABLEKS R14 R17 K21 ["value"]
+  GETTABLEKS R18 R0 K23 ["children"]
   CALL R15 3 -1
   RETURN R15 -1
 
@@ -468,7 +471,7 @@ MAIN:
   CALL R9 1 1
   GETTABLEKS R11 R1 K19 ["ContextServices"]
   GETTABLEKS R10 R11 K20 ["Analytics"]
-  DUPTABLE R11 K28 [{"DEPRECATED_cachedResponses", "cachedResponses", "validateBundle", "revalidateBundle", "findCachedValidationResponse", "canUploadBundles", "requestCanUploadBundles"}]
+  DUPTABLE R11 K29 [{"DEPRECATED_cachedResponses", "cachedResponses", "validateBundle", "revalidateBundle", "findCachedValidationResponse", "calculateScaleToValidateBoundsAsync", "canUploadBundles", "requestCanUploadBundles"}]
   NEWTABLE R12 0 0
   SETTABLEKS R12 R11 K21 ["DEPRECATED_cachedResponses"]
   NEWTABLE R12 0 0
@@ -485,16 +488,20 @@ MAIN:
   LOADK R13 K25 ["findCachedValidationResponse"]
   CALL R12 1 1
   SETTABLEKS R12 R11 K25 ["findCachedValidationResponse"]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K26 ["canUploadBundles"]
   MOVE R12 R5
-  LOADK R13 K27 ["requestCanUploadBundles"]
+  LOADK R13 K26 ["calculateScaleToValidateBoundsAsync"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K27 ["requestCanUploadBundles"]
-  GETTABLEKS R12 R2 K29 ["createContext"]
+  SETTABLEKS R12 R11 K26 ["calculateScaleToValidateBoundsAsync"]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K27 ["canUploadBundles"]
+  MOVE R12 R5
+  LOADK R13 K28 ["requestCanUploadBundles"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K28 ["requestCanUploadBundles"]
+  GETTABLEKS R12 R2 K30 ["createContext"]
   MOVE R13 R11
   CALL R12 1 1
-  DUPCLOSURE R13 K30 [PROTO_12]
+  DUPCLOSURE R13 K31 [PROTO_12]
   CAPTURE VAL R10
   CAPTURE VAL R2
   CAPTURE VAL R4
@@ -504,7 +511,7 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R6
   CAPTURE VAL R12
-  DUPTABLE R14 K33 [{"Context", "Provider"}]
-  SETTABLEKS R12 R14 K31 ["Context"]
-  SETTABLEKS R13 R14 K32 ["Provider"]
+  DUPTABLE R14 K34 [{"Context", "Provider"}]
+  SETTABLEKS R12 R14 K32 ["Context"]
+  SETTABLEKS R13 R14 K33 ["Provider"]
   RETURN R14 1

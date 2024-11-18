@@ -29,14 +29,14 @@ local GetDefaultQualityLevel = require(CorePackages.Workspace.Packages.AppCommon
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
-local LocalStore = require(RobloxGui.Modules.Chrome.Service.LocalStore)
+local LocalStore = require(RobloxGui.Modules.Chrome.ChromeShared.Service.LocalStore)
 
 local leaveGame = function(publishSurveyMessage: boolean)
     if GetFFlagEnableInGameMenuDurationLogger() then
         PerfUtils.leavingGame()
     end
     GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
-        
+
     AnalyticsService:SetRBXEventStream(
         Constants.AnalyticsTargetName,
         Constants.AnalyticsInGameMenuName,

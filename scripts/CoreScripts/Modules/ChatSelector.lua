@@ -27,9 +27,12 @@ local VRService = game:GetService("VRService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
+local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 
 local useModule = nil
 
+local visibilityBeforeTempKeyAdded = nil
+local hideTempKeys = if getFFlagAppChatCoreUIConflictFix() then {} else nil :: never
 local state = {Visible = not VRService.VREnabled}
 local interface = {}
 do
@@ -112,6 +115,27 @@ do
 		end
 		return not (BubbleChatEnabled or ClassicChatEnabled)
 	end
+	
+	if getFFlagAppChatCoreUIConflictFix() then
+		function interface:HideTemp(key: string, hidden: boolean)
+			local function isHideTempKeysEmpty()
+				return next(hideTempKeys) == nil
+			end
+
+			if isHideTempKeysEmpty() then
+				visibilityBeforeTempKeyAdded = interface:GetVisibility()
+			end
+			
+			if hidden then
+				hideTempKeys[key] = hidden
+			else
+				hideTempKeys[key] = nil
+			end
+			
+			interface:SetVisible(visibilityBeforeTempKeyAdded and isHideTempKeysEmpty())
+		end
+	end
+
 
 	interface.ChatBarFocusChanged = Util.Signal()
 	interface.VisibilityStateChanged = Util.Signal()

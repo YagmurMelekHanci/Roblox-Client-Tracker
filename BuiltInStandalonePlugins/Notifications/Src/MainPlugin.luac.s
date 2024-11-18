@@ -21,11 +21,11 @@ PROTO_2:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["state"]
   GETTABLEKS R4 R5 K2 ["widget"]
-  JUMPIFNOT R4 [+141]
+  JUMPIFNOT R4 [+154]
   JUMPIF R3 [+1]
-  JUMPIFNOT R1 [+139]
+  JUMPIFNOT R1 [+152]
   GETUPVAL R4 1
-  JUMPIFNOT R4 [+85]
+  JUMPIFNOT R4 [+98]
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K3 ["Plugin"]
   NAMECALL R4 R4 K4 ["GetUri"]
@@ -46,6 +46,8 @@ PROTO_2:
   LOADK R8 K11 ["Panels"]
   NAMECALL R6 R6 K13 ["GetPluginComponent"]
   CALL R6 2 1
+  GETUPVAL R8 3
+  JUMPIFNOT R8 [+17]
   DUPTABLE R7 K10 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
   LOADK R8 K14 ["Standalone"]
   SETTABLEKS R8 R7 K5 ["DataModel"]
@@ -57,65 +59,73 @@ PROTO_2:
   SETTABLEKS R8 R7 K8 ["Category"]
   LOADK R8 K17 ["RightMezzanine/Notifications"]
   SETTABLEKS R8 R7 K9 ["ItemId"]
+  JUMP [+10]
+  DUPTABLE R7 K18 [{"PluginId", "Category", "ItemId"}]
+  LOADK R8 K19 ["MainWindow"]
+  SETTABLEKS R8 R7 K7 ["PluginId"]
+  LOADK R8 K16 ["Widgets"]
+  SETTABLEKS R8 R7 K8 ["Category"]
+  LOADK R8 K20 ["WhatsNewAction"]
+  SETTABLEKS R8 R7 K9 ["ItemId"]
   MOVE R10 R5
-  DUPTABLE R11 K22 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-  SETTABLEKS R7 R11 K18 ["TargetWidgetUri"]
-  GETIMPORT R12 K25 [Vector2.new]
+  DUPTABLE R11 K25 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+  SETTABLEKS R7 R11 K21 ["TargetWidgetUri"]
+  GETIMPORT R12 K28 [Vector2.new]
   LOADN R13 1
   LOADN R14 1
   CALL R12 2 1
-  SETTABLEKS R12 R11 K19 ["TargetAnchorPoint"]
-  GETIMPORT R12 K25 [Vector2.new]
+  SETTABLEKS R12 R11 K22 ["TargetAnchorPoint"]
+  GETIMPORT R12 K28 [Vector2.new]
   LOADN R13 1
   LOADN R14 0
   CALL R12 2 1
-  SETTABLEKS R12 R11 K20 ["SubjectAnchorPoint"]
-  GETIMPORT R12 K25 [Vector2.new]
+  SETTABLEKS R12 R11 K23 ["SubjectAnchorPoint"]
+  GETIMPORT R12 K28 [Vector2.new]
   LOADN R13 0
   LOADN R14 0
   CALL R12 2 1
-  SETTABLEKS R12 R11 K21 ["Offset"]
-  NAMECALL R8 R6 K26 ["SetAttachmentAsync"]
+  SETTABLEKS R12 R11 K24 ["Offset"]
+  NAMECALL R8 R6 K29 ["SetAttachmentAsync"]
   CALL R8 3 0
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K0 ["state"]
   GETTABLEKS R8 R9 K2 ["widget"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K27 ["Enabled"]
+  SETTABLEKS R9 R8 K30 ["Enabled"]
   JUMP [+52]
-  GETUPVAL R4 3
-  LOADK R6 K28 ["whatsNewAction"]
-  NAMECALL R4 R4 K29 ["GetWidgetFromLabel"]
+  GETUPVAL R4 4
+  LOADK R6 K31 ["whatsNewAction"]
+  NAMECALL R4 R4 K32 ["GetWidgetFromLabel"]
   CALL R4 2 1
-  GETIMPORT R5 K31 [Instance.new]
-  LOADK R6 K32 ["StudioAttachment"]
+  GETIMPORT R5 K34 [Instance.new]
+  LOADK R6 K35 ["StudioAttachment"]
   CALL R5 1 1
   LOADB R6 0
-  SETTABLEKS R6 R5 K33 ["IsArrowVisible"]
+  SETTABLEKS R6 R5 K36 ["IsArrowVisible"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K34 ["attachmentInfo"]
-  GETTABLEKS R6 R7 K35 ["SourceAnchorPoint"]
-  SETTABLEKS R6 R5 K35 ["SourceAnchorPoint"]
+  GETTABLEKS R7 R8 K37 ["attachmentInfo"]
+  GETTABLEKS R6 R7 K38 ["SourceAnchorPoint"]
+  SETTABLEKS R6 R5 K38 ["SourceAnchorPoint"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K34 ["attachmentInfo"]
-  GETTABLEKS R6 R7 K19 ["TargetAnchorPoint"]
-  SETTABLEKS R6 R5 K19 ["TargetAnchorPoint"]
+  GETTABLEKS R7 R8 K37 ["attachmentInfo"]
+  GETTABLEKS R6 R7 K22 ["TargetAnchorPoint"]
+  SETTABLEKS R6 R5 K22 ["TargetAnchorPoint"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K34 ["attachmentInfo"]
-  GETTABLEKS R6 R7 K21 ["Offset"]
-  SETTABLEKS R6 R5 K21 ["Offset"]
+  GETTABLEKS R7 R8 K37 ["attachmentInfo"]
+  GETTABLEKS R6 R7 K24 ["Offset"]
+  SETTABLEKS R6 R5 K24 ["Offset"]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K0 ["state"]
   GETTABLEKS R6 R7 K2 ["widget"]
   LOADB R7 1
-  SETTABLEKS R7 R6 K27 ["Enabled"]
-  GETUPVAL R6 3
+  SETTABLEKS R7 R6 K30 ["Enabled"]
+  GETUPVAL R6 4
   MOVE R8 R4
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K0 ["state"]
   GETTABLEKS R9 R10 K2 ["widget"]
   MOVE R10 R5
-  NAMECALL R6 R6 K36 ["AttachPluginGui"]
+  NAMECALL R6 R6 K39 ["AttachPluginGui"]
   CALL R6 4 0
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["state"]
@@ -123,14 +133,14 @@ PROTO_2:
   JUMPIFNOT R4 [+8]
   JUMPIFNOT R3 [+7]
   JUMPIFNOT R2 [+6]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K37 ["eventHandlers"]
-  GETTABLEKS R4 R5 K38 ["trayOpened"]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K40 ["eventHandlers"]
+  GETTABLEKS R4 R5 K41 ["trayOpened"]
   CALL R4 0 0
   GETUPVAL R4 0
-  DUPTABLE R6 K39 [{"enabled"}]
+  DUPTABLE R6 K42 [{"enabled"}]
   SETTABLEKS R0 R6 K1 ["enabled"]
-  NAMECALL R4 R4 K40 ["setState"]
+  NAMECALL R4 R4 K43 ["setState"]
   CALL R4 2 0
   RETURN R0 0
 
@@ -214,6 +224,7 @@ PROTO_8:
   CAPTURE VAL R1
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   SETTABLEKS R2 R0 K6 ["toggleEnabled"]
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
@@ -221,23 +232,23 @@ PROTO_8:
   NEWCLOSURE R2 P2
   CAPTURE VAL R0
   SETTABLEKS R2 R0 K8 ["onWidgetEnabledChanged"]
-  GETUPVAL R4 4
+  GETUPVAL R4 5
   GETTABLEKS R3 R4 K9 ["Localization"]
   GETTABLEKS R2 R3 K10 ["new"]
   DUPTABLE R3 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  GETUPVAL R4 5
-  SETTABLEKS R4 R3 K11 ["stringResourceTable"]
   GETUPVAL R4 6
+  SETTABLEKS R4 R3 K11 ["stringResourceTable"]
+  GETUPVAL R4 7
   SETTABLEKS R4 R3 K12 ["translationResourceTable"]
   LOADK R4 K15 ["Notifications"]
   SETTABLEKS R4 R3 K13 ["pluginName"]
   CALL R2 1 1
   SETTABLEKS R2 R0 K16 ["localization"]
-  GETUPVAL R2 7
+  GETUPVAL R2 8
   GETTABLEKS R3 R1 K17 ["Plugin"]
   CALL R2 1 1
   SETTABLEKS R2 R0 K18 ["design"]
-  GETUPVAL R3 8
+  GETUPVAL R3 9
   GETTABLEKS R2 R3 K19 ["ToggleNotificationTray"]
   NEWCLOSURE R4 P3
   CAPTURE VAL R0
@@ -486,12 +497,17 @@ MAIN:
   LOADK R30 K38 ["EnableRibbonPlugin"]
   NAMECALL R28 R28 K39 ["GetFastFlag"]
   CALL R28 2 1
-  GETTABLEKS R29 R1 K40 ["PureComponent"]
-  LOADK R31 K41 ["MainPlugin"]
-  NAMECALL R29 R29 K42 ["extend"]
+  GETIMPORT R29 K37 [game]
+  LOADK R31 K40 ["TutorialsUseExtensibilityApi"]
+  NAMECALL R29 R29 K39 ["GetFastFlag"]
   CALL R29 2 1
-  DUPCLOSURE R30 K43 [PROTO_8]
+  GETTABLEKS R30 R1 K41 ["PureComponent"]
+  LOADK R32 K42 ["MainPlugin"]
+  NAMECALL R30 R30 K43 ["extend"]
+  CALL R30 2 1
+  DUPCLOSURE R31 K44 [PROTO_8]
   CAPTURE VAL R20
+  CAPTURE VAL R29
   CAPTURE VAL R28
   CAPTURE VAL R8
   CAPTURE VAL R17
@@ -500,15 +516,15 @@ MAIN:
   CAPTURE VAL R22
   CAPTURE VAL R13
   CAPTURE VAL R11
-  SETTABLEKS R30 R29 K44 ["init"]
-  DUPCLOSURE R30 K45 [PROTO_9]
+  SETTABLEKS R31 R30 K45 ["init"]
+  DUPCLOSURE R31 K46 [PROTO_9]
   CAPTURE VAL R0
   CAPTURE VAL R24
   CAPTURE VAL R25
-  SETTABLEKS R30 R29 K46 ["didMount"]
-  DUPCLOSURE R30 K47 [PROTO_10]
-  SETTABLEKS R30 R29 K48 ["willUnmount"]
-  DUPCLOSURE R30 K49 [PROTO_11]
+  SETTABLEKS R31 R30 K47 ["didMount"]
+  DUPCLOSURE R31 K48 [PROTO_10]
+  SETTABLEKS R31 R30 K49 ["willUnmount"]
+  DUPCLOSURE R31 K50 [PROTO_11]
   CAPTURE VAL R12
   CAPTURE VAL R14
   CAPTURE VAL R15
@@ -521,5 +537,5 @@ MAIN:
   CAPTURE VAL R25
   CAPTURE VAL R18
   CAPTURE VAL R27
-  SETTABLEKS R30 R29 K50 ["render"]
-  RETURN R29 1
+  SETTABLEKS R31 R30 K51 ["render"]
+  RETURN R30 1

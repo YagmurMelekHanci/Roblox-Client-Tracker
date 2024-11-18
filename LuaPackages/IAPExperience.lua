@@ -1,3 +1,3 @@
 local CorePackages = game:GetService("CorePackages")
 
-return require(CorePackages.Packages.IAPExperience)
+return require(CorePackages.Workspace.Packages.IAPExperience)

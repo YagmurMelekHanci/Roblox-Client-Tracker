@@ -9,8 +9,6 @@ local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
-local GetFFlagIrisUseLocalizationProvider =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local dependencyArray = dependencies.Hooks.dependencyArray
@@ -20,13 +18,7 @@ local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatar
 
 local GetPresencesFromUserIds = dependencies.NetworkingPresence.GetPresencesFromUserIds
 
-local useLocalization
-local RobloxTranslator
-if GetFFlagIrisUseLocalizationProvider() then
-	useLocalization = dependencies.Hooks.useLocalization
-else
-	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-end
+local useLocalization = dependencies.Hooks.useLocalization
 
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
 local UIBlox = dependencies.UIBlox
@@ -81,14 +73,11 @@ local function FriendListItem(props: Props)
 		combinedName = props.combinedName,
 	}
 
-	local localized
-	if GetFFlagIrisUseLocalizationProvider() then
-		localized = useLocalization({
-			offlineStatusLabel = "InGame.Presence.Label.Offline",
-			onlineStatusLabel = "InGame.Presence.Label.Online",
-			studioStatusLabel = "InGame.Presence.Label.RobloxStudio",
-		})
-	end
+	local localized = useLocalization({
+		offlineStatusLabel = "InGame.Presence.Label.Offline",
+		onlineStatusLabel = "InGame.Presence.Label.Online",
+		studioStatusLabel = "InGame.Presence.Label.RobloxStudio",
+	})
 
 	React.useEffect(function()
 		if props.userPresenceType == nil then
@@ -137,9 +126,7 @@ local function FriendListItem(props: Props)
 		local iconColor = style.Theme.OfflineStatus.Color
 		local iconTransparency = style.Theme.OfflineStatus.Transparency
 		local iconSize = 12
-		local text = if GetFFlagIrisUseLocalizationProvider()
-			then localized.offlineStatusLabel
-			else RobloxTranslator:FormatByKey("InGame.Presence.Label.Offline")
+		local text = localized.offlineStatusLabel
 		local textColorStyle = style.Theme.TextMuted
 
 		local userPresenceType
@@ -158,9 +145,7 @@ local function FriendListItem(props: Props)
 			icon = Images["component_assets/circle_16"]
 			iconColor = style.Theme.OnlineStatus.Color
 			iconTransparency = style.Theme.OnlineStatus.Transparency
-			text = if GetFFlagIrisUseLocalizationProvider()
-				then localized.onlineStatusLabel
-				else RobloxTranslator:FormatByKey("InGame.Presence.Label.Online")
+			text = localized.onlineStatusLabel
 			textColorStyle = style.Theme.TextMuted
 			iconSize = 12
 		elseif userPresenceType == EnumPresenceType.InGame then
@@ -174,9 +159,7 @@ local function FriendListItem(props: Props)
 			icon = Images["icons/logo/studiologo_small"]
 			iconColor = style.Theme.TextDefault.Color
 			iconTransparency = style.Theme.TextDefault.Transparency
-			text = if GetFFlagIrisUseLocalizationProvider()
-				then localized.studioStatusLabel
-				else RobloxTranslator:FormatByKey("InGame.Presence.Label.RobloxStudio")
+			text = localized.studioStatusLabel
 			textColorStyle = style.Theme.TextMuted
 			iconSize = 16
 		end
@@ -193,7 +176,7 @@ local function FriendListItem(props: Props)
 			textColorStyle = textColorStyle,
 			textHeight = PLAYER_CONTEXT_HEIGHT,
 		})
-	end, { presence, style })
+	end, { presence, style, localized.offlineStatusLabel, localized.onlineStatusLabel, localized.studioStatusLabel })
 
 	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
 		if inputObject and inputObject.UserInputType == Enum.UserInputType.MouseMovement then

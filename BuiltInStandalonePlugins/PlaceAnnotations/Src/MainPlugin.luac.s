@@ -129,10 +129,13 @@ PROTO_5:
   GETTABLEKS R11 R0 K31 ["onWidgetClosed"]
   SETTABLEKS R11 R10 K19 ["OnClose"]
   DUPTABLE R11 K34 [{"AnnotationListView", "StyleLink"}]
+  JUMPIFNOT R4 [+6]
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K11 ["createElement"]
   GETUPVAL R13 7
   CALL R12 1 1
+  JUMP [+1]
+  LOADNIL R12
   SETTABLEKS R12 R11 K32 ["AnnotationListView"]
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K11 ["createElement"]

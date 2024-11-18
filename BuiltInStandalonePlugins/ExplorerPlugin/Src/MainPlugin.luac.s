@@ -42,10 +42,19 @@ PROTO_5:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["PluginLoaderContext"]
-  GETTABLEKS R0 R1 K2 ["mainButtonClickedSignal"]
+  GETTABLEKS R0 R1 K2 ["mainButton"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["state"]
+  GETTABLEKS R2 R3 K4 ["enabled"]
+  NAMECALL R0 R0 K5 ["SetActive"]
+  CALL R0 2 0
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["toggleEnabled"]
-  NAMECALL R0 R0 K4 ["Connect"]
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["PluginLoaderContext"]
+  GETTABLEKS R0 R1 K6 ["mainButtonClickedSignal"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["toggleEnabled"]
+  NAMECALL R0 R0 K8 ["Connect"]
   CALL R0 2 0
   RETURN R0 0
 
@@ -54,64 +63,72 @@ PROTO_6:
   RETURN R0 1
 
 PROTO_7:
-  DUPTABLE R2 K1 [{"enabled"}]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K0 ["enabled"]
-  SETTABLEKS R2 R0 K2 ["state"]
-  NEWCLOSURE R2 P0
+  LOADB R2 0
+  GETTABLEKS R3 R1 K0 ["PluginLoaderContext"]
+  JUMPIFNOT R3 [+10]
+  GETTABLEKS R4 R1 K0 ["PluginLoaderContext"]
+  GETTABLEKS R3 R4 K1 ["mainDockWidget"]
+  LOADB R4 0
+  JUMPIFEQKNIL R3 [+3]
+  GETTABLEKS R4 R3 K2 ["Enabled"]
+  MOVE R2 R4
+  DUPTABLE R3 K4 [{"enabled"}]
+  SETTABLEKS R2 R3 K3 ["enabled"]
+  SETTABLEKS R3 R0 K5 ["state"]
+  NEWCLOSURE R3 P0
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K3 ["toggleEnabled"]
-  NEWCLOSURE R2 P1
+  SETTABLEKS R3 R0 K6 ["toggleEnabled"]
+  NEWCLOSURE R3 P1
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K4 ["onClose"]
-  NEWCLOSURE R2 P2
+  SETTABLEKS R3 R0 K7 ["onClose"]
+  NEWCLOSURE R3 P2
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K5 ["onRestore"]
-  NEWCLOSURE R2 P3
+  SETTABLEKS R3 R0 K8 ["onRestore"]
+  NEWCLOSURE R3 P3
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K6 ["onWidgetEnabledChanged"]
-  NEWCLOSURE R2 P4
+  SETTABLEKS R3 R0 K9 ["onWidgetEnabledChanged"]
+  NEWCLOSURE R3 P4
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K7 ["onDockWidgetCreated"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K8 ["new"]
-  GETTABLEKS R3 R1 K9 ["Plugin"]
-  NAMECALL R3 R3 K10 ["getMouse"]
-  CALL R3 1 -1
-  CALL R2 -1 1
-  SETTABLEKS R2 R0 K11 ["mouse"]
-  GETTABLEKS R2 R0 K11 ["mouse"]
-  LOADK R4 K12 ["Arrow"]
-  LOADN R5 0
-  NAMECALL R2 R2 K13 ["__pushCursor"]
-  CALL R2 3 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K14 ["Localization"]
-  GETTABLEKS R2 R3 K8 ["new"]
-  DUPTABLE R3 K18 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  GETUPVAL R4 2
-  SETTABLEKS R4 R3 K15 ["stringResourceTable"]
-  GETUPVAL R4 3
-  SETTABLEKS R4 R3 K16 ["translationResourceTable"]
-  LOADK R4 K19 ["ExplorerPlugin"]
-  SETTABLEKS R4 R3 K17 ["pluginName"]
-  CALL R2 1 1
-  SETTABLEKS R2 R0 K20 ["localization"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K21 ["Analytics"]
-  GETTABLEKS R2 R3 K8 ["new"]
-  DUPCLOSURE R3 K22 [PROTO_6]
-  NEWTABLE R4 0 0
-  CALL R2 2 1
-  SETTABLEKS R2 R0 K23 ["analytics"]
-  GETUPVAL R3 4
-  GETTABLEKS R2 R3 K8 ["new"]
-  CALL R2 0 1
-  SETTABLEKS R2 R0 K24 ["DEPRECATED_stylizer"]
-  GETUPVAL R2 5
-  GETTABLEKS R3 R1 K9 ["Plugin"]
-  CALL R2 1 1
-  SETTABLEKS R2 R0 K25 ["design"]
+  SETTABLEKS R3 R0 K10 ["onDockWidgetCreated"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["new"]
+  GETTABLEKS R4 R1 K12 ["Plugin"]
+  NAMECALL R4 R4 K13 ["getMouse"]
+  CALL R4 1 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R0 K14 ["mouse"]
+  GETTABLEKS R3 R0 K14 ["mouse"]
+  LOADK R5 K15 ["Arrow"]
+  LOADN R6 0
+  NAMECALL R3 R3 K16 ["__pushCursor"]
+  CALL R3 3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K17 ["Localization"]
+  GETTABLEKS R3 R4 K11 ["new"]
+  DUPTABLE R4 K21 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R4 K18 ["stringResourceTable"]
+  GETUPVAL R5 3
+  SETTABLEKS R5 R4 K19 ["translationResourceTable"]
+  LOADK R5 K22 ["ExplorerPlugin"]
+  SETTABLEKS R5 R4 K20 ["pluginName"]
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K23 ["localization"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K24 ["Analytics"]
+  GETTABLEKS R3 R4 K11 ["new"]
+  DUPCLOSURE R4 K25 [PROTO_6]
+  NEWTABLE R5 0 0
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K26 ["analytics"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K11 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R0 K27 ["DEPRECATED_stylizer"]
+  GETUPVAL R3 5
+  GETTABLEKS R4 R1 K12 ["Plugin"]
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K28 ["design"]
   RETURN R0 0
 
 PROTO_8:

@@ -161,26 +161,26 @@ MAIN:
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K9 ["Src"]
-  GETTABLEKS R17 R18 K10 ["Util"]
-  GETTABLEKS R16 R17 K28 ["AnnotationEditingMode"]
+  GETTABLEKS R17 R18 K28 ["Enums"]
+  GETTABLEKS R16 R17 K29 ["AnnotationEditingMode"]
   CALL R15 1 1
-  GETIMPORT R16 K30 [game]
-  LOADK R18 K31 ["AnnotationsService"]
-  NAMECALL R16 R16 K32 ["GetService"]
+  GETIMPORT R16 K31 [game]
+  LOADK R18 K32 ["AnnotationsService"]
+  NAMECALL R16 R16 K33 ["GetService"]
   CALL R16 2 1
-  GETIMPORT R17 K30 [game]
-  LOADK R19 K33 ["UserInputService"]
-  NAMECALL R17 R17 K32 ["GetService"]
+  GETIMPORT R17 K31 [game]
+  LOADK R19 K34 ["UserInputService"]
+  NAMECALL R17 R17 K33 ["GetService"]
   CALL R17 2 1
   GETTABLEKS R19 R6 K20 ["Localization"]
-  GETTABLEKS R18 R19 K34 ["new"]
-  DUPTABLE R19 K38 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  SETTABLEKS R10 R19 K35 ["stringResourceTable"]
-  SETTABLEKS R11 R19 K36 ["translationResourceTable"]
+  GETTABLEKS R18 R19 K35 ["new"]
+  DUPTABLE R19 K39 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R10 R19 K36 ["stringResourceTable"]
+  SETTABLEKS R11 R19 K37 ["translationResourceTable"]
   LOADK R20 K2 ["PlaceAnnotations"]
-  SETTABLEKS R20 R19 K37 ["pluginName"]
+  SETTABLEKS R20 R19 K38 ["pluginName"]
   CALL R18 1 1
-  DUPCLOSURE R19 K39 [PROTO_4]
+  DUPCLOSURE R19 K40 [PROTO_4]
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R17

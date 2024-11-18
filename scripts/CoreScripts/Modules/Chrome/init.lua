@@ -1,4 +1,4 @@
 return {
-	Service = require(script.Service),
+	Service = require(script.ChromeShared.Service),
 	Integrations = require(script.Integrations),
 }
