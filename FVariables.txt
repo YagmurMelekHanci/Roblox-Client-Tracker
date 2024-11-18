@@ -7170,7 +7170,7 @@
 [C++] FFlagEnableUnexpectedServiceInstanceCountsTelem
 [C++] FFlagEnableUnfilteredThreadsUI
 [Lua] FFlagEnableUnibarFtuxTooltips
-[C++] FFlagEnableUnibarFtuxTooltips
+[C++] FFlagEnableUnibarFtuxTooltips_Rollout
 [Lua] FFlagEnableUnibarMaxDefaultOpen
 [C++] FFlagEnableUnibarMaxDefaultOpen
 [Lua] FFlagEnableUnibarSneakPeak
@@ -8846,6 +8846,7 @@
 [C++] FFlagLuaAppSearchTabUuid
 [C++] FFlagLuaAppsEnableParentalControlsTab
 [C++] FFlagLuaAppSettingsPageFocusNavigationFix
+[C++] FFlagLuaAppShouldTrackTopActions_Staged
 [C++] FFlagLuaAppShowOtaPackagesLoaded
 [C++] FFlagLuaAppShowPillContainsStrongLanguage
 [C++] FFlagLuaAppShowPillContainsStrongLanguageContent
