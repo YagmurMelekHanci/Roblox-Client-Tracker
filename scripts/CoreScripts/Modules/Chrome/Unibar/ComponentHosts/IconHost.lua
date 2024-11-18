@@ -31,7 +31,6 @@ local useTimeHysteresis = require(Chrome.Hooks.useTimeHysteresis)
 
 local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
 
-local GetFFlagTooltipUseZIndex = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagTooltipUseZIndex
 local GetFFlagFixUnibarVirtualCursor = require(Chrome.Parent.Flags.GetFFlagFixUnibarVirtualCursor)
 local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
 
@@ -306,7 +305,6 @@ function TooltipButton(props: TooltipButtonProps)
 					then Enum.SelectionBehavior.Escape
 					else Enum.SelectionBehavior.Stop
 			end),
-			ZIndex = if GetFFlagTooltipUseZIndex() then 0 else nil,
 
 			[React.Change.AbsolutePosition] = triggerPointChanged,
 			[React.Change.AbsoluteSize] = triggerPointChanged,

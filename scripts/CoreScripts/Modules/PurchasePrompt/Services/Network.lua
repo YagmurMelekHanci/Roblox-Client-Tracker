@@ -24,6 +24,8 @@ local GetFFlagEnablePromptPurchaseRequestedV2 = require(Root.Flags.GetFFlagEnabl
 local GetFFlagEnablePromptPurchaseRequestedV2Take2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2Take2)
 local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
 	require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
+local FFlagEnablePreSignedVngShopRedirectUrl =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePreSignedVngShopRedirectUrl
 
 -- This is the approximate strategy for URL building that we use elsewhere
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
@@ -432,6 +434,21 @@ local function checkUserPurchaseSettings()
 	end)
 end
 
+local function getVngShopUrl()
+	local url = UrlBuilder.economy.vngPayments.getVngShopUrl()
+
+	local options = {
+		Url = url,
+		Method = "GET",
+	}
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			request(options, resolve, reject)
+		end)
+	end)
+end
+
 local Network = {}
 
 -- TODO: "Promisify" is not strictly necessary with the new `request` structure,
@@ -460,7 +477,8 @@ function Network.new()
 		performSubscriptionPurchase = Promise.promisify(performSubscriptionPurchase),
 		getPurchaseWarning = Promise.promisify(getPurchaseWarning),
 		postPurchaseWarningAcknowledge = Promise.promisify(postPurchaseWarningAcknowledge),
-		checkUserPurchaseSettings = Promise.promisify(checkUserPurchaseSettings)
+		checkUserPurchaseSettings = Promise.promisify(checkUserPurchaseSettings),
+		getVngShopUrl = if FFlagEnablePreSignedVngShopRedirectUrl then Promise.promisify(getVngShopUrl) else nil,
 	}
 
 	setmetatable(networkService, {

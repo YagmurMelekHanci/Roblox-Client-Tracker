@@ -14,23 +14,6 @@ local RunService = game:GetService("RunService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
-local FFlagDebugCoreScriptRoactInspector = game:DefineFastFlag("DebugCoreScriptRoactInspector", false)
-
-if FFlagDebugCoreScriptRoactInspector then
-	local hasInternalPermission = UserSettings().GameSettings:InStudioMode()
-		and game:GetService("StudioService"):HasInternalPermission()
-
-	if hasInternalPermission then
-		local DeveloperTools = require(CorePackages.Packages.Dev.DeveloperTools)
-		local inspector = DeveloperTools.forCoreGui("Core UI", {
-			rootInstance = "RobloxGui",
-		})
-
-		local ReactDevtoolsExtensions = require(CorePackages.Packages.Dev.ReactDevtoolsExtensions)
-		inspector:initRoact(ReactDevtoolsExtensions)
-	end
-end
-
 -- Load the error reporter as early as possible, even before we finish requiring,
 -- so that it can report any errors that come after this point.
 ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptErrorReporter", RobloxGui)
@@ -89,6 +72,7 @@ local FFlagCoreGuiEnableAnalytics = game:DefineFastFlag("CoreGuiEnableAnalytics"
 local FFlagEnableExperienceGenericChallengeRendering = game:DefineFastFlag("EnableExperienceGenericChallengeRendering", false)
 
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
+local FFlagEnableRobloxCommerceLuaSignals = game:DefineFastFlag("EnableRobloxCommerceLuaSignals", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -503,7 +487,7 @@ if FFlagEnableCancelSubscriptionApp and FFlagEnableCancelSubscriptionAppLua then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CancelSubscriptionApp", RobloxGui)
 end
 
-if FFlagEnableRobloxCommerce then
+if FFlagEnableRobloxCommerce and FFlagEnableRobloxCommerceLuaSignals then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CommercePurchaseApp", RobloxGui)
 end
 if FFlagCoreGuiEnableAnalytics then

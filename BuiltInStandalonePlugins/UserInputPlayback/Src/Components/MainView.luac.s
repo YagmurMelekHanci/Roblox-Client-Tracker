@@ -156,7 +156,7 @@ MAIN:
   CALL R11 1 1
   GETIMPORT R12 K22 [game]
   LOADK R14 K23 ["UserInputPlaybackPluginFixTabInitiallySelected"]
-  NAMECALL R12 R12 K24 ["getFastFlag"]
+  NAMECALL R12 R12 K24 ["GetFastFlag"]
   CALL R12 2 1
   GETTABLEKS R13 R1 K25 ["PureComponent"]
   LOADK R15 K26 ["MainView"]

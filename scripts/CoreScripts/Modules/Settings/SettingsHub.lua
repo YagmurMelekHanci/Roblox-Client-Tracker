@@ -188,7 +188,6 @@ local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local GetFFlagPlayerListAnimateMic = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerListAnimateMic
-local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
 local FFlagFixReportButtonCutOff = game:DefineFastFlag("FixReportButtonCutOff", false)
 
@@ -205,14 +204,7 @@ if GetFFlagVoiceRecordingIndicatorsEnabled() then
 end
 
 --[[ Localization Package Initialization ]]
-local Localization
-if FFlagInExperienceMenuResetButtonTextToRespawn then
-	if GetFFlagSwitchInExpTranslationsPackage() then
-		Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
-	else
-		Localization = require(RobloxGui.Modules.InGameMenu.Localization.Localization)
-	end
-end
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 --[[ Localization Fixes for Version Labels]]
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
@@ -471,13 +463,7 @@ local function CreateSettingsHub()
 		-- Lazy load and cache strings from IGMv3
 		local localeId = LocalizationService.RobloxLocaleId
 		if not IGMLocalizationStrings[localeId] then
-
-			local Localization
-			if GetFFlagSwitchInExpTranslationsPackage() then
-				Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
-			else
-				Localization = require(RobloxGui.Modules.InGameMenu.Localization.Localization)
-			end
+			local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 			IGMLocalizationStrings[localeId] = Localization.new(localeId)
 			local strings = IGMLocalizationStrings[localeId]
 			VoiceStateStrings.Loading = strings:Format("CoreScripts.InGameMenu.QuickActions.Connecting")

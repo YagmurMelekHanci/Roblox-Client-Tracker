@@ -22,10 +22,6 @@ function Analytics.new()
 		__tostring = function()
 			return "Service(Analytics)"
 		end,
-		-- MockAnalytics needs to see the functions for automated spy creation
-		__index = function(table, key)
-			return table[key]
-		end,
 	})
 
 	local function GetPlatformString()

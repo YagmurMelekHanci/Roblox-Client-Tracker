@@ -249,26 +249,24 @@ PROTO_3:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R1 K1 [script]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K1 [script]
-  LOADK R3 K3 ["AttenuationCurveEditor"]
-  NAMECALL R1 R1 K4 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R5 R1 K7 ["Bin"]
-  GETTABLEKS R4 R5 K8 ["Common"]
-  GETTABLEKS R3 R4 K9 ["defineLuaFlags"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K10 ["getFFlagAttenuationCurveEditorFixes"]
-  CALL R3 0 1
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R6 R1 K11 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["React"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K13 ["useMemo"]
-  DUPCLOSURE R6 K14 [PROTO_3]
-  CAPTURE VAL R5
-  CAPTURE VAL R3
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AttenuationCurveEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Bin"]
+  GETTABLEKS R3 R4 K7 ["Common"]
+  GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["getFFlagAttenuationCurveEditorFixes"]
+  CALL R2 0 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K12 ["useMemo"]
+  DUPCLOSURE R5 K13 [PROTO_3]
   CAPTURE VAL R4
-  RETURN R6 1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R5 1

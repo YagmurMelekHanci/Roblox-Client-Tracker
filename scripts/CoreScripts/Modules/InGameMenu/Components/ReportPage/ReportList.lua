@@ -24,7 +24,6 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local DSAReportingPackage = require(CorePackages.Workspace.Packages.DsaIllegalContentReporting)
 local isShowEUDSAIllegalContentReportingLink = DSAReportingPackage.isShowEUDSAIllegalContentReportingLink
-local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
@@ -162,7 +161,7 @@ function ReportList:render()
 		canvasSize = #self.props.players * (PLAYER_LABEL_HEIGHT + 1)
 	end
 
-	if isShowEUDSAIllegalContentReportingLink() and GetFFlagSwitchInExpTranslationsPackage() then
+	if isShowEUDSAIllegalContentReportingLink() then
 		return withLocalization({
 			DSAFooterText = "CoreScripts.InGameMenu.Report.DSAFooter",
 		})(function(localized)

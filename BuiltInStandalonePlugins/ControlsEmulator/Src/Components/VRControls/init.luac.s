@@ -310,7 +310,7 @@ PROTO_6:
   CALL R22 2 1
   SETTABLEKS R22 R21 K25 ["TooltipButton"]
   MOVE R22 R4
-  JUMPIFNOT R22 [+152]
+  JUMPIFNOT R22 [+208]
   GETUPVAL R23 1
   GETTABLEKS R22 R23 K14 ["createElement"]
   LOADK R23 K15 ["Frame"]
@@ -319,21 +319,21 @@ PROTO_6:
   GETTABLEKS R25 R26 K16 ["Tag"]
   LOADK R26 K61 ["data-testid=Tooltip"]
   SETTABLE R26 R24 R25
-  DUPTABLE R25 K67 [{"MoveMapping", "FlyMapping", "RotatenMapping", "TiltMapping", "MouseMapping"}]
+  DUPTABLE R25 K69 [{"MoveMapping", "FlyMapping", "RotatenMapping", "TiltMapping", "ToggleCursorLock", "SwitchControllers", "MouseMapping1"}]
   GETUPVAL R27 1
   GETTABLEKS R26 R27 K14 ["createElement"]
   GETUPVAL R27 8
-  DUPTABLE R28 K70 [{"leftText", "rightText", "LayoutOrder"}]
+  DUPTABLE R28 K72 [{"leftText", "rightText", "LayoutOrder"}]
   LOADK R31 K34 ["VRControls"]
-  LOADK R32 K71 ["MoveHelpLabel"]
+  LOADK R32 K73 ["MoveHelpLabel"]
   NAMECALL R29 R1 K36 ["getText"]
   CALL R29 3 1
-  SETTABLEKS R29 R28 K68 ["leftText"]
+  SETTABLEKS R29 R28 K70 ["leftText"]
   LOADK R31 K34 ["VRControls"]
-  LOADK R32 K72 ["ShiftWASDLabel"]
+  LOADK R32 K74 ["ShiftWASDLabel"]
   NAMECALL R29 R1 K36 ["getText"]
   CALL R29 3 1
-  SETTABLEKS R29 R28 K69 ["rightText"]
+  SETTABLEKS R29 R28 K71 ["rightText"]
   GETUPVAL R29 6
   NAMECALL R29 R29 K22 ["getNextOrder"]
   CALL R29 1 1
@@ -343,17 +343,17 @@ PROTO_6:
   GETUPVAL R27 1
   GETTABLEKS R26 R27 K14 ["createElement"]
   GETUPVAL R27 8
-  DUPTABLE R28 K70 [{"leftText", "rightText", "LayoutOrder"}]
+  DUPTABLE R28 K72 [{"leftText", "rightText", "LayoutOrder"}]
   LOADK R31 K34 ["VRControls"]
-  LOADK R32 K73 ["FlyUpDownHelpLabel"]
+  LOADK R32 K75 ["FlyUpDownHelpLabel"]
   NAMECALL R29 R1 K36 ["getText"]
   CALL R29 3 1
-  SETTABLEKS R29 R28 K68 ["leftText"]
+  SETTABLEKS R29 R28 K70 ["leftText"]
   LOADK R31 K34 ["VRControls"]
-  LOADK R32 K74 ["ShiftEQLabel"]
+  LOADK R32 K76 ["ShiftEQLabel"]
   NAMECALL R29 R1 K36 ["getText"]
   CALL R29 3 1
-  SETTABLEKS R29 R28 K69 ["rightText"]
+  SETTABLEKS R29 R28 K71 ["rightText"]
   GETUPVAL R29 6
   NAMECALL R29 R29 K22 ["getNextOrder"]
   CALL R29 1 1
@@ -363,17 +363,17 @@ PROTO_6:
   GETUPVAL R27 1
   GETTABLEKS R26 R27 K14 ["createElement"]
   GETUPVAL R27 8
-  DUPTABLE R28 K70 [{"leftText", "rightText", "LayoutOrder"}]
+  DUPTABLE R28 K72 [{"leftText", "rightText", "LayoutOrder"}]
   LOADK R31 K34 ["VRControls"]
-  LOADK R32 K75 ["RotateHelpLabel"]
+  LOADK R32 K77 ["RotateHelpLabel"]
   NAMECALL R29 R1 K36 ["getText"]
   CALL R29 3 1
-  SETTABLEKS R29 R28 K68 ["leftText"]
+  SETTABLEKS R29 R28 K70 ["leftText"]
   LOADK R31 K34 ["VRControls"]
-  LOADK R32 K76 ["MouseMoveHelpLabel"]
+  LOADK R32 K78 ["MouseMoveHelpLabel"]
   NAMECALL R29 R1 K36 ["getText"]
   CALL R29 3 1
-  SETTABLEKS R29 R28 K69 ["rightText"]
+  SETTABLEKS R29 R28 K71 ["rightText"]
   GETUPVAL R29 6
   NAMECALL R29 R29 K22 ["getNextOrder"]
   CALL R29 1 1
@@ -383,23 +383,63 @@ PROTO_6:
   GETUPVAL R27 1
   GETTABLEKS R26 R27 K14 ["createElement"]
   GETUPVAL R27 8
-  DUPTABLE R28 K70 [{"leftText", "rightText", "LayoutOrder"}]
+  DUPTABLE R28 K72 [{"leftText", "rightText", "LayoutOrder"}]
   LOADK R31 K34 ["VRControls"]
-  LOADK R32 K77 ["TiltHelpLabel"]
+  LOADK R32 K79 ["TiltHelpLabel"]
   NAMECALL R29 R1 K36 ["getText"]
   CALL R29 3 1
-  SETTABLEKS R29 R28 K68 ["leftText"]
+  SETTABLEKS R29 R28 K70 ["leftText"]
   LOADK R31 K34 ["VRControls"]
-  LOADK R32 K78 ["RightClickAndMouseMoveHelpLabel"]
+  LOADK R32 K80 ["RightClickAndMouseMoveHelpLabel"]
   NAMECALL R29 R1 K36 ["getText"]
   CALL R29 3 1
-  SETTABLEKS R29 R28 K69 ["rightText"]
+  SETTABLEKS R29 R28 K71 ["rightText"]
   GETUPVAL R29 6
   NAMECALL R29 R29 K22 ["getNextOrder"]
   CALL R29 1 1
   SETTABLEKS R29 R28 K18 ["LayoutOrder"]
   CALL R26 2 1
   SETTABLEKS R26 R25 K65 ["TiltMapping"]
+  GETUPVAL R27 1
+  GETTABLEKS R26 R27 K14 ["createElement"]
+  GETUPVAL R27 8
+  DUPTABLE R28 K72 [{"leftText", "rightText", "LayoutOrder"}]
+  LOADK R31 K34 ["VRControls"]
+  LOADK R32 K81 ["ToggleCursorLockLabel"]
+  NAMECALL R29 R1 K36 ["getText"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K70 ["leftText"]
+  LOADK R31 K34 ["VRControls"]
+  LOADK R32 K82 ["ToggleCursorShortcutLabel"]
+  NAMECALL R29 R1 K36 ["getText"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K71 ["rightText"]
+  GETUPVAL R29 6
+  NAMECALL R29 R29 K22 ["getNextOrder"]
+  CALL R29 1 1
+  SETTABLEKS R29 R28 K18 ["LayoutOrder"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K66 ["ToggleCursorLock"]
+  GETUPVAL R27 1
+  GETTABLEKS R26 R27 K14 ["createElement"]
+  GETUPVAL R27 8
+  DUPTABLE R28 K72 [{"leftText", "rightText", "LayoutOrder"}]
+  LOADK R31 K34 ["VRControls"]
+  LOADK R32 K83 ["SwitchControllersLabel"]
+  NAMECALL R29 R1 K36 ["getText"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K70 ["leftText"]
+  LOADK R31 K34 ["VRControls"]
+  LOADK R32 K84 ["ShiftLeftRightLabel"]
+  NAMECALL R29 R1 K36 ["getText"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K71 ["rightText"]
+  GETUPVAL R29 6
+  NAMECALL R29 R29 K22 ["getNextOrder"]
+  CALL R29 1 1
+  SETTABLEKS R29 R28 K18 ["LayoutOrder"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K67 ["SwitchControllers"]
   GETUPVAL R27 1
   GETTABLEKS R26 R27 K14 ["createElement"]
   LOADK R27 K33 ["TextLabel"]
@@ -409,7 +449,7 @@ PROTO_6:
   LOADK R30 K21 ["CX-Invisible"]
   SETTABLE R30 R28 R29
   LOADK R31 K34 ["VRControls"]
-  LOADK R32 K79 ["MouseInteractionHelpLabel"]
+  LOADK R32 K85 ["MouseInteractionHelpLabel1"]
   NAMECALL R29 R1 K36 ["getText"]
   CALL R29 3 1
   SETTABLEKS R29 R28 K37 ["Text"]
@@ -418,7 +458,7 @@ PROTO_6:
   CALL R29 1 1
   SETTABLEKS R29 R28 K18 ["LayoutOrder"]
   CALL R26 2 1
-  SETTABLEKS R26 R25 K66 ["MouseMapping"]
+  SETTABLEKS R26 R25 K68 ["MouseMapping1"]
   CALL R22 3 1
   SETTABLEKS R22 R21 K26 ["Tooltip"]
   CALL R18 3 1

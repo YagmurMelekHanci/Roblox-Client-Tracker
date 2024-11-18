@@ -11,45 +11,42 @@ PROTO_1:
   SETTABLEKS R2 R1 K1 ["startPlaying"]
   GETTABLEKS R1 R0 K0 ["tutorial"]
   GETUPVAL R4 0
-  JUMPIFNOT R4 [+41]
+  JUMPIFNOT R4 [+26]
   DUPTABLE R3 K6 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  DUPTABLE R4 K12 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R5 K13 ["Standalone"]
-  SETTABLEKS R5 R4 K7 ["DataModel"]
-  LOADK R5 K13 ["Standalone"]
-  SETTABLEKS R5 R4 K8 ["PluginType"]
-  LOADK R5 K14 ["Ribbon"]
-  SETTABLEKS R5 R4 K9 ["PluginId"]
-  LOADK R5 K15 ["Widgets"]
-  SETTABLEKS R5 R4 K10 ["Category"]
-  LOADK R5 K16 ["LeftMezzanine/PlayControls/1"]
-  SETTABLEKS R5 R4 K11 ["ItemId"]
+  GETUPVAL R4 1
   SETTABLEKS R4 R3 K2 ["TargetWidgetUri"]
-  GETIMPORT R4 K19 [Vector2.new]
+  GETIMPORT R4 K9 [Vector2.new]
   LOADN R5 0
   LOADN R6 0
   CALL R4 2 1
   SETTABLEKS R4 R3 K3 ["SubjectAnchorPoint"]
-  GETIMPORT R4 K19 [Vector2.new]
+  GETIMPORT R4 K9 [Vector2.new]
   LOADN R5 0
   LOADN R6 1
   CALL R4 2 1
   SETTABLEKS R4 R3 K4 ["TargetAnchorPoint"]
-  GETIMPORT R4 K19 [Vector2.new]
+  GETIMPORT R4 K9 [Vector2.new]
   LOADN R5 0
   LOADN R6 20
   CALL R4 2 1
   SETTABLEKS R4 R3 K5 ["Offset"]
   JUMP [+11]
-  DUPTABLE R3 K22 [{"target", "offset"}]
-  LOADK R4 K23 ["playGameActionGroupRibbonControl"]
-  SETTABLEKS R4 R3 K20 ["target"]
-  GETIMPORT R4 K19 [Vector2.new]
+  DUPTABLE R3 K12 [{"target", "offset"}]
+  LOADK R4 K13 ["playGameActionGroupRibbonControl"]
+  SETTABLEKS R4 R3 K10 ["target"]
+  GETIMPORT R4 K9 [Vector2.new]
   LOADN R5 0
   LOADN R6 5
   CALL R4 2 1
-  SETTABLEKS R4 R3 K21 ["offset"]
-  NAMECALL R1 R1 K24 ["attachTo"]
+  SETTABLEKS R4 R3 K11 ["offset"]
+  NAMECALL R1 R1 K14 ["attachTo"]
+  CALL R1 2 0
+  GETUPVAL R1 2
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R2 R0 K0 ["tutorial"]
+  GETTABLEKS R1 R2 K15 ["Spotlight"]
+  GETUPVAL R3 1
+  NAMECALL R1 R1 K16 ["ApplyHighlightAsync"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -73,16 +70,35 @@ MAIN:
   CALL R1 1 1
   CALL R1 0 1
   GETIMPORT R2 K6 [require]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K10 ["TutorialStep"]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Flags"]
+  GETTABLEKS R3 R4 K10 ["getFFlagSpotlightManager"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K11 ["extend"]
-  LOADK R4 K12 ["StartPlaytest"]
+  CALL R2 0 1
+  GETIMPORT R3 K6 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K2 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["TutorialStep"]
   CALL R3 1 1
-  DUPCLOSURE R4 K13 [PROTO_1]
+  GETTABLEKS R4 R3 K12 ["extend"]
+  LOADK R5 K13 ["StartPlaytest"]
+  CALL R4 1 1
+  DUPTABLE R5 K19 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R6 K20 ["Standalone"]
+  SETTABLEKS R6 R5 K14 ["DataModel"]
+  LOADK R6 K20 ["Standalone"]
+  SETTABLEKS R6 R5 K15 ["PluginType"]
+  LOADK R6 K21 ["Ribbon"]
+  SETTABLEKS R6 R5 K16 ["PluginId"]
+  LOADK R6 K22 ["Widgets"]
+  SETTABLEKS R6 R5 K17 ["Category"]
+  LOADK R6 K23 ["LeftMezzanine/PlayControls/1"]
+  SETTABLEKS R6 R5 K18 ["ItemId"]
+  DUPCLOSURE R6 K24 [PROTO_1]
   CAPTURE VAL R1
-  SETTABLEKS R4 R3 K14 ["bind"]
-  DUPCLOSURE R4 K15 [PROTO_2]
-  SETTABLEKS R4 R3 K16 ["unbind"]
-  RETURN R3 1
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  SETTABLEKS R6 R4 K25 ["bind"]
+  DUPCLOSURE R6 K26 [PROTO_2]
+  SETTABLEKS R6 R4 K27 ["unbind"]
+  RETURN R4 1

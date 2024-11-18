@@ -32,6 +32,7 @@ local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV
 local GetFFlagDisableSelfViewDefaultOpen = require(Chrome.Flags.GetFFlagDisableSelfViewDefaultOpen)
 local GetFFlagChromeSupportSocialService = require(Chrome.Flags.GetFFlagChromeSupportSocialService)
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
+local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -83,6 +84,11 @@ local selfieViewChromeIntegration = ChromeService:register({
 		end
 		ChromeService:toggleWindow(ID)
 	end,
+	isActivated = if GetFFlagAddChromeActivatedEvents()
+		then function()
+			return mappedSelfieWindowOpenSignal:get()
+		end
+		else nil,
 	draggable = true,
 	cachePosition = true,
 	components = {

@@ -20,6 +20,10 @@ local Promise = require(Root.Promise)
 
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local getAppFeaturePolicies = UniversalAppPolicy.getAppFeaturePolicies
+local FFlagEnablePreSignedVngShopRedirectUrl =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePreSignedVngShopRedirectUrl
+local GetFStringVNGWebshopUrl =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringVNGWebshopUrl
 
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
@@ -87,8 +91,18 @@ local function launchRobuxUpsell()
 			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, state.nativeUpsell.productId)
 			if getAppFeaturePolicies().getRedirectBuyRobuxToVNG() then
 				if state.promptState == PromptState.LeaveRobloxWarning then
-					platformInterface.openVngStore()
-					store:dispatch(SetPromptState(PromptState.UpsellInProgress))
+					if FFlagEnablePreSignedVngShopRedirectUrl then
+						network.getVngShopUrl(network):andThen(function(vngShopUrl)
+							platformInterface.openVngStore(vngShopUrl.vngShopRedirectUrl)
+							store:dispatch(SetPromptState(PromptState.UpsellInProgress))
+						end):catch(function()
+							platformInterface.openVngStore(GetFStringVNGWebshopUrl())
+							store:dispatch(SetPromptState(PromptState.UpsellInProgress))
+						end)
+					else
+						platformInterface.openVngStore()
+						store:dispatch(SetPromptState(PromptState.UpsellInProgress))
+					end
 				else
 					store:dispatch(SetPromptState(PromptState.LeaveRobloxWarning))
 				end

@@ -17,6 +17,8 @@ local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local Types = require(Chrome.Service.Types)
 local useMappedSignal = require(Chrome.Hooks.useMappedSignal)
+local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local Signal = SignalLib.Signal
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -39,12 +41,15 @@ local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUni
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
 local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
 local GetFFlagFixCapturesAvailability = require(Chrome.Flags.GetFFlagFixCapturesAvailability)
+local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
+local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
 
 local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 	and FFlagEnableUnibarFtuxTooltips
 	and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
+	and GetShouldShowPlatformChatBasedOnPolicy()
 
 local SELFIE_ID = Constants.SELFIE_VIEW_ID
 local ICON_SIZE = Constants.ICON_SIZE
@@ -93,6 +98,11 @@ local leaderboard = ChromeService:register({
 			end
 		end
 	end,
+	isActivated = if GetFFlagAddChromeActivatedEvents()
+		then function()
+			return leaderboardVisibility:get()
+		end
+		else nil,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/controls/leaderboardOff", "icons/controls/leaderboardOn", leaderboardVisibility)
@@ -124,6 +134,11 @@ local emotes = ChromeService:register({
 			end)
 		end
 	end,
+	isActivated = if GetFFlagAddChromeActivatedEvents()
+		then function()
+			return emotesVisibility:get()
+		end
+		else nil,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/controls/emoteOff", "icons/controls/emoteOn", emotesVisibility)
@@ -174,6 +189,11 @@ local backpack = ChromeService:register({
 			end)
 		end
 	end,
+	isActivated = if GetFFlagAddChromeActivatedEvents()
+		then function()
+			return backpackVisibility:get()
+		end
+		else nil,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/menu/inventoryOff", "icons/menu/inventory", backpackVisibility)
@@ -186,14 +206,48 @@ else
 	ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
 end
 
+local respawnPageOpen, respawnPageOpenSignal, mappedRespawnPageOpenSignal
+if GetFFlagAddChromeActivatedEvents() then
+	respawnPageOpen = false
+	respawnPageOpenSignal = Signal.new()
+	mappedRespawnPageOpenSignal = MappedSignal.new(respawnPageOpenSignal, function()
+		return respawnPageOpen
+	end)
+
+	task.defer(function()
+		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+		SettingsHub.CurrentPageSignal:connect(function(pageName)
+			respawnPageOpen = pageName == SettingsHub.Instance.ResetCharacterPage.Page.Name
+			respawnPageOpenSignal:fire()
+		end)
+	end)
+end
+
 local respawn = ChromeService:register({
 	id = "respawn",
 	label = "CoreScripts.InGameMenu.QuickActions.Respawn",
 	activated = function(self)
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-		SettingsHub:SetVisibility(true, false, SettingsHub.Instance.ResetCharacterPage)
-		SettingsHub:SwitchToPage(SettingsHub.Instance.ResetCharacterPage)
+		if GetFFlagAddChromeActivatedEvents() then
+			if SettingsHub:GetVisibility() then
+				if respawnPageOpen then
+					SettingsHub:SetVisibility(false)
+				else
+					SettingsHub:SwitchToPage(SettingsHub.Instance.ResetCharacterPage, true)
+				end
+			else
+				SettingsHub:SetVisibility(true, false, SettingsHub.Instance.ResetCharacterPage)
+			end
+		else
+			SettingsHub:SetVisibility(true, false, SettingsHub.Instance.ResetCharacterPage)
+			SettingsHub:SwitchToPage(SettingsHub.Instance.ResetCharacterPage)
+		end
 	end,
+	isActivated = if GetFFlagAddChromeActivatedEvents()
+		then function()
+			return mappedRespawnPageOpenSignal:get()
+		end
+		else nil,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/actions/respawn")

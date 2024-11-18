@@ -16,15 +16,25 @@ PROTO_0:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K1 ["createElement"]
   GETUPVAL R7 2
-  DUPTABLE R8 K15 [{"Height", "MultiLine", "OnTextChanged", "Text"}]
+  DUPTABLE R8 K16 [{"Height", "MultiLine", "OnTextChanged", "Text", "BottomText"}]
   LOADN R9 130
   SETTABLEKS R9 R8 K11 ["Height"]
   LOADB R9 1
   SETTABLEKS R9 R8 K12 ["MultiLine"]
-  GETTABLEKS R9 R1 K16 ["OnChanged"]
+  GETTABLEKS R9 R1 K17 ["OnChanged"]
   SETTABLEKS R9 R8 K13 ["OnTextChanged"]
-  GETTABLEKS R9 R1 K17 ["Secrets"]
+  GETTABLEKS R9 R1 K18 ["Secrets"]
   SETTABLEKS R9 R8 K14 ["Text"]
+  GETUPVAL R10 3
+  JUMPIFNOT R10 [+8]
+  GETTABLEKS R9 R1 K5 ["Localization"]
+  LOADK R11 K19 ["Security"]
+  LOADK R12 K20 ["LocalSecretsDesc"]
+  NAMECALL R9 R9 K8 ["getText"]
+  CALL R9 3 1
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K15 ["BottomText"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K9 ["TextBox"]
   CALL R2 3 -1
@@ -32,41 +42,42 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Cryo"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ShowLocalSecretsDesc"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["Framework"]
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K9 ["UI"]
-  GETTABLEKS R5 R4 K10 ["TextInput"]
-  GETTABLEKS R6 R4 K11 ["TitledFrame"]
-  GETTABLEKS R7 R3 K12 ["ContextServices"]
-  GETTABLEKS R8 R7 K13 ["withContext"]
-  GETTABLEKS R9 R1 K14 ["PureComponent"]
-  LOADK R11 K15 ["Secrets"]
-  NAMECALL R9 R9 K16 ["extend"]
+  GETTABLEKS R4 R3 K12 ["UI"]
+  GETTABLEKS R5 R4 K13 ["TextInput"]
+  GETTABLEKS R6 R4 K14 ["TitledFrame"]
+  GETTABLEKS R7 R3 K15 ["ContextServices"]
+  GETTABLEKS R8 R7 K16 ["withContext"]
+  GETTABLEKS R9 R2 K17 ["PureComponent"]
+  LOADK R11 K18 ["Secrets"]
+  NAMECALL R9 R9 K19 ["extend"]
   CALL R9 2 1
-  DUPCLOSURE R10 K17 [PROTO_0]
-  CAPTURE VAL R1
+  DUPCLOSURE R10 K20 [PROTO_0]
+  CAPTURE VAL R2
   CAPTURE VAL R6
   CAPTURE VAL R5
-  SETTABLEKS R10 R9 K18 ["render"]
+  CAPTURE VAL R0
+  SETTABLEKS R10 R9 K21 ["render"]
   MOVE R10 R8
-  DUPTABLE R11 K20 [{"Localization"}]
-  GETTABLEKS R12 R7 K19 ["Localization"]
-  SETTABLEKS R12 R11 K19 ["Localization"]
+  DUPTABLE R11 K23 [{"Localization"}]
+  GETTABLEKS R12 R7 K22 ["Localization"]
+  SETTABLEKS R12 R11 K22 ["Localization"]
   CALL R10 1 1
   MOVE R11 R9
   CALL R10 1 1

@@ -158,16 +158,18 @@ PROTO_6:
   GETTABLEKS R11 R0 K10 ["IsDragging"]
   JUMPIFNOT R11 [+2]
   LOADK R10 K11 ["Pressed"]
-  JUMP [+7]
+  JUMP [+10]
+  GETTABLEKS R11 R0 K12 ["IsSelected"]
+  JUMPIFNOT R11 [+3]
   JUMPIFNOT R1 [+2]
-  LOADK R10 K12 ["Hovered"]
+  LOADK R10 K13 ["Hovered"]
   JUMP [+4]
-  GETTABLEKS R11 R0 K13 ["IsSelected"]
+  GETTABLEKS R11 R0 K12 ["IsSelected"]
   JUMPIFNOT R11 [+1]
   LOADK R10 K14 ["Selected"]
   GETUPVAL R12 5
   GETTABLEKS R11 R12 K15 ["createElement"]
-  LOADK R12 K16 ["TextButton"]
+  LOADK R12 K16 ["ImageButton"]
   NEWTABLE R13 4 0
   GETIMPORT R14 K19 [UDim2.fromOffset]
   GETTABLEKS R15 R4 K20 ["X"]
@@ -177,7 +179,7 @@ PROTO_6:
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K22 ["Tag"]
   GETUPVAL R15 6
-  LOADK R16 K23 ["SequenceKeypoint"]
+  LOADK R16 K23 ["CurvePointOuter"]
   MOVE R17 R10
   CALL R15 2 1
   SETTABLE R15 R13 R14
@@ -185,15 +187,15 @@ PROTO_6:
   GETTABLEKS R15 R16 K24 ["Event"]
   GETTABLEKS R14 R15 K25 ["InputBegan"]
   SETTABLE R9 R13 R14
-  DUPTABLE R14 K28 [{"HoverArea", "DragListener"}]
+  DUPTABLE R14 K29 [{"HoverArea", "DragListener", "Inner"}]
   GETUPVAL R16 5
   GETTABLEKS R15 R16 K15 ["createElement"]
   GETUPVAL R16 7
-  DUPTABLE R17 K32 [{"Cursor", "MouseEnter", "MouseLeave"}]
+  DUPTABLE R17 K33 [{"Cursor", "MouseEnter", "MouseLeave"}]
   GETUPVAL R18 8
-  SETTABLEKS R18 R17 K29 ["Cursor"]
-  SETTABLEKS R5 R17 K30 ["MouseEnter"]
-  SETTABLEKS R6 R17 K31 ["MouseLeave"]
+  SETTABLEKS R18 R17 K30 ["Cursor"]
+  SETTABLEKS R5 R17 K31 ["MouseEnter"]
+  SETTABLEKS R6 R17 K32 ["MouseLeave"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K26 ["HoverArea"]
   GETTABLEKS R15 R0 K10 ["IsDragging"]
@@ -201,11 +203,28 @@ PROTO_6:
   GETUPVAL R16 5
   GETTABLEKS R15 R16 K15 ["createElement"]
   GETUPVAL R16 9
-  DUPTABLE R17 K35 [{"OnDragMoved", "OnDragEnded"}]
-  SETTABLEKS R7 R17 K33 ["OnDragMoved"]
-  SETTABLEKS R8 R17 K34 ["OnDragEnded"]
+  DUPTABLE R17 K36 [{"OnDragMoved", "OnDragEnded"}]
+  SETTABLEKS R7 R17 K34 ["OnDragMoved"]
+  SETTABLEKS R8 R17 K35 ["OnDragEnded"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K27 ["DragListener"]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K15 ["createElement"]
+  LOADK R16 K16 ["ImageButton"]
+  NEWTABLE R17 2 0
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K22 ["Tag"]
+  GETUPVAL R19 6
+  LOADK R20 K37 ["CurvePoint"]
+  MOVE R21 R10
+  CALL R19 2 1
+  SETTABLE R19 R17 R18
+  GETUPVAL R20 5
+  GETTABLEKS R19 R20 K24 ["Event"]
+  GETTABLEKS R18 R19 K25 ["InputBegan"]
+  SETTABLE R9 R17 R18
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K28 ["Inner"]
   CALL R11 3 -1
   RETURN R11 -1
 

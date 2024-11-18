@@ -735,25 +735,25 @@ PROTO_24:
   MOVE R6 R3
   GETTABLEKS R8 R2 K2 ["spotlight"]
   GETTABLEKS R7 R8 K16 ["rowName"]
-  NAMECALL R4 R4 K7 ["ApplySpotlightAsync"]
+  NAMECALL R4 R4 K17 ["ApplySpotlight"]
   CALL R4 3 0
   GETTABLEKS R5 R2 K2 ["spotlight"]
-  GETTABLEKS R4 R5 K17 ["showBox"]
+  GETTABLEKS R4 R5 K18 ["showBox"]
   JUMPIFNOT R4 [+9]
   GETUPVAL R4 1
   MOVE R6 R3
   GETTABLEKS R8 R2 K2 ["spotlight"]
   GETTABLEKS R7 R8 K16 ["rowName"]
-  NAMECALL R4 R4 K18 ["ApplyFillInBox"]
+  NAMECALL R4 R4 K19 ["ApplyFillInBox"]
   CALL R4 3 0
   GETTABLEKS R5 R2 K2 ["spotlight"]
-  GETTABLEKS R4 R5 K19 ["showHighlight"]
+  GETTABLEKS R4 R5 K20 ["showHighlight"]
   JUMPIFNOT R4 [+9]
   GETUPVAL R4 1
   MOVE R6 R3
   GETTABLEKS R8 R2 K2 ["spotlight"]
   GETTABLEKS R7 R8 K16 ["rowName"]
-  NAMECALL R4 R4 K20 ["ApplyHighlight"]
+  NAMECALL R4 R4 K21 ["ApplyHighlight"]
   CALL R4 3 0
   RETURN R0 0
 

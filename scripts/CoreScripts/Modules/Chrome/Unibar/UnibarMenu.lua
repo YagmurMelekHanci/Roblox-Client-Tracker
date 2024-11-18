@@ -62,6 +62,7 @@ local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
+local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
 
 local PartyConstants = require(Chrome.Integrations.Party.Constants)
 
@@ -84,6 +85,7 @@ function configureUnibar()
 	if
 		GetFFlagEnableAppChatInExperience()
 		and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
+		and GetShouldShowPlatformChatBasedOnPolicy()
 	then
 		table.insert(nineDot, 1, "connect")
 	end
@@ -132,6 +134,7 @@ function configureUnibar()
 			GetFFlagEnableAppChatInExperience()
 			and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeUnibarEntryPoint
 			and not InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
+			and GetShouldShowPlatformChatBasedOnPolicy()
 		then
 			-- TODO: this integration will replace logic related to `partyMenu`
 			local experienceChatIndex = table.find(v4Ordering, "chat")

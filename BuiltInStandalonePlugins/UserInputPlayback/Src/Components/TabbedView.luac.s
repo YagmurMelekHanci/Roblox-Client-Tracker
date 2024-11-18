@@ -135,7 +135,7 @@ MAIN:
   GETTABLEKS R3 R2 K8 ["ContextServices"]
   GETIMPORT R4 K10 [game]
   LOADK R6 K11 ["UserInputPlaybackPluginFixTabInitiallySelected"]
-  NAMECALL R4 R4 K12 ["getFastFlag"]
+  NAMECALL R4 R4 K12 ["GetFastFlag"]
   CALL R4 2 1
   GETTABLEKS R5 R2 K13 ["UI"]
   GETTABLEKS R6 R5 K14 ["Tabs"]

@@ -21,27 +21,22 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local TextService = game:GetService("TextService")
 local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
-local ContextActionService = game:GetService("ContextActionService")
 local StarterGui = game:GetService("StarterGui")
 local CoreGui = game:GetService("CoreGui")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local VRService = game:GetService("VRService")
 local GroupService = game:GetService("GroupService")
 local TeleportService = game:GetService("TeleportService")
-local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui.RobloxGui
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
-local success, result = pcall(function()
-	return settings():GetFFlag("UseNotificationsLocalization")
-end)
-local FFlagUseNotificationsLocalization = success and result
 
 local FFlagLogAcceptFriendshipEvent = game:DefineFastFlag("LogAcceptFriendshipEvent", false)
 local FFlagClientToastNotificationsEnabled = game:GetEngineFeature("ClientToastNotificationsEnabled")
-local GetFFlagClientToastNotificationsRedirect = require(RobloxGui.Modules.Flags.GetFFlagClientToastNotificationsRedirect)
+local GetFFlagClientToastNotificationsRedirect =
+	require(RobloxGui.Modules.Flags.GetFFlagClientToastNotificationsRedirect)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
@@ -596,6 +591,22 @@ local function sendNotificationInfo(notificationInfo)
 	BindableEvent_SendNotificationInfo:Fire(notificationInfo)
 end
 
+local function createNotificationButtonDetails(buttonText: string, buttonType: Enum.NotificationButtonType, callback)
+	return {
+		Text = buttonText,
+		ButtonType = buttonType,
+		OnActivated = function()
+			if callback and type(callback) ~= "function" then -- callback should be a bindable
+				pcall(function()
+					callback:Invoke(buttonText)
+				end)
+			elseif type(callback) == "function" then
+				callback(buttonText)
+			end
+		end,
+	}
+end
+
 local function onSendNotificationInfo(notificationInfo)
 	if VRService.VREnabled then
 		--If VR is enabled, notifications will be handled by Modules.VR.NotificationHub
@@ -606,51 +617,36 @@ local function onSendNotificationInfo(notificationInfo)
 	local button1Text = notificationInfo.Button1Text
 	local button2Text = notificationInfo.Button2Text
 
-    if FFlagClientToastNotificationsEnabled and GetFFlagClientToastNotificationsRedirect() then
-        local newNotificationInfo = {
+	if FFlagClientToastNotificationsEnabled and GetFFlagClientToastNotificationsRedirect() then
+		local buttons = {}
+
+		if button1Text and button1Text ~= "" then
+			table.insert(
+				buttons,
+				createNotificationButtonDetails(button1Text, Enum.NotificationButtonType.Secondary, callback)
+			)
+		end
+
+		if button2Text and button2Text ~= "" then
+			table.insert(
+				buttons,
+				createNotificationButtonDetails(button2Text, Enum.NotificationButtonType.Primary, callback)
+			)
+		end
+
+		local newNotificationInfo = {
 			Title = if notificationInfo.Autolocalize
 				then GameTranslator:TranslateGameText(CoreGui, notificationInfo.Title)
 				else notificationInfo.Title,
 			Text = if notificationInfo.AutoLocalize
 				then GameTranslator:TranslateGameText(CoreGui, notificationInfo.Text)
 				else notificationInfo.Text,
-            Icon = notificationInfo.Image,
-            Buttons = {
-                if button1Text and button1Text ~= "" then 
-                {
-                    Text = button1Text,
-                    ButtonType = Enum.NotificationButtonType.Secondary,
-                    OnActivated = function()
-                        if callback and type(callback) ~= "function" then -- callback should be a bindable
-                            pcall(function()
-                                callback:Invoke(button1Text)
-                            end)
-                        elseif type(callback) == "function" then
-                            callback(button1Text)
-                        end        
-                    end
-                }
-                else nil,
-                if button2Text and button2Text ~= "" then
-                {
-                    Text = button2Text,
-                    ButtonType = Enum.NotificationButtonType.Primary,
-                    OnActivated = function()
-                        if callback and type(callback) ~= "function" then -- callback should be a bindable
-                            pcall(function()
-                                callback:Invoke(button2Text)
-                            end)
-                        elseif type(callback) == "function" then
-                            callback(button2Text)
-                        end        
-                    end
-                }
-                else nil,
-            }
-        }
-        GuiService:SendNotification(newNotificationInfo)
-        return
-    end
+			Icon = notificationInfo.Image,
+			Buttons = buttons,
+		}
+		(GuiService :: any):SendNotification(newNotificationInfo)
+		return
+	end
 
 	local notification = {}
 	local notificationFrame
@@ -752,13 +748,13 @@ local function createDeveloperNotification(notificationTable)
 
 			local button1Text
 			local button2Text
-            if FFlagClientToastNotificationsEnabled and GetFFlagClientToastNotificationsRedirect() then
-                button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or nil)
-                button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or nil)    
-            else
-                button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or "")
-                button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or "")    
-            end
+			if FFlagClientToastNotificationsEnabled and GetFFlagClientToastNotificationsRedirect() then
+				button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or nil)
+				button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or nil)
+			else
+				button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or "")
+				button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or "")
+			end
 
 			-- AutoLocalize allows developers to disable automatic localization if they have pre-localized it. Defaults true.
 			local autoLocalize = notificationTable.AutoLocalize == nil or notificationTable.AutoLocalize == true

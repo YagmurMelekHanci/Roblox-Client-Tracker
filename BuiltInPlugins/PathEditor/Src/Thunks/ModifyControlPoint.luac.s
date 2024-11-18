@@ -44,7 +44,7 @@ PROTO_0:
   SETTABLEKS R2 R4 K10 ["Position"]
   GETIMPORT R4 K12 [game]
   LOADK R6 K13 ["PathEditorUsePerformantAPICalls"]
-  NAMECALL R4 R4 K14 ["getFastFlag"]
+  NAMECALL R4 R4 K14 ["GetFastFlag"]
   CALL R4 2 1
   JUMPIFNOT R4 [+9]
   GETTABLEKS R4 R1 K5 ["SelectedObject"]

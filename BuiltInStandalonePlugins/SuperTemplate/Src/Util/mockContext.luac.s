@@ -25,7 +25,7 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
+  GETTABLEKS R2 R3 K7 ["DeveloperFramework"]
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["TestHelpers"]
   GETTABLEKS R3 R1 K9 ["ContextServices"]

@@ -476,7 +476,7 @@ PROTO_9:
   GETTABLEKS R3 R4 K27 ["Recording"]
   CALL R2 1 0
   GETIMPORT R5 K20 [game]
-  GETTABLEKS R4 R5 K28 ["workspace"]
+  GETTABLEKS R4 R5 K28 ["Workspace"]
   GETTABLEKS R3 R4 K29 ["CurrentCamera"]
   GETTABLEKS R2 R3 K30 ["ViewportSize"]
   FASTCALL2K ASSERT R2 K31 [+5]

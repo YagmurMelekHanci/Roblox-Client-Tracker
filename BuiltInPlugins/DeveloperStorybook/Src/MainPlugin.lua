@@ -9,7 +9,7 @@ local Rodux = require(Main.Packages.Rodux)
 local MainReducer = require(Main.Src.Reducers.MainReducer)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices: any = Framework.ContextServices
 
 local UI = Framework.UI
 local DockWidget = UI.DockWidget

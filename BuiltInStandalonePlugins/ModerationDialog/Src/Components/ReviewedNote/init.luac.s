@@ -93,8 +93,7 @@ MAIN:
   GETTABLEKS R3 R2 K9 ["ContextServices"]
   GETTABLEKS R4 R3 K10 ["Localization"]
   GETTABLEKS R5 R2 K11 ["Util"]
-  GETTABLEKS R7 R2 K11 ["Util"]
-  GETTABLEKS R6 R7 K12 ["LayoutOrderIterator"]
+  GETTABLEKS R6 R5 K12 ["LayoutOrderIterator"]
   DUPCLOSURE R7 K13 [PROTO_0]
   CAPTURE VAL R4
   CAPTURE VAL R6

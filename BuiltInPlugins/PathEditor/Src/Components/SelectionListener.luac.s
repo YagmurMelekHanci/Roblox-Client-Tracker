@@ -615,7 +615,7 @@ MAIN:
   GETIMPORT R21 K12 [game]
   LOADK R23 K30 ["PathEditorFixActionBindings"]
   LOADB R24 0
-  NAMECALL R21 R21 K31 ["defineFastFlag"]
+  NAMECALL R21 R21 K31 ["DefineFastFlag"]
   CALL R21 3 1
   GETIMPORT R22 K12 [game]
   LOADK R24 K32 ["PathEditorHierarchyValidCheckFixes"]

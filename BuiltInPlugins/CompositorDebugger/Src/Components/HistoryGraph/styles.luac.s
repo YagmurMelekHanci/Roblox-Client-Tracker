@@ -228,61 +228,37 @@ MAIN:
   MOVE R12 R2
   LOADK R13 K70 [">> .GraphColor1"]
   DUPTABLE R14 K60 [{"BackgroundColor3"}]
-  GETIMPORT R15 K72 [Color3.new]
-  LOADK R16 K73 [0.75]
-  LOADN R17 0
-  LOADN R18 0
-  CALL R15 3 1
+  LOADK R15 K71 ["$HistoryLegend1"]
   SETTABLEKS R15 R14 K42 ["BackgroundColor3"]
   CALL R12 2 1
   MOVE R13 R2
-  LOADK R14 K74 [">> .GraphColor2"]
+  LOADK R14 K72 [">> .GraphColor2"]
   DUPTABLE R15 K60 [{"BackgroundColor3"}]
-  GETIMPORT R16 K72 [Color3.new]
-  LOADN R17 0
-  LOADK R18 K73 [0.75]
-  LOADN R19 0
-  CALL R16 3 1
+  LOADK R16 K73 ["$HistoryLegend2"]
   SETTABLEKS R16 R15 K42 ["BackgroundColor3"]
   CALL R13 2 1
   MOVE R14 R2
-  LOADK R15 K75 [">> .GraphColor3"]
+  LOADK R15 K74 [">> .GraphColor3"]
   DUPTABLE R16 K60 [{"BackgroundColor3"}]
-  GETIMPORT R17 K72 [Color3.new]
-  LOADN R18 0
-  LOADN R19 0
-  LOADK R20 K73 [0.75]
-  CALL R17 3 1
+  LOADK R17 K75 ["$HistoryLegend3"]
   SETTABLEKS R17 R16 K42 ["BackgroundColor3"]
   CALL R14 2 1
   MOVE R15 R2
   LOADK R16 K76 [">> .LegendColor1"]
   DUPTABLE R17 K78 [{"TextColor3"}]
-  GETIMPORT R18 K72 [Color3.new]
-  LOADK R19 K73 [0.75]
-  LOADN R20 0
-  LOADN R21 0
-  CALL R18 3 1
+  LOADK R18 K71 ["$HistoryLegend1"]
   SETTABLEKS R18 R17 K77 ["TextColor3"]
   CALL R15 2 1
   MOVE R16 R2
   LOADK R17 K79 [">> .LegendColor2"]
   DUPTABLE R18 K78 [{"TextColor3"}]
-  GETIMPORT R19 K72 [Color3.new]
-  LOADN R20 0
-  LOADK R21 K73 [0.75]
-  LOADN R22 0
-  CALL R19 3 1
+  LOADK R19 K73 ["$HistoryLegend2"]
   SETTABLEKS R19 R18 K77 ["TextColor3"]
   CALL R16 2 1
   MOVE R17 R2
   LOADK R18 K80 [">> .LegendColor3"]
   DUPTABLE R19 K78 [{"TextColor3"}]
-  GETIMPORT R20 K72 [Color3.new]
-  LOADN R21 0
-  LOADN R22 0
-  LOADK R23 K73 [0.75]
-  CALL R20 3 1
+  LOADK R20 K75 ["$HistoryLegend3"]
   SETTABLEKS R20 R19 K77 ["TextColor3"]
   CALL R17 2 -1
   SETLIST R6 R7 -1 [1]

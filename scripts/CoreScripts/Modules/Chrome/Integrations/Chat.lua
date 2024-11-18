@@ -23,6 +23,7 @@ local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperi
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local EnabledPinnedChat = require(Chrome.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
+local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -62,6 +63,11 @@ chatChromeIntegration = ChromeService:register({
 			end)
 		end
 	end,
+	isActivated = if GetFFlagAddChromeActivatedEvents()
+		then function()
+			return chatVisibilitySignal:get()
+		end
+		else nil,
 	components = {
 		Icon = function(props)
 			if

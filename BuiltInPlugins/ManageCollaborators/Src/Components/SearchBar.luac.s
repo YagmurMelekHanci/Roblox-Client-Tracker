@@ -253,7 +253,7 @@ PROTO_13:
   CALL R0 2 0
   GETIMPORT R0 K9 [game]
   LOADK R2 K10 ["StudioManageCollabFixClearDoubleClick"]
-  NAMECALL R0 R0 K11 ["getFastFlag"]
+  NAMECALL R0 R0 K11 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIFNOT R0 [+10]
   GETUPVAL R2 0
@@ -1478,7 +1478,7 @@ MAIN:
   CALL R16 2 1
   GETIMPORT R17 K25 [game]
   LOADK R19 K28 ["StudioManageCollabFixFocusError"]
-  NAMECALL R17 R17 K29 ["getFastFlag"]
+  NAMECALL R17 R17 K29 ["GetFastFlag"]
   CALL R17 2 1
   MOVE R18 R14
   LOADK R19 K30 ["Frame"]

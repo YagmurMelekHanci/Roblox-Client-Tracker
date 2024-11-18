@@ -9,6 +9,13 @@ local SocialCommon = require(CorePackages.Workspace.Packages.SocialCommon)
 local ChatEntryPointNames = SocialCommon.Enums.ChatEntryPointNames
 
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
+
+local GetFFlagFixSettingshubImportOrder = require(RobloxGui.Modules.Flags.GetFFlagFixSettingshubImportOrder)
+if GetFFlagFixSettingshubImportOrder() then
+	-- We need to ensure we don't require SettingsHub before TopBar has finished
+	-- This is due to ordering of SetGlobalGuiInset defined in TopBar
+	CoreGui:WaitForChild("TopBarApp")
+end
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)

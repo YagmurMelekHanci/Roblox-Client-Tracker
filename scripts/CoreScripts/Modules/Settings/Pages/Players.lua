@@ -137,6 +137,7 @@ local GetFFlagDefaultFriendingLabelTextNonEmpty = require(RobloxGui.Modules.Sett
 local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
 local FFlagInExperienceMenuResetButtonTextToRespawn = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuResetButtonTextToRespawn)
+local GetFFlagDisableMuteAllCheckForIsMuted = require(RobloxGui.Modules.Settings.Flags.GetFFlagDisableMuteAllCheckForIsMuted)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
@@ -1672,8 +1673,16 @@ local function Initialize()
 			if player and frame then
 				local status = VoiceChatServiceManager.participants[tostring(player.UserId)]
 				-- Check if a player is not muted to update the Mute All button.
-				if (FFlagAvatarChatCoreScriptSupport or GetFFlagEnableShowVoiceUI()) and status and (not status.isMutedLocally and not status.isMuted) then
-					allMuted = false
+				if (FFlagAvatarChatCoreScriptSupport or GetFFlagEnableShowVoiceUI()) and status then
+					if GetFFlagDisableMuteAllCheckForIsMuted() then
+						if not status.isMutedLocally then
+							allMuted = false
+						end
+					else
+						if (not status.isMutedLocally and not status.isMuted) then
+							allMuted = false
+						end
+					end
 				end
 				muteButtonUpdate(frame, status)
 			end

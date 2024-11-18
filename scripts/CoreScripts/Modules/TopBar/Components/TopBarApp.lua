@@ -53,6 +53,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagPeekUseUpdatedDesign = SharedFlags.GetFFlagPeekUseUpdatedDesign
 local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
 local GetFFlagEnableSceneAnalysisPerformanceTest = SharedFlags.GetFFlagEnableSceneAnalysisPerformanceTest
+local GetFFlagSongbirdUseReportAudioModal = SharedFlags.GetFFlagSongbirdUseReportAudioModal
 
 local Unibar
 local Peek
@@ -394,6 +395,15 @@ function TopBarApp:renderWithStyle(style)
 			Position = if GetFFlagPeekUseFixedHeight() then PeekConstants.getPeekContainerPosition(style) else topBarFramePosition,
 		}, {
 			Peek = Roact.createElement(Peek)
+		}),
+
+		SongbirdReportAudioFrame = ChromeEnabled() and GetFFlagSongbirdUseReportAudioModal() and Roact.createElement("Frame", {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			BackgroundTransparency = 1,
+			Position = UDim2.fromScale(0.5, 0.5),
+			Size = UDim2.new(1,0,0, PeekConstants.AUDIO_REPORTING_WINDOW_MIN_HEIGHT),
+		}, {
+			ReportAudioPopup = Roact.createElement(Songbird.ReportAudioPopup)
 		}),
 
 		UnibarOnboarding = if GetFFlagEnableChromeFTUX()

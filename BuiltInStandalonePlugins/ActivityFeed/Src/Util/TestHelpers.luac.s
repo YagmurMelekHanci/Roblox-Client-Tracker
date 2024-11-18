@@ -8,15 +8,15 @@ PROTO_0:
   CALL R2 -1 3
   FORGPREP_INEXT R2
   LOADK R9 K3 ["TextLabel"]
-  NAMECALL R7 R6 K4 ["isA"]
+  NAMECALL R7 R6 K4 ["IsA"]
   CALL R7 2 1
   JUMPIF R7 [+10]
   LOADK R9 K5 ["TextButton"]
-  NAMECALL R7 R6 K4 ["isA"]
+  NAMECALL R7 R6 K4 ["IsA"]
   CALL R7 2 1
   JUMPIF R7 [+5]
   LOADK R9 K6 ["TextBox"]
-  NAMECALL R7 R6 K4 ["isA"]
+  NAMECALL R7 R6 K4 ["IsA"]
   CALL R7 2 1
   JUMPIFNOT R7 [+8]
   GETIMPORT R7 K9 [string.find]

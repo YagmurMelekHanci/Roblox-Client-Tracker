@@ -53,8 +53,8 @@ MAIN:
   LOADN R6 38
   CALL R5 1 1
   GETIMPORT R6 K17 [table.freeze]
-  DUPTABLE R7 K33 [{"assetName", "creatorId", "currentPreset", "enabled", "errors", "filepath", "importDataError", "settingsChanged", "progressValue", "session", "timestamp", "uploaded", "uploadResults", "validSession", "warnings"}]
-  LOADK R8 K34 [""]
+  DUPTABLE R7 K34 [{"assetName", "creatorId", "currentPreset", "enabled", "errors", "uploadErrorsExpanded", "filepath", "importDataError", "settingsChanged", "progressValue", "session", "timestamp", "uploaded", "uploadResults", "validSession", "warnings"}]
+  LOADK R8 K35 [""]
   SETTABLEKS R8 R7 K18 ["assetName"]
   LOADN R8 255
   SETTABLEKS R8 R7 K19 ["creatorId"]
@@ -63,35 +63,37 @@ MAIN:
   SETTABLEKS R8 R7 K21 ["enabled"]
   LOADN R8 0
   SETTABLEKS R8 R7 K22 ["errors"]
-  LOADK R8 K34 [""]
-  SETTABLEKS R8 R7 K23 ["filepath"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K23 ["uploadErrorsExpanded"]
+  LOADK R8 K35 [""]
+  SETTABLEKS R8 R7 K24 ["filepath"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K24 ["importDataError"]
+  SETTABLEKS R8 R7 K25 ["importDataError"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K25 ["settingsChanged"]
+  SETTABLEKS R8 R7 K26 ["settingsChanged"]
   LOADN R8 0
-  SETTABLEKS R8 R7 K26 ["progressValue"]
+  SETTABLEKS R8 R7 K27 ["progressValue"]
   LOADNIL R8
-  SETTABLEKS R8 R7 K27 ["session"]
-  GETIMPORT R8 K37 [DateTime.now]
+  SETTABLEKS R8 R7 K28 ["session"]
+  GETIMPORT R8 K38 [DateTime.now]
   CALL R8 0 1
-  SETTABLEKS R8 R7 K28 ["timestamp"]
+  SETTABLEKS R8 R7 K29 ["timestamp"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K29 ["uploaded"]
-  SETTABLEKS R3 R7 K30 ["uploadResults"]
+  SETTABLEKS R8 R7 K30 ["uploaded"]
+  SETTABLEKS R3 R7 K31 ["uploadResults"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K31 ["validSession"]
+  SETTABLEKS R8 R7 K32 ["validSession"]
   LOADN R8 0
-  SETTABLEKS R8 R7 K32 ["warnings"]
+  SETTABLEKS R8 R7 K33 ["warnings"]
   CALL R6 1 1
   NEWTABLE R7 4 0
-  DUPCLOSURE R8 K38 [PROTO_0]
+  DUPCLOSURE R8 K39 [PROTO_0]
   CAPTURE VAL R6
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K39 ["new"]
-  DUPCLOSURE R8 K40 [PROTO_1]
+  SETTABLEKS R8 R7 K40 ["new"]
+  DUPCLOSURE R8 K41 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K41 ["update"]
-  DUPCLOSURE R8 K42 [PROTO_2]
-  SETTABLEKS R8 R7 K43 ["compare"]
+  SETTABLEKS R8 R7 K42 ["update"]
+  DUPCLOSURE R8 K43 [PROTO_2]
+  SETTABLEKS R8 R7 K44 ["compare"]
   RETURN R7 1

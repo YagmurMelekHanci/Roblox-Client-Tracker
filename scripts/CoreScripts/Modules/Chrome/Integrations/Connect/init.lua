@@ -16,6 +16,7 @@ local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
 	require(Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
 
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local Symbol = require(CorePackages.Symbol)
@@ -24,8 +25,13 @@ local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExp
 local FFlagAppChatInExpForceCursor = game:DefineFastFlag("AppChatInExpForceCursor", false)
 -- "Connect" icon and option are used to open AppChat (InExperienceAppChat)
 -- It will also serve as an entry point for Party
+
 local integration = nil
-if GetFFlagEnableAppChatInExperience() and InExperienceAppChatExperimentation.getShowPlatformChatInChrome() then
+if
+	GetFFlagEnableAppChatInExperience()
+	and InExperienceAppChatExperimentation.getShowPlatformChatInChrome()
+	and GetShouldShowPlatformChatBasedOnPolicy()
+then
 	integration = ChromeService:register({
 		id = "connect",
 		label = "Feature.Chat.Label.Connect", -- intentially not translated

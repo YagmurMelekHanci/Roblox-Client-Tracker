@@ -69,7 +69,7 @@ MAIN:
   MOVE R9 R2
   LOADK R10 K29 ["> #Canvas"]
   NEWTABLE R11 0 0
-  NEWTABLE R12 0 7
+  NEWTABLE R12 0 8
   MOVE R13 R2
   LOADK R14 K30 ["> #Grid"]
   DUPTABLE R15 K32 [{"ClipsDescendants", "Size"}]
@@ -130,37 +130,47 @@ MAIN:
   CALL R15 2 1
   MOVE R16 R2
   LOADK R17 K46 ["> .Cursor"]
-  DUPTABLE R18 K47 [{"Image"}]
+  DUPTABLE R18 K47 [{"Image", "ImageColor3"}]
   LOADK R19 K48 ["rbxasset://textures/CompositorDebugger/cursor.png"]
   SETTABLEKS R19 R18 K36 ["Image"]
+  LOADK R19 K49 ["$Blue60"]
+  SETTABLEKS R19 R18 K37 ["ImageColor3"]
   CALL R16 2 1
   MOVE R17 R2
-  LOADK R18 K49 ["> .Override"]
-  DUPTABLE R19 K50 [{"ImageColor3"}]
-  LOADK R20 K51 ["$TextError"]
-  SETTABLEKS R20 R19 K37 ["ImageColor3"]
+  LOADK R18 K50 [">> .Trail"]
+  DUPTABLE R19 K52 [{"BackgroundColor3", "Width"}]
+  LOADK R20 K49 ["$Blue60"]
+  SETTABLEKS R20 R19 K12 ["BackgroundColor3"]
+  LOADN R20 2
+  SETTABLEKS R20 R19 K51 ["Width"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K52 [">> .Axis"]
-  DUPTABLE R20 K53 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R21 K20 ["$TextPrimary"]
-  SETTABLEKS R21 R20 K12 ["BackgroundColor3"]
-  LOADN R21 0
-  SETTABLEKS R21 R20 K13 ["BackgroundTransparency"]
+  LOADK R19 K53 ["> .Override"]
+  DUPTABLE R20 K54 [{"ImageColor3"}]
+  LOADK R21 K55 ["$TextError"]
+  SETTABLEKS R21 R20 K37 ["ImageColor3"]
   CALL R18 2 1
   MOVE R19 R2
-  LOADK R20 K54 [">> .Grid"]
-  DUPTABLE R21 K53 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R22 K55 ["$TextDisabled"]
+  LOADK R20 K56 [">> .Axis"]
+  DUPTABLE R21 K57 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R22 K20 ["$TextPrimary"]
   SETTABLEKS R22 R21 K12 ["BackgroundColor3"]
   LOADN R22 0
   SETTABLEKS R22 R21 K13 ["BackgroundTransparency"]
-  CALL R19 2 -1
+  CALL R19 2 1
+  MOVE R20 R2
+  LOADK R21 K58 [">> .Grid"]
+  DUPTABLE R22 K57 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R23 K59 ["$TextDisabled"]
+  SETTABLEKS R23 R22 K12 ["BackgroundColor3"]
+  LOADN R23 0
+  SETTABLEKS R23 R22 K13 ["BackgroundTransparency"]
+  CALL R20 2 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K57 [{"DotSize"}]
+  DUPTABLE R7 K61 [{"DotSize"}]
   LOADN R8 9
-  SETTABLEKS R8 R7 K56 ["DotSize"]
+  SETTABLEKS R8 R7 K60 ["DotSize"]
   CALL R3 4 -1
   RETURN R3 -1

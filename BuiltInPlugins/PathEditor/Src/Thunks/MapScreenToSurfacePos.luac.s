@@ -10,7 +10,7 @@ PROTO_0:
   RETURN R2 1
   GETTABLEKS R2 R1 K3 ["SelectedObjectGui"]
   LOADK R4 K4 ["SurfaceGui"]
-  NAMECALL R2 R2 K5 ["isA"]
+  NAMECALL R2 R2 K5 ["IsA"]
   CALL R2 2 1
   JUMPIF R2 [+2]
   GETUPVAL R2 0

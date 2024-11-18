@@ -1120,7 +1120,7 @@ MAIN:
   GETTABLEKS R23 R24 K35 ["Name"]
   GETIMPORT R24 K16 [game]
   LOADK R26 K36 ["PolicyLink"]
-  LOADK R27 K37 ["https://create.roblox.com/docs/reference/engine/classes/EditableMesh"]
+  LOADK R27 K37 ["https://help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use#creators-restrictions-on-use"]
   NAMECALL R24 R24 K38 ["DefineFastString"]
   CALL R24 3 1
   GETIMPORT R25 K16 [game]

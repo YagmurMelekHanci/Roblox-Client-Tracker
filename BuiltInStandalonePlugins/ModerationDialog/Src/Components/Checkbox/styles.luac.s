@@ -32,9 +32,9 @@ MAIN:
   DUPTABLE R10 K27 [{"Size", "BackgroundTransparency"}]
   GETIMPORT R11 K29 [UDim2.new]
   LOADN R12 0
-  LOADN R13 16
+  LOADN R13 18
   LOADN R14 0
-  LOADN R15 16
+  LOADN R15 18
   CALL R11 4 1
   SETTABLEKS R11 R10 K25 ["Size"]
   LOADN R11 1
@@ -56,17 +56,19 @@ MAIN:
   CALL R10 2 1
   MOVE R11 R2
   LOADK R12 K39 [">> TextButton"]
-  DUPTABLE R13 K45 [{"Font", "TextColor3", "TextSize", "TextWrapped", "TextXAlignment", "BackgroundTransparency"}]
-  GETIMPORT R14 K47 [Enum.Font.SourceSans]
+  DUPTABLE R13 K46 [{"Font", "TextColor3", "TextSize", "TextWrapped", "RichText", "TextXAlignment", "BackgroundTransparency"}]
+  GETIMPORT R14 K48 [Enum.Font.SourceSans]
   SETTABLEKS R14 R13 K40 ["Font"]
-  LOADK R14 K48 ["$TextPrimary"]
+  LOADK R14 K49 ["$TextPrimary"]
   SETTABLEKS R14 R13 K41 ["TextColor3"]
   LOADN R14 16
   SETTABLEKS R14 R13 K42 ["TextSize"]
   LOADB R14 1
   SETTABLEKS R14 R13 K43 ["TextWrapped"]
-  GETIMPORT R14 K50 [Enum.TextXAlignment.Left]
-  SETTABLEKS R14 R13 K44 ["TextXAlignment"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K44 ["RichText"]
+  GETIMPORT R14 K51 [Enum.TextXAlignment.Left]
+  SETTABLEKS R14 R13 K45 ["TextXAlignment"]
   LOADN R14 1
   SETTABLEKS R14 R13 K26 ["BackgroundTransparency"]
   CALL R11 2 -1

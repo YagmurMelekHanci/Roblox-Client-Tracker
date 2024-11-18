@@ -13,7 +13,6 @@ local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
 local FFlagFixProximityPromptAncestry = require(RobloxGui.Modules.Flags.FFlagFixProximityPromptAncestry)
-local FFlagFixProximityPromptAutoLocalize = game:DefineFastFlag("FixProximityPromptAutoLocalize", false)
 local FFlagFixProximityPromptOffsetPop = game:DefineFastFlag("FixProximityPromptOffsetPop", false)
 
 local LocalPlayer = Players.LocalPlayer
@@ -357,9 +356,7 @@ local function createPrompt(prompt, inputType, gui)
 		elseif buttonTextString ~= nil and buttonTextString ~= '' then
 			local buttonText = Instance.new("TextLabel")
 			buttonText.Name = "ButtonText"
-			if FFlagFixProximityPromptAutoLocalize then
-				buttonText.AutoLocalize = false
-			end
+			buttonText.AutoLocalize = false
 			buttonText.Position = UDim2.fromOffset(0, -1)
 			buttonText.Size = UDim2.fromScale(1, 1)
 			buttonText.Font = AppFonts.default:getMedium()

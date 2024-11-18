@@ -181,7 +181,7 @@ MAIN:
   GETTABLEKS R7 R4 K12 ["StyledDialog"]
   GETIMPORT R8 K14 [game]
   LOADK R10 K15 ["UserInputPlaybackPluginChooseRecordingNamePopUpFixStyle"]
-  NAMECALL R8 R8 K16 ["getFastFlag"]
+  NAMECALL R8 R8 K16 ["GetFastFlag"]
   CALL R8 2 1
   GETTABLEKS R9 R1 K17 ["PureComponent"]
   LOADK R11 K18 ["ChooseRecordingNamePopUp"]

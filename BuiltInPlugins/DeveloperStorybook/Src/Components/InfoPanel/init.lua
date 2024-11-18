@@ -9,7 +9,7 @@ local ReactIs = require(Main.Packages.ReactIs)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices: any = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Dash = Framework.Dash

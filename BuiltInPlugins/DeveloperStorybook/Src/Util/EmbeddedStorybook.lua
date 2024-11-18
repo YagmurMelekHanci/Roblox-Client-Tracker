@@ -10,7 +10,7 @@ local Rodux = require(Packages.Rodux)
 local Framework = require(Packages.Framework)
 local SplitPane = Framework.UI.SplitPane
 
-local ContextServices = Framework.ContextServices
+local ContextServices: any = Framework.ContextServices
 local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
 local Analytics = ContextServices.Analytics
 local Focus = ContextServices.Focus

@@ -54,7 +54,7 @@ PROTO_4:
 
 PROTO_5:
   GETTABLEKS R2 R0 K0 ["__networking"]
-  LOADK R5 K1 ["gameinternationalization"]
+  LOADK R5 K1 ["localizationtables"]
   LOADK R7 K2 ["/v1/autolocalization/games/"]
   MOVE R8 R1
   LOADK R9 K3 ["/autolocalizationtable"]
@@ -67,6 +67,20 @@ PROTO_5:
   RETURN R3 -1
 
 PROTO_6:
+  GETTABLEKS R2 R0 K0 ["__networking"]
+  LOADK R5 K1 ["gameinternationalization"]
+  LOADK R7 K2 ["/v1/autolocalization/games/"]
+  MOVE R8 R1
+  LOADK R9 K3 ["/autolocalizationtable"]
+  CONCAT R6 R7 R9
+  DUPTABLE R7 K5 [{"Body"}]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K4 ["Body"]
+  NAMECALL R3 R2 K6 ["post"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_7:
   GETTABLEKS R4 R0 K0 ["__networking"]
   LOADK R7 K1 ["gameinternationalization"]
   LOADK R9 K2 ["/v1/autolocalization/games/"]
@@ -82,7 +96,24 @@ PROTO_6:
   CALL R5 4 -1
   RETURN R5 -1
 
-PROTO_7:
+PROTO_8:
+  GETTABLEKS R5 R0 K0 ["__networking"]
+  LOADK R8 K1 ["localizationtables"]
+  LOADK R10 K2 ["/v1/autolocalization/games/"]
+  MOVE R11 R1
+  LOADK R12 K3 ["/settings"]
+  CONCAT R9 R10 R12
+  DUPTABLE R10 K5 [{"Body"}]
+  DUPTABLE R11 K9 [{"shouldUseLocalizationTable", "isAutomaticEntriesSettingEnabled", "isAutomaticEntriesDeletionsEnabled"}]
+  SETTABLEKS R4 R11 K6 ["shouldUseLocalizationTable"]
+  SETTABLEKS R2 R11 K7 ["isAutomaticEntriesSettingEnabled"]
+  SETTABLEKS R3 R11 K8 ["isAutomaticEntriesDeletionsEnabled"]
+  SETTABLEKS R11 R10 K4 ["Body"]
+  NAMECALL R6 R5 K10 ["patch"]
+  CALL R6 4 -1
+  RETURN R6 -1
+
+PROTO_9:
   GETTABLEKS R2 R0 K0 ["__networking"]
   LOADK R5 K1 ["gameinternationalization"]
   LOADK R7 K2 ["/v1/automatic-translation/games/"]
@@ -93,7 +124,7 @@ PROTO_7:
   CALL R3 3 -1
   RETURN R3 -1
 
-PROTO_8:
+PROTO_10:
   GETTABLEKS R2 R0 K0 ["__networking"]
   LOADK R5 K1 ["gameinternationalization"]
   LOADK R7 K2 ["/v1/automatic-translation/languages/"]
@@ -104,7 +135,7 @@ PROTO_8:
   CALL R3 3 -1
   RETURN R3 -1
 
-PROTO_9:
+PROTO_11:
   GETTABLEKS R2 R0 K0 ["__networking"]
   LOADK R5 K1 ["gameinternationalization"]
   LOADK R7 K2 ["/v1/supported-languages/games/"]
@@ -115,7 +146,7 @@ PROTO_9:
   CALL R3 3 -1
   RETURN R3 -1
 
-PROTO_10:
+PROTO_12:
   GETTABLEKS R3 R0 K0 ["__networking"]
   LOADK R6 K1 ["gameinternationalization"]
   LOADK R8 K2 ["/v1/supported-languages/games/"]
@@ -127,7 +158,7 @@ PROTO_10:
   CALL R4 4 -1
   RETURN R4 -1
 
-PROTO_11:
+PROTO_13:
   GETTABLEKS R3 R0 K0 ["__networking"]
   NEWTABLE R4 0 0
   GETIMPORT R5 K2 [pairs]
@@ -153,7 +184,7 @@ PROTO_11:
   FORGLOOP R5 2 [-21]
   RETURN R4 1
 
-PROTO_12:
+PROTO_14:
   NAMECALL R1 R0 K0 ["localeSupportedLocalesGET"]
   CALL R1 1 1
   NAMECALL R1 R1 K1 ["await"]
@@ -172,7 +203,7 @@ PROTO_12:
   FORGLOOP R4 2 [-10]
   RETURN R2 1
 
-PROTO_13:
+PROTO_15:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["localeLocalesGET"]
   CALL R2 2 1
@@ -196,7 +227,7 @@ PROTO_13:
   FORGLOOP R4 2 [-17]
   RETURN R3 1
 
-PROTO_14:
+PROTO_16:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["gameinternationalizationSourceLanguageGamesGET"]
   CALL R2 2 1
@@ -206,7 +237,7 @@ PROTO_14:
   GETTABLEKS R3 R4 K3 ["languageCode"]
   RETURN R3 1
 
-PROTO_15:
+PROTO_17:
   MOVE R5 R1
   MOVE R6 R2
   NAMECALL R3 R0 K0 ["gameinternationalizationSourceLanguageGamesPATCH"]
@@ -215,7 +246,19 @@ PROTO_15:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_18:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["localizationtablesAutoLocalizationGamesAutoLocalizationTablePOST"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K1 ["await"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K2 ["responseBody"]
+  GETTABLEKS R4 R3 K3 ["isAutomaticEntriesSettingEnabled"]
+  GETTABLEKS R5 R3 K4 ["isAutomaticEntriesDeletionEnabled"]
+  GETTABLEKS R6 R3 K5 ["shouldUseLocalizationTable"]
+  RETURN R4 3
+
+PROTO_19:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["gameinternationalizationAutoLocalizationGamesAutoLocalizationTablePOST"]
   CALL R2 2 1
@@ -226,7 +269,18 @@ PROTO_16:
   GETTABLEKS R5 R3 K4 ["shouldUseLocalizationTable"]
   RETURN R4 2
 
-PROTO_17:
+PROTO_20:
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  MOVE R10 R4
+  NAMECALL R5 R0 K0 ["localizationtablesAutoLocalizationGamesSettingsPATCH"]
+  CALL R5 5 1
+  NAMECALL R5 R5 K1 ["await"]
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_21:
   MOVE R6 R1
   MOVE R7 R2
   MOVE R8 R3
@@ -236,7 +290,7 @@ PROTO_17:
   CALL R4 1 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_22:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["gameinternationalizationAutomaticTranslationGamesFeatureStatusGET"]
   CALL R2 2 1
@@ -246,7 +300,7 @@ PROTO_18:
   GETTABLEKS R3 R4 K3 ["isAutomaticTranslationAllowed"]
   RETURN R3 1
 
-PROTO_19:
+PROTO_23:
   JUMPIF R1 [+3]
   NEWTABLE R2 0 0
   RETURN R2 1
@@ -267,7 +321,7 @@ PROTO_19:
   FORGLOOP R4 2 [-6]
   RETURN R3 1
 
-PROTO_20:
+PROTO_24:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["gameinternationalizationSupportedLanguagesGamesAutomaticTranslationStatusGET"]
   CALL R2 2 1
@@ -285,7 +339,7 @@ PROTO_20:
   FORGLOOP R4 2 [-6]
   RETURN R3 1
 
-PROTO_21:
+PROTO_25:
   NEWTABLE R3 0 0
   GETIMPORT R4 K1 [pairs]
   MOVE R5 R2
@@ -348,38 +402,46 @@ MAIN:
   DUPCLOSURE R3 K18 [PROTO_4]
   SETTABLEKS R3 R2 K19 ["gameinternationalizationSourceLanguageGamesPATCH"]
   DUPCLOSURE R3 K20 [PROTO_5]
-  SETTABLEKS R3 R2 K21 ["gameinternationalizationAutoLocalizationGamesAutoLocalizationTablePOST"]
+  SETTABLEKS R3 R2 K21 ["localizationtablesAutoLocalizationGamesAutoLocalizationTablePOST"]
   DUPCLOSURE R3 K22 [PROTO_6]
-  SETTABLEKS R3 R2 K23 ["gameinternationalizationAutoLocalizationGamesSettingsPATCH"]
+  SETTABLEKS R3 R2 K23 ["gameinternationalizationAutoLocalizationGamesAutoLocalizationTablePOST"]
   DUPCLOSURE R3 K24 [PROTO_7]
-  SETTABLEKS R3 R2 K25 ["gameinternationalizationAutomaticTranslationGamesFeatureStatusGET"]
+  SETTABLEKS R3 R2 K25 ["gameinternationalizationAutoLocalizationGamesSettingsPATCH"]
   DUPCLOSURE R3 K26 [PROTO_8]
-  SETTABLEKS R3 R2 K27 ["gameinternationalizationAutomaticTranslationLanguagesTargetLanguagesGET"]
+  SETTABLEKS R3 R2 K27 ["localizationtablesAutoLocalizationGamesSettingsPATCH"]
   DUPCLOSURE R3 K28 [PROTO_9]
-  SETTABLEKS R3 R2 K29 ["gameinternationalizationSupportedLanguagesGamesAutomaticTranslationStatusGET"]
+  SETTABLEKS R3 R2 K29 ["gameinternationalizationAutomaticTranslationGamesFeatureStatusGET"]
   DUPCLOSURE R3 K30 [PROTO_10]
-  SETTABLEKS R3 R2 K31 ["gameinternationalizationSupportedLanguagesGamesPATCH"]
+  SETTABLEKS R3 R2 K31 ["gameinternationalizationAutomaticTranslationLanguagesTargetLanguagesGET"]
   DUPCLOSURE R3 K32 [PROTO_11]
-  SETTABLEKS R3 R2 K33 ["gameinternationalizationSupportedLanguagesGamesLanguagesAutomaticTranslationStatusPATCH"]
+  SETTABLEKS R3 R2 K33 ["gameinternationalizationSupportedLanguagesGamesAutomaticTranslationStatusGET"]
   DUPCLOSURE R3 K34 [PROTO_12]
-  SETTABLEKS R3 R2 K35 ["getSupportedLanguages"]
+  SETTABLEKS R3 R2 K35 ["gameinternationalizationSupportedLanguagesGamesPATCH"]
   DUPCLOSURE R3 K36 [PROTO_13]
-  SETTABLEKS R3 R2 K37 ["getLanguageCodeToNames"]
+  SETTABLEKS R3 R2 K37 ["gameinternationalizationSupportedLanguagesGamesLanguagesAutomaticTranslationStatusPATCH"]
   DUPCLOSURE R3 K38 [PROTO_14]
-  SETTABLEKS R3 R2 K39 ["getSourceLanguage"]
+  SETTABLEKS R3 R2 K39 ["getSupportedLanguages"]
   DUPCLOSURE R3 K40 [PROTO_15]
-  SETTABLEKS R3 R2 K41 ["setSourceLanguage"]
+  SETTABLEKS R3 R2 K41 ["getLanguageCodeToNames"]
   DUPCLOSURE R3 K42 [PROTO_16]
-  SETTABLEKS R3 R2 K43 ["getAutoLocalizationSettings"]
+  SETTABLEKS R3 R2 K43 ["getSourceLanguage"]
   DUPCLOSURE R3 K44 [PROTO_17]
-  SETTABLEKS R3 R2 K45 ["setAutoLocalizationSettings"]
+  SETTABLEKS R3 R2 K45 ["setSourceLanguage"]
   DUPCLOSURE R3 K46 [PROTO_18]
-  SETTABLEKS R3 R2 K47 ["getAutoTranslationFeatureStatus"]
+  SETTABLEKS R3 R2 K47 ["getAutoLocalizationSettings"]
   DUPCLOSURE R3 K48 [PROTO_19]
-  SETTABLEKS R3 R2 K49 ["getAutoTranslationTargetLanguages"]
+  SETTABLEKS R3 R2 K49 ["getAutoLocalizationSettings_Deprecated"]
   DUPCLOSURE R3 K50 [PROTO_20]
-  SETTABLEKS R3 R2 K51 ["getAutoTranslationSetings"]
+  SETTABLEKS R3 R2 K51 ["setAutoLocalizationSettings"]
   DUPCLOSURE R3 K52 [PROTO_21]
+  SETTABLEKS R3 R2 K53 ["setAutoLocalizationSettings_Deprecated"]
+  DUPCLOSURE R3 K54 [PROTO_22]
+  SETTABLEKS R3 R2 K55 ["getAutoTranslationFeatureStatus"]
+  DUPCLOSURE R3 K56 [PROTO_23]
+  SETTABLEKS R3 R2 K57 ["getAutoTranslationTargetLanguages"]
+  DUPCLOSURE R3 K58 [PROTO_24]
+  SETTABLEKS R3 R2 K59 ["getAutoTranslationSetings"]
+  DUPCLOSURE R3 K60 [PROTO_25]
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K53 ["setAutoTranslationSetings"]
+  SETTABLEKS R3 R2 K61 ["setAutoTranslationSetings"]
   RETURN R2 1

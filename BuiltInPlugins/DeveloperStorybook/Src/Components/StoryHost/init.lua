@@ -17,7 +17,7 @@ local Types = require(Main.Src.Types)
 local React = require(Main.Packages.React)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices: any = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UI = Framework.UI
 local TextLabel = UI.TextLabel

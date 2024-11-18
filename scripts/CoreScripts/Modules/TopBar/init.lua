@@ -19,6 +19,7 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local StyleConstants = UIBlox.App.Style.Constants
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
+local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -28,6 +29,7 @@ local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
 local GetFFlagMountSceneAnalysisProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagMountSceneAnalysisProvider
+local GetFFlagSongbirdUseReportAudioModal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdUseReportAudioModal
 
 if ChromeEnabled and not TenFootInterface:IsEnabled() then
 	-- set this prior to TopBarApp require
@@ -181,6 +183,10 @@ function TopBar.new()
 
 	if GetFFlagMountSceneAnalysisProvider() then
 		self.root = Roact.createElement(ReactSceneUnderstanding.SceneAnalysisProvider, nil, self.root)
+	end
+
+	if GetFFlagSongbirdUseReportAudioModal() then
+		self.root = Roact.createElement(Songbird.ReportAudioPopupContext.Provider, nil, self.root)
 	end
 
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")

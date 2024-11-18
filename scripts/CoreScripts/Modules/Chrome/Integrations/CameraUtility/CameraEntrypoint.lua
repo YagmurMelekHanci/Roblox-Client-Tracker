@@ -17,6 +17,7 @@ local GetFFlagEnableScreenshotUtility =
 local GetFFlagEnableToggleCaptureIntegration =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableToggleCaptureIntegration
 local GetFFlagFixCapturesAvailability = require(Chrome.Flags.GetFFlagFixCapturesAvailability)
+local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 
 local initialAvailability = ChromeService.AvailabilitySignal.Available
 if GetFFlagChromeCapturesToggle() then
@@ -48,6 +49,11 @@ local cameraEntrypointIntegration = GetFFlagEnableScreenshotUtility()
 					ChromeService:toggleCompactUtility("camera_utility")
 				end
 			end,
+			isActivated = if GetFFlagAddChromeActivatedEvents()
+				then function()
+					return isActive:get()
+				end
+				else nil,
 			components = {
 				Icon = function(props)
 					if GetFFlagEnableToggleCaptureIntegration() then

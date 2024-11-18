@@ -83,7 +83,7 @@ MAIN:
   CALL R0 1 0
   GETIMPORT R0 K8 [game]
   LOADK R2 K9 ["COLLAB6856FixAHPublish"]
-  NAMECALL R0 R0 K10 ["getFastFlag"]
+  NAMECALL R0 R0 K10 ["GetFastFlag"]
   CALL R0 2 1
   GETIMPORT R1 K8 [game]
   LOADK R3 K11 ["RunService"]

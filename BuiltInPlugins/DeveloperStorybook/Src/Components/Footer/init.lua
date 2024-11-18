@@ -8,7 +8,7 @@ local React = require(Main.Packages.React)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices = Framework.ContextServices
+local ContextServices: any = Framework.ContextServices
 local withContext = ContextServices.withContext
 local InspectorContext = require(Main.Src.Util.InspectorContext)
 

@@ -2328,40 +2328,54 @@ PROTO_109:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["constructAssetBatchGrantPermissionsUrl"]
   CALL R3 0 1
-  GETTABLEKS R4 R0 K1 ["_networkImp"]
-  DUPTABLE R6 K6 [{"subjectType", "subjectId", "action", "assetIds"}]
-  LOADK R7 K7 ["Universe"]
-  SETTABLEKS R7 R6 K2 ["subjectType"]
+  NEWTABLE R4 0 0
+  GETIMPORT R5 K2 [ipairs]
+  MOVE R6 R1
+  CALL R5 1 3
+  FORGPREP_INEXT R5
+  DUPTABLE R12 K5 [{"assetId", "grantToDependencies"}]
+  SETTABLEKS R9 R12 K3 ["assetId"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K4 ["grantToDependencies"]
+  FASTCALL2 TABLE_INSERT R4 R12 [+4]
+  MOVE R11 R4
+  GETIMPORT R10 K8 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R5 2 [inext] [-13]
+  GETTABLEKS R5 R0 K9 ["_networkImp"]
+  DUPTABLE R7 K14 [{"subjectType", "subjectId", "action", "requests"}]
+  LOADK R8 K15 ["Universe"]
+  SETTABLEKS R8 R7 K10 ["subjectType"]
   FASTCALL1 TOSTRING R2 [+3]
-  MOVE R8 R2
-  GETIMPORT R7 K9 [tostring]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K3 ["subjectId"]
-  LOADK R7 K10 ["Use"]
-  SETTABLEKS R7 R6 K4 ["action"]
-  SETTABLEKS R1 R6 K5 ["assetIds"]
-  NAMECALL R4 R4 K11 ["jsonEncode"]
-  CALL R4 2 1
-  GETUPVAL R5 1
-  LOADK R6 K12 ["batchGrantAssetPermissions"]
-  LOADK R7 K13 ["PATCH"]
-  MOVE R8 R3
-  MOVE R9 R4
-  CALL R5 4 0
-  GETTABLEKS R5 R0 K1 ["_networkImp"]
-  MOVE R7 R3
-  MOVE R8 R4
-  NAMECALL R5 R5 K14 ["httpPatch"]
-  CALL R5 3 1
-  NEWCLOSURE R7 P0
-  CAPTURE VAL R0
-  NAMECALL R5 R5 K15 ["andThen"]
+  MOVE R9 R2
+  GETIMPORT R8 K17 [tostring]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K11 ["subjectId"]
+  LOADK R8 K18 ["Use"]
+  SETTABLEKS R8 R7 K12 ["action"]
+  SETTABLEKS R4 R7 K13 ["requests"]
+  NAMECALL R5 R5 K19 ["jsonEncode"]
   CALL R5 2 1
-  DUPCLOSURE R7 K16 [PROTO_108]
+  GETUPVAL R6 1
+  LOADK R7 K20 ["batchGrantAssetPermissions"]
+  LOADK R8 K21 ["PATCH"]
+  MOVE R9 R3
+  MOVE R10 R5
+  CALL R6 4 0
+  GETTABLEKS R6 R0 K9 ["_networkImp"]
+  MOVE R8 R3
+  MOVE R9 R5
+  NAMECALL R6 R6 K22 ["httpPatch"]
+  CALL R6 3 1
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  NAMECALL R6 R6 K23 ["andThen"]
+  CALL R6 2 1
+  DUPCLOSURE R8 K24 [PROTO_108]
   CAPTURE UPVAL U2
-  NAMECALL R5 R5 K17 ["catch"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  NAMECALL R6 R6 K25 ["catch"]
+  CALL R6 2 -1
+  RETURN R6 -1
 
 PROTO_110:
   GETUPVAL R4 0

@@ -1,8 +1,14 @@
 PROTO_0:
+  JUMPIFNOTEQKNIL R1 [+7]
+  LOADK R4 K0 ["AbuseType"]
+  LOADK R5 K1 ["Other"]
+  NAMECALL R2 R0 K2 ["getText"]
+  CALL R2 3 -1
+  RETURN R2 -1
   LOADK R4 K0 ["AbuseType"]
   GETUPVAL R6 0
   GETTABLE R5 R6 R1
-  NAMECALL R2 R0 K1 ["getText"]
+  NAMECALL R2 R0 K2 ["getText"]
   CALL R2 3 -1
   RETURN R2 -1
 

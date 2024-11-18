@@ -11,16 +11,12 @@ local ContainerSlotSignal = require(Chrome.Service.ContainerSlotSignal)
 local Constants = require(Chrome.Integrations.MusicUtility.Constants)
 local shouldUseSmallPeek = require(Chrome.Integrations.MusicUtility.shouldUseSmallPeek)
 
-local GetFFlagPeekSizeConstraints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekSizeConstraints
-
 return ChromeService:register({
 	id = "peek_track_details",
 	label = "CoreScripts.TopBar.NowPlaying",
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	containerWidthSlots = ContainerSlotSignal.new(
-		if GetFFlagPeekSizeConstraints()
-			then if shouldUseSmallPeek() then Constants.MIN_TRACK_DETAILS_WIDTH else Constants.MAX_TRACK_DETAILS_WIDTH
-			else 6
+		if shouldUseSmallPeek() then Constants.MIN_TRACK_DETAILS_WIDTH else Constants.MAX_TRACK_DETAILS_WIDTH
 	),
 	components = {
 		Container = function()

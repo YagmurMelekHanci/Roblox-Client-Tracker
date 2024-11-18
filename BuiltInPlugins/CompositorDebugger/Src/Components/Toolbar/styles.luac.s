@@ -112,7 +112,7 @@ MAIN:
   SETTABLEKS R22 R21 K50 ["TextXAlignment"]
   GETIMPORT R22 K58 [Enum.TextYAlignment.Top]
   SETTABLEKS R22 R21 K51 ["TextYAlignment"]
-  LOADK R22 K48 ["$TextDisabled"]
+  LOADK R22 K26 ["$TextPrimary"]
   SETTABLEKS R22 R21 K20 ["TextColor3"]
   LOADN R22 14
   SETTABLEKS R22 R21 K52 ["TextSize"]
@@ -157,7 +157,7 @@ MAIN:
   SETTABLEKS R23 R22 K50 ["TextXAlignment"]
   GETIMPORT R23 K58 [Enum.TextYAlignment.Top]
   SETTABLEKS R23 R22 K51 ["TextYAlignment"]
-  LOADK R23 K48 ["$TextDisabled"]
+  LOADK R23 K26 ["$TextPrimary"]
   SETTABLEKS R23 R22 K20 ["TextColor3"]
   LOADN R23 14
   SETTABLEKS R23 R22 K52 ["TextSize"]
@@ -202,7 +202,7 @@ MAIN:
   SETTABLEKS R24 R23 K50 ["TextXAlignment"]
   GETIMPORT R24 K58 [Enum.TextYAlignment.Top]
   SETTABLEKS R24 R23 K51 ["TextYAlignment"]
-  LOADK R24 K48 ["$TextDisabled"]
+  LOADK R24 K26 ["$TextPrimary"]
   SETTABLEKS R24 R23 K20 ["TextColor3"]
   LOADN R24 14
   SETTABLEKS R24 R23 K52 ["TextSize"]
@@ -266,7 +266,7 @@ MAIN:
   MOVE R19 R2
   LOADK R20 K70 ["> #BufferBar"]
   DUPTABLE R21 K71 [{"BackgroundColor3", "BackgroundTransparency", "AnchorPoint", "Position"}]
-  LOADK R22 K29 ["$PrimaryHoverBackground"]
+  LOADK R22 K72 ["$Blue60"]
   SETTABLEKS R22 R21 K17 ["BackgroundColor3"]
   LOADK R22 K37 [0.5]
   SETTABLEKS R22 R21 K18 ["BackgroundTransparency"]
@@ -282,14 +282,14 @@ MAIN:
   SETTABLEKS R22 R21 K31 ["Position"]
   CALL R19 2 1
   MOVE R20 R2
-  LOADK R21 K72 [">> .Scrubber"]
-  DUPTABLE R22 K73 [{"AnchorPoint", "BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R21 K73 [">> .Scrubber"]
+  DUPTABLE R22 K74 [{"AnchorPoint", "BackgroundColor3", "BackgroundTransparency"}]
   GETIMPORT R23 K40 [Vector2.new]
   LOADK R24 K37 [0.5]
   LOADN R25 0
   CALL R23 2 1
   SETTABLEKS R23 R22 K32 ["AnchorPoint"]
-  LOADK R23 K22 ["$PrimaryMain"]
+  LOADK R23 K72 ["$Blue60"]
   SETTABLEKS R23 R22 K17 ["BackgroundColor3"]
   LOADN R23 0
   SETTABLEKS R23 R22 K18 ["BackgroundTransparency"]
@@ -297,25 +297,25 @@ MAIN:
   SETLIST R13 R14 -1 [1]
   CALL R10 3 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K78 [{"ScrubberLineSize", "ScrubberHeadSize", "BufferBarHeight", "Padding"}]
+  DUPTABLE R7 K79 [{"ScrubberLineSize", "ScrubberHeadSize", "BufferBarHeight", "Padding"}]
   GETIMPORT R8 K47 [UDim2.new]
   LOADN R9 0
   LOADN R10 1
   LOADN R11 1
   LOADN R12 0
   CALL R8 4 1
-  SETTABLEKS R8 R7 K74 ["ScrubberLineSize"]
+  SETTABLEKS R8 R7 K75 ["ScrubberLineSize"]
   GETIMPORT R8 K25 [UDim2.fromOffset]
   LOADN R9 5
   LOADN R10 5
   CALL R8 2 1
-  SETTABLEKS R8 R7 K75 ["ScrubberHeadSize"]
+  SETTABLEKS R8 R7 K76 ["ScrubberHeadSize"]
   LOADN R8 3
-  SETTABLEKS R8 R7 K76 ["BufferBarHeight"]
-  GETIMPORT R8 K80 [UDim.new]
+  SETTABLEKS R8 R7 K77 ["BufferBarHeight"]
+  GETIMPORT R8 K81 [UDim.new]
   LOADN R9 0
   LOADN R10 10
   CALL R8 2 1
-  SETTABLEKS R8 R7 K77 ["Padding"]
+  SETTABLEKS R8 R7 K78 ["Padding"]
   CALL R3 4 -1
   RETURN R3 -1

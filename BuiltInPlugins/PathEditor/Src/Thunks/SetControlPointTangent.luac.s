@@ -146,7 +146,7 @@ PROTO_0:
   CALL R9 -1 0
   GETIMPORT R9 K25 [game]
   LOADK R11 K26 ["PathEditorUsePerformantAPICalls"]
-  NAMECALL R9 R9 K27 ["getFastFlag"]
+  NAMECALL R9 R9 K27 ["GetFastFlag"]
   CALL R9 2 1
   JUMPIFNOT R9 [+8]
   GETTABLEKS R9 R1 K6 ["SelectedObject"]

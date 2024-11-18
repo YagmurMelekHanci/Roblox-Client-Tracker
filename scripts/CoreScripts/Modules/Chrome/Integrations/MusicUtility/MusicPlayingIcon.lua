@@ -7,18 +7,13 @@ local React = require(CorePackages.Packages.React)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local ContainerSlotSignal = require(Chrome.Service.ContainerSlotSignal)
 
-local GetFFlagPeekSizeConstraints = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekSizeConstraints
-
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "music_playing_icon",
 	label = "CoreScripts.TopBar.NowPlaying",
-	containerWidthSlots = if GetFFlagPeekSizeConstraints() then ContainerSlotSignal.new(1) else nil,
+	containerWidthSlots = ContainerSlotSignal.new(1),
 	components = {
-		Container = GetFFlagPeekSizeConstraints() and function(props)
-			return React.createElement(Songbird.MusicPlayingIcon)
-		end,
-		Icon = not GetFFlagPeekSizeConstraints() and function(props)
+		Container = function(props)
 			return React.createElement(Songbird.MusicPlayingIcon)
 		end,
 	},

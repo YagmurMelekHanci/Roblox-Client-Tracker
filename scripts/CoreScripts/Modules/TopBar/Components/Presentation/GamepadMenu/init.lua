@@ -3,7 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
-local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local TextChatService = game:GetService("TextChatService")
 
@@ -20,10 +19,8 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local MenuHeader = require(script.MenuHeader)
 local ChatIcon = require(script.ChatIcon)
 local MenuCell = require(script.MenuCell)
-local BottomBar = require(script.BottomBar)
 local ControllerBar = require(script.QuickMenuControllerBar)
 local MenuNavigationToggleDialog = require(script.MenuNavigationToggleDialog)
-local MenuNavigationDismissablePrompt = require(script.MenuNavigationDismissablePrompt)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -36,10 +33,13 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
+local ToastRoot = CoreGui:WaitForChild("ToastNotification", 3)
+local ToastGui = if ToastRoot ~= nil then ToastRoot:WaitForChild("ToastNotificationWrapper", 3) else nil
+local Toast = if ToastGui ~= nil then ToastGui:FindFirstChild("Toast", true) else nil
+
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
-local MenuNavigationPromptLocalStorage = require(script.MenuNavigationPromptLocalStorage)
 
 local TOGGLE_GAMEPAD_MENU_ACTION = "TopBarGamepadToggleGamepadMenu"
 local FREEZE_CONTROLLER_ACTION_NAME = "TopBarGamepadFreezeController"
@@ -53,6 +53,10 @@ local GO_TO_BOTTOM_ACTION_NAME = "TopBarGamepadMoveSelectionBottom"
 local TOGGLE_CHAT_VISIBILITY = "TopBarGamepadToggleChatVisibility"
 
 local THUMBSTICK_MOVE_COOLDOWN = 0.15
+
+-- Should be than MenuButtonPressHoldTime defined in
+-- modules/notifications/toast-notification/src/constants.lua
+local MENU_BUTTON_PRESS_MAX_HOLD_TIME = 1
 
 local MENU_ICON = Images["icons/logo/block"]
 local UNIBAR_ICON = Images["icons/menu/AR"]
@@ -76,14 +80,13 @@ local MAX_SCREEN_PERCENTAGE = 0.75
 
 local GAMEPAD_MENU_KEY = "GamepadMenu"
 
-local LocalPlayer = Players.LocalPlayer
-
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagSupportCompactUtility = SharedFlags.GetFFlagSupportCompactUtility
 local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
+local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
 local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
 
 GamepadMenu.validateProps = t.strictInterface({
@@ -115,6 +118,8 @@ function GamepadMenu:init()
 
 	self.boundMenuOpenActions = false
 
+	self.lastMenuButtonPress = 0
+
 	self.toggleChatVisibilityAction = function(actionName, userInputState, input)
 		if userInputState == Enum.UserInputState.Begin then
 			self.toggleChatVisible()
@@ -122,13 +127,32 @@ function GamepadMenu:init()
 	end
 
 	self.toggleMenuVisibleAction = function(actionName, userInputState, input)
-		if userInputState ~= Enum.UserInputState.Begin or self.props.menuOpen then
+		if GetFFlagToastNotificationsGamepadSupport() then
+			if self.props.menuOpen then
+				return Enum.ContextActionResult.Pass
+			end
+
+			local isToastVisible = Toast ~= nil and Toast.Visible
+			if userInputState == Enum.UserInputState.Begin then
+				self.lastMenuButtonPress = tick()
+				return Enum.ContextActionResult.Pass
+			elseif userInputState == Enum.UserInputState.End then
+				if not isToastVisible or tick() - self.lastMenuButtonPress < MENU_BUTTON_PRESS_MAX_HOLD_TIME then
+					self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
+					return Enum.ContextActionResult.Sink
+				end
+			end
+
 			return Enum.ContextActionResult.Pass
+		else
+			if userInputState ~= Enum.UserInputState.Begin or self.props.menuOpen then
+				return Enum.ContextActionResult.Pass
+			end
+
+			self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
+
+			return Enum.ContextActionResult.Sink
 		end
-
-		self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
-
-		return Enum.ContextActionResult.Sink
 	end
 
 	self.closeMenuAction = function(actionName, userInputState, input)
@@ -291,7 +315,7 @@ function GamepadMenu.toggleChatVisible()
 end
 
 function GamepadMenu.focusChatBar()
-	if GetFFlagReenableTextChatForTenFootInterfaces() then 
+	if GetFFlagReenableTextChatForTenFootInterfaces() then
 		ChatModule:SetVisible(true)
 		ChatModule:FocusChatBar()
 	end
@@ -641,7 +665,12 @@ function GamepadMenu:bindMenuOpenActions()
 	ContextActionService:BindCoreAction(GO_TO_BOTTOM_ACTION_NAME, self.goToBottomAction, false, Enum.KeyCode.ButtonR2)
 
 	if GetFFlagReenableTextChatForTenFootInterfaces() then
-		ContextActionService:BindCoreAction(TOGGLE_CHAT_VISIBILITY, self.toggleChatVisibilityAction, false, Enum.KeyCode.ButtonR1)
+		ContextActionService:BindCoreAction(
+			TOGGLE_CHAT_VISIBILITY,
+			self.toggleChatVisibilityAction,
+			false,
+			Enum.KeyCode.ButtonR1
+		)
 	end
 
 	ContextActionService:BindCoreAction(

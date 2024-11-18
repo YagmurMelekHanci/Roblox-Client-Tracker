@@ -6,7 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 local StarterPlayer = game:GetService("StarterPlayer")
 
-local Packages = script.Packages :: any
+local Packages = (script :: any).Packages
 
 -- Move server script to ServerScriptService
 local onPlayerAddedScript = Packages.DeveloperStorybook.Src.Util.StorybookServer

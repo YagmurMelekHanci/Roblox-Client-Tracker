@@ -1,7 +1,7 @@
 PROTO_0:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["complete"]
-  CALL R1 1 0
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["complete"]
+  CALL R0 1 0
   RETURN R0 0
 
 PROTO_1:

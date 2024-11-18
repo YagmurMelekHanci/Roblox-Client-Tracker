@@ -1412,8 +1412,11 @@ MAIN:
   DUPTABLE R62 K102 [{"IXP", "Stylizer", "Localization", "Settings", "Modal", "Network"}]
   MOVE R64 R55
   CALL R64 0 1
-  JUMPIF R64 [+3]
+  JUMPIF R64 [+6]
   MOVE R64 R56
+  CALL R64 0 1
+  JUMPIF R64 [+3]
+  MOVE R64 R57
   CALL R64 0 1
   JUMPIFNOT R64 [+2]
   MOVE R63 R45
