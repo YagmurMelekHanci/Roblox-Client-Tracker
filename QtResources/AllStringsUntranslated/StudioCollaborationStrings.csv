@@ -103,6 +103,12 @@ Additional Info: '%1'"
 Studio.Common.Action.SaveToRoblox,,Save to Roblox,Save to Roblox
 Studio.App.ConnectionIndicatorDialog.GoodConnectionTitle,,Changes synced to Team Create,Changes synced to Team Create
 Studio.App.ConnectionIndicatorDialog.GoodConnectionMessage,,Connection established,Connection established
+Studio.App.ConnectionIndicatorDialog.PlaceSizeApproachingLimitTitle,Title for notification warning place size is getting too large,Cloud Save Warning,Cloud Save Warning
+Studio.App.ConnectionIndicatorDialog.PlaceSizeApproachingLimitMessage,Subtitle  for notification warning place size is getting too large,Approaching Size Limit,Approaching Size Limit
+Studio.App.ConnectionIndicatorDialog.PlaceSizeApproachingLimitTip1,Message specifying the size limit in Studio and that their place is getting close to that size,Your place is nearing the stable size limit of %1 MB. Consider reducing its size to avoid saving issues. Attempt place save again after making changes.,Your place is nearing the stable size limit of %1 MB. Consider reducing its size to avoid saving issues. Attempt place save again after making changes.
+Studio.App.ConnectionIndicatorDialog.PlaceSizeTooLargeTitle,Title for notification alert that place size has gotten too large and they won't be able to save,Cloud Save Disabled,Cloud Save Disabled
+Studio.App.ConnectionIndicatorDialog.PlaceSizeTooLargeMessage,Subtitle for notification alert that place size has gotten too large,File Too Large,File Too Large
+Studio.App.ConnectionIndicatorDialog.PlaceSizeTooLargeTip,Message for notification alert that place size has gotten too large,Your place has exceeded the stable size limit. Please reduce its size to enable saving again. Attempt place save again after making changes.,Your place has exceeded the stable size limit. Please reduce its size to enable saving again. Attempt place save again after making changes.
 Studio.App.ConnectionIndicatorDialog.DelayedConnectionTitle,,Changes may be delayed,Changes may be delayed
 Studio.App.ConnectionIndicatorDialog.DelayedConnectionMessage,,Weak connection,Weak connection
 Studio.App.ConnectionIndicatorDialog.DelayedConnectionTip,,Check your internet connection to avoid delays during saves and collaboration.,Check your internet connection to avoid delays during saves and collaboration.

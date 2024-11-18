@@ -6411,8 +6411,13 @@ function HaltPage() {
     var dotsDiv = document.getElementById("progressDots");
     dotsDiv.style.textAlign = "center";
     if (g_Loader.isDataInitialized) {
-        dotsDiv.innerHTML = "<span style='font-size: 1.2rem;'>Error loading viewer.</span><br>" +
-            "See browser's developer console for details.";
+        if (Frames.length == 0) {
+            dotsDiv.innerHTML = "<span style='font-size: 1.2rem;'>This dump contains zero frames.</span><br>" +
+                "Something likely went wrong during the capture.";
+        } else {
+            dotsDiv.innerHTML = "<span style='font-size: 1.2rem;'>Error loading viewer.</span><br>" +
+                "See browser's developer console for details.";
+        }
     } else {
         dotsDiv.innerHTML = "<span style='font-size: 1.2rem;'>No profiling data found.</span><br>" +
             "If this page was saved using a web browser, please retry saving it by clicking the " +
@@ -6445,9 +6450,12 @@ async function InitData() {
     if (window.InitDataImpl != undefined) {
         InitDataImpl();
         g_Loader.isDataInitialized = true;
-        return;
+    } else {
+        await ExtractAndExportRaw();
     }
-    await ExtractAndExportRaw();
+    if (Frames.length == 0) {
+        throw new Error("Zero frames found");
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

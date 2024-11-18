@@ -3,6 +3,8 @@ Studio.App.LiveSync.ErrorWritingToFile,,Error while syncing %1 to the disk: Unab
 Studio.App.LiveSync.ErrorReadingFromFile,,Error while syncing %1 to the disk: Unable to read from file,Error while syncing %1 to the disk: Unable to read from file
 Studio.App.LiveSync.ErrorWritingToScript,,Error while syncing %1 to the disk: Unable to write to the data model,Error while syncing %1 to the disk: Unable to write to the data model
 Studio.App.LiveSync.ErrorUnsupportedFileType,,Error while syncing %1 to the disk: Unsupported path type,Error while syncing %1 to the disk: Unsupported path type
+Studio.App.LiveSync.ErrorStartingSync,,Error while syncing %1 to the disk: Unable to initiate sync,Error while syncing %1 to the disk: Unable to initiate sync
+Studio.App.LiveSync.ErrorDuringSync,,Error while syncing scripts to the disk: Unable to read from data model or disk,Error while syncing scripts to the disk: Unable to read from data model or disk
 Studio.App.LiveSync.StartingSyncInfo,,Started syncing %1 at %2,Started syncing %1 at %2
 Studio.App.LiveSync.StoppingSyncInfo,,Stopped syncing %1 at %2,Stopped syncing %1 at %2
 Studio.App.LiveSync.ErrorCreatingDirectory,,Error while syncing %1 to the disk: Failed to create directory,Error while syncing %1 to the disk: Failed to create directory
@@ -12,3 +14,7 @@ Studio.App.LiveSync.PathAlreadyInUse,,Error while syncing %1 to the disk at %2: 
 Studio.App.LiveSync.SyncLimitReached,,Error while syncing %1 to the disk: Too many files being synced,Error while syncing %1 to the disk: Too many files being synced
 Studio.App.LiveSync.PackageLinkAdded,,Error while syncing %1 to the disk: Script is a package,Error while syncing %1 to the disk: Script is a package
 Studio.App.LiveSync.FileTooLarge,,Error while syncing %1 to the disk: File is too large,Error while syncing %1 to the disk: File is too large
+Studio.App.LiveSync.DuplicateFilesOutput,,Duplicate file names: ,Duplicate file names: 
+Studio.App.LiveSync.InvalidFilesOutput,,Invalid file names: ,Invalid file names: 
+Studio.App.LiveSync.ExcessPathLengthsOutput,,Paths of excess length: ,Paths of excess length: 
+Studio.App.LiveSync.ContainsForbiddenCharactersOutput,,Names with invalid characters: ,Names with invalid characters: 

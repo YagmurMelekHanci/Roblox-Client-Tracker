@@ -112,7 +112,6 @@ Studio.App.RobloxRibbonMainWindow.Color,,Color,Color
 Studio.App.RobloxRibbonMainWindow.ConnectionIsStable,,Connection is stable.,Connection is stable.
 Studio.App.RobloxRibbonMainWindow.CurrentClient,,Current: Client,Current: Client
 Studio.App.RobloxRibbonMainWindow.GameSettings,,Game Settings,Game Settings
-Studio.App.RobloxRibbonMainWindow.Lock,,Lock,Lock
 Studio.App.RobloxRibbonMainWindow.Settings,,Settings,Settings
 Studio.App.RobloxRibbonMainWindow.Start,,Start,Start
 Studio.App.RobloxRibbonMainWindow.StartATeamTest,,Start a Team Test,Start a Team Test

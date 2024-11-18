@@ -2,6 +2,6 @@ struct SAParams
 {
     float overlay;
     float isTinted;
-    float unused2;
+    float amplitude;
     float unused3;
 };

@@ -19,9 +19,9 @@ LuaSocialLibrariesDeps = "1.5.4"
 AvatarExperienceDeps = "0.0.1"
 PurchasePromptDeps = "1.0.1"
 IAPExperience = "1.0.2"
-UIBlox = "0.2.9"
-Foundation = "1.5.1"
-FoundationImages = "1.7.0"
+UIBlox = "0.2.17"
+Foundation = "1.6.0"
+FoundationImages = "1.8.0"
 Thumbnailing = "0.3.0"
 Otter = "1.2.1"
 ReactOtter = "1.2.1"
@@ -57,7 +57,7 @@ QRCode = "0.1.0"
 Merge = "0.3.1"
 GraphqlToolsUtils = { version = "0.3.1", package = "Utils" }
 DataLoader = "0.2.0"
-UGCValidation = "1.12.23"
+UGCValidation = "1.12.25"
 RoduxPresence = "3.2.3"
 RoduxFriends = "4.3.0"
 RoduxUsers = "1.5.1"
@@ -162,7 +162,7 @@ ApolloClient = "0.3.10"
 GraphQLTag = { version = "2.12.9", package = "GraphqlTag" }
 
 [config.patch_git."github.com/Roblox/UIBlox"]
-UIBlox = "0.2.9"
+UIBlox = "0.2.17"
 
 [config.patch_git."github.com/Roblox/lua-roact-policy-provider"]
 PolicyProvider = { version = "0.1.1", package = "LuaRoactPolicyProvider" }

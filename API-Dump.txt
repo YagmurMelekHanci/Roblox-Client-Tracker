@@ -10,8 +10,9 @@ Class EditableImage : Object [NotCreatable]
 	Function EditableImage:Destroy() -> ()
 	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:DrawImage(position: Vector2, image: Object, combineType: Enum.ImageCombineType) -> ()
+	Function EditableImage:DrawImageProjected(mesh: Object, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
+	Function EditableImage:DrawImageTransformed(position: Vector2, scale: Vector2, rotation: number, image: Object, options: { [string]: any }?) -> ()
 	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawProjectionImage(mesh: Object, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
 	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:DrawTriangle(p1: Vector2, p2: Vector2, p3: Vector2, color: Color3, transparency: number) -> () {RobloxScriptSecurity}
 	Function EditableImage:ReadPixelsBuffer(position: Vector2, size: Vector2) -> buffer [CustomLuaState] {🧬Safe}
@@ -33,6 +34,7 @@ Class EditableMesh : Object [NotCreatable]
 	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any }
 	Function EditableMesh:GetAdjacentFaces(faceId: number) -> { any }
 	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any }
+	Function EditableMesh:GetCenter() -> Vector3
 	Function EditableMesh:GetColor(colorId: number) -> Color3?
 	Function EditableMesh:GetColorAlpha(colorId: number) -> number?
 	Function EditableMesh:GetColors() -> { any } [CustomLuaState]
@@ -45,6 +47,7 @@ Class EditableMesh : Object [NotCreatable]
 	Function EditableMesh:GetNormal(normalId: number) -> Vector3?
 	Function EditableMesh:GetNormals() -> { any } [CustomLuaState]
 	Function EditableMesh:GetPosition(vertexId: number) -> Vector3
+	Function EditableMesh:GetSize() -> Vector3
 	Function EditableMesh:GetUV(uvId: number) -> Vector2?
 	Function EditableMesh:GetUVs() -> { any } [CustomLuaState]
 	Function EditableMesh:GetVertices() -> { any }
@@ -508,6 +511,7 @@ Class AudioEcho : Instance
 	Property AudioEcho.DelayTime: number
 	Property AudioEcho.DryLevel: number
 	Property AudioEcho.Feedback: number
+	Property AudioEcho.RampTime: number
 	Property AudioEcho.WetLevel: number
 	Function AudioEcho:GetConnectedWires(pin: string) -> { Instance }
 Class AudioEmitter : Instance
@@ -2321,6 +2325,7 @@ Class TextLabel : GuiLabel
 	Property TextLabel.TextYAlignment: Enum.TextYAlignment
 	Function TextLabel:SetTextFromInput(text: string) -> () {RobloxScriptSecurity}
 Class ScrollingFrame : GuiObject
+	Property ScrollingFrame.DraggingScrollBar: Enum.DraggingScrollBar {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property ScrollingFrame.HorizontalBarRect: Rect {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property ScrollingFrame.MaxCanvasPosition: Vector2 {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property ScrollingFrame.VerticalBarRect: Rect {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -2472,7 +2477,7 @@ Class ScreenGui : LayerCollector
 	Property ScreenGui.ScreenInsets: Enum.ScreenInsets
 	Property ScreenGui.OnTopOfCoreBlur: boolean {RobloxScriptSecurity} [Hidden]
 	Property ScreenGui.DisplayOrder: number
-	Property ScreenGui.IgnoreGuiInset: boolean [📁 LoadOnly]
+	Property ScreenGui.IgnoreGuiInset: boolean [📁 LoadOnly] [NotReplicated]
 Class GuiMain : ScreenGui [Deprecated]
 Class SurfaceGuiBase : LayerCollector [NotCreatable]
 	Property SurfaceGuiBase.Active: boolean
@@ -2682,8 +2687,8 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:InspectPlayerFromUserIdWithCtx(userId: number, ctx: string) -> () {RobloxScriptSecurity}
 	Function GuiService:IsMemoryTrackerEnabled() -> boolean {RobloxScriptSecurity}
 	Function GuiService:IsTenFootInterface() -> boolean
-	Function GuiService:NotificationDismissed(notificationId: string) -> () {RobloxScriptSecurity}
-	Function GuiService:NotificationDisplayed(notificationId: string) -> () {RobloxScriptSecurity}
+	Function GuiService:OnNotificationDisplayed(notificationId: string) -> () {RobloxScriptSecurity}
+	Function GuiService:OnNotificationInteraction(notificationId: string, buttonIndex: number) -> () {RobloxScriptSecurity}
 	Function GuiService:OpenBrowserWindow(url: string) -> () {RobloxScriptSecurity} [Deprecated]
 	Function GuiService:OpenNativeOverlay(title: string, url: string) -> () {RobloxScriptSecurity} [Deprecated]
 	Function GuiService:RemoveCenterDialog(dialog: Instance) -> () {RobloxScriptSecurity}
@@ -2707,7 +2712,6 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:ToggleFullscreen() -> () {RobloxScriptSecurity}
 	Function GuiService:ToggleGuiIsVisibleForCaptures(guiType: Enum.GuiType) -> () {RobloxScriptSecurity}
 	Function GuiService:ToggleGuiIsVisibleIfAllowed(guiType: Enum.GuiType) -> () {RobloxScriptSecurity}
-	Function GuiService:UserInteractedWithNotification(notificationId: string, buttonIndex: number) -> () {RobloxScriptSecurity}
 	Event GuiService.BrowserWindowClosed() {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.CloseInspectMenuRequest() {RobloxScriptSecurity}
 	Event GuiService.CoreGuiRenderOverflowed() {RobloxScriptSecurity}
@@ -2910,7 +2914,6 @@ Class Humanoid : Instance
 	Event Humanoid.Touched(touchingPart: BasePart, humanoidPart: BasePart)
 Class HumanoidDescription : Instance
 	Property HumanoidDescription.AccessoryBlob: string [📁 LoadOnly] [NotReplicated] [NotScriptable]
-	Property HumanoidDescription.AccessoryRigidAndLayeredBlob: string {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property HumanoidDescription.BackAccessory: string [📁 LoadOnly] [NotReplicated]
 	Property HumanoidDescription.FaceAccessory: string [📁 LoadOnly] [NotReplicated]
 	Property HumanoidDescription.FrontAccessory: string [📁 LoadOnly] [NotReplicated]
@@ -4038,7 +4041,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MoverConstraintRootBehavior: Enum.MoverConstraintRootBehaviorMode [NotScriptable]
-	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable] [NotBrowsable]
+	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
 	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
 	Property Workspace.PrimalPhysicsSolver: Enum.PrimalPhysicsSolver [NotScriptable]
@@ -4050,6 +4053,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.SignalBehavior2: Enum.SignalBehavior [Hidden] [NotReplicated] [NotScriptable]
 	Property Workspace.Terrain: Terrain? [ReadOnly]
 	Property Workspace.TerrainWeldsFixed: boolean [Hidden] [NotScriptable]
+	Property Workspace.TouchEventsUseCollisionGroups: Enum.RolloutState [NotScriptable]
 	Property Workspace.TouchesUseCollisionGroups: boolean [NotScriptable]
 	Property Workspace.CurrentCamera: Camera? [NotReplicated]
 	Property Workspace.DistributedGameTime: number [NotReplicated]
@@ -5393,8 +5397,8 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.DevComputerCameraMovementMode: Enum.DevComputerCameraMovementMode
 	Property StarterPlayer.DevTouchCameraMovementMode: Enum.DevTouchCameraMovementMode
 	Property StarterPlayer.AllowCustomAnimations: boolean {✏️RobloxScriptSecurity} [Hidden]
-	Property StarterPlayer.AvatarJointUpgrade: Enum.AvatarJointUpgrade [NotReplicated] [NotBrowsable]
-	Property StarterPlayer.AvatarJointUpgrade_Serialized: Enum.AvatarJointUpgrade [Hidden] [NotScriptable]
+	Property StarterPlayer.AvatarJointUpgrade: Enum.RolloutState [NotReplicated] [NotScriptable] [NotBrowsable]
+	Property StarterPlayer.AvatarJointUpgrade_SerializedRollout: Enum.RolloutState [Hidden] [NotScriptable]
 	Property StarterPlayer.CharacterMaxSlopeAngle: number
 	Property StarterPlayer.CharacterWalkSpeed: number
 	Property StarterPlayer.EnableDynamicHeads: Enum.LoadDynamicHeads [NotScriptable]
@@ -5848,6 +5852,7 @@ Class Team : Instance
 Class TeamCreateData : Instance [NotCreatable] [Service]
 	Property TeamCreateData.InitialCameraCFrame: CFrame {RobloxSecurity} [Hidden] [NotScriptable]
 Class TeamCreatePublishService : Instance [NotCreatable] [Service]
+	Event TeamCreatePublishService.TeamCreateErrorStatus(result: Enum.TeamCreateErrorState) {RobloxScriptSecurity}
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TeamCreateService:CloseGameIfUserDoesntHavePerms() -> () {RobloxScriptSecurity}
 	Event TeamCreateService.ToggleManageCollaborators() {RobloxScriptSecurity}
@@ -6059,6 +6064,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.CreateDefaultTextChannels: boolean {✏️PluginSecurity}
 	Function TextChatService:CanUserChatAsync(userId: number) -> boolean [Yields]
 	Function TextChatService:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
+	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } [Yields]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> ()
 	Event TextChatService.BubbleDisplayed(partOrCharacter: Instance, textChatMessage: TextChatMessage)
@@ -6543,7 +6549,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event UserInputService.StatusBarTapped(position: Vector2) {RobloxScriptSecurity}
 	Event UserInputService.TextBoxFocusReleased(textboxReleased: TextBox)
 	Event UserInputService.TextBoxFocused(textboxFocused: TextBox)
-	Event UserInputService.TouchDrag(dragDirection: Enum.SwipeDirection, numberOfTouches: number, gameProcessedEvent: boolean) {RobloxScriptSecurity}
+	Event UserInputService.TouchDrag(dragDirection: Enum.SwipeDirection, numberOfTouches: number, gameProcessedEvent: boolean)
 	Event UserInputService.TouchEnded(touch: InputObject, gameProcessedEvent: boolean)
 	Event UserInputService.TouchLongPress(touchPositions: { any }, state: Enum.UserInputState, gameProcessedEvent: boolean)
 	Event UserInputService.TouchMoved(touch: InputObject, gameProcessedEvent: boolean)
@@ -7183,10 +7189,6 @@ Enum AvatarGenerationError
 Enum AvatarItemType
 	EnumItem AvatarItemType.Asset : 1
 	EnumItem AvatarItemType.Bundle : 2
-Enum AvatarJointUpgrade
-	EnumItem AvatarJointUpgrade.Default : 0
-	EnumItem AvatarJointUpgrade.Enabled : 1
-	EnumItem AvatarJointUpgrade.Disabled : 2
 Enum AvatarPromptResult
 	EnumItem AvatarPromptResult.Success : 1
 	EnumItem AvatarPromptResult.PermissionDenied : 2
@@ -7729,6 +7731,10 @@ Enum DraggerCoordinateSpace
 Enum DraggerMovementMode
 	EnumItem DraggerMovementMode.Geometric : 0
 	EnumItem DraggerMovementMode.Physical : 1
+Enum DraggingScrollBar
+	EnumItem DraggingScrollBar.None : 0
+	EnumItem DraggingScrollBar.Horizontal : 1
+	EnumItem DraggingScrollBar.Vertical : 2
 Enum EasingDirection
 	EnumItem EasingDirection.In : 0
 	EnumItem EasingDirection.Out : 1
@@ -8884,7 +8890,8 @@ Enum PromptCreateAvatarResult
 	EnumItem PromptCreateAvatarResult.UGCValidationFailed : 7
 	EnumItem PromptCreateAvatarResult.ModeratedName : 8
 	EnumItem PromptCreateAvatarResult.MaxOutfits : 9
-	EnumItem PromptCreateAvatarResult.UnknownFailure : 10
+	EnumItem PromptCreateAvatarResult.PurchaseFailure : 10
+	EnumItem PromptCreateAvatarResult.UnknownFailure : 11
 Enum PromptPublishAssetResult
 	EnumItem PromptPublishAssetResult.Success : 1
 	EnumItem PromptPublishAssetResult.PermissionDenied : 2
@@ -9491,6 +9498,10 @@ Enum SwipeDirection
 Enum TableMajorAxis
 	EnumItem TableMajorAxis.RowMajor : 0
 	EnumItem TableMajorAxis.ColumnMajor : 1
+Enum TeamCreateErrorState
+	EnumItem TeamCreateErrorState.PlaceSizeTooLarge : 0
+	EnumItem TeamCreateErrorState.PlaceSizeApproachingLimit : 1
+	EnumItem TeamCreateErrorState.NoError : 2
 Enum Technology
 	EnumItem Technology.Legacy : 0 [Deprecated]
 	EnumItem Technology.Voxel : 1
