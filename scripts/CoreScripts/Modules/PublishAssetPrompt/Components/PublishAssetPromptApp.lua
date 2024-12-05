@@ -10,8 +10,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local t = require(CorePackages.Packages.t)
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
@@ -26,7 +26,7 @@ local PublishAssetPromptSingleStep = require(Components.PublishAssetPromptSingle
 local PublishAvatarPrompt = require(Components.PublishAvatarPrompt.PublishAvatarPrompt)
 local ResultModal = require(Components.ResultModal)
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local focusNavigationService =

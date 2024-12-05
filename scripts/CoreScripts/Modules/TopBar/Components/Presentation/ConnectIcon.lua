@@ -1,9 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
 
 local React = require(CorePackages.Packages.React)
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local Badge = Foundation.Badge
@@ -46,10 +46,12 @@ function ConnectIcon(props: Props)
 	local currentSquadId, setCurrentSquadId = React.useState(InExperienceAppChatModal.default.currentSquadId)
 	local isAppChatOpened, setIsAppChatOpened = React.useState(InExperienceAppChatModal:getVisible())
 	local isVisible = React.useMemo(function()
-		return currentSquadId ~= "" and InExperienceAppChatExperimentation.default and InExperienceAppChatExperimentation.default.getShowPlatformChatInNonChrome()
+		return currentSquadId ~= ""
+			and InExperienceAppChatExperimentation.default
+			and InExperienceAppChatExperimentation.default.getShowPlatformChatInNonChrome()
 	end, { currentSquadId })
 
-	React.useEffect(function() 
+	React.useEffect(function()
 		local connection = InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(function(nextSquadId)
 			setCurrentSquadId(nextSquadId)
 		end)
@@ -57,7 +59,7 @@ function ConnectIcon(props: Props)
 			connection:Disconnect()
 		end
 	end, { setCurrentSquadId })
-	
+
 	local partyIcon = usePartyIcon(ICON_SIZE, AVATAR_SIZE, if isAppChatOpened then ICON_ON else ICON_OFF)
 
 	React.useEffect(function()
@@ -134,8 +136,8 @@ function ConnectIcon(props: Props)
 		}, {
 			Badge = Roact.createElement(Badge, {
 				variant = BadgeVariant.Primary,
-			})
-		})
+			}),
+		}),
 	})
 end
 

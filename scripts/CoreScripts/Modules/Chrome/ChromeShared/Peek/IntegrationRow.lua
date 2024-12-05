@@ -1,13 +1,13 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 
 local React = require(CorePackages.Packages.React)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
-local ContainerHost = require(Chrome.Unibar.ComponentHosts.ContainerHost)
-local IconHost = require(Chrome.Unibar.ComponentHosts.IconHost)
-local Types = require(Chrome.Service.Types)
+local ContainerHost = require(Root.Unibar.ComponentHosts.ContainerHost)
+local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
+local Types = require(Root.Service.Types)
 
 local useStyle = UIBlox.Core.Style.useStyle
 

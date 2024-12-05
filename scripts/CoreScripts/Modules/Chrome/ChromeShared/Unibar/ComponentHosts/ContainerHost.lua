@@ -1,10 +1,10 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 
-local Constants = require(Chrome.Unibar.Constants)
-local ChromeTypes = require(Chrome.Service.Types)
+local Constants = require(Root.Unibar.Constants)
+local ChromeTypes = require(Root.Service.Types)
 
 export type ContainerHostProps = {
 	integration: ChromeTypes.IntegrationComponentProps,

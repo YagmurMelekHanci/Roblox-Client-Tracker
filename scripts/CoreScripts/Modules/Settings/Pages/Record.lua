@@ -27,7 +27,6 @@ local PageInstance = nil
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local FFlagLogRecordActivations = game:DefineFastFlag("LogRecordActivations", false)
 
 local Contexts = AnalyticsEnums.Contexts
 local EventTypes = AnalyticsEnums.EventTypes
@@ -142,14 +141,12 @@ local function Initialize()
 		local recordButtonRow, recordButton = utility:AddButtonRow(this, "RecordButton", "Record Video", UDim2.new(0, 300, 0, 44), closeSettingsFunc)
 		recordButtonRow.LayoutOrder = 6
 		recordButton.MouseButton1Click:connect(function()
-			if FFlagLogRecordActivations then
-				AnalyticsService:SendEventDeferred(
-					EVENT_STREAM_TARGET,
-					Contexts.Screenshots,
-					EventTypes.ButtonClick,
-					{ btn = if not isRecordingVideo then EventNames.CapturesLegacyVideoRecordActivated else EventNames.CapturesLegacyVideoRecordDeactivated }
-				)
-			end
+			AnalyticsService:SendEventDeferred(
+				EVENT_STREAM_TARGET,
+				Contexts.Screenshots,
+				EventTypes.ButtonClick,
+				{ btn = if not isRecordingVideo then EventNames.CapturesLegacyVideoRecordActivated else EventNames.CapturesLegacyVideoRecordDeactivated }
+			)
 			recordingEvent:Fire(not isRecordingVideo)
 		end)
 

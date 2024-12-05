@@ -1,10 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local Otter = require(CorePackages.Otter)
+local Otter = require(CorePackages.Packages.Otter)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)

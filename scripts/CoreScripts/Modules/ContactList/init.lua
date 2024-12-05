@@ -9,8 +9,8 @@ local renderWithCoreScriptsStyleProvider = require(script.Parent.Common.renderWi
 
 local React = require(CorePackages.Packages.React)
 local Rodux = require(CorePackages.Packages.Rodux)
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization

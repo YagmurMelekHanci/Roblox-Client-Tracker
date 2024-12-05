@@ -14,9 +14,9 @@ local Players = game:GetService("Players")
 local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
@@ -42,6 +42,7 @@ local PreviewShrinkIcon = Images["icons/actions/previewShrink"]
 local ResetViewIcon = Images["icons/actions/reset"]
 
 local FFlagPublishAvatarPromptEnabled = require(script.Parent.Parent.Parent.FFlagPublishAvatarPromptEnabled)
+local FFlagFixPublishAvatarVRViewports = require(script.Parent.Parent.Parent.FFlagFixPublishAvatarVRViewports)
 
 local CAMERA_FOV = 30
 local INITIAL_ZOOM_FACTOR = if FFlagPublishAvatarPromptEnabled then 0.8 else 1
@@ -576,6 +577,9 @@ function PreviewViewport:render()
 				Camera = Roact.createElement("Camera", {
 					CameraType = Enum.CameraType.Scriptable,
 					FieldOfView = CAMERA_FOV,
+
+					HeadLocked = if FFlagFixPublishAvatarVRViewports then true else nil,
+					VRTiltAndRollEnabled = if FFlagFixPublishAvatarVRViewports then true else nil,
 
 					CFrame = self.cameraCFrameBinding,
 					Focus = self.cameraFocusBinding,

@@ -5,9 +5,9 @@ local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
-local Otter = require(CorePackages.Otter)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local Otter = require(CorePackages.Packages.Otter)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 
 local StatsUtils = require(RobloxGui.Modules.Stats.StatsUtils)
@@ -30,8 +30,8 @@ local FFlagRemoveSideBarABTest = require(PlayerList.Flags.FFlagRemoveSideBarABTe
 local GetFStringRemoveSideBarABTestLayerName = require(PlayerList.Flags.GetFStringRemoveSideBarABTestLayerName)
 
 local MOTOR_OPTIONS = {
-    dampingRatio = 1,
-    frequency = 7,
+	dampingRatio = 1,
+	frequency = 7,
 }
 
 local OLD_PLAYERLIST_PLAYER_ENTRY_SIZE = 26
@@ -112,7 +112,8 @@ function PlayerListApp:render()
 		if layoutValues.IsTenFoot then
 			entrySize = layoutValues.EntrySizeX
 		else
-			entrySize = layoutValues.EntryBaseSizeX + (math.min(4, leaderstatsCount) * layoutValues.EntrySizeIncreasePerStat)
+			entrySize = layoutValues.EntryBaseSizeX
+				+ (math.min(4, leaderstatsCount) * layoutValues.EntrySizeIncreasePerStat)
 
 			containerSize = containerSize + UDim2.new(0, layoutValues.ExtraContainerPadding, 0, 0)
 
@@ -153,7 +154,7 @@ function PlayerListApp:render()
 							hasDivider = false,
 							gameStats = self.props.gameStats,
 							entrySize = entrySize,
-						})
+						}),
 					})
 					break
 				end
@@ -193,7 +194,7 @@ function PlayerListApp:render()
 
 			UISizeConstraint = Roact.createElement("UISizeConstraint", {
 				MinSize = Vector2.new(0, 0),
-				MaxSize = Vector2.new(math.huge, previousSizeBound)
+				MaxSize = Vector2.new(math.huge, previousSizeBound),
 			}) or nil,
 		})
 	end)
@@ -206,7 +207,7 @@ function PlayerListApp:didMount()
 end
 
 function PlayerListApp:didUpdate(previousProps, previousState)
-	if self.props.displayOptions.isVisible ~= previousProps.displayOptions.isVisible  then
+	if self.props.displayOptions.isVisible ~= previousProps.displayOptions.isVisible then
 		if self.props.displayOptions.isTenFootInterface then
 			self:setState({
 				visible = self.props.displayOptions.isVisible,
@@ -249,15 +250,14 @@ end
 
 if FFlagRemoveSideBarABTest then
 	local abTestLayerName = GetFStringRemoveSideBarABTestLayerName()
-	return RoactRodux.connect(mapStateToProps, nil)(RoactAppExperiment.connectUserLayer(
-		{ abTestLayerName },
-		function(variables, props)
+	return RoactRodux.connect(mapStateToProps, nil)(
+		RoactAppExperiment.connectUserLayer({ abTestLayerName }, function(variables, props)
 			local layerVariables = variables[abTestLayerName] or {}
 			return {
-				removeSideBar = layerVariables.removeSideBar
+				removeSideBar = layerVariables.removeSideBar,
 			}
-		end
-	)(PlayerListApp))
+		end)(PlayerListApp)
+	)
 end
 
 return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(PlayerListApp)

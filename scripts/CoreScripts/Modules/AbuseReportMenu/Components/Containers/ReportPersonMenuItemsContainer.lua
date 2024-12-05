@@ -18,14 +18,7 @@ local handlePreselectedPlayer = require(root.Utility.handlePreselectedPlayer)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
 
-local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
-local useUserExperiment = RoactAppExperiment.useUserExperiment
-
 local PlayerMenuActions = Constants.PlayerMenuActions
-
-local FFlagEnableVoiceProximityExperiment =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableVoiceProximityExperiment
-local FStringReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportMenuIXPLayer
 
 type Props = {
 	utilityProps: Types.MenuUtilityProps,
@@ -39,13 +32,6 @@ end
 local function ReportPersonMenuItemsContainer(props: Props)
 	local sizings = getMenuItemSizings()
 	local menuUIStates, dispatchUIStates = React.useReducer(reportPersonUIStateReducer, Constants.InitPersonUIState)
-
-	local isInVoiceProximityExperimentTreatment = if FFlagEnableVoiceProximityExperiment
-		then useUserExperiment({ FStringReportMenuIXPLayer }, function(layer)
-			local reportMenuLayer: any = layer[FStringReportMenuIXPLayer] or {}
-			return reportMenuLayer.EnableProximitySort
-		end)
-		else false
 
 	React.useEffect(function()
 		if props.utilityProps.isReportTabVisible ~= true then
@@ -86,7 +72,8 @@ local function ReportPersonMenuItemsContainer(props: Props)
 	React.useEffect(function()
 		local playerObjects = {}
 		if menuUIStates.methodOfAbuse == Constants.AbuseMethods.VoiceChat then
-			if isInVoiceProximityExperimentTreatment then
+			-- TODO: Revisit voice proximity sorting after player report list has been updated
+			if false then
 				-- Determine local player camera position
 				local humanoidRootPart = PlayersService.LocalPlayer
 					and PlayersService.LocalPlayer.Character

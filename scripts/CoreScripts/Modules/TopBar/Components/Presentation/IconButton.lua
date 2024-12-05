@@ -2,12 +2,12 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
 
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
-local Cryo = require(CorePackages.Cryo)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local Cryo = require(CorePackages.Packages.Cryo)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Core.Style.withStyle
@@ -27,11 +27,14 @@ local GetFFlagFlashingDotUseAsyncInit = require(CoreGui.RobloxGui.Modules.Flags.
 local ChromeEnabled = require(CoreGui.RobloxGui.Modules.Chrome.Enabled)()
 local isNewTiltIconEnabled = require(CoreGui.RobloxGui.Modules.isNewTiltIconEnabled)
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
-local GetFFlagChromeUsePreferredTransparency = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
+local GetFFlagChangeTopbarHeightCalculation =
+	require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
+local GetFFlagChromeUsePreferredTransparency =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
 
 local FFlagEnableTopBarIconButtonBackgroundProps = game:DefineFastFlag("EnableTopBarIconButtonBackgroundProps", false)
-local GetFFlagFixUnibarVirtualCursor = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagFixUnibarVirtualCursor)
+local GetFFlagFixUnibarVirtualCursor =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixUnibarVirtualCursor
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
@@ -112,7 +115,9 @@ function IconButton:render()
 end
 
 function IconButton:renderWithSelectionCursor(getSelectionCursor)
-	local hasBackgroundFrame = FFlagEnableTopBarIconButtonBackgroundProps and not isNewTiltIconEnabled() and self.props.backgroundColor3
+	local hasBackgroundFrame = FFlagEnableTopBarIconButtonBackgroundProps
+		and not isNewTiltIconEnabled()
+		and self.props.backgroundColor3
 	return withStyle(function(style: any)
 		local overlayTheme = {
 			Color = Color3.new(1, 1, 1),
@@ -129,8 +134,9 @@ function IconButton:renderWithSelectionCursor(getSelectionCursor)
 			onStateChanged = self.controlStateUpdated,
 
 			ZIndex = 1,
-			BackgroundTransparency = if isNewTiltIconEnabled() then
-					if GetFFlagChromeUsePreferredTransparency() then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
+			BackgroundTransparency = if isNewTiltIconEnabled()
+				then if GetFFlagChromeUsePreferredTransparency()
+					then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
 					else style.Theme.BackgroundUIContrast.Transparency
 				else 1,
 			Position = UDim2.fromScale(0, if isNewTiltIconEnabled() then 0.5 else 1),
@@ -138,7 +144,9 @@ function IconButton:renderWithSelectionCursor(getSelectionCursor)
 			Size = UDim2.fromOffset(BACKGROUND_SIZE, BACKGROUND_SIZE),
 			Image = if not isNewTiltIconEnabled() then "rbxasset://textures/ui/TopBar/iconBase.png" else nil,
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
-			SelectionImageObject = if GetFFlagFixUnibarVirtualCursor() and isNewTiltIconEnabled() then getSelectionCursor(CursorKind.SelectedKnob) else nil,
+			SelectionImageObject = if GetFFlagFixUnibarVirtualCursor() and isNewTiltIconEnabled()
+				then getSelectionCursor(CursorKind.SelectedKnob)
+				else nil,
 			[Roact.Event.Activated] = self.props.onActivated,
 			[Roact.Ref] = self.props.forwardRef,
 		}, {
@@ -147,22 +155,29 @@ function IconButton:renderWithSelectionCursor(getSelectionCursor)
 				CornerRadius = UDim.new(1, 0),
 			}) or nil,
 
-			BackgroundFrame = if hasBackgroundFrame then Roact.createElement("Frame", {
-				Size = self.props.iconSize,
-				Position = UDim2.fromScale(0.5, 0.5),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				BorderSizePixel = 0,
-				BackgroundTransparency = self.props.backgroundTransparency,
-			 	BackgroundColor3 = self.props.backgroundColor3,
-				ZIndex = 0,
-			}, {
-			 UICorner = if self.props.backgroundCornerRadius then Roact.createElement("UICorner", {
-				  CornerRadius = self.props.backgroundCornerRadius,
-			  }) else nil,
-			}) else nil,
+			BackgroundFrame = if hasBackgroundFrame
+				then Roact.createElement("Frame", {
+					Size = self.props.iconSize,
+					Position = UDim2.fromScale(0.5, 0.5),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					BorderSizePixel = 0,
+					BackgroundTransparency = self.props.backgroundTransparency,
+					BackgroundColor3 = self.props.backgroundColor3,
+					ZIndex = 0,
+				}, {
+					UICorner = if self.props.backgroundCornerRadius
+						then Roact.createElement("UICorner", {
+							CornerRadius = self.props.backgroundCornerRadius,
+						})
+						else nil,
+				})
+				else nil,
 
 			Icon = not self.props.useIconScaleAnimation and Roact.createElement(ImageSetLabel, {
-				Size = if FFlagEnableTopBarIconButtonBackgroundProps and typeof(self.props.iconSize) ~= "number" then self.props.iconSize else UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
+				Size = if FFlagEnableTopBarIconButtonBackgroundProps
+						and typeof(self.props.iconSize) ~= "number"
+					then self.props.iconSize
+					else UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
@@ -211,9 +226,12 @@ end
 
 if FFlagEnableChromeBackwardsSignalAPI then
 	return Roact.forwardRef(function(props, ref)
-		return Roact.createElement(IconButton, Cryo.Dictionary.join(props, {
-			forwardRef = ref,
-		}))
+		return Roact.createElement(
+			IconButton,
+			Cryo.Dictionary.join(props, {
+				forwardRef = ref,
+			})
+		)
 	end)
 end
 

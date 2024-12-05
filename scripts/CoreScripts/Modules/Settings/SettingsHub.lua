@@ -11,7 +11,7 @@
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local Symbol = require(CorePackages.Symbol)
+local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local IXPService = game:GetService("IXPService")
@@ -20,9 +20,9 @@ local LocalizationService = game:GetService("LocalizationService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local Roact = require(CorePackages.Roact)
-local Cryo = require(CorePackages.Cryo)
-local Otter = require(CorePackages.Otter)
+local Roact = require(CorePackages.Packages.Roact)
+local Cryo = require(CorePackages.Packages.Cryo)
+local Otter = require(CorePackages.Packages.Otter)
 
 --[[ UTILITIES ]]
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -83,7 +83,6 @@ local GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Set
 local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
-local GetFFlagOpenControlsOnMenuOpen = require(RobloxGui.Modules.Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = require(SharedFlags).GetFStringGameInviteMenuLayer
@@ -306,7 +305,6 @@ local function CreateSettingsHub()
 	this.BottomBarButtons = {}
 	this.BottomBarButtonsComponents = {}
 	this.ResizedConnection = nil
-	this.TakingScreenshot = false
 	this.BackBarVisibleConnection = nil
 	this.PreferredTransparencyChangedConnection = nil
 	this.TabConnection = nil
@@ -1990,7 +1988,7 @@ local function CreateSettingsHub()
 			end
 			)
 		end
-		
+
 		if FFlagSettingsHubIndependentBackgroundVisibility then
 			this.DarkenBackground.Activated:Connect(function()
 				if Theme.UIBloxThemeEnabled then
@@ -2388,7 +2386,7 @@ local function CreateSettingsHub()
 		if not isTenFootInterface then
 			if utility:IsSmallTouchScreen() then
 				local backButtonExtraSize = if Theme.UIBloxThemeEnabled or getBackBarVisible() then 0 else 44
-				
+
 				newPageViewClipperSize = UDim2.new(
 					0,
 					this.HubBar.AbsoluteSize.X,
@@ -2975,7 +2973,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		
+
 	end
 
 	function this:SetActive(active)
@@ -3020,8 +3018,8 @@ local function CreateSettingsHub()
 		if not this.checkedUpsell and this.leaveGameUpsellProp == VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
 			this.checkedUpsell = true
 			this.leaveGameUpsellProp = VoiceChatServiceManager:FetchPhoneVerificationUpsell(
-				VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, 
-				this.sessionStartTime, 
+				VoiceConstants.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER,
+				this.sessionStartTime,
 				true
 			)
 			this.LeaveGameUpsellPage:SetUpsellProp(this.leaveGameUpsellProp)
@@ -3044,13 +3042,13 @@ local function CreateSettingsHub()
 			if not this.DarkenBackground then
 				return
 			end
-			
+
 			if not visible and this.DarkenBackground.Visible then
 				if InExperienceAppChatModal:getVisible() or this.Visible then
 					return
 				end
 			end
-			
+
 			local goalTransparency = 1
 			local easingStyle = Enum.EasingStyle.Quart
 			local movementTime = 0
@@ -3085,7 +3083,7 @@ local function CreateSettingsHub()
 			this.DarkenBackground.Visible = visible
 		end
 	end
-	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
+	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
 
 		local visibilityChanged = visible ~= this.Visible
@@ -3118,16 +3116,12 @@ local function CreateSettingsHub()
 		end
 
 		local playerList = require(RobloxGui.Modules.PlayerList.PlayerListManager)
-		
+
 		if FFlagSettingsHubIndependentBackgroundVisibility then
 			setBackgroundVisibilityInternal(this.Visible, noAnimation)
 		end
 
 		if this.Visible then
-			if GetFFlagOpenControlsOnMenuOpen() then
-				this.TakingScreenshot = false
-			end
-
 			this.ResizedConnection = RobloxGui.Changed:connect(function(prop)
 				if prop == "AbsoluteSize" then
 					onScreenSizeChanged()
@@ -3284,7 +3278,7 @@ local function CreateSettingsHub()
 					chat:ToggleVisibility()
 				end
 			end
-			
+
 			if GetFFlagEnableAppChatInExperience() and InExperienceAppChatModal:getVisible() then
 				connectWasVisible = true
 				InExperienceAppChatModal.default:setVisible(false)
@@ -3297,21 +3291,17 @@ local function CreateSettingsHub()
 
 			this.GameSettingsPage:OpenSettingsPage()
 		else
-			if GetFFlagOpenControlsOnMenuOpen() then
-				this.TakingScreenshot = takingScreenshot or false
-			end
-
 			this.CurrentPageSignal:fire("")
-			
+
 			local forceNoAnimationIfWeWillShowConnect = if GetFFlagEnableAppChatInExperience() then (FFlagAppChatReappearIfClosedByTiltMenu and connectWasVisible) else false
-			
+
 			if GetFFlagEnableAppChatInExperience() and connectWasVisible then
 				connectWasVisible = false
 				if FFlagAppChatReappearIfClosedByTiltMenu then
 					InExperienceAppChatModal.default:setVisible(true)
 				end
 			end
-			
+
 			if noAnimation or forceNoAnimationIfWeWillShowConnect then
 				this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 				this.Shield.Visible = this.Visible
@@ -3476,12 +3466,12 @@ local function CreateSettingsHub()
 		end
 	end
 
-	function this:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
+	function this:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 		if this.Visible == visible then return end
 
-		setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
+		setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 	end
-	
+
 	function this:SetBackgroundVisibility(visible, noAnimation)
 		if this.DarkenBackground.Visible == visible then return end
 
@@ -3652,7 +3642,7 @@ local function CreateSettingsHub()
 		this.LeaveGameUpsellPage:SetHub(this)
 	end
 
-	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
+	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettingsWrapper)
 	this.GameSettingsPage:SetHub(this)
 
 	this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
@@ -3869,7 +3859,7 @@ local function CreateSettingsHub()
 
 	if GetFFlagEnableAppChatInExperience() then
 		local connection = nil
-		
+
 		this.SettingsShowSignal:connect(function(visible)
 			if visible then
 				connection = InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
@@ -3942,10 +3932,6 @@ end
 
 function moduleApiTable:GetRespawnBehaviour()
 	return SettingsHubInstance:GetRespawnBehaviour()
-end
-
-function moduleApiTable:GetTakingScreenshot()
-	return if GetFFlagOpenControlsOnMenuOpen() then SettingsHubInstance.TakingScreenshot else nil
 end
 
 moduleApiTable.RespawnBehaviourChangedEvent = SettingsHubInstance.RespawnBehaviourChangedEvent

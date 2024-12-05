@@ -13,11 +13,11 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
-local Roact = require(CorePackages.Roact)
-local Rodux = require(CorePackages.Rodux)
+local Roact = require(CorePackages.Packages.Roact)
+local Rodux = require(CorePackages.Packages.Rodux)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
-local RoactRodux = require(CorePackages.RoactRodux)
-local UIBlox = require(CorePackages.UIBlox)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local StyleConstants = UIBlox.App.Style.Constants
 local ApolloClientInstance = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
@@ -43,7 +43,8 @@ local SetSettings = require(PlayerList.Actions.SetSettings)
 
 local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
 local FFlagRemoveSideBarABTest = require(PlayerList.Flags.FFlagRemoveSideBarABTest)
-local FFlagXboxRemoveLatentVoiceChatPrivilegeCheck = game:DefineFastFlag("XboxRemoveLatentVoiceChatPrivilegeCheck", false)
+local FFlagXboxRemoveLatentVoiceChatPrivilegeCheck =
+	game:DefineFastFlag("XboxRemoveLatentVoiceChatPrivilegeCheck", false)
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -59,21 +60,21 @@ local function isSmallTouchScreen()
 end
 
 local function setupSettings(store)
-    local function updateSettings()
-        store:dispatch(SetSettings({
-            reducedMotion = UserGameSettings.ReducedMotion,
-            preferredTransparency = UserGameSettings.PreferredTransparency,
-        }))
-    end
+	local function updateSettings()
+		store:dispatch(SetSettings({
+			reducedMotion = UserGameSettings.ReducedMotion,
+			preferredTransparency = UserGameSettings.PreferredTransparency,
+		}))
+	end
 
-    updateSettings()
+	updateSettings()
 
-    UserGameSettings:GetPropertyChangedSignal("PreferredTransparency"):Connect(function()
-        updateSettings()
-    end)
-    UserGameSettings:GetPropertyChangedSignal("ReducedMotion"):Connect(function()
-        updateSettings()
-    end)
+	UserGameSettings:GetPropertyChangedSignal("PreferredTransparency"):Connect(function()
+		updateSettings()
+	end)
+	UserGameSettings:GetPropertyChangedSignal("ReducedMotion"):Connect(function()
+		updateSettings()
+	end)
 end
 
 local PlayerListMaster = {}
@@ -117,8 +118,10 @@ function PlayerListMaster.new()
 				pcall(function()
 					--This is pcalled because platformService won't exist in Roblox studio when emulating xbox.
 					local platformService = game:GetService("PlatformService")
-					if platformService:BeginCheckXboxPrivilege(
-						XPRIVILEGE_COMMUNICATION_VOICE_INGAME).PrivilegeCheckResult == "NoIssue" then
+					if
+						platformService:BeginCheckXboxPrivilege(XPRIVILEGE_COMMUNICATION_VOICE_INGAME).PrivilegeCheckResult
+						== "NoIssue"
+					then
 						self.store:dispatch(SetHasPermissionToVoiceChat(true))
 					end
 				end)
@@ -138,7 +141,7 @@ function PlayerListMaster.new()
 
 	local appStyleForUiModeStyleProvider = {
 		themeName = StyleConstants.ThemeName.Dark,
-		fontName = StyleConstants.FontName.Gotham
+		fontName = StyleConstants.FontName.Gotham,
 	}
 
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
@@ -152,12 +155,12 @@ function PlayerListMaster.new()
 				end
 				self.layerCollectorRef.current.Enabled = enabled
 			end,
-		})
+		}),
 	})
 
 	if FFlagRefactorPlayerNameTag then
 		self.root = Roact.createElement(ApolloProvider, {
-			client = ApolloClientInstance
+			client = ApolloClientInstance,
 		}, {
 			StoreProvider = self.root,
 		})
@@ -170,14 +173,14 @@ function PlayerListMaster.new()
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		[Roact.Ref] = self.layerCollectorRef,
 	}, {
-		PlayerListMaster = self.root
+		PlayerListMaster = self.root,
 	})
 
 	if FFlagRemoveSideBarABTest then
 		self.root = Roact.createElement(RoactAppExperiment.Provider, {
-			value = IXPService
+			value = IXPService,
 		}, {
-			RoactAppExperimentProvider = self.root
+			RoactAppExperimentProvider = self.root,
 		})
 	end
 

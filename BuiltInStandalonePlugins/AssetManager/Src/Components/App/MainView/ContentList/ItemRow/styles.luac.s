@@ -24,7 +24,7 @@ MAIN:
   SETTABLEKS R6 R5 K12 ["BackgroundColor3"]
   LOADN R6 0
   SETTABLEKS R6 R5 K13 ["BackgroundTransparency"]
-  NEWTABLE R6 0 6
+  NEWTABLE R6 0 7
   MOVE R7 R2
   LOADK R8 K19 [":hover"]
   DUPTABLE R9 K20 [{"BackgroundColor3"}]
@@ -62,17 +62,19 @@ MAIN:
   SETTABLEKS R13 R12 K29 ["Thickness"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K35 ["> .ThumbnailContainer"]
-  DUPTABLE R13 K36 [{"Size"}]
+  LOADK R12 K35 [">> .ThumbnailContainer"]
+  DUPTABLE R13 K36 [{"Size", "BackgroundColor3"}]
   GETIMPORT R14 K38 [UDim2.fromOffset]
-  LOADN R15 50
-  LOADN R16 50
+  LOADN R15 35
+  LOADN R16 35
   CALL R14 2 1
   SETTABLEKS R14 R13 K11 ["Size"]
+  LOADK R14 K39 ["$BackgroundPaper"]
+  SETTABLEKS R14 R13 K12 ["BackgroundColor3"]
   NEWTABLE R14 0 1
   MOVE R15 R2
-  LOADK R16 K39 ["> .Thumbnail"]
-  DUPTABLE R17 K36 [{"Size"}]
+  LOADK R16 K40 ["> .Thumbnail"]
+  DUPTABLE R17 K41 [{"Size"}]
   GETIMPORT R18 K38 [UDim2.fromOffset]
   LOADN R19 30
   LOADN R20 30
@@ -82,30 +84,39 @@ MAIN:
   SETLIST R14 R15 -1 [1]
   CALL R11 3 1
   MOVE R12 R2
-  LOADK R13 K40 [">> TextLabel"]
-  NEWTABLE R14 0 0
-  NEWTABLE R15 0 1
-  MOVE R16 R2
-  LOADK R17 K41 ["::UIPadding"]
-  DUPTABLE R18 K44 [{"PaddingLeft", "PaddingRight"}]
-  GETIMPORT R19 K46 [UDim.new]
-  LOADN R20 0
-  LOADN R21 10
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K42 ["PaddingLeft"]
-  GETIMPORT R19 K46 [UDim.new]
-  LOADN R20 0
-  LOADN R21 10
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K43 ["PaddingRight"]
-  CALL R16 2 -1
-  SETLIST R15 R16 -1 [1]
-  CALL R12 3 -1
+  LOADK R13 K42 ["> .ThumbnailPadding ::UIPadding"]
+  DUPTABLE R14 K44 [{"PaddingLeft"}]
+  GETIMPORT R15 K46 [UDim.new]
+  LOADN R16 0
+  LOADN R17 10
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K43 ["PaddingLeft"]
+  CALL R12 2 1
+  MOVE R13 R2
+  LOADK R14 K47 [">> TextLabel"]
+  NEWTABLE R15 0 0
+  NEWTABLE R16 0 1
+  MOVE R17 R2
+  LOADK R18 K48 ["::UIPadding"]
+  DUPTABLE R19 K50 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R20 K46 [UDim.new]
+  LOADN R21 0
+  LOADN R22 10
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K43 ["PaddingLeft"]
+  GETIMPORT R20 K46 [UDim.new]
+  LOADN R21 0
+  LOADN R22 10
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K49 ["PaddingRight"]
+  CALL R17 2 -1
+  SETLIST R16 R17 -1 [1]
+  CALL R13 3 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K49 [{"ThumbnailSize", "CellContentPadding"}]
-  LOADN R8 50
-  SETTABLEKS R8 R7 K47 ["ThumbnailSize"]
+  DUPTABLE R7 K53 [{"ThumbnailSize", "CellContentPadding"}]
+  LOADN R8 35
+  SETTABLEKS R8 R7 K51 ["ThumbnailSize"]
   LOADN R8 10
-  SETTABLEKS R8 R7 K48 ["CellContentPadding"]
+  SETTABLEKS R8 R7 K52 ["CellContentPadding"]
   CALL R3 4 -1
   RETURN R3 -1

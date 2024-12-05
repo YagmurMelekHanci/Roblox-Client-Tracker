@@ -1,10 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
+local GetFFlagPostLaunchUnibarDesignTweaks =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
+local GetFFlagSongbirdWindowResponsiveSizing =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdWindowResponsiveSizing
 
 type SpringOptions = ReactOtter.SpringOptions
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
@@ -31,6 +32,10 @@ return {
 	ICON_SIZE = 36,
 	MEDIUM_ICON_SIZE = 28,
 	UNIBAR_END_PADDING = 4,
+	-- Duplicate of TopBarConstants.Padding
+	UNIBAR_LEFT_MARGIN = if GetFFlagPostLaunchUnibarDesignTweaks() then 8 else 12,
+	-- Duplicate of TopBarConstants.ScreenSideOffset
+	MENU_ICON_SCREEN_SIDE_OFFSET = 16,
 	SUB_MENU_ROW_HEIGHT = 56,
 	SUBMENU_PADDING = 8,
 	CONTAINER_PADDING_TOP_BOTTOM = UDim.new(0, 4),
@@ -61,15 +66,15 @@ return {
 	-- the amount of travel to activate a WindowHost from dragging an icon
 	DRAG_MAGNITUDE_THRESHOLD = 10,
 
-	DEFAULT_HEIGHT_LARGE = if GetFFlagSelfieViewV4() then 285 else 324,
-	DEFAULT_WIDTH_LARGE = if GetFFlagSelfieViewV4() then 176 else 150,
-	DEFAULT_HEIGHT = if GetFFlagSelfieViewV4() then 130 else 185,
-	DEFAULT_WIDTH = if GetFFlagSelfieViewV4() then 176 else 86,
+	DEFAULT_HEIGHT_LARGE = 285,
+	DEFAULT_WIDTH_LARGE = 176,
+	DEFAULT_HEIGHT = 130,
+	DEFAULT_WIDTH = 176,
 
-	MAX_HEIGHT_PORTRAIT = if GetFFlagSelfieViewV4() then 285 else 324,
-	MAX_WIDTH_PORTRAIT = if GetFFlagSelfieViewV4() then 176 else 150,
-	MAX_HEIGHT_LANDSCAPE = if GetFFlagSelfieViewV4() then 285 else 240,
-	MAX_WIDTH_LANDSCAPE = if GetFFlagSelfieViewV4() then 176 else 112,
+	MAX_HEIGHT_PORTRAIT = 285,
+	MAX_WIDTH_PORTRAIT = if GetFFlagSongbirdWindowResponsiveSizing() then 260 else 176,
+	MAX_HEIGHT_LANDSCAPE = 285,
+	MAX_WIDTH_LANDSCAPE = if GetFFlagSongbirdWindowResponsiveSizing() then 260 else 176,
 
 	-- Integration Constraints per device type
 	SOCIAL_SLOTS = socialSlots, -- Chat, mic, and self view always present in open standard unibar (when available)

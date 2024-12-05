@@ -3,8 +3,8 @@ local AdService = game:GetService("AdService")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local Promise = require(CorePackages.Promise)
-local Roact = require(CorePackages.Roact)
+local Promise = require(CorePackages.Packages.Promise)
+local Roact = require(CorePackages.Packages.Roact)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local httpRequest = require(RobloxGui.Modules.Common.httpRequest)
@@ -63,7 +63,7 @@ BackButtonController.getMenuText = function()
 end
 
 BackButtonController.initiateBackButtonTeleport = function(teleportMethod)
-		AdService:ReturnToPublisherExperience(teleportMethod)
+	AdService:ReturnToPublisherExperience(teleportMethod)
 end
 
 BackButtonController.hasReturnUniverse = function()

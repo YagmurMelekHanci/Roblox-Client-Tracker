@@ -4,10 +4,10 @@ local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 local GamepadService = game:GetService("GamepadService")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
@@ -27,9 +27,11 @@ local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.Share
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
-local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
-local FFlagEnableChromeBackwardsSignalAPI = require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
-local FFlagEnableUnibarFtuxTooltips = require(script.Parent.Parent.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+local GetFFlagChangeTopbarHeightCalculation =
+	require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
+local FFlagEnableChromeBackwardsSignalAPI =
+	require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -79,14 +81,14 @@ function MenuIcon:init()
 		showTooltip = false,
 		isHovering = false,
 		clickLatched = if tooltipEnabled then false else nil,
-		enableFlashingDot = false
+		enableFlashingDot = false,
 	})
 
 	if GetFFlagVoiceRecordingIndicatorsEnabled() and not ChromeEnabled() then
 		-- We spawn a new coroutine so that this doesn't block the UI from loading.
 		task.spawn(function()
 			self:setState({
-				enableFlashingDot = true
+				enableFlashingDot = true,
 			})
 		end)
 	end
@@ -184,20 +186,25 @@ function MenuIcon:render()
 		enableFlashingDot = self.state.enableFlashingDot,
 	})
 
-	local showTopBarListener = GamepadService and Roact.createElement(ExternalEventConnection, {
-		event = VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
-		callback = self.showTopBarCallback,
-	})
+	local showTopBarListener = GamepadService
+		and Roact.createElement(ExternalEventConnection, {
+			event = VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
+			callback = self.showTopBarCallback,
+		})
 
-	local badgeOver12 = if self.props.showBadgeOver12 then Roact.createElement(BadgeOver12, {
-		position = if ChromeEnabled() then UDim2.new(0, BADGE_INDENT, 1, -(Constants.TopBarButtonPadding + BADGE_INDENT)) else UDim2.new(0, -BADGE_OFFSET, 1, BADGE_OFFSET)
-	}) else nil
+	local badgeOver12 = if self.props.showBadgeOver12
+		then Roact.createElement(BadgeOver12, {
+			position = if ChromeEnabled()
+				then UDim2.new(0, BADGE_INDENT, 1, -(Constants.TopBarButtonPadding + BADGE_INDENT))
+				else UDim2.new(0, -BADGE_OFFSET, 1, BADGE_OFFSET),
+		})
+		else nil
 
 	if tooltipEnabled then
 		local tooltipText = MENU_TOOLTIP_FALLBACK
 		pcall(function()
 			tooltipText = RobloxTranslator:FormatByKey(MENU_TOOLTIP_LABEL)
-	   	end)
+		end)
 		local tooltipProps = {
 			textAlignment = Enum.TextXAlignment.Center,
 			headerText = tooltipText,
@@ -236,8 +243,12 @@ function MenuIcon:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
 			LayoutOrder = self.props.layoutOrder,
-			[Roact.Change.AbsoluteSize] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
-			[Roact.Change.AbsolutePosition] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
+			[Roact.Change.AbsoluteSize] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled())
+				then onAreaChanged
+				else nil,
+			[Roact.Change.AbsolutePosition] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled())
+				then onAreaChanged
+				else nil,
 		}, {
 			BadgeOver12 = badgeOver12,
 			Background = background,

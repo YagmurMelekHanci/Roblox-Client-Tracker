@@ -5,6 +5,8 @@ local Constants = {}
 
 Constants.AbuseReportMenuRootName = "AbuseReportMenuNewRoot"
 
+Constants.AbuseReportMenuPlaceholderFrame = "AbuseReportMenuPlaceholderFrame"
+
 Constants.ModalBaseSelectorDialogRootName = "ModalBaseSelectorDialog"
 
 Constants.ReportModes = {
@@ -111,6 +113,7 @@ Constants.AnalyticsActions = {
 	IncrementPersonChanged = "IncrementPersonChanged",
 	IncrementReasonChanged = "IncrementReasonChanged",
 	IncrementCaptureScene = "IncrementCaptureScene",
+	SetMemoryRequirementMet = "SetMemoryRequirementMet", -- if device meets memory requirement for Highlight Mode/Select in Scene
 	SetViewportInformation = "SetViewportInformation",
 	SetSubmissionCompleted = "SetSubmissionCompleted",
 	SetTypeOfAbuseSelection = "SetTypeOfAbuseSelection",
@@ -219,6 +222,7 @@ Constants.AnalyticsInitialState = {
 	reasonSelection = nil,
 	commentAdded = false,
 	experiencePersonSelection = nil,
+	memoryRequirementMet = -1, -- if device meets memory requirement for Highlight Mode/Select in Scene
 } :: Types.AnalyticsState
 
 Constants.AnalyticsPersonInitialSelections = {

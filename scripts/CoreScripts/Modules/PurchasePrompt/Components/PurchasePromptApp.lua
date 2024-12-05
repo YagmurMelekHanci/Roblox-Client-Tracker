@@ -3,14 +3,14 @@ local Root = script.Parent.Parent
 local CoreGui = game:GetService("CoreGui")
 local LocalizationService = game:GetService("LocalizationService")
 local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 local Rodux = PurchasePromptDeps.Rodux
 local RoactRodux = PurchasePromptDeps.RoactRodux
 local UIBlox = PurchasePromptDeps.UIBlox
 local StyleProvider = UIBlox.Style.Provider
-local IAPExperience = require(CorePackages.IAPExperience)
-local LocaleProvider =  IAPExperience.Locale.LocaleProvider
+local IAPExperience = require(CorePackages.Workspace.Packages.IAPExperience)
+local LocaleProvider = IAPExperience.Locale.LocaleProvider
 local ToastLite = require(CorePackages.Workspace.Packages.ToastLite)
 local Toast = ToastLite.Components.Toast
 
@@ -52,15 +52,17 @@ function PurchasePromptApp:init()
 
 	self.state = {
 		-- Remove store from state with FFlagPublishAvatarPromptEnabled
-		store = if not FFlagPublishAvatarPromptEnabled then Rodux.Store.new(Reducer, initialState, {
-			Thunk.middleware({
-				[ABTest] = abTest,
-				[Network] = network,
-				[Analytics] = analytics,
-				[PlatformInterface] = platformInterface,
-				[ExternalSettings] = externalSettings,
-			}),
-		}) else nil,
+		store = if not FFlagPublishAvatarPromptEnabled
+			then Rodux.Store.new(Reducer, initialState, {
+				Thunk.middleware({
+					[ABTest] = abTest,
+					[Network] = network,
+					[Analytics] = analytics,
+					[PlatformInterface] = platformInterface,
+					[ExternalSettings] = externalSettings,
+				}),
+			})
+			else nil,
 		isTenFootInterface = externalSettings.isTenFootInterface(),
 	}
 end
@@ -94,7 +96,7 @@ function PurchasePromptApp:render()
 								SubscriptionPurchaseContainer = Roact.createElement(SubscriptionPurchaseContainer),
 							}),
 							EventConnections = Roact.createElement(EventConnections),
-							Toast = if GetFFlagEnableToastLiteRender() then Roact.createElement(Toast) else nil
+							Toast = if GetFFlagEnableToastLiteRender() then Roact.createElement(Toast) else nil,
 						}),
 					}),
 				}),

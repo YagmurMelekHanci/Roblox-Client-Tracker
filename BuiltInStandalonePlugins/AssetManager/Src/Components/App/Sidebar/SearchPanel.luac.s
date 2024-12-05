@@ -13,9 +13,8 @@ PROTO_1:
 
 PROTO_2:
   GETUPVAL R0 0
-  LOADB R2 1
-  NAMECALL R0 R0 K0 ["setShowSearchOptions"]
-  CALL R0 2 0
+  NAMECALL R0 R0 K0 ["showSearchOptions"]
+  CALL R0 1 0
   RETURN R0 0
 
 PROTO_3:
@@ -36,7 +35,7 @@ PROTO_3:
   SETTABLEKS R7 R6 K2 ["LayoutOrder"]
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K3 ["Tag"]
-  LOADK R8 K4 ["TopBar X-Center X-Stroke X-Middle X-ColumnM"]
+  LOADK R8 K4 ["SearchPanel X-Stroke"]
   SETTABLE R8 R6 R7
   DUPTABLE R7 K6 [{"SearchBar"}]
   GETUPVAL R9 3
@@ -65,7 +64,7 @@ PROTO_3:
   SETTABLEKS R11 R10 K16 ["ShowSearchButton"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K3 ["Tag"]
-  LOADK R12 K17 ["X-Pad"]
+  LOADK R12 K17 ["X-AnchorCenter X-Pad"]
   SETTABLE R12 R10 R11
   CALL R8 2 1
   SETTABLEKS R8 R7 K5 ["SearchBar"]

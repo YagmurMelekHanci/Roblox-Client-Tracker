@@ -21,7 +21,14 @@ local VRAppConstants = VRModule.VRConstants
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
+local UIManagerFolder = CoreGuiModules:WaitForChild("UIManager")
+local PanelType = require(UIManagerFolder.Constants).PanelType
+local UIManager = require(UIManagerFolder.UIManager)
+local Constants = require(UIManagerFolder.Constants)
+
 local FFlagVRShowUIOnGuiSelection = game:DefineFastFlag("VRShowUIOnGuiSelection", false)
+
+local FFlagEnableSpatialRobloxGui = require(RobloxGui.Modules.Flags.FFlagEnableSpatialRobloxGui)
 
 -- this var moves the gui and bottom bar together
 local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
@@ -67,9 +74,19 @@ userGuiPanel:SetVisible(false)
 
 local userGuiTimeout = 0
 
--- new panel that is semi-attached to the camera orientation
-local plPanel = Panel3D.Get(VRAppConstants.PositionLockedPanelName)
-plPanel:SetType(Panel3D.Type.PositionLocked)
+local plPanel
+if FFlagEnableSpatialRobloxGui then
+	plPanel = Panel3D.Get(VRAppConstants.PositionLockedPanelName)
+	config = {}
+	local panelCreationProps = {
+		panelType = PanelType.RobloxGui,
+	} :: Constants.PanelCreationProps
+	config.uiManagerPanelPart = (UIManager:createUI(panelCreationProps) :: Constants.CompatPanel).panelObject :: Part
+	plPanel:SetType(Panel3D.Type.UIManagerManaged, config)
+else
+	plPanel = Panel3D.Get(VRAppConstants.PositionLockedPanelName)
+	plPanel:SetType(Panel3D.Type.PositionLocked)
+end
 -- This panel doesn't use a SurfaceGui, so it doesn't need raycasts to interact with it.
 -- We don't want to potentially block any developer raycasts, so opt out of raycasts and other spatial queries.
 plPanel:GetPart().CanQuery = false
@@ -104,7 +121,11 @@ function UserGuiModule:SetVisible(visible, panel)
 
 	-- We need to hide the UserGui when typing on the keyboard so that the textbox doesn't sink events from the keyboard
 	local showGui = GuiVisible and not KeyboardOpen
-	CoreGui:SetUserGuiRendering(true, showGui and panel and panel:GetPart() or nil, Enum.NormalId.Front)
+	if FFlagEnableSpatialRobloxGui then
+		CoreGui:SetUserGuiRendering(true, showGui and panel and panel:GetPart() or nil, Enum.NormalId.Back)
+	else
+		CoreGui:SetUserGuiRendering(true, showGui and panel and panel:GetPart() or nil, Enum.NormalId.Front)
+	end
 end
 
 

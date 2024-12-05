@@ -1,8 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
-local FFlagEnableCapturesDesktopExperiment = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableCapturesDesktopExperiment
-local FFlagEnableSocialCaptureTakenIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSocialCaptureTakenIXPLayer
-local FStringCapturesIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringCapturesIXPLayer
 local FStringSocialCaptureIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringSocialCaptureIXPLayer
 local FStringSocialCaptureTakenIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringSocialCaptureTakenIXPLayer
 local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
@@ -38,6 +35,8 @@ return function()
 		getFStringDesktopToastNotificationLayer(),
 		FStringReportMenuIXPLayer,
 		FStringReportingIXPLayer,
+		FStringSocialCaptureIXPLayer,
+		FStringSocialCaptureTakenIXPLayer,
 	}
 
 	if IsExperienceMenuABTestEnabled()
@@ -73,18 +72,6 @@ return function()
 
 	if GetFFlagUXForCameraPerformanceIXPEnabled() then
 		table.insert(layers, GetFStringUXForCameraPerformanceIXPLayerName())
-	end
-
-	if FFlagEnableCapturesDesktopExperiment then
-		table.insert(layers, FStringCapturesIXPLayer)
-	end
-
-	if game:GetEngineFeature("SocialCaptureLayerRegistered") and FStringSocialCaptureIXPLayer then
-		table.insert(layers, FStringSocialCaptureIXPLayer)
-	end
-
-	if FFlagEnableSocialCaptureTakenIXPLayer and FStringSocialCaptureTakenIXPLayer then
-		table.insert(layers, FStringSocialCaptureTakenIXPLayer)
 	end
 
 	if GetFFlagAddVoiceExposureLayer() then

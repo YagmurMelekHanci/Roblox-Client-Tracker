@@ -2,7 +2,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 
 local chromeService = require(Chrome.ChromeShared.Service)
@@ -91,9 +91,7 @@ return chromeService:register({
 	id = "chrome_toggle",
 	label = "CoreScripts.TopBar.MenuToggle",
 	hideNotificationCountWhileOpen = true,
-	activated = function()
-		chromeService:toggleOpen()
-	end,
+	activated = function() end,
 	components = {
 		Icon = function(props)
 			return ToggleMenuButton(props)

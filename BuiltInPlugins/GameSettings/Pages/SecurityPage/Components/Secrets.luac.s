@@ -25,15 +25,11 @@ PROTO_0:
   SETTABLEKS R9 R8 K13 ["OnTextChanged"]
   GETTABLEKS R9 R1 K18 ["Secrets"]
   SETTABLEKS R9 R8 K14 ["Text"]
-  GETUPVAL R10 3
-  JUMPIFNOT R10 [+8]
   GETTABLEKS R9 R1 K5 ["Localization"]
   LOADK R11 K19 ["Security"]
   LOADK R12 K20 ["LocalSecretsDesc"]
   NAMECALL R9 R9 K8 ["getText"]
   CALL R9 3 1
-  JUMP [+1]
-  LOADNIL R9
   SETTABLEKS R9 R8 K15 ["BottomText"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K9 ["TextBox"]
@@ -42,44 +38,39 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ShowLocalSecretsDesc"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  GETIMPORT R5 K5 [script]
-  GETTABLEKS R4 R5 K6 ["Parent"]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R4 R1 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Roact"]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
   CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R5 R1 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Framework"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K12 ["UI"]
-  GETTABLEKS R5 R4 K13 ["TextInput"]
-  GETTABLEKS R6 R4 K14 ["TitledFrame"]
-  GETTABLEKS R7 R3 K15 ["ContextServices"]
-  GETTABLEKS R8 R7 K16 ["withContext"]
-  GETTABLEKS R9 R2 K17 ["PureComponent"]
-  LOADK R11 K18 ["Secrets"]
-  NAMECALL R9 R9 K19 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K20 [PROTO_0]
-  CAPTURE VAL R2
-  CAPTURE VAL R6
+  GETTABLEKS R3 R2 K8 ["UI"]
+  GETTABLEKS R4 R3 K9 ["TextInput"]
+  GETTABLEKS R5 R3 K10 ["TitledFrame"]
+  GETTABLEKS R6 R2 K11 ["ContextServices"]
+  GETTABLEKS R7 R6 K12 ["withContext"]
+  GETTABLEKS R8 R1 K13 ["PureComponent"]
+  LOADK R10 K14 ["Secrets"]
+  NAMECALL R8 R8 K15 ["extend"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K16 [PROTO_0]
+  CAPTURE VAL R1
   CAPTURE VAL R5
-  CAPTURE VAL R0
-  SETTABLEKS R10 R9 K21 ["render"]
+  CAPTURE VAL R4
+  SETTABLEKS R9 R8 K17 ["render"]
+  MOVE R9 R7
+  DUPTABLE R10 K19 [{"Localization"}]
+  GETTABLEKS R11 R6 K18 ["Localization"]
+  SETTABLEKS R11 R10 K18 ["Localization"]
+  CALL R9 1 1
   MOVE R10 R8
-  DUPTABLE R11 K23 [{"Localization"}]
-  GETTABLEKS R12 R7 K22 ["Localization"]
-  SETTABLEKS R12 R11 K22 ["Localization"]
-  CALL R10 1 1
-  MOVE R11 R9
-  CALL R10 1 1
-  MOVE R9 R10
-  RETURN R9 1
+  CALL R9 1 1
+  MOVE R8 R9
+  RETURN R8 1

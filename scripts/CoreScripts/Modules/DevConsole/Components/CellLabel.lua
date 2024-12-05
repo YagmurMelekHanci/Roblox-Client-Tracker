@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
 local TEXT_SIZE = Constants.DefaultFontSize.MainWindow

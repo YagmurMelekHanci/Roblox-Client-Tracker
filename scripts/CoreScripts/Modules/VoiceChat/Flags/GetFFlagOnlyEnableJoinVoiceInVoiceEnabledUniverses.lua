@@ -1,5 +1,5 @@
-game:DefineFastFlag("OnlyEnableJoinVoiceInVoiceEnabledUniverses", false)
+game:DefineFastFlag("OnlyEnableJoinVoiceInVoiceEnabledUniversesV2", false)
 
 return function()
-	return game:GetFastFlag("OnlyEnableJoinVoiceInVoiceEnabledUniverses")
+	return game:GetFastFlag("OnlyEnableJoinVoiceInVoiceEnabledUniversesV2")
 end

@@ -2,8 +2,8 @@
 -- This component displays the snapshot list and a table tab group where each tab displays different aspects of the selected snapshot
 local CorePackages = game:GetService("CorePackages")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local Components = script.Parent.Parent.Parent.Components
 local HeaderButton = require(Components.HeaderButton)

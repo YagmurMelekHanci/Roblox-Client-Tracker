@@ -1,53 +1,48 @@
 PROTO_0:
   GETUPVAL R1 0
-  JUMPIFNOT R1 [+4]
-  GETIMPORT R1 K1 [print]
-  LOADK R2 K2 ["[FLog::PluginManagementFetching] RefreshPlugins fetching InstalledPluginData"]
-  CALL R1 1 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K3 ["InstalledPluginData"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["InstalledPluginData"]
   CALL R1 1 1
   NEWTABLE R2 0 0
-  GETIMPORT R3 K5 [pairs]
+  GETIMPORT R3 K2 [pairs]
   MOVE R4 R1
   CALL R3 1 3
   FORGPREP_NEXT R3
-  GETTABLEKS R9 R7 K6 ["assetId"]
+  GETTABLEKS R9 R7 K3 ["assetId"]
   FASTCALL1 TONUMBER R9 [+2]
-  GETIMPORT R8 K8 [tonumber]
+  GETIMPORT R8 K5 [tonumber]
   CALL R8 1 1
   JUMPIFNOTEQKNIL R8 [+10]
-  GETIMPORT R9 K10 [warn]
-  LOADK R10 K11 ["assetId is nil or non-numeric for installedPlugin on refresh"]
-  GETTABLEKS R11 R7 K6 ["assetId"]
+  GETIMPORT R9 K7 [warn]
+  LOADK R10 K8 ["assetId is nil or non-numeric for installedPlugin on refresh"]
+  GETTABLEKS R11 R7 K3 ["assetId"]
   CALL R9 2 0
   LOADNIL R9
   SETTABLE R9 R1 R6
   JUMP [+8]
   GETTABLE R9 R1 R6
-  SETTABLEKS R8 R9 K6 ["assetId"]
+  SETTABLEKS R8 R9 K3 ["assetId"]
   LENGTH R10 R2
-  ADDK R9 R10 K12 [1]
-  GETTABLEKS R10 R7 K6 ["assetId"]
+  ADDK R9 R10 K9 [1]
+  GETTABLEKS R10 R7 K3 ["assetId"]
   SETTABLE R10 R2 R9
   FORGLOOP R3 2 [-26]
   LENGTH R3 R2
   LOADN R4 0
   JUMPIFNOTLT R4 R3 [+11]
-  GETUPVAL R5 3
-  GETUPVAL R6 4
-  GETUPVAL R7 5
+  GETUPVAL R5 2
+  GETUPVAL R6 3
+  GETUPVAL R7 4
   MOVE R8 R2
   MOVE R9 R1
   CALL R5 4 -1
-  NAMECALL R3 R0 K13 ["dispatch"]
+  NAMECALL R3 R0 K10 ["dispatch"]
   CALL R3 -1 0
   RETURN R0 0
-  GETUPVAL R5 6
+  GETUPVAL R5 5
   NEWTABLE R6 0 0
   CALL R5 1 -1
-  NAMECALL R3 R0 K13 ["dispatch"]
+  NAMECALL R3 R0 K10 ["dispatch"]
   CALL R3 -1 0
   RETURN R0 0
 
@@ -56,45 +51,39 @@ PROTO_1:
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
   CAPTURE VAL R0
   CAPTURE VAL R1
-  CAPTURE UPVAL U4
+  CAPTURE UPVAL U3
   RETURN R2 1
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["DebugStudioAddPluginManagementDebugLogs"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  GETIMPORT R4 K5 [script]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K1 [game]
-  LOADK R4 K7 ["StudioService"]
-  NAMECALL R2 R2 K8 ["GetService"]
-  CALL R2 2 1
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R6 R1 K11 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Thunks"]
-  GETTABLEKS R4 R5 K13 ["MultiGetPluginInfoRequest"]
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [game]
+  LOADK R3 K5 ["StudioService"]
+  NAMECALL R1 R1 K6 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Thunks"]
+  GETTABLEKS R3 R4 K11 ["MultiGetPluginInfoRequest"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Actions"]
+  GETTABLEKS R4 R5 K13 ["SetLoadedPluginData"]
   CALL R3 1 1
-  GETIMPORT R4 K10 [require]
-  GETTABLEKS R7 R1 K11 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Actions"]
-  GETTABLEKS R5 R6 K15 ["SetLoadedPluginData"]
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Util"]
+  GETTABLEKS R5 R6 K15 ["extractPluginsFromJsonString"]
   CALL R4 1 1
-  GETIMPORT R5 K10 [require]
-  GETTABLEKS R8 R1 K11 ["Src"]
-  GETTABLEKS R7 R8 K16 ["Util"]
-  GETTABLEKS R6 R7 K17 ["extractPluginsFromJsonString"]
-  CALL R5 1 1
-  DUPCLOSURE R6 K18 [PROTO_1]
-  CAPTURE VAL R0
-  CAPTURE VAL R5
+  DUPCLOSURE R5 K16 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R4
-  RETURN R6 1
+  RETURN R5 1

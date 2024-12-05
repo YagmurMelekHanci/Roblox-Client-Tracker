@@ -1,18 +1,20 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Cryo = require(CorePackages.Packages.Cryo)
 
-local Types = require(Chrome.Service.Types)
+local Types = require(Root.Service.Types)
 
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local analyticActions = Songbird.AnalyticActions
 local sendAnalytics = Songbird.sendAnalytics
 
-local GetFIntChromeDefaultPeekDuration = require(Chrome.Parent.Flags.GetFIntChromeDefaultPeekDuration)
-local GetFIntChromePeekCooldownSeconds = require(Chrome.Parent.Flags.GetFIntChromePeekCooldownSeconds)
+local GetFIntChromeDefaultPeekDuration =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntChromeDefaultPeekDuration
+local GetFIntChromePeekCooldownSeconds =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntChromePeekCooldownSeconds
 
 local Signal = AppCommonLib.Signal
 

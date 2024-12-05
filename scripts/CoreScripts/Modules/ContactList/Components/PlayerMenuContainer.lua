@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
 local React = require(CorePackages.Packages.React)
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local GetFFlagIrisBlockUnfriendMenuFix =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisBlockUnfriendMenuFix
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")

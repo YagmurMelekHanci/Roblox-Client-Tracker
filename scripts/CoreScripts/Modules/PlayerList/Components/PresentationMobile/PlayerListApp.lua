@@ -2,9 +2,9 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
-local Otter = require(CorePackages.Otter)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local Otter = require(CorePackages.Packages.Otter)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local CoreGui = game:GetService("CoreGui")
@@ -257,9 +257,13 @@ function PlayerListApp:render()
 				selectedPlayer = self.props.dropDownPlayer,
 			}),
 			-- Push menu down when chrome enabled to below topbarheight
-			BodyPadding = if GetFFlagPlayerListChromePushdown() and ChromeEnabled and self.props.screenSizeY < self.props.screenSizeX then Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, TopBarConstants.TopBarHeight)
-			}) else nil,
+			BodyPadding = if GetFFlagPlayerListChromePushdown()
+					and ChromeEnabled
+					and self.props.screenSizeY < self.props.screenSizeX
+				then Roact.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, TopBarConstants.TopBarHeight),
+				})
+				else nil,
 			BodyBackground = Roact.createElement("Frame", {
 				Size = playerListSizeFromViewportSize(Vector2.new(self.props.screenSizeX, self.props.screenSizeY)),
 				AnchorPoint = Vector2.new(0.5, 0.5),

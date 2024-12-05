@@ -2,7 +2,7 @@ local Root = script.Parent.Parent.Parent
 local GuiService = game:GetService("GuiService")
 
 local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 local React = require(CorePackages.Packages.React)
 
@@ -25,13 +25,15 @@ local ExternalEventConnection = require(Root.Components.Connection.ExternalEvent
 
 local PremiumUpsellOverlay = require(script.Parent.PremiumUpsellOverlay)
 
-local GetFFLagUseCoreScriptsRootProviderForUpsellModal = require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
+local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
+	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
 
 local PremiumUpsellContainer = Roact.Component:extend(script.Name)
 
 local SELECTION_GROUP_NAME = "PremiumUpsellContainer"
 
-local GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium = require(Root.Flags.GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium)
+local GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium =
+	require(Root.Flags.GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium)
 
 function PremiumUpsellContainer:init()
 	self.state = {
@@ -105,7 +107,9 @@ function PremiumUpsellContainer:createElement()
 
 			promptPremiumPurchase = props.promptPremiumPurchase,
 			dispatchPremiumPrecheck = props.dispatchPremiumPrecheck,
-			endPurchase = if GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium() then self.endPurchase else props.completeRequest,
+			endPurchase = if GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium()
+				then self.endPurchase
+				else props.completeRequest,
 
 			onAnalyticEvent = props.onAnalyticEvent,
 		}),
@@ -120,7 +124,7 @@ function PremiumUpsellContainer:createElement()
 			callback = function()
 				props.completeRequest()
 			end,
-		})
+		}),
 	})
 end
 
@@ -132,42 +136,39 @@ function PremiumUpsellContainer:render()
 				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 			}, {
 				PremiumUpsellContainer = self:createElement(),
-			})
+			}),
 		})
 	else
 		return self:createElement()
 	end
 end
 
-PremiumUpsellContainer = connectToStore(
-	function(state)
-		return {
-			requestType = state.promptRequest.requestType,
+PremiumUpsellContainer = connectToStore(function(state)
+	return {
+		requestType = state.promptRequest.requestType,
 
-			promptState = state.promptState,
-			purchaseError = state.purchaseError,
+		promptState = state.promptState,
+		purchaseError = state.purchaseError,
 
-			premiumProductInfo = state.premiumProductInfo,
+		premiumProductInfo = state.premiumProductInfo,
 
-			isGamepadEnabled = state.gamepadEnabled,
-		}
-	end,
-	function(dispatch)
-		return {
-			promptPremiumPurchase = function()
-				return dispatch(launchPremiumUpsell())
-			end,
-			completeRequest = function()
-				return dispatch(completeRequest())
-			end,
-			onAnalyticEvent = function(name, data)
-				return dispatch(sendEvent(name, data))
-			end,
-			dispatchPremiumPrecheck = function()
-				return dispatch(initiatePremiumPrecheck())
-			end,
-		}
-	end
-)(PremiumUpsellContainer)
+		isGamepadEnabled = state.gamepadEnabled,
+	}
+end, function(dispatch)
+	return {
+		promptPremiumPurchase = function()
+			return dispatch(launchPremiumUpsell())
+		end,
+		completeRequest = function()
+			return dispatch(completeRequest())
+		end,
+		onAnalyticEvent = function(name, data)
+			return dispatch(sendEvent(name, data))
+		end,
+		dispatchPremiumPrecheck = function()
+			return dispatch(initiatePremiumPrecheck())
+		end,
+	}
+end)(PremiumUpsellContainer)
 
 return PremiumUpsellContainer

@@ -139,9 +139,13 @@ local function trackDevice(device: AudioDeviceInput)
 	audioDevices[device] = connections :: AudioDeviceConnections
 	if FFlagUseAudioDeviceRemoving then
 		if FFlagFixNewPlayerCheck then
-			device.Destroying:Connect(function() untrackDeviceForPlayer(device, device.Player) end)
+			device.Destroying:Connect(function()
+				untrackDeviceForPlayer(device, device.Player)
+			end)
 		else
-			device.Destroying:Connect(function() untrackDevice(device) end)
+			device.Destroying:Connect(function()
+				untrackDevice(device)
+			end)
 		end
 	end
 end

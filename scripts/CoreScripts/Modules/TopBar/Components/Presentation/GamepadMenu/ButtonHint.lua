@@ -3,9 +3,9 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local TextService = game:GetService("TextService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
@@ -36,10 +36,7 @@ function ButtonHint:render()
 		local text = RobloxTranslator:FormatByKey(self.props.localizationKey)
 
 		local fontSize = font.BaseSize * font.Header2.RelativeSize or font.BaseSize * font.Header1.RelativeSize
-		local textWidth = TextService:GetTextSize(text,
-			fontSize,
-			font.Header2.Font,
-			Vector2.new(1000, 1000)).X
+		local textWidth = TextService:GetTextSize(text, fontSize, font.Header2.Font, Vector2.new(1000, 1000)).X
 		local buttonHintWidth = ICON_SIZE + PADDING + textWidth
 
 		return Roact.createElement("Frame", {
@@ -75,8 +72,8 @@ function ButtonHint:render()
 				TextColor3 = theme.TextEmphasis.Color,
 				TextTransparency = theme.TextEmphasis.TextTransparency,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment =  Enum.TextYAlignment.Center,
-			})
+				TextYAlignment = Enum.TextYAlignment.Center,
+			}),
 		})
 	end)
 end

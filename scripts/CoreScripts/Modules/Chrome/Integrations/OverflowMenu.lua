@@ -5,6 +5,7 @@ local React = require(CorePackages.Packages.React)
 
 local ChromeService = require(Chrome.ChromeShared.Service)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
+local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
@@ -19,9 +20,10 @@ local Types = require(Chrome.ChromeShared.Service.Types)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
 local Signal = SignalLib.Signal
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
@@ -36,12 +38,11 @@ local SelfieView = require(RobloxGui.Modules.SelfieView)
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 
-local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 local GetFFlagUnpinUnavailable = require(Chrome.Flags.GetFFlagUnpinUnavailable)
-local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
-local GetFFlagPostLaunchUnibarDesignTweaks = require(RobloxGui.Modules.Flags.GetFFlagPostLaunchUnibarDesignTweaks)
+local GetFFlagPostLaunchUnibarDesignTweaks =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
-local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
 local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
 local GetFFlagFixCapturesAvailability = require(Chrome.Flags.GetFFlagFixCapturesAvailability)
@@ -56,10 +57,14 @@ local GetFIntMusicFtuxDismissDelayMs = require(Chrome.Flags.GetFIntMusicFtuxDism
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
+local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
 
+local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
+	game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false)
 local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 	and FFlagEnableUnibarFtuxTooltips
 	and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
+	and FFlagAppChatEnabledChromeDropdownFtuxTooltip
 	and GetShouldShowPlatformChatBasedOnPolicy()
 
 local shouldShowMusicTooltip = FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip()
@@ -105,9 +110,15 @@ local leaderboard = ChromeService:register({
 			if PlayerListMaster:GetSetVisible() then
 				PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
 			else
-				ChromeUtils.dismissRobloxMenuAndRun(function()
-					PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
-				end)
+				if GetFFlagRemoveChromeRobloxGuiReferences() then
+					ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+						PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+					end)
+				else
+					ChromeUtils.dismissRobloxMenuAndRun(function()
+						PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+					end)
+				end
 			end
 		end
 	end,
@@ -138,13 +149,15 @@ local emotes = ChromeService:register({
 		if EmotesMenuMaster:isOpen() then
 			EmotesMenuMaster:close()
 		else
-			--if self.chatWasHidden then
-			--	ChatSelector:SetVisible(true)
-			--	self.chatWasHidden = false
-			--end
-			ChromeUtils.dismissRobloxMenuAndRun(function()
-				EmotesMenuMaster:open()
-			end)
+			if GetFFlagRemoveChromeRobloxGuiReferences() then
+				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+					EmotesMenuMaster:open()
+				end)
+			else
+				ChromeUtils.dismissRobloxMenuAndRun(function()
+					EmotesMenuMaster:open()
+				end)
+			end
 		end
 	end,
 	isActivated = if GetFFlagAddChromeActivatedEvents()
@@ -197,9 +210,15 @@ local backpack = ChromeService:register({
 		if BackpackModule.IsOpen then
 			BackpackModule:OpenClose()
 		else
-			ChromeUtils.dismissRobloxMenuAndRun(function()
-				BackpackModule:OpenClose()
-			end)
+			if GetFFlagRemoveChromeRobloxGuiReferences() then
+				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+					BackpackModule:OpenClose()
+				end)
+			else
+				ChromeUtils.dismissRobloxMenuAndRun(function()
+					BackpackModule:OpenClose()
+				end)
+			end
 		end
 	end,
 	isActivated = if GetFFlagAddChromeActivatedEvents()
@@ -318,9 +337,11 @@ function HamburgerButton(props)
 				isIconVisible = props.visible,
 
 				headerKey = if GetFFlagAppChatRebrandStringUpdates()
+						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
 				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
+						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 
@@ -334,9 +355,11 @@ function HamburgerButton(props)
 				isIconVisible = props.visible,
 
 				headerKey = if GetFFlagAppChatRebrandStringUpdates()
+						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
 				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
+						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 
@@ -444,8 +467,7 @@ function HamburgerButton(props)
 				Rotation = -45,
 			}) :: any
 			else nil,
-		if GetFFlagSelfieViewV4()
-				and SelfieView.useCameraOn()
+		if SelfieView.useCameraOn()
 				and not ChromeService:isWindowOpen(SELFIE_ID)
 				and not submenuOpen
 			then React.createElement(SelfieView.CameraStatusDot, {
@@ -460,9 +482,7 @@ function HamburgerButton(props)
 end
 
 return ChromeService:register({
-	initialAvailability = if GetFFlagEnableAlwaysOpenUnibar()
-		then ChromeService.AvailabilitySignal.Pinned
-		else ChromeService.AvailabilitySignal.Available,
+	initialAvailability = ChromeService.AvailabilitySignal.Pinned,
 	notification = ChromeService:subMenuNotifications("nine_dot"),
 	id = "nine_dot",
 	label = "CoreScripts.TopBar.MoreMenu",

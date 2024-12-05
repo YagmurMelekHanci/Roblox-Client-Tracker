@@ -1,7 +1,7 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
-local ChromeService = require(Chrome.Service)
-local useObservableValue = require(Chrome.Hooks.useObservableValue)
+local ChromeService = require(Root.Service)
+local useObservableValue = require(Root.Hooks.useObservableValue)
 
 return function()
 	return useObservableValue(ChromeService:status())

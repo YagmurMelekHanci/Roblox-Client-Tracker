@@ -3,7 +3,7 @@ local Root = script.Parent.Parent
 
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local Rodux = PurchasePromptDeps.Rodux
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -71,7 +71,7 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 			assetTypeId = nil,
 			productId = bundleProductInfo.product.id,
 			membershipTypeRequired = nil,
-			itemType = bundleProductInfo.itemType
+			itemType = bundleProductInfo.itemType,
 		}
 	end,
 

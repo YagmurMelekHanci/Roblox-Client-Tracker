@@ -1,7 +1,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local EventType = require(script.Parent.Parent.EventType)
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local VRFTUXToolTips = require(script.Parent.Parent.Parent.Components.Tooltips.VRFTUXToolTips)
 local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)

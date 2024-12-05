@@ -1,14 +1,14 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local React = require(CorePackages.Packages.React)
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
-local Constants = require(Chrome.Unibar.Constants)
+local Constants = require(Root.Unibar.Constants)
 
 local FIntLuaUIOcclusionMetricsReportingPeriodSeconds =
-	require(Chrome.Parent.Flags.GetFIntLuaUIOcclusionMetricsReportingPeriodSeconds)()
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntLuaUIOcclusionMetricsReportingPeriodSeconds()
 local EngineFeatureGuiServiceSendUIOcclusionMetricsForQueryRegion =
 	game:GetEngineFeature("GuiServiceSendUIOcclusionMetricsForQueryRegion")
 local kUnibarCurrentSizeRegionName = "currentSizeTR"

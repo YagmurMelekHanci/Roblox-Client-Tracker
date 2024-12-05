@@ -5,10 +5,10 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
-local Roact = require(CorePackages.Roact)
-local Rodux = require(CorePackages.Rodux)
-local RoactRodux = require(CorePackages.RoactRodux)
-local UIBlox = require(CorePackages.UIBlox)
+local Roact = require(CorePackages.Packages.Roact)
+local Rodux = require(CorePackages.Packages.Rodux)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local AvatarEditorPromptsApp = require(script.Components.AvatarEditorPromptsApp)
 local Reducer = require(script.Reducer)

@@ -20,7 +20,7 @@ local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
-local Promise = require(CorePackages.Promise)
+local Promise = require(CorePackages.Packages.Promise)
 
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)

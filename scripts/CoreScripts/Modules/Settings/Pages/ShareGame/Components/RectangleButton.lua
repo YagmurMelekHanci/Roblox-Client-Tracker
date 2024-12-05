@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 
 local BUTTON_IMAGE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png"
 local BUTTON_IMAGE_ACTIVE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png"

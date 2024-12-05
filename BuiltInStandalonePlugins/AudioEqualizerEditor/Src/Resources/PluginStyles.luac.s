@@ -217,20 +217,15 @@ MAIN:
   CALL R21 2 -1
   SETLIST R17 R18 -1 [1]
   CALL R14 3 1
-  GETTABLEKS R16 R1 K93 ["getFFlagAudioPluginFontFixEq"]
-  CALL R16 0 1
-  JUMPIFNOT R16 [+12]
   MOVE R15 R3
-  LOADK R16 K94 ["TextLabel, TextButton, TextBox"]
-  DUPTABLE R17 K95 [{"Font", "TextSize"}]
-  GETIMPORT R18 K97 [Enum.Font.SourceSans]
+  LOADK R16 K93 ["TextLabel, TextButton, TextBox"]
+  DUPTABLE R17 K94 [{"Font", "TextSize"}]
+  GETIMPORT R18 K96 [Enum.Font.SourceSans]
   SETTABLEKS R18 R17 K81 ["Font"]
   LOADN R18 15
   SETTABLEKS R18 R17 K79 ["TextSize"]
-  CALL R15 2 1
-  JUMP [+1]
-  LOADNIL R15
-  SETLIST R7 R8 8 [1]
+  CALL R15 2 -1
+  SETLIST R7 R8 -1 [1]
   MOVE R8 R4
   LOADK R9 K2 ["AudioEqualizerEditor"]
   MOVE R10 R7

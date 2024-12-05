@@ -5,70 +5,57 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Bin"]
-  GETTABLEKS R3 R4 K7 ["Common"]
-  GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["getFFlagAttenuationCurveEditorFixes"]
-  CALL R2 0 1
-  GETTABLEKS R3 R1 K10 ["getFFlagAttenuationCurveEditorEnableGhosting"]
-  CALL R3 0 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K11 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["Framework"]
-  CALL R4 1 1
-  GETTABLEKS R6 R4 K13 ["Styling"]
-  GETTABLEKS R5 R6 K14 ["createStyleSheet"]
-  DUPTABLE R6 K22 [{"ColorGridLine", "ColorKeypointHighlight", "ColorScrollbarButton", "ColorScrollbarButtonPressed", "ColorScrollbarButtonHovered", "ColorScrollbarButtonBorder", "ColorScrollbarButtonText"}]
-  JUMPIF R2 [+1]
-  JUMPIFNOT R3 [+7]
-  GETIMPORT R7 K25 [Color3.fromRGB]
-  LOADN R8 155
-  LOADN R9 155
-  LOADN R10 155
-  CALL R7 3 1
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K15 ["ColorGridLine"]
-  GETIMPORT R7 K25 [Color3.fromRGB]
-  LOADN R8 250
-  LOADN R9 250
-  LOADN R10 250
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K16 ["ColorKeypointHighlight"]
-  GETIMPORT R7 K25 [Color3.fromRGB]
-  LOADN R8 60
-  LOADN R9 60
-  LOADN R10 60
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K17 ["ColorScrollbarButton"]
-  GETIMPORT R7 K25 [Color3.fromRGB]
-  LOADN R8 40
-  LOADN R9 40
-  LOADN R10 40
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K18 ["ColorScrollbarButtonPressed"]
-  GETIMPORT R7 K25 [Color3.fromRGB]
-  LOADN R8 90
-  LOADN R9 90
-  LOADN R10 90
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K19 ["ColorScrollbarButtonHovered"]
-  GETIMPORT R7 K25 [Color3.fromRGB]
-  LOADN R8 0
-  LOADN R9 0
-  LOADN R10 0
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K20 ["ColorScrollbarButtonBorder"]
-  GETIMPORT R7 K25 [Color3.fromRGB]
-  LOADN R8 255
-  LOADN R9 255
-  LOADN R10 255
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K21 ["ColorScrollbarButtonText"]
-  MOVE R7 R5
-  LOADK R8 K26 ["AttenuationCurveEditorDarkTheme"]
-  NEWTABLE R9 0 0
-  MOVE R10 R6
-  CALL R7 3 -1
-  RETURN R7 -1
+  GETTABLEKS R3 R1 K8 ["Styling"]
+  GETTABLEKS R2 R3 K9 ["createStyleSheet"]
+  DUPTABLE R3 K17 [{"ColorGridLine", "ColorKeypointHighlight", "ColorScrollbarButton", "ColorScrollbarButtonPressed", "ColorScrollbarButtonHovered", "ColorScrollbarButtonBorder", "ColorScrollbarButtonText"}]
+  GETIMPORT R4 K20 [Color3.fromRGB]
+  LOADN R5 155
+  LOADN R6 155
+  LOADN R7 155
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K10 ["ColorGridLine"]
+  GETIMPORT R4 K20 [Color3.fromRGB]
+  LOADN R5 250
+  LOADN R6 250
+  LOADN R7 250
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K11 ["ColorKeypointHighlight"]
+  GETIMPORT R4 K20 [Color3.fromRGB]
+  LOADN R5 60
+  LOADN R6 60
+  LOADN R7 60
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K12 ["ColorScrollbarButton"]
+  GETIMPORT R4 K20 [Color3.fromRGB]
+  LOADN R5 40
+  LOADN R6 40
+  LOADN R7 40
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K13 ["ColorScrollbarButtonPressed"]
+  GETIMPORT R4 K20 [Color3.fromRGB]
+  LOADN R5 90
+  LOADN R6 90
+  LOADN R7 90
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["ColorScrollbarButtonHovered"]
+  GETIMPORT R4 K20 [Color3.fromRGB]
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K15 ["ColorScrollbarButtonBorder"]
+  GETIMPORT R4 K20 [Color3.fromRGB]
+  LOADN R5 255
+  LOADN R6 255
+  LOADN R7 255
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K16 ["ColorScrollbarButtonText"]
+  MOVE R4 R2
+  LOADK R5 K21 ["AttenuationCurveEditorDarkTheme"]
+  NEWTABLE R6 0 0
+  MOVE R7 R3
+  CALL R4 3 -1
+  RETURN R4 -1

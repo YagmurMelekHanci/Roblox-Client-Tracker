@@ -8,7 +8,7 @@ local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local UrlBuilder = PurchasePromptDeps.UrlBuilder.UrlBuilder
 
 local Promise = require(Root.Promise)

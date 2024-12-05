@@ -4,8 +4,11 @@ local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
+
+local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
 
 local AvailabilitySignalState = {
 	Unavailable = 0,
@@ -271,6 +274,10 @@ function setCoreGuiAvailability(
 end
 
 function dismissRobloxMenuAndRun(func)
+	if GetFFlagRemoveChromeRobloxGuiReferences() then
+		return
+	end
+
 	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 	if GuiService.MenuIsOpen then
 		local timeout = tick() + 3
@@ -290,11 +297,6 @@ function dismissRobloxMenuAndRun(func)
 	end
 end
 
-function isTakingScreenshot()
-	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-	return SettingsHub.GetTakingScreenshot()
-end
-
 return {
 	MappedSignal = MappedSignal,
 	AvailabilitySignal = AvailabilitySignal,
@@ -303,5 +305,4 @@ return {
 	ObservableValue = ObservableValue,
 	setCoreGuiAvailability = setCoreGuiAvailability,
 	dismissRobloxMenuAndRun = dismissRobloxMenuAndRun,
-	isTakingScreenshot = isTakingScreenshot,
 }

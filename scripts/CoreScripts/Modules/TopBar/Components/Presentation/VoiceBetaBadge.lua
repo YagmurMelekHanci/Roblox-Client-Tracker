@@ -6,8 +6,8 @@ local GamepadService = game:GetService("GamepadService")
 local GuiService = game:GetService("GuiService")
 local HttpService = game:GetService("HttpService")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local withStyle = UIBlox.Core.Style.withStyle
@@ -33,8 +33,7 @@ local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local Constants = require(TopBar.Constants)
 
-local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
-local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
+local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -122,7 +121,7 @@ function VoiceBetaBadge:didMount()
 	if ChromeService then
 		self.chromeMenuStatusConn = ChromeService:status():connect(function()
 			self:setState({
-				chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
+				chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open,
 			})
 		end)
 	end
@@ -138,9 +137,6 @@ end
 function VoiceBetaBadge:render()
 	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon) and self.state.voiceChatServiceConnected
 
-	if not GetFFlagEnableAlwaysOpenUnibar() and self.state.chromeMenuOpen then
-		visible = false
-	end
 	local onAreaChanged = function(rbx)
 		if visible and rbx then
 			-- Need to recalculate the position as stroke is not part of AbsolutePosition/AbsoluteSize

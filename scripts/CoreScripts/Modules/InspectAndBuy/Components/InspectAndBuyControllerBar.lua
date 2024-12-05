@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
-local Roact = require(CorePackages.Roact)
-local UIBlox = require(CorePackages.UIBlox)
+local Roact = require(CorePackages.Packages.Roact)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local ControllerBar = UIBlox.App.Bar.ControllerBar

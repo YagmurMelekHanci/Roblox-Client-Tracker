@@ -2,9 +2,9 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
@@ -126,9 +126,9 @@ function MenuCell:render()
 					TextColor3 = theme.TextEmphasis.Color,
 					TextTransparency = theme.TextEmphasis.TextTransparency,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment =  Enum.TextYAlignment.Center,
+					TextYAlignment = Enum.TextYAlignment.Center,
 					TextTruncate = Enum.TextTruncate.AtEnd,
-				})
+				}),
 			}),
 
 			Divider = self.props.hasDivider and Roact.createElement("Frame", {

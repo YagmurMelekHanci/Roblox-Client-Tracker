@@ -1,3 +1,8 @@
+--[[
+	This proxy file is deprecated and will be removed.
+	Please use CorePackages.Packages.Thumbnailing directly
+]]
+
 local CorePackages = game:GetService("CorePackages")
 local Thumbnailing = require(CorePackages.Packages.Thumbnailing)
 

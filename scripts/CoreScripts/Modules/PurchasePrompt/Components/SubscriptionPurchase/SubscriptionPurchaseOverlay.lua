@@ -3,7 +3,7 @@ local Root = script.Parent.Parent.Parent
 local ContextActionService = game:GetService("ContextActionService")
 
 local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local ToastRodux = require(CorePackages.Workspace.Packages.ToastRodux)
 
 local PromptState = require(Root.Enums.PromptState)
@@ -22,7 +22,8 @@ local PurchaseErrorType = IAPExperience.PurchaseFlow.PurchaseErrorType
 local VPCModalType = require(Root.Enums.VPCModalType)
 
 local GetFFlagEnableSubscriptionPurchaseToast = require(Root.Flags.GetFFlagEnableSubscriptionPurchaseToast)
-local GetFFlagEnableVpcForInExperienceSubscriptionPurchase = require(Root.Flags.GetFFlagEnableVpcForInExperienceSubscriptionPurchase)
+local GetFFlagEnableVpcForInExperienceSubscriptionPurchase =
+	require(Root.Flags.GetFFlagEnableVpcForInExperienceSubscriptionPurchase)
 
 local FLOW_NAME = "InGame"
 local GENERIC_SUBSCRIBE_ERROR_TEXT_KEY = "Feature.Subscription.Error.GenericSubscribeError"
@@ -181,10 +182,7 @@ function SubscriptionPurchaseOverlay:didUpdate()
 		local purchaseState = self:getFlowState()
 		local errorType = self:getErrorType()
 
-		if
-			purchaseState == SubscriptionPurchaseFlowState.Error
-			and errorType == PurchaseErrorType.Unknown
-		then
+		if purchaseState == SubscriptionPurchaseFlowState.Error and errorType == PurchaseErrorType.Unknown then
 			self.props.setCurrentToastMessage({
 				toastTitle = RobloxTranslator:FormatByKey(GENERIC_SUBSCRIBE_ERROR_TEXT_KEY),
 				toastType = ToastType.NetworkingError,

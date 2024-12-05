@@ -235,7 +235,7 @@ MAIN:
   GETTABLEKS R6 R2 K14 ["SetDebugPoseEvent"]
   CALL R5 1 1
   GETIMPORT R6 K11 [require]
-  GETTABLEKS R7 R2 K15 ["SetPropertyOverrideEvent"]
+  GETTABLEKS R7 R2 K15 ["SetPropertyOverridesEvent"]
   CALL R6 1 1
   GETIMPORT R7 K11 [require]
   GETTABLEKS R8 R2 K16 ["SetSendPayloadAnalytics"]

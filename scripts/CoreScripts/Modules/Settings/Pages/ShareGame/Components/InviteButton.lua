@@ -3,7 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable

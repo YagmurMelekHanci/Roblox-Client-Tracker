@@ -12,14 +12,15 @@ local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).Desig
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
 local ReactSceneUnderstanding = require(CorePackages.Packages.ReactSceneUnderstanding)
 
-local Roact = require(CorePackages.Roact)
-local Rodux = require(CorePackages.Rodux)
-local RoactRodux = require(CorePackages.RoactRodux)
-local UIBlox = require(CorePackages.UIBlox)
+local Roact = require(CorePackages.Packages.Roact)
+local Rodux = require(CorePackages.Packages.Rodux)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local StyleConstants = UIBlox.App.Style.Constants
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
+local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -63,6 +64,7 @@ local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local FFlagGamepadNavigationDialogABTest = require(script.Flags.FFlagGamepadNavigationDialogABTest)
+local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
 
 -- Cross Experience Voice
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
@@ -174,7 +176,9 @@ function TopBar.new()
 							{ value = IXPService },
 							{ TopBarApp = TopBarWithProviders }
 						),
-						CrossExperienceVoice = GetFFlagEnableCrossExpVoice() and Roact.createElement(CrossExperienceVoiceComponent) or nil,
+						CrossExperienceVoice = GetFFlagEnableCrossExpVoice() and Roact.createElement(
+							CrossExperienceVoiceComponent
+						) or nil,
 					}),
 				}),
 			})
@@ -189,6 +193,10 @@ function TopBar.new()
 		self.root = Roact.createElement(Songbird.ReportAudioPopupContext.Provider, nil, self.root)
 	end
 
+	if GetFFlagRemoveChromeRobloxGuiReferences() then
+		self.root = Roact.createElement(VoiceStateContext.Provider, nil, self.root)
+	end
+	
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 
 	-- add binding

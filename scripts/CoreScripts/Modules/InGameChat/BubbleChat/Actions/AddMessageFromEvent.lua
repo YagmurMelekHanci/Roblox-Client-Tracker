@@ -8,7 +8,7 @@
 
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
-local ExperienceChat = require(CorePackages.ExperienceChat)
+local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local Types = require(script.Parent.Parent.Types)

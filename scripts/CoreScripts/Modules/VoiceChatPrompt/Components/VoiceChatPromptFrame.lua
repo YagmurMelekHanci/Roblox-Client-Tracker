@@ -5,14 +5,14 @@ local ContextActionService = game:GetService("ContextActionService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local UserInputService = game:GetService("UserInputService")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
-local Cryo = require(CorePackages.Cryo)
+local Cryo = require(CorePackages.Packages.Cryo)
 local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local SlideFromTopToast = UIBlox.App.Dialog.Toast
@@ -51,8 +51,10 @@ local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagEnableSeamlessVoiceUX = require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceUX)
 local GetFIntVoiceJoinM3ToastDurationSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceJoinM3ToastDurationSeconds)
-local GetFFlagSendDevicePermissionsModalAnalytics = require(RobloxGui.Modules.Flags.GetFFlagSendDevicePermissionsModalAnalytics)
-local GetFFlagEnableSeamlessVoiceDataConsentToast = require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
+local GetFFlagSendDevicePermissionsModalAnalytics =
+	require(RobloxGui.Modules.Flags.GetFFlagSendDevicePermissionsModalAnalytics)
+local GetFFlagEnableSeamlessVoiceDataConsentToast =
+	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
 
 local RobloxTranslator
 if FFlagEnableVoiceChatStorybookFix() then
@@ -62,7 +64,7 @@ else
 end
 
 local locales = nil
-if GetFFlagEnableSeamlessVoiceDataConsentToast() then 
+if GetFFlagEnableSeamlessVoiceDataConsentToast() then
 	local LocalizationService = game:GetService("LocalizationService")
 	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 	locales = Localization.new(LocalizationService.RobloxLocaleId)
@@ -113,18 +115,16 @@ local PromptTitle = {
 	[PromptType.VoiceConsentModalV1] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GetVoiceChat"),
 	[PromptType.VoiceConsentModalV2] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatWithOthers"),
 	[PromptType.VoiceConsentModalV3] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GetVoiceChat"),
-	[PromptType.JoinedVoiceToast] = RobloxTranslator:FormatByKey(
-		"Feature.SettingsHub.Prompt.JoinedVoiceChat"
-	),
+	[PromptType.JoinedVoiceToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChat"),
 	[PromptType.JoinVoiceSTUX] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChat"),
 	[PromptType.LeaveVoice] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.LeaveVoiceChat"),
 	[PromptType.JoinVoice] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChatV2"),
 	[PromptType.DevicePermissionsModal] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.NeedMicrophoneAccess"
 	),
-	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast() then locales:Format(
-		"Feature.SettingsHub.Prompt.Title.ImproveVoiceChat"
-	) else nil,
+	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast()
+		then locales:Format("Feature.SettingsHub.Prompt.Title.ImproveVoiceChat")
+		else nil,
 }
 local PromptSubTitle = {
 	[PromptType.None] = "",
@@ -185,9 +185,9 @@ local PromptSubTitle = {
 	[PromptType.DevicePermissionsModal] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.Subtitle.AllowMicrophoneAccess"
 	),
-	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast() then locales:Format(
-		"Feature.SettingsHub.Prompt.Subtitle.ThanksForVoiceData"
-	) else nil,
+	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast()
+		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.ThanksForVoiceData")
+		else nil,
 }
 
 if runService:IsStudio() then

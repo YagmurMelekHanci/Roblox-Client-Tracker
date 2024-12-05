@@ -12,7 +12,7 @@ MAIN:
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
   GETTABLEKS R4 R1 K8 ["Styling"]
   GETTABLEKS R3 R4 K10 ["createStyleSheet"]
-  NEWTABLE R4 0 1
+  NEWTABLE R4 0 2
   MOVE R5 R2
   LOADK R6 K11 ["ImageLabel"]
   NEWTABLE R7 0 0
@@ -139,26 +139,44 @@ MAIN:
   SETTABLEKS R15 R14 K13 ["Image"]
   CALL R12 2 -1
   SETLIST R8 R9 -1 [17]
-  CALL R5 3 -1
+  CALL R5 3 1
+  MOVE R6 R2
+  LOADK R7 K54 [".SearchPanel"]
+  DUPTABLE R8 K56 [{"Size"}]
+  GETIMPORT R9 K59 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 5
+  LOADN R12 0
+  LOADN R13 42
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K55 ["Size"]
+  CALL R6 2 -1
   SETLIST R4 R5 -1 [1]
-  DUPTABLE R5 K58 [{"HeaderButtonSize", "PaddingSmall", "Padding", "IconDisabled"}]
-  GETIMPORT R6 K61 [UDim2.fromOffset]
+  DUPTABLE R5 K65 [{"HeaderButtonSize", "PaddingSmall", "Padding", "SearchFilterSize", "IconDisabled"}]
+  GETIMPORT R6 K67 [UDim2.fromOffset]
   LOADN R7 26
   LOADN R8 26
   CALL R6 2 1
-  SETTABLEKS R6 R5 K54 ["HeaderButtonSize"]
-  GETIMPORT R6 K64 [UDim.new]
+  SETTABLEKS R6 R5 K60 ["HeaderButtonSize"]
+  GETIMPORT R6 K69 [UDim.new]
   LOADN R7 0
   LOADN R8 5
   CALL R6 2 1
-  SETTABLEKS R6 R5 K55 ["PaddingSmall"]
-  GETIMPORT R6 K64 [UDim.new]
+  SETTABLEKS R6 R5 K61 ["PaddingSmall"]
+  GETIMPORT R6 K69 [UDim.new]
   LOADN R7 0
   LOADN R8 10
   CALL R6 2 1
-  SETTABLEKS R6 R5 K56 ["Padding"]
-  LOADK R6 K65 [0.62]
-  SETTABLEKS R6 R5 K57 ["IconDisabled"]
+  SETTABLEKS R6 R5 K62 ["Padding"]
+  GETIMPORT R6 K59 [UDim2.new]
+  LOADN R7 1
+  LOADN R8 5
+  LOADN R9 0
+  LOADN R10 30
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K63 ["SearchFilterSize"]
+  LOADK R6 K70 [0.62]
+  SETTABLEKS R6 R5 K64 ["IconDisabled"]
   MOVE R6 R3
   LOADK R7 K2 ["AssetManager"]
   MOVE R8 R4

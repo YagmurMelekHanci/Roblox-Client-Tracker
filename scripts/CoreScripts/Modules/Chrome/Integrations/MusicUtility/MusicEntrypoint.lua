@@ -2,6 +2,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 
 local CorePackages = game:GetService("CorePackages")
 
+local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local ChromeService = require(Chrome.ChromeShared.Service)
@@ -10,6 +11,8 @@ local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
 
 local GetFFlagChromeSongbirdWindow = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSongbirdWindow
+local GetFFlagSongbirdWindowResponsiveSizing =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdWindowResponsiveSizing
 
 if GetFFlagChromeSongbirdWindow() then
 	local MUSIC_WINDOW_MAX_SIZE = PeekConstants.MUSIC_WINDOW_MAX_SIZE
@@ -31,11 +34,26 @@ if GetFFlagChromeSongbirdWindow() then
 				return CommonIcon("icons/common/music")
 			end,
 			Window = function()
-				return React.createElement(Songbird.ChromeWindowWrapper, {
-					onClose = function()
-						ChromeService:toggleWindow("music_entrypoint")
-					end,
-				})
+				if GetFFlagSongbirdWindowResponsiveSizing() then
+					return React.createElement(Foundation.View, {
+						tag = "auto-xy",
+						onAbsoluteSizeChanged = function(rbx: GuiObject)
+							windowSize:requestSize(rbx.AbsoluteSize.X, rbx.AbsoluteSize.Y)
+						end,
+					}, {
+						ChromeWindowWrapper = React.createElement(Songbird.ChromeWindowWrapper, {
+							onClose = function()
+								ChromeService:toggleWindow("music_entrypoint")
+							end,
+						}),
+					})
+				else
+					return React.createElement(Songbird.ChromeWindowWrapper, {
+						onClose = function()
+							ChromeService:toggleWindow("music_entrypoint")
+						end,
+					}) :: never
+				end
 			end,
 		},
 	})

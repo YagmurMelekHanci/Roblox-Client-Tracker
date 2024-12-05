@@ -14,8 +14,8 @@ MAIN:
   LOADK R4 K10 [".SearchFilterItem"]
   DUPTABLE R5 K12 [{"Size"}]
   GETIMPORT R6 K15 [UDim2.new]
-  LOADN R7 0
-  LOADN R8 80
+  LOADN R7 1
+  LOADN R8 0
   LOADN R9 0
   LOADN R10 40
   CALL R6 4 1

@@ -7,6 +7,7 @@ local UIManagerRoot = script.Parent
 local Constants = require(UIManagerRoot.Constants)
 local PanelType = Constants.PanelType
 local SpatialUIType = Constants.SpatialUIType
+local createCompatPanel = require(script.Parent.createCompatPanel)
 
 export type UIGroupPositionProps = {
 	-- The rotation of the UI group relative to the head, used to update the CFrame of the UI group
@@ -21,38 +22,13 @@ export type UIGroupPositionProps = {
 	defaultGroupHeadRotation: CFrame,
 }
 
-export type CameraFixedUIObjectProps = {
-	-- Offset of the panel within the UI group relative to the origin computed by headCrame:ToWorlsSpace(uiGroupHeadRotation)
-	uiGroupElementOffset: CFrame,
-}
-
-export type SpatialUIGroupTypeValue = "MainUIGroup" | "WristUIGroup"
-
-export type PanelProps = {
-	-- The UI group that the panel belongs to
-	uiGroup: SpatialUIGroupTypeValue,
-	cameraFixedPanelProp: CameraFixedUIObjectProps?,
-}
-
-export type PanelStruct = {
-	panelObject: Instance,
-	uiType: Constants.SpatialUITypeValue,
-	panelType: Constants.PanelTypeValue,
-	panelProps: PanelProps,
-}
-
 export type DragBarStruct = {
-	part: Instance,
+	part: Part,
 }
 
 export type UIGroupStruct = {
 	positionProps: UIGroupPositionProps,
 	uiContainerSize: Vector2,
-}
-
-local SpatialUIGroupType = {
-	MainUIGroup = "MainUIGroup" :: SpatialUIGroupTypeValue,
-	WristUIGroup = "WristUIGroup" :: SpatialUIGroupTypeValue,
 }
 
 local REPOSITION_DEVIATION_ANGLE = 100
@@ -87,18 +63,18 @@ local function getCameraOffsetFromHeadRotationWithZAxisStabl(rotation)
 	return stablizedCameraCF:ToObjectSpace(CFrame.new(finalCFrame.Position) * CFrame.fromOrientation(oY, oX, 0))
 end
 
-local function getPanelPart(panelStruct: PanelStruct)
+local function getPanelPart(panelStruct: Constants.PanelStruct): Part?
 	if panelStruct.uiType == SpatialUIType.SpatialUI or panelStruct.uiType == SpatialUIType.SpatialUIRoact then
 		local panelObject = panelStruct.panelObject :: SurfaceGui
-		return panelObject.Adornee
+		return panelObject.Adornee :: Part
 	elseif panelStruct.uiType == SpatialUIType.SpatialUIPartOnly then
-		return panelStruct.panelObject
+		return panelStruct.panelObject :: Part
 	else
 		return nil
 	end
 end
 
-local function panelExistsInSpace(panelStruct: PanelStruct)
+local function panelExistsInSpace(panelStruct: Constants.PanelStruct)
 	return panelStruct ~= nil and panelStruct.panelObject ~= nil and panelStruct.uiType ~= SpatialUIType.ScreenUI
 end
 
@@ -106,13 +82,39 @@ local UIManager = {}
 
 export type UIManagerClassType = typeof(setmetatable(
 	{} :: {
-		uiElements: { [Constants.PanelTypeValue]: PanelStruct },
-		uiGroups: { [SpatialUIGroupTypeValue]: UIGroupStruct },
+		uiElements: { [Constants.PanelTypeValue]: Constants.PanelStruct },
+		uiGroups: { [Constants.SpatialUIGroupTypeValue]: UIGroupStruct },
 	},
 	UIManager
 ))
 
 UIManager.__index = UIManager
+
+function UIManager.removeRoactPanel(self: UIManagerClassType, panelType: Constants.PanelTypeValue)
+	self.uiElements[panelType] = nil
+end
+
+function UIManager.registerRoactPanel(
+	self: UIManagerClassType,
+	panelType: Constants.PanelTypeValue,
+	panelStruct: Constants.PanelStruct
+)
+	self.uiElements[panelType] = panelStruct
+	self:updateUIGroupsForCurHeadCFrame()
+end
+
+function UIManager.createUI(self: UIManagerClassType, props: Constants.PanelCreationProps): Constants.CompatPanel?
+	local panelStruct = createCompatPanel(props)
+	if panelStruct == nil then
+		return nil
+	end
+	self.uiElements[props.panelType] = panelStruct
+	self:updatePanelForCurHeadCFrame(props.panelType)
+	return {
+		type = panelStruct.uiType,
+		panelObject = panelStruct.panelObject,
+	}
+end
 
 function UIManager.resetUIGroupsHeadRotationToDefault(self: UIManagerClassType)
 	for _, uiGroupStruct: UIGroupStruct in pairs(self.uiGroups) do
@@ -120,7 +122,10 @@ function UIManager.resetUIGroupsHeadRotationToDefault(self: UIManagerClassType)
 	end
 end
 
-function UIManager.updateUIGroupForCurHeadCFrame(self: UIManagerClassType, uiGroupType: SpatialUIGroupTypeValue)
+function UIManager.updateUIGroupForCurHeadCFrame(
+	self: UIManagerClassType,
+	uiGroupType: Constants.SpatialUIGroupTypeValue
+)
 	local uiGroupStruct: UIGroupStruct = self.uiGroups[uiGroupType]
 	local newCameraOffSet =
 		getCameraOffsetFromHeadRotationWithZAxisStabl(uiGroupStruct.positionProps.uiGroupHeadRotation)
@@ -130,27 +135,42 @@ end
 
 function UIManager.updateUIGroupsForCurHeadCFrame(self: UIManagerClassType)
 	for uiGroupType, _ in pairs(self.uiGroups) do
-		self:updateUIGroupForCurHeadCFrame(uiGroupType :: SpatialUIGroupTypeValue)
+		self:updateUIGroupForCurHeadCFrame(uiGroupType :: Constants.SpatialUIGroupTypeValue)
 	end
 end
 
 function UIManager.updatePanelForCurHeadCFrame(self: UIManagerClassType, panelType: Constants.PanelTypeValue)
-	local panelStruct: PanelStruct = self.uiElements[panelType]
-	if panelExistsInSpace(panelStruct) and panelStruct.panelProps.cameraFixedPanelProp ~= nil then
+	local panelStruct: Constants.PanelStruct = self.uiElements[panelType]
+	if
+		panelExistsInSpace(panelStruct)
+		and panelStruct.panelPositionProps
+		and panelStruct.panelPositionProps.cameraFixedPanelProp
+	then
+		local panelPositionProps = panelStruct.panelPositionProps :: Constants.PanelPositionProps
+		local cameraFixedPanelProp = panelPositionProps.cameraFixedPanelProp :: Constants.CameraFixedUIObjectProps
 		local newCameraOffSet = getCameraOffsetFromHeadRotationWithZAxisStabl(
-			self.uiGroups[panelStruct.panelProps.uiGroup].positionProps.uiGroupHeadRotation
+			self.uiGroups[panelPositionProps.uiGroup].positionProps.uiGroupHeadRotation
 		)
-		local panelPart = getPanelPart(panelStruct) :: Part
+		local panelPart = getPanelPart(panelStruct)
+		if panelPart == nil then
+			return
+		end
+		panelPart = panelPart :: Part
 		panelPart.CFrame = getYAxisStablizedCFrame((workspace.CurrentCamera :: Camera).CFrame) * newCameraOffSet
-		panelPart.CFrame =
-			panelPart.CFrame:ToWorldSpace(panelStruct.panelProps.cameraFixedPanelProp.uiGroupElementOffset)
+		panelPart.CFrame = panelPart.CFrame:ToWorldSpace(cameraFixedPanelProp.uiGroupElementOffset)
 	end
 end
 
-function UIManager.updatePanelsInUIGroupForCurHeadCFrame(self: UIManagerClassType, uiGroupType: SpatialUIGroupTypeValue)
-	for panelType, panelStruct: PanelStruct in pairs(self.uiElements) do
-		if panelStruct.panelProps.uiGroup == uiGroupType then
-			self:updatePanelForCurHeadCFrame(panelType :: Constants.PanelTypeValue)
+function UIManager.updatePanelsInUIGroupForCurHeadCFrame(
+	self: UIManagerClassType,
+	uiGroupType: Constants.SpatialUIGroupTypeValue
+)
+	for panelType, panelStruct: Constants.PanelStruct in pairs(self.uiElements) do
+		if panelStruct.panelPositionProps then
+			local panelPositionProps = panelStruct.panelPositionProps :: Constants.PanelPositionProps
+			if panelPositionProps.uiGroup == uiGroupType then
+				self:updatePanelForCurHeadCFrame(panelType :: Constants.PanelTypeValue)
+			end
 		end
 	end
 end
@@ -171,7 +191,7 @@ function UIManager.setUpUiGroups(self: UIManagerClassType)
 		},
 		uiContainerSize = MAIN_UI_GROUP_SIZE,
 	}
-	self.uiGroups[SpatialUIGroupType.MainUIGroup] = mainUiGroupStruct
+	self.uiGroups[Constants.SpatialUIGroupType.MainUIGroup] = mainUiGroupStruct
 end
 
 function UIManager.step(self: UIManagerClassType)
@@ -179,7 +199,7 @@ function UIManager.step(self: UIManagerClassType)
 		return
 	end
 
-	for panelType, panelStruct: PanelStruct in pairs(self.uiElements) do
+	for panelType, panelStruct: Constants.PanelStruct in pairs(self.uiElements) do
 		-- Use Main Roblox GUI for angle detection
 		if panelExistsInSpace(panelStruct) and panelType :: Constants.PanelTypeValue == PanelType.RobloxGui then
 			local robloxGuiPart: Part
@@ -211,17 +231,17 @@ function UIManager.onShowTopBarChanged(self: UIManagerClassType)
 	if VRHub.ShowTopBar then
 		self:resetUIGroupsHeadRotationToDefault()
 		self:updateUIGroupsForCurHeadCFrame()
-		for _, panelStruct: PanelStruct in pairs(self.uiElements) do
+		for _, panelStruct: Constants.PanelStruct in pairs(self.uiElements) do
 			if panelStruct.uiType == SpatialUIType.SpatialUI or panelStruct.uiType == SpatialUIType.SpatialUIRoact then
-				local panelPart = panelStruct.panelObject :: SurfaceGui
-				panelPart.Enabled = true
+				local panelObject = panelStruct.panelObject :: SurfaceGui
+				panelObject.Enabled = true
 			end
 		end
 	else
-		for _, panelStruct: PanelStruct in pairs(self.uiElements) do
+		for _, panelStruct: Constants.PanelStruct in pairs(self.uiElements) do
 			if panelStruct.uiType == SpatialUIType.SpatialUI or panelStruct.uiType == SpatialUIType.SpatialUIRoact then
-				local panelPart = panelStruct.panelObject :: SurfaceGui
-				panelPart.Enabled = false
+				local panelObject = panelStruct.panelObject :: SurfaceGui
+				panelObject.Enabled = false
 			end
 		end
 	end
@@ -231,12 +251,22 @@ function UIManager.cameraMoved(self: UIManagerClassType)
 	if not VRService.VREnabled then
 		return
 	end
-	for _, panelStruct: PanelStruct in pairs(self.uiElements) do
-		if panelExistsInSpace(panelStruct) and panelStruct.panelProps.cameraFixedPanelProp ~= nil then
-			local panelPart = getPanelPart(panelStruct) :: Part
+	for _, panelStruct: Constants.PanelStruct in pairs(self.uiElements) do
+		if
+			panelExistsInSpace(panelStruct)
+			and panelStruct.panelPositionProps
+			and panelStruct.panelPositionProps.cameraFixedPanelProp
+		then
+			local panelPositionProps = panelStruct.panelPositionProps :: Constants.PanelPositionProps
+			local cameraFixedPanelProp = panelPositionProps.cameraFixedPanelProp :: Constants.CameraFixedUIObjectProps
+			local panelPart = getPanelPart(panelStruct)
+			if panelPart == nil then
+				return
+			end
+			panelPart = panelPart :: Part
 			panelPart.CFrame = getYAxisStablizedCFrame((workspace.CurrentCamera :: Camera).CFrame)
-				* self.uiGroups[panelStruct.panelProps.uiGroup].positionProps.uiGroupCameraOffSet:ToWorldSpace(
-					panelStruct.panelProps.cameraFixedPanelProp.uiGroupElementOffset
+				* self.uiGroups[panelPositionProps.uiGroup].positionProps.uiGroupCameraOffSet:ToWorldSpace(
+					cameraFixedPanelProp.uiGroupElementOffset
 				)
 		end
 	end
@@ -244,8 +274,8 @@ end
 
 function UIManager.new()
 	local self = {
-		uiElements = {} :: { [Constants.PanelTypeValue]: PanelStruct },
-		uiGroups = {} :: { [SpatialUIGroupTypeValue]: UIGroupStruct },
+		uiElements = {} :: { [Constants.PanelTypeValue]: Constants.PanelStruct },
+		uiGroups = {} :: { [Constants.SpatialUIGroupTypeValue]: UIGroupStruct },
 	}
 
 	setmetatable(self, UIManager)

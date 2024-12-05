@@ -3,7 +3,7 @@ local Root = script.Parent.Parent.Parent
 local GuiService = game:GetService("GuiService")
 
 local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 local React = require(CorePackages.Packages.React)
 
@@ -32,7 +32,12 @@ local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(Root.Components.Connection.ExternalEventConnection)
 
-local GetFFLagUseCoreScriptsRootProviderForUpsellModal = require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
+local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
+local FFlagPublishAvatarPromptEnabledAllPlatforms =
+	require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabledAllPlatforms)
+
+local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
+	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
 
 local RobuxUpsellOverlay = require(script.Parent.RobuxUpsellOverlay)
 
@@ -75,7 +80,7 @@ function RobuxUpsellContainer:createElement()
 	end
 
 	local itemRobuxCost = FFlagFixLimitedUMobilePurchasePrompt
-		and getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4, props.expectedPrice) 
+			and getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4, props.expectedPrice)
 		or getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4)
 
 	return Roact.createElement("Frame", {
@@ -113,6 +118,8 @@ function RobuxUpsellContainer:createElement()
 			endPurchase = props.completeRequest,
 
 			onAnalyticEvent = props.onAnalyticEvent,
+
+			humanoidModel = if FFlagPublishAvatarPromptEnabledAllPlatforms then props.humanoidModel else nil,
 		}),
 		-- UIBlox components do not have Modal == true to fix FPS interaction with modals
 		ModalFix = Roact.createElement("ImageButton", {
@@ -125,7 +132,7 @@ function RobuxUpsellContainer:createElement()
 			callback = function()
 				props.completeRequest()
 			end,
-		})
+		}),
 	})
 end
 
@@ -137,81 +144,84 @@ function RobuxUpsellContainer:render()
 				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 			}, {
 				RobuxUpsellContainer = self:createElement(),
-			})
+			}),
 		})
 	else
 		return self:createElement()
 	end
 end
 
-RobuxUpsellContainer = connectToStore(
-	function(state)
-		if (FFlagFixLimitedUMobilePurchasePrompt) then
-			return {
-				purchaseFlow = state.purchaseFlow,
-				requestType = state.promptRequest.requestType,
-				expectedPrice = state.promptRequest.expectedPrice,
+RobuxUpsellContainer = connectToStore(function(state)
+	local humanoidModel = if FFlagPublishAvatarPromptEnabledAllPlatforms then state.promptRequest.humanoidModel else nil
 
-				promptState = state.promptState,
-				purchaseError = state.purchaseError,
-
-				productInfo = state.productInfo,
-				accountInfo = state.accountInfo,
-				nativeUpsell = state.nativeUpsell,
-
-				isTestPurchase = isMockingPurchases(),
-				isGamepadEnabled = state.gamepadEnabled,
-			}
-		else
-			return {
-				purchaseFlow = state.purchaseFlow,
-				requestType = state.promptRequest.requestType,
-
-				promptState = state.promptState,
-				purchaseError = state.purchaseError,
-
-				productInfo = state.productInfo,
-				accountInfo = state.accountInfo,
-				nativeUpsell = state.nativeUpsell,
-
-				isTestPurchase = isMockingPurchases(),
-				isGamepadEnabled = state.gamepadEnabled,
-			}			
-		end
-	end,
-	function(dispatch)
+	if FFlagFixLimitedUMobilePurchasePrompt then
 		return {
-			purchaseItem = function()
-				return dispatch(purchaseItem())
-			end,
-			promptRobuxPurchase = function()
-				return dispatch(launchRobuxUpsell())
-			end,
-			openRobuxStore = function()
-				return dispatch(openRobuxStore())
-			end,
-			openSecuritySettings = function()
-				return dispatch(openSecuritySettings())
-			end,
-			openTermsOfUse = function()
-				return dispatch(openTermsOfUse())
-			end,
-			dispatchFetchPurchaseWarning = function()
-				if GetFFlagEnableTexasU18VPCForInExperienceRobuxUpsellFlow() then 
-					return dispatch(initiateUserPurchaseSettingsPrecheck())
-				else 
-					return dispatch(initiatePurchasePrecheck())
-				end
-			end,
-			completeRequest = function()
-				GuiService.SelectedCoreObject = nil
-				return dispatch(completeRequest())
-			end,
-			onAnalyticEvent = function(name, data)
-				return dispatch(sendEvent(name, data))
-			end,
+			purchaseFlow = state.purchaseFlow,
+			requestType = state.promptRequest.requestType,
+			expectedPrice = state.promptRequest.expectedPrice,
+
+			promptState = state.promptState,
+			purchaseError = state.purchaseError,
+
+			productInfo = state.productInfo,
+			accountInfo = state.accountInfo,
+			nativeUpsell = state.nativeUpsell,
+
+			isTestPurchase = isMockingPurchases(),
+			isGamepadEnabled = state.gamepadEnabled,
+
+			humanoidModel = humanoidModel,
+		}
+	else
+		return {
+			purchaseFlow = state.purchaseFlow,
+			requestType = state.promptRequest.requestType,
+
+			promptState = state.promptState,
+			purchaseError = state.purchaseError,
+
+			productInfo = state.productInfo,
+			accountInfo = state.accountInfo,
+			nativeUpsell = state.nativeUpsell,
+
+			isTestPurchase = isMockingPurchases(),
+			isGamepadEnabled = state.gamepadEnabled,
+
+			humanoidModel = humanoidModel,
 		}
 	end
-)(RobuxUpsellContainer)
+end, function(dispatch)
+	return {
+		purchaseItem = function()
+			return dispatch(purchaseItem())
+		end,
+		promptRobuxPurchase = function()
+			return dispatch(launchRobuxUpsell())
+		end,
+		openRobuxStore = function()
+			return dispatch(openRobuxStore())
+		end,
+		openSecuritySettings = function()
+			return dispatch(openSecuritySettings())
+		end,
+		openTermsOfUse = function()
+			return dispatch(openTermsOfUse())
+		end,
+		dispatchFetchPurchaseWarning = function()
+			if GetFFlagEnableTexasU18VPCForInExperienceRobuxUpsellFlow() then
+				return dispatch(initiateUserPurchaseSettingsPrecheck())
+			else
+				return dispatch(initiatePurchasePrecheck())
+			end
+		end,
+		completeRequest = function()
+			GuiService.SelectedCoreObject = nil
+			return dispatch(completeRequest())
+		end,
+		onAnalyticEvent = function(name, data)
+			return dispatch(sendEvent(name, data))
+		end,
+	}
+end)(RobuxUpsellContainer)
 
 return RobuxUpsellContainer

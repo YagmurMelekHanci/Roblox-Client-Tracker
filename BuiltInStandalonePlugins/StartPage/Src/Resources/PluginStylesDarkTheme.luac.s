@@ -136,12 +136,14 @@ MAIN:
   SETTABLEKS R4 R3 K73 ["Plus"]
   LOADK R4 K74 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Standard/CancelStandard.png"]
   SETTABLEKS R4 R3 K75 ["Cancel"]
-  LOADK R4 K76 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/Kebab.png"]
-  SETTABLEKS R4 R3 K77 ["Kebab"]
-  LOADK R4 K78 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Medium/Search.png"]
-  SETTABLEKS R4 R3 K79 ["Search"]
+  LOADK R4 K74 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Standard/CancelStandard.png"]
+  SETTABLEKS R4 R3 K76 ["CancelWhite"]
+  LOADK R4 K77 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/Kebab.png"]
+  SETTABLEKS R4 R3 K78 ["Kebab"]
+  LOADK R4 K79 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Medium/Search.png"]
+  SETTABLEKS R4 R3 K80 ["Search"]
   MOVE R4 R2
-  LOADK R5 K80 ["StartPageDarkTheme"]
+  LOADK R5 K81 ["StartPageDarkTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

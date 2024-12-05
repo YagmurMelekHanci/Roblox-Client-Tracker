@@ -15,7 +15,7 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
 
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = if GetFFlagFixChromeReferences()

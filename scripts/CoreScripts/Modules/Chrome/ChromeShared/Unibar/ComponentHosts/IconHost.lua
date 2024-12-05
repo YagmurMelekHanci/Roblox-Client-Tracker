@@ -1,11 +1,11 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 local React = require(CorePackages.Packages.React)
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local UIBloxBadge = UIBlox.App.Indicator.Badge
 
 local Foundation = require(CorePackages.Packages.Foundation)
@@ -22,32 +22,33 @@ local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
 local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
-local Constants = require(Chrome.Unibar.Constants)
+local Constants = require(Root.Unibar.Constants)
 
-local ChromeService = require(Chrome.Service)
-local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
-local ChromeTypes = require(Chrome.Service.Types)
-local FFlagEnableChromeAnalytics = require(Chrome.Parent.Flags.GetFFlagEnableChromeAnalytics)()
-local FFlagWindowFixes = require(Chrome.Parent.Flags.GetFFlagWindowFixes)()
-local GetFFlagEnableUnibarSneakPeak = require(Chrome.Parent.Flags.GetFFlagEnableUnibarSneakPeak)
+local ChromeService = require(Root.Service)
+local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
+local ChromeTypes = require(Root.Service.Types)
+local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
+local FFlagWindowFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagWindowFixes()
 
-local useObservableValue = require(Chrome.Hooks.useObservableValue)
-local useNotificationCount = require(Chrome.Hooks.useNotificationCount)
-local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
-local useMappedObservableValueBinding = require(Chrome.Hooks.useMappedObservableValueBinding)
-local useTimeHysteresis = require(Chrome.Hooks.useTimeHysteresis)
+local useObservableValue = require(Root.Hooks.useObservableValue)
+local useNotificationCount = require(Root.Hooks.useNotificationCount)
+local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
+local useMappedObservableValueBinding = require(Root.Hooks.useMappedObservableValueBinding)
+local useTimeHysteresis = require(Root.Hooks.useTimeHysteresis)
 
-local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
+local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
 
-local GetFFlagFixUnibarVirtualCursor = require(Chrome.Parent.Parent.Flags.GetFFlagFixUnibarVirtualCursor)
-local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
-local FFlagReplaceChromeNotificationBadge = require(Chrome.Parent.Parent.Flags.FFlagReplaceChromeNotificationBadge)
+local GetFFlagFixUnibarVirtualCursor =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixUnibarVirtualCursor
+local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
+local FFlagReplaceChromeNotificationBadge =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagReplaceChromeNotificationBadge
 
 local BADGE_OFFSET_X = 20
 local BADGE_OFFSET_Y = 0
 
 if FFlagReplaceChromeNotificationBadge then
-	BADGE_OFFSET_X = -20
+	BADGE_OFFSET_X = 24
 	BADGE_OFFSET_Y = 5
 end
 
@@ -141,8 +142,8 @@ function NotificationBadge(props: IconHostProps): any?
 				})
 				else if notificationBadgeText
 					then React.createElement(Badge, {
-						AnchorPoint = Vector2.new(1, 0),
-						Position = UDim2.new(1, BADGE_OFFSET_X, 0, BADGE_OFFSET_Y),
+						AnchorPoint = Vector2.new(0, 0),
+						Position = UDim2.new(0, BADGE_OFFSET_X, 0, BADGE_OFFSET_Y),
 						variant = BadgeVariant.Primary,
 						size = BadgeSize.Small :: any,
 						text = notificationBadgeText,
@@ -290,9 +291,7 @@ function TooltipButton(props: TooltipButtonProps)
 						if FFlagEnableChromeAnalytics then
 							ChromeAnalytics.default:onIconDrag(props.integration.id)
 						end
-						if GetFFlagEnableUnibarSneakPeak() then
-							ChromeService:storeChromeInteracted()
-						end
+						ChromeService:storeChromeInteracted()
 						ChromeService:toggleWindow(props.integration.id)
 						ChromeService:gesture(props.integration.id, connection, inputObj)
 					end

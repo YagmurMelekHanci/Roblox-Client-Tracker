@@ -7,7 +7,7 @@ local CoreGui = game:GetService("CoreGui")
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local OpenTypeSupport = UIBlox.Utility.OpenTypeSupport
 
 local Constants = require(Modules.Common.Constants)

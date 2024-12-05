@@ -3,10 +3,10 @@ local CoreGui = game:GetService("CoreGui")
 local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local ContextualMenu = UIBlox.App.Menu.ContextualMenu
 local MenuDirection = UIBlox.App.Menu.MenuDirection
@@ -205,7 +205,7 @@ function MoreMenu:renderWithStyle(style)
 
 	local moreMenuSize = UDim2.new(0, MENU_DEFAULT_SIZE + CONTEXT_MENU_DEFAULT_PADDING * 2, 0, self.props.screenSize.Y)
 	if self.props.screenSize.X < MENU_FULLSCREEN_THRESHOLD then
-		moreMenuSize =  UDim2.new(0, self.props.screenSize.X - (MENU_EXTRA_PADDING * 2), 0, self.props.screenSize.Y)
+		moreMenuSize = UDim2.new(0, self.props.screenSize.X - (MENU_EXTRA_PADDING * 2), 0, self.props.screenSize.Y)
 	end
 
 	local moreIcon = MORE_ICON_ON
@@ -213,7 +213,10 @@ function MoreMenu:renderWithStyle(style)
 		moreIcon = MORE_ICON_OFF
 	end
 
-	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions and not VRService.VREnabled
+	local moreButtonVisible = not TenFootInterface:IsEnabled()
+		and self.props.topBarEnabled
+		and hasOptions
+		and not VRService.VREnabled
 
 	local onAreaChanged = function(rbx)
 		if moreButtonVisible and rbx then
@@ -277,7 +280,7 @@ function MoreMenu:renderWithStyle(style)
 					vrShowMenuIcon = VRService.VREnabled and VRHub.ShowTopBar and hasOptions,
 				})
 			end,
-		})
+		}),
 	})
 end
 
@@ -289,17 +292,13 @@ end
 
 function MoreMenu:updateActionBound()
 	if self.props.moreMenuOpen then
-		ContextActionService:BindCoreAction(
-			ESCAPE_CLOSE_MENU_ACTION,
-			function(actionName, inputState, inputObj)
-				if inputState == Enum.UserInputState.Begin then
-					self.props.setMoreMenuOpen(false)
-					return Enum.ContextActionResult.Sink
-				end
-				return Enum.ContextActionResult.Pass
-			end,
-			false, Enum.KeyCode.Escape
-		)
+		ContextActionService:BindCoreAction(ESCAPE_CLOSE_MENU_ACTION, function(actionName, inputState, inputObj)
+			if inputState == Enum.UserInputState.Begin then
+				self.props.setMoreMenuOpen(false)
+				return Enum.ContextActionResult.Sink
+			end
+			return Enum.ContextActionResult.Pass
+		end, false, Enum.KeyCode.Escape)
 
 		self.boundAction = true
 	elseif self.boundAction then

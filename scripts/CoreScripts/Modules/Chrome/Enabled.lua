@@ -4,12 +4,17 @@ local IsExperienceMenuABTestEnabled = require(Chrome.Parent.IsExperienceMenuABTe
 local ExperienceMenuABTestManager = require(Chrome.Parent.ExperienceMenuABTestManager)
 
 game:DefineFastFlag("EnableInGameMenuChrome", false)
+local FFlagDebugEnableChromeOnUnsupportedDevices = game:DefineFastFlag("DebugEnableChromeOnUnsupportedDevices", false)
 
 local VRService = game:GetService("VRService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 return function()
+	if FFlagDebugEnableChromeOnUnsupportedDevices then
+		return true
+	end
+
 	if VRService.VREnabled then
 		-- hard disable in VR until we support v2 menu and validated
 		return false

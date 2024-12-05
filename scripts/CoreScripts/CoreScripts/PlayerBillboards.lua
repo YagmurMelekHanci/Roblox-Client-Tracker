@@ -49,14 +49,14 @@ local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagCo
 local GetFFlagBatchVoiceParticipantsUpdates = require(VoiceChatCore.Flags.GetFFlagBatchVoiceParticipantsUpdates)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
 
-local ExperienceChat = require(CorePackages.ExperienceChat)
+local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
 
 local MALFORMED_TEXT_WARNING = "Message text %q sent to chat event %q is not a valid UTF-8 characters sequence"
 local WRONG_LENGTH_WARNING = "Message text %q is too long for chat event %q (expected a message of length %i, got %i)"
 
-local MALFORMED_DATA_WARNING = "Malformed message data sent to chat event %q. If you have modified the chat system, " ..
-	"check what you are firing to this event"
+local MALFORMED_DATA_WARNING = "Malformed message data sent to chat event %q. If you have modified the chat system, "
+	.. "check what you are firing to this event"
 
 local chatStore
 local SPY_ACTION_WHITELIST = {
@@ -112,9 +112,13 @@ else
 				if isTextChatServiceOn() then
 					return
 				else
-					Roact.mount(Roact.createElement(App, {
-						store = chatStore
-					}), CoreGui, "BubbleChat")
+					Roact.mount(
+						Roact.createElement(App, {
+							store = chatStore,
+						}),
+						CoreGui,
+						"BubbleChat"
+					)
 				end
 			end
 		end
@@ -178,26 +182,29 @@ local function initBubbleChat()
 			end
 		end)
 
-		messageDoneFilteringConn = chatEvents:WaitForChild("OnMessageDoneFiltering", math.huge).OnClientEvent:Connect(function(messageData)
-			if not validateMessageData("OnMessageDoneFiltering", messageData)
-				or not validateMessageWithWarning("OnMessageDoneFiltering", messageData.Message)
-			then
-				return
-			end
-
-			local id = tostring(messageData.ID)
-			if chatStore:getState().messages[id] then
-				chatStore:dispatch(SetMessageText(id, messageData.Message))
-			else
-				if GetFFlagConsolidateBubbleChat() then
-					local messageDataCopy = table.clone(messageData)
-					messageDataCopy.Time = workspace:GetServerTimeNow() * 1000
-					chatStore:dispatch(AddMessageFromEvent(messageDataCopy))
-				else
-					chatStore:dispatch(AddMessageFromEvent(messageData))
+		messageDoneFilteringConn = chatEvents
+			:WaitForChild("OnMessageDoneFiltering", math.huge).OnClientEvent
+			:Connect(function(messageData)
+				if
+					not validateMessageData("OnMessageDoneFiltering", messageData)
+					or not validateMessageWithWarning("OnMessageDoneFiltering", messageData.Message)
+				then
+					return
 				end
-			end
-		end)
+
+				local id = tostring(messageData.ID)
+				if chatStore:getState().messages[id] then
+					chatStore:dispatch(SetMessageText(id, messageData.Message))
+				else
+					if GetFFlagConsolidateBubbleChat() then
+						local messageDataCopy = table.clone(messageData)
+						messageDataCopy.Time = workspace:GetServerTimeNow() * 1000
+						chatStore:dispatch(AddMessageFromEvent(messageDataCopy))
+					else
+						chatStore:dispatch(AddMessageFromEvent(messageData))
+					end
+				end
+			end)
 	end))
 
 	local function addMessageWithId(partOrModel, message, thisMessageId: number | string)
@@ -237,7 +244,7 @@ local function initBubbleChat()
 			name = partOrModel.Name,
 			text = GameTranslator:TranslateGameText(CoreGui, message),
 			timestamp = os.time(),
-			adornee = partOrModel
+			adornee = partOrModel,
 		}
 
 		chatStore:dispatch(AddMessageWithTimeout(message))
@@ -291,7 +298,7 @@ local LOCAL_STATE_MAP = {}
 
 local function setVoiceEnabled(voiceState)
 	local localUserId = tostring(Players.LocalPlayer.UserId)
-	local voiceEnabled = voiceState ~= (Enum::any).VoiceChatState.Ended
+	local voiceEnabled = voiceState ~= (Enum :: any).VoiceChatState.Ended
 	chatStore:dispatch(VoiceEnabledChanged(voiceEnabled))
 
 	if not LOCAL_STATE_MAP[voiceState] then
@@ -302,18 +309,19 @@ local function setVoiceEnabled(voiceState)
 		chatStore:dispatch(VoiceStateChanged(localUserId, LOCAL_STATE_MAP[voiceState]))
 	end
 
-	if voiceState == (Enum::any).VoiceChatState.Failed then
+	if voiceState == (Enum :: any).VoiceChatState.Failed then
 		for _, user in pairs(Players:GetPlayers()) do
 			local userId = tostring(user.UserId)
 			if user ~= Players.LocalPlayer then
 				chatStore:dispatch(VoiceStateChanged(userId, Constants.VOICE_STATE.HIDDEN))
 			end
 		end
-	elseif voiceState == (Enum::any).VoiceChatState.Joined and
-		if GetFFlagLocalMutedNilFix
+	elseif
+		voiceState == (Enum :: any).VoiceChatState.Joined
+		and if GetFFlagLocalMutedNilFix
 			then VoiceChatServiceManager.localMuted == false
 			else not VoiceChatServiceManager.localMuted
-		then
+	then
 		-- The mute changed signal happens before the user is Joined, so check again here.
 		chatStore:dispatch(VoiceStateChanged(localUserId, Constants.VOICE_STATE.INACTIVE))
 	end
@@ -337,19 +345,19 @@ local function initVoiceChat()
 
 	-- Make sure VoiceChatState exists since it's not compiled on all platforms
 	-- Remove ::any when VoiceChatState is available to the linter
-	if not (Enum::any).VoiceChatState then
+	if not (Enum :: any).VoiceChatState then
 		log:error("Enum.VoiceChatState does not exist but voice is enabled")
 		return
 	end
 
 	LOCAL_STATE_MAP = {
-		[(Enum::any).VoiceChatState.Idle] = Constants.VOICE_STATE.HIDDEN,
-		[(Enum::any).VoiceChatState.Joining] = Constants.VOICE_STATE.CONNECTING,
-		[(Enum::any).VoiceChatState.JoiningRetry] = Constants.VOICE_STATE.CONNECTING,
-		[(Enum::any).VoiceChatState.Joined] = Constants.VOICE_STATE.MUTED,
-		[(Enum::any).VoiceChatState.Leaving] = Constants.VOICE_STATE.MUTED,
-		[(Enum::any).VoiceChatState.Ended] = Constants.VOICE_STATE.HIDDEN,
-		[(Enum::any).VoiceChatState.Failed] = Constants.VOICE_STATE.ERROR,
+		[(Enum :: any).VoiceChatState.Idle] = Constants.VOICE_STATE.HIDDEN,
+		[(Enum :: any).VoiceChatState.Joining] = Constants.VOICE_STATE.CONNECTING,
+		[(Enum :: any).VoiceChatState.JoiningRetry] = Constants.VOICE_STATE.CONNECTING,
+		[(Enum :: any).VoiceChatState.Joined] = Constants.VOICE_STATE.MUTED,
+		[(Enum :: any).VoiceChatState.Leaving] = Constants.VOICE_STATE.MUTED,
+		[(Enum :: any).VoiceChatState.Ended] = Constants.VOICE_STATE.HIDDEN,
+		[(Enum :: any).VoiceChatState.Failed] = Constants.VOICE_STATE.ERROR,
 	}
 
 	local localUserId = Players.LocalPlayer.UserId
@@ -434,7 +442,7 @@ onBubbleChatEnabledChanged()
 if game:GetEngineFeature("BubbleChatSettingsApi") then
 	Chat.BubbleChatSettingsChanged:Connect(function(settings)
 		local ok, message = Types.IChatSettings(settings)
-		assert(ok, "Bad settings object passed to Chat:SetBubbleChatSettings:\n"..(message or ""))
+		assert(ok, "Bad settings object passed to Chat:SetBubbleChatSettings:\n" .. (message or ""))
 		chatStore:dispatch(UpdateChatSettings(settings))
 	end)
 end

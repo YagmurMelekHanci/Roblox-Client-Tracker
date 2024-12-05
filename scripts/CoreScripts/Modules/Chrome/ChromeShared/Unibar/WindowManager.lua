@@ -1,10 +1,13 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
+local ChromeService = require(Root.Service)
 
-local useChromeWindowItems = require(Chrome.Hooks.useChromeWindowItems)
-local WindowHost = require(Chrome.Unibar.ComponentHosts.WindowHost)
+local useChromeWindowItems = require(Root.Hooks.useChromeWindowItems)
+local WindowHost = require(Root.Unibar.ComponentHosts.WindowHost)
+
+local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -17,7 +20,9 @@ return function(props)
 
 	for k, item in windowItems do
 		children[("window_" .. item.integration.id)] = React.createElement(WindowHost, {
-			position = item.integration.startingWindowPosition,
+			position = if GetFFlagChromeTrackWindowPosition()
+				then ChromeService:windowPosition(item.integration.id)
+				else item.integration.startingWindowPosition,
 			integration = item,
 		})
 	end

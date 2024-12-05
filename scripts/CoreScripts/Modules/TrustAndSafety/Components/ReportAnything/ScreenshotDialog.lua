@@ -2,9 +2,9 @@
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local React = require(CorePackages.Packages.React)
-local Cryo = require(CorePackages.Cryo)
+local Cryo = require(CorePackages.Packages.Cryo)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetButton
 local useStyle = UIBlox.Core.Style.useStyle

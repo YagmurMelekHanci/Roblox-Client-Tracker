@@ -3,8 +3,8 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Roact = require(CorePackages.Roact)
-local UIBlox = require(CorePackages.UIBlox)
+local Roact = require(CorePackages.Packages.Roact)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
@@ -61,7 +61,7 @@ function MenuBackButton:updateViewport()
 	if utility:IsSmallTouchScreen() then
 		textSize = Theme.textSize(18)
 	elseif isTenFootInterface then
-		textSize =Theme.textSize(36)
+		textSize = Theme.textSize(36)
 	end
 
 	self.updateTextSizeConstraintBinding(textSize)
@@ -135,7 +135,9 @@ function MenuBackButton:render()
 			PaddingTop = if Theme.UIBloxThemeEnabled then UDim.new(0, 10) else UDim.new(0, 0),
 		}),
 		ImageButton = Roact.createElement("ImageButton", {
-			Image = if Theme.UIBloxThemeEnabled then "" else "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
+			Image = if Theme.UIBloxThemeEnabled
+				then ""
+				else "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
 			BorderSizePixel = 0,
 			BackgroundColor3 = Theme.color(backgroundColor),
 			BackgroundTransparency = Theme.transparency(backgroundColor, 1),

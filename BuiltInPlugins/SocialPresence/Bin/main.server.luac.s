@@ -121,52 +121,21 @@ MAIN:
   CALL R2 0 1
   JUMPIFNOT R2 [+1]
   RETURN R0 0
-  GETIMPORT R2 K15 [game]
-  LOADK R4 K16 ["EnableSocialPresence"]
-  NAMECALL R2 R2 K17 ["GetFastFlag"]
-  CALL R2 2 1
-  JUMPIF R2 [+1]
-  RETURN R0 0
-  GETIMPORT R2 K15 [game]
-  LOADK R4 K18 ["SocialPresenceIxpExperimentation"]
-  NAMECALL R2 R2 K17 ["GetFastFlag"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+28]
-  GETIMPORT R2 K15 [game]
-  LOADK R4 K19 ["IXPService"]
-  NAMECALL R2 R2 K20 ["GetService"]
-  CALL R2 2 1
-  LOADK R5 K21 ["Studio.Collaboration.SocialPresence"]
-  NAMECALL R3 R2 K22 ["GetUserStatusForLayer"]
-  CALL R3 2 1
-  GETIMPORT R4 K26 [Enum.IXPLoadingStatus.Initialized]
-  JUMPIFNOTEQ R3 R4 [+14]
-  LOADK R6 K21 ["Studio.Collaboration.SocialPresence"]
-  NAMECALL R4 R2 K27 ["LogUserLayerExposure"]
-  CALL R4 2 0
-  LOADK R6 K21 ["Studio.Collaboration.SocialPresence"]
-  NAMECALL R4 R2 K28 ["GetUserLayerVariables"]
-  CALL R4 2 1
-  GETTABLEKS R5 R4 K29 ["enabled"]
-  JUMPIF R5 [+3]
-  RETURN R0 0
-  JUMP [+1]
-  RETURN R0 0
   GETIMPORT R2 K1 [require]
   GETTABLEKS R4 R0 K8 ["Packages"]
-  GETTABLEKS R3 R4 K30 ["React"]
+  GETTABLEKS R3 R4 K14 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K1 [require]
   GETTABLEKS R5 R0 K8 ["Packages"]
-  GETTABLEKS R4 R5 K31 ["ReactRoblox"]
+  GETTABLEKS R4 R5 K15 ["ReactRoblox"]
   CALL R3 1 1
   GETIMPORT R4 K1 [require]
   GETTABLEKS R6 R0 K12 ["Src"]
-  GETTABLEKS R5 R6 K32 ["MainPlugin"]
+  GETTABLEKS R5 R6 K16 ["MainPlugin"]
   CALL R4 1 1
   GETIMPORT R5 K1 [require]
   GETTABLEKS R7 R0 K12 ["Src"]
-  GETTABLEKS R6 R7 K33 ["RibbonPlugin"]
+  GETTABLEKS R6 R7 K17 ["RibbonPlugin"]
   CALL R5 1 1
   LOADNIL R6
   LOADNIL R7
@@ -179,11 +148,11 @@ MAIN:
   CAPTURE VAL R5
   CAPTURE REF R7
   GETIMPORT R10 K7 [plugin]
-  GETTABLEKS R9 R10 K34 ["Unloading"]
+  GETTABLEKS R9 R10 K18 ["Unloading"]
   NEWCLOSURE R11 P1
   CAPTURE REF R6
   CAPTURE REF R7
-  NAMECALL R9 R9 K35 ["Connect"]
+  NAMECALL R9 R9 K19 ["Connect"]
   CALL R9 2 0
   MOVE R9 R8
   CALL R9 0 0

@@ -8,6 +8,8 @@ local URL = "Url"
 local BODY = "Body"
 local REQUEST_TYPE = "Request_Type"
 local NIL_REQUEST_ERROR_MESSAGE = "Request provided was nil."
+local HEADERS = "Headers"
+local API_KEY_HEADER = "x-api-key"
 
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
@@ -86,7 +88,10 @@ function getApisUrl()
     return string.gsub(baseUrl, "www", "apis")
 end
 
-function getUrlPrefix()
+function getUrlPrefix(headers : any)
+    if headers ~= nil and headers[API_KEY_HEADER] ~= nil then
+        return ""
+    end
     if RunService:IsStudio() then
         return "user"
     end
@@ -114,7 +119,7 @@ function verifyGetUniverseRequest(getUniverseRequest, argumentName) : any
     return nil
 end
 
-function getUniverseUrl(getUniverseRequest : any) : string
+function getUniverseUrl(getUniverseRequest : any, headers : any) : string
     if getUniverseRequest.path == nil then
         return InvalidArgumentError(`URL parameter provided was nil: getUniverseRequest.path.`)
     end
@@ -122,12 +127,12 @@ function getUniverseUrl(getUniverseRequest : any) : string
         return InvalidArgumentError(`URL parameter was not formatted correctly: getUniverseRequest.path.`)
     end
     
-    local url = string.format("%s%s/cloud/v2/%s", getApisUrl(), getUrlPrefix(), tostring(getUniverseRequest.path))
+    local url = string.format("%s%s/cloud/v2/%s", getApisUrl(), getUrlPrefix(headers), tostring(getUniverseRequest.path))
     
     return url
 end
 
-function getUniverse(getUniverseRequest : any)
+function getUniverse(getUniverseRequest : any, headers : any)
     if getUniverseRequest == nil then
         return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
     end
@@ -137,12 +142,12 @@ function getUniverse(getUniverseRequest : any)
         return res
     end
 
-    local url = getUniverseUrl(getUniverseRequest)
+    local url = getUniverseUrl(getUniverseRequest, headers)
     if typeof(url) ~= STRING_TYPE then
         return url
     end
 
-    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET"})
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET", [HEADERS] = headers})
 end
 
 OpenCloudService:RegisterOpenCloud("v2", "GetUniverse", getUniverse)
@@ -244,7 +249,7 @@ function verifyGetPlaceRequest(getPlaceRequest, argumentName) : any
     return nil
 end
 
-function getPlaceUrl(getPlaceRequest : any) : string
+function getPlaceUrl(getPlaceRequest : any, headers : any) : string
     if getPlaceRequest.path == nil then
         return InvalidArgumentError(`URL parameter provided was nil: getPlaceRequest.path.`)
     end
@@ -252,12 +257,12 @@ function getPlaceUrl(getPlaceRequest : any) : string
         return InvalidArgumentError(`URL parameter was not formatted correctly: getPlaceRequest.path.`)
     end
     
-    local url = string.format("%s%s/cloud/v2/%s", getApisUrl(), getUrlPrefix(), tostring(getPlaceRequest.path))
+    local url = string.format("%s%s/cloud/v2/%s", getApisUrl(), getUrlPrefix(headers), tostring(getPlaceRequest.path))
     
     return url
 end
 
-function getPlace(getPlaceRequest : any)
+function getPlace(getPlaceRequest : any, headers : any)
     if getPlaceRequest == nil then
         return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
     end
@@ -267,12 +272,12 @@ function getPlace(getPlaceRequest : any)
         return res
     end
 
-    local url = getPlaceUrl(getPlaceRequest)
+    local url = getPlaceUrl(getPlaceRequest, headers)
     if typeof(url) ~= STRING_TYPE then
         return url
     end
 
-    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET"})
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET", [HEADERS] = headers})
 end
 
 OpenCloudService:RegisterOpenCloud("v2", "GetPlace", getPlace)
@@ -298,7 +303,7 @@ function verifyGetGroupRequest(getGroupRequest, argumentName) : any
     return nil
 end
 
-function getGroupUrl(getGroupRequest : any) : string
+function getGroupUrl(getGroupRequest : any, headers : any) : string
     if getGroupRequest.path == nil then
         return InvalidArgumentError(`URL parameter provided was nil: getGroupRequest.path.`)
     end
@@ -306,12 +311,12 @@ function getGroupUrl(getGroupRequest : any) : string
         return InvalidArgumentError(`URL parameter was not formatted correctly: getGroupRequest.path.`)
     end
     
-    local url = string.format("%s%s/cloud/v2/%s", getApisUrl(), getUrlPrefix(), tostring(getGroupRequest.path))
+    local url = string.format("%s%s/cloud/v2/%s", getApisUrl(), getUrlPrefix(headers), tostring(getGroupRequest.path))
     
     return url
 end
 
-function getGroup(getGroupRequest : any)
+function getGroup(getGroupRequest : any, headers : any)
     if getGroupRequest == nil then
         return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
     end
@@ -321,12 +326,12 @@ function getGroup(getGroupRequest : any)
         return res
     end
 
-    local url = getGroupUrl(getGroupRequest)
+    local url = getGroupUrl(getGroupRequest, headers)
     if typeof(url) ~= STRING_TYPE then
         return url
     end
 
-    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET"})
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET", [HEADERS] = headers})
 end
 
 OpenCloudService:RegisterOpenCloud("v2", "GetGroup", getGroup)
@@ -367,7 +372,7 @@ function verifyListInventoryItemsRequest(listInventoryItemsRequest, argumentName
     return nil
 end
 
-function listInventoryItemsUrl(listInventoryItemsRequest : any) : string
+function listInventoryItemsUrl(listInventoryItemsRequest : any, headers : any) : string
     if listInventoryItemsRequest.parent == nil then
         return InvalidArgumentError(`URL parameter provided was nil: listInventoryItemsRequest.parent.`)
     end
@@ -375,7 +380,7 @@ function listInventoryItemsUrl(listInventoryItemsRequest : any) : string
         return InvalidArgumentError(`URL parameter was not formatted correctly: listInventoryItemsRequest.parent.`)
     end
     
-    local url = string.format("%s%s/cloud/v2/%s/inventory-items", getApisUrl(), getUrlPrefix(), tostring(listInventoryItemsRequest.parent))
+    local url = string.format("%s%s/cloud/v2/%s/inventory-items", getApisUrl(), getUrlPrefix(headers), tostring(listInventoryItemsRequest.parent))
     
     if listInventoryItemsRequest.maxPageSize == nil and listInventoryItemsRequest.pageToken == nil and listInventoryItemsRequest.filter == nil then
         return url
@@ -397,7 +402,7 @@ function listInventoryItemsUrl(listInventoryItemsRequest : any) : string
     return url
 end
 
-function listInventoryItems(listInventoryItemsRequest : any)
+function listInventoryItems(listInventoryItemsRequest : any, headers : any)
     if listInventoryItemsRequest == nil then
         return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
     end
@@ -407,12 +412,12 @@ function listInventoryItems(listInventoryItemsRequest : any)
         return res
     end
 
-    local url = listInventoryItemsUrl(listInventoryItemsRequest)
+    local url = listInventoryItemsUrl(listInventoryItemsRequest, headers)
     if typeof(url) ~= STRING_TYPE then
         return url
     end
 
-    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET"})
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET", [HEADERS] = headers})
 end
 
 OpenCloudService:RegisterOpenCloud("v2", "ListInventoryItems", listInventoryItems)
@@ -453,7 +458,7 @@ function verifyListGroupMembershipsRequest(listGroupMembershipsRequest, argument
     return nil
 end
 
-function listGroupMembershipsUrl(listGroupMembershipsRequest : any) : string
+function listGroupMembershipsUrl(listGroupMembershipsRequest : any, headers : any) : string
     if listGroupMembershipsRequest.parent == nil then
         return InvalidArgumentError(`URL parameter provided was nil: listGroupMembershipsRequest.parent.`)
     end
@@ -461,7 +466,7 @@ function listGroupMembershipsUrl(listGroupMembershipsRequest : any) : string
         return InvalidArgumentError(`URL parameter was not formatted correctly: listGroupMembershipsRequest.parent.`)
     end
     
-    local url = string.format("%s%s/cloud/v2/%s/memberships", getApisUrl(), getUrlPrefix(), tostring(listGroupMembershipsRequest.parent))
+    local url = string.format("%s%s/cloud/v2/%s/memberships", getApisUrl(), getUrlPrefix(headers), tostring(listGroupMembershipsRequest.parent))
     
     if listGroupMembershipsRequest.maxPageSize == nil and listGroupMembershipsRequest.pageToken == nil and listGroupMembershipsRequest.filter == nil then
         return url
@@ -483,7 +488,7 @@ function listGroupMembershipsUrl(listGroupMembershipsRequest : any) : string
     return url
 end
 
-function listGroupMemberships(listGroupMembershipsRequest : any)
+function listGroupMemberships(listGroupMembershipsRequest : any, headers : any)
     if listGroupMembershipsRequest == nil then
         return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
     end
@@ -493,12 +498,12 @@ function listGroupMemberships(listGroupMembershipsRequest : any)
         return res
     end
 
-    local url = listGroupMembershipsUrl(listGroupMembershipsRequest)
+    local url = listGroupMembershipsUrl(listGroupMembershipsRequest, headers)
     if typeof(url) ~= STRING_TYPE then
         return url
     end
 
-    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET"})
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET", [HEADERS] = headers})
 end
 
 OpenCloudService:RegisterOpenCloud("v2", "ListGroupMemberships", listGroupMemberships)
@@ -524,7 +529,7 @@ function verifyGetOperationRequest(getOperationRequest, argumentName) : any
     return nil
 end
 
-function getOperationUrl(getOperationRequest : any) : string
+function getOperationUrl(getOperationRequest : any, headers : any) : string
     if getOperationRequest.path == nil then
         return InvalidArgumentError(`URL parameter provided was nil: getOperationRequest.path.`)
     end
@@ -532,12 +537,12 @@ function getOperationUrl(getOperationRequest : any) : string
         return InvalidArgumentError(`URL parameter was not formatted correctly: getOperationRequest.path.`)
     end
     
-    local url = string.format("%s%s/cloud/v2/%s", getApisUrl(), getUrlPrefix(), tostring(getOperationRequest.path))
+    local url = string.format("%s%s/cloud/v2/%s", getApisUrl(), getUrlPrefix(headers), tostring(getOperationRequest.path))
     
     return url
 end
 
-function getOperation(getOperationRequest : any)
+function getOperation(getOperationRequest : any, headers : any)
     if getOperationRequest == nil then
         return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
     end
@@ -547,12 +552,12 @@ function getOperation(getOperationRequest : any)
         return res
     end
 
-    local url = getOperationUrl(getOperationRequest)
+    local url = getOperationUrl(getOperationRequest, headers)
     if typeof(url) ~= STRING_TYPE then
         return url
     end
 
-    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET"})
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET", [HEADERS] = headers})
 end
 
 OpenCloudService:RegisterOpenCloud("v2", "GetOperation", getOperation)
@@ -593,7 +598,7 @@ function verifyGenerateUserThumbnailRequest(generateUserThumbnailRequest, argume
     return nil
 end
 
-function generateUserThumbnailUrl(generateUserThumbnailRequest : any) : string
+function generateUserThumbnailUrl(generateUserThumbnailRequest : any, headers : any) : string
     if generateUserThumbnailRequest.path == nil then
         return InvalidArgumentError(`URL parameter provided was nil: generateUserThumbnailRequest.path.`)
     end
@@ -601,7 +606,7 @@ function generateUserThumbnailUrl(generateUserThumbnailRequest : any) : string
         return InvalidArgumentError(`URL parameter was not formatted correctly: generateUserThumbnailRequest.path.`)
     end
     
-    local url = string.format("%s%s/cloud/v2/%s:generateThumbnail", getApisUrl(), getUrlPrefix(), tostring(generateUserThumbnailRequest.path))
+    local url = string.format("%s%s/cloud/v2/%s:generateThumbnail", getApisUrl(), getUrlPrefix(headers), tostring(generateUserThumbnailRequest.path))
     
     if generateUserThumbnailRequest.size == nil and generateUserThumbnailRequest.format == nil and generateUserThumbnailRequest.shape == nil then
         return url
@@ -623,7 +628,7 @@ function generateUserThumbnailUrl(generateUserThumbnailRequest : any) : string
     return url
 end
 
-function generateUserThumbnail(generateUserThumbnailRequest : any)
+function generateUserThumbnail(generateUserThumbnailRequest : any, headers : any)
     if generateUserThumbnailRequest == nil then
         return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
     end
@@ -633,12 +638,12 @@ function generateUserThumbnail(generateUserThumbnailRequest : any)
         return res
     end
 
-    local url = generateUserThumbnailUrl(generateUserThumbnailRequest)
+    local url = generateUserThumbnailUrl(generateUserThumbnailRequest, headers)
     if typeof(url) ~= STRING_TYPE then
         return url
     end
 
-    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET"})
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "GET", [HEADERS] = headers})
 end
 
 OpenCloudService:RegisterOpenCloud("v2", "GenerateUserThumbnail", generateUserThumbnail)

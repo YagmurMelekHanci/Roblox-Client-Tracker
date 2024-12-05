@@ -227,14 +227,16 @@ local function findStorybooks()
 	-- We have an _Index if we are a plugin, not an embedded storybook
 	local index = Main.Packages:FindFirstChild("_Index")
 	local sources = collectArray(STORYBOOK_SOURCES, safeGetService)
-	local devFramework = index and index.DeveloperFramework.DeveloperFramework or Main.Parent.Framework
+	local devFramework = index and index.Parent.DeveloperFramework or Main.Parent.Framework
 	insert(sources, devFramework)
-	local materialFramework = index and index.MaterialFramework.MaterialFramework or Main.Parent.MaterialFramework
-	insert(sources, materialFramework)
-	insert(
-		sources,
-		if index then index.ViewportToolingFramework.ViewportToolingFramework else Main.Parent.ViewportToolingFramework
-	)
+
+	-- TODO add these back in once you port the rest of internal libraries STUDIOPLAT-37156
+	--local materialFramework = index and index.Parent.MaterialFramework or Main.Parent.MaterialFramework
+	--insert(sources, materialFramework)
+	--insert(
+	--	sources,
+	--	if index then index.Parent.ViewportToolingFramework else Main.Parent.ViewportToolingFramework
+	--)
 
 	local foldersByPath: { [string]: Types.StoryItem } = {}
 	local storybookItems: Types.Array<Types.StoryItem> = {}
@@ -260,6 +262,8 @@ local function findStorybooks()
 				index
 				and source:IsA("Plugin")
 				and (instance:GetFullName():find(".Packages") or instance:GetFullName():find(".Libs"))
+				-- exclude certain things we know we want
+				and not instance:GetFullName():find("DeveloperFramework")
 			then
 				-- Skip library folders for plugins
 				return

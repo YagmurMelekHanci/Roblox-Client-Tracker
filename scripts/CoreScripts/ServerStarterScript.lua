@@ -2,7 +2,8 @@
 		// Filename: ServerStarterScript.lua
 		// Version: 1.0
 		// Description: Server core script that handles core script server side logic.
-]]--
+]]
+--
 
 local runService = game:GetService("RunService")
 
@@ -11,7 +12,8 @@ while not runService:IsRunning() do
 	wait()
 end
 
---[[ Services ]]--
+--[[ Services ]]
+--
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -28,14 +30,15 @@ if ServerUtil.getFFlagServerCoreScriptSourceCode() then
 	ServerUtil.initSourceCodeFolder()
 end
 
---[[ Add Server CoreScript ]]--
+--[[ Add Server CoreScript ]]
+--
 
 -- OpenCloud
 if game:DefineFastFlag("OpenCloudCoreScriptLuaEnabled", false) then
-    ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudV2", script.Parent)
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudV2", script.Parent)
 end
 if game:DefineFastFlag("OpenCloudClientLibraryCoreScriptEnabled", false) then
-    ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudClientLibraryCoreScript", script.Parent)
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudClientLibraryCoreScript", script.Parent)
 end
 
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)
@@ -132,17 +135,9 @@ end
 local TextChatService = game:GetService("TextChatService")
 local chatVersion = TextChatService.ChatVersion
 if chatVersion == Enum.ChatVersion.TextChatService then
-	local FFlagUseExpChatServerModule = game:DefineFastFlag("UseExpChatServerModule", false)
-	if not FFlagUseExpChatServerModule then
-		-- initialize UIBlox here since requiring ExperienceChat will otherwise trigger a UIBlox config error...
-		local UIBlox = require(CorePackages.UIBlox)
-		UIBlox.init()
-	end
-
 	local ExperienceChatServer = require(CorePackages.Workspace.Packages.ExpChatServer)
 	ExperienceChatServer.mountServerApp({})
 end
-
 
 if runService:IsStudio() == false then
 	local counterName = if chatVersion == Enum.ChatVersion.TextChatService
@@ -173,8 +168,7 @@ end
 -- controls avatar gestures using VR controls
 require(game:GetService("CoreGui").RobloxGui.Modules.Server.VR.VRAvatarGesturesServer).new()
 
-local GetFFlagEnableConnectCaptureEvents =
-	require(RobloxGui.Modules.Common.Flags.GetFFlagEnableConnectCaptureEvents)
+local GetFFlagEnableConnectCaptureEvents = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableConnectCaptureEvents)
 
 if GetFFlagEnableConnectCaptureEvents() then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerConnectCaptureEvents", script.Parent)

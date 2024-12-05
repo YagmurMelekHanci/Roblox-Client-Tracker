@@ -176,54 +176,54 @@ PROTO_9:
   SETTABLEKS R4 R10 K19 ["Enabled"]
   GETTABLEKS R11 R0 K12 ["localization"]
   LOADK R13 K2 ["Plugin"]
-  LOADK R14 K20 ["Name"]
+  LOADK R14 K20 ["Title"]
   NAMECALL R11 R11 K21 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K22 ["Title"]
-  GETIMPORT R11 K26 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R11 R10 K24 ["ZIndexBehavior"]
-  GETIMPORT R11 K29 [Enum.InitialDockState.Right]
-  SETTABLEKS R11 R10 K27 ["InitialDockState"]
-  GETIMPORT R11 K31 [Vector2.new]
+  SETTABLEKS R11 R10 K20 ["Title"]
+  GETIMPORT R11 K25 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K23 ["ZIndexBehavior"]
+  GETIMPORT R11 K28 [Enum.InitialDockState.Right]
+  SETTABLEKS R11 R10 K26 ["InitialDockState"]
+  GETIMPORT R11 K30 [Vector2.new]
   LOADN R12 128
   LOADN R13 224
   CALL R11 2 1
-  SETTABLEKS R11 R10 K32 ["Size"]
-  GETIMPORT R11 K31 [Vector2.new]
+  SETTABLEKS R11 R10 K31 ["Size"]
+  GETIMPORT R11 K30 [Vector2.new]
   LOADN R12 250
   LOADN R13 200
   CALL R11 2 1
-  SETTABLEKS R11 R10 K33 ["MinSize"]
-  GETTABLEKS R11 R0 K34 ["onClose"]
-  SETTABLEKS R11 R10 K35 ["OnClose"]
+  SETTABLEKS R11 R10 K32 ["MinSize"]
+  GETTABLEKS R11 R0 K33 ["onClose"]
+  SETTABLEKS R11 R10 K34 ["OnClose"]
   GETTABLEKS R12 R1 K4 ["PluginLoaderContext"]
   GETTABLEKS R11 R12 K5 ["mainDockWidget"]
-  SETTABLEKS R11 R10 K36 ["Widget"]
-  GETTABLEKS R11 R0 K37 ["onDockWidgetCreated"]
-  SETTABLEKS R11 R10 K38 ["OnWidgetCreated"]
+  SETTABLEKS R11 R10 K35 ["Widget"]
+  GETTABLEKS R11 R0 K36 ["onDockWidgetCreated"]
+  SETTABLEKS R11 R10 K37 ["OnWidgetCreated"]
   GETUPVAL R13 2
-  GETTABLEKS R12 R13 K39 ["Change"]
+  GETTABLEKS R12 R13 K38 ["Change"]
   GETTABLEKS R11 R12 K19 ["Enabled"]
-  GETTABLEKS R12 R0 K40 ["onWidgetEnabledChanged"]
+  GETTABLEKS R12 R0 K39 ["onWidgetEnabledChanged"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K43 [{"App", "StyleLink"}]
+  DUPTABLE R11 K42 [{"App", "StyleLink"}]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K16 ["createElement"]
   GETUPVAL R13 4
-  DUPTABLE R14 K45 [{"dockWidget"}]
+  DUPTABLE R14 K44 [{"dockWidget"}]
   GETTABLEKS R16 R1 K4 ["PluginLoaderContext"]
   GETTABLEKS R15 R16 K5 ["mainDockWidget"]
-  SETTABLEKS R15 R14 K44 ["dockWidget"]
+  SETTABLEKS R15 R14 K43 ["dockWidget"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K41 ["App"]
+  SETTABLEKS R12 R11 K40 ["App"]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K16 ["createElement"]
-  LOADK R13 K42 ["StyleLink"]
-  DUPTABLE R14 K47 [{"StyleSheet"}]
-  GETTABLEKS R15 R0 K48 ["design"]
-  SETTABLEKS R15 R14 K46 ["StyleSheet"]
+  LOADK R13 K41 ["StyleLink"]
+  DUPTABLE R14 K46 [{"StyleSheet"}]
+  GETTABLEKS R15 R0 K47 ["design"]
+  SETTABLEKS R15 R14 K45 ["StyleSheet"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K42 ["StyleLink"]
+  SETTABLEKS R12 R11 K41 ["StyleLink"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K14 ["MainWidget"]
   CALL R5 2 -1

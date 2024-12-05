@@ -1,4 +1,4 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
@@ -11,17 +11,25 @@ local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local PlayerGui = (Players.LocalPlayer :: Player):FindFirstChildOfClass("PlayerGui")
 
-local Cryo = require(CorePackages.Cryo)
-local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
+local Cryo = require(CorePackages.Packages.Cryo)
 
-local ChromeService = require(Chrome.Service)
-local Constants = require(Chrome.Unibar.Constants)
-local Types = require(Chrome.Service.Types)
-local FFlagEnableChromePinAnalytics = require(Chrome.Parent.Flags.GetFFlagEnableChromePinAnalytics)()
-local FFlagEnableChromeAnalytics = require(Chrome.Parent.Flags.GetFFlagEnableChromeAnalytics)()
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
+local PerfUtils
+if not GetFFlagRemoveChromeRobloxGuiReferences() then
+	PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
+end
+
+local ChromeService = require(Root.Service)
+local Constants = require(Root.Unibar.Constants)
+local Types = require(Root.Service.Types)
+local FFlagEnableChromePinAnalytics =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinAnalytics()
+local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
 local FFlagEnabledChromeIntegrationIsActivated = game:DefineFastFlag("EnabledChromeIntegrationIsActivated", false)
+local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
 
-local Tracker = require(Chrome.Analytics.Tracker)
+local Tracker = require(Root.Analytics.Tracker)
 
 local TRACKER_NAME_UNIBAR_TIME = "unibar_time"
 local TRACKER_NAME_WINDOW_SIZE_PREFIX = "window_size_"
@@ -110,7 +118,7 @@ local function getDynamicEventProps()
 	local props = {
 		screen_orientation = screenOrientation,
 		last_input_device = lastUsedInputType,
-		fps = PerfUtils.getFps(),
+		fps = if not GetFFlagRemoveChromeRobloxGuiReferences() then PerfUtils.getFps() else nil,
 	}
 
 	return props
@@ -380,19 +388,34 @@ function ChromeAnalytics:onWindowOpened(integrationId: Types.IntegrationId)
 		self._defaultWindowTrackers(integrationId)
 		local iconDragStatus = self._tracker:get(getTrackerName(TRACKER_NAME_ICON_DRAG_STATUS, integrationId))
 
-		-- Window is opened but only record its position in case its not being activaly dragged from the Icon
-		if iconDragStatus ~= DRAG_STATUS.DRAGGED then
+		if GetFFlagChromeTrackWindowPosition() then
 			local windowPositionTrackerName = getTrackerName(TRACKER_NAME_WINDOW_DEFAULT_POSITION_PREFIX, integrationId)
-			if
-				not self._tracker:get(windowPositionTrackerName)
-				and integration.windowSize
-				and integration.startingWindowPosition
-			then
+			if not self._tracker:get(windowPositionTrackerName) and integration.windowSize then
 				local windowSize = integration.windowSize:get()
 				if windowSize then
-					local windowStartingPosition =
-						self._calculateWindowAbsolutePosition(integration.startingWindowPosition, windowSize)
-					self:setWindowDefaultPosition(integrationId, windowStartingPosition)
+					local windowPosition = ChromeService:windowPosition(integration.id)
+						or integration.startingWindowPosition
+						or UDim2.fromOffset(0, 0)
+					local windowAbsolutePosition = self._calculateWindowAbsolutePosition(windowPosition, windowSize)
+					self:setWindowDefaultPosition(integrationId, windowAbsolutePosition)
+				end
+			end
+		else
+			-- Window is opened but only record its position in case its not being activaly dragged from the Icon
+			if iconDragStatus ~= DRAG_STATUS.DRAGGED then
+				local windowPositionTrackerName =
+					getTrackerName(TRACKER_NAME_WINDOW_DEFAULT_POSITION_PREFIX, integrationId)
+				if
+					not self._tracker:get(windowPositionTrackerName)
+					and integration.windowSize
+					and integration.startingWindowPosition
+				then
+					local windowSize = integration.windowSize:get()
+					if windowSize then
+						local windowStartingPosition =
+							self._calculateWindowAbsolutePosition(integration.startingWindowPosition, windowSize)
+						self:setWindowDefaultPosition(integrationId, windowStartingPosition)
+					end
 				end
 			end
 		end

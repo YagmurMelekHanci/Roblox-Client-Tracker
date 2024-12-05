@@ -1,42 +1,42 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local VRService = game:GetService("VRService")
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
 
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
-local Symbol = require(CorePackages.Symbol)
+local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 local INGAME_SELFVIEW_CURSOR_OVERRIDE_KEY = Symbol.named("SelfieViewCursorOverride")
 
-local debounce = require(Chrome.Utility.debounce)
-local ChromeService = require(Chrome.Service)
-local Constants = require(Chrome.Unibar.Constants)
-local ChromeTypes = require(Chrome.Service.Types)
-local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
-local FFlagEnableChromeAnalytics = require(Chrome.Parent.Flags.GetFFlagEnableChromeAnalytics)()
-local FFlagSelfViewFixes = require(Chrome.Parent.Flags.GetFFlagSelfViewFixes)()
-local FFlagWindowFixes = require(Chrome.Parent.Flags.GetFFlagWindowFixes)()
-local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
+local debounce = require(Root.Utility.debounce)
+local ChromeService = require(Root.Service)
+local Constants = require(Root.Unibar.Constants)
+local ChromeTypes = require(Root.Service.Types)
+local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
+local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
+local FFlagSelfViewFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewFixes()
+local FFlagWindowFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagWindowFixes()
+local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
 
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
-local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
-local GetFFlagSelfieViewMoreFixMigration = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewMoreFixMigration)
+-- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
+local GetFFlagSelfieViewMoreFixMigration =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewMoreFixMigration
 local FIntChromeWindowLayoutOrder = game:DefineFastInt("ChromeWindowLayoutOrder", 2)
 local FFlagWindowDragDetection = game:DefineFastFlag("WindowDragDetection", false)
 local FIntWindowMinDragDistance = game:DefineFastInt("WindowMinDragDistance", 25)
 
-local useWindowSize = require(Chrome.Hooks.useWindowSize)
+local useWindowSize = require(Root.Hooks.useWindowSize)
 
 export type WindowHostProps = {
 	integration: ChromeTypes.IntegrationComponentProps,
@@ -81,7 +81,7 @@ local WindowHost = function(props: WindowHostProps)
 	local frameHeight, setFrameHeight = ReactOtter.useAnimatedBinding(windowSize.Y.Offset)
 
 	React.useEffect(function()
-		if GetFFlagSelfieViewV4() and frameWidth:getValue() == 0 then
+		if frameWidth:getValue() == 0 then
 			setFrameWidth(ReactOtter.instant(windowSize.X.Offset) :: any)
 		else
 			setFrameWidth(ReactOtter.spring(windowSize.X.Offset, MOTOR_OPTIONS))
@@ -89,7 +89,7 @@ local WindowHost = function(props: WindowHostProps)
 	end, { windowSize.X.Offset })
 
 	React.useEffect(function()
-		if GetFFlagSelfieViewV4() and frameHeight:getValue() == 0 then
+		if frameHeight:getValue() == 0 then
 			setFrameHeight(ReactOtter.instant(windowSize.Y.Offset) :: any)
 		else
 			setFrameHeight(ReactOtter.spring(windowSize.Y.Offset, MOTOR_OPTIONS))
@@ -205,26 +205,17 @@ local WindowHost = function(props: WindowHostProps)
 		local frameParent = windowRef.current:FindFirstAncestorWhichIsA("ScreenGui") :: ScreenGui
 		local parentScreenSize = frameParent.AbsoluteSize
 
-		local frameHalfWidth = frameWidth:getValue() / 2
-		local frameHalfHeight = frameHeight:getValue() / 2
-
 		local anchorPosition = Vector2.new(frameWidth:getValue(), frameHeight:getValue())
 			* (props.integration.integration.windowAnchorPoint or Vector2.new(0.5, 0.5))
 
 		-- Input Objects are reused across different connections
 		-- therefore cache the value of the start position
 		local dragStartPosition = inputObj.Position
-		local frameStartPosition = if GetFFlagSelfieViewV4()
-			then Vector3.new(
-				windowRef.current.AbsolutePosition.X + anchorPosition.X,
-				windowRef.current.AbsolutePosition.Y + anchorPosition.Y,
-				0
-			)
-			else Vector3.new(
-				windowRef.current.AbsolutePosition.X + frameHalfWidth,
-				windowRef.current.AbsolutePosition.Y + frameHalfHeight,
-				0
-			)
+		local frameStartPosition = Vector3.new(
+			windowRef.current.AbsolutePosition.X + anchorPosition.X,
+			windowRef.current.AbsolutePosition.Y + anchorPosition.Y,
+			0
+		)
 
 		if
 			inputObj.UserInputType == Enum.UserInputType.MouseButton1
@@ -241,23 +232,18 @@ local WindowHost = function(props: WindowHostProps)
 			if not connection.current and not isRepositioning:getValue() then
 				-- The dragging callback might never be called when a single tap is registered
 				-- Assign the position to the frame ref itself to ensure we have the most current
-				local newPosition = if GetFFlagSelfieViewV4()
-					then {
-						X = math.clamp(
-							(frameStartPosition).X,
-							0,
-							parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
-						),
-						Y = math.clamp(
-							(frameStartPosition).Y,
-							0,
-							parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
-						),
-					}
-					else {
-						X = math.clamp((frameStartPosition).X, 0, parentScreenSize.X - frameHalfWidth),
-						Y = math.clamp((frameStartPosition).Y, 0, parentScreenSize.Y - frameHalfHeight),
-					}
+				local newPosition = {
+					X = math.clamp(
+						(frameStartPosition).X,
+						0,
+						parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
+					),
+					Y = math.clamp(
+						(frameStartPosition).Y,
+						0,
+						parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
+					),
+				}
 				frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
 					if shouldRejectMultiTouch(inputObj, inputChangedObj) then
@@ -273,31 +259,19 @@ local WindowHost = function(props: WindowHostProps)
 					if not FFlagWindowDragDetection or dragDistance > FIntWindowMinDragDistance then
 						setDragging(true)
 
-						local newPosition = if GetFFlagSelfieViewV4()
-							then {
-								X = math.clamp(
-									(delta + frameStartPosition).X,
-									anchorPosition.X,
-									parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
-								),
-								Y = math.clamp(
-									(delta + frameStartPosition).Y,
-									anchorPosition.Y,
-									parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
-								),
-							}
-							else {
-								X = math.clamp(
-									(delta + frameStartPosition).X,
-									frameHalfWidth,
-									parentScreenSize.X - frameHalfWidth
-								),
-								Y = math.clamp(
-									(delta + frameStartPosition).Y,
-									frameHalfHeight,
-									parentScreenSize.Y - frameHalfHeight
-								),
-							}
+						local newPosition = {
+							X = math.clamp(
+								(delta + frameStartPosition).X,
+								anchorPosition.X,
+								parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
+							),
+							Y = math.clamp(
+								(delta + frameStartPosition).Y,
+								anchorPosition.Y,
+								parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
+							),
+						}
+
 						frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
 
 						if FFlagEnableChromeAnalytics then
@@ -315,24 +289,14 @@ local WindowHost = function(props: WindowHostProps)
 		local xPosition = frame.Position.X.Offset
 		local yPosition = frame.Position.Y.Offset
 
-		local frameHalfWidth = frameWidth:getValue() / 2
-		local frameHalfHeight = frameHeight:getValue() / 2
-
 		local anchorPosition = Vector2.new(frameWidth:getValue(), frameHeight:getValue())
 			* (props.integration.integration.windowAnchorPoint or Vector2.new(0.5, 0.5))
 		local parentScreenSize = frameParent.AbsoluteSize
 
-		if GetFFlagSelfieViewV4() then
-			return xPosition < anchorPosition.X
-				or xPosition > parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
-				or yPosition < anchorPosition.Y
-				or yPosition > parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
-		else
-			return xPosition < frameHalfWidth
-				or xPosition > parentScreenSize.X - frameHalfWidth
-				or yPosition < frameHalfHeight
-				or yPosition > parentScreenSize.Y - frameHalfHeight
-		end
+		return xPosition < anchorPosition.X
+			or xPosition > parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
+			or yPosition < anchorPosition.Y
+			or yPosition > parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
 	end
 
 	-- When the drag ends and the window frame is clipped, reposition it within the screen bounds
@@ -362,9 +326,6 @@ local WindowHost = function(props: WindowHostProps)
 
 			local frameParent = windowRef.current.Parent :: ScreenGui
 
-			local frameHalfWidth = frameWidth:getValue() / 2
-			local frameHalfHeight = frameHeight:getValue() / 2
-
 			local anchorPosition = Vector2.new(frameWidth:getValue(), frameHeight:getValue())
 				* (props.integration.integration.windowAnchorPoint or Vector2.new(0.5, 0.5))
 
@@ -372,34 +333,26 @@ local WindowHost = function(props: WindowHostProps)
 
 			local x = 0
 			local y = 0
-			if GetFFlagSelfieViewV4() then
-				if parentScreenSize.X > frameWidth:getValue() then
-					x = math.clamp(
-						xPosition,
-						anchorPosition.X,
-						parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
-					)
-				end
-				if parentScreenSize.Y > frameHeight:getValue() then
-					y = math.clamp(
-						yPosition,
-						anchorPosition.Y,
-						parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
-					)
-				end
-			else
-				updateIsRepositioning(true)
-
-				x = math.clamp(xPosition, frameHalfWidth, parentScreenSize.X - frameHalfWidth)
-				y = math.clamp(yPosition, frameHalfHeight, parentScreenSize.Y - frameHalfHeight)
+			if parentScreenSize.X > frameWidth:getValue() then
+				x = math.clamp(
+					xPosition,
+					anchorPosition.X,
+					parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
+				)
 			end
+			if parentScreenSize.Y > frameHeight:getValue() then
+				y = math.clamp(
+					yPosition,
+					anchorPosition.Y,
+					parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
+				)
+			end
+
 			local positionTarget = UDim2.new(0, x, 0, y)
 
 			cachePosition(positionTarget)
-			if not instant or not GetFFlagSelfieViewV4() then
-				if GetFFlagSelfieViewV4() then
-					updateIsRepositioning(true)
-				end
+			if not instant then
+				updateIsRepositioning(true)
 				local tweenStyle = TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 				positionTween = TweenService:Create(frame, tweenStyle, { Position = positionTarget })
 				assert(positionTween ~= nil)
@@ -408,7 +361,7 @@ local WindowHost = function(props: WindowHostProps)
 					positionTween = nil
 				end)
 				positionTween:Play()
-			elseif GetFFlagSelfieViewV4() then
+			else
 				frame.Position = positionTarget
 			end
 		else
@@ -445,7 +398,7 @@ local WindowHost = function(props: WindowHostProps)
 		end
 	end, {})
 
-	local windowDisplayOrder = if GetFFlagSelfieViewV4() then FIntChromeWindowLayoutOrder else 100
+	local windowDisplayOrder = FIntChromeWindowLayoutOrder
 
 	return ReactRoblox.createPortal({
 		Name = React.createElement("ScreenGui", {
@@ -459,15 +412,13 @@ local WindowHost = function(props: WindowHostProps)
 		}, {
 			WindowFrame = React.createElement("Frame", {
 				Size = React.joinBindings({ frameWidth, frameHeight }):map(function(sizes)
-					if GetFFlagSelfieViewV4() then
-						repositionWindowWithinScreenBounds(true)
-					end
+					repositionWindowWithinScreenBounds(true)
 					return UDim2.fromOffset(sizes[1], sizes[2])
 				end),
 				LayoutOrder = 1,
 				ref = windowRef,
 				BorderSizePixel = 0,
-				AnchorPoint = if props.integration.integration.windowAnchorPoint and GetFFlagSelfieViewV4()
+				AnchorPoint = if props.integration.integration.windowAnchorPoint
 					then props.integration.integration.windowAnchorPoint
 					else Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,

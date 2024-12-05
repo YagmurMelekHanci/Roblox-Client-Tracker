@@ -699,14 +699,14 @@ MAIN:
   GETTABLEKS R36 R7 K203 ["Button"]
   SETTABLEKS R36 R35 K195 ["Color"]
   SETTABLE R35 R33 R34
-  DUPTABLE R34 K213 [{"KnobSize", "Background", "BackgroundStyle", "Foreground", "ForegroundStyle", "LowerKnobBackground", "LowerKnobBackgroundStyle", "UpperKnobBackground", "UpperKnobBackgroundStyle"}]
+  DUPTABLE R34 K215 [{"KnobSize", "Background", "BackgroundStyle", "Foreground", "ForegroundStyle", "LowerKnobBackground", "LowerKnobBackgroundStyle", "UpperKnobBackground", "UpperKnobBackgroundStyle", "BackgroundStyleHorizontal", "BackgroundStyleVertical"}]
   GETIMPORT R35 K192 [Vector2.new]
   LOADN R36 18
   LOADN R37 18
   CALL R35 2 1
   SETTABLEKS R35 R34 K204 ["KnobSize"]
   SETTABLEKS R13 R34 K205 ["Background"]
-  DUPTABLE R35 K214 [{"Background", "Size"}]
+  DUPTABLE R35 K216 [{"Background", "Size"}]
   GETIMPORT R36 K31 [Color3.fromRGB]
   LOADN R37 87
   LOADN R38 87
@@ -733,7 +733,7 @@ MAIN:
   CALL R36 4 1
   SETTABLEKS R36 R35 K200 ["Size"]
   GETTABLEKS R36 R4 K201 ["Disabled"]
-  DUPTABLE R37 K215 [{"Background"}]
+  DUPTABLE R37 K217 [{"Background"}]
   GETTABLEKS R38 R7 K203 ["Button"]
   SETTABLEKS R38 R37 K205 ["Background"]
   SETTABLE R37 R35 R36
@@ -742,14 +742,44 @@ MAIN:
   SETTABLEKS R32 R34 K210 ["LowerKnobBackgroundStyle"]
   SETTABLEKS R13 R34 K211 ["UpperKnobBackground"]
   SETTABLEKS R32 R34 K212 ["UpperKnobBackgroundStyle"]
-  DUPTABLE R35 K213 [{"KnobSize", "Background", "BackgroundStyle", "Foreground", "ForegroundStyle", "LowerKnobBackground", "LowerKnobBackgroundStyle", "UpperKnobBackground", "UpperKnobBackgroundStyle"}]
+  DUPTABLE R35 K216 [{"Background", "Size"}]
+  GETIMPORT R36 K31 [Color3.fromRGB]
+  LOADN R37 87
+  LOADN R38 87
+  LOADN R39 87
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K205 ["Background"]
+  GETIMPORT R36 K198 [UDim2.new]
+  LOADN R37 1
+  LOADN R38 0
+  LOADN R39 0
+  LOADN R40 1
+  CALL R36 4 1
+  SETTABLEKS R36 R35 K200 ["Size"]
+  SETTABLEKS R35 R34 K213 ["BackgroundStyleHorizontal"]
+  DUPTABLE R35 K216 [{"Background", "Size"}]
+  GETIMPORT R36 K31 [Color3.fromRGB]
+  LOADN R37 87
+  LOADN R38 87
+  LOADN R39 87
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K205 ["Background"]
+  GETIMPORT R36 K198 [UDim2.new]
+  LOADN R37 1
+  LOADN R38 0
+  LOADN R39 0
+  LOADN R40 1
+  CALL R36 4 1
+  SETTABLEKS R36 R35 K200 ["Size"]
+  SETTABLEKS R35 R34 K214 ["BackgroundStyleVertical"]
+  DUPTABLE R35 K215 [{"KnobSize", "Background", "BackgroundStyle", "Foreground", "ForegroundStyle", "LowerKnobBackground", "LowerKnobBackgroundStyle", "UpperKnobBackground", "UpperKnobBackgroundStyle", "BackgroundStyleHorizontal", "BackgroundStyleVertical"}]
   GETIMPORT R36 K192 [Vector2.new]
   LOADN R37 18
   LOADN R38 18
   CALL R36 2 1
   SETTABLEKS R36 R35 K204 ["KnobSize"]
   SETTABLEKS R13 R35 K205 ["Background"]
-  DUPTABLE R36 K214 [{"Background", "Size"}]
+  DUPTABLE R36 K216 [{"Background", "Size"}]
   GETIMPORT R37 K31 [Color3.fromRGB]
   LOADN R38 87
   LOADN R39 87
@@ -776,7 +806,7 @@ MAIN:
   CALL R37 4 1
   SETTABLEKS R37 R36 K200 ["Size"]
   GETTABLEKS R37 R4 K201 ["Disabled"]
-  DUPTABLE R38 K215 [{"Background"}]
+  DUPTABLE R38 K217 [{"Background"}]
   GETTABLEKS R39 R7 K203 ["Button"]
   SETTABLEKS R39 R38 K205 ["Background"]
   SETTABLE R38 R36 R37
@@ -785,14 +815,44 @@ MAIN:
   SETTABLEKS R33 R35 K210 ["LowerKnobBackgroundStyle"]
   SETTABLEKS R13 R35 K211 ["UpperKnobBackground"]
   SETTABLEKS R33 R35 K212 ["UpperKnobBackgroundStyle"]
-  DUPTABLE R36 K219 [{"KnobSize", "Background", "BackgroundStyle", "ForegroundStyle", "OutlineStyle", "KnobBackground", "KnobBackgroundStyle"}]
+  DUPTABLE R36 K216 [{"Background", "Size"}]
+  GETIMPORT R37 K31 [Color3.fromRGB]
+  LOADN R38 87
+  LOADN R39 87
+  LOADN R40 87
+  CALL R37 3 1
+  SETTABLEKS R37 R36 K205 ["Background"]
+  GETIMPORT R37 K198 [UDim2.new]
+  LOADN R38 1
+  LOADN R39 0
+  LOADN R40 0
+  LOADN R41 1
+  CALL R37 4 1
+  SETTABLEKS R37 R36 K200 ["Size"]
+  SETTABLEKS R36 R35 K213 ["BackgroundStyleHorizontal"]
+  DUPTABLE R36 K216 [{"Background", "Size"}]
+  GETIMPORT R37 K31 [Color3.fromRGB]
+  LOADN R38 87
+  LOADN R39 87
+  LOADN R40 87
+  CALL R37 3 1
+  SETTABLEKS R37 R36 K205 ["Background"]
+  GETIMPORT R37 K198 [UDim2.new]
+  LOADN R38 1
+  LOADN R39 0
+  LOADN R40 0
+  LOADN R41 1
+  CALL R37 4 1
+  SETTABLEKS R37 R36 K200 ["Size"]
+  SETTABLEKS R36 R35 K214 ["BackgroundStyleVertical"]
+  DUPTABLE R36 K221 [{"KnobSize", "Background", "BackgroundStyle", "ForegroundStyle", "OutlineStyle", "KnobBackground", "KnobBackgroundStyle"}]
   GETIMPORT R37 K192 [Vector2.new]
   LOADN R38 18
   LOADN R39 18
   CALL R37 2 1
   SETTABLEKS R37 R36 K204 ["KnobSize"]
   SETTABLEKS R13 R36 K205 ["Background"]
-  DUPTABLE R37 K225 [{"AnchorPoint", "Color", "Position", "ScaleType", "Size", "SliceCenter", "BackgroundTransparency", "ImageTransparency"}]
+  DUPTABLE R37 K227 [{"AnchorPoint", "Color", "Position", "ScaleType", "Size", "SliceCenter", "BackgroundTransparency", "ImageTransparency"}]
   GETIMPORT R38 K192 [Vector2.new]
   LOADN R39 0
   LOADK R40 K193 [0.5]
@@ -810,25 +870,25 @@ MAIN:
   LOADK R41 K193 [0.5]
   LOADN R42 0
   CALL R38 4 1
-  SETTABLEKS R38 R37 K220 ["Position"]
-  GETIMPORT R38 K227 [Enum.ScaleType.Slice]
-  SETTABLEKS R38 R37 K221 ["ScaleType"]
+  SETTABLEKS R38 R37 K222 ["Position"]
+  GETIMPORT R38 K229 [Enum.ScaleType.Slice]
+  SETTABLEKS R38 R37 K223 ["ScaleType"]
   GETIMPORT R38 K198 [UDim2.new]
-  GETIMPORT R39 K229 [UDim.new]
+  GETIMPORT R39 K231 [UDim.new]
   LOADN R40 1
   LOADN R41 0
   CALL R39 2 1
-  GETIMPORT R40 K229 [UDim.new]
+  GETIMPORT R40 K231 [UDim.new]
   LOADN R41 1
   LOADN R42 0
   CALL R40 2 -1
   CALL R38 -1 1
   SETTABLEKS R38 R37 K200 ["Size"]
-  SETTABLEKS R30 R37 K222 ["SliceCenter"]
+  SETTABLEKS R30 R37 K224 ["SliceCenter"]
   LOADN R38 1
-  SETTABLEKS R38 R37 K223 ["BackgroundTransparency"]
+  SETTABLEKS R38 R37 K225 ["BackgroundTransparency"]
   LOADN R38 1
-  SETTABLEKS R38 R37 K224 ["ImageTransparency"]
+  SETTABLEKS R38 R37 K226 ["ImageTransparency"]
   SETTABLEKS R37 R36 K206 ["BackgroundStyle"]
   NEWTABLE R37 8 0
   GETIMPORT R38 K192 [Vector2.new]
@@ -836,24 +896,24 @@ MAIN:
   LOADK R40 K193 [0.5]
   CALL R38 2 1
   SETTABLEKS R38 R37 K194 ["AnchorPoint"]
-  LOADK R38 K230 ["rbxasset://textures/DeveloperFramework/slider_bg.png"]
+  LOADK R38 K232 ["rbxasset://textures/DeveloperFramework/slider_bg.png"]
   SETTABLEKS R38 R37 K20 ["Image"]
   GETTABLEKS R38 R7 K164 ["DialogMainButton"]
   SETTABLEKS R38 R37 K195 ["Color"]
-  GETIMPORT R38 K227 [Enum.ScaleType.Slice]
-  SETTABLEKS R38 R37 K221 ["ScaleType"]
+  GETIMPORT R38 K229 [Enum.ScaleType.Slice]
+  SETTABLEKS R38 R37 K223 ["ScaleType"]
   GETIMPORT R38 K198 [UDim2.new]
-  GETIMPORT R39 K229 [UDim.new]
+  GETIMPORT R39 K231 [UDim.new]
   LOADN R40 1
   LOADN R41 0
   CALL R39 2 1
-  GETIMPORT R40 K229 [UDim.new]
+  GETIMPORT R40 K231 [UDim.new]
   LOADN R41 0
   LOADN R42 1
   CALL R40 2 -1
   CALL R38 -1 1
   SETTABLEKS R38 R37 K200 ["Size"]
-  SETTABLEKS R30 R37 K222 ["SliceCenter"]
+  SETTABLEKS R30 R37 K224 ["SliceCenter"]
   GETTABLEKS R38 R4 K201 ["Disabled"]
   DUPTABLE R39 K202 [{"Color"}]
   GETTABLEKS R40 R7 K203 ["Button"]
@@ -867,17 +927,17 @@ MAIN:
   LOADN R41 87
   CALL R38 3 1
   SETTABLEKS R38 R37 K195 ["Color"]
-  SETTABLEKS R37 R36 K216 ["OutlineStyle"]
-  SETTABLEKS R13 R36 K217 ["KnobBackground"]
-  SETTABLEKS R32 R36 K218 ["KnobBackgroundStyle"]
-  DUPTABLE R37 K219 [{"KnobSize", "Background", "BackgroundStyle", "ForegroundStyle", "OutlineStyle", "KnobBackground", "KnobBackgroundStyle"}]
+  SETTABLEKS R37 R36 K218 ["OutlineStyle"]
+  SETTABLEKS R13 R36 K219 ["KnobBackground"]
+  SETTABLEKS R32 R36 K220 ["KnobBackgroundStyle"]
+  DUPTABLE R37 K221 [{"KnobSize", "Background", "BackgroundStyle", "ForegroundStyle", "OutlineStyle", "KnobBackground", "KnobBackgroundStyle"}]
   GETIMPORT R38 K192 [Vector2.new]
   LOADN R39 18
   LOADN R40 18
   CALL R38 2 1
   SETTABLEKS R38 R37 K204 ["KnobSize"]
   SETTABLEKS R13 R37 K205 ["Background"]
-  DUPTABLE R38 K225 [{"AnchorPoint", "Color", "Position", "ScaleType", "Size", "SliceCenter", "BackgroundTransparency", "ImageTransparency"}]
+  DUPTABLE R38 K227 [{"AnchorPoint", "Color", "Position", "ScaleType", "Size", "SliceCenter", "BackgroundTransparency", "ImageTransparency"}]
   GETIMPORT R39 K192 [Vector2.new]
   LOADN R40 0
   LOADK R41 K193 [0.5]
@@ -895,25 +955,25 @@ MAIN:
   LOADK R42 K193 [0.5]
   LOADN R43 0
   CALL R39 4 1
-  SETTABLEKS R39 R38 K220 ["Position"]
-  GETIMPORT R39 K227 [Enum.ScaleType.Slice]
-  SETTABLEKS R39 R38 K221 ["ScaleType"]
+  SETTABLEKS R39 R38 K222 ["Position"]
+  GETIMPORT R39 K229 [Enum.ScaleType.Slice]
+  SETTABLEKS R39 R38 K223 ["ScaleType"]
   GETIMPORT R39 K198 [UDim2.new]
-  GETIMPORT R40 K229 [UDim.new]
+  GETIMPORT R40 K231 [UDim.new]
   LOADN R41 1
   LOADN R42 0
   CALL R40 2 1
-  GETIMPORT R41 K229 [UDim.new]
+  GETIMPORT R41 K231 [UDim.new]
   LOADN R42 1
   LOADN R43 0
   CALL R41 2 -1
   CALL R39 -1 1
   SETTABLEKS R39 R38 K200 ["Size"]
-  SETTABLEKS R30 R38 K222 ["SliceCenter"]
+  SETTABLEKS R30 R38 K224 ["SliceCenter"]
   LOADN R39 1
-  SETTABLEKS R39 R38 K223 ["BackgroundTransparency"]
+  SETTABLEKS R39 R38 K225 ["BackgroundTransparency"]
   LOADN R39 1
-  SETTABLEKS R39 R38 K224 ["ImageTransparency"]
+  SETTABLEKS R39 R38 K226 ["ImageTransparency"]
   SETTABLEKS R38 R37 K206 ["BackgroundStyle"]
   NEWTABLE R38 8 0
   GETIMPORT R39 K192 [Vector2.new]
@@ -921,24 +981,24 @@ MAIN:
   LOADK R41 K193 [0.5]
   CALL R39 2 1
   SETTABLEKS R39 R38 K194 ["AnchorPoint"]
-  LOADK R39 K230 ["rbxasset://textures/DeveloperFramework/slider_bg.png"]
+  LOADK R39 K232 ["rbxasset://textures/DeveloperFramework/slider_bg.png"]
   SETTABLEKS R39 R38 K20 ["Image"]
   GETTABLEKS R39 R7 K164 ["DialogMainButton"]
   SETTABLEKS R39 R38 K195 ["Color"]
-  GETIMPORT R39 K227 [Enum.ScaleType.Slice]
-  SETTABLEKS R39 R38 K221 ["ScaleType"]
+  GETIMPORT R39 K229 [Enum.ScaleType.Slice]
+  SETTABLEKS R39 R38 K223 ["ScaleType"]
   GETIMPORT R39 K198 [UDim2.new]
-  GETIMPORT R40 K229 [UDim.new]
+  GETIMPORT R40 K231 [UDim.new]
   LOADN R41 1
   LOADN R42 0
   CALL R40 2 1
-  GETIMPORT R41 K229 [UDim.new]
+  GETIMPORT R41 K231 [UDim.new]
   LOADN R42 0
   LOADN R43 1
   CALL R41 2 -1
   CALL R39 -1 1
   SETTABLEKS R39 R38 K200 ["Size"]
-  SETTABLEKS R30 R38 K222 ["SliceCenter"]
+  SETTABLEKS R30 R38 K224 ["SliceCenter"]
   GETTABLEKS R39 R4 K201 ["Disabled"]
   DUPTABLE R40 K202 [{"Color"}]
   GETTABLEKS R41 R7 K203 ["Button"]
@@ -952,92 +1012,92 @@ MAIN:
   LOADN R42 87
   CALL R39 3 1
   SETTABLEKS R39 R38 K195 ["Color"]
-  SETTABLEKS R38 R37 K216 ["OutlineStyle"]
-  SETTABLEKS R13 R37 K217 ["KnobBackground"]
-  SETTABLEKS R33 R37 K218 ["KnobBackgroundStyle"]
-  DUPTABLE R38 K233 [{"slice", "backgroundImage", "borderImage"}]
+  SETTABLEKS R38 R37 K218 ["OutlineStyle"]
+  SETTABLEKS R13 R37 K219 ["KnobBackground"]
+  SETTABLEKS R33 R37 K220 ["KnobBackgroundStyle"]
+  DUPTABLE R38 K235 [{"slice", "backgroundImage", "borderImage"}]
   GETIMPORT R39 K190 [Rect.new]
   LOADN R40 3
   LOADN R41 3
   LOADN R42 13
   LOADN R43 13
   CALL R39 4 1
-  SETTABLEKS R39 R38 K231 ["slice"]
-  LOADK R39 K234 ["rbxasset://textures/StudioToolbox/RoundedBackground.png"]
+  SETTABLEKS R39 R38 K233 ["slice"]
+  LOADK R39 K236 ["rbxasset://textures/StudioToolbox/RoundedBackground.png"]
   SETTABLEKS R39 R38 K179 ["backgroundImage"]
-  LOADK R39 K235 ["rbxasset://textures/StudioToolbox/RoundedBorder.png"]
-  SETTABLEKS R39 R38 K232 ["borderImage"]
-  DUPTABLE R39 K243 [{"MediaControl", "EventFilter", "ActiveControl", "IKDefault", "IKActive", "FaceControlsEditorActive", "FaceControlsEditorDefault"}]
+  LOADK R39 K237 ["rbxasset://textures/StudioToolbox/RoundedBorder.png"]
+  SETTABLEKS R39 R38 K234 ["borderImage"]
+  DUPTABLE R39 K245 [{"MediaControl", "EventFilter", "ActiveControl", "IKDefault", "IKActive", "FaceControlsEditorActive", "FaceControlsEditorDefault"}]
   NEWTABLE R40 4 0
   SETTABLEKS R10 R40 K205 ["Background"]
-  DUPTABLE R41 K246 [{"Color", "BorderColor", "BorderSize"}]
+  DUPTABLE R41 K248 [{"Color", "BorderColor", "BorderSize"}]
   GETTABLEKS R42 R7 K148 ["MainBackground"]
   SETTABLEKS R42 R41 K195 ["Color"]
   GETTABLEKS R42 R7 K118 ["Border"]
-  SETTABLEKS R42 R41 K244 ["BorderColor"]
+  SETTABLEKS R42 R41 K246 ["BorderColor"]
   LOADN R42 1
-  SETTABLEKS R42 R41 K245 ["BorderSize"]
+  SETTABLEKS R42 R41 K247 ["BorderSize"]
   SETTABLEKS R41 R40 K206 ["BackgroundStyle"]
-  GETTABLEKS R41 R4 K247 ["Hover"]
-  DUPTABLE R42 K248 [{"BackgroundStyle"}]
-  DUPTABLE R43 K246 [{"Color", "BorderColor", "BorderSize"}]
-  GETTABLEKS R44 R7 K249 ["ButtonHover"]
+  GETTABLEKS R41 R4 K249 ["Hover"]
+  DUPTABLE R42 K250 [{"BackgroundStyle"}]
+  DUPTABLE R43 K248 [{"Color", "BorderColor", "BorderSize"}]
+  GETTABLEKS R44 R7 K251 ["ButtonHover"]
   SETTABLEKS R44 R43 K195 ["Color"]
   GETTABLEKS R44 R7 K118 ["Border"]
-  SETTABLEKS R44 R43 K244 ["BorderColor"]
+  SETTABLEKS R44 R43 K246 ["BorderColor"]
   LOADN R44 1
-  SETTABLEKS R44 R43 K245 ["BorderSize"]
+  SETTABLEKS R44 R43 K247 ["BorderSize"]
   SETTABLEKS R43 R42 K206 ["BackgroundStyle"]
   SETTABLE R42 R40 R41
-  SETTABLEKS R40 R39 K236 ["MediaControl"]
+  SETTABLEKS R40 R39 K238 ["MediaControl"]
   NEWTABLE R40 4 0
   SETTABLEKS R10 R40 K205 ["Background"]
   DUPTABLE R41 K202 [{"Color"}]
   GETTABLEKS R42 R7 K33 ["TrackTitleBackgroundColor"]
   SETTABLEKS R42 R41 K195 ["Color"]
   SETTABLEKS R41 R40 K206 ["BackgroundStyle"]
-  GETTABLEKS R41 R4 K247 ["Hover"]
-  DUPTABLE R42 K248 [{"BackgroundStyle"}]
+  GETTABLEKS R41 R4 K249 ["Hover"]
+  DUPTABLE R42 K250 [{"BackgroundStyle"}]
   DUPTABLE R43 K202 [{"Color"}]
-  GETTABLEKS R44 R7 K249 ["ButtonHover"]
+  GETTABLEKS R44 R7 K251 ["ButtonHover"]
   SETTABLEKS R44 R43 K195 ["Color"]
   SETTABLEKS R43 R42 K206 ["BackgroundStyle"]
   SETTABLE R42 R40 R41
-  SETTABLEKS R40 R39 K237 ["EventFilter"]
+  SETTABLEKS R40 R39 K239 ["EventFilter"]
   NEWTABLE R40 4 0
   SETTABLEKS R10 R40 K205 ["Background"]
-  DUPTABLE R41 K246 [{"Color", "BorderColor", "BorderSize"}]
+  DUPTABLE R41 K248 [{"Color", "BorderColor", "BorderSize"}]
   GETTABLEKS R42 R7 K164 ["DialogMainButton"]
   SETTABLEKS R42 R41 K195 ["Color"]
   GETTABLEKS R42 R7 K164 ["DialogMainButton"]
-  SETTABLEKS R42 R41 K244 ["BorderColor"]
+  SETTABLEKS R42 R41 K246 ["BorderColor"]
   LOADN R42 1
-  SETTABLEKS R42 R41 K245 ["BorderSize"]
+  SETTABLEKS R42 R41 K247 ["BorderSize"]
   SETTABLEKS R41 R40 K206 ["BackgroundStyle"]
-  GETTABLEKS R41 R4 K247 ["Hover"]
-  DUPTABLE R42 K248 [{"BackgroundStyle"}]
-  DUPTABLE R43 K246 [{"Color", "BorderColor", "BorderSize"}]
-  GETTABLEKS R44 R7 K250 ["DialogMainButtonHover"]
+  GETTABLEKS R41 R4 K249 ["Hover"]
+  DUPTABLE R42 K250 [{"BackgroundStyle"}]
+  DUPTABLE R43 K248 [{"Color", "BorderColor", "BorderSize"}]
+  GETTABLEKS R44 R7 K252 ["DialogMainButtonHover"]
   SETTABLEKS R44 R43 K195 ["Color"]
-  GETTABLEKS R44 R7 K250 ["DialogMainButtonHover"]
-  SETTABLEKS R44 R43 K244 ["BorderColor"]
+  GETTABLEKS R44 R7 K252 ["DialogMainButtonHover"]
+  SETTABLEKS R44 R43 K246 ["BorderColor"]
   LOADN R44 1
-  SETTABLEKS R44 R43 K245 ["BorderSize"]
+  SETTABLEKS R44 R43 K247 ["BorderSize"]
   SETTABLEKS R43 R42 K206 ["BackgroundStyle"]
   SETTABLE R42 R40 R41
-  SETTABLEKS R40 R39 K238 ["ActiveControl"]
-  DUPTABLE R40 K215 [{"Background"}]
+  SETTABLEKS R40 R39 K240 ["ActiveControl"]
+  DUPTABLE R40 K217 [{"Background"}]
   SETTABLEKS R11 R40 K205 ["Background"]
-  SETTABLEKS R40 R39 K239 ["IKDefault"]
-  DUPTABLE R40 K215 [{"Background"}]
+  SETTABLEKS R40 R39 K241 ["IKDefault"]
+  DUPTABLE R40 K217 [{"Background"}]
   SETTABLEKS R11 R40 K205 ["Background"]
-  SETTABLEKS R40 R39 K240 ["IKActive"]
-  DUPTABLE R40 K215 [{"Background"}]
+  SETTABLEKS R40 R39 K242 ["IKActive"]
+  DUPTABLE R40 K217 [{"Background"}]
   SETTABLEKS R11 R40 K205 ["Background"]
-  SETTABLEKS R40 R39 K241 ["FaceControlsEditorActive"]
-  DUPTABLE R40 K215 [{"Background"}]
+  SETTABLEKS R40 R39 K243 ["FaceControlsEditorActive"]
+  DUPTABLE R40 K217 [{"Background"}]
   SETTABLEKS R11 R40 K205 ["Background"]
-  SETTABLEKS R40 R39 K242 ["FaceControlsEditorDefault"]
+  SETTABLEKS R40 R39 K244 ["FaceControlsEditorDefault"]
   MOVE R40 R16
   LOADK R41 K203 ["Button"]
   CALL R40 1 1
@@ -1045,202 +1105,202 @@ MAIN:
   MOVE R42 R40
   NEWTABLE R43 2 0
   MOVE R44 R19
-  GETTABLEKS R45 R40 K251 ["&Round"]
-  DUPTABLE R46 K215 [{"Background"}]
+  GETTABLEKS R45 R40 K253 ["&Round"]
+  DUPTABLE R46 K217 [{"Background"}]
   SETTABLEKS R11 R46 K205 ["Background"]
   CALL R44 2 1
-  SETTABLEKS R44 R43 K252 ["&ACEHeaderButtonDefault"]
+  SETTABLEKS R44 R43 K254 ["&ACEHeaderButtonDefault"]
   MOVE R44 R19
-  GETTABLEKS R45 R40 K253 ["&RoundPrimary"]
+  GETTABLEKS R45 R40 K255 ["&RoundPrimary"]
   NEWTABLE R46 0 0
   CALL R44 2 1
-  SETTABLEKS R44 R43 K254 ["&ACEHeaderButtonActive"]
+  SETTABLEKS R44 R43 K256 ["&ACEHeaderButtonActive"]
   CALL R41 2 1
-  DUPTABLE R42 K258 [{"imageColor", "borderColor", "selectionBorderColor", "mainImage", "borderImage", "selectionBorderImage", "textSize"}]
+  DUPTABLE R42 K260 [{"imageColor", "borderColor", "selectionBorderColor", "mainImage", "borderImage", "selectionBorderImage", "textSize"}]
   GETTABLEKS R43 R7 K45 ["EventMarkerImageColor"]
   SETTABLEKS R43 R42 K171 ["imageColor"]
   GETTABLEKS R43 R7 K46 ["EventMarkerBorderColor"]
   SETTABLEKS R43 R42 K102 ["borderColor"]
   GETTABLEKS R43 R7 K164 ["DialogMainButton"]
-  SETTABLEKS R43 R42 K255 ["selectionBorderColor"]
-  LOADK R43 K3 ["FindFirstAncestor"]
-  SETTABLEKS R43 R42 K256 ["mainImage"]
-  LOADK R43 K4 ["require"]
-  SETTABLEKS R43 R42 K232 ["borderImage"]
+  SETTABLEKS R43 R42 K257 ["selectionBorderColor"]
   LOADK R43 K5 [require]
-  SETTABLEKS R43 R42 K257 ["selectionBorderImage"]
+  SETTABLEKS R43 R42 K258 ["mainImage"]
+  LOADK R43 K6 ["Packages"]
+  SETTABLEKS R43 R42 K234 ["borderImage"]
+  LOADK R43 K7 ["Cryo"]
+  SETTABLEKS R43 R42 K259 ["selectionBorderImage"]
   LOADN R43 15
   SETTABLEKS R43 R42 K124 ["textSize"]
-  DUPTABLE R43 K268 [{"controlImage", "arrowImage", "imageColor", "controlColor", "hoverColor", "pressedColor", "backgroundColor", "borderColor", "borderSize"}]
-  LOADK R44 K13 ["StudioTheme"]
-  SETTABLEKS R44 R43 K262 ["controlImage"]
-  LOADK R44 K14 ["StyleKey"]
-  SETTABLEKS R44 R43 K263 ["arrowImage"]
+  DUPTABLE R43 K270 [{"controlImage", "arrowImage", "imageColor", "controlColor", "hoverColor", "pressedColor", "backgroundColor", "borderColor", "borderSize"}]
+  LOADK R44 K15 ["Colors"]
+  SETTABLEKS R44 R43 K264 ["controlImage"]
+  LOADK R44 K16 ["UI"]
+  SETTABLEKS R44 R43 K265 ["arrowImage"]
   GETTABLEKS R44 R7 K115 ["MainText"]
   SETTABLEKS R44 R43 K171 ["imageColor"]
   GETTABLEKS R44 R7 K47 ["ScrollBarControl"]
-  SETTABLEKS R44 R43 K264 ["controlColor"]
+  SETTABLEKS R44 R43 K266 ["controlColor"]
   GETTABLEKS R44 R7 K49 ["ScrollBarHover"]
-  SETTABLEKS R44 R43 K265 ["hoverColor"]
+  SETTABLEKS R44 R43 K267 ["hoverColor"]
   GETTABLEKS R44 R7 K50 ["ScrollBarPressed"]
-  SETTABLEKS R44 R43 K266 ["pressedColor"]
-  GETTABLEKS R44 R7 K271 ["ScrollBarBackground"]
+  SETTABLEKS R44 R43 K268 ["pressedColor"]
+  GETTABLEKS R44 R7 K273 ["ScrollBarBackground"]
   SETTABLEKS R44 R43 K128 ["backgroundColor"]
   GETTABLEKS R44 R7 K119 ["InputFieldBorder"]
   SETTABLEKS R44 R43 K102 ["borderColor"]
   LOADN R44 1
-  SETTABLEKS R44 R43 K267 ["borderSize"]
-  DUPTABLE R44 K277 [{"lineColor", "textColor", "dimmedColor", "barColor", "backgroundColor", "lowerTransparency", "lowerBrightTransparency", "textSize"}]
-  GETTABLEKS R45 R7 K278 ["DimmedText"]
-  SETTABLEKS R45 R44 K272 ["lineColor"]
-  GETTABLEKS R45 R7 K278 ["DimmedText"]
+  SETTABLEKS R44 R43 K269 ["borderSize"]
+  DUPTABLE R44 K279 [{"lineColor", "textColor", "dimmedColor", "barColor", "backgroundColor", "lowerTransparency", "lowerBrightTransparency", "textSize"}]
+  GETTABLEKS R45 R7 K280 ["DimmedText"]
+  SETTABLEKS R45 R44 K274 ["lineColor"]
+  GETTABLEKS R45 R7 K280 ["DimmedText"]
   SETTABLEKS R45 R44 K122 ["textColor"]
   GETTABLEKS R45 R7 K42 ["TimelineDimmedColor"]
-  SETTABLEKS R45 R44 K273 ["dimmedColor"]
+  SETTABLEKS R45 R44 K275 ["dimmedColor"]
   GETTABLEKS R45 R7 K148 ["MainBackground"]
-  SETTABLEKS R45 R44 K274 ["barColor"]
+  SETTABLEKS R45 R44 K276 ["barColor"]
   GETTABLEKS R45 R7 K43 ["TimelineBackgroundColor"]
   SETTABLEKS R45 R44 K128 ["backgroundColor"]
-  LOADK R45 K23 ["getRawComponentStyle"]
-  SETTABLEKS R45 R44 K275 ["lowerTransparency"]
-  LOADK R45 K24 ["ComponentSymbols"]
-  SETTABLEKS R45 R44 K276 ["lowerBrightTransparency"]
+  LOADK R45 K25 ["Dash"]
+  SETTABLEKS R45 R44 K277 ["lowerTransparency"]
+  LOADK R45 K26 ["join"]
+  SETTABLEKS R45 R44 K278 ["lowerBrightTransparency"]
   LOADN R45 15
   SETTABLEKS R45 R44 K124 ["textSize"]
-  DUPTABLE R45 K288 [{"textSize", "subTextSize", "headerFont", "textColor", "subTextColor", "errorTextColor", "deleteImage", "addImage", "errorImage"}]
+  DUPTABLE R45 K290 [{"textSize", "subTextSize", "headerFont", "textColor", "subTextColor", "errorTextColor", "deleteImage", "addImage", "errorImage"}]
   LOADN R46 16
   SETTABLEKS R46 R45 K124 ["textSize"]
   LOADN R46 15
-  SETTABLEKS R46 R45 K281 ["subTextSize"]
-  GETIMPORT R46 K290 [Enum.Font.SourceSansSemibold]
-  SETTABLEKS R46 R45 K282 ["headerFont"]
+  SETTABLEKS R46 R45 K283 ["subTextSize"]
+  GETIMPORT R46 K292 [Enum.Font.SourceSansSemibold]
+  SETTABLEKS R46 R45 K284 ["headerFont"]
   GETTABLEKS R46 R7 K115 ["MainText"]
   SETTABLEKS R46 R45 K122 ["textColor"]
-  GETTABLEKS R46 R7 K278 ["DimmedText"]
-  SETTABLEKS R46 R45 K283 ["subTextColor"]
+  GETTABLEKS R46 R7 K280 ["DimmedText"]
+  SETTABLEKS R46 R45 K285 ["subTextColor"]
   GETTABLEKS R46 R7 K169 ["ErrorText"]
-  SETTABLEKS R46 R45 K284 ["errorTextColor"]
-  LOADK R46 K35 ["TrackButtonColor"]
-  SETTABLEKS R46 R45 K285 ["deleteImage"]
+  SETTABLEKS R46 R45 K286 ["errorTextColor"]
+  LOADK R46 K37 ["Blue"]
+  SETTABLEKS R46 R45 K287 ["deleteImage"]
   LOADK R46 K161 ["rbxasset://textures/AnimationEditor/icon_add.png"]
-  SETTABLEKS R46 R45 K286 ["addImage"]
-  LOADK R46 K36 ["TrackHoveredButtonColor"]
-  SETTABLEKS R46 R45 K287 ["errorImage"]
-  DUPTABLE R46 K296 [{"textSize", "textColor", "shadowTransparency", "shadowColor", "shadowSize"}]
+  SETTABLEKS R46 R45 K288 ["addImage"]
+  LOADK R46 K38 ["TrackAddButtonColor"]
+  SETTABLEKS R46 R45 K289 ["errorImage"]
+  DUPTABLE R46 K298 [{"textSize", "textColor", "shadowTransparency", "shadowColor", "shadowSize"}]
   LOADN R47 16
   SETTABLEKS R47 R46 K124 ["textSize"]
   GETTABLEKS R47 R7 K115 ["MainText"]
   SETTABLEKS R47 R46 K122 ["textColor"]
-  LOADK R47 K41 ["TrackPlusIconColor"]
-  SETTABLEKS R47 R46 K293 ["shadowTransparency"]
-  GETIMPORT R47 K298 [Color3.new]
+  LOADK R47 K43 ["TimelineBackgroundColor"]
+  SETTABLEKS R47 R46 K295 ["shadowTransparency"]
+  GETIMPORT R47 K300 [Color3.new]
   CALL R47 0 1
-  SETTABLEKS R47 R46 K294 ["shadowColor"]
+  SETTABLEKS R47 R46 K296 ["shadowColor"]
   LOADN R47 35
-  SETTABLEKS R47 R46 K295 ["shadowSize"]
-  DUPTABLE R47 K300 [{"textSize", "textColor", "darkTextColor"}]
+  SETTABLEKS R47 R46 K297 ["shadowSize"]
+  DUPTABLE R47 K302 [{"textSize", "textColor", "darkTextColor"}]
   LOADN R48 16
   SETTABLEKS R48 R47 K124 ["textSize"]
   GETTABLEKS R48 R7 K115 ["MainText"]
   SETTABLEKS R48 R47 K122 ["textColor"]
   GETTABLEKS R48 R7 K51 ["StartScreenDarkTextColor"]
-  SETTABLEKS R48 R47 K299 ["darkTextColor"]
-  DUPTABLE R48 K301 [{"lineColor"}]
-  GETIMPORT R49 K303 [BrickColor.new]
-  GETIMPORT R50 K298 [Color3.new]
+  SETTABLEKS R48 R47 K301 ["darkTextColor"]
+  DUPTABLE R48 K303 [{"lineColor"}]
+  GETIMPORT R49 K305 [BrickColor.new]
+  GETIMPORT R50 K300 [Color3.new]
   LOADN R51 1
   LOADN R52 1
   LOADN R53 1
   CALL R50 3 -1
   CALL R49 -1 1
-  SETTABLEKS R49 R48 K272 ["lineColor"]
-  DUPTABLE R49 K314 [{"textColor", "primaryTextColor", "textSize", "lineColor", "ikLineColor", "transparency", "leafNodeImage", "expandImage", "collapseImage", "pinImage", "iconColor", "iconHighlightColor", "selected", "headerColor", "headerBorder", "pinHover"}]
+  SETTABLEKS R49 R48 K274 ["lineColor"]
+  DUPTABLE R49 K316 [{"textColor", "primaryTextColor", "textSize", "lineColor", "ikLineColor", "transparency", "leafNodeImage", "expandImage", "collapseImage", "pinImage", "iconColor", "iconHighlightColor", "selected", "headerColor", "headerBorder", "pinHover"}]
   GETTABLEKS R50 R7 K115 ["MainText"]
   SETTABLEKS R50 R49 K122 ["textColor"]
   GETTABLEKS R50 R7 K151 ["MainTextSelected"]
   SETTABLEKS R50 R49 K133 ["primaryTextColor"]
   LOADN R50 15
   SETTABLEKS R50 R49 K124 ["textSize"]
-  GETTABLEKS R50 R7 K278 ["DimmedText"]
-  SETTABLEKS R50 R49 K272 ["lineColor"]
+  GETTABLEKS R50 R7 K280 ["DimmedText"]
+  SETTABLEKS R50 R49 K274 ["lineColor"]
   GETIMPORT R50 K31 [Color3.fromRGB]
   LOADN R51 182
   LOADN R52 80
   LOADN R53 203
   CALL R50 3 1
-  SETTABLEKS R50 R49 K304 ["ikLineColor"]
-  LOADK R50 K59 ["KeyframeErrorBorderColorSelected"]
-  SETTABLEKS R50 R49 K305 ["transparency"]
-  LOADK R50 K60 ["Red"]
-  SETTABLEKS R50 R49 K306 ["leafNodeImage"]
+  SETTABLEKS R50 R49 K306 ["ikLineColor"]
   LOADK R50 K61 ["KeyframePrimaryErrorBackgroundColor"]
-  SETTABLEKS R50 R49 K307 ["expandImage"]
+  SETTABLEKS R50 R49 K307 ["transparency"]
   LOADK R50 K62 ["KeyframePrimaryErrorBorderColor"]
-  SETTABLEKS R50 R49 K308 ["collapseImage"]
+  SETTABLEKS R50 R49 K308 ["leafNodeImage"]
   LOADK R50 K63 ["KeyframePrimaryErrorBackgroundColorSelected"]
-  SETTABLEKS R50 R49 K309 ["pinImage"]
-  GETTABLEKS R50 R7 K278 ["DimmedText"]
+  SETTABLEKS R50 R49 K309 ["expandImage"]
+  LOADK R50 K64 ["KeyframePrimaryErrorBorderColorSelected"]
+  SETTABLEKS R50 R49 K310 ["collapseImage"]
+  LOADK R50 K65 ["CurvePositionX"]
+  SETTABLEKS R50 R49 K311 ["pinImage"]
+  GETTABLEKS R50 R7 K280 ["DimmedText"]
   SETTABLEKS R50 R49 K99 ["iconColor"]
   GETTABLEKS R50 R7 K150 ["BrightText"]
   SETTABLEKS R50 R49 K100 ["iconHighlightColor"]
   GETTABLEKS R50 R7 K149 ["ItemSelected"]
-  SETTABLEKS R50 R49 K310 ["selected"]
+  SETTABLEKS R50 R49 K312 ["selected"]
   GETTABLEKS R50 R7 K52 ["IKHeaderColor"]
-  SETTABLEKS R50 R49 K311 ["headerColor"]
+  SETTABLEKS R50 R49 K313 ["headerColor"]
   GETTABLEKS R50 R7 K53 ["IKHeaderBorder"]
-  SETTABLEKS R50 R49 K312 ["headerBorder"]
-  GETTABLEKS R50 R7 K250 ["DialogMainButtonHover"]
-  SETTABLEKS R50 R49 K313 ["pinHover"]
-  DUPTABLE R50 K328 [{"Default", "Primary", "Error", "PrimaryError", "Bounce", "Constant", "Cubic", "Elastic"}]
-  DUPTABLE R51 K329 [{"backgroundColor", "borderColor", "selected"}]
+  SETTABLEKS R50 R49 K314 ["headerBorder"]
+  GETTABLEKS R50 R7 K252 ["DialogMainButtonHover"]
+  SETTABLEKS R50 R49 K315 ["pinHover"]
+  DUPTABLE R50 K330 [{"Default", "Primary", "Error", "PrimaryError", "Bounce", "Constant", "Cubic", "Elastic"}]
+  DUPTABLE R51 K331 [{"backgroundColor", "borderColor", "selected"}]
   GETTABLEKS R52 R7 K28 ["DialogButtonTextDisabled"]
   SETTABLEKS R52 R51 K128 ["backgroundColor"]
-  GETTABLEKS R52 R7 K278 ["DimmedText"]
+  GETTABLEKS R52 R7 K280 ["DimmedText"]
   SETTABLEKS R52 R51 K102 ["borderColor"]
-  DUPTABLE R52 K330 [{"backgroundColor", "borderColor"}]
+  DUPTABLE R52 K332 [{"backgroundColor", "borderColor"}]
   GETTABLEKS R53 R7 K28 ["DialogButtonTextDisabled"]
   SETTABLEKS R53 R52 K128 ["backgroundColor"]
   GETTABLEKS R53 R7 K164 ["DialogMainButton"]
   SETTABLEKS R53 R52 K102 ["borderColor"]
-  SETTABLEKS R52 R51 K310 ["selected"]
-  SETTABLEKS R51 R50 K320 ["Default"]
-  DUPTABLE R51 K329 [{"backgroundColor", "borderColor", "selected"}]
+  SETTABLEKS R52 R51 K312 ["selected"]
+  SETTABLEKS R51 R50 K322 ["Default"]
+  DUPTABLE R51 K331 [{"backgroundColor", "borderColor", "selected"}]
   GETTABLEKS R52 R7 K54 ["KeyframePrimaryBackgroundColor"]
   SETTABLEKS R52 R51 K128 ["backgroundColor"]
   GETTABLEKS R52 R7 K118 ["Border"]
   SETTABLEKS R52 R51 K102 ["borderColor"]
-  DUPTABLE R52 K330 [{"backgroundColor", "borderColor"}]
+  DUPTABLE R52 K332 [{"backgroundColor", "borderColor"}]
   GETTABLEKS R53 R7 K55 ["KeyframePrimaryBackgroundColorSelected"]
   SETTABLEKS R53 R52 K128 ["backgroundColor"]
   GETTABLEKS R53 R8 K37 ["Blue"]
   SETTABLEKS R53 R52 K102 ["borderColor"]
-  SETTABLEKS R52 R51 K310 ["selected"]
-  SETTABLEKS R51 R50 K321 ["Primary"]
-  DUPTABLE R51 K329 [{"backgroundColor", "borderColor", "selected"}]
+  SETTABLEKS R52 R51 K312 ["selected"]
+  SETTABLEKS R51 R50 K323 ["Primary"]
+  DUPTABLE R51 K331 [{"backgroundColor", "borderColor", "selected"}]
   GETTABLEKS R52 R7 K56 ["KeyframeErrorBackgroundColor"]
   SETTABLEKS R52 R51 K128 ["backgroundColor"]
   GETTABLEKS R52 R7 K57 ["KeyframeErrorBorderColor"]
   SETTABLEKS R52 R51 K102 ["borderColor"]
-  DUPTABLE R52 K330 [{"backgroundColor", "borderColor"}]
+  DUPTABLE R52 K332 [{"backgroundColor", "borderColor"}]
   GETTABLEKS R53 R7 K58 ["KeyframeErrorBackgroundColorSelected"]
   SETTABLEKS R53 R52 K128 ["backgroundColor"]
   GETTABLEKS R53 R7 K59 ["KeyframeErrorBorderColorSelected"]
   SETTABLEKS R53 R52 K102 ["borderColor"]
-  SETTABLEKS R52 R51 K310 ["selected"]
-  SETTABLEKS R51 R50 K322 ["Error"]
-  DUPTABLE R51 K329 [{"backgroundColor", "borderColor", "selected"}]
+  SETTABLEKS R52 R51 K312 ["selected"]
+  SETTABLEKS R51 R50 K324 ["Error"]
+  DUPTABLE R51 K331 [{"backgroundColor", "borderColor", "selected"}]
   GETTABLEKS R52 R7 K61 ["KeyframePrimaryErrorBackgroundColor"]
   SETTABLEKS R52 R51 K128 ["backgroundColor"]
   GETTABLEKS R52 R7 K62 ["KeyframePrimaryErrorBorderColor"]
   SETTABLEKS R52 R51 K102 ["borderColor"]
-  DUPTABLE R52 K330 [{"backgroundColor", "borderColor"}]
+  DUPTABLE R52 K332 [{"backgroundColor", "borderColor"}]
   GETTABLEKS R53 R7 K63 ["KeyframePrimaryErrorBackgroundColorSelected"]
   SETTABLEKS R53 R52 K128 ["backgroundColor"]
   GETTABLEKS R53 R7 K64 ["KeyframePrimaryErrorBorderColorSelected"]
   SETTABLEKS R53 R52 K102 ["borderColor"]
-  SETTABLEKS R52 R51 K310 ["selected"]
-  SETTABLEKS R51 R50 K323 ["PrimaryError"]
-  DUPTABLE R51 K329 [{"backgroundColor", "borderColor", "selected"}]
+  SETTABLEKS R52 R51 K312 ["selected"]
+  SETTABLEKS R51 R50 K325 ["PrimaryError"]
+  DUPTABLE R51 K331 [{"backgroundColor", "borderColor", "selected"}]
   GETIMPORT R52 K31 [Color3.fromRGB]
   LOADN R53 155
   LOADN R54 198
@@ -1253,7 +1313,7 @@ MAIN:
   LOADN R55 56
   CALL R52 3 1
   SETTABLEKS R52 R51 K102 ["borderColor"]
-  DUPTABLE R52 K330 [{"backgroundColor", "borderColor"}]
+  DUPTABLE R52 K332 [{"backgroundColor", "borderColor"}]
   GETIMPORT R53 K31 [Color3.fromRGB]
   LOADN R54 155
   LOADN R55 198
@@ -1262,9 +1322,9 @@ MAIN:
   SETTABLEKS R53 R52 K128 ["backgroundColor"]
   GETTABLEKS R53 R7 K164 ["DialogMainButton"]
   SETTABLEKS R53 R52 K102 ["borderColor"]
-  SETTABLEKS R52 R51 K310 ["selected"]
-  SETTABLEKS R51 R50 K324 ["Bounce"]
-  DUPTABLE R51 K329 [{"backgroundColor", "borderColor", "selected"}]
+  SETTABLEKS R52 R51 K312 ["selected"]
+  SETTABLEKS R51 R50 K326 ["Bounce"]
+  DUPTABLE R51 K331 [{"backgroundColor", "borderColor", "selected"}]
   GETIMPORT R52 K31 [Color3.fromRGB]
   LOADN R53 156
   LOADN R54 147
@@ -1277,7 +1337,7 @@ MAIN:
   LOADN R55 56
   CALL R52 3 1
   SETTABLEKS R52 R51 K102 ["borderColor"]
-  DUPTABLE R52 K330 [{"backgroundColor", "borderColor"}]
+  DUPTABLE R52 K332 [{"backgroundColor", "borderColor"}]
   GETIMPORT R53 K31 [Color3.fromRGB]
   LOADN R54 156
   LOADN R55 147
@@ -1286,9 +1346,9 @@ MAIN:
   SETTABLEKS R53 R52 K128 ["backgroundColor"]
   GETTABLEKS R53 R7 K164 ["DialogMainButton"]
   SETTABLEKS R53 R52 K102 ["borderColor"]
-  SETTABLEKS R52 R51 K310 ["selected"]
-  SETTABLEKS R51 R50 K325 ["Constant"]
-  DUPTABLE R51 K329 [{"backgroundColor", "borderColor", "selected"}]
+  SETTABLEKS R52 R51 K312 ["selected"]
+  SETTABLEKS R51 R50 K327 ["Constant"]
+  DUPTABLE R51 K331 [{"backgroundColor", "borderColor", "selected"}]
   GETIMPORT R52 K31 [Color3.fromRGB]
   LOADN R53 254
   LOADN R54 189
@@ -1301,7 +1361,7 @@ MAIN:
   LOADN R55 56
   CALL R52 3 1
   SETTABLEKS R52 R51 K102 ["borderColor"]
-  DUPTABLE R52 K330 [{"backgroundColor", "borderColor"}]
+  DUPTABLE R52 K332 [{"backgroundColor", "borderColor"}]
   GETIMPORT R53 K31 [Color3.fromRGB]
   LOADN R54 254
   LOADN R55 189
@@ -1310,9 +1370,9 @@ MAIN:
   SETTABLEKS R53 R52 K128 ["backgroundColor"]
   GETTABLEKS R53 R7 K164 ["DialogMainButton"]
   SETTABLEKS R53 R52 K102 ["borderColor"]
-  SETTABLEKS R52 R51 K310 ["selected"]
-  SETTABLEKS R51 R50 K326 ["Cubic"]
-  DUPTABLE R51 K329 [{"backgroundColor", "borderColor", "selected"}]
+  SETTABLEKS R52 R51 K312 ["selected"]
+  SETTABLEKS R51 R50 K328 ["Cubic"]
+  DUPTABLE R51 K331 [{"backgroundColor", "borderColor", "selected"}]
   GETIMPORT R52 K31 [Color3.fromRGB]
   LOADN R53 137
   LOADN R54 187
@@ -1325,7 +1385,7 @@ MAIN:
   LOADN R55 56
   CALL R52 3 1
   SETTABLEKS R52 R51 K102 ["borderColor"]
-  DUPTABLE R52 K330 [{"backgroundColor", "borderColor"}]
+  DUPTABLE R52 K332 [{"backgroundColor", "borderColor"}]
   GETIMPORT R53 K31 [Color3.fromRGB]
   LOADN R54 137
   LOADN R55 187
@@ -1334,123 +1394,123 @@ MAIN:
   SETTABLEKS R53 R52 K128 ["backgroundColor"]
   GETTABLEKS R53 R7 K164 ["DialogMainButton"]
   SETTABLEKS R53 R52 K102 ["borderColor"]
-  SETTABLEKS R52 R51 K310 ["selected"]
-  SETTABLEKS R51 R50 K327 ["Elastic"]
-  DUPTABLE R51 K344 [{"default", "positionX", "positionY", "positionZ", "rotationX", "rotationY", "rotationZ", "selected", "xAxis", "curveEditorButton", "dopesheetButton", "tangentControlColor", "tangentAutoButton", "tangentDefinedButton"}]
+  SETTABLEKS R52 R51 K312 ["selected"]
+  SETTABLEKS R51 R50 K329 ["Elastic"]
+  DUPTABLE R51 K346 [{"default", "positionX", "positionY", "positionZ", "rotationX", "rotationY", "rotationZ", "selected", "xAxis", "curveEditorButton", "dopesheetButton", "tangentControlColor", "tangentAutoButton", "tangentDefinedButton"}]
   GETTABLEKS R52 R7 K115 ["MainText"]
-  SETTABLEKS R52 R51 K331 ["default"]
+  SETTABLEKS R52 R51 K333 ["default"]
   GETTABLEKS R52 R7 K65 ["CurvePositionX"]
-  SETTABLEKS R52 R51 K332 ["positionX"]
+  SETTABLEKS R52 R51 K334 ["positionX"]
   GETTABLEKS R52 R7 K66 ["CurvePositionY"]
-  SETTABLEKS R52 R51 K333 ["positionY"]
+  SETTABLEKS R52 R51 K335 ["positionY"]
   GETTABLEKS R52 R7 K67 ["CurvePositionZ"]
-  SETTABLEKS R52 R51 K334 ["positionZ"]
+  SETTABLEKS R52 R51 K336 ["positionZ"]
   GETTABLEKS R52 R7 K68 ["CurveRotationX"]
-  SETTABLEKS R52 R51 K335 ["rotationX"]
+  SETTABLEKS R52 R51 K337 ["rotationX"]
   GETTABLEKS R52 R7 K69 ["CurveRotationY"]
-  SETTABLEKS R52 R51 K336 ["rotationY"]
+  SETTABLEKS R52 R51 K338 ["rotationY"]
   GETTABLEKS R52 R7 K70 ["CurveRotationZ"]
-  SETTABLEKS R52 R51 K337 ["rotationZ"]
+  SETTABLEKS R52 R51 K339 ["rotationZ"]
   GETTABLEKS R52 R7 K164 ["DialogMainButton"]
-  SETTABLEKS R52 R51 K310 ["selected"]
+  SETTABLEKS R52 R51 K312 ["selected"]
   GETTABLEKS R52 R7 K150 ["BrightText"]
-  SETTABLEKS R52 R51 K338 ["xAxis"]
+  SETTABLEKS R52 R51 K340 ["xAxis"]
   GETTABLEKS R52 R7 K71 ["CurveEditorButton"]
-  SETTABLEKS R52 R51 K339 ["curveEditorButton"]
+  SETTABLEKS R52 R51 K341 ["curveEditorButton"]
   GETTABLEKS R52 R7 K73 ["DopeSheetButton"]
-  SETTABLEKS R52 R51 K340 ["dopesheetButton"]
+  SETTABLEKS R52 R51 K342 ["dopesheetButton"]
   GETTABLEKS R52 R7 K150 ["BrightText"]
-  SETTABLEKS R52 R51 K341 ["tangentControlColor"]
-  LOADK R52 K89 ["autokeyOff"]
-  SETTABLEKS R52 R51 K342 ["tangentAutoButton"]
-  LOADK R52 K90 ["skipBackward"]
-  SETTABLEKS R52 R51 K343 ["tangentDefinedButton"]
-  DUPTABLE R52 K351 [{"faceCaptureDefaultButtonIconColor", "stopRecordingButtonImage", "errorIcon", "warningIcon"}]
+  SETTABLEKS R52 R51 K343 ["tangentControlColor"]
+  LOADK R52 K91 ["skipForward"]
+  SETTABLEKS R52 R51 K344 ["tangentAutoButton"]
+  LOADK R52 K92 ["play"]
+  SETTABLEKS R52 R51 K345 ["tangentDefinedButton"]
+  DUPTABLE R52 K353 [{"faceCaptureDefaultButtonIconColor", "stopRecordingButtonImage", "errorIcon", "warningIcon"}]
   GETTABLEKS R53 R7 K77 ["FaceCaptureDefaultButtonIconColor"]
-  SETTABLEKS R53 R52 K347 ["faceCaptureDefaultButtonIconColor"]
+  SETTABLEKS R53 R52 K349 ["faceCaptureDefaultButtonIconColor"]
   GETTABLEKS R53 R7 K75 ["StopRecordingButtonImage"]
-  SETTABLEKS R53 R52 K348 ["stopRecordingButtonImage"]
-  LOADK R53 K36 ["TrackHoveredButtonColor"]
-  SETTABLEKS R53 R52 K349 ["errorIcon"]
-  LOADK R53 K96 ["goToFirstFrame"]
-  SETTABLEKS R53 R52 K350 ["warningIcon"]
-  DUPTABLE R53 K353 [{"backgroundColor", "image"}]
+  SETTABLEKS R53 R52 K350 ["stopRecordingButtonImage"]
+  LOADK R53 K38 ["TrackAddButtonColor"]
+  SETTABLEKS R53 R52 K351 ["errorIcon"]
+  LOADK R53 K98 ["selectClipDropdownIcon"]
+  SETTABLEKS R53 R52 K352 ["warningIcon"]
+  DUPTABLE R53 K355 [{"backgroundColor", "image"}]
   GETTABLEKS R54 R7 K164 ["DialogMainButton"]
   SETTABLEKS R54 R53 K128 ["backgroundColor"]
-  LOADK R54 K98 ["selectClipDropdownIcon"]
+  LOADK R54 K100 ["iconHighlightColor"]
   SETTABLEKS R54 R53 K170 ["image"]
-  DUPTABLE R54 K355 [{"backgroundColor"}]
+  DUPTABLE R54 K357 [{"backgroundColor"}]
   GETTABLEKS R55 R8 K37 ["Blue"]
   SETTABLEKS R55 R54 K128 ["backgroundColor"]
-  DUPTABLE R55 K357 [{"filterButton"}]
-  DUPTABLE R56 K359 [{"image", "size"}]
-  LOADK R57 K104 [{"autokeyOn", "autokeyOff", "skipBackward", "skipForward", "play", "pause", "loop", "reverse", "goToFirstFrame", "goToLastFrame", "selectClipDropdownIcon", "iconColor", "iconHighlightColor", "timeInputBackground", "borderColor", "inputBorderColor"}]
+  DUPTABLE R55 K359 [{"filterButton"}]
+  DUPTABLE R56 K361 [{"image", "size"}]
+  LOADK R57 K106 ["rbxasset://textures/AnimationEditor/button_control_previous.png"]
   SETTABLEKS R57 R56 K170 ["image"]
-  GETIMPORT R57 K362 [UDim2.fromOffset]
+  GETIMPORT R57 K364 [UDim2.fromOffset]
   LOADN R58 16
   LOADN R59 16
   CALL R57 2 1
-  SETTABLEKS R57 R56 K358 ["size"]
-  SETTABLEKS R56 R55 K356 ["filterButton"]
-  DUPTABLE R56 K368 [{"font", "textColor", "textSize", "buttonHeight", "radioButtonBackground", "radioButtonSelected", "contentPadding", "buttonPadding"}]
-  GETIMPORT R57 K370 [Enum.Font.SourceSans]
+  SETTABLEKS R57 R56 K360 ["size"]
+  SETTABLEKS R56 R55 K358 ["filterButton"]
+  DUPTABLE R56 K370 [{"font", "textColor", "textSize", "buttonHeight", "radioButtonBackground", "radioButtonSelected", "contentPadding", "buttonPadding"}]
+  GETIMPORT R57 K372 [Enum.Font.SourceSans]
   SETTABLEKS R57 R56 K178 ["font"]
   GETTABLEKS R57 R7 K115 ["MainText"]
   SETTABLEKS R57 R56 K122 ["textColor"]
   LOADN R57 15
   SETTABLEKS R57 R56 K124 ["textSize"]
   LOADN R57 20
-  SETTABLEKS R57 R56 K363 ["buttonHeight"]
-  LOADK R57 K115 ["MainText"]
-  SETTABLEKS R57 R56 K364 ["radioButtonBackground"]
-  LOADK R57 K116 ["DialogMainButtonText"]
-  SETTABLEKS R57 R56 K365 ["radioButtonSelected"]
+  SETTABLEKS R57 R56 K365 ["buttonHeight"]
+  LOADK R57 K117 ["InputFieldBackground"]
+  SETTABLEKS R57 R56 K366 ["radioButtonBackground"]
+  LOADK R57 K118 ["Border"]
+  SETTABLEKS R57 R56 K367 ["radioButtonSelected"]
   LOADN R57 16
-  SETTABLEKS R57 R56 K366 ["contentPadding"]
+  SETTABLEKS R57 R56 K368 ["contentPadding"]
   LOADN R57 6
-  SETTABLEKS R57 R56 K367 ["buttonPadding"]
+  SETTABLEKS R57 R56 K369 ["buttonPadding"]
   NEWTABLE R57 64 0
-  GETIMPORT R58 K370 [Enum.Font.SourceSans]
+  GETIMPORT R58 K372 [Enum.Font.SourceSans]
   SETTABLEKS R58 R57 K178 ["font"]
   GETTABLEKS R58 R7 K148 ["MainBackground"]
   SETTABLEKS R58 R57 K128 ["backgroundColor"]
   GETTABLEKS R58 R7 K118 ["Border"]
   SETTABLEKS R58 R57 K102 ["borderColor"]
-  SETTABLEKS R22 R57 K373 ["playbackTheme"]
-  SETTABLEKS R23 R57 K374 ["dropdownTheme"]
-  SETTABLEKS R24 R57 K375 ["trackTheme"]
-  SETTABLEKS R55 R57 K376 ["eventTheme"]
-  SETTABLEKS R28 R57 K377 ["keyframeTheme"]
-  SETTABLEKS R42 R57 K378 ["eventMarker"]
+  SETTABLEKS R22 R57 K375 ["playbackTheme"]
+  SETTABLEKS R23 R57 K376 ["dropdownTheme"]
+  SETTABLEKS R24 R57 K377 ["trackTheme"]
+  SETTABLEKS R55 R57 K378 ["eventTheme"]
+  SETTABLEKS R28 R57 K379 ["keyframeTheme"]
+  SETTABLEKS R42 R57 K380 ["eventMarker"]
   GETTABLEKS R58 R7 K164 ["DialogMainButton"]
-  SETTABLEKS R58 R57 K379 ["selectionBox"]
-  SETTABLEKS R43 R57 K380 ["zoomBarTheme"]
-  SETTABLEKS R43 R57 K381 ["scrollBarTheme"]
-  SETTABLEKS R44 R57 K382 ["timelineTheme"]
-  SETTABLEKS R25 R57 K383 ["scaleControlsTheme"]
-  SETTABLEKS R26 R57 K384 ["textBox"]
-  SETTABLEKS R27 R57 K385 ["settingsButtonTheme"]
-  SETTABLEKS R45 R57 K386 ["dialogTheme"]
-  SETTABLEKS R46 R57 K387 ["toastTheme"]
-  SETTABLEKS R47 R57 K388 ["startScreenTheme"]
-  SETTABLEKS R48 R57 K389 ["gridTheme"]
-  SETTABLEKS R49 R57 K390 ["ikTheme"]
-  SETTABLEKS R29 R57 K391 ["checkBox"]
-  SETTABLEKS R34 R57 K392 ["faceSliderTheme"]
-  SETTABLEKS R35 R57 K393 ["faceSliderMaxValueTheme"]
-  SETTABLEKS R36 R57 K394 ["faceDragBoxTheme"]
-  SETTABLEKS R37 R57 K395 ["faceDragBoxMaxValueTheme"]
-  SETTABLEKS R38 R57 K396 ["roundFrame"]
-  SETTABLEKS R39 R57 K397 ["button"]
-  SETTABLEKS R50 R57 K398 ["keyframe"]
-  SETTABLEKS R53 R57 K399 ["scrubberTheme"]
-  SETTABLEKS R52 R57 K400 ["faceCaptureTheme"]
-  SETTABLEKS R51 R57 K401 ["curveTheme"]
-  SETTABLEKS R54 R57 K402 ["progressBarTheme"]
+  SETTABLEKS R58 R57 K381 ["selectionBox"]
+  SETTABLEKS R43 R57 K382 ["zoomBarTheme"]
+  SETTABLEKS R43 R57 K383 ["scrollBarTheme"]
+  SETTABLEKS R44 R57 K384 ["timelineTheme"]
+  SETTABLEKS R25 R57 K385 ["scaleControlsTheme"]
+  SETTABLEKS R26 R57 K386 ["textBox"]
+  SETTABLEKS R27 R57 K387 ["settingsButtonTheme"]
+  SETTABLEKS R45 R57 K388 ["dialogTheme"]
+  SETTABLEKS R46 R57 K389 ["toastTheme"]
+  SETTABLEKS R47 R57 K390 ["startScreenTheme"]
+  SETTABLEKS R48 R57 K391 ["gridTheme"]
+  SETTABLEKS R49 R57 K392 ["ikTheme"]
+  SETTABLEKS R29 R57 K393 ["checkBox"]
+  SETTABLEKS R34 R57 K394 ["faceSliderTheme"]
+  SETTABLEKS R35 R57 K395 ["faceSliderMaxValueTheme"]
+  SETTABLEKS R36 R57 K396 ["faceDragBoxTheme"]
+  SETTABLEKS R37 R57 K397 ["faceDragBoxMaxValueTheme"]
+  SETTABLEKS R38 R57 K398 ["roundFrame"]
+  SETTABLEKS R39 R57 K399 ["button"]
+  SETTABLEKS R50 R57 K400 ["keyframe"]
+  SETTABLEKS R53 R57 K401 ["scrubberTheme"]
+  SETTABLEKS R52 R57 K402 ["faceCaptureTheme"]
+  SETTABLEKS R51 R57 K403 ["curveTheme"]
+  SETTABLEKS R54 R57 K404 ["progressBarTheme"]
   GETTABLEKS R58 R17 K203 ["Button"]
   SETTABLE R41 R57 R58
-  SETTABLEKS R56 R57 K403 ["radioButton"]
-  DUPCLOSURE R58 K404 [PROTO_0]
+  SETTABLEKS R56 R57 K405 ["radioButton"]
+  DUPCLOSURE R58 K406 [PROTO_0]
   CAPTURE VAL R6
   CAPTURE VAL R21
   CAPTURE VAL R20

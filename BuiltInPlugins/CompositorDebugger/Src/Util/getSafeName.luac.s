@@ -1,26 +1,24 @@
 PROTO_0:
   GETTABLEKS R1 R0 K0 ["name"]
-  JUMPIF R1 [+29]
+  JUMPIF R1 [+27]
   GETTABLEKS R2 R0 K1 ["linkData"]
   JUMPIFNOT R2 [+5]
   GETTABLEKS R2 R0 K1 ["linkData"]
   GETTABLEKS R1 R2 K2 ["key"]
-  JUMPIF R1 [+21]
+  JUMPIF R1 [+19]
   GETTABLEKS R2 R0 K3 ["index"]
   JUMPIFNOT R2 [+7]
   GETIMPORT R1 K6 [string.format]
   LOADK R2 K7 ["[%d]"]
   GETTABLEKS R3 R0 K3 ["index"]
   CALL R1 2 1
-  JUMPIF R1 [+11]
-  GETTABLEKS R2 R0 K8 ["className"]
-  JUMPIFNOT R2 [+7]
+  JUMPIF R1 [+9]
+  GETTABLEKS R1 R0 K8 ["className"]
+  JUMPIFNOT R1 [+6]
   GETIMPORT R1 K6 [string.format]
   LOADK R2 K9 ["[%s]"]
   GETTABLEKS R3 R0 K8 ["className"]
   CALL R1 2 1
-  JUMPIF R1 [+1]
-  LOADK R1 K10 ["?"]
   RETURN R1 1
 
 MAIN:

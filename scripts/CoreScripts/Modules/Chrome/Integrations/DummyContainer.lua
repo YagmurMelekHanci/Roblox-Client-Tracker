@@ -6,7 +6,8 @@ local React = require(CorePackages.Packages.React)
 local ChromeService = require(Chrome.ChromeShared.Service)
 local ContainerSlotSignal = require(Chrome.ChromeShared.Service.ContainerSlotSignal)
 
-local GetFFlagDebugEnableUnibarDummyIntegrations = require(Chrome.Flags.GetFFlagDebugEnableUnibarDummyIntegrations)
+local GetFFlagDebugEnableUnibarDummyIntegrations =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugEnableUnibarDummyIntegrations
 
 local containerSlots = ContainerSlotSignal.new(5)
 

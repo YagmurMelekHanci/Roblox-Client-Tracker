@@ -1,7 +1,7 @@
 --!nonstrict
 local Root = script
 local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 
@@ -77,7 +77,7 @@ if FFlagPublishAvatarPromptEnabled then
 
 		createStore()
 		local purchasePromptElement = Roact.createElement(PurchasePromptApp, {
-			store = store
+			store = store,
 		})
 
 		handle = Roact.mount(purchasePromptElement, CoreGui, "PurchasePromptApp")
@@ -109,7 +109,9 @@ end
 
 return {
 	mountPurchasePrompt = mountPurchasePrompt,
-	initiateAvatarCreationFeePurchase = if FFlagPublishAvatarPromptEnabled then initiateAvatarCreationFeePurchase else nil,
+	initiateAvatarCreationFeePurchase = if FFlagPublishAvatarPromptEnabled
+		then initiateAvatarCreationFeePurchase
+		else nil,
 	-- This event fires when the window state is changed, i.e. prompt opens or closes.
 	-- It returns isShown if the window is shown, and hasCompletedPurchase if the purchase was completed.
 	windowStateChangedEvent = if FFlagPublishAvatarPromptEnabled then windowStateChangedBindable.Event else nil,

@@ -1,140 +1,141 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
 local React = require(CorePackages.Packages.React)
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
-local ChromeService = require(Chrome.Service)
-local ChromeUtils = require(Chrome.Service.ChromeUtils)
-local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
+local ChromeService = require(Root.Service)
+local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 
-local _integrations = require(Chrome.Parent.Integrations)
-local SubMenu = require(Chrome.Unibar.SubMenu)
-local WindowManager = require(Chrome.Unibar.WindowManager)
-local Constants = require(Chrome.Unibar.Constants)
+local _integrations = require(Root.Parent.Integrations)
+local SubMenu = require(Root.Unibar.SubMenu)
+local WindowManager = require(Root.Unibar.WindowManager)
+local Constants = require(Root.Unibar.Constants)
 
-local useChromeMenuItems = require(Chrome.Hooks.useChromeMenuItems)
-local useChromeMenuStatus = require(Chrome.Hooks.useChromeMenuStatus)
-local useObservableValue = require(Chrome.Hooks.useObservableValue)
-local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
+local useChromeMenuItems = require(Root.Hooks.useChromeMenuItems)
+local useObservableValue = require(Root.Hooks.useObservableValue)
+local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local PlayerListInitialVisibleState = require(RobloxGui.Modules.PlayerList.PlayerListInitialVisibleState)
-
-local IconHost = require(Chrome.Unibar.ComponentHosts.IconHost)
-local ContainerHost = require(Chrome.Unibar.ComponentHosts.ContainerHost)
+local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
+local ContainerHost = require(Root.Unibar.ComponentHosts.ContainerHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local GetFFlagDebugEnableUnibarDummyIntegrations =
-	require(Chrome.Parent.Flags.GetFFlagDebugEnableUnibarDummyIntegrations)
-local GetFFlagEnableSaveUserPins = require(Chrome.Parent.Flags.GetFFlagEnableSaveUserPins)
-local GetFFlagEnableChromePinAnalytics = require(Chrome.Parent.Flags.GetFFlagEnableChromePinAnalytics)
-local GetFFlagEnableUnibarSneakPeak = require(Chrome.Parent.Flags.GetFFlagEnableUnibarSneakPeak)
-local GetFFlagEnableChromePinIntegrations = require(Chrome.Parent.Flags.GetFFlagEnableChromePinIntegrations)
-local GetFFlagOpenControlsOnMenuOpen = require(Chrome.Parent.Flags.GetFFlagOpenControlsOnMenuOpen)
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugEnableUnibarDummyIntegrations
+local GetFFlagEnableSaveUserPins = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSaveUserPins
+local GetFFlagEnableChromePinAnalytics =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinAnalytics
+local GetFFlagEnableChromePinIntegrations =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinIntegrations
 local GetFFlagEnablePartyMicIconInChrome =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
-local GetFFlagUsePolishedAnimations = require(Chrome.Parent.Flags.GetFFlagUsePolishedAnimations)
-local GetFFlagAnimateSubMenu = require(Chrome.Parent.Flags.GetFFlagAnimateSubMenu)
-local GetFIntIconSelectionTimeout = require(Chrome.Parent.Flags.GetFIntIconSelectionTimeout)
-local GetFFlagEnableSongbirdInChrome = require(Chrome.Parent.Flags.GetFFlagEnableSongbirdInChrome)
-local GetFFlagEnableJoinVoiceOnUnibar = require(Chrome.Parent.Flags.GetFFlagEnableJoinVoiceOnUnibar)
-local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
+local GetFFlagUsePolishedAnimations = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUsePolishedAnimations
+local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
+local GetFIntIconSelectionTimeout = require(CorePackages.Workspace.Packages.SharedFlags).GetFIntIconSelectionTimeout
+-- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
+local GetFFlagEnableSongbirdInChrome = require(Root.Parent.Flags.GetFFlagEnableSongbirdInChrome)
+local GetFFlagEnableJoinVoiceOnUnibar =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableJoinVoiceOnUnibar
 local GetFFlagChromeUsePreferredTransparency =
-	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
-local GetFFlagPostLaunchUnibarDesignTweaks = require(RobloxGui.Modules.Flags.GetFFlagPostLaunchUnibarDesignTweaks)
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
+local GetFFlagPostLaunchUnibarDesignTweaks =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
+local GetFFlagChromeCentralizedConfiguration =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeCentralizedConfiguration
 
-local PartyConstants = require(Chrome.Parent.Integrations.Party.Constants)
-local isConnectUnibarEnabled = require(Chrome.Parent.Integrations.Connect.isConnectUnibarEnabled)
-local isConnectDropdownEnabled = require(Chrome.Parent.Integrations.Connect.isConnectDropdownEnabled)
+local FFlagReshufflePartyIconsInUnibar = game:DefineFastFlag("ReshufflePartyIconsInUnibar", false)
+
+-- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
+local PartyConstants = require(Root.Parent.Integrations.Party.Constants)
+local isConnectUnibarEnabled = require(Root.Parent.Integrations.Connect.isConnectUnibarEnabled)
+local isConnectDropdownEnabled = require(Root.Parent.Integrations.Connect.isConnectDropdownEnabled)
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
 
-function configureUnibar()
-	-- Configure the menu.  Top level ordering, integration availability.
-	-- Integration availability signals will ultimately filter items out so no need for granular filtering here.
-	-- ie. Voice Mute integration will only be shown is voice is enabled/active
-	local nineDot = { "leaderboard", "emotes", "backpack" }
-	local partyMenu = if GetFFlagEnablePartyMicIconInChrome() then { PartyConstants.TOGGLE_MIC_INTEGRATION_ID } else {}
+if not GetFFlagChromeCentralizedConfiguration() then
+	function configureUnibar()
+		-- Configure the menu.  Top level ordering, integration availability.
+		-- Integration availability signals will ultimately filter items out so no need for granular filtering here.
+		-- ie. Voice Mute integration will only be shown is voice is enabled/active
+		local nineDot = { "leaderboard", "emotes", "backpack" }
+		local partyMenu = if GetFFlagEnablePartyMicIconInChrome() and not FFlagReshufflePartyIconsInUnibar
+			then { PartyConstants.TOGGLE_MIC_INTEGRATION_ID }
+			else {}
 
-	-- append to end of nine-dot
-	table.insert(nineDot, "respawn")
-	-- prepend trust_and_safety to nine-dot menu
-	table.insert(nineDot, 1, "trust_and_safety")
+		-- append to end of nine-dot
+		table.insert(nineDot, "respawn")
+		-- prepend trust_and_safety to nine-dot menu
+		table.insert(nineDot, 1, "trust_and_safety")
 
-	if isConnectDropdownEnabled() then
-		table.insert(nineDot, 1, "connect_dropdown")
-	end
-
-	-- insert leaderboard into MRU if it's shown on startup and not already a pin
-	if PlayerListInitialVisibleState() then
-		if
-			(not GetFFlagEnableChromePinIntegrations() or not ChromeService:isUserPinned("leaderboard"))
-			and not GetFFlagEnableSaveUserPins()
-		then
-			ChromeService:setRecentlyUsed("leaderboard", true)
+		if isConnectDropdownEnabled() then
+			table.insert(nineDot, 1, "connect_dropdown")
 		end
-	end
 
-	-- insert trust and safety into MRU/pin, prioritize over leaderboard
-	if GetFFlagEnableChromePinIntegrations() and not ChromeService:isUserPinned("trust_and_safety") then
-		if not GetFFlagEnableSaveUserPins() then
-			ChromeService:setUserPin("trust_and_safety", true)
+		-- insert trust and safety into pin, prioritize over leaderboard
+		if GetFFlagEnableChromePinIntegrations() and not ChromeService:isUserPinned("trust_and_safety") then
+			if not GetFFlagEnableSaveUserPins() then
+				ChromeService:setUserPin("trust_and_safety", true)
 
-			if GetFFlagEnableChromePinAnalytics() then
-				ChromeAnalytics.default:setPin("trust_and_safety", true, ChromeService:userPins())
+				if GetFFlagEnableChromePinAnalytics() then
+					ChromeAnalytics.default:setPin("trust_and_safety", true, ChromeService:userPins())
+				end
 			end
 		end
-	elseif not ChromeService:isMostRecentlyUsed("trust_and_safety") then
-		ChromeService:setRecentlyUsed("trust_and_safety", true)
-	end
 
-	local v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
-	if not GetFFlagEnableAlwaysOpenUnibar() then
-		table.insert(v4Ordering, "chrome_toggle")
-	end
+		local v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
 
-	if GetFFlagEnableJoinVoiceOnUnibar() then
-		table.insert(v4Ordering, 2, "join_voice")
-	end
-
-	if GetFFlagDebugEnableUnibarDummyIntegrations() then
-		table.insert(v4Ordering, 1, "dummy_window")
-		table.insert(v4Ordering, 1, "dummy_window_2")
-		table.insert(v4Ordering, 1, "dummy_container")
-	end
-
-	if isConnectUnibarEnabled() then
-		-- TODO: this integration will replace logic related to `partyMenu`
-		local experienceChatIndex = table.find(v4Ordering, "chat")
-		if experienceChatIndex then
-			-- insert Connect(a.k.a AppChat) after ExperienceChat, so it appears in front of ExpChat
-			table.insert(v4Ordering, experienceChatIndex + 1, "connect_unibar")
+		if GetFFlagEnableJoinVoiceOnUnibar() then
+			table.insert(v4Ordering, 2, "join_voice")
 		end
+
+		if GetFFlagDebugEnableUnibarDummyIntegrations() then
+			table.insert(v4Ordering, 1, "dummy_window")
+			table.insert(v4Ordering, 1, "dummy_window_2")
+			table.insert(v4Ordering, 1, "dummy_container")
+		end
+
+		if isConnectUnibarEnabled() then
+			-- TODO: this integration will replace logic related to `partyMenu`
+			if FFlagReshufflePartyIconsInUnibar then
+				table.insert(v4Ordering, 1, "connect_unibar")
+			else
+				local experienceChatIndex = table.find(v4Ordering, "chat")
+				if experienceChatIndex then
+					-- insert Connect(a.k.a AppChat) after ExperienceChat, so it appears in front of ExpChat
+					table.insert(v4Ordering, experienceChatIndex + 1, "connect_unibar")
+				end
+			end
+		end
+
+		if FFlagReshufflePartyIconsInUnibar then
+			local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
+			if toggleMicIndex then
+				table.insert(v4Ordering, toggleMicIndex + 1, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
+			end
+		end
+
+		ChromeService:configureMenu({
+			partyMenu,
+			v4Ordering,
+		})
+
+		table.insert(nineDot, 2, "camera_entrypoint")
+		table.insert(nineDot, 2, "selfie_view")
+
+		if GetFFlagEnableSongbirdInChrome() then
+			table.insert(nineDot, 4, "music_entrypoint")
+		end
+
+		ChromeService:configureSubMenu("nine_dot", nineDot)
 	end
 
-	ChromeService:configureMenu({
-		partyMenu,
-		v4Ordering,
-	})
-
-	table.insert(nineDot, 2, "camera_entrypoint")
-	table.insert(nineDot, 2, "selfie_view")
-
-	if GetFFlagEnableSongbirdInChrome() then
-		table.insert(nineDot, 4, "music_entrypoint")
-	end
-
-	ChromeService:configureSubMenu("nine_dot", nineDot)
+	configureUnibar()
 end
-
-configureUnibar()
 
 export type IconDividerProps = {
 	toggleTransition: any?,
@@ -172,136 +173,31 @@ end
 -- Non-visible helper child component to avoid parent re-renders
 -- Updates animation targets based Chrome status
 function AnimationStateHelper(props)
-	local wasUnibarForcedOpen = React.useRef(false)
-	local wasUnibarClosedByUser = React.useRef(false)
-	local menuStatusOpen = useChromeMenuStatus() == ChromeService.MenuStatus.Open
 	local currentSubmenu = useObservableValue(ChromeService:currentSubMenu())
 
 	local selectedItem = useObservableValue(ChromeService:selectedItem())
-	local utility = useObservableValue(ChromeService:getCurrentUtility())
-	local inFocusNav
-	if GetFFlagEnableAlwaysOpenUnibar() then
-		inFocusNav = useObservableValue(ChromeService:inFocusNav())
-	end
+	local inFocusNav = useObservableValue(ChromeService:inFocusNav())
 
-	if GetFFlagEnableAlwaysOpenUnibar() then
-		React.useEffect(function()
-			if inFocusNav then
-				ContextActionService:BindCoreAction("RBXEscapeUnibar", function()
-					ChromeService:disableFocusNav()
-				end, false, Enum.KeyCode.ButtonB)
+	React.useEffect(function()
+		if inFocusNav then
+			ContextActionService:BindCoreAction("RBXEscapeUnibar", function()
+				ChromeService:disableFocusNav()
+			end, false, Enum.KeyCode.ButtonB)
 
-				if props.menuFrameRef.current then
-					GuiService:Select(props.menuFrameRef.current)
-				end
-			else
-				ContextActionService:UnbindCoreAction("RBXEscapeUnibar")
+			if props.menuFrameRef.current then
+				GuiService:Select(props.menuFrameRef.current)
+			end
+		else
+			ContextActionService:UnbindCoreAction("RBXEscapeUnibar")
 
-				if GuiService.SelectedCoreObject then
-					local selectedWithinUnibar = props.menuFrameRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
-					if selectedWithinUnibar then
-						GuiService.SelectedCoreObject = nil
-					end
+			if GuiService.SelectedCoreObject then
+				local selectedWithinUnibar = props.menuFrameRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
+				if selectedWithinUnibar then
+					GuiService.SelectedCoreObject = nil
 				end
 			end
-		end, { inFocusNav })
-	else
-		React.useEffect(function()
-			if menuStatusOpen then
-				local lastInput = ChromeService:getLastInputToOpenMenu()
-				local pressed = lastInput == Enum.UserInputType.MouseButton1 or lastInput == Enum.UserInputType.Touch
-
-				if not pressed then
-					if not GetFFlagOpenControlsOnMenuOpen() then
-						ContextActionService:BindCoreAction("RBXEscapeUnibar", function()
-							if GetFFlagEnableUnibarSneakPeak() then
-								ChromeService:close()
-							else
-								ChromeService:toggleOpen()
-							end
-						end, false, Enum.KeyCode.Escape)
-					end
-
-					if props.menuFrameRef.current then
-						GuiService:Select(props.menuFrameRef.current)
-					end
-				end
-
-				-- if user closes and opens unibar while IGM is open, do not force close unibar
-				if GetFFlagOpenControlsOnMenuOpen() and GuiService.MenuIsOpen and wasUnibarClosedByUser.current then
-					wasUnibarForcedOpen.current = false
-					wasUnibarClosedByUser.current = false
-				end
-
-				if GetFFlagUsePolishedAnimations() then
-					props.setToggleIconTransition(ReactOtter.instant(0))
-					task.wait()
-					props.setToggleIconTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING) :: any)
-					props.setToggleWidthTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING) :: any)
-				else
-					props.setToggleTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING))
-				end
-			else
-				if not GetFFlagOpenControlsOnMenuOpen() then
-					ContextActionService:UnbindCoreAction("RBXEscapeUnibar")
-				end
-
-				if GuiService.SelectedCoreObject then
-					local selectedWithinUnibar = props.menuFrameRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
-					if selectedWithinUnibar then
-						GuiService.SelectedCoreObject = nil
-					end
-				end
-
-				if GetFFlagOpenControlsOnMenuOpen() and GuiService.MenuIsOpen and wasUnibarForcedOpen.current then
-					wasUnibarClosedByUser.current = true
-				end
-
-				if GetFFlagUsePolishedAnimations() then
-					props.setToggleIconTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING) :: any)
-					props.setToggleWidthTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING) :: any)
-				else
-					props.setToggleTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING))
-				end
-			end
-
-			local openMenuConn, closeMenuConn
-			if GetFFlagOpenControlsOnMenuOpen() then
-				-- force open unibar when IGM is opened
-				openMenuConn = GuiService.MenuOpened:Connect(function()
-					if ChromeService:status():get() ~= ChromeService.MenuStatus.Open then
-						ChromeService:open(true)
-						wasUnibarForcedOpen.current = true
-					end
-				end)
-
-				-- force close unibar when IGM closed
-				closeMenuConn = GuiService.MenuClosed:Connect(function()
-					-- if the user had unibar open before IGM opened, do not force close unibar
-					-- if a screenshot is being taken (i.e. by report menu), do not force close unibar
-					-- if a compact utility is open, do not force close unibar (as it cannot normally be closed from that state)
-					if
-						wasUnibarForcedOpen.current
-						and not ChromeUtils.isTakingScreenshot()
-						and not ChromeService:getCurrentUtility():get()
-					then
-						ChromeService:close()
-						wasUnibarForcedOpen.current = false
-						wasUnibarClosedByUser.current = false
-					end
-				end)
-			end
-
-			return function()
-				if GetFFlagOpenControlsOnMenuOpen() and openMenuConn then
-					openMenuConn:Disconnect()
-				end
-				if GetFFlagOpenControlsOnMenuOpen() and closeMenuConn then
-					closeMenuConn:Disconnect()
-				end
-			end
-		end, { menuStatusOpen, utility ~= nil })
-	end
+		end
+	end, { inFocusNav })
 
 	React.useEffect(function()
 		if currentSubmenu == "nine_dot" then
@@ -573,7 +469,7 @@ function Unibar(props: UnibarProp)
 		end
 	end
 
-	minSize = if GetFFlagEnableAlwaysOpenUnibar() then xOffset else Constants.ICON_CELL_WIDTH * pinnedCount
+	minSize = xOffset
 	if props.onMinWidthChanged then
 		props.onMinWidthChanged(minSize)
 	end

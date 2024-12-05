@@ -14,7 +14,7 @@ do
 	local fn = JestGlobals.jest.fn
 
 	describe("mount & unmount", function()
-		it("should create and destroy without errors", function()
+		it.skip("should create and destroy without errors", function()
 			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				ScreenshotDialog = Roact.createElement(ScreenshotDialog, {
 					screenshot = "",

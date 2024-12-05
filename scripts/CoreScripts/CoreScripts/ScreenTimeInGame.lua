@@ -9,7 +9,7 @@ local HttpService = game:GetService("HttpService")
 local ScreenTimeHttpRequests = require(CorePackages.Regulations.ScreenTime.HttpRequests)
 local ScreenTimeConstants = require(CorePackages.Regulations.ScreenTime.Constants)
 local GetFFlagScreenTimeSignalR = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTimeSignalR)
-local Logging = require(CorePackages.Logging)
+local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
@@ -121,7 +121,7 @@ local buttonList = {
 		LayoutOrder = 1,
 		Callback = resolveMessage,
 		Primary = true,
-	}
+	},
 }
 
 messageQueue.displayMessageCallback = displayMessage
@@ -192,8 +192,10 @@ end
 
 screenTimeUpdatedConnection = NotificationService.RobloxEventReceived:Connect(function(eventData)
 	if GetFFlagScreenTimeSignalR() then
-		if eventData.namespace == ScreenTimeConstants.SIGNALR_NAMESPACE and
-			eventData.detailType == ScreenTimeConstants.SIGNALR_TYPE_NEW_INSTRUCTION then
+		if
+			eventData.namespace == ScreenTimeConstants.SIGNALR_NAMESPACE
+			and eventData.detailType == ScreenTimeConstants.SIGNALR_TYPE_NEW_INSTRUCTION
+		then
 			requestInstructions()
 		end
 	else

@@ -7,7 +7,7 @@ PROTO_0:
   LOADB R1 1
   GETTABLEKS R2 R0 K2 ["SetScrubberOffset"]
   LOADN R3 0
-  LOADN R4 1
+  LOADNIL R4
   CALL R2 2 0
   JUMPIF R1 [+5]
   GETTABLEKS R2 R0 K2 ["SetScrubberOffset"]

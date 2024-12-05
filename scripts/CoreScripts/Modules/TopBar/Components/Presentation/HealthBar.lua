@@ -3,8 +3,8 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 
 local Components = script.Parent.Parent
@@ -18,7 +18,7 @@ local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableC
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
-local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
+local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -27,7 +27,6 @@ local ChromeService = if GetFFlagFixChromeReferences() then
 	else if ChromeEnabled then require(Chrome.ChromeShared.Service) else nil
 
 local UseUpdatedHealthBar = ChromeEnabled()
-
 
 local HEALTHBAR_SIZE = UDim2.new(0, 80, 0, 6)
 if UseUpdatedHealthBar then
@@ -79,7 +78,7 @@ local function getHealthBarColor(healthPercent)
 	end
 
 	-- Shepard's Interpolation
-	local numeratorSum = Vector3.new(0,0,0)
+	local numeratorSum = Vector3.new(0, 0, 0)
 	local denominatorSum = 0
 	for colorSampleValue, samplePoint in pairs(healthColorToPosition) do
 		local distance = healthPercent - samplePoint
@@ -87,7 +86,7 @@ local function getHealthBarColor(healthPercent)
 			-- If we are exactly on an existing sample value then we don't need to interpolate
 			return Color3.new(colorSampleValue.x, colorSampleValue.y, colorSampleValue.z)
 		else
-			local wi = 1 / (distance*distance)
+			local wi = 1 / (distance * distance)
 			numeratorSum = numeratorSum + wi * colorSampleValue
 			denominatorSum = denominatorSum + wi
 		end
@@ -100,7 +99,7 @@ function HealthBar:init()
 	self.rootRef = Roact.createRef()
 	if ChromeService then
 		self:setState({
-			chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
+			chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open,
 		})
 	end
 end
@@ -110,7 +109,7 @@ function HealthBar:didMount()
 		if ChromeService then
 			self.chromeMenuStatusConn = ChromeService:status():connect(function()
 				self:setState({
-					chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
+					chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open,
 				})
 			end)
 		end
@@ -127,8 +126,7 @@ function HealthBar:onUnmount()
 end
 
 function HealthBar:render()
-	local healthVisible = self.props.healthEnabled
-		and self.props.health < self.props.maxHealth
+	local healthVisible = self.props.healthEnabled and self.props.health < self.props.maxHealth
 
 	if UseUpdatedHealthBar then
 		healthVisible = healthVisible
@@ -235,7 +233,7 @@ function HealthBar:render()
 				SliceCenter = sliceCenter,
 				Size = UDim2.fromScale(healthPercent, 1),
 			}),
-		})
+		}),
 	})
 end
 
@@ -247,7 +245,6 @@ local function mapStateToProps(state)
 		healthEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Health],
 	}
 end
-
 
 local function mapDispatchToProps(dispatch)
 	return {

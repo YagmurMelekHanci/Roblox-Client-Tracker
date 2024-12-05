@@ -1,12 +1,11 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
-local CoreGui = game:GetService("CoreGui")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local React = require(CorePackages.Packages.React)
-local UIBlox = require(CorePackages.UIBlox)
-local LocalStore = require(Chrome.Service.LocalStore)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local LocalStore = require(Root.Service.LocalStore)
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
 local Interactable = UIBlox.Core.Control.Interactable
@@ -20,40 +19,49 @@ local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local ScrollBarType = UIBlox.App.Container.Enum.ScrollBarType
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
-local ChromeService = require(Chrome.Service)
-local ChromeTypes = require(Chrome.Service.Types)
-local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
-local ViewportUtil = require(Chrome.Service.ViewportUtil)
-local Constants = require(Chrome.Unibar.Constants)
-local TopBarConstants = require(Chrome.Parent.Parent.TopBar.Constants)
-local SubMenuContext = require(Chrome.Unibar.SubMenuContext)
+local ChromeService = require(Root.Service)
+local ChromeTypes = require(Root.Service.Types)
+local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
+local ViewportUtil = require(Root.Service.ViewportUtil)
+local Constants = require(Root.Unibar.Constants)
+local FFlagRemoveSubMenuTopBarConstants = game:DefineFastFlag("RemoveSubMenuTopBarConstants", false)
+local TopBarConstants
+if not FFlagRemoveSubMenuTopBarConstants then
+	TopBarConstants = require(Root.Parent.Parent.TopBar.Constants)
+end
+local SubMenuContext = require(Root.Unibar.SubMenuContext)
 
 local UserInputService = game:GetService("UserInputService")
 
-local useChromeMenuItems = require(Chrome.Hooks.useChromeMenuItems)
-local useObservableValue = require(Chrome.Hooks.useObservableValue)
+local useChromeMenuItems = require(Root.Hooks.useChromeMenuItems)
+local useObservableValue = require(Root.Hooks.useObservableValue)
+local useTopbarInsetHeight = require(Root.Hooks.useTopbarInsetHeight)
 
-local GetFFlagEnableChromePinIntegrations = require(Chrome.Parent.Flags.GetFFlagEnableChromePinIntegrations)
-local GetFFlagUseNewPinIcon = require(Chrome.Parent.Flags.GetFFlagUseNewPinIcon)
-local GetFFlagKeepSubmenuOpenOnPin = require(Chrome.Parent.Flags.GetFFlagKeepSubmenuOpenOnPin)
-local GetFFlagNewSubmenuTouchTargets = require(Chrome.Parent.Flags.GetFFlagNewSubmenuTouchTargets)
-local GetFFlagFixSubmenuCloseIOS = require(Chrome.Parent.Flags.GetFFlagFixSubmenuCloseIOS)
-local GetFFlagEnableCaptureBadge = require(Chrome.Parent.Flags.GetFFlagEnableCaptureBadge)
-local GetFIntNumTimesNewBadgeIsDisplayed = require(Chrome.Parent.Flags.GetFIntNumTimesNewBadgeIsDisplayed)
-local GetFStringNewFeatureList = require(Chrome.Parent.Flags.GetFStringNewFeatureList)
-local GetFFlagAnimateSubMenu = require(Chrome.Parent.Flags.GetFFlagAnimateSubMenu)
-local GetFFlagEnableChromePinAnalytics = require(Chrome.Parent.Flags.GetFFlagEnableChromePinAnalytics)
-local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
+local GetFFlagEnableChromePinIntegrations =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinIntegrations
+local GetFFlagUseNewPinIcon = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseNewPinIcon
+local GetFFlagKeepSubmenuOpenOnPin = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagKeepSubmenuOpenOnPin
+local GetFFlagNewSubmenuTouchTargets =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNewSubmenuTouchTargets
+local GetFFlagFixSubmenuCloseIOS = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSubmenuCloseIOS
+local GetFFlagEnableCaptureBadge = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCaptureBadge
+local GetFIntNumTimesNewBadgeIsDisplayed =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntNumTimesNewBadgeIsDisplayed
+local GetFStringNewFeatureList = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringNewFeatureList
+local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
+local GetFFlagEnableChromePinAnalytics =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinAnalytics
+local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
 local GetFFlagChromeUsePreferredTransparency =
-	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagChromeUsePreferredTransparency)
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
 local GetFFlagPostLaunchUnibarDesignTweaks =
-	require(CoreGui.RobloxGui.Modules.Flags.GetFFlagPostLaunchUnibarDesignTweaks)
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
 
 local FFlagFixChromeIntegrationLayoutBug = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
 local FFlagSubmenuV4Layout = game:DefineFastFlag("SubmenuV4Layout2", false)
 local FFlagSubmenuFixInvisibleButtons = game:DefineFastFlag("SubmenuFixInvisibleButtons", false)
 
-local IconHost = require(Chrome.Unibar.ComponentHosts.IconHost)
+local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
 local SCROLL_OFFSET = ROW_HEIGHT * 0.5
 
@@ -374,6 +382,15 @@ function SubMenu(props: SubMenuProps)
 	local theme = style.Theme
 	local menuRef = React.useRef(nil)
 	local screenSize = useObservableValue(ViewportUtil.screenSize) :: Vector2
+	local topbarInsetHeight
+	local unibarLeftMargin
+	if FFlagRemoveSubMenuTopBarConstants then
+		topbarInsetHeight = useTopbarInsetHeight()
+		unibarLeftMargin = Constants.UNIBAR_LEFT_MARGIN
+	else
+		topbarInsetHeight = TopBarConstants.TopBarHeight
+		unibarLeftMargin = TopBarConstants.Padding
+	end
 
 	React.useEffect(function()
 		-- A manual Left, Right exit out of the sub-menu, back into Unibar
@@ -398,7 +415,7 @@ function SubMenu(props: SubMenuProps)
 		end
 	end, {})
 
-	local topBuffer = TopBarConstants.TopBarHeight + Constants.ICON_CELL_WIDTH
+	local topBuffer = topbarInsetHeight + Constants.ICON_CELL_WIDTH
 	local canvasSize = if props and props.items then ROW_HEIGHT * #props.items else 0
 	local minSize = math.min(screenSize.Y - topBuffer, canvasSize)
 
@@ -447,23 +464,13 @@ function SubMenu(props: SubMenuProps)
 
 	return React.createElement("Frame", {
 		Size = if GetFFlagPostLaunchUnibarDesignTweaks()
-			then UDim2.new(
-				0,
-				Constants.ICON_CELL_WIDTH * 4 + TopBarConstants.Padding + Constants.UNIBAR_END_PADDING * 2,
-				0,
-				0
-			)
-			elseif FFlagSubmenuV4Layout then UDim2.new(
-				0,
-				TopBarConstants.TopBarHeight + Constants.ICON_CELL_WIDTH * 3,
-				0,
-				0
-			)
+			then UDim2.new(0, Constants.ICON_CELL_WIDTH * 4 + unibarLeftMargin + Constants.UNIBAR_END_PADDING * 2, 0, 0)
+			elseif FFlagSubmenuV4Layout then UDim2.new(0, topbarInsetHeight + Constants.ICON_CELL_WIDTH * 3, 0, 0)
 			else UDim2.new(0, 240, 0, 0),
 		AnchorPoint = if leftAlign then Vector2.zero else Vector2.new(1, 0),
 		Position = if GetFFlagPostLaunchUnibarDesignTweaks()
-			then UDim2.new(0, -TopBarConstants.TopBarHeight - 2 + TopBarConstants.Padding, 0, 0)
-			elseif FFlagSubmenuV4Layout then UDim2.new(0, -TopBarConstants.TopBarHeight + 2, 0, 0)
+			then UDim2.new(0, -topbarInsetHeight - 2 + unibarLeftMargin, 0, 0)
+			elseif FFlagSubmenuV4Layout then UDim2.new(0, -topbarInsetHeight + 2, 0, 0)
 			elseif leftAlign then UDim2.new(0, 0, 0, 0)
 			else UDim2.new(1, 0, 0, 0),
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,

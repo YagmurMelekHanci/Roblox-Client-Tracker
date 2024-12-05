@@ -3,9 +3,9 @@ local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 

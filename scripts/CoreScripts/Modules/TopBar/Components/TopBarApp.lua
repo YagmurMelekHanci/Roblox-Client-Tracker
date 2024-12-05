@@ -6,10 +6,10 @@ local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local TextChatService = game:GetService("TextChatService")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
@@ -19,9 +19,8 @@ local Images = UIBlox.App.ImageSet.Images
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 
-local GetFFlagFixChromeReferences = require(RobloxGui.Modules.Flags.GetFFlagFixChromeReferences)
-local GetFFlagChromePeekArchitecture = require(RobloxGui.Modules.Flags.GetFFlagChromePeekArchitecture)
-local GetFFlagFixUnibarVirtualCursor = require(RobloxGui.Modules.Flags.GetFFlagFixUnibarVirtualCursor)
+local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
+local GetFFlagFixUnibarVirtualCursor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixUnibarVirtualCursor
 
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
@@ -44,23 +43,20 @@ local ChromeEnabled = require(Chrome.Enabled)
 local UnibarConstants = require(Chrome.ChromeShared.Unibar.Constants)
 local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
-local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
+local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
 local GetFFlagEnableSceneAnalysisPerformanceTest = SharedFlags.GetFFlagEnableSceneAnalysisPerformanceTest
 local GetFFlagSongbirdUseReportAudioModal = SharedFlags.GetFFlagSongbirdUseReportAudioModal
+local GetFFlagEnableSongbirdPeek = require(Chrome.Flags.GetFFlagEnableSongbirdPeek)
 
 local Unibar
-local Peek
+local Peek = if ChromeEnabled() and GetFFlagEnableSongbirdPeek() then require(Chrome.ChromeShared.Peek) else nil
 local KeepOutAreasHandler
 local ChromeAnalytics
 if ChromeEnabled() then
 	Unibar = require(Chrome.ChromeShared.Unibar)
-
-	if GetFFlagChromePeekArchitecture() then
-		Peek = require(Chrome.ChromeShared.Peek)
-	end
 end
 if game:GetEngineFeature("InGameChromeSignalAPI") then
 	KeepOutAreasHandler = require(Chrome.ChromeShared.Service.KeepOutAreasHandler)
@@ -90,9 +86,12 @@ local FFlagControlBetaBadgeWithGuac = game:DefineFastFlag("ControlBetaBadgeWithG
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
-local GetFFlagEnablePartyIconInNonChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInNonChrome
-local GetFFlagEnablePartyMicIconInChrome = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
+local GetFFlagEnablePartyIconInNonChrome =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInNonChrome
+local GetFFlagEnablePartyMicIconInChrome =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
 local GetFFlagPeekUseFixedHeight = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekUseFixedHeight
+local GetFFlagSongbirdMountDebugAudioEmitters = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdMountDebugAudioEmitters
 
 local PartyMicBinder = require(script.Parent.Parent.Parent.Chrome.Integrations.Party.PartyMicBinder)
 
@@ -148,7 +147,7 @@ function TopBarApp:init()
 		if not game:IsLoaded() then
 			game.Loaded:Connect(function()
 				self:setState({
-					chatVersion = TextChatService.ChatVersion
+					chatVersion = TextChatService.ChatVersion,
 				})
 			end)
 		end
@@ -383,12 +382,23 @@ function TopBarApp:renderWithStyle(style)
 			then Roact.createElement(Songbird.PerformanceExperiment)
 			else nil,
 
-		PeekFrame = ChromeEnabled() and GetFFlagChromePeekArchitecture() and Roact.createElement("Frame", {
+		SongbirdDebugAudio = if GetFFlagSongbirdMountDebugAudioEmitters()
+			then Roact.createElement(Songbird.DebugAudioEmitters)
+			else nil,
+
+		PeekFrame = ChromeEnabled() and GetFFlagEnableSongbirdPeek() and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, if GetFFlagPeekUseFixedHeight() then PeekConstants.PEEK_CONTAINER_HEIGHT else topBarFrameHeight),
-			Position = if GetFFlagPeekUseFixedHeight() then PeekConstants.getPeekContainerPosition(style) else topBarFramePosition,
+			Size = UDim2.new(
+				1,
+				0,
+				0,
+				if GetFFlagPeekUseFixedHeight() then PeekConstants.PEEK_CONTAINER_HEIGHT else topBarFrameHeight
+			),
+			Position = if GetFFlagPeekUseFixedHeight()
+				then PeekConstants.getPeekContainerPosition(style)
+				else topBarFramePosition,
 		}, {
-			Peek = Roact.createElement(Peek)
+			Peek = Roact.createElement(Peek),
 		}),
 
 		SongbirdReportAudioFrame = ChromeEnabled() and GetFFlagSongbirdUseReportAudioModal() and Roact.createElement("Frame", {
@@ -415,7 +425,11 @@ function TopBarApp:renderWithStyle(style)
 						else topBarRightFramePosition,
 					AnchorPoint = Vector2.new(1, 0),
 				}, {
-					PartyMicBinder = if chromeEnabled and GetFFlagEnablePartyMicIconInChrome() and GetFFlagEnableCrossExpVoice() then Roact.createElement(PartyMicBinder) else nil,
+					PartyMicBinder = if chromeEnabled
+							and GetFFlagEnablePartyMicIconInChrome()
+							and GetFFlagEnableCrossExpVoice()
+						then Roact.createElement(PartyMicBinder)
+						else nil,
 					ChromeAnalytics = if ChromeAnalytics then Roact.createElement(ChromeAnalytics) else nil,
 					KeepOutAreasHandler = if not FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
 						then Roact.createElement(KeepOutAreasHandler)
@@ -426,7 +440,7 @@ function TopBarApp:renderWithStyle(style)
 						PaddingLeft = UDim.new(0, screenSideOffset + Constants.Padding + Constants.TopBarHeight + 2),
 					}),
 
-					Unibar =  Roact.createElement(Unibar, {
+					Unibar = Roact.createElement(Unibar, {
 						layoutOrder = 1,
 						onAreaChanged = self.props.setKeepOutArea,
 						onMinWidthChanged = function(width: number)
@@ -452,9 +466,11 @@ function TopBarApp:renderWithStyle(style)
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
 
-						HealthBar = if UseUpdatedHealthBar then nil else Roact.createElement(HealthBar, {
-							layoutOrder = 10,
-						}),
+						HealthBar = if UseUpdatedHealthBar
+							then nil
+							else Roact.createElement(HealthBar, {
+								layoutOrder = 10,
+							}),
 
 						CenterBadgeOver13 = if FFlagTopBarUseNewBadge
 							then Roact.createElement("Frame", {
@@ -527,11 +543,10 @@ function TopBarApp:renderWithStyle(style)
 						layoutOrder = 1,
 					}),
 
-					Unibar =  Roact.createElement(Unibar, {
+					Unibar = Roact.createElement(Unibar, {
 						onAreaChanged = self.props.setKeepOutArea,
 						layoutOrder = 2,
 					}),
-
 				})
 			or nil,
 
@@ -572,11 +587,14 @@ function TopBarApp:renderWithStyle(style)
 					showBadgeOver12 = self.props.showBadgeOver12,
 				}),
 
-				ConnectIcon = not chromeEnabled and GetFFlagEnablePartyIconInNonChrome() and Roact.createElement(ConnectIcon, {
-					setKeepOutArea = self.props.setKeepOutArea,
-					removeKeepOutArea = self.props.removeKeepOutArea,
-					layoutOrder = 2,
-				}) or nil,
+				ConnectIcon = not chromeEnabled and GetFFlagEnablePartyIconInNonChrome() and Roact.createElement(
+					ConnectIcon,
+					{
+						setKeepOutArea = self.props.setKeepOutArea,
+						removeKeepOutArea = self.props.removeKeepOutArea,
+						layoutOrder = 2,
+					}
+				) or nil,
 
 				ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,

@@ -10,9 +10,9 @@ local renderWithCoreScriptsStyleProvider = require(script.Parent.Common.renderWi
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
-local Roact = require(CorePackages.Roact)
-local Rodux = require(CorePackages.Rodux)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local Rodux = require(CorePackages.Packages.Rodux)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local PublishAssetPromptApp = require(script.Components.PublishAssetPromptApp)
 local Reducer = require(script.Reducer)

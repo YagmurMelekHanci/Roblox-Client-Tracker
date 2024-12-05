@@ -1,5 +1,3 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
-
 local AppStorageService = game:GetService("AppStorageService")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
@@ -8,10 +6,7 @@ local CorePackages = game:GetService("CorePackages")
 local hasEngineSupport = game:GetEngineFeature("InGameMenuStateStorageKey")
 
 local APP_STORAGE_KEY = "InGameMenuState"
-local CHROME_SEEN_COUNT_KEY = "ChromeSeenCount"
-local GetFFlagEnableUnibarMaxDefaultOpen = require(Chrome.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
-local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
-local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 
 local storeRoot: any
 local loaded = false
@@ -138,17 +133,6 @@ local function load(key: string, selector): any
 	return nil
 end
 
-local function getChromeSeenCount(): number
-	if GetFFlagChromeSurveySupport() and GetFFlagEnableUnibarMaxDefaultOpen() and hasEngineSupport then
-		local chromeSeenCount = load(CHROME_SEEN_COUNT_KEY, localPlayerSelector)
-		if chromeSeenCount and tonumber(chromeSeenCount) then
-			return chromeSeenCount
-		end
-	end
-
-	return 0
-end
-
 local function getValue(key: string): any
 	if FFlagEnableUnibarFtuxTooltips then
 		local value = load(key, localPlayerSelector)
@@ -180,8 +164,5 @@ return {
 		storeRoot = nil
 	end,
 
-	getChromeSeenCount = function()
-		return getChromeSeenCount()
-	end,
 	getValue = getValue,
 }

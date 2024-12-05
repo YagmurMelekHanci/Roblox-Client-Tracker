@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local React = require(CorePackages.Packages.React)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
@@ -18,8 +18,7 @@ local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local GetFFlagUseNewUnibarIcon = require(Chrome.Flags.GetFFlagUseNewUnibarIcon)
-local GetFFlagUsePolishedAnimations = require(Chrome.Flags.GetFFlagUsePolishedAnimations)
-local GetFFlagUseSelfieViewFlatIcon = require(Chrome.Flags.GetFFlagUseSelfieViewFlatIcon)
+local GetFFlagUsePolishedAnimations = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUsePolishedAnimations
 local GetFFlagSelfieViewRedStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewRedStatusDot)
 
 local UNIBAR_ICON = Images["icons/actions/overflow"]
@@ -149,29 +148,27 @@ function ToggleMenuButton(props)
 					position = UDim2.new(1, -7, 1, -7),
 				}),
 			}) :: any,
-		if GetFFlagUseSelfieViewFlatIcon()
-			then React.createElement("Frame", {
-				Name = if GetFFlagSelfieViewRedStatusDot()
-					then "RedCameraDotVisibleContainer"
-					else "GreenCameraDotVisibleContiner",
+		React.createElement("Frame", {
+			Name = if GetFFlagSelfieViewRedStatusDot()
+				then "RedCameraDotVisibleContainer"
+				else "GreenCameraDotVisibleContiner",
 
-				Visible = toggleIconTransition:map(function(value: any): any
-					return value < 0.5
-				end),
-				Size = UDim2.new(1, 0, 1, 0),
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-			}, {
-				SelfieView.useCameraOn() and React.createElement(SelfieView.CameraStatusDot, {
-					Position = if GetFFlagSelfieViewRedStatusDot()
-						then UDim2.new(1, -7, 1, -7)
-						else if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
-							then UDim2.new(1, -7, 1, -12)
-							else UDim2.new(1, -7, 1, -8),
-					ZIndex = 2,
-				}),
-			})
-			else nil,
+			Visible = toggleIconTransition:map(function(value: any): any
+				return value < 0.5
+			end),
+			Size = UDim2.new(1, 0, 1, 0),
+			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+		}, {
+			SelfieView.useCameraOn() and React.createElement(SelfieView.CameraStatusDot, {
+				Position = if GetFFlagSelfieViewRedStatusDot()
+					then UDim2.new(1, -7, 1, -7)
+					else if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
+						then UDim2.new(1, -7, 1, -12)
+						else UDim2.new(1, -7, 1, -8),
+				ZIndex = 2,
+			}),
+		}),
 	})
 end
 
@@ -181,14 +178,6 @@ return ChromeService:register({
 	hideNotificationCountWhileOpen = true,
 	flashNotificationSource = true,
 	activated = function()
-		if not GetFFlagUsePolishedAnimations() then
-			local currentUtility = ChromeService:getCurrentUtility():get()
-			if not currentUtility then
-				ChromeService:toggleOpen()
-			end
-		else
-			ChromeService:toggleOpen()
-		end
 		buttonPressed = true
 	end,
 	components = {

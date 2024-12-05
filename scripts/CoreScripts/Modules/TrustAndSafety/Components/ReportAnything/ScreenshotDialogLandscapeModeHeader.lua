@@ -2,7 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local React = require(CorePackages.Packages.React)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
@@ -51,7 +51,6 @@ local function renderWrappingCenter(title)
 		end)
 	end
 end
-
 
 local function renderHeaderBarLeft(backAction, undoAnnotationPoints, redoAnnotationPoints, isRedoEnabled, isUndoEnabled)
 	local isShowUndoRedoButtons = isRedoEnabled or isUndoEnabled
@@ -139,7 +138,9 @@ local function LandscapeModeHeader(props: Props)
 			),
 			renderRight = renderHeaderBarRight(props.reportAction, props.annotationPoints),
 			title = if GetFFlagReportAnythingLocalizationEnabled() then nil else props.titleText,
-			renderCenter = if GetFFlagReportAnythingLocalizationEnabled() then renderWrappingCenter(props.titleText) else nil,
+			renderCenter = if GetFFlagReportAnythingLocalizationEnabled()
+				then renderWrappingCenter(props.titleText)
+				else nil,
 		}),
 	})
 end

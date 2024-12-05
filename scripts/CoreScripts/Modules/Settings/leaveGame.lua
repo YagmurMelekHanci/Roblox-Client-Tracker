@@ -23,13 +23,10 @@ local coreGuiFinalStateAnalytics -- TODO: set this value outside of FFlagCoreGui
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
-local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 
 local GetDefaultQualityLevel = require(CorePackages.Workspace.Packages.AppCommonLib).GetDefaultQualityLevel
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
-
-local LocalStore = require(RobloxGui.Modules.Chrome.ChromeShared.Service.LocalStore)
 
 local leaveGame = function(publishSurveyMessage: boolean)
     if GetFFlagEnableInGameMenuDurationLogger() then
@@ -49,11 +46,9 @@ local leaveGame = function(publishSurveyMessage: boolean)
     )
 
     if publishSurveyMessage then
-        local customProps = nil
-        if GetFFlagChromeSurveySupport() then
-            local chromeSeenCount = tostring(LocalStore.getChromeSeenCount())
-            customProps = { chromeSeenCount = chromeSeenCount }
-        end
+        -- TODO APPEXP-1879: Remove code passing chromeSeenCount/customProps to survey receiver by flagging it off, now that it is unused.
+        local chromeSeenCount = tostring(0)
+        local customProps = { chromeSeenCount = chromeSeenCount }
 
         local localUserId = tostring(Players.LocalPlayer.UserId)
         MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps})

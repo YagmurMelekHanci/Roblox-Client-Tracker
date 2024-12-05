@@ -6,8 +6,8 @@
 ]]
 local Root = script.Parent.Parent
 local CorePackages = game:GetService("CorePackages")
-local Rodux = require(CorePackages.Rodux)
-local Cryo = require(CorePackages.Cryo)
+local Rodux = require(CorePackages.Packages.Rodux)
+local Cryo = require(CorePackages.Packages.Cryo)
 
 local OpenPublishAssetPrompt = require(Root.Actions.OpenPublishAssetPrompt)
 local OpenPublishAvatarPrompt = require(Root.Actions.OpenPublishAvatarPrompt)

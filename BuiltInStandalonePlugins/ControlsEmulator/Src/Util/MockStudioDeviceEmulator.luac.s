@@ -28,7 +28,7 @@ PROTO_8:
   RETURN R0 0
 
 PROTO_9:
-  DUPTABLE R1 K9 [{"SendGamepadEventAsync", "DEPRECATED_GetKeyboardShortcutAsync", "GetKeyboardShortcutAsync", "ConnectGamepadAsync", "UpdateKeyMappingAsync", "GetCurrentlyEmulatedDeviceAsync", "IsVREmulatorConnected", "SetActiveVRController", "SetVRActiveUserCFrameAsync"}]
+  DUPTABLE R1 K9 [{"SendGamepadEventAsync", "DEPRECATED_GetKeyboardShortcutAsync", "GetKeyboardShortcutAsync", "ConnectGamepadAsync", "UpdateKeyMappingAsync", "GetCurrentlyEmulatedDeviceAsync", "IsVREmulatorConnected", "SetActiveVRController", "DEPRECATED_SetVRActiveUserCFrameAsync"}]
   DUPCLOSURE R2 K10 [PROTO_0]
   SETTABLEKS R2 R1 K0 ["SendGamepadEventAsync"]
   DUPCLOSURE R2 K11 [PROTO_1]
@@ -46,7 +46,7 @@ PROTO_9:
   DUPCLOSURE R2 K17 [PROTO_7]
   SETTABLEKS R2 R1 K7 ["SetActiveVRController"]
   DUPCLOSURE R2 K18 [PROTO_8]
-  SETTABLEKS R2 R1 K8 ["SetVRActiveUserCFrameAsync"]
+  SETTABLEKS R2 R1 K8 ["DEPRECATED_SetVRActiveUserCFrameAsync"]
   DUPTABLE R4 K20 [{"__index"}]
   GETUPVAL R5 0
   SETTABLEKS R5 R4 K19 ["__index"]

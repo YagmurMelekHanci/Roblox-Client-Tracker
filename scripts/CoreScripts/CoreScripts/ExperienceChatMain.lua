@@ -4,6 +4,11 @@ local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui.RobloxGui
+local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local UIManagerFolder = CoreGuiModules:WaitForChild("UIManager")
+local Constants = require(UIManagerFolder.Constants)
+local PanelType = Constants.PanelType
+local UIManager = require(UIManagerFolder.UIManager)
 
 local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
 
@@ -19,9 +24,10 @@ end
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local ApolloClient = require(RobloxGui.Modules.ApolloClient)
-local ExperienceChat = require(CorePackages.ExperienceChat)
+local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
-local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
+local FFlagAvatarChatCoreScriptSupport =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local getFFlagAddApolloClientToExperienceChat = require(RobloxGui.Modules.Flags.getFFlagAddApolloClientToExperienceChat)
 local getFFlagDoNotPromptCameraPermissionsOnMount =
 	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
@@ -29,8 +35,10 @@ local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getF
 local GetFFlagRemoveInGameChatBubbleChatReferences =
 	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local getFFlagRenderVoiceBubbleAfterAsyncInit = require(RobloxGui.Modules.Flags.getFFlagRenderVoiceBubbleAfterAsyncInit)
-local GetFFlagShowLikelySpeakingBubbles = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
+local GetFFlagShowLikelySpeakingBubbles =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local FFlagEnableSpatialRobloxGui = require(RobloxGui.Modules.Flags.FFlagEnableSpatialRobloxGui)
 
 local getIconVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.getIconVoiceIndicator)
 local onClickedVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.onClickedVoiceIndicator)
@@ -74,12 +82,29 @@ if ChromeEnabled then
 	getPermissions = require(RobloxGui.Modules.VoiceChat.Components.getPermissions)
 end
 
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "ExperienceChat"
-screenGui.ResetOnSpawn = false
-screenGui.DisplayOrder = -1 -- Set DisplayOrder to -1 to rest behind the SettingsHub
-screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-screenGui.Parent = CoreGui
+local screenGui
+local spatialUIStruct : Constants.CompatPanel?
+if FFlagEnableSpatialRobloxGui then
+	local panelProps = {
+		panelType = PanelType.Chat,
+		screenGuiProps = {
+			Name = "ExperienceChat",
+			ResetOnSpawn = false,
+			DisplayOrder = -1, -- Set DisplayOrder to -1 to rest behind the SettingsHub
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+		} :: Constants.ScreenGuiProps,
+	} :: Constants.PanelCreationProps
+	local uiCreationResult = UIManager:createUI(panelProps) :: Constants.CompatPanel
+	screenGui = uiCreationResult.panelObject
+	spatialUIStruct = uiCreationResult
+else
+	screenGui = Instance.new("ScreenGui")
+	screenGui.Name = "ExperienceChat"
+	screenGui.ResetOnSpawn = false
+	screenGui.DisplayOrder = -1 -- Set DisplayOrder to -1 to rest behind the SettingsHub
+	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	screenGui.Parent = CoreGui
+end
 
 local function findTextChannel(name: string): TextChannel
 	local textChannel = TextChatService:FindFirstChild(name, true)
@@ -129,4 +154,5 @@ ExperienceChat.mountClientApp({
 	translator = RobloxTranslator :: any,
 	gameTranslator = GameTranslator :: any,
 	parent = screenGui,
+	isSpatialUIEnabled = (spatialUIStruct and spatialUIStruct.type == Constants.SpatialUIType.SpatialUI),
 })

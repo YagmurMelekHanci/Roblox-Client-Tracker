@@ -40,6 +40,19 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["reportCounter"]
+  GETTABLEKS R2 R0 K1 ["eventName"]
+  GETTABLEKS R4 R0 K2 ["data"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K2 ["data"]
+  GETTABLEKS R3 R4 K3 ["amount"]
+  JUMP [+1]
+  LOADNIL R3
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["getWebViewTrackingAttributes"]
   GETTABLEKS R2 R0 K1 ["data"]
   CALL R1 1 1
@@ -52,7 +65,7 @@ PROTO_3:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["TryInsert"]
   GETTABLEKS R2 R0 K1 ["assetData"]
@@ -63,7 +76,7 @@ PROTO_4:
   CALL R1 5 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["categoryName"]
   GETUPVAL R4 0
@@ -87,26 +100,34 @@ PROTO_5:
   CAPTURE VAL R1
   CALL R4 2 1
   SETTABLEKS R4 R0 K7 ["_tabChangeConnection"]
-  GETTABLEKS R4 R0 K10 ["_sendAnalyticsEventConnection"]
+  GETTABLEKS R4 R0 K10 ["_sendAnalyticsCounterEventConnection"]
+  JUMPIFNOTEQKNIL R4 [+9]
+  GETTABLEKS R4 R0 K8 ["connectToSignal"]
+  LOADK R5 K11 ["StudioService.SendAnalyticsCounterEvent"]
+  DUPCLOSURE R6 K12 [PROTO_3]
+  CAPTURE UPVAL U3
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K10 ["_sendAnalyticsCounterEventConnection"]
+  GETTABLEKS R4 R0 K13 ["_sendAnalyticsEventConnection"]
   JUMPIFNOTEQKNIL R4 [+10]
   GETTABLEKS R4 R0 K8 ["connectToSignal"]
-  LOADK R5 K11 ["StudioService.SendAnalyticsEvent"]
-  DUPCLOSURE R6 K12 [PROTO_3]
+  LOADK R5 K14 ["StudioService.SendAnalyticsEvent"]
+  DUPCLOSURE R6 K15 [PROTO_4]
   CAPTURE UPVAL U1
   CAPTURE UPVAL U3
   CALL R4 2 1
-  SETTABLEKS R4 R0 K10 ["_sendAnalyticsEventConnection"]
-  GETTABLEKS R4 R0 K13 ["_insertAssetEventConnection"]
+  SETTABLEKS R4 R0 K13 ["_sendAnalyticsEventConnection"]
+  GETTABLEKS R4 R0 K16 ["_insertAssetEventConnection"]
   JUMPIFNOTEQKNIL R4 [+9]
   GETTABLEKS R4 R0 K8 ["connectToSignal"]
-  LOADK R5 K14 ["StudioService.InsertAsset"]
-  NEWCLOSURE R6 P2
+  LOADK R5 K17 ["StudioService.InsertAsset"]
+  NEWCLOSURE R6 P3
   CAPTURE VAL R1
   CALL R4 2 1
-  SETTABLEKS R4 R0 K13 ["_insertAssetEventConnection"]
+  SETTABLEKS R4 R0 K16 ["_insertAssetEventConnection"]
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETTABLEKS R1 R0 K0 ["_tabChangeConnection"]
   JUMPIFNOT R1 [+8]
   GETTABLEKS R1 R0 K0 ["_tabChangeConnection"]
@@ -114,23 +135,30 @@ PROTO_6:
   CALL R1 1 0
   LOADNIL R1
   SETTABLEKS R1 R0 K0 ["_tabChangeConnection"]
-  GETTABLEKS R1 R0 K2 ["_sendAnalyticsEventConnection"]
+  GETTABLEKS R1 R0 K2 ["_sendAnalyticsCounterEventConnection"]
   JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K2 ["_sendAnalyticsEventConnection"]
+  GETTABLEKS R1 R0 K2 ["_sendAnalyticsCounterEventConnection"]
   NAMECALL R1 R1 K1 ["Disconnect"]
   CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K2 ["_sendAnalyticsEventConnection"]
-  GETTABLEKS R1 R0 K3 ["_insertAssetEventConnection"]
+  SETTABLEKS R1 R0 K2 ["_sendAnalyticsCounterEventConnection"]
+  GETTABLEKS R1 R0 K3 ["_sendAnalyticsEventConnection"]
   JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K3 ["_insertAssetEventConnection"]
+  GETTABLEKS R1 R0 K3 ["_sendAnalyticsEventConnection"]
   NAMECALL R1 R1 K1 ["Disconnect"]
   CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K3 ["_insertAssetEventConnection"]
+  SETTABLEKS R1 R0 K3 ["_sendAnalyticsEventConnection"]
+  GETTABLEKS R1 R0 K4 ["_insertAssetEventConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K4 ["_insertAssetEventConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["_insertAssetEventConnection"]
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   GETTABLEKS R1 R0 K0 ["props"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["createElement"]
@@ -139,7 +167,7 @@ PROTO_7:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_8:
+PROTO_9:
   MOVE R2 R0
   JUMPIF R2 [+2]
   NEWTABLE R2 0 0
@@ -156,7 +184,7 @@ PROTO_8:
   SETTABLEKS R4 R3 K1 ["categoryName"]
   RETURN R3 1
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["createElement"]
   GETUPVAL R3 1
@@ -233,15 +261,15 @@ MAIN:
   DUPCLOSURE R21 K29 [PROTO_1]
   CAPTURE VAL R13
   SETTABLEKS R21 R20 K30 ["init"]
-  DUPCLOSURE R21 K31 [PROTO_5]
+  DUPCLOSURE R21 K31 [PROTO_6]
   CAPTURE VAL R16
   CAPTURE VAL R10
   CAPTURE VAL R12
   CAPTURE VAL R11
   SETTABLEKS R21 R20 K32 ["didMount"]
-  DUPCLOSURE R21 K33 [PROTO_6]
+  DUPCLOSURE R21 K33 [PROTO_7]
   SETTABLEKS R21 R20 K34 ["willUnmount"]
-  DUPCLOSURE R21 K35 [PROTO_7]
+  DUPCLOSURE R21 K35 [PROTO_8]
   CAPTURE VAL R3
   SETTABLEKS R21 R20 K36 ["render"]
   MOVE R21 R18
@@ -251,7 +279,7 @@ MAIN:
   MOVE R22 R20
   CALL R21 1 1
   MOVE R20 R21
-  DUPCLOSURE R21 K39 [PROTO_8]
+  DUPCLOSURE R21 K39 [PROTO_9]
   CAPTURE VAL R16
   GETTABLEKS R22 R4 K40 ["connect"]
   MOVE R23 R21

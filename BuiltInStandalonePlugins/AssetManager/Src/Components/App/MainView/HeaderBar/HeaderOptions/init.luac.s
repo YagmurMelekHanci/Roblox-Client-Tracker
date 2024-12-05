@@ -216,6 +216,8 @@ PROTO_7:
   JUMP [+1]
   LOADNIL R14
   SETTABLEKS R14 R13 K8 ["GridSortButtonContainer"]
+  GETTABLEKS R15 R6 K14 ["ShowSearchOptions"]
+  JUMPIF R15 [+14]
   GETUPVAL R15 6
   GETTABLEKS R14 R15 K3 ["createElement"]
   GETUPVAL R15 16
@@ -225,6 +227,8 @@ PROTO_7:
   SETTABLEKS R17 R16 K4 ["LayoutOrder"]
   SETTABLEKS R5 R16 K31 ["Items"]
   CALL R14 2 1
+  JUMP [+1]
+  LOADNIL R14
   SETTABLEKS R14 R13 K9 ["FilterDropdown"]
   GETUPVAL R15 6
   GETTABLEKS R14 R15 K3 ["createElement"]

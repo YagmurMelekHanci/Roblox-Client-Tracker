@@ -2,7 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local React = require(CorePackages.Packages.React)
 
 local ButtonStack = UIBlox.App.Button.ButtonStack
@@ -34,7 +34,7 @@ local function RestartScreenshotDialog(props: Props)
 	local dialogHeight = 180
 	local textBodyHeight = 50
 
-	if (GetFFlagReportAnythingLocalizationEnabled() and props.isSmallPortraitMode) then
+	if GetFFlagReportAnythingLocalizationEnabled() and props.isSmallPortraitMode then
 		footerHeight = FOOTER_HEIGHT * 2 - 12
 		dialogHeight = 260
 		textBodyHeight = 100
@@ -96,7 +96,9 @@ local function RestartScreenshotDialog(props: Props)
 					TextSize = 16,
 					TextWrapped = true,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = if GetFFlagReportAnythingLocalizationEnabled() then Enum.TextYAlignment.Top else nil,
+					TextYAlignment = if GetFFlagReportAnythingLocalizationEnabled()
+						then Enum.TextYAlignment.Top
+						else nil,
 					Size = UDim2.new(1, 0, 0, textBodyHeight),
 					BackgroundTransparency = 1,
 				}),
@@ -128,7 +130,9 @@ local function RestartScreenshotDialog(props: Props)
 								text = if GetFFlagReportAnythingLocalizationEnabled()
 									then RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Cancel")
 									else "Cancel",
-								size = if GetFFlagReportAnythingLocalizationEnabled() then UDim2.new(1, 0, 0, 28) else UDim2.new(0, 80, 0, 28),
+								size = if GetFFlagReportAnythingLocalizationEnabled()
+									then UDim2.new(1, 0, 0, 28)
+									else UDim2.new(0, 80, 0, 28),
 								fontStyle = font.Body2,
 							}
 							else {
@@ -146,7 +150,9 @@ local function RestartScreenshotDialog(props: Props)
 								text = if GetFFlagReportAnythingLocalizationEnabled()
 									then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.BackToExperience")
 									else "Back To Experience",
-								size = if GetFFlagReportAnythingLocalizationEnabled() then UDim2.new(1, 0, 0, 28) else UDim2.new(0, 200, 0, 28),
+								size = if GetFFlagReportAnythingLocalizationEnabled()
+									then UDim2.new(1, 0, 0, 28)
+									else UDim2.new(0, 200, 0, 28),
 								fontStyle = font.Body2,
 							}
 							else {

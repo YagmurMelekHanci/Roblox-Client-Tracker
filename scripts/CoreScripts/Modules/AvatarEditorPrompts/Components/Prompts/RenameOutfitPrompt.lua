@@ -4,10 +4,10 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
@@ -70,7 +70,9 @@ function RenameOutfitNamePrompt:render()
 						buttonType = ButtonType.PrimarySystem,
 						props = {
 							onActivated = self.props.signalRenameOutfitPermissionDenied,
-							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.DisabledRenameOutfitPromptOkay"),
+							text = RobloxTranslator:FormatByKey(
+								"CoreScripts.AvatarEditorPrompts.DisabledRenameOutfitPromptOkay"
+							),
 						},
 						isDefaultChild = true,
 					},

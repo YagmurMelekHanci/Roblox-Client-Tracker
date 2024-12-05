@@ -320,40 +320,42 @@ PROTO_10:
   JUMP [+3]
   NAMECALL R4 R0 K13 ["resetAttachment"]
   CALL R4 1 0
-  NAMECALL R4 R2 K14 ["bind"]
-  CALL R4 1 0
-  GETTABLEKS R4 R3 K15 ["onBind"]
-  JUMPIFNOT R4 [+4]
-  GETTABLEKS R4 R3 K15 ["onBind"]
-  MOVE R5 R0
-  CALL R4 1 0
   GETUPVAL R4 1
   JUMPIFNOT R4 [+5]
-  GETTABLEKS R4 R0 K16 ["Spotlight"]
-  NAMECALL R4 R4 K17 ["HideSpotlightAsync"]
+  GETTABLEKS R4 R0 K14 ["Spotlight"]
+  NAMECALL R4 R4 K15 ["HideSpotlightAsync"]
   CALL R4 1 0
   GETUPVAL R4 2
-  NAMECALL R4 R4 K18 ["HideSpotlight"]
+  NAMECALL R4 R4 K16 ["HideSpotlight"]
   CALL R4 1 0
-  GETTABLEKS R4 R0 K19 ["showSpotlightTask"]
+  NAMECALL R4 R2 K17 ["setCameraFocus"]
+  CALL R4 1 0
+  NAMECALL R4 R2 K18 ["bind"]
+  CALL R4 1 0
+  GETTABLEKS R4 R3 K19 ["onBind"]
+  JUMPIFNOT R4 [+4]
+  GETTABLEKS R4 R3 K19 ["onBind"]
+  MOVE R5 R0
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K20 ["showSpotlightTask"]
   JUMPIFNOT R4 [+5]
-  GETIMPORT R4 K22 [task.cancel]
-  GETTABLEKS R5 R0 K19 ["showSpotlightTask"]
+  GETIMPORT R4 K23 [task.cancel]
+  GETTABLEKS R5 R0 K20 ["showSpotlightTask"]
   CALL R4 1 0
-  GETIMPORT R4 K24 [task.delay]
-  LOADK R5 K25 [0.5]
+  GETIMPORT R4 K25 [task.delay]
+  LOADK R5 K26 [0.5]
   NEWCLOSURE R6 P0
   CAPTURE VAL R0
   CALL R4 2 1
-  SETTABLEKS R4 R0 K19 ["showSpotlightTask"]
-  NAMECALL R4 R0 K26 ["getCurrentStepData"]
+  SETTABLEKS R4 R0 K20 ["showSpotlightTask"]
+  NAMECALL R4 R0 K27 ["getCurrentStepData"]
   CALL R4 1 1
   GETUPVAL R5 3
   MOVE R6 R3
-  DUPCLOSURE R7 K27 [PROTO_9]
+  DUPCLOSURE R7 K28 [PROTO_9]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K28 ["step"]
-  GETTABLEKS R5 R0 K29 ["onStepChanged"]
+  SETTABLEKS R5 R4 K29 ["step"]
+  GETTABLEKS R5 R0 K30 ["onStepChanged"]
   MOVE R6 R4
   CALL R5 1 0
   RETURN R0 0

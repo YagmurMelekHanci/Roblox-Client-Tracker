@@ -1,8 +1,3 @@
-PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["ToggleManageCollaborators"]
-  RETURN R0 1
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
@@ -40,47 +35,38 @@ MAIN:
   GETTABLEKS R6 R7 K16 ["Resources"]
   GETTABLEKS R5 R6 K17 ["Localization"]
   GETTABLEKS R4 R5 K19 ["LocalizedStrings"]
-  GETIMPORT R5 K1 [game]
-  LOADK R7 K20 ["TeamCreateService"]
-  NAMECALL R5 R5 K21 ["GetService"]
-  CALL R5 2 1
-  DUPTABLE R6 K33 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
-  GETIMPORT R7 K34 [plugin]
-  SETTABLEKS R7 R6 K22 ["plugin"]
-  LOADK R7 K35 ["ManageCollaborators"]
-  SETTABLEKS R7 R6 K23 ["pluginName"]
-  SETTABLEKS R4 R6 K24 ["translationResourceTable"]
-  SETTABLEKS R3 R6 K25 ["fallbackResourceTable"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K26 ["overrideLocaleId"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K27 ["localizationNamespace"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K28 ["noToolbar"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K29 ["getToolbarName"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K30 ["buttonInfo"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K31 ["dockWidgetInfo"]
-  NEWTABLE R7 1 0
-  DUPCLOSURE R8 K36 [PROTO_0]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R7 K37 ["TeamCreateService.ToggleManageCollaborators"]
-  SETTABLEKS R7 R6 K32 ["extraTriggers"]
-  GETTABLEKS R7 R2 K38 ["build"]
-  MOVE R8 R6
+  DUPTABLE R5 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
+  GETIMPORT R6 K31 [plugin]
+  SETTABLEKS R6 R5 K20 ["plugin"]
+  LOADK R6 K32 ["ManageCollaborators"]
+  SETTABLEKS R6 R5 K21 ["pluginName"]
+  SETTABLEKS R4 R5 K22 ["translationResourceTable"]
+  SETTABLEKS R3 R5 K23 ["fallbackResourceTable"]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K24 ["overrideLocaleId"]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K25 ["localizationNamespace"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K26 ["noToolbar"]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K27 ["getToolbarName"]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K28 ["buttonInfo"]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K29 ["dockWidgetInfo"]
+  GETTABLEKS R6 R2 K33 ["build"]
+  MOVE R7 R5
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K34 ["pluginLoader"]
+  NAMECALL R7 R7 K35 ["waitForUserInteraction"]
+  CALL R7 1 0
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R10 K7 [script]
+  GETTABLEKS R9 R10 K8 ["Parent"]
+  GETTABLEKS R8 R9 K36 ["main"]
   CALL R7 1 1
-  GETTABLEKS R8 R7 K39 ["pluginLoader"]
-  NAMECALL R8 R8 K40 ["waitForUserInteraction"]
-  CALL R8 1 0
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R11 K7 [script]
-  GETTABLEKS R10 R11 K8 ["Parent"]
-  GETTABLEKS R9 R10 K41 ["main"]
-  CALL R8 1 1
-  MOVE R9 R8
-  GETIMPORT R10 K34 [plugin]
-  MOVE R11 R7
-  CALL R9 2 0
+  MOVE R8 R7
+  GETIMPORT R9 K31 [plugin]
+  MOVE R10 R6
+  CALL R8 2 0
   RETURN R0 0

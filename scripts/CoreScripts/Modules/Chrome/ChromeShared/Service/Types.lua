@@ -1,8 +1,8 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
-local ChromeUtils = require(Chrome.Service.ChromeUtils)
-local WindowSizeSignal = require(Chrome.Service.WindowSizeSignal)
-local ContainerSlotSignal = require(Chrome.Service.ContainerSlotSignal)
+local ChromeUtils = require(Root.Service.ChromeUtils)
+local WindowSizeSignal = require(Root.Service.WindowSizeSignal)
+local ContainerSlotSignal = require(Root.Service.ContainerSlotSignal)
 
 export type IntegrationComponents = {
 	Icon: any?,
@@ -48,6 +48,7 @@ export type IntegrationProps = {
 	hotkeyCodes: { [number]: Enum.KeyCode }?,
 	secondaryAction: SecondaryAction?,
 	flashNotificationSource: boolean?,
+	persistWindowState: boolean?,
 }
 
 export type IntegrationRegisterProps = {
@@ -70,6 +71,7 @@ export type IntegrationRegisterProps = {
 	hotkeyCodes: { [number]: Enum.KeyCode }?,
 	secondaryAction: SecondaryAction?,
 	flashNotificationSource: boolean?,
+	persistWindowState: boolean?,
 }
 
 export type IntegrationComponentProps = {

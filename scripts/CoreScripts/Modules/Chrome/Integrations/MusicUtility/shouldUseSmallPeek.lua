@@ -1,3 +1,5 @@
+-- FFlagDecoupleChromePeekFromCoreScripts cleanup: Remove this file
+
 local Chrome = script:FindFirstAncestor("Chrome")
 
 local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)

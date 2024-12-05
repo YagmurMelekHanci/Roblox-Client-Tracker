@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Packages.Cryo)
 local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
 local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
@@ -20,13 +20,13 @@ local useStyle = UIBlox.Core.Style.useStyle
 local useTokens = Foundation.Hooks.useTokens
 
 local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
-local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
+local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 
-local FFlagEnableUnibarFtuxTooltips = require(Chrome.Parent.Flags.FFlagEnableUnibarFtuxTooltips)
+local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 local GetFFlagAppChatInExpConnectIconRedesign = require(Chrome.Flags.GetFFlagAppChatInExpConnectIconRedesign)
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
@@ -36,6 +36,8 @@ local getAppChatNavbarItemConfig = AppChat.Utils.getAppChatNavbarItemConfig
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
 local FFlagConnectIconUsesAppChatConfig = game:DefineFastFlag("ConnectIconUsesAppChatConfig", false)
+
+local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
 
 local AVATAR_SIZE = 24
 
@@ -134,9 +136,11 @@ local function ConnectIcon(_props: Props): React.ReactElement
 			isIconVisible = props.isIconVisible,
 
 			headerKey = if GetFFlagAppChatRebrandStringUpdates()
+					and SquadExperimentation.getSquadEntrypointsEnabled()
 				then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 				else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
 			bodyKey = if GetFFlagAppChatRebrandStringUpdates()
+					and SquadExperimentation.getSquadEntrypointsEnabled()
 				then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 				else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 			localStorageKey = GetFStringConnectTooltipLocalStorageKey(),

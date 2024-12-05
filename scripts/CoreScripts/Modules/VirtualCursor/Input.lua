@@ -8,8 +8,6 @@ local GamepadService = game:GetService("GamepadService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local FFlagDisableUserMovementWhenVirtualCursorIsActive = game:DefineFastFlag("DisableUserMovementWhenVirtualCursorIsActive", false)
-
 local properties = require(VirtualCursorFolder.Properties)
 local Interface = require(VirtualCursorFolder.Interface)
 
@@ -79,10 +77,8 @@ function Input:EnableInput()
 		thumbstickVector = processThumbstickInput(event)
 	end)
 
-	if FFlagDisableUserMovementWhenVirtualCursorIsActive then
-		ContextActionService:BindCoreActionAtPriority("VirtualCursorThumbstick1Movement", function(action, state, iobject) end, false, 
-			Enum.ContextActionPriority.High.Value, Enum.KeyCode.Thumbstick1)
-	end
+	ContextActionService:BindCoreActionAtPriority("VirtualCursorThumbstick1Movement", function(action, state, iobject) end, false, 
+		Enum.ContextActionPriority.High.Value, Enum.KeyCode.Thumbstick1)
 
 	ContextActionService:BindCoreActionAtPriority("VirtualCursorThumbstick2Movement", onThumbstick2Input, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.Thumbstick2)
 
@@ -93,10 +89,7 @@ function Input:DisableInput()
 	gamepadThumbstick1ChangedConnection:Disconnect()
 	gamepadThumbstick1ChangedConnection = nil
 
-	if FFlagDisableUserMovementWhenVirtualCursorIsActive then
-		ContextActionService:UnbindCoreAction("VirtualCursorThumbstick1Movement")
-	end
-
+	ContextActionService:UnbindCoreAction("VirtualCursorThumbstick1Movement")
 	ContextActionService:UnbindCoreAction("VirtualCursorThumbstick2Movement")
 	onThumbstick2Input("VirtualCursorThumbstick2Movement", Enum.UserInputState.Cancel, nil)
 

@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local React = require(CorePackages.Packages.React)
-local RoactRodux = require(CorePackages.RoactRodux)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local Modules = CoreGui.RobloxGui.Modules
 local renderWithCoreScriptsStyleProvider = require(Modules.Common.renderWithCoreScriptsStyleProvider)
@@ -32,7 +32,7 @@ local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottl
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
 local GetFFlagSingleUserInvitePageKeybind = require(Modules.Settings.Flags.GetFFlagSingleUserInvitePageKeybind)
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
@@ -144,7 +144,7 @@ local InviteSingleUserContainer = function(props)
 			props.isVisible,
 			onInvite,
 			onCloseButtonActivated,
-		} :: {any})
+		} :: { any })
 	end
 
 	if GetFFlagThrottleInviteSendEndpoint() then

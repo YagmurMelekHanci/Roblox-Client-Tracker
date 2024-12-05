@@ -4,8 +4,8 @@ local CorePackages = game:GetService("CorePackages")
 local ScriptContext = game:GetService("ScriptContext")
 local HttpService = game:GetService("HttpService")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local Components = script.Parent.Parent.Parent.Components
 local DataConsumer = require(Components.DataConsumer)

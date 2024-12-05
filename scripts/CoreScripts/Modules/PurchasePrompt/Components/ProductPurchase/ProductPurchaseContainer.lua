@@ -5,7 +5,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local AssetService = game:GetService("AssetService")
 
 local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 
 local CoreGui = game:GetService("CoreGui")
@@ -19,9 +19,9 @@ local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
 
-local IAPExperience = require(CorePackages.IAPExperience)
-local ProductPurchase =  IAPExperience.ProductPurchase
-local ProductPurchaseRobuxUpsell =  IAPExperience.ProductPurchaseRobuxUpsell
+local IAPExperience = require(CorePackages.Workspace.Packages.IAPExperience)
+local ProductPurchase = IAPExperience.ProductPurchase
+local ProductPurchaseRobuxUpsell = IAPExperience.ProductPurchaseRobuxUpsell
 local LeaveRobloxAlert = IAPExperience.LeaveRobloxAlert
 local IAPAnimator = IAPExperience.Animator
 
@@ -52,7 +52,8 @@ local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPr
 local FFlagCoreScriptPublishAssetAnalytics = require(RobloxGui.Modules.Flags.FFlagCoreScriptPublishAssetAnalytics)
 
 local initiateUserPurchaseSettingsPrecheck = require(Root.Thunks.initiateUserPurchaseSettingsPrecheck)
-local GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow = require(Root.Flags.GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow)
+local GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow =
+	require(Root.Flags.GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow)
 local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.VerifiedParentalConsentDialog)
 local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
 local VPCModalType = require(Root.Enums.VPCModalType)
@@ -168,20 +169,22 @@ function ProductPurchaseContainer:init()
 	self.getConfirmButtonAction = function(promptState, requestType, purchaseError)
 		if promptState == PromptState.None or not isRelevantRequestType(requestType) then
 			return nil
-		elseif promptState == PromptState.PromptPurchase
-				or promptState == PromptState.PurchaseInProgress then
+		elseif promptState == PromptState.PromptPurchase or promptState == PromptState.PurchaseInProgress then
 			return self.props.onBuy
-		elseif promptState == PromptState.RobuxUpsell
-				or promptState == PromptState.UpsellInProgress
-				or promptState == PromptState.LeaveRobloxWarning then
+		elseif
+			promptState == PromptState.RobuxUpsell
+			or promptState == PromptState.UpsellInProgress
+			or promptState == PromptState.LeaveRobloxWarning
+		then
 			return self.props.onRobuxUpsell
-		elseif promptState == PromptState.U13PaymentModal
-				or promptState == PromptState.U13MonthlyThreshold1Modal
-				or promptState == PromptState.U13MonthlyThreshold2Modal
-				or promptState == PromptState.ParentalConsentWarningPaymentModal13To17 then
+		elseif
+			promptState == PromptState.U13PaymentModal
+			or promptState == PromptState.U13MonthlyThreshold1Modal
+			or promptState == PromptState.U13MonthlyThreshold2Modal
+			or promptState == PromptState.ParentalConsentWarningPaymentModal13To17
+		then
 			return self.props.onScaryModalConfirm
-		elseif promptState == PromptState.Error
-				and purchaseError == PurchaseError.TwoFactorNeededSettings then
+		elseif promptState == PromptState.Error and purchaseError == PurchaseError.TwoFactorNeededSettings then
 			return self.props.onOpenSecuritySettings
 		elseif isGenericChallengeResponse(purchaseError) then
 			return function()
@@ -206,14 +209,16 @@ function ProductPurchaseContainer:init()
 			and self.props.requestType == RequestType.AvatarCreationFee
 			and self.props.promptState == PromptState.PromptPurchase
 		then
-			PublishAssetAnalytics.sendButtonClicked(PublishAssetAnalytics.Section.BuyItemModal, PublishAssetAnalytics.Element.Buy)
+			PublishAssetAnalytics.sendButtonClicked(
+				PublishAssetAnalytics.Section.BuyItemModal,
+				PublishAssetAnalytics.Element.Buy
+			)
 		end
-		local confirmButtonAction = self.getConfirmButtonAction(self.props.promptState,
-			self.props.requestType, self.props.purchaseError)
+		local confirmButtonAction =
+			self.getConfirmButtonAction(self.props.promptState, self.props.requestType, self.props.purchaseError)
 		if confirmButtonAction ~= nil and self.canConfirmInput() then
 			confirmButtonAction()
 		end
-
 	end
 
 	self.cancelButtonPressed = function()
@@ -222,7 +227,10 @@ function ProductPurchaseContainer:init()
 			and self.props.requestType == RequestType.AvatarCreationFee
 			and self.props.promptState == PromptState.PromptPurchase
 		then
-			PublishAssetAnalytics.sendButtonClicked(PublishAssetAnalytics.Section.BuyItemModal, PublishAssetAnalytics.Element.Cancel)
+			PublishAssetAnalytics.sendButtonClicked(
+				PublishAssetAnalytics.Section.BuyItemModal,
+				PublishAssetAnalytics.Element.Cancel
+			)
 		end
 		local cancelButtonAction = self.getCancelButtonAction(self.props.promptState, self.props.requestType)
 		if cancelButtonAction ~= nil then
@@ -230,24 +238,19 @@ function ProductPurchaseContainer:init()
 		end
 	end
 
-
 	-- Setup on prop change + init, handles both cases where this modal can persist forever or not
 	self.configContextActionService = function(windowState)
 		if windowState == WindowState.Shown then
-			ContextActionService:BindCoreAction(
-				CONFIRM_BUTTON_BIND,
-				function(actionName, inputState, inputObj)
-					if inputState == Enum.UserInputState.Begin then
-						self.confirmButtonPressed()
-					end
-				end, false, Enum.KeyCode.ButtonA)
-			ContextActionService:BindCoreAction(
-				CANCEL_BUTTON_BIND,
-				function(actionName, inputState, inputObj)
-					if inputState == Enum.UserInputState.Begin then
-						self.cancelButtonPressed()
-					end
-				end, false, Enum.KeyCode.ButtonB)
+			ContextActionService:BindCoreAction(CONFIRM_BUTTON_BIND, function(actionName, inputState, inputObj)
+				if inputState == Enum.UserInputState.Begin then
+					self.confirmButtonPressed()
+				end
+			end, false, Enum.KeyCode.ButtonA)
+			ContextActionService:BindCoreAction(CANCEL_BUTTON_BIND, function(actionName, inputState, inputObj)
+				if inputState == Enum.UserInputState.Begin then
+					self.cancelButtonPressed()
+				end
+			end, false, Enum.KeyCode.ButtonB)
 		else
 			ContextActionService:UnbindCoreAction(CONFIRM_BUTTON_BIND)
 			ContextActionService:UnbindCoreAction(CANCEL_BUTTON_BIND)
@@ -260,7 +263,6 @@ function ProductPurchaseContainer:init()
 		end
 		return VPCModalType.toRawValue(VPCModalType.None)
 	end
-
 end
 
 function ProductPurchaseContainer:didMount()
@@ -278,9 +280,9 @@ function ProductPurchaseContainer:didMount()
 end
 
 function ProductPurchaseContainer:willUpdate(nextProps)
-    if self.props.expectedPrice ~= nextProps.expectedPrice then
-        self:setState({})
-    end
+	if self.props.expectedPrice ~= nextProps.expectedPrice then
+		self:setState({})
+	end
 end
 
 function ProductPurchaseContainer:didUpdate(prevProps, prevState)
@@ -325,32 +327,32 @@ function ProductPurchaseContainer:getMessageKeysFromPromptState()
 				key = PURCHASE_MESSAGE_KEY:format("Succeeded"),
 				params = {
 					ITEM_NAME = productInfo.name,
-				}
+				},
 			},
 			okText = { key = OK_LOCALE_KEY },
 			titleText = { key = BUY_ITEM_LOCALE_KEY },
 		}
 	elseif promptState == PromptState.U13PaymentModal then
 		return {
-			messageText = { key = "CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne", },
+			messageText = { key = "CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalOne" },
 			okText = { key = OK_LOCALE_KEY },
 			titleText = { key = BUY_ITEM_LOCALE_KEY },
 		}
 	elseif promptState == PromptState.U13MonthlyThreshold1Modal then
 		return {
-			messageText = { key = "CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalTwo", },
+			messageText = { key = "CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalTwo" },
 			okText = { key = OK_LOCALE_KEY },
 			titleText = { key = BUY_ITEM_LOCALE_KEY },
 		}
 	elseif promptState == PromptState.U13MonthlyThreshold2Modal then
 		return {
-			messageText = { key = "CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalParental", },
+			messageText = { key = "CoreScripts.PurchasePrompt.PurchaseDetails.ScaryModalParental" },
 			okText = { key = OK_LOCALE_KEY },
 			titleText = { key = BUY_ITEM_LOCALE_KEY },
 		}
 	elseif promptState == PromptState.ParentalConsentWarningPaymentModal13To17 then
 		return {
-			messageText = { key = "CoreScripts.PurchasePrompt.PurchaseDetails.ParentalConsent", },
+			messageText = { key = "CoreScripts.PurchasePrompt.PurchaseDetails.ParentalConsent" },
 			okText = { key = OK_LOCALE_KEY },
 			titleText = { key = BUY_ITEM_LOCALE_KEY },
 		}
@@ -360,28 +362,27 @@ function ProductPurchaseContainer:getMessageKeysFromPromptState()
 				messageText = {
 					key = LocalizationService.getErrorKey(purchaseError),
 					params = {
-						ITEM_NAME = productInfo.name
-					}
+						ITEM_NAME = productInfo.name,
+					},
 				},
 				okText = { key = OK_LOCALE_KEY },
 				titleText = { key = ERROR_LOCALE_KEY },
 			}
-		elseif (purchaseError == PurchaseError.TwoFactorNeededSettings or isGenericChallengeResponse(purchaseError)) then
-
+		elseif purchaseError == PurchaseError.TwoFactorNeededSettings or isGenericChallengeResponse(purchaseError) then
 			local messageKey = "CoreScripts.PurchasePrompt.PurchaseFailed.Enable2SV"
 			if FFlagPPTwoFactorLogOutMessage then
 				messageKey = "CoreScripts.PurchasePrompt.PurchaseFailed.Enable2SVLogout"
 			end
 
 			return {
-				messageText = { key = messageKey, },
+				messageText = { key = messageKey },
 				okText = { key = SETTINGS_LOCALE_KEY },
 				cancelText = { key = CANCEL_LOCALE_KEY },
 				titleText = { key = "CoreScripts.PurchasePrompt.Title.VerificationRequired" },
 			}
 		else
 			return {
-				messageText = { key = LocalizationService.getErrorKey(purchaseError), },
+				messageText = { key = LocalizationService.getErrorKey(purchaseError) },
 				okText = { key = OK_LOCALE_KEY },
 				titleText = { key = ERROR_LOCALE_KEY },
 			}
@@ -410,8 +411,7 @@ function ProductPurchaseContainer:render()
 			instances for it around, so we don't render them
 		]]
 		prompt = nil
-	elseif promptState == PromptState.PromptPurchase
-			or promptState == PromptState.PurchaseInProgress then
+	elseif promptState == PromptState.PromptPurchase or promptState == PromptState.PurchaseInProgress then
 		prompt = Roact.createElement(ProductPurchase, {
 			screenSize = self.state.screenSize,
 
@@ -434,8 +434,7 @@ function ProductPurchaseContainer:render()
 
 			isLuobu = self.state.isLuobu,
 		})
-	elseif promptState == PromptState.RobuxUpsell
-			or promptState == PromptState.UpsellInProgress then
+	elseif promptState == PromptState.RobuxUpsell or promptState == PromptState.UpsellInProgress then
 		prompt = Roact.createElement(ProductPurchaseRobuxUpsell, {
 			screenSize = self.state.screenSize,
 
@@ -457,15 +456,15 @@ function ProductPurchaseContainer:render()
 			cancelPurchaseActivated = self.cancelButtonPressed,
 
 			isLuobu = self.state.isLuobu,
-			isVng = GetFFlagOpenVngTosForVngRobuxUpsell() and getAppFeaturePolicies().getShowVNGTosForRobuxUpsell()
+			isVng = GetFFlagOpenVngTosForVngRobuxUpsell() and getAppFeaturePolicies().getShowVNGTosForRobuxUpsell(),
 		})
 	elseif promptState == PromptState.LeaveRobloxWarning then
 		prompt = Roact.createElement(LeaveRobloxAlert, {
-				screenSize = self.state.screenSize,
+			screenSize = self.state.screenSize,
 
-				cancelActivated = self.cancelButtonPressed,
-				continueActivated = self.confirmButtonPressed,
-			})
+			cancelActivated = self.cancelButtonPressed,
+			continueActivated = self.confirmButtonPressed,
+		})
 	elseif
 		FFlagPublishAvatarPromptEnabled
 		and promptState == PromptState.PurchaseComplete
@@ -488,9 +487,10 @@ function ProductPurchaseContainer:render()
 			screenSize = self.state.screenSize,
 			title = RobloxTranslator:FormatByKey(PURCHASE_COMPLETE_HEADER_KEY),
 		})
-	elseif (promptState == PromptState.Error
-			and purchaseError == PurchaseError.TwoFactorNeededSettings) or
-			isGenericChallengeResponse(purchaseError) then
+	elseif
+		(promptState == PromptState.Error and purchaseError == PurchaseError.TwoFactorNeededSettings)
+		or isGenericChallengeResponse(purchaseError)
+	then
 		prompt = Roact.createElement(MultiTextLocalizer, {
 			locKeys = self:getMessageKeysFromPromptState(),
 			render = function(localeMap)
@@ -519,7 +519,7 @@ function ProductPurchaseContainer:render()
 					title = localeMap.titleText,
 					titleIcon = Images[ERROR_ICON],
 				})
-			end
+			end,
 		})
 	elseif
 		GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow()
@@ -560,7 +560,7 @@ function ProductPurchaseContainer:render()
 					screenSize = self.state.screenSize,
 					title = localeMap.titleText,
 				})
-			end
+			end,
 		})
 	end
 
@@ -581,7 +581,7 @@ function ProductPurchaseContainer:render()
 				end
 				self:setState({
 					isAnimating = false,
-					doneAnimatingTime = os.clock()
+					doneAnimatingTime = os.clock(),
 				})
 			end,
 			onHidden = function()
@@ -684,11 +684,9 @@ ProductPurchaseContainer = PurchasePromptPolicy.connect(function(appPolicy, prop
 		enablePurchaseWarningChecks = appPolicy.enablePurchaseWarningChecks(),
 	}
 end)(ProductPurchaseContainer)
-]]--
+]]
+--
 
-ProductPurchaseContainer = connectToStore(
-	mapStateToProps,
-	mapDispatchToProps
-)(ProductPurchaseContainer)
+ProductPurchaseContainer = connectToStore(mapStateToProps, mapDispatchToProps)(ProductPurchaseContainer)
 
 return ProductPurchaseContainer

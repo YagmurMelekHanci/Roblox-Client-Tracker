@@ -12,12 +12,13 @@ PROTO_0:
   GETTABLEKS R6 R7 K3 ["telemetry"]
   MOVE R8 R0
   LOADNIL R9
-  DUPTABLE R10 K8 [{"userId", "studioSid", "clientId", "dialogEvent"}]
+  DUPTABLE R10 K9 [{"userId", "studioSid", "clientId", "interventionType", "dialogEvent"}]
   SETTABLEKS R5 R10 K4 ["userId"]
   SETTABLEKS R3 R10 K5 ["studioSid"]
   SETTABLEKS R4 R10 K6 ["clientId"]
-  SETTABLEKS R2 R10 K7 ["dialogEvent"]
-  NAMECALL R6 R6 K9 ["logRobloxTelemetryEvent"]
+  SETTABLEKS R1 R10 K7 ["interventionType"]
+  SETTABLEKS R2 R10 K8 ["dialogEvent"]
+  NAMECALL R6 R6 K10 ["logRobloxTelemetryEvent"]
   CALL R6 4 0
   RETURN R0 0
 
@@ -69,45 +70,47 @@ PROTO_3:
   LOADB R1 1
   JUMP [+1]
   LOADB R1 0
+  JUMPIFNOT R1 [+14]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["state"]
+  GETTABLEKS R2 R3 K2 ["showDialog"]
+  JUMPIF R2 [+8]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["log"]
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K4 ["PunishmentType"]
+  LOADK R5 K5 ["ShowDialog"]
+  CALL R2 3 0
   GETUPVAL R2 0
-  DUPTABLE R4 K7 [{"showDialog", "messageToUser", "reason", "reviewDateTime", "type", "bannedDateTime"}]
-  SETTABLEKS R1 R4 K1 ["showDialog"]
-  GETTABLEKS R5 R0 K8 ["MessageToUser"]
-  SETTABLEKS R5 R4 K2 ["messageToUser"]
-  GETTABLEKS R6 R0 K9 ["BadUtterances"]
+  DUPTABLE R4 K11 [{"showDialog", "messageToUser", "reason", "reviewDateTime", "type", "bannedDateTime"}]
+  SETTABLEKS R1 R4 K2 ["showDialog"]
+  GETTABLEKS R5 R0 K12 ["MessageToUser"]
+  SETTABLEKS R5 R4 K6 ["messageToUser"]
+  GETTABLEKS R6 R0 K13 ["BadUtterances"]
   JUMPIFEQKNIL R6 [+22]
-  GETTABLEKS R7 R0 K9 ["BadUtterances"]
+  GETTABLEKS R7 R0 K13 ["BadUtterances"]
   GETTABLEN R6 R7 1
   JUMPIFEQKNIL R6 [+17]
-  DUPTABLE R5 K12 [{"abuseType", "utteranceText"}]
-  GETTABLEKS R8 R0 K9 ["BadUtterances"]
+  DUPTABLE R5 K16 [{"abuseType", "utteranceText"}]
+  GETTABLEKS R8 R0 K13 ["BadUtterances"]
   GETTABLEN R7 R8 1
-  GETTABLEKS R6 R7 K13 ["AbuseType"]
-  SETTABLEKS R6 R5 K10 ["abuseType"]
-  GETTABLEKS R8 R0 K9 ["BadUtterances"]
+  GETTABLEKS R6 R7 K17 ["AbuseType"]
+  SETTABLEKS R6 R5 K14 ["abuseType"]
+  GETTABLEKS R8 R0 K13 ["BadUtterances"]
   GETTABLEN R7 R8 1
-  GETTABLEKS R6 R7 K14 ["UtteranceText"]
-  SETTABLEKS R6 R5 K11 ["utteranceText"]
+  GETTABLEKS R6 R7 K18 ["UtteranceText"]
+  SETTABLEKS R6 R5 K15 ["utteranceText"]
   JUMP [+1]
   LOADNIL R5
-  SETTABLEKS R5 R4 K3 ["reason"]
-  GETTABLEKS R5 R0 K15 ["BeginDate"]
-  SETTABLEKS R5 R4 K4 ["reviewDateTime"]
-  GETTABLEKS R5 R0 K16 ["PunishmentType"]
-  SETTABLEKS R5 R4 K5 ["type"]
-  GETTABLEKS R5 R0 K17 ["EndDate"]
-  SETTABLEKS R5 R4 K6 ["bannedDateTime"]
-  NAMECALL R2 R2 K18 ["setState"]
+  SETTABLEKS R5 R4 K7 ["reason"]
+  GETTABLEKS R5 R0 K19 ["BeginDate"]
+  SETTABLEKS R5 R4 K8 ["reviewDateTime"]
+  GETTABLEKS R5 R0 K4 ["PunishmentType"]
+  SETTABLEKS R5 R4 K9 ["type"]
+  GETTABLEKS R5 R0 K20 ["EndDate"]
+  SETTABLEKS R5 R4 K10 ["bannedDateTime"]
+  NAMECALL R2 R2 K21 ["setState"]
   CALL R2 2 0
-  JUMPIFNOT R1 [+11]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K19 ["log"]
-  GETUPVAL R3 1
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K20 ["state"]
-  GETTABLEKS R4 R5 K5 ["type"]
-  LOADK R5 K21 ["ShowDialog"]
-  CALL R2 3 0
   RETURN R0 0
 
 PROTO_4:

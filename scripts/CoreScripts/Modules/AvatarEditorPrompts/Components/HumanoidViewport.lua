@@ -3,10 +3,10 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
-local Promise = require(CorePackages.Promise)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local Promise = require(CorePackages.Packages.Promise)
 
 local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
@@ -179,7 +179,7 @@ function HumanoidViewport:loadHumanoidModel()
 			-- we want to just timeout and display the avatar before it has finished compositing.
 			Promise.race({
 				Promise.fromEvent(model.Humanoid.ClusterCompositionFinished),
-				Promise.delay(CLUSTER_COMPOSITION_TIMEOUT_MS * 0.001)
+				Promise.delay(CLUSTER_COMPOSITION_TIMEOUT_MS * 0.001),
 			}):await()
 		end
 
@@ -269,11 +269,12 @@ function HumanoidViewport:didUpdate(prevProps)
 	local descriptionUpdated = self.props.humanoidDescription ~= prevProps.humanoidDescription
 	local rigTypeUpdated = self.props.rigType ~= prevProps.rigType
 	-- Make sure the HumanoidViewport has a rigType and description before trying to load the model.
-	local shouldLoadHumanoidModel = self.props.rigType ~= nil and
-		self.props.humanoidDescription ~= nil and (descriptionUpdated or rigTypeUpdated)
+	local shouldLoadHumanoidModel = self.props.rigType ~= nil
+		and self.props.humanoidDescription ~= nil
+		and (descriptionUpdated or rigTypeUpdated)
 	if shouldLoadHumanoidModel then
 		self:setState({
-			loading = true
+			loading = true,
 		})
 
 		if self.props.humanoidDescription ~= nil then

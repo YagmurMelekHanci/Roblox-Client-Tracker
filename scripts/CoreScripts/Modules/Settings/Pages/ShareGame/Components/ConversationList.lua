@@ -11,8 +11,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame

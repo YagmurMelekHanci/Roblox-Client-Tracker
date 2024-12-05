@@ -1,27 +1,29 @@
 --!strict
 local CorePackages = game:GetService("CorePackages")
 local ModelUtils = require(script.Parent.Parent.Utils.ModelUtils)
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local UserInputService = game:GetService("UserInputService")
+local FaceAnimatorService = game:FindService("FaceAnimatorService")
 
-local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
-local CFrameUtility = require(CorePackages.Thumbnailing).CFrameUtility
+local CharacterUtility = require(CorePackages.Packages.Thumbnailing).CharacterUtility
+local CFrameUtility = require(CorePackages.Packages.Thumbnailing).CFrameUtility
 
 local EngineFeatureAnimatorAndADFRefactor = game:GetEngineFeature("AnimatorAndADFRefactor")
+local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerViewRemoteEventSupport")
 
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
 
 local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 local FFlagDebugSelfViewPerfBenchmark = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false)
-local GetFFlagSelfieViewMoreFixMigration = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewMoreFixMigration)
+local GetFFlagSelfieViewMoreFixMigration =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewMoreFixMigration
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
 local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
-local GetFFlagSelfieViewV4 = require(RobloxGui.Modules.Flags.GetFFlagSelfieViewV4)
 local FFlagFixSelfieViewErrorLoop = game:DefineFastFlag("FixSelfieViewErrorLoop", false)
+local GetFFlagSelfieViewGyroMigration = require(SelfieViewModule.Flags.GetFFlagSelfieViewGyroMigration)
 
 local RunService = game:GetService("RunService")
 
@@ -773,7 +775,7 @@ function startRenderStepped(player: Player)
 		--but it did not fire reliably in a more involved test place, so as fallback for now we also check manually for changes..
 
 		if GetFFlagSelfViewVisibilityFix() then
-			if clone and (not GetFFlagSelfieViewV4() or outerContainerFrame) and not isFrameVisible then
+			if clone and outerContainerFrame and not isFrameVisible then
 				if cloneAnimator ~= nil then
 					-- stop any playing animation
 					local playingAnimations = cloneAnimator:GetPlayingAnimationTracks()
@@ -878,6 +880,29 @@ function startRenderStepped(player: Player)
 				end
 			end
 
+			local camOrientationWeight
+			local trackerData
+			if GetFFlagSelfieViewGyroMigration() then
+				camOrientationWeight = 0.5
+				-- When a device has accelerometer, we make self view orientation a hybrid of:
+				-- 1. Face rotation
+				-- 2. Camera orientation
+
+				local platformEnum = UserInputService:GetPlatform()
+				if platformEnum == Enum.Platform.IOS or platformEnum == Enum.Platform.Android then
+					if cloneAnimator ~= nil then
+						local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
+						for i, trackS in pairs(playingAnims) do
+							if trackS.Animation:IsA("TrackerStreamAnimation") then
+								-- poll tracker data
+								local _
+								_, trackerData, _ = trackS:GetTrackerData()
+							end
+						end
+					end
+				end
+			end
+
 			--Self View viewportframe camera updating to focus the avatar nicely during anims
 			cloneCamUpdateCounter = cloneCamUpdateCounter + 1
 			if cloneCamUpdateCounter == cloneCamUpdatePosEvery then
@@ -941,9 +966,76 @@ function startRenderStepped(player: Player)
 						warn("boundsSize is nil, this shouldn't be possible")
 					end
 					assert(boundsSize ~= nil)
-					local offset = Vector3.new(0, (headHeight * 0.25), -(boundsSize.Z + 1))
-					viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
-					viewportCamera.Focus = headClone.CFrame
+
+					if GetFFlagSelfieViewGyroMigration() then
+						--if webcam is on (FaceAnimatorService.VideoAnimationEnabled) we use the Iris style self view cam framing
+						if
+							FaceAnimatorService
+							and FaceAnimatorService.VideoAnimationEnabled
+							and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport)
+						then
+							if EngineFeaturePlayerViewRemoteEventSupport then
+								local cframe = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView()
+								local boundingBox = cframe.Position
+								local x, y, z = cframe:ToEulerAnglesYXZ()
+								local rotation = CFrame.fromEulerAnglesYXZ(x, y, z)
+								local distanceRatio = 0
+
+								if boundingBox.Z > 0.0 then
+									distanceRatio = math.clamp(0.5 - (boundingBox.Z * 3), -0.5, 0.5)
+								end
+
+								local distance = -(boundsSize.Z + 1)
+								-- Round to 2 decimal points
+								local offset = Vector3.new(
+									0,
+									0.105,
+									math.floor((distance + (distanceRatio * distance)) * 100) / 100
+								)
+
+								viewportCamera.CFrame = viewportCamera.CFrame:Lerp(
+									CFrame.lookAt(rotation * (center + offset), centerLowXimpact),
+									0.5
+								)
+							elseif trackerData then
+								local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
+								local x, y, z = trackerData:ToEulerAnglesXYZ()
+								-- Cam orientation will be an inverse of the head rotation
+								local angle = CFrame.Angles(
+									-x * camOrientationWeight,
+									-y * camOrientationWeight,
+									-z * camOrientationWeight
+								)
+								viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
+							end
+						else
+							--self view cam framing for when webcam off (no camera tracked framing info coming in)
+							local offset = Vector3.new(0, (headHeight * 0.25) - 1.25, -(boundsSize.Z + 1) + 0.125)
+							--for supporting new movement setup we do the calc using game world avatar head
+							if character then
+								local headGameWorld = character:FindFirstChild("Head") :: BasePart
+								if headGameWorld then
+									local hrpGameWorld = character:FindFirstChild("HumanoidRootPart") :: BasePart
+									if hrpGameWorld then
+										local calc = hrpGameWorld.CFrame:Inverse() * headGameWorld.CFrame
+
+										local targetPos = Vector3.new(
+											(calc.Position.X * 0.15) + 0.125,
+											calc.Position.Y,
+											calc.Position.Z * 0.05
+										)
+										viewportCamera.CFrame =
+											CFrame.lookAt(center + offset + targetPos, centerLowXimpact)
+										viewportCamera.Focus = headClone.CFrame
+									end
+								end
+							end
+						end
+					else
+						local offset = Vector3.new(0, (headHeight * 0.25), -(boundsSize.Z + 1))
+						viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
+						viewportCamera.Focus = headClone.CFrame
+					end
 				end
 			end
 

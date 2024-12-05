@@ -60,7 +60,7 @@ PROTO_4:
 PROTO_5:
   JUMPIFNOT R0 [+4]
   GETUPVAL R3 0
-  LOADK R4 K0 ["Test fetchAssetsLegacyAsync error"]
+  LOADK R4 K0 ["Test fetchAssetsAsync error"]
   CALL R3 1 0
   RETURN R0 0
   LOADNIL R3
@@ -113,13 +113,13 @@ PROTO_6:
   CAPTURE UPVAL U2
   CAPTURE VAL R0
   CAPTURE VAL R1
-  SETTABLEKS R4 R3 K1 ["FetchAssetsLegacy"]
+  SETTABLEKS R4 R3 K1 ["FetchAssets"]
   RETURN R0 0
 
 PROTO_7:
   JUMPIFNOT R0 [+4]
   GETUPVAL R2 0
-  LOADK R3 K0 ["Test fetchSearchAssetsLegacyAsync error"]
+  LOADK R3 K0 ["Test searchAssetsAsync error"]
   CALL R2 1 0
   RETURN R0 0
   GETUPVAL R3 1
@@ -163,7 +163,7 @@ PROTO_8:
   CAPTURE UPVAL U2
   CAPTURE VAL R0
   CAPTURE VAL R1
-  SETTABLEKS R4 R3 K1 ["FetchSearchAssetsLegacy"]
+  SETTABLEKS R4 R3 K1 ["SearchAssets"]
   RETURN R0 0
 
 PROTO_9:
@@ -254,12 +254,12 @@ MAIN:
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETTABLEKS R6 R5 K22 ["fetchAssetsLegacyAsync"]
+  SETTABLEKS R6 R5 K22 ["fetchAssetsAsync"]
   DUPCLOSURE R6 K23 [PROTO_8]
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETTABLEKS R6 R5 K24 ["fetchSearchAssetsLegacyAsync"]
+  SETTABLEKS R6 R5 K24 ["searchAssetsAsync"]
   DUPCLOSURE R6 K25 [PROTO_9]
   SETTABLEKS R6 R5 K26 ["grantUniverseUseAssetsPermissions"]
   DUPCLOSURE R6 K27 [PROTO_10]

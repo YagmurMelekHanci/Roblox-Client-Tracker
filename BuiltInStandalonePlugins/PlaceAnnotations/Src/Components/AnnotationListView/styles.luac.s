@@ -197,43 +197,58 @@ MAIN:
   SETLIST R12 R13 -1 [1]
   CALL R9 3 1
   MOVE R10 R3
-  LOADK R11 K77 [">> #AnnotationScrollingFrame"]
-  DUPTABLE R12 K78 [{"BackgroundTransparency"}]
+  LOADK R11 K77 ["> #AnnotationList"]
+  DUPTABLE R12 K78 [{"BackgroundTransparency", "Size"}]
   LOADN R13 1
   SETTABLEKS R13 R12 K27 ["BackgroundTransparency"]
-  NEWTABLE R13 0 2
+  GETIMPORT R13 K30 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 1
+  LOADN R17 216
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K25 ["Size"]
+  NEWTABLE R13 0 1
   MOVE R14 R3
-  LOADK R15 K79 ["> #BottomPadding"]
-  DUPTABLE R16 K80 [{"BackgroundTransparency", "Size"}]
+  LOADK R15 K79 [">> #AnnotationScrollingFrame"]
+  DUPTABLE R16 K80 [{"BackgroundTransparency"}]
   LOADN R17 1
   SETTABLEKS R17 R16 K27 ["BackgroundTransparency"]
-  GETIMPORT R17 K30 [UDim2.new]
-  LOADN R18 1
-  LOADN R19 0
-  LOADN R20 0
-  LOADN R21 10
-  CALL R17 4 1
-  SETTABLEKS R17 R16 K25 ["Size"]
-  CALL R14 2 1
-  MOVE R15 R3
-  LOADK R16 K34 ["::UIPadding"]
-  DUPTABLE R17 K81 [{"PaddingLeft", "PaddingRight"}]
-  GETIMPORT R18 K41 [UDim.new]
-  LOADN R19 0
-  LOADN R20 16
+  NEWTABLE R17 0 2
+  MOVE R18 R3
+  LOADK R19 K81 ["> #BottomPadding"]
+  DUPTABLE R20 K78 [{"BackgroundTransparency", "Size"}]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K27 ["BackgroundTransparency"]
+  GETIMPORT R21 K30 [UDim2.new]
+  LOADN R22 1
+  LOADN R23 0
+  LOADN R24 0
+  LOADN R25 10
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K25 ["Size"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K36 ["PaddingLeft"]
-  GETIMPORT R18 K41 [UDim.new]
-  LOADN R19 0
-  LOADN R20 16
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K37 ["PaddingRight"]
-  CALL R15 2 -1
+  MOVE R19 R3
+  LOADK R20 K34 ["::UIPadding"]
+  DUPTABLE R21 K82 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R22 K41 [UDim.new]
+  LOADN R23 0
+  LOADN R24 16
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K36 ["PaddingLeft"]
+  GETIMPORT R22 K41 [UDim.new]
+  LOADN R23 0
+  LOADN R24 16
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K37 ["PaddingRight"]
+  CALL R19 2 -1
+  SETLIST R17 R18 -1 [1]
+  CALL R14 3 -1
   SETLIST R13 R14 -1 [1]
   CALL R10 3 1
   MOVE R11 R3
-  LOADK R12 K82 [">> #EmptyState"]
-  DUPTABLE R13 K83 [{"Size"}]
+  LOADK R12 K83 [">> #EmptyState"]
+  DUPTABLE R13 K84 [{"Size"}]
   GETIMPORT R14 K30 [UDim2.new]
   LOADN R15 1
   LOADN R16 0
@@ -243,8 +258,8 @@ MAIN:
   SETTABLEKS R14 R13 K25 ["Size"]
   NEWTABLE R14 0 5
   MOVE R15 R3
-  LOADK R16 K84 [".HeaderOffset"]
-  DUPTABLE R17 K83 [{"Size"}]
+  LOADK R16 K85 [".HeaderOffset"]
+  DUPTABLE R17 K84 [{"Size"}]
   GETIMPORT R18 K30 [UDim2.new]
   LOADN R19 1
   LOADN R20 0
@@ -254,12 +269,12 @@ MAIN:
   SETTABLEKS R18 R17 K25 ["Size"]
   CALL R15 2 1
   MOVE R16 R3
-  LOADK R17 K85 ["> #AnnotationIcon"]
-  DUPTABLE R18 K88 [{"Image", "ImageTransparency", "Size"}]
-  LOADK R19 K89 ["$AnnotationLarge"]
-  SETTABLEKS R19 R18 K86 ["Image"]
-  LOADK R19 K90 [0.4]
-  SETTABLEKS R19 R18 K87 ["ImageTransparency"]
+  LOADK R17 K86 ["> #AnnotationIcon"]
+  DUPTABLE R18 K89 [{"Image", "ImageTransparency", "Size"}]
+  LOADK R19 K90 ["$AnnotationLarge"]
+  SETTABLEKS R19 R18 K87 ["Image"]
+  LOADK R19 K91 [0.4]
+  SETTABLEKS R19 R18 K88 ["ImageTransparency"]
   GETIMPORT R19 K67 [UDim2.fromOffset]
   LOADN R20 40
   LOADN R21 40
@@ -267,20 +282,20 @@ MAIN:
   SETTABLEKS R19 R18 K25 ["Size"]
   CALL R16 2 1
   MOVE R17 R3
-  LOADK R18 K91 ["> #NoCommentsYet"]
-  DUPTABLE R19 K92 [{"Font"}]
+  LOADK R18 K92 ["> #NoCommentsYet"]
+  DUPTABLE R19 K93 [{"Font"}]
   LOADK R20 K49 ["$FontBold"]
   SETTABLEKS R20 R19 K45 ["Font"]
   CALL R17 2 1
   MOVE R18 R3
-  LOADK R19 K93 ["> #ToBegin"]
-  DUPTABLE R20 K96 [{"TextTransparency", "TextSize", "TextWrapped", "AutomaticSize", "Size"}]
-  LOADK R21 K90 [0.4]
-  SETTABLEKS R21 R20 K94 ["TextTransparency"]
-  LOADK R21 K97 ["$FontSizeS"]
+  LOADK R19 K94 ["> #ToBegin"]
+  DUPTABLE R20 K97 [{"TextTransparency", "TextSize", "TextWrapped", "AutomaticSize", "Size"}]
+  LOADK R21 K91 [0.4]
+  SETTABLEKS R21 R20 K95 ["TextTransparency"]
+  LOADK R21 K98 ["$FontSizeS"]
   SETTABLEKS R21 R20 K44 ["TextSize"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K95 ["TextWrapped"]
+  SETTABLEKS R21 R20 K96 ["TextWrapped"]
   GETIMPORT R21 K33 [Enum.AutomaticSize.Y]
   SETTABLEKS R21 R20 K26 ["AutomaticSize"]
   GETIMPORT R21 K30 [UDim2.new]
@@ -293,7 +308,7 @@ MAIN:
   NEWTABLE R21 0 1
   MOVE R22 R3
   LOADK R23 K34 ["::UIPadding"]
-  DUPTABLE R24 K98 [{"PaddingBottom"}]
+  DUPTABLE R24 K99 [{"PaddingBottom"}]
   GETIMPORT R25 K41 [UDim.new]
   LOADN R26 0
   LOADN R27 10

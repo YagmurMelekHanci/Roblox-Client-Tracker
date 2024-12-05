@@ -2,7 +2,7 @@ local Root = script.Parent.Parent.Parent
 local GuiService = game:GetService("GuiService")
 
 local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 local React = require(CorePackages.Packages.React)
 local ToastRodux = require(CorePackages.Workspace.Packages.ToastRodux)
@@ -179,9 +179,9 @@ end, function(dispatch)
 		end,
 		setCurrentToastMessage = if GetFFlagEnableSubscriptionPurchaseToast()
 			then function(toastMessage)
-				dispatch(SetCurrentToastMessage(toastMessage)) 
+				dispatch(SetCurrentToastMessage(toastMessage))
 			end
-			else nil
+			else nil,
 	}
 end)(SubscriptionPurchaseContainer)
 

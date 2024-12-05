@@ -16,10 +16,10 @@ if not LocalPlayer then
 	LocalPlayer = Players.LocalPlayer
 end
 
-local Roact = require(CorePackages.Roact)
-local Rodux = require(CorePackages.Rodux)
-local RoactRodux = require(CorePackages.RoactRodux)
-local UIBlox = require(CorePackages.UIBlox)
+local Roact = require(CorePackages.Packages.Roact)
+local Rodux = require(CorePackages.Packages.Rodux)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local EmotesModules = script.Parent
 local CoreScriptModules = EmotesModules.Parent
@@ -35,7 +35,8 @@ local Chat = require(CoreScriptModules.ChatSelector)
 local TenFootInterface = require(CoreScriptModules.TenFootInterface)
 local TopBarConstant = require(CoreScriptModules.TopBar.Constants)
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
-local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
+local getFFlagAppChatCoreUIConflictFix =
+	require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 
 local StyleConstants = UIBlox.App.Style.Constants
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
@@ -60,9 +61,7 @@ local EmotesMenuMaster = {}
 EmotesMenuMaster.__index = EmotesMenuMaster
 
 local function isClient()
-	return RunService:IsClient() and
-		not RunService:IsEdit() and
-		not RunService:IsRunMode()
+	return RunService:IsClient() and not RunService:IsEdit() and not RunService:IsRunMode()
 end
 
 function EmotesMenuMaster:isOpen()
@@ -308,7 +307,7 @@ end
 function EmotesMenuMaster:_mount()
 	local appStyleForUiModeStyleProvider = {
 		themeName = StyleConstants.ThemeName.Dark,
-		fontName = StyleConstants.FontName.Gotham
+		fontName = StyleConstants.FontName.Gotham,
 	}
 
 	if not self.instance then
@@ -316,10 +315,10 @@ function EmotesMenuMaster:_mount()
 			store = self.store,
 		}, {
 			StyleProvider = Roact.createElement(UiModeStyleProvider, {
-				style = appStyleForUiModeStyleProvider
+				style = appStyleForUiModeStyleProvider,
 			}, {
-				EmotesMenu = Roact.createElement(EmotesMenu)
-			})
+				EmotesMenu = Roact.createElement(EmotesMenu),
+			}),
 		})
 
 		self.instance = Roact.mount(app, RobloxGui, "EmotesMenu")

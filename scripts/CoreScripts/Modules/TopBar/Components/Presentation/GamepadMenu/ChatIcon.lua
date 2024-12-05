@@ -1,9 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
-local RoactRodux = require(CorePackages.RoactRodux)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
@@ -43,7 +43,7 @@ function ChatIcon:render()
 
 				hasShadow = false,
 				value = self.props.unreadMessages,
-			})
+			}),
 		})
 	end)
 end

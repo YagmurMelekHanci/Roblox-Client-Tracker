@@ -6,7 +6,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -14,7 +14,7 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Focusable = RoactGamepad.Focusable
 
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
@@ -33,6 +33,8 @@ local WARNING_TEXT_SIZE = 12
 local NameTextBox = Roact.PureComponent:extend("NameTextBox")
 local FFlagRemoveNameRegex = game:DefineFastFlag("RemoveNameRegex", false)
 local FFlagPublishAvatarPromptEnabled = require(script.Parent.Parent.Parent.FFlagPublishAvatarPromptEnabled)
+local FFlagPromptCreateAvatarDescriptionInvalidFix =
+	require(script.Parent.Parent.Parent.FFlagPromptCreateAvatarDescriptionInvalidFix)
 
 NameTextBox.validateProps = t.strictInterface({
 	Size = t.optional(t.UDim2),
@@ -44,11 +46,13 @@ NameTextBox.validateProps = t.strictInterface({
 	nameTextBoxRef = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	defaultName = t.optional(t.string),
+	invalidInputText = t.optional(t.string),
 })
 
 NameTextBox.defaultProps = {
 	maxLength = DEFAULT_MAX_NAME_LENGTH,
 	centerText = true,
+	invalidInputText = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.InvalidName"),
 }
 
 local function isNameTooLong(str: string, maxLength: number)
@@ -228,7 +232,9 @@ function NameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 			Position = UDim2.new(0, 0, 1, 0),
 
 			BackgroundTransparency = 1,
-			Text = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.InvalidName"),
+			Text = if FFlagPromptCreateAvatarDescriptionInvalidFix
+				then self.props.invalidInputText
+				else RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.InvalidName"),
 			LayoutOrder = 2,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Top,

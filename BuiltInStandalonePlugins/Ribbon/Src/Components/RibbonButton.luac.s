@@ -11,19 +11,14 @@ PROTO_1:
   GETTABLEKS R0 R1 K0 ["current"]
   JUMPIF R0 [+1]
   RETURN R0 0
-  FASTCALL2K ASSERT R0 K1 [+5]
-  MOVE R2 R0
-  LOADK R3 K1 ["roblox-cli analyze w/o --project does not refine after early return"]
-  GETIMPORT R1 K3 [assert]
-  CALL R1 2 0
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K4 ["Uri"]
+  GETTABLEKS R1 R2 K1 ["Uri"]
   JUMPIFNOT R1 [+12]
   GETUPVAL R1 2
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K4 ["Uri"]
+  GETTABLEKS R3 R4 K1 ["Uri"]
   MOVE R4 R0
-  NAMECALL R1 R1 K5 ["register"]
+  NAMECALL R1 R1 K2 ["register"]
   CALL R1 3 0
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U2

@@ -8,12 +8,12 @@ local GuiService = game:GetService("GuiService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local Players = game:GetService("Players")
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
-local Roact = require(CorePackages.Roact)
-local Rodux = require(CorePackages.Rodux)
-local RoactRodux = require(CorePackages.RoactRodux)
-local Symbol = require(CorePackages.Symbol)
+local Roact = require(CorePackages.Packages.Roact)
+local Rodux = require(CorePackages.Packages.Rodux)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 local renderWithCoreScriptsStyleProvider = require(CoreGui.RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
 local InspectAndBuyFolder = script.Parent.Parent

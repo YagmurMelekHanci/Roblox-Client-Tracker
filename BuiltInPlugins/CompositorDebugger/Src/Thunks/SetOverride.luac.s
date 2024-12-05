@@ -98,10 +98,10 @@ PROTO_0:
   NAMECALL R8 R0 K0 ["getState"]
   CALL R8 1 1
   GETTABLEKS R7 R8 K12 ["Status"]
-  GETTABLEKS R6 R7 K13 ["PropertyOverrideEvent"]
+  GETTABLEKS R6 R7 K13 ["PropertyOverridesEvent"]
   JUMPIFNOT R6 [+4]
   MOVE R9 R4
-  NAMECALL R7 R6 K14 ["fire"]
+  NAMECALL R7 R6 K14 ["Fire"]
   CALL R7 2 0
   RETURN R0 0
 

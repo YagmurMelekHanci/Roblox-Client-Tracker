@@ -6,11 +6,11 @@ local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 local TextChatService = game:GetService("TextChatService")
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
-local Cryo = require(CorePackages.Cryo)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local Cryo = require(CorePackages.Packages.Cryo)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
@@ -33,10 +33,7 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
-local ToastRoot = CoreGui:WaitForChild("ToastNotification", 3)
-local ToastGui = if ToastRoot ~= nil then ToastRoot:WaitForChild("ToastNotificationWrapper", 3) else nil
-local Toast = if ToastGui ~= nil then ToastGui:FindFirstChild("Toast", true) else nil
-
+local GameSettings = UserSettings().GameSettings
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
@@ -83,10 +80,21 @@ local GAMEPAD_MENU_KEY = "GamepadMenu"
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
-local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
-local GetFFlagEnableAlwaysOpenUnibar = require(RobloxGui.Modules.Flags.GetFFlagEnableAlwaysOpenUnibar)
 local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
 local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
+local FFlagSaveChatVisibilityUserSettings = game:DefineFastFlag("SaveChatVisibilityUserSettings", false)
+
+local ToastRoot
+local ToastGui
+local Toast
+-- Loading the ToastNotification takes several seconds on Console, ensure this is wrapped in a task/coroutine
+if GetFFlagToastNotificationsGamepadSupport() then
+	task.spawn(function()
+			ToastRoot = CoreGui:WaitForChild("ToastNotification", 3)
+			ToastGui = if ToastRoot ~= nil then ToastRoot:WaitForChild("ToastNotificationWrapper", 3) else nil
+			Toast = if ToastGui ~= nil then ToastGui:FindFirstChild("Toast", true) else nil
+	end)
+end
 
 GamepadMenu.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -288,32 +296,27 @@ end
 
 function GamepadMenu.openUnibarMenu()
 	local ChromeService = require(RobloxGui.Modules.Chrome.ChromeShared.Service)
-
-	if GetFFlagEnableAlwaysOpenUnibar() then
-		ChromeService:enableFocusNav()
-	elseif GetFFlagEnableUnibarSneakPeak() then
-		ChromeService:open()
-	else
-		ChromeService:toggleOpen()
-	end
+	ChromeService:enableFocusNav()
 end
 
 function GamepadMenu.closeUnibarMenu()
 	local ChromeService = require(RobloxGui.Modules.Chrome.ChromeShared.Service)
-	if GetFFlagEnableAlwaysOpenUnibar() then
-		ChromeService:disableFocusNav()
-	else
-		ChromeService:close(true)
-	end
+	ChromeService:disableFocusNav()
 end
 
 function GamepadMenu.toggleChatVisible()
 	ChatModule:ToggleVisibility()
+	if FFlagSaveChatVisibilityUserSettings then
+		GameSettings.ChatVisible = ChatModule:GetVisibility()
+	end
 end
 
 function GamepadMenu.focusChatBar()
 	if GetFFlagReenableTextChatForTenFootInterfaces() then
 		ChatModule:SetVisible(true)
+		if FFlagSaveChatVisibilityUserSettings then
+			GameSettings.ChatVisible = true
+		end
 		ChatModule:FocusChatBar()
 	end
 end
@@ -725,7 +728,7 @@ function GamepadMenu:didUpdate(prevProps, prevState)
 
 			GuiService:SetMenuIsOpen(true, GAMEPAD_MENU_KEY)
 
-			if GetFFlagEnableUnibarSneakPeak() and ChromeEnabled() then
+			if ChromeEnabled() then
 				GamepadMenu.closeUnibarMenu()
 			end
 		else

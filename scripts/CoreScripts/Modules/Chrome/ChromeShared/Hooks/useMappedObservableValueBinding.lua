@@ -1,8 +1,8 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local ChromeUtils = require(Chrome.Service.ChromeUtils)
+local ChromeUtils = require(Root.Service.ChromeUtils)
 
 return function<T, V>(observableValue: ChromeUtils.ObservableValue<T>, mapFunc: ((T) -> V?)?): React.Binding<V?>
 	if not observableValue then

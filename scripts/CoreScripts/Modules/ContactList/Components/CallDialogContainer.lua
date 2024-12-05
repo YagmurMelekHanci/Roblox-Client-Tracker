@@ -3,7 +3,7 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 
 local React = require(CorePackages.Packages.React)
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local Cryo = require(CorePackages.Packages.Cryo)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 

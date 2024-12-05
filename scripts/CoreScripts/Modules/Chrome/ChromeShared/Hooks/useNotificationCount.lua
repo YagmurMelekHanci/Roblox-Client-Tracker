@@ -1,8 +1,8 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local Types = require(Chrome.Service.Types)
+local Types = require(Root.Service.Types)
 
 return function(integration: Types.IntegrationProps?): number
 	if integration and integration.notification then

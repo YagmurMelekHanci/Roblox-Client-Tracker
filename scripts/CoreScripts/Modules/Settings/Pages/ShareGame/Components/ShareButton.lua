@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Theme = require(RobloxGui.Modules.Settings.Theme)

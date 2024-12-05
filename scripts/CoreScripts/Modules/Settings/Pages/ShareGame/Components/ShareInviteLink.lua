@@ -6,8 +6,8 @@ local UserInputService = game:GetService("UserInputService")
 local ExternalContentSharingProtocol =
 	require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default
 
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local dependencies = require(CorePackages.Workspace.Packages.NotificationsCommon).ReducerDependencies

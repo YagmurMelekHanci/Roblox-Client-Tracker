@@ -16,6 +16,7 @@ local GetFFlagFixMicSelection = require(Chrome.Flags.GetFFlagFixMicSelection)
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
 local FFlagEnableChromeAudioFocusManagement = game:DefineFastFlag("EnableChromeAudioFocusManagement", false)
+local FFlagFixTopBarSlowLoad = require(CorePackages.Workspace.Packages.SharedFlags).FFlagFixTopBarSlowLoad
 local EnableChromeAudioFocusManagement = AudioFocusManagementEnabled and FFlagEnableChromeAudioFocusManagement
 
 local ChromeService = require(Chrome.ChromeShared.Service)
@@ -118,26 +119,51 @@ local function updateVoiceState(_, voiceState)
 end
 
 if game:GetEngineFeature("VoiceChatSupported") then
-	VoiceChatServiceManager:asyncInit()
-		:andThen(function()
-			local voiceService = VoiceChatServiceManager:getService()
-			if voiceService then
-				voiceService.StateChanged:Connect(updateVoiceState)
-				VoiceChatServiceManager:SetupParticipantListeners()
-				if EnableChromeAudioFocusManagement then
-					VoiceChatServiceManager.showVoiceUI.Event:Connect(applyVoiceUIVisibility)
-					VoiceChatServiceManager.hideVoiceUI.Event:Connect(applyVoiceUIVisibility)
-					applyVoiceUIVisibility()
-				else
-					if GetFFlagTweakedMicPinning() then
-						muteSelf.availability:pinned()
+	if FFlagFixTopBarSlowLoad then
+		task.spawn(function()
+			VoiceChatServiceManager:asyncInit()
+				:andThen(function()
+					local voiceService = VoiceChatServiceManager:getService()
+					if voiceService then
+						voiceService.StateChanged:Connect(updateVoiceState)
+						VoiceChatServiceManager:SetupParticipantListeners()
+						if EnableChromeAudioFocusManagement then
+							VoiceChatServiceManager.showVoiceUI.Event:Connect(applyVoiceUIVisibility)
+							VoiceChatServiceManager.hideVoiceUI.Event:Connect(applyVoiceUIVisibility)
+							applyVoiceUIVisibility()
+						else
+							if GetFFlagTweakedMicPinning() then
+								muteSelf.availability:pinned()
+							else
+								muteSelf.availability:available()
+							end
+						end
+					end
+				end)
+				:catch(function() end)
+		end)
+	else
+		VoiceChatServiceManager:asyncInit()
+			:andThen(function()
+				local voiceService = VoiceChatServiceManager:getService()
+				if voiceService then
+					voiceService.StateChanged:Connect(updateVoiceState)
+					VoiceChatServiceManager:SetupParticipantListeners()
+					if EnableChromeAudioFocusManagement then
+						VoiceChatServiceManager.showVoiceUI.Event:Connect(applyVoiceUIVisibility)
+						VoiceChatServiceManager.hideVoiceUI.Event:Connect(applyVoiceUIVisibility)
+						applyVoiceUIVisibility()
 					else
-						muteSelf.availability:available()
+						if GetFFlagTweakedMicPinning() then
+							muteSelf.availability:pinned()
+						else
+							muteSelf.availability:available()
+						end
 					end
 				end
-			end
-		end)
-		:catch(function() end)
+			end)
+			:catch(function() end)
+	end
 end
 
 return muteSelf

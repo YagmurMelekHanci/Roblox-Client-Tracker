@@ -1,10 +1,12 @@
+local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
+
 local Modules = script.Parent.Parent
 local TenFootInterface = require(Modules.TenFootInterface)
 local ChromeEnabled = require(Modules.Chrome.Enabled)
 local isNewTiltIconEnabled = require(Modules.isNewTiltIconEnabled)
 local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
-local GetFFlagPostLaunchUnibarDesignTweaks = require(Modules.Flags.GetFFlagPostLaunchUnibarDesignTweaks)
+local GetFFlagPostLaunchUnibarDesignTweaks = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
 
 local DEFAULT_TOPBAR_HEIGHT = 36
 local DEFAULT_TOPBAR_BUTTON_HEIGHT = DEFAULT_TOPBAR_HEIGHT - 4

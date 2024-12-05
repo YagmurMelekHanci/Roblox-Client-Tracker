@@ -2,7 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 
 local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
@@ -34,7 +34,7 @@ function BlockingModalScreen:render()
 	local blockingModalContainer = Roact.createElement(BlockingModalContainer, self.props)
 	if GetFFlagWrapBlockModalScreenInProvider() then
 		blockingModalContainer = Roact.createElement(FocusNavigationEffects, {
-			selectionGroupName = SELECTION_GROUP_NAME..tostring(self.props.player.UserId),
+			selectionGroupName = SELECTION_GROUP_NAME .. tostring(self.props.player.UserId),
 			focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 		}, {
 			BlockingModalContainerWrapper = blockingModalContainer,

@@ -1,5 +1,3 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
-
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
@@ -8,7 +6,8 @@ local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
 local dependencyArray = RoactUtils.Hooks.dependencyArray
 
-local GetFFlagFixKeepOutAreasCompatibility = require(Chrome.Parent.Flags.GetFFlagFixKeepOutAreasCompatibility)
+local GetFFlagFixKeepOutAreasCompatibility =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixKeepOutAreasCompatibility
 
 type KeepOutArea = {
 	id: string,

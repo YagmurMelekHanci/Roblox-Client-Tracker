@@ -1,8 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
-local ExperienceChat = require(CorePackages.ExperienceChat)
+local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
-local Action = require(CorePackages.Rodux).makeActionCreator
+local Action = require(CorePackages.Packages.Rodux).makeActionCreator
 local t = require(CorePackages.Packages.t)
 local maybeAssert = require(script.Parent.Parent.Helpers.maybeAssert)
 

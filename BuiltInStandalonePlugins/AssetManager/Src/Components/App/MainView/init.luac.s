@@ -35,43 +35,45 @@ PROTO_0:
 
 PROTO_1:
   GETTABLEKS R5 R1 K0 ["ShowSearchOptions"]
-  JUMPIFNOT R5 [+6]
-  GETTABLEKS R5 R1 K1 ["SearchTerm"]
-  JUMPIFNOTEQKS R5 K2 [""] [+3]
-  LOADK R4 K2 [""]
+  JUMPIFNOT R5 [+9]
+  GETTABLEKS R5 R1 K1 ["IsDefaultSearchState"]
+  JUMPIF R5 [+4]
+  GETTABLEKS R5 R1 K2 ["SearchTerm"]
+  JUMPIFNOTEQKS R5 K3 [""] [+3]
+  LOADK R4 K3 [""]
   JUMP [+5]
-  LOADK R6 K3 ["Plugin"]
-  LOADK R7 K4 ["NoAssets"]
-  NAMECALL R4 R3 K5 ["getText"]
+  LOADK R6 K4 ["Plugin"]
+  LOADK R7 K5 ["NoAssets"]
+  NAMECALL R4 R3 K6 ["getText"]
   CALL R4 3 1
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K6 ["createElement"]
+  GETTABLEKS R5 R6 K7 ["createElement"]
   GETUPVAL R6 1
   NEWTABLE R7 2 0
-  NAMECALL R8 R0 K7 ["getNextOrder"]
+  NAMECALL R8 R0 K8 ["getNextOrder"]
   CALL R8 1 1
-  SETTABLEKS R8 R7 K8 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K9 ["Tag"]
-  LOADK R9 K10 ["MainContents X-Middle X-Center"]
+  GETTABLEKS R8 R9 K10 ["Tag"]
+  LOADK R9 K11 ["MainContents X-Middle X-Center"]
   SETTABLE R9 R7 R8
-  DUPTABLE R8 K12 [{"PlaceholderText"}]
+  DUPTABLE R8 K13 [{"PlaceholderText"}]
   JUMPIFNOT R2 [+6]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K6 ["createElement"]
+  GETTABLEKS R9 R10 K7 ["createElement"]
   GETUPVAL R10 2
   CALL R9 1 1
   JUMP [+13]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K6 ["createElement"]
+  GETTABLEKS R9 R10 K7 ["createElement"]
   GETUPVAL R10 3
-  DUPTABLE R11 K14 [{"LayoutOrder", "Text"}]
-  NAMECALL R12 R0 K7 ["getNextOrder"]
+  DUPTABLE R11 K15 [{"LayoutOrder", "Text"}]
+  NAMECALL R12 R0 K8 ["getNextOrder"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
-  SETTABLEKS R4 R11 K13 ["Text"]
+  SETTABLEKS R12 R11 K9 ["LayoutOrder"]
+  SETTABLEKS R4 R11 K14 ["Text"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["PlaceholderText"]
+  SETTABLEKS R9 R8 K12 ["PlaceholderText"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -109,7 +111,7 @@ PROTO_2:
   SETTABLEKS R13 R12 K4 ["LayoutOrder"]
   GETUPVAL R14 8
   GETTABLEKS R13 R14 K5 ["Tag"]
-  LOADK R14 K6 ["Main X-Border X-Top X-Column"]
+  LOADK R14 K6 ["Main X-Stroke X-Top X-Column"]
   SETTABLE R14 R12 R13
   DUPTABLE R13 K10 [{"HeaderBar", "Contents", "LoadingBarContainer"}]
   GETUPVAL R15 8

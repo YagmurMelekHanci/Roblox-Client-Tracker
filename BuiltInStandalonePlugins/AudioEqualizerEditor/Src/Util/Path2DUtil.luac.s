@@ -34,12 +34,7 @@ MAIN:
   LOADK R2 K2 ["AudioEqualizerEditor"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Bin"]
-  GETTABLEKS R3 R4 K7 ["Common"]
-  GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
-  CALL R1 1 1
-  NEWTABLE R2 1 0
-  DUPCLOSURE R3 K9 [PROTO_0]
-  SETTABLEKS R3 R2 K10 ["makeControlPoint"]
-  RETURN R2 1
+  NEWTABLE R1 1 0
+  DUPCLOSURE R2 K4 [PROTO_0]
+  SETTABLEKS R2 R1 K5 ["makeControlPoint"]
+  RETURN R1 1

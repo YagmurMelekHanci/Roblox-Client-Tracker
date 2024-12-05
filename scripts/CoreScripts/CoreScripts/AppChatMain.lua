@@ -6,6 +6,7 @@ local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local Rodux = require(CorePackages.Packages.Rodux)
 local SocialCommon = require(CorePackages.Workspace.Packages.SocialCommon)
+local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
 local ChatEntryPointNames = SocialCommon.Enums.ChatEntryPointNames
 
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
@@ -95,7 +96,7 @@ if shouldUseIndependentAppChatContainer then
 			InExperienceAppChatModal.default:setVisible(true)
 		end,
 		updateCurrentSquadId = function(squadId)
-			if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() then
+			if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() and SquadExperimentation.getSquadEntrypointsEnabled() then
 				InExperienceAppChatModal:setCurrentSquadId(squadId)
 			end
 		end,

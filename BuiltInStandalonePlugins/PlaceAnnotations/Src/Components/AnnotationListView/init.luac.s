@@ -332,51 +332,42 @@ PROTO_9:
   JUMP [+1]
   LOADNIL R17
   SETTABLEKS R17 R16 K20 ["Header"]
-  JUMPIF R12 [+60]
+  JUMPIF R12 [+48]
   GETUPVAL R18 2
   GETTABLEKS R17 R18 K9 ["createElement"]
   LOADK R18 K17 ["Frame"]
-  DUPTABLE R19 K62 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
+  DUPTABLE R19 K24 [{"LayoutOrder"}]
   LOADN R20 2
   SETTABLEKS R20 R19 K10 ["LayoutOrder"]
-  GETIMPORT R20 K65 [UDim2.new]
-  LOADN R21 1
-  LOADN R22 0
-  LOADN R23 1
-  LOADN R24 226
-  CALL R20 4 1
-  SETTABLEKS R20 R19 K61 ["Size"]
-  LOADN R20 1
-  SETTABLEKS R20 R19 K51 ["BackgroundTransparency"]
-  DUPTABLE R20 K67 [{"AnnotationScrollingFrame"}]
+  DUPTABLE R20 K62 [{"AnnotationScrollingFrame"}]
   GETUPVAL R22 2
   GETTABLEKS R21 R22 K9 ["createElement"]
   GETUPVAL R22 8
-  DUPTABLE R23 K69 [{"OnScrollToBottom"}]
+  DUPTABLE R23 K64 [{"OnScrollToBottom"}]
   JUMPIFNOT R5 [+4]
   NEWCLOSURE R24 P4
   CAPTURE UPVAL U6
   CAPTURE VAL R1
   JUMP [+1]
   LOADNIL R24
-  SETTABLEKS R24 R23 K68 ["OnScrollToBottom"]
+  SETTABLEKS R24 R23 K63 ["OnScrollToBottom"]
   NEWTABLE R24 1 1
   GETUPVAL R27 2
   GETTABLEKS R26 R27 K9 ["createElement"]
   LOADK R27 K17 ["Frame"]
   DUPTABLE R28 K24 [{"LayoutOrder"}]
   LENGTH R30 R11
-  ADDK R29 R30 K70 [1]
+  ADDK R29 R30 K65 [1]
   SETTABLEKS R29 R28 K10 ["LayoutOrder"]
   CALL R26 2 1
-  SETTABLEKS R26 R24 K71 ["BottomPadding"]
+  SETTABLEKS R26 R24 K66 ["BottomPadding"]
   FASTCALL1 TABLE_UNPACK R11 [+3]
   MOVE R26 R11
-  GETIMPORT R25 K73 [table.unpack]
+  GETIMPORT R25 K68 [table.unpack]
   CALL R25 1 -1
   SETLIST R24 R25 -1 [1]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K66 ["AnnotationScrollingFrame"]
+  SETTABLEKS R21 R20 K61 ["AnnotationScrollingFrame"]
   CALL R17 3 1
   JUMP [+1]
   LOADNIL R17
@@ -392,15 +383,15 @@ PROTO_9:
   GETUPVAL R21 2
   GETTABLEKS R20 R21 K18 ["Tag"]
   GETUPVAL R21 9
-  LOADK R22 K74 ["X-ColumnM X-Transparent X-Middle X-Center"]
+  LOADK R22 K69 ["X-ColumnM X-Transparent X-Middle X-Center"]
   LENGTH R24 R3
   JUMPIFEQKN R24 K16 [0] [+3]
-  LOADK R23 K75 ["HeaderOffset"]
+  LOADK R23 K70 ["HeaderOffset"]
   JUMP [+1]
   LOADNIL R23
   CALL R21 2 1
   SETTABLE R21 R19 R20
-  DUPTABLE R20 K79 [{"AnnotationIcon", "NoCommentsYet", "ToBegin", "AddButton"}]
+  DUPTABLE R20 K74 [{"AnnotationIcon", "NoCommentsYet", "ToBegin", "AddButton"}]
   GETUPVAL R22 2
   GETTABLEKS R21 R22 K9 ["createElement"]
   LOADK R22 K50 ["ImageLabel"]
@@ -409,10 +400,10 @@ PROTO_9:
   SETTABLEKS R24 R23 K10 ["LayoutOrder"]
   GETUPVAL R25 2
   GETTABLEKS R24 R25 K18 ["Tag"]
-  LOADK R25 K80 ["X-Transparent"]
+  LOADK R25 K75 ["X-Transparent"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
-  SETTABLEKS R21 R20 K76 ["AnnotationIcon"]
+  SETTABLEKS R21 R20 K71 ["AnnotationIcon"]
   GETUPVAL R22 2
   GETTABLEKS R21 R22 K9 ["createElement"]
   LOADK R22 K54 ["TextLabel"]
@@ -420,22 +411,22 @@ PROTO_9:
   LOADN R24 1
   SETTABLEKS R24 R23 K10 ["LayoutOrder"]
   JUMPIF R5 [+6]
-  LOADK R26 K81 ["Plugin"]
-  LOADK R27 K82 ["NoAnnotations"]
+  LOADK R26 K76 ["Plugin"]
+  LOADK R27 K77 ["NoAnnotations"]
   NAMECALL R24 R2 K32 ["getText"]
   CALL R24 3 1
   JUMP [+5]
-  LOADK R26 K81 ["Plugin"]
-  LOADK R27 K83 ["NoResolvedAnnotations"]
+  LOADK R26 K76 ["Plugin"]
+  LOADK R27 K78 ["NoResolvedAnnotations"]
   NAMECALL R24 R2 K32 ["getText"]
   CALL R24 3 1
   SETTABLEKS R24 R23 K34 ["Text"]
   GETUPVAL R25 2
   GETTABLEKS R24 R25 K18 ["Tag"]
-  LOADK R25 K80 ["X-Transparent"]
+  LOADK R25 K75 ["X-Transparent"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
-  SETTABLEKS R21 R20 K77 ["NoCommentsYet"]
+  SETTABLEKS R21 R20 K72 ["NoCommentsYet"]
   JUMPIF R5 [+23]
   GETUPVAL R22 2
   GETTABLEKS R21 R22 K9 ["createElement"]
@@ -443,19 +434,19 @@ PROTO_9:
   NEWTABLE R23 4 0
   LOADN R24 2
   SETTABLEKS R24 R23 K10 ["LayoutOrder"]
-  LOADK R26 K81 ["Plugin"]
-  LOADK R27 K78 ["ToBegin"]
+  LOADK R26 K76 ["Plugin"]
+  LOADK R27 K73 ["ToBegin"]
   NAMECALL R24 R2 K32 ["getText"]
   CALL R24 3 1
   SETTABLEKS R24 R23 K34 ["Text"]
   GETUPVAL R25 2
   GETTABLEKS R24 R25 K18 ["Tag"]
-  LOADK R25 K80 ["X-Transparent"]
+  LOADK R25 K75 ["X-Transparent"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
   JUMP [+1]
   LOADNIL R21
-  SETTABLEKS R21 R20 K78 ["ToBegin"]
+  SETTABLEKS R21 R20 K73 ["ToBegin"]
   JUMPIF R5 [+32]
   GETUPVAL R22 2
   GETTABLEKS R21 R22 K9 ["createElement"]

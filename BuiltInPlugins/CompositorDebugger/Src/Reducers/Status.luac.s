@@ -104,9 +104,9 @@ PROTO_9:
 PROTO_10:
   GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K1 [{"PropertyOverrideEvent"}]
+  DUPTABLE R4 K1 [{"PropertyOverridesEvent"}]
   GETTABLEKS R5 R1 K2 ["event"]
-  SETTABLEKS R5 R4 K0 ["PropertyOverrideEvent"]
+  SETTABLEKS R5 R4 K0 ["PropertyOverridesEvent"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -197,7 +197,7 @@ MAIN:
   GETTABLEKS R16 R5 K22 ["SetLayerFilter"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
-  GETTABLEKS R17 R5 K23 ["SetPropertyOverrideEvent"]
+  GETTABLEKS R17 R5 K23 ["SetPropertyOverridesEvent"]
   CALL R16 1 1
   GETIMPORT R17 K5 [require]
   GETTABLEKS R18 R5 K24 ["SetSelectedLayer"]
@@ -216,7 +216,7 @@ MAIN:
   GETTABLEKS R22 R23 K28 ["Types"]
   CALL R21 1 1
   GETTABLEKS R22 R2 K29 ["createReducer"]
-  DUPTABLE R23 K47 [{"ActiveLayersFilter", "Actor", "Adornments", "DebugDataConnection", "DebugDataEvent", "DebugPoseEvent", "ExpandedSections", "HistoryDuration", "HistoryField", "HistoryOffset", "HistoryFrame", "LayerFilters", "PropertyOverrideEvent", "SelectedLayer", "SendPayloadAnalytics", "SkipCounter", "SkipLimit"}]
+  DUPTABLE R23 K47 [{"ActiveLayersFilter", "Actor", "Adornments", "DebugDataConnection", "DebugDataEvent", "DebugPoseEvent", "ExpandedSections", "HistoryDuration", "HistoryField", "HistoryOffset", "HistoryFrame", "LayerFilters", "PropertyOverridesEvent", "SelectedLayer", "SendPayloadAnalytics", "SkipCounter", "SkipLimit"}]
   LOADB R24 0
   SETTABLEKS R24 R23 K30 ["ActiveLayersFilter"]
   LOADNIL R24
@@ -252,7 +252,7 @@ MAIN:
   NEWTABLE R24 0 0
   SETTABLEKS R24 R23 K41 ["LayerFilters"]
   LOADNIL R24
-  SETTABLEKS R24 R23 K42 ["PropertyOverrideEvent"]
+  SETTABLEKS R24 R23 K42 ["PropertyOverridesEvent"]
   LOADNIL R24
   SETTABLEKS R24 R23 K43 ["SelectedLayer"]
   LOADB R24 0

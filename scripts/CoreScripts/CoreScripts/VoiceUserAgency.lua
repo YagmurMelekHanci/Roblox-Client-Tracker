@@ -8,7 +8,7 @@ local Players = game:GetService("Players")
 local TextService = game:GetService("TextService")
 local TweenService = game:GetService("TweenService")
 
-local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local UIBlox = InGameMenuDependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 

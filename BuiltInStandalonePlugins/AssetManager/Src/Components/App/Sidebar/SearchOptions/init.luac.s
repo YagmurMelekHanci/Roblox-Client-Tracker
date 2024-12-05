@@ -180,7 +180,7 @@ PROTO_9:
   SETTABLEKS R20 R19 K21 ["LayoutOrder"]
   GETUPVAL R21 5
   GETTABLEKS R20 R21 K22 ["Tag"]
-  LOADK R21 K36 ["FilterSection X-Middle"]
+  LOADK R21 K36 ["FilterSection X-FitY X-Middle"]
   SETTABLE R21 R19 R20
   DUPTABLE R20 K38 [{"AssetTypeDropdown"}]
   GETUPVAL R22 5
@@ -219,16 +219,14 @@ PROTO_9:
   CAPTURE VAL R7
   CAPTURE UPVAL U11
   SETTABLEKS R24 R23 K48 ["OnRenderItem"]
-  LOADB R24 1
-  SETTABLEKS R24 R23 K49 ["UseAutoWidth"]
   GETUPVAL R24 12
-  LOADK R26 K50 ["FilterSize"]
-  NAMECALL R24 R24 K51 ["GetAttribute"]
+  LOADK R26 K49 ["SearchFilterSize"]
+  NAMECALL R24 R24 K50 ["GetAttribute"]
   CALL R24 2 1
-  SETTABLEKS R24 R23 K52 ["Size"]
+  SETTABLEKS R24 R23 K51 ["Size"]
   GETUPVAL R25 5
   GETTABLEKS R24 R25 K22 ["Tag"]
-  LOADK R25 K53 [""]
+  LOADK R25 K52 [""]
   SETTABLE R25 R23 R24
   CALL R21 2 1
   SETTABLEKS R21 R20 K37 ["AssetTypeDropdown"]
@@ -237,7 +235,7 @@ PROTO_9:
   GETUPVAL R18 5
   GETTABLEKS R17 R18 K20 ["createElement"]
   GETUPVAL R18 13
-  DUPTABLE R19 K54 [{"LayoutOrder"}]
+  DUPTABLE R19 K53 [{"LayoutOrder"}]
   NAMECALL R20 R1 K27 ["getNextOrder"]
   CALL R20 1 1
   SETTABLEKS R20 R19 K21 ["LayoutOrder"]
@@ -251,7 +249,7 @@ PROTO_9:
   CALL R20 1 1
   SETTABLEKS R20 R19 K21 ["LayoutOrder"]
   LOADK R22 K13 ["SearchOptions"]
-  LOADK R23 K55 ["Source"]
+  LOADK R23 K54 ["Source"]
   NAMECALL R20 R2 K15 ["getText"]
   CALL R20 3 1
   SETTABLEKS R20 R19 K3 ["Text"]
@@ -270,32 +268,49 @@ PROTO_9:
   SETTABLEKS R20 R19 K21 ["LayoutOrder"]
   GETUPVAL R21 5
   GETTABLEKS R20 R21 K22 ["Tag"]
-  LOADK R21 K56 ["SourceSection X-ColumnM X-Center"]
+  LOADK R21 K55 ["SourceSection X-ColumnM X-Center"]
   SETTABLE R21 R19 R20
-  DUPTABLE R20 K59 [{"TextFilterInput", "RadioButtonListContainer"}]
+  DUPTABLE R20 K58 [{"TextFilterInputContainer", "RadioButtonListContainer"}]
   GETUPVAL R22 5
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 14
-  DUPTABLE R23 K64 [{"LayoutOrder", "PlaceholderText", "IncrementalTextSearch", "OnSearchRequested", "ShowSearchIcon", "ShowSearchButton"}]
-  NAMECALL R24 R1 K27 ["getNextOrder"]
-  CALL R24 1 1
+  GETUPVAL R22 7
+  NEWTABLE R23 2 0
+  GETTABLEKS R24 R0 K21 ["LayoutOrder"]
   SETTABLEKS R24 R23 K21 ["LayoutOrder"]
-  LOADK R26 K13 ["SearchOptions"]
-  LOADK R27 K65 ["FilterPlaceholder"]
-  NAMECALL R24 R2 K15 ["getText"]
-  CALL R24 3 1
-  SETTABLEKS R24 R23 K40 ["PlaceholderText"]
-  LOADB R24 1
-  SETTABLEKS R24 R23 K60 ["IncrementalTextSearch"]
-  NEWCLOSURE R24 P6
+  GETUPVAL R25 5
+  GETTABLEKS R24 R25 K22 ["Tag"]
+  LOADK R25 K59 ["SearchPanel"]
+  SETTABLE R25 R23 R24
+  DUPTABLE R24 K61 [{"TextFilterInput"}]
+  GETUPVAL R26 5
+  GETTABLEKS R25 R26 K20 ["createElement"]
+  GETUPVAL R26 14
+  NEWTABLE R27 8 0
+  NAMECALL R28 R1 K27 ["getNextOrder"]
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K21 ["LayoutOrder"]
+  LOADK R30 K13 ["SearchOptions"]
+  LOADK R31 K62 ["FilterPlaceholder"]
+  NAMECALL R28 R2 K15 ["getText"]
+  CALL R28 3 1
+  SETTABLEKS R28 R27 K40 ["PlaceholderText"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K63 ["IncrementalTextSearch"]
+  NEWCLOSURE R28 P6
   CAPTURE VAL R3
-  SETTABLEKS R24 R23 K61 ["OnSearchRequested"]
-  LOADB R24 1
-  SETTABLEKS R24 R23 K62 ["ShowSearchIcon"]
-  LOADB R24 0
-  SETTABLEKS R24 R23 K63 ["ShowSearchButton"]
-  CALL R21 2 1
-  SETTABLEKS R21 R20 K57 ["TextFilterInput"]
+  SETTABLEKS R28 R27 K64 ["OnSearchRequested"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K65 ["ShowSearchIcon"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K66 ["ShowSearchButton"]
+  GETUPVAL R29 5
+  GETTABLEKS R28 R29 K22 ["Tag"]
+  LOADK R29 K67 ["X-AnchorCenter X-Pad"]
+  SETTABLE R29 R27 R28
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K60 ["TextFilterInput"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K56 ["TextFilterInputContainer"]
   GETUPVAL R22 5
   GETTABLEKS R21 R22 K20 ["createElement"]
   GETUPVAL R22 15
@@ -305,32 +320,32 @@ PROTO_9:
   SETTABLEKS R24 R23 K21 ["LayoutOrder"]
   GETUPVAL R25 5
   GETTABLEKS R24 R25 K22 ["Tag"]
-  LOADK R25 K66 ["RadioList"]
+  LOADK R25 K68 ["RadioList"]
   SETTABLE R25 R23 R24
-  DUPTABLE R24 K68 [{"RadioButtonList"}]
+  DUPTABLE R24 K70 [{"RadioButtonList"}]
   GETUPVAL R26 5
   GETTABLEKS R25 R26 K20 ["createElement"]
   GETUPVAL R26 16
-  DUPTABLE R27 K73 [{"LayoutOrder", "Buttons", "SelectedKey", "OnClick", "FillDirection", "TextXAlignment"}]
+  DUPTABLE R27 K75 [{"LayoutOrder", "Buttons", "SelectedKey", "OnClick", "FillDirection", "TextXAlignment"}]
   NAMECALL R28 R1 K27 ["getNextOrder"]
   CALL R28 1 1
   SETTABLEKS R28 R27 K21 ["LayoutOrder"]
-  SETTABLEKS R6 R27 K69 ["Buttons"]
+  SETTABLEKS R6 R27 K71 ["Buttons"]
   GETTABLEKS R30 R4 K13 ["SearchOptions"]
-  GETTABLEKS R29 R30 K55 ["Source"]
+  GETTABLEKS R29 R30 K54 ["Source"]
   GETTABLEKS R28 R29 K5 ["Id"]
-  SETTABLEKS R28 R27 K70 ["SelectedKey"]
+  SETTABLEKS R28 R27 K72 ["SelectedKey"]
   NEWCLOSURE R28 P7
   CAPTURE VAL R3
   SETTABLEKS R28 R27 K11 ["OnClick"]
-  GETIMPORT R28 K76 [Enum.FillDirection.Vertical]
-  SETTABLEKS R28 R27 K71 ["FillDirection"]
-  GETIMPORT R28 K78 [Enum.TextXAlignment.Left]
-  SETTABLEKS R28 R27 K72 ["TextXAlignment"]
+  GETIMPORT R28 K78 [Enum.FillDirection.Vertical]
+  SETTABLEKS R28 R27 K73 ["FillDirection"]
+  GETIMPORT R28 K80 [Enum.TextXAlignment.Left]
+  SETTABLEKS R28 R27 K74 ["TextXAlignment"]
   CALL R25 2 1
-  SETTABLEKS R25 R24 K67 ["RadioButtonList"]
+  SETTABLEKS R25 R24 K69 ["RadioButtonList"]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K58 ["RadioButtonListContainer"]
+  SETTABLEKS R21 R20 K57 ["RadioButtonListContainer"]
   CALL R17 3 1
   SETTABLEKS R17 R16 K33 ["Sources"]
   CALL R13 3 1
@@ -338,11 +353,11 @@ PROTO_9:
   GETUPVAL R14 5
   GETTABLEKS R13 R14 K20 ["createElement"]
   GETUPVAL R14 17
-  DUPTABLE R15 K79 [{"LayoutOrder", "Buttons"}]
+  DUPTABLE R15 K81 [{"LayoutOrder", "Buttons"}]
   NAMECALL R16 R1 K27 ["getNextOrder"]
   CALL R16 1 1
   SETTABLEKS R16 R15 K21 ["LayoutOrder"]
-  SETTABLEKS R8 R15 K69 ["Buttons"]
+  SETTABLEKS R8 R15 K71 ["Buttons"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K25 ["Toolbar"]
   CALL R9 3 -1
@@ -408,15 +423,16 @@ MAIN:
   GETTABLEKS R20 R21 K30 ["Types"]
   CALL R19 1 1
   GETIMPORT R20 K5 [require]
-  GETIMPORT R22 K1 [script]
-  GETTABLEKS R21 R22 K31 ["styles"]
+  GETTABLEKS R23 R0 K20 ["Src"]
+  GETTABLEKS R22 R23 K31 ["Resources"]
+  GETTABLEKS R21 R22 K32 ["PluginStyles"]
   CALL R20 1 1
-  GETTABLEKS R22 R2 K32 ["Util"]
-  GETTABLEKS R21 R22 K33 ["LayoutOrderIterator"]
-  DUPCLOSURE R22 K34 [PROTO_1]
+  GETTABLEKS R22 R2 K33 ["Util"]
+  GETTABLEKS R21 R22 K34 ["LayoutOrderIterator"]
+  DUPCLOSURE R22 K35 [PROTO_1]
   CAPTURE VAL R3
   CAPTURE VAL R19
-  DUPCLOSURE R23 K35 [PROTO_9]
+  DUPCLOSURE R23 K36 [PROTO_9]
   CAPTURE VAL R21
   CAPTURE VAL R5
   CAPTURE VAL R16

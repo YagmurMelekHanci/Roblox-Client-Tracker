@@ -1,4 +1,4 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 
@@ -6,15 +6,17 @@ local React = require(CorePackages.Packages.React)
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local ReactUtils = require(CorePackages.Packages.ReactUtils)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
-local UIBlox = require(CorePackages.UIBlox)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 
-local ChromeService = require(Chrome.Service)
-local IntegrationRow = require(Chrome.Peek.IntegrationRow)
-local useChromePeekId = require(Chrome.Hooks.useChromePeekId)
-local useChromePeekItems = require(Chrome.Hooks.useChromePeekItems)
-local Types = require(Chrome.Service.Types)
-local shouldUseSmallPeek = require(Chrome.Parent.Integrations.MusicUtility.shouldUseSmallPeek)
+local ChromeService = require(Root.Service)
+local IntegrationRow = require(Root.Peek.IntegrationRow)
+local useChromePeekId = require(Root.Hooks.useChromePeekId)
+local useChromePeekItems = require(Root.Hooks.useChromePeekItems)
+local Types = require(Root.Service.Types)
+local ViewportUtil = require(Root.Service.ViewportUtil)
+-- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
+local shouldUseSmallPeek = require(Root.Parent.Integrations.MusicUtility.shouldUseSmallPeek)
 
 local useMusicPeek = Songbird.useMusicPeek
 local usePrevious = ReactUtils.usePrevious
@@ -22,32 +24,40 @@ local useEffect = React.useEffect
 local useRef = React.useRef
 local useCallback = React.useCallback
 
-local GetFFlagEnableSongbirdPeek = require(Chrome.Parent.Flags.GetFFlagEnableSongbirdPeek)
+-- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
+local GetFFlagEnableSongbirdPeek = require(Root.Parent.Flags.GetFFlagEnableSongbirdPeek)
+local GetFFlagChromeCentralizedConfiguration =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeCentralizedConfiguration
+
+local GetFFlagDecoupleChromePeekFromCoreScripts =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDecoupleChromePeekFromCoreScripts
 
 local useStyle = UIBlox.Core.Style.useStyle
 local ControlState = Foundation.Enums.ControlState
 local StateLayerAffordance = Foundation.Enums.StateLayerAffordance
 
-function configurePeek()
-	if GetFFlagEnableSongbirdPeek() then
-		ChromeService:configurePeek("music_peek", {
-			integrations = {
-				"music_icon",
-				"peek_track_details",
-				"peek_close",
-			},
-		})
-		ChromeService:configurePeek("music_peek_portrait", {
-			integrations = {
-				"music_icon",
-				"peek_track_details",
-				"peek_close",
-			},
-		})
+if not GetFFlagChromeCentralizedConfiguration() then
+	function configurePeek()
+		if GetFFlagEnableSongbirdPeek() then
+			ChromeService:configurePeek("music_peek", {
+				integrations = {
+					"music_icon",
+					"peek_track_details",
+					"peek_close",
+				},
+			})
+			ChromeService:configurePeek("music_peek_portrait", {
+				integrations = {
+					"music_icon",
+					"peek_track_details",
+					"peek_close",
+				},
+			})
+		end
 	end
-end
 
-configurePeek()
+	configurePeek()
+end
 
 local SPRING_CONFIG: ReactOtter.SpringOptions = {
 	damping = 20,
@@ -57,6 +67,17 @@ local SPRING_CONFIG: ReactOtter.SpringOptions = {
 
 local function lerp(a: number, b: number, t: number)
 	return a + (b - a) * t
+end
+
+if GetFFlagDecoupleChromePeekFromCoreScripts() then
+	-- FFlagDecoupleChromePeekFromCoreScripts cleanup: Prepend `local` to the function
+	function shouldUseSmallPeek()
+		local isSmallTouchScreen = ViewportUtil.isSmallTouchScreen()
+		local isMobileDevice = ViewportUtil.mobileDevice:get()
+		local shouldShowSmallPeek = isMobileDevice and isSmallTouchScreen
+
+		return shouldShowSmallPeek
+	end
 end
 
 export type Props = {

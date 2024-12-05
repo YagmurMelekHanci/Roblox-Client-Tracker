@@ -1,11 +1,11 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
-local ViewportUtil = require(Chrome.Service.ViewportUtil)
-local Constants = require(Chrome.Unibar.Constants)
+local ViewportUtil = require(Root.Service.ViewportUtil)
+local Constants = require(Root.Unibar.Constants)
 
 local DEFAULT_SLOTS = 3
 

@@ -17,7 +17,7 @@ local GetFStringVNGWebshopUrl =
 local FFlagEnablePreSignedVngShopRedirectUrl =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePreSignedVngShopRedirectUrl
 
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local UrlBuilder = PurchasePromptDeps.UrlBuilder.UrlBuilder
 
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
@@ -54,7 +54,8 @@ function PlatformInterface.new()
 	function service.openSecuritySettings(challengeResponse: string?)
 		if challengeResponse then
 			--[[ Encodes the challenge response as Base64 prior to attaching it as 
-			a query parameter to the webview URL, for formatting and compatibility purposes. ]]--
+			a query parameter to the webview URL, for formatting and compatibility purposes. ]]
+			--
 			local encodedChallengeResponse = Base64.Encode(challengeResponse)
 			local url = ("%smy/account?challenge=%s#!/security"):format(BASE_URL, encodedChallengeResponse)
 			GuiService:OpenBrowserWindow(url)

@@ -1,9 +1,10 @@
-local Chrome = script:FindFirstAncestor("ChromeShared")
+local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local ChromeUtils = require(Chrome.Service.ChromeUtils)
-local FFlagChromeObservableStateCheck = require(Chrome.Parent.Flags.GetFFlagChromeObservableStateCheck)()
+local ChromeUtils = require(Root.Service.ChromeUtils)
+local FFlagChromeObservableStateCheck =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeObservableStateCheck()
 
 -- An optimized version of useObservableValue. Allowing the user to narrow the return data to reduce re-renders.
 
