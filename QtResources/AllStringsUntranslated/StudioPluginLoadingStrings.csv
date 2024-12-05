@@ -1,9 +1,0 @@
-Key,Context,Source,en-us
-Studio.App.StudioPluginHost.FinishedInstallingPlugin,,Finished installing plugin.,Finished installing plugin.
-Studio.App.StudioPluginHost.ErrorWhileTryingToOpenPluginFile,,Error while trying to open plugin file: %1,Error while trying to open plugin file: %1
-Studio.App.StudioPluginHost.CantDownload,,Unable to download plugin at this time. Try again later.,Unable to download plugin at this time. Try again later.
-Studio.App.RbxWorkspace.PluginModerationCheckFailed,,Plugin moderation check failed,Plugin moderation check failed
-Studio.App.PluginLoader.CloudLoadFailedFmt1,error fetching installed plugins from cloud,Failed to load installed plugins from cloud: %1,Failed to load installed plugins from cloud: %1
-Studio.App.PluginLoader.CloudWriteFailedFmt1,error writing installed plugins to cloud,Failed to write installed plugins to cloud: %1,Failed to write installed plugins to cloud: %1
-Studio.App.PluginLoader.CloudLoadPermissionsFailedFmt1,error fetching plugin permissions from cloud,Failed to load plugin permissions from cloud: %1,Failed to load plugin permissions from cloud: %1
-Studio.App.PluginLoader.CloudWritePermissionsFailedFmt1,error writing plugin permissions to cloud,Failed to write plugin permissions to cloud: %1,Failed to write plugin permissions to cloud: %1

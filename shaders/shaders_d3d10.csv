@@ -46,6 +46,12 @@ DefaultNeonHQInGuiFS,Fragment
 DefaultNeonInGuiFS,Fragment
 DefaultShadowFS,Fragment
 DefaultSurfaceAppearanceDitheredDepthFS,Fragment
+DefaultUnifiedFlatOpaqueFS_00000800,Fragment
+DefaultUnifiedFlatOpaqueFS_10000000,Fragment
+DefaultUnifiedFlatOpaqueFS_10000400,Fragment
+DefaultUnifiedFlatOpaqueFS_20000000,Fragment
+DefaultUnifiedFlatOpaqueFS_40000000,Fragment
+DefaultUnifiedFlatOpaqueFS_80000000,Fragment
 DefaultUnifiedFlatOpaqueVS_00000800,Vertex
 DefaultUnifiedFlatOpaqueVS_00000801,Vertex
 DefaultUnifiedFlatOpaqueVS_00000802,Vertex
@@ -110,10 +116,14 @@ DefaultUnifiedFlatOpaqueVS_80000000,Vertex
 DefaultUnifiedFlatOpaqueVS_80000001,Vertex
 DefaultUnifiedFlatOpaqueVS_80000002,Vertex
 DefaultUnifiedFlatOpaqueVS_80000006,Vertex
+DefaultUnifiedFlatOpaqueVS_80001000,Vertex
+DefaultUnifiedFlatOpaqueVS_80001002,Vertex
+DefaultUnifiedFlatOpaqueVS_80001006,Vertex
 DefaultUnifiedFlatOpaqueVS_80100001,Vertex
 DefaultUnifiedFlatOpaqueVS_80200000,Vertex
 DefaultUnifiedFlatOpaqueVS_80300000,Vertex
 DefaultUnifiedFlatOpaqueVS_84000006,Vertex
+DefaultUnifiedFlatOpaqueVS_84001006,Vertex
 DefaultUnifiedFlatTransparentFS_00000800,Fragment
 DefaultUnifiedFlatTransparentFS_10000000,Fragment
 DefaultUnifiedFlatTransparentFS_10000400,Fragment
@@ -483,6 +493,8 @@ DefaultUnifiedNeonFS_10000400,Fragment
 DefaultUnifiedNeonFS_20000000,Fragment
 DefaultUnifiedNeonFS_40000000,Fragment
 DefaultUnifiedNeonFS_80000000,Fragment
+DefaultUnifiedNeonInGuiVS_00000800,Vertex
+DefaultUnifiedNeonInGuiVS_00000801,Vertex
 DefaultUnifiedNeonVS_00000800,Vertex
 DefaultUnifiedNeonVS_00000801,Vertex
 DefaultUnifiedNeonVS_00000802,Vertex
@@ -1151,6 +1163,7 @@ ParticleLightingFS,Fragment
 ParticleLightingVS,Vertex
 PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
+PassThroughClampedFS,Fragment
 PassThroughFS,Fragment
 PassThroughLodFS,Fragment
 PassThroughModifyUVVS,Vertex
@@ -1169,10 +1182,6 @@ ProcessGuiFS,Fragment
 ProfilerFS,Fragment
 ProfilerVS,Vertex
 ResampleLanczosLUTFS,Fragment
-SelectionOutlineActiveFS,Fragment
-SelectionOutlineFS,Fragment
-SelectionOutlineHoverFS,Fragment
-SelectionOutlineTeamCreateFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex

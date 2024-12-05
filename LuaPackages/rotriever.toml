@@ -17,9 +17,9 @@ Dash = "0.1"
 llama = "1.0.0"
 LuaSocialLibrariesDeps = "1.5.5"
 AvatarExperienceDeps = "0.0.1"
-UIBlox = "0.2.25"
-Foundation = "1.7.0"
-FoundationImages = "1.10.0"
+UIBlox = "0.2.36"
+Foundation = "1.9.0"
+FoundationImages = "1.13.0"
 Thumbnailing = "0.3.0"
 Otter = "1.2.1"
 ReactOtter = "1.2.1"
@@ -28,18 +28,18 @@ enumerate = "1.0.0"
 PolicyProvider = { version = "0.1.2", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
 StringUtilities = { version = "1.0.0", package = "string-utilities" }
-UrlBuilder = "1.2.2"
+UrlBuilder = "1.2.4"
 FitFrame = { version = "2.0.0", package = "RoactFitComponents" }
 NetworkingFriends = "2.12.1"
 EmojiList = "1.0.0"
 RoduxGames = "1.4.1"
 ReactFocusNavigation = "1.3.1"
 InputHandlers = "1.3.1"
-Roact = { version = "17.1.2", package = "RoactCompat" }
-React = "17.1.2"
-ReactIs = "17.1.2"
-ReactRoblox = "17.1.2"
-ReactSceneUnderstanding = "0.7.2"
+Roact = { version = "17.1.6", package = "RoactCompat" }
+React = "17.1.6"
+ReactIs = "17.1.6"
+ReactRoblox = "17.1.6"
+ReactSceneUnderstanding = "0.8.0"
 ReactUtils = "1.2.0"
 Promise = "3.5.0"
 VirtualizedList = "1.4.3"
@@ -55,7 +55,7 @@ QRCode = "0.1.0"
 Merge = "0.3.1"
 GraphqlToolsUtils = { version = "0.3.1", package = "Utils" }
 DataLoader = "0.2.0"
-UGCValidation = "1.12.26"
+UGCValidation = "1.13.2"
 RoduxPresence = "3.2.3"
 RoduxFriends = "4.3.0"
 RoduxUsers = "1.5.1"
@@ -82,7 +82,7 @@ TagUtils = "0.1.0"
 RecordPlayback = "0.1.1"
 RoduxDevtools = "1.0.0-rc.1"
 # Dependencies for the Roact17 inspector
-ReactDevtoolsExtensions = "17.1.2"
+ReactDevtoolsExtensions = "17.1.6"
 DeveloperTools = "0.2.7"
 ApolloClientTesting = "0.3.10"
 UsageTracker = "0.1.1"
@@ -101,7 +101,7 @@ RoactNavigation = "0.5.10"
 
 # Roact 17 - Patch in roact compat for legacy roact
 [config.patch."github.com/roblox/roact"]
-Roact = { version = "17.1.2", package = "RoactCompat" }
+Roact = { version = "17.1.6", package = "RoactCompat" }
 
 [config.patch."github.com/roblox/roact-rodux"]
 RoactRodux = "0.5.1"

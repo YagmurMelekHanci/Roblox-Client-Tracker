@@ -29,7 +29,6 @@ AdvStarsFS,Fragment
 AdvStarsVS,Vertex
 AdvSunFS,Fragment
 AdvSunVS,Vertex
-AoBlurUpsampleCS,Compute
 ASWDepthDownsize,Fragment
 AtlasCopyCS,Compute
 CheckerboardDepthFS,Fragment
@@ -565,8 +564,10 @@ DefaultUnifiedNeonInGuiVS_44000006,Vertex
 DefaultUnifiedNeonInGuiVS_44001006,Vertex
 DefaultUnifiedNeonInGuiVS_80000000,Vertex
 DefaultUnifiedNeonInGuiVS_80000001,Vertex
+DefaultUnifiedNeonInGuiVS_80000002,Vertex
 DefaultUnifiedNeonInGuiVS_80100001,Vertex
 DefaultUnifiedNeonInGuiVS_80200000,Vertex
+DefaultUnifiedNeonInGuiVS_80300000,Vertex
 DefaultUnifiedNeonVS_00000800,Vertex
 DefaultUnifiedNeonVS_00000801,Vertex
 DefaultUnifiedNeonVS_00000802,Vertex
@@ -1186,7 +1187,6 @@ FastConvDownsamplePS,Fragment
 FastConvolutionPS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
-GenNormalsFS,Fragment
 GenTileBorderCS,Compute
 GlassTintFS,Fragment
 GrassFS,Fragment
@@ -1203,9 +1203,6 @@ GrassVS,Vertex
 GrassVSDepth,Vertex
 GrassVSDepthOld,Vertex
 GrassVSPrecise,Vertex
-HbaoCompositFS,Fragment
-HBAODepthDownFS,Fragment
-HbaoFS,Fragment
 HighlightInPlaceFS_00000000,Fragment
 HighlightPostprocessAlphaTestFS_00000000,Fragment
 HighlightPostprocessFS_00000000,Fragment
@@ -1261,6 +1258,7 @@ ParticleLightingFS,Fragment
 ParticleLightingVS,Vertex
 PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
+PassThroughClampedFS,Fragment
 PassThroughFS,Fragment
 PassThroughLodFS,Fragment
 PassThroughModifyUVVS,Vertex
@@ -1280,10 +1278,6 @@ ProfilerFS,Fragment
 ProfilerVS,Vertex
 ReprojectFilterFS,Fragment
 ResampleLanczosLUTFS,Fragment
-SelectionOutlineActiveFS,Fragment
-SelectionOutlineFS,Fragment
-SelectionOutlineHoverFS,Fragment
-SelectionOutlineTeamCreateFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex

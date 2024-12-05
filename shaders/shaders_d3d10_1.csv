@@ -493,6 +493,18 @@ DefaultUnifiedNeonFS_10000400,Fragment
 DefaultUnifiedNeonFS_20000000,Fragment
 DefaultUnifiedNeonFS_40000000,Fragment
 DefaultUnifiedNeonFS_80000000,Fragment
+DefaultUnifiedNeonInGuiVS_00000800,Vertex
+DefaultUnifiedNeonInGuiVS_00000801,Vertex
+DefaultUnifiedNeonInGuiVS_00000802,Vertex
+DefaultUnifiedNeonInGuiVS_00000806,Vertex
+DefaultUnifiedNeonInGuiVS_00001800,Vertex
+DefaultUnifiedNeonInGuiVS_00001802,Vertex
+DefaultUnifiedNeonInGuiVS_00001806,Vertex
+DefaultUnifiedNeonInGuiVS_00100801,Vertex
+DefaultUnifiedNeonInGuiVS_00200800,Vertex
+DefaultUnifiedNeonInGuiVS_00300800,Vertex
+DefaultUnifiedNeonInGuiVS_04000806,Vertex
+DefaultUnifiedNeonInGuiVS_04001806,Vertex
 DefaultUnifiedNeonVS_00000800,Vertex
 DefaultUnifiedNeonVS_00000801,Vertex
 DefaultUnifiedNeonVS_00000802,Vertex
@@ -1166,6 +1178,7 @@ ParticleLightingFS,Fragment
 ParticleLightingVS,Vertex
 PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
+PassThroughClampedFS,Fragment
 PassThroughFS,Fragment
 PassThroughLodFS,Fragment
 PassThroughModifyUVVS,Vertex
@@ -1184,10 +1197,6 @@ ProcessGuiFS,Fragment
 ProfilerFS,Fragment
 ProfilerVS,Vertex
 ResampleLanczosLUTFS,Fragment
-SelectionOutlineActiveFS,Fragment
-SelectionOutlineFS,Fragment
-SelectionOutlineHoverFS,Fragment
-SelectionOutlineTeamCreateFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex

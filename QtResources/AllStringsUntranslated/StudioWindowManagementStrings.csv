@@ -1,11 +1,7 @@
 Key,Context,Source,en-us
-Studio.App.RobloxStudioVerbs.RemoteDebug,,Remote Debug,Remote Debug
-Studio.App.DocTabManager.CloseTabsRight,,Close Tabs to the Right,Close Tabs to the Right
-Studio.App.DocTabManager.CloseTabsOther,,Close Other Tabs,Close Other Tabs
-Studio.App.ResetLayoutSettingsTitle,,Reset Layout Settings,Reset Layout Settings
-Studio.App.ResetLayoutSettingsText,,Resetting layout requires restarting Studio,Resetting layout requires restarting Studio
-Studio.App.ForceResetLayoutSettingsTitle,,Dock Layout Error,Dock Layout Error
-Studio.App.ForceResetLayoutSettingsBody,,"An unexpected problem has occurred with the docking layout. The current layout will be reset and Studio must be restarted.
-We are investigating this issue further and apologize for the inconvenience.","An unexpected problem has occurred with the docking layout. The current layout will be reset and Studio must be restarted.
-We are investigating this issue further and apologize for the inconvenience."
-Studio.App.DumpQtitanVisualHierarchyToLog,,Dump Visual Qtitan Hierarchy To Log,Dump Visual Qtitan Hierarchy To Log
+Studio.WindowManagement.DockPanelAction.Close,QtitanDocking: Dock panel is closed on execution of this action,Close,Close
+Studio.WindowManagement.DockPanelAction.Expand,QtitanDocking: Dock panel is expanded on execution of this action,Expand,Expand
+Studio.WindowManagement.DockPanelAction.Collapse,QtitanDocking: Dock panel is collapsed on execution of this action,Collapse,Collapse
+Studio.WindowManagement.DockPanelAction.WindowPosition,QtitanDocking: Button to show drop down related to different options to manage a dock panel,Window Position,Window Position
+Studio.WindowManagement.DockPanelAction.Float,QtitanDocking: Dock panel is undocked and becomes floating on execution of this action,Float,Float
+Studio.WindowManagement.DockPanelAction.Dock,QtitanDocking: Dock panel is docked on execution of this action,Dock,Dock
