@@ -11,4 +11,5 @@ return {
 	FoundationCompositeTextInput = SafeFlags.createGetFFlag("FoundationCompositeTextInput2")(),
 	FoundationIconButtonPaddings = SafeFlags.createGetFFlag("FoundationIconButtonPaddings")(),
 	FoundationSkeletonDarkThemeFix = SafeFlags.createGetFFlag("FoundationSkeletonDarkThemeFix")(),
+	FoundationBadgeSimplifySizing = SafeFlags.createGetFFlag("FoundationBadgeSimplifySizing")(),
 }

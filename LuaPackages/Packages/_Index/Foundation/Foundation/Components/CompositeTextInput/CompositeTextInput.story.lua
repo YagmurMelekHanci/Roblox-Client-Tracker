@@ -19,6 +19,10 @@ local function Story(props)
 		print("press!")
 	end
 
+	local function onFocusGained()
+		print("focus gained!")
+	end
+
 	return React.createElement(View, {
 		tag = "col gap-large auto-xy padding-xlarge",
 	}, {
@@ -30,6 +34,7 @@ local function Story(props)
 			isDisabled = controls.isDisabled,
 			isRequired = controls.isRequired,
 			onChanged = handleChange,
+			onFocusGained = onFocusGained,
 			label = controls.label,
 			hint = if controls.hint == "" then nil else controls.hint,
 			placeholder = controls.placeholder,

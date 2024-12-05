@@ -117,4 +117,15 @@ export type MainValidateBoundsResult = {
 
 export type ValidateBoundsResult = MainValidateBoundsResult | ErrorValidateBoundsResult
 
+export type DataCache = {
+	meshData: { [string]: any },
+}
+
+export type MainPreprocessDataResult = {
+	ok: boolean,
+	cache: DataCache,
+}
+
+export type PreprocessDataResult = MainPreprocessDataResult | ErrorValidateBoundsResult
+
 return Types

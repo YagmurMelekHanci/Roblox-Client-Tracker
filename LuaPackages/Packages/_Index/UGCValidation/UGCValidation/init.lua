@@ -7,6 +7,7 @@ local getEngineFeatureEngineUGCValidateRigidMeshPartAccessories =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidMeshPartAccessories)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+local getFFlagUGCValidateUseDataCache = require(root.flags.getFFlagUGCValidateUseDataCache)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -326,6 +327,18 @@ export type AvatarValidationResponse = validateBundleReadyForUpload.AvatarValida
 
 export type BundlesMetadata = BundlesMetadata.BundlesMetadata
 
+export type AllBodyParts = Types.AllBodyParts
+export type AxisValidateBoundsResult = Types.AxisValidateBoundsResult
+export type ScaleTypeValidateBoundsResult = Types.ScaleTypeValidateBoundsResult
+export type ExtraDataValidateBoundsResult = Types.ExtraDataValidateBoundsResult
+export type ErrorValidateBoundsResult = Types.ErrorValidateBoundsResult
+export type OverallValidateBoundsResult = Types.OverallValidateBoundsResult
+export type MainValidateBoundsResult = Types.MainValidateBoundsResult
+export type ValidateBoundsResult = Types.ValidateBoundsResult
+export type DataCache = Types.DataCache
+export type MainPreprocessDataResult = Types.MainPreprocessDataResult
+export type PreprocessDataResult = Types.PreprocessDataResult
+
 -- Takes a UGC bundle, the fetched bundle type settings (potentially from BundleMetadata.fetch()),
 -- and the type of bundle it is ("Body" or "Head").
 -- Returns a Promise that gives an object with a list of every piece of the bundle it could find in the "pieces" field,
@@ -435,15 +448,15 @@ function UGCValidation.validateFullBody(
 	return validationSuccess, reasons
 end
 
-function UGCValidation.calculateScaleToValidateBoundsAsync(
+function UGCValidation.preprocessDataAsync(
 	allBodyData: Types.AllBodyParts,
 	isServer: boolean?,
 	allowEditableInstances: boolean?,
 	bypassFlags: Types.BypassFlags?,
 	shouldYield: boolean?
-): Types.ValidateBoundsResult
+): Types.PreprocessDataResult
 	Analytics.setMetadata({
-		entrypoint = "calculateScaleToValidateBoundsAsync",
+		entrypoint = "preprocessDataAsync",
 		assetType = "",
 		isServer = isServer,
 	})
@@ -489,10 +502,112 @@ function UGCValidation.calculateScaleToValidateBoundsAsync(
 		validationContext.editableImages = resultEditableMeshesImages.editableImages :: Types.EditableImages
 	end
 
-	local validationResults = ValidationHints.calculateScaleToValidateBoundsAsync(allBodyData, validationContext)
+	local preprocessResults = ValidationHints.preprocessDataAsync(allBodyData, validationContext)
 
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
 		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
+	end
+
+	if preprocessResults.ok then
+		Analytics.recordScriptTime("preprocessDataAsync", startTime, validationContext)
+		Analytics.reportScriptTimes(validationContext)
+	end
+
+	return preprocessResults
+end
+
+function UGCValidation.isPreprocessDataCached(
+	allBodyData: Types.AllBodyParts,
+	dataCache: Types.DataCache,
+	isServer: boolean?
+): boolean
+	Analytics.setMetadata({
+		entrypoint = "isPreprocessDataCached",
+		assetType = "",
+		isServer = isServer,
+	})
+
+	local startTime = tick()
+
+	local isCached = ValidationHints.isPreprocessDataCached(allBodyData, dataCache)
+
+	local validationContext = {
+		isServer = isServer :: boolean,
+	} :: Types.ValidationContext
+
+	Analytics.recordScriptTime("isPreprocessDataCached", startTime, validationContext)
+	Analytics.reportScriptTimes(validationContext)
+
+	return isCached
+end
+
+function UGCValidation.calculateScaleToValidateBoundsAsync(
+	allBodyData: Types.AllBodyParts,
+	isServer: boolean?,
+	allowEditableInstances: boolean?,
+	bypassFlags: Types.BypassFlags?,
+	shouldYield: boolean?,
+	dataCache: Types.DataCache?
+): Types.ValidateBoundsResult
+	Analytics.setMetadata({
+		entrypoint = "calculateScaleToValidateBoundsAsync",
+		assetType = "",
+		isServer = isServer,
+	})
+
+	local startTime = tick()
+
+	local resultEditableMeshesImages
+
+	if not getFFlagUGCValidateUseDataCache() or not dataCache then
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			local instances = {}
+			for _, instance in allBodyData do
+				table.insert(instances, instance)
+			end
+
+			local successEditableInstancesForContext
+			successEditableInstancesForContext, resultEditableMeshesImages =
+				createEditableInstancesForContext(instances, allowEditableInstances)
+			if not successEditableInstancesForContext then
+				if isServer then
+					error(resultEditableMeshesImages[1])
+				else
+					return {
+						ok = false,
+						errors = resultEditableMeshesImages,
+					}
+				end
+			end
+		end
+	end
+
+	local validationContext = {
+		isServer = isServer :: boolean,
+		allowEditableInstances = allowEditableInstances :: boolean,
+		bypassFlags = bypassFlags,
+		validateMeshPartAccessories = false,
+	} :: Types.ValidationContext
+
+	if getFFlagUGCValidationShouldYield() then
+		validationContext.lastTickSeconds = tick()
+		validationContext.shouldYield = shouldYield
+	end
+
+	if not getFFlagUGCValidateUseDataCache() or not dataCache then
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			validationContext.editableMeshes = resultEditableMeshesImages.editableMeshes :: Types.EditableMeshes
+			validationContext.editableImages = resultEditableMeshesImages.editableImages :: Types.EditableImages
+		end
+	end
+
+	local validationResults =
+		ValidationHints.calculateScaleToValidateBoundsAsync(allBodyData, validationContext, dataCache)
+
+	if not getFFlagUGCValidateUseDataCache() or not dataCache then
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
+		end
 	end
 
 	if validationResults.ok then

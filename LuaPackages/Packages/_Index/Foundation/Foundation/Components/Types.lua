@@ -60,10 +60,25 @@ export type StateLayer = {
 	affordance: StateLayerAffordance?,
 }
 
+-- SelectionProps are broken out such that any Foundation component that is selectable
+-- can have these properties without needing to include the entire Selection type
+export type SelectionProps = {
+	NextSelectionUp: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionDown: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionLeft: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionRight: Bindable<React.Ref<GuiObject>>?,
+}
+
+-- Unfortunately SelectionProps can't be unioned with Selection
+-- without anlyze becoming incredibly umhappy, so we jsut duplicate them.
 export type Selection = {
 	Selectable: Bindable<boolean>,
 	SelectionImageObject: Bindable<React.Ref<GuiObject>>?,
 	SelectionOrder: Bindable<number>?,
+	NextSelectionUp: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionDown: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionLeft: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionRight: Bindable<React.Ref<GuiObject>>?,
 }
 
 export type SelectionGroup = {

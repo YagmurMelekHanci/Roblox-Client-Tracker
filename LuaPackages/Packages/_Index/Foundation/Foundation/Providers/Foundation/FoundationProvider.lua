@@ -12,6 +12,7 @@ type StyleProps = StyleProvider.StyleProviderProps
 type Preferences = PreferencesProvider.PreferencesProps
 
 export type FoundationProviderProps = StyleProps & {
+	-- Plugins must provide overlay since they can't use the default PlayerGui
 	overlayGui: GuiObject?,
 	preferences: Preferences?,
 }

@@ -10,6 +10,14 @@ local Packages = UIBlox.Parent
 local React = require(Packages.React)
 local Roact = require(Packages.Roact)
 
+local GlobalPackages = UIBlox:FindFirstAncestor("Packages") or UIBlox:FindFirstAncestor("CorePackages") :: any
+
+local isJest = if GlobalPackages
+		and GlobalPackages:FindFirstChild("Dev")
+		and GlobalPackages.Dev:FindFirstChild("JestGlobals")
+	then pcall(require, GlobalPackages.Dev.JestGlobals)
+	else false
+
 local Foundation = require(Packages.Foundation)
 local FoundationProvider = Foundation.FoundationProvider
 
@@ -149,11 +157,13 @@ local function AppStyleProvider(props: Props)
 	}, Roact.oneChild(props.children :: any))
 
 	if not foundationProviderPresent and UIBloxConfig.useFoundationProvider then
-		Logger:warning(
-			debug.traceback(
-				"FoundationProvider not found. Please ensure that the FoundationProvider is present in the component tree."
+		if not isJest then
+			Logger:warning(
+				debug.traceback(
+					"FoundationProvider not found. Please ensure that the FoundationProvider is present in the component tree."
+				)
 			)
-		)
+		end
 		return React.createElement(FoundationProvider, {
 			theme = FOUNDATION_THEME_MAP[themeName:lower()],
 			device = style.deviceType,

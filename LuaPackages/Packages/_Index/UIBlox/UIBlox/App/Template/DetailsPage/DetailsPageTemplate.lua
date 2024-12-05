@@ -283,7 +283,7 @@ function DetailsPageTemplate:render()
 					}, {
 						StickyActionBar = Roact.createElement(StickyActionBar, {
 							actionBarProps = self.props.actionBarProps,
-							actionBarWidth = self.props.actionbarwidth,
+							actionBarWidth = self.props.actionBarWidth,
 							infoProps = {
 								icon = self.props.thumbnailImageUrl,
 								title = self.props.titleText,

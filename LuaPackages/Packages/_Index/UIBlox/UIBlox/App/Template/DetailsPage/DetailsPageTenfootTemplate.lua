@@ -66,6 +66,11 @@ export type Props = {
 	-- 	Props for the embedded action bar component.
 	-- See [[ButtonStack]] for required and optional props.
 	actionBarProps: { button: any, icons: { any }, enableButtonAtStart: boolean? },
+
+	-- The width of the action bar component. If unspecified, the default tokens
+	-- value will be used.
+	actionBarWidth: number?,
+
 	--[[
 	The table of props for the content of the details page.
 

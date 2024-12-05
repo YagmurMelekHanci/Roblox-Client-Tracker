@@ -137,13 +137,17 @@ local function NavigationBar(providedProps: Props)
 			end
 		end)
 		return React.createElement("Frame", {
-			BackgroundColor3 = if props.rootBackgroundColor
-				then props.rootBackgroundColor.Color
-				else style.Theme.BackgroundDefault.Color,
-			BackgroundTransparency = if props.rootBackgroundColor
-				then props.rootBackgroundColor.Transparency
-				else style.Theme.BackgroundDefault.Transparency,
-			BorderSizePixel = 0,
+			BackgroundColor3 = if UIBloxConfig.enableAppNavTransparentBackground
+				then nil
+				else (if props.rootBackgroundColor
+					then props.rootBackgroundColor.Color
+					else style.Theme.BackgroundDefault.Color),
+			BackgroundTransparency = if UIBloxConfig.enableAppNavTransparentBackground
+				then 1
+				else (if props.rootBackgroundColor
+					then props.rootBackgroundColor.Transparency
+					else style.Theme.BackgroundDefault.Transparency),
+			BorderSizePixel = if UIBloxConfig.enableAppNavTransparentBackground then nil else 0,
 			ClipsDescendants = props.clipsDescendants,
 			Size = props.size,
 			Position = props.position,
@@ -208,7 +212,7 @@ local function NavigationBar(providedProps: Props)
 		props.zIndex,
 		props.size,
 		props.clipsDescendants,
-		props.rootBackgroundColor,
+		if UIBloxConfig.enableAppNavTransparentBackground then nil else props.rootBackgroundColor,
 		props.backgroundColor,
 	} :: { any })
 

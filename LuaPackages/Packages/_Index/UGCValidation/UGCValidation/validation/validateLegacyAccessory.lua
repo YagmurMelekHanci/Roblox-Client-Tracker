@@ -2,6 +2,7 @@
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
@@ -22,6 +23,7 @@ local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 
+local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createAccessorySchema = require(root.util.createAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
 local getAccessoryScale = require(root.util.getAccessoryScale)
@@ -35,6 +37,7 @@ local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGC
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
+local FFlagLegacyAccessoryCheckCategory = game:DefineFastFlag("LegacyAccessoryCheckCategory", false)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
@@ -45,6 +48,17 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	local assetTypeEnum = validationContext.assetTypeEnum
 	local isServer = validationContext.isServer
 	local allowUnreviewedAssets = validationContext.allowUnreviewedAssets
+
+	if FFlagLegacyAccessoryCheckCategory and not RigidOrLayeredAllowed.isRigidAccessoryAllowed(assetTypeEnum) then
+		Analytics.reportFailure(Analytics.ErrorType.validateLegacyAccessory_AssetTypeNotAllowedAsRigidAccessory)
+		return false,
+			{
+				string.format(
+					"Asset type '%s' is not a rigid accessory category. It can only be used with layered clothing.",
+					assetTypeEnum.Name
+				),
+			}
+	end
 
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
 

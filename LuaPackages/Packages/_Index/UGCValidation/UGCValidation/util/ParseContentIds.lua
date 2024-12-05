@@ -9,11 +9,14 @@ local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
 local checkForProxyWrap = require(root.util.checkForProxyWrap)
+local isProxyWrapParent = require(root.util.isProxyWrapParent)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+
+local FFlagFixParseProxyWrap = game:DefineFastFlag("FixParseProxyWrap", false)
 
 local ParseContentIds = {}
 
@@ -109,7 +112,10 @@ end
 local function parseContentId(contentIds, contentIdMap, allResults, object, fieldName, isRequired, validationContext)
 	local contentId = object[fieldName]
 
-	if contentId == "" then
+	if
+		contentId == ""
+		or (FFlagFixParseProxyWrap and validationContext.allowEditableInstances and isProxyWrapParent(object))
+	then
 		if getEngineFeatureUGCValidateEditableMeshAndImage() then
 			if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
 				if allResults then

@@ -22,6 +22,9 @@ local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
 local getEngineFeatureUGCValidateMeshInsideMesh = require(root.flags.getEngineFeatureUGCValidateMeshInsideMesh)
 local getEngineFeatureUGCValidateCageMeshDistance = require(root.flags.getEngineFeatureUGCValidateCageMeshDistance)
 
+local getEngineFeatureEngineUGCValidationCageUVDuplicates =
+	require(root.flags.getEngineFeatureEngineUGCValidationCageUVDuplicates)
+
 local getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity =
 	require(root.flags.getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity)
 
@@ -103,6 +106,7 @@ Analytics.ErrorType = {
 	validateLayeredClothingAccessory_NoWrapLayer = "validateLayeredClothingAccessory_NoWrapLayer",
 	validateLayeredClothingAccessoryMeshPartAssetFormatMatch_MeshIdMismatch = "validateLayeredClothingAccessoryMeshPartAssetFormatMatch_MeshIdMismatch",
 	validateLayeredClothingAccessoryMeshPartAssetFormatMatch_TextureIdMismatch = "validateLayeredClothingAccessoryMeshPartAssetFormatMatch_TextureIdMismatch",
+	validateLegacyAccessory_AssetTypeNotAllowedAsRigidAccessory = "validateLegacyAccessory_AssetTypeNotAllowedAsRigidAccessory",
 	validateLegacyAccessoryMeshPartAssetFormatMatch_MeshIdMismatch = "validateLegacyAccessoryMeshPartAssetFormatMatch_MeshIdMismatch",
 	validateLegacyAccessoryMeshPartAssetFormatMatch_TextureIdMismatch = "validateLegacyAccessoryMeshPartAssetFormatMatch_TextureIdMismatch",
 	validateLimbsAndTorso_FolderInfoMismatch = "validateLimbsAndTorso_FolderInfoMismatch",
@@ -193,10 +197,14 @@ if getEngineFeatureUGCValidateMeshInsideMesh() then
 end
 
 if getEngineFeatureUGCValidateCageMeshDistance() then
-	Analytics.ErrorType.validateCageMeshDistance_InvalidRefMeshId = "validateCageMeshDistance_InvalidRefMeshId"
 	Analytics.ErrorType.validateCageMeshDistance_FailedToExecute = "validateCageMeshDistance_FailedToExecute"
 	Analytics.ErrorType.validateCageMeshDistance_OuterCageToMeshDistance =
 		"validateCageMeshDistance_OuterCageToMeshDistance"
+end
+
+if getEngineFeatureEngineUGCValidationCageUVDuplicates() then
+	Analytics.ErrorType.validateCageUVDuplicate_FailedToExecute = "validateCageUVDuplicate_FailedToExecute"
+	Analytics.ErrorType.validateCageUVDuplicate_UnexpectedUVValue = "validateCageUVDuplicate_UnexpectedUVValue"
 end
 
 if getFFlagUGCValidatePartSizeWithinRenderSizeLimits() then

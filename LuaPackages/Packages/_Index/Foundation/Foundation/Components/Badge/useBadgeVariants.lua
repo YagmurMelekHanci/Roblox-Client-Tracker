@@ -6,6 +6,7 @@ local BadgeSize = require(Foundation.Enums.BadgeSize)
 type BadgeSize = BadgeSize.BadgeSize
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local Flags = require(Foundation.Utility.Flags)
 
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
@@ -61,11 +62,21 @@ return function(
 	}
 
 	local minSize: { [BadgeSize]: number } = {
-		[BadgeSize.Small] = tokens.Typography.CaptionSmall.FontSize,
-		[BadgeSize.Medium] = tokens.Typography.LabelSmall.FontSize,
+		[BadgeSize.Small] = if Flags.FoundationBadgeSimplifySizing
+			then tokens.Size.Size_300 - tokens.Padding.XXSmall * 2 -- 12 - 4 (padding)
+			else tokens.Typography.CaptionSmall.FontSize,
+		[BadgeSize.Medium] = if Flags.FoundationBadgeSimplifySizing
+			then tokens.Size.Size_600
+				- tokens.Stroke.Standard * 2
+				- tokens.Padding.XXSmall * 2 -- 24 - 2 (stroke) - 4 (padding)
+			else tokens.Typography.LabelSmall.FontSize,
 	}
 
 	local horizontalPadding, verticalPadding = containerPadding(size, hasText, hasIcon)
+
+	local containerPadding = if Flags.FoundationBadgeSimplifySizing
+		then if hasIcon or hasText then "padding-xxsmall" else ""
+		else `{horizontalPadding} {verticalPadding}`
 
 	local textPadding = "padding-x-xsmall"
 	local fontStyle = textStyle[size]
@@ -84,15 +95,16 @@ return function(
 		MaxSize = maxSize,
 	}
 
-	local containerMinSize = if hasText then minSize[size] else tokens.Size.Size_200
+	local containerMinSize = if hasText or (Flags.FoundationBadgeSimplifySizing and hasIcon)
+		then minSize[size]
+		else tokens.Size.Size_200
 
 	local containerSizeConstraint = {
 		MinSize = Vector2.new(containerMinSize, containerMinSize),
 		MaxSize = Vector2.new(tokens.Size.Size_1600, math.huge),
 	}
 
-	local containerTags =
-		`auto-xy radius-circle row align-y-center align-x-center stroke-thick {horizontalPadding} {verticalPadding}`
+	local containerTags = `auto-xy radius-circle row align-y-center align-x-center stroke-thick {containerPadding}`
 	local textTags = `auto-xy text-truncate-end {textPadding} {fontStyle}`
 
 	return badgeVariants[variant], containerSizeConstraint, textSizeConstraint, containerTags, textTags

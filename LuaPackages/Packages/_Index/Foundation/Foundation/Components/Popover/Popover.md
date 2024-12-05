@@ -54,4 +54,4 @@ Calculating the position of the popover has three steps:
 2. Calculate which side the popover should be placed on.
    1. If the popover does not have space on the desired side, but the opposite side has space, it will switch sides.
 3. Calculate the position of the popover.
-   1. With the final side and alignment, calculate the position of the popover relative to the anchor. The psoition will be clamped to the screen.
+   1. With the final side and alignment, calculate the position of the popover relative to the anchor. The position will be clamped to the screen.

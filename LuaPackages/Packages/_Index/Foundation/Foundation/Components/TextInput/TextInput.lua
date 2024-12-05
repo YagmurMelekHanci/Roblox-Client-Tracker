@@ -59,6 +59,7 @@ type TextInputProps = {
 	}?,
 	-- Partial TextBox ref exposed via imperative handle
 	textBoxRef: React.Ref<TextInputRef>?,
+	onFocusGained: (() -> ())?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -107,8 +108,11 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 	local onFocusGained = React.useCallback(function()
 		if not props.isDisabled then
 			setFocus(true)
+			if props.onFocusGained then
+				props.onFocusGained()
+			end
 		end
-	end, { props.isDisabled })
+	end, { props.onFocusGained :: unknown, props.isDisabled })
 
 	local onFocusLost = React.useCallback(function()
 		setFocus(false)

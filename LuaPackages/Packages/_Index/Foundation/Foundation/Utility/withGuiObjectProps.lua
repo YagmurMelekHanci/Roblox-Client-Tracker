@@ -27,6 +27,10 @@ type AppliedGuiObjectProps = {
 	Selectable: Bindable<boolean>?,
 	SelectionImageObject: Bindable<React.Ref<GuiObject>>?,
 	SelectionOrder: Bindable<number>?,
+	NextSelectionDown: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionLeft: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionRight: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionUp: Bindable<React.Ref<GuiObject>>?,
 	Size: Bindable<UDim2>?,
 } & NativeCommonProps
 
@@ -48,6 +52,10 @@ local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, basePr
 			baseProps.Selectable = props.selection.Selectable
 			baseProps.SelectionImageObject = props.selection.SelectionImageObject
 			baseProps.SelectionOrder = props.selection.SelectionOrder
+			baseProps.NextSelectionDown = props.selection.NextSelectionDown
+			baseProps.NextSelectionLeft = props.selection.NextSelectionLeft
+			baseProps.NextSelectionRight = props.selection.NextSelectionRight
+			baseProps.NextSelectionUp = props.selection.NextSelectionUp
 		end
 
 		if props.selectionGroup ~= nil then

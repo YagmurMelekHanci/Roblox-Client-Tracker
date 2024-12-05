@@ -1,6 +1,9 @@
 local CoreGui = game:GetService("CoreGui")
+local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
-local PlayerGui = if Players.LocalPlayer then Players.LocalPlayer:WaitForChild("PlayerGui") else nil
+local PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
+	then Players.LocalPlayer:WaitForChild("PlayerGui", 3)
+	else nil
 
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent

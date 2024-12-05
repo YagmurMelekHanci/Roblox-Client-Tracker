@@ -14,10 +14,14 @@ local getEngineFeatureUGCValidateCageMeshDistance = require(root.flags.getEngine
 local getFFlagUGCValidateImportOrigin = require(root.flags.getFFlagUGCValidateImportOrigin)
 local getFIntUGCValidateImportOriginMax = require(root.flags.getFIntUGCValidateImportOriginMax)
 
+local getEngineFeatureEngineUGCValidationCageUVDuplicates =
+	require(root.flags.getEngineFeatureEngineUGCValidationCageUVDuplicates)
+
 local validateVerticesSimilarity = require(root.validation.validateVerticesSimilarity)
 local validateLCCagingRelevancy = require(root.validation.validateLCCagingRelevancy)
 local validateRenderMeshInsideOuterCageMesh = require(root.validation.validateRenderMeshInsideOuterCageMesh)
 local validateCageMeshDistance = require(root.validation.validateCageMeshDistance)
+local validateCageUVDuplicates = require(root.validation.validateCageUVDuplicates)
 
 local Types = require(root.util.Types)
 
@@ -109,6 +113,15 @@ local function validateLCCageQuality(
 			wrapLayer.CageOrigin,
 			validationContext
 		)
+		if not success then
+			table.insert(issues, table.concat(failedReason :: { string }, "\n"))
+			validationResult = false
+		end
+	end
+
+	if getEngineFeatureEngineUGCValidationCageUVDuplicates() then
+		local success: boolean, failedReason: { string }? =
+			validateCageUVDuplicates(innerCage, outerCage, meshInfoRenderMesh, validationContext)
 		if not success then
 			table.insert(issues, table.concat(failedReason :: { string }, "\n"))
 			validationResult = false

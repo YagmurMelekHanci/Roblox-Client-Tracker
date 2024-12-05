@@ -72,7 +72,7 @@ type ButtonProps = {
 	-- This will only take effect on component mount and visually show on buttons
 	-- whose variants use a filled background (Standard and Emphasis).
 	inputDelay: number?,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	isDisabled = false,
@@ -150,6 +150,10 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 			selection = {
 				Selectable = not props.isDisabled,
 				SelectionImageObject = cursor,
+				NextSelectionUp = props.NextSelectionUp,
+				NextSelectionDown = props.NextSelectionDown,
+				NextSelectionLeft = props.NextSelectionLeft,
+				NextSelectionRight = props.NextSelectionRight,
 			},
 			onActivated = props.onActivated,
 			onStateChanged = setControlState :: StateChangedCallback,

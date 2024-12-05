@@ -122,9 +122,6 @@ return {
 	-- Removes math error absoluteSize setting statement
 	fixLayerCollectorProviderAbsoluteSize = false,
 
-	-- Set name text in playertile to richtext
-	enableRichTextPlayerTileName = false,
-
 	-- Enable useStyleMetadata hook
 	enableUseStyleMetadata = false,
 
@@ -166,4 +163,13 @@ return {
 
 	-- Fix the AppNav related test issues
 	fixAppNavTestIssues = false,
+
+	-- Update NavigationBar & NavigationRail's backgrounds to be transparent
+	enableAppNavTransparentBackground = false,
+
+	-- Enable ComboButton support in ExperienceActionRow
+	enableComboButtonInExperienceActionRow = false,
+
+	-- Enable better laser pointer mode
+	enableBetterLaserPointerMode = false,
 }

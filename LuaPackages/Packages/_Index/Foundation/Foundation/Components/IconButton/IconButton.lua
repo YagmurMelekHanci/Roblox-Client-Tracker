@@ -44,7 +44,7 @@ type IconButtonProps = {
 	isDisabled: boolean?,
 	size: IconSize?,
 	icon: string,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	isDisabled = false,
@@ -80,6 +80,10 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 			selection = {
 				Selectable = not props.isDisabled,
 				SelectionImageObject = cursor,
+				NextSelectionUp = props.NextSelectionUp,
+				NextSelectionDown = props.NextSelectionDown,
+				NextSelectionLeft = props.NextSelectionLeft,
+				NextSelectionRight = props.NextSelectionRight,
 			},
 			padding = padding,
 			cornerRadius = UDim.new(0, radius),

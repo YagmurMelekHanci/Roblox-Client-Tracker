@@ -87,6 +87,14 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 		end
 	end, { props.onPressedOutside })
 
+	React.useEffect(function()
+		return function()
+			if backdropListener.current then
+				backdropListener.current:Disconnect()
+			end
+		end
+	end, {})
+
 	local content = React.createElement(React.Fragment, nil, {
 		Backdrop = if props.onPressedOutside and popoverContext.isOpen
 			then React.createElement(View, {

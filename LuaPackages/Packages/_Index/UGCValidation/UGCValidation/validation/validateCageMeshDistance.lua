@@ -27,24 +27,6 @@ local function validateCageMeshDistance(
 	outerCFrame: CFrame,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local invalidMesh_error = {
-		string.format(
-			"The meshId reference for cage '%s' is invalid or doesn't exist. Please, verify you are using a valid mesh asset and try again.",
-			meshInfo.fullName
-		),
-	}
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		if not meshInfo.editableMesh then
-			Analytics.reportFailure(Analytics.ErrorType.validateCageMeshDistance_InvalidRefMeshId)
-			return false, invalidMesh_error
-		end
-	else
-		if meshInfo.contentId == "" then
-			Analytics.reportFailure(Analytics.ErrorType.validateCageMeshDistance_InvalidRefMeshId)
-			return false, invalidMesh_error
-		end
-	end
-
 	local success, averageOuterCageToMeshDistance
 	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
 		success, averageOuterCageToMeshDistance = pcallDeferred(function()

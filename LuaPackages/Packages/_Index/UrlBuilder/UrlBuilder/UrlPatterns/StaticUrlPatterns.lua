@@ -1,5 +1,3 @@
-local FFlagUseNewAboutUrls = game:DefineFastFlag("UseNewAboutUrls", false)
-
 return function(UrlBuilder)
 	local function isQQ()
 		return string.find(UrlBuilder.fromString("corp:")(), "qq.com")
@@ -34,28 +32,22 @@ return function(UrlBuilder)
 			sendVerificationEmail = UrlBuilder.fromString("accountSettings:v1/email/verify"),
 		},
 		about = {
-			us = if FFlagUseNewAboutUrls
-				then function(locale)
+			us = function(locale)
+				local localeCode = locale or ""
+				return UrlBuilder.fromString("www:info/about-us?locale={localeCode}")({ localeCode = localeCode })
+			end,
+			careers = function(locale)
+				if isQQ() then
+					return UrlBuilder.fromString("corp:careers.html")
+				else
 					local localeCode = locale or ""
-					return UrlBuilder.fromString("www:info/about-us?locale={localeCode}")({ localeCode = localeCode })
+					return UrlBuilder.fromString("www:info/jobs?locale={localeCode}")({ localeCode = localeCode })
 				end
-				else UrlBuilder.fromString("corp:"),
-			careers = if FFlagUseNewAboutUrls
-				then function(locale)
-					if isQQ() then
-						return UrlBuilder.fromString("corp:careers.html")
-					else
-						local localeCode = locale or ""
-						return UrlBuilder.fromString("www:info/jobs?locale={localeCode}")({ localeCode = localeCode })
-					end
-				end
-				else UrlBuilder.fromString(isQQ() and "corp:careers.html" or "corp:careers"),
-			parents = if FFlagUseNewAboutUrls
-				then function(locale)
-					local localeCode = locale or ""
-					return UrlBuilder.fromString("www:info/parents?locale={localeCode}")({ localeCode = localeCode })
-				end
-				else UrlBuilder.fromString("corp:parents"),
+			end,
+			parents = function(locale)
+				local localeCode = locale or ""
+				return UrlBuilder.fromString("www:info/parents?locale={localeCode}")({ localeCode = localeCode })
+			end,
 			terms = function(params)
 				if isQQ() and params.useGameQQUrls then
 					return UrlBuilder.fromString("https://game.qq.com/contract.shtml")()
@@ -96,6 +88,6 @@ return function(UrlBuilder)
 			clearUnread = UrlBuilder.fromString("notifications:stream-notifications/clear-unread"),
 			unreadCount = UrlBuilder.fromString("notifications:stream-notifications/unread-count"),
 		},
-		securityAlert = UrlBuilder.fromString("www:security-feedback-v2?payload={payload}&username={username}"),
+		securityAlert = UrlBuilder.fromString("www:security-feedback?payload={payload}&username={username}"),
 	}
 end
