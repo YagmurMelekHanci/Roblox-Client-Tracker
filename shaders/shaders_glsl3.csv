@@ -48,8 +48,11 @@ DefaultNeonInGuiFS,Fragment
 DefaultReflectionVS__00000001,Vertex
 DefaultReflectionVS__00000002,Vertex
 DefaultReflectionVS__00000006,Vertex
+DefaultReflectionVS__00001002,Vertex
+DefaultReflectionVS__00001006,Vertex
 DefaultReflectionVS__00100001,Vertex
 DefaultReflectionVS__04000006,Vertex
+DefaultReflectionVS__04001006,Vertex
 DefaultReflectionVS_00000000,Vertex
 DefaultShadowFS,Fragment
 DefaultSurfaceAppearanceDitheredDepthFS,Fragment

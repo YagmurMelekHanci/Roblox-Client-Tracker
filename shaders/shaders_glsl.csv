@@ -1051,8 +1051,11 @@ UIFogVS_08000000,Vertex
 UIFS,Fragment
 UIFS_08000000,Fragment
 UIFSAdvSDBox,Fragment
+UIFSAdvSDBox_08000000,Fragment
 UIFSMdrSDBox,Fragment
 UIFSMdrSDBox_08000000,Fragment
+UIFSPremultiplied,Fragment
+UIFSPremultiplied_08000000,Fragment
 UILitFogFSSDBox,Fragment
 UILitFogFSSDBox_08000000,Fragment
 UITransformedLitFogVS,Vertex
