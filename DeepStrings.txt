@@ -19930,7 +19930,7 @@ Dimodifikasi
 Dinonaktifkan
 Dinonaktifkan]
 Dinormalkan[Fitur
-DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos
+DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsosP
 Dipengaruhi
 Dipercepat
 DIPERDAGANGKAN
@@ -30531,6 +30531,7 @@ IWebViewProtocol
 IWidgetsManager
 IWorldStage
 IXMLHTTPRequest2
+IxpCache.json
 IxpController
 IXPController
 IxpController]
@@ -30585,7 +30586,6 @@ IXPRequestTimeoutMilliseconds
 IXPServerTimeForExposure
 IXPService
 IXPService]
-IxpSettings.json
 IXPStreamingMemoryThresholds
 IXPTestAccountSwitcherLayerName
 IXPTestBrowserTrackerLayerName
@@ -64753,6 +64753,7 @@ VisBugFixCrashOnSO
 VisBugFixMaxRecusion
 VisBugFixMaxRecusionCheck
 VisBugFixMeshSwapCrash
+VisBugFixMissingMesh
 VisBugFixPartUpdatedLock
 VisBugFixRoundSpecialMeshScale
 VisBugFixSingleton
@@ -67409,7 +67410,7 @@ WildcardInProperty
 WilError_03
 WillReturn
 Win32HardwareSleepListener
-Win64.654.52655
+Win64.654.52411
 WinchEnabled
 WinchForce
 WinchResponsiveness
