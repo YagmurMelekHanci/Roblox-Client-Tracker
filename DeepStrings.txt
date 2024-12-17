@@ -12085,6 +12085,7 @@ BytesTotal
 BYTESWAP_UINT
 BytesWritten
 C^HHHHHHHH
+C_ID_VP8_ENCODER
 C_specific_handler
 CA_NPEAVQObject
 CA2168118C14FDE5E01E7934
@@ -67410,7 +67411,7 @@ WildcardInProperty
 WilError_03
 WillReturn
 Win32HardwareSleepListener
-Win64.654.52411
+Win64.654.52416
 WinchEnabled
 WinchForce
 WinchResponsiveness
