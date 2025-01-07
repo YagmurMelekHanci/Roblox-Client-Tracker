@@ -47,6 +47,20 @@ PROTO_2:
   GETTABLEKS R5 R1 K6 ["isEnabled"]
   SETTABLEKS R5 R4 K4 ["visualizationModeEnabled"]
   CALL R2 2 0
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+17]
+  GETUPVAL R2 2
+  GETUPVAL R4 3
+  DUPTABLE R5 K8 [{"customFields"}]
+  DUPTABLE R6 K11 [{"mode", "category"}]
+  GETTABLEKS R7 R1 K2 ["visualizationMode"]
+  SETTABLEKS R7 R6 K9 ["mode"]
+  GETTABLEKS R7 R1 K3 ["visualizationModeCategory"]
+  SETTABLEKS R7 R6 K10 ["category"]
+  SETTABLEKS R6 R5 K7 ["customFields"]
+  NAMECALL R2 R2 K12 ["LogCounter"]
+  CALL R2 3 0
   RETURN R0 0
 
 PROTO_3:
@@ -73,6 +87,9 @@ PROTO_4:
   SETTABLEKS R3 R2 K0 ["openPlugin"]
   NEWCLOSURE R3 P2
   CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   SETTABLEKS R3 R2 K1 ["visualizationModeToggled"]
   NEWCLOSURE R3 P3
   CAPTURE VAL R1
@@ -89,15 +106,44 @@ MAIN:
   LOADK R3 K6 ["StudioService"]
   NAMECALL R1 R1 K7 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R0 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["Dash"]
-  CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R0 K12 ["Src"]
-  GETTABLEKS R4 R5 K13 ["Types"]
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K8 ["TelemetryService"]
+  NAMECALL R2 R2 K7 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R5 R0 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Dash"]
   CALL R3 1 1
-  DUPCLOSURE R4 K14 [PROTO_4]
-  CAPTURE VAL R2
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R6 R0 K13 ["Src"]
+  GETTABLEKS R5 R6 K14 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K10 [require]
+  GETTABLEKS R8 R0 K13 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Flags"]
+  GETTABLEKS R6 R7 K16 ["getFFlagStudioSendVisualizationModeCounter"]
+  CALL R5 1 1
+  DUPTABLE R6 K22 [{"eventName", "lastUpdated", "description", "links", "backends"}]
+  LOADK R7 K23 ["SBT_VisModeEnabled"]
+  SETTABLEKS R7 R6 K17 ["eventName"]
+  NEWTABLE R7 0 3
+  LOADN R8 232
+  LOADN R9 11
+  LOADN R10 13
+  SETLIST R7 R8 3 [1]
+  SETTABLEKS R7 R6 K18 ["lastUpdated"]
+  LOADK R7 K24 ["Visualization mode enabled from the plugin."]
+  SETTABLEKS R7 R6 K19 ["description"]
+  LOADK R7 K25 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
+  SETTABLEKS R7 R6 K20 ["links"]
+  NEWTABLE R7 0 1
+  LOADK R8 K26 ["RobloxTelemetryCounter"]
+  SETLIST R7 R8 1 [1]
+  SETTABLEKS R7 R6 K21 ["backends"]
+  DUPCLOSURE R7 K27 [PROTO_4]
+  CAPTURE VAL R3
   CAPTURE VAL R1
-  RETURN R4 1
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  RETURN R7 1

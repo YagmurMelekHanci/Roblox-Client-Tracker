@@ -24,7 +24,6 @@ local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local formatUsername = UserProfiles.Formatters.formatUsername
-local getCombinedNameFromId = UserProfiles.Selectors.getCombinedNameFromId
 local getInExperienceCombinedNameFromId = UserProfiles.Selectors.getInExperienceCombinedNameFromId
 local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
@@ -57,8 +56,6 @@ local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperi
 
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 	require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
-local FFlagInExperienceNameQueryEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagInExperienceNameQueryEnabled
 
 local GameInviteAnalyticsManager
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
@@ -1677,9 +1674,7 @@ local function Initialize()
 				reportFlagChanged(reportFlag, "AbsolutePosition")
 			else
 				ApolloClient:query({
-					query = if FFlagInExperienceNameQueryEnabled
-						then UserProfiles.Queries.userProfilesInExperienceNamesByUserIds
-						else UserProfiles.Queries.userProfilesAllNamesByUserIds,
+					query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
 					variables = {
 						userIds = { tostring(player.UserId) },
 					},
@@ -1688,9 +1683,7 @@ local function Initialize()
 						reportFlagChanged(
 							reportFlag,
 							"AbsolutePosition",
-							if FFlagInExperienceNameQueryEnabled
-								then getInExperienceCombinedNameFromId(result.data, player.UserId)
-								else getCombinedNameFromId(result.data, player.UserId)
+							getInExperienceCombinedNameFromId(result.data, player.UserId)
 						)
 					end)
 					:catch(function()
@@ -1732,17 +1725,13 @@ local function Initialize()
 						frame.DisplayNameLabel.Text = player.DisplayName
 					else
 						ApolloClient:query({
-							query = if FFlagInExperienceNameQueryEnabled
-								then UserProfiles.Queries.userProfilesInExperienceNamesByUserIds
-								else UserProfiles.Queries.userProfilesAllNamesByUserIds,
+							query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
 							variables = {
 								userIds = { tostring(player.UserId) },
 							},
 						})
 							:andThen(function(result)
-								frame.DisplayNameLabel.Text = if FFlagInExperienceNameQueryEnabled
-									then getInExperienceCombinedNameFromId(result.data, player.UserId)
-									else getCombinedNameFromId(result.data, player.UserId)
+								frame.DisplayNameLabel.Text = getInExperienceCombinedNameFromId(result.data, player.UserId)
 							end)
 							:catch(function()
 								frame.DisplayNameLabel.Text = player.DisplayName
@@ -1798,17 +1787,13 @@ local function Initialize()
 				frame.DisplayNameLabel.Text = player.DisplayName
 			else
 				ApolloClient:query({
-					query = if FFlagInExperienceNameQueryEnabled
-						then UserProfiles.Queries.userProfilesInExperienceNamesByUserIds
-						else UserProfiles.Queries.userProfilesAllNamesByUserIds,
+					query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
 					variables = {
 						userIds = { tostring(player.UserId) },
 					},
 				})
 					:andThen(function(result)
-						frame.DisplayNameLabel.Text = if FFlagInExperienceNameQueryEnabled
-							then getInExperienceCombinedNameFromId(result.data, player.UserId)
-							else getCombinedNameFromId(result.data, player.UserId)
+						frame.DisplayNameLabel.Text = getInExperienceCombinedNameFromId(result.data, player.UserId)
 					end)
 					:catch(function()
 						frame.DisplayNameLabel.Text = player.DisplayName
@@ -2246,9 +2231,7 @@ local function Initialize()
 		end
 
 		ApolloClient:query({
-			query = if FFlagInExperienceNameQueryEnabled
-				then UserProfiles.Queries.userProfilesInExperienceNamesByUserIds
-				else UserProfiles.Queries.userProfilesAllNamesByUserIds,
+			query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
 			variables = {
 				userIds = playerIds,
 			},
@@ -2258,9 +2241,7 @@ local function Initialize()
 					local labelFrame = existingPlayerLabels[userProfile.names.username]
 
 					if labelFrame then
-						labelFrame.DisplayNameLabel.Text = if FFlagInExperienceNameQueryEnabled
-							then userProfile.names.inExperienceCombinedName
-							else userProfile.names.combinedName
+						labelFrame.DisplayNameLabel.Text = userProfile.names.inExperienceCombinedName
 
 						if FFlagEnablePlatformName then
 							local rightSideButtons = labelFrame:FindFirstChild("RightSideButtons")

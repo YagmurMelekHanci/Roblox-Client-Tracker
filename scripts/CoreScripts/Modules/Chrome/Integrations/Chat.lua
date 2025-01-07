@@ -24,7 +24,6 @@ local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
-local EnabledPinnedChat = require(Chrome.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
@@ -158,11 +157,7 @@ coroutine.wrap(function()
 	if canChat and chatChromeIntegration.availability then
 		ChromeUtils.setCoreGuiAvailability(chatChromeIntegration, Enum.CoreGuiType.Chat, function(enabled)
 			if enabled then
-				if EnabledPinnedChat then
-					chatChromeIntegration.availability:pinned()
-				else
-					chatChromeIntegration.availability:available()
-				end
+				chatChromeIntegration.availability:pinned()
 			else
 				chatChromeIntegration.availability:unavailable()
 			end

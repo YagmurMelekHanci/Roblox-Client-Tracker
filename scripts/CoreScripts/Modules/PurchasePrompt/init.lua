@@ -17,9 +17,11 @@ local Network = require(Root.Services.Network)
 local Analytics = require(Root.Services.Analytics)
 local PlatformInterface = require(Root.Services.PlatformInterface)
 local ExternalSettings = require(Root.Services.ExternalSettings)
+local PublicBindables = require(Root.Services.PublicBindables)
 local Thunk = require(Root.Thunk)
 local initiateAvatarCreationFeePurchaseThunk = require(Root.Thunks.initiateAvatarCreationFeePurchase)
 local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
+local FFlagHideAvatarIECPromptOnUpsellSuccess = require(RobloxGui.Modules.PublishAssetPrompt.FFlagHideAvatarIECPromptOnUpsellSuccess)
 
 local WindowState = require(Root.Enums.WindowState)
 local PromptState = require(Root.Enums.PromptState)
@@ -41,6 +43,13 @@ local function createStore()
 	local platformInterface = PlatformInterface.new()
 	local externalSettings = ExternalSettings.new()
 
+	local publicBindables
+	if FFlagHideAvatarIECPromptOnUpsellSuccess then
+		publicBindables = PublicBindables.new({
+			windowStateChangedBindable = windowStateChangedBindable
+		})
+	end
+
 	store = Rodux.Store.new(Reducer, {}, {
 		Thunk.middleware({
 			[ABTest] = abTest,
@@ -48,6 +57,7 @@ local function createStore()
 			[Analytics] = analytics,
 			[PlatformInterface] = platformInterface,
 			[ExternalSettings] = externalSettings,
+			[PublicBindables] = if FFlagHideAvatarIECPromptOnUpsellSuccess then publicBindables else nil,
 		}),
 	})
 
@@ -77,7 +87,7 @@ if FFlagPublishAvatarPromptEnabled then
 
 		createStore()
 		local purchasePromptElement = Roact.createElement(PurchasePromptApp, {
-			store = store,
+			store = store
 		})
 
 		handle = Roact.mount(purchasePromptElement, CoreGui, "PurchasePromptApp")

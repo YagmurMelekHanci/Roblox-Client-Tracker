@@ -304,9 +304,6 @@ PROTO_1:
   SETLIST R3 R4 1 [1]
   SETTABLEKS R3 R2 K21 ["allowedFileExtensions"]
   SETTABLEKS R2 R1 K19 ["Plugin"]
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+80]
   DUPTABLE R2 K22 [{"allowedFileExtensions"}]
   NEWTABLE R3 0 1
   LOADK R4 K27 [".rbxm"]
@@ -795,33 +792,30 @@ PROTO_1:
   SETTABLEKS R4 R3 K42 ["premiumPricing"]
   SETTABLEKS R3 R2 K18 ["DressSkirtAccessory"]
   GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+24]
-  GETUPVAL R3 1
   SETTABLEKS R3 R2 K28 ["Torso"]
-  GETUPVAL R3 1
+  GETUPVAL R3 0
   SETTABLEKS R3 R2 K29 ["RightArm"]
-  GETUPVAL R3 1
+  GETUPVAL R3 0
   SETTABLEKS R3 R2 K30 ["LeftArm"]
-  GETUPVAL R3 1
+  GETUPVAL R3 0
   SETTABLEKS R3 R2 K31 ["LeftLeg"]
-  GETUPVAL R3 1
+  GETUPVAL R3 0
   SETTABLEKS R3 R2 K32 ["RightLeg"]
-  GETUPVAL R3 1
+  GETUPVAL R3 0
   SETTABLEKS R3 R2 K33 ["DynamicHead"]
-  GETUPVAL R3 1
+  GETUPVAL R3 0
   SETTABLEKS R3 R2 K34 ["EyebrowAccessory"]
-  GETUPVAL R3 1
+  GETUPVAL R3 0
   SETTABLEKS R3 R2 K35 ["EyelashAccessory"]
   NEWTABLE R3 0 0
-  GETUPVAL R6 2
+  GETUPVAL R6 1
   MOVE R7 R2
   MOVE R8 R1
   MOVE R9 R3
   CALL R6 3 -1
   NAMECALL R4 R0 K51 ["dispatch"]
   CALL R4 -1 0
-  GETUPVAL R4 3
+  GETUPVAL R4 2
   CALL R4 0 1
   JUMPIFNOT R4 [+46]
   DUPTABLE R4 K55 [{"isItemTagsFeatureEnabled", "enabledAssetTypes", "maximumItemTagsPerItem"}]
@@ -853,20 +847,20 @@ PROTO_1:
   SETTABLEKS R5 R4 K53 ["enabledAssetTypes"]
   LOADN R5 5
   SETTABLEKS R5 R4 K54 ["maximumItemTagsPerItem"]
-  GETUPVAL R7 4
+  GETUPVAL R7 3
   GETTABLEKS R8 R4 K52 ["isItemTagsFeatureEnabled"]
   GETTABLEKS R9 R4 K53 ["enabledAssetTypes"]
   GETTABLEKS R10 R4 K54 ["maximumItemTagsPerItem"]
   CALL R7 3 -1
   NAMECALL R5 R0 K51 ["dispatch"]
   CALL R5 -1 0
-  GETUPVAL R6 5
+  GETUPVAL R6 4
   GETGLOBAL R7 K56 ["getDebugUgcBundleMetadata"]
   CALL R7 0 -1
   CALL R6 -1 -1
   NAMECALL R4 R0 K51 ["dispatch"]
   CALL R4 -1 0
-  GETUPVAL R5 6
+  GETUPVAL R5 5
   GETTABLEKS R4 R5 K57 ["resolve"]
   NEWTABLE R5 0 0
   CALL R4 1 -1
@@ -880,7 +874,6 @@ PROTO_2:
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
   RETURN R1 1
 
 MAIN:
@@ -890,79 +883,73 @@ MAIN:
   GETTABLEKS R2 R3 K2 ["Parent"]
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Core"]
-  GETTABLEKS R3 R4 K6 ["Flags"]
-  GETTABLEKS R2 R3 K7 ["getFFlagToolboxAddNewUGCAssetTypes"]
-  CALL R1 1 1
-  GETTABLEKS R2 R0 K8 ["Packages"]
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R6 R2 K9 ["Framework"]
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K10 ["Util"]
-  GETTABLEKS R3 R4 K11 ["Promise"]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K5 ["Core"]
-  GETTABLEKS R6 R7 K12 ["Actions"]
-  GETTABLEKS R5 R6 K13 ["NetworkError"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R1 K6 ["Framework"]
   CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R8 R0 K5 ["Core"]
-  GETTABLEKS R7 R8 K12 ["Actions"]
-  GETTABLEKS R6 R7 K14 ["SetAllowedAssetTypes"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["Promise"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Core"]
+  GETTABLEKS R5 R6 K10 ["Actions"]
+  GETTABLEKS R4 R5 K11 ["NetworkError"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Core"]
+  GETTABLEKS R6 R7 K10 ["Actions"]
+  GETTABLEKS R5 R6 K12 ["SetAllowedAssetTypes"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Core"]
+  GETTABLEKS R7 R8 K10 ["Actions"]
+  GETTABLEKS R6 R7 K13 ["SetAllowedBundleTypes"]
   CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R9 R0 K5 ["Core"]
-  GETTABLEKS R8 R9 K12 ["Actions"]
-  GETTABLEKS R7 R8 K15 ["SetAllowedBundleTypes"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Core"]
+  GETTABLEKS R8 R9 K10 ["Actions"]
+  GETTABLEKS R7 R8 K14 ["SetTagsMetadata"]
   CALL R6 1 1
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R10 R0 K5 ["Core"]
-  GETTABLEKS R9 R10 K12 ["Actions"]
-  GETTABLEKS R8 R9 K16 ["SetTagsMetadata"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K9 ["Core"]
+  GETTABLEKS R9 R10 K7 ["Util"]
+  GETTABLEKS R8 R9 K15 ["DebugFlags"]
   CALL R7 1 1
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R11 R0 K5 ["Core"]
-  GETTABLEKS R10 R11 K10 ["Util"]
-  GETTABLEKS R9 R10 K17 ["DebugFlags"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Core"]
+  GETTABLEKS R11 R12 K7 ["Util"]
+  GETTABLEKS R10 R11 K16 ["SharedFlags"]
+  GETTABLEKS R9 R10 K17 ["getFFlagToolboxAddAvatarTagDataIntoMock"]
   CALL R8 1 1
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R13 R0 K5 ["Core"]
-  GETTABLEKS R12 R13 K10 ["Util"]
-  GETTABLEKS R11 R12 K18 ["SharedFlags"]
-  GETTABLEKS R10 R11 K19 ["getFFlagToolboxAddAvatarTagDataIntoMock"]
-  CALL R9 1 1
-  DUPTABLE R10 K23 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-  DUPTABLE R11 K26 [{"minRobux", "maxRobux"}]
-  LOADN R12 50
-  SETTABLEKS R12 R11 K24 ["minRobux"]
-  LOADN R12 136
-  SETTABLEKS R12 R11 K25 ["maxRobux"]
-  SETTABLEKS R11 R10 K20 ["allowedPriceRange"]
-  LOADN R11 70
-  SETTABLEKS R11 R10 K21 ["marketplaceFeesPercentage"]
-  DUPTABLE R11 K28 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-  NEWTABLE R12 0 3
-  LOADN R13 25
-  LOADN R14 50
-  LOADN R15 75
-  SETLIST R12 R13 3 [1]
-  SETTABLEKS R12 R11 K27 ["allowedDiscountPercentages"]
-  DUPTABLE R12 K26 [{"minRobux", "maxRobux"}]
+  DUPTABLE R9 K21 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+  DUPTABLE R10 K24 [{"minRobux", "maxRobux"}]
+  LOADN R11 50
+  SETTABLEKS R11 R10 K22 ["minRobux"]
+  LOADN R11 136
+  SETTABLEKS R11 R10 K23 ["maxRobux"]
+  SETTABLEKS R10 R9 K18 ["allowedPriceRange"]
+  LOADN R10 70
+  SETTABLEKS R10 R9 K19 ["marketplaceFeesPercentage"]
+  DUPTABLE R10 K26 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+  NEWTABLE R11 0 3
+  LOADN R12 25
   LOADN R13 50
-  SETTABLEKS R13 R12 K24 ["minRobux"]
-  LOADN R13 136
-  SETTABLEKS R13 R12 K25 ["maxRobux"]
-  SETTABLEKS R12 R11 K20 ["allowedPriceRange"]
-  SETTABLEKS R11 R10 K22 ["premiumPricing"]
-  DUPCLOSURE R11 K29 [PROTO_0]
-  SETGLOBAL R11 K30 ["getDebugUgcBundleMetadata"]
-  DUPCLOSURE R11 K31 [PROTO_2]
-  CAPTURE VAL R1
-  CAPTURE VAL R10
-  CAPTURE VAL R5
+  LOADN R14 75
+  SETLIST R11 R12 3 [1]
+  SETTABLEKS R11 R10 K25 ["allowedDiscountPercentages"]
+  DUPTABLE R11 K24 [{"minRobux", "maxRobux"}]
+  LOADN R12 50
+  SETTABLEKS R12 R11 K22 ["minRobux"]
+  LOADN R12 136
+  SETTABLEKS R12 R11 K23 ["maxRobux"]
+  SETTABLEKS R11 R10 K18 ["allowedPriceRange"]
+  SETTABLEKS R10 R9 K20 ["premiumPricing"]
+  DUPCLOSURE R10 K27 [PROTO_0]
+  SETGLOBAL R10 K28 ["getDebugUgcBundleMetadata"]
+  DUPCLOSURE R10 K29 [PROTO_2]
   CAPTURE VAL R9
-  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R8
   CAPTURE VAL R6
-  CAPTURE VAL R3
-  RETURN R11 1
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  RETURN R10 1

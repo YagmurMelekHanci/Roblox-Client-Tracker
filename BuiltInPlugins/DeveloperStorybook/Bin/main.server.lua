@@ -2,7 +2,7 @@
 	Developer Storybook main script.
 	Mounts and unmounts the Roact tree.
 ]]
-local Main = script.Parent.Parent
+local Main = script:FindFirstAncestor("DeveloperStorybook")
 
 require(script.Parent.defineLuaFlags)
 
@@ -11,7 +11,7 @@ commonInit()
 
 local TestLoader = require(Main.Packages.TestLoader)
 TestLoader.launch("DeveloperStorybook", Main.Src)
-if TestLoader.isCli() or not TestLoader.hasInternalPermission() then
+if TestLoader.isCli() then
 	return
 end
 

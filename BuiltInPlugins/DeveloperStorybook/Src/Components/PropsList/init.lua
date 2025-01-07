@@ -14,10 +14,9 @@
 local Main = script.Parent.Parent.Parent
 local React = require(Main.Packages.React)
 
-local Framework = require(Main.Packages.Framework)
-local UI = Framework.UI
-local Pane = UI.Pane
-local TextLabel = UI.TextLabel
+local Foundation = require(Main.Packages.Foundation)
+local View = Foundation.View
+local Text = Foundation.Text
 
 local PanelEntry = require(Main.Src.Components.PanelEntry)
 local Types = require(Main.Src.Types)
@@ -43,9 +42,9 @@ function PropsList:renderPropType(propName: string, propType: string | Types.Pro
 			else customType
 	end
 
-	return React.createElement(TextLabel, {
+	return React.createElement(Text, {
 		Text = text,
-		[React.Tag] = "Monospace X-Fit",
+		tag = "Monospace auto-xy text-align-x-left",
 		LayoutOrder = layoutOrder,
 	})
 end
@@ -58,32 +57,32 @@ function PropsList:renderProp(
 	comment: string?,
 	index: number
 )
-	return React.createElement(Pane, {
+	return React.createElement(View, {
 		LayoutOrder = index,
-		[React.Tag] = "Main Border X-Pad X-ColumnM X-FitY",
+		tag = "size-full-0 padding-medium col gap-medium auto-y",
 	}, {
-		Top = React.createElement(Pane, {
-			[React.Tag] = "Main Border X-RowM X-FitY X-Middle",
+		Top = React.createElement(View, {
+			tag = "size-full-0 row gap-medium auto-y align-y-center",
 		}, {
-			Name = React.createElement(TextLabel, {
+			Name = React.createElement(Text, {
 				Text = propName .. if isOptional then "?" else "",
 				LayoutOrder = 1,
-				[React.Tag] = "Semibold X-Fit",
+				tag = "text-title-large auto-xy text-align-x-left",
 			}),
 			Type = self:renderPropType(propName, propType, 2),
 			Default = if default
-				then React.createElement(TextLabel, {
-					Text = `(default: <font face="RobotoMono" size="14">{tostring(default)}</font>`,
+				then React.createElement(Text, {
+					Text = `(default: <font face="RobotoMono" size="14">{tostring(default)}</font>)`,
 					LayoutOrder = 3,
 					RichText = true,
-					[React.Tag] = "X-Fit",
+					tag = "auto-xy text-align-x-left text-body-medium",
 				})
 				else nil,
 		}),
-		Comment = comment and React.createElement(TextLabel, {
+		Comment = comment and React.createElement(Text, {
 			LayoutOrder = 3,
 			Text = comment,
-			[React.Tag] = "Label Wrap X-Fit",
+			tag = "text-wrap auto-xy text-align-x-left text-body-medium",
 		}),
 	})
 end

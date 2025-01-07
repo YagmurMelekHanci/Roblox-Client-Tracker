@@ -100,36 +100,42 @@ function usePartyIcon(iconSize: number, avatarSize: number, defaultIcon: string)
 			)
 		end, {})
 
-		React.useEffect(function()
-			if previousLastActiveUserId ~= nil and lastActiveUserId ~= previousLastActiveUserId then
-				setIconSizeDebounce.cancel()
-				if lastActiveUserId == -1 then
-					-- There is an avatar, change to icon
-					setIconSizeDebounce.call(
-						{ animations.AVATAR_OUT_ANIMATION, animations.ICON_IN_ANIMATION },
-						function()
-							updateDisplayImage(-1)
-						end
-					)
-				elseif previousLastActiveUserId == -1 then
-					-- There is an icon, change to avatar without debounce as we do not want the icon to linger
-					setAnimatedIconSize({ animations.ICON_OUT_ANIMATION, animations.AVATAR_IN_ANIMATION }, function()
+		React.useEffect(
+			function()
+				if previousLastActiveUserId ~= nil and lastActiveUserId ~= previousLastActiveUserId then
+					setIconSizeDebounce.cancel()
+					if lastActiveUserId == -1 then
+						-- There is an avatar, change to icon
+						setIconSizeDebounce.call(
+							{ animations.AVATAR_OUT_ANIMATION, animations.ICON_IN_ANIMATION },
+							function()
+								updateDisplayImage(-1)
+							end
+						)
+					elseif previousLastActiveUserId == -1 then
+						-- There is an icon, change to avatar without debounce as we do not want the icon to linger
+						setAnimatedIconSize(
+							{ animations.ICON_OUT_ANIMATION, animations.AVATAR_IN_ANIMATION },
+							function()
+								updateDisplayImage(lastActiveUserId)
+							end
+						)
+					else
+						-- There is avatar, change to another avatar immediately
 						updateDisplayImage(lastActiveUserId)
-					end)
+					end
 				else
-					-- There is avatar, change to another avatar immediately
+					-- It was caused by default icon changing or it's the first render.
 					updateDisplayImage(lastActiveUserId)
 				end
-			else
-				-- It was caused by default icon changing or it's the first render.
-				updateDisplayImage(lastActiveUserId)
-			end
-		end, {
-			lastActiveUserId,
-			updateDisplayImage,
-			setIconSizeDebounce,
-			animations,
-		} :: { any })
+			end,
+			{
+				lastActiveUserId,
+				updateDisplayImage,
+				setIconSizeDebounce,
+				animations,
+			} :: { any }
+		)
 
 		return {
 			image = displayImage,

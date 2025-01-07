@@ -134,20 +134,20 @@ function ToggleMenuButton(props)
 		if GetFFlagTweakedMicPinning()
 			then nil
 			else React.createElement("Frame", {
-				Name = "RedVoiceDotVisibleContiner",
-				-- If MicToggle isn't always visible in Unibar we'll need to make this more advanced
-				-- ie. a signal from ChromeService to say if MicToggle is visible
-				Visible = toggleIconTransition:map(function(value: any): any
-					return value < 0.5
-				end),
-				Size = UDim2.new(1, 0, 1, 0),
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-			}, {
-				React.createElement(RedVoiceDot, {
-					position = UDim2.new(1, -7, 1, -7),
-				}),
-			}) :: any,
+					Name = "RedVoiceDotVisibleContiner",
+					-- If MicToggle isn't always visible in Unibar we'll need to make this more advanced
+					-- ie. a signal from ChromeService to say if MicToggle is visible
+					Visible = toggleIconTransition:map(function(value: any): any
+						return value < 0.5
+					end),
+					Size = UDim2.new(1, 0, 1, 0),
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+				}, {
+					React.createElement(RedVoiceDot, {
+						position = UDim2.new(1, -7, 1, -7),
+					}),
+				}) :: any,
 		React.createElement("Frame", {
 			Name = if GetFFlagSelfieViewRedStatusDot()
 				then "RedCameraDotVisibleContainer"

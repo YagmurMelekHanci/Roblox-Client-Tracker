@@ -2,6 +2,9 @@
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
+local CoreGui = game:GetService("CoreGui")
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local CompleteRequest = require(Root.Actions.CompleteRequest)
 local PromptState = require(Root.Enums.PromptState)
@@ -12,11 +15,22 @@ local Counter = require(Root.Enums.Counter)
 local sendCounter = require(Root.Thunks.sendCounter)
 
 local Analytics = require(Root.Services.Analytics)
+local PublicBindables = require(Root.Services.PublicBindables)
 local Thunk = require(Root.Thunk)
 
-local requiredServices = {
-	Analytics,
-}
+local FFlagHideAvatarIECPromptOnUpsellSuccess = require(RobloxGui.Modules.PublishAssetPrompt.FFlagHideAvatarIECPromptOnUpsellSuccess)
+
+local requiredServices
+if FFlagHideAvatarIECPromptOnUpsellSuccess then
+	requiredServices = {
+		Analytics,
+		PublicBindables
+	}
+else
+	requiredServices = {
+		Analytics
+	}
+end
 
 local function completeRequest()
 	return Thunk.new(script.Name, requiredServices, function(store, services)
@@ -68,6 +82,17 @@ local function completeRequest()
 			MarketplaceService:SignalPromptPremiumPurchaseFinished(didPurchase or purchaseError == PurchaseError.AlreadyPremium)
 		elseif requestType == RequestType.Subscription then
 			MarketplaceService:SignalPromptSubscriptionPurchaseFinished(id, didPurchase or purchaseError == PurchaseError.AlreadySubscribed)
+		end
+
+		if FFlagHideAvatarIECPromptOnUpsellSuccess then
+			local publicBindables = services[PublicBindables]
+			local windowStateChangedBindable = publicBindables.getWindowStateChangedBindable()
+			if windowStateChangedBindable then
+				windowStateChangedBindable:Fire({
+					isShown = false,
+					hasCompletedPurchase = didPurchase,
+				})
+			end
 		end
 
 		return store:dispatch(CompleteRequest())

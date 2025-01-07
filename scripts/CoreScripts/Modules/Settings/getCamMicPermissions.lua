@@ -26,8 +26,6 @@ local VideoCaptureService = game:GetService("VideoCaptureService")
 
 local Cryo = require(CorePackages.Packages.Cryo)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
-local getVoiceCameraAccountSettings = require(CoreGui.RobloxGui.Modules.Settings.getVoiceCameraAccountSettings)
-local getPlaceVoiceCameraEnabled = require(CoreGui.RobloxGui.Modules.Settings.getPlaceVoiceCameraEnabled)
 local cameraDevicePermissionGrantedSignal =
 	require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
 local MicrophoneDevicePermissionsLogging =
@@ -441,66 +439,16 @@ local function getCamMicPermissions(
 					context
 				)
 			end)
-		else
-			local placeSettingsPromise = Promise.new(function(resolve, _)
-				-- Check that the game has enabled camera and microphone in game settings
-				local placeSettings = getPlaceVoiceCameraEnabled()
-				local allowedSettings: AllowedSettings = {
-					isVoiceEnabled = placeSettings.isVoiceEnabledPlaceSettings,
-					isCameraEnabled = placeSettings.isCameraEnabledPlaceSettings,
-				}
-				resolve(allowedSettings)
-			end)
-
-			local userSettingsPromise = Promise.new(function(resolve, _)
-				-- Check that the user has enabled voice/camera on their roblox account,
-				-- and that the universe and place has it enabled as well.
-				local userSettings = getVoiceCameraAccountSettings()
-				local allowedSettings: AllowedSettings = {
-					isVoiceEnabled = userSettings.isVoiceEnabledUserSettings,
-					isCameraEnabled = userSettings.isCameraEnabledUserSettings,
-				}
-				resolve(allowedSettings)
-			end)
-
-			return Promise.all({
-				placeSettingsPromise,
-				userSettingsPromise,
-			})
-				:andThen(function(results)
-					local placeSettingsResult = results[1] :: AllowedSettings
-					local userSettingsResult = results[2] :: AllowedSettings
-					local combinedAllowedSettings: AllowedSettings = {
-						isVoiceEnabled = placeSettingsResult.isVoiceEnabled and userSettingsResult.isVoiceEnabled,
-						isCameraEnabled = placeSettingsResult.isCameraEnabled and userSettingsResult.isCameraEnabled,
-					}
-					return combinedAllowedSettings
-				end)
-				:andThen(function(allowedSettings)
-					requestPermissions(
-						allowedSettings,
-						callback,
-						invokeNextRequest,
-						permsToCheck,
-						shouldNotRequestPerms,
-						context
-					)
-				end)
 		end
-	else
-		return Promise.new(function(resolve, _)
-			-- First check that the user has enabled voice/camera on their roblox account,
-			-- and that the universe and place has it enabled as well.
-			local userSettings = getVoiceCameraAccountSettings()
-			local allowedSettings: AllowedSettings = {
-				isVoiceEnabled = userSettings.isVoiceEnabledUserSettings,
-				isCameraEnabled = userSettings.isCameraEnabledUserSettings,
-			}
-			resolve(allowedSettings)
-		end):andThen(function(allowedSettings)
-			requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck, nil, context)
-		end)
 	end
+
+	return Promise.new(function(resolve, _)
+		local noAllowedSettings : AllowedSettings = {
+			isVoiceEnabled = false,
+			isCameraEnabled = false
+		}
+		resolve(noAllowedSettings)
+	end)
 end
 
 return getCamMicPermissions

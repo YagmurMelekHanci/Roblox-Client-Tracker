@@ -22,25 +22,28 @@ local MovementTooltipEvent = {
 local tooltip
 
 function MovementTooltipEvent.StartEvent()
-	local movementTooltipContent = Roact.createElement(VRFTUXToolTips, {
-		tooltipButtons = {
-			{
-				Text = "Turn",
-				Controller = Enum.UserCFrame.RightHand,
-				ButtonKeycode = Enum.KeyCode.ButtonR3,
+	local movementTooltipContent = Roact.createElement(
+		VRFTUXToolTips,
+		{
+			tooltipButtons = {
+				{
+					Text = "Turn",
+					Controller = Enum.UserCFrame.RightHand,
+					ButtonKeycode = Enum.KeyCode.ButtonR3,
+				},
+				{
+					Text = "Move",
+					Controller = Enum.UserCFrame.LeftHand,
+					ButtonKeycode = Enum.KeyCode.ButtonL3,
+				},
+				{
+					Text = "Jump",
+					Controller = Enum.UserCFrame.RightHand,
+					ButtonKeycode = Enum.KeyCode.ButtonA,
+				},
 			},
-			{
-				Text = "Move",
-				Controller = Enum.UserCFrame.LeftHand,
-				ButtonKeycode = Enum.KeyCode.ButtonL3,
-			},
-			{
-				Text = "Jump",
-				Controller = Enum.UserCFrame.RightHand,
-				ButtonKeycode = Enum.KeyCode.ButtonA,
-			},
-		},
-	} :: TooltipProps)
+		} :: TooltipProps
+	)
 
 	local MovementTooltip = renderWithCoreScriptsStyleProvider({
 		movementTooltipContent,

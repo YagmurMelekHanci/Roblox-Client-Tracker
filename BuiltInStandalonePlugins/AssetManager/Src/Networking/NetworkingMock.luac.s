@@ -202,13 +202,8 @@ PROTO_12:
 
 PROTO_13:
   MOVE R2 R1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["getImageHelper"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K1 ["AvailableImages"]
-  GETTABLEKS R4 R5 K2 ["Placeholder"]
-  CALL R3 1 -1
-  CALL R2 -1 0
+  GETIMPORT R3 K3 [Enum.AssetFetchStatus.Success]
+  CALL R2 1 0
   RETURN R0 0
 
 PROTO_14:
@@ -272,7 +267,6 @@ MAIN:
   CAPTURE VAL R1
   SETTABLEKS R6 R5 K32 ["getThumbnailForItem"]
   DUPCLOSURE R6 K33 [PROTO_13]
-  CAPTURE VAL R1
   SETTABLEKS R6 R5 K34 ["getThumbnailForItemAsync"]
   DUPCLOSURE R6 K35 [PROTO_14]
   SETTABLEKS R6 R5 K36 ["incrementFetchSessionId"]

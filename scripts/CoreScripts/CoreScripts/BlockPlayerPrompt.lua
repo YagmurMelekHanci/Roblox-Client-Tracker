@@ -171,8 +171,3 @@ end
 StarterGui:RegisterSetCore("PromptBlockPlayer", PromptBlockPlayer)
 StarterGui:RegisterSetCore("PromptUnblockPlayer", PromptUnblockPlayer)
 StarterGui:RegisterGetCore("GetBlockedUserIds", GetBlockedUserIds)
-
--- fetch and store player block list
--- This needs to be done after the SetCore and GetCore registrations above so these are registered as early as developers
--- might want to use them
-BlockingUtility:InitBlockListAsync()

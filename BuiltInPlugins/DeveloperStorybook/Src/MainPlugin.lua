@@ -9,7 +9,7 @@ local Rodux = require(Main.Packages.Rodux)
 local MainReducer = require(Main.Src.Reducers.MainReducer)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices: any = Framework.ContextServices
+local ContextServices = Framework.ContextServices
 
 local UI = Framework.UI
 local DockWidget = UI.DockWidget
@@ -27,16 +27,19 @@ local MakeTheme = require(Main.Src.Resources.MakeTheme)
 
 local registerPluginStyles = Framework.Styling.registerPluginStyles
 
-local SplitPane = Framework.UI.SplitPane
-
 local SourceStrings = Main.Src.Resources.SourceStrings
 local LocalizedStrings = Main.Src.Resources.LocalizedStrings
 
 local Components = Main.Src.Components
 
-local InfoPanel = require(Components.InfoPanel)
-local StoryTree = require(Components.StoryTree)
-local TopBar = require(Components.TopBar)
+local Window = require(Components.Window)
+local FoundationProvider = require(Components.FoundationProvider)
+
+local GetStories = require(Main.Src.Thunks.GetStories)
+local RestoreState = require(Main.Src.Thunks.RestoreState)
+
+local LAST_STATE_KEY = "lastState"
+local FFlagFoundationStylingPolyfill = game:DefineFastFlag("FoundationStylingPolyfill", false)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -44,15 +47,6 @@ function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
 	}
-	self.state.paneSizes = {
-		UDim.new(0, 300),
-		UDim.new(1, -300),
-	}
-	self.onPaneSizesChange = function(paneSizes: { UDim })
-		self:setState({
-			paneSizes = paneSizes,
-		})
-	end
 
 	self.toggleState = function()
 		local state = self.state
@@ -72,6 +66,10 @@ function MainPlugin:init(props)
 		self:setState({
 			enabled = enabled,
 		})
+		local lastState = props.Plugin:GetSetting(LAST_STATE_KEY)
+		if lastState then
+			self.store:dispatch(RestoreState(lastState))
+		end
 	end
 
 	self.onWidgetEnabledChanged = function(widget)
@@ -84,7 +82,16 @@ function MainPlugin:init(props)
 		Rodux.thunkMiddleware,
 	})
 
-	self.theme = MakeTheme()
+	self.store.changed:connect(function(newState)
+		props.Plugin:SetSetting(LAST_STATE_KEY, {
+			lastStoryName = newState.Stories.selectedStory and newState.Stories.selectedStory.Name or "",
+			settings = newState.Stories.settings,
+			embedded = newState.Stories.embedded,
+			searchFilter = newState.Stories.searchFilter,
+			theme = newState.Stories.theme,
+			platform = newState.Stories.platform,
+		})
+	end)
 
 	self.localization = Localization.new({
 		stringResourceTable = SourceStrings,
@@ -99,6 +106,7 @@ function MainPlugin:init(props)
 	})
 
 	self.design = registerPluginStyles(props.Plugin)
+	self.theme = MakeTheme()
 
 	self.contextItems = {
 		InspectorContext.new(props.Inspector),
@@ -125,11 +133,16 @@ function MainPlugin:renderButtons(toolbar)
 	}
 end
 
+function MainPlugin:componentDidUpdate(_prevProps, prevState)
+	if self.state.enabled and not prevState.enabled then
+		-- Update the stories when the storybook is open
+		self.store:dispatch(GetStories())
+	end
+end
+
 function MainPlugin:render()
 	local state = self.state
 	local enabled = state.enabled
-
-	local OFFSET = 42
 
 	return ContextServices.provide(self.contextItems, {
 		Toolbar = Roact.createElement(PluginToolbar, {
@@ -151,25 +164,17 @@ function MainPlugin:render()
 			OnWidgetRestored = self.onRestore,
 			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
 		}, {
-			TopBar = enabled and Roact.createElement(TopBar),
-			Window = enabled and Roact.createElement(SplitPane, {
-				ClampSize = true,
-				UseDeficit = true,
-				MinSizes = {
-					UDim.new(0, 100),
-					UDim.new(0, 100),
+			FoundationProvider = Roact.createElement(FoundationProvider, {
+				derives = { self.design },
+				children = {
+					Window = enabled and Roact.createElement(Window),
 				},
-				OnSizesChange = self.onPaneSizesChange,
-				Sizes = state.paneSizes,
-				Position = UDim2.fromOffset(0, OFFSET),
-				Size = UDim2.new(1, 0, 1, -OFFSET),
-			}, {
-				Roact.createElement(StoryTree),
-				Roact.createElement(InfoPanel),
 			}),
-			StyleLink = Roact.createElement("StyleLink", {
-				StyleSheet = self.design,
-			}),
+			StyleLink = if FFlagFoundationStylingPolyfill
+				then Roact.createElement("StyleLink", {
+					StyleSheet = self.design,
+				})
+				else nil,
 		}),
 	})
 end

@@ -23,7 +23,9 @@ local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableC
 local Constants = require(TopBar.Constants)
 local usePartyIcon = require(Chrome.Integrations.Party.usePartyIcon)
 
-local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+local FFlagConnectIconImportAppSetting = game:DefineFastFlag("ConnectIconImportAppSetting", false)
+
+local SettingsHub = if FFlagConnectIconImportAppSetting then nil else require(RobloxGui.Modules.Settings.SettingsHub) :: any
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
@@ -52,11 +54,19 @@ type Props = {
 	removeKeepOutArea: (areaId: string) -> (),
 }
 
+local getSettingsHub = function()
+	if SettingsHub == nil then
+		SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+	end
+
+	return SettingsHub
+end
+
 local getCurrentSquadId = function(isIndependentAppChatContainer)
 	if isIndependentAppChatContainer then
 		return InExperienceAppChatModal.default.currentSquadId
 	else
-		return SettingsHub.Instance.AppChatPage.CurrentSquadId
+		return getSettingsHub().Instance.AppChatPage.CurrentSquadId
 	end
 end
 
@@ -64,7 +74,12 @@ local getAppChatIsOpen = function(isIndependentAppChatContainer)
 	if isIndependentAppChatContainer then
 		return InExperienceAppChatModal.default:getVisible()
 	else
-		return SettingsHub.Instance.Pages.CurrentPage ~= nil and SettingsHub.Instance.Pages.CurrentPage.Page.Name == SettingsHub.Instance.AppChatPage.Page.Name
+		if FFlagConnectIconImportAppSetting then
+			local settingsHub = getSettingsHub()
+			return settingsHub.Instance.Pages.CurrentPage ~= nil and settingsHub.Instance.Pages.CurrentPage.Page.Name == settingsHub.Instance.AppChatPage.Page.Name
+		else
+			return SettingsHub.Instance.Pages.CurrentPage ~= nil and SettingsHub.Instance.Pages.CurrentPage.Page.Name == SettingsHub.Instance.AppChatPage.Page.Name
+		end
 	end
 end
 
@@ -89,12 +104,23 @@ function ConnectIcon(props: Props)
 				connection:Disconnect()
 			end
 		else
-			setCurrentSquadId(SettingsHub.Instance.AppChatPage.CurrentSquadId)
-			local connection = SettingsHub.Instance.AppChatPage.CurrentSquadIdSignal.Event:Connect(function(nextSquadId)
-				setCurrentSquadId(nextSquadId)
-			end)
-			return function()
-				connection:Disconnect()
+			if FFlagConnectIconImportAppSetting then
+				local settingsHub = getSettingsHub()
+				setCurrentSquadId(settingsHub.Instance.AppChatPage.CurrentSquadId)
+				local connection = settingsHub.Instance.AppChatPage.CurrentSquadIdSignal.Event:Connect(function(nextSquadId)
+					setCurrentSquadId(nextSquadId)
+				end)
+				return function()
+					connection:Disconnect()
+				end
+			else
+				setCurrentSquadId(SettingsHub.Instance.AppChatPage.CurrentSquadId)
+				local connection = SettingsHub.Instance.AppChatPage.CurrentSquadIdSignal.Event:Connect(function(nextSquadId)
+					setCurrentSquadId(nextSquadId)
+				end)
+				return function()
+					connection:Disconnect()
+				end
 			end
 		end
 	end, { isIndependentAppChatContainer })
@@ -111,11 +137,21 @@ function ConnectIcon(props: Props)
 				appChatVisibilityConnection:Disconnect()
 			end
 		else
-			local appChatVisibilityConnection = SettingsHub.Instance.CurrentPageSignal:connect(function(pageName)
-				setIsAppChatOpened(SettingsHub.Instance.AppChatPage.Page.Name == pageName)
-			end)
-			return function()
-				appChatVisibilityConnection:disconnect()
+			if FFlagConnectIconImportAppSetting then
+				local settingsHub = getSettingsHub()
+				local appChatVisibilityConnection = settingsHub.Instance.CurrentPageSignal:connect(function(pageName)
+					setIsAppChatOpened(SettingsHub.Instance.AppChatPage.Page.Name == pageName)
+				end)
+				return function()
+					appChatVisibilityConnection:disconnect()
+				end
+			else
+				local appChatVisibilityConnection = SettingsHub.Instance.CurrentPageSignal:connect(function(pageName)
+					setIsAppChatOpened(SettingsHub.Instance.AppChatPage.Page.Name == pageName)
+				end)
+				return function()
+					appChatVisibilityConnection:disconnect()
+				end
 			end
 		end
 	end, { isIndependentAppChatContainer })
@@ -148,14 +184,27 @@ function ConnectIcon(props: Props)
 	end, {})
 
 	local toggleSettingsHubAppChat = React.useCallback(function()
-		local isSettingsHubVisible = SettingsHub:GetVisibility()
-		if isSettingsHubVisible and isAppChatOpened then
-			SettingsHub.Instance:PopMenu(false, true)
-		else
-			if not isSettingsHubVisible then
-				SettingsHub.Instance:SetVisibility(true, false)
+		if FFlagConnectIconImportAppSetting then
+			local settingsHub = getSettingsHub()
+			local isSettingsHubVisible = settingsHub:GetVisibility()
+			if isSettingsHubVisible and isAppChatOpened then
+				settingsHub.Instance:PopMenu(false, true)
+			else
+				if not isSettingsHubVisible then
+					settingsHub.Instance:SetVisibility(true, false)
+				end
+				settingsHub:SwitchToPage(settingsHub.Instance.AppChatPage)
 			end
-			SettingsHub:SwitchToPage(SettingsHub.Instance.AppChatPage)
+		else
+			local isSettingsHubVisible = SettingsHub:GetVisibility()
+			if isSettingsHubVisible and isAppChatOpened then
+				SettingsHub.Instance:PopMenu(false, true)
+			else
+				if not isSettingsHubVisible then
+					SettingsHub.Instance:SetVisibility(true, false)
+				end
+				SettingsHub:SwitchToPage(SettingsHub.Instance.AppChatPage)
+			end
 		end
 	end, { isAppChatOpened })
 

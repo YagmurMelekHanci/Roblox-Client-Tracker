@@ -1,5 +1,5 @@
-game:DefineFastFlag("AppChatInExpConnectIconRedesign2", false)
+game:DefineFastFlag("AppChatInExpConnectIconRedesign3", false)
 
 return function()
-	return game:GetFastFlag("AppChatInExpConnectIconRedesign2")
+	return game:GetFastFlag("AppChatInExpConnectIconRedesign3")
 end

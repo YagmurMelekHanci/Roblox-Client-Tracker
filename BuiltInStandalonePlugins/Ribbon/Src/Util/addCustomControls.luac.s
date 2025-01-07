@@ -22,57 +22,52 @@ PROTO_0:
   RETURN R2 1
 
 PROTO_1:
-  GETUPVAL R5 0
-  FASTCALL2K ASSERT R5 K0 [+4]
-  LOADK R6 K0 ["This function should only be called when FFlagAddSeparatorsBetweenCustomTools is true"]
-  GETIMPORT R4 K2 [assert]
-  CALL R4 2 0
   JUMPIFEQKNIL R3 [+4]
   LENGTH R4 R3
-  JUMPIFNOTEQKN R4 K3 [0] [+2]
+  JUMPIFNOTEQKN R4 K0 [0] [+2]
   RETURN R0 0
-  GETIMPORT R4 K6 [table.sort]
+  GETIMPORT R4 K3 [table.sort]
   MOVE R5 R3
-  DUPCLOSURE R6 K7 [PROTO_0]
+  DUPCLOSURE R6 K4 [PROTO_0]
   CALL R4 2 0
   LOADB R4 0
   MOVE R5 R3
   LOADNIL R6
   LOADNIL R7
   FORGPREP R5
-  GETTABLEKS R11 R9 K8 ["PreferredToolbarUri"]
-  GETTABLEKS R10 R11 K9 ["PluginId"]
-  GETTABLEKS R11 R0 K9 ["PluginId"]
+  GETTABLEKS R11 R9 K5 ["PreferredToolbarUri"]
+  GETTABLEKS R10 R11 K6 ["PluginId"]
+  GETTABLEKS R11 R0 K6 ["PluginId"]
   JUMPIFNOTEQ R10 R11 [+42]
-  GETTABLEKS R11 R9 K8 ["PreferredToolbarUri"]
-  GETTABLEKS R10 R11 K10 ["DataModel"]
-  GETTABLEKS R11 R0 K10 ["DataModel"]
+  GETTABLEKS R11 R9 K5 ["PreferredToolbarUri"]
+  GETTABLEKS R10 R11 K7 ["DataModel"]
+  GETTABLEKS R11 R0 K7 ["DataModel"]
   JUMPIFNOTEQ R10 R11 [+34]
-  GETTABLEKS R11 R9 K8 ["PreferredToolbarUri"]
-  GETTABLEKS R10 R11 K11 ["PluginType"]
-  GETTABLEKS R11 R0 K11 ["PluginType"]
+  GETTABLEKS R11 R9 K5 ["PreferredToolbarUri"]
+  GETTABLEKS R10 R11 K8 ["PluginType"]
+  GETTABLEKS R11 R0 K8 ["PluginType"]
   JUMPIFNOTEQ R10 R11 [+26]
-  GETTABLEKS R11 R9 K8 ["PreferredToolbarUri"]
-  GETTABLEKS R10 R11 K12 ["ItemId"]
-  LOADK R12 K13 ["Tabs/%*"]
+  GETTABLEKS R11 R9 K5 ["PreferredToolbarUri"]
+  GETTABLEKS R10 R11 K9 ["ItemId"]
+  LOADK R12 K10 ["Tabs/%*"]
   MOVE R14 R1
-  NAMECALL R12 R12 K14 ["format"]
+  NAMECALL R12 R12 K11 ["format"]
   CALL R12 2 1
   MOVE R11 R12
   JUMPIFNOTEQ R10 R11 [+14]
   LOADB R4 1
-  GETUPVAL R10 1
+  GETUPVAL R10 0
   MOVE R11 R2
-  GETTABLEKS R12 R9 K15 ["Controls"]
+  GETTABLEKS R12 R9 K12 ["Controls"]
   CALL R10 2 0
-  GETUPVAL R12 2
+  GETUPVAL R12 1
   FASTCALL2 TABLE_INSERT R2 R12 [+4]
   MOVE R11 R2
-  GETIMPORT R10 K17 [table.insert]
+  GETIMPORT R10 K14 [table.insert]
   CALL R10 2 0
   FORGLOOP R5 2 [-50]
   JUMPIFNOT R4 [+4]
-  GETIMPORT R5 K19 [table.remove]
+  GETIMPORT R5 K16 [table.remove]
   MOVE R6 R2
   CALL R5 1 0
   RETURN R0 0
@@ -92,21 +87,14 @@ MAIN:
   GETTABLEKS R3 R4 K9 ["Dash"]
   CALL R2 1 1
   GETTABLEKS R3 R2 K10 ["append"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K11 ["SharedFlags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagAddSeparatorsBetweenCustomTools"]
-  CALL R4 1 1
-  CALL R4 0 1
-  DUPTABLE R5 K15 [{"Type", "Size"}]
-  LOADK R6 K16 ["Separator"]
-  SETTABLEKS R6 R5 K13 ["Type"]
-  LOADK R6 K17 ["Large"]
-  SETTABLEKS R6 R5 K14 ["Size"]
-  DUPCLOSURE R6 K18 [PROTO_1]
-  CAPTURE VAL R4
+  DUPTABLE R4 K13 [{"Type", "Size"}]
+  LOADK R5 K14 ["Separator"]
+  SETTABLEKS R5 R4 K11 ["Type"]
+  LOADK R5 K15 ["Large"]
+  SETTABLEKS R5 R4 K12 ["Size"]
+  DUPCLOSURE R5 K16 [PROTO_1]
   CAPTURE VAL R3
-  CAPTURE VAL R5
-  SETGLOBAL R6 K19 ["addCustomControls"]
-  GETGLOBAL R6 K19 ["addCustomControls"]
-  RETURN R6 1
+  CAPTURE VAL R4
+  SETGLOBAL R5 K17 ["addCustomControls"]
+  GETGLOBAL R5 K17 ["addCustomControls"]
+  RETURN R5 1

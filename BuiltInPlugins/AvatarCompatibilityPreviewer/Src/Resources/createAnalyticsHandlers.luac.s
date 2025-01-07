@@ -122,6 +122,13 @@ PROTO_7:
   SETTABLEKS R7 R6 K2 ["assetHash"]
   SETTABLEKS R1 R6 K3 ["timeToComplete"]
   CALL R4 2 0
+  GETUPVAL R4 2
+  CALL R4 0 1
+  JUMPIFNOT R4 [+5]
+  GETUPVAL R4 3
+  GETUPVAL R6 4
+  NAMECALL R4 R4 K5 ["LogCounter"]
+  CALL R4 2 0
   RETURN R0 0
 
 PROTO_8:
@@ -158,6 +165,13 @@ PROTO_11:
   MOVE R5 R1
   CALL R4 1 1
   CALL R2 2 0
+  GETUPVAL R2 2
+  CALL R2 0 1
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R2 3
+  GETUPVAL R4 4
+  NAMECALL R2 R2 K1 ["LogCounter"]
+  CALL R2 2 0
   RETURN R0 0
 
 PROTO_12:
@@ -191,10 +205,17 @@ PROTO_15:
   DUPTABLE R4 K2 [{"isAutoSetupped"}]
   SETTABLEKS R1 R4 K1 ["isAutoSetupped"]
   CALL R2 2 0
-  RETURN R0 0
+  JUMP [+3]
   GETUPVAL R2 1
   LOADK R3 K0 ["Publish"]
   CALL R2 1 0
+  GETUPVAL R2 2
+  CALL R2 0 1
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R2 3
+  GETUPVAL R4 4
+  NAMECALL R2 R2 K3 ["LogCounter"]
+  CALL R2 2 0
   RETURN R0 0
 
 PROTO_16:
@@ -323,6 +344,9 @@ PROTO_26:
   NEWCLOSURE R6 P6
   CAPTURE VAL R1
   CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   SETTABLEKS R6 R5 K2 ["autoSetupFinish"]
   NEWCLOSURE R6 P7
   CAPTURE VAL R1
@@ -335,7 +359,10 @@ PROTO_26:
   SETTABLEKS R6 R5 K5 ["changedLayers"]
   NEWCLOSURE R6 P10
   CAPTURE VAL R1
+  CAPTURE UPVAL U6
   CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U7
   SETTABLEKS R6 R5 K6 ["equipItem"]
   NEWCLOSURE R6 P11
   CAPTURE VAL R1
@@ -347,15 +374,18 @@ PROTO_26:
   CAPTURE VAL R1
   SETTABLEKS R6 R5 K9 ["openTab"]
   NEWCLOSURE R6 P14
-  CAPTURE UPVAL U4
+  CAPTURE UPVAL U8
   CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U9
   SETTABLEKS R6 R5 K10 ["publish"]
   NEWCLOSURE R6 P15
   CAPTURE VAL R1
   SETTABLEKS R6 R5 K11 ["selectScreenChoice"]
   NEWCLOSURE R6 P16
   CAPTURE VAL R1
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U10
   CAPTURE UPVAL U0
   SETTABLEKS R6 R5 K12 ["sendAutoSetupSurvey"]
   NEWCLOSURE R6 P17
@@ -366,7 +396,7 @@ PROTO_26:
   SETTABLEKS R6 R5 K14 ["testInExperience"]
   NEWCLOSURE R6 P19
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U6
   SETTABLEKS R6 R5 K15 ["unequipItem"]
   NEWCLOSURE R6 P20
   CAPTURE VAL R0
@@ -396,35 +426,100 @@ MAIN:
   LOADK R3 K5 ["StudioService"]
   NAMECALL R1 R1 K6 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Dash"]
-  CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R5 R0 K11 ["Src"]
-  GETTABLEKS R4 R5 K12 ["Types"]
+  GETIMPORT R2 K4 [game]
+  LOADK R4 K7 ["TelemetryService"]
+  NAMECALL R2 R2 K6 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Dash"]
   CALL R3 1 1
-  GETIMPORT R4 K4 [game]
-  LOADK R6 K13 ["AvatarPreviewerInfluxSeriesThrottlingPercentage"]
-  LOADN R7 0
-  NAMECALL R4 R4 K14 ["DefineFastInt"]
-  CALL R4 3 1
-  GETIMPORT R5 K8 [require]
-  GETTABLEKS R8 R0 K11 ["Src"]
-  GETTABLEKS R7 R8 K15 ["Flags"]
-  GETTABLEKS R6 R7 K16 ["getFFlagAvatarPreviewerAutoSetup"]
-  CALL R5 1 1
-  GETIMPORT R6 K8 [require]
-  GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Flags"]
-  GETTABLEKS R7 R8 K17 ["getFFlagAvatarPreviewerUseAnyModel"]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R0 K12 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [game]
+  LOADK R7 K14 ["AvatarPreviewerInfluxSeriesThrottlingPercentage"]
+  LOADN R8 0
+  NAMECALL R5 R5 K15 ["DefineFastInt"]
+  CALL R5 3 1
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K16 ["Flags"]
+  GETTABLEKS R7 R8 K17 ["getFFlagAvatarPreviewerAutoSetup"]
   CALL R6 1 1
-  DUPCLOSURE R7 K18 [PROTO_0]
-  DUPCLOSURE R8 K19 [PROTO_26]
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R7
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R10 R0 K12 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Flags"]
+  GETTABLEKS R8 R9 K18 ["getFFlagAvatarPreviewerUseAnyModel"]
+  CALL R7 1 1
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R11 R0 K12 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Flags"]
+  GETTABLEKS R9 R10 K19 ["getFFlagAvatarPreviewerSendTelemetryCounter"]
+  CALL R8 1 1
+  DUPTABLE R9 K25 [{"eventName", "lastUpdated", "description", "links", "backends"}]
+  LOADK R10 K26 ["SBT_AvatarAutoSetupSucceeded"]
+  SETTABLEKS R10 R9 K20 ["eventName"]
+  NEWTABLE R10 0 3
+  LOADN R11 232
+  LOADN R12 11
+  LOADN R13 21
+  SETLIST R10 R11 3 [1]
+  SETTABLEKS R10 R9 K21 ["lastUpdated"]
+  LOADK R10 K27 ["Avatar auto setup succeeded."]
+  SETTABLEKS R10 R9 K22 ["description"]
+  LOADK R10 K28 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
+  SETTABLEKS R10 R9 K23 ["links"]
+  NEWTABLE R10 0 1
+  LOADK R11 K29 ["RobloxTelemetryCounter"]
+  SETLIST R10 R11 1 [1]
+  SETTABLEKS R10 R9 K24 ["backends"]
+  DUPTABLE R10 K25 [{"eventName", "lastUpdated", "description", "links", "backends"}]
+  LOADK R11 K30 ["SBT_AvatarPreviewerItemEquipped"]
+  SETTABLEKS R11 R10 K20 ["eventName"]
+  NEWTABLE R11 0 3
+  LOADN R12 232
+  LOADN R13 11
+  LOADN R14 21
+  SETLIST R11 R12 3 [1]
+  SETTABLEKS R11 R10 K21 ["lastUpdated"]
+  LOADK R11 K31 ["Avatar previewer equipped an avatar item for testing."]
+  SETTABLEKS R11 R10 K22 ["description"]
+  LOADK R11 K28 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
+  SETTABLEKS R11 R10 K23 ["links"]
+  NEWTABLE R11 0 1
+  LOADK R12 K29 ["RobloxTelemetryCounter"]
+  SETLIST R11 R12 1 [1]
+  SETTABLEKS R11 R10 K24 ["backends"]
+  DUPTABLE R11 K25 [{"eventName", "lastUpdated", "description", "links", "backends"}]
+  LOADK R12 K32 ["SBT_AvatarPreviewerPublished"]
+  SETTABLEKS R12 R11 K20 ["eventName"]
+  NEWTABLE R12 0 3
+  LOADN R13 232
+  LOADN R14 11
+  LOADN R15 21
+  SETLIST R12 R13 3 [1]
+  SETTABLEKS R12 R11 K21 ["lastUpdated"]
+  LOADK R12 K33 ["Avatar previewer published an asset to the marketplace."]
+  SETTABLEKS R12 R11 K22 ["description"]
+  LOADK R12 K28 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
+  SETTABLEKS R12 R11 K23 ["links"]
+  NEWTABLE R12 0 1
+  LOADK R13 K29 ["RobloxTelemetryCounter"]
+  SETLIST R12 R13 1 [1]
+  SETTABLEKS R12 R11 K24 ["backends"]
+  DUPCLOSURE R12 K34 [PROTO_0]
+  DUPCLOSURE R13 K35 [PROTO_26]
+  CAPTURE VAL R3
   CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R11
   CAPTURE VAL R1
-  RETURN R8 1
+  RETURN R13 1

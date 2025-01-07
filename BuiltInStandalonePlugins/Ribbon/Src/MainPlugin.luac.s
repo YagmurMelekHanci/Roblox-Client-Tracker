@@ -224,22 +224,33 @@ PROTO_10:
   GETTABLEKS R2 R3 K0 ["state"]
   GETTABLEKS R1 R2 K1 ["showFloating"]
   NOT R0 R1
-  JUMPIFNOT R0 [+10]
+  JUMPIFNOT R0 [+26]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["Panels"]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K3 ["floatingUri"]
   NAMECALL R1 R1 K4 ["FocusAsync"]
   CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["Panels"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["floatingUri"]
+  GETIMPORT R4 K7 [Vector2.new]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["width"]
+  LOADN R6 88
+  CALL R4 2 -1
+  NAMECALL R1 R1 K9 ["SetSizeAsync"]
+  CALL R1 -1 0
   JUMP [+6]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K5 ["Floating"]
+  GETTABLEKS R1 R2 K10 ["Floating"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K6 ["Enabled"]
+  SETTABLEKS R2 R1 K11 ["Enabled"]
   GETUPVAL R1 0
-  DUPTABLE R3 K7 [{"showFloating"}]
+  DUPTABLE R3 K12 [{"showFloating"}]
   SETTABLEKS R0 R3 K1 ["showFloating"]
-  NAMECALL R1 R1 K8 ["setState"]
+  NAMECALL R1 R1 K13 ["setState"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -771,7 +782,7 @@ PROTO_22:
 
 PROTO_23:
   GETUPVAL R3 0
-  JUMPIFNOT R3 [+104]
+  JUMPIFNOT R3 [+106]
   GETTABLEKS R4 R0 K0 ["state"]
   GETTABLEKS R3 R4 K1 ["showFloating"]
   GETTABLEKS R4 R2 K1 ["showFloating"]
@@ -783,16 +794,16 @@ PROTO_23:
   GETTABLEKS R4 R0 K0 ["state"]
   GETTABLEKS R3 R4 K3 ["expanded"]
   GETTABLEKS R4 R2 K3 ["expanded"]
-  JUMPIFEQ R3 R4 [+158]
+  JUMPIFEQ R3 R4 [+160]
   GETTABLEKS R4 R0 K0 ["state"]
   GETTABLEKS R3 R4 K1 ["showFloating"]
-  JUMPIF R3 [+62]
+  JUMPIF R3 [+64]
   GETTABLEKS R4 R0 K0 ["state"]
   GETTABLEKS R3 R4 K3 ["expanded"]
-  JUMPIFNOT R3 [+57]
+  JUMPIFNOT R3 [+59]
   GETTABLEKS R4 R0 K0 ["state"]
   GETTABLEKS R3 R4 K2 ["showLabels"]
-  JUMPIFNOT R3 [+26]
+  JUMPIFNOT R3 [+27]
   GETTABLEKS R3 R0 K4 ["Panels"]
   GETTABLEKS R5 R0 K5 ["panelUri"]
   GETIMPORT R6 K8 [Vector2.new]
@@ -804,7 +815,8 @@ PROTO_23:
   GETTABLEKS R3 R0 K4 ["Panels"]
   GETTABLEKS R5 R0 K10 ["floatingUri"]
   GETIMPORT R6 K8 [Vector2.new]
-  GETTABLEKS R7 R0 K11 ["width"]
+  GETTABLEKS R8 R0 K12 ["width"]
+  ADDK R7 R8 K11 [1]
   LOADN R8 88
   CALL R6 2 -1
   NAMECALL R3 R3 K9 ["SetSizeAsync"]
@@ -821,7 +833,8 @@ PROTO_23:
   GETTABLEKS R3 R0 K4 ["Panels"]
   GETTABLEKS R5 R0 K10 ["floatingUri"]
   GETIMPORT R6 K8 [Vector2.new]
-  GETTABLEKS R7 R0 K11 ["width"]
+  GETTABLEKS R8 R0 K12 ["width"]
+  ADDK R7 R8 K11 [1]
   LOADN R8 75
   CALL R6 2 -1
   NAMECALL R3 R3 K9 ["SetSizeAsync"]
@@ -837,8 +850,8 @@ PROTO_23:
   CALL R3 -1 0
   RETURN R0 0
   GETTABLEKS R4 R0 K0 ["state"]
-  GETTABLEKS R3 R4 K12 ["showRibbon"]
-  GETTABLEKS R4 R2 K12 ["showRibbon"]
+  GETTABLEKS R3 R4 K13 ["showRibbon"]
+  GETTABLEKS R4 R2 K13 ["showRibbon"]
   JUMPIFNOTEQ R3 R4 [+17]
   GETTABLEKS R4 R0 K0 ["state"]
   GETTABLEKS R3 R4 K2 ["showLabels"]
@@ -849,7 +862,7 @@ PROTO_23:
   GETTABLEKS R4 R2 K3 ["expanded"]
   JUMPIFEQ R3 R4 [+54]
   GETTABLEKS R4 R0 K0 ["state"]
-  GETTABLEKS R3 R4 K12 ["showRibbon"]
+  GETTABLEKS R3 R4 K13 ["showRibbon"]
   JUMPIFNOT R3 [+36]
   GETTABLEKS R4 R0 K0 ["state"]
   GETTABLEKS R3 R4 K3 ["expanded"]
@@ -858,7 +871,7 @@ PROTO_23:
   GETTABLEKS R3 R4 K2 ["showLabels"]
   JUMPIFNOT R3 [+13]
   GETTABLEKS R3 R0 K4 ["Panels"]
-  GETTABLEKS R5 R0 K13 ["widgetUri"]
+  GETTABLEKS R5 R0 K14 ["widgetUri"]
   GETIMPORT R6 K8 [Vector2.new]
   LOADN R7 0
   LOADN R8 129
@@ -867,7 +880,7 @@ PROTO_23:
   CALL R3 -1 0
   RETURN R0 0
   GETTABLEKS R3 R0 K4 ["Panels"]
-  GETTABLEKS R5 R0 K13 ["widgetUri"]
+  GETTABLEKS R5 R0 K14 ["widgetUri"]
   GETIMPORT R6 K8 [Vector2.new]
   LOADN R7 0
   LOADN R8 116
@@ -876,7 +889,7 @@ PROTO_23:
   CALL R3 -1 0
   RETURN R0 0
   GETTABLEKS R3 R0 K4 ["Panels"]
-  GETTABLEKS R5 R0 K13 ["widgetUri"]
+  GETTABLEKS R5 R0 K14 ["widgetUri"]
   GETIMPORT R6 K8 [Vector2.new]
   LOADN R7 0
   LOADN R8 44

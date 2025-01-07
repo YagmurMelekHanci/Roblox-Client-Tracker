@@ -6,7 +6,6 @@ local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local Rodux = require(CorePackages.Packages.Rodux)
 local SocialCommon = require(CorePackages.Workspace.Packages.SocialCommon)
-local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
 local ChatEntryPointNames = SocialCommon.Enums.ChatEntryPointNames
 
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
@@ -69,7 +68,7 @@ local parentContainerContext: AppChat.ParentContainerContextType = {
 		SettingsHub:SwitchToPage(SettingsHub.Instance.AppChatPage)
 	end,
 	updateCurrentSquadId = function(squadId)
-		if FFlagUpdateSquadInDefaultAppChatContainer and SquadExperimentation.getSquadEntrypointsEnabled() then
+		if FFlagUpdateSquadInDefaultAppChatContainer then
 			SettingsHub.Instance.AppChatPage.SetCurrentSquadId(squadId)
 		end
 	end,
@@ -101,7 +100,7 @@ if shouldUseIndependentAppChatContainer then
 			InExperienceAppChatModal.default:setVisible(true)
 		end,
 		updateCurrentSquadId = function(squadId)
-			if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() and SquadExperimentation.getSquadEntrypointsEnabled() then
+			if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() then
 				InExperienceAppChatModal:setCurrentSquadId(squadId)
 			end
 		end,

@@ -1,1 +1,1 @@
-return game:DefineFastFlag("CoreScriptPublishPromptModal", false)
+return game:DefineFastFlag("CoreScriptPublishPromptModal2", false)

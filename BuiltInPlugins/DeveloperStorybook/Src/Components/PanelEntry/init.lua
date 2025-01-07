@@ -16,10 +16,11 @@ local Framework = require(Main.Packages.Framework)
 local Dash = Framework.Dash
 local mapOne = Dash.mapOne
 
-local UI = Framework.UI
-local Pane = UI.Pane
 local joinTags = Framework.Styling.joinTags
-local TextLabel = UI.TextLabel
+
+local Foundation = require(Main.Packages.Foundation)
+local View = Foundation.View
+local Text = Foundation.Text
 
 local PanelEntry = React.PureComponent:extend("InfoPanel")
 
@@ -35,25 +36,28 @@ function PanelEntry:render()
 	local hasDescription = typeof(description) == "string" and description ~= ""
 
 	local children = {
-		Name = React.createElement(TextLabel, {
+		Name = React.createElement(Text, {
 			LayoutOrder = 1,
 			Text = header,
-			[React.Tag] = joinTags("Wrap X-FitY", if props.IsTitle then "Title" else "Subtitle"),
+			tag = joinTags(
+				"text-wrap size-full-0 auto-y text-align-x-left",
+				if props.IsTitle then "text-heading-medium" else "text-heading-small"
+			),
 		}),
-		Description = hasDescription and React.createElement(TextLabel, {
+		Description = hasDescription and React.createElement(Text, {
 			LayoutOrder = 2,
 			Text = description,
-			[React.Tag] = "Wrap X-FitY",
+			tag = "text-body-medium text-wrap size-full-0 auto-y text-align-x-left",
 		}),
-		Content = hasChild and React.createElement(Pane, {
+		Content = hasChild and React.createElement(View, {
 			LayoutOrder = 3,
-			[React.Tag] = "X-Pad X-ColumnM X-FitY",
+			tag = "size-full-0 padding-medium col gap-medium auto-y",
 		}, contentChildren),
 	}
-	return React.createElement(Pane, {
+	return React.createElement(View, {
 		LayoutOrder = layoutOrder,
 		Size = size,
-		[React.Tag] = "Main Border X-Pad X-ColumnM X-FitY",
+		tag = "size-full-0 padding-medium col gap-medium auto-y",
 	}, children)
 end
 

@@ -170,10 +170,13 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			Padding = UDim.new(0, 8),
 		}),
 
-		IconHost = React.createElement(IconHost, {
-			integration = props,
-			disableButtonBehaviors = true,
-		} :: any),
+		IconHost = React.createElement(
+			IconHost,
+			{
+				integration = props,
+				disableButtonBehaviors = true,
+			} :: any
+		),
 
 		StyledTextLabel = React.createElement(StyledTextLabel, {
 			size = if FFlagSubmenuV4Layout

@@ -1,7 +1,11 @@
+local Root = script:FindFirstAncestor("ChromeShared")
+
 local AppStorageService = game:GetService("AppStorageService")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
+
+local Constants = require(Root.Unibar.Constants)
 
 local hasEngineSupport = game:GetEngineFeature("InGameMenuStateStorageKey")
 
@@ -141,6 +145,28 @@ local function getValue(key: string): any
 	return nil
 end
 
+local function getUniversesExposedTo(key: string): { number? }
+	local shownUniverses = load(key, localPlayerSelector)
+	if not shownUniverses then
+		return {}
+	end
+	return shownUniverses
+end
+
+local function addUniverseToExposureList(key: string, universeId: number)
+	local shownUniverses = getUniversesExposedTo(key)
+
+	if not table.find(shownUniverses, universeId) and #shownUniverses < Constants.MAX_NUM_UNIVERSES_SHOWN then
+		table.insert(shownUniverses, universeId)
+		store(key, shownUniverses, localPlayerSelector)
+	end
+end
+
+local function getNumUniversesExposedTo(key): number
+	local shownUniverses = getUniversesExposedTo(key)
+	return #shownUniverses
+end
+
 return {
 	isEnabled = function()
 		return hasEngineSupport
@@ -165,4 +191,8 @@ return {
 	end,
 
 	getValue = getValue,
+
+	getUniversesExposedTo = getUniversesExposedTo,
+	getNumUniversesExposedTo = getNumUniversesExposedTo,
+	addUniverseToExposureList = addUniverseToExposureList,
 }

@@ -17,12 +17,11 @@ local Types = require(Main.Src.Types)
 local React = require(Main.Packages.React)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices: any = Framework.ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local UI = Framework.UI
-local TextLabel = UI.TextLabel
-local Pane = UI.Pane
-local joinTags = Framework.Styling.joinTags
+
+local Foundation = require(Main.Packages.Foundation)
+local Text = Foundation.Text
 
 local Dash = Framework.Dash
 local join = Dash.join
@@ -217,25 +216,30 @@ function StoryHost:render()
 	local name = props.Name
 	local layoutOrder = props.LayoutOrder
 
-	local children = {}
-	if state.storyError then
-		children.Error = React.createElement(TextLabel, {
+	local Error = if state.storyError
+		then React.createElement(Text, {
 			Text = "An error occurred when loading the story:\n\n" .. state.storyError,
-			[React.Tag] = "Error Wrap",
+			tag = "text-wrap auto-xy text-align-x-left content-action-alert",
 		})
-	end
+		else nil
 
 	return React.createElement(PanelEntry, {
 		Header = name or "Story",
 		Description = props.Summary or "",
 		LayoutOrder = layoutOrder,
-		Size = props.FixedSize and UDim2.new(1, 0, 1, -100) or nil,
+		Size = if props.FixedSize then UDim2.fromScale(1, 1) else nil,
 	}, {
-		Pane = React.createElement(Pane, {
-			ForwardRef = self.paneRef,
-			LayoutOrder = 2,
-			[React.Tag] = joinTags("X-PadS X-Clip X-ColumnM", if props.FixedSize then nil else "X-FitY"),
-		}, children),
+		-- If FoundationProvider is being provided around the story it will break any tags applied to this element.
+		-- tags are dynamically registered in the nearest ancestor provider,
+		-- but stylsheet added in the child FoundationProvider will take precedence and the tags may not be in it.
+		-- Style this one only through props.
+		Frame = React.createElement("Frame", {
+			ref = self.paneRef,
+			AutomaticSize = if props.FixedSize then Enum.AutomaticSize.None else Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			Size = if props.FixedSize then UDim2.fromScale(1, 1) else UDim2.fromScale(1, 0),
+		}),
+		Error = Error,
 	})
 end
 

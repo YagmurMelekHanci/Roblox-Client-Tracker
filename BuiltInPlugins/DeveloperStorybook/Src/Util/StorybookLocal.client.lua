@@ -4,6 +4,7 @@ local EmbeddedStorybook = require(script.Parent.EmbeddedStorybook)
 local LocalPlayer = Players.LocalPlayer
 
 local isCli = pcall(function()
+	-- selene: allow(incorrect_standard_library_use)
 	return game:GetService("ProcessService")
 end)
 

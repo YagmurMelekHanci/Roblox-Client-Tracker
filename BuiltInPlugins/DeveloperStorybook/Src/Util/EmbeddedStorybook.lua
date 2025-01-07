@@ -1,4 +1,5 @@
 local Packages = script:FindFirstAncestor("Packages")
+local GuiService = game:GetService("GuiService")
 
 if not Packages then
 	-- The embedded storybook should only load in Studio if it has been included as a library
@@ -6,61 +7,44 @@ if not Packages then
 end
 
 local Roact = require(Packages.Roact)
+local React = require(Packages.React)
 local Rodux = require(Packages.Rodux)
 local Framework = require(Packages.Framework)
-local SplitPane = Framework.UI.SplitPane
 
-local ContextServices: any = Framework.ContextServices
+local registerPluginStyles = Framework.Styling.registerPluginStyles
+
+local ContextServices = Framework.ContextServices
 local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
 local Analytics = ContextServices.Analytics
 local Focus = ContextServices.Focus
 local Mouse = ContextServices.Mouse
+local Design = ContextServices.Design
 local Localization = ContextServices.Localization
 local Plugin = ContextServices.Plugin
 local Store = ContextServices.Store
 
 local Src = Packages.DeveloperStorybook.Src
 local MainReducer = require(Src.Reducers.MainReducer)
-local InfoPanel = require(Src.Components.InfoPanel)
-local StoryTree = require(Src.Components.StoryTree)
-local TopBar = require(Src.Components.TopBar)
+local Window = require(Src.Components.Window)
 local MakeTheme = require(Src.Resources.MakeTheme)
 local SourceStrings = Src.Resources.SourceStrings
 local LocalizedStrings = Src.Resources.LocalizedStrings
+local ExternalEventConnection = require(Src.Util.ExternalEventConnection)
+local GetStories = require(Src.Thunks.GetStories)
 
-local Window = Roact.PureComponent:extend("Window")
-local OFFSET = 42
+function WindowWrapper()
+	local sideBarPadding, setSideBarPadding = React.useState(0)
 
-function Window:init()
-	self.state = {
-		paneSizes = {
-			UDim.new(0, 300),
-			UDim.new(1, -300),
-		},
-	}
-	self.onPaneSizesChange = function(paneSizes: { UDim })
-		self:setState({
-			paneSizes = paneSizes,
-		})
-	end
-end
+	local onInsetChange = React.useCallback(function()
+		setSideBarPadding(GuiService.TopbarInset.Height)
+	end, {})
 
-function Window:render()
-	local state = self.state
-	return Roact.createElement(SplitPane, {
-		ClampSize = true,
-		UseDeficit = true,
-		MinSizes = {
-			UDim.new(0, 100),
-			UDim.new(0, 100),
-		},
-		OnSizesChange = self.onPaneSizesChange,
-		Sizes = state.paneSizes,
-		Position = UDim2.fromOffset(0, OFFSET),
-		Size = UDim2.new(1, 0, 1, -OFFSET),
-	}, {
-		Roact.createElement(StoryTree),
-		Roact.createElement(InfoPanel),
+	return Roact.createFragment({
+		Roact.createElement(Window, { sideBarPadding = sideBarPadding }),
+		Roact.createElement(ExternalEventConnection, {
+			event = GuiService:GetPropertyChangedSignal("TopbarInset"),
+			callback = onInsetChange,
+		}),
 	})
 end
 
@@ -70,6 +54,7 @@ function EmbeddedStorybook.start(storybookGui: ScreenGui, player: Player)
 	local store = Rodux.Store.new(MainReducer, {}, {
 		Rodux.thunkMiddleware,
 	})
+	store:dispatch(GetStories())
 	local localization = Localization.new({
 		stringResourceTable = SourceStrings,
 		translationResourceTable = LocalizedStrings,
@@ -81,19 +66,26 @@ function EmbeddedStorybook.start(storybookGui: ScreenGui, player: Player)
 			},
 		},
 	})
+
+	local plugin = MockPlugin.new()
+	local design = registerPluginStyles(plugin, Packages.DeveloperStorybook, game.Workspace)
+
 	local contextItems = {
 		Store.new(store),
 		MakeTheme(),
 		localization,
 		Focus.new(storybookGui),
-		Plugin.new(MockPlugin.new()),
+		Plugin.new(plugin),
 		Mouse.new(player:GetMouse()),
+		Design.new(design),
 		Analytics.mock(),
 	}
 	local Screen = function()
 		return ContextServices.provide(contextItems, {
-			TopBar = Roact.createElement(TopBar),
-			Window = Roact.createElement(Window, {}),
+			Window = Roact.createElement(WindowWrapper),
+			StyleLink = Roact.createElement("StyleLink", {
+				StyleSheet = design,
+			}),
 		})
 	end
 	local element = Roact.createElement(Screen, {})

@@ -86,6 +86,8 @@ return {
 	MOBILE_LANDSCAPE_SLOTS = 7,
 	NON_MOBILE_SLOTS = 9,
 
+	MAX_NUM_UNIVERSES_SHOWN = 5,
+
 	HEALTH = {
 		RED = Color3.fromRGB(255, 28, 0),
 		YELLOW = Color3.fromRGB(250, 235, 0),

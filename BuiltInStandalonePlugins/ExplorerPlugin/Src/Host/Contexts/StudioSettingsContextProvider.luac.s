@@ -198,6 +198,35 @@ PROTO_15:
 
 PROTO_16:
   GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["current"]
+  GETTABLEKS R1 R2 K0 ["ExplorerPluginShowSelectionHierarchyHighlights"]
+  JUMPIFEQKNIL R1 [+4]
+  GETTABLEKS R0 R1 K2 ["value"]
+  JUMP [+14]
+  GETUPVAL R2 1
+  LOADK R4 K0 ["ExplorerPluginShowSelectionHierarchyHighlights"]
+  NAMECALL R2 R2 K3 ["GetSetting"]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["current"]
+  DUPTABLE R4 K4 [{"value"}]
+  SETTABLEKS R2 R4 K2 ["value"]
+  SETTABLEKS R4 R3 K0 ["ExplorerPluginShowSelectionHierarchyHighlights"]
+  MOVE R0 R2
+  LOADB R1 1
+  JUMPIFEQKNIL R0 [+2]
+  MOVE R1 R0
+  RETURN R1 1
+
+PROTO_17:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["ExplorerPluginShowSelectionHierarchyHighlights"]
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_18:
+  GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["ContextServices"]
   GETTABLEKS R1 R2 K1 ["Plugin"]
   NAMECALL R1 R1 K2 ["use"]
@@ -227,12 +256,12 @@ PROTO_16:
   GETTABLEKS R9 R10 K7 ["Components"]
   GETTABLEKS R8 R9 K8 ["Contexts"]
   GETTABLEKS R7 R8 K9 ["SettingsContextProvider"]
-  DUPTABLE R8 K21 [{"rememberedFields", "addField", "removeField", "getSearchHistory", "saveSearchHistory", "getSelectOnInsertionAsync", "setSelectOnInsertion", "getIncrementNamesAsync", "setIncrementNames", "getExpandHierarchy", "setExpandHierarchy"}]
+  DUPTABLE R8 K23 [{"rememberedFields", "addField", "removeField", "getSearchHistory", "saveSearchHistory", "getSelectOnInsertionAsync", "setSelectOnInsertion", "getIncrementNamesAsync", "setIncrementNames", "getExpandHierarchy", "setExpandHierarchy", "getShowSelectionHierarchyHighlights", "setShowSelectionHierarchyHighlights"}]
   NEWTABLE R9 0 0
   SETTABLEKS R9 R8 K10 ["rememberedFields"]
-  DUPCLOSURE R9 K22 [PROTO_2]
+  DUPCLOSURE R9 K24 [PROTO_2]
   SETTABLEKS R9 R8 K11 ["addField"]
-  DUPCLOSURE R9 K23 [PROTO_3]
+  DUPCLOSURE R9 K25 [PROTO_3]
   SETTABLEKS R9 R8 K12 ["removeField"]
   NEWCLOSURE R9 P4
   CAPTURE VAL R3
@@ -266,7 +295,14 @@ PROTO_16:
   NEWCLOSURE R9 P11
   CAPTURE VAL R5
   SETTABLEKS R9 R8 K20 ["setExpandHierarchy"]
-  GETTABLEKS R9 R0 K24 ["children"]
+  NEWCLOSURE R9 P12
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  SETTABLEKS R9 R8 K21 ["getShowSelectionHierarchyHighlights"]
+  NEWCLOSURE R9 P13
+  CAPTURE VAL R5
+  SETTABLEKS R9 R8 K22 ["setShowSelectionHierarchyHighlights"]
+  GETTABLEKS R9 R0 K26 ["children"]
   CALL R6 3 -1
   CLOSEUPVALS R2
   RETURN R6 -1
@@ -300,7 +336,7 @@ MAIN:
   GETTABLEKS R6 R7 K13 ["getFFlagExplorerInsertObjectSettings"]
   CALL R5 1 1
   GETTABLEKS R6 R3 K14 ["createElement"]
-  DUPCLOSURE R7 K15 [PROTO_16]
+  DUPCLOSURE R7 K15 [PROTO_18]
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R3

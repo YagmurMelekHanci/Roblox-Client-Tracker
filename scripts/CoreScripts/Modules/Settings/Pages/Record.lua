@@ -17,7 +17,7 @@ local VRService = game:GetService("VRService")
 ----------- UTILITIES --------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local AnalyticsEnums = require(CorePackages.Workspace.Packages.SocialLuaAnalytics).Analytics.Enums
-local EventNames = require(CorePackages.Workspace.Packages.Screenshots).Analytics.EventNames
+local EventNames = require(CorePackages.Workspace.Packages.CapturesInExperience).Analytics.EventNames
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
@@ -143,7 +143,7 @@ local function Initialize()
 		recordButton.MouseButton1Click:connect(function()
 			AnalyticsService:SendEventDeferred(
 				EVENT_STREAM_TARGET,
-				Contexts.Screenshots,
+				Contexts.Captures,
 				EventTypes.ButtonClick,
 				{ btn = if not isRecordingVideo then EventNames.CapturesLegacyVideoRecordActivated else EventNames.CapturesLegacyVideoRecordDeactivated }
 			)

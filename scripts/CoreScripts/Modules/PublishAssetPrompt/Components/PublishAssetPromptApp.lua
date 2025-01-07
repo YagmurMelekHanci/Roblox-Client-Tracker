@@ -133,18 +133,26 @@ function PublishAssetPromptApp:render()
 			Prompt = if FFlagMigratePublishPromptFromRoactGamepad then nil else promptElement,
 			CursorProvider = if FFlagMigratePublishPromptFromRoactGamepad
 				then Roact.createElement(SelectionCursorProvider, {}, {
-					FocusNavigationProvider = Roact.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
-						value = focusNavigationService,
-					}, {
-						FocusNavigationRegistryProvider = Roact.createElement(FocusNavigationRegistryProvider, nil, {
-							FocusNavigationEffects = Roact.createElement(FocusNavigationEffects, {
-								selectionGroupName = SELECTION_GROUP_NAME,
-								focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-							}, {
-								Prompt = promptElement,
-							}),
-						}),
-					}),
+					FocusNavigationProvider = Roact.createElement(
+						ReactFocusNavigation.FocusNavigationContext.Provider,
+						{
+							value = focusNavigationService,
+						},
+						{
+							FocusNavigationRegistryProvider = Roact.createElement(
+								FocusNavigationRegistryProvider,
+								nil,
+								{
+									FocusNavigationEffects = Roact.createElement(FocusNavigationEffects, {
+										selectionGroupName = SELECTION_GROUP_NAME,
+										focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
+									}, {
+										Prompt = promptElement,
+									}),
+								}
+							),
+						}
+					),
 				})
 				else nil,
 		}) or nil,

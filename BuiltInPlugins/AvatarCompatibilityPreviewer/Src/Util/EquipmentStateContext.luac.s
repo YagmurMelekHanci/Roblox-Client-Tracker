@@ -24,7 +24,7 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["Util"]
   GETTABLEKS R4 R5 K11 ["createUnimplemented"]
   CALL R3 1 1
-  DUPTABLE R4 K23 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "hideEquippedItem", "showEquippedItem", "setHideAllEquippedItems", "startIgnoringChildren", "isIgnoringChildren", "avatarAssets"}]
+  DUPTABLE R4 K24 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "cleanAllEquippedItems", "hideEquippedItem", "showEquippedItem", "setHideAllEquippedItems", "startIgnoringChildren", "isIgnoringChildren", "avatarAssets"}]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R4 K12 ["equippedItems"]
   MOVE R5 R3
@@ -44,34 +44,38 @@ MAIN:
   CALL R5 1 1
   SETTABLEKS R5 R4 K16 ["moveEquippedItemsToIndex"]
   MOVE R5 R3
-  LOADK R6 K17 ["hideEquippedItem"]
+  LOADK R6 K17 ["cleanAllEquippedItems"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K17 ["hideEquippedItem"]
+  SETTABLEKS R5 R4 K17 ["cleanAllEquippedItems"]
   MOVE R5 R3
-  LOADK R6 K18 ["showEquippedItem"]
+  LOADK R6 K18 ["hideEquippedItem"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K18 ["showEquippedItem"]
+  SETTABLEKS R5 R4 K18 ["hideEquippedItem"]
   MOVE R5 R3
-  LOADK R6 K19 ["setHideAllEquippedItems"]
+  LOADK R6 K19 ["showEquippedItem"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K19 ["setHideAllEquippedItems"]
-  DUPCLOSURE R5 K24 [PROTO_1]
-  SETTABLEKS R5 R4 K20 ["startIgnoringChildren"]
+  SETTABLEKS R5 R4 K19 ["showEquippedItem"]
+  MOVE R5 R3
+  LOADK R6 K20 ["setHideAllEquippedItems"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K20 ["setHideAllEquippedItems"]
+  DUPCLOSURE R5 K25 [PROTO_1]
+  SETTABLEKS R5 R4 K21 ["startIgnoringChildren"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K21 ["isIgnoringChildren"]
-  DUPTABLE R5 K30 [{"accessories", "animation", "clothing", "emotion", "patches"}]
+  SETTABLEKS R5 R4 K22 ["isIgnoringChildren"]
+  DUPTABLE R5 K31 [{"accessories", "animation", "clothing", "emotion", "patches"}]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K25 ["accessories"]
+  SETTABLEKS R6 R5 K26 ["accessories"]
   LOADNIL R6
-  SETTABLEKS R6 R5 K26 ["animation"]
+  SETTABLEKS R6 R5 K27 ["animation"]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K27 ["clothing"]
+  SETTABLEKS R6 R5 K28 ["clothing"]
   LOADNIL R6
-  SETTABLEKS R6 R5 K28 ["emotion"]
+  SETTABLEKS R6 R5 K29 ["emotion"]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K29 ["patches"]
-  SETTABLEKS R5 R4 K22 ["avatarAssets"]
-  GETTABLEKS R5 R1 K31 ["createContext"]
+  SETTABLEKS R6 R5 K30 ["patches"]
+  SETTABLEKS R5 R4 K23 ["avatarAssets"]
+  GETTABLEKS R5 R1 K32 ["createContext"]
   MOVE R6 R4
   CALL R5 1 -1
   RETURN R5 -1

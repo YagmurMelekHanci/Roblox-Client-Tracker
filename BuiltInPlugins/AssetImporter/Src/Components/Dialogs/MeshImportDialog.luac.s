@@ -1,7 +1,4 @@
 PROTO_0:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+26]
   GETTABLEKS R2 R0 K0 ["ImportTree"]
   JUMPIFNOT R2 [+5]
   GETTABLEKS R2 R0 K0 ["ImportTree"]
@@ -17,19 +14,10 @@ PROTO_0:
   GETTABLEKS R3 R0 K5 ["ErrorNodeChecked"]
   NOT R2 R3
   JUMPIFNOT R2 [+3]
-  GETUPVAL R2 1
+  GETUPVAL R2 0
   MOVE R3 R1
   CALL R2 1 1
   RETURN R2 1
-  GETTABLEKS R2 R0 K2 ["HasInvalidPackageId"]
-  NOT R1 R2
-  JUMPIFNOT R1 [+8]
-  LOADB R1 0
-  GETTABLEKS R2 R0 K3 ["ImportDataCheckedCount"]
-  JUMPIFEQKN R2 K4 [0] [+4]
-  GETTABLEKS R2 R0 K5 ["ErrorNodeChecked"]
-  NOT R1 R2
-  RETURN R1 1
 
 PROTO_1:
   GETUPVAL R2 0
@@ -61,7 +49,7 @@ PROTO_3:
   GETTABLEKS R1 R2 K1 ["onClose"]
   CALL R1 0 0
   RETURN R0 0
-  JUMPIFNOTEQKS R0 K2 ["Import"] [+32]
+  JUMPIFNOTEQKS R0 K2 ["Import"] [+55]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K3 ["onImport"]
   CALL R1 0 0
@@ -74,21 +62,34 @@ PROTO_3:
   NAMECALL R2 R2 K8 ["DEPRECATED_onSessionCanceled"]
   CALL R2 2 0
   RETURN R0 0
-  JUMPIFNOTEQKS R0 K2 ["Import"] [+12]
-  GETUPVAL R2 2
-  MOVE R3 R1
-  CALL R2 1 1
+  JUMPIFNOTEQKS R0 K2 ["Import"] [+35]
+  GETTABLEKS R4 R1 K9 ["ImportTree"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R1 K9 ["ImportTree"]
+  GETTABLEKS R3 R4 K10 ["ImportName"]
+  JUMP [+1]
+  LOADNIL R3
+  GETTABLEKS R4 R1 K11 ["HasInvalidPackageId"]
+  NOT R2 R4
+  JUMPIFNOT R2 [+13]
+  LOADB R2 0
+  GETTABLEKS R4 R1 K12 ["ImportDataCheckedCount"]
+  JUMPIFEQKN R4 K13 [0] [+9]
+  GETTABLEKS R4 R1 K14 ["ErrorNodeChecked"]
+  NOT R2 R4
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R4 2
+  MOVE R5 R3
+  CALL R4 1 1
+  MOVE R2 R4
   JUMPIFNOT R2 [+7]
   GETTABLEKS R3 R1 K6 ["FileController"]
   GETTABLEKS R5 R1 K7 ["AssetImportSession"]
-  NAMECALL R3 R3 K9 ["DEPRECATED_onImport"]
+  NAMECALL R3 R3 K15 ["DEPRECATED_onImport"]
   CALL R3 2 0
   RETURN R0 0
 
 PROTO_4:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+9]
   DUPTABLE R1 K1 [{"assetName"}]
   LOADK R2 K2 [""]
   SETTABLEKS R2 R1 K0 ["assetName"]
@@ -102,9 +103,9 @@ PROTO_4:
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K6 ["onImport"]
   NEWCLOSURE R1 P2
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
   CAPTURE VAL R0
-  CAPTURE UPVAL U2
+  CAPTURE UPVAL U1
   SETTABLEKS R1 R0 K7 ["onButtonPressed"]
   RETURN R0 0
 
@@ -120,87 +121,103 @@ PROTO_5:
 PROTO_6:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Localization"]
-  GETUPVAL R3 0
-  MOVE R4 R1
-  CALL R3 1 1
+  GETTABLEKS R5 R1 K2 ["ImportTree"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R5 R1 K2 ["ImportTree"]
+  GETTABLEKS R4 R5 K3 ["ImportName"]
+  JUMP [+1]
+  LOADNIL R4
+  GETTABLEKS R5 R1 K4 ["HasInvalidPackageId"]
+  NOT R3 R5
+  JUMPIFNOT R3 [+13]
+  LOADB R3 0
+  GETTABLEKS R5 R1 K5 ["ImportDataCheckedCount"]
+  JUMPIFEQKN R5 K6 [0] [+9]
+  GETTABLEKS R5 R1 K7 ["ErrorNodeChecked"]
+  NOT R3 R5
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R5 0
+  MOVE R6 R4
+  CALL R5 1 1
+  MOVE R3 R5
   LOADNIL R4
   GETUPVAL R5 1
   CALL R5 0 1
   JUMPIFNOT R5 [+39]
   NEWTABLE R5 0 2
-  DUPTABLE R6 K4 [{"Key", "Text"}]
-  LOADK R7 K5 ["Close"]
-  SETTABLEKS R7 R6 K2 ["Key"]
-  LOADK R9 K6 ["Plugin"]
-  LOADK R10 K5 ["Close"]
-  NAMECALL R7 R2 K7 ["getText"]
+  DUPTABLE R6 K10 [{"Key", "Text"}]
+  LOADK R7 K11 ["Close"]
+  SETTABLEKS R7 R6 K8 ["Key"]
+  LOADK R9 K12 ["Plugin"]
+  LOADK R10 K11 ["Close"]
+  NAMECALL R7 R2 K13 ["getText"]
   CALL R7 3 1
-  SETTABLEKS R7 R6 K3 ["Text"]
-  DUPTABLE R7 K10 [{"Key", "Text", "Style", "StyleModifier"}]
-  LOADK R8 K11 ["Import"]
-  SETTABLEKS R8 R7 K2 ["Key"]
-  LOADK R10 K6 ["Plugin"]
-  LOADK R11 K11 ["Import"]
-  NAMECALL R8 R2 K7 ["getText"]
+  SETTABLEKS R7 R6 K9 ["Text"]
+  DUPTABLE R7 K16 [{"Key", "Text", "Style", "StyleModifier"}]
+  LOADK R8 K17 ["Import"]
+  SETTABLEKS R8 R7 K8 ["Key"]
+  LOADK R10 K12 ["Plugin"]
+  LOADK R11 K17 ["Import"]
+  NAMECALL R8 R2 K13 ["getText"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K3 ["Text"]
-  LOADK R8 K12 ["RoundPrimary"]
-  SETTABLEKS R8 R7 K8 ["Style"]
+  SETTABLEKS R8 R7 K9 ["Text"]
+  LOADK R8 K18 ["RoundPrimary"]
+  SETTABLEKS R8 R7 K14 ["Style"]
   JUMPIF R3 [+4]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K13 ["Disabled"]
+  GETTABLEKS R8 R9 K19 ["Disabled"]
   JUMPIF R8 [+1]
   LOADNIL R8
-  SETTABLEKS R8 R7 K9 ["StyleModifier"]
+  SETTABLEKS R8 R7 K15 ["StyleModifier"]
   SETLIST R5 R6 2 [1]
   MOVE R4 R5
   JUMP [+38]
   NEWTABLE R5 0 2
-  DUPTABLE R6 K4 [{"Key", "Text"}]
-  LOADK R7 K14 ["Cancel"]
-  SETTABLEKS R7 R6 K2 ["Key"]
-  LOADK R9 K6 ["Plugin"]
-  LOADK R10 K14 ["Cancel"]
-  NAMECALL R7 R2 K7 ["getText"]
+  DUPTABLE R6 K10 [{"Key", "Text"}]
+  LOADK R7 K20 ["Cancel"]
+  SETTABLEKS R7 R6 K8 ["Key"]
+  LOADK R9 K12 ["Plugin"]
+  LOADK R10 K20 ["Cancel"]
+  NAMECALL R7 R2 K13 ["getText"]
   CALL R7 3 1
-  SETTABLEKS R7 R6 K3 ["Text"]
-  DUPTABLE R7 K10 [{"Key", "Text", "Style", "StyleModifier"}]
-  LOADK R8 K11 ["Import"]
-  SETTABLEKS R8 R7 K2 ["Key"]
-  LOADK R10 K6 ["Plugin"]
-  LOADK R11 K11 ["Import"]
-  NAMECALL R8 R2 K7 ["getText"]
+  SETTABLEKS R7 R6 K9 ["Text"]
+  DUPTABLE R7 K16 [{"Key", "Text", "Style", "StyleModifier"}]
+  LOADK R8 K17 ["Import"]
+  SETTABLEKS R8 R7 K8 ["Key"]
+  LOADK R10 K12 ["Plugin"]
+  LOADK R11 K17 ["Import"]
+  NAMECALL R8 R2 K13 ["getText"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K3 ["Text"]
-  LOADK R8 K12 ["RoundPrimary"]
-  SETTABLEKS R8 R7 K8 ["Style"]
+  SETTABLEKS R8 R7 K9 ["Text"]
+  LOADK R8 K18 ["RoundPrimary"]
+  SETTABLEKS R8 R7 K14 ["Style"]
   JUMPIF R3 [+4]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K13 ["Disabled"]
+  GETTABLEKS R8 R9 K19 ["Disabled"]
   JUMPIF R8 [+1]
   LOADNIL R8
-  SETTABLEKS R8 R7 K9 ["StyleModifier"]
+  SETTABLEKS R8 R7 K15 ["StyleModifier"]
   SETLIST R5 R6 2 [1]
   MOVE R4 R5
   LOADNIL R5
   GETUPVAL R6 1
   CALL R6 0 1
   JUMPIFNOT R6 [+3]
-  GETTABLEKS R5 R0 K15 ["onClose"]
+  GETTABLEKS R5 R0 K21 ["onClose"]
   JUMP [+2]
   NEWCLOSURE R5 P0
   CAPTURE VAL R1
   GETUPVAL R7 3
-  GETTABLEKS R6 R7 K16 ["createElement"]
+  GETTABLEKS R6 R7 K22 ["createElement"]
   GETUPVAL R7 4
-  DUPTABLE R8 K25 [{"Enabled", "MinContentSize", "Modal", "Resizable", "Title", "Buttons", "OnClose", "OnButtonPressed", "Style"}]
-  GETTABLEKS R9 R1 K26 ["ShowPreview"]
-  SETTABLEKS R9 R8 K17 ["Enabled"]
-  GETIMPORT R9 K29 [Vector2.new]
+  DUPTABLE R8 K31 [{"Enabled", "MinContentSize", "Modal", "Resizable", "Title", "Buttons", "OnClose", "OnButtonPressed", "Style"}]
+  GETTABLEKS R9 R1 K32 ["ShowPreview"]
+  SETTABLEKS R9 R8 K23 ["Enabled"]
+  GETIMPORT R9 K35 [Vector2.new]
   LOADN R10 32
   LOADN R11 138
   CALL R9 2 1
-  SETTABLEKS R9 R8 K18 ["MinContentSize"]
+  SETTABLEKS R9 R8 K24 ["MinContentSize"]
   GETUPVAL R10 1
   CALL R10 0 1
   JUMPIFNOT R10 [+4]
@@ -209,48 +226,48 @@ PROTO_6:
   NOT R9 R10
   JUMP [+1]
   LOADB R9 0
-  SETTABLEKS R9 R8 K19 ["Modal"]
+  SETTABLEKS R9 R8 K25 ["Modal"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K20 ["Resizable"]
-  GETTABLEKS R9 R1 K21 ["Title"]
-  SETTABLEKS R9 R8 K21 ["Title"]
-  SETTABLEKS R4 R8 K22 ["Buttons"]
-  SETTABLEKS R5 R8 K23 ["OnClose"]
-  GETTABLEKS R9 R0 K30 ["onButtonPressed"]
-  SETTABLEKS R9 R8 K24 ["OnButtonPressed"]
-  LOADK R9 K31 ["FullBleed"]
-  SETTABLEKS R9 R8 K8 ["Style"]
-  DUPTABLE R9 K35 [{"Layout", "AssetImporterUI", "Separator"}]
+  SETTABLEKS R9 R8 K26 ["Resizable"]
+  GETTABLEKS R9 R1 K27 ["Title"]
+  SETTABLEKS R9 R8 K27 ["Title"]
+  SETTABLEKS R4 R8 K28 ["Buttons"]
+  SETTABLEKS R5 R8 K29 ["OnClose"]
+  GETTABLEKS R9 R0 K36 ["onButtonPressed"]
+  SETTABLEKS R9 R8 K30 ["OnButtonPressed"]
+  LOADK R9 K37 ["FullBleed"]
+  SETTABLEKS R9 R8 K14 ["Style"]
+  DUPTABLE R9 K41 [{"Layout", "AssetImporterUI", "Separator"}]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K16 ["createElement"]
-  LOADK R11 K36 ["UIListLayout"]
-  DUPTABLE R12 K38 [{"FillDirection"}]
-  GETIMPORT R13 K41 [Enum.FillDirection.Vertical]
-  SETTABLEKS R13 R12 K37 ["FillDirection"]
+  GETTABLEKS R10 R11 K22 ["createElement"]
+  LOADK R11 K42 ["UIListLayout"]
+  DUPTABLE R12 K44 [{"FillDirection"}]
+  GETIMPORT R13 K47 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K43 ["FillDirection"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K32 ["Layout"]
-  GETTABLEKS R11 R1 K26 ["ShowPreview"]
+  SETTABLEKS R10 R9 K38 ["Layout"]
+  GETTABLEKS R11 R1 K32 ["ShowPreview"]
   JUMPIFNOT R11 [+10]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K16 ["createElement"]
+  GETTABLEKS R10 R11 K22 ["createElement"]
   GETUPVAL R11 6
-  DUPTABLE R12 K43 [{"LayoutOrder"}]
+  DUPTABLE R12 K49 [{"LayoutOrder"}]
   LOADN R13 1
-  SETTABLEKS R13 R12 K42 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K48 ["LayoutOrder"]
   CALL R10 2 1
   JUMP [+1]
   LOADNIL R10
-  SETTABLEKS R10 R9 K33 ["AssetImporterUI"]
+  SETTABLEKS R10 R9 K39 ["AssetImporterUI"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K16 ["createElement"]
+  GETTABLEKS R10 R11 K22 ["createElement"]
   GETUPVAL R11 7
-  DUPTABLE R12 K45 [{"DominantAxis", "LayoutOrder"}]
-  GETIMPORT R13 K47 [Enum.DominantAxis.Width]
-  SETTABLEKS R13 R12 K44 ["DominantAxis"]
+  DUPTABLE R12 K51 [{"DominantAxis", "LayoutOrder"}]
+  GETIMPORT R13 K53 [Enum.DominantAxis.Width]
+  SETTABLEKS R13 R12 K50 ["DominantAxis"]
   LOADN R13 2
-  SETTABLEKS R13 R12 K42 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K48 ["LayoutOrder"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K34 ["Separator"]
+  SETTABLEKS R10 R9 K40 ["Separator"]
   CALL R6 3 -1
   RETURN R6 -1
 
@@ -436,25 +453,18 @@ MAIN:
   GETTABLEKS R21 R22 K30 ["Flags"]
   GETTABLEKS R20 R21 K32 ["getFFlagDebugAssetImportPlugin"]
   CALL R19 1 1
-  GETIMPORT R20 K5 [require]
-  GETTABLEKS R23 R0 K20 ["Src"]
-  GETTABLEKS R22 R23 K30 ["Flags"]
-  GETTABLEKS R21 R22 K33 ["getFFlagAssetImportDisallowEmptyRootNames"]
-  CALL R20 1 1
-  GETTABLEKS R21 R1 K34 ["PureComponent"]
-  LOADK R23 K35 ["MeshImportDialog"]
-  NAMECALL R21 R21 K36 ["extend"]
-  CALL R21 2 1
-  DUPCLOSURE R22 K37 [PROTO_0]
-  CAPTURE VAL R20
+  GETTABLEKS R20 R1 K33 ["PureComponent"]
+  LOADK R22 K34 ["MeshImportDialog"]
+  NAMECALL R20 R20 K35 ["extend"]
+  CALL R20 2 1
+  DUPCLOSURE R21 K36 [PROTO_0]
   CAPTURE VAL R17
-  DUPCLOSURE R23 K38 [PROTO_4]
-  CAPTURE VAL R20
+  DUPCLOSURE R22 K37 [PROTO_4]
   CAPTURE VAL R18
-  CAPTURE VAL R22
-  SETTABLEKS R23 R21 K39 ["init"]
-  DUPCLOSURE R23 K40 [PROTO_6]
-  CAPTURE VAL R22
+  CAPTURE VAL R17
+  SETTABLEKS R22 R20 K38 ["init"]
+  DUPCLOSURE R22 K39 [PROTO_6]
+  CAPTURE VAL R17
   CAPTURE VAL R18
   CAPTURE VAL R9
   CAPTURE VAL R1
@@ -462,46 +472,43 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R13
   CAPTURE VAL R11
-  SETTABLEKS R23 R21 K41 ["render"]
-  MOVE R23 R20
-  CALL R23 0 1
-  JUMPIFNOT R23 [+18]
-  DUPCLOSURE R23 K42 [PROTO_7]
-  SETTABLEKS R23 R21 K43 ["didMount"]
-  DUPCLOSURE R23 K44 [PROTO_9]
-  SETTABLEKS R23 R21 K45 ["_connect"]
-  DUPCLOSURE R23 K46 [PROTO_10]
-  SETTABLEKS R23 R21 K47 ["willUnmount"]
-  DUPCLOSURE R23 K48 [PROTO_11]
-  SETTABLEKS R23 R21 K49 ["_disconnect"]
-  DUPCLOSURE R23 K50 [PROTO_12]
-  SETTABLEKS R23 R21 K51 ["didUpdate"]
-  DUPCLOSURE R23 K52 [PROTO_13]
-  SETTABLEKS R23 R21 K53 ["getDerivedStateFromProps"]
-  MOVE R23 R5
-  DUPTABLE R24 K54 [{"FileController", "QueueController", "Localization", "Stylizer"}]
-  SETTABLEKS R14 R24 K24 ["FileController"]
-  MOVE R26 R18
-  CALL R26 0 1
-  JUMPIFNOT R26 [+2]
-  MOVE R25 R15
+  SETTABLEKS R22 R20 K40 ["render"]
+  DUPCLOSURE R22 K41 [PROTO_7]
+  SETTABLEKS R22 R20 K42 ["didMount"]
+  DUPCLOSURE R22 K43 [PROTO_9]
+  SETTABLEKS R22 R20 K44 ["_connect"]
+  DUPCLOSURE R22 K45 [PROTO_10]
+  SETTABLEKS R22 R20 K46 ["willUnmount"]
+  DUPCLOSURE R22 K47 [PROTO_11]
+  SETTABLEKS R22 R20 K48 ["_disconnect"]
+  DUPCLOSURE R22 K49 [PROTO_12]
+  SETTABLEKS R22 R20 K50 ["didUpdate"]
+  DUPCLOSURE R22 K51 [PROTO_13]
+  SETTABLEKS R22 R20 K52 ["getDerivedStateFromProps"]
+  MOVE R22 R5
+  DUPTABLE R23 K53 [{"FileController", "QueueController", "Localization", "Stylizer"}]
+  SETTABLEKS R14 R23 K24 ["FileController"]
+  MOVE R25 R18
+  CALL R25 0 1
+  JUMPIFNOT R25 [+2]
+  MOVE R24 R15
   JUMP [+1]
-  LOADNIL R25
-  SETTABLEKS R25 R24 K25 ["QueueController"]
-  SETTABLEKS R6 R24 K12 ["Localization"]
-  SETTABLEKS R7 R24 K14 ["Stylizer"]
-  CALL R23 1 1
-  MOVE R24 R21
-  CALL R23 1 1
-  MOVE R21 R23
-  DUPCLOSURE R23 K55 [PROTO_14]
+  LOADNIL R24
+  SETTABLEKS R24 R23 K25 ["QueueController"]
+  SETTABLEKS R6 R23 K12 ["Localization"]
+  SETTABLEKS R7 R23 K14 ["Stylizer"]
+  CALL R22 1 1
+  MOVE R23 R20
+  CALL R22 1 1
+  MOVE R20 R22
+  DUPCLOSURE R22 K54 [PROTO_14]
   CAPTURE VAL R18
-  DUPCLOSURE R24 K56 [PROTO_16]
+  DUPCLOSURE R23 K55 [PROTO_16]
   CAPTURE VAL R16
-  GETTABLEKS R25 R2 K57 ["connect"]
+  GETTABLEKS R24 R2 K56 ["connect"]
+  MOVE R25 R22
   MOVE R26 R23
-  MOVE R27 R24
-  CALL R25 2 1
-  MOVE R26 R21
-  CALL R25 1 -1
-  RETURN R25 -1
+  CALL R24 2 1
+  MOVE R25 R20
+  CALL R24 1 -1
+  RETURN R24 -1

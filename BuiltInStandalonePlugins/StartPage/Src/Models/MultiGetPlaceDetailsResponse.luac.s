@@ -1,0 +1,51 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K2 ["table"] [+12]
+  LOADK R2 K3 ["Expected table, got %*"]
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  NAMECALL R2 R2 K4 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  RETURN R1 1
+  GETIMPORT R1 K6 [ipairs]
+  MOVE R2 R0
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["validate"]
+  MOVE R7 R5
+  CALL R6 1 1
+  JUMPIFNOT R6 [+8]
+  LOADK R8 K8 ["[%*] > %*"]
+  MOVE R10 R4
+  MOVE R11 R6
+  NAMECALL R8 R8 K4 ["format"]
+  CALL R8 3 1
+  MOVE R7 R8
+  RETURN R7 1
+  FORGLOOP R1 2 [inext] [-15]
+  LOADNIL R1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Models"]
+  GETTABLEKS R2 R3 K8 ["PlaceDetailsModel"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K9 [PROTO_0]
+  CAPTURE VAL R1
+  DUPTABLE R3 K11 [{"validate"}]
+  SETTABLEKS R2 R3 K10 ["validate"]
+  RETURN R3 1

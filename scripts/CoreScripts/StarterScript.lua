@@ -316,8 +316,8 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.KeyboardUINavigation)
 -- Emotes Menu
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
--- Screenshots
-coroutine.wrap(safeRequire)(RobloxGui.Modules.Screenshots.ScreenshotsApp)
+-- CapturesApp
+coroutine.wrap(safeRequire)(RobloxGui.Modules.Captures.CapturesApp)
 
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 

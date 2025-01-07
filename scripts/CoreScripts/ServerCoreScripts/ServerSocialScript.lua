@@ -22,7 +22,6 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 game:DefineFastFlag("EnableSetUserBlocklistInitialized", false)
-local FFlagFetchBlockListFromServer = require(CorePackages.Workspace.Packages.SharedFlags).FFlagFetchBlockListFromServer
 local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
 local FStringRccInExperienceNameEnabledAllowList = require(RobloxGui.Modules.Common.Flags.FStringRccInExperienceNameEnabledAllowList)
 local FFlagUseNewDirectChatAPI = game:DefineFastFlag("UseNewDirectChatAPI", false)
@@ -306,9 +305,7 @@ local sendPlayerProfileSettings = function(player)
 end
 
 local function onPlayerAdded(newPlayer)
-	if FFlagFetchBlockListFromServer then
-		coroutine.wrap(sendPlayerBlockList)(newPlayer)
-	end
+	coroutine.wrap(sendPlayerBlockList)(newPlayer)
 	sendPlayerAllGroupDetails(newPlayer)
 	if newPlayer.UserId > 0 then
 		coroutine.wrap(getPlayerGroupDetails)(newPlayer)

@@ -7,8 +7,6 @@ local GetFFlagAppChatAddConnectUnibarForActiveSquad =
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 
-local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
-
 local registerConnectIntegration = require(script.Parent.registerConnectIntegration)
 local isConnectDropdownEnabled = require(script.Parent.isConnectDropdownEnabled)
 
@@ -19,7 +17,7 @@ local integration = nil
 if isConnectDropdownEnabled() then
 	integration = registerConnectIntegration("connect_dropdown", ChromeService.AvailabilitySignal.Available)
 
-	if GetFFlagAppChatAddConnectUnibarForActiveSquad() and SquadExperimentation.getSquadEntrypointsEnabled() then
+	if GetFFlagAppChatAddConnectUnibarForActiveSquad() then
 		-- active squad initial value
 		local hasActiveSquad = InExperienceAppChatModal.default.currentSquadId ~= ""
 		if hasActiveSquad then

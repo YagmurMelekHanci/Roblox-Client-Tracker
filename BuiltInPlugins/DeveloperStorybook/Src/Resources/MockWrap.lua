@@ -71,6 +71,15 @@ function MockPlugin:render()
 				text = "MOCK",
 			},
 		}),
+		ContextServices.Localization.mock({
+			libraries = {
+				[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
+					stringResourceTable = Framework.Resources.SourceStrings,
+					translationResourceTable = Framework.Resources.LocalizedStrings,
+				},
+			},
+		}),
+		ContextServices.Design.new(Instance.new("StyleSheet")),
 		ContextServices.Mouse.new({}),
 		MakeTheme(true),
 		ContextServices.Focus.new(self.target),

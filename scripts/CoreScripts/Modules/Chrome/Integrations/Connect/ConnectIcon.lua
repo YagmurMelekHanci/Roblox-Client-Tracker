@@ -37,8 +37,6 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
 local FFlagConnectIconUsesAppChatConfig = game:DefineFastFlag("ConnectIconUsesAppChatConfig", false)
 
-local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
-
 local AVATAR_SIZE = 24
 
 local ICON_OFF = "icons/menu/platformChatOff"
@@ -136,11 +134,9 @@ local function ConnectIcon(_props: Props): React.ReactElement
 			isIconVisible = props.isIconVisible,
 
 			headerKey = if GetFFlagAppChatRebrandStringUpdates()
-					and SquadExperimentation.getSquadEntrypointsEnabled()
 				then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 				else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
 			bodyKey = if GetFFlagAppChatRebrandStringUpdates()
-					and SquadExperimentation.getSquadEntrypointsEnabled()
 				then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 				else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 			localStorageKey = GetFStringConnectTooltipLocalStorageKey(),

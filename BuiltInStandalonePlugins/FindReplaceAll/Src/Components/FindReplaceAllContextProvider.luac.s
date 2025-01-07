@@ -1,0 +1,198 @@
+PROTO_0:
+  GETTABLEKS R2 R1 K0 ["type"]
+  JUMPIFNOTEQKS R2 K1 ["FindWithOptions"] [+16]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["Dictionary"]
+  GETTABLEKS R2 R3 K3 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K5 [{"findOptions"}]
+  GETTABLEKS R6 R1 K6 ["payload"]
+  GETTABLEKS R5 R6 K4 ["findOptions"]
+  SETTABLEKS R5 R4 K4 ["findOptions"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETTABLEKS R2 R1 K0 ["type"]
+  JUMPIFNOTEQKS R2 K7 ["ReplaceWithOptions"] [+16]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["Dictionary"]
+  GETTABLEKS R2 R3 K3 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K9 [{"replaceOptions"}]
+  GETTABLEKS R6 R1 K6 ["payload"]
+  GETTABLEKS R5 R6 K8 ["replaceOptions"]
+  SETTABLEKS R5 R4 K8 ["replaceOptions"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["FindAsync"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R1 1 2
+  JUMPIF R1 [+5]
+  GETIMPORT R3 K3 [warn]
+  LOADK R4 K4 ["Error in FindWithOptions: "]
+  MOVE R5 R2
+  CALL R3 2 0
+  GETUPVAL R3 1
+  DUPTABLE R4 K7 [{"type", "payload"}]
+  LOADK R5 K8 ["FindWithOptions"]
+  SETTABLEKS R5 R4 K5 ["type"]
+  DUPTABLE R5 K10 [{"findOptions"}]
+  SETTABLEKS R0 R5 K9 ["findOptions"]
+  SETTABLEKS R5 R4 K6 ["payload"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["ReplaceAsync"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R1 1 2
+  JUMPIF R1 [+5]
+  GETIMPORT R3 K3 [warn]
+  LOADK R4 K4 ["Error in ReplaceWithOptions: "]
+  MOVE R5 R2
+  CALL R3 2 0
+  GETUPVAL R3 1
+  DUPTABLE R4 K7 [{"type", "payload"}]
+  LOADK R5 K8 ["ReplaceWithOptions"]
+  SETTABLEKS R5 R4 K5 ["type"]
+  DUPTABLE R5 K10 [{"replaceOptions"}]
+  SETTABLEKS R0 R5 K9 ["replaceOptions"]
+  SETTABLEKS R5 R4 K6 ["payload"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_5:
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NEWCLOSURE R4 P1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  DUPTABLE R5 K2 [{"findWithOptions", "replaceWithOptions"}]
+  SETTABLEKS R3 R5 K0 ["findWithOptions"]
+  SETTABLEKS R4 R5 K1 ["replaceWithOptions"]
+  RETURN R5 1
+
+PROTO_6:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K0 ["getLocalization"]
+  CALL R0 3 1
+  RETURN R0 1
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useReducer"]
+  GETUPVAL R2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["DEFAULT_FIND_REPLACE_STATE"]
+  CALL R1 2 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["useMemo"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  NEWTABLE R5 0 3
+  MOVE R6 R2
+  MOVE R7 R1
+  GETTABLEKS R8 R0 K3 ["getLocalization"]
+  SETLIST R5 R6 3 [1]
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["createElement"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K5 ["Provider"]
+  DUPTABLE R6 K7 [{"value"}]
+  SETTABLEKS R1 R6 K6 ["value"]
+  DUPTABLE R7 K9 [{"FindReplaceAllActionsContextProvider"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["createElement"]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K5 ["Provider"]
+  DUPTABLE R10 K7 [{"value"}]
+  SETTABLEKS R3 R10 K6 ["value"]
+  GETTABLEKS R11 R0 K10 ["children"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K8 ["FindReplaceAllActionsContextProvider"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["FindReplaceAllContext"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Util"]
+  GETTABLEKS R5 R6 K12 ["FindReplaceAllActionsContext"]
+  CALL R4 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K10 ["Util"]
+  GETTABLEKS R7 R8 K13 ["MockableProxyPluginComponents"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K2 ["FindReplaceAll"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K10 ["Util"]
+  GETTABLEKS R7 R8 K14 ["Constants"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Types"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K16 [PROTO_0]
+  CAPTURE VAL R2
+  DUPCLOSURE R9 K17 [PROTO_5]
+  CAPTURE VAL R5
+  DUPCLOSURE R10 K18 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETGLOBAL R10 K19 ["FindReplaceAllContextProvider"]
+  GETTABLEKS R10 R1 K20 ["memo"]
+  GETGLOBAL R11 K19 ["FindReplaceAllContextProvider"]
+  CALL R10 1 -1
+  RETURN R10 -1

@@ -1,12 +1,53 @@
 PROTO_0:
-  MULK R3 R0 K1 [256]
-  ADDK R2 R3 K0 [0.5]
-  FASTCALL1 MATH_FLOOR R2 [+2]
-  GETIMPORT R1 K4 [math.floor]
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [type]
   CALL R1 1 1
+  JUMPIFEQKS R1 K2 ["string"] [+3]
+  LOADB R1 0
+  RETURN R1 1
+  GETIMPORT R1 K5 [utf8.len]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  LOADB R1 1
   RETURN R1 1
 
 PROTO_1:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [type]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K2 ["number"] [+3]
+  LOADB R1 0
+  RETURN R1 1
+  JUMPIFEQ R0 R0 [+3]
+  LOADB R1 0
+  RETURN R1 1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+8]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["canEncodeNumberSafely"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADN R1 0
+  RETURN R1 1
+  MULK R3 R0 K2 [256]
+  ADDK R2 R3 K1 [0.5]
+  FASTCALL1 MATH_FLOOR R2 [+2]
+  GETIMPORT R1 K5 [math.floor]
+  CALL R1 1 1
+  RETURN R1 1
+
+PROTO_3:
   NEWTABLE R1 0 0
   MOVE R2 R0
   LOADNIL R3
@@ -24,294 +65,335 @@ PROTO_1:
   FORGLOOP R2 2 [-13]
   RETURN R1 1
 
-PROTO_2:
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [typeof]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K2 ["Instance"] [+66]
-  GETTABLEKS R3 R1 K3 ["options"]
-  GETTABLEKS R2 R3 K4 ["ignoreAccessories"]
-  JUMPIFNOT R2 [+7]
-  LOADK R4 K5 ["Accessory"]
-  NAMECALL R2 R0 K6 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+2]
-  LOADNIL R2
-  RETURN R2 1
-  GETTABLEKS R4 R1 K7 ["state"]
-  GETTABLEKS R3 R4 K8 ["pendingInstances"]
-  GETTABLE R2 R3 R0
-  JUMPIFNOT R2 [+7]
-  LOADK R4 K9 ["inst-%*"]
-  MOVE R6 R2
-  NAMECALL R4 R4 K10 ["format"]
-  CALL R4 2 1
-  MOVE R3 R4
-  RETURN R3 1
-  GETTABLEKS R5 R1 K7 ["state"]
-  GETTABLEKS R4 R5 K12 ["lastInstanceId"]
-  ADDK R3 R4 K11 [1]
-  GETTABLEKS R4 R1 K7 ["state"]
-  SETTABLEKS R3 R4 K12 ["lastInstanceId"]
-  GETTABLEKS R5 R1 K7 ["state"]
-  GETTABLEKS R4 R5 K8 ["pendingInstances"]
-  SETTABLE R3 R4 R0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K13 ["serializeInstanceRaw"]
-  MOVE R5 R0
-  MOVE R6 R1
-  CALL R4 2 1
-  NEWTABLE R5 0 0
-  MOVE R6 R4
-  LOADNIL R7
-  LOADNIL R8
-  FORGPREP R6
-  GETUPVAL R13 1
-  GETTABLE R12 R13 R10
-  OR R11 R12 R10
-  GETUPVAL R13 1
-  GETTABLE R12 R13 R9
-  JUMPIFNOT R12 [+4]
-  GETUPVAL R13 1
-  GETTABLE R12 R13 R9
-  SETTABLE R11 R5 R12
-  JUMP [+1]
-  SETTABLE R11 R5 R9
-  FORGLOOP R6 2 [-12]
-  RETURN R5 1
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [typeof]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K14 ["EnumItem"] [+4]
-  GETTABLEKS R2 R0 K15 ["Value"]
-  RETURN R2 1
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [typeof]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K16 ["BrickColor"] [+4]
-  GETTABLEKS R2 R0 K17 ["Number"]
-  RETURN R2 1
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [typeof]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K18 ["Color3"] [+16]
+PROTO_4:
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K19 ["cutListPrecision"]
-  NEWTABLE R3 0 3
-  GETTABLEKS R4 R0 K20 ["R"]
-  GETTABLEKS R5 R0 K21 ["G"]
-  GETTABLEKS R6 R0 K22 ["B"]
-  SETLIST R3 R4 3 [1]
-  CALL R2 1 -1
-  RETURN R2 -1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+6]
+  LOADN R3 0
+  JUMPIFNOTLE R2 R3 [+3]
+  LOADNIL R3
+  RETURN R3 1
+  SUBK R2 R2 K0 [1]
   FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [typeof]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K23 ["CFrame"] [+71]
-  GETTABLEKS R2 R0 K24 ["LookVector"]
-  GETTABLEKS R5 R2 K25 ["X"]
-  MINUS R4 R5
-  GETTABLEKS R6 R2 K26 ["Z"]
-  MINUS R5 R6
-  FASTCALL2 MATH_ATAN2 R4 R5 [+3]
-  GETIMPORT R3 K29 [math.atan2]
+  MOVE R4 R0
+  GETIMPORT R3 K2 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K3 ["Instance"] [+73]
+  GETTABLEKS R4 R1 K4 ["options"]
+  GETTABLEKS R3 R4 K5 ["ignoreAccessories"]
+  JUMPIFNOT R3 [+7]
+  LOADK R5 K6 ["Accessory"]
+  NAMECALL R3 R0 K7 ["IsA"]
   CALL R3 2 1
-  GETTABLEKS R7 R2 K25 ["X"]
-  POWK R6 R7 K31 [2]
-  GETTABLEKS R8 R2 K26 ["Z"]
-  POWK R7 R8 K31 [2]
-  ADD R5 R6 R7
-  POWK R4 R5 K30 [0.5]
-  GETTABLEKS R6 R2 K32 ["Y"]
-  FASTCALL2 MATH_ATAN2 R6 R4 [+4]
-  MOVE R7 R4
-  GETIMPORT R5 K29 [math.atan2]
+  JUMPIFNOT R3 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  GETTABLEKS R5 R1 K8 ["state"]
+  GETTABLEKS R4 R5 K9 ["pendingInstances"]
+  GETTABLE R3 R4 R0
+  JUMPIFNOT R3 [+7]
+  LOADK R5 K10 ["inst-%*"]
+  MOVE R7 R3
+  NAMECALL R5 R5 K11 ["format"]
   CALL R5 2 1
-  GETIMPORT R8 K34 [CFrame.Angles]
-  LOADN R9 0
-  MOVE R10 R3
-  LOADN R11 0
-  CALL R8 3 1
+  MOVE R4 R5
+  RETURN R4 1
+  GETTABLEKS R6 R1 K8 ["state"]
+  GETTABLEKS R5 R6 K12 ["lastInstanceId"]
+  ADDK R4 R5 K0 [1]
+  GETTABLEKS R5 R1 K8 ["state"]
+  SETTABLEKS R4 R5 K12 ["lastInstanceId"]
+  GETTABLEKS R6 R1 K8 ["state"]
+  GETTABLEKS R5 R6 K9 ["pendingInstances"]
+  SETTABLE R4 R5 R0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K13 ["serializeInstanceRaw"]
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  CALL R5 3 1
+  GETUPVAL R6 0
+  CALL R6 0 1
+  JUMPIFNOT R6 [+3]
+  JUMPIF R5 [+2]
+  LOADNIL R6
+  RETURN R6 1
+  NEWTABLE R6 0 0
+  MOVE R7 R5
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  GETUPVAL R14 2
+  GETTABLE R13 R14 R11
+  OR R12 R13 R11
+  GETUPVAL R14 2
+  GETTABLE R13 R14 R10
+  JUMPIFNOT R13 [+4]
+  GETUPVAL R14 2
+  GETTABLE R13 R14 R10
+  SETTABLE R12 R6 R13
+  JUMP [+1]
+  SETTABLE R12 R6 R10
+  FORGLOOP R7 2 [-12]
+  RETURN R6 1
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K2 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K14 ["EnumItem"] [+4]
+  GETTABLEKS R3 R0 K15 ["Value"]
+  RETURN R3 1
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K2 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K16 ["BrickColor"] [+4]
+  GETTABLEKS R3 R0 K17 ["Number"]
+  RETURN R3 1
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K2 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K18 ["Color3"] [+16]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K19 ["cutListPrecision"]
+  NEWTABLE R4 0 3
+  GETTABLEKS R5 R0 K20 ["R"]
+  GETTABLEKS R6 R0 K21 ["G"]
+  GETTABLEKS R7 R0 K22 ["B"]
+  SETLIST R4 R5 3 [1]
+  CALL R3 1 -1
+  RETURN R3 -1
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K2 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K23 ["CFrame"] [+71]
+  GETTABLEKS R3 R0 K24 ["LookVector"]
+  GETTABLEKS R6 R3 K25 ["X"]
+  MINUS R5 R6
+  GETTABLEKS R7 R3 K26 ["Z"]
+  MINUS R6 R7
+  FASTCALL2 MATH_ATAN2 R5 R6 [+3]
+  GETIMPORT R4 K29 [math.atan2]
+  CALL R4 2 1
+  GETTABLEKS R8 R3 K25 ["X"]
+  POWK R7 R8 K31 [2]
+  GETTABLEKS R9 R3 K26 ["Z"]
+  POWK R8 R9 K31 [2]
+  ADD R6 R7 R8
+  POWK R5 R6 K30 [0.5]
+  GETTABLEKS R7 R3 K32 ["Y"]
+  FASTCALL2 MATH_ATAN2 R7 R5 [+4]
+  MOVE R8 R5
+  GETIMPORT R6 K29 [math.atan2]
+  CALL R6 2 1
   GETIMPORT R9 K34 [CFrame.Angles]
-  MOVE R10 R5
-  LOADN R11 0
+  LOADN R10 0
+  MOVE R11 R4
   LOADN R12 0
   CALL R9 3 1
-  MUL R7 R8 R9
-  GETTABLEKS R8 R0 K35 ["Position"]
-  ADD R6 R7 R8
-  NAMECALL R8 R6 K36 ["Inverse"]
-  CALL R8 1 1
-  MUL R7 R8 R0
-  NAMECALL R7 R7 K37 ["ToEulerAnglesXYZ"]
-  CALL R7 1 3
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K19 ["cutListPrecision"]
-  NEWTABLE R11 0 6
-  GETTABLEKS R12 R0 K25 ["X"]
-  GETTABLEKS R13 R0 K32 ["Y"]
-  GETTABLEKS R14 R0 K26 ["Z"]
-  DIVK R15 R3 K38 [3.14159265358979]
-  DIVK R16 R9 K38 [3.14159265358979]
-  DIVK R17 R5 K39 [1.5707963267949]
-  SETLIST R11 R12 6 [1]
-  CALL R10 1 -1
-  RETURN R10 -1
+  GETIMPORT R10 K34 [CFrame.Angles]
+  MOVE R11 R6
+  LOADN R12 0
+  LOADN R13 0
+  CALL R10 3 1
+  MUL R8 R9 R10
+  GETTABLEKS R9 R0 K35 ["Position"]
+  ADD R7 R8 R9
+  NAMECALL R9 R7 K36 ["Inverse"]
+  CALL R9 1 1
+  MUL R8 R9 R0
+  NAMECALL R8 R8 K37 ["ToEulerAnglesXYZ"]
+  CALL R8 1 3
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K19 ["cutListPrecision"]
+  NEWTABLE R12 0 6
+  GETTABLEKS R13 R0 K25 ["X"]
+  GETTABLEKS R14 R0 K32 ["Y"]
+  GETTABLEKS R15 R0 K26 ["Z"]
+  DIVK R16 R4 K38 [3.14159265358979]
+  DIVK R17 R10 K38 [3.14159265358979]
+  DIVK R18 R6 K39 [1.5707963267949]
+  SETLIST R12 R13 6 [1]
+  CALL R11 1 -1
+  RETURN R11 -1
   FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [typeof]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K40 ["Vector3"] [+16]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K19 ["cutListPrecision"]
-  NEWTABLE R3 0 3
-  GETTABLEKS R4 R0 K25 ["X"]
-  GETTABLEKS R5 R0 K32 ["Y"]
-  GETTABLEKS R6 R0 K26 ["Z"]
-  SETLIST R3 R4 3 [1]
-  CALL R2 1 -1
-  RETURN R2 -1
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [typeof]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K41 ["boolean"] [+6]
-  JUMPIFNOT R0 [+2]
-  LOADN R2 1
-  RETURN R2 1
-  LOADN R2 0
-  RETURN R2 1
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [typeof]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K42 ["number"] [+7]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K43 ["cutPrecision"]
-  MOVE R3 R0
-  CALL R2 1 -1
-  RETURN R2 -1
-  FASTCALL1 TYPE R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K45 [type]
-  CALL R2 1 1
-  JUMPIFNOTEQKS R2 K46 ["string"] [+2]
-  RETURN R0 1
-  RETURN R0 1
-
-PROTO_3:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["serialize"]
-  GETTABLEKS R5 R1 K1 ["state"]
-  GETTABLEKS R4 R5 K2 ["boundingSize"]
-  DIV R3 R0 R4
-  MOVE R4 R1
-  CALL R2 2 -1
-  RETURN R2 -1
-
-PROTO_4:
-  GETTABLEKS R3 R1 K0 ["state"]
-  GETTABLEKS R2 R3 K1 ["boundingCFrame"]
   MOVE R4 R0
-  NAMECALL R2 R2 K2 ["ToObjectSpace"]
-  CALL R2 2 1
+  GETIMPORT R3 K2 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K40 ["Vector3"] [+16]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K19 ["cutListPrecision"]
+  NEWTABLE R4 0 3
+  GETTABLEKS R5 R0 K25 ["X"]
+  GETTABLEKS R6 R0 K32 ["Y"]
+  GETTABLEKS R7 R0 K26 ["Z"]
+  SETLIST R4 R5 3 [1]
+  CALL R3 1 -1
+  RETURN R3 -1
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K2 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K41 ["boolean"] [+6]
+  JUMPIFNOT R0 [+2]
+  LOADN R3 1
+  RETURN R3 1
+  LOADN R3 0
+  RETURN R3 1
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K2 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K42 ["number"] [+7]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K43 ["cutPrecision"]
+  MOVE R4 R0
+  CALL R3 1 -1
+  RETURN R3 -1
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K45 [type]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K46 ["string"] [+14]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+9]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K47 ["canEncodeStringSafely"]
+  MOVE R4 R0
+  CALL R3 1 1
+  JUMPIFNOT R3 [+1]
+  RETURN R0 1
+  LOADNIL R3
+  RETURN R3 1
+  RETURN R0 1
+  RETURN R0 1
+
+PROTO_5:
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["serialize"]
-  GETTABLEKS R5 R2 K4 ["Rotation"]
-  GETTABLEKS R7 R2 K5 ["Position"]
-  GETTABLEKS R9 R1 K0 ["state"]
-  GETTABLEKS R8 R9 K6 ["boundingSize"]
+  GETTABLEKS R3 R4 K0 ["serialize"]
+  GETTABLEKS R6 R1 K1 ["state"]
+  GETTABLEKS R5 R6 K2 ["boundingSize"]
+  DIV R4 R0 R5
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_6:
+  GETTABLEKS R4 R1 K0 ["state"]
+  GETTABLEKS R3 R4 K1 ["boundingCFrame"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K2 ["ToObjectSpace"]
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["serialize"]
+  GETTABLEKS R6 R3 K4 ["Rotation"]
+  GETTABLEKS R8 R3 K5 ["Position"]
+  GETTABLEKS R10 R1 K0 ["state"]
+  GETTABLEKS R9 R10 K6 ["boundingSize"]
+  DIV R7 R8 R9
+  ADD R5 R6 R7
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_7:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["serialize"]
+  GETTABLEKS R6 R1 K1 ["state"]
+  GETTABLEKS R5 R6 K2 ["boundingCFrame"]
+  MOVE R7 R0
+  NAMECALL R5 R5 K3 ["PointToObjectSpace"]
+  CALL R5 2 1
+  GETTABLEKS R7 R1 K1 ["state"]
+  GETTABLEKS R6 R7 K4 ["boundingSize"]
+  DIV R4 R5 R6
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_8:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["serialize"]
+  GETTABLEKS R5 R0 K1 ["Rotation"]
+  GETTABLEKS R7 R0 K2 ["Position"]
+  GETTABLEKS R9 R1 K3 ["state"]
+  GETTABLEKS R8 R9 K4 ["boundingSize"]
   DIV R6 R7 R8
   ADD R4 R5 R6
   MOVE R5 R1
-  CALL R3 2 -1
+  MOVE R6 R2
+  CALL R3 3 -1
   RETURN R3 -1
 
-PROTO_5:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["serialize"]
-  GETTABLEKS R5 R1 K1 ["state"]
-  GETTABLEKS R4 R5 K2 ["boundingCFrame"]
-  MOVE R6 R0
-  NAMECALL R4 R4 K3 ["PointToObjectSpace"]
-  CALL R4 2 1
-  GETTABLEKS R6 R1 K1 ["state"]
-  GETTABLEKS R5 R6 K4 ["boundingSize"]
-  DIV R3 R4 R5
-  MOVE R4 R1
-  CALL R2 2 -1
-  RETURN R2 -1
-
-PROTO_6:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["serialize"]
-  GETTABLEKS R4 R0 K1 ["Rotation"]
-  GETTABLEKS R6 R0 K2 ["Position"]
-  GETTABLEKS R8 R1 K3 ["state"]
-  GETTABLEKS R7 R8 K4 ["boundingSize"]
-  DIV R5 R6 R7
-  ADD R3 R4 R5
-  MOVE R4 R1
-  CALL R2 2 -1
-  RETURN R2 -1
-
-PROTO_7:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["serialize"]
-  GETTABLEKS R5 R1 K1 ["state"]
-  GETTABLEKS R4 R5 K2 ["boundingSize"]
-  DIV R3 R0 R4
-  MOVE R4 R1
-  CALL R2 2 -1
-  RETURN R2 -1
-
-PROTO_8:
-  GETTABLEKS R3 R1 K0 ["relativeScale"]
-  JUMPIFNOT R2 [+5]
-  MOVE R4 R2
-  GETTABLEKS R5 R1 K0 ["relativeScale"]
-  CALL R4 1 1
-  MOVE R3 R4
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["serialize"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["cutPrecision"]
-  DIV R6 R0 R3
-  CALL R5 1 1
-  MOVE R6 R1
-  CALL R4 2 -1
-  RETURN R4 -1
-
 PROTO_9:
-  JUMPIFNOTEQKNIL R0 [+3]
-  LOADNIL R2
-  RETURN R2 1
-  GETTABLEKS R5 R1 K0 ["state"]
-  GETTABLEKS R2 R5 K1 ["allowedInstancesToSerializeUnder"]
-  LOADNIL R3
-  LOADNIL R4
-  FORGPREP R2
-  JUMPIFEQ R0 R6 [+6]
-  MOVE R9 R6
-  NAMECALL R7 R0 K2 ["IsDescendantOf"]
-  CALL R7 2 1
-  JUMPIFNOT R7 [+7]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K3 ["serialize"]
-  MOVE R8 R0
-  MOVE R9 R1
-  CALL R7 2 -1
-  RETURN R7 -1
-  FORGLOOP R2 2 [-15]
-  LOADNIL R2
-  RETURN R2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["serialize"]
+  GETTABLEKS R6 R1 K1 ["state"]
+  GETTABLEKS R5 R6 K2 ["boundingSize"]
+  DIV R4 R0 R5
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1
 
 PROTO_10:
+  GETTABLEKS R4 R1 K0 ["relativeScale"]
+  JUMPIFNOT R3 [+5]
+  MOVE R5 R3
+  GETTABLEKS R6 R1 K0 ["relativeScale"]
+  CALL R5 1 1
+  MOVE R4 R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["serialize"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["cutPrecision"]
+  DIV R7 R0 R4
+  CALL R6 1 1
+  MOVE R7 R1
+  MOVE R8 R2
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_11:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+6]
+  LOADN R3 0
+  JUMPIFNOTLE R2 R3 [+3]
+  LOADNIL R3
+  RETURN R3 1
+  SUBK R2 R2 K0 [1]
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADNIL R3
+  RETURN R3 1
+  GETTABLEKS R6 R1 K1 ["state"]
+  GETTABLEKS R3 R6 K2 ["allowedInstancesToSerializeUnder"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  JUMPIFEQ R0 R7 [+6]
+  MOVE R10 R7
+  NAMECALL R8 R0 K3 ["IsDescendantOf"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+8]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K4 ["serialize"]
+  MOVE R9 R0
+  MOVE R10 R1
+  MOVE R11 R2
+  CALL R8 3 -1
+  RETURN R8 -1
+  FORGLOOP R3 2 [-16]
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_12:
   LOADK R3 K0 ["NumberValue"]
   NAMECALL R1 R0 K1 ["IsA"]
   CALL R1 2 1
@@ -323,7 +405,7 @@ PROTO_10:
   LOADB R1 0
   RETURN R1 1
 
-PROTO_11:
+PROTO_13:
   GETUPVAL R1 0
   CALL R1 0 1
   JUMPIFNOT R1 [+6]
@@ -334,828 +416,960 @@ PROTO_11:
   RETURN R1 1
   RETURN R0 1
 
-PROTO_12:
-  LOADK R4 K0 ["MeshPart"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+109]
-  DUPTABLE R2 K14 [{"name", "archivable", "meshId", "textureId", "material", "materialVariant", "transparency", "reflectance", "color", "size", "cframe", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K18 ["MeshId"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K4 ["meshId"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K19 ["TextureID"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K5 ["textureId"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K20 ["Material"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K6 ["material"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K21 ["MaterialVariant"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K7 ["materialVariant"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K22 ["Transparency"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K8 ["transparency"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K23 ["Reflectance"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K9 ["reflectance"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K24 ["Color"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K10 ["color"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K25 ["serializeSize"]
-  GETTABLEKS R4 R0 K26 ["Size"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K11 ["size"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K27 ["serializePartCFrame"]
-  GETTABLEKS R4 R0 K28 ["CFrame"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K12 ["cframe"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  LOADK R4 K30 ["BasePart"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+91]
-  DUPTABLE R2 K31 [{"name", "archivable", "color", "material", "materialVariant", "transparency", "reflectance", "size", "cframe", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K24 ["Color"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K10 ["color"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K20 ["Material"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K6 ["material"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K21 ["MaterialVariant"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K7 ["materialVariant"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K22 ["Transparency"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K8 ["transparency"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K23 ["Reflectance"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K9 ["reflectance"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K25 ["serializeSize"]
-  GETTABLEKS R4 R0 K26 ["Size"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K11 ["size"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K27 ["serializePartCFrame"]
-  GETTABLEKS R4 R0 K28 ["CFrame"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K12 ["cframe"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  LOADK R4 K32 ["WrapLayer"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+118]
-  DUPTABLE R2 K43 [{"name", "archivable", "cageOrigin", "importOrigin", "order", "puffiness", "referenceMeshId", "referenceOrigin", "autoSkin", "enabled", "bindOffset", "shrinkFactor", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K44 ["serializeAttachmentCFrame"]
-  GETTABLEKS R4 R0 K45 ["CageOrigin"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K33 ["cageOrigin"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K44 ["serializeAttachmentCFrame"]
-  GETTABLEKS R4 R0 K46 ["ImportOrigin"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K34 ["importOrigin"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K47 ["Order"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K35 ["order"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K48 ["Puffiness"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K36 ["puffiness"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K49 ["ReferenceMeshId"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K37 ["referenceMeshId"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K44 ["serializeAttachmentCFrame"]
-  GETTABLEKS R4 R0 K50 ["ReferenceOrigin"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K38 ["referenceOrigin"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K51 ["AutoSkin"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K39 ["autoSkin"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K52 ["Enabled"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K40 ["enabled"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K53 ["BindOffset"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K41 ["bindOffset"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K54 ["ShrinkFactor"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K42 ["shrinkFactor"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  LOADK R4 K55 ["JointInstance"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+64]
-  DUPTABLE R2 K60 [{"name", "archivable", "c0", "c1", "part0", "part1", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K44 ["serializeAttachmentCFrame"]
-  GETTABLEKS R4 R0 K61 ["C0"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K56 ["c0"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K44 ["serializeAttachmentCFrame"]
-  GETTABLEKS R4 R0 K62 ["C1"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K57 ["c1"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K63 ["serializeReferenceInstance"]
-  GETTABLEKS R4 R0 K64 ["Part0"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K58 ["part0"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K63 ["serializeReferenceInstance"]
-  GETTABLEKS R4 R0 K65 ["Part1"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K59 ["part1"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  LOADK R4 K66 ["Attachment"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+37]
-  DUPTABLE R2 K67 [{"name", "archivable", "cframe", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K44 ["serializeAttachmentCFrame"]
-  GETTABLEKS R4 R0 K28 ["CFrame"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K12 ["cframe"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  LOADK R4 K68 ["Decal"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+38]
-  DUPTABLE R2 K70 [{"name", "archivable", "texture", "transparency"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K71 ["Texture"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K69 ["texture"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K22 ["Transparency"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K8 ["transparency"]
-  RETURN R2 1
-  LOADK R4 K71 ["Texture"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+38]
-  DUPTABLE R2 K70 [{"name", "archivable", "texture", "transparency"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K71 ["Texture"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K69 ["texture"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K22 ["Transparency"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K8 ["transparency"]
-  RETURN R2 1
-  LOADK R4 K72 ["SurfaceAppearance"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+82]
-  DUPTABLE R2 K78 [{"name", "archivable", "colorMap", "normalMap", "metalnessMap", "roughnessMap", "color", "children", "alphaMode"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K79 ["ColorMap"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K73 ["colorMap"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K80 ["NormalMap"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K74 ["normalMap"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K81 ["MetalnessMap"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K75 ["metalnessMap"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K82 ["RoughnessMap"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K76 ["roughnessMap"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K24 ["Color"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K10 ["color"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K83 ["AlphaMode"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K77 ["alphaMode"]
-  RETURN R2 1
-  LOADK R4 K84 ["Accessory"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+37]
-  DUPTABLE R2 K86 [{"name", "archivable", "attachmentPoint", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K44 ["serializeAttachmentCFrame"]
-  GETTABLEKS R4 R0 K87 ["AttachmentPoint"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K85 ["attachmentPoint"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  LOADK R4 K88 ["BodyColors"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+82]
-  DUPTABLE R2 K95 [{"name", "archivable", "headColor", "leftArmColor", "leftLegColor", "rightArmColor", "rightLegColor", "torsoColor", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K96 ["HeadColor"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K89 ["headColor"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K97 ["LeftArmColor"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K90 ["leftArmColor"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K98 ["LeftLegColor"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K91 ["leftLegColor"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K99 ["RightArmColor"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K92 ["rightArmColor"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K100 ["RightLegColor"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K93 ["rightLegColor"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K101 ["TorsoColor"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K94 ["torsoColor"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  LOADK R4 K102 ["NumberValue"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+43]
+PROTO_14:
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K103 ["isScalingHumanoidNumber"]
-  MOVE R3 R0
-  CALL R2 1 1
-  JUMPIFNOT R2 [+37]
-  DUPTABLE R2 K105 [{"name", "archivable", "value", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K106 ["serializeScalingHumanoidNumber"]
-  GETTABLEKS R4 R0 K107 ["Value"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K104 ["value"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  LOADK R4 K108 ["ValueBase"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+46]
-  DUPTABLE R2 K110 [{"name", "className", "archivable", "value", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K111 ["ClassName"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K109 ["className"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K107 ["Value"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K104 ["value"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  LOADK R4 K112 ["Humanoid"]
-  NAMECALL R2 R0 K1 ["IsA"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+257]
-  DUPTABLE R2 K136 [{"name", "archivable", "rigType", "autoRotate", "breakJointsOnDeath", "evaluateStateMachine", "requiresNeck", "walkSpeed", "health", "maxHealth", "hipHeight", "maxSlopeAngle", "jumpPower", "autoJumpEnabled", "useJumpPower", "nameDisplayDistance", "healthDisplayType", "healthDisplayDistance", "displayName", "displayDistanceType", "cameraOffset", "automaticScalingEnabled", "nameOcclusion", "sit", "jump", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K137 ["RigType"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K113 ["rigType"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K138 ["AutoRotate"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K114 ["autoRotate"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K139 ["BreakJointsOnDeath"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K115 ["breakJointsOnDeath"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K140 ["EvaluateStateMachine"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K116 ["evaluateStateMachine"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K141 ["RequiresNeck"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K117 ["requiresNeck"]
-  GETUPVAL R4 1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+2]
-  LOADNIL R3
-  JUMP [+7]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K106 ["serializeScalingHumanoidNumber"]
-  GETTABLEKS R4 R0 K142 ["WalkSpeed"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K118 ["walkSpeed"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K143 ["Health"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K119 ["health"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K144 ["MaxHealth"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K120 ["maxHealth"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K106 ["serializeScalingHumanoidNumber"]
-  GETTABLEKS R4 R0 K145 ["HipHeight"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K121 ["hipHeight"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K146 ["MaxSlopeAngle"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K122 ["maxSlopeAngle"]
-  GETUPVAL R4 1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+2]
-  LOADNIL R3
-  JUMP [+9]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K106 ["serializeScalingHumanoidNumber"]
-  GETTABLEKS R4 R0 K147 ["JumpPower"]
-  MOVE R5 R1
-  DUPCLOSURE R6 K148 [PROTO_11]
-  CAPTURE UPVAL U2
-  CALL R3 3 1
-  SETTABLEKS R3 R2 K123 ["jumpPower"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K149 ["AutoJumpEnabled"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K124 ["autoJumpEnabled"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K150 ["UseJumpPower"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K125 ["useJumpPower"]
-  GETUPVAL R4 1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+2]
-  LOADNIL R3
-  JUMP [+7]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K106 ["serializeScalingHumanoidNumber"]
-  GETTABLEKS R4 R0 K151 ["NameDisplayDistance"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K126 ["nameDisplayDistance"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K152 ["HealthDisplayType"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K127 ["healthDisplayType"]
-  GETUPVAL R4 1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+2]
-  LOADNIL R3
-  JUMP [+7]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K106 ["serializeScalingHumanoidNumber"]
-  GETTABLEKS R4 R0 K153 ["HealthDisplayDistance"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K128 ["healthDisplayDistance"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K154 ["DisplayName"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K129 ["displayName"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K155 ["DisplayDistanceType"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K130 ["displayDistanceType"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K156 ["serializeAttachmentPosition"]
-  GETTABLEKS R4 R0 K157 ["CameraOffset"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K131 ["cameraOffset"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K158 ["AutomaticScalingEnabled"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K132 ["automaticScalingEnabled"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K159 ["NameOcclusion"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K133 ["nameOcclusion"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K160 ["Sit"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K134 ["sit"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K161 ["Jump"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K135 ["jump"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-  DUPTABLE R2 K162 [{"name", "className", "archivable", "children"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K16 ["Name"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["name"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K111 ["ClassName"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K109 ["className"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["serialize"]
-  GETTABLEKS R4 R0 K17 ["Archivable"]
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["archivable"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K29 ["serializeChildren"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K13 ["children"]
-  RETURN R2 1
-
-PROTO_13:
-  NEWTABLE R2 0 0
-  NAMECALL R3 R0 K0 ["GetChildren"]
-  CALL R3 1 3
-  FORGPREP R3
-  MOVE R9 R2
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K1 ["serialize"]
-  MOVE R11 R7
-  MOVE R12 R1
-  CALL R10 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R8 K4 [table.insert]
-  CALL R8 -1 0
-  FORGLOOP R3 2 [-12]
-  LENGTH R3 R2
-  LOADN R4 0
-  JUMPIFNOTLT R4 R3 [+2]
-  RETURN R2 1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+6]
+  LOADN R3 0
+  JUMPIFNOTLE R2 R3 [+3]
   LOADNIL R3
   RETURN R3 1
+  SUBK R2 R2 K0 [1]
+  LOADK R5 K1 ["MeshPart"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+121]
+  DUPTABLE R3 K15 [{"name", "archivable", "meshId", "textureId", "material", "materialVariant", "transparency", "reflectance", "color", "size", "cframe", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K19 ["MeshId"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K5 ["meshId"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K20 ["TextureID"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K6 ["textureId"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K21 ["Material"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K7 ["material"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K22 ["MaterialVariant"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K8 ["materialVariant"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K23 ["Transparency"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K9 ["transparency"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K24 ["Reflectance"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K10 ["reflectance"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K25 ["Color"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K11 ["color"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K26 ["serializeSize"]
+  GETTABLEKS R5 R0 K27 ["Size"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K12 ["size"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K28 ["serializePartCFrame"]
+  GETTABLEKS R5 R0 K29 ["CFrame"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K13 ["cframe"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  LOADK R5 K31 ["BasePart"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+101]
+  DUPTABLE R3 K32 [{"name", "archivable", "color", "material", "materialVariant", "transparency", "reflectance", "size", "cframe", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K25 ["Color"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K11 ["color"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K21 ["Material"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K7 ["material"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K22 ["MaterialVariant"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K8 ["materialVariant"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K23 ["Transparency"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K9 ["transparency"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K24 ["Reflectance"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K10 ["reflectance"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K26 ["serializeSize"]
+  GETTABLEKS R5 R0 K27 ["Size"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K12 ["size"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K28 ["serializePartCFrame"]
+  GETTABLEKS R5 R0 K29 ["CFrame"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K13 ["cframe"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  LOADK R5 K33 ["WrapLayer"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+131]
+  DUPTABLE R3 K44 [{"name", "archivable", "cageOrigin", "importOrigin", "order", "puffiness", "referenceMeshId", "referenceOrigin", "autoSkin", "enabled", "bindOffset", "shrinkFactor", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K45 ["serializeAttachmentCFrame"]
+  GETTABLEKS R5 R0 K46 ["CageOrigin"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K34 ["cageOrigin"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K45 ["serializeAttachmentCFrame"]
+  GETTABLEKS R5 R0 K47 ["ImportOrigin"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K35 ["importOrigin"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K48 ["Order"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K36 ["order"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K49 ["Puffiness"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K37 ["puffiness"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K50 ["ReferenceMeshId"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K38 ["referenceMeshId"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K45 ["serializeAttachmentCFrame"]
+  GETTABLEKS R5 R0 K51 ["ReferenceOrigin"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K39 ["referenceOrigin"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K52 ["AutoSkin"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K40 ["autoSkin"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K53 ["Enabled"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K41 ["enabled"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K54 ["BindOffset"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K42 ["bindOffset"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K55 ["ShrinkFactor"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K43 ["shrinkFactor"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  LOADK R5 K56 ["JointInstance"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+71]
+  DUPTABLE R3 K61 [{"name", "archivable", "c0", "c1", "part0", "part1", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K45 ["serializeAttachmentCFrame"]
+  GETTABLEKS R5 R0 K62 ["C0"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K57 ["c0"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K45 ["serializeAttachmentCFrame"]
+  GETTABLEKS R5 R0 K63 ["C1"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K58 ["c1"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K64 ["serializeReferenceInstance"]
+  GETTABLEKS R5 R0 K65 ["Part0"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K59 ["part0"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K64 ["serializeReferenceInstance"]
+  GETTABLEKS R5 R0 K66 ["Part1"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K60 ["part1"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  LOADK R5 K67 ["Attachment"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+41]
+  DUPTABLE R3 K68 [{"name", "archivable", "cframe", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K45 ["serializeAttachmentCFrame"]
+  GETTABLEKS R5 R0 K29 ["CFrame"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K13 ["cframe"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  LOADK R5 K69 ["Decal"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+42]
+  DUPTABLE R3 K71 [{"name", "archivable", "texture", "transparency"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K72 ["Texture"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K70 ["texture"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K23 ["Transparency"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K9 ["transparency"]
+  RETURN R3 1
+  LOADK R5 K72 ["Texture"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+42]
+  DUPTABLE R3 K71 [{"name", "archivable", "texture", "transparency"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K72 ["Texture"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K70 ["texture"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K23 ["Transparency"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K9 ["transparency"]
+  RETURN R3 1
+  LOADK R5 K73 ["SurfaceAppearance"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+91]
+  DUPTABLE R3 K79 [{"name", "archivable", "colorMap", "normalMap", "metalnessMap", "roughnessMap", "color", "children", "alphaMode"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K80 ["ColorMap"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K74 ["colorMap"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K81 ["NormalMap"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K75 ["normalMap"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K82 ["MetalnessMap"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K76 ["metalnessMap"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K83 ["RoughnessMap"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K77 ["roughnessMap"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K25 ["Color"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K11 ["color"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K84 ["AlphaMode"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K78 ["alphaMode"]
+  RETURN R3 1
+  LOADK R5 K85 ["Accessory"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+41]
+  DUPTABLE R3 K87 [{"name", "archivable", "attachmentPoint", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K45 ["serializeAttachmentCFrame"]
+  GETTABLEKS R5 R0 K88 ["AttachmentPoint"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K86 ["attachmentPoint"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  LOADK R5 K89 ["BodyColors"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+91]
+  DUPTABLE R3 K96 [{"name", "archivable", "headColor", "leftArmColor", "leftLegColor", "rightArmColor", "rightLegColor", "torsoColor", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K97 ["HeadColor"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K90 ["headColor"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K98 ["LeftArmColor"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K91 ["leftArmColor"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K99 ["LeftLegColor"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K92 ["leftLegColor"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K100 ["RightArmColor"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K93 ["rightArmColor"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K101 ["RightLegColor"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K94 ["rightLegColor"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K102 ["TorsoColor"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K95 ["torsoColor"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  LOADK R5 K103 ["NumberValue"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+47]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K104 ["isScalingHumanoidNumber"]
+  MOVE R4 R0
+  CALL R3 1 1
+  JUMPIFNOT R3 [+41]
+  DUPTABLE R3 K106 [{"name", "archivable", "value", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K107 ["serializeScalingHumanoidNumber"]
+  GETTABLEKS R5 R0 K108 ["Value"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K105 ["value"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  LOADK R5 K109 ["ValueBase"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+51]
+  DUPTABLE R3 K111 [{"name", "className", "archivable", "value", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K112 ["ClassName"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K110 ["className"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K108 ["Value"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K105 ["value"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  LOADK R5 K113 ["Humanoid"]
+  NAMECALL R3 R0 K2 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+283]
+  DUPTABLE R3 K137 [{"name", "archivable", "rigType", "autoRotate", "breakJointsOnDeath", "evaluateStateMachine", "requiresNeck", "walkSpeed", "health", "maxHealth", "hipHeight", "maxSlopeAngle", "jumpPower", "autoJumpEnabled", "useJumpPower", "nameDisplayDistance", "healthDisplayType", "healthDisplayDistance", "displayName", "displayDistanceType", "cameraOffset", "automaticScalingEnabled", "nameOcclusion", "sit", "jump", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K138 ["RigType"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K114 ["rigType"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K139 ["AutoRotate"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K115 ["autoRotate"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K140 ["BreakJointsOnDeath"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K116 ["breakJointsOnDeath"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K141 ["EvaluateStateMachine"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K117 ["evaluateStateMachine"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K142 ["RequiresNeck"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K118 ["requiresNeck"]
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  LOADNIL R4
+  JUMP [+8]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K107 ["serializeScalingHumanoidNumber"]
+  GETTABLEKS R5 R0 K143 ["WalkSpeed"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K119 ["walkSpeed"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K144 ["Health"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K120 ["health"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K145 ["MaxHealth"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K121 ["maxHealth"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K107 ["serializeScalingHumanoidNumber"]
+  GETTABLEKS R5 R0 K146 ["HipHeight"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K122 ["hipHeight"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K147 ["MaxSlopeAngle"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K123 ["maxSlopeAngle"]
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  LOADNIL R4
+  JUMP [+10]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K107 ["serializeScalingHumanoidNumber"]
+  GETTABLEKS R5 R0 K148 ["JumpPower"]
+  MOVE R6 R1
+  MOVE R7 R2
+  DUPCLOSURE R8 K149 [PROTO_13]
+  CAPTURE UPVAL U3
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K124 ["jumpPower"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K150 ["AutoJumpEnabled"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K125 ["autoJumpEnabled"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K151 ["UseJumpPower"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K126 ["useJumpPower"]
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  LOADNIL R4
+  JUMP [+8]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K107 ["serializeScalingHumanoidNumber"]
+  GETTABLEKS R5 R0 K152 ["NameDisplayDistance"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K127 ["nameDisplayDistance"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K153 ["HealthDisplayType"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K128 ["healthDisplayType"]
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  LOADNIL R4
+  JUMP [+8]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K107 ["serializeScalingHumanoidNumber"]
+  GETTABLEKS R5 R0 K154 ["HealthDisplayDistance"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K129 ["healthDisplayDistance"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K155 ["DisplayName"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K130 ["displayName"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K156 ["DisplayDistanceType"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K131 ["displayDistanceType"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K157 ["serializeAttachmentPosition"]
+  GETTABLEKS R5 R0 K158 ["CameraOffset"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K132 ["cameraOffset"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K159 ["AutomaticScalingEnabled"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K133 ["automaticScalingEnabled"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K160 ["NameOcclusion"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K134 ["nameOcclusion"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K161 ["Sit"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K135 ["sit"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K162 ["Jump"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K136 ["jump"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
+  DUPTABLE R3 K163 [{"name", "className", "archivable", "children"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K17 ["Name"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["name"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K112 ["ClassName"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K110 ["className"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["serialize"]
+  GETTABLEKS R5 R0 K18 ["Archivable"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K4 ["archivable"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K30 ["serializeChildren"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["children"]
+  RETURN R3 1
 
-PROTO_14:
+PROTO_15:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+6]
+  LOADN R3 0
+  JUMPIFNOTLE R2 R3 [+3]
+  LOADNIL R3
+  RETURN R3 1
+  SUBK R2 R2 K0 [1]
+  NEWTABLE R3 0 0
+  NAMECALL R4 R0 K1 ["GetChildren"]
+  CALL R4 1 3
+  FORGPREP R4
+  MOVE R10 R3
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K2 ["serialize"]
+  MOVE R12 R8
+  MOVE R13 R1
+  MOVE R14 R2
+  CALL R11 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R9 K5 [table.insert]
+  CALL R9 -1 0
+  FORGLOOP R4 2 [-13]
+  LENGTH R4 R3
+  LOADN R5 0
+  JUMPIFNOTLT R5 R4 [+2]
+  RETURN R3 1
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_16:
   LOADK R3 K0 ["BasePart"]
   NAMECALL R1 R0 K1 ["IsA"]
   CALL R1 2 1
@@ -1179,7 +1393,7 @@ PROTO_14:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_17:
   NEWTABLE R2 0 0
   NEWTABLE R3 0 0
   NEWCLOSURE R4 P0
@@ -1309,12 +1523,13 @@ PROTO_15:
   SETTABLEKS R12 R11 K28 ["state"]
   RETURN R11 1
 
-PROTO_16:
+PROTO_18:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["serialize"]
   MOVE R3 R0
   MOVE R4 R1
-  CALL R2 2 1
+  LOADN R5 25
+  CALL R2 3 1
   GETUPVAL R3 1
   MOVE R5 R2
   NAMECALL R3 R3 K1 ["JSONEncode"]
@@ -1360,169 +1575,184 @@ MAIN:
   GETTABLEKS R7 R8 K14 ["Flags"]
   GETTABLEKS R6 R7 K16 ["getFFlagNoHashingScalingValues"]
   CALL R5 1 1
-  NEWTABLE R6 16 0
-  DUPCLOSURE R7 K17 [PROTO_0]
-  SETTABLEKS R7 R6 K18 ["cutPrecision"]
-  DUPCLOSURE R7 K19 [PROTO_1]
-  SETTABLEKS R7 R6 K20 ["cutListPrecision"]
-  NEWTABLE R7 0 64
-  LOADK R8 K21 ["alphaMode"]
-  LOADK R9 K22 ["archivable"]
-  LOADK R10 K23 ["attachmentPoint"]
-  LOADK R11 K24 ["autoJumpEnabled"]
-  LOADK R12 K25 ["autoRotate"]
-  LOADK R13 K26 ["autoSkin"]
-  LOADK R14 K27 ["automaticScalingEnabled"]
-  LOADK R15 K28 ["bindOffset"]
-  LOADK R16 K29 ["breakJointsOnDeath"]
-  LOADK R17 K30 ["c0"]
-  LOADK R18 K31 ["c1"]
-  LOADK R19 K32 ["cageOrigin"]
-  LOADK R20 K33 ["cameraOffset"]
-  LOADK R21 K34 ["cframe"]
-  LOADK R22 K35 ["children"]
-  LOADK R23 K36 ["className"]
-  SETLIST R7 R8 16 [1]
-  LOADK R8 K37 ["color"]
-  LOADK R9 K38 ["colorMap"]
-  LOADK R10 K39 ["displayDistanceType"]
-  LOADK R11 K40 ["displayName"]
-  LOADK R12 K41 ["enabled"]
-  LOADK R13 K42 ["evaluateStateMachine"]
-  LOADK R14 K43 ["headColor"]
-  LOADK R15 K44 ["health"]
-  LOADK R16 K45 ["healthDisplayDistance"]
-  LOADK R17 K46 ["healthDisplayType"]
-  LOADK R18 K47 ["hipHeight"]
-  LOADK R19 K48 ["importOrigin"]
-  LOADK R20 K49 ["jump"]
-  LOADK R21 K50 ["jumpPower"]
-  LOADK R22 K51 ["leftArmColor"]
-  LOADK R23 K52 ["leftLegColor"]
-  SETLIST R7 R8 16 [17]
-  LOADK R8 K53 ["material"]
-  LOADK R9 K54 ["materialVariant"]
-  LOADK R10 K55 ["maxHealth"]
-  LOADK R11 K56 ["maxSlopeAngle"]
-  LOADK R12 K57 ["meshId"]
-  LOADK R13 K58 ["metalnessMap"]
-  LOADK R14 K59 ["name"]
-  LOADK R15 K60 ["nameDisplayDistance"]
-  LOADK R16 K61 ["nameOcclusion"]
-  LOADK R17 K62 ["normalMap"]
-  LOADK R18 K63 ["order"]
-  LOADK R19 K64 ["part0"]
-  LOADK R20 K65 ["part1"]
-  LOADK R21 K66 ["puffiness"]
-  LOADK R22 K67 ["referenceMeshId"]
-  LOADK R23 K68 ["referenceOrigin"]
-  SETLIST R7 R8 16 [33]
-  LOADK R8 K69 ["reflectance"]
-  LOADK R9 K70 ["requiresNeck"]
-  LOADK R10 K71 ["rigType"]
-  LOADK R11 K72 ["rightArmColor"]
-  LOADK R12 K73 ["rightLegColor"]
-  LOADK R13 K74 ["roughnessMap"]
-  LOADK R14 K75 ["shrinkFactor"]
-  LOADK R15 K76 ["sit"]
-  LOADK R16 K77 ["size"]
-  LOADK R17 K78 ["texture"]
-  LOADK R18 K79 ["textureId"]
-  LOADK R19 K80 ["torsoColor"]
-  LOADK R20 K81 ["transparency"]
-  LOADK R21 K82 ["useJumpPower"]
-  LOADK R22 K83 ["value"]
-  LOADK R23 K84 ["walkSpeed"]
-  SETLIST R7 R8 16 [49]
-  LENGTH R10 R7
-  LOADN R11 64
-  JUMPIFLE R10 R11 [+2]
-  LOADB R9 0 +1
-  LOADB R9 1
-  FASTCALL2K ASSERT R9 K85 [+4]
-  LOADK R10 K85 ["Too many well known ids"]
-  GETIMPORT R8 K87 [assert]
-  CALL R8 2 0
-  NEWTABLE R8 0 0
-  MOVE R9 R7
-  LOADNIL R10
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R9 R1 K11 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Flags"]
+  GETTABLEKS R7 R8 K17 ["getFFlagAvatarPreviewerSafeCharaterEncoding"]
+  CALL R6 1 1
+  NEWTABLE R7 32 0
+  DUPCLOSURE R8 K18 [PROTO_0]
+  SETTABLEKS R8 R7 K19 ["canEncodeStringSafely"]
+  DUPCLOSURE R8 K20 [PROTO_1]
+  SETTABLEKS R8 R7 K21 ["canEncodeNumberSafely"]
+  DUPCLOSURE R8 K22 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R8 R7 K23 ["cutPrecision"]
+  DUPCLOSURE R8 K24 [PROTO_3]
+  SETTABLEKS R8 R7 K25 ["cutListPrecision"]
+  NEWTABLE R8 0 64
+  LOADK R9 K26 ["alphaMode"]
+  LOADK R10 K27 ["archivable"]
+  LOADK R11 K28 ["attachmentPoint"]
+  LOADK R12 K29 ["autoJumpEnabled"]
+  LOADK R13 K30 ["autoRotate"]
+  LOADK R14 K31 ["autoSkin"]
+  LOADK R15 K32 ["automaticScalingEnabled"]
+  LOADK R16 K33 ["bindOffset"]
+  LOADK R17 K34 ["breakJointsOnDeath"]
+  LOADK R18 K35 ["c0"]
+  LOADK R19 K36 ["c1"]
+  LOADK R20 K37 ["cageOrigin"]
+  LOADK R21 K38 ["cameraOffset"]
+  LOADK R22 K39 ["cframe"]
+  LOADK R23 K40 ["children"]
+  LOADK R24 K41 ["className"]
+  SETLIST R8 R9 16 [1]
+  LOADK R9 K42 ["color"]
+  LOADK R10 K43 ["colorMap"]
+  LOADK R11 K44 ["displayDistanceType"]
+  LOADK R12 K45 ["displayName"]
+  LOADK R13 K46 ["enabled"]
+  LOADK R14 K47 ["evaluateStateMachine"]
+  LOADK R15 K48 ["headColor"]
+  LOADK R16 K49 ["health"]
+  LOADK R17 K50 ["healthDisplayDistance"]
+  LOADK R18 K51 ["healthDisplayType"]
+  LOADK R19 K52 ["hipHeight"]
+  LOADK R20 K53 ["importOrigin"]
+  LOADK R21 K54 ["jump"]
+  LOADK R22 K55 ["jumpPower"]
+  LOADK R23 K56 ["leftArmColor"]
+  LOADK R24 K57 ["leftLegColor"]
+  SETLIST R8 R9 16 [17]
+  LOADK R9 K58 ["material"]
+  LOADK R10 K59 ["materialVariant"]
+  LOADK R11 K60 ["maxHealth"]
+  LOADK R12 K61 ["maxSlopeAngle"]
+  LOADK R13 K62 ["meshId"]
+  LOADK R14 K63 ["metalnessMap"]
+  LOADK R15 K64 ["name"]
+  LOADK R16 K65 ["nameDisplayDistance"]
+  LOADK R17 K66 ["nameOcclusion"]
+  LOADK R18 K67 ["normalMap"]
+  LOADK R19 K68 ["order"]
+  LOADK R20 K69 ["part0"]
+  LOADK R21 K70 ["part1"]
+  LOADK R22 K71 ["puffiness"]
+  LOADK R23 K72 ["referenceMeshId"]
+  LOADK R24 K73 ["referenceOrigin"]
+  SETLIST R8 R9 16 [33]
+  LOADK R9 K74 ["reflectance"]
+  LOADK R10 K75 ["requiresNeck"]
+  LOADK R11 K76 ["rigType"]
+  LOADK R12 K77 ["rightArmColor"]
+  LOADK R13 K78 ["rightLegColor"]
+  LOADK R14 K79 ["roughnessMap"]
+  LOADK R15 K80 ["shrinkFactor"]
+  LOADK R16 K81 ["sit"]
+  LOADK R17 K82 ["size"]
+  LOADK R18 K83 ["texture"]
+  LOADK R19 K84 ["textureId"]
+  LOADK R20 K85 ["torsoColor"]
+  LOADK R21 K86 ["transparency"]
+  LOADK R22 K87 ["useJumpPower"]
+  LOADK R23 K88 ["value"]
+  LOADK R24 K89 ["walkSpeed"]
+  SETLIST R8 R9 16 [49]
+  LENGTH R11 R8
+  LOADN R12 64
+  JUMPIFLE R11 R12 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  FASTCALL2K ASSERT R10 K90 [+4]
+  LOADK R11 K90 ["Too many well known ids"]
+  GETIMPORT R9 K92 [assert]
+  CALL R9 2 0
+  NEWTABLE R9 0 0
+  MOVE R10 R8
   LOADNIL R11
-  FORGPREP R9
-  LOADK R16 K88 ["0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-"]
-  FASTCALL2 STRING_BYTE R16 R12 [+4]
-  MOVE R17 R12
-  GETIMPORT R15 K91 [string.byte]
-  CALL R15 2 -1
+  LOADNIL R12
+  FORGPREP R10
+  LOADK R17 K93 ["0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-"]
+  FASTCALL2 STRING_BYTE R17 R13 [+4]
+  MOVE R18 R13
+  GETIMPORT R16 K96 [string.byte]
+  CALL R16 2 -1
   FASTCALL STRING_CHAR [+2]
-  GETIMPORT R14 K93 [string.char]
-  CALL R14 -1 1
-  SETTABLE R14 R8 R13
-  FORGLOOP R9 2 [-13]
-  DUPCLOSURE R9 K94 [PROTO_2]
+  GETIMPORT R15 K98 [string.char]
+  CALL R15 -1 1
+  SETTABLE R15 R9 R14
+  FORGLOOP R10 2 [-13]
+  DUPCLOSURE R10 K99 [PROTO_4]
   CAPTURE VAL R6
-  CAPTURE VAL R8
-  SETTABLEKS R9 R6 K95 ["serialize"]
-  DUPCLOSURE R9 K96 [PROTO_3]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R6 K97 ["serializeSize"]
-  DUPCLOSURE R9 K98 [PROTO_4]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R6 K99 ["serializePartCFrame"]
-  DUPCLOSURE R9 K100 [PROTO_5]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R6 K101 ["serializePosition"]
-  DUPCLOSURE R9 K102 [PROTO_6]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R6 K103 ["serializeAttachmentCFrame"]
-  DUPCLOSURE R9 K104 [PROTO_7]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R6 K105 ["serializeAttachmentPosition"]
-  DUPCLOSURE R9 K106 [PROTO_8]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R6 K107 ["serializeScalingHumanoidNumber"]
-  DUPCLOSURE R9 K108 [PROTO_9]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R6 K109 ["serializeReferenceInstance"]
-  NEWTABLE R9 8 0
-  LOADB R10 1
-  SETTABLEKS R10 R9 K110 ["BodyHeightScale"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K111 ["BodyWidthScale"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K112 ["BodyDepthScale"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K113 ["HeadScale"]
-  MOVE R11 R4
-  CALL R11 0 1
-  JUMPIFNOT R11 [+2]
-  LOADNIL R10
-  JUMP [+1]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K114 ["BodyTypeScale"]
-  MOVE R11 R4
-  CALL R11 0 1
-  JUMPIFNOT R11 [+2]
-  LOADNIL R10
-  JUMP [+1]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K115 ["BodyProportionScale"]
-  DUPCLOSURE R10 K116 [PROTO_10]
+  CAPTURE VAL R7
   CAPTURE VAL R9
-  SETTABLEKS R10 R6 K117 ["isScalingHumanoidNumber"]
-  DUPCLOSURE R10 K118 [PROTO_12]
+  SETTABLEKS R10 R7 K100 ["serialize"]
+  DUPCLOSURE R10 K101 [PROTO_5]
+  CAPTURE VAL R7
+  SETTABLEKS R10 R7 K102 ["serializeSize"]
+  DUPCLOSURE R10 K103 [PROTO_6]
+  CAPTURE VAL R7
+  SETTABLEKS R10 R7 K104 ["serializePartCFrame"]
+  DUPCLOSURE R10 K105 [PROTO_7]
+  CAPTURE VAL R7
+  SETTABLEKS R10 R7 K106 ["serializePosition"]
+  DUPCLOSURE R10 K107 [PROTO_8]
+  CAPTURE VAL R7
+  SETTABLEKS R10 R7 K108 ["serializeAttachmentCFrame"]
+  DUPCLOSURE R10 K109 [PROTO_9]
+  CAPTURE VAL R7
+  SETTABLEKS R10 R7 K110 ["serializeAttachmentPosition"]
+  DUPCLOSURE R10 K111 [PROTO_10]
+  CAPTURE VAL R7
+  SETTABLEKS R10 R7 K112 ["serializeScalingHumanoidNumber"]
+  DUPCLOSURE R10 K113 [PROTO_11]
   CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R10 R7 K114 ["serializeReferenceInstance"]
+  NEWTABLE R10 8 0
+  LOADB R11 1
+  SETTABLEKS R11 R10 K115 ["BodyHeightScale"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K116 ["BodyWidthScale"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K117 ["BodyDepthScale"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K118 ["HeadScale"]
+  MOVE R12 R4
+  CALL R12 0 1
+  JUMPIFNOT R12 [+2]
+  LOADNIL R11
+  JUMP [+1]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K119 ["BodyTypeScale"]
+  MOVE R12 R4
+  CALL R12 0 1
+  JUMPIFNOT R12 [+2]
+  LOADNIL R11
+  JUMP [+1]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K120 ["BodyProportionScale"]
+  DUPCLOSURE R11 K121 [PROTO_12]
+  CAPTURE VAL R10
+  SETTABLEKS R11 R7 K122 ["isScalingHumanoidNumber"]
+  DUPCLOSURE R11 K123 [PROTO_14]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R4
-  SETTABLEKS R10 R6 K119 ["serializeInstanceRaw"]
-  DUPCLOSURE R10 K120 [PROTO_13]
+  SETTABLEKS R11 R7 K124 ["serializeInstanceRaw"]
+  DUPCLOSURE R11 K125 [PROTO_15]
   CAPTURE VAL R6
-  SETTABLEKS R10 R6 K121 ["serializeChildren"]
-  DUPCLOSURE R10 K122 [PROTO_15]
+  CAPTURE VAL R7
+  SETTABLEKS R11 R7 K126 ["serializeChildren"]
+  DUPCLOSURE R11 K127 [PROTO_17]
   CAPTURE VAL R3
-  SETTABLEKS R10 R6 K123 ["computeHashSerializeContext"]
-  DUPCLOSURE R10 K124 [PROTO_16]
-  CAPTURE VAL R6
+  SETTABLEKS R11 R7 K128 ["computeHashSerializeContext"]
+  DUPCLOSURE R11 K129 [PROTO_18]
+  CAPTURE VAL R7
   CAPTURE VAL R0
   CAPTURE VAL R2
-  SETTABLEKS R10 R6 K125 ["hashCharacter"]
-  RETURN R6 1
+  SETTABLEKS R11 R7 K130 ["hashCharacter"]
+  RETURN R7 1

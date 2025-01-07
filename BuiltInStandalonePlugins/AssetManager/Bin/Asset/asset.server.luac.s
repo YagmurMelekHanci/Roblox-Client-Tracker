@@ -115,14 +115,22 @@ MAIN:
   GETIMPORT R5 K1 [plugin]
   GETTABLEKS R4 R5 K22 ["MultipleDocumentInterfaceInstance"]
   GETTABLEKS R5 R4 K23 ["FocusedDataModelSession"]
-  DUPCLOSURE R6 K24 [PROTO_1]
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R9 R0 K18 ["Src"]
+  GETTABLEKS R8 R9 K24 ["Asset"]
+  GETTABLEKS R7 R8 K25 ["setupAssetsDm"]
+  CALL R6 1 1
+  MOVE R7 R6
+  GETIMPORT R8 K1 [plugin]
+  CALL R7 1 0
+  DUPCLOSURE R7 K26 [PROTO_1]
   CAPTURE VAL R3
   CAPTURE VAL R0
   CAPTURE VAL R5
-  GETTABLEKS R7 R5 K25 ["CurrentDataModelTypeChanged"]
-  MOVE R9 R6
-  NAMECALL R7 R7 K26 ["Connect"]
-  CALL R7 2 0
-  MOVE R7 R6
-  CALL R7 0 0
+  GETTABLEKS R8 R5 K27 ["CurrentDataModelTypeChanged"]
+  MOVE R10 R7
+  NAMECALL R8 R8 K28 ["Connect"]
+  CALL R8 2 0
+  MOVE R8 R7
+  CALL R8 0 0
   RETURN R0 0

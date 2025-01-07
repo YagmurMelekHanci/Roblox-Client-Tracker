@@ -1,0 +1,150 @@
+PROTO_0:
+  LOADK R3 K0 ["RBX_Palette"]
+  NAMECALL R1 R0 K1 ["GetAttribute"]
+  CALL R1 2 1
+  JUMPIF R1 [+11]
+  GETIMPORT R2 K3 [warn]
+  LOADK R4 K4 ["%* did not have a palette set. This is a bug in the plugin, please report it."]
+  MOVE R6 R0
+  NAMECALL R4 R4 K5 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R2 0
+  MOVE R3 R1
+  CALL R2 1 1
+  JUMPIFNOTEQKNIL R2 [+13]
+  GETIMPORT R3 K3 [warn]
+  LOADK R5 K6 ["%* has an invalid palette \"%*\". This is a bug in the plugin, please report it."]
+  MOVE R7 R0
+  MOVE R8 R1
+  NAMECALL R5 R5 K5 ["format"]
+  CALL R5 3 1
+  MOVE R4 R5
+  CALL R3 1 0
+  LOADNIL R3
+  RETURN R3 1
+  DUPTABLE R3 K9 [{"palette", "item"}]
+  SETTABLEKS R2 R3 K7 ["palette"]
+  DUPTABLE R4 K12 [{"source", "instance"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K13 ["SOURCE_INSTANCE"]
+  SETTABLEKS R5 R4 K10 ["source"]
+  SETTABLEKS R0 R4 K11 ["instance"]
+  SETTABLEKS R4 R3 K8 ["item"]
+  RETURN R3 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  JUMPIFNOTEQKNIL R0 [+2]
+  RETURN R0 0
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K0 ["Get"]
+  CALL R0 1 1
+  MOVE R1 R0
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETUPVAL R8 0
+  NAMECALL R6 R5 K1 ["IsDescendantOf"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+20]
+  LOADK R8 K2 ["Accessory"]
+  NAMECALL R6 R5 K3 ["IsA"]
+  CALL R6 2 1
+  JUMPIF R6 [+5]
+  LOADK R8 K4 ["Folder"]
+  NAMECALL R6 R5 K3 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+10]
+  GETUPVAL R6 2
+  MOVE R7 R5
+  CALL R6 1 1
+  JUMPIFEQKNIL R6 [+6]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K5 ["addEquippedItem"]
+  MOVE R8 R6
+  CALL R7 1 0
+  FORGLOOP R1 2 [-26]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useContext"]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useContext"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["Context"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K2 ["userCatalogFolder"]
+  GETUPVAL R2 3
+  NAMECALL R2 R2 K3 ["use"]
+  CALL R2 1 1
+  NAMECALL R2 R2 K4 ["get"]
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["useCallback"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  NEWTABLE R5 0 1
+  MOVE R6 R1
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["Constants"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Util"]
+  GETTABLEKS R5 R6 K12 ["EquipmentStateContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K9 ["Util"]
+  GETTABLEKS R6 R7 K13 ["SelectionWrapper"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Components"]
+  GETTABLEKS R7 R8 K15 ["UserCatalogFolderContext"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K9 ["Util"]
+  GETTABLEKS R8 R9 K16 ["getPaletteFromKey"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K17 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  DUPCLOSURE R9 K18 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  RETURN R9 1

@@ -51,11 +51,14 @@ function CommonIconComponent(props)
 end
 
 function CommonIcon(icon: IconData, iconOn: IconData?, activeSignalValue: ChromeUtils.MappedSignal<boolean>?)
-	return React.createElement(CommonIconComponent, {
-		icon = icon,
-		iconOn = iconOn,
-		activeSignalValue = activeSignalValue,
-	} :: any)
+	return React.createElement(
+		CommonIconComponent,
+		{
+			icon = icon,
+			iconOn = iconOn,
+			activeSignalValue = activeSignalValue,
+		} :: any
+	)
 end
 
 return CommonIcon

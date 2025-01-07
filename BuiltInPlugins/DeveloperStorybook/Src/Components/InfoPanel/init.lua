@@ -9,7 +9,7 @@ local ReactIs = require(Main.Packages.ReactIs)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices: any = Framework.ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Dash = Framework.Dash
@@ -25,9 +25,11 @@ local sort = table.sort
 
 local UI = Framework.UI
 local ScrollingFrame = UI.ScrollingFrame
-local Pane = UI.Pane
-local TextLabel = UI.TextLabel
 local StyledDialog = UI.StyledDialog
+
+local Foundation = require(Main.Packages.Foundation)
+local View = Foundation.View
+local Text = Foundation.Text
 
 local SetLive = require(Main.Src.Actions.SetLive)
 
@@ -71,6 +73,12 @@ end
 
 function InfoPanel:didMount()
 	ModuleLoader:connect(self.onScriptChange)
+	if self.props.SelectedStory then
+		-- Avoid a breakpoint or yield in the scripts we are requiring from propagating a NoYield error up through React
+		spawn(function()
+			self:updateStory(self.props.SelectedStory)
+		end)
+	end
 end
 
 function InfoPanel:willUnmount()
@@ -170,8 +178,8 @@ function InfoPanel:updateStory(storyItem: Types.StoryItem)
 			storyError = React.None,
 			storyProps = storyProps,
 		})
-	end, function(err)
-		return err .. "\n" .. debug.traceback()
+	end, function(error)
+		return error .. "\n" .. debug.traceback()
 	end)
 	if not ok then
 		warn("Story render failed", err)
@@ -307,16 +315,16 @@ function InfoPanel:render()
 	end
 
 	if self.state.storyError then
-		return React.createElement(Pane, {
-			[React.Tag] = "Main X-Pad",
+		return React.createElement(ScrollingFrame, {
+			CanvasSize = UDim2.fromScale(1, 0),
+			AutomaticCanvasSize = Enum.AutomaticSize.Y,
 		}, {
-			Scroller = React.createElement(ScrollingFrame, {
-				Size = UDim2.fromScale(1, 1),
-				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			Content = React.createElement(View, {
+				tag = "size-full-0 auto-y padding-medium",
 			}, {
-				Prompt = React.createElement(TextLabel, {
+				Prompt = React.createElement(Text, {
 					Text = "An error occurred when loading the story:\n\n" .. self.state.storyError,
-					[React.Tag] = "Error Wrap",
+					tag = "Error text-wrap auto-xy text-align-x-left",
 				}),
 			}),
 		})
@@ -325,8 +333,8 @@ function InfoPanel:render()
 	local storyProps: Types.StoryProps? = state.storyProps
 
 	if not storyProps then
-		return React.createElement(Pane, {
-			[React.Tag] = "X-Stroke X-Corner X-ColumnM X-Fill X-Middle X-Center",
+		return React.createElement(View, {
+			tag = "size-full-full col gap-medium align-y-center align-x-center",
 		}, {
 			Banner = React.createElement("ImageLabel", {
 				BackgroundTransparency = 1,
@@ -334,10 +342,10 @@ function InfoPanel:render()
 				Size = UDim2.fromOffset(95, 95),
 				LayoutOrder = 1,
 			}),
-			Prompt = React.createElement(TextLabel, {
+			Prompt = React.createElement(Text, {
 				LayoutOrder = 2,
 				Text = "Select a story from the tree",
-				[React.Tag] = "X-FitY",
+				tag = "auto-xy",
 			}),
 		})
 	end
@@ -433,35 +441,31 @@ function InfoPanel:render()
 	local main
 
 	if definitelyStoryProps.storybook.fixedSize then
-		main = React.createElement(Pane, {
-			[React.Tag] = "Plugin-Content X-ColumnM",
-			ForwardRef = self.storyRef,
+		main = React.createElement(View, {
+			LayoutOrder = 1,
+			tag = "col gap-medium size-full-0 auto-y fill",
+			ref = self.storyRef,
 		}, children)
 	else
 		main = React.createElement(ScrollingFrame, {
 			LayoutOrder = 1,
 			CanvasSize = UDim2.fromScale(1, 0),
 			AutomaticCanvasSize = Enum.AutomaticSize.Y,
-			[React.Tag] = "Plugin-Content",
 		}, {
-			Content = React.createElement(Pane, {
-				[React.Tag] = "X-FitY X-ColumnM",
-				ForwardRef = self.storyRef,
+			Content = React.createElement(View, {
+				tag = "size-full-0 auto-y col gap-medium",
+				ref = self.storyRef,
 			}, children),
 		})
 	end
 
-	return React.createElement(Pane, {
-		[React.Tag] = "Main X-Stroke X-Corner X-Clip X-ColumnM X-Pad X-Fill",
+	return React.createElement(View, {
+		tag = "clip col flex-fill size-full-full",
 	}, {
 		Main = main,
-		Footer = isRunningAsPlugin and React.createElement(Pane, {
+		Footer = isRunningAsPlugin and React.createElement(Footer, {
+			StoryRef = self.storyRef,
 			LayoutOrder = 2,
-			[React.Tag] = "Plugin-Footer",
-		}, {
-			Content = React.createElement(Footer, {
-				StoryRef = self.storyRef,
-			}),
 		}),
 		Dialog = React.createElement(StyledDialog, {
 			Style = "Alert",
@@ -474,9 +478,9 @@ function InfoPanel:render()
 			OnButtonPressed = self.props.disableLive,
 			OnClose = self.props.disableLive,
 		}, {
-			Contents = React.createElement(TextLabel, {
+			Contents = React.createElement(Text, {
 				Text = "To use Live mode, please set FFlagEnableLoadModule to True in your local build.\n\nWhen Live mode is enabled, any changes you make to scripts in Studio are immediately reflected in Storybook without having to reload.",
-				[React.Tag] = "Error Wrap X-FitY",
+				tag = "size-full-0 text-wrap auto-y text-align-x-left content-action-alert",
 			}),
 		}),
 	})

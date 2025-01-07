@@ -1,0 +1,154 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["InstancePicker"]
+  NAMECALL R0 R0 K1 ["GetPluginComponent"]
+  CALL R0 2 1
+  NAMECALL R1 R0 K2 ["AddWidgetConsumerAsync"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CALL R1 1 2
+  JUMPIFNOT R1 [+6]
+  GETIMPORT R3 K3 [warn]
+  LOADK R4 K4 ["The pcall expected to figure out what version of InstancePicker is available succeeded, but it's NEVER supposed to."]
+  CALL R3 1 0
+  LOADNIL R3
+  RETURN R3 1
+  LOADK R5 K5 ["Incorrect number of parameters passed to AddWidgetConsumerAsync"]
+  NAMECALL R3 R2 K6 ["match"]
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  LOADK R5 K7 ["InstancePicker"]
+  NAMECALL R3 R0 K8 ["GetPluginComponent"]
+  CALL R3 2 1
+  RETURN R3 1
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["HoverInstance"]
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  DUPCLOSURE R3 K0 [PROTO_3]
+  CAPTURE UPVAL U2
+  NAMECALL R0 R0 K1 ["AddWidgetConsumerAsync"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["SubmitPickedInstanceAsync"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETIMPORT R1 K2 [task.spawn]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFNOTEQKNIL R1 [+4]
+  LOADNIL R2
+  DUPCLOSURE R3 K0 [PROTO_2]
+  RETURN R2 2
+  GETIMPORT R2 K3 [task.spawn]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R2 1 0
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K4 ["Signal"]
+  GETTABLEKS R2 R3 K5 ["new"]
+  CALL R2 0 1
+  GETTABLEKS R3 R1 K6 ["Activated"]
+  NEWCLOSURE R5 P2
+  CAPTURE VAL R2
+  NAMECALL R3 R3 K7 ["Connect"]
+  CALL R3 2 1
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K4 ["Signal"]
+  GETTABLEKS R4 R5 K5 ["new"]
+  CALL R4 0 1
+  GETTABLEKS R5 R1 K8 ["Deactivated"]
+  NEWCLOSURE R7 P3
+  CAPTURE VAL R4
+  NAMECALL R5 R5 K7 ["Connect"]
+  CALL R5 2 1
+  NEWCLOSURE R6 P4
+  CAPTURE VAL R1
+  NEWCLOSURE R7 P5
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  DUPTABLE R8 K12 [{"activatedSignal", "deactivatedSignal", "submitPickedInstance"}]
+  SETTABLEKS R2 R8 K9 ["activatedSignal"]
+  SETTABLEKS R4 R8 K10 ["deactivatedSignal"]
+  SETTABLEKS R6 R8 K11 ["submitPickedInstance"]
+  MOVE R9 R7
+  RETURN R8 2
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["ExplorerPlugin"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Explorer"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R1 K12 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Util"]
+  GETTABLEKS R4 R5 K14 ["ExplorerGuiUri"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K15 [PROTO_1]
+  DUPCLOSURE R5 K16 [PROTO_10]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  RETURN R5 1

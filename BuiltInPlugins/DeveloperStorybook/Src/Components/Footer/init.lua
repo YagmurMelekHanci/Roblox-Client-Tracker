@@ -8,7 +8,7 @@ local React = require(Main.Packages.React)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices: any = Framework.ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local InspectorContext = require(Main.Src.Util.InspectorContext)
 
@@ -17,7 +17,9 @@ local ModuleLoader = TestLoader.ModuleLoader
 
 local UI = Framework.UI
 local Button = UI.Button
-local Pane = UI.Pane
+
+local Foundation = require(Main.Packages.Foundation)
+local View = Foundation.View
 
 local SelectionService = game:GetService("Selection")
 
@@ -50,7 +52,7 @@ function Footer:init()
 	end
 end
 
-function Footer:renderButton(index: number, text: string, callback: () -> (), width: number)
+function Footer:renderButton(index: number, text: string, callback: () -> ())
 	return React.createElement(Button, {
 		LayoutOrder = index,
 		OnClick = callback,
@@ -61,12 +63,13 @@ function Footer:renderButton(index: number, text: string, callback: () -> (), wi
 end
 
 function Footer:render()
-	return React.createElement(Pane, {
-		[React.Tag] = "Plugin-Footer Main X-RowM X-Right X-Pad",
+	return React.createElement(View, {
+		tag = "size-full-0 row gap-medium align-x-right padding-medium auto-y grow",
+		LayoutOrder = self.props.LayoutOrder,
 	}, {
-		Explore = self:renderButton(2, "Explore", self.explore, 80),
-		RunTests = self:renderButton(3, "Run Tests", self.runTests, 90),
-		StorySource = self:renderButton(4, "View Source", self.viewStorySource, 100),
+		Explore = self:renderButton(2, "Explore", self.explore),
+		RunTests = self:renderButton(3, "Run Tests", self.runTests),
+		StorySource = self:renderButton(4, "View Source", self.viewStorySource),
 	})
 end
 

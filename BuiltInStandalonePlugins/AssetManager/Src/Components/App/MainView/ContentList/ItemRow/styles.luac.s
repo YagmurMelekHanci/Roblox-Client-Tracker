@@ -34,7 +34,7 @@ MAIN:
   MOVE R8 R2
   LOADK R9 K22 [".ContrastRow"]
   DUPTABLE R10 K20 [{"BackgroundColor3"}]
-  LOADK R11 K23 ["$ForegroundContrast"]
+  LOADK R11 K23 ["$BackgroundPaper"]
   SETTABLEKS R11 R10 K12 ["BackgroundColor3"]
   NEWTABLE R11 0 1
   MOVE R12 R2
@@ -69,54 +69,43 @@ MAIN:
   LOADN R16 35
   CALL R14 2 1
   SETTABLEKS R14 R13 K11 ["Size"]
-  LOADK R14 K39 ["$BackgroundPaper"]
+  LOADK R14 K39 ["$ForegroundContrast"]
   SETTABLEKS R14 R13 K12 ["BackgroundColor3"]
-  NEWTABLE R14 0 1
-  MOVE R15 R2
-  LOADK R16 K40 ["> .Thumbnail"]
-  DUPTABLE R17 K41 [{"Size"}]
-  GETIMPORT R18 K38 [UDim2.fromOffset]
-  LOADN R19 30
-  LOADN R20 30
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K11 ["Size"]
-  CALL R15 2 -1
-  SETLIST R14 R15 -1 [1]
-  CALL R11 3 1
+  CALL R11 2 1
   MOVE R12 R2
-  LOADK R13 K42 ["> .ThumbnailPadding ::UIPadding"]
-  DUPTABLE R14 K44 [{"PaddingLeft"}]
-  GETIMPORT R15 K46 [UDim.new]
+  LOADK R13 K40 ["> .ThumbnailPadding ::UIPadding"]
+  DUPTABLE R14 K42 [{"PaddingLeft"}]
+  GETIMPORT R15 K44 [UDim.new]
   LOADN R16 0
   LOADN R17 10
   CALL R15 2 1
-  SETTABLEKS R15 R14 K43 ["PaddingLeft"]
+  SETTABLEKS R15 R14 K41 ["PaddingLeft"]
   CALL R12 2 1
   MOVE R13 R2
-  LOADK R14 K47 [">> TextLabel"]
+  LOADK R14 K45 [">> TextLabel"]
   NEWTABLE R15 0 0
   NEWTABLE R16 0 1
   MOVE R17 R2
-  LOADK R18 K48 ["::UIPadding"]
-  DUPTABLE R19 K50 [{"PaddingLeft", "PaddingRight"}]
-  GETIMPORT R20 K46 [UDim.new]
+  LOADK R18 K46 ["::UIPadding"]
+  DUPTABLE R19 K48 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R20 K44 [UDim.new]
   LOADN R21 0
   LOADN R22 10
   CALL R20 2 1
-  SETTABLEKS R20 R19 K43 ["PaddingLeft"]
-  GETIMPORT R20 K46 [UDim.new]
+  SETTABLEKS R20 R19 K41 ["PaddingLeft"]
+  GETIMPORT R20 K44 [UDim.new]
   LOADN R21 0
   LOADN R22 10
   CALL R20 2 1
-  SETTABLEKS R20 R19 K49 ["PaddingRight"]
+  SETTABLEKS R20 R19 K47 ["PaddingRight"]
   CALL R17 2 -1
   SETLIST R16 R17 -1 [1]
   CALL R13 3 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K53 [{"ThumbnailSize", "CellContentPadding"}]
+  DUPTABLE R7 K51 [{"ThumbnailSize", "CellContentPadding"}]
   LOADN R8 35
-  SETTABLEKS R8 R7 K51 ["ThumbnailSize"]
+  SETTABLEKS R8 R7 K49 ["ThumbnailSize"]
   LOADN R8 10
-  SETTABLEKS R8 R7 K52 ["CellContentPadding"]
+  SETTABLEKS R8 R7 K50 ["CellContentPadding"]
   CALL R3 4 -1
   RETURN R3 -1

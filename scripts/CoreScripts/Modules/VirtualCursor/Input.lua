@@ -11,6 +11,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local properties = require(VirtualCursorFolder.Properties)
 local Interface = require(VirtualCursorFolder.Interface)
 
+local FFlagResetVCThumbstickOnDisable = game:DefineFastFlag("ResetVCThumbstickOnDisable", false)
+
 local Input = {}
 
 -- variables
@@ -88,6 +90,11 @@ end
 function Input:DisableInput()
 	gamepadThumbstick1ChangedConnection:Disconnect()
 	gamepadThumbstick1ChangedConnection = nil
+
+	if FFlagResetVCThumbstickOnDisable then
+		thumbstickVector = Vector2.new()
+		thumbstick2Vector = Vector2.new()
+	end
 
 	ContextActionService:UnbindCoreAction("VirtualCursorThumbstick1Movement")
 	ContextActionService:UnbindCoreAction("VirtualCursorThumbstick2Movement")

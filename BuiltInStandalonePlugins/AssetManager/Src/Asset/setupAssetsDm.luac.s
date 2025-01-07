@@ -1,0 +1,38 @@
+PROTO_0:
+  LOADK R3 K0 ["GameId"]
+  GETIMPORT R5 K2 [game]
+  GETTABLEKS R4 R5 K0 ["GameId"]
+  NAMECALL R1 R0 K3 ["SetItem"]
+  CALL R1 3 0
+  LOADK R3 K4 ["OnInsertItems"]
+  GETUPVAL R4 0
+  NAMECALL R1 R0 K5 ["OnInvoke"]
+  CALL R1 3 0
+  LOADK R3 K6 ["OnOpenBulkImport"]
+  GETUPVAL R4 1
+  NAMECALL R1 R0 K5 ["OnInvoke"]
+  CALL R1 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetManager"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Asset"]
+  GETTABLEKS R3 R4 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["handleInvokeOnInsertItems"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Asset"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K10 ["handleInvokeOnOpenBulkImport"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K11 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1

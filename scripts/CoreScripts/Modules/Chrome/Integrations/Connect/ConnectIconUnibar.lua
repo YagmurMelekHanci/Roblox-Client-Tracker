@@ -8,8 +8,6 @@ local GetFFlagAppChatAddConnectUnibarForActiveSquad =
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 
-local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
-
 local registerConnectIntegration = require(script.Parent.registerConnectIntegration)
 local isConnectUnibarEnabled = require(script.Parent.isConnectUnibarEnabled)
 local isConnectDropdownEnabled = require(script.Parent.isConnectDropdownEnabled)
@@ -26,7 +24,6 @@ if isConnectUnibarEnabled() then
 	--   see logic below
 
 	local currentIntegrationSoleyForParty = GetFFlagAppChatAddConnectUnibarForActiveSquad()
-		and SquadExperimentation.getSquadEntrypointsEnabled()
 		and isConnectDropdownEnabled()
 	integration = registerConnectIntegration(
 		"connect_unibar",

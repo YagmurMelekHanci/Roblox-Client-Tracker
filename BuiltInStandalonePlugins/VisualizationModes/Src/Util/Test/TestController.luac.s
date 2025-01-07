@@ -1,0 +1,161 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_root"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["ContextServices"]
+  GETTABLEKS R2 R3 K2 ["provide"]
+  NEWTABLE R3 0 4
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["ContextServices"]
+  GETTABLEKS R5 R6 K3 ["Analytics"]
+  GETTABLEKS R4 R5 K4 ["mock"]
+  CALL R4 0 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K1 ["ContextServices"]
+  GETTABLEKS R6 R7 K5 ["Focus"]
+  GETTABLEKS R5 R6 K6 ["new"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["_layerCollector"]
+  CALL R5 1 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["ContextServices"]
+  GETTABLEKS R7 R8 K8 ["Localization"]
+  GETTABLEKS R6 R7 K4 ["mock"]
+  DUPTABLE R7 K12 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K13 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Resources"]
+  GETTABLEKS R9 R10 K8 ["Localization"]
+  GETTABLEKS R8 R9 K15 ["SourceStrings"]
+  SETTABLEKS R8 R7 K9 ["stringResourceTable"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K13 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Resources"]
+  GETTABLEKS R9 R10 K8 ["Localization"]
+  GETTABLEKS R8 R9 K16 ["LocalizedStrings"]
+  SETTABLEKS R8 R7 K10 ["translationResourceTable"]
+  LOADK R8 K17 ["VisualizationModes"]
+  SETTABLEKS R8 R7 K11 ["pluginName"]
+  CALL R6 1 1
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K1 ["ContextServices"]
+  GETTABLEKS R8 R9 K18 ["Plugin"]
+  GETTABLEKS R7 R8 K6 ["new"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K19 ["_plugin"]
+  CALL R7 1 -1
+  SETLIST R3 R4 -1 [1]
+  DUPTABLE R4 K21 [{"Component"}]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K20 ["Component"]
+  SETTABLEKS R5 R4 K20 ["Component"]
+  CALL R2 2 -1
+  NAMECALL R0 R0 K22 ["render"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R2 4 0
+  GETUPVAL R3 0
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K1 [setmetatable]
+  CALL R1 2 1
+  GETIMPORT R2 K4 [Instance.new]
+  LOADK R3 K5 ["ScreenGui"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K6 ["_layerCollector"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K7 ["createRoot"]
+  GETTABLEKS R3 R1 K6 ["_layerCollector"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K8 ["_root"]
+  NAMECALL R2 R1 K9 ["_createMockPlugin"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K10 ["_plugin"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["act"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CALL R2 1 0
+  RETURN R1 1
+
+PROTO_2:
+  GETIMPORT R3 K2 [Instance.new]
+  LOADK R4 K3 ["Folder"]
+  CALL R3 1 1
+  LOADK R4 K4 ["MemStorageConnection"]
+  SETTABLEKS R4 R3 K5 ["Name"]
+  RETURN R3 1
+
+PROTO_3:
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Event"]
+  RETURN R2 1
+
+PROTO_5:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["TestHelpers"]
+  GETTABLEKS R3 R4 K1 ["Instances"]
+  GETTABLEKS R2 R3 K2 ["MockPlugin"]
+  GETTABLEKS R1 R2 K3 ["new"]
+  CALL R1 0 1
+  GETIMPORT R2 K5 [Instance.new]
+  LOADK R3 K6 ["BindableEvent"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K7 [PROTO_2]
+  SETTABLEKS R3 R1 K8 ["OnInvoke"]
+  DUPCLOSURE R3 K9 [PROTO_3]
+  SETTABLEKS R3 R1 K10 ["Invoke"]
+  NEWCLOSURE R3 P2
+  CAPTURE VAL R2
+  SETTABLEKS R3 R1 K11 ["GetPropertyChangedSignal"]
+  RETURN R1 1
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["_root"]
+  NAMECALL R1 R1 K1 ["unmount"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["_layerCollector"]
+  NAMECALL R1 R1 K3 ["Destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["VisualizationModes"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["ReactRoblox"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  NEWTABLE R4 4 0
+  SETTABLEKS R4 R4 K10 ["__index"]
+  DUPCLOSURE R5 K11 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K12 ["new"]
+  DUPCLOSURE R5 K13 [PROTO_5]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K14 ["_createMockPlugin"]
+  DUPCLOSURE R5 K15 [PROTO_6]
+  SETTABLEKS R5 R4 K16 ["destroy"]
+  RETURN R4 1

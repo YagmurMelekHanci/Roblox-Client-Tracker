@@ -44,7 +44,7 @@ local function installGui()
 	title.Text = "Storybook Embed"
 	title.Parent = frame
 	title.Name = "Title"
-	title.Font = Enum.Font.GothamSemibold
+	title.Font = Enum.Font.GothamMedium
 	title.BackgroundTransparency = 1
 	title.TextSize = 50
 	title.Position = UDim2.new(0.5, 0, 0.5, -40)

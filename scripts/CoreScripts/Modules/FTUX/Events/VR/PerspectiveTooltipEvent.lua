@@ -22,15 +22,18 @@ local PerspectiveTooltipEvent = {
 local Tooltip
 
 function PerspectiveTooltipEvent.StartEvent()
-	local perspectiveTooltipContent = Roact.createElement(VRFTUXToolTips, {
-		tooltipButtons = {
-			{
-				Text = "Press",
-				Controller = Enum.UserCFrame.RightHand,
-				ButtonKeycode = Enum.KeyCode.ButtonR3,
+	local perspectiveTooltipContent = Roact.createElement(
+		VRFTUXToolTips,
+		{
+			tooltipButtons = {
+				{
+					Text = "Press",
+					Controller = Enum.UserCFrame.RightHand,
+					ButtonKeycode = Enum.KeyCode.ButtonR3,
+				},
 			},
-		},
-	} :: TooltipProps)
+		} :: TooltipProps
+	)
 
 	local PerspectiveTooltip = renderWithCoreScriptsStyleProvider({
 		perspectiveTooltipContent,

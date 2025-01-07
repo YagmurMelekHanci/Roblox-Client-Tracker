@@ -9,8 +9,6 @@ local Rodux = require(Main.Packages.Rodux)
 
 local Framework = require(Main.Packages.Framework)
 local Dash = Framework.Dash
-local collectArray = Dash.collectArray
-local copy = Dash.copy
 local forEach = Dash.forEach
 local join = Dash.join
 local joinDeep = Dash.joinDeep
@@ -25,26 +23,7 @@ local SetSearch = require(Main.Src.Actions.SetSearch)
 local SetLive = require(Main.Src.Actions.SetLive)
 local SetSettings = require(Main.Src.Actions.SetSettings)
 local CollapseTree = require(Main.Src.Actions.CollapseTree)
-
--- Copy the input tree of children, returning a filtered tree of items whose names match the filter
--- string passed in, or items which have descendendants that do.
-local function applySearch(children: Types.Array<Types.StoryItem>, filter: string): Types.Array<Types.StoryItem>?
-	if filter == "" then
-		return children
-	end
-	return collectArray(children, function(_index: number, child: Types.StoryItem)
-		local nextChild = copy(child)
-		nextChild.Children = applySearch(nextChild.Children, filter)
-		local ok, include = pcall(function()
-			return #nextChild.Children > 0 or nextChild.Name:lower():match(filter:lower())
-		end)
-		if ok and include then
-			return nextChild
-		else
-			return nil
-		end
-	end)
-end
+local StoryTreeUtils = require(Main.Src.Util.StoryTreeUtils)
 
 -- Outputs an expansion set into result of all the descendents of children, fully expanding the tree
 local function expandAll(children: Types.Array<Types.StoryItem>, mut_result: { [Types.StoryItem]: boolean })
@@ -91,11 +70,11 @@ return Rodux.createReducer({
 	[SetStories.name] = function(state: State, action: SetStories.Props): State
 		return join(state, {
 			stories = action.stories,
-			searchStories = applySearch(action.stories, state.searchFilter),
+			searchStories = StoryTreeUtils.applySearch(action.stories, state.searchFilter),
 		})
 	end,
 	[SetSearch.name] = function(state: State, action: SetSearch.Props): State
-		local searchStories = applySearch(state.stories, action.searchFilter)
+		local searchStories = StoryTreeUtils.applySearch(state.stories, action.searchFilter)
 		local expandedSearchStories = {}
 		expandAll(searchStories, expandedSearchStories)
 		return join(state, {

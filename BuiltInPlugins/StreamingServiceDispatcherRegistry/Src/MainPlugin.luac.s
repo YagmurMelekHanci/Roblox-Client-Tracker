@@ -13,10 +13,7 @@ PROTO_1:
   GETTABLEKS R2 R3 K0 ["GetService"]
   LOADK R3 K1 ["StreamingService"]
   CALL R2 1 1
-  JUMPIFNOT R2 [+56]
-  GETUPVAL R3 2
-  CALL R3 0 1
-  JUMPIFNOT R3 [+17]
+  JUMPIFNOT R2 [+26]
   MOVE R3 R1
   LOADNIL R4
   LOADNIL R5
@@ -28,39 +25,20 @@ PROTO_1:
   NAMECALL R8 R2 K5 ["RegisterCommandInternal"]
   CALL R8 5 0
   FORGLOOP R3 2 [-11]
-  JUMP [+26]
-  GETIMPORT R3 K7 [pairs]
-  GETTABLEKS R4 R1 K8 ["parallel"]
-  CALL R3 1 3
-  FORGPREP_NEXT R3
-  MOVE R10 R6
-  MOVE R11 R7
-  NAMECALL R8 R2 K9 ["DEPRECATED_RegisterCommand"]
-  CALL R8 3 0
-  FORGLOOP R3 2 [-6]
-  GETIMPORT R3 K7 [pairs]
-  GETTABLEKS R4 R1 K10 ["sequential"]
-  CALL R3 1 3
-  FORGPREP_NEXT R3
-  MOVE R10 R6
-  MOVE R11 R7
-  NAMECALL R8 R2 K11 ["DEPRECATED_RegisterSequentialCommand"]
-  CALL R8 3 0
-  FORGLOOP R3 2 [-6]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K12 ["new"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R0 K13 ["streamingServiceListener"]
-  GETUPVAL R4 4
-  GETTABLEKS R3 R4 K14 ["register"]
+  SETTABLEKS R3 R0 K7 ["streamingServiceListener"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["register"]
   CALL R3 0 0
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K0 ["GetService"]
-  LOADK R4 K15 ["ChatbotUIService"]
+  LOADK R4 K9 ["ChatbotUIService"]
   CALL R3 1 1
-  LOADK R6 K16 ["PluginConnected"]
+  LOADK R6 K10 ["PluginConnected"]
   NEWTABLE R7 0 0
-  NAMECALL R4 R3 K17 ["DisplayContent"]
+  NAMECALL R4 R3 K11 ["DisplayContent"]
   CALL R4 3 0
   RETURN R0 0
 
@@ -70,9 +48,6 @@ PROTO_2:
   GETTABLEKS R2 R3 K0 ["GetService"]
   LOADK R3 K1 ["StreamingService"]
   CALL R2 1 1
-  GETUPVAL R3 2
-  CALL R3 0 1
-  JUMPIFNOT R3 [+11]
   MOVE R3 R1
   LOADNIL R4
   LOADNIL R5
@@ -81,38 +56,21 @@ PROTO_2:
   NAMECALL R8 R2 K2 ["UnregisterCommand"]
   CALL R8 2 0
   FORGLOOP R3 2 [-5]
-  JUMP [+24]
-  GETIMPORT R3 K4 [pairs]
-  GETTABLEKS R4 R1 K5 ["parallel"]
-  CALL R3 1 3
-  FORGPREP_NEXT R3
-  MOVE R10 R6
-  NAMECALL R8 R2 K2 ["UnregisterCommand"]
-  CALL R8 2 0
-  FORGLOOP R3 2 [-5]
-  GETIMPORT R3 K4 [pairs]
-  GETTABLEKS R4 R1 K6 ["sequential"]
-  CALL R3 1 3
-  FORGPREP_NEXT R3
-  MOVE R10 R6
-  NAMECALL R8 R2 K2 ["UnregisterCommand"]
-  CALL R8 2 0
-  FORGLOOP R3 2 [-5]
-  GETTABLEKS R3 R0 K7 ["streamingServiceListener"]
+  GETTABLEKS R3 R0 K3 ["streamingServiceListener"]
   JUMPIFNOT R3 [+8]
-  GETTABLEKS R3 R0 K7 ["streamingServiceListener"]
-  NAMECALL R3 R3 K8 ["destroy"]
+  GETTABLEKS R3 R0 K3 ["streamingServiceListener"]
+  NAMECALL R3 R3 K4 ["destroy"]
   CALL R3 1 0
   LOADNIL R3
-  SETTABLEKS R3 R0 K7 ["streamingServiceListener"]
+  SETTABLEKS R3 R0 K3 ["streamingServiceListener"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K4 ["destroy"]
+  CALL R3 0 0
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K8 ["destroy"]
+  GETTABLEKS R3 R4 K4 ["destroy"]
   CALL R3 0 0
   GETUPVAL R4 4
-  GETTABLEKS R3 R4 K8 ["destroy"]
-  CALL R3 0 0
-  GETUPVAL R4 5
-  GETTABLEKS R3 R4 K9 ["unregister"]
+  GETTABLEKS R3 R4 K5 ["unregister"]
   CALL R3 0 0
   RETURN R0 0
 
@@ -153,29 +111,22 @@ MAIN:
   GETTABLEKS R8 R9 K7 ["Utils"]
   GETTABLEKS R7 R8 K7 ["Utils"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K17 ["Flags"]
-  GETTABLEKS R8 R9 K18 ["getFFlagConvAIAddPrivateCommandSupport"]
-  CALL R7 1 1
-  NEWTABLE R8 4 0
-  SETTABLEKS R8 R8 K19 ["__index"]
-  DUPCLOSURE R9 K20 [PROTO_0]
-  CAPTURE VAL R8
-  SETTABLEKS R9 R8 K21 ["new"]
-  DUPCLOSURE R9 K22 [PROTO_1]
+  NEWTABLE R7 4 0
+  SETTABLEKS R7 R7 K17 ["__index"]
+  DUPCLOSURE R8 K18 [PROTO_0]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R7 K19 ["new"]
+  DUPCLOSURE R8 K20 [PROTO_1]
   CAPTURE VAL R2
   CAPTURE VAL R1
-  CAPTURE VAL R7
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETTABLEKS R9 R8 K23 ["init"]
-  DUPCLOSURE R9 K24 [PROTO_2]
+  SETTABLEKS R8 R7 K21 ["init"]
+  DUPCLOSURE R8 K22 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R1
-  CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R4
-  SETTABLEKS R9 R8 K25 ["destroy"]
-  RETURN R8 1
+  SETTABLEKS R8 R7 K23 ["destroy"]
+  RETURN R7 1

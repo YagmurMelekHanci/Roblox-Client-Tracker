@@ -435,12 +435,14 @@ PROTO_17:
   CAPTURE VAL R3
   MOVE R5 R4
   LOADK R6 K9 ["layerDetails"]
-  DUPTABLE R7 K12 [{"name", "class", "children", "weight"}]
+  DUPTABLE R7 K13 [{"name", "lod", "class", "children", "weight"}]
   GETTABLEKS R9 R0 K1 ["name"]
-  ORK R8 R9 K13 [""]
+  ORK R8 R9 K14 [""]
   SETTABLEKS R8 R7 K1 ["name"]
-  GETTABLEKS R8 R0 K14 ["className"]
-  SETTABLEKS R8 R7 K10 ["class"]
+  GETTABLEKS R8 R0 K10 ["lod"]
+  SETTABLEKS R8 R7 K10 ["lod"]
+  GETTABLEKS R8 R0 K15 ["className"]
+  SETTABLEKS R8 R7 K11 ["class"]
   GETTABLEKS R9 R0 K2 ["children"]
   JUMPIFNOT R9 [+4]
   GETTABLEKS R9 R0 K2 ["children"]
@@ -448,24 +450,24 @@ PROTO_17:
   JUMPIF R8 [+1]
   LOADN R8 0
   SETTABLEKS R8 R7 K2 ["children"]
-  GETTABLEKS R8 R0 K11 ["weight"]
-  SETTABLEKS R8 R7 K11 ["weight"]
+  GETTABLEKS R8 R0 K12 ["weight"]
+  SETTABLEKS R8 R7 K12 ["weight"]
   CALL R5 2 0
   MOVE R5 R4
-  LOADK R6 K15 ["linkData"]
-  GETTABLEKS R7 R0 K15 ["linkData"]
+  LOADK R6 K16 ["linkData"]
+  GETTABLEKS R7 R0 K16 ["linkData"]
   CALL R5 2 0
   MOVE R5 R4
-  LOADK R6 K16 ["props"]
-  GETTABLEKS R7 R0 K16 ["props"]
+  LOADK R6 K17 ["props"]
+  GETTABLEKS R7 R0 K17 ["props"]
   CALL R5 2 0
   MOVE R5 R4
-  LOADK R6 K17 ["state"]
-  GETTABLEKS R7 R0 K17 ["state"]
+  LOADK R6 K18 ["state"]
+  GETTABLEKS R7 R0 K18 ["state"]
   CALL R5 2 0
   MOVE R5 R4
-  LOADK R6 K18 ["watches"]
-  GETTABLEKS R7 R0 K18 ["watches"]
+  LOADK R6 K19 ["watches"]
+  GETTABLEKS R7 R0 K19 ["watches"]
   CALL R5 2 0
   RETURN R3 1
 

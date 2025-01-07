@@ -11,7 +11,7 @@ return {
 	ToggleMic = require(script.ToggleMic),
 	JoinVoice = require(script.JoinVoice),
 	SelfieView = require(script.SelfieView),
-	CameraEntrypoint = require(script.CameraUtility.CameraEntrypoint),
+	CapturesEntrypoint = require(script.Captures.CapturesEntrypoint),
 	LikeButton = require(script.MusicUtility.LikeButton),
 	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
 	Songbird = require(script.MusicUtility.Songbird),

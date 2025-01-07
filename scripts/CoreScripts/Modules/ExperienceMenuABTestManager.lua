@@ -320,43 +320,6 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 	return false
 end
 
-function ExperienceMenuABTestManager:shouldPinChat()
-	-- All variants in Unibar v3 have pinned chat
-	for _, version in MENU_VERSION_CHROME_V3_ENUM do
-		if self:getVersion() == version then
-			return true
-		end
-	end
-
-	-- All variants in follow up Unibar test have pinned chat
-	for _, version in MENU_VERSION_CHROME_FOLLOWUP_ENUM do
-		if self:getVersion() == version then
-			return true
-		end
-	end
-
-	return self:getVersion() == MENU_VERSION_CHROME_ENUM.PINNED_CHAT
-end
-
-function ExperienceMenuABTestManager:shouldDefaultOpen()
-	-- All variants in Unibar v4 default open
-	for _, version in MENU_VERSION_CHROME_V4_ENUM do
-		if self:getVersion() == version then
-			return true
-		end
-	end
-
-	-- All variants in Unibar v3 default open
-	for _, version in MENU_VERSION_CHROME_V3_ENUM do
-		if self:getVersion() == version then
-			return true
-		end
-	end
-
-	-- All non-FTUX variants in follow up Unibar test have "Default Open"
-	return self:getVersion() == MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN or self:getVersion() == MENU_VERSION_CHROME_FOLLOWUP_ENUM.UNIBAR or self:getVersion() == MENU_VERSION_CHROME_FOLLOWUP_ENUM.OCCLUSION
-end
-
 function ExperienceMenuABTestManager:shouldShowFTUX()
 	return self:getVersion() == MENU_VERSION_CHROME_FOLLOWUP_ENUM.FTUX
 end

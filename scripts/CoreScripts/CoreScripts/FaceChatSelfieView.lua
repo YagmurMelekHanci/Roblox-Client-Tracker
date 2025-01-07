@@ -38,7 +38,6 @@ local cloneStreamTrack = nil
 local EngineFeatureAvatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
 local EngineFeatureAnimatorAndADFRefactor = game:GetEngineFeature("AnimatorAndADFRefactor")
 local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerViewRemoteEventSupport")
-local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CollectionService = game:GetService("CollectionService")
 local VRService = game:GetService("VRService")
@@ -60,7 +59,6 @@ local FFlagFixUpdateMicIconCallBeforeReady = game:DefineFastFlag("FixUpdateMicIc
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Packages.Thumbnailing).CharacterUtility
 local CFrameUtility = require(CorePackages.Packages.Thumbnailing).CFrameUtility
-local Promise = require(CorePackages.Packages.Promise)
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui.RobloxGui
@@ -159,7 +157,6 @@ end
 local renderSteppedConnection = nil
 local playerCharacterAddedConnection = nil
 local playerCharacterRemovingConnection = nil
-local serviceStateSingalConnection = nil
 local trackStoppedConnections = {}
 local videoAnimationPropertyChangedSingalConnection = nil
 local audioAnimationPropertyChangedSingalConnection = nil
@@ -3298,40 +3295,6 @@ function startRenderStepped(player)
 	end)
 end
 
-function triggerAnalyticsReportExperienceSettings_deprecated(serviceState)
-	local experienceSettings_placeEnabled = FacialAnimationStreamingService:IsPlaceEnabled(serviceState)
-	--local experienceSettings_serverEnabled = FacialAnimationStreamingService:IsServerEnabled(serviceState) --this one is only for throttling, won't send for now
-	local experienceSettings_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(serviceState)
-	local experienceSettings_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(serviceState)
-
-	Analytics:reportExperienceSettings(
-		experienceSettings_placeEnabled,
-		experienceSettings_videoEnabled,
-		experienceSettings_audioEnabled
-	)
-
-	--[[
-	--TODO: product decision to be made whether we won't show Self View if not voice or video on for experience, if so, comment this in
-	if not experienceSettings_placeEnabled and not experienceSettings_videoEnabled and not experienceSettings_audioEnabled and not IS_STUDIO and not debug then
-		showSelfView(false)
-	end
-	]]
-end
-
-function triggerAnalyticsReportUserAccountSettings_deprecated(userId)
-	return Promise.new(function(resolve, reject)
-		local ok, state =
-			pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, userId)
-
-		if ok then
-			local userAccount_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(state)
-			local userAccount_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(state)
-
-			Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccount_audioEnabled)
-		end
-	end)
-end
-
 function triggerAnalyticsReportExperienceSettings(settings)
 	Analytics:reportExperienceSettings(
 		true,
@@ -3374,15 +3337,6 @@ function Initialize(player)
 					clientFeaturesChangedListener:Disconnect()
 				end)
 		end
-	else
-		-- Listen for service state (info whether enabled for place/experience)
-		serviceStateSingalConnection = FacialAnimationStreamingService:GetPropertyChangedSignal("ServiceState")
-			:Connect(function()
-				triggerAnalyticsReportExperienceSettings_deprecated(FacialAnimationStreamingService.ServiceState)
-			end)
-		triggerAnalyticsReportExperienceSettings_deprecated(FacialAnimationStreamingService.ServiceState)
-
-		triggerAnalyticsReportUserAccountSettings_deprecated(player.UserId)
 	end
 
 	if FFlagFixUpdateMicIconCallBeforeReady then
@@ -3409,9 +3363,6 @@ function Initialize(player)
 			clearObserver(Observer.CharacterAdded)
 			clearObserver(Observer.CharacterRemoving)
 			clearClone()
-			if serviceStateSingalConnection then
-				serviceStateSingalConnection:Disconnect()
-			end
 
 			if FFlagRemoveVoiceJoiceDisconnectFix and voiceJoinProgressChangedConnection then
 				voiceJoinProgressChangedConnection:Disconnect()

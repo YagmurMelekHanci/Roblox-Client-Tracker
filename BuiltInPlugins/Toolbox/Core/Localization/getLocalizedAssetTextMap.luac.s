@@ -150,9 +150,6 @@ PROTO_0:
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+64]
   GETIMPORT R2 K80 [Enum.AssetType.Torso]
   LOADK R5 K4 ["General"]
   LOADK R6 K81 ["AssetTypeTorso"]
@@ -209,11 +206,5 @@ MAIN:
   LOADK R2 K2 ["Toolbox"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Core"]
-  GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["getFFlagToolboxAddNewUGCAssetTypes"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K9 [PROTO_0]
-  CAPTURE VAL R1
-  RETURN R2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  RETURN R1 1

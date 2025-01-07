@@ -49,6 +49,7 @@ local GetFFlagPostLaunchUnibarDesignTweaks =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
 
 local FFlagReshufflePartyIconsInUnibar = game:DefineFastFlag("ReshufflePartyIconsInUnibar", false)
+local FFlagFixUnibarResizing = game:DefineFastFlag("FixUnibarResizing", false)
 
 -- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
 local PartyConstants = require(Root.Parent.Integrations.Party.Constants)
@@ -257,29 +258,29 @@ function IconPositionBinding(
 	flipLerp: any
 )
 	return React.joinBindings({ toggleTransition, iconReflow, unibarWidth })
-		:map(function(val: { [number]: number })
-			local open = 0
-			if flipLerp.current then
-				open = linearInterpolation(openPosition, priorPosition, val[2])
-			else
-				open = linearInterpolation(priorPosition, openPosition, val[2])
-			end
+			:map(function(val: { [number]: number })
+				local open = 0
+				if flipLerp.current then
+					open = linearInterpolation(openPosition, priorPosition, val[2])
+				else
+					open = linearInterpolation(priorPosition, openPosition, val[2])
+				end
 
-			local closedPos = closedPosition
-			if leftAlign and not pinned then
-				closedPos = closedPosition - val[3]
-			end
-			local openDelta = open - closedPos
+				local closedPos = closedPosition
+				if leftAlign and not pinned then
+					closedPos = closedPosition - val[3]
+				end
+				local openDelta = open - closedPos
 
-			return UDim2.new(
-				0,
-				(if GetFFlagPostLaunchUnibarDesignTweaks() then Constants.UNIBAR_END_PADDING else 0)
-					+ closedPos
-					+ openDelta * val[1],
-				0,
-				0
-			)
-		end) :: any
+				return UDim2.new(
+					0,
+					(if GetFFlagPostLaunchUnibarDesignTweaks() then Constants.UNIBAR_END_PADDING else 0)
+						+ closedPos
+						+ openDelta * val[1],
+					0,
+					0
+				)
+			end) :: any
 end
 
 type UnibarProp = {
@@ -309,6 +310,10 @@ function Unibar(props: UnibarProp)
 	local toggleIconTransition, setToggleIconTransition = ReactOtter.useAnimatedBinding(if menuOpen then 1 else 0)
 	local toggleWidthTransition, setToggleWidthTransition = ReactOtter.useAnimatedBinding(if menuOpen then 1 else 0)
 	local unibarWidth, setUnibarWidth = ReactOtter.useAnimatedBinding(0)
+	local lastUnibarGoal
+	if FFlagFixUnibarResizing then
+		lastUnibarGoal = React.useRef(0)
+	end
 	local iconReflow, setIconReflow = ReactOtter.useAnimatedBinding(1)
 	local flipLerp = React.useRef(false)
 	local positionUpdateCount = React.useRef(0)
@@ -481,11 +486,23 @@ function Unibar(props: UnibarProp)
 	end
 
 	React.useEffect(function()
-		local lastUnibarWidth = unibarWidth:getValue()
+		local lastUnibarWidth
+		if FFlagFixUnibarResizing then
+			lastUnibarWidth = lastUnibarGoal.current
+		else
+			lastUnibarWidth = unibarWidth:getValue()
+		end
+
 		if unibarWidth:getValue() == 0 then
 			setUnibarWidth(ReactOtter.instant(expandSize) :: any)
+			if FFlagFixUnibarResizing then
+				lastUnibarGoal.current = expandSize
+			end
 		elseif lastUnibarWidth ~= expandSize then
 			setUnibarWidth(ReactOtter.spring(expandSize, Constants.MENU_ANIMATION_SPRING))
+			if FFlagFixUnibarResizing then
+				lastUnibarGoal.current = expandSize
+			end
 		end
 	end, { expandSize })
 
@@ -515,42 +532,46 @@ function Unibar(props: UnibarProp)
 
 	local style = useStyle()
 
-	return React.createElement("Frame", {
-		Size = unibarSizeBinding,
-		BorderSizePixel = 0,
-		BackgroundTransparency = 1,
-		SelectionGroup = true,
-		ref = props.menuFrameRef,
-		[React.Change.AbsoluteSize] = onAreaChanged,
-		[React.Change.AbsolutePosition] = onAreaChanged,
-	}, {
-		React.createElement(AnimationStateHelper, {
-			setToggleTransition = setToggleTransition,
-			setToggleIconTransition = setToggleIconTransition,
-			setToggleWidthTransition = setToggleWidthTransition,
-			setToggleSubmenuTransition = setToggleSubmenuTransition,
-			menuFrameRef = props.menuFrameRef,
-		}),
-		-- Background
-		React.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BorderSizePixel = 0,
-			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
-			BackgroundTransparency = if GetFFlagChromeUsePreferredTransparency()
-				then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
-				else style.Theme.BackgroundUIContrast.Transparency,
-		}, {
-			UICorner = React.createElement("UICorner", {
-				CornerRadius = UDim.new(1, 0),
-			}),
-		}),
-		-- IconRow
-		React.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
+	return React.createElement(
+		"Frame",
+		{
+			Size = unibarSizeBinding,
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
-		}, children),
-	} :: Array<any>)
+			SelectionGroup = true,
+			ref = props.menuFrameRef,
+			[React.Change.AbsoluteSize] = onAreaChanged,
+			[React.Change.AbsolutePosition] = onAreaChanged,
+		},
+		{
+			React.createElement(AnimationStateHelper, {
+				setToggleTransition = setToggleTransition,
+				setToggleIconTransition = setToggleIconTransition,
+				setToggleWidthTransition = setToggleWidthTransition,
+				setToggleSubmenuTransition = setToggleSubmenuTransition,
+				menuFrameRef = props.menuFrameRef,
+			}),
+			-- Background
+			React.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BorderSizePixel = 0,
+				BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
+				BackgroundTransparency = if GetFFlagChromeUsePreferredTransparency()
+					then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
+					else style.Theme.BackgroundUIContrast.Transparency,
+			}, {
+				UICorner = React.createElement("UICorner", {
+					CornerRadius = UDim.new(1, 0),
+				}),
+			}),
+			-- IconRow
+			React.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+			}, children),
+		} :: Array<any>
+	)
 end
 
 export type UnibarMenuProp = {

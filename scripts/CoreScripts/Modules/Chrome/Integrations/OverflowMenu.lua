@@ -20,7 +20,6 @@ local Types = require(Chrome.ChromeShared.Service.Types)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
-local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
 local Signal = SignalLib.Signal
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -29,6 +28,8 @@ local useStyle = UIBlox.Core.Style.useStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local useCallback = React.useCallback
+local useEffect = React.useEffect
+local useMemo = React.useMemo
 local useState = React.useState
 
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
@@ -37,6 +38,10 @@ local SelfieView = require(RobloxGui.Modules.SelfieView)
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
+
+local Songbird = require(CorePackages.Workspace.Packages.Songbird)
+local useCurrentSong = Songbird.useCurrentSong
+local getFFlagSongbirdUnverifiedMusicState = Songbird.getFFlagSongbirdUnverifiedMusicState
 
 local GetFFlagUnpinUnavailable = require(Chrome.Flags.GetFFlagUnpinUnavailable)
 local GetFFlagPostLaunchUnibarDesignTweaks =
@@ -54,8 +59,10 @@ local GetFFlagShouldShowMusicFtuxTooltip = require(Chrome.Flags.GetFFlagShouldSh
 local GetFStringMusicTooltipLocalStorageKey = require(Chrome.Flags.GetFStringMusicTooltipLocalStorageKey)
 local GetFIntMusicFtuxShowDelayMs = require(Chrome.Flags.GetFIntMusicFtuxShowDelayMs)
 local GetFIntMusicFtuxDismissDelayMs = require(Chrome.Flags.GetFIntMusicFtuxDismissDelayMs)
+local GetFFlagShouldShowMusicFtuxTooltipXTimes = require(Chrome.Flags.GetFFlagShouldShowMusicFtuxTooltipXTimes)
 local GetFFlagFixShowMusicFtuxTooltipWithoutConnect =
 	require(Chrome.Flags.GetFFlagFixShowMusicFtuxTooltipWithoutConnect)
+local GetFStringMusicTooltipLocalStorageKey_v2 = require(Chrome.Flags.GetFStringMusicTooltipLocalStorageKey_v2)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
@@ -324,15 +331,54 @@ function HamburgerButton(props)
 
 	local submenuOpen = submenuVisibility and useMappedSignal(submenuVisibility) or false
 
+	-- Only show the Music Ftux Tooltip if a track with valid ISRC is encountered
+	local songMeetsCriteria = false
+	if GetFFlagShouldShowMusicFtuxTooltipXTimes() then
+		local song = useCurrentSong()
+		songMeetsCriteria = useMemo(function()
+			if getFFlagSongbirdUnverifiedMusicState() then
+				return if song then song.meetsCriteria else false
+			else
+				return if song and song.metadata then song.metadata.RecordingCode ~= "" else false
+			end
+		end, { song })
+	end
+
 	-- Tooltips should be shown one after the other (Connect, then Music)
 	local hasUserAlreadySeenConnectTooltip = if GetFFlagFixShowMusicFtuxTooltipWithoutConnect()
 		then if shouldShowConnectTooltip
 			then LocalStore.getValue(GetFStringConnectTooltipLocalStorageKey()) or false
 			else true
 		else LocalStore.getValue(GetFStringConnectTooltipLocalStorageKey())
-	local hasUserAlreadySeenMusicTooltip = LocalStore.getValue(GetFStringMusicTooltipLocalStorageKey())
-	local isMusicTooltipVisible, setMusicTooltipVisibility =
-		useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip)
+	local hasUserAlreadySeenMusicTooltip = if GetFFlagShouldShowMusicFtuxTooltipXTimes()
+		then LocalStore.getNumUniversesExposedTo(GetFStringMusicTooltipLocalStorageKey_v2())
+			>= Constants.MAX_NUM_UNIVERSES_SHOWN
+		else LocalStore.getValue(GetFStringMusicTooltipLocalStorageKey())
+
+	local isMusicTooltipVisible, setMusicTooltipVisibility, onMusicTooltipDismissed
+	if GetFFlagShouldShowMusicFtuxTooltipXTimes() then
+		isMusicTooltipVisible, setMusicTooltipVisibility =
+			useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip and songMeetsCriteria)
+
+		useEffect(function()
+			if
+				not isMusicTooltipVisible
+				and shouldShowMusicTooltip
+				and hasUserAlreadySeenConnectTooltip
+				and songMeetsCriteria
+			then
+				setMusicTooltipVisibility(true)
+			end
+		end, { isMusicTooltipVisible, shouldShowMusicTooltip, hasUserAlreadySeenConnectTooltip, songMeetsCriteria })
+
+		onMusicTooltipDismissed = useCallback(function()
+			LocalStore.addUniverseToExposureList(GetFStringMusicTooltipLocalStorageKey_v2(), game.GameId)
+		end, { game.GameId })
+	else
+		isMusicTooltipVisible, setMusicTooltipVisibility =
+			useState(shouldShowMusicTooltip and hasUserAlreadySeenConnectTooltip)
+	end
+
 	local onConnectTooltipDismissed = useCallback(function()
 		setMusicTooltipVisibility(true)
 	end)
@@ -343,11 +389,9 @@ function HamburgerButton(props)
 				isIconVisible = props.visible,
 
 				headerKey = if GetFFlagAppChatRebrandStringUpdates()
-						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
 				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
-						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 
@@ -361,11 +405,9 @@ function HamburgerButton(props)
 				isIconVisible = props.visible,
 
 				headerKey = if GetFFlagAppChatRebrandStringUpdates()
-						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
 				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
-						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 
@@ -383,12 +425,17 @@ function HamburgerButton(props)
 			headerKey = "CoreScripts.FTUX.Heading.MusicIsAvailable",
 			bodyKey = "CoreScripts.FTUX.Label.MusicViewCurrentTrack",
 
-			-- TODO - MUS-1470: show tooltip once per user per experience
-			-- currently showing once per user overall
-			localStorageKey = GetFStringMusicTooltipLocalStorageKey(),
+			localStorageKey = if GetFFlagShouldShowMusicFtuxTooltipXTimes()
+				then
+					-- Prevents the tooltip from being shown again in an experience where it was already seen
+					GetFStringMusicTooltipLocalStorageKey_v2()
+						.. "_"
+						.. tostring(game.GameId)
+				else GetFStringMusicTooltipLocalStorageKey(),
 
 			showDelay = GetFIntMusicFtuxShowDelayMs(),
 			dismissDelay = GetFIntMusicFtuxDismissDelayMs(),
+			onDismissed = if GetFFlagShouldShowMusicFtuxTooltipXTimes() then onMusicTooltipDismissed else nil,
 		})
 		else nil
 

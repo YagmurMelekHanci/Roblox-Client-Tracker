@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["DF"]["DF"])
+local Package = require(PackageIndex["DeveloperFramework"]["DeveloperFramework"])
 
 return Package

@@ -47,7 +47,16 @@ PROTO_0:
   CALL R3 2 1
   MOVE R2 R3
   RETURN R2 1
-  LOADK R2 K12 [""]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K12 ["DefaultThumbnail"]
+  JUMPIFNOTEQ R0 R2 [+8]
+  LOADK R3 K13 ["rbxasset://studio_svg_textures/Lua/StartPage/%*/SI-Standard/Placeholder.png"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  LOADK R2 K14 [""]
   RETURN R2 1
 
 MAIN:
@@ -69,7 +78,7 @@ MAIN:
   NEWTABLE R4 2 0
   MOVE R5 R2
   LOADK R6 K11 ["AvailableImages"]
-  DUPTABLE R7 K17 [{"Checkmark", "Placeholder", "SortIcon", "SidebarCollapseIcon", "SidebarExpandIcon"}]
+  DUPTABLE R7 K18 [{"Checkmark", "Placeholder", "SortIcon", "SidebarCollapseIcon", "SidebarExpandIcon", "DefaultThumbnail"}]
   LOADN R8 1
   SETTABLEKS R8 R7 K12 ["Checkmark"]
   LOADN R8 2
@@ -80,10 +89,12 @@ MAIN:
   SETTABLEKS R8 R7 K15 ["SidebarCollapseIcon"]
   LOADN R8 5
   SETTABLEKS R8 R7 K16 ["SidebarExpandIcon"]
+  LOADN R8 6
+  SETTABLEKS R8 R7 K17 ["DefaultThumbnail"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K11 ["AvailableImages"]
-  DUPCLOSURE R6 K18 [PROTO_0]
+  DUPCLOSURE R6 K19 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R5
-  SETTABLEKS R6 R4 K19 ["getImageHelper"]
+  SETTABLEKS R6 R4 K20 ["getImageHelper"]
   RETURN R4 1

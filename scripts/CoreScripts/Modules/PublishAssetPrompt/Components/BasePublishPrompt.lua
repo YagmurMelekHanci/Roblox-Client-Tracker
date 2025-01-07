@@ -1,7 +1,7 @@
 --[[
 	The base prompt for other prompts like PublishAvatarPrompt or PublishAssetPrompt.
-    Other prompts can pass in body components that will be parented under a frame under
-    the NameTextBox. For example, they can pass in the Viewport, description text box,
+	Other prompts can pass in body components that will be parented under a frame under
+	the NameTextBox. For example, they can pass in the Viewport, description text box,
 	and item description rows.
 ]]
 local CorePackages = game:GetService("CorePackages")
@@ -24,6 +24,9 @@ local Overlay = UIBlox.App.Dialog.Overlay
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
+local InputType = require(CorePackages.Workspace.Packages.InputType)
+local getInputGroup = require(CorePackages.Workspace.Packages.InputType).getInputGroup
 
 local Components = script.Parent
 local LabeledTextBox = require(Components.Common.LabeledTextBox)
@@ -62,6 +65,11 @@ local STICK_MAX_SPEED = 1000
 local FULL_HEIGHT = UDim.new(1.5, 0)
 
 local CURSOR_OVERRIDE_KEY = "BasePublishPromptOverrideKey"
+
+local function isGamepadInput(inputType)
+	local inputGroup = getInputGroup(inputType)
+	return inputGroup == InputType.InputTypeConstants.Gamepad
+end
 
 BasePublishPrompt.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -113,6 +121,9 @@ function BasePublishPrompt:init()
 		-- if showUnsavedDataWarning is false, show the prompt
 		-- if true, we are showing a warning that says data is lost when prompt is closed
 		showUnsavedDataWarning = false,
+		isGamepad = if FFlagCoreScriptPublishPromptModal
+			then isGamepadInput(UserInputService:GetLastInputType())
+			else nil,
 	})
 	-- TODO: AVBURST-13016 Add back checking name for spaces or special characters after investigating
 	self.closePrompt = function()
@@ -184,6 +195,18 @@ function BasePublishPrompt:cleanupGamepad()
 	end
 end
 
+function BasePublishPrompt:overrideMouseIconBehavior()
+	local overrideStatus = if self.state.isGamepad
+		then Enum.OverrideMouseIconBehavior.ForceHide
+		else Enum.OverrideMouseIconBehavior.ForceShow
+
+	MouseIconOverrideService.push(CURSOR_OVERRIDE_KEY, overrideStatus)
+end
+
+function BasePublishPrompt:removeMouseIconBehaviorOverride()
+	MouseIconOverrideService.pop(CURSOR_OVERRIDE_KEY)
+end
+
 function BasePublishPrompt:didMount()
 	self:setUpGamepad()
 
@@ -191,21 +214,23 @@ function BasePublishPrompt:didMount()
 	self.props.SetPromptVisibility(true)
 
 	if FFlagCoreScriptPublishPromptModal then
-		local overrideStatus = if UserInputService.GamepadEnabled
-			then Enum.OverrideMouseIconBehavior.ForceHide
-			else Enum.OverrideMouseIconBehavior.ForceShow
-
-		MouseIconOverrideService.push(CURSOR_OVERRIDE_KEY, overrideStatus)
+		self:overrideMouseIconBehavior()
 	end
 end
 
-function BasePublishPrompt:didUpdate(prevProps)
+function BasePublishPrompt:didUpdate(prevProps, prevState)
 	--[[
 		When the purchase is confirmed via the economy prompt, the promptVisible
 		prop will change to false, so we close the prompt here.
 	]]
 	if prevProps.promptVisible ~= self.props.promptVisible and self.props.promptVisible == false then
 		self.closePrompt()
+	end
+
+	if FFlagCoreScriptPublishPromptModal then
+		if self.state.isGamepad ~= prevState.isGamepad then
+			self:overrideMouseIconBehavior()
+		end
 	end
 end
 
@@ -314,6 +339,16 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 			else localized[SUBMIT_TEXT]
 
 		return Roact.createFragment({
+			LastInputTypeConnection = FFlagCoreScriptPublishPromptModal
+				and Roact.createElement(ExternalEventConnection, {
+					event = UserInputService.LastInputTypeChanged :: RBXScriptSignal,
+					callback = function(lastInputType)
+						self:setState({
+							isGamepad = isGamepadInput(lastInputType),
+						})
+					end,
+				}),
+
 			-- Render transparent black frame over the whole screen to de-focus anything in the background.
 			BottomScrim = Roact.createElement("Frame", {
 				Position = overlayPosition,
@@ -427,7 +462,7 @@ end
 
 function BasePublishPrompt:willUnmount()
 	if FFlagCoreScriptPublishPromptModal then
-		MouseIconOverrideService.pop(CURSOR_OVERRIDE_KEY)
+		self:removeMouseIconBehaviorOverride()
 	end
 
 	self:cleanupGamepad()

@@ -1,5 +1,5 @@
 --[[
-	Toggle a story in the story tree.
+	Expand or collapse a folder in the story tree.
 ]]
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)

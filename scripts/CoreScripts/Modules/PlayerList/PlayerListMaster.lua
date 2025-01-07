@@ -41,7 +41,6 @@ local SetMinimized = require(PlayerList.Actions.SetMinimized)
 local SetSubjectToChinaPolicies = require(PlayerList.Actions.SetSubjectToChinaPolicies)
 local SetSettings = require(PlayerList.Actions.SetSettings)
 
-local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
 local FFlagRemoveSideBarABTest = require(PlayerList.Flags.FFlagRemoveSideBarABTest)
 local FFlagXboxRemoveLatentVoiceChatPrivilegeCheck =
 	game:DefineFastFlag("XboxRemoveLatentVoiceChatPrivilegeCheck", false)
@@ -158,13 +157,11 @@ function PlayerListMaster.new()
 		}),
 	})
 
-	if FFlagRefactorPlayerNameTag then
-		self.root = Roact.createElement(ApolloProvider, {
-			client = ApolloClientInstance,
-		}, {
-			StoreProvider = self.root,
-		})
-	end
+	self.root = Roact.createElement(ApolloProvider, {
+		client = ApolloClientInstance,
+	}, {
+		StoreProvider = self.root,
+	})
 
 	self.root = Roact.createElement("ScreenGui", {
 		AutoLocalize = false,

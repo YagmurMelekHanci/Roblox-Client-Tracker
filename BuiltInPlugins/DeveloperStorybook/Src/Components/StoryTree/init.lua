@@ -7,19 +7,19 @@ local SelectComponent = ReplicatedStorage:FindFirstChild("SelectComponent")
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
+local React = require(main.Packages.React)
 
 local Framework = require(main.Packages.Framework)
 
 local UI = Framework.UI
-local Container = UI.Container
 local TreeView = UI.TreeView
+
+local Foundation = require(main.Packages.Foundation)
+local View = Foundation.View
 
 local Actions = main.Src.Actions
 local SelectStory = require(Actions.SelectStory)
 local ToggleStory = require(Actions.ToggleStory)
-
-local Thunks = main.Src.Thunks
-local GetStories = require(Thunks.GetStories)
 
 local Util = main.Src.Util
 local ExternalEventConnection = require(Util.ExternalEventConnection)
@@ -72,13 +72,12 @@ function StoryTree:init()
 	end
 end
 
-function StoryTree:didMount()
-	self.props.getStories()
-end
-
 function StoryTree:render()
 	local props = self.props
-	return Roact.createElement(Container, {}, {
+	return Roact.createElement(View, {
+		LayoutOrder = props.LayoutOrder,
+		tag = "size-full-full",
+	}, {
 		ExternalEventConnection = if SelectComponent
 			then Roact.createElement(ExternalEventConnection, {
 				callback = self.selectComponent,
@@ -95,8 +94,8 @@ function StoryTree:render()
 							Image = ("rbxasset://textures/DeveloperStorybook/%s.png"):format(item.Icon),
 						}
 				end,
+				[React.Tag] = "X-RowS",
 			},
-			LayoutOrder = props.LayoutOrder,
 			RootItems = props.Stories,
 			GetChildren = getChildren,
 			GetItemKey = getItemKey,
@@ -104,13 +103,15 @@ function StoryTree:render()
 			OnExpansionChange = self.onExpansionChange,
 			Selection = props.Selection,
 			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
 			Expansion = props.Expansion,
-			Style = "BorderBox",
+			-- Override builtin styles
+			[React.Tag] = "",
 		}),
 	})
 end
 
-return RoactRodux.connect(function(state, props)
+return RoactRodux.connect(function(state)
 	return {
 		Stories = #state.Stories.searchFilter > 0 and state.Stories.searchStories or state.Stories.stories,
 		Selection = state.Stories.selectedStory and { [state.Stories.selectedStory] = true } or {},
@@ -124,9 +125,6 @@ end, function(dispatch)
 		end,
 		toggleStory = function(change)
 			dispatch(ToggleStory(change))
-		end,
-		getStories = function()
-			dispatch(GetStories())
 		end,
 	}
 end)(StoryTree)

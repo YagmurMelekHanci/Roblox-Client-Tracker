@@ -19,94 +19,98 @@ PROTO_4:
   RETURN R0 1
 
 PROTO_5:
-  LOADK R0 K0 ["vipServersIsEnabled"]
+  LOADK R0 K0 ["isRewardedOnDemandAdsAllowed"]
   RETURN R0 1
 
 PROTO_6:
-  LOADK R0 K0 ["Edit"]
+  LOADK R0 K0 ["vipServersIsEnabled"]
   RETURN R0 1
 
 PROTO_7:
-  LOADK R0 K0 ["VersionHistory"]
+  LOADK R0 K0 ["Edit"]
   RETURN R0 1
 
 PROTO_8:
-  LOADK R0 K0 ["OptInLocations"]
+  LOADK R0 K0 ["VersionHistory"]
   RETURN R0 1
 
 PROTO_9:
-  LOADK R0 K0 ["China"]
+  LOADK R0 K0 ["OptInLocations"]
   RETURN R0 1
 
 PROTO_10:
-  LOADK R0 K0 ["selected"]
+  LOADK R0 K0 ["China"]
   RETURN R0 1
 
 PROTO_11:
-  LOADK R0 K0 ["VoiceChatEnabled"]
+  LOADK R0 K0 ["selected"]
   RETURN R0 1
 
 PROTO_12:
-  LOADK R0 K0 ["AvatarChatAudioEnabled"]
+  LOADK R0 K0 ["VoiceChatEnabled"]
   RETURN R0 1
 
 PROTO_13:
-  LOADK R0 K0 ["AvatarChatVideoEnabled"]
+  LOADK R0 K0 ["AvatarChatAudioEnabled"]
   RETURN R0 1
 
 PROTO_14:
-  LOADK R0 K0 ["Approved"]
+  LOADK R0 K0 ["AvatarChatVideoEnabled"]
   RETURN R0 1
 
 PROTO_15:
-  LOADK R0 K0 ["InReview"]
+  LOADK R0 K0 ["Approved"]
   RETURN R0 1
 
 PROTO_16:
-  LOADK R0 K0 ["Rejected"]
+  LOADK R0 K0 ["InReview"]
   RETURN R0 1
 
 PROTO_17:
-  LOADK R0 K0 ["PlayerAcceptance"]
+  LOADK R0 K0 ["Rejected"]
   RETURN R0 1
 
 PROTO_18:
-  LOADK R0 K0 ["GameSettings"]
+  LOADK R0 K0 ["PlayerAcceptance"]
   RETURN R0 1
 
 PROTO_19:
-  LOADK R0 K0 ["plugin"]
+  LOADK R0 K0 ["GameSettings"]
   RETURN R0 1
 
 PROTO_20:
-  LOADK R0 K0 ["context"]
+  LOADK R0 K0 ["plugin"]
   RETURN R0 1
 
 PROTO_21:
-  LOADK R0 K0 ["LuobuStudioDevPublish"]
+  LOADK R0 K0 ["context"]
   RETURN R0 1
 
 PROTO_22:
-  LOADK R0 K0 ["TermsOfUseDialog"]
+  LOADK R0 K0 ["LuobuStudioDevPublish"]
   RETURN R0 1
 
 PROTO_23:
-  LOADK R0 K0 ["CheckboxToggle"]
+  LOADK R0 K0 ["TermsOfUseDialog"]
   RETURN R0 1
 
 PROTO_24:
-  LOADK R0 K0 ["buttonClicked"]
+  LOADK R0 K0 ["CheckboxToggle"]
   RETURN R0 1
 
 PROTO_25:
-  LOADK R0 K0 ["Footer"]
+  LOADK R0 K0 ["buttonClicked"]
   RETURN R0 1
 
 PROTO_26:
-  LOADK R0 K0 ["ScriptCollaborationEnabledOnServer"]
+  LOADK R0 K0 ["Footer"]
   RETURN R0 1
 
 PROTO_27:
+  LOADK R0 K0 ["ScriptCollaborationEnabledOnServer"]
+  RETURN R0 1
+
+PROTO_28:
   LOADK R0 K0 ["TeamCreateEnabled"]
   RETURN R0 1
 
@@ -124,49 +128,51 @@ MAIN:
   DUPCLOSURE R1 K8 [PROTO_4]
   SETTABLEKS R1 R0 K9 ["getIsForSaleKeyName"]
   DUPCLOSURE R1 K10 [PROTO_5]
-  SETTABLEKS R1 R0 K11 ["getVipServersIsEnabledKeyName"]
+  SETTABLEKS R1 R0 K11 ["getIsRewardedOnDemandAdsAllowedKeyName"]
   DUPCLOSURE R1 K12 [PROTO_6]
-  SETTABLEKS R1 R0 K13 ["getEditKeyName"]
+  SETTABLEKS R1 R0 K13 ["getVipServersIsEnabledKeyName"]
   DUPCLOSURE R1 K14 [PROTO_7]
-  SETTABLEKS R1 R0 K15 ["getVersionHistoryKeyName"]
+  SETTABLEKS R1 R0 K15 ["getEditKeyName"]
   DUPCLOSURE R1 K16 [PROTO_8]
-  SETTABLEKS R1 R0 K17 ["getOptInLocationsKeyName"]
+  SETTABLEKS R1 R0 K17 ["getVersionHistoryKeyName"]
   DUPCLOSURE R1 K18 [PROTO_9]
-  SETTABLEKS R1 R0 K19 ["getChinaKeyName"]
+  SETTABLEKS R1 R0 K19 ["getOptInLocationsKeyName"]
   DUPCLOSURE R1 K20 [PROTO_10]
-  SETTABLEKS R1 R0 K21 ["getSelectedKeyName"]
+  SETTABLEKS R1 R0 K21 ["getChinaKeyName"]
   DUPCLOSURE R1 K22 [PROTO_11]
-  SETTABLEKS R1 R0 K23 ["getVoiceChatEnabledKeyName"]
+  SETTABLEKS R1 R0 K23 ["getSelectedKeyName"]
   DUPCLOSURE R1 K24 [PROTO_12]
-  SETTABLEKS R1 R0 K25 ["getAvatarChatAudioEnabledKeyName"]
+  SETTABLEKS R1 R0 K25 ["getVoiceChatEnabledKeyName"]
   DUPCLOSURE R1 K26 [PROTO_13]
-  SETTABLEKS R1 R0 K27 ["getAvatarChatVideoEnabledKeyName"]
+  SETTABLEKS R1 R0 K27 ["getAvatarChatAudioEnabledKeyName"]
   DUPCLOSURE R1 K28 [PROTO_14]
-  SETTABLEKS R1 R0 K29 ["getApprovedKeyName"]
+  SETTABLEKS R1 R0 K29 ["getAvatarChatVideoEnabledKeyName"]
   DUPCLOSURE R1 K30 [PROTO_15]
-  SETTABLEKS R1 R0 K31 ["getInReviewKeyName"]
+  SETTABLEKS R1 R0 K31 ["getApprovedKeyName"]
   DUPCLOSURE R1 K32 [PROTO_16]
-  SETTABLEKS R1 R0 K33 ["getRejectedKeyName"]
+  SETTABLEKS R1 R0 K33 ["getInReviewKeyName"]
   DUPCLOSURE R1 K34 [PROTO_17]
-  SETTABLEKS R1 R0 K35 ["getPlayerAcceptanceKeyName"]
+  SETTABLEKS R1 R0 K35 ["getRejectedKeyName"]
   DUPCLOSURE R1 K36 [PROTO_18]
-  SETTABLEKS R1 R0 K37 ["getGameSettingsKeyName"]
+  SETTABLEKS R1 R0 K37 ["getPlayerAcceptanceKeyName"]
   DUPCLOSURE R1 K38 [PROTO_19]
-  SETTABLEKS R1 R0 K39 ["getPluginKeyName"]
+  SETTABLEKS R1 R0 K39 ["getGameSettingsKeyName"]
   DUPCLOSURE R1 K40 [PROTO_20]
-  SETTABLEKS R1 R0 K41 ["getContextKeyName"]
+  SETTABLEKS R1 R0 K41 ["getPluginKeyName"]
   DUPCLOSURE R1 K42 [PROTO_21]
-  SETTABLEKS R1 R0 K43 ["getLuobuStudioDevPublishKeyName"]
+  SETTABLEKS R1 R0 K43 ["getContextKeyName"]
   DUPCLOSURE R1 K44 [PROTO_22]
-  SETTABLEKS R1 R0 K45 ["getTermsOfUseDialogKeyName"]
+  SETTABLEKS R1 R0 K45 ["getLuobuStudioDevPublishKeyName"]
   DUPCLOSURE R1 K46 [PROTO_23]
-  SETTABLEKS R1 R0 K47 ["getCheckboxToggleKeyName"]
+  SETTABLEKS R1 R0 K47 ["getTermsOfUseDialogKeyName"]
   DUPCLOSURE R1 K48 [PROTO_24]
-  SETTABLEKS R1 R0 K49 ["getButtonClickedKeyName"]
+  SETTABLEKS R1 R0 K49 ["getCheckboxToggleKeyName"]
   DUPCLOSURE R1 K50 [PROTO_25]
-  SETTABLEKS R1 R0 K51 ["getFooterKeyName"]
+  SETTABLEKS R1 R0 K51 ["getButtonClickedKeyName"]
   DUPCLOSURE R1 K52 [PROTO_26]
-  SETTABLEKS R1 R0 K53 ["getScriptCollaborationEnabledOnServerKeyName"]
+  SETTABLEKS R1 R0 K53 ["getFooterKeyName"]
   DUPCLOSURE R1 K54 [PROTO_27]
-  SETTABLEKS R1 R0 K55 ["getTeamCreateEnabledKeyName"]
+  SETTABLEKS R1 R0 K55 ["getScriptCollaborationEnabledOnServerKeyName"]
+  DUPCLOSURE R1 K56 [PROTO_28]
+  SETTABLEKS R1 R0 K57 ["getTeamCreateEnabledKeyName"]
   RETURN R0 1

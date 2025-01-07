@@ -37,7 +37,7 @@ local MenuFrontButton = require(RobloxGui.Modules.Settings.Components.MenuFrontB
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
-local ScreenshotsPolicy  = require(CorePackages.Workspace.Packages.Screenshots).ScreenshotsPolicy
+local CapturesPolicy  = require(CorePackages.Workspace.Packages.CapturesInExperience).CapturesPolicy
 local InExperienceCapabilities = require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 local getCamMicPermissions = require(CoreGui.RobloxGui.Modules.Settings.getCamMicPermissions)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
@@ -108,6 +108,7 @@ local FFlagAppChatReappearIfClosedByTiltMenu = game:DefineFastFlag("AppChatReapp
 local FFlagInExperienceMenuResetButtonTextToRespawn = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuResetButtonTextToRespawn)
 local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 local EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons")
+local FFlagInExperienceMenuCanvasGroupsInvisible = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuCanvasGroupsInvisible)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -178,7 +179,7 @@ if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	GameInviteConstants = GameInvitePackage.GameInviteConstants
 end
 
-local ScreenshotsApp = require(RobloxGui.Modules.Screenshots.ScreenshotsApp)
+local CapturesApp = require(RobloxGui.Modules.Captures.CapturesApp)
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
@@ -1103,6 +1104,7 @@ local function CreateSettingsHub()
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			GroupTransparency = 0,
+			Visible = if FFlagInExperienceMenuCanvasGroupsInvisible then false else true,
 			Parent = this.ClippingShield
 		}
 
@@ -1933,6 +1935,7 @@ local function CreateSettingsHub()
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			GroupTransparency = 0,
+			Visible = if FFlagInExperienceMenuCanvasGroupsInvisible then false else true,
 			Parent = this.PageViewInnerFrame
 		}
 
@@ -1942,6 +1945,7 @@ local function CreateSettingsHub()
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			GroupTransparency = 0,
+			Visible = if FFlagInExperienceMenuCanvasGroupsInvisible then false else true,
 			Parent = this.PageViewInnerFrame
 		}
 
@@ -3246,6 +3250,9 @@ local function CreateSettingsHub()
 
 					this.Shield.Parent = this.CanvasGroup
 					this.CanvasGroup.GroupTransparency = 1
+					if FFlagInExperienceMenuCanvasGroupsInvisible then 
+						this.CanvasGroup.Visible = true
+					end
 					this.Shield.Position = UDim2.new(0, 0, 0, 0)
 
 					local tweenInfo = TweenInfo.new(0.25)
@@ -3263,6 +3270,10 @@ local function CreateSettingsHub()
 							end
 						else
 							this.Shield.Parent = this.ClippingShield
+						end
+
+						if FFlagInExperienceMenuCanvasGroupsInvisible then
+							this.CanvasGroup.Visible = false
 						end
 					end)
 
@@ -3418,6 +3429,9 @@ local function CreateSettingsHub()
 					end
 
 					this.Shield.Parent = this.CanvasGroup
+					if FFlagInExperienceMenuCanvasGroupsInvisible then
+						this.CanvasGroup.Visible = true
+					end
 
 					local tweenInfo = TweenInfo.new(0.25)
 					local tweenProps = {
@@ -3439,6 +3453,9 @@ local function CreateSettingsHub()
 
 							this.Shield.Visible = this.Visible
 							this.Shield.Parent = this.ClippingShield
+						end
+						if FFlagInExperienceMenuCanvasGroupsInvisible then
+							this.CanvasGroup.Visible = false
 						end
 					end)
 
@@ -3782,21 +3799,21 @@ local function CreateSettingsHub()
 		end
 	end
 
-	local policy = ScreenshotsPolicy.PolicyImplementation.read()
-	local eligibleForCapturesFeature = if policy then ScreenshotsPolicy.Mapper(policy).eligibleForCapturesFeature() else false
+	local policy = CapturesPolicy.PolicyImplementation.read()
+	local eligibleForCapturesFeature = if policy then CapturesPolicy.Mapper(policy).eligibleForCapturesFeature() else false
 
 	if eligibleForCapturesFeature then
-		local ShotsPageWrapper = require(RobloxGui.Modules.Settings.Pages.ShotsPageWrapper)
+		local CapturesPageWrapper = require(RobloxGui.Modules.Settings.Pages.CapturesPageWrapper)
 
 		local function closeSettingsMenu()
 			this:SetVisibility(false, true)
 		end
 
-		this.ScreenshotsApp = ScreenshotsApp
-		this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, ChromeEnabled)
+		this.CapturesApp = CapturesApp
+		this.CapturesApp.mountMenuPage(CapturesPageWrapper.Page, closeSettingsMenu, ChromeEnabled)
 
-		this.ShotsPage = ShotsPageWrapper
-		this.ShotsPage:ConnectHubToApp(this, this.PageViewClipper, this.ScreenshotsApp)
+		this.CapturesPage = CapturesPageWrapper
+		this.CapturesPage:ConnectHubToApp(this, this.PageViewClipper, this.CapturesApp)
 	end
 
 	-- page registration
@@ -3816,8 +3833,8 @@ local function CreateSettingsHub()
 
 	this:AddPage(this.GameSettingsPage)
 
-	if this.ShotsPage then
-		this:AddPage(this.ShotsPage)
+	if this.CapturesPage then
+		this:AddPage(this.CapturesPage)
 	end
 
 	if this.ReportAbusePage then
@@ -3831,7 +3848,7 @@ local function CreateSettingsHub()
 	end
 
 	this:AddPage(this.HelpPage)
-	if this.RecordPage and not this.ShotsPage then
+	if this.RecordPage and not this.CapturesPage then
 		this:AddPage(this.RecordPage)
 	end
 	if this.ExitModalPage then

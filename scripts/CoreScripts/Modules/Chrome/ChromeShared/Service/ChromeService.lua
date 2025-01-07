@@ -29,8 +29,6 @@ if not GetFFlagRefactorChromeAssert() then
 end
 
 local GetFFlagEnableChromeEscapeFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeEscapeFix
--- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
-local GetFFlagEnableChromeDefaultOpen = require(Root.Parent.Flags.GetFFlagEnableChromeDefaultOpen)
 local GetFFlagEnableChromePinIntegrations =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinIntegrations
 local GetFFlagEnableSaveUserPins = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSaveUserPins
@@ -304,9 +302,8 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationStatusChanged = Signal.new()
 	self._onIntegrationHovered = Signal.new()
 
-	-- If unibar is default opened, init as MouseButton1 to prevent focus navigation at startup
+	-- Init last input as MouseButton1 to prevent focus navigation at startup
 	self._lastInputToOpenMenu = if GetFFlagEnableChromeEscapeFix()
-			and GetFFlagEnableChromeDefaultOpen()
 			and status:get() == ChromeService.MenuStatus.Open
 		then Enum.UserInputType.MouseButton1
 		else Enum.UserInputType.None

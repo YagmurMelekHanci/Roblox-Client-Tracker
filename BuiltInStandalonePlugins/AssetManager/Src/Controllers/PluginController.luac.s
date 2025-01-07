@@ -1,4 +1,15 @@
 PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_gameInfo"]
+  SETTABLEKS R0 R1 K1 ["Id"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["OnGameInfoFetched"]
+  GETIMPORT R3 K5 [table.clone]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["_gameInfo"]
+  CALL R3 1 -1
+  NAMECALL R1 R1 K6 ["Fire"]
+  CALL R1 -1 0
   RETURN R0 0
 
 PROTO_1:
@@ -42,128 +53,133 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  DUPTABLE R4 K16 [{"_isMock", "_networking", "_plugin", "_pressedKeys", "_user", "_universe", "_bulkImportService", "_pluginWidth", "_showSidebar", "OnUsernameFetched", "OnGameNameFetched", "OnSelectionChanged", "OnInputChanged", "OnSidebarToggled", "OnPluginWidthChanged", "OnIsCompactChanged"}]
+  DUPTABLE R4 K15 [{"_isMock", "_networking", "_plugin", "_pressedKeys", "_user", "_gameInfo", "_pluginWidth", "_showSidebar", "OnUsernameFetched", "OnGameInfoFetched", "OnSelectionChanged", "OnInputChanged", "OnSidebarToggled", "OnPluginWidthChanged", "OnIsCompactChanged"}]
   SETTABLEKS R3 R4 K0 ["_isMock"]
   SETTABLEKS R1 R4 K1 ["_networking"]
   SETTABLEKS R0 R4 K2 ["_plugin"]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R4 K3 ["_pressedKeys"]
-  DUPTABLE R5 K20 [{"Id", "Name", "Scope"}]
+  DUPTABLE R5 K19 [{"Id", "Name", "Scope"}]
   GETUPVAL R6 0
-  NAMECALL R6 R6 K21 ["GetUserId"]
+  NAMECALL R6 R6 K20 ["GetUserId"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K17 ["Id"]
-  LOADK R8 K22 ["Plugin"]
-  LOADK R9 K23 ["PlaceholderUsername"]
-  NAMECALL R6 R2 K24 ["getText"]
+  SETTABLEKS R6 R5 K16 ["Id"]
+  LOADK R8 K21 ["Plugin"]
+  LOADK R9 K22 ["PlaceholderUsername"]
+  NAMECALL R6 R2 K23 ["getText"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K18 ["Name"]
+  SETTABLEKS R6 R5 K17 ["Name"]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K19 ["Scope"]
-  GETTABLEKS R6 R7 K25 ["User"]
-  SETTABLEKS R6 R5 K19 ["Scope"]
+  GETTABLEKS R7 R8 K18 ["Scope"]
+  GETTABLEKS R6 R7 K24 ["User"]
+  SETTABLEKS R6 R5 K18 ["Scope"]
   SETTABLEKS R5 R4 K4 ["_user"]
-  DUPTABLE R5 K20 [{"Id", "Name", "Scope"}]
-  GETIMPORT R7 K27 [game]
-  GETTABLEKS R6 R7 K28 ["GameId"]
-  SETTABLEKS R6 R5 K17 ["Id"]
-  LOADK R8 K22 ["Plugin"]
-  LOADK R9 K29 ["PlaceholderGameName"]
-  NAMECALL R6 R2 K24 ["getText"]
+  DUPTABLE R5 K19 [{"Id", "Name", "Scope"}]
+  JUMPIFNOT R3 [+2]
+  LOADN R6 0
+  JUMP [+4]
+  LOADK R8 K25 ["GameId"]
+  NAMECALL R6 R0 K26 ["GetItem"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K16 ["Id"]
+  LOADK R8 K21 ["Plugin"]
+  LOADK R9 K27 ["PlaceholderGameName"]
+  NAMECALL R6 R2 K23 ["getText"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K18 ["Name"]
+  SETTABLEKS R6 R5 K17 ["Name"]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K19 ["Scope"]
-  GETTABLEKS R6 R7 K30 ["Universe"]
-  SETTABLEKS R6 R5 K19 ["Scope"]
-  SETTABLEKS R5 R4 K5 ["_universe"]
-  JUMPIFNOT R3 [+5]
-  DUPTABLE R5 K32 [{"LaunchBulkImport"}]
-  DUPCLOSURE R6 K33 [PROTO_0]
-  SETTABLEKS R6 R5 K31 ["LaunchBulkImport"]
-  JUMP [+6]
-  GETIMPORT R5 K27 [game]
-  LOADK R7 K34 ["BulkImportService"]
-  NAMECALL R5 R5 K35 ["GetService"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K6 ["_bulkImportService"]
+  GETTABLEKS R7 R8 K18 ["Scope"]
+  GETTABLEKS R6 R7 K28 ["Universe"]
+  SETTABLEKS R6 R5 K18 ["Scope"]
+  SETTABLEKS R5 R4 K5 ["_gameInfo"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K7 ["_pluginWidth"]
+  SETTABLEKS R5 R4 K6 ["_pluginWidth"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K8 ["_showSidebar"]
+  SETTABLEKS R5 R4 K7 ["_showSidebar"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K36 ["new"]
+  GETTABLEKS R5 R6 K29 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K9 ["OnUsernameFetched"]
+  SETTABLEKS R5 R4 K8 ["OnUsernameFetched"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K36 ["new"]
+  GETTABLEKS R5 R6 K29 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K10 ["OnGameNameFetched"]
+  SETTABLEKS R5 R4 K9 ["OnGameInfoFetched"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K36 ["new"]
+  GETTABLEKS R5 R6 K29 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K11 ["OnSelectionChanged"]
+  SETTABLEKS R5 R4 K10 ["OnSelectionChanged"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K36 ["new"]
+  GETTABLEKS R5 R6 K29 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K12 ["OnInputChanged"]
+  SETTABLEKS R5 R4 K11 ["OnInputChanged"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K36 ["new"]
+  GETTABLEKS R5 R6 K29 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K13 ["OnSidebarToggled"]
+  SETTABLEKS R5 R4 K12 ["OnSidebarToggled"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K36 ["new"]
+  GETTABLEKS R5 R6 K29 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K14 ["OnPluginWidthChanged"]
+  SETTABLEKS R5 R4 K13 ["OnPluginWidthChanged"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K36 ["new"]
+  GETTABLEKS R5 R6 K29 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K15 ["OnIsCompactChanged"]
+  SETTABLEKS R5 R4 K14 ["OnIsCompactChanged"]
+  GETUPVAL R7 3
+  FASTCALL2 SETMETATABLE R4 R7 [+4]
+  MOVE R6 R4
+  GETIMPORT R5 K31 [setmetatable]
+  CALL R5 2 0
+  JUMPIF R3 [+8]
+  GETTABLEKS R5 R4 K2 ["_plugin"]
+  LOADK R7 K25 ["GameId"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R4
+  NAMECALL R5 R5 K32 ["OnSetItem"]
+  CALL R5 3 0
   GETTABLEKS R5 R4 K1 ["_networking"]
   NEWCLOSURE R7 P1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CAPTURE VAL R2
   CAPTURE VAL R4
-  NAMECALL R5 R5 K37 ["fetchUsername"]
+  NAMECALL R5 R5 K33 ["fetchUsername"]
   CALL R5 2 0
   GETTABLEKS R5 R4 K1 ["_networking"]
-  NAMECALL R5 R5 K38 ["fetchGameName"]
+  NAMECALL R5 R5 K34 ["fetchGameName"]
   CALL R5 1 2
-  JUMPIFNOT R5 [+11]
-  GETTABLEKS R7 R4 K5 ["_universe"]
-  SETTABLEKS R6 R7 K18 ["Name"]
-  GETTABLEKS R7 R4 K10 ["OnGameNameFetched"]
-  MOVE R9 R6
-  NAMECALL R7 R7 K39 ["Fire"]
-  CALL R7 2 0
-  JUMP [+32]
-  GETUPVAL R7 3
+  JUMPIFNOT R5 [+15]
+  GETTABLEKS R7 R4 K5 ["_gameInfo"]
+  SETTABLEKS R6 R7 K17 ["Name"]
+  GETTABLEKS R7 R4 K9 ["OnGameInfoFetched"]
+  GETIMPORT R9 K37 [table.clone]
+  GETTABLEKS R10 R4 K5 ["_gameInfo"]
+  CALL R9 1 -1
+  NAMECALL R7 R7 K38 ["Fire"]
+  CALL R7 -1 0
+  RETURN R4 1
+  GETUPVAL R7 4
   CALL R7 0 1
   JUMPIFNOT R7 [+8]
-  GETIMPORT R7 K41 [warn]
-  LOADK R10 K42 ["PluginErrors"]
-  LOADK R11 K43 ["ErrorFetchGameName"]
-  NAMECALL R8 R2 K24 ["getText"]
+  GETIMPORT R7 K40 [warn]
+  LOADK R10 K41 ["PluginErrors"]
+  LOADK R11 K42 ["ErrorFetchGameName"]
+  NAMECALL R8 R2 K23 ["getText"]
   CALL R8 3 -1
   CALL R7 -1 0
-  LOADK R9 K22 ["Plugin"]
-  LOADK R10 K29 ["PlaceholderGameName"]
-  NAMECALL R7 R2 K24 ["getText"]
+  LOADK R9 K21 ["Plugin"]
+  LOADK R10 K27 ["PlaceholderGameName"]
+  NAMECALL R7 R2 K23 ["getText"]
   CALL R7 3 1
-  GETTABLEKS R9 R4 K5 ["_universe"]
-  GETTABLEKS R8 R9 K18 ["Name"]
-  JUMPIFEQ R8 R7 [+11]
-  GETTABLEKS R8 R4 K5 ["_universe"]
-  SETTABLEKS R7 R8 K18 ["Name"]
-  GETTABLEKS R8 R4 K10 ["OnGameNameFetched"]
-  MOVE R10 R7
-  NAMECALL R8 R8 K39 ["Fire"]
-  CALL R8 2 0
-  GETUPVAL R9 4
-  FASTCALL2 SETMETATABLE R4 R9 [+4]
-  MOVE R8 R4
-  GETIMPORT R7 K45 [setmetatable]
-  CALL R7 2 0
+  GETTABLEKS R9 R4 K5 ["_gameInfo"]
+  GETTABLEKS R8 R9 K17 ["Name"]
+  JUMPIFEQ R8 R7 [+14]
+  GETTABLEKS R8 R4 K5 ["_gameInfo"]
+  SETTABLEKS R7 R8 K17 ["Name"]
+  GETTABLEKS R8 R4 K9 ["OnGameInfoFetched"]
+  GETIMPORT R10 K37 [table.clone]
+  MOVE R11 R7
+  CALL R10 1 -1
+  NAMECALL R8 R8 K38 ["Fire"]
+  CALL R8 -1 0
   RETURN R4 1
 
 PROTO_3:
@@ -226,13 +242,16 @@ PROTO_10:
   RETURN R1 1
 
 PROTO_11:
-  GETTABLEKS R1 R0 K0 ["_universe"]
+  GETTABLEKS R1 R0 K0 ["_gameInfo"]
   RETURN R1 1
 
 PROTO_12:
-  GETTABLEKS R1 R0 K0 ["_bulkImportService"]
-  LOADN R3 0
-  NAMECALL R1 R1 K1 ["LaunchBulkImport"]
+  GETTABLEKS R1 R0 K0 ["_isMock"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETIMPORT R1 K2 [plugin]
+  LOADK R3 K3 ["OnOpenBulkImport"]
+  NAMECALL R1 R1 K4 ["Invoke"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -338,8 +357,8 @@ MAIN:
   CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R4
-  CAPTURE VAL R7
   CAPTURE VAL R8
+  CAPTURE VAL R7
   SETTABLEKS R9 R8 K23 ["new"]
   DUPCLOSURE R9 K24 [PROTO_3]
   CAPTURE VAL R8
@@ -359,7 +378,7 @@ MAIN:
   DUPCLOSURE R9 K38 [PROTO_10]
   SETTABLEKS R9 R8 K39 ["getUser"]
   DUPCLOSURE R9 K40 [PROTO_11]
-  SETTABLEKS R9 R8 K41 ["getUniverse"]
+  SETTABLEKS R9 R8 K41 ["getGameInfo"]
   DUPCLOSURE R9 K42 [PROTO_12]
   SETTABLEKS R9 R8 K43 ["launchBulkImport"]
   DUPCLOSURE R9 K44 [PROTO_13]

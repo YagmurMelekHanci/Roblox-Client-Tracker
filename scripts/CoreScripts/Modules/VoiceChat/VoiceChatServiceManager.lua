@@ -121,6 +121,7 @@ local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermiss
 local BAN_REASON = VoiceConstants.BAN_REASON
 local SeamlessVoiceStatus = require(RobloxGui.Modules.Settings.Enum.SeamlessVoiceStatus)
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
+local GetFFlagVoiceChatClientRewriteMasterLua = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteMasterLua
 
 local Analytics = VoiceChatCore.Analytics
 
@@ -1831,16 +1832,27 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 	log:debug("Rejoining previous channel {} with mute status {}", groupId, muted)
 
 	pcall(function()
-		if groupId and groupId ~= "" then
+		if GetFFlagVoiceChatClientRewriteMasterLua() then
 			self.service:Leave()
-			local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted, true)
-			if not joinInProgress then
-				self:InitialJoinFailedPrompt()
-			elseif GetFFlagEnableConnectDisconnectAnalytics() then
+			self.coreVoiceManager:RejoinVoice()
+			if GetFFlagEnableConnectDisconnectAnalytics() then
 				self.Analytics:reportConnectDisconnectEvents(
 					"voiceConnectEvent",
 					self:GetConnectDisconnectAnalyticsData()
 				)
+			end
+		else
+			if groupId and groupId ~= "" then
+				self.service:Leave()
+				local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted, true)
+				if not joinInProgress then
+					self:InitialJoinFailedPrompt()
+				elseif GetFFlagEnableConnectDisconnectAnalytics() then
+					self.Analytics:reportConnectDisconnectEvents(
+						"voiceConnectEvent",
+						self:GetConnectDisconnectAnalyticsData()
+					)
+				end
 			end
 		end
 	end)

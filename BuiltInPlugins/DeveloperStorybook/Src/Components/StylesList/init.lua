@@ -13,14 +13,12 @@
 local Main = script.Parent.Parent.Parent
 local React = require(Main.Packages.React)
 
-local Framework = require(Main.Packages.Framework)
-
 local PanelEntry = require(Main.Src.Components.PanelEntry)
 local FrameworkStyle = require(Main.Packages.Framework).Style
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
-local UI = Framework.UI
-local TextLabel = UI.TextLabel
+local Foundation = require(Main.Packages.Foundation)
+local Text = Foundation.Text
 
 local StylesList = React.PureComponent:extend("StylesList")
 
@@ -53,9 +51,9 @@ function StylesList:render()
 		Description = headerString,
 		LayoutOrder = layoutOrder,
 	}, {
-		Styles = hasStyles and React.createElement(TextLabel, {
+		Styles = hasStyles and React.createElement(Text, {
 			Text = stylesString,
-			[React.Tag] = "Title Wrap",
+			tag = "text-title-medium size-full-0 text-wrap auto-y text-align-x-left",
 		}),
 	})
 end

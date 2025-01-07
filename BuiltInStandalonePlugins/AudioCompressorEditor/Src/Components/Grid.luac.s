@@ -1,0 +1,222 @@
+PROTO_0:
+  NEWTABLE R0 0 0
+  LOADN R3 176
+  LOADN R1 30
+  LOADN R2 10
+  FORNPREP R1
+  MODK R5 R3 K0 [30]
+  JUMPIFEQKN R5 K1 [0] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADK R6 K2 ["GridLine_V_"]
+  MOVE R7 R3
+  CONCAT R5 R6 R7
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K10 [{"Position", "PlotAbsoluteSize", "Orientation", "Thickness", "Alpha", "Tag"}]
+  SETTABLEKS R3 R8 K4 ["Position"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K5 ["PlotAbsoluteSize"]
+  SETTABLEKS R9 R8 K5 ["PlotAbsoluteSize"]
+  LOADK R9 K11 ["Vertical"]
+  SETTABLEKS R9 R8 K6 ["Orientation"]
+  JUMPIFNOT R4 [+2]
+  LOADN R9 2
+  JUMP [+1]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K7 ["Thickness"]
+  JUMPIFNOT R4 [+2]
+  LOADK R9 K12 [0.75]
+  JUMP [+1]
+  LOADK R9 K13 [0.5]
+  SETTABLEKS R9 R8 K8 ["Alpha"]
+  LOADK R9 K14 ["Grid"]
+  SETTABLEKS R9 R8 K9 ["Tag"]
+  CALL R6 2 1
+  SETTABLE R6 R0 R5
+  JUMPIFNOT R4 [+45]
+  LOADK R6 K15 ["GridLabel_V_"]
+  MOVE R7 R3
+  CONCAT R5 R6 R7
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K19 [{"Position", "AnchorPoint", "Offset", "Label", "PlotAbsoluteSize", "Tag"}]
+  GETIMPORT R9 K22 [Vector2.new]
+  MOVE R10 R3
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K23 ["getYMin"]
+  CALL R11 0 -1
+  CALL R9 -1 1
+  SETTABLEKS R9 R8 K4 ["Position"]
+  GETIMPORT R9 K22 [Vector2.new]
+  LOADK R10 K13 [0.5]
+  LOADN R11 0
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K16 ["AnchorPoint"]
+  LOADN R9 5
+  SETTABLEKS R9 R8 K17 ["Offset"]
+  GETIMPORT R9 K26 [string.format]
+  LOADK R10 K27 ["%.0f"]
+  MOVE R11 R3
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K18 ["Label"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K5 ["PlotAbsoluteSize"]
+  SETTABLEKS R9 R8 K5 ["PlotAbsoluteSize"]
+  LOADK R9 K14 ["Grid"]
+  SETTABLEKS R9 R8 K9 ["Tag"]
+  CALL R6 2 1
+  SETTABLE R6 R0 R5
+  FORNLOOP R1
+  LOADN R3 176
+  LOADN R1 30
+  LOADN R2 10
+  FORNPREP R1
+  MODK R5 R3 K0 [30]
+  JUMPIFEQKN R5 K1 [0] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADK R6 K28 ["GridLine_H_"]
+  MOVE R7 R3
+  CONCAT R5 R6 R7
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K10 [{"Position", "PlotAbsoluteSize", "Orientation", "Thickness", "Alpha", "Tag"}]
+  SETTABLEKS R3 R8 K4 ["Position"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K5 ["PlotAbsoluteSize"]
+  SETTABLEKS R9 R8 K5 ["PlotAbsoluteSize"]
+  LOADK R9 K29 ["Horizontal"]
+  SETTABLEKS R9 R8 K6 ["Orientation"]
+  JUMPIFNOT R4 [+2]
+  LOADN R9 2
+  JUMP [+1]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K7 ["Thickness"]
+  JUMPIFNOT R4 [+2]
+  LOADK R9 K12 [0.75]
+  JUMP [+1]
+  LOADK R9 K13 [0.5]
+  SETTABLEKS R9 R8 K8 ["Alpha"]
+  LOADK R9 K14 ["Grid"]
+  SETTABLEKS R9 R8 K9 ["Tag"]
+  CALL R6 2 1
+  SETTABLE R6 R0 R5
+  JUMPIFNOT R4 [+45]
+  LOADK R6 K30 ["GridLabel_H_"]
+  MOVE R7 R3
+  CONCAT R5 R6 R7
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K19 [{"Position", "AnchorPoint", "Offset", "Label", "PlotAbsoluteSize", "Tag"}]
+  GETIMPORT R9 K22 [Vector2.new]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K31 ["getXMin"]
+  CALL R10 0 1
+  MOVE R11 R3
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K4 ["Position"]
+  GETIMPORT R9 K22 [Vector2.new]
+  LOADN R10 1
+  LOADK R11 K13 [0.5]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K16 ["AnchorPoint"]
+  LOADN R9 5
+  SETTABLEKS R9 R8 K17 ["Offset"]
+  GETIMPORT R9 K26 [string.format]
+  LOADK R10 K27 ["%.0f"]
+  MOVE R11 R3
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K18 ["Label"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K5 ["PlotAbsoluteSize"]
+  SETTABLEKS R9 R8 K5 ["PlotAbsoluteSize"]
+  LOADK R9 K14 ["Grid"]
+  SETTABLEKS R9 R8 K9 ["Tag"]
+  CALL R6 2 1
+  SETTABLE R6 R0 R5
+  FORNLOOP R1
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  NEWTABLE R3 0 1
+  GETTABLEKS R4 R0 K0 ["PlotAbsoluteSize"]
+  SETLIST R3 R4 1 [1]
+  CALL R1 2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 5
+  DUPTABLE R4 K7 [{"Active", "ZIndex", "Position", "Size", "BackgroundTransparency"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["Active"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K3 ["ZIndex"]
+  GETIMPORT R5 K10 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 0
+  LOADN R8 0
+  LOADN R9 0
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K4 ["Position"]
+  GETIMPORT R5 K10 [UDim2.new]
+  LOADN R6 1
+  LOADN R7 0
+  LOADN R8 1
+  LOADN R9 0
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K5 ["Size"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K6 ["BackgroundTransparency"]
+  MOVE R5 R1
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K1 [script]
+  LOADK R3 K3 ["AudioCompressorEditor"]
+  NAMECALL R1 R1 K4 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R4 R1 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["useMemo"]
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R1 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K11 ["UI"]
+  GETTABLEKS R5 R6 K12 ["Pane"]
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R0 K13 ["GridLabel"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R8 R0 K14 ["GridLine"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R11 R1 K15 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Util"]
+  GETTABLEKS R9 R10 K17 ["PlotUtil"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K18 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  RETURN R9 1
