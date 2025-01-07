@@ -83,17 +83,8 @@ return {
 	-- Defer loading component’s code until it is rendered for the first time
 	enableCreateLazyComponent = false,
 
-	-- Some components expose calculate functions as member function, move it out as a separate function
-	useSeparatedCalcFunction = false,
-
 	-- Add the option to pass in callbacks for AccordionView that run on expansion and collapse
 	addCallbacksToAccordionView = false,
-
-	-- Define size and reposition ModalTitle s.t text does not overflow container bounds
-	resizeModalTitle = false,
-
-	-- Use textSizeOffset to better support large text in TileContentPanel
-	useTextSizeOffsetTileContentPanel = false,
 
 	-- Add the option to pass in a visibility property for Experience Details Page components
 	addEdpComponentVisibility = false,
@@ -115,9 +106,6 @@ return {
 
 	-- Update FullPageModal sizing on mount
 	didMountUpdateFullPageModal = false,
-
-	-- Removes math error absoluteSize setting statement
-	fixLayerCollectorProviderAbsoluteSize = false,
 
 	-- Enable useStyleMetadata hook
 	enableUseStyleMetadata = false,

@@ -9,14 +9,17 @@ return function(UrlBuilder)
 		trades = UrlBuilder.fromString("www:trades"),
 		profile = UrlBuilder.fromString("www:users/profile"),
 		friends = UrlBuilder.fromString("www:users/friends"),
-		groups = UrlBuilder.fromString("www:my/groups"),
+		groups = UrlBuilder.fromString("www:my/communities"),
 		inventory = UrlBuilder.fromString("www:users/inventory"),
 		messages = UrlBuilder.fromString("www:my/messages"),
 		feed = UrlBuilder.fromString("www:feeds/inapp"),
 		develop = UrlBuilder.fromString("www:develop"),
 		creatorHub = UrlBuilder.fromString("create:"),
 		blog = UrlBuilder.fromString("blog:"),
-		giftCards = UrlBuilder.fromString("www:giftcards"),
+		giftCards = function(source)
+			local sourceCode = source or ""
+			return UrlBuilder.fromString("www:giftcards?ref={source}")({ source = sourceCode })
+		end,
 		amazonStore = UrlBuilder.fromString("https://www.amazon.com/roblox"),
 		help = UrlBuilder.fromString(isQQ() and "corp:faq" or "www:help"),
 		appealsPortal = {

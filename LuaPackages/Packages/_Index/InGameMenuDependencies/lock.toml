@@ -10,7 +10,7 @@ dependencies = [
     "Promise <patched> Promise 3.5.0 registry",
     "Roact RoactCompat 17.1.6 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
-    "UIBlox UIBlox 0.2.44 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
+    "UIBlox UIBlox 0.2.48 registry",
     "t t 1.2.6 registry",
 ]

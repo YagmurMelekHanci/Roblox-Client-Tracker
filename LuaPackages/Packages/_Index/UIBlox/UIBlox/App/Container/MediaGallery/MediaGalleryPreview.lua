@@ -24,8 +24,6 @@ local getShowItems = require(MediaGallery.getShowItems)
 local calcMediaGallerySizesFromWidth = require(MediaGallery.calcMediaGallerySizesFromWidth)
 local calcMediaGallerySizesFromHeight = require(MediaGallery.calcMediaGallerySizesFromHeight)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local ICON_CYCLE_LEFT = "icons/actions/cycleLeft"
 local ICON_CYCLE_RIGHT = "icons/actions/cycleRight"
 
@@ -33,7 +31,6 @@ local DEFAULT_THUMBNAILS_COUNT = 5
 local PADDING_MIDDLE = 24
 local PADDING_ITEMS = 12
 local CORNER_RADIUS = 8
-local IMAGE_RATIO = 16 / 9 -- width / height
 local PAGINATION_ARROW_WIDTH = getIconSize(IconSize.Medium)
 
 local METER_BAR_THICKNESS = 2
@@ -536,61 +533,14 @@ function MediaGalleryPreview:didUpdate(_, prevState)
 	end
 end
 
--- remove with UIBloxConfig.useSeparatedCalcFunction
-function MediaGalleryPreview:calcSizesFromWidth(containerWidth, numberOfThumbnails)
-	if UIBloxConfig.useSeparatedCalcFunction then
-		assert(false, "Deprecated usage, use `UIBlox.App.Container.calcMediaGallerySizesFromWidth` instead")
-		return
-	end
-
-	local previewWidth = containerWidth - PAGINATION_ARROW_WIDTH * 2
-	local previewHeight = math.floor(previewWidth / IMAGE_RATIO)
-	local thumbnailWidth = math.floor(
-		(containerWidth - PADDING_ITEMS * (numberOfThumbnails - 1) - PAGINATION_ARROW_WIDTH * 2) / numberOfThumbnails
-	)
-	local paginationHeight = math.floor(thumbnailWidth / IMAGE_RATIO)
-	local contentHeight = previewHeight + paginationHeight + PADDING_MIDDLE
-
-	return {
-		contentSize = UDim2.fromOffset(containerWidth, contentHeight),
-		previewSize = UDim2.fromOffset(previewWidth, previewHeight),
-		paginationSize = UDim2.fromOffset(containerWidth, paginationHeight),
-		thumbnailSize = UDim2.fromOffset(thumbnailWidth, paginationHeight),
-	}
-end
-
--- remove with UIBloxConfig.useSeparatedCalcFunction
-function MediaGalleryPreview:calcSizesFromHeight(containerHeight, numberOfThumbnails)
-	-- reverse calculation of calcSizesFromWidth()
-	if UIBloxConfig.useSeparatedCalcFunction then
-		assert(false, "Deprecated usage, use `calcMediaGallerySizesFromHeight()` instead")
-		return
-	end
-
-	local contentWidth = math.floor(
-		(
-			math.floor((containerHeight - PADDING_MIDDLE) * IMAGE_RATIO * numberOfThumbnails)
-			+ PADDING_ITEMS * (numberOfThumbnails - 1)
-			+ PAGINATION_ARROW_WIDTH * 2
-			+ PAGINATION_ARROW_WIDTH * 2 * numberOfThumbnails
-		) / (numberOfThumbnails + 1)
-	)
-
-	return self:calcSizesFromWidth(contentWidth, numberOfThumbnails)
-end
-
 function MediaGalleryPreview:updateSizes(container)
 	local containerWidth = container.AbsoluteSize.X
 	local containerHeight = container.AbsoluteSize.Y
 	local numberOfThumbnails = self.props.numberOfThumbnails
 
-	local sizes = if UIBloxConfig.useSeparatedCalcFunction
-		then calcMediaGallerySizesFromWidth(containerWidth, numberOfThumbnails)
-		else self:calcSizesFromWidth(containerWidth, numberOfThumbnails)
+	local sizes = calcMediaGallerySizesFromWidth(containerWidth, numberOfThumbnails)
 	if sizes.contentSize.Y.Offset > containerHeight then
-		sizes = if UIBloxConfig.useSeparatedCalcFunction
-			then calcMediaGallerySizesFromHeight(containerHeight, numberOfThumbnails)
-			else self:calcSizesFromHeight(containerHeight, numberOfThumbnails)
+		sizes = calcMediaGallerySizesFromHeight(containerHeight, numberOfThumbnails)
 	end
 
 	self.updateContentSize(sizes.contentSize)
