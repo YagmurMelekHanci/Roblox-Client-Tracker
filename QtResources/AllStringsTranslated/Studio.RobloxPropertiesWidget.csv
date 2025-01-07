@@ -158,5 +158,5 @@ Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausricht
 Studio.RobloxPropertiesWidget.Category.PseudoInstances,,,PseudoInstances,PseudoInstances,,Pseudo-Instanzen,PseudoInstances,Pseudo-Instances,PseudoInstances,Pseudoistanze,擬似インスタンス,모의 인스턴스,Pseudoinstancje,Pseudoinstâncias,,PseudoInstances,Sahte Örnekler,Bản giả,,,虛擬個體
 Studio.RobloxPropertiesWidget.Category.StateEditing,,,State Editing,State Editing,,Statusbearbeitung,Edición de estado,Modification de l'état,Pengeditan Keadaan,Modifica dello stato,状況編集,상태 편집,Edytowanie stanu,Edição do estado,,การแก้ไขสถานะ,Durum Düzenleme,Chỉnh Sửa Trạng Thái,,,狀態編輯
 Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,,Hex:,Hex:,,Hex:,Hexadecimal:,Hex :,Hex:,Hex:,Hex値:,육각형:,Hex:,Hexadecimal:,,Hex:,Hex:,Hex:,,,Hex：
-Studio.RobloxPropertiesWidget.Category.Listening,,,Listening,Listening,,Hören,Escucha,Écoute,Mendengar,Ascolto,,듣기,Nasłuchiwanie,Escutando,,การฟัง,Dinleme,Đang nghe,,,聆聽
-Studio.RobloxPropertiesWidget.Category.Simulation,,,Simulation,Simulation,,Simulation,Simulación,Simulation,Simulasi,Simulazione,,시뮬레이션,Symulacja,Simulação,,การจำลอง,Simülasyon,Mô phỏng,,,模擬
+Studio.RobloxPropertiesWidget.Category.Listening,,,Listening,Listening,,Hören,Escucha,Écoute,Mendengar,Ascolto,聴く,듣기,Nasłuchiwanie,Escutando,,การฟัง,Dinleme,Đang nghe,,,聆聽
+Studio.RobloxPropertiesWidget.Category.Simulation,,,Simulation,Simulation,,Simulation,Simulación,Simulation,Simulasi,Simulazione,シミュレーション,시뮬레이션,Symulacja,Simulação,,การจำลอง,Simülasyon,Mô phỏng,,,模擬

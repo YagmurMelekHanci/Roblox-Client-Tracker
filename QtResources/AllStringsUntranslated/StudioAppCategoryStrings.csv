@@ -1,10 +1,9 @@
 Key,Context,Source,en-us
-Studio.App.Category.Test,,Test,Test
-Studio.App.Category.AutoSave,,Auto-Save,Auto-Save
 Studio.App.Category.Advanced,,Advanced,Advanced
 Studio.App.Category.Appearance,,Appearance,Appearance
 Studio.App.Category.Audio,,Audio,Audio
 Studio.App.Category.AutoRecovery,,Auto-Recovery,Auto-Recovery
+Studio.App.Category.AutoSave,,Auto-Save,Auto-Save
 Studio.App.Category.Benchmarking,,Benchmarking,Benchmarking
 Studio.App.Category.Browsing,,Browsing,Browsing
 Studio.App.Category.Cache,,Cache,Cache
@@ -12,6 +11,7 @@ Studio.App.Category.Camera,,Camera,Camera
 Studio.App.Category.Configuration,,Configuration,Configuration
 Studio.App.Category.Data,,Data,Data
 Studio.App.Category.Debug,,Debug,Debug
+Studio.App.Category.DeviceDeployment,,Device Deployment,Device Deployment
 Studio.App.Category.Diagnostics,,Diagnostics,Diagnostics
 Studio.App.Category.Directories,,Directories,Directories
 Studio.App.Category.Display,,Display,Display
@@ -35,6 +35,7 @@ Studio.App.Category.ScriptEditor,,Script Editor,Script Editor
 Studio.App.Category.ScriptEditorColors,,Script Editor Colors,Script Editor Colors
 Studio.App.Category.Settings,,Settings,Settings
 Studio.App.Category.Sound,,Sound,Sound
+Studio.App.Category.Test,,Test,Test
 Studio.App.Category.Tools,,Tools,Tools
 Studio.App.Category.Undo,,Undo,Undo
 Studio.App.Category.Video,,Video,Video

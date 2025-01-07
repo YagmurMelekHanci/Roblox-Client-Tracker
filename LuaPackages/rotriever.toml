@@ -17,7 +17,7 @@ Dash = "0.1"
 llama = "1.0.0"
 LuaSocialLibrariesDeps = "1.5.5"
 AvatarExperienceDeps = "0.0.1"
-UIBlox = "0.2.44"
+UIBlox = "0.2.48"
 Foundation = "1.9.0"
 FoundationImages = "1.13.0"
 Thumbnailing = "0.3.0"
@@ -28,7 +28,7 @@ enumerate = "1.0.0"
 PolicyProvider = { version = "0.1.2", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
 StringUtilities = { version = "1.0.0", package = "string-utilities" }
-UrlBuilder = "1.2.4"
+UrlBuilder = "1.2.6"
 FitFrame = { version = "2.0.0", package = "RoactFitComponents" }
 NetworkingFriends = "2.12.1"
 EmojiList = "1.0.0"
@@ -91,7 +91,7 @@ ReactTestingUtils = "1.2.0"
 # Patch all dependencies (git or otherwise) upon rodux to the flagged indirection package,
 # which will ensure that we always use only one rodux version
 [config.patch."https://github.com/roblox/rodux"]
-Rodux = "3.2.0"
+Rodux = "3.3.0"
 
 [config.patch."https://github.com/roblox/roblox-lua-promise"]
 Promise = "3.5.0"

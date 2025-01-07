@@ -167,12 +167,16 @@ Class AdPortal : Instance
 	Function AdPortal:TeleportConfirmed(placeId: number, player: Player) -> () {RobloxScriptSecurity}
 	Function AdPortal:TeleportRejected(shouldCooldown: boolean, rejectedByDistance: boolean) -> () {RobloxScriptSecurity}
 Class AdService : Instance [NotCreatable] [Service]
+	Function AdService:CreateAdRewardFromDevProductId(devProductId: number) -> AdReward
+	Function AdService:GetAdAvailability(adFormat: Enum.AdFormat) -> any
 	Function AdService:GetAdTeleportInfo() -> ...any {RobloxScriptSecurity}
 	Function AdService:GetReportAdInfo() -> { any } {RobloxScriptSecurity}
 	Function AdService:HideEudsaDisclosure() -> () {RobloxScriptSecurity}
 	Function AdService:ReturnToPublisherExperience(adTeleportMethod: Enum.AdTeleportMethod) -> () {RobloxScriptSecurity}
 	Function AdService:SetAdGuiInteractivityHandlerInitialized() -> () {RobloxScriptSecurity}
+	Function AdService:ShowRewardedVideoAdAsync(player: Player, reward: AdReward) -> Enum.ShowAdResult [Yields]
 	Function AdService:ShowVideoAd() -> () [Deprecated]
+	Event AdService.AdAvailabilityChanged(adFormat: Enum.AdFormat, adAvailabilityResult: any)
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
 	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
 	Event AdService.PortalPrompt(destinationId: number, portal: Instance, requiresNoButton: boolean) {RobloxScriptSecurity}
@@ -181,9 +185,11 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.ServeAdResponseSignal(uuid: string, response: string, isError: boolean) {RobloxSecurity} [Hidden]
 	Event AdService.ServeAdSignal(uuid: string, request: string) {RobloxSecurity} [Hidden]
 	Event AdService.ShowDynamicEudsaDisclosure(advertiserName: string, payerName: string) {RobloxScriptSecurity}
-	Event AdService.ShowStaticEudsaDisclosure() {RobloxScriptSecurity}
+	Event AdService.ShowReportAdPopup(adInfo: { [string]: any }) {RobloxScriptSecurity}
 	Event AdService.VideoAdClosed(adShown: boolean) [Deprecated]
 	Event AdService.adGuiRegisterUI(adGui: Instance) {RobloxScriptSecurity}
+	Event AdService.rewardedVideoAdPlayServerToClient(rewardDetails: string) {RobloxSecurity} [Hidden]
+	Event AdService.rewardedVideoAdResultClientToServer(result: Enum.ShowAdResult, encryptedAdTrackingData: string, encryptionMetadata: string) {RobloxSecurity} [Hidden]
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property AnalyticsService.ApiKey: string {LocalUserSecurity} [Deprecated]
@@ -495,6 +501,7 @@ Class AudioCompressor : Instance
 	Property AudioCompressor.Ratio: number
 	Property AudioCompressor.Release: number
 	Property AudioCompressor.Threshold: number
+	Property AudioCompressor.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Function AudioCompressor:GetConnectedWires(pin: string) -> { Instance }
 	Event AudioCompressor.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioDeviceInput : Instance
@@ -586,6 +593,7 @@ Class AudioLimiter : Instance
 	Property AudioLimiter.Bypass: boolean
 	Property AudioLimiter.MaxLevel: number
 	Property AudioLimiter.Release: number
+	Property AudioLimiter.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Function AudioLimiter:GetConnectedWires(pin: string) -> { Instance }
 	Event AudioLimiter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioListener : Instance
@@ -653,12 +661,18 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.Tag: string
 	Property AudioSearchParams.Title: string
 Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
+	Function AuroraService:GetDesyncedInstances() -> { any } [Deprecated]
+	Function AuroraService:GetRemoteWorldStepId() -> number [Deprecated]
 	Function AuroraService:GetServerView(target: Instance) -> Instance? [Deprecated]
+	Function AuroraService:GetWorldStepId() -> number [Deprecated]
 	Function AuroraService:IsDesynced(target: Instance) -> boolean [Deprecated]
 	Function AuroraService:NetDesync(target: Instance) -> () [Deprecated]
 	Function AuroraService:NetSync(target: Instance) -> () [Deprecated]
 	Function AuroraService:SetIncomingReplicationLag(seconds: number) -> () [Deprecated]
+	Function AuroraService:StepPhysics(worldSteps: number, parts: { Instance }?) -> () [Deprecated]
 	Function AuroraService:UpdateProperties(target: Instance) -> () [Deprecated]
+	Event AuroraService.Desynced(target: Instance) [Deprecated]
+	Event AuroraService.Synced(target: Instance) [Deprecated]
 Class AvatarChatService : Instance [NotCreatable] [Service]
 	Property AvatarChatService.ClientFeatures: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property AvatarChatService.ClientFeaturesInitialized: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -2399,6 +2413,7 @@ Class TextBox : GuiObject
 	Property TextBox.OverlayNativeInput: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.ReturnKeyType: Enum.ReturnKeyType {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.SelectionStart: number
+	Property TextBox.ShouldEmitUpAndDownArrowEvents: boolean {RobloxScriptSecurity}
 	Property TextBox.ShowNativeInput: boolean
 	Property TextBox.TextEditable: boolean
 	Property TextBox.TextInputType: Enum.TextInputType {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -2783,12 +2798,12 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class GuidRegistryService : Instance [NotCreatable] [Service]
 Class HapticEffect : Instance
 	Property HapticEffect.Looped: boolean
-	Property HapticEffect.Position: Vector3 {RobloxScriptSecurity}
-	Property HapticEffect.Radius: number {RobloxScriptSecurity}
+	Property HapticEffect.Position: Vector3
+	Property HapticEffect.Radius: number
 	Property HapticEffect.Type: Enum.HapticEffectType
 	Property HapticEffect.Waveform: FloatCurve? {RobloxScriptSecurity}
 	Function HapticEffect:Play() -> ()
-	Function HapticEffect:SetKeys(keys: { any }) -> () {RobloxScriptSecurity}
+	Function HapticEffect:SetWaveformKeys(keys: { any }) -> ()
 	Function HapticEffect:Stop() -> ()
 Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HapticService:GetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> ...any
@@ -4079,6 +4094,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.CollisionGroups: string [📁 LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
 	Property Workspace.DataModelPlaceVersion: number [Hidden] [NotScriptable]
 	Property Workspace.ExplicitAutoJoints: boolean [Hidden] [NotScriptable]
+	Property Workspace.FallHeightEnabled: boolean {✏️PluginSecurity}
 	Property Workspace.FallenPartsDestroyHeight: number {✏️PluginSecurity}
 	Property Workspace.FilteringEnabled: boolean {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
 	Property Workspace.FluidForces: Enum.FluidForces [NotScriptable]
@@ -5398,6 +5414,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Event SoundService.ClientLoggedEvent(sessionIdRaw: string) {RobloxSecurity} [Hidden]
 	Event SoundService.DeviceListChanged(newDevices: ...any) {RobloxScriptSecurity}
 	Event SoundService.OpenAttenuationCurveEditorSignal(selectedCurveObjects: { Instance }) {RobloxScriptSecurity}
+	Event SoundService.OpenAudioCompressorEditorSignal(selectedCompressorObjects: { Instance }) {RobloxScriptSecurity}
 	Event SoundService.OpenAudioEqualizerEditorSignal(selectedEqualizerObjects: { Instance }) {RobloxScriptSecurity}
 	Event SoundService.OpenDirectionalCurveEditorSignal(selectedCurveObjects: { Instance }) {RobloxScriptSecurity}
 Class Sparkles : Instance
@@ -5515,6 +5532,8 @@ Class Stats : Instance [NotCreatable] [Service]
 	Property Stats.UI3DDrawcallCount: number [ReadOnly]
 	Property Stats.UI3DTriangleCount: number [ReadOnly]
 	Function Stats:GetBrowserTrackerId() -> string {RobloxScriptSecurity}
+	Function Stats:GetMemoryCategoryNames() -> { any } {RobloxScriptSecurity}
+	Function Stats:GetMemoryUsageMbAllCategories() -> { any } {RobloxScriptSecurity}
 	Function Stats:GetMemoryUsageMbForTag(tag: Enum.DeveloperMemoryTag) -> number
 	Function Stats:GetPaginatedMemoryByTexture(queryType: Enum.TextureQueryType, pageIndex: number, pageSize: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function Stats:GetTotalMemoryUsageMb() -> number
@@ -5533,8 +5552,6 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:AttemptSaveAndSendPlaceTelemetry(requestId: string, toolSource: string) -> () {RobloxScriptSecurity} [Yields]
 	Function StreamingService:BindCodeToGuid(runCodeGuid: string, code: string) -> ...any {RobloxScriptSecurity} [Yields]
-	Function StreamingService:DEPRECATED_RegisterCommand(commandName: string, function: ((...any) -> ...any)?) -> () {RobloxScriptSecurity} [Deprecated]
-	Function StreamingService:DEPRECATED_RegisterSequentialCommand(commandName: string, function: ((...any) -> ...any)?) -> () {RobloxScriptSecurity} [Deprecated]
 	Function StreamingService:ExecuteCommandAsync(requestId: string, commandName: string, arg: any) -> any [Yields]
 	Function StreamingService:GetEphemeralVariable(key: string) -> any {RobloxScriptSecurity}
 	Function StreamingService:GetInstance(requestId: string, instanceId: string) -> Instance? {RobloxScriptSecurity}
@@ -5844,7 +5861,6 @@ Class StudioWidgetsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioWidgetsService:ApplyHighlight(target: StudioWidget, rowName: string?) -> () {RobloxScriptSecurity}
 	Function StudioWidgetsService:ApplyShadows() -> () {RobloxScriptSecurity}
 	Function StudioWidgetsService:ApplySpotlight(target: StudioWidget, rowName: string?) -> () {RobloxScriptSecurity}
-	Function StudioWidgetsService:AttachPluginGui(target: StudioWidget, gui: PluginGui, attachment: StudioAttachment) -> () {RobloxScriptSecurity}
 	Function StudioWidgetsService:GetWidgetFromLabel(label: string) -> StudioWidget {RobloxScriptSecurity}
 	Function StudioWidgetsService:GetWidgetFromPluginGui(gui: PluginGui) -> StudioWidget {RobloxScriptSecurity}
 	Function StudioWidgetsService:HideSpotlight() -> () {RobloxScriptSecurity}
@@ -6258,7 +6274,7 @@ Class Tween : TweenBase
 Class TweenService : Instance [NotCreatable] [Service]
 	Function TweenService:Create(instance: Instance, tweenInfo: TweenInfo, propertyTable: { [string]: any }) -> Tween
 	Function TweenService:GetValue(alpha: number, easingStyle: Enum.EasingStyle, easingDirection: Enum.EasingDirection) -> number
-	Function TweenService:SmoothDamp(current: any, target: any, velocity: any, smoothTime: number, maxSpeed: number?, dt: number?) -> (any, any)
+	Function TweenService:SmoothDamp(current: any, target: any, velocity: any, smoothTime: number, maxSpeed: number?, dt: number?) -> (any, any) {🧬Safe}
 Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CalculateAverageCageMeshDistance(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, innerTransform: CFrame, outerTransform: CFrame) -> number {RobloxScriptSecurity} [Yields]
@@ -6895,8 +6911,8 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 Class WebViewService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function WebViewService:CloseWindow() -> () {RobloxScriptSecurity}
 	Function WebViewService:IsAvailable() -> boolean {RobloxScriptSecurity} [Yields]
-	Function WebViewService:MutateWindow(url: string, title: string?, isVisible: boolean?, searchType: string?, transitionAnimation: string?) -> () {RobloxScriptSecurity}
-	Function WebViewService:OpenWindow(url: string, title: string?, isVisible: boolean?, searchType: string?, transitionAnimation: string?) -> () {RobloxScriptSecurity}
+	Function WebViewService:MutateWindow(url: string, title: string?, isVisible: boolean?, searchType: string?, transitionAnimation: string?, showDomainAsTitle: boolean?) -> () {RobloxScriptSecurity}
+	Function WebViewService:OpenWindow(url: string, title: string?, isVisible: boolean?, searchType: string?, transitionAnimation: string?, showDomainAsTitle: boolean?) -> () {RobloxScriptSecurity}
 	Event WebViewService.OnJavaScriptCall(content: string) {RobloxScriptSecurity}
 	Event WebViewService.OnWindowClosed() {RobloxScriptSecurity}
 Class WeldConstraint : Instance
@@ -6964,6 +6980,8 @@ Enum AdEventType
 	EnumItem AdEventType.RewardedAdLoaded : 3
 	EnumItem AdEventType.RewardedAdGrant : 4
 	EnumItem AdEventType.RewardedAdUnloaded : 5
+Enum AdFormat
+	EnumItem AdFormat.RewardedVideo : 0
 Enum AdShape
 	EnumItem AdShape.HorizontalRectangle : 1
 Enum AdTeleportMethod
@@ -8112,6 +8130,7 @@ Enum HandlesStyle
 	EnumItem HandlesStyle.Resize : 0
 	EnumItem HandlesStyle.Movement : 1
 Enum HapticEffectType
+	EnumItem HapticEffectType.Custom : 0
 	EnumItem HapticEffectType.UIHover : 1
 	EnumItem HapticEffectType.UIClick : 2
 	EnumItem HapticEffectType.UINotification : 3
@@ -8999,6 +9018,7 @@ Enum PromptCreateAvatarResult
 	EnumItem PromptCreateAvatarResult.MaxOutfits : 9
 	EnumItem PromptCreateAvatarResult.PurchaseFailure : 10
 	EnumItem PromptCreateAvatarResult.UnknownFailure : 11
+	EnumItem PromptCreateAvatarResult.TokenInvalid : 12
 Enum PromptPublishAssetResult
 	EnumItem PromptPublishAssetResult.Success : 1
 	EnumItem PromptPublishAssetResult.PermissionDenied : 2
@@ -9296,6 +9316,12 @@ Enum Severity
 	EnumItem Severity.Warning : 2
 	EnumItem Severity.Information : 3
 	EnumItem Severity.Hint : 4
+Enum ShowAdResult
+	EnumItem ShowAdResult.PlayerIneligible : 0
+	EnumItem ShowAdResult.ExperienceIneligible : 1
+	EnumItem ShowAdResult.NotShown : 2
+	EnumItem ShowAdResult.ShowCompleted : 3
+	EnumItem ShowAdResult.ShowInterrupted : 4
 Enum SignalBehavior
 	EnumItem SignalBehavior.Default : 0
 	EnumItem SignalBehavior.Immediate : 1

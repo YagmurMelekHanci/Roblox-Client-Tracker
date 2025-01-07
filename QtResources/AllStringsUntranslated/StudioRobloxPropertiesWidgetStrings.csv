@@ -1,4 +1,7 @@
 Key,Context,Source,en-us
+Studio.RobloxPropertiesWidget.AddTagPopup.CreateTagFmt1,Displayed in the AddTagPopup to label a tag that will be newly created.,Create tag: %1,Create tag: %1
+Studio.RobloxPropertiesWidget.AddTagPopup.LineEditText,Text that appears in the text box of the AddTagPopup letting users know how to use it.,Search for or create a tag,Search for or create a tag
+Studio.RobloxPropertiesWidget.AddTagPopup.NoTagsCreated,Displayed in the AddTagPopup when no tags have been created yet.,No tags have been created yet,No tags have been created yet
 Studio.RobloxPropertiesWidget.Category.Accessories,,Accessories,Accessories
 Studio.RobloxPropertiesWidget.Category.Advanced,,Advanced,Advanced
 Studio.RobloxPropertiesWidget.Category.Aerodynamics,,Aerodynamics,Aerodynamics
@@ -38,8 +41,8 @@ Studio.RobloxPropertiesWidget.Category.Compliance,,Compliance,Compliance
 Studio.RobloxPropertiesWidget.Category.Configuration,,Configuration,Configuration
 Studio.RobloxPropertiesWidget.Category.Connections,,Connections,Connections
 Studio.RobloxPropertiesWidget.Category.Control,,Control,Control
-Studio.RobloxPropertiesWidget.Category.Controls,,Controls,Controls
 Studio.RobloxPropertiesWidget.Category.ControlPoints,,Control Points,Control Points
+Studio.RobloxPropertiesWidget.Category.Controls,,Controls,Controls
 Studio.RobloxPropertiesWidget.Category.Cylinder,,Cylinder,Cylinder
 Studio.RobloxPropertiesWidget.Category.Data,,Data,Data
 Studio.RobloxPropertiesWidget.Category.Debug,,Debug,Debug
@@ -51,8 +54,8 @@ Studio.RobloxPropertiesWidget.Category.Diagnostics,,Diagnostics,Diagnostics
 Studio.RobloxPropertiesWidget.Category.Directories,,Directories,Directories
 Studio.RobloxPropertiesWidget.Category.Display,,Display,Display
 Studio.RobloxPropertiesWidget.Category.DragDirections,,Drag Directions,Drag Directions
-Studio.RobloxPropertiesWidget.Category.DraggedAmount,,Dragged Amount,Dragged Amount
 Studio.RobloxPropertiesWidget.Category.DragLimits,,Drag Limits,Drag Limits
+Studio.RobloxPropertiesWidget.Category.DraggedAmount,,Dragged Amount,Dragged Amount
 Studio.RobloxPropertiesWidget.Category.Emission,,Emission,Emission
 Studio.RobloxPropertiesWidget.Category.Emitter,,Emitter,Emitter
 Studio.RobloxPropertiesWidget.Category.EmitterShape,,EmitterShape,EmitterShape
@@ -100,10 +103,10 @@ Studio.RobloxPropertiesWidget.Category.Part,,Part,Part
 Studio.RobloxPropertiesWidget.Category.Particles,,Particles,Particles
 Studio.RobloxPropertiesWidget.Category.Parts,,Parts,Parts
 Studio.RobloxPropertiesWidget.Category.Performance,,Performance,Performance
+Studio.RobloxPropertiesWidget.Category.Permissions,,Permissions,Permissions
 Studio.RobloxPropertiesWidget.Category.Physics,,Physics,Physics
 Studio.RobloxPropertiesWidget.Category.PhysicsResponse,,Physics Response,Physics Response
 Studio.RobloxPropertiesWidget.Category.Pivot,,Pivot,Pivot
-Studio.RobloxPropertiesWidget.Category.Permissions,,Permissions,Permissions
 Studio.RobloxPropertiesWidget.Category.Plane,,Plane,Plane
 Studio.RobloxPropertiesWidget.Category.Playback,,Playback,Playback
 Studio.RobloxPropertiesWidget.Category.PrimaryPart,,Primary Part,Primary Part
@@ -122,12 +125,12 @@ Studio.RobloxPropertiesWidget.Category.Scale,,Scale,Scale
 Studio.RobloxPropertiesWidget.Category.ScriptEditor,,Script Editor,Script Editor
 Studio.RobloxPropertiesWidget.Category.ScriptEditorColors,,Script Editor Colors,Script Editor Colors
 Studio.RobloxPropertiesWidget.Category.Scripting,,Scripting,Scripting
-Studio.RobloxPropertiesWidget.Category.Simulation,,Simulation,Simulation
 Studio.RobloxPropertiesWidget.Category.Scrolling,,Scrolling,Scrolling
 Studio.RobloxPropertiesWidget.Category.Selection,,Selection,Selection
 Studio.RobloxPropertiesWidget.Category.Servo,,Servo,Servo
 Studio.RobloxPropertiesWidget.Category.Settings,,Settings,Settings
 Studio.RobloxPropertiesWidget.Category.Shape,,Shape,Shape
+Studio.RobloxPropertiesWidget.Category.Simulation,,Simulation,Simulation
 Studio.RobloxPropertiesWidget.Category.Sizing,,Sizing,Sizing
 Studio.RobloxPropertiesWidget.Category.Slider,,Slider,Slider
 Studio.RobloxPropertiesWidget.Category.Spring,,Spring,Spring
@@ -137,9 +140,6 @@ Studio.RobloxPropertiesWidget.Category.Streaming,,Streaming,Streaming
 Studio.RobloxPropertiesWidget.Category.Surface,,Surface,Surface
 Studio.RobloxPropertiesWidget.Category.SurfaceInputs,,Surface Inputs,Surface Inputs
 Studio.RobloxPropertiesWidget.Category.Tags,,Tags,Tags
-Studio.RobloxPropertiesWidget.AddTagPopup.LineEditText,Text that appears in the text box of the AddTagPopup letting users know how to use it.,Search for or create a tag,Search for or create a tag
-Studio.RobloxPropertiesWidget.AddTagPopup.NoTagsCreated,Displayed in the AddTagPopup when no tags have been created yet.,No tags have been created yet,No tags have been created yet
-Studio.RobloxPropertiesWidget.AddTagPopup.CreateTagFmt1,Displayed in the AddTagPopup to label a tag that will be newly created.,Create tag: %1,Create tag: %1
 Studio.RobloxPropertiesWidget.Category.TargetOrientation,,TargetOrientation,TargetOrientation
 Studio.RobloxPropertiesWidget.Category.Team,,Team,Team
 Studio.RobloxPropertiesWidget.Category.Teams,,Teams,Teams

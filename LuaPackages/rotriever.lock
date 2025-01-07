@@ -132,7 +132,7 @@ dependencies = [
     "RoactGamepad RoactGamepad 0.5.13 registry",
     "RoactNavigation <patched> RoactNavigation 0.5.10 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxContacts RoduxContacts 0.9.1 registry",
     "RoduxDevtools RoduxDevtools 1.0.0-rc.1 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",
@@ -145,8 +145,8 @@ dependencies = [
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.3.0 registry",
     "UGCValidation UGCValidation 1.13.3 registry",
-    "UIBlox UIBlox 0.2.44 registry",
-    "UrlBuilder UrlBuilder 1.2.4 registry",
+    "UIBlox UIBlox 0.2.48 registry",
+    "UrlBuilder UrlBuilder 1.2.6 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
     "enumerate enumerate 1.1.0 registry",
@@ -372,8 +372,8 @@ dependencies = [
     "Promise <patched> Promise 3.5.0 registry",
     "Roact RoactCompat 17.1.6 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
-    "UIBlox UIBlox 0.2.44 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
+    "UIBlox UIBlox 0.2.48 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -1417,7 +1417,7 @@ version = "0.5.1"
 source = "registry"
 dependencies = [
     "Roact <patched> RoactCompat 17.1.6 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
 ]
 
 [[package]]
@@ -1448,7 +1448,7 @@ dependencies = [
 
 [[package]]
 name = "Rodux"
-version = "3.2.0"
+version = "3.3.0"
 source = "registry"
 
 [[package]]
@@ -1457,7 +1457,7 @@ version = "2.2.1"
 source = "registry"
 dependencies = [
     "AliasNetworking NetworkingAliases 1.15.0 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "llama llama 1.0.0 registry",
 ]
@@ -1469,7 +1469,7 @@ source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "NetworkingCall NetworkingCall 1.16.0 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "t t 1.2.6 registry",
 ]
@@ -1481,7 +1481,7 @@ source = "registry"
 dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingContacts NetworkingContacts 0.4.2 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.6 registry",
@@ -1494,7 +1494,7 @@ source = "registry"
 dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingContacts NetworkingContacts 0.4.2 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.6 registry",
@@ -1513,7 +1513,7 @@ dependencies = [
     "FriendsNetworking NetworkingFriends 2.12.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "NetworkingBlocking NetworkingBlocking 1.15.0 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
@@ -1527,7 +1527,7 @@ source = "registry"
 dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.6 registry",
@@ -1540,7 +1540,7 @@ source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Promise <patched> Promise 3.5.0 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "tutils tutils 0.1.2 registry",
 ]
 
@@ -1551,7 +1551,7 @@ source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "NetworkingPresence NetworkingPresence 1.15.0 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "t t 1.2.6 registry",
@@ -1563,7 +1563,7 @@ version = "1.5.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "ShareLinksNetworking NetworkingShareLinks 1.4.2 registry",
     "enumerate enumerate 1.1.0 registry",
@@ -1578,7 +1578,7 @@ dependencies = [
     "Dash Dash 0.1.9 registry",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 registry",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
 ]
 
@@ -1589,7 +1589,7 @@ source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FriendsNetworking NetworkingFriends 2.12.1 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "UsersNetworking NetworkingUsers 1.2.1 registry",
 ]
@@ -1649,11 +1649,11 @@ dependencies = [
     "Roact RoactCompat 17.1.6 registry",
     "RoactFitComponents RoactFitComponents 2.0.0 registry",
     "RoactNavigation <patched> RoactNavigation 0.5.10 registry",
-    "Rodux <patched> Rodux 3.2.0 registry",
+    "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.44 registry",
+    "UIBlox UIBlox 0.2.48 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1750,7 +1750,7 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.44"
+version = "0.2.48"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1779,7 +1779,7 @@ dependencies = [
 
 [[package]]
 name = "UrlBuilder"
-version = "1.2.4"
+version = "1.2.6"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",

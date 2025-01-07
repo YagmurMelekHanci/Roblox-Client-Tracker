@@ -2,3 +2,70 @@ Key,Context,Source,en-us
 Studio.Ribbon.Actions.AdGui,A GUI object that displays ads,AdGui,AdGui
 Studio.Ribbon.Actions.LaunchTestMode,Launches a testing session for the currently selected test mode,Launch Test Mode,Launch Test Mode
 Studio.Ribbon.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject under the control of a UIListLayout.,UIFlexItem,UIFlexItem
+Studio.Ribbon.Plugin.Action.UpdateAvailable,,Update,Update
+Studio.Ribbon.Plugin.AddClients,,Add Clients,Add Clients
+Studio.Ribbon.Plugin.AddClientsTooltip,,Add Clients to the existing test session,Add Clients to the existing test session
+Studio.Ribbon.Plugin.AnchorToolRibbonAction,,Select object to Anchor,Select object to Anchor
+Studio.Ribbon.Plugin.DegreesFormat,Format for displaying the degree increment for rotating parts,{amount}°,{amount}°
+Studio.Ribbon.Plugin.DockUndockRibbon,,Dock/Undock ribbon,Dock/Undock ribbon
+Studio.Ribbon.Plugin.Geometric,,Geometric,Geometric
+Studio.Ribbon.Plugin.Lock,,Lock,Lock
+Studio.Ribbon.Plugin.LockToolRibbonAction,,Select object to Lock,Select object to Lock
+Studio.Ribbon.Plugin.Name,,Ribbon,Ribbon
+Studio.Ribbon.Plugin.Physical,,Physical,Physical
+Studio.Ribbon.Plugin.PlayersFormat,Format for displaying the number of players to add to a server,{amount} players,{amount} players
+Studio.Ribbon.Plugin.PrintActions,,Print Actions,Print Actions
+Studio.Ribbon.Plugin.PrintActionsTooltip,,Prints all actions to stdout as JSON,Prints all actions to stdout as JSON
+Studio.Ribbon.Plugin.ReloadTabs,,Reload Tabs,Reload Tabs
+Studio.Ribbon.Plugin.ReloadTabsTooltip,,"Reloads the Ribbon, using current configuration on disk","Reloads the Ribbon, using current configuration on disk"
+Studio.Ribbon.Plugin.Setting.AddClients,,Add Clients,Add Clients
+Studio.Ribbon.Plugin.Setting.Anchor,,Anchor,Anchor
+Studio.Ribbon.Plugin.Setting.Appearance,,Appearance,Appearance
+Studio.Ribbon.Plugin.Setting.Constraint,,Constraint,Constraint
+Studio.Ribbon.Plugin.Setting.Effect,,Effect,Effect
+Studio.Ribbon.Plugin.Setting.Find,,Find,Find
+Studio.Ribbon.Plugin.Setting.Format,,Format,Format
+Studio.Ribbon.Plugin.Setting.Frame,,Frame,Frame
+Studio.Ribbon.Plugin.Setting.GUI,,GUI,GUI
+Studio.Ribbon.Plugin.Setting.Group,,Group,Group
+Studio.Ribbon.Plugin.Setting.Input,,Input,Input
+Studio.Ribbon.Plugin.Setting.Label,,Label,Label
+Studio.Ribbon.Plugin.Setting.Layout,,Layout,Layout
+Studio.Ribbon.Plugin.Setting.Lock,,Lock,Lock
+Studio.Ribbon.Plugin.Setting.Part,,Part,Part
+Studio.Ribbon.Plugin.Setting.PauseMode,,Pause,Pause
+Studio.Ribbon.Plugin.Setting.ResumeMode,,Resume,Resume
+Studio.Ribbon.Plugin.Setting.RunMode,,Play,Play
+Studio.Ribbon.Plugin.Setting.Script,,Script,Script
+Studio.Ribbon.Plugin.Setting.StepForwardMode,,Step Forward,Step Forward
+Studio.Ribbon.Plugin.Setting.Style,,Style,Style
+Studio.Ribbon.Plugin.Setting.Test,,Test,Test
+Studio.Ribbon.Plugin.Setting.TestMode,,Test Mode,Test Mode
+Studio.Ribbon.Plugin.Setting.TestingMode.DebugPlugin,Debug when a breakpoint is hit in a user's plugin,Debug Plugin,Debug Plugin
+Studio.Ribbon.Plugin.Setting.TestingMode.Run,Start the simulation at the camera's current position without a player,Run,Run
+Studio.Ribbon.Plugin.Setting.TestingMode.ServerAndClients,Start a server and multiple client sessions,Server and Clients,Server and Clients
+Studio.Ribbon.Plugin.Setting.TestingMode.TeamTest,Collaborators can join the simulation,Team Test,Team Test
+Studio.Ribbon.Plugin.Setting.TestingMode.Test,"Start simulation with a player at a SpawnLocation or coordinates of around (0,100)",Test,Test
+Studio.Ribbon.Plugin.Setting.TestingMode.TestHere,Start the simulation at the camera's current position,Test Here,Test Here
+Studio.Ribbon.Plugin.Setting.UIConstraint,,Constraint,Constraint
+Studio.Ribbon.Plugin.ShowHideLabels,,Show/Hide labels,Show/Hide labels
+Studio.Ribbon.Plugin.ShowHideRibbon,,Show/Hide ribbon,Show/Hide ribbon
+Studio.Ribbon.Plugin.SocialPresence.Collaborate,,Collaborate,Collaborate
+Studio.Ribbon.Plugin.StudsFormat,Format for displaying the stud increment for moving parts,{amount} studs,{amount} studs
+Studio.Ribbon.Plugin.StudsSuffix,,studs,studs
+Studio.Ribbon.Plugin.Tab.Avatar,,Avatar,Avatar
+Studio.Ribbon.Plugin.Tab.Custom,,Custom tabs coming soon!,Custom tabs coming soon!
+Studio.Ribbon.Plugin.Tab.Custom.Tooltip,,Create and manage your own tabs and toolbars,Create and manage your own tabs and toolbars
+Studio.Ribbon.Plugin.Tab.Home,,Home,Home
+Studio.Ribbon.Plugin.Tab.Model,,Model,Model
+Studio.Ribbon.Plugin.Tab.Plugins,,Plugins,Plugins
+Studio.Ribbon.Plugin.Tab.Script,,Script,Script
+Studio.Ribbon.Plugin.Tab.UI,,UI,UI
+Studio.Ribbon.Plugin.Text,,Example Text!,Example Text!
+Studio.Ribbon.Plugin.Tooltip.Constraint,,Create a new physics constraint or attachment,Create a new physics constraint or attachment
+Studio.Ribbon.Plugin.Tooltip.Format,,Format selected range of the script with correct layout and indentation,Format selected range of the script with correct layout and indentation
+Studio.Ribbon.Plugin.Tooltip.GUI,,Create a new GUI container,Create a new GUI container
+Studio.Ribbon.Plugin.Tooltip.Group,,Group selected parts into a new container,Group selected parts into a new container
+Studio.Ribbon.Plugin.Tooltip.Mode,,Toggle between transforming objects geometrically or with physics simulation,Toggle between transforming objects geometrically or with physics simulation
+Studio.Ribbon.Plugin.Tooltip.Part,,Create a new Part,Create a new Part
+Studio.Ribbon.Plugin.Tooltip.Script,,Create a Script in the selected object,Create a Script in the selected object
