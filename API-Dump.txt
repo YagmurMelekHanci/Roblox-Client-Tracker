@@ -2040,6 +2040,7 @@ Class Decal : FaceInstance
 	Property Decal.Shiny: number [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Decal.Specular: number [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Decal.Texture: string
+	Property Decal.TextureContent: Content [Hidden]
 	Property Decal.Transparency: number
 	Property Decal.ZIndex: number
 Class Texture : Decal
@@ -2919,6 +2920,7 @@ Class Humanoid : Instance
 	Function Humanoid:BuildRigFromAttachments() -> ()
 	Function Humanoid:CacheDefaults() -> () {RobloxScriptSecurity}
 	Function Humanoid:ChangeState(state: Enum.HumanoidStateType? = "None") -> ()
+	Function Humanoid:ComputeOriginalSizeForPart(part: Instance) -> Vector3? {RobloxScriptSecurity}
 	Function Humanoid:EquipTool(tool: Instance) -> ()
 	Function Humanoid:GetAccessories() -> { any }
 	Function Humanoid:GetAccessoryHandleScale(instance: Instance, partType: Enum.BodyPartR15) -> Vector3 {RobloxScriptSecurity}
@@ -4150,7 +4152,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 Class WorldModel : WorldRoot
 Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property PackageLink.Creator: string [ReadOnly] [NotScriptable]
-	Property PackageLink.HasNewVersion: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property PackageLink.HasNewVersion: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property PackageLink.PackageAssetName: string [ReadOnly] [NotScriptable]
 	Property PackageLink.PermissionLevel: Enum.PackagePermission [ReadOnly] [NotScriptable]
 	Property PackageLink.AutoUpdate: boolean {RobloxScriptSecurity}
@@ -4166,6 +4168,7 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property PackageLink.CanAutoUpdate: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PackageUIService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function PackageUIService:ConvertToMockPackage(instance: Instance) -> () {RobloxScriptSecurity}
 	Function PackageUIService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
 	Function PackageUIService:GetPackageInfo(packageAssetId: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PackageUIService:PublishPackage(packageInstance: Instance, addUndoWayPoint: boolean) -> () {RobloxScriptSecurity} [Yields]
@@ -5452,6 +5455,8 @@ Class StartPageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StartPageService:removeLocalFileFromRegistry(fileName: string) -> () {RobloxScriptSecurity}
 	Function StartPageService:setTutorialBannerClosed(closed: boolean) -> () {RobloxScriptSecurity}
 	Function StartPageService:setTutorialPopupClosed(closed: boolean) -> () {RobloxScriptSecurity}
+	Function StartPageService:shouldShowMacOSDeprecationWarning() -> boolean {RobloxScriptSecurity}
+	Function StartPageService:shouldShowWinOSDeprecationWarning() -> boolean {RobloxScriptSecurity}
 	Function StartPageService:startTutorial() -> () {RobloxScriptSecurity}
 	Event StartPageService.ImageImportedSignal(urlImported: string, temporaryId: string) {RobloxScriptSecurity}
 	Event StartPageService.LocalGamesFromRegistryUpdatedSignal(localGames: { any }) {RobloxScriptSecurity}
@@ -5640,6 +5645,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Auto Closing Quotes: boolean
 	Property Studio.Auto Delete Closing Brackets and Quotes: boolean
 	Property Studio.Auto Indent Rule: Enum.AutoIndentRule
+	Property Studio.AutocompleteAcceptanceBehavior: Enum.CompletionAcceptanceBehavior {RobloxScriptSecurity}
 	Property Studio.Automatically trigger AI Code Completion: boolean {RobloxScriptSecurity}
 	Property Studio.Enable Autocomplete: boolean
 	Property Studio.Enable Autocomplete Doc View: boolean {RobloxScriptSecurity}
@@ -5709,6 +5715,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Selection Color: Color3 [NotReplicated]
 	Property Studio.String Color: Color3 [NotReplicated]
 	Property Studio.Text Color: Color3 [NotReplicated]
+	Property Studio.TypeColor: Color3 [Hidden] [NotReplicated] [NotScriptable]
 	Property Studio.Warning Color: Color3 [NotReplicated]
 	Property Studio.Whitespace Color: Color3 [NotReplicated]
 	Property Studio.Active Color: Color3
@@ -7527,6 +7534,11 @@ Enum CompileTarget
 	EnumItem CompileTarget.CoreScript : 1
 	EnumItem CompileTarget.Studio : 2
 	EnumItem CompileTarget.CoreScriptRaw : 3
+Enum CompletionAcceptanceBehavior
+	EnumItem CompletionAcceptanceBehavior.Insert : 0
+	EnumItem CompletionAcceptanceBehavior.Replace : 1
+	EnumItem CompletionAcceptanceBehavior.ReplaceOnEnterInsertOnTab : 2
+	EnumItem CompletionAcceptanceBehavior.InsertOnEnterReplaceOnTab : 3
 Enum CompletionItemKind
 	EnumItem CompletionItemKind.Text : 1
 	EnumItem CompletionItemKind.Method : 2
@@ -9420,20 +9432,21 @@ Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.DebuggerErrorLine : 29
 	EnumItem StudioScriptEditorColorCategories.Ruler : 30
 	EnumItem StudioScriptEditorColorCategories.Bracket : 31
-	EnumItem StudioScriptEditorColorCategories.MenuPrimaryText : 32
-	EnumItem StudioScriptEditorColorCategories.MenuSecondaryText : 33
-	EnumItem StudioScriptEditorColorCategories.MenuSelectedText : 34
-	EnumItem StudioScriptEditorColorCategories.MenuBackground : 35
-	EnumItem StudioScriptEditorColorCategories.MenuSelectedBackground : 36
-	EnumItem StudioScriptEditorColorCategories.MenuScrollbarBackground : 37
-	EnumItem StudioScriptEditorColorCategories.MenuScrollbarHandle : 38
-	EnumItem StudioScriptEditorColorCategories.MenuBorder : 39
-	EnumItem StudioScriptEditorColorCategories.DocViewCodeBackground : 40
-	EnumItem StudioScriptEditorColorCategories.AICOOverlayText : 41
-	EnumItem StudioScriptEditorColorCategories.AICOOverlayButtonBackground : 42
-	EnumItem StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover : 43
-	EnumItem StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed : 44
-	EnumItem StudioScriptEditorColorCategories.IndentationRuler : 45
+	EnumItem StudioScriptEditorColorCategories.Type : 32
+	EnumItem StudioScriptEditorColorCategories.MenuPrimaryText : 33
+	EnumItem StudioScriptEditorColorCategories.MenuSecondaryText : 34
+	EnumItem StudioScriptEditorColorCategories.MenuSelectedText : 35
+	EnumItem StudioScriptEditorColorCategories.MenuBackground : 36
+	EnumItem StudioScriptEditorColorCategories.MenuSelectedBackground : 37
+	EnumItem StudioScriptEditorColorCategories.MenuScrollbarBackground : 38
+	EnumItem StudioScriptEditorColorCategories.MenuScrollbarHandle : 39
+	EnumItem StudioScriptEditorColorCategories.MenuBorder : 40
+	EnumItem StudioScriptEditorColorCategories.DocViewCodeBackground : 41
+	EnumItem StudioScriptEditorColorCategories.AICOOverlayText : 42
+	EnumItem StudioScriptEditorColorCategories.AICOOverlayButtonBackground : 43
+	EnumItem StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover : 44
+	EnumItem StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed : 45
+	EnumItem StudioScriptEditorColorCategories.IndentationRuler : 46
 Enum StudioScriptEditorColorPresets
 	EnumItem StudioScriptEditorColorPresets.RobloxDefault : 0
 	EnumItem StudioScriptEditorColorPresets.Extra1 : 1

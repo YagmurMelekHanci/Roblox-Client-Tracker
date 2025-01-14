@@ -1230,9 +1230,21 @@ function ToggleZeroBasedBars() {
 }
 
 function getMedian(arr) {
-    arr.sort();
-    var middle = arr[Math.floor(arr.length / 2)];
-    return middle;
+    var median;
+    arr.sort((a, b) => a - b);
+    var mid = Math.floor(arr.length / 2);
+    if (arr.length % 2 === 0) {
+        median = (arr[mid - 1] + arr[mid]) / 2;
+    } else {
+        median = arr[mid];
+    }
+    return median;
+}
+
+function getMax(arr) {
+    arr.sort((a, b) => a - b);
+    var max = arr[arr.length - 1];
+    return max;
 }
 
 function getStandardDeviation(array) {
@@ -1297,6 +1309,10 @@ function ExportSummaryJSON() {
     const [gpuTimeMean, gpuTimeDeviation] = getStandardDeviation(gpuTimeArray);
     const [gpuTimeDeviceMean, gpuTimeDeviceDeviation] = getStandardDeviation(gpuTimeDeviceArray);
 
+    const cpuTimeMax = getMax(cpuTimeArray);
+    const gpuTimeMax = getMax(gpuTimeArray);
+    const gpuTimeDeviceMax = getMax(gpuTimeDeviceArray);
+
     resultingJson["num_frames"] = numFrames;
     resultingJson["num_frames_jobs_heavy"] = numJobsHeavyFrames;
     resultingJson["num_frames_rendering_heavy"] = numRenderingHeavyFrames;
@@ -1309,6 +1325,10 @@ function ExportSummaryJSON() {
     resultingJson["cpu_time_mean"] = cpuTimeMean;
     resultingJson["gpu_time_mean"] = gpuTimeMean;
     resultingJson["gpu_time_ext_mean"] = gpuTimeDeviceMean;
+
+    resultingJson["cpu_time_max"] = cpuTimeMax;
+    resultingJson["gpu_time_max"] = gpuTimeMax;
+    resultingJson["gpu_time_ext_max"] = gpuTimeDeviceMax;
 
     resultingJson["cpu_time_stddev"] = cpuTimeDeviation;
     resultingJson["gpu_time_stddev"] = gpuTimeDeviation;
@@ -1327,6 +1347,9 @@ function ExportSummaryJSON() {
         console.log("cpuTimeMean : " + cpuTimeMean);
         console.log("gpuTimeMean : " + gpuTimeMean);
         console.log("gpuTimeDeviceMean : " + gpuTimeDeviceMean);
+        console.log("cpuTimeMax : " + cpuTimeMax);
+        console.log("gpuTimeMax : " + gpuTimeMax);
+        console.log("gpuTimeDeviceMax : " + gpuTimeDeviceMax);
         console.log("cpuTimeDeviation : " + cpuTimeDeviation);
         console.log("gpuTimeDeviation : " + gpuTimeDeviation);
         console.log("gpuTimeDeviceDeviation : " + gpuTimeDeviceDeviation);

@@ -47,7 +47,8 @@
             "AICOOverlayButtonBackground": "#EDEDED",
             "AICOOverlayButtonBackgroundHover": "#E1E1E1",
             "AICOOverlayButtonBackgroundPressed": "#CBCBCB",
-            "IndentationRuler": "#A6A6A6"
+            "IndentationRuler": "#A6A6A6",
+            "Type": "#00D5D5"
         },
         "Extra1": {
             "Default": "#000000",
@@ -95,7 +96,8 @@
             "AICOOverlayButtonBackground": "#EDEDED",
             "AICOOverlayButtonBackgroundHover": "#E1E1E1",
             "AICOOverlayButtonBackgroundPressed": "#CBCBCB",
-            "IndentationRuler": "#A6A6A6"
+            "IndentationRuler": "#A6A6A6",
+            "Type": "#00D5D5"
         },
         "Extra2": {
             "Default": "#D8DEE9",
@@ -143,7 +145,8 @@
             "AICOOverlayButtonBackground": "#3C3C3C",
             "AICOOverlayButtonBackgroundHover": "#424242",
             "AICOOverlayButtonBackgroundPressed": "#333333",
-            "IndentationRuler": "#A6A6A6"
+            "IndentationRuler": "#A6A6A6",
+            "Type": "#00FFFF"
         },
         "Custom": {
             "Default": "#000000",
@@ -191,7 +194,8 @@
             "AICOOverlayButtonBackground": "#EDEDED",
             "AICOOverlayButtonBackgroundHover": "#E1E1E1",
             "AICOOverlayButtonBackgroundPressed": "#CBCBCB",
-            "IndentationRuler": "#A6A6A6"
+            "IndentationRuler": "#A6A6A6",
+            "Type": "#00D5D5"
         }
     },
     "Colors": [

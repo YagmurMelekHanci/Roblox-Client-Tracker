@@ -49,6 +49,9 @@ Studio.App.Property.AutoRecoveryPath,,Auto-Recovery Path,Auto-Recovery Path
 Studio.App.Property.AutoSaveEnabled,,Auto-Save Enabled,Auto-Save Enabled
 Studio.App.Property.AutoSaveIntervalMinutes,,Auto-Save Interval (Minutes),Auto-Save Interval (Minutes)
 Studio.App.Property.AutoSavePath,,Auto-Save Path,Auto-Save Path
+Studio.App.Property.AutocompleteAcceptanceBehavior,Specifies what behavior to use when accepting autocomplete suggestions,Autocomplete Acceptance Behavior,Autocomplete Acceptance Behavior
+Studio.App.Property.AutocompleteBehaviorOnEnter,Specifies autocomplete behavior when accepting a suggestion with the Enter key,Autocomplete Behavior On Enter,Autocomplete Behavior On Enter
+Studio.App.Property.AutocompleteBehaviorOnTab,Specifies autocomplete behavior when accepting a suggestion with the Tab key,Autocomplete Behavior On Tab,Autocomplete Behavior On Tab
 Studio.App.Property.AutomaticTriggerAICO,Automatically trigger AI Code Completion.,Suggest Code Automatically,Suggest Code Automatically
 Studio.App.Property.AutomaticTriggerAICOFullRelease,Automatically trigger AI Code Completion.,Auto-trigger,Auto-trigger
 Studio.App.Property.BackgroundColor,,Background Color,Background Color
@@ -315,6 +318,7 @@ Studio.App.Property.ThreadPoolConfig,,Thread Pool Config,Thread Pool Config
 Studio.App.Property.ThreadPoolSize,,Thread Pool Size,Thread Pool Size
 Studio.App.Property.ThrottleAdjustTime,,Throttle Adjust Time,Throttle Adjust Time
 Studio.App.Property.TickCountPreciseOverride,,Tick Count Precise Override,Tick Count Precise Override
+Studio.App.Property.ToolboxAudioInsertionMode,"testing if this actually works TODO write real description, but probably we won't actually keep this string around",Toolbox Audio Insertion Mode,Toolbox Audio Insertion Mode
 Studio.App.Property.TouchSendRate,,Touch Send Rate,Touch Send Rate
 Studio.App.Property.TrackDataTypes,,Track Data Types,Track Data Types
 Studio.App.Property.TrackPhysicsDetails,,Track Physics Details,Track Physics Details

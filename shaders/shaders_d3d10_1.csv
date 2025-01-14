@@ -507,7 +507,10 @@ DefaultUnifiedNeonInGuiVS_04000806,Vertex
 DefaultUnifiedNeonInGuiVS_04001806,Vertex
 DefaultUnifiedNeonInGuiVS_10000000,Vertex
 DefaultUnifiedNeonInGuiVS_10000001,Vertex
+DefaultUnifiedNeonInGuiVS_10000002,Vertex
+DefaultUnifiedNeonInGuiVS_10100001,Vertex
 DefaultUnifiedNeonInGuiVS_10200000,Vertex
+DefaultUnifiedNeonInGuiVS_10300000,Vertex
 DefaultUnifiedNeonVS_00000800,Vertex
 DefaultUnifiedNeonVS_00000801,Vertex
 DefaultUnifiedNeonVS_00000802,Vertex
@@ -1154,6 +1157,7 @@ InstancedDebugGarbage,Compute
 InstancedDebugGarbage_DEPRECATED,Compute
 InstancedUploadFull,Compute
 InstancedUploadFull_DEPRECATED,Compute
+LanczosFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
@@ -1238,6 +1242,7 @@ SmoothClusterFeedbackVS,Vertex
 SmoothClusterVTTranslationFS,Fragment
 SmoothClusterVTTranslationVS,Vertex
 SmoothClusterVTVS_00000000,Vertex
+SmootherStepFS,Fragment
 SmoothWaterVS_00000000,Vertex
 SpecularConvFS,Fragment
 SpecularConvVS,Vertex

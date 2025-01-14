@@ -566,11 +566,14 @@ DefaultUnifiedNeonInGuiVS_80000000,Vertex
 DefaultUnifiedNeonInGuiVS_80000001,Vertex
 DefaultUnifiedNeonInGuiVS_80000002,Vertex
 DefaultUnifiedNeonInGuiVS_80000006,Vertex
+DefaultUnifiedNeonInGuiVS_80001000,Vertex
 DefaultUnifiedNeonInGuiVS_80001002,Vertex
+DefaultUnifiedNeonInGuiVS_80001006,Vertex
 DefaultUnifiedNeonInGuiVS_80100001,Vertex
 DefaultUnifiedNeonInGuiVS_80200000,Vertex
 DefaultUnifiedNeonInGuiVS_80300000,Vertex
 DefaultUnifiedNeonInGuiVS_84000006,Vertex
+DefaultUnifiedNeonInGuiVS_84001006,Vertex
 DefaultUnifiedNeonVS_00000800,Vertex
 DefaultUnifiedNeonVS_00000801,Vertex
 DefaultUnifiedNeonVS_00000802,Vertex
@@ -1219,6 +1222,7 @@ InstancedDebugGarbage,Compute
 InstancedDebugGarbage_DEPRECATED,Compute
 InstancedUploadFull,Compute
 InstancedUploadFull_DEPRECATED,Compute
+LanczosFS,Fragment
 LightGridCullAccumAndCreateMaskCS,Compute
 LightGridCullClearCS,Compute
 LightGridCullCountOffsetCS,Compute
@@ -1319,6 +1323,7 @@ SmoothClusterFeedbackVS,Vertex
 SmoothClusterVTTranslationFS,Fragment
 SmoothClusterVTTranslationVS,Vertex
 SmoothClusterVTVS_00000000,Vertex
+SmootherStepFS,Fragment
 SmoothWaterVS_00000000,Vertex
 SpecularConvFS,Fragment
 SpecularConvVS,Vertex

@@ -48,6 +48,9 @@ DefaultNeonInGuiFS,Fragment
 DefaultReflectionVS__00000001,Vertex
 DefaultReflectionVS__00000002,Vertex
 DefaultReflectionVS__00000006,Vertex
+DefaultReflectionVS__00000400,Vertex
+DefaultReflectionVS__00000401,Vertex
+DefaultReflectionVS__00001000,Vertex
 DefaultReflectionVS__00001002,Vertex
 DefaultReflectionVS__00001006,Vertex
 DefaultReflectionVS__00100001,Vertex
@@ -1050,6 +1053,7 @@ HighlightStudioSelectionAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateFS_00000000,Fragment
+LanczosFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
@@ -1170,6 +1174,7 @@ SmoothClusterVTVSUnified_00000800,Vertex
 SmoothClusterVTVSUnified_10000000,Vertex
 SmoothClusterVTVSUnified_10000400,Vertex
 SmoothClusterVTVSUnified_20000000,Vertex
+SmootherStepFS,Fragment
 SmoothWaterFSUnified_00000800,Fragment
 SmoothWaterFSUnified_04000800,Fragment
 SmoothWaterFSUnified_10000000,Fragment

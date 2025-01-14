@@ -30,6 +30,8 @@ Studio.App.PropertyEnum.GeometryComplexity,,GeometryComplexity,GeometryComplexit
 Studio.App.PropertyEnum.HighResolution,,High Resolution,High Resolution
 Studio.App.PropertyEnum.Horizontal,,Horizontal,Horizontal
 Studio.App.PropertyEnum.Hybrid,,Hybrid,Hybrid
+Studio.App.PropertyEnum.Insert,Insert text,Insert,Insert
+Studio.App.PropertyEnum.InsertOnEnterReplaceOnTab,"When accepting autocomplete suggestions, insert text with Enter key and replace text with Tab key","Insert On Enter, Replace On Tab","Insert On Enter, Replace On Tab"
 Studio.App.PropertyEnum.IterationBased,,Iteration Based,Iteration Based
 Studio.App.PropertyEnum.KeepLocalFiles,,Keep local files,Keep local files
 Studio.App.PropertyEnum.Korean,DO NOT TRANSLATE THIS.  No matter the system language we want to offer language choice in that language.,한국어,한국어
@@ -61,9 +63,11 @@ Studio.App.PropertyEnum.Medium,,Medium,Medium
 Studio.App.PropertyEnum.MediumResolution,,Medium Resolution,Medium Resolution
 Studio.App.PropertyEnum.Metal,,Metal,Metal
 Studio.App.PropertyEnum.Muted,,Muted,Muted
+Studio.App.PropertyEnum.NewAPI,TODO add description before shipping,New Audio API,New Audio API
 Studio.App.PropertyEnum.NoGraphics,,No Graphics,No Graphics
 Studio.App.PropertyEnum.None,,None,None
 Studio.App.PropertyEnum.Off,,Off,Off
+Studio.App.PropertyEnum.OldAPI,TODO add description before shipping,Legacy Sound API,Legacy Sound API
 Studio.App.PropertyEnum.On,,On,On
 Studio.App.PropertyEnum.OnlineGame,,Online Game,Online Game
 Studio.App.PropertyEnum.OpenGL,,OpenGL,OpenGL
@@ -76,6 +80,8 @@ Studio.App.PropertyEnum.PerIsland,,Per Island,Per Island
 Studio.App.PropertyEnum.Precise,,Precise,Precise
 Studio.App.PropertyEnum.Prompt,,Prompt,Prompt
 Studio.App.PropertyEnum.Relative,,Relative,Relative
+Studio.App.PropertyEnum.Replace,Replace text,Replace,Replace
+Studio.App.PropertyEnum.ReplaceOnEnterInsertOnTab,"When accepting autocomplete suggestions, replace text with Enter key and insert text with Tab key","Replace On Enter, Insert On Tab","Replace On Enter, Insert On Tab"
 Studio.App.PropertyEnum.Report,,Report,Report
 Studio.App.PropertyEnum.RmbScroll,,Right Mouse Button + Scroll,Right Mouse Button + Scroll
 Studio.App.PropertyEnum.Roblox,,Roblox,Roblox
