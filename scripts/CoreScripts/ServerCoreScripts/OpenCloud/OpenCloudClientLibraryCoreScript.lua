@@ -228,6 +228,199 @@ end
 
 OpenCloudService:RegisterOpenCloud("v2", "TranslateText", translateText)
 
+function verifyGenerateSpeechRequest(generateSpeechRequest, argumentName) : any
+    if generateSpeechRequest == nil then
+        return nil
+    end
+    
+    local res = verifyTable(generateSpeechRequest, argumentName)
+    if res ~= nil then
+        return res
+    end
+    
+    if generateSpeechRequest.path == nil then
+        return InvalidArgumentError(`Required argument was not provided: {argumentName}.path.`)
+    end
+    res = verifyString(generateSpeechRequest.path, `{argumentName}.path`)
+    if res ~= nil then
+        return res
+    end
+    
+    if generateSpeechRequest.text == nil then
+        return InvalidArgumentError(`Required argument was not provided: {argumentName}.text.`)
+    end
+    res = verifyString(generateSpeechRequest.text, `{argumentName}.text`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyGeneratedSpeechStyle(generateSpeechRequest.speechStyle, `{argumentName}.speechStyle`)
+    if res ~= nil then
+        return res
+    end
+    
+    return nil
+end
+    
+function verifyGeneratedSpeechStyle(generatedSpeechStyle, argumentName) : any
+    if generatedSpeechStyle == nil then
+        return nil
+    end
+    
+    local res = verifyTable(generatedSpeechStyle, argumentName)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyString(generatedSpeechStyle.voiceId, `{argumentName}.voiceId`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyNumber(generatedSpeechStyle.pitch, `{argumentName}.pitch`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyNumber(generatedSpeechStyle.speed, `{argumentName}.speed`)
+    if res ~= nil then
+        return res
+    end
+    
+    return nil
+end
+
+function generateSpeechUrl(generateSpeechRequest : any) : string
+    if generateSpeechRequest.path == nil then
+        return InvalidArgumentError(`URL parameter provided was nil: generateSpeechRequest.path.`)
+    end
+    if string.match(generateSpeechRequest.path, "^universes/([^/]+)$") == nil then
+        return InvalidArgumentError(`URL parameter was not formatted correctly: generateSpeechRequest.path.`)
+    end
+    
+    local url = string.format("%s%s/cloud/v2/%s:generateSpeech", getApisUrl(), getUrlPrefix(), tostring(generateSpeechRequest.path))
+    
+    return url
+end
+
+function generateSpeech(generateSpeechRequest : any)
+    if generateSpeechRequest == nil then
+        return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
+    end
+    
+    local res = verifyGenerateSpeechRequest(generateSpeechRequest, `generateSpeechRequest`)
+    if res ~= nil then
+        return res
+    end
+    
+    local url = generateSpeechUrl(generateSpeechRequest)
+    if typeof(url) ~= STRING_TYPE then
+        return url
+    end
+    
+    local bodyString = HttpService:JSONEncode(generateSpeechRequest)
+    
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "POST", [BODY] = bodyString})
+end
+
+OpenCloudService:RegisterOpenCloud("v2", "GenerateSpeech", generateSpeech)
+
+function verifyGenerateTextRequest(generateTextRequest, argumentName) : any
+    if generateTextRequest == nil then
+        return nil
+    end
+    
+    local res = verifyTable(generateTextRequest, argumentName)
+    if res ~= nil then
+        return res
+    end
+    
+    if generateTextRequest.path == nil then
+        return InvalidArgumentError(`Required argument was not provided: {argumentName}.path.`)
+    end
+    res = verifyString(generateTextRequest.path, `{argumentName}.path`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyString(generateTextRequest.userPrompt, `{argumentName}.userPrompt`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyString(generateTextRequest.systemPrompt, `{argumentName}.systemPrompt`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyNumber(generateTextRequest.temperature, `{argumentName}.temperature`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyNumber(generateTextRequest.topP, `{argumentName}.topP`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyNumber(generateTextRequest.maxTokens, `{argumentName}.maxTokens`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyNumber(generateTextRequest.seed, `{argumentName}.seed`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyString(generateTextRequest.contextToken, `{argumentName}.contextToken`)
+    if res ~= nil then
+        return res
+    end
+    
+    res = verifyString(generateTextRequest.model, `{argumentName}.model`)
+    if res ~= nil then
+        return res
+    end
+    
+    return nil
+end
+
+function generateTextUrl(generateTextRequest : any) : string
+    if generateTextRequest.path == nil then
+        return InvalidArgumentError(`URL parameter provided was nil: generateTextRequest.path.`)
+    end
+    if string.match(generateTextRequest.path, "^universes/([^/]+)$") == nil then
+        return InvalidArgumentError(`URL parameter was not formatted correctly: generateTextRequest.path.`)
+    end
+    
+    local url = string.format("%s%s/cloud/v2/%s:generateText", getApisUrl(), getUrlPrefix(), tostring(generateTextRequest.path))
+    
+    return url
+end
+
+function generateText(generateTextRequest : any)
+    if generateTextRequest == nil then
+        return InvalidArgumentError(NIL_REQUEST_ERROR_MESSAGE)
+    end
+    
+    local res = verifyGenerateTextRequest(generateTextRequest, `generateTextRequest`)
+    if res ~= nil then
+        return res
+    end
+    
+    local url = generateTextUrl(generateTextRequest)
+    if typeof(url) ~= STRING_TYPE then
+        return url
+    end
+    
+    local bodyString = HttpService:JSONEncode(generateTextRequest)
+    
+    return OpenCloudService:HttpRequestAsync({[URL] = url, [REQUEST_TYPE] = "POST", [BODY] = bodyString})
+end
+
+OpenCloudService:RegisterOpenCloud("v2", "GenerateText", generateText)
+
 function verifyGetPlaceRequest(getPlaceRequest, argumentName) : any
     if getPlaceRequest == nil then
         return nil

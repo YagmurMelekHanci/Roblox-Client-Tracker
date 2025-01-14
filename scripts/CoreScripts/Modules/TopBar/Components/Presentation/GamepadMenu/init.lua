@@ -81,7 +81,9 @@ local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
-local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
+
+local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
+local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local FFlagSaveChatVisibilityUserSettings = game:DefineFastFlag("SaveChatVisibilityUserSettings", false)
 
 local ToastRoot
@@ -312,7 +314,7 @@ function GamepadMenu.toggleChatVisible()
 end
 
 function GamepadMenu.focusChatBar()
-	if GetFFlagReenableTextChatForTenFootInterfaces() then
+	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 		ChatModule:SetVisible(true)
 		if FFlagSaveChatVisibilityUserSettings then
 			GameSettings.ChatVisible = true
@@ -400,7 +402,7 @@ function GamepadMenu.getMenuActionsFromProps(props)
 		onActivated = GamepadMenu.openRootMenu,
 	})
 
-	if GetFFlagReenableTextChatForTenFootInterfaces() then
+	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 		if GamepadMenu.shouldShowChatMenuOption(props.chatVersion, props.chatEnabled) then
 			table.insert(menuActions, {
 				name = "Chat",
@@ -422,7 +424,7 @@ function GamepadMenu.getMenuActionsFromProps(props)
 		})
 	end
 
-	if not GetFFlagReenableTextChatForTenFootInterfaces() then
+	if not TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 		if props.chatEnabled and not TenFootInterface:IsEnabled() then
 			table.insert(menuActions, {
 				name = "Chat",
@@ -578,7 +580,7 @@ function GamepadMenu:render()
 
 		local visible = self.props.isGamepadMenuOpen
 		local controllerBarComponent
-		if GetFFlagReenableTextChatForTenFootInterfaces() then
+		if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 			if visible then
 				controllerBarComponent = Roact.createElement(ControllerBar, {
 					chatMenuEnabled = self.shouldShowChatMenuOption(self.props.chatVersion, self.props.chatEnabled),
@@ -664,7 +666,7 @@ function GamepadMenu:bindMenuOpenActions()
 	ContextActionService:BindCoreAction(GO_TO_TOP_ACTION_NAME, self.goToTopAction, false, Enum.KeyCode.ButtonL2)
 	ContextActionService:BindCoreAction(GO_TO_BOTTOM_ACTION_NAME, self.goToBottomAction, false, Enum.KeyCode.ButtonR2)
 
-	if GetFFlagReenableTextChatForTenFootInterfaces() then
+	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 		ContextActionService:BindCoreAction(
 			TOGGLE_CHAT_VISIBILITY,
 			self.toggleChatVisibilityAction,
@@ -693,7 +695,7 @@ function GamepadMenu:unbindMenuOpenActions()
 	ContextActionService:UnbindCoreAction(GO_TO_TOP_ACTION_NAME)
 	ContextActionService:UnbindCoreAction(GO_TO_BOTTOM_ACTION_NAME)
 
-	if GetFFlagReenableTextChatForTenFootInterfaces() then
+	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 		ContextActionService:UnbindCoreAction(TOGGLE_CHAT_VISIBILITY)
 	end
 end

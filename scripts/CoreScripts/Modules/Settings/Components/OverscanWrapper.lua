@@ -1,9 +1,7 @@
 --!strict
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
-local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
+local FocusNavigationCoreScriptsWrapper = require(CorePackages.Workspace.Packages.FocusNavigationUtils).FocusNavigationCoreScriptsWrapper
 
 local React = require(CorePackages.Packages.React)
 local RobloxAppEnums = require(CorePackages.Workspace.Packages.RobloxAppEnums)
@@ -24,7 +22,7 @@ function OverscanWrapper(Overscan)
 		return React.createElement(CoreScriptsRootProvider, {
 			styleOverride = styleOverride,
 		}, {
-			FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
+			FocusNavigationCoreScriptsWrapper = React.createElement(FocusNavigationCoreScriptsWrapper, {
 				selectionGroupName = SELECTION_GROUP_NAME,
 				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 			}, {

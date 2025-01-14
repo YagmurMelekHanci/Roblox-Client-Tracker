@@ -19,7 +19,6 @@ local GetFFlagSelfieViewMoreFixMigration =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewMoreFixMigration
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
-local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
 local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 local FFlagFixSelfieViewErrorLoop = game:DefineFastFlag("FixSelfieViewErrorLoop", false)
@@ -208,22 +207,14 @@ local function updateClone(player: Player?)
 	--need to wait here for character else sometimes error on respawn
 	local character = player.Character
 
-	if GetFFlagSelfieViewDontWaitForCharacter() then
-		if not player or not player.Character then
-			return
-		end
+	if not player or not player.Character then
+		return
+	end
 
-		character = player.Character
+	character = player.Character
 
-		if not character then
-			return
-		end
-	else
-		if not player or not (player.Character or player.CharacterAdded:Wait()) then
-			return
-		end
-
-		character = player.Character or player.CharacterAdded:Wait()
+	if not character then
+		return
 	end
 
 	--satisfy typechecker:
@@ -474,10 +465,8 @@ local function characterAdded(character)
 			return
 		end
 	end
-	if GetFFlagSelfieViewDontWaitForCharacter() then
-		if not character then
-			return
-		end
+	if not character then
+		return
 	end
 
 	headRef = ModelUtils.getHead(character)
@@ -613,15 +602,12 @@ local function onCharacterAdded(character: Model)
 	if playerCharacterAddedConnection then
 		playerCharacterAddedConnection:Disconnect()
 	end
-	if GetFFlagSelfieViewDontWaitForCharacter() then
-		if not initialized then
-			characterAdded(character)
-		else
-			ReInit(LocalPlayer)
-		end
+	if not initialized then
+		characterAdded(character)
 	else
 		ReInit(LocalPlayer)
 	end
+
 	clearObserver(Observer.HumanoidStateChanged)
 	local humanoid = nil
 	if FFlagSelfViewLookUpHumanoidByType then
@@ -687,23 +673,12 @@ function playerAdded(player: Player)
 		end
 
 		local currentCharacter: Model | nil = player.Character
-		if GetFFlagSelfieViewDontWaitForCharacter() then
-			currentCharacter = player.Character
-		else
-			currentCharacter = player.Character or player.CharacterAdded:Wait()
-		end
+		currentCharacter = player.Character
 
 		--handle (re)spawn:
 		playerCharacterAddedConnection = player.CharacterAdded:Connect(onCharacterAdded)
 
-		if GetFFlagSelfieViewDontWaitForCharacter() then
-			if currentCharacter then
-				characterAdded(currentCharacter)
-			end
-		else
-			--satisfy typechecker:
-			assert(currentCharacter ~= nil)
-
+		if currentCharacter then
 			characterAdded(currentCharacter)
 		end
 

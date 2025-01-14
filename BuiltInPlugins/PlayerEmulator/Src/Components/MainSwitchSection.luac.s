@@ -86,132 +86,81 @@ PROTO_7:
 
 PROTO_8:
   GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Stylizer"]
-  GETTABLEKS R3 R1 K2 ["Localization"]
-  GETTABLEKS R4 R1 K3 ["LayoutOrder"]
-  GETTABLEKS R5 R1 K4 ["mainSwitchEnabled"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K5 ["createElement"]
-  LOADK R7 K6 ["Frame"]
-  DUPTABLE R8 K10 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
-  GETUPVAL R10 1
-  JUMPIFNOT R10 [+3]
-  GETIMPORT R9 K13 [Enum.AutomaticSize.Y]
-  JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K7 ["AutomaticSize"]
-  GETUPVAL R10 1
-  JUMPIFNOT R10 [+6]
-  GETIMPORT R9 K16 [UDim2.fromScale]
-  LOADN R10 1
-  LOADN R11 0
-  CALL R9 2 1
-  JUMP [+2]
-  GETTABLEKS R9 R2 K17 ["TOGGLE_ITEM_FRAME_SIZE"]
-  SETTABLEKS R9 R8 K8 ["Size"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["LayoutOrder"]
+  GETTABLEKS R4 R1 K3 ["mainSwitchEnabled"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  LOADK R6 K5 ["Frame"]
+  DUPTABLE R7 K9 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
+  GETIMPORT R8 K12 [Enum.AutomaticSize.Y]
+  SETTABLEKS R8 R7 K6 ["AutomaticSize"]
+  GETIMPORT R8 K15 [UDim2.fromScale]
   LOADN R9 1
-  SETTABLEKS R9 R8 K9 ["BackgroundTransparency"]
-  SETTABLEKS R4 R8 K3 ["LayoutOrder"]
-  DUPTABLE R9 K21 [{"Layout", "Label", "Toggle"}]
-  GETUPVAL R11 1
-  JUMPIFNOT R11 [+23]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K5 ["createElement"]
-  LOADK R11 K22 ["UIListLayout"]
-  DUPTABLE R12 K27 [{"HorizontalFlex", "SortOrder", "FillDirection", "VerticalAlignment"}]
-  GETIMPORT R13 K30 [Enum.UIFlexAlignment.SpaceBetween]
-  SETTABLEKS R13 R12 K23 ["HorizontalFlex"]
-  GETIMPORT R13 K31 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R13 R12 K24 ["SortOrder"]
-  GETIMPORT R13 K33 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R13 R12 K25 ["FillDirection"]
-  GETIMPORT R13 K35 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R13 R12 K26 ["VerticalAlignment"]
-  CALL R10 2 1
-  JUMP [+1]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K18 ["Layout"]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K5 ["createElement"]
-  GETUPVAL R11 2
-  DUPTABLE R12 K40 [{"AutomaticSize", "Text", "TextXAlignment", "TextWrapped", "TextTruncate", "LayoutOrder"}]
-  GETIMPORT R13 K42 [Enum.AutomaticSize.XY]
-  SETTABLEKS R13 R12 K7 ["AutomaticSize"]
-  LOADK R15 K43 ["MainSwitchSection"]
-  LOADK R16 K44 ["LabelText"]
-  NAMECALL R13 R3 K45 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K36 ["Text"]
-  GETUPVAL R14 1
-  JUMPIFNOT R14 [+3]
-  GETIMPORT R13 K47 [Enum.TextXAlignment.Left]
-  JUMP [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K37 ["TextXAlignment"]
-  GETUPVAL R14 1
-  JUMPIFNOT R14 [+2]
-  LOADB R13 1
-  JUMP [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K38 ["TextWrapped"]
-  GETUPVAL R14 1
-  JUMPIFNOT R14 [+3]
-  GETIMPORT R13 K49 [Enum.TextTruncate.SplitWord]
-  JUMP [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K39 ["TextTruncate"]
-  LOADN R13 1
-  SETTABLEKS R13 R12 K3 ["LayoutOrder"]
-  DUPTABLE R13 K51 [{"FlexItem"}]
-  GETUPVAL R15 1
-  JUMPIFNOT R15 [+11]
-  GETUPVAL R15 0
-  GETTABLEKS R14 R15 K5 ["createElement"]
-  LOADK R15 K52 ["UIFlexItem"]
-  DUPTABLE R16 K54 [{"FlexMode"}]
-  GETIMPORT R17 K57 [Enum.UIFlexMode.Shrink]
-  SETTABLEKS R17 R16 K53 ["FlexMode"]
-  CALL R14 2 1
-  JUMP [+1]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K50 ["FlexItem"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K19 ["Label"]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K5 ["createElement"]
-  GETUPVAL R11 3
-  DUPTABLE R12 K62 [{"AnchorPoint", "LayoutOrder", "OnClick", "Position", "Selected"}]
-  GETUPVAL R14 1
-  JUMPIFNOT R14 [+2]
-  LOADNIL R13
-  JUMP [+5]
-  GETIMPORT R13 K65 [Vector2.new]
-  LOADN R14 0
-  LOADK R15 K66 [0.5]
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K7 ["Size"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K8 ["BackgroundTransparency"]
+  SETTABLEKS R3 R7 K2 ["LayoutOrder"]
+  DUPTABLE R8 K19 [{"Layout", "Label", "Toggle"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  LOADK R10 K20 ["UIListLayout"]
+  DUPTABLE R11 K25 [{"HorizontalFlex", "SortOrder", "FillDirection", "VerticalAlignment"}]
+  GETIMPORT R12 K28 [Enum.UIFlexAlignment.SpaceBetween]
+  SETTABLEKS R12 R11 K21 ["HorizontalFlex"]
+  GETIMPORT R12 K29 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R12 R11 K22 ["SortOrder"]
+  GETIMPORT R12 K31 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R12 R11 K23 ["FillDirection"]
+  GETIMPORT R12 K33 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R12 R11 K24 ["VerticalAlignment"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K16 ["Layout"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 1
+  DUPTABLE R11 K38 [{"AutomaticSize", "Text", "TextXAlignment", "TextWrapped", "TextTruncate", "LayoutOrder"}]
+  GETIMPORT R12 K40 [Enum.AutomaticSize.XY]
+  SETTABLEKS R12 R11 K6 ["AutomaticSize"]
+  LOADK R14 K41 ["MainSwitchSection"]
+  LOADK R15 K42 ["LabelText"]
+  NAMECALL R12 R2 K43 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K34 ["Text"]
+  GETIMPORT R12 K45 [Enum.TextXAlignment.Left]
+  SETTABLEKS R12 R11 K35 ["TextXAlignment"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K36 ["TextWrapped"]
+  GETIMPORT R12 K47 [Enum.TextTruncate.SplitWord]
+  SETTABLEKS R12 R11 K37 ["TextTruncate"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K2 ["LayoutOrder"]
+  DUPTABLE R12 K49 [{"FlexItem"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K4 ["createElement"]
+  LOADK R14 K50 ["UIFlexItem"]
+  DUPTABLE R15 K52 [{"FlexMode"}]
+  GETIMPORT R16 K55 [Enum.UIFlexMode.Shrink]
+  SETTABLEKS R16 R15 K51 ["FlexMode"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K58 ["AnchorPoint"]
-  LOADN R13 2
-  SETTABLEKS R13 R12 K3 ["LayoutOrder"]
-  GETUPVAL R13 4
-  SETTABLEKS R13 R12 K59 ["OnClick"]
-  GETUPVAL R14 1
-  JUMPIFNOT R14 [+2]
-  LOADNIL R13
-  JUMP [+11]
-  GETIMPORT R13 K67 [UDim2.new]
-  LOADN R14 0
-  GETTABLEKS R15 R2 K68 ["TOGGLE_BUTTON_OFFSET"]
-  LOADK R16 K66 [0.5]
-  GETTABLEKS R19 R2 K70 ["TOGGLE_BUTTON_HEIGHT"]
-  MINUS R18 R19
-  DIVK R17 R18 K69 [2]
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K60 ["Position"]
-  SETTABLEKS R5 R12 K61 ["Selected"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K20 ["Toggle"]
-  CALL R6 3 -1
-  RETURN R6 -1
+  SETTABLEKS R13 R12 K48 ["FlexItem"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K17 ["Label"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K58 [{"LayoutOrder", "OnClick", "Selected"}]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K2 ["LayoutOrder"]
+  GETUPVAL R12 3
+  SETTABLEKS R12 R11 K56 ["OnClick"]
+  SETTABLEKS R4 R11 K57 ["Selected"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K18 ["Toggle"]
+  CALL R5 3 -1
+  RETURN R5 -1
 
 PROTO_9:
   DUPTABLE R2 K1 [{"mainSwitchEnabled"}]
@@ -239,92 +188,85 @@ PROTO_11:
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnablePseudolocalizationInPlayerEmulator2"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  LOADK R2 K2 ["PlayerEmulatorService"]
+  NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["PlayerEmulatorService"]
-  NAMECALL R1 R1 K5 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R5 K7 [script]
-  GETTABLEKS R4 R5 K8 ["Parent"]
-  GETTABLEKS R3 R4 K8 ["Parent"]
-  GETTABLEKS R2 R3 K8 ["Parent"]
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R5 R2 K11 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["Roact"]
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["RoactRodux"]
   CALL R3 1 1
-  GETIMPORT R4 K10 [require]
-  GETTABLEKS R6 R2 K11 ["Packages"]
-  GETTABLEKS R5 R6 K13 ["RoactRodux"]
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Framework"]
   CALL R4 1 1
-  GETIMPORT R5 K10 [require]
-  GETTABLEKS R7 R2 K11 ["Packages"]
-  GETTABLEKS R6 R7 K14 ["Framework"]
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K15 ["ContextServices"]
-  GETTABLEKS R7 R6 K16 ["withContext"]
-  GETTABLEKS R8 R5 K17 ["UI"]
-  GETTABLEKS R9 R8 K18 ["TextLabel"]
-  GETTABLEKS R10 R8 K19 ["ToggleButton"]
-  GETIMPORT R11 K10 [require]
-  GETTABLEKS R14 R2 K20 ["Src"]
-  GETTABLEKS R13 R14 K21 ["Util"]
-  GETTABLEKS R12 R13 K22 ["Constants"]
+  GETTABLEKS R5 R4 K13 ["ContextServices"]
+  GETTABLEKS R6 R5 K14 ["withContext"]
+  GETTABLEKS R7 R4 K15 ["UI"]
+  GETTABLEKS R8 R7 K16 ["TextLabel"]
+  GETTABLEKS R9 R7 K17 ["ToggleButton"]
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R13 R1 K18 ["Src"]
+  GETTABLEKS R12 R13 K19 ["Util"]
+  GETTABLEKS R11 R12 K20 ["Constants"]
+  CALL R10 1 1
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R14 R1 K18 ["Src"]
+  GETTABLEKS R13 R14 K21 ["Actions"]
+  GETTABLEKS R12 R13 K22 ["OnPlayerEmulationEnabledChanged"]
   CALL R11 1 1
-  GETIMPORT R12 K10 [require]
-  GETTABLEKS R15 R2 K20 ["Src"]
-  GETTABLEKS R14 R15 K23 ["Actions"]
-  GETTABLEKS R13 R14 K24 ["OnPlayerEmulationEnabledChanged"]
-  CALL R12 1 1
-  DUPCLOSURE R13 K25 [PROTO_0]
-  CAPTURE VAL R1
-  DUPCLOSURE R14 K26 [PROTO_1]
-  CAPTURE VAL R1
-  GETTABLEKS R15 R3 K27 ["PureComponent"]
-  LOADK R17 K28 ["MainSwitchSection"]
-  NAMECALL R15 R15 K29 ["extend"]
-  CALL R15 2 1
-  DUPCLOSURE R16 K30 [PROTO_2]
-  CAPTURE VAL R11
-  CAPTURE VAL R1
-  SETTABLEKS R16 R15 K31 ["initEnabledStatus"]
-  DUPCLOSURE R16 K32 [PROTO_3]
-  CAPTURE VAL R11
-  SETTABLEKS R16 R15 K33 ["updatePlayerEmulationEnabled"]
-  DUPCLOSURE R16 K34 [PROTO_4]
-  SETTABLEKS R16 R15 K35 ["init"]
-  DUPCLOSURE R16 K36 [PROTO_6]
-  CAPTURE VAL R1
-  SETTABLEKS R16 R15 K37 ["didMount"]
-  DUPCLOSURE R16 K38 [PROTO_7]
-  SETTABLEKS R16 R15 K39 ["willUnmount"]
-  DUPCLOSURE R16 K40 [PROTO_8]
-  CAPTURE VAL R3
+  DUPCLOSURE R12 K23 [PROTO_0]
   CAPTURE VAL R0
-  CAPTURE VAL R9
+  DUPCLOSURE R13 K24 [PROTO_1]
+  CAPTURE VAL R0
+  GETTABLEKS R14 R2 K25 ["PureComponent"]
+  LOADK R16 K26 ["MainSwitchSection"]
+  NAMECALL R14 R14 K27 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K28 [PROTO_2]
   CAPTURE VAL R10
-  CAPTURE VAL R14
-  SETTABLEKS R16 R15 K41 ["render"]
-  MOVE R16 R7
-  DUPTABLE R17 K45 [{"Plugin", "Stylizer", "Localization"}]
-  GETTABLEKS R18 R6 K42 ["Plugin"]
-  SETTABLEKS R18 R17 K42 ["Plugin"]
-  GETTABLEKS R18 R6 K43 ["Stylizer"]
-  SETTABLEKS R18 R17 K43 ["Stylizer"]
-  GETTABLEKS R18 R6 K44 ["Localization"]
-  SETTABLEKS R18 R17 K44 ["Localization"]
-  CALL R16 1 1
-  MOVE R17 R15
-  CALL R16 1 1
-  MOVE R15 R16
-  DUPCLOSURE R16 K46 [PROTO_9]
-  DUPCLOSURE R17 K47 [PROTO_11]
-  CAPTURE VAL R12
-  GETTABLEKS R18 R4 K48 ["connect"]
+  CAPTURE VAL R0
+  SETTABLEKS R15 R14 K29 ["initEnabledStatus"]
+  DUPCLOSURE R15 K30 [PROTO_3]
+  CAPTURE VAL R10
+  SETTABLEKS R15 R14 K31 ["updatePlayerEmulationEnabled"]
+  DUPCLOSURE R15 K32 [PROTO_4]
+  SETTABLEKS R15 R14 K33 ["init"]
+  DUPCLOSURE R15 K34 [PROTO_6]
+  CAPTURE VAL R0
+  SETTABLEKS R15 R14 K35 ["didMount"]
+  DUPCLOSURE R15 K36 [PROTO_7]
+  SETTABLEKS R15 R14 K37 ["willUnmount"]
+  DUPCLOSURE R15 K38 [PROTO_8]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  SETTABLEKS R15 R14 K39 ["render"]
+  MOVE R15 R6
+  DUPTABLE R16 K42 [{"Plugin", "Localization"}]
+  GETTABLEKS R17 R5 K40 ["Plugin"]
+  SETTABLEKS R17 R16 K40 ["Plugin"]
+  GETTABLEKS R17 R5 K41 ["Localization"]
+  SETTABLEKS R17 R16 K41 ["Localization"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  DUPCLOSURE R15 K43 [PROTO_9]
+  DUPCLOSURE R16 K44 [PROTO_11]
+  CAPTURE VAL R11
+  GETTABLEKS R17 R3 K45 ["connect"]
+  MOVE R18 R15
   MOVE R19 R16
-  MOVE R20 R17
-  CALL R18 2 1
-  MOVE R19 R15
-  CALL R18 1 -1
-  RETURN R18 -1
+  CALL R17 2 1
+  MOVE R18 R14
+  CALL R17 1 -1
+  RETURN R17 -1

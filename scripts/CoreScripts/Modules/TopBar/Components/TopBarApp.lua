@@ -44,10 +44,11 @@ local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
 local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
 local GetFFlagEnableSceneAnalysisPerformanceTest = SharedFlags.GetFFlagEnableSceneAnalysisPerformanceTest
-local GetFFlagSongbirdUseReportAudioModal = SharedFlags.GetFFlagSongbirdUseReportAudioModal
 local GetFFlagEnableSongbirdPeek = require(Chrome.Flags.GetFFlagEnableSongbirdPeek)
+
+local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
+local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 
 local Unibar
 local Peek = if ChromeEnabled() and GetFFlagEnableSongbirdPeek() then require(Chrome.ChromeShared.Peek) else nil
@@ -68,7 +69,6 @@ local Connection = require(script.Parent.Connection)
 local TopBar = Presentation.Parent.Parent
 local Constants = require(TopBar.Constants)
 local GetFFlagChangeTopbarHeightCalculation = require(TopBar.Flags.GetFFlagChangeTopbarHeightCalculation)
-local GetFFlagFixDupeBetaBadge = require(TopBar.Flags.GetFFlagFixDupeBetaBadge)
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
@@ -134,7 +134,7 @@ function TopBarApp:init()
 		})
 	end
 
-	if GetFFlagReenableTextChatForTenFootInterfaces() then
+	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 		-- This chatVersion may be inaccurate if the game isn't loaded
 		self:setState({
 			chatVersion = TextChatService.ChatVersion,
@@ -182,11 +182,7 @@ function TopBarApp:renderWithStyle(style)
 	local showBetaBadge = GetFFlagBetaBadge() and not chromeEnabled
 	local policyAllowsBetaBadge
 	if FFlagControlBetaBadgeWithGuac then
-		if GetFFlagFixDupeBetaBadge() then
-			policyAllowsBetaBadge = self.props.displayBetaBadge
-		else
-			showBetaBadge = self.props.displayBetaBadge
-		end
+		policyAllowsBetaBadge = self.props.displayBetaBadge
 	end
 
 	local unibarAlignment = Enum.HorizontalAlignment.Right
@@ -247,7 +243,7 @@ function TopBarApp:renderWithStyle(style)
 		end,
 	}, {
 		Connection = Roact.createElement(Connection),
-		GamepadMenu = if GetFFlagReenableTextChatForTenFootInterfaces()
+		GamepadMenu = if TenFootInterfaceExpChatExperimentation.getIsEnabled()
 			then Roact.createElement(GamepadMenu, {
 				chatVersion = self.state.chatVersion,
 			})
@@ -398,7 +394,7 @@ function TopBarApp:renderWithStyle(style)
 			Peek = Roact.createElement(Peek),
 		}),
 
-		SongbirdReportAudioFrame = ChromeEnabled() and GetFFlagSongbirdUseReportAudioModal() and Roact.createElement("Frame", {
+		SongbirdReportAudioFrame = ChromeEnabled() and Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			BackgroundTransparency = 1,
 			Position = UDim2.fromScale(0.5, 0.5),
@@ -494,8 +490,7 @@ function TopBarApp:renderWithStyle(style)
 							})
 							else nil,
 
-						VoiceBetaBadge = if GetFFlagBetaBadge()
-								and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
+						VoiceBetaBadge = if GetFFlagBetaBadge() and policyAllowsBetaBadge
 							then Roact.createElement(VoiceBetaBadge, {
 								layoutOrder = 6,
 								Analytics = Analytics.new(),
@@ -611,7 +606,7 @@ function TopBarApp:renderWithStyle(style)
 					})
 					else nil,
 
-				VoiceBetaBadge = if showBetaBadge and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
+				VoiceBetaBadge = if showBetaBadge and policyAllowsBetaBadge
 					then Roact.createElement(VoiceBetaBadge, {
 						layoutOrder = 4,
 						Analytics = Analytics.new(),

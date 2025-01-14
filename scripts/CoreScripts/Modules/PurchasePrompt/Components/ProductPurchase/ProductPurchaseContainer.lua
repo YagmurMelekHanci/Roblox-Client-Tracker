@@ -11,7 +11,7 @@ local Roact = PurchasePromptDeps.Roact
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local UIBlox = PurchasePromptDeps.UIBlox
@@ -106,7 +106,7 @@ function ProductPurchaseContainer:init()
 	}
 
 	coroutine.wrap(function()
-		if PolicyService:IsSubjectToChinaPolicies() then
+		if CachedPolicyService:IsSubjectToChinaPolicies() then
 			self:setState({
 				isLuobu = true,
 			})

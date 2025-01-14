@@ -32,7 +32,6 @@ local GetFFlagChangeTopbarHeightCalculation =
 local GetFFlagChromeUsePreferredTransparency =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
 
-local FFlagEnableTopBarIconButtonBackgroundProps = game:DefineFastFlag("EnableTopBarIconButtonBackgroundProps", false)
 local GetFFlagFixUnibarVirtualCursor =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixUnibarVirtualCursor
 
@@ -115,9 +114,7 @@ function IconButton:render()
 end
 
 function IconButton:renderWithSelectionCursor(getSelectionCursor)
-	local hasBackgroundFrame = FFlagEnableTopBarIconButtonBackgroundProps
-		and not isNewTiltIconEnabled()
-		and self.props.backgroundColor3
+	local hasBackgroundFrame = not isNewTiltIconEnabled() and self.props.backgroundColor3
 	return withStyle(function(style: any)
 		local overlayTheme = {
 			Color = Color3.new(1, 1, 1),
@@ -174,10 +171,7 @@ function IconButton:renderWithSelectionCursor(getSelectionCursor)
 				else nil,
 
 			Icon = not self.props.useIconScaleAnimation and Roact.createElement(ImageSetLabel, {
-				Size = if FFlagEnableTopBarIconButtonBackgroundProps
-						and typeof(self.props.iconSize) ~= "number"
-					then self.props.iconSize
-					else UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
+				Size = if typeof(self.props.iconSize) ~= "number" then self.props.iconSize else UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,

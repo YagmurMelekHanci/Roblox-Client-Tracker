@@ -25,6 +25,7 @@ local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConfli
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
+local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignalRaceCondition
 local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
 local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
@@ -46,13 +47,16 @@ end
 local chatVisibilitySignal = MappedSignal.new(chatSelectorVisibilitySignal, function()
 	return chatVisibility
 end, function(visibility)
+	-- TODO: On flag removal, remove visibility as a param
+	local isVisible = if GetFFlagFixMappedSignalRaceCondition() then ChatSelector.GetVisibility() else visibility
+
 	if not GuiService.MenuIsOpen then
 		-- chat is inhibited (visibility = false) during menu open; not user intent; don't save
-		GameSettings.ChatVisible = visibility :: boolean
+		GameSettings.ChatVisible = isVisible :: boolean
 	end
 
-	chatVisibility = visibility :: boolean
-	if visibility and unreadMessages and chatChromeIntegration.notification then
+	chatVisibility = isVisible :: boolean
+	if isVisible and unreadMessages and chatChromeIntegration.notification then
 		unreadMessages = 0
 		chatChromeIntegration.notification:clear()
 	end

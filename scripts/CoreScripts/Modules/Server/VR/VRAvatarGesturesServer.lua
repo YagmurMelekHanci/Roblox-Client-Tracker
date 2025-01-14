@@ -5,7 +5,7 @@ local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
-local AvatarUtil = require(RobloxGui.Modules.Common.AvatarUtil)
+local AvatarUtil = require(CorePackages.Workspace.Packages.CoreScriptsCommon).AvatarUtil
 local ConnectionUtil = require(CorePackages.Workspace.Packages.CoreScriptsCommon).ConnectionUtil
 
 local VRPLAYERS_REMOTE_EVENT_NAME = "AvatarGesturesVRPlayer"

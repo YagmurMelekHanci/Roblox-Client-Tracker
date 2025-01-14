@@ -12,7 +12,7 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local CoreScriptsCommon = require(CorePackages.Workspace.Packages.CoreScriptsCommon)
 local ConnectionUtil = CoreScriptsCommon.ConnectionUtil
-local AvatarUtil = require(RobloxGui.Modules.Common.AvatarUtil)
+local AvatarUtil = CoreScriptsCommon.AvatarUtil
 
 local FIRST_PERSON_THRESHOLD_DISTANCE = 5
 local HEAD_OFFSET_FORWARD_RATIO = 1/8

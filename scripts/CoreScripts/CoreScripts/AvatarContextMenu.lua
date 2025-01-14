@@ -68,7 +68,7 @@ local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 local Backpack = require(CoreGuiModules.BackpackScript)
 local EmotesMenuMaster = require(CoreGuiModules.EmotesMenu.EmotesMenuMaster)
 
-local BlockingUtility = require(CoreGuiModules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 --- FLAGS
 local FFlagAvatarContextMenuItemsChatButtonRefactor = require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)

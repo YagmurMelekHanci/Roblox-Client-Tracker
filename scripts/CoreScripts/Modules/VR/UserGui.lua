@@ -13,6 +13,7 @@ local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local VRKeyboard = require(RobloxGui.Modules.VR.VirtualKeyboard)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
+local IsSpatialRobloxGuiEnabled = require(RobloxGui.Modules.VR.IsSpatialRobloxGuiEnabled)
 
 local CorePackages = game:GetService("CorePackages")
 local VRModule = require(CorePackages.Workspace.Packages.VrCompatibility)
@@ -25,8 +26,6 @@ local UIManagerFolder = CoreGuiModules:WaitForChild("UIManager")
 local PanelType = require(UIManagerFolder.Constants).PanelType
 local UIManager = require(UIManagerFolder.UIManager)
 local Constants = require(UIManagerFolder.Constants)
-
-local FFlagEnableSpatialRobloxGui = require(RobloxGui.Modules.Flags.FFlagEnableSpatialRobloxGui)
 
 -- this var moves the gui and bottom bar together
 local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
@@ -73,13 +72,13 @@ userGuiPanel:SetVisible(false)
 local userGuiTimeout = 0
 
 local plPanel
-if FFlagEnableSpatialRobloxGui then
+if IsSpatialRobloxGuiEnabled then
 	plPanel = Panel3D.Get(VRAppConstants.PositionLockedPanelName)
 	config = {}
 	local panelCreationProps = {
 		panelType = PanelType.RobloxGui,
 	} :: Constants.PanelCreationProps
-	config.uiManagerPanelPart = (UIManager:createUI(panelCreationProps) :: Constants.CompatPanel).panelObject :: Part
+	config.uiManagerPanelPart = (UIManager.getInstance():createUI(panelCreationProps) :: Constants.CompatPanel).panelObject :: Part
 	plPanel:SetType(Panel3D.Type.UIManagerManaged, config)
 else
 	plPanel = Panel3D.Get(VRAppConstants.PositionLockedPanelName)
@@ -119,7 +118,7 @@ function UserGuiModule:SetVisible(visible, panel)
 
 	-- We need to hide the UserGui when typing on the keyboard so that the textbox doesn't sink events from the keyboard
 	local showGui = GuiVisible and not KeyboardOpen
-	if FFlagEnableSpatialRobloxGui then
+	if IsSpatialRobloxGuiEnabled then
 		CoreGui:SetUserGuiRendering(true, showGui and panel and panel:GetPart() or nil, Enum.NormalId.Back)
 	else
 		CoreGui:SetUserGuiRendering(true, showGui and panel and panel:GetPart() or nil, Enum.NormalId.Front)

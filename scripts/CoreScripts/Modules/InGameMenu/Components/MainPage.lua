@@ -87,9 +87,8 @@ local function areCapturesAllowed()
 	if not FFlagTakeAScreenshotOfThis then
 		return true
 	end
-	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-	local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
-	return not PolicyService:IsSubjectToChinaPolicies()
+	local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
+	return not CachedPolicyService:IsSubjectToChinaPolicies()
 end
 
 function MainPage:renderButtonModels(style, localized)

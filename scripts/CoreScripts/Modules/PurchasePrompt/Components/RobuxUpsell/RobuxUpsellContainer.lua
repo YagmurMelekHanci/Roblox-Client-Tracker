@@ -7,11 +7,12 @@ local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromp
 local Roact = PurchasePromptDeps.Roact
 local React = require(CorePackages.Packages.React)
 
+local IAPExperience = require(CorePackages.Workspace.Packages.IAPExperience)
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
-local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local PurchaseFlow = require(Root.Enums.PurchaseFlow)
@@ -38,6 +39,7 @@ local FFlagPublishAvatarPromptEnabledAllPlatforms =
 
 local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
 	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
+local GetFFlagEnableEventMetadataInUpsell = IAPExperience.Flags.GetFFlagEnableEventMetadataInUpsell
 
 local RobuxUpsellOverlay = require(script.Parent.RobuxUpsellOverlay)
 
@@ -101,6 +103,7 @@ function RobuxUpsellContainer:createElement()
 			robuxProductId = props.nativeUpsell.productId,
 
 			itemIcon = imageIcon,
+			itemProductId = if GetFFlagEnableEventMetadataInUpsell then props.productInfo.productId else nil,
 			itemName = props.productInfo.name,
 			itemRobuxCost = itemRobuxCost,
 			iapRobuxAmount = props.nativeUpsell.robuxPurchaseAmount or 0,
@@ -139,7 +142,7 @@ end
 function RobuxUpsellContainer:render()
 	if GetFFLagUseCoreScriptsRootProviderForUpsellModal() then
 		return Roact.createElement(CoreScriptsRootProvider, {}, {
-			FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
+			FocusNavigationCoreScriptsWrapper = React.createElement(FocusNavigationCoreScriptsWrapper, {
 				selectionGroupName = SELECTION_GROUP_NAME,
 				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 			}, {

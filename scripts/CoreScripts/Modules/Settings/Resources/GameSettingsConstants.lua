@@ -9,16 +9,17 @@ TODO: APPEXP-2044 move GameSettings.lua constants here
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
 
 -------------- Flags ------------------
 local PartyVoiceVolumeFeatureAvailable = game:GetEngineFeature("PartyVoiceVolume")
 local GetFStringInExperienceMenuIXPLayer = require(Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer)
 local GetFStringInExperienceMenuIXPVar = require(Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar)
-local FFlagInExperienceMenuReorderFirstVariant1 = require(Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant1)
-local FFlagOverrideInExperienceMenuReorderFirstVariant1 = require(Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant1)
+local FFlagInExperienceMenuReorderFirstVariant = require(Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
+local FFlagOverrideInExperienceMenuReorderFirstVariant = require(Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant)
 
 -------------- Modules ----------------
-local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 
 -------------- LAYOUT ORDER -----------
 -- Recall that layout order values are relative
@@ -146,7 +147,6 @@ local function LayoutReOrderIXP()
 		local variant = LAYOUT_ORDER_MT.variants.DEFAULT
 		if layerData ~= nil and layerData[ixpVar] ~= nil then
 			variant = layerData[ixpVar]
-			IXPServiceWrapper:LogUserLayerExposure(layer)
 		end
 		return variant
 	end
@@ -155,7 +155,7 @@ local function LayoutReOrderIXP()
 		if LAYOUT_ORDER_MT.ixp_variant == -1 then
 			LAYOUT_ORDER_MT.ixp_variant = fetchSettingReorderIXPVariant()
 		end
-		if FFlagInExperienceMenuReorderFirstVariant1 and LAYOUT_ORDER_MT.ixp_variant == LAYOUT_ORDER_MT.variants.VARIANT then
+		if FFlagInExperienceMenuReorderFirstVariant and LAYOUT_ORDER_MT.ixp_variant == LAYOUT_ORDER_MT.variants.VARIANT then
 			return LAYOUT_REORDER_VARIANT_1[setting]
 		else
 			return SETTINGS_MENU_LAYOUT_ORDER[setting]
@@ -172,9 +172,9 @@ end
 -- Returns a LayoutOrder of Settings Menu with flagging
 local function getLayoutOrder()
 	local layoutOrder = {} :: any
-	if FFlagOverrideInExperienceMenuReorderFirstVariant1 then 
+	if FFlagOverrideInExperienceMenuReorderFirstVariant then 
 		layoutOrder = LAYOUT_REORDER_VARIANT_1 
-	elseif FFlagInExperienceMenuReorderFirstVariant1 then 
+	elseif FFlagInExperienceMenuReorderFirstVariant then 
 		layoutOrder = LayoutReOrderIXP() 
 	else
 		layoutOrder = SETTINGS_MENU_LAYOUT_ORDER

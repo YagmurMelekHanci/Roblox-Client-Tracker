@@ -27,6 +27,7 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local VRService = game:GetService("VRService")
 local GroupService = game:GetService("GroupService")
 local TeleportService = game:GetService("TeleportService")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui.RobloxGui
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
@@ -71,7 +72,7 @@ local badgesNotificationsActive = true
 
 local SocialUtil = require(RobloxGui.Modules.SocialUtil)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
 local BG_TRANSPARENCY_DEFAULT = 0.6
 local bgTransparency = BG_TRANSPARENCY_DEFAULT * GameSettings.PreferredTransparency
@@ -1007,7 +1008,7 @@ function onGameSettingsChanged(property, amount)
 	end
 end
 
-if not PolicyService:IsSubjectToChinaPolicies() then
+if not CachedPolicyService:IsSubjectToChinaPolicies() then
 	BadgeService.OnBadgeAwarded:connect(onBadgeAwarded)
 end
 
@@ -1021,7 +1022,7 @@ if not isTenFootInterface then
 	end)
 end
 
-local allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()
+local allowScreenshots = not CachedPolicyService:IsSubjectToChinaPolicies()
 
 if allowScreenshots then
 	-- Otherwise game.ScreenshotSavedToAlbum signal will be fired, handling in CaptureNotification.lua

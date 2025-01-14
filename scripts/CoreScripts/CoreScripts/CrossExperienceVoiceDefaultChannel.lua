@@ -1,6 +1,5 @@
 --!nonstrict
 
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local NotificationService = game:GetService("NotificationService")
 local Players = game:GetService("Players")
@@ -11,15 +10,13 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local PlayerAudioFocusChanged = ReplicatedStorage:WaitForChild("PlayerAudioFocusChanged")
 
-local RobloxGui = CoreGui.RobloxGui
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
 local Rodux = require(CorePackages.Packages.Rodux)
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
 local CoreVoiceManager = VoiceChatCore.CoreVoiceManager.default
 local createPersistenceMiddleware = CrossExperience.Middlewares.createPersistenceMiddleware
 
-local CoreGuiModules = RobloxGui.Modules
-local BlockingUtility = require(CoreGuiModules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagPartyVoiceBlockSync = SharedFlags.FFlagPartyVoiceBlockSync

@@ -20,15 +20,27 @@ local Utils = require(Settings.Integrations.Utils)
 local SettingsLayoutOrder = Constants.GAMESETTINGS.LAYOUT_ORDER
 
 -- Fullscreen
-local FullScreenValue = ValueChangedSignal.new(UserGameSettings:InFullScreen())
 
-FullScreenValue:connect(function(newValue)
-	local oldValue = UserGameSettings:InFullScreen()
-	if newValue == oldValue then
-		return
-	end
-	GuiService:ToggleFullscreen()
-end, true)
+local function FullScreenValue()
+	local value = ValueChangedSignal.new(UserGameSettings:InFullScreen())
+
+	value:connect(function(newValue)
+		local oldValue = UserGameSettings:InFullScreen()
+		if newValue == oldValue then
+			return
+		end
+		GuiService:ToggleFullscreen()
+	end, true)
+
+	UserGameSettings.FullscreenChanged:Connect(function(isFullScreen)
+		value:set(isFullScreen)
+	end)
+
+	return value
+end
+
+local fullscreenValue = FullScreenValue()
+
 
 local function initAvailability()
 	return Utils.getDeviceType() == Utils.DeviceTypes.Desktop or Utils.getDeviceType() == Utils.DeviceTypes.Unknown
@@ -41,9 +53,10 @@ local FullScreenConfig = {
 	field_type = FieldType.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.FullScreen",
 	layoutOrder = SettingsLayoutOrder.FullScreenFrame :: number,
-	onChanged = FullScreenValue,
+	onChanged = fullscreenValue,
 	alreadyLocalized = false,
 	availability = FullScreenAvailability,
 }
+
 
 return FullScreenConfig :: SettingsServiceLib.ToggleRegisterConfig

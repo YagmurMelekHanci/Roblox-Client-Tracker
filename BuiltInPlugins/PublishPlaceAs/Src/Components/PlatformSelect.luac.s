@@ -12,98 +12,81 @@ PROTO_1:
   GETTABLEKS R3 R1 K2 ["Stylizer"]
   GETTABLEKS R5 R1 K4 ["LayoutOrder"]
   ORK R4 R5 K3 [0]
-  GETUPVAL R6 0
-  JUMPIFNOT R6 [+2]
-  LOADNIL R5
-  JUMP [+2]
-  GETTABLEKS R5 R1 K5 ["DevicesError"]
-  GETTABLEKS R6 R1 K6 ["DeviceSelected"]
-  GETTABLEKS R7 R1 K7 ["Devices"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K8 ["createElement"]
-  GETUPVAL R9 2
-  DUPTABLE R10 K15 [{"Title", "LayoutOrder", "Boxes", "ErrorMessage", "EntryClicked", "AbsoluteMaxHeight", "UseGridLayout"}]
-  LOADK R13 K16 ["PageTitle"]
-  LOADK R14 K7 ["Devices"]
-  NAMECALL R11 R2 K17 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K9 ["Title"]
-  SETTABLEKS R4 R10 K4 ["LayoutOrder"]
-  NEWTABLE R11 0 5
-  DUPTABLE R12 K20 [{"Id", "Title", "Selected"}]
-  LOADK R13 K21 ["Computer"]
-  SETTABLEKS R13 R12 K18 ["Id"]
-  LOADK R15 K7 ["Devices"]
-  LOADK R16 K21 ["Computer"]
-  NAMECALL R13 R2 K17 ["getText"]
+  GETTABLEKS R5 R1 K5 ["DeviceSelected"]
+  GETTABLEKS R6 R1 K6 ["Devices"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K13 [{"Title", "LayoutOrder", "Boxes", "EntryClicked", "AbsoluteMaxHeight", "UseGridLayout"}]
+  LOADK R12 K14 ["PageTitle"]
+  LOADK R13 K6 ["Devices"]
+  NAMECALL R10 R2 K15 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K8 ["Title"]
+  SETTABLEKS R4 R9 K4 ["LayoutOrder"]
+  NEWTABLE R10 0 5
+  DUPTABLE R11 K18 [{"Id", "Title", "Selected"}]
+  LOADK R12 K19 ["Computer"]
+  SETTABLEKS R12 R11 K16 ["Id"]
+  LOADK R14 K6 ["Devices"]
+  LOADK R15 K19 ["Computer"]
+  NAMECALL R12 R2 K15 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K8 ["Title"]
+  GETTABLEKS R12 R6 K19 ["Computer"]
+  SETTABLEKS R12 R11 K17 ["Selected"]
+  DUPTABLE R12 K18 [{"Id", "Title", "Selected"}]
+  LOADK R13 K20 ["Phone"]
+  SETTABLEKS R13 R12 K16 ["Id"]
+  LOADK R15 K6 ["Devices"]
+  LOADK R16 K20 ["Phone"]
+  NAMECALL R13 R2 K15 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K9 ["Title"]
-  GETTABLEKS R13 R7 K21 ["Computer"]
-  SETTABLEKS R13 R12 K19 ["Selected"]
-  DUPTABLE R13 K20 [{"Id", "Title", "Selected"}]
-  LOADK R14 K22 ["Phone"]
-  SETTABLEKS R14 R13 K18 ["Id"]
-  LOADK R16 K7 ["Devices"]
-  LOADK R17 K22 ["Phone"]
-  NAMECALL R14 R2 K17 ["getText"]
+  SETTABLEKS R13 R12 K8 ["Title"]
+  GETTABLEKS R13 R6 K20 ["Phone"]
+  SETTABLEKS R13 R12 K17 ["Selected"]
+  DUPTABLE R13 K18 [{"Id", "Title", "Selected"}]
+  LOADK R14 K21 ["Tablet"]
+  SETTABLEKS R14 R13 K16 ["Id"]
+  LOADK R16 K6 ["Devices"]
+  LOADK R17 K21 ["Tablet"]
+  NAMECALL R14 R2 K15 ["getText"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K9 ["Title"]
-  GETTABLEKS R14 R7 K22 ["Phone"]
-  SETTABLEKS R14 R13 K19 ["Selected"]
-  DUPTABLE R14 K20 [{"Id", "Title", "Selected"}]
-  LOADK R15 K23 ["Tablet"]
-  SETTABLEKS R15 R14 K18 ["Id"]
-  LOADK R17 K7 ["Devices"]
-  LOADK R18 K23 ["Tablet"]
-  NAMECALL R15 R2 K17 ["getText"]
+  SETTABLEKS R14 R13 K8 ["Title"]
+  GETTABLEKS R14 R6 K21 ["Tablet"]
+  SETTABLEKS R14 R13 K17 ["Selected"]
+  DUPTABLE R14 K18 [{"Id", "Title", "Selected"}]
+  LOADK R15 K22 ["Console"]
+  SETTABLEKS R15 R14 K16 ["Id"]
+  LOADK R17 K6 ["Devices"]
+  LOADK R18 K22 ["Console"]
+  NAMECALL R15 R2 K15 ["getText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K9 ["Title"]
-  GETTABLEKS R15 R7 K23 ["Tablet"]
-  SETTABLEKS R15 R14 K19 ["Selected"]
-  DUPTABLE R15 K20 [{"Id", "Title", "Selected"}]
-  LOADK R16 K24 ["Console"]
-  SETTABLEKS R16 R15 K18 ["Id"]
-  LOADK R18 K7 ["Devices"]
-  LOADK R19 K24 ["Console"]
-  NAMECALL R16 R2 K17 ["getText"]
+  SETTABLEKS R15 R14 K8 ["Title"]
+  GETTABLEKS R15 R6 K22 ["Console"]
+  SETTABLEKS R15 R14 K17 ["Selected"]
+  DUPTABLE R15 K18 [{"Id", "Title", "Selected"}]
+  LOADK R16 K23 ["VR"]
+  SETTABLEKS R16 R15 K16 ["Id"]
+  LOADK R18 K6 ["Devices"]
+  LOADK R19 K23 ["VR"]
+  NAMECALL R16 R2 K15 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K9 ["Title"]
-  GETTABLEKS R16 R7 K24 ["Console"]
-  SETTABLEKS R16 R15 K19 ["Selected"]
-  DUPTABLE R16 K20 [{"Id", "Title", "Selected"}]
-  LOADK R17 K25 ["VR"]
-  SETTABLEKS R17 R16 K18 ["Id"]
-  LOADK R19 K7 ["Devices"]
-  LOADK R20 K25 ["VR"]
-  NAMECALL R17 R2 K17 ["getText"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K9 ["Title"]
-  GETTABLEKS R17 R7 K25 ["VR"]
-  SETTABLEKS R17 R16 K19 ["Selected"]
-  SETLIST R11 R12 5 [1]
-  SETTABLEKS R11 R10 K10 ["Boxes"]
-  GETUPVAL R12 0
-  JUMPIFNOT R12 [+2]
-  LOADNIL R11
-  JUMP [+8]
-  JUMPIFNOT R5 [+6]
-  LOADK R13 K26 ["Error"]
-  LOADK R14 K27 ["NoDevices"]
-  NAMECALL R11 R2 K17 ["getText"]
-  CALL R11 3 1
-  JUMPIF R11 [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K11 ["ErrorMessage"]
-  NEWCLOSURE R11 P0
-  CAPTURE VAL R6
-  SETTABLEKS R11 R10 K12 ["EntryClicked"]
-  GETTABLEKS R12 R3 K28 ["checkboxset"]
-  GETTABLEKS R11 R12 K29 ["maxHeight"]
-  SETTABLEKS R11 R10 K13 ["AbsoluteMaxHeight"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K14 ["UseGridLayout"]
-  CALL R8 2 -1
-  RETURN R8 -1
+  SETTABLEKS R16 R15 K8 ["Title"]
+  GETTABLEKS R16 R6 K23 ["VR"]
+  SETTABLEKS R16 R15 K17 ["Selected"]
+  SETLIST R10 R11 5 [1]
+  SETTABLEKS R10 R9 K9 ["Boxes"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R5
+  SETTABLEKS R10 R9 K10 ["EntryClicked"]
+  GETTABLEKS R11 R3 K24 ["checkboxset"]
+  GETTABLEKS R10 R11 K25 ["maxHeight"]
+  SETTABLEKS R10 R9 K11 ["AbsoluteMaxHeight"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K12 ["UseGridLayout"]
+  CALL R7 2 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0
@@ -136,23 +119,18 @@ MAIN:
   NAMECALL R7 R7 K16 ["extend"]
   CALL R7 2 1
   GETTABLEKS R8 R2 K17 ["SharedFlags"]
-  GETIMPORT R9 K19 [game]
-  LOADK R11 K20 ["RemoveNoDevicesError"]
-  NAMECALL R9 R9 K21 ["GetFastFlag"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K22 [PROTO_1]
-  CAPTURE VAL R9
+  DUPCLOSURE R9 K18 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R5
-  SETTABLEKS R10 R7 K23 ["render"]
-  MOVE R10 R4
-  DUPTABLE R11 K26 [{"Localization", "Stylizer"}]
-  GETTABLEKS R12 R3 K24 ["Localization"]
-  SETTABLEKS R12 R11 K24 ["Localization"]
-  GETTABLEKS R12 R3 K25 ["Stylizer"]
-  SETTABLEKS R12 R11 K25 ["Stylizer"]
-  CALL R10 1 1
-  MOVE R11 R7
-  CALL R10 1 1
-  MOVE R7 R10
+  SETTABLEKS R9 R7 K19 ["render"]
+  MOVE R9 R4
+  DUPTABLE R10 K22 [{"Localization", "Stylizer"}]
+  GETTABLEKS R11 R3 K20 ["Localization"]
+  SETTABLEKS R11 R10 K20 ["Localization"]
+  GETTABLEKS R11 R3 K21 ["Stylizer"]
+  SETTABLEKS R11 R10 K21 ["Stylizer"]
+  CALL R9 1 1
+  MOVE R10 R7
+  CALL R9 1 1
+  MOVE R7 R9
   RETURN R7 1

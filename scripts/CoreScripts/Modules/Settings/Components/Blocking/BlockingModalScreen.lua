@@ -5,12 +5,11 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 
-local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
-
 local BlockingModalContainer = require(script.Parent.BlockingModalContainer)
 
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.GetFFlagWrapBlockModalScreenInProvider)
@@ -33,7 +32,7 @@ BlockingModalScreen.validateProps = t.interface({
 function BlockingModalScreen:render()
 	local blockingModalContainer = Roact.createElement(BlockingModalContainer, self.props)
 	if GetFFlagWrapBlockModalScreenInProvider() then
-		blockingModalContainer = Roact.createElement(FocusNavigationEffects, {
+		blockingModalContainer = Roact.createElement(FocusNavigationCoreScriptsWrapper, {
 			selectionGroupName = SELECTION_GROUP_NAME .. tostring(self.props.player.UserId),
 			focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 		}, {

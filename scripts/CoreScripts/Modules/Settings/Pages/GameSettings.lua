@@ -24,7 +24,7 @@ local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local UserGameSettings = Settings:GetService("UserGameSettings")
-local Url = require(RobloxGui.Modules.Common.Url)
+local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local VoiceChatService = nil
 local TextChatService = game:GetService("TextChatService")
 local SafetyService = game:GetService("SafetyService")
@@ -63,11 +63,12 @@ local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnable
 local FFlagCameraSensitivityPadding = game:DefineFastFlag("CameraSensitivityPadding2", false)
 local GetFFlagDebounceConnectDisconnectButton = require(RobloxGui.Modules.Flags.GetFFlagDebounceConnectDisconnectButton)
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
-local FFlagInExperienceMenuReorderFirstVariant1 =
-	require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant1)
-local FFlagOverrideInExperienceMenuReorderFirstVariant1 =
-	require(RobloxGui.Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant1)
+local FFlagInExperienceMenuReorderFirstVariant =
+	require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
+local FFlagOverrideInExperienceMenuReorderFirstVariant =
+	require(RobloxGui.Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant)
 local FFlagCameraToggleInitBugFix = game:DefineFastFlag("CameraToggleInitBugFix", false)
+local FFlagMicroprofileGameSettingsFix = game:DefineFastFlag("MicroprofileGameSettingsFix", false)
 
 local CrossExpVoiceIXPManager = require(CorePackages.Workspace.Packages.CrossExperienceVoice).IXPManager.default
 
@@ -132,7 +133,7 @@ local VOICE_DISCONNECT_FRAME_KEY = "VoiceDisconnectFrame"
 
 ----------- LAYOUT ORDER ------------
 local SETTINGS_MENU_LAYOUT_ORDER
-if FFlagInExperienceMenuReorderFirstVariant1 or FFlagOverrideInExperienceMenuReorderFirstVariant1 then
+if FFlagInExperienceMenuReorderFirstVariant or FFlagOverrideInExperienceMenuReorderFirstVariant then
 	GameSettingsConstants = require(RobloxGui.Modules.Settings.Resources.GameSettingsConstants)
 	SETTINGS_MENU_LAYOUT_ORDER = GameSettingsConstants.SETTINGS_MENU_LAYOUT_ORDER
 else
@@ -194,7 +195,7 @@ else
 end
 
 -------- CHAT TRANSLATION ----------
-local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 
 local GetFFlagChatTranslationSettingEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationSettingEnabled)
 local GetFStringChatTranslationLayerName = require(RobloxGui.Modules.Flags.GetFStringChatTranslationLayerName)
@@ -234,7 +235,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local PageInstance = nil
 local LocalPlayer = Players.LocalPlayer
 local platform = UserInputService:GetPlatform()
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
 local CrossExperienceVoiceManager = CrossExperienceVoice.CrossExperienceVoiceManager.default
@@ -255,7 +256,7 @@ local FFlagUseNotificationsLocalization = UnlSuccess and UnlResult
 game:DefineFastInt("RomarkStartWithGraphicQualityLevel", -1)
 local FIntRomarkStartWithGraphicQualityLevel = game:GetFastInt("RomarkStartWithGraphicQualityLevel")
 
-local canUseMicroProfiler = not PolicyService:IsSubjectToChinaPolicies()
+local canUseMicroProfiler = not CachedPolicyService:IsSubjectToChinaPolicies()
 
 local isDesktopClient = (platform == Enum.Platform.Windows)
 	or (platform == Enum.Platform.OSX)
@@ -528,7 +529,7 @@ local function Initialize()
 						RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MaximumFramerate.Description")
 					)
 					if
-						FFlagInExperienceMenuReorderFirstVariant1 or FFlagOverrideInExperienceMenuReorderFirstVariant1
+						FFlagInExperienceMenuReorderFirstVariant or FFlagOverrideInExperienceMenuReorderFirstVariant
 					then
 						this.FramerateCapFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER.FramerateCap
 					else
@@ -898,18 +899,34 @@ local function Initialize()
 		-- todo replace this with TextX and TextYAlignment to centerlise the text
 		this.InformationFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 
-		this.InformationText = Create("TextLabel")({
-			Name = "InformationLabel",
-			Text = "Information Loading",
-			Font = Theme.font(Enum.Font.SourceSans),
-			FontSize = Theme.fontSize(Enum.FontSize.Size14),
-			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 800, 1, 0),
-			Position = UDim2.new(1, -650, 0, 20),
-			Visible = true,
-			ZIndex = 2,
-			Parent = this.InformationFrame,
-		})
+		if FFlagMicroprofileGameSettingsFix then
+			this.InformationText = Create("TextLabel")({
+				Name = "InformationLabel",
+				Text = "Information Loading",
+				Font = Theme.font(Enum.Font.SourceSans),
+				FontSize = Theme.fontSize(Enum.FontSize.Size18),
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, 800, 1, 0),
+				Position = UDim2.new(0, 5, 0, 0),
+				Visible = true,
+				ZIndex = 2,
+				Parent = this.InformationFrame,
+			})
+		else
+			this.InformationText = Create("TextLabel")({
+				Name = "InformationLabel",
+				Text = "Information Loading",
+				Font = Theme.font(Enum.Font.SourceSans),
+				FontSize = Theme.fontSize(Enum.FontSize.Size14),
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, 800, 1, 0),
+				Position = UDim2.new(1, -650, 0, 20),
+				Visible = true,
+				ZIndex = 2,
+				Parent = this.InformationFrame,
+			})
+		end
+
 		return this.InformationFrame, this.InformationText
 	end
 
@@ -3076,12 +3093,12 @@ local function Initialize()
 		local guids = this[deviceType .. "DeviceGuids"] or {}
 
 		local deviceLabel = (deviceType == VOICE_CHAT_DEVICE_TYPE.Input)
-				and RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.InputDevice")
+			and RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.InputDevice")
 			or RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.OutputDevice")
 		this[deviceType .. "DeviceFrame"], _, this[deviceType .. "DeviceSelector"] =
 			utility:AddNewRow(this, deviceLabel, "Selector", options, selectedIndex)
 		this[deviceType .. "DeviceFrame"].LayoutOrder = (deviceType == VOICE_CHAT_DEVICE_TYPE.Input)
-				and SETTINGS_MENU_LAYOUT_ORDER["DeviceFrameInput"]
+			and SETTINGS_MENU_LAYOUT_ORDER["DeviceFrameInput"]
 			or SETTINGS_MENU_LAYOUT_ORDER["DeviceFrameOutput"]
 
 		this[deviceType .. "DeviceInfo"] = {
@@ -3670,7 +3687,7 @@ local function Initialize()
 		createUiNavigationKeyBindOptions()
 	end
 
-	local canShowPerfStats = not PolicyService:IsSubjectToChinaPolicies()
+	local canShowPerfStats = not CachedPolicyService:IsSubjectToChinaPolicies()
 
 	if canShowPerfStats then
 		createPerformanceStatsOptions()
@@ -3715,7 +3732,7 @@ local function Initialize()
 		this.TabHeader.TabLabel.Title.Text = "Settings"
 	else
 		this.TabHeader.Icon.Image = isTenFootInterface
-				and "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png"
+			and "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png"
 			or "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab.png"
 
 		if FFlagUseNotificationsLocalization then

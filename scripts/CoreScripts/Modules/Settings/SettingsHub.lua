@@ -27,7 +27,7 @@ local Otter = require(CorePackages.Packages.Otter)
 --[[ UTILITIES ]]
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
@@ -35,7 +35,7 @@ local isSubjectToDesktopPolicies = require(SharedFlags).isSubjectToDesktopPolici
 local MenuBackButton = require(RobloxGui.Modules.Settings.Components.MenuBackButton)
 local MenuFrontButton = require(RobloxGui.Modules.Settings.Components.MenuFrontButton)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
-local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local CapturesPolicy  = require(CorePackages.Workspace.Packages.CapturesInExperience).CapturesPolicy
 local InExperienceCapabilities = require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
@@ -87,7 +87,6 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = require(SharedFlags).GetFStringGameInviteMenuLayer
-local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
 local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM2", false)
@@ -108,7 +107,12 @@ local FFlagAppChatReappearIfClosedByTiltMenu = game:DefineFastFlag("AppChatReapp
 local FFlagInExperienceMenuResetButtonTextToRespawn = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuResetButtonTextToRespawn)
 local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 local EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons")
+local FFlagInExperienceMenuReorderFirstVariant = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
+local GetFStringInExperienceMenuIXPLayer = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer)
+local GetFStringInExperienceMenuIXPVar = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar)
 local FFlagInExperienceMenuCanvasGroupsInvisible = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuCanvasGroupsInvisible)
+local GetFFlagPackagifySettingsShowSignal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPackagifySettingsShowSignal
+local FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -183,7 +187,7 @@ local CapturesApp = require(RobloxGui.Modules.Captures.CapturesApp)
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
-local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
+local shouldLocalize = CachedPolicyService:IsSubjectToChinaPolicies()
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
@@ -194,6 +198,9 @@ local FFlagFixReportButtonCutOff = game:DefineFastFlag("FixReportButtonCutOff", 
 local MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
 local PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
+
+local SettingsShowSignal = if GetFFlagPackagifySettingsShowSignal() then require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal else nil
+local SettingsUtility = if GetFFlagPackagifySettingsShowSignal() then require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsUtility else nil
 
 local SPRING_PARAMS = {}
 if GetFFlagVoiceRecordingIndicatorsEnabled() then
@@ -317,8 +324,9 @@ local function CreateSettingsHub()
 	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
 	this.LeaveGameUpsellPage = if GetFFlagEnableLeaveGameUpsellEntrypoint() then require(RobloxGui.Modules.Settings.Pages.LeaveGameUpsell.LeaveGameUpsell) else nil
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
-	this.SettingsShowSignal = utility:CreateSignal()
-	this.CurrentPageSignal = utility:CreateSignal()
+	-- remove utility CreateSignal upon removing this flag
+	this.SettingsShowSignal = if GetFFlagPackagifySettingsShowSignal() then SettingsShowSignal else utility:CreateSignal()
+	this.CurrentPageSignal = if GetFFlagPackagifySettingsShowSignal() then SettingsUtility.CreateSignal() else utility:CreateSignal()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
 	this.hasMicPermissions = false
@@ -1294,7 +1302,7 @@ local function CreateSettingsHub()
 		game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
 		spawn(setPlaceVersionText)
 
-		local shouldShowEnvLabel = not PolicyService:IsSubjectToChinaPolicies()
+		local shouldShowEnvLabel = not CachedPolicyService:IsSubjectToChinaPolicies()
 
 		if shouldShowEnvLabel then
 			this.EnvironmentLabel = Create("TextLabel") {
@@ -1773,7 +1781,7 @@ local function CreateSettingsHub()
 
 		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() and not FFlagAvatarChatCoreScriptSupport then Create'Frame'
 			{
-				Size = if GetFFlagRightAlignMicText() and ChromeEnabled then UDim2.new(1, 0, 0, 100) else UDim2.fromOffset(0, 100),
+				Size = if ChromeEnabled then UDim2.new(1, 0, 0, 100) else UDim2.fromOffset(0, 100),
 				Position = UDim2.new(0,0,0,0),
 				Parent = this.HubBar,
 				BackgroundTransparency = 1,
@@ -1798,7 +1806,7 @@ local function CreateSettingsHub()
 			if utility:IsSmallTouchScreen() then
 				this.VoiceRecordingText.Size = UDim2.fromScale(1, 1)
 				this.VoiceRecordingText.AnchorPoint = Vector2.new(0,0)
-				if GetFFlagRightAlignMicText() and ChromeEnabled then
+				if ChromeEnabled then
 					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
 					this.VoiceRecordingText.Position = UDim2.new(0,0,0,-60)
 				else
@@ -1806,7 +1814,7 @@ local function CreateSettingsHub()
 				end
 			elseif isTenFootInterface then
 				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
-				if GetFFlagRightAlignMicText() and ChromeEnabled then
+				if ChromeEnabled then
 					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
 					this.VoiceRecordingText.Size = UDim2.new(1,0,0,100)
 					this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
@@ -1816,7 +1824,7 @@ local function CreateSettingsHub()
 				end
 			else
 				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
-				if GetFFlagRightAlignMicText() and ChromeEnabled then
+				if ChromeEnabled then
 					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
 					this.VoiceRecordingText.Size = UDim2.new(1, 0, 0, 60)
 					this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
@@ -2285,7 +2293,7 @@ local function CreateSettingsHub()
 
 		local barSize = this.HubBar.Size.Y.Offset
 		local extraSpace = bufferSize*2+barSize*2
-		
+
 		local extraTopPadding = 0
 		if getBackBarVisible() and this.BackBarRef:getValue() then 
 			extraTopPadding = this.BackBarRef:getValue().Size.Y.Offset 
@@ -2359,7 +2367,7 @@ local function CreateSettingsHub()
 			else
 				barSize = this.HubBar.Size.Y.Offset + this.BottomButtonFrame.Size.Y.Offset
 			end
-			extraSpace = bufferSize*2+(if this.Pages.CurrentPage.DisableTopPadding then 0 else barSize)
+			extraSpace = bufferSize*2+(if (not FFlagFixDisableTopPaddingError or this.Pages.CurrentPage ~= nil) and this.Pages.CurrentPage.DisableTopPadding then 0 else barSize)
 			extraTopPadding = if getBackBarVisible() and this.BackBarRef:getValue() then this.BackBarRef:getValue().Size.Y.Offset else 0
 			if EngineFeatureTeleportHistoryButtons and getFrontBarVisible() and this.FrontBarRef:getValue() then
 				extraTopPadding = extraTopPadding + this.FrontBarRef:getValue().Size.Y.Offset
@@ -3019,6 +3027,15 @@ local function CreateSettingsHub()
 		if pageToSwitchTo then
 			if this.GameSettingsPage == pageToSwitchTo then
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_GameSettings_tab", Constants.AnalyticsMenuActionName, eventTable)
+				if FFlagInExperienceMenuReorderFirstVariant and not this.GameSettingsPageReorderIXPFetched then
+					local layer = GetFStringInExperienceMenuIXPLayer()
+					local ixpVar = GetFStringInExperienceMenuIXPVar()
+					local layerData = IXPServiceWrapper:GetLayerData(layer)
+					if layerData ~= nil and layerData[ixpVar] ~= nil then
+						IXPServiceWrapper:LogUserLayerExposure(layer)
+						this.GameSettingsPageReorderIXPFetched = true
+					end
+				end
 			else
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_" .. pageToSwitchTo.Page.Name .. "_tab", Constants.AnalyticsMenuActionName, eventTable)
 			end
@@ -3638,6 +3655,7 @@ local function CreateSettingsHub()
 	end
 
 	local thisModuleName = "SettingsMenu"
+	this.GameSettingsPageReorderIXPFetched = false
 	local vrMenuOpened, vrMenuClosed = nil, nil
 	local function enableVR()
 		local VRHub = require(RobloxGui.Modules.VR.VRHub)
@@ -3742,7 +3760,7 @@ local function CreateSettingsHub()
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)
 	this.HelpPage:SetHub(this)
 
-	local shouldShowRecord = not PolicyService:IsSubjectToChinaPolicies()
+	local shouldShowRecord = not CachedPolicyService:IsSubjectToChinaPolicies()
 
 	if platform == Enum.Platform.Windows and shouldShowRecord then
 		this.RecordPage = require(RobloxGui.Modules.Settings.Pages.Record)

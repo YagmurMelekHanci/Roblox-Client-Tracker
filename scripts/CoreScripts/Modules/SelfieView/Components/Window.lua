@@ -47,9 +47,6 @@ local ChromeService = if GetFFlagFixChromeReferences()
 	then if ChromeEnabled() then require(Chrome.Service) else nil
 	else require(script.Parent.Parent.Parent.Chrome.Service)
 
-local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
-local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
-local GetFFlagSelfieViewDontStartOnOpen = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontStartOnOpen)
 local GetFFlagSelfieViewUseNewErrorBody =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewUseNewErrorBody
 local FFlagSelfieViewReducedCornerWidth = game:DefineFastFlag("SelfieViewReducedCornerWidth", true)
@@ -150,19 +147,10 @@ local function Window(props: WindowProps): React.ReactNode
 			return
 		end
 
-		if GetFFlagSelfieViewDontWaitForCharacter() then
-			if player.Character and not ModelUtils.hasDynamicHead(player.Character) then
-				-- We don't want to show this error when turning off the camera.
-				if not FaceChatUtils.isCameraOn() and not muteTooltip then
-					showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
-				end
-			end
-		else
-			if not ModelUtils.hasDynamicHead(player.Character or player.CharacterAdded:Wait()) then
-				-- We don't want to show this error when turning off the camera.
-				if not FaceChatUtils.isCameraOn() and not muteTooltip then
-					showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
-				end
+		if player.Character and not ModelUtils.hasDynamicHead(player.Character) then
+			-- We don't want to show this error when turning off the camera.
+			if not FaceChatUtils.isCameraOn() and not muteTooltip then
+				showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
 			end
 		end
 
@@ -189,11 +177,6 @@ local function Window(props: WindowProps): React.ReactNode
 		end
 
 		local unmount = FaceClone(player, frameRef.current)
-		if not FaceChatUtils.isCameraOn() and not props.isDraggedOut then
-			if not GetFFlagSelfieViewDontStartOnOpen() then
-				activateCamera(true)
-			end
-		end
 
 		return function()
 			if unmount then

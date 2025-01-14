@@ -11,7 +11,7 @@ local UserInputService = game:GetService("UserInputService")
 
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
-local Constants = require(RobloxGui.Modules.Common.Constants)
+local Constants = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Constants
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
@@ -262,7 +262,7 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 		else
 			self._frame.PromptScale.Scale = 1
 		end
-		
+
 		if not FFlagFixGamepadDisconnectHighlight then
 			if VRService.VREnabled or GuiService:IsTenFootInterface() then
 				GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)

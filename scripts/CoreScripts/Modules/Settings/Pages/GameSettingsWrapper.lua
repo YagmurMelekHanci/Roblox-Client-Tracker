@@ -16,9 +16,14 @@ local Modules = RobloxGui.Modules
 local FFlagRefactorInExpGameSettings = require(Modules.Settings.Flags.FFlagRefactorInExpGameSettings)
 
 -- Modules
-local Integrations = require(Modules.Settings.Integrations)
-local Utils = Integrations.Utils
-local Constants = Integrations.Constants
+local Integrations = nil
+local Utils = nil
+local Constants = nil
+if FFlagRefactorInExpGameSettings() then
+	Integrations = require(Modules.Settings.Integrations)
+	Utils = Integrations.Utils
+	Constants = Integrations.Constants
+end
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local SettingsService = require(Modules.Settings.Resources.SharedSettingsService)
@@ -58,9 +63,9 @@ local function createGameSettings()
 		device = Utils.getDeviceType(),
 	}, {
 		Child = React.createElement(SettingReactView, {
-				service = SettingsService,
-				pageId = Constants.GAMESETTINGS.PAGE_ID,
-			})
+			service = SettingsService,
+			pageId = Constants.GAMESETTINGS.PAGE_ID,
+		})
 	})
 
 	local tree = ReactRoblox.createRoot(GameSettings.Page)

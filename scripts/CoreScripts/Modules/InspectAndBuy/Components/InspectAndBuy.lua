@@ -45,7 +45,7 @@ local CloseOverlay = require(InspectAndBuyFolder.Actions.CloseOverlay)
 
 local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 
-local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
 local COMPACT_VIEW_MAX_WIDTH = 600
 local CURSOR_OVERRIDE_KEY = Symbol.named("OverrideCursorInspectMenu")
@@ -182,7 +182,7 @@ function InspectAndBuy:didMount()
 	end)
 
 	coroutine.wrap(function()
-		local subjectToChinaPolicies = PolicyService:IsSubjectToChinaPolicies()
+		local subjectToChinaPolicies = CachedPolicyService:IsSubjectToChinaPolicies()
 		self.state.store:dispatch(SetIsSubjectToChinaPolicies(subjectToChinaPolicies))
 	end)()
 

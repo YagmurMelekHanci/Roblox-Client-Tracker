@@ -21,7 +21,6 @@ local TopBarConstants = require(TopBar.Constants)
 local SelfieViewModule = Chrome.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
 local FFlagSelfViewFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewFixes()
-local GetFFlagSelfieViewRedStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewRedStatusDot)
 local GetFFlagDisableSelfViewDefaultOpen = require(Chrome.Flags.GetFFlagDisableSelfViewDefaultOpen)
 local GetFFlagChromeSupportSocialService = require(Chrome.Flags.GetFFlagChromeSupportSocialService)
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
@@ -92,9 +91,7 @@ local selfieViewChromeIntegration = ChromeService:register({
 				CommonIcon("icons/controls/selfieOff", "icons/controls/selfie", mappedSelfieWindowOpenSignal),
 				CameraStatusDot = if SelfieView.useCameraOn() and not ChromeService:isWindowOpen(ID)
 					then React.createElement(SelfieView.CameraStatusDot, {
-						Position = if GetFFlagSelfieViewRedStatusDot()
-							then UDim2.new(1, -7, 1, -7)
-							else UDim2.fromScale(0.8, 0.7),
+						Position = UDim2.fromScale(0.8, 0.7),
 						ZIndex = 2,
 					})
 					else nil,

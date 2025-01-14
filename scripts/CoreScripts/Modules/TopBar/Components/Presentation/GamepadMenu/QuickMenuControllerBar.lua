@@ -13,8 +13,8 @@ local ControllerBar = UIBlox.App.Bar.ControllerBar
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
+local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
+local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
@@ -28,7 +28,7 @@ local localizedHints = {
 }
 
 local function QuickMenuControllerBar(props)
-	if GetFFlagReenableTextChatForTenFootInterfaces() then
+	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 		local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 		-- This is the base set of right-side hints, we will add a chat option if the chat menu is visible

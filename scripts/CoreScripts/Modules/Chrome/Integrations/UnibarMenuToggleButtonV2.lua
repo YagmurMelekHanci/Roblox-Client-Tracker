@@ -19,7 +19,6 @@ local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local GetFFlagUseNewUnibarIcon = require(Chrome.Flags.GetFFlagUseNewUnibarIcon)
 local GetFFlagUsePolishedAnimations = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUsePolishedAnimations
-local GetFFlagSelfieViewRedStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewRedStatusDot)
 
 local UNIBAR_ICON = Images["icons/actions/overflow"]
 local UNIBAR_ICON_SIZE = if GetFFlagUseNewUnibarIcon() then 32 else Constants.ICON_SIZE
@@ -149,9 +148,7 @@ function ToggleMenuButton(props)
 					}),
 				}) :: any,
 		React.createElement("Frame", {
-			Name = if GetFFlagSelfieViewRedStatusDot()
-				then "RedCameraDotVisibleContainer"
-				else "GreenCameraDotVisibleContiner",
+			Name = "GreenCameraDotVisibleContiner",
 
 			Visible = toggleIconTransition:map(function(value: any): any
 				return value < 0.5
@@ -161,11 +158,9 @@ function ToggleMenuButton(props)
 			BackgroundTransparency = 1,
 		}, {
 			SelfieView.useCameraOn() and React.createElement(SelfieView.CameraStatusDot, {
-				Position = if GetFFlagSelfieViewRedStatusDot()
-					then UDim2.new(1, -7, 1, -7)
-					else if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
-						then UDim2.new(1, -7, 1, -12)
-						else UDim2.new(1, -7, 1, -8),
+				Position = if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
+					then UDim2.new(1, -7, 1, -12)
+					else UDim2.new(1, -7, 1, -8),
 				ZIndex = 2,
 			}),
 		}),

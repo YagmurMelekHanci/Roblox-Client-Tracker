@@ -18,7 +18,6 @@ local FFlagUseAudioInstanceAdded = game:DefineFastFlag("VoiceDefaultUseAudioInst
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 local FFlagUseGetAudioInstances = game:DefineFastFlag("VoiceDefaultUseGetAudioInstances", false)
 local FFlagUseAudioDeviceRemoving = game:DefineFastFlag("VoiceDefaultUseAudioDeviceRemoving", false)
-local FFlagStopVoiceDefaultIfNotVoiceEnabled = game:DefineFastFlag("StopVoiceDefaultIfNotVoiceEnabled", false)
 
 local function log(...)
 	if FFlagDebugLogVoiceDefault then
@@ -26,7 +25,7 @@ local function log(...)
 	end
 end
 
-if GetFFlagAvatarChatServiceEnabled() and FFlagStopVoiceDefaultIfNotVoiceEnabled then
+if GetFFlagAvatarChatServiceEnabled() then
 	local ok: boolean, serverFeatures: number = pcall(AvatarChatService.GetServerFeaturesAsync, AvatarChatService)
 
 	if not ok then

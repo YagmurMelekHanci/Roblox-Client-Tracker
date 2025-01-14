@@ -123,11 +123,8 @@ PROTO_4:
   NAMECALL R1 R1 K1 ["destroy"]
   CALL R1 1 0
   GETTABLEKS R1 R0 K2 ["store"]
-  JUMPIFNOT R1 [+86]
+  JUMPIFNOT R1 [+83]
   DUPCLOSURE R1 K3 [PROTO_3]
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+29]
   GETTABLEKS R4 R0 K2 ["store"]
   NAMECALL R4 R4 K4 ["getState"]
   CALL R4 1 1
@@ -147,42 +144,42 @@ PROTO_4:
   NAMECALL R9 R8 K8 ["Cancel"]
   CALL R9 1 0
   FORGLOOP R3 2 [-15]
-  GETTABLEKS R4 R0 K2 ["store"]
-  NAMECALL R4 R4 K4 ["getState"]
-  CALL R4 1 1
-  GETTABLEKS R3 R4 K12 ["Preview"]
-  GETTABLEKS R2 R3 K13 ["activeQueueItem"]
-  JUMPIFNOT R2 [+14]
-  GETTABLEKS R3 R2 K7 ["session"]
-  JUMPIFNOT R3 [+11]
-  GETTABLEKS R5 R3 K8 ["Cancel"]
-  FASTCALL1 TYPEOF R5 [+2]
-  GETIMPORT R4 K10 [typeof]
-  CALL R4 1 1
-  JUMPIFNOTEQKS R4 K11 ["function"] [+4]
-  NAMECALL R4 R3 K8 ["Cancel"]
-  CALL R4 1 0
   GETTABLEKS R5 R0 K2 ["store"]
   NAMECALL R5 R5 K4 ["getState"]
   CALL R5 1 1
   GETTABLEKS R4 R5 K12 ["Preview"]
-  GETTABLEKS R3 R4 K14 ["assetImportSession"]
-  JUMPIFNOT R3 [+11]
-  GETTABLEKS R5 R3 K8 ["Cancel"]
-  FASTCALL1 TYPEOF R5 [+2]
-  GETIMPORT R4 K10 [typeof]
-  CALL R4 1 1
-  JUMPIFNOTEQKS R4 K11 ["function"] [+4]
-  NAMECALL R4 R3 K8 ["Cancel"]
-  CALL R4 1 0
-  GETTABLEKS R4 R0 K2 ["store"]
-  NAMECALL R4 R4 K15 ["destruct"]
-  CALL R4 1 0
-  LOADNIL R4
-  SETTABLEKS R4 R0 K2 ["store"]
+  GETTABLEKS R3 R4 K13 ["activeQueueItem"]
+  JUMPIFNOT R3 [+14]
+  GETTABLEKS R4 R3 K7 ["session"]
+  JUMPIFNOT R4 [+11]
+  GETTABLEKS R6 R4 K8 ["Cancel"]
+  FASTCALL1 TYPEOF R6 [+2]
+  GETIMPORT R5 K10 [typeof]
+  CALL R5 1 1
+  JUMPIFNOTEQKS R5 K11 ["function"] [+4]
+  NAMECALL R5 R4 K8 ["Cancel"]
+  CALL R5 1 0
+  GETTABLEKS R6 R0 K2 ["store"]
+  NAMECALL R6 R6 K4 ["getState"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K12 ["Preview"]
+  GETTABLEKS R4 R5 K14 ["assetImportSession"]
+  JUMPIFNOT R4 [+11]
+  GETTABLEKS R6 R4 K8 ["Cancel"]
+  FASTCALL1 TYPEOF R6 [+2]
+  GETIMPORT R5 K10 [typeof]
+  CALL R5 1 1
+  JUMPIFNOTEQKS R5 K11 ["function"] [+4]
+  NAMECALL R5 R4 K8 ["Cancel"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K2 ["store"]
+  NAMECALL R5 R5 K15 ["destruct"]
+  CALL R5 1 0
+  LOADNIL R5
+  SETTABLEKS R5 R0 K2 ["store"]
   GETTABLEKS R1 R0 K16 ["handle"]
   JUMPIFNOT R1 [+9]
-  GETUPVAL R2 1
+  GETUPVAL R2 0
   GETTABLEKS R1 R2 K17 ["unmount"]
   GETTABLEKS R2 R0 K16 ["handle"]
   CALL R1 1 0
@@ -281,7 +278,7 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Roact"]
+  GETTABLEKS R3 R4 K8 ["RoactCompat"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Packages"]
@@ -324,32 +321,27 @@ MAIN:
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K18 ["Src"]
   GETTABLEKS R16 R17 K24 ["Flags"]
-  GETTABLEKS R15 R16 K25 ["getFFlagAssetImportQueuedSessionRefactor"]
+  GETTABLEKS R15 R16 K25 ["getFFlagImportQueueFixGroupFetch"]
   CALL R14 1 1
-  GETIMPORT R15 K5 [require]
-  GETTABLEKS R18 R0 K18 ["Src"]
-  GETTABLEKS R17 R18 K24 ["Flags"]
-  GETTABLEKS R16 R17 K26 ["getFFlagImportQueueFixGroupFetch"]
-  CALL R15 1 1
-  DUPTABLE R16 K32 [{"BlenderCubeDefault", "CubeWithAllPbrs", "CorruptedFile", "BlenderCubeRigged", "RootTwoGroupFiveCube"}]
-  LOADK R17 K33 ["blender-cube-default.fbx"]
-  SETTABLEKS R17 R16 K27 ["BlenderCubeDefault"]
-  LOADK R17 K34 ["cube-with-all-pbrs.fbx"]
-  SETTABLEKS R17 R16 K28 ["CubeWithAllPbrs"]
-  LOADK R17 K35 ["corrupted-file.fbx"]
-  SETTABLEKS R17 R16 K29 ["CorruptedFile"]
-  LOADK R17 K36 ["blender-cube-rigged.fbx"]
-  SETTABLEKS R17 R16 K30 ["BlenderCubeRigged"]
-  LOADK R17 K37 ["root-two-group-five-cube.fbx"]
-  SETTABLEKS R17 R16 K31 ["RootTwoGroupFiveCube"]
-  NEWTABLE R17 0 0
-  SETTABLEKS R17 R17 K38 ["__index"]
-  SETTABLEKS R16 R17 K39 ["Resources"]
-  DUPCLOSURE R18 K40 [PROTO_0]
+  DUPTABLE R15 K31 [{"BlenderCubeDefault", "CubeWithAllPbrs", "CorruptedFile", "BlenderCubeRigged", "RootTwoGroupFiveCube"}]
+  LOADK R16 K32 ["blender-cube-default.fbx"]
+  SETTABLEKS R16 R15 K26 ["BlenderCubeDefault"]
+  LOADK R16 K33 ["cube-with-all-pbrs.fbx"]
+  SETTABLEKS R16 R15 K27 ["CubeWithAllPbrs"]
+  LOADK R16 K34 ["corrupted-file.fbx"]
+  SETTABLEKS R16 R15 K28 ["CorruptedFile"]
+  LOADK R16 K35 ["blender-cube-rigged.fbx"]
+  SETTABLEKS R16 R15 K29 ["BlenderCubeRigged"]
+  LOADK R16 K36 ["root-two-group-five-cube.fbx"]
+  SETTABLEKS R16 R15 K30 ["RootTwoGroupFiveCube"]
+  NEWTABLE R16 0 0
+  SETTABLEKS R16 R16 K37 ["__index"]
+  SETTABLEKS R15 R16 K38 ["Resources"]
+  DUPCLOSURE R17 K39 [PROTO_0]
   CAPTURE VAL R7
-  CAPTURE VAL R16
-  SETTABLEKS R18 R17 K41 ["getResourcePathForTesting"]
-  DUPCLOSURE R18 K42 [PROTO_1]
+  CAPTURE VAL R15
+  SETTABLEKS R17 R16 K40 ["getResourcePathForTesting"]
+  DUPCLOSURE R17 K41 [PROTO_1]
   CAPTURE VAL R5
   CAPTURE VAL R7
   CAPTURE VAL R9
@@ -357,23 +349,22 @@ MAIN:
   CAPTURE VAL R4
   CAPTURE VAL R11
   CAPTURE VAL R12
-  CAPTURE VAL R15
-  CAPTURE VAL R17
-  CAPTURE VAL R2
-  SETTABLEKS R18 R17 K43 ["new"]
-  DUPCLOSURE R18 K44 [PROTO_2]
-  SETTABLEKS R18 R17 K45 ["loadData"]
-  DUPCLOSURE R18 K46 [PROTO_4]
   CAPTURE VAL R14
+  CAPTURE VAL R16
   CAPTURE VAL R2
-  SETTABLEKS R18 R17 K47 ["destroy"]
-  DUPCLOSURE R18 K48 [PROTO_6]
+  SETTABLEKS R17 R16 K42 ["new"]
+  DUPCLOSURE R17 K43 [PROTO_2]
+  SETTABLEKS R17 R16 K44 ["loadData"]
+  DUPCLOSURE R17 K45 [PROTO_4]
+  CAPTURE VAL R2
+  SETTABLEKS R17 R16 K46 ["destroy"]
+  DUPCLOSURE R17 K47 [PROTO_6]
   CAPTURE VAL R2
   CAPTURE VAL R13
   CAPTURE VAL R3
-  SETTABLEKS R18 R17 K49 ["_createTestElement"]
-  DUPCLOSURE R18 K50 [PROTO_7]
-  SETTABLEKS R18 R17 K51 ["_setStory"]
-  DUPCLOSURE R18 K52 [PROTO_8]
-  SETTABLEKS R18 R17 K53 ["_setStoryProps"]
-  RETURN R17 1
+  SETTABLEKS R17 R16 K48 ["_createTestElement"]
+  DUPCLOSURE R17 K49 [PROTO_7]
+  SETTABLEKS R17 R16 K50 ["_setStory"]
+  DUPCLOSURE R17 K51 [PROTO_8]
+  SETTABLEKS R17 R16 K52 ["_setStoryProps"]
+  RETURN R16 1

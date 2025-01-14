@@ -17,6 +17,7 @@ export type SpatialUIProps = {
 	curvature: number?,
 	partOnly: boolean?, -- whether only the panel part should be created
 	name: string, -- Name
+	transparency: number?,
 }
 
 export type PanelCreationProps = {
@@ -40,6 +41,28 @@ export type PanelCompatProps = {
 export type CompatPanel = {
 	type: SpatialUITypeValue,
 	panelObject: Instance,
+}
+
+export type DropBarProps = {
+	name: string,
+	size: Vector3?,
+	dragFunction: (
+		dragger: Player,
+		cursorRay: Ray,
+		hiFrame: CFrame,
+		vrInputFrame: Instance,
+		isModeSwitchKeyDown: boolean
+	) -> ()?,
+	dragStartFunction: (
+		dragger: Player,
+		cursorRay: Ray,
+		hiFrame: CFrame,
+		hitFrame: CFrame,
+		clickedPart: BasePart,
+		vrInputFrame: Instance,
+		isModeSwitchKeyDown: boolean
+	) -> ()?,
+	dragEndFunction: (playerWhoDragged: Player) -> ()?,
 }
 
 export type CameraFixedUIObjectProps = {
@@ -90,8 +113,11 @@ local ROBLOX_GUI_PANEL_SIZE = Vector2.new(0.532, 0.3395) * METER_TO_STUD_FACTOR
 
 local VR_PANEL_RESOLUTION_MULTIPLIER = 800
 
-local ROBLOX_CHAT_UIGROUP_ELEMENT_ROTATION =
-	CFrame.new(ROBLOX_GUI_PANEL_SIZE.X * 0.5 + CHAT_PANEL_SIZE.X * 0.5 + 0.02 * METER_TO_STUD_FACTOR, 0, 0)
+local ROBLOX_CHAT_UIGROUP_ELEMENT_ROTATION = CFrame.new(
+	ROBLOX_GUI_PANEL_SIZE.X * 0.5 + CHAT_PANEL_SIZE.X * 0.5 + 0.02 * METER_TO_STUD_FACTOR,
+	(ROBLOX_GUI_PANEL_SIZE.Y - CHAT_PANEL_SIZE.Y) / 2,
+	0
+)
 
 local COMPAT_PANEL_PROPS_MAP: { [PanelTypeValue]: PanelCompatProps } = {
 	[PanelType.Chat] = {
@@ -111,6 +137,7 @@ local COMPAT_PANEL_PROPS_MAP: { [PanelTypeValue]: PanelCompatProps } = {
 			faceCamera = true,
 			lerp = true,
 			partSize = ROBLOX_GUI_PANEL_SIZE,
+			transparency = 0.5,
 		},
 	} :: PanelCompatProps,
 }
@@ -157,7 +184,6 @@ return {
 	PanelType = PanelType,
 	DEFAULT_VR_PANEL_SIZE = Vector2.new(10, 10),
 	VR_PANEL_RESOLUTION_MULTIPLIER = VR_PANEL_RESOLUTION_MULTIPLIER,
-	CHAT_PANEL_RESOLUTION_MULTIPLIER = VR_PANEL_RESOLUTION_MULTIPLIER,
 	BOTTOM_BAR_BASE_PART_SIZE = BOTTOM_BAR_BASE_PART_SIZE,
 	COMPAT_PANEL_PROPS_MAP = COMPAT_PANEL_PROPS_MAP,
 	SPATIAL_PANEL_POSITION_PROPS_MAP = SPATIAL_PANEL_POSITION_PROPS_MAP,

@@ -1,163 +1,112 @@
 PROTO_0:
-  GETUPVAL R0 0
-  DUPTABLE R2 K1 [{"isFocused"}]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K0 ["isFocused"]
-  NAMECALL R0 R0 K2 ["setState"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_1:
-  GETUPVAL R0 0
-  DUPTABLE R2 K1 [{"isFocused"}]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K0 ["isFocused"]
-  NAMECALL R0 R0 K2 ["setState"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_2:
-  GETUPVAL R1 0
-  DUPTABLE R3 K1 [{"isHovered"}]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K0 ["isHovered"]
-  NAMECALL R1 R1 K2 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_3:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
-  GETUPVAL R4 1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+5]
   GETTABLEKS R4 R2 K1 ["ActiveQueueItem"]
   GETTABLEKS R3 R4 K2 ["currentPreset"]
-  JUMP [+2]
-  GETTABLEKS R3 R2 K3 ["CurrentPreset"]
-  GETTABLEKS R4 R2 K4 ["PresetController"]
-  GETUPVAL R5 2
-  JUMPIFNOTEQ R0 R5 [+16]
+  GETTABLEKS R4 R2 K3 ["PresetController"]
   GETUPVAL R5 1
-  CALL R5 0 1
-  JUMPIFNOT R5 [+7]
+  JUMPIFNOTEQ R0 R5 [+8]
   MOVE R7 R3
   GETTABLEKS R8 R2 K1 ["ActiveQueueItem"]
-  NAMECALL R5 R4 K5 ["resolvePreset"]
+  NAMECALL R5 R4 K4 ["resolvePreset"]
   CALL R5 3 0
   RETURN R0 0
-  MOVE R7 R3
-  NAMECALL R5 R4 K6 ["DEPRECATED_resolvePreset"]
+  GETUPVAL R5 2
+  JUMPIFNOTEQ R0 R5 [+13]
+  GETUPVAL R5 0
+  DUPTABLE R7 K7 [{"showNameDialog", "promptIntent"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K5 ["showNameDialog"]
+  LOADK R8 K8 ["Rename"]
+  SETTABLEKS R8 R7 K6 ["promptIntent"]
+  NAMECALL R5 R5 K9 ["setState"]
   CALL R5 2 0
   RETURN R0 0
   GETUPVAL R5 3
-  JUMPIFNOTEQ R0 R5 [+13]
-  GETUPVAL R5 0
-  DUPTABLE R7 K9 [{"showNameDialog", "promptIntent"}]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K7 ["showNameDialog"]
-  LOADK R8 K10 ["Rename"]
-  SETTABLEKS R8 R7 K8 ["promptIntent"]
-  NAMECALL R5 R5 K11 ["setState"]
+  JUMPIFNOTEQ R0 R5 [+8]
+  GETTABLEKS R5 R2 K3 ["PresetController"]
+  MOVE R7 R3
+  NAMECALL R5 R5 K10 ["delete"]
   CALL R5 2 0
   RETURN R0 0
   GETUPVAL R5 4
-  JUMPIFNOTEQ R0 R5 [+8]
-  GETTABLEKS R5 R2 K4 ["PresetController"]
+  JUMPIFNOTEQ R0 R5 [+6]
   MOVE R7 R3
-  NAMECALL R5 R5 K12 ["delete"]
+  NAMECALL R5 R4 K11 ["save"]
   CALL R5 2 0
   RETURN R0 0
   GETUPVAL R5 5
-  JUMPIFNOTEQ R0 R5 [+6]
-  MOVE R7 R3
-  NAMECALL R5 R4 K13 ["save"]
+  JUMPIFNOTEQ R0 R5 [+13]
+  GETUPVAL R5 0
+  DUPTABLE R7 K7 [{"showNameDialog", "promptIntent"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K5 ["showNameDialog"]
+  LOADK R8 K12 ["Create"]
+  SETTABLEKS R8 R7 K6 ["promptIntent"]
+  NAMECALL R5 R5 K9 ["setState"]
   CALL R5 2 0
   RETURN R0 0
   GETUPVAL R5 6
-  JUMPIFNOTEQ R0 R5 [+13]
-  GETUPVAL R5 0
-  DUPTABLE R7 K9 [{"showNameDialog", "promptIntent"}]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K7 ["showNameDialog"]
-  LOADK R8 K14 ["Create"]
-  SETTABLEKS R8 R7 K8 ["promptIntent"]
-  NAMECALL R5 R5 K11 ["setState"]
-  CALL R5 2 0
-  RETURN R0 0
-  GETUPVAL R5 7
   JUMPIFNOTEQ R0 R5 [+7]
-  GETTABLEKS R5 R2 K4 ["PresetController"]
+  GETTABLEKS R5 R2 K3 ["PresetController"]
   MOVE R7 R3
-  NAMECALL R5 R5 K15 ["setDefault"]
+  NAMECALL R5 R5 K13 ["setDefault"]
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_1:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
-  GETUPVAL R3 1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+5]
   GETTABLEKS R3 R1 K1 ["ActiveQueueItem"]
   GETTABLEKS R2 R3 K2 ["currentPreset"]
-  JUMP [+2]
-  GETTABLEKS R2 R1 K3 ["CurrentPreset"]
-  GETTABLEKS R3 R1 K4 ["PresetController"]
+  GETTABLEKS R3 R1 K3 ["PresetController"]
   MOVE R5 R2
-  NAMECALL R3 R3 K5 ["isStudioDefault"]
+  NAMECALL R3 R3 K4 ["isStudioDefault"]
   CALL R3 2 1
-  GETTABLEKS R4 R1 K4 ["PresetController"]
+  GETTABLEKS R4 R1 K3 ["PresetController"]
   MOVE R6 R2
-  NAMECALL R4 R4 K6 ["isLastImport"]
+  NAMECALL R4 R4 K5 ["isLastImport"]
   CALL R4 2 1
-  GETTABLEKS R5 R1 K4 ["PresetController"]
+  GETTABLEKS R5 R1 K3 ["PresetController"]
   MOVE R7 R2
-  NAMECALL R5 R5 K7 ["isDefault"]
+  NAMECALL R5 R5 K6 ["isDefault"]
   CALL R5 2 1
   NOT R6 R3
   JUMPIFNOT R6 [+1]
   NOT R6 R4
-  GETUPVAL R8 2
+  GETUPVAL R8 1
   CALL R8 0 1
   JUMPIFNOT R8 [+5]
   GETTABLEKS R8 R1 K1 ["ActiveQueueItem"]
-  GETTABLEKS R7 R8 K8 ["settingsChanged"]
+  GETTABLEKS R7 R8 K7 ["settingsChanged"]
   JUMP [+2]
-  GETTABLEKS R7 R1 K9 ["SettingsChanged"]
-  GETUPVAL R8 3
+  GETTABLEKS R7 R1 K8 ["SettingsChanged"]
+  GETUPVAL R8 2
   JUMPIFNOTEQ R0 R8 [+2]
   RETURN R7 1
+  GETUPVAL R8 3
+  JUMPIFNOTEQ R0 R8 [+2]
+  RETURN R6 1
   GETUPVAL R8 4
   JUMPIFNOTEQ R0 R8 [+2]
   RETURN R6 1
   GETUPVAL R8 5
-  JUMPIFNOTEQ R0 R8 [+2]
-  RETURN R6 1
-  GETUPVAL R8 6
   JUMPIFNOTEQ R0 R8 [+3]
   AND R8 R7 R6
   RETURN R8 1
-  GETUPVAL R8 7
+  GETUPVAL R8 6
   JUMPIFNOTEQ R0 R8 [+4]
   NOT R9 R3
   OR R8 R9 R7
   RETURN R8 1
-  GETUPVAL R8 8
+  GETUPVAL R8 7
   JUMPIFNOTEQ R0 R8 [+3]
   NOT R8 R5
   RETURN R8 1
   LOADB R8 0
   RETURN R8 1
 
-PROTO_5:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["onHoveredItemChanged"]
-  GETUPVAL R1 1
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_6:
+PROTO_2:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K0 ["props"]
   GETTABLEKS R5 R6 K1 ["Stylizer"]
@@ -178,64 +127,55 @@ PROTO_6:
   GETUPVAL R7 2
   GETTABLEKS R6 R7 K6 ["createElement"]
   GETUPVAL R7 3
-  DUPTABLE R8 K13 [{"LayoutOrder", "OnClick", "OnMouseEnter", "Size", "StyleModifier", "AutomaticSize"}]
+  DUPTABLE R8 K12 [{"LayoutOrder", "OnClick", "Size", "StyleModifier", "AutomaticSize"}]
   SETTABLEKS R1 R8 K7 ["LayoutOrder"]
   SETTABLEKS R2 R8 K8 ["OnClick"]
-  GETUPVAL R10 4
-  CALL R10 0 1
-  JUMPIF R10 [+4]
-  NEWCLOSURE R9 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R1
-  JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K9 ["OnMouseEnter"]
-  GETTABLEKS R9 R4 K14 ["MenuItemSize"]
-  SETTABLEKS R9 R8 K10 ["Size"]
-  SETTABLEKS R5 R8 K11 ["StyleModifier"]
-  GETIMPORT R9 K17 [Enum.AutomaticSize.X]
-  SETTABLEKS R9 R8 K12 ["AutomaticSize"]
-  DUPTABLE R9 K19 [{"TextLabel"}]
+  GETTABLEKS R9 R4 K13 ["MenuItemSize"]
+  SETTABLEKS R9 R8 K9 ["Size"]
+  SETTABLEKS R5 R8 K10 ["StyleModifier"]
+  GETIMPORT R9 K16 [Enum.AutomaticSize.X]
+  SETTABLEKS R9 R8 K11 ["AutomaticSize"]
+  DUPTABLE R9 K18 [{"TextLabel"}]
   GETUPVAL R11 2
   GETTABLEKS R10 R11 K6 ["createElement"]
-  GETUPVAL R11 5
-  DUPTABLE R12 K22 [{"Text", "TextXAlignment", "Size", "StyleModifier", "AutomaticSize"}]
-  SETTABLEKS R0 R12 K20 ["Text"]
-  GETIMPORT R13 K24 [Enum.TextXAlignment.Left]
-  SETTABLEKS R13 R12 K21 ["TextXAlignment"]
-  GETIMPORT R13 K27 [UDim2.fromScale]
+  GETUPVAL R11 4
+  DUPTABLE R12 K21 [{"Text", "TextXAlignment", "Size", "StyleModifier", "AutomaticSize"}]
+  SETTABLEKS R0 R12 K19 ["Text"]
+  GETIMPORT R13 K23 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K20 ["TextXAlignment"]
+  GETIMPORT R13 K26 [UDim2.fromScale]
   LOADN R14 1
   LOADN R15 1
   CALL R13 2 1
-  SETTABLEKS R13 R12 K10 ["Size"]
-  SETTABLEKS R5 R12 K11 ["StyleModifier"]
-  GETIMPORT R13 K17 [Enum.AutomaticSize.X]
-  SETTABLEKS R13 R12 K12 ["AutomaticSize"]
-  DUPTABLE R13 K29 [{"Padding"}]
+  SETTABLEKS R13 R12 K9 ["Size"]
+  SETTABLEKS R5 R12 K10 ["StyleModifier"]
+  GETIMPORT R13 K16 [Enum.AutomaticSize.X]
+  SETTABLEKS R13 R12 K11 ["AutomaticSize"]
+  DUPTABLE R13 K28 [{"Padding"}]
   GETUPVAL R15 2
   GETTABLEKS R14 R15 K6 ["createElement"]
-  LOADK R15 K30 ["UIPadding"]
-  DUPTABLE R16 K33 [{"PaddingLeft", "PaddingRight"}]
-  GETIMPORT R17 K36 [UDim.new]
+  LOADK R15 K29 ["UIPadding"]
+  DUPTABLE R16 K32 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R17 K35 [UDim.new]
   LOADN R18 0
-  GETTABLEKS R20 R4 K28 ["Padding"]
-  GETTABLEKS R19 R20 K23 ["Left"]
+  GETTABLEKS R20 R4 K27 ["Padding"]
+  GETTABLEKS R19 R20 K22 ["Left"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K31 ["PaddingLeft"]
-  GETIMPORT R17 K36 [UDim.new]
+  SETTABLEKS R17 R16 K30 ["PaddingLeft"]
+  GETIMPORT R17 K35 [UDim.new]
   LOADN R18 0
-  GETTABLEKS R20 R4 K28 ["Padding"]
-  GETTABLEKS R19 R20 K37 ["Right"]
+  GETTABLEKS R20 R4 K27 ["Padding"]
+  GETTABLEKS R19 R20 K36 ["Right"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K32 ["PaddingRight"]
+  SETTABLEKS R17 R16 K31 ["PaddingRight"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K28 ["Padding"]
+  SETTABLEKS R14 R13 K27 ["Padding"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K18 ["TextLabel"]
+  SETTABLEKS R10 R9 K17 ["TextLabel"]
   CALL R6 3 -1
   RETURN R6 -1
 
-PROTO_7:
+PROTO_3:
   GETUPVAL R0 0
   DUPTABLE R2 K1 [{"showNameDialog"}]
   LOADB R3 0
@@ -244,11 +184,11 @@ PROTO_7:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_4:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["PresetController"]
-  JUMPIFNOTEQKS R0 K2 ["Save"] [+40]
+  JUMPIFNOTEQKS R0 K2 ["Save"] [+32]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K3 ["state"]
   GETTABLEKS R3 R4 K4 ["promptIntent"]
@@ -256,14 +196,11 @@ PROTO_8:
   MOVE R5 R1
   NAMECALL R3 R2 K6 ["save"]
   CALL R3 2 0
-  JUMP [+27]
+  JUMP [+19]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K3 ["state"]
   GETTABLEKS R3 R4 K4 ["promptIntent"]
-  JUMPIFNOTEQKS R3 K7 ["Rename"] [+21]
-  GETUPVAL R3 1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+13]
+  JUMPIFNOTEQKS R3 K7 ["Rename"] [+13]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["props"]
   GETTABLEKS R4 R5 K8 ["ActiveQueueItem"]
@@ -272,19 +209,15 @@ PROTO_8:
   MOVE R7 R3
   NAMECALL R4 R2 K10 ["rename"]
   CALL R4 3 0
-  JUMP [+4]
-  MOVE R5 R1
-  NAMECALL R3 R2 K11 ["DEPRECATED_rename"]
-  CALL R3 2 0
   GETUPVAL R3 0
-  DUPTABLE R5 K13 [{"showNameDialog"}]
+  DUPTABLE R5 K12 [{"showNameDialog"}]
   LOADB R6 0
-  SETTABLEKS R6 R5 K12 ["showNameDialog"]
-  NAMECALL R3 R3 K14 ["setState"]
+  SETTABLEKS R6 R5 K11 ["showNameDialog"]
+  NAMECALL R3 R3 K13 ["setState"]
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_5:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["Localization"]
   LOADK R4 K2 ["Templates"]
@@ -320,77 +253,47 @@ PROTO_9:
   MOVE R14 R4
   SETLIST R8 R9 6 [1]
   SETTABLEKS R8 R0 K10 ["dropdownItems"]
-  DUPTABLE R8 K15 [{"isFocused", "isHovered", "showNameDialog", "promptIntent"}]
-  GETUPVAL R10 0
-  CALL R10 0 1
-  JUMPIFNOT R10 [+2]
-  LOADNIL R9
-  JUMP [+1]
+  DUPTABLE R8 K13 [{"showNameDialog", "promptIntent"}]
   LOADB R9 0
-  SETTABLEKS R9 R8 K11 ["isFocused"]
-  GETUPVAL R10 0
-  CALL R10 0 1
-  JUMPIFNOT R10 [+2]
-  LOADNIL R9
-  JUMP [+1]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K12 ["isHovered"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K13 ["showNameDialog"]
+  SETTABLEKS R9 R8 K11 ["showNameDialog"]
   LOADN R9 0
-  SETTABLEKS R9 R8 K14 ["promptIntent"]
-  SETTABLEKS R8 R0 K16 ["state"]
-  GETUPVAL R8 0
-  CALL R8 0 1
-  JUMPIF R8 [+12]
+  SETTABLEKS R9 R8 K12 ["promptIntent"]
+  SETTABLEKS R8 R0 K14 ["state"]
   NEWCLOSURE R8 P0
   CAPTURE VAL R0
-  SETTABLEKS R8 R0 K17 ["focused"]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R8 R0 K15 ["onItemActivated"]
   NEWCLOSURE R8 P1
   CAPTURE VAL R0
-  SETTABLEKS R8 R0 K18 ["unfocused"]
+  CAPTURE UPVAL U0
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R8 R0 K16 ["isItemEnabled"]
   NEWCLOSURE R8 P2
   CAPTURE VAL R0
-  SETTABLEKS R8 R0 K19 ["onHoveredItemChanged"]
-  NEWCLOSURE R8 P3
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  SETTABLEKS R8 R0 K20 ["onItemActivated"]
-  NEWCLOSURE R8 P4
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
   CAPTURE UPVAL U1
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  SETTABLEKS R8 R0 K21 ["isItemEnabled"]
-  NEWCLOSURE R8 P5
-  CAPTURE VAL R0
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U5
-  SETTABLEKS R8 R0 K22 ["onRenderItem"]
-  NEWCLOSURE R8 P6
+  SETTABLEKS R8 R0 K17 ["onRenderItem"]
+  NEWCLOSURE R8 P3
   CAPTURE VAL R0
-  SETTABLEKS R8 R0 K23 ["onNameDialogClose"]
-  NEWCLOSURE R8 P7
+  SETTABLEKS R8 R0 K18 ["onNameDialogClose"]
+  NEWCLOSURE R8 P4
   CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R8 R0 K24 ["onNameDialogButtonPressed"]
+  SETTABLEKS R8 R0 K19 ["onNameDialogButtonPressed"]
   RETURN R0 0
 
-PROTO_10:
+PROTO_6:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R4 R1 K2 ["Stylizer"]
@@ -436,19 +339,13 @@ PROTO_10:
   CALL R8 2 1
   SETTABLEKS R8 R7 K9 ["PresetMenu"]
   GETTABLEKS R9 R2 K31 ["showNameDialog"]
-  JUMPIFNOT R9 [+36]
+  JUMPIFNOT R9 [+28]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K4 ["createElement"]
   GETUPVAL R9 3
   DUPTABLE R10 K37 [{"CurrentPreset", "Intent", "IsHintError", "OnClose", "OnButtonPressed"}]
-  GETUPVAL R12 4
-  CALL R12 0 1
-  JUMPIFNOT R12 [+5]
   GETTABLEKS R12 R1 K38 ["ActiveQueueItem"]
   GETTABLEKS R11 R12 K39 ["currentPreset"]
-  JUMP [+4]
-  GETTABLEKS R12 R0 K0 ["props"]
-  GETTABLEKS R11 R12 K32 ["CurrentPreset"]
   SETTABLEKS R11 R10 K32 ["CurrentPreset"]
   GETTABLEKS R11 R2 K40 ["promptIntent"]
   SETTABLEKS R11 R10 K33 ["Intent"]
@@ -465,40 +362,19 @@ PROTO_10:
   CALL R4 3 -1
   RETURN R4 -1
 
-PROTO_11:
-  DUPTABLE R1 K4 [{"ActiveQueueItem", "AssetImportSession", "CurrentPreset", "SettingsChanged"}]
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+5]
-  GETTABLEKS R3 R0 K5 ["Preview"]
-  GETTABLEKS R2 R3 K6 ["activeQueueItem"]
-  JUMP [+1]
-  LOADNIL R2
+PROTO_7:
+  DUPTABLE R1 K2 [{"ActiveQueueItem", "SettingsChanged"}]
+  GETTABLEKS R3 R0 K3 ["Preview"]
+  GETTABLEKS R2 R3 K4 ["activeQueueItem"]
   SETTABLEKS R2 R1 K0 ["ActiveQueueItem"]
   GETUPVAL R3 0
   CALL R3 0 1
-  JUMPIFNOT R3 [+2]
-  LOADNIL R2
-  JUMP [+4]
-  GETTABLEKS R3 R0 K5 ["Preview"]
-  GETTABLEKS R2 R3 K7 ["assetImportSession"]
-  SETTABLEKS R2 R1 K1 ["AssetImportSession"]
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+2]
-  LOADNIL R2
-  JUMP [+4]
-  GETTABLEKS R3 R0 K5 ["Preview"]
-  GETTABLEKS R2 R3 K8 ["currentPreset"]
-  SETTABLEKS R2 R1 K2 ["CurrentPreset"]
-  GETUPVAL R3 1
-  CALL R3 0 1
   JUMPIF R3 [+5]
-  GETTABLEKS R3 R0 K5 ["Preview"]
-  GETTABLEKS R2 R3 K9 ["settingsChanged"]
+  GETTABLEKS R3 R0 K3 ["Preview"]
+  GETTABLEKS R2 R3 K5 ["settingsChanged"]
   JUMP [+1]
   LOADNIL R2
-  SETTABLEKS R2 R1 K3 ["SettingsChanged"]
+  SETTABLEKS R2 R1 K1 ["SettingsChanged"]
   RETURN R1 1
 
 MAIN:
@@ -513,7 +389,7 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Roact"]
+  GETTABLEKS R3 R4 K8 ["RoactCompat"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Packages"]
@@ -544,48 +420,40 @@ MAIN:
   GETIMPORT R16 K5 [require]
   GETTABLEKS R19 R0 K21 ["Src"]
   GETTABLEKS R18 R19 K27 ["Flags"]
-  GETTABLEKS R17 R18 K28 ["getFFlagAssetImportQueuedSessionRefactor"]
+  GETTABLEKS R17 R18 K28 ["getFFlagAssetImportUploadWidgetCleanup"]
   CALL R16 1 1
-  GETIMPORT R17 K5 [require]
-  GETTABLEKS R20 R0 K21 ["Src"]
-  GETTABLEKS R19 R20 K27 ["Flags"]
-  GETTABLEKS R18 R19 K29 ["getFFlagAssetImportUploadWidgetCleanup"]
-  CALL R17 1 1
-  GETTABLEKS R18 R2 K30 ["PureComponent"]
-  LOADK R20 K31 ["PresetMenu"]
-  NAMECALL R18 R18 K32 ["extend"]
-  CALL R18 2 1
-  DUPCLOSURE R19 K33 [PROTO_9]
+  GETTABLEKS R17 R2 K29 ["PureComponent"]
+  LOADK R19 K30 ["PresetMenu"]
+  NAMECALL R17 R17 K31 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K32 [PROTO_5]
   CAPTURE VAL R16
-  CAPTURE VAL R17
   CAPTURE VAL R8
   CAPTURE VAL R2
   CAPTURE VAL R12
   CAPTURE VAL R10
-  SETTABLEKS R19 R18 K34 ["init"]
-  DUPCLOSURE R19 K35 [PROTO_10]
+  SETTABLEKS R18 R17 K33 ["init"]
+  DUPCLOSURE R18 K34 [PROTO_6]
   CAPTURE VAL R2
   CAPTURE VAL R13
   CAPTURE VAL R11
   CAPTURE VAL R14
+  SETTABLEKS R18 R17 K35 ["render"]
+  MOVE R18 R5
+  DUPTABLE R19 K36 [{"Stylizer", "Localization", "PresetController"}]
+  SETTABLEKS R6 R19 K12 ["Stylizer"]
+  SETTABLEKS R7 R19 K13 ["Localization"]
+  SETTABLEKS R15 R19 K26 ["PresetController"]
+  CALL R18 1 1
+  MOVE R19 R17
+  CALL R18 1 1
+  MOVE R17 R18
+  DUPCLOSURE R18 K37 [PROTO_7]
   CAPTURE VAL R16
-  SETTABLEKS R19 R18 K36 ["render"]
-  MOVE R19 R5
-  DUPTABLE R20 K37 [{"Stylizer", "Localization", "PresetController"}]
-  SETTABLEKS R6 R20 K12 ["Stylizer"]
-  SETTABLEKS R7 R20 K13 ["Localization"]
-  SETTABLEKS R15 R20 K26 ["PresetController"]
-  CALL R19 1 1
+  GETTABLEKS R19 R3 K38 ["connect"]
   MOVE R20 R18
-  CALL R19 1 1
-  MOVE R18 R19
-  DUPCLOSURE R19 K38 [PROTO_11]
-  CAPTURE VAL R16
-  CAPTURE VAL R17
-  GETTABLEKS R20 R3 K39 ["connect"]
-  MOVE R21 R19
-  LOADNIL R22
-  CALL R20 2 1
-  MOVE R21 R18
-  CALL R20 1 -1
-  RETURN R20 -1
+  LOADNIL R21
+  CALL R19 2 1
+  MOVE R20 R17
+  CALL R19 1 -1
+  RETURN R19 -1

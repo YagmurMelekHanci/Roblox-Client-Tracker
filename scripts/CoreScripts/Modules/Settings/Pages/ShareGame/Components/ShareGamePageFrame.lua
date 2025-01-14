@@ -5,7 +5,7 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 
-local CommonConstants = require(RobloxGui.Modules.Common.Constants)
+local CommonConstants = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Constants
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Promise = require(CorePackages.Packages.Promise)

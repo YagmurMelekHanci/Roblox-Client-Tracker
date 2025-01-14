@@ -10,7 +10,7 @@ local enumerate = require(CorePackages.Packages.enumerate)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local withStyle = UIBlox.Core.Style.withStyle
 
-local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local Constants = require(RobloxGui.Modules.VoiceChat.Constants)

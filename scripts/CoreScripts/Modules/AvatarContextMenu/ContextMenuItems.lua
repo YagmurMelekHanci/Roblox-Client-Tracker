@@ -25,7 +25,7 @@ local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
-local BlockingUtility = require(CoreGuiModules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)

@@ -14,7 +14,7 @@ local Images = UIBlox.App.ImageSet.Images
 
 local RobloxGuiModules = CoreGui.RobloxGui.Modules
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
-local IXPServiceWrapper = require(RobloxGuiModules.Common.IXPServiceWrapper)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local RobloxTranslator = require(RobloxGuiModules.RobloxTranslator)
 local VoiceChatServiceManager = require(RobloxGuiModules.VoiceChat.VoiceChatServiceManager).default

@@ -20,6 +20,7 @@ local Types = require(Chrome.ChromeShared.Service.Types)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
 local Signal = SignalLib.Signal
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -389,9 +390,11 @@ function HamburgerButton(props)
 				isIconVisible = props.visible,
 
 				headerKey = if GetFFlagAppChatRebrandStringUpdates()
+						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
 				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
+						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 
@@ -405,9 +408,11 @@ function HamburgerButton(props)
 				isIconVisible = props.visible,
 
 				headerKey = if GetFFlagAppChatRebrandStringUpdates()
+						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 					else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
 				bodyKey = if GetFFlagAppChatRebrandStringUpdates()
+						and SquadExperimentation.getSquadEntrypointsEnabled()
 					then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 					else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 

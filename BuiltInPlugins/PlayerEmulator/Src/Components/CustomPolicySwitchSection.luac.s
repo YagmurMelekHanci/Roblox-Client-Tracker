@@ -96,61 +96,52 @@ PROTO_8:
 
 PROTO_9:
   GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Stylizer"]
-  GETTABLEKS R3 R1 K2 ["Localization"]
-  GETTABLEKS R4 R1 K3 ["LayoutOrder"]
-  GETTABLEKS R5 R1 K4 ["customPolicySwitchEnabled"]
-  GETTABLEKS R6 R1 K5 ["mainSwitchEnabled"]
-  GETTABLEKS R7 R1 K6 ["customPolicySwitchActive"]
-  JUMPIF R7 [+6]
-  GETUPVAL R8 0
-  LOADB R9 1
-  SETTABLEKS R9 R8 K7 ["CustomPoliciesEnabled"]
-  LOADNIL R8
-  RETURN R8 1
-  GETUPVAL R8 0
-  SETTABLEKS R5 R8 K7 ["CustomPoliciesEnabled"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K8 ["createElement"]
-  LOADK R9 K9 ["Frame"]
-  DUPTABLE R10 K13 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
-  GETUPVAL R12 2
-  JUMPIFNOT R12 [+3]
-  GETIMPORT R11 K16 [Enum.AutomaticSize.Y]
-  JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K10 ["AutomaticSize"]
-  GETUPVAL R12 2
-  JUMPIFNOT R12 [+6]
-  GETIMPORT R11 K19 [UDim2.fromScale]
-  LOADN R12 1
-  LOADN R13 0
-  CALL R11 2 1
-  JUMP [+2]
-  GETTABLEKS R11 R2 K20 ["TOGGLE_ITEM_FRAME_SIZE"]
-  SETTABLEKS R11 R10 K11 ["Size"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["LayoutOrder"]
+  GETTABLEKS R4 R1 K3 ["customPolicySwitchEnabled"]
+  GETTABLEKS R5 R1 K4 ["mainSwitchEnabled"]
+  GETTABLEKS R6 R1 K5 ["customPolicySwitchActive"]
+  JUMPIF R6 [+6]
+  GETUPVAL R7 0
+  LOADB R8 1
+  SETTABLEKS R8 R7 K6 ["CustomPoliciesEnabled"]
+  LOADNIL R7
+  RETURN R7 1
+  GETUPVAL R7 0
+  SETTABLEKS R4 R7 K6 ["CustomPoliciesEnabled"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K7 ["createElement"]
+  LOADK R8 K8 ["Frame"]
+  DUPTABLE R9 K12 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
+  GETIMPORT R10 K15 [Enum.AutomaticSize.Y]
+  SETTABLEKS R10 R9 K9 ["AutomaticSize"]
+  GETIMPORT R10 K18 [UDim2.fromScale]
   LOADN R11 1
-  SETTABLEKS R11 R10 K12 ["BackgroundTransparency"]
-  SETTABLEKS R4 R10 K3 ["LayoutOrder"]
-  DUPTABLE R11 K22 [{"Toggle"}]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K8 ["createElement"]
-  GETUPVAL R13 3
-  DUPTABLE R14 K27 [{"Key", "IsOn", "Enabled", "ToggleCallback"}]
-  LOADK R17 K28 ["CustomPolicySwitchSection"]
-  LOADK R18 K29 ["LabelText"]
-  NAMECALL R15 R3 K30 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K23 ["Key"]
-  SETTABLEKS R5 R14 K24 ["IsOn"]
-  SETTABLEKS R6 R14 K25 ["Enabled"]
-  NEWCLOSURE R15 P0
+  LOADN R12 0
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K10 ["Size"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K11 ["BackgroundTransparency"]
+  SETTABLEKS R3 R9 K2 ["LayoutOrder"]
+  DUPTABLE R10 K20 [{"Toggle"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K7 ["createElement"]
+  GETUPVAL R12 2
+  DUPTABLE R13 K25 [{"Key", "IsOn", "Enabled", "ToggleCallback"}]
+  LOADK R16 K26 ["CustomPolicySwitchSection"]
+  LOADK R17 K27 ["LabelText"]
+  NAMECALL R14 R2 K28 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K21 ["Key"]
+  SETTABLEKS R4 R13 K22 ["IsOn"]
+  SETTABLEKS R5 R13 K23 ["Enabled"]
+  NEWCLOSURE R14 P0
   CAPTURE VAL R0
-  SETTABLEKS R15 R14 K26 ["ToggleCallback"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K21 ["Toggle"]
-  CALL R8 3 -1
-  RETURN R8 -1
+  SETTABLEKS R14 R13 K24 ["ToggleCallback"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K19 ["Toggle"]
+  CALL R7 3 -1
+  RETURN R7 -1
 
 PROTO_10:
   DUPTABLE R2 K3 [{"mainSwitchEnabled", "customPolicySwitchEnabled", "customPolicySwitchActive"}]
@@ -196,99 +187,92 @@ PROTO_13:
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnablePseudolocalizationInPlayerEmulator2"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  LOADK R2 K2 ["PlayerEmulatorService"]
+  NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["PlayerEmulatorService"]
-  NAMECALL R1 R1 K5 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R5 K7 [script]
-  GETTABLEKS R4 R5 K8 ["Parent"]
-  GETTABLEKS R3 R4 K8 ["Parent"]
-  GETTABLEKS R2 R3 K8 ["Parent"]
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R5 R2 K11 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["Roact"]
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["RoactRodux"]
   CALL R3 1 1
-  GETIMPORT R4 K10 [require]
-  GETTABLEKS R6 R2 K11 ["Packages"]
-  GETTABLEKS R5 R6 K13 ["RoactRodux"]
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Framework"]
   CALL R4 1 1
-  GETIMPORT R5 K10 [require]
-  GETTABLEKS R7 R2 K11 ["Packages"]
-  GETTABLEKS R6 R7 K14 ["Framework"]
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K15 ["ContextServices"]
-  GETTABLEKS R7 R6 K16 ["withContext"]
-  GETIMPORT R8 K10 [require]
-  GETTABLEKS R11 R2 K17 ["Src"]
-  GETTABLEKS R10 R11 K18 ["Components"]
-  GETTABLEKS R9 R10 K19 ["ToggleItemModule"]
+  GETTABLEKS R5 R4 K13 ["ContextServices"]
+  GETTABLEKS R6 R5 K14 ["withContext"]
+  GETIMPORT R7 K8 [require]
+  GETTABLEKS R10 R1 K15 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Components"]
+  GETTABLEKS R8 R9 K17 ["ToggleItemModule"]
+  CALL R7 1 1
+  GETIMPORT R8 K8 [require]
+  GETTABLEKS R11 R1 K15 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Util"]
+  GETTABLEKS R9 R10 K19 ["Constants"]
   CALL R8 1 1
-  GETIMPORT R9 K10 [require]
-  GETTABLEKS R12 R2 K17 ["Src"]
-  GETTABLEKS R11 R12 K20 ["Util"]
-  GETTABLEKS R10 R11 K21 ["Constants"]
+  GETIMPORT R9 K8 [require]
+  GETTABLEKS R12 R1 K15 ["Src"]
+  GETTABLEKS R11 R12 K20 ["Actions"]
+  GETTABLEKS R10 R11 K21 ["OnCustomPolicyEnabledChanged"]
   CALL R9 1 1
-  GETIMPORT R10 K10 [require]
-  GETTABLEKS R13 R2 K17 ["Src"]
-  GETTABLEKS R12 R13 K22 ["Actions"]
-  GETTABLEKS R11 R12 K23 ["OnCustomPolicyEnabledChanged"]
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R13 R1 K15 ["Src"]
+  GETTABLEKS R12 R13 K20 ["Actions"]
+  GETTABLEKS R11 R12 K22 ["OnCustomPolicySwitchEnabledChanged"]
   CALL R10 1 1
-  GETIMPORT R11 K10 [require]
-  GETTABLEKS R14 R2 K17 ["Src"]
-  GETTABLEKS R13 R14 K22 ["Actions"]
-  GETTABLEKS R12 R13 K24 ["OnCustomPolicySwitchEnabledChanged"]
-  CALL R11 1 1
-  DUPCLOSURE R12 K25 [PROTO_0]
-  CAPTURE VAL R1
-  DUPCLOSURE R13 K26 [PROTO_1]
-  CAPTURE VAL R1
-  GETTABLEKS R14 R3 K27 ["PureComponent"]
-  LOADK R16 K28 ["CustomPolicySwitchSection"]
-  NAMECALL R14 R14 K29 ["extend"]
-  CALL R14 2 1
-  DUPCLOSURE R15 K30 [PROTO_2]
-  CAPTURE VAL R1
-  SETTABLEKS R15 R14 K31 ["updateCustomPoliciesEnabled"]
-  DUPCLOSURE R15 K32 [PROTO_3]
-  CAPTURE VAL R9
-  SETTABLEKS R15 R14 K33 ["updateCustomPoliciesSwitchEnabled"]
-  DUPCLOSURE R15 K34 [PROTO_4]
-  SETTABLEKS R15 R14 K35 ["init"]
-  DUPCLOSURE R15 K36 [PROTO_6]
-  CAPTURE VAL R1
-  CAPTURE VAL R9
-  SETTABLEKS R15 R14 K37 ["didMount"]
-  DUPCLOSURE R15 K38 [PROTO_7]
-  SETTABLEKS R15 R14 K39 ["willUnmount"]
-  DUPCLOSURE R15 K40 [PROTO_9]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
+  DUPCLOSURE R11 K23 [PROTO_0]
+  CAPTURE VAL R0
+  DUPCLOSURE R12 K24 [PROTO_1]
+  CAPTURE VAL R0
+  GETTABLEKS R13 R2 K25 ["PureComponent"]
+  LOADK R15 K26 ["CustomPolicySwitchSection"]
+  NAMECALL R13 R13 K27 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K28 [PROTO_2]
+  CAPTURE VAL R0
+  SETTABLEKS R14 R13 K29 ["updateCustomPoliciesEnabled"]
+  DUPCLOSURE R14 K30 [PROTO_3]
+  CAPTURE VAL R8
+  SETTABLEKS R14 R13 K31 ["updateCustomPoliciesSwitchEnabled"]
+  DUPCLOSURE R14 K32 [PROTO_4]
+  SETTABLEKS R14 R13 K33 ["init"]
+  DUPCLOSURE R14 K34 [PROTO_6]
   CAPTURE VAL R0
   CAPTURE VAL R8
-  SETTABLEKS R15 R14 K41 ["render"]
-  MOVE R15 R7
-  DUPTABLE R16 K45 [{"Plugin", "Stylizer", "Localization"}]
-  GETTABLEKS R17 R6 K42 ["Plugin"]
-  SETTABLEKS R17 R16 K42 ["Plugin"]
-  GETTABLEKS R17 R6 K43 ["Stylizer"]
-  SETTABLEKS R17 R16 K43 ["Stylizer"]
-  GETTABLEKS R17 R6 K44 ["Localization"]
-  SETTABLEKS R17 R16 K44 ["Localization"]
-  CALL R15 1 1
-  MOVE R16 R14
-  CALL R15 1 1
-  MOVE R14 R15
-  DUPCLOSURE R15 K46 [PROTO_10]
-  DUPCLOSURE R16 K47 [PROTO_13]
+  SETTABLEKS R14 R13 K35 ["didMount"]
+  DUPCLOSURE R14 K36 [PROTO_7]
+  SETTABLEKS R14 R13 K37 ["willUnmount"]
+  DUPCLOSURE R14 K38 [PROTO_9]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  SETTABLEKS R14 R13 K39 ["render"]
+  MOVE R14 R6
+  DUPTABLE R15 K42 [{"Plugin", "Localization"}]
+  GETTABLEKS R16 R5 K40 ["Plugin"]
+  SETTABLEKS R16 R15 K40 ["Plugin"]
+  GETTABLEKS R16 R5 K41 ["Localization"]
+  SETTABLEKS R16 R15 K41 ["Localization"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  DUPCLOSURE R14 K43 [PROTO_10]
+  DUPCLOSURE R15 K44 [PROTO_13]
+  CAPTURE VAL R9
   CAPTURE VAL R10
-  CAPTURE VAL R11
-  GETTABLEKS R17 R4 K48 ["connect"]
+  GETTABLEKS R16 R3 K45 ["connect"]
+  MOVE R17 R14
   MOVE R18 R15
-  MOVE R19 R16
-  CALL R17 2 1
-  MOVE R18 R14
-  CALL R17 1 -1
-  RETURN R17 -1
+  CALL R16 2 1
+  MOVE R17 R13
+  CALL R16 1 -1
+  RETURN R16 -1

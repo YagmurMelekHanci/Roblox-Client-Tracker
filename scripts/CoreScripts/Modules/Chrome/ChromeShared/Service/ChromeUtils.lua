@@ -9,6 +9,7 @@ local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
 local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
+local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignalRaceCondition
 
 local AvailabilitySignalState = {
 	Unavailable = 0,
@@ -238,12 +239,27 @@ function MappedSignal:connect(handler)
 		warn("MappedSignal: Missing signal")
 		return function() end
 	end
-	return self._signal:connect(function(...)
-		if self._eventReceiver then
-			self._eventReceiver(...)
+	if GetFFlagFixMappedSignalRaceCondition() then
+		local event = function()
+			if self._eventReceiver then
+				self._eventReceiver()
+			end
+			handler(self._fetchMapFunction())
 		end
-		handler(self._fetchMapFunction())
-	end)
+		local conn = self._signal:connect(event)
+
+		-- fire event once to handle race condition where state changed between MappedSignal.new and MappedSignal:connect
+		event()
+
+		return conn
+	else
+		return self._signal:connect(function(...)
+			if self._eventReceiver then
+				self._eventReceiver(...)
+			end
+			handler(self._fetchMapFunction())
+		end)
+	end
 end
 
 function MappedSignal:get<T>(): T

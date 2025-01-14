@@ -6,8 +6,6 @@
 	setting up the focus navigation
 ]]
 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
@@ -21,7 +19,7 @@ local focusNavigationService =
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
-local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
+local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local InspectAndBuyFolder = script.Parent.Parent
@@ -47,7 +45,7 @@ local function Overlay(props)
 		value = focusNavigationService,
 	}, {
 		FocusNavigationRegistryProvider = React.createElement(FocusNavigationRegistryProvider, nil, {
-			FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
+			FocusNavigationCoreScriptsWrapper = React.createElement(FocusNavigationCoreScriptsWrapper, {
 				selectionGroupName = SELECTION_GROUP_NAME,
 				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 			}, {

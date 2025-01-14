@@ -157,7 +157,7 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETTABLEKS R2 R3 K6 ["RoactCompat"]
   CALL R1 1 1
   GETIMPORT R2 K4 [require]
   GETTABLEKS R4 R0 K5 ["Packages"]

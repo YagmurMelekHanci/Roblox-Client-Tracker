@@ -7,7 +7,6 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Packages.Roact)
@@ -34,7 +33,7 @@ local focusNavigationService =
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
-local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
+local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local FFlagPublishAvatarPromptEnabled = require(script.Parent.Parent.FFlagPublishAvatarPromptEnabled)
@@ -143,12 +142,16 @@ function PublishAssetPromptApp:render()
 								FocusNavigationRegistryProvider,
 								nil,
 								{
-									FocusNavigationEffects = Roact.createElement(FocusNavigationEffects, {
-										selectionGroupName = SELECTION_GROUP_NAME,
-										focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-									}, {
-										Prompt = promptElement,
-									}),
+									FocusNavigationCoreScriptsWrapper = Roact.createElement(
+										FocusNavigationCoreScriptsWrapper,
+										{
+											selectionGroupName = SELECTION_GROUP_NAME,
+											focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
+										},
+										{
+											Prompt = promptElement,
+										}
+									),
 								}
 							),
 						}

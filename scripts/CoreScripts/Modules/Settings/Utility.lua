@@ -184,7 +184,7 @@ end
 
 ----------- CLASS DECLARATION --------------
 
-local function CreateSignal()
+local function CreateSignal() -- Remove alongside GetFFlagPackagifySettingsShowSignal
 	local sig = {}
 
 	local mSignaler = Instance.new("BindableEvent")
@@ -3302,7 +3302,7 @@ function moduleApiTable:MakeFocusState(instance, renderStepName)
 	return MakeRoundedRectFocusState(instance, renderStepName)
 end
 
-function moduleApiTable:CreateSignal()
+function moduleApiTable:CreateSignal() -- Remove alongside GetFFlagPackagifySettingsShowSignal
 	return CreateSignal()
 end
 

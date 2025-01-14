@@ -30,7 +30,6 @@ local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
 local GetFFlagMountSceneAnalysisProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagMountSceneAnalysisProvider
-local GetFFlagSongbirdUseReportAudioModal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdUseReportAudioModal
 
 if ChromeEnabled and not TenFootInterface:IsEnabled() then
 	-- set this prior to TopBarApp require
@@ -189,9 +188,7 @@ function TopBar.new()
 		self.root = Roact.createElement(ReactSceneUnderstanding.SceneAnalysisProvider, nil, self.root)
 	end
 
-	if GetFFlagSongbirdUseReportAudioModal() then
-		self.root = Roact.createElement(Songbird.ReportAudioPopupContext.Provider, nil, self.root)
-	end
+	self.root = Roact.createElement(Songbird.ReportAudioPopupContext.Provider, nil, self.root)
 
 	if GetFFlagRemoveChromeRobloxGuiReferences() then
 		self.root = Roact.createElement(VoiceStateContext.Provider, nil, self.root)

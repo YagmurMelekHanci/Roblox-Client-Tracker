@@ -7,7 +7,7 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxGuiModules = RobloxGui:WaitForChild("Modules")
 
-local BlockingUtility = require(RobloxGuiModules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local settingsPageFactory = require(RobloxGuiModules.Settings.SettingsPageFactory)
 local RobloxTranslator = require(RobloxGuiModules.RobloxTranslator)
 local onBlockButtonActivated = require(script:FindFirstAncestor("Settings").onBlockButtonActivated)

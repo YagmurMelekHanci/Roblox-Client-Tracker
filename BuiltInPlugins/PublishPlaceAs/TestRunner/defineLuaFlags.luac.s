@@ -16,12 +16,7 @@ MAIN:
   NAMECALL R0 R0 K4 ["DefineFastString"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K9 ["RemoveNoDevicesError"]
-  LOADB R3 0
-  NAMECALL R0 R0 K6 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K10 ["CU1320ExperienceGenre"]
+  LOADK R2 K9 ["CU1320ExperienceGenre"]
   LOADB R3 0
   NAMECALL R0 R0 K6 ["DefineFastFlag"]
   CALL R0 3 0

@@ -382,7 +382,7 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Roact"]
+  GETTABLEKS R3 R4 K8 ["RoactCompat"]
   CALL R2 1 1
   GETTABLEKS R3 R1 K9 ["ContextServices"]
   GETTABLEKS R4 R3 K10 ["withContext"]

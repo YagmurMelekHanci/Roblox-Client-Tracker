@@ -19,21 +19,10 @@ MAIN:
   GETIMPORT R5 K5 [require]
   GETTABLEKS R6 R2 K12 ["Sessions"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Flags"]
-  GETTABLEKS R7 R8 K14 ["getFFlagAssetImportQueuedSessionRefactor"]
+  GETTABLEKS R6 R1 K13 ["combineReducers"]
+  DUPTABLE R7 K14 [{"Preview", "Dialogs", "Sessions"}]
+  SETTABLEKS R3 R7 K10 ["Preview"]
+  SETTABLEKS R4 R7 K11 ["Dialogs"]
+  SETTABLEKS R5 R7 K12 ["Sessions"]
   CALL R6 1 1
-  GETTABLEKS R7 R1 K15 ["combineReducers"]
-  DUPTABLE R8 K16 [{"Preview", "Dialogs", "Sessions"}]
-  SETTABLEKS R3 R8 K10 ["Preview"]
-  SETTABLEKS R4 R8 K11 ["Dialogs"]
-  MOVE R10 R6
-  CALL R10 0 1
-  JUMPIFNOT R10 [+2]
-  MOVE R9 R5
-  JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K12 ["Sessions"]
-  CALL R7 1 1
-  RETURN R7 1
+  RETURN R6 1

@@ -115,6 +115,10 @@ PROTO_4:
   LOADK R4 K0 ["state is nil. Either GetAsync is remarkably slow, or you are not passing in the same StudioUri that is in ContextMenuActionList."]
   GETIMPORT R2 K2 [assert]
   CALL R2 2 0
+  LOADB R2 1
+  SETTABLEKS R2 R1 K3 ["Visible"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K4 ["Enabled"]
   RETURN R1 1
 
 PROTO_5:

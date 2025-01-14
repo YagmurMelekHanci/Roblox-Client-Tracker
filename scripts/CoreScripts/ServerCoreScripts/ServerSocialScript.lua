@@ -20,7 +20,7 @@ local TextChatService = game:GetService("TextChatService")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local Url = require(RobloxGui.Modules.Common.Url)
+local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 game:DefineFastFlag("EnableSetUserBlocklistInitialized", false)
 local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
 local FStringRccInExperienceNameEnabledAllowList = require(RobloxGui.Modules.Common.Flags.FStringRccInExperienceNameEnabledAllowList)
@@ -155,7 +155,7 @@ local function sendCanChatWith(newPlayer)
 			local success, canChat = pcall(function()
 				return Chat:CanUsersChatAsync(newPlayer.UserId, player.UserId)
 			end)
-	
+
 			newPlayerCanChatWithPacket[player.userId] = success and canChat
 			RemoteEvent_CanChatWith:FireClient(player, {
 				[newPlayer.userId] = success and canChat,

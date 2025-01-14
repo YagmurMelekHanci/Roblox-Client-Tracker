@@ -1,29 +1,17 @@
 PROTO_0:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ImportQueueFixGroupFetch3"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  JUMPIFNOT R0 [+2]
-  GETUPVAL R0 0
-  CALL R0 0 1
+  GETIMPORT R1 K2 [game]
+  LOADK R3 K3 ["ImportQueueFixGroupFetch3"]
+  NAMECALL R1 R1 K4 ["GetFastFlag"]
+  CALL R1 2 1
+  ANDK R0 R1 K0 [True]
   RETURN R0 1
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AssetImporter"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["getFFlagAssetImportQueuedSessionRefactor"]
-  CALL R1 1 1
-  GETIMPORT R2 K10 [game]
-  LOADK R4 K11 ["ImportQueueFixGroupFetch3"]
-  LOADB R5 0
-  NAMECALL R2 R2 K12 ["DefineFastFlag"]
-  CALL R2 3 0
-  DUPCLOSURE R2 K13 [PROTO_0]
-  CAPTURE VAL R1
-  RETURN R2 1
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ImportQueueFixGroupFetch3"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  DUPCLOSURE R0 K4 [PROTO_0]
+  RETURN R0 1

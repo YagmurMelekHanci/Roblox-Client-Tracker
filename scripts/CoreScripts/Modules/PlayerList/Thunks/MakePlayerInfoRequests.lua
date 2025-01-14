@@ -10,7 +10,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
-local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 local FFlagInExperienceUserProfileSettingsEnabled =
 	require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)

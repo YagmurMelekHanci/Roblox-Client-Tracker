@@ -18,5 +18,5 @@ return function(surfaceGui: Ref<SurfaceGui | nil>, panelType: Constants.PanelTyp
 		panelType = panelType,
 		panelPositionProps = { uiGroup = uiGroup, cameraFixedPanelProp = cameraFixedPanelProp } :: Constants.PanelPositionProps,
 	}
-	UIManager:registerRoactPanel(panelType, panelStruct)
+	UIManager.getInstance():registerRoactPanel(panelType, panelStruct)
 end

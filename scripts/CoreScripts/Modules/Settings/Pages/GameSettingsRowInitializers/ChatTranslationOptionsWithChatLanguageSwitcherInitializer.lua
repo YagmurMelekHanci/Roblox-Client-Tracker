@@ -10,7 +10,7 @@ local HttpService = game:GetService('HttpService')
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local Url = require(RobloxGui.Modules.Common.Url)
+local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 local Players = game:GetService("Players")
@@ -136,7 +136,7 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
 				LocalPlayer:SetChatTranslationSettingsLocaleId(indexToLocaleMapping[newIndex])
 				chatLocaleToReport = indexToLocaleMapping[newIndex]
 			end
-           
+
         end
 
         menu.ChatLanguageSelectorMode.IndexChanged:connect(

@@ -38,7 +38,7 @@ local getFFlagRenderVoiceBubbleAfterAsyncInit = require(RobloxGui.Modules.Flags.
 local GetFFlagShowLikelySpeakingBubbles =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
-local FFlagEnableSpatialRobloxGui = require(RobloxGui.Modules.Flags.FFlagEnableSpatialRobloxGui)
+local IsSpatialRobloxGuiEnabled = require(RobloxGui.Modules.VR.IsSpatialRobloxGuiEnabled)
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
 
 local getIconVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.getIconVoiceIndicator)
@@ -85,7 +85,7 @@ end
 
 local screenGui
 local spatialUIStruct : Constants.CompatPanel?
-if FFlagEnableSpatialRobloxGui then
+if IsSpatialRobloxGuiEnabled then
 	local panelProps = {
 		panelType = PanelType.Chat,
 		screenGuiProps = {
@@ -95,7 +95,7 @@ if FFlagEnableSpatialRobloxGui then
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		} :: Constants.ScreenGuiProps,
 	} :: Constants.PanelCreationProps
-	local uiCreationResult = UIManager:createUI(panelProps) :: Constants.CompatPanel
+	local uiCreationResult = UIManager.getInstance():createUI(panelProps) :: Constants.CompatPanel
 	screenGui = uiCreationResult.panelObject
 	spatialUIStruct = uiCreationResult
 else

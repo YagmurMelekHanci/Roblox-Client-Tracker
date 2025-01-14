@@ -11,7 +11,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
 local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
@@ -129,7 +129,7 @@ function PlayerListMaster.new()
 	end
 
 	coroutine.wrap(function()
-		self.store:dispatch(SetSubjectToChinaPolicies(PolicyService:IsSubjectToChinaPolicies()))
+		self.store:dispatch(SetSubjectToChinaPolicies(CachedPolicyService:IsSubjectToChinaPolicies()))
 	end)()
 
 	local lastInputType = UserInputService:GetLastInputType()

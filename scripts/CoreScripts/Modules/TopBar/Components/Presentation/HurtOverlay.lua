@@ -7,7 +7,7 @@ local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
@@ -60,7 +60,7 @@ function HurtOverlay:render()
 
 	local hurtOverlayImage = "rbxasset://textures/ui/TopBar/WhiteOverlayAsset.png"
 	local hurtOverlayColor = RED_OVERLAY_COLOR
-	if PolicyService:IsSubjectToChinaPolicies() then
+	if CachedPolicyService:IsSubjectToChinaPolicies() then
 		hurtOverlayColor = WHITE_OVERLAY_COLOR
 	end
 

@@ -11,9 +11,10 @@ local HttpService = game:GetService("HttpService")
 local VRService = game:GetService("VRService")
 local CorePackages = game:GetService("CorePackages")
 
-local Create = require(CorePackages:WaitForChild("Workspace"):WaitForChild("Packages"):WaitForChild("AppCommonLib")).Create -- WaitForChild used here because Workspace is not available on startup
+CorePackages:WaitForChild("Workspace"):WaitForChild("Packages") -- WaitForChild used here because Workspace is not available on startup
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
-local Url = require(RobloxGui.Modules.Common.Url)
+local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 
 local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
@@ -404,7 +405,7 @@ end
 -- state transit function
 local function stateTransit(errorType, errorCode, oldState)
 	-- This is necessary because we always pre-run onErrorMessageChanged() on connecting to a new game, to
-	-- clear any bad state, assuming that the new GuiService in that new state will be initialized to 
+	-- clear any bad state, assuming that the new GuiService in that new state will be initialized to
 	-- ConnectionError::OK.
 	if FFlagAllowDisconnectGuiForOkUnknown then
 		if errorCode == Enum.ConnectionError.OK then
@@ -505,7 +506,7 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 		end
 		-- Limit final message length to a reasonable value
 		errorMsg = errorMsg:sub(1, fintMaxKickMessageLength)
-		
+
 		-- errorMsg is dev message
 		local success = false
 		local attemptTranslation = errorMsg

@@ -9,8 +9,8 @@ local React = require(CorePackages.Packages.React)
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
-local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local RequestType = require(Root.Enums.RequestType)
@@ -131,7 +131,7 @@ end
 function PremiumUpsellContainer:render()
 	if GetFFLagUseCoreScriptsRootProviderForUpsellModal() then
 		return Roact.createElement(CoreScriptsRootProvider, {}, {
-			FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
+			FocusNavigationCoreScriptsWrapper = React.createElement(FocusNavigationCoreScriptsWrapper, {
 				selectionGroupName = SELECTION_GROUP_NAME,
 				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 			}, {

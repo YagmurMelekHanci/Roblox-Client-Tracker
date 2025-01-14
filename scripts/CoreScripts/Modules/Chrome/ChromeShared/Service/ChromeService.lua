@@ -28,7 +28,6 @@ if not GetFFlagRefactorChromeAssert() then
 	ChromeEnabled = require(Root.Parent.Enabled)
 end
 
-local GetFFlagEnableChromeEscapeFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeEscapeFix
 local GetFFlagEnableChromePinIntegrations =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinIntegrations
 local GetFFlagEnableSaveUserPins = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSaveUserPins
@@ -303,8 +302,7 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationHovered = Signal.new()
 
 	-- Init last input as MouseButton1 to prevent focus navigation at startup
-	self._lastInputToOpenMenu = if GetFFlagEnableChromeEscapeFix()
-			and status:get() == ChromeService.MenuStatus.Open
+	self._lastInputToOpenMenu = if status:get() == ChromeService.MenuStatus.Open
 		then Enum.UserInputType.MouseButton1
 		else Enum.UserInputType.None
 	self._inFocusNav = ObservableValue.new(false)

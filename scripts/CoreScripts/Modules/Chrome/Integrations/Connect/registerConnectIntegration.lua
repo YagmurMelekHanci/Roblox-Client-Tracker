@@ -20,6 +20,7 @@ local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 local FFlagAppChatInExpForceCursor = game:DefineFastFlag("AppChatInExpForceCursor", false)
 local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExpUseUnibarNotification", false)
 
+local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
 local GetFFlagAppChatInExperienceRenameToRobloxChat =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAppChatInExperienceRenameToRobloxChat
 local GetFFlagAppChatRebrandStringUpdates =
@@ -27,10 +28,12 @@ local GetFFlagAppChatRebrandStringUpdates =
 
 return function(id: string, initialAvailability: number)
 	-- only enable squad (a.k.a. party) indicator for the unibar icon, other variants, like dropdown icon, won't need it
-	local isSquadIndicatorEnabled = id == "connect_unibar" and GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
+	local isSquadIndicatorEnabled = id == "connect_unibar"
+		and GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
+		and SquadExperimentation.getSquadEntrypointsEnabled()
 	local integration = ChromeService:register({
 		id = id,
-		label = if GetFFlagAppChatRebrandStringUpdates()
+		label = if GetFFlagAppChatRebrandStringUpdates() and SquadExperimentation.getSquadEntrypointsEnabled()
 			then "Feature.Squads.Label.Party" -- translated in some languages
 			elseif
 				GetFFlagAppChatInExperienceRenameToRobloxChat()

@@ -29,15 +29,17 @@ local defaultSpatialPanelProps: Constants.SpatialUIProps = {
 	alwaysOnTop = true,
 	hidden = false,
 	curvature = 1, -- On by default to obtain anti-aliasing, disable with 0
+	transparency = 1,
 }
 
 local function createPanelPart(spatialPanelProps: Constants.SpatialUIProps)
 	local part = Instance.new("Part")
-	part.Parent = workspace
+	part.Parent = workspace.CurrentCamera
 	part.Name = spatialPanelProps.name .. "_Part"
 	part.CFrame = spatialPanelProps.cframe :: CFrame
+	part.CastShadow = false
 	part.Size = Vector3.new(spatialPanelProps.partSize.X, spatialPanelProps.partSize.Y, 0.002)
-	part.Transparency = 0.5
+	part.Transparency = if spatialPanelProps.transparency then spatialPanelProps.transparency else 1
 	part.Color = Color3.new(0, 0, 0)
 	part.CanCollide = false
 	part.CanTouch = false

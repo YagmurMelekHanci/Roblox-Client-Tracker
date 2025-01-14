@@ -1,6 +1,3 @@
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
@@ -46,6 +43,7 @@ local iconPos = {
 }
 
 local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
 local PlayerLabel = Roact.PureComponent:extend("PlayerLabelV2")
 
@@ -100,7 +98,7 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 	-- if not, we just show username at DisplayNameLabel and hide UsernameLabel
 
 	local props = self.props
-	local shouldShowDisplayName = PolicyService:IsSubjectToChinaPolicies() or FFlagAlwaysShowDisplayNameInExpMenu
+	local shouldShowDisplayName = CachedPolicyService:IsSubjectToChinaPolicies() or FFlagAlwaysShowDisplayNameInExpMenu
 	local displayName = props.displayName ~= "" and props.displayName or props.username
 
 	return withStyle(function(style)

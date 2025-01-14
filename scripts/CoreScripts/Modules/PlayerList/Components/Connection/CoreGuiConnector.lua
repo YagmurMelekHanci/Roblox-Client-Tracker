@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Packages.Roact)
@@ -7,8 +6,7 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local BlockedStatusChangedEvent = BlockingUtility:GetBlockedStatusChangedEvent()
 
 local Components = script.Parent.Parent

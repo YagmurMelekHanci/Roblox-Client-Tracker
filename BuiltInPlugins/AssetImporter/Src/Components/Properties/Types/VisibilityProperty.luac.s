@@ -52,7 +52,7 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K9 [require]
   GETTABLEKS R5 R1 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["Roact"]
+  GETTABLEKS R4 R5 K12 ["RoactCompat"]
   CALL R3 1 1
   GETTABLEKS R5 R2 K13 ["Style"]
   GETTABLEKS R4 R5 K14 ["Stylizer"]

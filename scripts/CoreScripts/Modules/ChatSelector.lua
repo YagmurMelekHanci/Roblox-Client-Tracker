@@ -25,10 +25,11 @@ local BubbleChatEnabled = Players.BubbleChat
 
 local VRService = game:GetService("VRService")
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
 local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
+
+local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
+local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 
 local useModule = nil
 
@@ -184,7 +185,7 @@ end
 
 local isConsole = GuiService:IsTenFootInterface() or FORCE_IS_CONSOLE
 
-if GetFFlagReenableTextChatForTenFootInterfaces() or (not isConsole) then
+if TenFootInterfaceExpChatExperimentation.getIsEnabled() or (not isConsole) then
 	coroutine.wrap(function()
 		useModule = require(RobloxGui.Modules.NewChat)
 

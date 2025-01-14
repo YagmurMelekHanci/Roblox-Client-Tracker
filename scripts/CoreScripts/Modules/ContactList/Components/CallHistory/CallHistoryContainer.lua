@@ -36,7 +36,7 @@ local CallHistoryItem = require(ContactList.Components.CallHistory.CallHistoryIt
 local NoItemView = require(ContactList.Components.ContactListCommon.NoItemView)
 local Constants = require(ContactList.Components.ContactListCommon.Constants)
 
-local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer

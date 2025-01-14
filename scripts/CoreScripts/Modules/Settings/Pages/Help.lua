@@ -31,7 +31,7 @@ local GameSettings = Settings.GameSettings
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
@@ -242,7 +242,7 @@ local function Initialize()
 
 		table.insert(miscActions, {["UI Selection Toggle"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.BackSlash) })
 
-		local canShowRecordAndStats = not PolicyService:IsSubjectToChinaPolicies()
+		local canShowRecordAndStats = not CachedPolicyService:IsSubjectToChinaPolicies()
 
 		if canShowRecordAndStats then
 			if FFlagShowUpdatedScreenshotHotkey then

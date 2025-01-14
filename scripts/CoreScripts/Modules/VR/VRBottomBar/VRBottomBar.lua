@@ -67,7 +67,7 @@ local FIntVRBottomBarPositionOffsetDepthNumber =
 	require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetDepthNumber)
 local FFlagVRBottomBarHighlightedLeaveGameIcon =
 	require(RobloxGui.Modules.Flags.FFlagVRBottomBarHighlightedLeaveGameIcon)
-local FFlagEnableSpatialRobloxGui = require(RobloxGui.Modules.Flags.FFlagEnableSpatialRobloxGui)
+local IsSpatialRobloxGuiEnabled = require(RobloxGui.Modules.VR.IsSpatialRobloxGuiEnabled)
 
 local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
 
@@ -432,7 +432,7 @@ function VRBottomBar:init()
 	})
 
 	self.onShowTopBarChanged = function()
-		if FFlagEnableSpatialRobloxGui then
+		if IsSpatialRobloxGuiEnabled then
 			return
 		end
 		if not VRHub.ShowTopBar then
@@ -588,7 +588,7 @@ function VRBottomBar:updateItems()
 
 	local enabledItems
 
-	if FFlagEnableSpatialRobloxGui then
+	if IsSpatialRobloxGuiEnabled then
 		enabledItems = { MainMenu, SeparatorIcon }
 
 		if FFlagVRBottomBarDebugPositionConfig then
@@ -685,7 +685,7 @@ function VRBottomBar:renderWithStyle(style)
 	return Roact.createFragment({
 		BottomBarPanel3D = Roact.createElement(Panel3D, {
 			panelName = "BottomBar",
-			partSize = if FFlagEnableSpatialRobloxGui
+			partSize = if IsSpatialRobloxGuiEnabled
 				then Vector2.new(
 					(#itemList - 1) * UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE,
 					UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE
@@ -696,7 +696,7 @@ function VRBottomBar:renderWithStyle(style)
 			offsetCallback = self.bottomBarPanelOffsetCallback,
 			lerp = true,
 			tilt = 0,
-			anchoring = if FFlagEnableSpatialRobloxGui
+			anchoring = if IsSpatialRobloxGuiEnabled
 				then VRConstants.AnchoringTypes.PanelManaged
 				else VRConstants.AnchoringTypes.Head,
 			faceCamera = true,
@@ -704,12 +704,12 @@ function VRBottomBar:renderWithStyle(style)
 			alwaysOnTop = EngineFeatureEnableVRBottomBarWorksBehindObjects and true or nil,
 			parent = EngineFeatureEnableVRBottomBarWorksBehindObjects and GuiService.CoreGuiFolder or nil,
 			zOffset = 1,
-			connectPanelManagerFunction = if FFlagEnableSpatialRobloxGui
+			connectPanelManagerFunction = if IsSpatialRobloxGuiEnabled
 				then function(surfaceGui)
 					if surfaceGui then
 						registerRoactPanel(surfaceGui, PanelType.BottomBar)
 					else
-						UIManager:removeRoactPanel(PanelType.BottomBar)
+						UIManager.getInstance():removeRoactPanel(PanelType.BottomBar)
 					end
 				end
 				else nil,
@@ -738,7 +738,7 @@ function VRBottomBar:renderWithStyle(style)
 		}),
 		MoreMenuPanel3D = self.state.moreMenuOpen and Roact.createElement(Panel3D, {
 			panelName = "MoreMenu",
-			partSize = if FFlagEnableSpatialRobloxGui
+			partSize = if IsSpatialRobloxGuiEnabled
 				then Vector2.new(
 					5 * UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE,
 					#moreItemList * UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE
@@ -750,18 +750,18 @@ function VRBottomBar:renderWithStyle(style)
 			lerp = true,
 			tilt = 0,
 			tiltCallback = self.moreMenuPanelTiltCallback,
-			anchoring = if FFlagEnableSpatialRobloxGui
+			anchoring = if IsSpatialRobloxGuiEnabled
 				then VRConstants.AnchoringTypes.PanelManaged
 				else VRConstants.AnchoringTypes.Head,
 			faceCamera = true,
 			alwaysOnTop = EngineFeatureEnableVRBottomBarWorksBehindObjects and true or nil,
 			parent = EngineFeatureEnableVRBottomBarWorksBehindObjects and GuiService.CoreGuiFolder or nil,
-			connectPanelManagerFunction = if FFlagEnableSpatialRobloxGui
+			connectPanelManagerFunction = if IsSpatialRobloxGuiEnabled
 				then function(surfaceGui)
 					if surfaceGui then
 						registerRoactPanel(surfaceGui, PanelType.MoreMenu)
 					else
-						UIManager:removeRoactPanel(PanelType.MoreMenu)
+						UIManager.getInstance():removeRoactPanel(PanelType.MoreMenu)
 					end
 				end
 				else nil,

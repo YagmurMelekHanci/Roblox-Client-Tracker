@@ -20,7 +20,7 @@ end
 local CoreGuiModules = RobloxGui.Modules
 local PromptCreator = require(CoreGuiModules.PromptCreator)
 local SocialUtil = require(CoreGuiModules.SocialUtil)
-local BlockingUtility = require(CoreGuiModules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size150x150
 local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352

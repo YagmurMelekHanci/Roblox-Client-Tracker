@@ -10,7 +10,12 @@ local SettingsService = require(Settings.Resources.SharedSettingsService)
 local Constants = require(Settings.Integrations.Constants)
 local Fields = Settings.Integrations.SettingFields
 local Fullscreen = require(Fields.Fullscreen)
+local CameraInverted = require(Fields.CameraInverted)
+local Haptics = require(Fields.Haptics)
 local ShiftLock = require(Fields.ShiftLock)
+local PerformanceStats = require(Fields.PerformanceStats)
+local UINavToggle = require(Fields.UINavToggle)
+local ReducedMotion = require(Fields.ReducedMotion)
 
 -- Core Module 
 
@@ -19,7 +24,12 @@ local settingsPage = SettingsService:registerPage({
 	id = Constants.GAMESETTINGS.PAGE_ID,
 	settingsFields = {
 		Fullscreen,
+		CameraInverted,
+		Haptics,
 		ShiftLock,
+		PerformanceStats,
+		UINavToggle,
+		ReducedMotion,
 	}
 })
 

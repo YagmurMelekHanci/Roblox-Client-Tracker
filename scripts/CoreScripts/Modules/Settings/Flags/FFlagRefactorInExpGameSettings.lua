@@ -1,5 +1,5 @@
-game:DefineFastFlag("RefactorInExpGameSettings2", false)
+game:DefineFastFlag("DebugRefactorInExpGameSettings", false)
 
 return function()
-	return game:GetFastFlag("RefactorInExpGameSettings2")
+	return game:GetFastFlag("DebugRefactorInExpGameSettings")
 end

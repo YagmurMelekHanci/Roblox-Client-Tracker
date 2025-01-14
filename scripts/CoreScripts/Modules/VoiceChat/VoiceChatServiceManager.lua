@@ -16,8 +16,7 @@ local AppStorageService = game:GetService("AppStorageService")
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
-local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
 
@@ -67,6 +66,7 @@ local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermi
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
 local FFlagDebugSimulateConnectDisconnect = game:DefineFastFlag("DebugSimulateConnectDisconnect", false)
 local FFlagDebugSkipSeamlessVoiceAPICheck = game:DefineFastFlag("DebugSkipSeamlessVoiceAPICheck", false)
+local FFlagFixSTUXShowingIncorrectly = game:DefineFastFlag("FixSTUXShowingIncorrectly", false)
 local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
 local FFlagHideVoiceUIUntilInputExists = require(VoiceChatCore.Flags.GetFFlagHideVoiceUIUntilInputExists)()
 
@@ -103,6 +103,7 @@ local FFlagEnableRetryForLinkingProtocolFetch = game:DefineFastFlag("EnableRetry
 local FFlagSeamlessVoiceBugfixes = game:DefineFastFlag("SeamlessVoiceBugfixesV1", false)
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
+local GetFFlagCheckUniversePlaceBeforeSuspending = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCheckUniversePlaceBeforeSuspending
 local FIntLinkingProtocolFetchRetries = game:DefineFastInt("LinkingProtocolFetchRetries", 1)
 local FIntLinkingProtocolFetchTimeoutMS = game:DefineFastInt("LinkingProtocolFetchTimeoutMS", 1)
 local FFlagFixOutputDeviceChange = game:DefineFastFlag("FixOutputDeviceChange", false)
@@ -128,7 +129,7 @@ local Analytics = VoiceChatCore.Analytics
 local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 -- We require here because one of the side effects of BlockingUtility.lua sets up PlayerBlockedEvent
-local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local MicrophoneDevicePermissionsLogging =
 	require(RobloxGui.Modules.Settings.Resources.MicrophoneDevicePermissionsLogging)
 
@@ -788,7 +789,7 @@ function VoiceChatServiceManager:_VoiceChatFirstTimeUX(appStorageService: AppSto
 				end
 			end
 		end
-	elseif STUXCount < FIntSeamlessVoiceSTUXDisplayCount then
+	elseif STUXCount < FIntSeamlessVoiceSTUXDisplayCount and (not FFlagFixSTUXShowingIncorrectly or self:GetVoiceConnectCookieValue()) then
 		log:debug("Showing STUX")
 		self:showPrompt(VoiceChatPromptType.JoinVoiceSTUX)
 		pcall(function()
@@ -799,6 +800,12 @@ function VoiceChatServiceManager:_VoiceChatFirstTimeUX(appStorageService: AppSto
 end
 
 function VoiceChatServiceManager:VoiceChatFirstTimeUX(appStorageService: AppStorageService)
+	-- Return early if the experience is not voice enabled
+	if FFlagFixSTUXShowingIncorrectly and not self:verifyUniverseAndPlaceCanUseVoice() then
+		log:debug("Universe/place is not voice enabled, do not run FTUX/STUX")
+		return
+	end
+	
 	-- We only want to do this once per voice session
 	if not FFlagDebugSkipSeamlessVoiceAPICheck then
 		local permissions = self:FetchAgeVerificationOverlay()
@@ -1699,14 +1706,19 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 end
 
 function VoiceChatServiceManager:IsSeamlessVoice()
-	local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
-	if not ageVerificationOverlayData or not ageVerificationOverlayData.voiceSettings then
-		log:error("VoiceChatServiceManager:IsSeamlessVoice() - ageVerificationOverlayData or voiceSettings is nil")
-		return false
+	if GetFFlagCheckUniversePlaceBeforeSuspending() then
+		return self.coreVoiceManager:IsSeamlessVoice()
+	else
+		local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
+		if not ageVerificationOverlayData or not ageVerificationOverlayData.voiceSettings then
+			log:error("VoiceChatServiceManager:IsSeamlessVoice() - ageVerificationOverlayData or voiceSettings is nil")
+			return false
+		end
+
+		local seamlessVoiceStatus = ageVerificationOverlayData.voiceSettings.seamlessVoiceStatus
+		return seamlessVoiceStatus == SeamlessVoiceStatus.EnabledExistingUser
+			or seamlessVoiceStatus == SeamlessVoiceStatus.EnabledNewUser
 	end
-	local seamlessVoiceStatus = ageVerificationOverlayData.voiceSettings.seamlessVoiceStatus
-	return seamlessVoiceStatus == SeamlessVoiceStatus.EnabledExistingUser
-		or seamlessVoiceStatus == SeamlessVoiceStatus.EnabledNewUser
 end
 
 function VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(addVoiceSessionId: boolean)

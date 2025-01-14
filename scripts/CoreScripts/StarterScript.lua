@@ -19,7 +19,7 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptErrorReporter", RobloxGui)
 
 local Roact = require(CorePackages.Packages.Roact)
-local PolicyService = require(CoreGuiModules:WaitForChild("Common"):WaitForChild("PolicyService"))
+local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
 
@@ -252,7 +252,7 @@ coroutine.wrap(function() -- this is the first place we call, which can yield so
 end)()
 
 coroutine.wrap(function()
-	if PolicyService:IsSubjectToChinaPolicies() then
+	if CachedPolicyService:IsSubjectToChinaPolicies() then
 		if not game:IsLoaded() then
 			game.Loaded:Wait()
 		end
@@ -352,7 +352,7 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.VRAvatarGestures.VRAvatarGestur
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)
 
-if GetFFlagScreenshotHudApi() and not PolicyService:IsSubjectToChinaPolicies() then
+if GetFFlagScreenshotHudApi() and not CachedPolicyService:IsSubjectToChinaPolicies() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenshotHud", RobloxGui)
 end
 
@@ -364,7 +364,7 @@ if game:GetEngineFeature("VoiceChatSupported") and GetFFlagEnableVoiceDefaultCha
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceDefaultChannel", RobloxGui)
 end
 coroutine.wrap(function()
-	local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
+	local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 	IXPServiceWrapper:InitializeAsync(localPlayer.UserId, GetCoreScriptsLayers())
 	if IsExperienceMenuABTestEnabled() then
 		ExperienceMenuABTestManager.default:initialize()

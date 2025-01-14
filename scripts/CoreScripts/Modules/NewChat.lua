@@ -24,8 +24,9 @@ local CorePackages = game:GetService("CorePackages")
 local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagReenableTextChatForTenFootInterfaces = SharedFlags.GetFFlagReenableTextChatForTenFootInterfaces
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
+local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
+local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 
 local function shouldForceLegacyChatToBeHidden()
 	if getFFlagExpChatAlwaysRunTCS() then
@@ -126,7 +127,7 @@ do
 	function moduleApiTable:FocusChatBar()
 		DispatchEvent("FocusChatBar")
 
-		if GetFFlagReenableTextChatForTenFootInterfaces() then
+		if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
 			ExperienceChat.Events.ChatTopBarFocusActivated()
 		end
 	end

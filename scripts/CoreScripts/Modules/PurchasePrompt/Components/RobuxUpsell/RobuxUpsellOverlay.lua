@@ -29,6 +29,7 @@ local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 local GetFFlagDisablePurchasePromptFunctionForMaquettes =
 	require(Root.Flags.GetFFlagDisablePurchasePromptFunctionForMaquettes)
 local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
+local GetFFlagEnableEventMetadataInUpsell = IAPExperience.Flags.GetFFlagEnableEventMetadataInUpsell
 local FFlagPublishAvatarPromptEnabledAllPlatforms =
 	require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabledAllPlatforms)
 
@@ -52,6 +53,7 @@ type Props = {
 	robuxProductId: number,
 
 	humanoidModel: Model?,
+	itemProductId: string?,
 	itemIcon: any,
 	itemName: string,
 	itemRobuxCost: number,
@@ -287,6 +289,7 @@ function RobuxUpsellOverlay:render()
 
 		model = props.humanoidModel,
 		itemIcon = props.itemIcon,
+		itemProductId = if GetFFlagEnableEventMetadataInUpsell then props.itemProductId else nil,
 		itemName = props.itemName,
 		itemRobuxCost = props.itemRobuxCost,
 		iapRobuxAmount = props.iapRobuxAmount,

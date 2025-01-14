@@ -28,68 +28,126 @@ PROTO_1:
   GETTABLEKS R2 R1 K5 ["jest"]
   GETUPVAL R3 1
   MOVE R4 R0
-  DUPTABLE R5 K24 [{"openLink", "openLocalFile", "openPlace", "getStartPageVersionForUser", "generateTempUrlInContentProvider", "getDaysSinceFirstUserLogin", "isTutorialBannerClosed", "setTutorialBannerClosed", "isTutorialPopupClosed", "setTutorialPopupClosed", "startTutorial", "removeAPIGameFromRegistry", "removeLocalFileFromRegistry", "getRecentAPIGamesFromRegistry", "getLocalGamesFromRegistry", "LocalGamesFromRegistryUpdatedSignal", "RecentApiGamesFromRegistryUpdatedSignal", "ImageImportedSignal"}]
-  GETTABLEKS R6 R2 K25 ["fn"]
+  DUPTABLE R5 K11 [{"CloseLoadingPageAsync", "OpenLoadingPageAsync", "SetStartPageFirstRenderTimeAsync", "GetStartPageFirstRenderTimeAsync", "GetLoginTimeAsync"}]
+  GETTABLEKS R6 R2 K12 ["fn"]
   CALL R6 0 1
-  SETTABLEKS R6 R5 K6 ["openLink"]
-  GETTABLEKS R6 R2 K25 ["fn"]
+  SETTABLEKS R6 R5 K6 ["CloseLoadingPageAsync"]
+  GETTABLEKS R6 R2 K12 ["fn"]
   CALL R6 0 1
-  SETTABLEKS R6 R5 K7 ["openLocalFile"]
-  GETTABLEKS R6 R2 K25 ["fn"]
+  SETTABLEKS R6 R5 K7 ["OpenLoadingPageAsync"]
+  GETTABLEKS R6 R2 K12 ["fn"]
   CALL R6 0 1
-  SETTABLEKS R6 R5 K8 ["openPlace"]
-  GETTABLEKS R6 R2 K25 ["fn"]
+  SETTABLEKS R6 R5 K8 ["SetStartPageFirstRenderTimeAsync"]
+  GETTABLEKS R6 R2 K12 ["fn"]
   CALL R6 0 1
-  SETTABLEKS R6 R5 K9 ["getStartPageVersionForUser"]
-  GETTABLEKS R6 R2 K25 ["fn"]
+  SETTABLEKS R6 R5 K9 ["GetStartPageFirstRenderTimeAsync"]
+  GETTABLEKS R6 R2 K12 ["fn"]
   CALL R6 0 1
-  SETTABLEKS R6 R5 K10 ["generateTempUrlInContentProvider"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K11 ["getDaysSinceFirstUserLogin"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K12 ["isTutorialBannerClosed"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K13 ["setTutorialBannerClosed"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K14 ["isTutorialPopupClosed"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K15 ["setTutorialPopupClosed"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K16 ["startTutorial"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K17 ["removeAPIGameFromRegistry"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K18 ["removeLocalFileFromRegistry"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K19 ["getRecentAPIGamesFromRegistry"]
-  GETTABLEKS R6 R2 K25 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K20 ["getLocalGamesFromRegistry"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K26 ["new"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K21 ["LocalGamesFromRegistryUpdatedSignal"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K26 ["new"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K22 ["RecentApiGamesFromRegistryUpdatedSignal"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K26 ["new"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K23 ["ImageImportedSignal"]
+  SETTABLEKS R6 R5 K10 ["GetLoginTimeAsync"]
   CALL R3 2 -1
   RETURN R3 -1
 
 PROTO_2:
+  LOADN R0 3
+  RETURN R0 1
+
+PROTO_3:
+  LOADN R0 1
+  RETURN R0 1
+
+PROTO_4:
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_5:
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_6:
+  GETIMPORT R1 K1 [require]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["Packages"]
+  GETTABLEKS R3 R4 K3 ["Dev"]
+  GETTABLEKS R2 R3 K4 ["JestGlobals"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K5 ["jest"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  DUPTABLE R5 K27 [{"openLink", "openLocalFile", "openPlace", "getStartPageVersionForUser", "getTutorialVersionForUser", "generateTempUrlInContentProvider", "getDaysSinceFirstUserLogin", "isTutorialBannerClosed", "setTutorialBannerClosed", "isTutorialPopupClosed", "setTutorialPopupClosed", "startTutorial", "removeAPIGameFromRegistry", "removeLocalFileFromRegistry", "getRecentAPIGamesFromRegistry", "getLocalGamesFromRegistry", "LocalGamesFromRegistryUpdatedSignal", "RecentApiGamesFromRegistryUpdatedSignal", "ImageImportedSignal", "shouldShowWinOSDeprecationWarning", "shouldShowMacOSDeprecationWarning"}]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K6 ["openLink"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K7 ["openLocalFile"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K8 ["openPlace"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K9 ["getStartPageVersionForUser"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  DUPCLOSURE R7 K29 [PROTO_2]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K10 ["getTutorialVersionForUser"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K11 ["generateTempUrlInContentProvider"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  DUPCLOSURE R7 K30 [PROTO_3]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K12 ["getDaysSinceFirstUserLogin"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  DUPCLOSURE R7 K31 [PROTO_4]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K13 ["isTutorialBannerClosed"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K14 ["setTutorialBannerClosed"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  DUPCLOSURE R7 K32 [PROTO_5]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K15 ["isTutorialPopupClosed"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K16 ["setTutorialPopupClosed"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K17 ["startTutorial"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K18 ["removeAPIGameFromRegistry"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K19 ["removeLocalFileFromRegistry"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K20 ["getRecentAPIGamesFromRegistry"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K21 ["getLocalGamesFromRegistry"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K33 ["new"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K22 ["LocalGamesFromRegistryUpdatedSignal"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K33 ["new"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K23 ["RecentApiGamesFromRegistryUpdatedSignal"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K33 ["new"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K24 ["ImageImportedSignal"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K25 ["shouldShowWinOSDeprecationWarning"]
+  GETTABLEKS R6 R2 K28 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K26 ["shouldShowMacOSDeprecationWarning"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_7:
   GETUPVAL R1 0
   JUMPIFNOT R1 [+2]
   LOADB R0 1
@@ -97,7 +155,7 @@ PROTO_2:
   LOADB R0 0
   RETURN R0 1
 
-PROTO_3:
+PROTO_8:
   GETIMPORT R2 K1 [require]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K2 ["Packages"]
@@ -119,15 +177,15 @@ PROTO_3:
   CALL R4 2 -1
   RETURN R4 -1
 
-PROTO_4:
+PROTO_9:
   LOADN R1 255
   RETURN R1 1
 
-PROTO_5:
+PROTO_10:
   LOADB R1 0
   RETURN R1 1
 
-PROTO_6:
+PROTO_11:
   JUMPIFNOT R1 [+2]
   LOADB R2 1
   JUMP [+1]
@@ -135,7 +193,7 @@ PROTO_6:
   SETTABLEKS R2 R0 K0 ["IsLoggedIn"]
   RETURN R0 0
 
-PROTO_7:
+PROTO_12:
   NEWTABLE R1 0 0
   DUPTABLE R2 K1 [{"__index"}]
   GETUPVAL R3 0
@@ -145,10 +203,10 @@ PROTO_7:
   CALL R0 2 1
   RETURN R0 1
 
-PROTO_8:
+PROTO_13:
   RETURN R1 1
 
-PROTO_9:
+PROTO_14:
   GETTABLEKS R3 R0 K0 ["apis"]
   GETTABLEKS R4 R1 K1 ["Url"]
   GETTABLE R2 R3 R4
@@ -182,7 +240,7 @@ PROTO_9:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_15:
   DUPTABLE R5 K3 [{"Url", "Method", "Headers"}]
   SETTABLEKS R1 R5 K0 ["Url"]
   LOADK R6 K4 ["DELETE"]
@@ -192,7 +250,7 @@ PROTO_10:
   CALL R3 2 -1
   RETURN R3 -1
 
-PROTO_11:
+PROTO_16:
   DUPTABLE R5 K3 [{"Url", "Method", "Headers"}]
   SETTABLEKS R1 R5 K0 ["Url"]
   LOADK R6 K4 ["GET"]
@@ -202,7 +260,7 @@ PROTO_11:
   CALL R3 2 -1
   RETURN R3 -1
 
-PROTO_12:
+PROTO_17:
   DUPTABLE R6 K4 [{"Url", "Method", "Headers", "Body"}]
   SETTABLEKS R1 R6 K0 ["Url"]
   LOADK R7 K5 ["PATCH"]
@@ -213,7 +271,7 @@ PROTO_12:
   CALL R4 2 -1
   RETURN R4 -1
 
-PROTO_13:
+PROTO_18:
   DUPTABLE R6 K4 [{"Url", "Method", "Headers", "Body"}]
   SETTABLEKS R1 R6 K0 ["Url"]
   LOADK R7 K5 ["POST"]
@@ -224,7 +282,7 @@ PROTO_13:
   CALL R4 2 -1
   RETURN R4 -1
 
-PROTO_14:
+PROTO_19:
   DUPTABLE R5 K3 [{"Url", "Method", "Headers"}]
   SETTABLEKS R1 R5 K0 ["Url"]
   LOADK R6 K4 ["PUT"]
@@ -234,33 +292,55 @@ PROTO_14:
   CALL R3 2 -1
   RETURN R3 -1
 
-PROTO_15:
+PROTO_20:
   SETTABLEKS R1 R0 K0 ["apis"]
   RETURN R0 0
 
-PROTO_16:
+PROTO_21:
   GETUPVAL R3 0
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K0 ["RbxAnalyticsService"]
   CALL R3 1 0
   GETUPVAL R3 2
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K1 ["StartPageManager"]
+  GETTABLEKS R4 R5 K1 ["StartPageBridge"]
   CALL R3 1 0
   GETUPVAL R3 3
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["StudioService"]
+  GETTABLEKS R4 R5 K2 ["StartPageManager"]
+  CALL R3 1 0
+  GETUPVAL R3 4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["StudioService"]
   MOVE R5 R1
   CALL R3 2 0
-  GETGLOBAL R3 K3 ["resetStudioUserServiceMock"]
+  GETGLOBAL R3 K4 ["resetStudioUserServiceMock"]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["StudioUserService"]
+  GETTABLEKS R4 R5 K5 ["StudioUserService"]
   MOVE R5 R2
   CALL R3 2 0
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K5 ["Networking"]
-  SETTABLEKS R0 R3 K6 ["apis"]
+  GETTABLEKS R3 R4 K6 ["Networking"]
+  SETTABLEKS R0 R3 K7 ["apis"]
   RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["isCli"]
+  CALL R0 0 1
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["StartPageBridge"]
+  RETURN R0 1
+  GETUPVAL R0 2
+  NAMECALL R0 R0 K2 ["use"]
+  CALL R0 1 1
+  NAMECALL R0 R0 K3 ["get"]
+  CALL R0 1 1
+  LOADK R3 K1 ["StartPageBridge"]
+  NAMECALL R1 R0 K4 ["GetPluginComponent"]
+  CALL R1 2 -1
+  RETURN R1 -1
 
 MAIN:
   PREPVARARGS 0
@@ -269,131 +349,144 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["TypedPromise"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Dash"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Framework"]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["TestLoader"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["TestLoader"]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["TypedPromise"]
   CALL R4 1 1
-  GETTABLEKS R6 R3 K7 ["Util"]
-  GETTABLEKS R5 R6 K13 ["Signal"]
-  GETTABLEKS R6 R2 K14 ["assign"]
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K7 ["Util"]
-  GETTABLEKS R8 R9 K15 ["TypedNetworking"]
-  CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K16 ["Types"]
-  CALL R8 1 1
-  DUPCLOSURE R9 K17 [PROTO_0]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Util"]
+  GETTABLEKS R6 R7 K13 ["TypedNetworking"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Types"]
+  CALL R6 1 1
+  GETTABLEKS R8 R2 K15 ["ContextServices"]
+  GETTABLEKS R7 R8 K16 ["Plugin"]
+  GETTABLEKS R8 R1 K17 ["assign"]
+  GETTABLEKS R10 R2 K11 ["Util"]
+  GETTABLEKS R9 R10 K18 ["Signal"]
+  DUPCLOSURE R10 K19 [PROTO_0]
   CAPTURE VAL R0
-  CAPTURE VAL R6
-  DUPCLOSURE R10 K18 [PROTO_1]
+  CAPTURE VAL R8
+  DUPCLOSURE R11 K20 [PROTO_1]
   CAPTURE VAL R0
-  CAPTURE VAL R6
-  CAPTURE VAL R5
-  DUPCLOSURE R11 K19 [PROTO_3]
+  CAPTURE VAL R8
+  DUPCLOSURE R12 K21 [PROTO_6]
   CAPTURE VAL R0
-  CAPTURE VAL R6
-  NEWTABLE R12 2 0
-  DUPCLOSURE R13 K20 [PROTO_4]
-  SETTABLEKS R13 R12 K21 ["GetUserId"]
-  DUPCLOSURE R13 K22 [PROTO_5]
-  SETTABLEKS R13 R12 K23 ["HasInternalPermission"]
-  DUPTABLE R13 K25 [{"IsLoggedIn"}]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K24 ["IsLoggedIn"]
-  DUPCLOSURE R14 K26 [PROTO_6]
-  SETGLOBAL R14 K27 ["resetStudioUserServiceMock"]
-  DUPTABLE R14 K29 [{"apis"}]
-  NEWTABLE R15 0 0
-  SETTABLEKS R15 R14 K28 ["apis"]
-  DUPCLOSURE R15 K30 [PROTO_7]
-  CAPTURE VAL R14
-  SETTABLEKS R15 R14 K31 ["new"]
-  DUPCLOSURE R15 K32 [PROTO_8]
-  SETTABLEKS R15 R14 K33 ["parseJson"]
-  DUPCLOSURE R15 K34 [PROTO_9]
-  CAPTURE VAL R1
-  SETTABLEKS R15 R14 K35 ["request"]
-  DUPCLOSURE R15 K36 [PROTO_10]
-  SETTABLEKS R15 R14 K37 ["delete"]
-  DUPCLOSURE R15 K38 [PROTO_11]
-  SETTABLEKS R15 R14 K39 ["get"]
-  DUPCLOSURE R15 K40 [PROTO_12]
-  SETTABLEKS R15 R14 K41 ["patch"]
-  DUPCLOSURE R15 K42 [PROTO_13]
-  SETTABLEKS R15 R14 K43 ["post"]
-  DUPCLOSURE R15 K44 [PROTO_14]
-  SETTABLEKS R15 R14 K45 ["put"]
-  DUPCLOSURE R15 K46 [PROTO_15]
-  LOADNIL R16
-  DUPTABLE R17 K53 [{"Networking", "RbxAnalyticsService", "StartPageManager", "StudioService", "StudioUserService", "mock"}]
-  GETTABLEKS R19 R4 K54 ["isCli"]
-  CALL R19 0 1
-  JUMPIFNOT R19 [+2]
-  MOVE R18 R14
-  JUMP [+1]
-  MOVE R18 R7
-  SETTABLEKS R18 R17 K47 ["Networking"]
-  GETTABLEKS R19 R4 K54 ["isCli"]
-  CALL R19 0 1
-  JUMPIFNOT R19 [+3]
-  NEWTABLE R18 0 0
-  JUMP [+6]
-  GETIMPORT R18 K56 [game]
-  LOADK R20 K48 ["RbxAnalyticsService"]
-  NAMECALL R18 R18 K57 ["GetService"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K48 ["RbxAnalyticsService"]
-  GETTABLEKS R19 R4 K54 ["isCli"]
-  CALL R19 0 1
-  JUMPIFNOT R19 [+3]
-  NEWTABLE R18 0 0
-  JUMP [+6]
-  GETIMPORT R18 K56 [game]
-  LOADK R20 K58 ["StartPageService"]
-  NAMECALL R18 R18 K57 ["GetService"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K49 ["StartPageManager"]
-  GETTABLEKS R19 R4 K54 ["isCli"]
-  CALL R19 0 1
-  JUMPIFNOT R19 [+2]
-  MOVE R18 R12
-  JUMP [+6]
-  GETIMPORT R18 K56 [game]
-  LOADK R20 K50 ["StudioService"]
-  NAMECALL R18 R18 K57 ["GetService"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K50 ["StudioService"]
-  GETTABLEKS R19 R4 K54 ["isCli"]
-  CALL R19 0 1
-  JUMPIFNOT R19 [+2]
-  MOVE R18 R13
-  JUMP [+6]
-  GETIMPORT R18 K56 [game]
-  LOADK R20 K51 ["StudioUserService"]
-  NAMECALL R18 R18 K57 ["GetService"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K51 ["StudioUserService"]
-  NEWCLOSURE R18 P15
+  CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE REF R16
+  DUPCLOSURE R13 K22 [PROTO_8]
+  CAPTURE VAL R0
+  CAPTURE VAL R8
+  NEWTABLE R14 2 0
+  DUPCLOSURE R15 K23 [PROTO_9]
+  SETTABLEKS R15 R14 K24 ["GetUserId"]
+  DUPCLOSURE R15 K25 [PROTO_10]
+  SETTABLEKS R15 R14 K26 ["HasInternalPermission"]
+  DUPTABLE R15 K28 [{"IsLoggedIn"}]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K27 ["IsLoggedIn"]
+  DUPCLOSURE R16 K29 [PROTO_11]
+  SETGLOBAL R16 K30 ["resetStudioUserServiceMock"]
+  DUPTABLE R16 K32 [{"apis"}]
+  NEWTABLE R17 0 0
+  SETTABLEKS R17 R16 K31 ["apis"]
+  DUPCLOSURE R17 K33 [PROTO_12]
+  CAPTURE VAL R16
+  SETTABLEKS R17 R16 K34 ["new"]
+  DUPCLOSURE R17 K35 [PROTO_13]
+  SETTABLEKS R17 R16 K36 ["parseJson"]
+  DUPCLOSURE R17 K37 [PROTO_14]
+  CAPTURE VAL R4
+  SETTABLEKS R17 R16 K38 ["request"]
+  DUPCLOSURE R17 K39 [PROTO_15]
+  SETTABLEKS R17 R16 K40 ["delete"]
+  DUPCLOSURE R17 K41 [PROTO_16]
+  SETTABLEKS R17 R16 K42 ["get"]
+  DUPCLOSURE R17 K43 [PROTO_17]
+  SETTABLEKS R17 R16 K44 ["patch"]
+  DUPCLOSURE R17 K45 [PROTO_18]
+  SETTABLEKS R17 R16 K46 ["post"]
+  DUPCLOSURE R17 K47 [PROTO_19]
+  SETTABLEKS R17 R16 K48 ["put"]
+  DUPCLOSURE R17 K49 [PROTO_20]
+  LOADNIL R18
+  DUPTABLE R19 K58 [{"Networking", "RbxAnalyticsService", "StartPageBridge", "StartPageManager", "StudioService", "StudioUserService", "mock", "getStartPageBridge"}]
+  GETTABLEKS R21 R3 K59 ["isCli"]
+  CALL R21 0 1
+  JUMPIFNOT R21 [+2]
+  MOVE R20 R16
+  JUMP [+1]
+  MOVE R20 R5
+  SETTABLEKS R20 R19 K50 ["Networking"]
+  GETTABLEKS R21 R3 K59 ["isCli"]
+  CALL R21 0 1
+  JUMPIFNOT R21 [+3]
+  NEWTABLE R20 0 0
+  JUMP [+6]
+  GETIMPORT R20 K61 [game]
+  LOADK R22 K51 ["RbxAnalyticsService"]
+  NAMECALL R20 R20 K62 ["GetService"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K51 ["RbxAnalyticsService"]
+  NEWTABLE R20 0 0
+  SETTABLEKS R20 R19 K52 ["StartPageBridge"]
+  GETTABLEKS R21 R3 K59 ["isCli"]
+  CALL R21 0 1
+  JUMPIFNOT R21 [+3]
+  NEWTABLE R20 0 0
+  JUMP [+6]
+  GETIMPORT R20 K61 [game]
+  LOADK R22 K63 ["StartPageService"]
+  NAMECALL R20 R20 K62 ["GetService"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K53 ["StartPageManager"]
+  GETTABLEKS R21 R3 K59 ["isCli"]
+  CALL R21 0 1
+  JUMPIFNOT R21 [+2]
+  MOVE R20 R14
+  JUMP [+6]
+  GETIMPORT R20 K61 [game]
+  LOADK R22 K54 ["StudioService"]
+  NAMECALL R20 R20 K62 ["GetService"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K54 ["StudioService"]
+  GETTABLEKS R21 R3 K59 ["isCli"]
+  CALL R21 0 1
+  JUMPIFNOT R21 [+2]
+  MOVE R20 R15
+  JUMP [+6]
+  GETIMPORT R20 K61 [game]
+  LOADK R22 K55 ["StudioUserService"]
+  NAMECALL R20 R20 K62 ["GetService"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K55 ["StudioUserService"]
+  NEWCLOSURE R20 P16
   CAPTURE VAL R10
+  CAPTURE REF R18
   CAPTURE VAL R11
-  SETTABLEKS R18 R17 K52 ["mock"]
-  MOVE R16 R17
-  CLOSEUPVALS R16
-  RETURN R16 1
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  SETTABLEKS R20 R19 K56 ["mock"]
+  NEWCLOSURE R20 P17
+  CAPTURE VAL R3
+  CAPTURE REF R18
+  CAPTURE VAL R7
+  SETTABLEKS R20 R19 K57 ["getStartPageBridge"]
+  MOVE R18 R19
+  CLOSEUPVALS R18
+  RETURN R18 1
