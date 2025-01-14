@@ -263,9 +263,7 @@ function ResponsiveCarousel:render()
 				keyExtractor = self.props.keyExtractor or self.props.identifier,
 				getCellColspan = self.props.getCellColspan,
 				getCellOrder = self.props.getCellOrder,
-				scrollingFrameRef = if UIBloxConfig.responsiveBaseRowScrollingFrameRef
-					then self.props.scrollingFrameRef
-					else nil,
+				scrollingFrameRef = self.props.scrollingFrameRef,
 			}),
 		})
 	end)

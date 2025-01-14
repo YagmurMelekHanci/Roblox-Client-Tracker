@@ -12,7 +12,6 @@ local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
 local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagUGCValidateCoplanarTriTestAccessory)
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
-local getFFlagUGCValidateTestInactiveControls = require(root.flags.getFFlagUGCValidateTestInactiveControls)
 local getEngineFeatureEngineUGCValidationReportScriptTime =
 	require(root.flags.getEngineFeatureEngineUGCValidationReportScriptTime)
 local getFFlagUGCValidateCageOrigin = require(root.flags.getFFlagUGCValidateCageOrigin)
@@ -35,6 +34,8 @@ local getEngineFeatureEngineUGCValidateLCCagingRelevancy =
 
 local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
+
+local getFFlagUGCValidateLCHandleScale = require(root.flags.getFFlagUGCValidateLCHandleScale)
 
 local function joinTables(...)
 	local result = {}
@@ -155,6 +156,7 @@ Analytics.ErrorType = {
 	validateUVSpace_InvalidUVSpace = "validateUVSpace_InvalidUVSpace",
 	validateVertexDensity_FailedToExecute = "validateVertexDensity_FailedToExecute",
 	validateVertexDensity_MaxDensityExceeded = "validateVertexDensity_MaxDensityExceeded",
+	validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls = "validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls",
 }
 
 if getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity() then
@@ -172,11 +174,6 @@ if getFFlagUGCValidateCoplanarTriTestBody() or getFFlagUGCValidateCoplanarTriTes
 	Analytics.ErrorType.validateCoplanarIntersection_FailedToExecute = "validateCoplanarIntersection_FailedToExecute"
 	Analytics.ErrorType.validateCoplanarIntersection_CoplanarIntersection =
 		"validateCoplanarIntersection_CoplanarIntersection"
-end
-
-if getFFlagUGCValidateTestInactiveControls() then
-	Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls =
-		"validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls"
 end
 
 if getFFlagUGCValidateCageOrigin() then
@@ -212,6 +209,11 @@ end
 if getFFlagUGCValidatePartSizeWithinRenderSizeLimits() then
 	Analytics.ErrorType.validatePartSizeWithinRenderSizeLimits_SizeExceeded =
 		"validatePartSizeWithinRenderSizeLimits_SizeExceeded"
+end
+
+if getFFlagUGCValidateLCHandleScale() then
+	Analytics.ErrorType.validateLayeredClothingAccessory_HandleIsScaled =
+		"validateLayeredClothingAccessory_HandleIsScaled"
 end
 
 setmetatable(Analytics.ErrorType, {

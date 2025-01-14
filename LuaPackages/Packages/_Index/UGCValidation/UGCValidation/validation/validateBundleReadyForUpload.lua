@@ -1,7 +1,6 @@
 --!strict
 local root = script.Parent.Parent
 
-local getFFlagUGCValidateFixAccessories = require(root.flags.getFFlagUGCValidateFixAccessories)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
@@ -55,36 +54,6 @@ export type AvatarValidationResponse = {
 	pieces: { AvatarValidationPiece },
 }
 
--- remove when FFlagUGCValidateFixAccessories is remvoed true
--- Delete stuff that Roblox makes automatically that is never valid for publish
-local function sanitizeAvatarForValidation(avatar: Instance)
-	avatar = avatar:Clone()
-
-	for _, thing in avatar:GetDescendants() do
-		if thing:IsA("Motor6D") or thing.Name == "OriginalSize" or thing.Name == "OriginalPosition" then
-			thing:Destroy()
-			continue
-		end
-
-		if thing:IsA("Weld") and thing.Name == "AccessoryWeld" then
-			thing:Destroy()
-			continue
-		end
-
-		if
-			thing:IsA("MeshPart")
-			and (not thing.Parent:IsA("Accessory"))
-			and thing.TextureID == ""
-			and (not thing:FindFirstChildWhichIsA("SurfaceAppearance"))
-		then
-			local surfaceAppearance = Instance.new("SurfaceAppearance")
-			surfaceAppearance.Parent = thing
-		end
-	end
-
-	return avatar
-end
-
 -- Promise is not typed, so we cannot use it as a return value
 local function validateBundleReadyForUpload(
 	avatar: Instance,
@@ -115,9 +84,7 @@ local function validateBundleReadyForUpload(
 		return Promise.resolve(response)
 	end
 
-	avatar = if getFFlagUGCValidateFixAccessories()
-		then fixUpPreValidation(avatar)
-		else sanitizeAvatarForValidation(avatar)
+	avatar = fixUpPreValidation(avatar)
 
 	-- Get all the body parts to be validated in the format that the validation code expects.
 	local ugcBodyPartFolders = createUGCBodyPartFolders(

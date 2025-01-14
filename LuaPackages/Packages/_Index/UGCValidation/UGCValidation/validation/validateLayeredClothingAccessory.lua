@@ -55,6 +55,10 @@ local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
 	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
 local getFFlagUGCValidateCageOrigin = require(root.flags.getFFlagUGCValidateCageOrigin)
 local getFIntUGCValidateAccessoryMaxCageOrigin = require(root.flags.getFIntUGCValidateAccessoryMaxCageOrigin)
+local getFFlagUGCValidateLCHandleScale = require(root.flags.getFFlagUGCValidateLCHandleScale)
+local getFFlagUGCValidationRefactorMeshScale = require(root.flags.getFFlagUGCValidationRefactorMeshScale)
+local getFIntUGCValidationLCHandleScaleOffsetMaximum =
+	require(root.flags.getFIntUGCValidationLCHandleScaleOffsetMaximum) -- / 1000
 
 local maxAccessoryCageOrigin = if getFFlagUGCValidateCageOrigin()
 	then getFIntUGCValidateAccessoryMaxCageOrigin() / 100
@@ -201,27 +205,32 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 	end
 
 	local meshSizeSuccess, meshSize
-	if getFFlagUGCValidationShouldYield() then
-		meshSizeSuccess, meshSize = pcallDeferred(function()
-			return getMeshSize(meshInfo)
-		end, validationContext)
+	if getFFlagUGCValidationRefactorMeshScale() then
+		-- when getFFlagUGCValidationRefactorMeshScale is cleaned up, meshSizeSuccess and getMeshSize should be removed
+		meshSize = handle.meshSize
 	else
-		meshSizeSuccess, meshSize = pcall(getMeshSize, meshInfo)
-	end
+		if getFFlagUGCValidationShouldYield() then
+			meshSizeSuccess, meshSize = pcallDeferred(function()
+				return getMeshSize(meshInfo)
+			end, validationContext)
+		else
+			meshSizeSuccess, meshSize = pcall(getMeshSize, meshInfo)
+		end
 
-	if not meshSizeSuccess then
-		Analytics.reportFailure(
-			Analytics.ErrorType.validateLayeredClothingAccessory_FailedToLoadMesh,
-			nil,
-			validationContext
-		)
-		return false,
-			{
-				string.format(
-					"Failed to load mesh for layered clothing accessory '%s'. Make sure mesh exists and try again.",
-					instance.Name
-				),
-			}
+		if not meshSizeSuccess then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateLayeredClothingAccessory_FailedToLoadMesh,
+				nil,
+				validationContext
+			)
+			return false,
+				{
+					string.format(
+						"Failed to load mesh for layered clothing accessory '%s'. Make sure mesh exists and try again.",
+						instance.Name
+					),
+				}
+		end
 	end
 
 	local meshScale
@@ -229,6 +238,25 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		meshScale = getExpectedPartSize(handle, validationContext) / meshSize
 	else
 		meshScale = handle.Size / meshSize
+	end
+
+	if getFFlagUGCValidateLCHandleScale() then
+		if not meshScale:FuzzyEq(Vector3.one, getFIntUGCValidationLCHandleScaleOffsetMaximum() / 1000) then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateLayeredClothingAccessory_HandleIsScaled,
+				nil,
+				validationContext
+			)
+
+			table.insert(
+				reasons,
+				string.format(
+					"%s has been scaled, but mesh parts with wrap layers do not support scaling. You need to change the Size property to match the MeshSize property.",
+					handle.Name
+				)
+			)
+			validationResult = false
+		end
 	end
 
 	local attachment = getAttachment(handle, assetInfo.attachmentNames)

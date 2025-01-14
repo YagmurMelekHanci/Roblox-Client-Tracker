@@ -18,7 +18,6 @@ local getFFlagValidateFacialExpressiveness = require(root.flags.getFFlagValidate
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getEngineFeatureUGCValidateGetInactiveControls =
 	require(root.flags.getEngineFeatureUGCValidateGetInactiveControls)
-local getFFlagUGCValidateTestInactiveControls = require(root.flags.getFFlagUGCValidateTestInactiveControls)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local EngineFeatureGCValidateCompareTextureOverlap = game:GetEngineFeature("UGCValidateCompareTextureOverlap")
@@ -276,7 +275,7 @@ local function validateDynamicHeadData(
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	if getEngineFeatureUGCValidateGetInactiveControls() and getFFlagUGCValidateTestInactiveControls() then
+	if getEngineFeatureUGCValidateGetInactiveControls() then
 		local commandExecuted, missingControlsOrErrorMessage, inactiveControls = pcall(function()
 			if getEngineFeatureUGCValidateEditableMeshAndImage() then
 				return UGCValidationService:GetDynamicHeadMeshInactiveControls(

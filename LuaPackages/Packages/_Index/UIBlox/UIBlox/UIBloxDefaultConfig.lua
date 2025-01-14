@@ -27,9 +27,6 @@ return {
 	-- Use SurfaceGuiWithAdornee for Panel3D
 	refactorPanel3D = false,
 
-	-- Add a ref that points to ScrollingFrame in ResponsiveBaseRow
-	responsiveBaseRowScrollingFrameRef = false,
-
 	-- use new refactored interactable
 	refactorInteractable = false,
 
