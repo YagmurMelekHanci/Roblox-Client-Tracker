@@ -18,8 +18,6 @@ local getFFlagValidateFacialExpressiveness = require(root.flags.getFFlagValidate
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getEngineFeatureUGCValidateGetInactiveControls =
 	require(root.flags.getEngineFeatureUGCValidateGetInactiveControls)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local EngineFeatureGCValidateCompareTextureOverlap = game:GetEngineFeature("UGCValidateCompareTextureOverlap")
 local getEngineFeatureViewportFrameSnapshotEngineFeature =
 	require(root.flags.getEngineFeatureViewportFrameSnapshotEngineFeature)
@@ -244,13 +242,9 @@ local function validateDynamicHeadData(
 
 	do
 		local retrievedMeshData, testsPassed = pcall(function()
-			if getEngineFeatureUGCValidateEditableMeshAndImage() then
-				return UGCValidationService:ValidateDynamicHeadMesh(
-					getMeshIdForSkinningValidation(meshPartHead, allowEditableInstances)
-				)
-			else
-				return UGCValidationService:ValidateDynamicHeadMesh(meshPartHead.MeshId)
-			end
+			return UGCValidationService:ValidateDynamicHeadMesh(
+				getMeshIdForSkinningValidation(meshPartHead, allowEditableInstances)
+			)
 		end)
 
 		if not retrievedMeshData then
@@ -277,17 +271,10 @@ local function validateDynamicHeadData(
 
 	if getEngineFeatureUGCValidateGetInactiveControls() then
 		local commandExecuted, missingControlsOrErrorMessage, inactiveControls = pcall(function()
-			if getEngineFeatureUGCValidateEditableMeshAndImage() then
-				return UGCValidationService:GetDynamicHeadMeshInactiveControls(
-					getMeshIdForSkinningValidation(meshPartHead, allowEditableInstances),
-					requiredActiveFACSControls
-				)
-			else
-				return UGCValidationService:GetDynamicHeadMeshInactiveControls(
-					meshPartHead.MeshId,
-					requiredActiveFACSControls
-				)
-			end
+			return UGCValidationService:GetDynamicHeadMeshInactiveControls(
+				getMeshIdForSkinningValidation(meshPartHead, allowEditableInstances),
+				requiredActiveFACSControls
+			)
 		end)
 
 		if not commandExecuted then

@@ -6,9 +6,6 @@ local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
 
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
 local function validateMisMatchUV(
 	innerCageMeshInfo: Types.MeshInfo,
 	outerCageMeshInfo: Types.MeshInfo,
@@ -16,19 +13,12 @@ local function validateMisMatchUV(
 ): (boolean, { string }?)
 	assert(innerCageMeshInfo.context == outerCageMeshInfo.context)
 
-	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, result = pcall(function()
-			return UGCValidationService:ValidateEditableMeshMisMatchUV(
-				innerCageMeshInfo.editableMesh,
-				outerCageMeshInfo.editableMesh
-			)
-		end)
-	else
-		success, result = pcall(function()
-			return UGCValidationService:ValidateMisMatchUV(innerCageMeshInfo.contentId, outerCageMeshInfo.contentId)
-		end)
-	end
+	local success, result = pcall(function()
+		return UGCValidationService:ValidateEditableMeshMisMatchUV(
+			innerCageMeshInfo.editableMesh,
+			outerCageMeshInfo.editableMesh
+		)
+	end)
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateMisMatchUV_FailedToExecute, nil, validationContext)

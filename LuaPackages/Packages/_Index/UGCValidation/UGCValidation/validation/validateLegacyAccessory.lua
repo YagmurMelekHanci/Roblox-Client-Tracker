@@ -17,7 +17,6 @@ local validateProperties = require(root.validation.validateProperties)
 local validateAttributes = require(root.validation.validateAttributes)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
-local validateCanLoad = require(root.validation.validateCanLoad)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
@@ -38,8 +37,6 @@ local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationN
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
 local FFlagLegacyAccessoryCheckCategory = game:DefineFastFlag("LegacyAccessoryCheckCategory", false)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
 	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
 
@@ -107,32 +104,30 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	reasons = {}
 
 	local hasMeshContent = meshInfo.contentId ~= nil and meshInfo.contentId ~= ""
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(mesh, "MeshId", validationContext)
-		if not getEditableMeshSuccess then
-			if not meshInfo.contentId then
-				hasMeshContent = false
-				validationResult = false
-				table.insert(reasons, {
+	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(mesh, "MeshId", validationContext)
+	if not getEditableMeshSuccess then
+		if not meshInfo.contentId then
+			hasMeshContent = false
+			validationResult = false
+			table.insert(reasons, {
+				string.format(
+					"Missing meshId on legacy accessory '%s'. Make sure you are using a valid meshId and try again.\n",
+					instance.Name
+				),
+			})
+		else
+			return false,
+				{
 					string.format(
-						"Missing meshId on legacy accessory '%s'. Make sure you are using a valid meshId and try again.\n",
+						"Failed to load mesh for legacy accessory '%s'. Make sure mesh exists and try again.",
 						instance.Name
 					),
-				})
-			else
-				return false,
-					{
-						string.format(
-							"Failed to load mesh for legacy accessory '%s'. Make sure mesh exists and try again.",
-							instance.Name
-						),
-					}
-			end
+				}
 		end
-
-		meshInfo.editableMesh = editableMesh
-		hasMeshContent = true
 	end
+
+	meshInfo.editableMesh = editableMesh
+	hasMeshContent = true
 
 	local textureInfo = {
 		fullName = mesh:GetFullName(),
@@ -140,38 +135,18 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		contentId = mesh.TextureId,
 	} :: Types.TextureInfo
 
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		local getEditableImageSuccess, editableImage = getEditableImageFromContext(mesh, "TextureId", validationContext)
-		if not getEditableImageSuccess then
-			return false,
-				{
-					string.format(
-						"Failed to load texture for legacy accessory '%s'. Make sure texture exists and try again.",
-						instance.Name
-					),
-				}
-		end
-
-		textureInfo.editableImage = editableImage
-	else
-		if isServer then
-			local textureSuccess
-			local meshSuccess
-			local _canLoadFailedReason: any = {}
-			textureSuccess, _canLoadFailedReason = validateCanLoad(mesh.TextureId, validationContext)
-			meshSuccess, _canLoadFailedReason = validateCanLoad(mesh.MeshId, validationContext)
-			if not textureSuccess or not meshSuccess then
-				-- Failure to load assets should be treated as "inconclusive".
-				-- Validation didn't succeed or fail, we simply couldn't run validation because the assets couldn't be loaded.
-				error(
-					string.format(
-						"Failed to load children assets (Meshes, Textures, etc.) for '%s'. Make sure the assets exist and try again.",
-						instance.Name
-					)
-				)
-			end
-		end
+	local getEditableImageSuccess, editableImage = getEditableImageFromContext(mesh, "TextureId", validationContext)
+	if not getEditableImageSuccess then
+		return false,
+			{
+				string.format(
+					"Failed to load texture for legacy accessory '%s'. Make sure texture exists and try again.",
+					instance.Name
+				),
+			}
 	end
+
+	textureInfo.editableImage = editableImage
 
 	local failedReason: any = {}
 	success, failedReason = validateMaterials(instance, validationContext)

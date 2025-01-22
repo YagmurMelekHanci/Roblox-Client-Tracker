@@ -1,6 +1,6 @@
 [package]
 name = "Scheduler"
-version = "17.1.6"
+version = "17.1.7"
 content_root = "src"
 files = [
     "*",
@@ -19,6 +19,9 @@ authors = [
 [dependencies.LuauPolyfill]
 version = "^1"
 
+[dependencies.SafeFlags]
+version = "^0.1.1"
+
 [dependencies.Shared]
 package = "Shared"
-version = "^17.1.6"
+version = "^17.1.7"

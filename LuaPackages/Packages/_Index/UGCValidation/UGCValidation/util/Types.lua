@@ -53,7 +53,7 @@ export type ValidationContext = {
 }
 
 export type MeshInfo = {
-	editableMesh: EditableMesh?, --TODO: remove ? when removing EngineFeatureUGCValidateEditableMeshAndImage
+	editableMesh: EditableMesh,
 	contentId: string?,
 	fullName: string,
 	fieldName: string,
@@ -62,7 +62,7 @@ export type MeshInfo = {
 }
 
 export type TextureInfo = {
-	editableImage: EditableImage?, --TODO: remove ? when removing EngineFeatureUGCValidateEditableMeshAndImage
+	editableImage: EditableImage,
 	contentId: string?,
 	fullName: string,
 	fieldName: string,

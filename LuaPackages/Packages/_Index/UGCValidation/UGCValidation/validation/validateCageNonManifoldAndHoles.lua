@@ -6,23 +6,13 @@ local Types = require(root.util.Types)
 
 local Analytics = require(root.Analytics)
 
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
 local function validateCageNonManifoldAndHoles(
 	meshInfo: Types.MeshInfo,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local success, checkNonManifold, checkCageHoles
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, checkNonManifold, checkCageHoles = pcall(function()
-			return UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(meshInfo.editableMesh)
-		end)
-	else
-		success, checkNonManifold, checkCageHoles = pcall(function()
-			return UGCValidationService:ValidateCageNonManifoldAndHoles(meshInfo.contentId)
-		end)
-	end
+	local success, checkNonManifold, checkCageHoles = pcall(function()
+		return UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(meshInfo.editableMesh)
+	end)
 
 	if not success then
 		Analytics.reportFailure(

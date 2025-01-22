@@ -1,12 +1,5 @@
 local root = script
 
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
-local getEngineFeatureUGCValidationRequiredFolderContext =
-	require(root.flags.getEngineFeatureUGCValidationRequiredFolderContext)
-local getEngineFeatureEngineUGCValidateRigidMeshPartAccessories =
-	require(root.flags.getEngineFeatureEngineUGCValidateRigidMeshPartAccessories)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateUseDataCache = require(root.flags.getFFlagUGCValidateUseDataCache)
 
 local Analytics = require(root.Analytics)
@@ -55,15 +48,12 @@ function UGCValidation.validate(
 		isServer = isServer,
 	})
 
-	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, result = createEditableInstancesForContext(instances, allowEditableInstances)
-		if not success then
-			if isServer then
-				error(result[1])
-			else
-				return success, result
-			end
+	local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+	if not success then
+		if isServer then
+			error(result[1])
+		else
+			return success, result
 		end
 	end
 
@@ -78,33 +68,17 @@ function UGCValidation.validate(
 		isAsync = false,
 		allowEditableInstances = allowEditableInstances :: boolean,
 		bypassFlags = bypassFlags,
-		validateMeshPartAccessories = if getEngineFeatureEngineUGCValidateRigidMeshPartAccessories()
-				and validateMeshPartAccessories
-			then true
-			else false,
+		validateMeshPartAccessories = if validateMeshPartAccessories then true else false,
+		lastTickSeconds = tick(),
+		shouldYield = shouldYield,
+		editableMeshes = result.editableMeshes :: Types.EditableMeshes,
+		editableImages = result.editableImages :: Types.EditableImages,
+		requireAllFolders = if requireAllFolders ~= nil then requireAllFolders else true,
 	} :: Types.ValidationContext
-
-	if getEngineFeatureUGCValidationRequiredFolderContext() then
-		validationContext.requireAllFolders = if requireAllFolders ~= nil then requireAllFolders else true
-	else
-		validationContext.requireAllFolders = false
-	end
-
-	if getFFlagUGCValidationShouldYield() then
-		validationContext.lastTickSeconds = tick()
-		validationContext.shouldYield = shouldYield
-	end
-
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-		validationContext.editableImages = result.editableImages :: Types.EditableImages
-	end
 
 	local validationSuccess, reasons = validateInternal(validationContext)
 
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-	end
+	destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
 
 	if validationSuccess then
 		Analytics.recordScriptTime(script.Name, startTime, validationContext)
@@ -134,15 +108,12 @@ function UGCValidation.validateAsync(
 		isServer = isServer,
 	})
 
-	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, result = createEditableInstancesForContext(instances)
-		if not success then
-			if isServer then
-				error(result[1])
-			else
-				callback(success, result)
-			end
+	local success, result = createEditableInstancesForContext(instances)
+	if not success then
+		if isServer then
+			error(result[1])
+		else
+			callback(success, result)
 		end
 	end
 
@@ -155,18 +126,13 @@ function UGCValidation.validateAsync(
 		token = "",
 		isAsync = true,
 		validateMeshPartAccessories = false,
+		editableMeshes = result.editableMeshes :: Types.EditableMeshes,
+		editableImages = result.editableImages :: Types.EditableImages,
 	} :: Types.ValidationContext
-
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-		validationContext.editableImages = result.editableImages :: Types.EditableImages
-	end
 
 	coroutine.wrap(function()
 		callback(validateInternal(validationContext))
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-		end
+		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
 	end)()
 end
 
@@ -187,15 +153,12 @@ function UGCValidation.validateMeshPartFormat(
 	-- but for DynamicHeads they upload the MeshPart version
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
 
-	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, result = createEditableInstancesForContext(instances)
-		if not success then
-			if isServer then
-				error(result[1])
-			else
-				return success, result
-			end
+	local success, result = createEditableInstancesForContext(instances)
+	if not success then
+		if isServer then
+			error(result[1])
+		else
+			return success, result
 		end
 	end
 
@@ -206,18 +169,13 @@ function UGCValidation.validateMeshPartFormat(
 		restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
 		isServer = isServer :: boolean,
 		validateMeshPartAccessories = false,
+		editableMeshes = result.editableMeshes :: Types.EditableMeshes,
+		editableImages = result.editableImages :: Types.EditableImages,
 	} :: Types.ValidationContext
-
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-		validationContext.editableImages = result.editableImages :: Types.EditableImages
-	end
 
 	local validationSuccess, reasons = validateDynamicHeadMeshPartFormat(validationContext)
 
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-	end
+	destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
 
 	return validationSuccess, reasons
 end
@@ -240,15 +198,12 @@ function UGCValidation.validateAsyncMeshPartFormat(
 	-- but for DynamicHeads they upload the MeshPart version
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
 
-	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, result = createEditableInstancesForContext(instances)
-		if not success then
-			if isServer then
-				error(result[1])
-			else
-				callback(success, result)
-			end
+	local success, result = createEditableInstancesForContext(instances)
+	if not success then
+		if isServer then
+			error(result[1])
+		else
+			callback(success, result)
 		end
 	end
 
@@ -259,18 +214,13 @@ function UGCValidation.validateAsyncMeshPartFormat(
 		restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
 		isServer = isServer :: boolean,
 		validateMeshPartAccessories = false,
+		editableMeshes = result.editableMeshes :: Types.EditableMeshes,
+		editableImages = result.editableImages :: Types.EditableImages,
 	} :: Types.ValidationContext
-
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-		validationContext.editableImages = result.editableImages :: Types.EditableImages
-	end
 
 	coroutine.wrap(function()
 		callback(validateDynamicHeadMeshPartFormat(validationContext))
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-		end
+		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
 	end)()
 end
 
@@ -288,15 +238,12 @@ function UGCValidation.validateMeshPartAssetFormat2(
 		isServer = isServer,
 	})
 
-	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, result = createEditableInstancesForContext(instances)
-		if not success then
-			if isServer then
-				error(result[1])
-			else
-				return success, result
-			end
+	local success, result = createEditableInstancesForContext(instances)
+	if not success then
+		if isServer then
+			error(result[1])
+		else
+			return success, result
 		end
 	end
 
@@ -306,12 +253,9 @@ function UGCValidation.validateMeshPartAssetFormat2(
 		allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
 		isServer = isServer :: boolean,
 		validateMeshPartAccessories = false,
+		editableMeshes = result.editableMeshes :: Types.EditableMeshes,
+		editableImages = result.editableImages :: Types.EditableImages,
 	} :: Types.ValidationContext
-
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-		validationContext.editableImages = result.editableImages :: Types.EditableImages
-	end
 
 	local validationSuccess, reasons
 	if isLayeredClothing(instances[1]) then
@@ -321,9 +265,7 @@ function UGCValidation.validateMeshPartAssetFormat2(
 		validationSuccess, reasons = validateLegacyAccessoryMeshPartAssetFormat(specialMeshAccessory, validationContext)
 	end
 
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-	end
+	destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
 
 	return validationSuccess, reasons
 end
@@ -397,22 +339,19 @@ function UGCValidation.validateFullBody(
 
 	local startTime = tick()
 
-	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		local instances = {}
-		for _, instancesAndType in fullBodyData do
-			for _, instance in instancesAndType.allSelectedInstances do
-				table.insert(instances, instance)
-			end
+	local instances = {}
+	for _, instancesAndType in fullBodyData do
+		for _, instance in instancesAndType.allSelectedInstances do
+			table.insert(instances, instance)
 		end
+	end
 
-		success, result = createEditableInstancesForContext(instances, allowEditableInstances)
-		if not success then
-			if isServer then
-				error(result[1])
-			else
-				return success, result
-			end
+	local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+	if not success then
+		if isServer then
+			error(result[1])
+		else
+			return success, result
 		end
 	end
 
@@ -422,29 +361,16 @@ function UGCValidation.validateFullBody(
 		allowEditableInstances = allowEditableInstances :: boolean,
 		bypassFlags = bypassFlags,
 		validateMeshPartAccessories = false,
+		lastTickSeconds = tick(),
+		shouldYield = shouldYield,
+		editableMeshes = result.editableMeshes :: Types.EditableMeshes,
+		editableImages = result.editableImages :: Types.EditableImages,
+		requireAllFolders = if requireAllFolders ~= nil then requireAllFolders else true,
 	} :: Types.ValidationContext
-
-	if getEngineFeatureUGCValidationRequiredFolderContext() then
-		validationContext.requireAllFolders = if requireAllFolders ~= nil then requireAllFolders else true
-	else
-		validationContext.requireAllFolders = false
-	end
-
-	if getFFlagUGCValidationShouldYield() then
-		validationContext.lastTickSeconds = tick()
-		validationContext.shouldYield = shouldYield
-	end
-
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-		validationContext.editableImages = result.editableImages :: Types.EditableImages
-	end
 
 	local validationSuccess, reasons = validateFullBody(validationContext)
 
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-	end
+	destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
 
 	if validationSuccess then
 		Analytics.recordScriptTime(script.Name, startTime, validationContext)
@@ -471,25 +397,21 @@ function UGCValidation.preprocessDataAsync(
 
 	local startTime = tick()
 
-	local resultEditableMeshesImages
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		local instances = {}
-		for _, instance in allBodyData do
-			table.insert(instances, instance)
-		end
+	local instances = {}
+	for _, instance in allBodyData do
+		table.insert(instances, instance)
+	end
 
-		local successEditableInstancesForContext
-		successEditableInstancesForContext, resultEditableMeshesImages =
-			createEditableInstancesForContext(instances, allowEditableInstances)
-		if not successEditableInstancesForContext then
-			if isServer then
-				error(resultEditableMeshesImages[1])
-			else
-				return {
-					ok = false,
-					errors = resultEditableMeshesImages,
-				}
-			end
+	local successEditableInstancesForContext, resultEditableMeshesImages =
+		createEditableInstancesForContext(instances, allowEditableInstances)
+	if not successEditableInstancesForContext then
+		if isServer then
+			error(resultEditableMeshesImages[1])
+		else
+			return {
+				ok = false,
+				errors = resultEditableMeshesImages,
+			}
 		end
 	end
 
@@ -498,23 +420,15 @@ function UGCValidation.preprocessDataAsync(
 		allowEditableInstances = allowEditableInstances :: boolean,
 		bypassFlags = bypassFlags,
 		validateMeshPartAccessories = false,
+		lastTickSeconds = tick(),
+		shouldYield = shouldYield,
+		editableMeshes = resultEditableMeshesImages.editableMeshes :: Types.EditableMeshes,
+		editableImages = resultEditableMeshesImages.editableImages :: Types.EditableImages,
 	} :: Types.ValidationContext
-
-	if getFFlagUGCValidationShouldYield() then
-		validationContext.lastTickSeconds = tick()
-		validationContext.shouldYield = shouldYield
-	end
-
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		validationContext.editableMeshes = resultEditableMeshesImages.editableMeshes :: Types.EditableMeshes
-		validationContext.editableImages = resultEditableMeshesImages.editableImages :: Types.EditableImages
-	end
 
 	local preprocessResults = ValidationHints.preprocessDataAsync(allBodyData, validationContext)
 
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-	end
+	destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
 
 	if preprocessResults.ok then
 		Analytics.recordScriptTime("preprocessDataAsync", startTime, validationContext)
@@ -568,24 +482,22 @@ function UGCValidation.calculateScaleToValidateBoundsAsync(
 	local resultEditableMeshesImages
 
 	if not getFFlagUGCValidateUseDataCache() or not dataCache then
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			local instances = {}
-			for _, instance in allBodyData do
-				table.insert(instances, instance)
-			end
+		local instances = {}
+		for _, instance in allBodyData do
+			table.insert(instances, instance)
+		end
 
-			local successEditableInstancesForContext
-			successEditableInstancesForContext, resultEditableMeshesImages =
-				createEditableInstancesForContext(instances, allowEditableInstances)
-			if not successEditableInstancesForContext then
-				if isServer then
-					error(resultEditableMeshesImages[1])
-				else
-					return {
-						ok = false,
-						errors = resultEditableMeshesImages,
-					}
-				end
+		local successEditableInstancesForContext
+		successEditableInstancesForContext, resultEditableMeshesImages =
+			createEditableInstancesForContext(instances, allowEditableInstances)
+		if not successEditableInstancesForContext then
+			if isServer then
+				error(resultEditableMeshesImages[1])
+			else
+				return {
+					ok = false,
+					errors = resultEditableMeshesImages,
+				}
 			end
 		end
 	end
@@ -595,27 +507,20 @@ function UGCValidation.calculateScaleToValidateBoundsAsync(
 		allowEditableInstances = allowEditableInstances :: boolean,
 		bypassFlags = bypassFlags,
 		validateMeshPartAccessories = false,
+		lastTickSeconds = tick(),
+		shouldYield = shouldYield,
 	} :: Types.ValidationContext
 
-	if getFFlagUGCValidationShouldYield() then
-		validationContext.lastTickSeconds = tick()
-		validationContext.shouldYield = shouldYield
-	end
-
 	if not getFFlagUGCValidateUseDataCache() or not dataCache then
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			validationContext.editableMeshes = resultEditableMeshesImages.editableMeshes :: Types.EditableMeshes
-			validationContext.editableImages = resultEditableMeshesImages.editableImages :: Types.EditableImages
-		end
+		validationContext.editableMeshes = resultEditableMeshesImages.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = resultEditableMeshesImages.editableImages :: Types.EditableImages
 	end
 
 	local validationResults =
 		ValidationHints.calculateScaleToValidateBoundsAsync(allBodyData, validationContext, dataCache)
 
 	if not getFFlagUGCValidateUseDataCache() or not dataCache then
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-		end
+		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
 	end
 
 	if validationResults.ok then

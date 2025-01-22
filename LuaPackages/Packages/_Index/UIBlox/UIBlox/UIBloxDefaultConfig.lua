@@ -137,9 +137,6 @@ return {
 	-- Enable ComboButton support in ActionBar
 	enableComboButtonInActionBar = false,
 
-	-- Pass TextXAlignment property to ImageTextLabel
-	imageTextLabelTextXAlignment = false,
-
 	-- Fix the AppNav related test issues
 	fixAppNavTestIssues = false,
 
@@ -154,4 +151,7 @@ return {
 
 	-- Enable better laser pointer mode
 	enableBetterLaserPointerMode = false,
+
+	-- Turn on scrolling for AnimatedFlatList, which is what Console EDP uses
+	enableAnimatedFlatListScrolling = false,
 }

@@ -36,6 +36,7 @@ local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
 
 local getFFlagUGCValidateLCHandleScale = require(root.flags.getFFlagUGCValidateLCHandleScale)
+local getFFlagUGCValidatePartMass = require(root.flags.getFFlagUGCValidatePartMass)
 
 local function joinTables(...)
 	local result = {}
@@ -214,6 +215,10 @@ end
 if getFFlagUGCValidateLCHandleScale() then
 	Analytics.ErrorType.validateLayeredClothingAccessory_HandleIsScaled =
 		"validateLayeredClothingAccessory_HandleIsScaled"
+end
+
+if getFFlagUGCValidatePartMass() then
+	Analytics.ErrorType.resetPhysicsData_LargeMass = "resetPhysicsData_LargeMass"
 end
 
 setmetatable(Analytics.ErrorType, {

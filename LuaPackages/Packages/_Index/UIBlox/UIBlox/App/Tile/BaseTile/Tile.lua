@@ -431,9 +431,7 @@ function Tile:render()
 								useMaxHeight = useMaxTitleHeight,
 								titleFontStyle = titleFontStyle,
 								richText = titleRichText,
-								horizontalAlignment = if UIBloxConfig.imageTextLabelTextXAlignment
-									then horizontalAlignment
-									else nil,
+								horizontalAlignment = horizontalAlignment,
 							}),
 							Subtitle = (subtitle ~= "" and subtitle ~= nil) and React.createElement(StyledTextLabel, {
 								size = UDim2.new(0, 0, 0, subtitleTextHeight),

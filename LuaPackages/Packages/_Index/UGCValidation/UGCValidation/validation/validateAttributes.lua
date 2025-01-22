@@ -6,9 +6,6 @@ local Constants = require(root.Constants)
 local Types = require(root.util.Types)
 local checkForProxyWrap = require(root.util.checkForProxyWrap)
 
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
 -- Root instances have a special allowed attribute to make them unique.
 -- This is because the validation result is stored on a per asset hash basis.
 -- Since validation also depends on who the creator is (for permission to use certain assets)
@@ -40,9 +37,7 @@ local function validateAttributes(
 	instance: Instance,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local allowEditableInstances = if getEngineFeatureUGCValidateEditableMeshAndImage()
-		then validationContext.allowEditableInstances
-		else false
+	local allowEditableInstances = validationContext.allowEditableInstances
 	local attributesFailures = {}
 
 	if not hasOnlyAllowedAttribute(instance:GetAttributes(), allowEditableInstances) then

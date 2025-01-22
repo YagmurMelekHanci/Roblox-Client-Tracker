@@ -3,9 +3,6 @@ local root = script.Parent.Parent
 
 local checkForProxyWrap = require(root.util.checkForProxyWrap)
 
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
 local function checkName(nameList, instanceName)
 	if type(nameList) == "table" then
 		for _, name in pairs(nameList) do
@@ -80,9 +77,7 @@ local function validateWithSchema(schema, instance, validationContext)
 		}
 	end
 
-	local allowEditableInstances = if getEngineFeatureUGCValidateEditableMeshAndImage()
-		then validationContext.allowEditableInstances
-		else false
+	local allowEditableInstances = validationContext.allowEditableInstances
 
 	local authorizedSet = {}
 	local result = validateWithSchemaHelper(schema, instance, authorizedSet)

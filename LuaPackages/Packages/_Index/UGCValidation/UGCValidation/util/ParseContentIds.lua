@@ -13,10 +13,6 @@ local isProxyWrapParent = require(root.util.isProxyWrapParent)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
-local FFlagFixParseProxyWrap = game:DefineFastFlag("FixParseProxyWrap", false)
 
 local ParseContentIds = {}
 
@@ -112,22 +108,13 @@ end
 local function parseContentId(contentIds, contentIdMap, allResults, object, fieldName, isRequired, validationContext)
 	local contentId = object[fieldName]
 
-	if
-		contentId == ""
-		or (FFlagFixParseProxyWrap and validationContext.allowEditableInstances and isProxyWrapParent(object))
-	then
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
-				if allResults then
-					table.insert(allResults, { fieldName = fieldName, instance = object })
-				end
-			elseif isRequired then
-				return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
+	if contentId == "" or (validationContext.allowEditableInstances and isProxyWrapParent(object)) then
+		if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
+			if allResults then
+				table.insert(allResults, { fieldName = fieldName, instance = object })
 			end
-		else
-			if isRequired then
-				return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
-			end
+		elseif isRequired then
+			return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
 		end
 
 		return true
@@ -172,9 +159,7 @@ local function parseWithErrorCheckInternal(
 	requiredFields,
 	validationContext
 )
-	local allowEditableInstances = if getEngineFeatureUGCValidateEditableMeshAndImage()
-		then validationContext.allowEditableInstances
-		else false
+	local allowEditableInstances = validationContext.allowEditableInstances
 	allFields = allFields or Constants.CONTENT_ID_FIELDS
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 

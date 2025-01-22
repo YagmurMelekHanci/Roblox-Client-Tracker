@@ -7,16 +7,12 @@ local checkForProxyWrap = require(root.util.checkForProxyWrap)
 
 local FStringUGCValidationBodyPartCollisionFidelity =
 	game:DefineFastString("UGCValidationBodyPartCollisionFidelity", "Default")
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local function validateBodyPartCollisionFidelity(
 	rootInstance: Instance,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local allowEditableInstances = if getEngineFeatureUGCValidateEditableMeshAndImage()
-		then validationContext.allowEditableInstances
-		else false
+	local allowEditableInstances = validationContext.allowEditableInstances
 	local instances = rootInstance:GetDescendants()
 	table.insert(instances, 1, rootInstance)
 

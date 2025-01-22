@@ -2,12 +2,8 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 
@@ -19,16 +15,9 @@ local function validateOverlappingVertices(
 
 	local isServer = validationContext.isServer
 
-	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-		success, result = pcallDeferred(function()
-			return UGCValidationService:ValidateEditableMeshOverlappingVertices(meshInfo.editableMesh)
-		end, validationContext)
-	else
-		success, result = pcall(function()
-			return UGCValidationService:ValidateOverlappingVertices(meshInfo.contentId)
-		end)
-	end
+	local success, result = pcallDeferred(function()
+		return UGCValidationService:ValidateEditableMeshOverlappingVertices(meshInfo.editableMesh)
+	end, validationContext)
 
 	if not success then
 		if nil ~= isServer and isServer then

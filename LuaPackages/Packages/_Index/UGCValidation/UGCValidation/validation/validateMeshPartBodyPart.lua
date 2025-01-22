@@ -12,8 +12,6 @@ local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFla
 local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateOrientedSizing = require(root.flags.getFFlagUGCValidateOrientedSizing)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
@@ -100,13 +98,15 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
 
-	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagRefactorValidateAssetTransparency() then
+	if getFFlagRefactorValidateAssetTransparency() then
 		local startTime = tick()
 		reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
 		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
 	elseif not skipSnapshot then
 		local startTime = tick()
-		reasonsAccumulator:updateReasons(DEPRECATED_validateAssetTransparency(inst, assetTypeEnum, isServer))
+		reasonsAccumulator:updateReasons(
+			DEPRECATED_validateAssetTransparency(inst, assetTypeEnum, isServer, validationContext)
+		)
 		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
 	end
 

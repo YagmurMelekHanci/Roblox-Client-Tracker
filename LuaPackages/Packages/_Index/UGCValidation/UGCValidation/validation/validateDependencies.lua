@@ -14,8 +14,6 @@ local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCVal
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 local FFlagValidateUserAndUniverseNoModeration = game:DefineFastFlag("ValidateUserAndUniverseNoModeration", false)
 local FFlagNoStudioOwnershipCheck = game:DefineFastFlag("NoStudioOwnershipCheck", false)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -176,9 +174,7 @@ local function validateDependencies(
 
 	local isServer = if validationContext then validationContext.isServer else nil
 	local allowUnreviewedAssets = if validationContext then validationContext.allowUnreviewedAssets else nil
-	local allowEditableInstances = if getEngineFeatureUGCValidateEditableMeshAndImage()
-		then validationContext.allowEditableInstances
-		else false
+	local allowEditableInstances = validationContext.allowEditableInstances
 	local restrictedUserIds = if validationContext then validationContext.restrictedUserIds else nil
 	local universeId = if validationContext then validationContext.universeId else nil
 

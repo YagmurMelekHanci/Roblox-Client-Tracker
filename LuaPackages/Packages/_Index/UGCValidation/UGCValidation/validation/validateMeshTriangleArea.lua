@@ -4,14 +4,11 @@ local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 
 local getEngineFeatureEngineUGCValidateMeshTriangleArea =
 	require(root.flags.getEngineFeatureEngineUGCValidateMeshTriangleArea)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local UGCValidationService = game:GetService("UGCValidationService")
 
@@ -24,16 +21,9 @@ local function validateMeshTriangleArea(
 	local isServer = if validationContext then validationContext.isServer else nil
 
 	if getEngineFeatureEngineUGCValidateMeshTriangleArea() then
-		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-			success, result = pcallDeferred(function()
-				return UGCValidationService:ValidateEditableMeshTriangleArea(meshInfo.editableMesh)
-			end, validationContext)
-		else
-			success, result = pcall(function()
-				return UGCValidationService:validateMeshTriangleArea(meshInfo.contentId)
-			end)
-		end
+		local success, result = pcallDeferred(function()
+			return UGCValidationService:ValidateEditableMeshTriangleArea(meshInfo.editableMesh)
+		end, validationContext)
 
 		if not success then
 			Analytics.reportFailure(

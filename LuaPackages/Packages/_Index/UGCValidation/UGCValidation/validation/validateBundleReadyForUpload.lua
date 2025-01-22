@@ -1,9 +1,6 @@
 --!strict
 local root = script.Parent.Parent
 
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
 local Promise = require(root.Parent.Promise)
 
 local ConstantsInterface = require(root.ConstantsInterface)
@@ -177,25 +174,21 @@ local function validateBundleReadyForUpload(
 			requireAllFolders = false,
 		} :: Types.ValidationContext
 
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
-			-- assuming isServer is false
-			if not createSuccess then
-				problems = result
-				success = false
-			else
-				validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-				validationContext.editableImages = result.editableImages :: Types.EditableImages
-
-				success, problems = validateInternal(validationContext)
-
-				destroyEditableInstances(
-					validationContext.editableMeshes :: Types.EditableMeshes,
-					validationContext.editableImages :: Types.EditableImages
-				)
-			end
+		local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
+		-- assuming isServer is false
+		if not createSuccess then
+			problems = result
+			success = false
 		else
+			validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+			validationContext.editableImages = result.editableImages :: Types.EditableImages
+
 			success, problems = validateInternal(validationContext)
+
+			destroyEditableInstances(
+				validationContext.editableMeshes :: Types.EditableMeshes,
+				validationContext.editableImages :: Types.EditableImages
+			)
 		end
 
 		response = table.clone(response)
@@ -250,31 +243,27 @@ local function validateBundleReadyForUpload(
 					requireAllFolders = false,
 				} :: Types.ValidationContext
 
-				if getEngineFeatureUGCValidateEditableMeshAndImage() then
-					local instances = {}
-					for _, instancesAndType in fullBodyData do
-						for _, instance in instancesAndType.allSelectedInstances do
-							table.insert(instances, instance)
-						end
+				local instances = {}
+				for _, instancesAndType in fullBodyData do
+					for _, instance in instancesAndType.allSelectedInstances do
+						table.insert(instances, instance)
 					end
+				end
 
-					local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
-					if not createSuccess then
-						failures = result
-						success = false
-					else
-						validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-						validationContext.editableImages = result.editableImages :: Types.EditableImages
-
-						success, failures = validateFullBody(validationContext)
-
-						destroyEditableInstances(
-							validationContext.editableMeshes :: Types.EditableMeshes,
-							validationContext.editableImages :: Types.EditableImages
-						)
-					end
+				local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
+				if not createSuccess then
+					failures = result
+					success = false
 				else
+					validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+					validationContext.editableImages = result.editableImages :: Types.EditableImages
+
 					success, failures = validateFullBody(validationContext)
+
+					destroyEditableInstances(
+						validationContext.editableMeshes :: Types.EditableMeshes,
+						validationContext.editableImages :: Types.EditableImages
+					)
 				end
 
 				if not success then

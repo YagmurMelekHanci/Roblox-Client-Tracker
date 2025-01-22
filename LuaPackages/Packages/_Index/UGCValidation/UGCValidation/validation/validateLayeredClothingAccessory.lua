@@ -19,7 +19,6 @@ local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateHSR = require(root.validation.validateHSR)
 local validateUVSpace = require(root.validation.validateUVSpace)
-local validateCanLoad = require(root.validation.validateCanLoad)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
@@ -43,9 +42,6 @@ local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidate
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidateLCCagesQuality = require(root.flags.getFFlagUGCValidateLCCagesQuality)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getEngineFeatureEngineUGCValidationMaxVerticesCollision =
 	require(root.flags.getEngineFeatureEngineUGCValidationMaxVerticesCollision)
 local getEngineFeatureEngineUGCValidationEnableGetValidationRules =
@@ -122,42 +118,40 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 	} :: Types.MeshInfo
 
 	local hasMeshContent = meshInfo.contentId ~= nil and meshInfo.contentId ~= ""
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(handle, "MeshId", validationContext)
-		if not getEditableMeshSuccess then
-			if not meshInfo.contentId then
-				hasMeshContent = false
-				Analytics.reportFailure(
-					Analytics.ErrorType.validateLayeredClothingAccessory_NoMeshId,
-					nil,
-					validationContext
-				)
-				validationResult = false
-				table.insert(reasons, {
+	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(handle, "MeshId", validationContext)
+	if not getEditableMeshSuccess then
+		if not meshInfo.contentId then
+			hasMeshContent = false
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateLayeredClothingAccessory_NoMeshId,
+				nil,
+				validationContext
+			)
+			validationResult = false
+			table.insert(reasons, {
+				string.format(
+					"Missing meshId on layered clothing accessory '%s'. Make sure you are using a valid meshId and try again.\n",
+					instance.Name
+				),
+			})
+		else
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateLayeredClothingAccessory_FailedToLoadMesh,
+				nil,
+				validationContext
+			)
+			return false,
+				{
 					string.format(
-						"Missing meshId on layered clothing accessory '%s'. Make sure you are using a valid meshId and try again.\n",
+						"Failed to load mesh for layered clothing accessory '%s'. Make sure mesh exists and try again.",
 						instance.Name
 					),
-				})
-			else
-				Analytics.reportFailure(
-					Analytics.ErrorType.validateLayeredClothingAccessory_FailedToLoadMesh,
-					nil,
-					validationContext
-				)
-				return false,
-					{
-						string.format(
-							"Failed to load mesh for layered clothing accessory '%s'. Make sure mesh exists and try again.",
-							instance.Name
-						),
-					}
-			end
+				}
 		end
-
-		meshInfo.editableMesh = editableMesh
-		hasMeshContent = true
 	end
+
+	meshInfo.editableMesh = editableMesh
+	hasMeshContent = true
 
 	local textureId = handle.TextureID
 	local textureInfo = {
@@ -166,42 +160,20 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		contentId = textureId,
 	} :: Types.TextureInfo
 
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		local getEditableImageSuccess, editableImage
-		if textureId ~= "" then
-			getEditableImageSuccess, editableImage = getEditableImageFromContext(handle, "TextureID", validationContext)
-			if not getEditableImageSuccess then
-				return false,
-					{
-						string.format(
-							"Failed to load texture for layered clothing accessory '%s'. Make sure texture exists and try again.",
-							instance.Name
-						),
-					}
-			end
-
-			textureInfo.editableImage = editableImage
-		end
-	else
-		if isServer then
-			local textureSuccess = true
-			local meshSuccess
-			local _canLoadFailedReason: any = {}
-			if textureId ~= "" then
-				textureSuccess, _canLoadFailedReason = validateCanLoad(textureId, validationContext)
-			end
-			meshSuccess, _canLoadFailedReason = validateCanLoad(handle.MeshId, validationContext)
-			if not textureSuccess or not meshSuccess then
-				-- Failure to load assets should be treated as "inconclusive".
-				-- Validation didn't succeed or fail, we simply couldn't run validation because the assets couldn't be loaded.
-				error(
+	local getEditableImageSuccess, editableImage
+	if textureId ~= "" then
+		getEditableImageSuccess, editableImage = getEditableImageFromContext(handle, "TextureID", validationContext)
+		if not getEditableImageSuccess then
+			return false,
+				{
 					string.format(
-						"Failed to load children assets (Meshes, Textures, etc.) for '%s'. Make sure the assets exist and try again.",
+						"Failed to load texture for layered clothing accessory '%s'. Make sure texture exists and try again.",
 						instance.Name
-					)
-				)
-			end
+					),
+				}
 		end
+
+		textureInfo.editableImage = editableImage
 	end
 
 	local meshSizeSuccess, meshSize
@@ -209,13 +181,9 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		-- when getFFlagUGCValidationRefactorMeshScale is cleaned up, meshSizeSuccess and getMeshSize should be removed
 		meshSize = handle.meshSize
 	else
-		if getFFlagUGCValidationShouldYield() then
-			meshSizeSuccess, meshSize = pcallDeferred(function()
-				return getMeshSize(meshInfo)
-			end, validationContext)
-		else
-			meshSizeSuccess, meshSize = pcall(getMeshSize, meshInfo)
-		end
+		meshSizeSuccess, meshSize = pcallDeferred(function()
+			return getMeshSize(meshInfo)
+		end, validationContext)
 
 		if not meshSizeSuccess then
 			Analytics.reportFailure(
@@ -233,12 +201,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		end
 	end
 
-	local meshScale
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		meshScale = getExpectedPartSize(handle, validationContext) / meshSize
-	else
-		meshScale = handle.Size / meshSize
-	end
+	local meshScale = getExpectedPartSize(handle, validationContext) / meshSize
 
 	if getFFlagUGCValidateLCHandleScale() then
 		if not meshScale:FuzzyEq(Vector3.one, getFIntUGCValidationLCHandleScaleOffsetMaximum() / 1000) then

@@ -6,10 +6,6 @@ local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
-
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local function validateCageMeshIntersection(
 	innerCageMeshInfo: Types.MeshInfo,
@@ -18,61 +14,31 @@ local function validateCageMeshIntersection(
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local assetTypeEnum = validationContext.assetTypeEnum
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		if not meshInfo.editableMesh then
-			Analytics.reportFailure(
-				Analytics.ErrorType.validateCageMeshIntersection_InvalidRefMeshId,
-				nil,
-				validationContext
-			)
-			return false,
-				{
-					string.format(
-						"The meshId reference for cage '%s' is invalid or doesn't exist. Please, verify you are using a valid mesh asset and try again.",
-						meshInfo.fullName
-					),
-				}
-		end
-	else
-		if meshInfo.contentId == "" then
-			Analytics.reportFailure(
-				Analytics.ErrorType.validateCageMeshIntersection_InvalidRefMeshId,
-				nil,
-				validationContext
-			)
-			return false,
-				{
-					string.format(
-						"The meshId reference for cage '%s' is invalid or doesn't exist. Please, verify you are using a valid mesh asset and try again.",
-						meshInfo.fullName
-					),
-				}
-		end
-	end
-
-	local success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances
-	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-		success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances = pcallDeferred(
-			function()
-				return UGCValidationService:ValidateEditableMeshCageMeshIntersection(
-					innerCageMeshInfo.editableMesh,
-					outerCageMeshInfo.editableMesh,
-					meshInfo.editableMesh
-				)
-			end,
+	if not meshInfo.editableMesh then
+		Analytics.reportFailure(
+			Analytics.ErrorType.validateCageMeshIntersection_InvalidRefMeshId,
+			nil,
 			validationContext
 		)
-	else
-		success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances = pcall(
-			function()
-				return UGCValidationService:ValidateCageMeshIntersection(
-					innerCageMeshInfo.contentId,
-					outerCageMeshInfo.contentId,
-					meshInfo.contentId
-				)
-			end
-		)
+		return false,
+			{
+				string.format(
+					"The meshId reference for cage '%s' is invalid or doesn't exist. Please, verify you are using a valid mesh asset and try again.",
+					meshInfo.fullName
+				),
+			}
 	end
+
+	local success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances = pcallDeferred(
+		function()
+			return UGCValidationService:ValidateEditableMeshCageMeshIntersection(
+				innerCageMeshInfo.editableMesh,
+				outerCageMeshInfo.editableMesh,
+				meshInfo.editableMesh
+			)
+		end,
+		validationContext
+	)
 
 	if not success then
 		Analytics.reportFailure(

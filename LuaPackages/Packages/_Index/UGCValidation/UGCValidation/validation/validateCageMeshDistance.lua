@@ -12,12 +12,8 @@ local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local getFIntUGCValidateCageMeshDistanceThreshold = require(root.flags.getFIntUGCValidateCageMeshDistanceThreshold)
-
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local function validateCageMeshDistance(
 	innerCageMeshInfo: Types.MeshInfo,
@@ -27,28 +23,15 @@ local function validateCageMeshDistance(
 	outerCFrame: CFrame,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local success, averageOuterCageToMeshDistance
-	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-		success, averageOuterCageToMeshDistance = pcallDeferred(function()
-			return (UGCValidationService :: any):CalculateAverageEditableCageMeshDistance(
-				innerCageMeshInfo.editableMesh,
-				outerCageMeshInfo.editableMesh,
-				meshInfo.editableMesh,
-				innerCFrame,
-				outerCFrame
-			)
-		end, validationContext)
-	else
-		success, averageOuterCageToMeshDistance = pcall(function()
-			return (UGCValidationService :: any):CalculateAverageCageMeshDistance(
-				innerCageMeshInfo.contentId,
-				outerCageMeshInfo.contentId,
-				meshInfo.contentId,
-				innerCFrame,
-				outerCFrame
-			)
-		end)
-	end
+	local success, averageOuterCageToMeshDistance = pcallDeferred(function()
+		return (UGCValidationService :: any):CalculateAverageEditableCageMeshDistance(
+			innerCageMeshInfo.editableMesh,
+			outerCageMeshInfo.editableMesh,
+			meshInfo.editableMesh,
+			innerCFrame,
+			outerCFrame
+		)
+	end, validationContext)
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateCageMeshDistance_FailedToExecute, nil, validationContext)

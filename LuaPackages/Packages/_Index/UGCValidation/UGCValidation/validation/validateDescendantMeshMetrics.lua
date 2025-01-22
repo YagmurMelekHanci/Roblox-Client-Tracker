@@ -12,7 +12,6 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
@@ -39,9 +38,9 @@ local getFFlagUGCValidateCageUVTriangleArea = require(root.flags.getFFlagUGCVali
 local getFFlagUGCValidateMeshTriangleAreaForCages = require(root.flags.getFFlagUGCValidateMeshTriangleAreaForCages)
 local getFFlagUGCValidateMeshTriangleAreaForMeshes = require(root.flags.getFFlagUGCValidateMeshTriangleAreaForMeshes)
 local getFFlagUGCValidateUVValuesInReference = require(root.flags.getFFlagUGCValidateUVValuesInReference)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateTotalSurfaceAreaTestBody = require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestBody)
+local getFFlagUGCValidateAllowFlexibleTriangleLimit = require(root.flags.getFFlagUGCValidateAllowFlexibleTriangleLimit)
+local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
 
 local function validateIsSkinned(
 	obj: MeshPart,
@@ -49,29 +48,9 @@ local function validateIsSkinned(
 	allowEditableInstances: boolean?,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local retrievedMeshData, testsPassed
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		local alternateId = obj:GetAttribute(Constants.AlternateMeshIdAttributeName)
-		if not obj.HasSkinnedMesh then
-			if alternateId == nil or alternateId == "" or not allowEditableInstances then
-				Analytics.reportFailure(
-					Analytics.ErrorType.validateDescendantMeshMetrics_NoSkinningInfo,
-					nil,
-					validationContext
-				)
-				return false, { `Missing skinning data for {obj.Name}.MeshId. You need to skin your model.` }
-			end
-		end
-
-		if not getEngineFeatureEngineUGCValidateBodyParts() then
-			return true
-		end
-
-		retrievedMeshData, testsPassed = pcall(function()
-			return UGCValidationService:ValidateSkinnedMesh(getMeshIdForSkinningValidation(obj, allowEditableInstances))
-		end)
-	else
-		if not obj.HasSkinnedMesh then
+	local alternateId = obj:GetAttribute(Constants.AlternateMeshIdAttributeName)
+	if not obj.HasSkinnedMesh then
+		if alternateId == nil or alternateId == "" or not allowEditableInstances then
 			Analytics.reportFailure(
 				Analytics.ErrorType.validateDescendantMeshMetrics_NoSkinningInfo,
 				nil,
@@ -79,15 +58,15 @@ local function validateIsSkinned(
 			)
 			return false, { `Missing skinning data for {obj.Name}.MeshId. You need to skin your model.` }
 		end
-
-		if not getEngineFeatureEngineUGCValidateBodyParts() then
-			return true
-		end
-
-		retrievedMeshData, testsPassed = pcall(function()
-			return UGCValidationService:ValidateSkinnedMesh(obj.MeshId)
-		end)
 	end
+
+	if not getEngineFeatureEngineUGCValidateBodyParts() then
+		return true
+	end
+
+	local retrievedMeshData, testsPassed = pcall(function()
+		return UGCValidationService:ValidateSkinnedMesh(getMeshIdForSkinningValidation(obj, allowEditableInstances))
+	end)
 
 	if not retrievedMeshData then
 		local errorMessage = "Failed to retrieve mesh data to validate skinned mesh"
@@ -140,31 +119,24 @@ local function validateTotalAssetTriangles(
 			end
 			assert(data.fieldName == "MeshId")
 
-			local success, triangles
-			if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-				local getEditableMeshSuccess, editableMesh =
-					getEditableMeshFromContext(data.instance, data.fieldName, validationContext)
-				if not getEditableMeshSuccess then
-					Analytics.reportFailure(
-						Analytics.ErrorType.validateDescendantMeshMetrics_FailedToLoadMesh,
-						nil,
-						validationContext
+			local getEditableMeshSuccess, editableMesh =
+				getEditableMeshFromContext(data.instance, data.fieldName, validationContext)
+			if not getEditableMeshSuccess then
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateDescendantMeshMetrics_FailedToLoadMesh,
+					nil,
+					validationContext
+				)
+				return false,
+					string.format(
+						"Failed to load mesh for '%s'. Make sure mesh exists and try again.",
+						data.instance.Name
 					)
-					return false,
-						string.format(
-							"Failed to load mesh for '%s'. Make sure mesh exists and try again.",
-							data.instance.Name
-						)
-				end
-
-				success, triangles = pcallDeferred(function()
-					return UGCValidationService:GetEditableMeshTriCount(editableMesh :: EditableMesh)
-				end, validationContext)
-			else
-				success, triangles = pcall(function()
-					return UGCValidationService:GetMeshTriCount(data.instance[data.fieldName])
-				end)
 			end
+
+			local success, triangles = pcallDeferred(function()
+				return UGCValidationService:GetEditableMeshTriCount(editableMesh :: EditableMesh)
+			end, validationContext)
 
 			if not success then
 				return false,
@@ -193,7 +165,14 @@ local function validateTotalAssetTriangles(
 		)
 		return false, { message :: string }
 	end
-	if totalAssetTriangles :: number > maxTriangleCount then
+
+	local maxTriangleCountWithTolerance = maxTriangleCount
+	if getFFlagUGCValidateAllowFlexibleTriangleLimit() then
+		local tolerance = getFIntUGCValidateTriangleLimitTolerance() / 100
+		maxTriangleCountWithTolerance = maxTriangleCount + (maxTriangleCount * tolerance)
+	end
+
+	if totalAssetTriangles :: number > maxTriangleCountWithTolerance then
 		Analytics.reportFailure(
 			Analytics.ErrorType.validateDescendantMeshMetrics_TooManyTriangles,
 			nil,
@@ -285,21 +264,19 @@ local function validateDescendantMeshMetrics(
 			context = data.instance.Name,
 		} :: Types.MeshInfo
 
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			local getEditableMeshSuccess, editableMesh =
-				getEditableMeshFromContext(data.instance, data.fieldName, validationContext)
-			if not getEditableMeshSuccess then
-				return false,
-					{
-						string.format(
-							"Failed to load mesh for '%s'. Make sure mesh exists and try again.",
-							data.instance.Name
-						),
-					}
-			end
-
-			meshInfo.editableMesh = editableMesh
+		local getEditableMeshSuccess, editableMesh =
+			getEditableMeshFromContext(data.instance, data.fieldName, validationContext)
+		if not getEditableMeshSuccess then
+			return false,
+				{
+					string.format(
+						"Failed to load mesh for '%s'. Make sure mesh exists and try again.",
+						data.instance.Name
+					),
+				}
 		end
+
+		meshInfo.editableMesh = editableMesh :: EditableMesh
 
 		if data.instance.ClassName == "MeshPart" then
 			assert(data.fieldName == "MeshId")
@@ -329,12 +306,7 @@ local function validateDescendantMeshMetrics(
 						"Mesh size is zero for " .. meshInfo.fullName .. ". You need to rescale your mesh.",
 					})
 				else
-					local meshScale
-					if getEngineFeatureUGCValidateEditableMeshAndImage() then
-						meshScale = getExpectedPartSize(data.instance, validationContext) / meshSize
-					else
-						meshScale = (data.instance :: MeshPart).Size / meshSize
-					end
+					local meshScale = getExpectedPartSize(data.instance, validationContext) / meshSize
 					if getFFlagUGCValidateTotalSurfaceAreaTestBody() then
 						reasonsAccumulator:updateReasons(
 							validateTotalSurfaceArea(meshInfo, meshScale, validationContext)

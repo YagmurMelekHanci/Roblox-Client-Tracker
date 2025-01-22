@@ -4,10 +4,7 @@ local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 local getFFlagUGCLCQualityReplaceLua = require(root.flags.getFFlagUGCLCQualityReplaceLua)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
@@ -16,6 +13,9 @@ local Analytics = require(root.Analytics)
 local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
 local FFlagUGCValidationPositionCheck = game:DefineFastFlag("UGCValidationPositionCheck", false)
+
+local FFlagUGCValidationScaleMinimum = game:DefineFastFlag("UGCValidationScaleMinimum", false)
+local FIntUGCValidationScaleMinimumThousandths = game:DefineFastInt("UGCValidationScaleMinimumThousandths", 10) -- 1 = 0.001
 
 local function pointInBounds(worldPos, boundsCF, boundsSize)
 	local objectPos = boundsCF:PointToObjectSpace(worldPos)
@@ -85,29 +85,26 @@ local function validateMeshBounds(
 		end
 	end
 
-	if getFFlagUGCLCQualityReplaceLua() then
-		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-			success, result = pcallDeferred(function()
-				return UGCValidationService:ValidateEditableMeshBounds(
-					meshInfo.editableMesh,
-					meshScale,
-					boundsOffset,
-					attachment.CFrame,
-					handle.CFrame
-				)
-			end, validationContext)
-		else
-			success, result = pcall(function()
-				return UGCValidationService:ValidateMeshBounds(
-					meshInfo.contentId,
-					meshScale,
-					boundsOffset,
-					attachment.CFrame,
-					handle.CFrame
-				)
-			end)
+	if FFlagUGCValidationScaleMinimum then
+		if
+			meshScale.X < FIntUGCValidationScaleMinimumThousandths / 1000
+			or meshScale.Y < FIntUGCValidationScaleMinimumThousandths / 1000
+			or meshScale.Z < FIntUGCValidationScaleMinimumThousandths / 1000
+		then
+			return false, { "Mesh scale is too small" }
 		end
+	end
+
+	if getFFlagUGCLCQualityReplaceLua() then
+		local success, result = pcallDeferred(function()
+			return UGCValidationService:ValidateEditableMeshBounds(
+				meshInfo.editableMesh,
+				meshScale,
+				boundsOffset,
+				attachment.CFrame,
+				handle.CFrame
+			)
+		end, validationContext)
 
 		if not success then
 			if nil ~= isServer and isServer then
@@ -125,17 +122,9 @@ local function validateMeshBounds(
 			return false, getErrors(meshInfo.context :: string, assetTypeName, boundsSize)
 		end
 	else
-		local success, verts
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, verts = pcall(function()
-				return UGCValidationService:GetEditableMeshVerts(meshInfo.editableMesh)
-			end)
-		else
-			success, verts = pcall(function()
-				return UGCValidationService:GetMeshVerts(meshInfo.contentId)
-			end)
-		end
-
+		local success, verts = pcall(function()
+			return UGCValidationService:GetEditableMeshVerts(meshInfo.editableMesh)
+		end)
 		if not success then
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_FailedToLoadMesh, nil, validationContext)
 			if nil ~= isServer and isServer then

@@ -8,9 +8,6 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
 local getEngineFeatureEngineUGCValidateCoplanarTriTest =
 	require(root.flags.getEngineFeatureEngineUGCValidateCoplanarTriTest)
 
@@ -18,7 +15,6 @@ local getFIntMaxCoplanarIntersectionsPercentage = require(root.flags.getFIntMaxC
 
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 
@@ -27,16 +23,9 @@ local function getTriangleCount(
 	validationContext: Types.ValidationContext,
 	isServer: boolean?
 ): (boolean, { string }?, number?)
-	local success, triangleCount
-	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-		success, triangleCount = pcallDeferred(function()
-			return UGCValidationService:GetEditableMeshTriCount(meshInfo.editableMesh :: EditableMesh)
-		end, validationContext)
-	else
-		success, triangleCount = pcall(function()
-			return UGCValidationService:GetMeshTriCount(meshInfo.contentId :: string)
-		end)
-	end
+	local success, triangleCount = pcallDeferred(function()
+		return UGCValidationService:GetEditableMeshTriCount(meshInfo.editableMesh :: EditableMesh)
+	end, validationContext)
 
 	if not success then
 		local errorString =
@@ -79,26 +68,14 @@ local function validateCoplanarIntersection(
 	local maxAllowedIntersections =
 		math.floor((getFIntMaxCoplanarIntersectionsPercentage() / 100) * (triangleCount :: number))
 
-	local success, isOverLimit
-	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-		success, isOverLimit = pcallDeferred(function()
-			return (UGCValidationService :: any):IsEditableMeshNumCoplanarIntersectionsOverLimit(
-				meshInfo.editableMesh,
-				maxAllowedIntersections,
-				meshScale,
-				true
-			)
-		end, validationContext)
-	else
-		success, isOverLimit = pcall(function()
-			return (UGCValidationService :: any):IsNumCoplanarIntersectionsOverLimit(
-				meshInfo.contentId,
-				maxAllowedIntersections,
-				meshScale,
-				true
-			)
-		end)
-	end
+	local success, isOverLimit = pcallDeferred(function()
+		return (UGCValidationService :: any):IsEditableMeshNumCoplanarIntersectionsOverLimit(
+			meshInfo.editableMesh,
+			maxAllowedIntersections,
+			meshScale,
+			true
+		)
+	end, validationContext)
 
 	if not success then
 		local errorString = string.format(

@@ -9,15 +9,12 @@ local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local WRAP_TARGET_CAGE_REFERENCE_VALUES = require(root.WrapTargetCageUVReferenceValues)
 
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getEngineFeatureEngineValidateUVValuesInReference =
 	require(root.flags.getEngineFeatureEngineUGCValidateUVValuesInReference)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Analytics = require(root.Analytics)
 
@@ -44,19 +41,9 @@ local function validateCageUVValues(
 		"WrapTarget is not parented to a MeshPart"
 	)
 
-	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-		success, result = pcallDeferred(function()
-			return UGCValidationService:ValidateEditableMeshUVValuesInReference(
-				referenceUVValues,
-				meshInfo.editableMesh
-			)
-		end, validationContext)
-	else
-		success, result = pcall(function()
-			return UGCValidationService:ValidateUVValuesInReference(referenceUVValues, meshInfo.contentId)
-		end)
-	end
+	local success, result = pcallDeferred(function()
+		return UGCValidationService:ValidateEditableMeshUVValuesInReference(referenceUVValues, meshInfo.editableMesh)
+	end, validationContext)
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateCageUVValues_FailedToLoadMesh, nil, validationContext)

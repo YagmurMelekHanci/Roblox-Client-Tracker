@@ -11,16 +11,14 @@ local ConstantsTransparencyValidation = require(root.ConstantsTransparencyValida
 
 local getEngineFeatureEditableImageDrawTriangleEnabled =
 	require(root.flags.getEngineFeatureEditableImageDrawTriangleEnabled)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
 local getFFlagUGCValidateStraightenLimbsTransparency =
 	require(root.flags.getFFlagUGCValidateStraightenLimbsTransparency)
 
+local FFlagFixNonZeroTransparency = game:DefineFastFlag("FixNonZeroTransparency", false)
+
 local function checkFlags()
-	return getEngineFeatureEditableImageDrawTriangleEnabled()
-		and getEngineFeatureUGCValidateEditableMeshAndImage()
-		and getFFlagRefactorValidateAssetTransparency()
+	return getEngineFeatureEditableImageDrawTriangleEnabled() and getFFlagRefactorValidateAssetTransparency()
 end
 
 local function getViews()
@@ -207,6 +205,27 @@ local function getOpacity(raster)
 	return true, 1 - (transparentPixels / totalPixels)
 end
 
+local function checkPartsTransparency(meshParts)
+	local transparentParts = {}
+	for _, meshPart in meshParts do
+		if meshPart.Transparency ~= 0 then
+			table.insert(transparentParts, meshPart.Name)
+		end
+	end
+
+	if #transparentParts > 0 then
+		return false,
+			{
+				string.format(
+					"The following parts have a non-zero transparency: %s. Part transparency should always be exactly zero.",
+					table.concat(transparentParts, ", ")
+				),
+			}
+	end
+
+	return true
+end
+
 local function validateAssetTransparency(inst: Instance, validationContext: Types.ValidationContext)
 	if not checkFlags() then
 		return true
@@ -228,6 +247,14 @@ local function validateAssetTransparency(inst: Instance, validationContext: Type
 				string.format("BodyPart %s contained child that is not a MeshPart.", inst:GetFullName())
 			)
 			table.insert(meshParts, child)
+		end
+	end
+
+	local transparentCheckSuccess, errorMessages
+	if FFlagFixNonZeroTransparency then
+		transparentCheckSuccess, errorMessages = checkPartsTransparency(meshParts)
+		if not transparentCheckSuccess then
+			return false, errorMessages
 		end
 	end
 

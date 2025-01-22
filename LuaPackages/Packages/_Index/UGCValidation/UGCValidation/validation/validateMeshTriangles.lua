@@ -4,15 +4,12 @@ local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local getFFlagUGCLCQualityReplaceLua = require(root.flags.getFFlagUGCLCQualityReplaceLua)
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 -- ensures accessory mesh does not have more triangles than Constants.MAX_HAT_TRIANGLES
 local function validateMeshTriangles(
@@ -23,16 +20,9 @@ local function validateMeshTriangles(
 	local isServer = validationContext.isServer
 
 	if getFFlagUGCLCQualityReplaceLua() and getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-			success, result = pcallDeferred(function()
-				return UGCValidationService:ValidateEditableMeshTriangles(meshInfo.editableMesh)
-			end, validationContext)
-		else
-			success, result = pcall(function()
-				return UGCValidationService:ValidateMeshTriangles(meshInfo.contentId)
-			end)
-		end
+		local success, result = pcallDeferred(function()
+			return UGCValidationService:ValidateEditableMeshTriangles(meshInfo.editableMesh)
+		end, validationContext)
 
 		if not success then
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshTriangles_FailedToExecute, nil, validationContext)
@@ -50,16 +40,9 @@ local function validateMeshTriangles(
 			return false, { "Your mesh exceeds the max triangle limit for UGC upload requirements." }
 		end
 	else
-		local success, triangles
-		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-			success, triangles = pcallDeferred(function()
-				return UGCValidationService:GetEditableMeshTriCount(meshInfo.editableMesh)
-			end, validationContext)
-		else
-			success, triangles = pcall(function()
-				return UGCValidationService:GetMeshTriCount(meshInfo.contentId)
-			end)
-		end
+		local success, triangles = pcallDeferred(function()
+			return UGCValidationService:GetEditableMeshTriCount(meshInfo.editableMesh)
+		end, validationContext)
 
 		maxTriangles = if nil ~= maxTriangles then maxTriangles else Constants.MAX_HAT_TRIANGLES
 		if not success then

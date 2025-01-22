@@ -13,16 +13,11 @@ local Types = require(root.util.Types)
 local checkForProxyWrap = require(root.util.checkForProxyWrap)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
 local function validateSurfaceAppearances(
 	instance: Instance,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local allowEditableInstances = if getEngineFeatureUGCValidateEditableMeshAndImage()
-		then validationContext.allowEditableInstances
-		else false
+	local allowEditableInstances = validationContext.allowEditableInstances
 	-- full tree of instance + descendants
 	local allDescendants: { Instance } = instance:GetDescendants()
 	table.insert(allDescendants, instance)

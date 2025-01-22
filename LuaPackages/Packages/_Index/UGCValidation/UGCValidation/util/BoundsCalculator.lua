@@ -23,8 +23,6 @@ local getMeshInfo = require(root.util.getMeshInfo)
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateStraightenLimbs = require(root.flags.getFFlagUGCValidateStraightenLimbs)
 local getFFlagUGCValidateCalculateScaleToValidateBounds =
 	require(root.flags.getFFlagUGCValidateCalculateScaleToValidateBounds)
@@ -130,9 +128,7 @@ local function calculateBoundsDataForPart(
 			meshBounds = (meshMaxOpt :: Vector3) - (meshMinOpt :: Vector3)
 		end
 	end
-	local partSize = if getEngineFeatureUGCValidateEditableMeshAndImage()
-		then getExpectedPartSize(part, validationContext)
-		else part.Size
+	local partSize = getExpectedPartSize(part, validationContext)
 	local scale = partSize / meshBounds
 
 	local verts = nil

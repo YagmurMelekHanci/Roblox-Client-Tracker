@@ -7,8 +7,6 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local CAGE_NAMES: { string } = { "InnerCage", "OuterCage" }
 local CAGE_MESH_NAMES: { string } = { "ReferenceMeshId", "CageMeshId" }
@@ -53,19 +51,17 @@ local function getCageMeshInfos(
 			continue
 		end
 
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			local getMeshSuccess, cageEditableMesh = getEditableMeshFromContext(
-				if UGCValidateCageMeshInfosFix then wrapLayer else handle,
-				cageMeshName,
-				validationContext
-			)
+		local getMeshSuccess, cageEditableMesh = getEditableMeshFromContext(
+			if UGCValidateCageMeshInfosFix then wrapLayer else handle,
+			cageMeshName,
+			validationContext
+		)
 
-			if not getMeshSuccess then
-				table.insert(issues, string.format(MESSAGE_FAILED_MESH, CAGE_NAMES[ind], instance.Name))
-				continue
-			else
-				cageMeshInfo.editableMesh = cageEditableMesh
-			end
+		if not getMeshSuccess then
+			table.insert(issues, string.format(MESSAGE_FAILED_MESH, CAGE_NAMES[ind], instance.Name))
+			continue
+		else
+			cageMeshInfo.editableMesh = cageEditableMesh :: EditableMesh
 		end
 
 		table.insert(results, cageMeshInfo)

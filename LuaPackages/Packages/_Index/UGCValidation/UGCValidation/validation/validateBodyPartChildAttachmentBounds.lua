@@ -14,17 +14,18 @@ local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local BoundsCalculator = require(root.util.BoundsCalculator)
 local AssetCalculator = require(root.util.AssetCalculator)
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
+local MeshSpaceUtils = require(root.util.MeshSpaceUtils)
 
 local ANGLE_EPSILON = 0.01
 
 local getFFlagCheckOrientationOnAllAttachments = require(root.flags.getFFlagCheckOrientationOnAllAttachments)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local getFFlagUGCValidateOrientedAttachmentPositionCheck =
 	require(root.flags.getFFlagUGCValidateOrientedAttachmentPositionCheck)
 local getFFlagUGCValidateOrientedAttachmentOrientationCheck =
 	require(root.flags.getFFlagUGCValidateOrientedAttachmentOrientationCheck)
-local getFFlagUGCValidateFixAttachmentErrorMessage = require(root.flags.getFFlagUGCValidateFixAttachmentErrorMessage)
+local getFFlagUGCValidatePreciseAttachmentErrorMessage =
+	require(root.flags.getFFlagUGCValidatePreciseAttachmentErrorMessage)
+local getFStringUGCValidationAttachmentErrorLink = require(root.flags.getFStringUGCValidationAttachmentErrorLink)
 
 local maxOrientationOffsets = {
 	["RootAttachment"] = game:DefineFastInt("UGCValidationRootAttachmentThreshold", 0),
@@ -58,10 +59,12 @@ local function validateInMeshSpace(
 ): (boolean, { string }?)
 	local posMeshSpace
 	local meshHalfSize
+	local meshCenterOpt
+	local meshDimensionsOpt
 	if getFFlagUGCValidateOrientedAttachmentPositionCheck() then
 		local world = transformData.cframe * att.CFrame
-		local meshCenterOpt = BoundsDataUtils.calculateBoundsCenters(transformData.boundsData)
-		local meshDimensionsOpt = BoundsDataUtils.calculateBoundsDimensions(transformData.boundsData)
+		meshCenterOpt = BoundsDataUtils.calculateBoundsCenters(transformData.boundsData)
+		meshDimensionsOpt = BoundsDataUtils.calculateBoundsDimensions(transformData.boundsData)
 		if not meshCenterOpt or not meshDimensionsOpt then
 			return false, { "Missing mesh data for " .. part.Name }
 		end
@@ -69,11 +72,7 @@ local function validateInMeshSpace(
 		meshHalfSize = (meshDimensionsOpt :: Vector3) / 2
 		posMeshSpace = (attWorldOffset / meshHalfSize) :: any
 	else
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			meshHalfSize = getExpectedPartSize(part, validationContext) / 2
-		else
-			meshHalfSize = part.Size / 2
-		end
+		meshHalfSize = getExpectedPartSize(part, validationContext) / 2
 
 		posMeshSpace = (att.CFrame.Position / meshHalfSize) :: any
 	end
@@ -90,22 +89,57 @@ local function validateInMeshSpace(
 				nil,
 				validationContext
 			)
+
+			local attachmentClampedCFrame = nil
+			local acceptablePosition = nil
+			local acceptableOrientation = nil
+			local acceptableDimensions = nil
+			if
+				getFFlagUGCValidateOrientedAttachmentPositionCheck()
+				and getFFlagUGCValidatePreciseAttachmentErrorMessage()
+			then
+				attachmentClampedCFrame =
+					MeshSpaceUtils.clampAttachmentToBounds(att, transformData, boundsInfoMeshSpace, 0.001)
+
+				assert(
+					meshCenterOpt and meshDimensionsOpt,
+					"meshCenterOpt and meshDimensionsOpt must be defined if getFFlagUGCValidateOrientedAttachmentPositionCheck() is true"
+				)
+				local acceptableCFrameLocal
+				acceptableCFrameLocal, acceptableDimensions = MeshSpaceUtils.calculateAcceptableBoundsLocalSpace(
+					boundsInfoMeshSpace,
+					transformData,
+					meshDimensionsOpt :: Vector3,
+					meshCenterOpt :: Vector3
+				)
+				acceptablePosition = acceptableCFrameLocal.Position
+				local acceptableOriX, acceptableOriY, acceptableOriZ = acceptableCFrameLocal.Rotation:ToOrientation()
+				acceptableOrientation =
+					Vector3.new(math.deg(acceptableOriX), math.deg(acceptableOriY), math.deg(acceptableOriZ))
+			end
+
 			return false,
 				{
-					if getFFlagUGCValidateFixAttachmentErrorMessage()
+					if getFFlagUGCValidateOrientedAttachmentPositionCheck()
+							and getFFlagUGCValidatePreciseAttachmentErrorMessage()
 						then string.format(
+							"Attachment (%s) in %s is placed at position [%s] that is outside the valid range. The closest valid position is [%s]. (the attachment must be within the oriented bounding box - Position: [%s], Orientation: [%s], Size: [%s]%s)",
+							att.Name,
+							part.Name,
+							prettyPrintVector3(att.CFrame.Position, 3),
+							prettyPrintVector3(attachmentClampedCFrame.Position, 3),
+							prettyPrintVector3(acceptablePosition, 3),
+							prettyPrintVector3(acceptableOrientation, 3),
+							prettyPrintVector3(acceptableDimensions, 3),
+							if getFStringUGCValidationAttachmentErrorLink() ~= ""
+								then ". See " .. getFStringUGCValidationAttachmentErrorLink() .. " for further explanation"
+								else ""
+						)
+						else string.format(
 							"Attachment (%s) in %s is placed at a position [%s] that is outside the valid range. You need to adjust the attachment position.",
 							att.Name,
 							part.Name,
 							prettyPrintVector3(att.CFrame.Position)
-						)
-						else string.format(
-							"Attachment (%s) in %s is placed at a position [%s] that is outside the valid range of ([%s] to [%s]). You need to adjust the attachment position.",
-							att.Name,
-							part.Name,
-							prettyPrintVector3(att.CFrame.Position),
-							prettyPrintVector3(minMeshSpace * meshHalfSize),
-							prettyPrintVector3(maxMeshSpace * meshHalfSize)
 						),
 				}
 		end

@@ -8,12 +8,8 @@ local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local WRAP_TARGET_CAGE_REFERENCE_VALUES = require(root.WrapTargetCageUVReferenceValues)
-
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local getFIntUGCValidateCageDuplicateUVThreshold = require(root.flags.getFIntUGCValidateCageDuplicateUVThreshold)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -39,19 +35,12 @@ local function validateCageUVDuplicates(
 		cageMeshInfo: Types.MeshInfo,
 		isInner: boolean
 	): (boolean, { string }?)
-		local success, countUVNotInReference
-		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
-			success, countUVNotInReference = pcallDeferred(function()
-				return (UGCValidationService :: any):ValidateEditableMeshUVDuplicates(
-					referenceUVValues,
-					cageMeshInfo.editableMesh
-				)
-			end, validationContext)
-		else
-			success, countUVNotInReference = pcall(function()
-				return (UGCValidationService :: any):validateUVDuplicates(referenceUVValues, cageMeshInfo.contentId)
-			end)
-		end
+		local success, countUVNotInReference = pcallDeferred(function()
+			return (UGCValidationService :: any):ValidateEditableMeshUVDuplicates(
+				referenceUVValues,
+				cageMeshInfo.editableMesh
+			)
+		end, validationContext)
 
 		if not success then
 			Analytics.reportFailure(Analytics.ErrorType.validateCageUVDuplicate_FailedToExecute, nil, validationContext)

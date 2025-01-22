@@ -5,17 +5,8 @@ local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getMeshSize = require(root.util.getMeshSize)
 local pcallDeferred = require(root.util.pcallDeferred)
 
-local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
-local getEngineFeatureUGCValidateEditableMeshAndImage =
-	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
-
 return function(part: MeshPart, validationContext: Types.ValidationContext): Vector3
-	if
-		not getEngineFeatureUGCValidateEditableMeshAndImage()
-		or not getFFlagUGCValidationShouldYield()
-		or not validationContext.bypassFlags
-		or not validationContext.bypassFlags.skipPhysicsDataReset
-	then
+	if not validationContext.bypassFlags or not validationContext.bypassFlags.skipPhysicsDataReset then
 		return part.Size
 	end
 

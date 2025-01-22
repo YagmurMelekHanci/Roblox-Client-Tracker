@@ -2,9 +2,6 @@
 
 local root = script.Parent.Parent
 
-local getEngineFeatureUGCValidationRequiredFolderContext =
-	require(root.flags.getEngineFeatureUGCValidationRequiredFolderContext)
-
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
@@ -148,21 +145,12 @@ local function validateLimbsAndTorso(validationContext: Types.ValidationContext)
 	)
 	local requireAllFolders = validationContext.requireAllFolders
 	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
-	local isServer = validationContext.isServer
 
 	local requiredTopLevelFolders: { string } = { Constants.FOLDER_NAMES.R15ArtistIntent }
-	if getEngineFeatureUGCValidationRequiredFolderContext() then
-		if requireAllFolders then
-			-- in Studio these folders are automatically added just before upload
-			table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
-			table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R6)
-		end
-	else
-		if isServer then
-			-- in Studio these folders are automatically added just before upload
-			table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
-			table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R6)
-		end
+	if requireAllFolders then
+		-- in Studio these folders are automatically added just before upload
+		table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
+		table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R6)
 	end
 
 	if not areTopLevelFoldersCorrect(allSelectedInstances, requiredTopLevelFolders) then
