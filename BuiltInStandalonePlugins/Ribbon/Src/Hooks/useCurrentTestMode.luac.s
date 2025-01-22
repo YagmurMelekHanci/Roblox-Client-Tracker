@@ -24,7 +24,7 @@ PROTO_1:
 PROTO_2:
   GETUPVAL R2 0
   FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["useCurrentTestMode should only be used when FFlagAddTestModesJson is true"]
+  LOADK R3 K0 ["useCurrentTestMode should only be used when FFlagTestingControlsBeta is true"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
   GETUPVAL R1 1
@@ -58,11 +58,13 @@ MAIN:
   GETTABLEKS R6 R7 K11 ["Util"]
   GETTABLEKS R5 R6 K12 ["TestingModesHelper"]
   CALL R4 1 1
-  GETIMPORT R5 K14 [game]
-  LOADK R7 K15 ["AddTestModesJson"]
-  NAMECALL R5 R5 K16 ["GetFastFlag"]
-  CALL R5 2 1
-  DUPCLOSURE R6 K17 [PROTO_2]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K13 ["SharedFlags"]
+  GETTABLEKS R6 R7 K14 ["getFFlagTestingControlsBeta"]
+  CALL R5 1 1
+  CALL R5 0 1
+  DUPCLOSURE R6 K15 [PROTO_2]
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R2

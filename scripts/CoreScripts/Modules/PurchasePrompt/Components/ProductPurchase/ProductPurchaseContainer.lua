@@ -12,7 +12,7 @@ local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local UIBlox = PurchasePromptDeps.UIBlox
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
@@ -48,7 +48,6 @@ local MultiTextLocalizer = require(Root.Components.Connection.MultiTextLocalizer
 local LocalizationService = require(Root.Localization.LocalizationService)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse)
-local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
 
 local initiateUserPurchaseSettingsPrecheck = require(Root.Thunks.initiateUserPurchaseSettingsPrecheck)
 local GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow =
@@ -96,7 +95,7 @@ local function isRelevantRequestType(requestType, purchaseFlow)
 		or requestType == RequestType.Bundle
 		or requestType == RequestType.GamePass
 		or requestType == RequestType.Product
-		or (FFlagPublishAvatarPromptEnabled and requestType == RequestType.AvatarCreationFee)
+		or requestType == RequestType.AvatarCreationFee
 end
 
 function ProductPurchaseContainer:init()
@@ -461,11 +460,7 @@ function ProductPurchaseContainer:render()
 			cancelActivated = self.cancelButtonPressed,
 			continueActivated = self.confirmButtonPressed,
 		})
-	elseif
-		FFlagPublishAvatarPromptEnabled
-		and promptState == PromptState.PurchaseComplete
-		and requestType == RequestType.AvatarCreationFee
-	then
+	elseif promptState == PromptState.PurchaseComplete and requestType == RequestType.AvatarCreationFee	then
 		prompt = Roact.createElement(InteractiveAlert, {
 			bodyText = RobloxTranslator:FormatByKey(PURCHASE_COMPLETE_DESC_KEY),
 			buttonStackInfo = {

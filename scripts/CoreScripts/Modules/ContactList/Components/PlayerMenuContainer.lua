@@ -5,8 +5,6 @@ local Players = game:GetService("Players")
 
 local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Packages.Roact)
-local GetFFlagIrisBlockUnfriendMenuFix =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisBlockUnfriendMenuFix
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
@@ -177,7 +175,7 @@ local function PlayerMenuContainer()
 		PlayerMenuScreen = React.createElement("ScreenGui", {
 			Enabled = isOpen,
 			IgnoreGuiInset = true,
-			ZIndexBehavior = if GetFFlagIrisBlockUnfriendMenuFix() then Enum.ZIndexBehavior.Sibling else nil,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			DisplayOrder = CALL_DIALOG_DISPLAY_ORDER,
 			[React.Change.AbsoluteSize] = function(rbx)
 				setContainerSize(rbx.AbsoluteSize)

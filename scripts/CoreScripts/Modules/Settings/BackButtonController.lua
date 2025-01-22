@@ -13,7 +13,7 @@ local httpImpl = httpRequest(HttpRbxApiService)
 
 local EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons")
 
-local RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 local adsBack = false
 

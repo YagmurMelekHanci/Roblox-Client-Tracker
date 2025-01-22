@@ -7,11 +7,12 @@
 --]]
 
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui.Modules 
 
-local RobloxTranslator = require(Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
 local Theme = require(Modules.Settings.Theme)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()

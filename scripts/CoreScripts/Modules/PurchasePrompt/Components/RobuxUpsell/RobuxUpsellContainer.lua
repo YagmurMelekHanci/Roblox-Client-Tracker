@@ -33,10 +33,6 @@ local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(Root.Components.Connection.ExternalEventConnection)
 
-local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
-local FFlagPublishAvatarPromptEnabledAllPlatforms =
-	require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabledAllPlatforms)
-
 local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
 	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
 local GetFFlagEnableEventMetadataInUpsell = IAPExperience.Flags.GetFFlagEnableEventMetadataInUpsell
@@ -122,7 +118,7 @@ function RobuxUpsellContainer:createElement()
 
 			onAnalyticEvent = props.onAnalyticEvent,
 
-			humanoidModel = if FFlagPublishAvatarPromptEnabledAllPlatforms then props.humanoidModel else nil,
+			humanoidModel = props.humanoidModel,
 		}),
 		-- UIBlox components do not have Modal == true to fix FPS interaction with modals
 		ModalFix = Roact.createElement("ImageButton", {
@@ -155,8 +151,6 @@ function RobuxUpsellContainer:render()
 end
 
 RobuxUpsellContainer = connectToStore(function(state)
-	local humanoidModel = if FFlagPublishAvatarPromptEnabledAllPlatforms then state.promptRequest.humanoidModel else nil
-
 	if FFlagFixLimitedUMobilePurchasePrompt then
 		return {
 			purchaseFlow = state.purchaseFlow,
@@ -173,7 +167,7 @@ RobuxUpsellContainer = connectToStore(function(state)
 			isTestPurchase = isMockingPurchases(),
 			isGamepadEnabled = state.gamepadEnabled,
 
-			humanoidModel = humanoidModel,
+			humanoidModel = state.promptRequest.humanoidModel,
 		}
 	else
 		return {
@@ -190,7 +184,7 @@ RobuxUpsellContainer = connectToStore(function(state)
 			isTestPurchase = isMockingPurchases(),
 			isGamepadEnabled = state.gamepadEnabled,
 
-			humanoidModel = humanoidModel,
+			humanoidModel = state.promptRequest.humanoidModel,
 		}
 	end
 end, function(dispatch)

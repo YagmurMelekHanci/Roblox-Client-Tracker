@@ -1,6 +1,7 @@
 local Chrome = script:FindFirstAncestor("Chrome")
 
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 
 local ChromeEnabled = require(Chrome.Enabled)
 if not ChromeEnabled() then
@@ -26,6 +27,10 @@ local GetFFlagEnablePartyMicIconInChrome =
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFFlagEnableJoinVoiceOnUnibar =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableJoinVoiceOnUnibar
+local GetFFlagDisableSongbirdForVRConsole =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableSongbirdForVRConsole
+
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 local function initializeIntegrations()
 	require(Chrome.Integrations)
@@ -87,7 +92,12 @@ local function configureUnibar()
 	table.insert(nineDot, 2, "camera_entrypoint")
 	table.insert(nineDot, 2, "selfie_view")
 
-	if GetFFlagEnableSongbirdInChrome() then
+	-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
+	-- selene: allow(denylist_filter)
+	local isNotVROrConsole = GetFFlagDisableSongbirdForVRConsole()
+		and not isSpatial()
+		and not GuiService:IsTenFootInterface()
+	if GetFFlagEnableSongbirdInChrome() and isNotVROrConsole then
 		table.insert(nineDot, 4, "music_entrypoint")
 	end
 

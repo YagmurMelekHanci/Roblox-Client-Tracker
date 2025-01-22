@@ -9,7 +9,7 @@ local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local ContactList = RobloxGui.Modules.ContactList
 local OpenOrUpdateDialog = require(ContactList.Actions.OpenOrUpdateDialog)
 local dependencies = require(ContactList.dependencies)

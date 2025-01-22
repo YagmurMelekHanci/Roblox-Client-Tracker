@@ -6,10 +6,9 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local Components = script.Parent
 local EmotesMenu = Components.Parent
-local CoreScriptsModules = EmotesMenu.Parent
 
 local Constants = require(EmotesMenu.Constants)
-local RobloxTranslator = require(CoreScriptsModules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local WheelText = Roact.PureComponent:extend("WheelText")
 

@@ -199,7 +199,7 @@ MAIN:
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K10 ["Src"]
   GETTABLEKS R10 R11 K15 ["SharedFlags"]
-  GETTABLEKS R9 R10 K16 ["getFFlagAddUsernameToRibbonAvatars"]
+  GETTABLEKS R9 R10 K16 ["getFFlagTestingControlsBeta"]
   CALL R8 1 1
   CALL R8 0 1
   GETIMPORT R9 K5 [require]

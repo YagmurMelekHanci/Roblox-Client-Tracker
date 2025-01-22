@@ -20,7 +20,6 @@ local ExternalSettings = require(Root.Services.ExternalSettings)
 local PublicBindables = require(Root.Services.PublicBindables)
 local Thunk = require(Root.Thunk)
 local initiateAvatarCreationFeePurchaseThunk = require(Root.Thunks.initiateAvatarCreationFeePurchase)
-local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
 local FFlagHideAvatarIECPromptOnUpsellSuccess = require(RobloxGui.Modules.PublishAssetPrompt.FFlagHideAvatarIECPromptOnUpsellSuccess)
 
 local WindowState = require(Root.Enums.WindowState)
@@ -77,33 +76,19 @@ local function createStore()
 	end)
 end
 
-local mountPurchasePrompt
-
-if FFlagPublishAvatarPromptEnabled then
-	mountPurchasePrompt = function()
-		if RunService:IsStudio() and RunService:IsEdit() or handle then
-			return nil
-		end
-
-		createStore()
-		local purchasePromptElement = Roact.createElement(PurchasePromptApp, {
-			store = store
-		})
-
-		handle = Roact.mount(purchasePromptElement, CoreGui, "PurchasePromptApp")
-
-		return handle
+local mountPurchasePrompt = function()
+	if RunService:IsStudio() and RunService:IsEdit() or handle then
+		return nil
 	end
-else
-	mountPurchasePrompt = function()
-		if RunService:IsStudio() and RunService:IsEdit() then
-			return nil
-		end
 
-		local handle = Roact.mount(Roact.createElement(PurchasePromptApp), CoreGui, "PurchasePromptApp")
+	createStore()
+	local purchasePromptElement = Roact.createElement(PurchasePromptApp, {
+		store = store
+	})
 
-		return handle
-	end
+	handle = Roact.mount(purchasePromptElement, CoreGui, "PurchasePromptApp")
+
+	return handle
 end
 
 -- API for other modules to be able to initiate the purchase
@@ -119,14 +104,12 @@ end
 
 return {
 	mountPurchasePrompt = mountPurchasePrompt,
-	initiateAvatarCreationFeePurchase = if FFlagPublishAvatarPromptEnabled
-		then initiateAvatarCreationFeePurchase
-		else nil,
+	initiateAvatarCreationFeePurchase = initiateAvatarCreationFeePurchase,
 	-- This event fires when the window state is changed, i.e. prompt opens or closes.
 	-- It returns isShown if the window is shown, and hasCompletedPurchase if the purchase was completed.
-	windowStateChangedEvent = if FFlagPublishAvatarPromptEnabled then windowStateChangedBindable.Event else nil,
+	windowStateChangedEvent = windowStateChangedBindable.Event,
 	-- This event fires when the prompt state is set to PromptState.None
-	promptStateSetToNoneEvent = if FFlagPublishAvatarPromptEnabled then promptStateSetToNoneBindable.Event else nil,
+	promptStateSetToNoneEvent = promptStateSetToNoneBindable.Event,
 
 	PublishAssetAnalytics = PublishAssetAnalytics,
 }

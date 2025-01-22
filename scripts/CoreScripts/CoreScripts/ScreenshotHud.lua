@@ -17,7 +17,7 @@ local ContextActionService = game:GetService("ContextActionService")
 
 local RobloxGui = CoreGui.RobloxGui
 local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 local Promise = require(CorePackages.Packages.Promise)

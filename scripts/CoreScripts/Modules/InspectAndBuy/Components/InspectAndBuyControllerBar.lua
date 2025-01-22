@@ -3,7 +3,7 @@ local CoreGui = game:GetService("CoreGui")
 local Roact = require(CorePackages.Packages.Roact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
-local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local ControllerBar = UIBlox.App.Bar.ControllerBar
 local ControllerShortcutKeycodes = require(script.Parent.Common.ControllerShortcutKeycodes)
 local FavoriteShorcutKeycode = ControllerShortcutKeycodes.Favorite

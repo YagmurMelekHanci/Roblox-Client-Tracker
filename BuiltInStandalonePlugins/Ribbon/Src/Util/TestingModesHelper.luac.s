@@ -7,7 +7,7 @@ PROTO_0:
 PROTO_1:
   GETUPVAL R3 0
   FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["This function should only be called when FFlagAddTestModesJson is true"]
+  LOADK R4 K0 ["This function should only be called when FFlagTestingControlsBeta is true"]
   GETIMPORT R2 K2 [assert]
   CALL R2 2 0
   LOADK R4 K3 ["Settings"]
@@ -31,7 +31,7 @@ PROTO_1:
 PROTO_2:
   GETUPVAL R3 0
   FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["This function should only be called when FFlagAddTestModesJson is true"]
+  LOADK R4 K0 ["This function should only be called when FFlagTestingControlsBeta is true"]
   GETIMPORT R2 K2 [assert]
   CALL R2 2 0
   JUMPIFEQKN R1 K3 [0] [+3]
@@ -62,7 +62,7 @@ PROTO_2:
 PROTO_3:
   GETUPVAL R2 0
   FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["This function should only be called when FFlagAddTestModesJson is true"]
+  LOADK R3 K0 ["This function should only be called when FFlagTestingControlsBeta is true"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
   LOADK R3 K3 ["Settings"]
@@ -96,27 +96,29 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Src"]
   GETTABLEKS R3 R4 K9 ["Types"]
   CALL R2 1 1
-  GETIMPORT R3 K11 [game]
-  LOADK R5 K12 ["AddTestModesJson"]
-  NAMECALL R3 R3 K13 ["GetFastFlag"]
-  CALL R3 2 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K10 ["SharedFlags"]
+  GETTABLEKS R4 R5 K11 ["getFFlagTestingControlsBeta"]
+  CALL R3 1 1
+  CALL R3 0 1
   LOADNIL R4
-  GETTABLEKS R5 R1 K14 ["fromSetting"]
-  LOADK R6 K15 ["RunTools"]
-  LOADK R7 K16 ["TestMode"]
+  GETTABLEKS R5 R1 K12 ["fromSetting"]
+  LOADK R6 K13 ["RunTools"]
+  LOADK R7 K14 ["TestMode"]
   CALL R5 2 1
   NEWTABLE R6 4 0
   NEWCLOSURE R7 P0
   CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE REF R4
-  SETTABLEKS R7 R6 K17 ["connectTestModesAsync"]
-  DUPCLOSURE R7 K18 [PROTO_2]
+  SETTABLEKS R7 R6 K15 ["connectTestModesAsync"]
+  DUPCLOSURE R7 K16 [PROTO_2]
   CAPTURE VAL R3
-  SETTABLEKS R7 R6 K19 ["getMezzanineFromTestModeSetting"]
-  DUPCLOSURE R7 K20 [PROTO_3]
+  SETTABLEKS R7 R6 K17 ["getMezzanineFromTestModeSetting"]
+  DUPCLOSURE R7 K18 [PROTO_3]
   CAPTURE VAL R3
   CAPTURE VAL R5
-  SETTABLEKS R7 R6 K21 ["getCurrentTestModeSettingValueAsync"]
+  SETTABLEKS R7 R6 K19 ["getCurrentTestModeSettingValueAsync"]
   CLOSEUPVALS R4
   RETURN R6 1

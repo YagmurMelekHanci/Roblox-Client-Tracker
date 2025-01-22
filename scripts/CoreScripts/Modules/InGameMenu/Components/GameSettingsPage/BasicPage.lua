@@ -56,8 +56,6 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local Flags = InGameMenu.Flags
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagAddHapticsToggle = SharedFlags.GetFFlagAddHapticsToggle
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 
@@ -314,16 +312,14 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
 				isMenuOpen = self.props.isMenuOpen,
 			}),
-			HapticsToggle = if GetFFlagAddHapticsToggle()
-				then Roact.createElement(AutoPropertyToggleEntry, {
-					LayoutOrder = getNextLayoutOrder(),
-					labelKey = "Feature.Accessibility.Header.Haptics",
-					instance = UserGameSettings,
-					valueKey = "HapticStrength",
-					onValue = 1,
-					offValue = 0,
-				})
-				else nil,
+			HapticsToggle = Roact.createElement(AutoPropertyToggleEntry, {
+				LayoutOrder = getNextLayoutOrder(),
+				labelKey = "Feature.Accessibility.Header.Haptics",
+				instance = UserGameSettings,
+				valueKey = "HapticStrength",
+				onValue = 1,
+				offValue = 0,
+			}),
 			InputDevice = showInputOutputAudioDevices and Roact.createElement(DeviceSelectionEntry, {
 				LayoutOrder = getNextLayoutOrder(),
 				deviceType = DeviceSelectionEntry.DeviceType.Input,

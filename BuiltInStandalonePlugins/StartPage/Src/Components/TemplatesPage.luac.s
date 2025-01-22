@@ -146,103 +146,91 @@ PROTO_6:
   RETURN R1 -1
 
 PROTO_7:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["createElement"]
-  GETUPVAL R3 2
-  DUPTABLE R4 K9 [{"Size", "Position", "PageName", "Tabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar"}]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["use"]
+  CALL R0 1 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["createElement"]
+  GETUPVAL R2 2
+  DUPTABLE R3 K7 [{"PageName", "Tabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar"}]
+  LOADK R4 K8 ["Templates"]
+  SETTABLEKS R4 R3 K2 ["PageName"]
+  NEWTABLE R4 0 4
+  DUPTABLE R5 K14 [{"Title", "FailedTitle", "Label", "Key", "PageComponent"}]
+  LOADK R8 K15 ["Plugin"]
+  LOADK R9 K16 ["TemplatesPage.All"]
+  NAMECALL R6 R0 K17 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K9 ["Title"]
+  LOADK R8 K15 ["Plugin"]
+  LOADK R9 K18 ["NoTemplatesToDisplay"]
+  NAMECALL R6 R0 K17 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K10 ["FailedTitle"]
+  LOADK R8 K15 ["Plugin"]
+  LOADK R9 K19 ["TemplatesPage.AllLabel"]
+  NAMECALL R6 R0 K17 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K11 ["Label"]
+  LOADK R6 K20 ["All"]
+  SETTABLEKS R6 R5 K12 ["Key"]
   GETUPVAL R6 3
-  JUMPIFNOT R6 [+2]
-  LOADNIL R5
-  JUMP [+2]
-  GETTABLEKS R5 R0 K2 ["Size"]
-  SETTABLEKS R5 R4 K2 ["Size"]
-  GETUPVAL R6 3
-  JUMPIFNOT R6 [+2]
-  LOADNIL R5
-  JUMP [+2]
-  GETTABLEKS R5 R0 K3 ["Position"]
-  SETTABLEKS R5 R4 K3 ["Position"]
-  LOADK R5 K10 ["Templates"]
-  SETTABLEKS R5 R4 K4 ["PageName"]
-  NEWTABLE R5 0 4
-  DUPTABLE R6 K16 [{"Title", "FailedTitle", "Label", "Key", "PageComponent"}]
-  LOADK R9 K17 ["Plugin"]
-  LOADK R10 K18 ["TemplatesPage.All"]
-  NAMECALL R7 R1 K19 ["getText"]
+  SETTABLEKS R6 R5 K13 ["PageComponent"]
+  DUPTABLE R6 K21 [{"Title", "FailedTitle", "Key", "PageComponent"}]
+  LOADK R9 K15 ["Plugin"]
+  LOADK R10 K22 ["TemplatesPage.Generic"]
+  NAMECALL R7 R0 K17 ["getText"]
   CALL R7 3 1
-  SETTABLEKS R7 R6 K11 ["Title"]
-  LOADK R9 K17 ["Plugin"]
-  LOADK R10 K20 ["NoTemplatesToDisplay"]
-  NAMECALL R7 R1 K19 ["getText"]
+  SETTABLEKS R7 R6 K9 ["Title"]
+  LOADK R9 K15 ["Plugin"]
+  LOADK R10 K18 ["NoTemplatesToDisplay"]
+  NAMECALL R7 R0 K17 ["getText"]
   CALL R7 3 1
-  SETTABLEKS R7 R6 K12 ["FailedTitle"]
-  LOADK R9 K17 ["Plugin"]
-  LOADK R10 K21 ["TemplatesPage.AllLabel"]
-  NAMECALL R7 R1 K19 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K13 ["Label"]
-  LOADK R7 K22 ["All"]
-  SETTABLEKS R7 R6 K14 ["Key"]
+  SETTABLEKS R7 R6 K10 ["FailedTitle"]
+  LOADK R7 K23 ["Generic"]
+  SETTABLEKS R7 R6 K12 ["Key"]
   GETUPVAL R7 4
-  SETTABLEKS R7 R6 K15 ["PageComponent"]
-  DUPTABLE R7 K23 [{"Title", "FailedTitle", "Key", "PageComponent"}]
-  LOADK R10 K17 ["Plugin"]
-  LOADK R11 K24 ["TemplatesPage.Generic"]
-  NAMECALL R8 R1 K19 ["getText"]
+  SETTABLEKS R7 R6 K13 ["PageComponent"]
+  DUPTABLE R7 K21 [{"Title", "FailedTitle", "Key", "PageComponent"}]
+  LOADK R10 K15 ["Plugin"]
+  LOADK R11 K24 ["TemplatesPage.Gameplay"]
+  NAMECALL R8 R0 K17 ["getText"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K11 ["Title"]
-  LOADK R10 K17 ["Plugin"]
-  LOADK R11 K20 ["NoTemplatesToDisplay"]
-  NAMECALL R8 R1 K19 ["getText"]
+  SETTABLEKS R8 R7 K9 ["Title"]
+  LOADK R10 K15 ["Plugin"]
+  LOADK R11 K18 ["NoTemplatesToDisplay"]
+  NAMECALL R8 R0 K17 ["getText"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K12 ["FailedTitle"]
-  LOADK R8 K25 ["Generic"]
-  SETTABLEKS R8 R7 K14 ["Key"]
+  SETTABLEKS R8 R7 K10 ["FailedTitle"]
+  LOADK R8 K25 ["Gameplay"]
+  SETTABLEKS R8 R7 K12 ["Key"]
   GETUPVAL R8 5
-  SETTABLEKS R8 R7 K15 ["PageComponent"]
-  DUPTABLE R8 K23 [{"Title", "FailedTitle", "Key", "PageComponent"}]
-  LOADK R11 K17 ["Plugin"]
-  LOADK R12 K26 ["TemplatesPage.Gameplay"]
-  NAMECALL R9 R1 K19 ["getText"]
+  SETTABLEKS R8 R7 K13 ["PageComponent"]
+  DUPTABLE R8 K21 [{"Title", "FailedTitle", "Key", "PageComponent"}]
+  LOADK R11 K15 ["Plugin"]
+  LOADK R12 K26 ["TemplatesPage.Theme"]
+  NAMECALL R9 R0 K17 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K11 ["Title"]
-  LOADK R11 K17 ["Plugin"]
-  LOADK R12 K20 ["NoTemplatesToDisplay"]
-  NAMECALL R9 R1 K19 ["getText"]
+  SETTABLEKS R9 R8 K9 ["Title"]
+  LOADK R11 K15 ["Plugin"]
+  LOADK R12 K18 ["NoTemplatesToDisplay"]
+  NAMECALL R9 R0 K17 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K12 ["FailedTitle"]
-  LOADK R9 K27 ["Gameplay"]
-  SETTABLEKS R9 R8 K14 ["Key"]
+  SETTABLEKS R9 R8 K10 ["FailedTitle"]
+  LOADK R9 K27 ["Theme"]
+  SETTABLEKS R9 R8 K12 ["Key"]
   GETUPVAL R9 6
-  SETTABLEKS R9 R8 K15 ["PageComponent"]
-  DUPTABLE R9 K23 [{"Title", "FailedTitle", "Key", "PageComponent"}]
-  LOADK R12 K17 ["Plugin"]
-  LOADK R13 K28 ["TemplatesPage.Theme"]
-  NAMECALL R10 R1 K19 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K11 ["Title"]
-  LOADK R12 K17 ["Plugin"]
-  LOADK R13 K20 ["NoTemplatesToDisplay"]
-  NAMECALL R10 R1 K19 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K12 ["FailedTitle"]
-  LOADK R10 K29 ["Theme"]
-  SETTABLEKS R10 R9 K14 ["Key"]
-  GETUPVAL R10 7
-  SETTABLEKS R10 R9 K15 ["PageComponent"]
-  SETLIST R5 R6 4 [1]
-  SETTABLEKS R5 R4 K5 ["Tabs"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K6 ["CanSwapBetweenViews"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K7 ["IsDefaultGridView"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K8 ["HasSearchBar"]
-  CALL R2 2 -1
-  RETURN R2 -1
+  SETTABLEKS R9 R8 K13 ["PageComponent"]
+  SETLIST R4 R5 4 [1]
+  SETTABLEKS R4 R3 K3 ["Tabs"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K4 ["CanSwapBetweenViews"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K5 ["IsDefaultGridView"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K6 ["HasSearchBar"]
+  CALL R1 2 -1
+  RETURN R1 -1
 
 MAIN:
   PREPVARARGS 0
@@ -257,144 +245,117 @@ MAIN:
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K8 ["Src"]
   GETTABLEKS R4 R5 K9 ["SharedFlags"]
-  GETTABLEKS R3 R4 K10 ["getFFlagLuaStartPageNetworkCache"]
+  GETTABLEKS R3 R4 K10 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
   CALL R2 1 1
   CALL R2 0 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["SharedFlags"]
-  GETTABLEKS R4 R5 K11 ["getFFlagLuaStartPageQuickLoad"]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Dash"]
   CALL R3 1 1
-  CALL R3 0 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K9 ["SharedFlags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
-  CALL R4 1 1
-  CALL R4 0 1
+  GETTABLEKS R4 R3 K12 ["join"]
   GETIMPORT R5 K5 [require]
   GETTABLEKS R7 R0 K6 ["Packages"]
-  GETTABLEKS R6 R7 K13 ["Dash"]
+  GETTABLEKS R6 R7 K13 ["Framework"]
   CALL R5 1 1
-  GETTABLEKS R6 R5 K14 ["join"]
+  GETTABLEKS R7 R5 K14 ["ContextServices"]
+  GETTABLEKS R6 R7 K15 ["Localization"]
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Packages"]
-  GETTABLEKS R8 R9 K15 ["Framework"]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Components"]
+  GETTABLEKS R8 R9 K17 ["NetworkView"]
   CALL R7 1 1
-  GETTABLEKS R9 R7 K16 ["ContextServices"]
-  GETTABLEKS R8 R9 K17 ["Localization"]
-  JUMPIFNOT R2 [+10]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Components"]
+  GETTABLEKS R9 R10 K18 ["InfoTile"]
+  CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K8 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Components"]
-  GETTABLEKS R10 R11 K19 ["NetworkView"]
-  CALL R9 1 1
-  JUMP [+9]
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K8 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Components"]
-  GETTABLEKS R10 R11 K20 ["DEPRECATED_NetworkView"]
+  GETTABLEKS R11 R12 K16 ["Components"]
+  GETTABLEKS R10 R11 K19 ["GamePage"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K18 ["Components"]
-  GETTABLEKS R11 R12 K21 ["InfoTile"]
+  GETTABLEKS R12 R13 K20 ["Network"]
+  GETTABLEKS R11 R12 K21 ["DiscoverExperiences"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K8 ["Src"]
-  GETTABLEKS R13 R14 K18 ["Components"]
-  GETTABLEKS R12 R13 K22 ["GamePage"]
+  GETTABLEKS R13 R14 K22 ["Util"]
+  GETTABLEKS R12 R13 K23 ["Services"]
   CALL R11 1 1
-  JUMPIFNOT R2 [+10]
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K8 ["Src"]
-  GETTABLEKS R14 R15 K23 ["Network"]
-  GETTABLEKS R13 R14 K24 ["DiscoverExperiences"]
-  CALL R12 1 1
-  JUMP [+9]
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K8 ["Src"]
-  GETTABLEKS R14 R15 K25 ["DEPRECATED_Network"]
-  GETTABLEKS R13 R14 K24 ["DiscoverExperiences"]
-  CALL R12 1 1
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K8 ["Src"]
-  GETTABLEKS R15 R16 K26 ["Util"]
-  GETTABLEKS R14 R15 K27 ["Services"]
-  CALL R13 1 1
-  GETTABLEKS R14 R13 K28 ["StartPageManager"]
-  GETIMPORT R15 K30 [game]
-  LOADK R17 K31 ["FixPSCMissingUniverseIdFromLuaStartPage"]
-  LOADB R18 0
-  NAMECALL R15 R15 K32 ["DefineFastFlag"]
-  CALL R15 3 1
-  GETIMPORT R16 K5 [require]
-  GETTABLEKS R20 R0 K8 ["Src"]
-  GETTABLEKS R19 R20 K26 ["Util"]
-  GETTABLEKS R18 R19 K33 ["Telemetry"]
-  GETTABLEKS R17 R18 K34 ["TelemetryContext"]
-  CALL R16 1 1
-  GETIMPORT R17 K5 [require]
-  GETTABLEKS R21 R0 K8 ["Src"]
-  GETTABLEKS R20 R21 K26 ["Util"]
-  GETTABLEKS R19 R20 K33 ["Telemetry"]
-  GETTABLEKS R18 R19 K35 ["StartPageTelemetryEvent"]
-  CALL R17 1 1
-  DUPTABLE R18 K40 [{"searchKey", "search", "isTemplates", "pageSize"}]
-  LOADK R19 K41 ["Templates"]
-  SETTABLEKS R19 R18 K36 ["searchKey"]
-  LOADK R19 K42 ["All"]
-  SETTABLEKS R19 R18 K37 ["search"]
-  LOADB R19 1
-  SETTABLEKS R19 R18 K38 ["isTemplates"]
-  LOADN R19 20
-  SETTABLEKS R19 R18 K39 ["pageSize"]
-  GETIMPORT R19 K45 [UDim2.new]
+  GETTABLEKS R12 R11 K24 ["StartPageManager"]
+  GETIMPORT R13 K26 [game]
+  LOADK R15 K27 ["FixPSCMissingUniverseIdFromLuaStartPage"]
+  LOADB R16 0
+  NAMECALL R13 R13 K28 ["DefineFastFlag"]
+  CALL R13 3 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R18 R0 K8 ["Src"]
+  GETTABLEKS R17 R18 K22 ["Util"]
+  GETTABLEKS R16 R17 K29 ["Telemetry"]
+  GETTABLEKS R15 R16 K30 ["TelemetryContext"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R19 R0 K8 ["Src"]
+  GETTABLEKS R18 R19 K22 ["Util"]
+  GETTABLEKS R17 R18 K29 ["Telemetry"]
+  GETTABLEKS R16 R17 K31 ["StartPageTelemetryEvent"]
+  CALL R15 1 1
+  DUPTABLE R16 K36 [{"searchKey", "search", "isTemplates", "pageSize"}]
+  LOADK R17 K37 ["Templates"]
+  SETTABLEKS R17 R16 K32 ["searchKey"]
+  LOADK R17 K38 ["All"]
+  SETTABLEKS R17 R16 K33 ["search"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K34 ["isTemplates"]
+  LOADN R17 20
+  SETTABLEKS R17 R16 K35 ["pageSize"]
+  GETIMPORT R17 K41 [UDim2.new]
+  LOADN R18 0
+  LOADN R19 225
   LOADN R20 0
-  LOADN R21 225
-  LOADN R22 0
-  LOADN R23 252
-  CALL R19 4 1
-  DUPCLOSURE R20 K46 [PROTO_1]
-  CAPTURE VAL R16
-  CAPTURE VAL R1
-  CAPTURE VAL R10
-  CAPTURE VAL R6
-  CAPTURE VAL R15
+  LOADN R21 252
+  CALL R17 4 1
+  DUPCLOSURE R18 K42 [PROTO_1]
   CAPTURE VAL R14
+  CAPTURE VAL R1
+  CAPTURE VAL R8
   CAPTURE VAL R4
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R2
+  CAPTURE VAL R15
+  DUPCLOSURE R19 K43 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R16
+  CAPTURE VAL R18
   CAPTURE VAL R17
-  DUPCLOSURE R21 K47 [PROTO_2]
+  CAPTURE VAL R10
+  DUPCLOSURE R20 K44 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R19
+  CAPTURE VAL R4
+  DUPCLOSURE R21 K45 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R19
+  CAPTURE VAL R4
+  DUPCLOSURE R22 K46 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R19
+  CAPTURE VAL R4
+  DUPCLOSURE R23 K47 [PROTO_6]
+  CAPTURE VAL R1
+  CAPTURE VAL R19
+  CAPTURE VAL R4
+  DUPCLOSURE R24 K48 [PROTO_7]
+  CAPTURE VAL R6
   CAPTURE VAL R1
   CAPTURE VAL R9
-  CAPTURE VAL R6
-  CAPTURE VAL R18
   CAPTURE VAL R20
-  CAPTURE VAL R19
-  CAPTURE VAL R12
-  DUPCLOSURE R22 K48 [PROTO_3]
-  CAPTURE VAL R1
   CAPTURE VAL R21
-  CAPTURE VAL R6
-  DUPCLOSURE R23 K49 [PROTO_4]
-  CAPTURE VAL R1
-  CAPTURE VAL R21
-  CAPTURE VAL R6
-  DUPCLOSURE R24 K50 [PROTO_5]
-  CAPTURE VAL R1
-  CAPTURE VAL R21
-  CAPTURE VAL R6
-  DUPCLOSURE R25 K51 [PROTO_6]
-  CAPTURE VAL R1
-  CAPTURE VAL R21
-  CAPTURE VAL R6
-  DUPCLOSURE R26 K52 [PROTO_7]
-  CAPTURE VAL R8
-  CAPTURE VAL R1
-  CAPTURE VAL R11
-  CAPTURE VAL R3
   CAPTURE VAL R22
   CAPTURE VAL R23
-  CAPTURE VAL R24
-  CAPTURE VAL R25
-  RETURN R26 1
+  RETURN R24 1

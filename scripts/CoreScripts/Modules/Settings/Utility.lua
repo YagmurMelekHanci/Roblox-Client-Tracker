@@ -50,6 +50,7 @@ local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
 local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 local Workspace = game:GetService("Workspace")
+local CorePackages = game:GetService("CorePackages")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 --------------- FLAGS ----------------
@@ -63,7 +64,7 @@ local isPreferredTextSizePropValid, _result = pcall(function() -- TODO(UIBLOX-10
 end)
 
 ------------------ Modules --------------------
-local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local CorePackages = game:GetService("CorePackages")
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)

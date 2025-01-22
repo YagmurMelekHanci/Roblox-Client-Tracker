@@ -13,7 +13,7 @@ local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).Sound
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)

@@ -1,7 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local React = require(CorePackages.Packages.React)
 local t = require(CorePackages.Packages.t)
@@ -13,7 +11,7 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
 local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
 
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local getMicDeeplinkDirections = require(script.Parent.Parent.Helpers.getMicDeeplinkDirections)
 local getPrimingText = require(script.Parent.Parent.Helpers.getPrimingText)

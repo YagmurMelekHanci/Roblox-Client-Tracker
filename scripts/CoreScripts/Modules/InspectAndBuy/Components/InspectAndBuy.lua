@@ -43,8 +43,6 @@ local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 local CloseOverlay = require(InspectAndBuyFolder.Actions.CloseOverlay)
 
-local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
-
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
 local COMPACT_VIEW_MAX_WIDTH = 600
@@ -264,37 +262,21 @@ end
 function InspectAndBuy:render()
 	local localPlayerModel = self.localPlayerModel
 
-	if FFlagAttributionInInspectAndBuy then
-		return Roact.createElement(InspectAndBuyContext.Provider, {
-			value = self.state.views,
+	return Roact.createElement(InspectAndBuyContext.Provider, {
+		value = self.state.views,
+	}, {
+		StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.state.store,
 		}, {
-			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.state.store,
-			}, {
-				ThemeProvider = renderWithCoreScriptsStyleProvider({
-					CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-						Container = Roact.createElement(Container, {
-							localPlayerModel = localPlayerModel,
-						}),
-					}),
-				}),
-			}),
-		})
-	else
-		return Roact.createElement(InspectAndBuyContext.Provider, {
-			value = self.state.views,
-		}, {
-			Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.state.store,
-			}, {
-				ThemeProvider = renderWithCoreScriptsStyleProvider({
+			ThemeProvider = renderWithCoreScriptsStyleProvider({
+				CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
 					Container = Roact.createElement(Container, {
 						localPlayerModel = localPlayerModel,
 					}),
 				}),
 			}),
-		})
-	end
+		}),
+	})
 end
 
 function InspectAndBuy:bindButtonB()
@@ -303,7 +285,7 @@ function InspectAndBuy:bindButtonB()
 			local state = self.state.store:getState()
 			local viewingDetails = state.detailsInformation.viewingDetails
 
-			if FFlagAttributionInInspectAndBuy and state.overlay and state.overlay.overlay ~= nil then
+			if state.overlay and state.overlay.overlay ~= nil then
 				self.state.store:dispatch(CloseOverlay())
 			elseif viewingDetails then
 				self.state.store:dispatch(SetDetailsInformation(false, nil))

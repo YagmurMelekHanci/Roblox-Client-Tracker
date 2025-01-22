@@ -217,7 +217,8 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
 local RobloxTranslator = nil
 if shouldTryLocalizeVersionLabels or GetFFlagVoiceRecordingIndicatorsEnabled() then
-	RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
+	RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
+
 end
 local function tryTranslate(key, defaultString)
 	if not RobloxTranslator then

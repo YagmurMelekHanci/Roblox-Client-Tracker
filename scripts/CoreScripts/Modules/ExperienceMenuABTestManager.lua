@@ -33,15 +33,13 @@ local GetFFlagDisableChromeV3DockedMic = require(script.Parent.Flags.GetFFlagDis
 local GetFFlagDisableChromeV4Baseline = require(script.Parent.Flags.GetFFlagDisableChromeV4Baseline)()
 local GetFFlagDisableChromeV4ClosedSelfView = require(script.Parent.Flags.GetFFlagDisableChromeV4ClosedSelfView)()
 
-local GetFFlagSetupSongbirdWindowExperiment = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSetupSongbirdWindowExperiment
-
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
 local TEST_VERSION = "t10" -- bump on new A/B campaigns
 local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
-local SONGBIRD_TEST_VERSION = if GetFFlagSetupSongbirdWindowExperiment() then "s2" else "s1"
+local SONGBIRD_TEST_VERSION = "s2"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
@@ -96,7 +94,6 @@ local validVersion = {
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD] = true,
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR] = true,
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK] = true,
-	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_SCENE_ANALYSIS] = if GetFFlagSetupSongbirdWindowExperiment() then false else true,
 
 	-- Invalidate Unibar test variants if the respective disable flag is turned on
 	[MENU_VERSION_CHROME_V3_ENUM.BASELINE] = not GetFFlagDisableChromeV3Baseline,
@@ -215,12 +212,6 @@ function ExperienceMenuABTestManager.chromeSongbirdPeekVersionId()
 	return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK
 end
 
-if not GetFFlagSetupSongbirdWindowExperiment() then
-	function ExperienceMenuABTestManager.sceneAnalysisVersionId()
-		return MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_SCENE_ANALYSIS
-	end
-end
-
 function parseCountData(data)
 	if not data or typeof(data) ~= "string" then
 		return nil, nil
@@ -304,12 +295,6 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 
 
 	for _, version in MENU_VERSION_SONGBIRD_ENUM do
-		if not GetFFlagSetupSongbirdWindowExperiment() then
-			if version == self.sceneAnalysisVersionId() then
-				continue
-			end
-		end
-
 		if self:getVersion() == version then
 			return true
 		end
@@ -339,16 +324,6 @@ function ExperienceMenuABTestManager:shouldDockMic()
 end
 function ExperienceMenuABTestManager:shouldCloseSelfViewAtStartup()
 	return self:getVersion() == MENU_VERSION_CHROME_V4_ENUM.CLOSED_SELF_VIEW
-end
-
-if not GetFFlagSetupSongbirdWindowExperiment() then
-	function ExperienceMenuABTestManager:shouldEnableSceneAnalysis()
-		local version = self:getVersion()
-		return version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD
-			or version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_SCENE_ANALYSIS
-			or version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR
-			or version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK
-	end
 end
 
 function ExperienceMenuABTestManager:shouldShowSongbirdUnibar()

@@ -15,7 +15,7 @@ MAIN:
   GETIMPORT R4 K4 [require]
   GETTABLEKS R7 R0 K10 ["Src"]
   GETTABLEKS R6 R7 K11 ["SharedFlags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagAddTestModeDropDown"]
+  GETTABLEKS R5 R6 K12 ["getFFlagTestingControlsBeta"]
   CALL R4 1 1
   CALL R4 0 1
   GETIMPORT R5 K4 [require]
@@ -1167,7 +1167,7 @@ MAIN:
   SETTABLEKS R35 R34 K29 ["BackgroundColor3"]
   CALL R32 2 1
   MOVE R33 R2
-  LOADK R34 K12 ["getFFlagAddTestModeDropDown"]
+  LOADK R34 K12 ["getFFlagTestingControlsBeta"]
   DUPTABLE R35 K209 [{"BackgroundTransparency", "BackgroundColor3"}]
   LOADK R36 K211 ["$SemanticColorStateLayerPressTransparency"]
   SETTABLEKS R36 R35 K23 ["BackgroundTransparency"]
@@ -1197,7 +1197,7 @@ MAIN:
   SETTABLEKS R40 R39 K29 ["BackgroundColor3"]
   CALL R37 2 1
   MOVE R38 R2
-  LOADK R39 K12 ["getFFlagAddTestModeDropDown"]
+  LOADK R39 K12 ["getFFlagTestingControlsBeta"]
   DUPTABLE R40 K209 [{"BackgroundTransparency", "BackgroundColor3"}]
   LOADK R41 K17 ["Font"]
   SETTABLEKS R41 R40 K23 ["BackgroundTransparency"]

@@ -37,22 +37,13 @@ PROTO_2:
   MOVE R10 R2
   GETIMPORT R9 K9 [table.insert]
   CALL R9 2 0
-  GETUPVAL R9 0
-  CALL R9 0 1
-  JUMPIFNOT R9 [+9]
   GETTABLEKS R11 R8 K10 ["id"]
   FASTCALL2 TABLE_INSERT R3 R11 [+4]
   MOVE R10 R3
   GETIMPORT R9 K9 [table.insert]
   CALL R9 2 0
-  JUMP [+8]
-  GETTABLEKS R11 R8 K11 ["groupId"]
-  FASTCALL2 TABLE_INSERT R3 R11 [+4]
-  MOVE R10 R3
-  GETIMPORT R9 K9 [table.insert]
-  CALL R9 2 0
-  FORGLOOP R4 2 [-29]
-  GETTABLEKS R5 R1 K12 ["Value"]
+  FORGLOOP R4 2 [-17]
+  GETTABLEKS R5 R1 K11 ["Value"]
   MOVE R6 R3
   LOADNIL R7
   LOADNIL R8
@@ -64,55 +55,44 @@ PROTO_2:
   LOADNIL R4
   JUMPIFNOTEQKNIL R4 [+2]
   LOADN R4 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K12 ["createElement"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K13 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K17 [{"LayoutOrder", "AutomaticSize", "Size"}]
-  GETTABLEKS R8 R1 K14 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K14 ["LayoutOrder"]
-  GETIMPORT R8 K20 [Enum.AutomaticSize.Y]
-  SETTABLEKS R8 R7 K15 ["AutomaticSize"]
-  GETTABLEKS R8 R1 K16 ["Size"]
-  SETTABLEKS R8 R7 K16 ["Size"]
-  DUPTABLE R8 K22 [{"WrapperContents"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["createElement"]
-  GETUPVAL R10 3
-  DUPTABLE R11 K28 [{"OnItemActivated", "Items", "SelectedIndex", "Focus", "Size", "TextTruncate"}]
+  DUPTABLE R7 K16 [{"LayoutOrder", "AutomaticSize", "Size"}]
+  GETTABLEKS R8 R1 K13 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K13 ["LayoutOrder"]
+  GETIMPORT R8 K19 [Enum.AutomaticSize.Y]
+  SETTABLEKS R8 R7 K14 ["AutomaticSize"]
+  GETTABLEKS R8 R1 K15 ["Size"]
+  SETTABLEKS R8 R7 K15 ["Size"]
+  DUPTABLE R8 K21 [{"WrapperContents"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K27 [{"OnItemActivated", "Items", "SelectedIndex", "Focus", "Size", "TextTruncate"}]
   NEWCLOSURE R12 P0
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLEKS R12 R11 K23 ["OnItemActivated"]
-  SETTABLEKS R2 R11 K24 ["Items"]
-  SETTABLEKS R4 R11 K25 ["SelectedIndex"]
+  SETTABLEKS R12 R11 K22 ["OnItemActivated"]
+  SETTABLEKS R2 R11 K23 ["Items"]
+  SETTABLEKS R4 R11 K24 ["SelectedIndex"]
   GETTABLE R12 R2 R4
-  SETTABLEKS R12 R11 K26 ["Focus"]
-  GETIMPORT R12 K31 [UDim2.fromScale]
+  SETTABLEKS R12 R11 K25 ["Focus"]
+  GETIMPORT R12 K30 [UDim2.fromScale]
   LOADN R13 1
   LOADN R14 1
   CALL R12 2 1
-  SETTABLEKS R12 R11 K16 ["Size"]
-  GETUPVAL R13 0
-  CALL R13 0 1
-  JUMPIFNOT R13 [+3]
-  GETIMPORT R12 K33 [Enum.TextTruncate.AtEnd]
-  JUMP [+1]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K27 ["TextTruncate"]
+  SETTABLEKS R12 R11 K15 ["Size"]
+  GETIMPORT R12 K32 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R12 R11 K26 ["TextTruncate"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K21 ["WrapperContents"]
+  SETTABLEKS R9 R8 K20 ["WrapperContents"]
   CALL R5 3 -1
   RETURN R5 -1
 
 PROTO_3:
   DUPTABLE R1 K1 [{"ManagedGroups"}]
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+5]
   GETTABLEKS R3 R0 K2 ["Dialogs"]
-  GETTABLEKS R2 R3 K3 ["managedGroups"]
-  JUMP [+4]
-  GETTABLEKS R3 R0 K4 ["Preview"]
   GETTABLEKS R2 R3 K3 ["managedGroups"]
   SETTABLEKS R2 R1 K0 ["ManagedGroups"]
   RETURN R1 1
@@ -138,27 +118,20 @@ MAIN:
   GETTABLEKS R4 R1 K10 ["UI"]
   GETTABLEKS R5 R4 K11 ["Pane"]
   GETTABLEKS R6 R4 K12 ["SelectInput"]
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K13 ["Src"]
-  GETTABLEKS R9 R10 K14 ["Flags"]
-  GETTABLEKS R8 R9 K15 ["getFFlagImportQueueFixGroupFetch"]
-  CALL R7 1 1
-  GETTABLEKS R8 R2 K16 ["PureComponent"]
-  LOADK R10 K17 ["UploadDestinationProperty"]
-  NAMECALL R8 R8 K18 ["extend"]
-  CALL R8 2 1
-  DUPCLOSURE R9 K19 [PROTO_0]
-  DUPCLOSURE R10 K20 [PROTO_2]
-  CAPTURE VAL R7
+  GETTABLEKS R7 R2 K13 ["PureComponent"]
+  LOADK R9 K14 ["UploadDestinationProperty"]
+  NAMECALL R7 R7 K15 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K16 [PROTO_0]
+  DUPCLOSURE R9 K17 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R6
-  SETTABLEKS R10 R8 K21 ["render"]
-  DUPCLOSURE R10 K22 [PROTO_3]
-  CAPTURE VAL R7
-  GETTABLEKS R11 R3 K23 ["connect"]
-  MOVE R12 R10
-  CALL R11 1 1
-  MOVE R12 R8
-  CALL R11 1 -1
-  RETURN R11 -1
+  SETTABLEKS R9 R7 K18 ["render"]
+  DUPCLOSURE R9 K19 [PROTO_3]
+  GETTABLEKS R10 R3 K20 ["connect"]
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R11 R7
+  CALL R10 1 -1
+  RETURN R10 -1

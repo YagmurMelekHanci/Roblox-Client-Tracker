@@ -56,54 +56,54 @@ PROTO_2:
   RETURN R1 -1
 
 PROTO_3:
-  GETUPVAL R2 0
-  JUMPIFNOT R2 [+4]
-  GETUPVAL R2 1
-  NAMECALL R2 R2 K0 ["HasInternalPermission"]
-  CALL R2 1 1
-  FASTCALL2K ASSERT R2 K1 [+4]
-  LOADK R3 K1 ["Must enabled FFlagLuaStartPageStudioTestTemplates and have internal permission to view TestTemplatesPage"]
-  GETIMPORT R1 K3 [assert]
-  CALL R1 2 0
-  GETUPVAL R1 2
-  NAMECALL R1 R1 K4 ["use"]
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K0 ["HasInternalPermission"]
   CALL R1 1 1
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K5 ["createElement"]
-  GETUPVAL R3 4
-  DUPTABLE R4 K13 [{"PageName", "Tabs", "HideTabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar", "IsAlertVisible"}]
-  LOADK R5 K14 ["TestTemplates"]
-  SETTABLEKS R5 R4 K6 ["PageName"]
-  NEWTABLE R5 0 1
-  DUPTABLE R6 K19 [{"Title", "FailedTitle", "Key", "PageComponent"}]
-  LOADK R9 K20 ["Plugin"]
-  LOADK R10 K21 ["TestTemplatesPage.Title"]
-  NAMECALL R7 R1 K22 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K15 ["Title"]
-  LOADK R9 K20 ["Plugin"]
-  LOADK R10 K23 ["NoTemplatesToDisplay"]
-  NAMECALL R7 R1 K22 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K16 ["FailedTitle"]
-  LOADK R7 K14 ["TestTemplates"]
-  SETTABLEKS R7 R6 K17 ["Key"]
-  GETUPVAL R7 5
-  SETTABLEKS R7 R6 K18 ["PageComponent"]
-  SETLIST R5 R6 1 [1]
-  SETTABLEKS R5 R4 K7 ["Tabs"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K8 ["HideTabs"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K9 ["CanSwapBetweenViews"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K10 ["IsDefaultGridView"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K11 ["HasSearchBar"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K12 ["IsAlertVisible"]
-  CALL R2 2 -1
-  RETURN R2 -1
+  FASTCALL2K ASSERT R1 K1 [+4]
+  LOADK R2 K1 ["Must enabled FFlagLuaStartPageStudioTestTemplates and have internal permission to view TestTemplatesPage"]
+  GETIMPORT R0 K3 [assert]
+  CALL R0 2 0
+  GETUPVAL R0 2
+  NAMECALL R0 R0 K4 ["use"]
+  CALL R0 1 1
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K5 ["createElement"]
+  GETUPVAL R2 4
+  DUPTABLE R3 K13 [{"PageName", "Tabs", "HideTabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar", "IsAlertVisible"}]
+  LOADK R4 K14 ["TestTemplates"]
+  SETTABLEKS R4 R3 K6 ["PageName"]
+  NEWTABLE R4 0 1
+  DUPTABLE R5 K19 [{"Title", "FailedTitle", "Key", "PageComponent"}]
+  LOADK R8 K20 ["Plugin"]
+  LOADK R9 K21 ["TestTemplatesPage.Title"]
+  NAMECALL R6 R0 K22 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K15 ["Title"]
+  LOADK R8 K20 ["Plugin"]
+  LOADK R9 K23 ["NoTemplatesToDisplay"]
+  NAMECALL R6 R0 K22 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K16 ["FailedTitle"]
+  LOADK R6 K14 ["TestTemplates"]
+  SETTABLEKS R6 R5 K17 ["Key"]
+  GETUPVAL R6 5
+  SETTABLEKS R6 R5 K18 ["PageComponent"]
+  SETLIST R4 R5 1 [1]
+  SETTABLEKS R4 R3 K7 ["Tabs"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K8 ["HideTabs"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K9 ["CanSwapBetweenViews"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K10 ["IsDefaultGridView"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K11 ["HasSearchBar"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K12 ["IsAlertVisible"]
+  CALL R1 2 -1
+  RETURN R1 -1
 
 MAIN:
   PREPVARARGS 0
@@ -160,37 +160,23 @@ MAIN:
   GETTABLEKS R14 R15 K25 ["getFFlagLuaStartPageStudioTestTemplates"]
   CALL R13 1 1
   CALL R13 0 1
-  JUMPIFNOT R13 [+21]
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K8 ["Src"]
-  GETTABLEKS R15 R16 K24 ["SharedFlags"]
-  GETTABLEKS R14 R15 K26 ["getFFlagLuaStartPageNetworkCache"]
-  CALL R13 1 1
-  CALL R13 0 1
-  JUMPIFNOT R13 [+10]
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K8 ["Src"]
-  GETTABLEKS R15 R16 K24 ["SharedFlags"]
-  GETTABLEKS R14 R15 K27 ["getFFlagLuaStartPageQuickLoad"]
-  CALL R13 1 1
-  CALL R13 0 1
-  DUPTABLE R14 K30 [{"searchKey", "pageSize"}]
-  LOADK R15 K31 ["TestTemplates"]
-  SETTABLEKS R15 R14 K28 ["searchKey"]
+  DUPTABLE R14 K28 [{"searchKey", "pageSize"}]
+  LOADK R15 K29 ["TestTemplates"]
+  SETTABLEKS R15 R14 K26 ["searchKey"]
   LOADN R15 30
-  SETTABLEKS R15 R14 K29 ["pageSize"]
-  GETIMPORT R15 K34 [UDim2.new]
+  SETTABLEKS R15 R14 K27 ["pageSize"]
+  GETIMPORT R15 K32 [UDim2.new]
   LOADN R16 0
   LOADN R17 225
   LOADN R18 0
   LOADN R19 252
   CALL R15 4 1
-  DUPCLOSURE R16 K35 [PROTO_1]
+  DUPCLOSURE R16 K33 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R3
   CAPTURE VAL R11
-  DUPCLOSURE R17 K36 [PROTO_2]
+  DUPCLOSURE R17 K34 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R3
@@ -198,7 +184,7 @@ MAIN:
   CAPTURE VAL R16
   CAPTURE VAL R15
   CAPTURE VAL R9
-  DUPCLOSURE R18 K37 [PROTO_3]
+  DUPCLOSURE R18 K35 [PROTO_3]
   CAPTURE VAL R13
   CAPTURE VAL R12
   CAPTURE VAL R5

@@ -1,6 +1,5 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 local TextService = game:GetService("TextService")
 
 local Roact = require(CorePackages.Packages.Roact)
@@ -11,8 +10,7 @@ local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local validateImage = UIBlox.Core.ImageSet.Validator.validateImage
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local Modules = script.Parent.Parent.Parent.Parent.Parent
 local InGameMenu = Modules.InGameMenu

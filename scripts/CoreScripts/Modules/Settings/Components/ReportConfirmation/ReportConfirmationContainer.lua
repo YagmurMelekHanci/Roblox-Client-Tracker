@@ -11,7 +11,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local withStyle = UIBlox.Core.Style.withStyle
 
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local Constants = require(RobloxGui.Modules.VoiceChat.Constants)
 local GetFFlagVoiceARUnblockingUnmutingEnabled =

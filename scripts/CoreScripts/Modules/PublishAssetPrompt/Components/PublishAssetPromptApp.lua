@@ -36,7 +36,6 @@ local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
-local FFlagPublishAvatarPromptEnabled = require(script.Parent.Parent.FFlagPublishAvatarPromptEnabled)
 -- flagging roact gamepad for removal due to deprecation - focusNavigation will be used instead for engine navigation
 local FFlagMigratePublishPromptFromRoactGamepad = game:DefineFastFlag("MigratePublishPromptFromRoactGamepad", false)
 
@@ -98,7 +97,7 @@ function PublishAssetPromptApp:render()
 				screenSize = self.state.screenSize,
 			})
 		end
-	elseif FFlagPublishAvatarPromptEnabled then
+	else
 		if self.props.promptType == PromptType.PublishAvatar then
 			promptElement = Roact.createElement(PublishAvatarPrompt, {
 				screenSize = self.state.screenSize,

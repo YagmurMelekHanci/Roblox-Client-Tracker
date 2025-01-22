@@ -1,6 +1,4 @@
 --!nonstrict
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local React = require(CorePackages.Packages.React)
@@ -22,7 +20,7 @@ local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
 local RestartScreenshotDialog = require(TnsModule.Components.ReportAnything.RestartScreenshotDialog)
 local ReportAnythingAnalytics = require(TnsModule.Utility.ReportAnythingAnalytics)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local GetFFlagReportAnythingLocalizationEnabled = require(TnsModule.Flags.GetFFlagReportAnythingLocalizationEnabled)
 
 local Divider = require(Dependencies.Divider)

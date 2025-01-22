@@ -20,7 +20,7 @@ local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local Modules = CoreGui.RobloxGui.Modules
-local RobloxTranslator = require(Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local InGameMenuConstants = require(Modules.InGameMenuConstants)
 
 local TITLE_TEXT_KEY = "InGame.ConnectionError.Heading.VRDisconnected"

@@ -1,7 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -16,7 +14,7 @@ local Images = UIBlox.App.ImageSet.Images
 
 local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
 
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 -- Constants
 local OVERLAY_WIDTH = 365

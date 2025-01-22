@@ -12,9 +12,7 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 local openWebview = require(script.openWebview)
 local BadgeOver13 = require(script.BadgeOver13)
 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
 

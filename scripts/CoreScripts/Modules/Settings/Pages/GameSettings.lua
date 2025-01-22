@@ -57,7 +57,6 @@ local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSetting
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local FFlagInExperienceSettingsRefactorAnalytics =
 	require(RobloxGui.Modules.Flags.FFlagInExperienceSettingsRefactorAnalytics)
-local GetFFlagAddHapticsToggle = SharedFlags.GetFFlagAddHapticsToggle
 local GetFFlagEnableCrossExpVoiceVolumeIXPCheck = SharedFlags.GetFFlagEnableCrossExpVoiceVolumeIXPCheck
 local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnablePreferredTextSizeSettingInMenus
 local FFlagCameraSensitivityPadding = game:DefineFastFlag("CameraSensitivityPadding2", false)
@@ -74,7 +73,9 @@ local CrossExpVoiceIXPManager = require(CorePackages.Workspace.Packages.CrossExp
 
 local GameSettingsConstants
 
-local hasPartyVoiceVolume = GetFFlagEnableCrossExpVoiceVolumeIXPCheck() and CrossExpVoiceIXPManager and CrossExpVoiceIXPManager.getHasPartyVoiceVolume()
+local hasPartyVoiceVolume = GetFFlagEnableCrossExpVoiceVolumeIXPCheck()
+	and CrossExpVoiceIXPManager
+	and CrossExpVoiceIXPManager.getHasPartyVoiceVolume()
 
 -------------- CONSTANTS --------------
 local GRAPHICS_QUALITY_LEVELS = 10
@@ -239,7 +240,7 @@ local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicy
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
 local CrossExperienceVoiceManager = CrossExperienceVoice.CrossExperienceVoiceManager.default
-local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local getAppFeaturePolicies = UniversalAppPolicy.getAppFeaturePolicies
@@ -528,9 +529,7 @@ local function Initialize()
 						nil,
 						RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MaximumFramerate.Description")
 					)
-					if
-						FFlagInExperienceMenuReorderFirstVariant or FFlagOverrideInExperienceMenuReorderFirstVariant
-					then
+					if FFlagInExperienceMenuReorderFirstVariant or FFlagOverrideInExperienceMenuReorderFirstVariant then
 						this.FramerateCapFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER.FramerateCap
 					else
 						this.FramerateCapFrame.LayoutOrder = 12
@@ -1241,7 +1240,11 @@ local function Initialize()
 					-- CameraToggle, specifically (and only) does not follow this pattern.
 					-- Temporary fix due to https://roblox.atlassian.net/browse/APPEXP-2069 being planned soon
 					if FFlagCameraToggleInitBugFix then
-						if UserInputService.TouchEnabled or GameSettings.ComputerCameraMovementMode ~= Enum.ComputerCameraMovementMode.CameraToggle then
+						if
+							UserInputService.TouchEnabled
+							or GameSettings.ComputerCameraMovementMode
+								~= Enum.ComputerCameraMovementMode.CameraToggle
+						then
 							currentSavedMode = currentSavedMode + 1
 						end
 						updateCurrentCameraMovementIndex(currentSavedMode)
@@ -3093,12 +3096,12 @@ local function Initialize()
 		local guids = this[deviceType .. "DeviceGuids"] or {}
 
 		local deviceLabel = (deviceType == VOICE_CHAT_DEVICE_TYPE.Input)
-			and RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.InputDevice")
+				and RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.InputDevice")
 			or RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.OutputDevice")
 		this[deviceType .. "DeviceFrame"], _, this[deviceType .. "DeviceSelector"] =
 			utility:AddNewRow(this, deviceLabel, "Selector", options, selectedIndex)
 		this[deviceType .. "DeviceFrame"].LayoutOrder = (deviceType == VOICE_CHAT_DEVICE_TYPE.Input)
-			and SETTINGS_MENU_LAYOUT_ORDER["DeviceFrameInput"]
+				and SETTINGS_MENU_LAYOUT_ORDER["DeviceFrameInput"]
 			or SETTINGS_MENU_LAYOUT_ORDER["DeviceFrameOutput"]
 
 		this[deviceType .. "DeviceInfo"] = {
@@ -3671,9 +3674,8 @@ local function Initialize()
 	if hasPartyVoiceVolume then
 		createPartyVoiceVolumeOptions()
 	end
-	if GetFFlagAddHapticsToggle() then
-		createHapticsToggle()
-	end
+
+	createHapticsToggle()
 	createGraphicsOptions()
 
 	createReducedMotionOptions()
@@ -3732,7 +3734,7 @@ local function Initialize()
 		this.TabHeader.TabLabel.Title.Text = "Settings"
 	else
 		this.TabHeader.Icon.Image = isTenFootInterface
-			and "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png"
+				and "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png"
 			or "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab.png"
 
 		if FFlagUseNotificationsLocalization then

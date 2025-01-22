@@ -28,136 +28,130 @@ PROTO_1:
   GETUPVAL R6 3
   GETTABLEKS R5 R6 K2 ["createElement"]
   LOADK R6 K3 ["Frame"]
-  NEWTABLE R7 4 0
-  GETUPVAL R9 4
-  JUMPIFNOT R9 [+2]
-  LOADNIL R8
-  JUMP [+2]
-  GETTABLEKS R8 R0 K4 ["Position"]
-  SETTABLEKS R8 R7 K4 ["Position"]
-  GETTABLEKS R8 R0 K5 ["Size"]
-  SETTABLEKS R8 R7 K5 ["Size"]
+  NEWTABLE R7 2 0
+  GETTABLEKS R8 R0 K4 ["Size"]
+  SETTABLEKS R8 R7 K4 ["Size"]
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K6 ["Tag"]
-  LOADK R9 K7 ["X-Center X-Middle X-Transparent X-Column"]
+  GETTABLEKS R8 R9 K5 ["Tag"]
+  LOADK R9 K6 ["X-Center X-Middle X-Transparent X-Column"]
   SETTABLE R9 R7 R8
-  DUPTABLE R8 K13 [{"NoDisplayImage", "EmptySpace", "Title", "EmptySpace2", "Button"}]
+  DUPTABLE R8 K12 [{"NoDisplayImage", "EmptySpace", "Title", "EmptySpace2", "Button"}]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
   LOADK R10 K3 ["Frame"]
   NEWTABLE R11 2 0
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K6 ["Tag"]
-  LOADK R13 K15 ["X-FitY X-Center X-Middle X-Transparent"]
+  GETTABLEKS R12 R13 K5 ["Tag"]
+  LOADK R13 K14 ["X-FitY X-Center X-Middle X-Transparent"]
   SETTABLE R13 R11 R12
-  DUPTABLE R12 K17 [{"Image"}]
+  DUPTABLE R12 K16 [{"Image"}]
   GETUPVAL R14 3
   GETTABLEKS R13 R14 K2 ["createElement"]
-  GETUPVAL R14 5
+  GETUPVAL R14 4
   NEWTABLE R15 1 0
   GETUPVAL R17 3
-  GETTABLEKS R16 R17 K6 ["Tag"]
-  LOADK R17 K18 ["StartPage-NoExperiences"]
+  GETTABLEKS R16 R17 K5 ["Tag"]
+  LOADK R17 K17 ["StartPage-NoExperiences"]
   SETTABLE R17 R15 R16
   CALL R13 2 1
-  SETTABLEKS R13 R12 K16 ["Image"]
+  SETTABLEKS R13 R12 K15 ["Image"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K8 ["NoDisplayImage"]
+  SETTABLEKS R9 R8 K7 ["NoDisplayImage"]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
   LOADK R10 K3 ["Frame"]
   NEWTABLE R11 4 0
-  GETIMPORT R12 K21 [UDim2.new]
+  GETIMPORT R12 K20 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
   LOADN R16 32
   CALL R12 4 1
-  SETTABLEKS R12 R11 K5 ["Size"]
+  SETTABLEKS R12 R11 K4 ["Size"]
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K6 ["Tag"]
-  LOADK R13 K22 ["X-Transparent"]
+  GETTABLEKS R12 R13 K5 ["Tag"]
+  LOADK R13 K21 ["X-Transparent"]
   SETTABLE R13 R11 R12
   CALL R9 2 1
-  SETTABLEKS R9 R8 K9 ["EmptySpace"]
+  SETTABLEKS R9 R8 K8 ["EmptySpace"]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
-  LOADK R10 K23 ["TextLabel"]
+  LOADK R10 K22 ["TextLabel"]
   NEWTABLE R11 8 0
-  GETTABLEKS R12 R0 K10 ["Title"]
-  SETTABLEKS R12 R11 K24 ["Text"]
+  GETTABLEKS R12 R0 K9 ["Title"]
+  SETTABLEKS R12 R11 K23 ["Text"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K25 ["TextWrapped"]
-  GETIMPORT R12 K29 [Enum.TextXAlignment.Center]
-  SETTABLEKS R12 R11 K27 ["TextXAlignment"]
+  SETTABLEKS R12 R11 K24 ["TextWrapped"]
+  GETIMPORT R12 K28 [Enum.TextXAlignment.Center]
+  SETTABLEKS R12 R11 K26 ["TextXAlignment"]
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K6 ["Tag"]
-  LOADK R13 K30 ["X-Fit StartPage-Font StartPage-TextSize X-Transparent StartPage-TextColor"]
+  GETTABLEKS R12 R13 K5 ["Tag"]
+  LOADK R13 K29 ["X-Fit StartPage-Font StartPage-TextSize X-Transparent StartPage-TextColor"]
   SETTABLE R13 R11 R12
   CALL R9 2 1
-  SETTABLEKS R9 R8 K10 ["Title"]
+  SETTABLEKS R9 R8 K9 ["Title"]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
   LOADK R10 K3 ["Frame"]
   NEWTABLE R11 4 0
-  GETIMPORT R12 K21 [UDim2.new]
+  GETIMPORT R12 K20 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
   LOADN R16 16
   CALL R12 4 1
-  SETTABLEKS R12 R11 K5 ["Size"]
+  SETTABLEKS R12 R11 K4 ["Size"]
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K6 ["Tag"]
-  LOADK R13 K22 ["X-Transparent"]
+  GETTABLEKS R12 R13 K5 ["Tag"]
+  LOADK R13 K21 ["X-Transparent"]
   SETTABLE R13 R11 R12
   CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["EmptySpace2"]
+  SETTABLEKS R9 R8 K10 ["EmptySpace2"]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
-  LOADK R10 K31 ["TextButton"]
+  LOADK R10 K30 ["TextButton"]
   NEWTABLE R11 8 0
-  LOADK R14 K32 ["Plugin"]
-  LOADK R15 K33 ["CreateANewExperience"]
-  NAMECALL R12 R1 K34 ["getText"]
+  LOADK R14 K31 ["Plugin"]
+  LOADK R15 K32 ["CreateANewExperience"]
+  NAMECALL R12 R1 K33 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K24 ["Text"]
+  SETTABLEKS R12 R11 K23 ["Text"]
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
   GETUPVAL R14 3
-  GETTABLEKS R13 R14 K35 ["Event"]
-  GETTABLEKS R12 R13 K36 ["Activated"]
-  DUPCLOSURE R13 K37 [PROTO_0]
+  GETTABLEKS R13 R14 K34 ["Event"]
+  GETTABLEKS R12 R13 K35 ["Activated"]
+  DUPCLOSURE R13 K36 [PROTO_0]
+  CAPTURE UPVAL U5
   CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
   SETTABLE R13 R11 R12
   GETUPVAL R14 3
-  GETTABLEKS R13 R14 K35 ["Event"]
-  GETTABLEKS R12 R13 K38 ["MouseEnter"]
+  GETTABLEKS R13 R14 K34 ["Event"]
+  GETTABLEKS R12 R13 K37 ["MouseEnter"]
   SETTABLE R3 R11 R12
   GETUPVAL R14 3
-  GETTABLEKS R13 R14 K35 ["Event"]
-  GETTABLEKS R12 R13 K39 ["MouseLeave"]
+  GETTABLEKS R13 R14 K34 ["Event"]
+  GETTABLEKS R12 R13 K38 ["MouseLeave"]
   SETTABLE R4 R11 R12
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K6 ["Tag"]
-  LOADK R13 K40 ["X-Fit X-Middle StartPage-ButtonBackgroundColor StartPage-FontBold StartPage-TextSize StartPage-ButtonPadding StartPage-RoundedCorner8 StartPage-StandardTextColor"]
+  GETTABLEKS R12 R13 K5 ["Tag"]
+  LOADK R13 K39 ["X-Fit X-Middle StartPage-ButtonBackgroundColor StartPage-FontBold StartPage-TextSize StartPage-ButtonPadding StartPage-RoundedCorner8 StartPage-StandardTextColor"]
   SETTABLE R13 R11 R12
   CALL R9 2 1
-  SETTABLEKS R9 R8 K12 ["Button"]
+  SETTABLEKS R9 R8 K11 ["Button"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -168,48 +162,41 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["SharedFlags"]
-  GETTABLEKS R2 R3 K8 ["getFFlagLuaStartPageQuickLoad"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
-  CALL R1 0 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["React"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Framework"]
-  CALL R3 1 1
-  GETTABLEKS R5 R3 K12 ["Util"]
-  GETTABLEKS R4 R5 K13 ["counter"]
-  GETTABLEKS R6 R3 K14 ["ContextServices"]
-  GETTABLEKS R5 R6 K15 ["Localization"]
-  GETTABLEKS R6 R3 K16 ["UI"]
-  GETTABLEKS R7 R6 K17 ["Image"]
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K6 ["Src"]
-  GETTABLEKS R10 R11 K12 ["Util"]
-  GETTABLEKS R9 R10 K18 ["Services"]
-  CALL R8 1 1
-  GETTABLEKS R9 R8 K19 ["StartPageManager"]
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K6 ["Src"]
-  GETTABLEKS R12 R13 K20 ["Hooks"]
-  GETTABLEKS R11 R12 K21 ["useCursor"]
-  CALL R10 1 1
-  GETIMPORT R11 K23 [game]
-  LOADK R13 K24 ["FixPSCMissingUniverseIdFromLuaStartPage"]
-  LOADB R14 0
-  NAMECALL R11 R11 K25 ["DefineFastFlag"]
-  CALL R11 3 1
-  DUPCLOSURE R12 K26 [PROTO_1]
-  CAPTURE VAL R5
+  GETTABLEKS R4 R2 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["counter"]
+  GETTABLEKS R5 R2 K11 ["ContextServices"]
+  GETTABLEKS R4 R5 K12 ["Localization"]
+  GETTABLEKS R5 R2 K13 ["UI"]
+  GETTABLEKS R6 R5 K14 ["Image"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K15 ["Src"]
+  GETTABLEKS R9 R10 K9 ["Util"]
+  GETTABLEKS R8 R9 K16 ["Services"]
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K17 ["StartPageManager"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Hooks"]
+  GETTABLEKS R10 R11 K19 ["useCursor"]
+  CALL R9 1 1
+  GETIMPORT R10 K21 [game]
+  LOADK R12 K22 ["FixPSCMissingUniverseIdFromLuaStartPage"]
+  LOADB R13 0
+  NAMECALL R10 R10 K23 ["DefineFastFlag"]
+  CALL R10 3 1
+  DUPCLOSURE R11 K24 [PROTO_1]
   CAPTURE VAL R4
-  CAPTURE VAL R10
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  CAPTURE VAL R7
-  CAPTURE VAL R11
+  CAPTURE VAL R3
   CAPTURE VAL R9
-  RETURN R12 1
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  RETURN R11 1

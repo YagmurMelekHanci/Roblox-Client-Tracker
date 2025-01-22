@@ -272,48 +272,34 @@ MAIN:
   GETTABLEKS R16 R17 K26 ["getFFlagLuaStartPageStudioTestTemplates"]
   CALL R15 1 1
   CALL R15 0 1
-  JUMPIFNOT R15 [+21]
-  GETIMPORT R15 K5 [require]
-  GETTABLEKS R18 R0 K6 ["Src"]
-  GETTABLEKS R17 R18 K7 ["SharedFlags"]
-  GETTABLEKS R16 R17 K27 ["getFFlagLuaStartPageNetworkCache"]
-  CALL R15 1 1
-  CALL R15 0 1
-  JUMPIFNOT R15 [+10]
-  GETIMPORT R15 K5 [require]
-  GETTABLEKS R18 R0 K6 ["Src"]
-  GETTABLEKS R17 R18 K7 ["SharedFlags"]
-  GETTABLEKS R16 R17 K28 ["getFFlagLuaStartPageQuickLoad"]
-  CALL R15 1 1
-  CALL R15 0 1
-  GETTABLEKS R17 R2 K29 ["RobloxAPI"]
-  GETTABLEKS R16 R17 K30 ["Url"]
-  GETTABLEKS R17 R10 K31 ["new"]
-  DUPTABLE R18 K34 [{"isInternal", "loggingLevel"}]
+  GETTABLEKS R17 R2 K27 ["RobloxAPI"]
+  GETTABLEKS R16 R17 K28 ["Url"]
+  GETTABLEKS R17 R10 K29 ["new"]
+  DUPTABLE R18 K32 [{"isInternal", "loggingLevel"}]
   LOADB R19 1
-  SETTABLEKS R19 R18 K32 ["isInternal"]
-  SETTABLEKS R1 R18 K33 ["loggingLevel"]
+  SETTABLEKS R19 R18 K30 ["isInternal"]
+  SETTABLEKS R1 R18 K31 ["loggingLevel"]
   CALL R17 1 1
   GETIMPORT R18 K5 [require]
   GETTABLEKS R21 R0 K6 ["Src"]
   GETTABLEKS R20 R21 K16 ["Network"]
-  GETTABLEKS R19 R20 K35 ["GameCache"]
+  GETTABLEKS R19 R20 K33 ["GameCache"]
   CALL R18 1 1
   GETIMPORT R19 K5 [require]
   GETTABLEKS R22 R0 K6 ["Src"]
   GETTABLEKS R21 R22 K16 ["Network"]
-  GETTABLEKS R20 R21 K36 ["DiscoverPlaceholderIcons"]
+  GETTABLEKS R20 R21 K34 ["DiscoverPlaceholderIcons"]
   CALL R19 1 1
   MOVE R20 R12
-  GETTABLEKS R21 R13 K37 ["validate"]
+  GETTABLEKS R21 R13 K35 ["validate"]
   CALL R20 1 1
   MOVE R21 R12
-  GETTABLEKS R22 R14 K37 ["validate"]
+  GETTABLEKS R22 R14 K35 ["validate"]
   CALL R21 1 1
   NEWTABLE R22 1 0
-  LOADK R23 K38 ["application/json"]
-  SETTABLEKS R23 R22 K39 ["Content-Type"]
-  DUPCLOSURE R23 K40 [PROTO_9]
+  LOADK R23 K36 ["application/json"]
+  SETTABLEKS R23 R22 K37 ["Content-Type"]
+  DUPCLOSURE R23 K38 [PROTO_9]
   CAPTURE VAL R15
   CAPTURE VAL R11
   CAPTURE VAL R16

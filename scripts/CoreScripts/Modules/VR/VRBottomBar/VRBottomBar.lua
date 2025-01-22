@@ -29,7 +29,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Core.Style.withStyle
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local VRUtil = require(CorePackages.Workspace.Packages.VrCommon).VRUtil
 

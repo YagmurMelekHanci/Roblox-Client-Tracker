@@ -17,7 +17,7 @@ MAIN:
   GETTABLEKS R3 R4 K12 ["createStyleRule"]
   GETTABLEKS R5 R1 K11 ["Styling"]
   GETTABLEKS R4 R5 K13 ["createStyleSheet"]
-  NEWTABLE R5 0 14
+  NEWTABLE R5 0 15
   MOVE R6 R3
   LOADK R7 K14 ["Frame"]
   DUPTABLE R8 K16 [{"BorderSizePixel"}]
@@ -309,19 +309,30 @@ MAIN:
   LOADN R24 16
   CALL R22 2 1
   SETTABLEKS R22 R21 K39 ["Size"]
-  CALL R19 2 -1
+  CALL R19 2 1
+  MOVE R20 R3
+  LOADK R21 K110 [".AddAnnotationIcon"]
+  DUPTABLE R22 K100 [{"Image", "Size"}]
+  LOADK R23 K111 ["$AddAnnotation"]
+  SETTABLEKS R23 R22 K96 ["Image"]
+  GETIMPORT R23 K43 [UDim2.fromOffset]
+  LOADN R24 16
+  LOADN R25 16
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K39 ["Size"]
+  CALL R20 2 -1
   SETLIST R5 R6 -1 [1]
-  DUPTABLE R6 K114 [{"Font", "FontBold", "FontSizeS", "FontSizeM", "FontSizeL"}]
-  GETIMPORT R7 K116 [Enum.Font.SourceSans]
+  DUPTABLE R6 K116 [{"Font", "FontBold", "FontSizeS", "FontSizeM", "FontSizeL"}]
+  GETIMPORT R7 K118 [Enum.Font.SourceSans]
   SETTABLEKS R7 R6 K22 ["Font"]
-  GETIMPORT R7 K118 [Enum.Font.SourceSansBold]
-  SETTABLEKS R7 R6 K110 ["FontBold"]
+  GETIMPORT R7 K120 [Enum.Font.SourceSansBold]
+  SETTABLEKS R7 R6 K112 ["FontBold"]
   LOADN R7 15
-  SETTABLEKS R7 R6 K111 ["FontSizeS"]
+  SETTABLEKS R7 R6 K113 ["FontSizeS"]
   LOADN R7 18
-  SETTABLEKS R7 R6 K112 ["FontSizeM"]
+  SETTABLEKS R7 R6 K114 ["FontSizeM"]
   LOADN R7 20
-  SETTABLEKS R7 R6 K113 ["FontSizeL"]
+  SETTABLEKS R7 R6 K115 ["FontSizeL"]
   MOVE R7 R4
   LOADK R8 K2 ["PlaceAnnotations"]
   MOVE R9 R5

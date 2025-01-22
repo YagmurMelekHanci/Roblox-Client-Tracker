@@ -176,40 +176,54 @@ PROTO_3:
   SETLIST R7 R8 1 [1]
   NAMECALL R5 R1 K18 ["SerializeInstances"]
   CALL R5 2 1
-  DUPTABLE R6 K28 [{"AssetType", "AssetName", "Description", "AssetId", "CreatorId", "CreatorType", "ContentType", "Token", "AdditionalParameters"}]
-  LOADK R7 K29 ["Model"]
-  SETTABLEKS R7 R6 K19 ["AssetType"]
-  LOADK R7 K30 ["Auto-setup character model"]
-  SETTABLEKS R7 R6 K20 ["AssetName"]
-  LOADK R7 K30 ["Auto-setup character model"]
-  SETTABLEKS R7 R6 K21 ["Description"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K22 ["AssetId"]
+  GETIMPORT R6 K22 [Enum.AssetCreatorType.User]
   GETUPVAL R7 1
-  NAMECALL R7 R7 K31 ["GetUserId"]
+  NAMECALL R7 R7 K23 ["GetUserId"]
   CALL R7 1 1
-  SETTABLEKS R7 R6 K23 ["CreatorId"]
-  GETIMPORT R7 K35 [Enum.AssetCreatorType.User]
-  SETTABLEKS R7 R6 K24 ["CreatorType"]
-  LOADK R7 K36 ["model/x-rbxm"]
-  SETTABLEKS R7 R6 K25 ["ContentType"]
-  LOADK R7 K37 [""]
-  SETTABLEKS R7 R6 K26 ["Token"]
-  DUPTABLE R7 K39 [{"PublishAsPackage"}]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K38 ["PublishAsPackage"]
-  SETTABLEKS R7 R6 K27 ["AdditionalParameters"]
-  GETUPVAL R7 2
-  MOVE R9 R5
-  MOVE R10 R6
-  NAMECALL R7 R7 K40 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam"]
-  CALL R7 3 1
-  LOADK R9 K41 ["rbxassetid://%*"]
-  GETTABLEKS R11 R7 K22 ["AssetId"]
-  NAMECALL R9 R9 K42 ["format"]
-  CALL R9 2 1
-  MOVE R8 R9
-  RETURN R8 1
+  GETUPVAL R8 2
+  CALL R8 0 1
+  JUMPIFNOT R8 [+21]
+  GETIMPORT R9 K2 [game]
+  GETTABLEKS R8 R9 K24 ["CreatorType"]
+  GETIMPORT R9 K26 [Enum.CreatorType.Group]
+  JUMPIFNOTEQ R8 R9 [+14]
+  GETIMPORT R9 K2 [game]
+  GETTABLEKS R8 R9 K27 ["CreatorId"]
+  LOADN R9 0
+  JUMPIFNOTLT R9 R8 [+7]
+  GETIMPORT R6 K28 [Enum.AssetCreatorType.Group]
+  GETIMPORT R8 K2 [game]
+  GETTABLEKS R7 R8 K27 ["CreatorId"]
+  DUPTABLE R8 K36 [{"AssetType", "AssetName", "Description", "AssetId", "CreatorId", "CreatorType", "ContentType", "Token", "AdditionalParameters"}]
+  LOADK R9 K37 ["Model"]
+  SETTABLEKS R9 R8 K29 ["AssetType"]
+  LOADK R9 K38 ["Auto-setup character model"]
+  SETTABLEKS R9 R8 K30 ["AssetName"]
+  LOADK R9 K38 ["Auto-setup character model"]
+  SETTABLEKS R9 R8 K31 ["Description"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K32 ["AssetId"]
+  SETTABLEKS R7 R8 K27 ["CreatorId"]
+  SETTABLEKS R6 R8 K24 ["CreatorType"]
+  LOADK R9 K39 ["model/x-rbxm"]
+  SETTABLEKS R9 R8 K33 ["ContentType"]
+  LOADK R9 K40 [""]
+  SETTABLEKS R9 R8 K34 ["Token"]
+  DUPTABLE R9 K42 [{"PublishAsPackage"}]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K41 ["PublishAsPackage"]
+  SETTABLEKS R9 R8 K35 ["AdditionalParameters"]
+  GETUPVAL R9 3
+  MOVE R11 R5
+  MOVE R12 R8
+  NAMECALL R9 R9 K43 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam"]
+  CALL R9 3 1
+  LOADK R11 K44 ["rbxassetid://%*"]
+  GETTABLEKS R13 R9 K32 ["AssetId"]
+  NAMECALL R11 R11 K45 ["format"]
+  CALL R11 2 1
+  MOVE R10 R11
+  RETURN R10 1
 
 PROTO_4:
   GETUPVAL R3 0
@@ -342,34 +356,40 @@ MAIN:
   GETTABLEKS R12 R13 K18 ["Flags"]
   GETTABLEKS R11 R12 K22 ["getFFlagStudioAvatarAutosetupReportsProgress"]
   CALL R10 1 1
-  DUPCLOSURE R11 K23 [PROTO_0]
+  GETIMPORT R11 K11 [require]
+  GETTABLEKS R14 R3 K14 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Flags"]
+  GETTABLEKS R12 R13 K23 ["getFFlagStudioAvatarAutoSetupGroupUpload"]
+  CALL R11 1 1
+  DUPCLOSURE R12 K24 [PROTO_0]
   CAPTURE VAL R10
   CAPTURE VAL R0
   CAPTURE VAL R5
-  DUPCLOSURE R12 K24 [PROTO_1]
-  DUPCLOSURE R13 K25 [PROTO_2]
-  CAPTURE VAL R12
-  DUPCLOSURE R14 K26 [PROTO_3]
+  DUPCLOSURE R13 K25 [PROTO_1]
+  DUPCLOSURE R14 K26 [PROTO_2]
+  CAPTURE VAL R13
+  DUPCLOSURE R15 K27 [PROTO_3]
   CAPTURE VAL R9
   CAPTURE VAL R2
+  CAPTURE VAL R11
   CAPTURE VAL R1
-  DUPCLOSURE R15 K27 [PROTO_4]
+  DUPCLOSURE R16 K28 [PROTO_4]
   CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE VAL R11
-  DUPCLOSURE R16 K28 [PROTO_5]
+  CAPTURE VAL R12
+  DUPCLOSURE R17 K29 [PROTO_5]
   CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R7
-  CAPTURE VAL R13
-  DUPTABLE R17 K33 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal"}]
-  SETTABLEKS R14 R17 K29 ["uploadModelAsync"]
-  SETTABLEKS R15 R17 K30 ["startAutoSetupAsync"]
-  SETTABLEKS R16 R17 K31 ["DEPRECATED_startAutoSetupAsync"]
-  LOADNIL R18
-  SETTABLEKS R18 R17 K32 ["autoSetupClickedSignal"]
-  GETTABLEKS R18 R4 K34 ["createContext"]
-  MOVE R19 R17
-  CALL R18 1 1
-  RETURN R18 1
+  CAPTURE VAL R14
+  DUPTABLE R18 K34 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal"}]
+  SETTABLEKS R15 R18 K30 ["uploadModelAsync"]
+  SETTABLEKS R16 R18 K31 ["startAutoSetupAsync"]
+  SETTABLEKS R17 R18 K32 ["DEPRECATED_startAutoSetupAsync"]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K33 ["autoSetupClickedSignal"]
+  GETTABLEKS R19 R4 K35 ["createContext"]
+  MOVE R20 R18
+  CALL R19 1 1
+  RETURN R19 1

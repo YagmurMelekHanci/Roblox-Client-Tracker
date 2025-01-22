@@ -11,7 +11,7 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local Roact = PurchasePromptDeps.Roact
 local ToastType = ToastRodux.Enums.ToastType

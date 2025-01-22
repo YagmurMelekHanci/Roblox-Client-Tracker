@@ -22,7 +22,7 @@ local FriendDropDownButton = require(script.Parent.FriendDropDownButton)
 local LocalPlayer = Players.LocalPlayer
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local Images = UIBlox.App.ImageSet.Images
 

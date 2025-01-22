@@ -9,7 +9,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local AvatarPartGrid = require(script.Parent.AvatarParts.AvatarPartGrid)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
@@ -25,9 +25,6 @@ local Analytics = PurchasePrompt.PublishAssetAnalytics
 
 local Actions = script.Parent.Parent.Parent.Actions
 local SetPromptVisibility = require(Actions.SetPromptVisibility)
-
-local FFlagPromptCreateAvatarDescriptionInvalidFix =
-	require(script.Parent.Parent.Parent.FFlagPromptCreateAvatarDescriptionInvalidFix)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
@@ -225,9 +222,7 @@ function PublishAvatarPrompt:renderPromptBody()
 				maxLength = DESC_TEXTBOX_MAXLENGTH,
 				onTextUpdated = self.onDescriptionUpdated,
 				textBoxHeight = DESC_TEXTBOX_HEIGHT,
-				invalidInputText = if FFlagPromptCreateAvatarDescriptionInvalidFix
-					then RobloxTranslator:FormatByKey(DESC_INVALID_KEY)
-					else nil,
+				invalidInputText = RobloxTranslator:FormatByKey(DESC_INVALID_KEY),
 			}),
 			InfoList = Roact.createElement(PublishInfoList, {
 				typeName = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Body"),

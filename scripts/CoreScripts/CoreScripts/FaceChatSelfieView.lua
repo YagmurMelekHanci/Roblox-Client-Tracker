@@ -94,7 +94,6 @@ local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalyti
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
-local GetFFlagIrisGyroEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisGyroEnabled
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local getFFlagDoNotPromptCameraPermissionsOnMount =
@@ -3052,24 +3051,20 @@ function startRenderStepped(player)
 				end
 			end
 
-			local camOrientationWeight
-			local trackerData
-			if GetFFlagIrisGyroEnabled() then
-				camOrientationWeight = 0.5
-				trackerData = nil
-				-- When a device has accelerometer, we make self view orientation a hybrid of:
-				-- 1. Face rotation
-				-- 2. Camera orientation
+			local camOrientationWeight = 0.5
+			local trackerData = nil
+			-- When a device has accelerometer, we make self view orientation a hybrid of:
+			-- 1. Face rotation
+			-- 2. Camera orientation
 
-				local platformEnum = UserInputService:GetPlatform()
-				if platformEnum == Enum.Platform.IOS or platformEnum == Enum.Platform.Android then
-					if cloneAnimator ~= nil then
-						local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
-						for i, trackS in pairs(playingAnims) do
-							if trackS.Animation:IsA("TrackerStreamAnimation") then
-								-- poll tracker data
-								_, trackerData, _ = trackS:GetTrackerData()
-							end
+			local platformEnum = UserInputService:GetPlatform()
+			if platformEnum == Enum.Platform.IOS or platformEnum == Enum.Platform.Android then
+				if cloneAnimator ~= nil then
+					local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
+					for i, trackS in pairs(playingAnims) do
+						if trackS.Animation:IsA("TrackerStreamAnimation") then
+							-- poll tracker data
+							_, trackerData, _ = trackS:GetTrackerData()
 						end
 					end
 				end
@@ -3140,7 +3135,6 @@ function startRenderStepped(player)
 						if
 							FaceAnimatorService
 							and FaceAnimatorService.VideoAnimationEnabled
-							and GetFFlagIrisGyroEnabled()
 							and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport)
 						then
 							if EngineFeaturePlayerViewRemoteEventSupport then
@@ -3203,8 +3197,7 @@ function startRenderStepped(player)
 						end
 					else
 						if
-							GetFFlagIrisGyroEnabled()
-							and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport)
+							trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport
 						then
 							if EngineFeaturePlayerViewRemoteEventSupport then
 								local cframe = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView()

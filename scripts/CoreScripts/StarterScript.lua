@@ -44,8 +44,6 @@ local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 local GetFFlagContactListClientEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListClientEnabled)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6", false)
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
-local GetFFlagIrisAlwaysOnTopEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisAlwaysOnTopEnabled
 local GetFFlagEnableSocialContextToast =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSocialContextToast
 local GetFFlagLuaAppEnableSquadPage = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableSquadPage
@@ -282,10 +280,6 @@ if game:GetEngineFeature("EnableBubbleChatFromChatService") or UserRoactBubbleCh
 	ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerBillboards", RobloxGui)
 end
 
-if GetFFlagIrisAlwaysOnTopEnabled() then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/IrisUpdateBubbleChat", RobloxGui)
-end
-
 -- Purchase Prompt Script
 coroutine.wrap(function()
 	local PurchasePrompt = safeRequire(CoreGuiModules.PurchasePrompt)
@@ -446,6 +440,10 @@ if game:GetEngineFeature("EnableAdGuiInteractivityControlRefactor") then
 			AdGuiInteractivity.starterScript()
 		end
 	end)()
+end
+
+if game:GetEngineFeature("EnableLuaAdPlayer") then 
+	safeRequire(CorePackages.Workspace.Packages.AdPlayer).init()
 end
 
 if game:GetEngineFeature("EnableVoiceAttention") then

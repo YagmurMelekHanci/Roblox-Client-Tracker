@@ -174,45 +174,49 @@ PROTO_7:
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K1 ["AssetInfoField"]
   GETTABLEKS R8 R9 K2 ["DisplayName"]
-  JUMPIFEQ R7 R8 [+52]
+  JUMPIFEQ R7 R8 [+59]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K1 ["AssetInfoField"]
   GETTABLEKS R8 R9 K3 ["ModerationStatus"]
-  JUMPIFEQ R7 R8 [+45]
+  JUMPIFEQ R7 R8 [+52]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K1 ["AssetInfoField"]
   GETTABLEKS R8 R9 K4 ["VersionNumber"]
+  JUMPIFEQ R7 R8 [+45]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K1 ["AssetInfoField"]
+  GETTABLEKS R8 R9 K5 ["Archived"]
   JUMPIFEQ R7 R8 [+38]
-  DUPTABLE R10 K8 [{"Text", "OnItemClicked", "Icon"}]
-  LOADK R13 K9 ["AssetProperty"]
+  DUPTABLE R10 K9 [{"Text", "OnItemClicked", "Icon"}]
+  LOADK R13 K10 ["AssetProperty"]
   MOVE R14 R7
-  NAMECALL R11 R1 K10 ["getText"]
+  NAMECALL R11 R1 K11 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K5 ["Text"]
+  SETTABLEKS R11 R10 K6 ["Text"]
   NEWCLOSURE R11 P0
   CAPTURE VAL R0
   CAPTURE VAL R7
-  SETTABLEKS R11 R10 K6 ["OnItemClicked"]
+  SETTABLEKS R11 R10 K7 ["OnItemClicked"]
   MOVE R14 R7
-  NAMECALL R12 R0 K11 ["getVisiblePropertyIndex"]
+  NAMECALL R12 R0 K12 ["getVisiblePropertyIndex"]
   CALL R12 2 1
   JUMPIFNOT R12 [+10]
   GETUPVAL R12 1
-  GETTABLEKS R11 R12 K12 ["getImageHelper"]
+  GETTABLEKS R11 R12 K13 ["getImageHelper"]
   GETUPVAL R14 1
-  GETTABLEKS R13 R14 K13 ["AvailableImages"]
-  GETTABLEKS R12 R13 K14 ["Checkmark"]
+  GETTABLEKS R13 R14 K14 ["AvailableImages"]
+  GETTABLEKS R12 R13 K15 ["Checkmark"]
   CALL R11 1 1
   JUMP [+1]
   LOADNIL R11
-  SETTABLEKS R11 R10 K7 ["Icon"]
+  SETTABLEKS R11 R10 K8 ["Icon"]
   FASTCALL2 TABLE_INSERT R2 R10 [+4]
   MOVE R9 R2
-  GETIMPORT R8 K17 [table.insert]
+  GETIMPORT R8 K18 [table.insert]
   CALL R8 2 0
-  FORGLOOP R3 2 [-59]
+  FORGLOOP R3 2 [-66]
   GETUPVAL R3 2
-  NAMECALL R4 R0 K18 ["getPlugin"]
+  NAMECALL R4 R0 K19 ["getPlugin"]
   CALL R4 1 1
   MOVE R5 R2
   CALL R3 2 0

@@ -1,7 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
-local CoreGui = game:GetService("CoreGui")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local Roact = require(CorePackages.Packages.Roact)
@@ -12,8 +11,7 @@ local DropDownButtonAnimator = require(script.Parent.DropDownButtonAnimator)
 
 local Images = UIBlox.App.ImageSet.Images
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local LocalPlayer = Players.LocalPlayer
 

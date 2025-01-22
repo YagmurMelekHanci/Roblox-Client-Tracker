@@ -59,7 +59,7 @@ local BadgeSize = UDim2.fromOffset(31, 11)
 local PopupPadding = UDim.new(0, 12)
 local PopupSize = UDim2.fromOffset(330, 185)
 
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local noop = function() end
 local eventContext = "voiceChat"

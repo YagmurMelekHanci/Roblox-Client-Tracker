@@ -23,7 +23,7 @@ PROTO_2:
   GETUPVAL R5 2
   GETUPVAL R6 3
   CALL R4 2 1
-  DUPTABLE R5 K12 [{"openInsertObjectMenu", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "triggerFocus", "listenForFocus"}]
+  DUPTABLE R5 K13 [{"openInsertObjectMenu", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "triggerFocus", "listenForFocus", "fieldsConfig"}]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U2
@@ -42,6 +42,10 @@ PROTO_2:
   SETTABLEKS R6 R5 K10 ["triggerFocus"]
   GETUPVAL R6 10
   SETTABLEKS R6 R5 K11 ["listenForFocus"]
+  DUPTABLE R6 K15 [{"createLiveSyncStatusWatcher"}]
+  GETUPVAL R7 11
+  SETTABLEKS R7 R6 K14 ["createLiveSyncStatusWatcher"]
+  SETTABLEKS R6 R5 K12 ["fieldsConfig"]
   CALL R1 4 -1
   RETURN R1 -1
 
@@ -95,6 +99,7 @@ PROTO_4:
   CAPTURE UPVAL U10
   CAPTURE UPVAL U11
   CAPTURE UPVAL U12
+  CAPTURE UPVAL U13
   SETTABLEKS R10 R9 K4 ["createGuestRpcInterface"]
   CALL R8 1 1
   GETTABLEKS R9 R0 K6 ["Unloading"]
@@ -138,61 +143,67 @@ MAIN:
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K8 ["Src"]
   GETTABLEKS R7 R8 K14 ["Guest"]
-  GETTABLEKS R6 R7 K15 ["createStudioGuestConnection"]
+  GETTABLEKS R6 R7 K15 ["createLiveSyncStatusWatcher"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R10 R0 K8 ["Src"]
-  GETTABLEKS R9 R10 K9 ["SharedFeatures"]
-  GETTABLEKS R8 R9 K12 ["ContextMenu"]
-  GETTABLEKS R7 R8 K16 ["createStudioGuestContextMenuActions"]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Guest"]
+  GETTABLEKS R7 R8 K16 ["createStudioGuestConnection"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K8 ["Src"]
-  GETTABLEKS R9 R10 K14 ["Guest"]
-  GETTABLEKS R8 R9 K17 ["createStudioInstancePicker"]
+  GETTABLEKS R11 R0 K8 ["Src"]
+  GETTABLEKS R10 R11 K9 ["SharedFeatures"]
+  GETTABLEKS R9 R10 K12 ["ContextMenu"]
+  GETTABLEKS R8 R9 K17 ["createStudioGuestContextMenuActions"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K8 ["Src"]
   GETTABLEKS R10 R11 K14 ["Guest"]
-  GETTABLEKS R9 R10 K18 ["isServiceVisible"]
+  GETTABLEKS R9 R10 K18 ["createStudioInstancePicker"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K8 ["Src"]
   GETTABLEKS R11 R12 K14 ["Guest"]
-  GETTABLEKS R10 R11 K19 ["listenForFocus"]
+  GETTABLEKS R10 R11 K19 ["isServiceVisible"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K8 ["Src"]
   GETTABLEKS R12 R13 K14 ["Guest"]
-  GETTABLEKS R11 R12 K20 ["listenForVisibilityChanges"]
+  GETTABLEKS R11 R12 K20 ["listenForFocus"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K8 ["Src"]
   GETTABLEKS R13 R14 K14 ["Guest"]
-  GETTABLEKS R12 R13 K21 ["openInsertObjectMenu"]
+  GETTABLEKS R12 R13 K21 ["listenForVisibilityChanges"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETTABLEKS R15 R0 K8 ["Src"]
   GETTABLEKS R14 R15 K14 ["Guest"]
-  GETTABLEKS R13 R14 K22 ["openScript"]
+  GETTABLEKS R13 R14 K22 ["openInsertObjectMenu"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R16 R0 K8 ["Src"]
   GETTABLEKS R15 R16 K14 ["Guest"]
-  GETTABLEKS R14 R15 K23 ["triggerFocus"]
+  GETTABLEKS R14 R15 K23 ["openScript"]
   CALL R13 1 1
-  DUPCLOSURE R14 K24 [PROTO_4]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K8 ["Src"]
+  GETTABLEKS R16 R17 K14 ["Guest"]
+  GETTABLEKS R15 R16 K24 ["triggerFocus"]
+  CALL R14 1 1
+  DUPCLOSURE R15 K25 [PROTO_4]
   CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  CAPTURE VAL R1
   CAPTURE VAL R6
-  CAPTURE VAL R11
-  CAPTURE VAL R10
   CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R7
   CAPTURE VAL R12
-  CAPTURE VAL R13
+  CAPTURE VAL R11
   CAPTURE VAL R9
-  RETURN R14 1
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  RETURN R15 1

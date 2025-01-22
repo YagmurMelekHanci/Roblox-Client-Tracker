@@ -26,6 +26,7 @@ local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
 local ContainerHost = require(Root.Unibar.ComponentHosts.ContainerHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 local GetFFlagDebugEnableUnibarDummyIntegrations =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugEnableUnibarDummyIntegrations
@@ -47,6 +48,8 @@ local GetFFlagChromeUsePreferredTransparency =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
 local GetFFlagPostLaunchUnibarDesignTweaks =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
+local GetFFlagDisableSongbirdForVRConsole =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableSongbirdForVRConsole
 
 local FFlagReshufflePartyIconsInUnibar = game:DefineFastFlag("ReshufflePartyIconsInUnibar", false)
 local FFlagFixUnibarResizing = game:DefineFastFlag("FixUnibarResizing", false)
@@ -129,7 +132,12 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		table.insert(nineDot, 2, "camera_entrypoint")
 		table.insert(nineDot, 2, "selfie_view")
 
-		if GetFFlagEnableSongbirdInChrome() then
+		-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
+		-- selene: allow(denylist_filter)
+		local isNotVROrConsole = GetFFlagDisableSongbirdForVRConsole()
+			and not isSpatial()
+			and not GuiService:IsTenFootInterface()
+		if GetFFlagEnableSongbirdInChrome() and isNotVROrConsole then
 			table.insert(nineDot, 4, "music_entrypoint")
 		end
 

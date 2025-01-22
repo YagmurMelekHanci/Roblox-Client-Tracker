@@ -10,7 +10,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local httpRequest = require(RobloxGui.Modules.Common.httpRequest)
 local httpImpl = httpRequest(HttpRbxApiService)
 
-local RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 local EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons")
 

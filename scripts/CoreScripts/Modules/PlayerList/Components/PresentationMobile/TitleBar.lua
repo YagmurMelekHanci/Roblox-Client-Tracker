@@ -16,7 +16,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local TitleBar = Roact.PureComponent:extend("TitleBar")
 

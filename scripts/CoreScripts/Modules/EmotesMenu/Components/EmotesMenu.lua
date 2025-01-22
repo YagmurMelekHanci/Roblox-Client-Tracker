@@ -30,8 +30,7 @@ local ErrorMessage = require(Components.ErrorMessage)
 
 local Constants = require(EmotesModules.Constants)
 
-local CoreScriptModules = EmotesModules.Parent
-local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local GetFFlagFixMissingPlayerGuiCrash = require(RobloxGui.Modules.Flags.GetFFlagFixMissingPlayerGuiCrash)
 local LocalPlayer = Players.LocalPlayer

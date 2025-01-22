@@ -115,7 +115,7 @@ MAIN:
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K6 ["Src"]
   GETTABLEKS R12 R13 K18 ["SharedFlags"]
-  GETTABLEKS R11 R12 K20 ["getFFlagAddPauseResumeStepForwardDebugButtonsLuaRibbon"]
+  GETTABLEKS R11 R12 K20 ["getFFlagTestingControlsBeta"]
   CALL R10 1 1
   CALL R10 0 1
   NEWTABLE R11 0 15

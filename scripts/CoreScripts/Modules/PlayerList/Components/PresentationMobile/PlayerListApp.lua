@@ -8,9 +8,8 @@ local Otter = require(CorePackages.Packages.Otter)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = CoreGui.RobloxGui.Modules
-local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local TopBarConstants = require(Modules.TopBar.Constants)
 local ChromeEnabled = require(Modules.Chrome.Enabled)()
 

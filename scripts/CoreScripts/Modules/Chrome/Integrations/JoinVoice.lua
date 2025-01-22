@@ -21,6 +21,7 @@ local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 
 local FFlagJoinVoiceHideWhenPartyVoiceFocused = game:DefineFastFlag("JoinVoiceHideWhenPartyVoiceFocused", false)
+local FFlagCheckShouldShowJoinVoiceInEvent = game:DefineFastFlag("CheckShouldShowJoinVoiceInEvent", false)
 
 local ChromeService = require(Chrome.Service)
 
@@ -57,7 +58,10 @@ local function setAvailability(availability: number)
 end
 
 local function HideOrShowJoinVoiceButton(state)
-	if state == VOICE_JOIN_PROGRESS.Suspended then
+	if
+		state == VOICE_JOIN_PROGRESS.Suspended
+		and (not FFlagCheckShouldShowJoinVoiceInEvent or VoiceChatServiceManager:ShouldShowJoinVoice())
+	then
 		if FFlagJoinVoiceHideWhenPartyVoiceFocused then
 			setAvailability(ChromeService.AvailabilitySignal.Available)
 		else

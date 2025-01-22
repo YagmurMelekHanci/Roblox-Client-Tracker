@@ -34,7 +34,6 @@ local RobuxUpsellContainer = require(script.Parent.RobuxUpsell.RobuxUpsellContai
 local PremiumUpsellContainer = require(script.Parent.PremiumUpsell.PremiumUpsellContainer)
 local SubscriptionPurchaseContainer = require(script.Parent.SubscriptionPurchase.SubscriptionPurchaseContainer)
 
-local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
 local GetFFlagEnableToastLiteRender = require(Root.Flags.GetFFlagEnableToastLiteRender)
 local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
@@ -42,27 +41,9 @@ local renderWithCoreScriptsStyleProvider =
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 
 function PurchasePromptApp:init()
-	local initialState = {}
-
-	local abTest = ABTest.new()
-	local network = Network.new()
-	local analytics = Analytics.new()
-	local platformInterface = PlatformInterface.new()
 	local externalSettings = ExternalSettings.new()
 
 	self.state = {
-		-- Remove store from state with FFlagPublishAvatarPromptEnabled
-		store = if not FFlagPublishAvatarPromptEnabled
-			then Rodux.Store.new(Reducer, initialState, {
-				Thunk.middleware({
-					[ABTest] = abTest,
-					[Network] = network,
-					[Analytics] = analytics,
-					[PlatformInterface] = platformInterface,
-					[ExternalSettings] = externalSettings,
-				}),
-			})
-			else nil,
 		isTenFootInterface = externalSettings.isTenFootInterface(),
 	}
 end
@@ -74,7 +55,7 @@ end
 function PurchasePromptApp:render()
 	return provideRobloxLocale(function()
 		return Roact.createElement(RoactRodux.StoreProvider, {
-			store = if FFlagPublishAvatarPromptEnabled then self.props.store else self.state.store,
+			store = self.props.store,
 		}, {
 			StyleProvider = self:renderWithStyle({
 				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {

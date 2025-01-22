@@ -2,13 +2,10 @@ local Root = script.Parent.Parent.Parent
 
 local Players = game:GetService("Players")
 local ContextActionService = game:GetService("ContextActionService")
-local AssetService = game:GetService("AssetService")
 
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local IAPExperience = PurchasePromptDeps.IAPExperience
 local RobuxUpsellFlow = IAPExperience.PurchaseFlow.RobuxUpsellFlow
@@ -18,7 +15,6 @@ local PurchaseErrorType = IAPExperience.PurchaseFlow.PurchaseErrorType
 
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
-local connectToStore = require(Root.connectToStore)
 local VPCModalType = require(Root.Enums.VPCModalType)
 
 local RobuxUpsellOverlay = Roact.PureComponent:extend(script.Name)
@@ -28,10 +24,7 @@ local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 
 local GetFFlagDisablePurchasePromptFunctionForMaquettes =
 	require(Root.Flags.GetFFlagDisablePurchasePromptFunctionForMaquettes)
-local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
 local GetFFlagEnableEventMetadataInUpsell = IAPExperience.Flags.GetFFlagEnableEventMetadataInUpsell
-local FFlagPublishAvatarPromptEnabledAllPlatforms =
-	require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabledAllPlatforms)
 
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
 local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
@@ -316,16 +309,6 @@ function RobuxUpsellOverlay:render()
 		isQuest = GetFFlagDisablePurchasePromptFunctionForMaquettes()
 			and getPaymentPlatform(externalSettings.getPlatform()) == PaymentPlatform.Maquettes,
 	})
-end
-
-if FFlagPublishAvatarPromptEnabled and not FFlagPublishAvatarPromptEnabledAllPlatforms then
-	local function mapStateToProps(state)
-		return {
-			humanoidModel = state.promptRequest.humanoidModel,
-		}
-	end
-
-	RobuxUpsellOverlay = connectToStore(mapStateToProps, nil)(RobuxUpsellOverlay)
 end
 
 return RobuxUpsellOverlay

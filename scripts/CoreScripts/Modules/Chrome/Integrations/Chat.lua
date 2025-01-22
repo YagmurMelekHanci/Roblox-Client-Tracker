@@ -1,6 +1,7 @@
 local Chrome = script:FindFirstAncestor("Chrome")
 
 local CoreGui = game:GetService("CoreGui")
+local StarterGui = game:GetService("StarterGui")
 local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -31,6 +32,7 @@ local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChrome
 local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
+local FFlagShowChatButtonWhenChatForceOpened = game:DefineFastFlag("ShowChatButtonWhenChatForceOpened", false)
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -143,6 +145,27 @@ ChatSelector.MessagesChanged:connect(function(messages: number)
 	lastMessagesChangedValue = messages
 end)
 
+local function localUserCanChat()
+	if not RunService:IsStudio() then
+		local success, localUserCanChat = pcall(function()
+			return Chat:CanUserChatAsync(Players.LocalPlayer and Players.LocalPlayer.UserId or 0)
+		end)
+		return success and localUserCanChat
+	end
+	return true
+end
+
+if FFlagShowChatButtonWhenChatForceOpened then
+	StarterGui:RegisterSetCore("ChatActive", function(visible)
+		if visible then
+			local canLocalUserChat = localUserCanChat()
+			if not canLocalUserChat then
+				chatChromeIntegration.availability:available()
+			end
+		end
+	end)
+end
+
 coroutine.wrap(function()
 	local LocalPlayer = Players.LocalPlayer
 	while not LocalPlayer do
@@ -151,11 +174,15 @@ coroutine.wrap(function()
 	end
 
 	local canChat = true
-	if not RunService:IsStudio() then
-		local success, localUserCanChat = pcall(function()
-			return Chat:CanUserChatAsync(LocalPlayer and LocalPlayer.UserId or 0)
-		end)
-		canChat = success and localUserCanChat
+	if FFlagShowChatButtonWhenChatForceOpened then
+		canChat = localUserCanChat()
+	else
+		if not RunService:IsStudio() then
+			local success, localUserCanChat = pcall(function()
+				return Chat:CanUserChatAsync(LocalPlayer and LocalPlayer.UserId or 0)
+			end)
+			canChat = success and localUserCanChat
+		end
 	end
 
 	if canChat and chatChromeIntegration.availability then

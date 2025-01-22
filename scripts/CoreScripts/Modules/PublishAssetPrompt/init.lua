@@ -18,8 +18,6 @@ local PublishAssetPromptApp = require(script.Components.PublishAssetPromptApp)
 local Reducer = require(script.Reducer)
 local ConnectAssetServiceEvents = require(script.ConnectAssetServiceEvents)
 
-local FFlagPublishAvatarPromptEnabled = require(script.FFlagPublishAvatarPromptEnabled)
-
 local PublishAssetPrompt = {}
 PublishAssetPrompt.__index = PublishAssetPrompt
 
@@ -35,14 +33,11 @@ function PublishAssetPrompt.new()
 		store = self.store,
 	}, {
 		ThemeProvider = renderWithCoreScriptsStyleProvider({
-			LocalizationProvider = if FFlagPublishAvatarPromptEnabled
-				then Roact.createElement(LocalizationProvider, {
-					localization = Localization.new(LocalizationService.RobloxLocaleId),
-				}, {
-					PublishAssetPromptApp = PublishAssetPromptApp,
-				})
-				else nil,
-			PublishAssetPromptApp = if not FFlagPublishAvatarPromptEnabled then PublishAssetPromptApp else nil,
+			LocalizationProvider = Roact.createElement(LocalizationProvider, {
+				localization = Localization.new(LocalizationService.RobloxLocaleId),
+			}, {
+				PublishAssetPromptApp = PublishAssetPromptApp,
+			}),
 		}),
 	})
 

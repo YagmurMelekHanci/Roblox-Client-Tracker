@@ -18,7 +18,7 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local BadgeOver12 = require(script.Parent.BadgeOver12)
 
 local VRHub = require(RobloxGui.Modules.VR.VRHub)

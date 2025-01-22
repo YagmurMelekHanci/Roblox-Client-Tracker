@@ -11,7 +11,7 @@ commonInit()
 
 local TestLoader = require(Main.Packages.TestLoader)
 TestLoader.launch("DeveloperStorybook", Main.Src)
-if TestLoader.isCli() then
+if TestLoader.isCli() or not TestLoader.hasInternalPermission() then
 	return
 end
 

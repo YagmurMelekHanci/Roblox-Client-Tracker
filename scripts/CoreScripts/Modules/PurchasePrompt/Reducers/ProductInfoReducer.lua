@@ -18,7 +18,6 @@ local getPreviewImageUrl = require(Root.getPreviewImageUrl)
 local USER_OUTFIT = "UserOutfit"
 
 local GetFFlagTranslateDevProducts = require(Root.Flags.GetFFlagTranslateDevProducts)
-local FFlagPublishAvatarPromptEnabled = require(RobloxGui.Modules.PublishAssetPrompt.FFlagPublishAvatarPromptEnabled)
 local GetFFlagFixBundlePromptThumbnail = require(Root.Flags.GetFFlagFixBundlePromptThumbnail)
 
 local ProductInfoReducer = Rodux.createReducer({}, {
@@ -34,7 +33,7 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 
 		return {
 			name = GetFFlagTranslateDevProducts() and (productInfo.DisplayName or productInfo.Name) or productInfo.Name,
-			description = if FFlagPublishAvatarPromptEnabled then productInfo.Description else nil,
+			description = productInfo.Description,
 			price = productInfo.PriceInRobux or 0,
 			premiumPrice = productInfo.PremiumPriceInRobux,
 			imageUrl = getPreviewImageUrl(productInfo),

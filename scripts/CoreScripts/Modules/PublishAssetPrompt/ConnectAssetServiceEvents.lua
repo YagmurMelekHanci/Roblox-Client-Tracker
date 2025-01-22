@@ -18,8 +18,6 @@ local SetHumanoidModel = require(PublishAssetPrompt.Actions.SetHumanoidModel)
 local SetPriceInRobux = require(PublishAssetPrompt.Actions.SetPriceInRobux)
 local OpenValidationErrorModal = require(PublishAssetPrompt.Actions.OpenValidationErrorModal)
 
-local FFlagPublishAvatarPromptEnabled = require(script.Parent.FFlagPublishAvatarPromptEnabled)
-
 local EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled =
 	game:GetEngineFeature("PromptImportAnimationClipFromVideoAsyncEnabled")
 
@@ -73,7 +71,7 @@ local function ConnectAssetServiceEvents(store)
 				elseif metadata["serializedInstance"] then
 					local instance = AssetService:DeserializeInstance(metadata["serializedInstance"])
 					store:dispatch(OpenPublishAssetPrompt(instance, metadata["assetType"], guid, scopes))
-				elseif FFlagPublishAvatarPromptEnabled and metadata["outfitToPublish"] then
+				elseif metadata["outfitToPublish"] then
 					store:dispatch(OpenPublishAvatarPrompt(guid, scopes))
 				end
 			end
@@ -107,11 +105,7 @@ local function ConnectAssetServiceEvents(store)
 					end
 
 					store:dispatch(SetHumanoidModel(deserializedModel))
-					if FFlagPublishAvatarPromptEnabled then
-						store:dispatch(SetPriceInRobux(priceFromToken))
-					else
-						store:dispatch(SetPriceInRobux(0))
-					end
+					store:dispatch(SetPriceInRobux(priceFromToken))
 				end
 			end)
 		)
