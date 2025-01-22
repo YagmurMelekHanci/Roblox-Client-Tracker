@@ -502,6 +502,8 @@ DefaultUnifiedNeonFS_10000400,Fragment
 DefaultUnifiedNeonFS_20000000,Fragment
 DefaultUnifiedNeonFS_40000000,Fragment
 DefaultUnifiedNeonFS_80000000,Fragment
+DefaultUnifiedNeonInGuiFS_00000800,Fragment
+DefaultUnifiedNeonInGuiFS_10000000,Fragment
 DefaultUnifiedNeonInGuiVS_00000800,Vertex
 DefaultUnifiedNeonInGuiVS_00000801,Vertex
 DefaultUnifiedNeonInGuiVS_00000802,Vertex
@@ -1223,6 +1225,7 @@ InstancedDebugGarbage_DEPRECATED,Compute
 InstancedUploadFull,Compute
 InstancedUploadFull_DEPRECATED,Compute
 LanczosFS,Fragment
+LanczosSeparateAxisFS,Fragment
 LightGridCullAccumAndCreateMaskCS,Compute
 LightGridCullClearCS,Compute
 LightGridCullCountOffsetCS,Compute

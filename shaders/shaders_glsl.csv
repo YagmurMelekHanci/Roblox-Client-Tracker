@@ -877,8 +877,11 @@ HighlightStudioSelectionAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateFS_00000000,Fragment
+ImGuiFS_01000000,Fragment
+ImGuiTexVS_01000000,Vertex
 ImGuiVS_01000000,Vertex
 LanczosFS,Fragment
+LanczosSeparateAxisFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthFS,Fragment

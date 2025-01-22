@@ -1542,7 +1542,6 @@
         <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">41</string>
         <string name="PreferredParent">BasePart</string>
-        <bool name="FFlag">DragDetectors1</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -5399,7 +5398,6 @@
           <Properties>
             <string name="Name">GetMoveVelocity</string>
             <string name="Description">Returns the movement velocity based on the player input.</string>
-            <string name="FFlag">EnableGetMoveVelocity2</string>
           </Properties>
         </Item>
       </Item>

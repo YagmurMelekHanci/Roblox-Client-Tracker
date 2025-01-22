@@ -106,6 +106,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:GetDescendants() -> { any } [CustomLuaState] {🧬Safe}
 	Function Instance:GetFullName() -> string {🧬Safe}
 	Function Instance:GetStyled(name: string) -> any
+	Function Instance:GetStyledPropertyChangedSignal(property: string) -> RBXScriptSignal
 	Function Instance:GetTags() -> { any } {🧬Safe}
 	Function Instance:HasTag(tag: string) -> boolean {🧬Safe}
 	Function Instance:IsAncestorOf(descendant: Instance) -> boolean {🧬Safe}
@@ -124,6 +125,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Event Instance.DescendantAdded(descendant: Instance)
 	Event Instance.DescendantRemoving(descendant: Instance)
 	Event Instance.Destroying()
+	Event Instance.StyledPropertiesChanged()
 Class AccessoryDescription : Instance
 	Property AccessoryDescription.AccessoryType: Enum.AccessoryType
 	Property AccessoryDescription.AssetId: number
@@ -168,15 +170,16 @@ Class AdPortal : Instance
 	Function AdPortal:TeleportRejected(shouldCooldown: boolean, rejectedByDistance: boolean) -> () {RobloxScriptSecurity}
 Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:CreateAdRewardFromDevProductId(devProductId: number) -> AdReward
-	Function AdService:GetAdAvailability(adFormat: Enum.AdFormat) -> any
+	Function AdService:GetAdAvailabilityNowAsync(adFormat: Enum.AdFormat) -> any [Yields]
 	Function AdService:GetAdTeleportInfo() -> ...any {RobloxScriptSecurity}
 	Function AdService:GetReportAdInfo() -> { any } {RobloxScriptSecurity}
+	Function AdService:HandleWhyThisAdClicked(advertiserName: string, payerName: string) -> () {RobloxScriptSecurity}
 	Function AdService:HideEudsaDisclosure() -> () {RobloxScriptSecurity}
+	Function AdService:OnDemandVideoCompleteFromUI(result: Enum.ShowAdResult, encryptedAdTrackingData: string, encryptionMetadata: string, rewardDetails: string) -> () {RobloxScriptSecurity}
 	Function AdService:ReturnToPublisherExperience(adTeleportMethod: Enum.AdTeleportMethod) -> () {RobloxScriptSecurity}
 	Function AdService:SetAdGuiInteractivityHandlerInitialized() -> () {RobloxScriptSecurity}
 	Function AdService:ShowRewardedVideoAdAsync(player: Player, reward: AdReward) -> Enum.ShowAdResult [Yields]
 	Function AdService:ShowVideoAd() -> () [Deprecated]
-	Event AdService.AdAvailabilityChanged(adFormat: Enum.AdFormat, adAvailabilityResult: any)
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
 	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
 	Event AdService.PortalPrompt(destinationId: number, portal: Instance, requiresNoButton: boolean) {RobloxScriptSecurity}
@@ -190,6 +193,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.adGuiRegisterUI(adGui: Instance) {RobloxScriptSecurity}
 	Event AdService.rewardedVideoAdPlayServerToClient(rewardDetails: string) {RobloxSecurity} [Hidden]
 	Event AdService.rewardedVideoAdResultClientToServer(result: Enum.ShowAdResult, encryptedAdTrackingData: string, encryptionMetadata: string) {RobloxSecurity} [Hidden]
+	Callback AdService.onDemandVideoPlayInUI(data: { [string]: any }) -> VideoFrame {RobloxScriptSecurity}
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property AnalyticsService.ApiKey: string {LocalUserSecurity} [Deprecated]
@@ -346,6 +350,7 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppLifecycleObserverService:GetCurrentState() -> Enum.AppLifecycleManagerState {RobloxScriptSecurity}
 	Function AppLifecycleObserverService:IsDidDetachSupported() -> boolean {RobloxScriptSecurity}
+	Function AppLifecycleObserverService:TriggerOnLuaAppInteractive() -> () {RobloxScriptSecurity}
 	Event AppLifecycleObserverService.OnBecomeActive() {RobloxScriptSecurity}
 	Event AppLifecycleObserverService.OnDetach() {RobloxScriptSecurity}
 	Event AppLifecycleObserverService.OnHide() {RobloxScriptSecurity}
@@ -1204,7 +1209,7 @@ Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Chat.ClientToServerFilterMessageSignalV2(sender: Instance, receiver: Instance, unfilteredMessage: string) {RobloxSecurity} [Hidden]
 	Event Chat.ClientToServerReportUnfilteredSignal(unfilteredText: string, match: string, instancePath: string, instanceType: string) {RobloxSecurity} [Hidden]
 	Event Chat.ServerToClientUnderOver13FilteredResponseSignal(sender: Instance, unfilteredMessage: string, isError: boolean, errorStr: string, under13: string, over13: string) {RobloxSecurity} [Hidden]
-	Event Chat.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity} [Hidden]
+	Event Chat.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
 Class ChatbotUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ChatbotUIService:DisplayContent(contentType: string, data: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function ChatbotUIService:GetSettings() -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -2072,7 +2077,7 @@ Class Feature : Instance [NotCreatable]
 Class Hole : Feature [Deprecated]
 Class MotorFeature : Feature [Deprecated]
 Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
-	Event FeatureRestrictionManager.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity} [Hidden]
+	Event FeatureRestrictionManager.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
 Class File : Instance [NotCreatable] [NotReplicated]
 	Property File.Size: number {PluginSecurity} [Hidden] [ReadOnly]
 	Function File:GetBinaryContents() -> string {PluginSecurity}
@@ -3239,6 +3244,10 @@ Class LiveScriptingService : Instance [NotCreatable] [Service]
 	Event LiveScriptingService.SendAtomicOperation(requestId: number, guid: string, op: string, hash: string) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.SendAtomicUpdateResponse(guid: number, response: Enum.LiveEditingAtomicUpdateResponse) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.SendOperation(id: number, op: string) {RobloxSecurity} [Hidden]
+Class LiveSyncService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property LiveSyncService.HasSyncedInstances: boolean [ReadOnly]
+	Function LiveSyncService:GetSyncState(instance: Instance) -> ...any
+	Event LiveSyncService.SyncStatusChanged(instance: Instance)
 Class LocalStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LocalStorageService:Flush() -> () {RobloxScriptSecurity}
 	Function LocalStorageService:GetItem(key: string) -> string {RobloxScriptSecurity}
@@ -6122,6 +6131,7 @@ Class TextChatMessage : Instance [NotCreatable]
 	Property TextChatMessage.TextSource: TextSource?
 	Property TextChatMessage.Timestamp: DateTime
 	Property TextChatMessage.Translation: string
+	Property TextChatMessage.Verified: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 Class TextChatMessageProperties : Instance
 	Property TextChatMessageProperties.PrefixText: string
 	Property TextChatMessageProperties.Text: string
@@ -6147,14 +6157,15 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.ChatVersion: Enum.ChatVersion {✏️NotAccessibleSecurity}
 	Property TextChatService.CreateDefaultCommands: boolean {✏️PluginSecurity}
 	Property TextChatService.CreateDefaultTextChannels: boolean {✏️PluginSecurity}
+	Property TextChatService.HasSeenDeprecationDialog: boolean {RobloxScriptSecurity}
 	Function TextChatService:CanUserChatAsync(userId: number) -> boolean [Yields]
 	Function TextChatService:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
 	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } [Yields]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> ()
 	Event TextChatService.BubbleDisplayed(partOrCharacter: Instance, textChatMessage: TextChatMessage)
-	Event TextChatService.ClientToServerMessageReplicateSignal(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, status: Enum.TextChatMessageStatus) {RobloxSecurity} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel) {RobloxSecurity} [Hidden]
+	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {RobloxSecurity} [Hidden]
 	Event TextChatService.MessageReceived(textChatMessage: TextChatMessage)
 	Event TextChatService.SendingMessage(textChatMessage: TextChatMessage)
 	Event TextChatService.ServerToClientMessageReplicateSignal(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, timestamp: number, status: Enum.TextChatMessageStatus) {RobloxSecurity} [Hidden]
@@ -6493,7 +6504,7 @@ Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
 	Function UnvalidatedAssetService:AppendTempAssetId(userId: number, id: number, lookAt: Vector3, camPos: Vector3, usage: string) -> () {RobloxScriptSecurity}
 	Function UnvalidatedAssetService:AppendVantagePoint(userId: number, id: number, lookAt: Vector3, camPos: Vector3) -> boolean {RobloxScriptSecurity}
 	Function UnvalidatedAssetService:UpgradeTempAssetId(userId: number, tempId: number, assetId: number) -> boolean {RobloxScriptSecurity}
-Class UserGameSettings : Instance [NotCreatable] [UserSettings]
+Class UserGameSettings : Instance [NotCreatable] [UserSettings] [NotReplicated]
 	Property UserGameSettings.GraphicsOptimizationMode: Enum.GraphicsOptimizationMode {RobloxScriptSecurity}
 	Property UserGameSettings.GraphicsQualityLevel: number {RobloxScriptSecurity}
 	Property UserGameSettings.MaxQualityEnabled: boolean {RobloxScriptSecurity}
@@ -6980,6 +6991,14 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
+Enum AdAvailabilityResult
+	EnumItem AdAvailabilityResult.IsAvailable : 1
+	EnumItem AdAvailabilityResult.DeviceIneligible : 2
+	EnumItem AdAvailabilityResult.ExperienceIneligible : 3
+	EnumItem AdAvailabilityResult.InternalError : 4
+	EnumItem AdAvailabilityResult.NoFill : 5
+	EnumItem AdAvailabilityResult.PlayerIneligible : 6
+	EnumItem AdAvailabilityResult.PublisherIneligible : 7
 Enum AdEventType
 	EnumItem AdEventType.VideoLoaded : 0 [Deprecated]
 	EnumItem AdEventType.VideoRemoved : 1 [Deprecated]
@@ -7331,6 +7350,10 @@ Enum Axis
 	EnumItem Axis.X : 0
 	EnumItem Axis.Y : 1
 	EnumItem Axis.Z : 2
+Enum BenefitType
+	EnumItem BenefitType.DeveloperProduct : 0
+	EnumItem BenefitType.AvatarAsset : 1
+	EnumItem BenefitType.AvatarBundle : 2
 Enum BinType
 	EnumItem BinType.Script : 0
 	EnumItem BinType.GameTool : 1
@@ -9329,11 +9352,11 @@ Enum Severity
 	EnumItem Severity.Information : 3
 	EnumItem Severity.Hint : 4
 Enum ShowAdResult
-	EnumItem ShowAdResult.PlayerIneligible : 0
-	EnumItem ShowAdResult.ExperienceIneligible : 1
-	EnumItem ShowAdResult.NotShown : 2
-	EnumItem ShowAdResult.ShowCompleted : 3
-	EnumItem ShowAdResult.ShowInterrupted : 4
+	EnumItem ShowAdResult.ShowCompleted : 1
+	EnumItem ShowAdResult.AdNotReady : 2
+	EnumItem ShowAdResult.AdAlreadyShowing : 3
+	EnumItem ShowAdResult.InternalError : 4
+	EnumItem ShowAdResult.ShowInterrupted : 5
 Enum SignalBehavior
 	EnumItem SignalBehavior.Default : 0
 	EnumItem SignalBehavior.Immediate : 1

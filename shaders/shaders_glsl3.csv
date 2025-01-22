@@ -50,10 +50,12 @@ DefaultReflectionVS__00000002,Vertex
 DefaultReflectionVS__00000006,Vertex
 DefaultReflectionVS__00000400,Vertex
 DefaultReflectionVS__00000401,Vertex
+DefaultReflectionVS__00000402,Vertex
 DefaultReflectionVS__00001000,Vertex
 DefaultReflectionVS__00001002,Vertex
 DefaultReflectionVS__00001006,Vertex
 DefaultReflectionVS__00100001,Vertex
+DefaultReflectionVS__00100401,Vertex
 DefaultReflectionVS__04000006,Vertex
 DefaultReflectionVS__04001006,Vertex
 DefaultReflectionVS_00000000,Vertex
@@ -1054,6 +1056,7 @@ HighlightStudioSelectionFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateFS_00000000,Fragment
 LanczosFS,Fragment
+LanczosSeparateAxisFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment

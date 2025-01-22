@@ -138,7 +138,7 @@ DefaultReflectionVS__00000002,Vertex,❌,❌,❌,✔,✔,❌
 DefaultReflectionVS__00000006,Vertex,❌,❌,❌,✔,✔,❌
 DefaultReflectionVS__00000400,Vertex,❌,❌,❌,✔,✔,❌
 DefaultReflectionVS__00000401,Vertex,❌,❌,❌,❌,✔,❌
-DefaultReflectionVS__00000402,Vertex,❌,❌,❌,✔,❌,❌
+DefaultReflectionVS__00000402,Vertex,❌,❌,❌,✔,✔,❌
 DefaultReflectionVS__00000406,Vertex,❌,❌,❌,✔,❌,❌
 DefaultReflectionVS__00001000,Vertex,❌,❌,❌,✔,✔,❌
 DefaultReflectionVS__00001002,Vertex,❌,❌,❌,✔,✔,❌
@@ -147,6 +147,7 @@ DefaultReflectionVS__00001400,Vertex,❌,❌,❌,✔,❌,❌
 DefaultReflectionVS__00001402,Vertex,❌,❌,❌,✔,❌,❌
 DefaultReflectionVS__00001406,Vertex,❌,❌,❌,✔,❌,❌
 DefaultReflectionVS__00100001,Vertex,❌,❌,❌,❌,✔,❌
+DefaultReflectionVS__00100401,Vertex,❌,❌,❌,❌,✔,❌
 DefaultReflectionVS__04000006,Vertex,❌,❌,❌,✔,✔,❌
 DefaultReflectionVS__04000406,Vertex,❌,❌,❌,✔,❌,❌
 DefaultReflectionVS__04001006,Vertex,❌,❌,❌,✔,✔,❌
@@ -767,8 +768,8 @@ DefaultUnifiedNeonFS_10000400,Fragment,✔,✔,✔,✔,✔,✔
 DefaultUnifiedNeonFS_20000000,Fragment,✔,✔,✔,✔,✔,✔
 DefaultUnifiedNeonFS_40000000,Fragment,✔,✔,✔,❌,❌,✔
 DefaultUnifiedNeonFS_80000000,Fragment,✔,✔,✔,❌,❌,✔
-DefaultUnifiedNeonInGuiFS_00000800,Fragment,❌,❌,❌,❌,✔,❌
-DefaultUnifiedNeonInGuiFS_10000000,Fragment,❌,❌,❌,✔,✔,❌
+DefaultUnifiedNeonInGuiFS_00000800,Fragment,❌,❌,✔,❌,✔,✔
+DefaultUnifiedNeonInGuiFS_10000000,Fragment,❌,❌,✔,✔,✔,✔
 DefaultUnifiedNeonInGuiFS_10000400,Fragment,❌,❌,❌,✔,✔,❌
 DefaultUnifiedNeonInGuiFS_20000000,Fragment,❌,❌,❌,✔,✔,❌
 DefaultUnifiedNeonInGuiVS_00000800,Vertex,✔,✔,✔,❌,✔,✔
@@ -776,8 +777,8 @@ DefaultUnifiedNeonInGuiVS_00000801,Vertex,✔,✔,✔,❌,✔,✔
 DefaultUnifiedNeonInGuiVS_00000802,Vertex,✔,✔,✔,❌,✔,✔
 DefaultUnifiedNeonInGuiVS_00000806,Vertex,✔,✔,✔,❌,✔,✔
 DefaultUnifiedNeonInGuiVS_00001800,Vertex,❌,✔,✔,❌,✔,✔
-DefaultUnifiedNeonInGuiVS_00001802,Vertex,❌,✔,✔,❌,✔,✔
-DefaultUnifiedNeonInGuiVS_00001806,Vertex,❌,✔,✔,❌,✔,✔
+DefaultUnifiedNeonInGuiVS_00001802,Vertex,✔,✔,✔,❌,✔,✔
+DefaultUnifiedNeonInGuiVS_00001806,Vertex,✔,✔,✔,❌,✔,✔
 DefaultUnifiedNeonInGuiVS_00100801,Vertex,✔,✔,✔,❌,✔,✔
 DefaultUnifiedNeonInGuiVS_00200800,Vertex,✔,✔,✔,❌,❌,✔
 DefaultUnifiedNeonInGuiVS_00300800,Vertex,✔,✔,✔,❌,❌,✔
@@ -786,7 +787,7 @@ DefaultUnifiedNeonInGuiVS_04001806,Vertex,❌,✔,✔,❌,✔,✔
 DefaultUnifiedNeonInGuiVS_10000000,Vertex,❌,✔,✔,✔,✔,✔
 DefaultUnifiedNeonInGuiVS_10000001,Vertex,❌,✔,✔,❌,✔,✔
 DefaultUnifiedNeonInGuiVS_10000002,Vertex,❌,✔,✔,✔,✔,✔
-DefaultUnifiedNeonInGuiVS_10000006,Vertex,❌,❌,✔,✔,✔,✔
+DefaultUnifiedNeonInGuiVS_10000006,Vertex,❌,✔,✔,✔,✔,✔
 DefaultUnifiedNeonInGuiVS_10000400,Vertex,❌,❌,✔,✔,✔,✔
 DefaultUnifiedNeonInGuiVS_10000401,Vertex,❌,❌,✔,❌,✔,✔
 DefaultUnifiedNeonInGuiVS_10000402,Vertex,❌,❌,✔,✔,✔,✔
@@ -803,7 +804,7 @@ DefaultUnifiedNeonInGuiVS_10200000,Vertex,❌,✔,✔,❌,❌,✔
 DefaultUnifiedNeonInGuiVS_10200400,Vertex,❌,❌,✔,❌,❌,✔
 DefaultUnifiedNeonInGuiVS_10300000,Vertex,❌,✔,✔,❌,❌,✔
 DefaultUnifiedNeonInGuiVS_10300400,Vertex,❌,❌,✔,❌,❌,✔
-DefaultUnifiedNeonInGuiVS_14000006,Vertex,❌,❌,✔,✔,✔,✔
+DefaultUnifiedNeonInGuiVS_14000006,Vertex,❌,✔,✔,✔,✔,✔
 DefaultUnifiedNeonInGuiVS_14000406,Vertex,❌,❌,✔,✔,✔,✔
 DefaultUnifiedNeonInGuiVS_14001006,Vertex,❌,❌,✔,✔,✔,✔
 DefaultUnifiedNeonInGuiVS_14001406,Vertex,❌,❌,✔,✔,✔,✔
@@ -1759,6 +1760,8 @@ HighlightStudioSelectionAlphaTestFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 HighlightStudioSelectionFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
 HighlightStudioSelectionTeamCreateFS_00000000,Fragment,✔,✔,✔,✔,✔,✔
+ImGuiFS_01000000,Fragment,❌,❌,❌,✔,❌,❌
+ImGuiTexVS_01000000,Vertex,❌,❌,❌,✔,❌,❌
 ImGuiVS_01000000,Vertex,❌,❌,❌,✔,❌,❌
 InstancedCopy,Compute,✔,✔,✔,❌,❌,✔
 InstancedCopy_DEPRECATED,Compute,✔,✔,✔,❌,❌,✔
@@ -1767,6 +1770,7 @@ InstancedDebugGarbage_DEPRECATED,Compute,✔,✔,✔,❌,❌,✔
 InstancedUploadFull,Compute,✔,✔,✔,❌,❌,✔
 InstancedUploadFull_DEPRECATED,Compute,✔,✔,✔,❌,❌,✔
 LanczosFS,Fragment,✔,✔,✔,✔,✔,✔
+LanczosSeparateAxisFS,Fragment,✔,✔,✔,✔,✔,✔
 LightGridCullAccumAndCreateMaskCS,Compute,❌,❌,✔,❌,❌,✔
 LightGridCullClearCS,Compute,❌,❌,✔,❌,❌,✔
 LightGridCullCountOffsetCS,Compute,❌,❌,✔,❌,❌,✔
