@@ -19,8 +19,8 @@ llama = "1.0.0"
 LuaSocialLibrariesDeps = "1.5.5"
 AvatarExperienceDeps = "0.0.1"
 UIBlox = "0.2.52"
-Foundation = "1.9.0"
-FoundationImages = "1.13.0"
+Foundation = "1.10.1"
+FoundationImages = "1.15.0"
 Thumbnailing = "0.3.0"
 Otter = "1.2.1"
 ReactOtter = "1.2.1"
@@ -36,10 +36,10 @@ EmojiList = "1.0.0"
 RoduxGames = "1.4.1"
 ReactFocusNavigation = "1.3.1"
 InputHandlers = "1.3.1"
-Roact = { version = "17.1.7", package = "RoactCompat" }
-React = "17.1.7"
-ReactIs = "17.1.7"
-ReactRoblox = "17.1.7"
+Roact = { version = "17.1.9", package = "RoactCompat" }
+React = "17.1.9"
+ReactIs = "17.1.9"
+ReactRoblox = "17.1.9"
 ReactSceneUnderstanding = "0.8.0"
 ReactUtils = "1.2.0"
 Promise = "3.5.0"
@@ -83,7 +83,7 @@ TagUtils = "0.1.0"
 RecordPlayback = "0.1.1"
 RoduxDevtools = "1.0.0-rc.1"
 # Dependencies for the Roact17 inspector
-ReactDevtoolsExtensions = "17.1.7"
+ReactDevtoolsExtensions = "17.1.9"
 DeveloperTools = "0.2.7"
 ApolloClientTesting = "0.3.10"
 UsageTracker = "0.1.1"
@@ -102,7 +102,7 @@ RoactNavigation = "0.5.10"
 
 # Roact 17 - Patch in roact compat for legacy roact
 [config.patch."github.com/roblox/roact"]
-Roact = { version = "17.1.7", package = "RoactCompat" }
+Roact = { version = "17.1.9", package = "RoactCompat" }
 
 [config.patch."github.com/roblox/roact-rodux"]
 RoactRodux = "0.5.1"

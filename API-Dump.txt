@@ -677,6 +677,7 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraService:StepPhysics(worldSteps: number, parts: { Instance }?) -> () [Deprecated]
 	Function AuroraService:UpdateProperties(target: Instance) -> () [Deprecated]
 	Event AuroraService.Desynced(target: Instance) [Deprecated]
+	Event AuroraService.FixedRateTick(deltaTime: number, worldStepId: number) [Deprecated]
 	Event AuroraService.Synced(target: Instance) [Deprecated]
 Class AvatarChatService : Instance [NotCreatable] [Service]
 	Property AvatarChatService.ClientFeatures: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -1064,6 +1065,9 @@ Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BrowserService.BrowserWindowClosed() {RobloxScriptSecurity}
 	Event BrowserService.BrowserWindowWillNavigate(url: string) {RobloxScriptSecurity}
 	Event BrowserService.JavaScriptCallback(content: string) {RobloxScriptSecurity}
+Class BugReporterService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function BugReporterService:IsAvailable() -> boolean {RobloxScriptSecurity} [Yields]
+	Event BugReporterService.BugReportRequested(message: string) {RobloxScriptSecurity}
 Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function BulkImportService:LaunchBulkImport(assetTypeToImport: number) -> () {RobloxScriptSecurity}
 	Function BulkImportService:ShowBulkImportView() -> () {RobloxScriptSecurity}
@@ -1154,7 +1158,7 @@ Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function ChangeHistoryService:SetWaypoint(name: string) -> () {PluginSecurity}
 	Function ChangeHistoryService:TryBeginRecording(name: string, displayName: string?) -> string? {PluginSecurity}
 	Function ChangeHistoryService:Undo() -> () {PluginSecurity}
-	Event ChangeHistoryService.OnRecordingFinished(name: string, displayName: string?, identifier: string?, operationn: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) {PluginSecurity}
+	Event ChangeHistoryService.OnRecordingFinished(name: string, displayName: string?, identifier: string?, operation: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) {PluginSecurity}
 	Event ChangeHistoryService.OnRecordingStarted(name: string, displayName: string?) {PluginSecurity}
 	Event ChangeHistoryService.OnRedo(waypoint: string) {PluginSecurity}
 	Event ChangeHistoryService.OnUndo(waypoint: string) {PluginSecurity}
@@ -1193,6 +1197,7 @@ Class Skin : CharacterAppearance [Deprecated]
 Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Chat.BubbleChatEnabled: boolean
 	Property Chat.LoadDefaultChat: boolean {✏️NotAccessibleSecurity}
+	Property Chat.IsAutoMigrated: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function Chat:CanUserChatAsync(userId: number) -> boolean [Yields]
 	Function Chat:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
 	Function Chat:Chat(partOrCharacter: Instance, message: string, color: Enum.ChatColor? = "Blue") -> ()
@@ -1655,6 +1660,7 @@ Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CoreScriptSyncService:GetScriptFilePath(script: Instance) -> any {RobloxScriptSecurity}
 Class CreationDBService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CreatorStoreService : Instance [NotCreatable] [Service]
+	Function CreatorStoreService:PerformCreatorStorePurchase(productTargetId: number, assetType: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 Class CrossDMScriptChangeListener : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CrossDMScriptChangeListener:IsWatchingScriptLine(scriptRef: string, lineNumber: number) -> boolean {RobloxScriptSecurity}
 	Function CrossDMScriptChangeListener:StartWatchingScriptLine(scriptRef: string, debuggerConnectionId: number, lineNumber: number) -> () {RobloxScriptSecurity}
@@ -4791,6 +4797,7 @@ Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PublishService:CreateAssetAndWaitForAssetId(instances: { Instance }, operationId: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, name: string, description: string, expectedPrice: number? = 0) -> number {RobloxScriptSecurity} [Yields]
 	Function PublishService:CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsync(serializedInstance: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, assetId: number, name: string, description: string, token: string, contentType: string, expectedPrice: number? = 0) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PublishService:CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam(serializedInstance: string, publishInfo: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function PublishService:CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParamErrorJson(serializedInstance: string, publishInfo: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PublishService:PublishCageMeshAsync(wrap: Instance, cageType: Enum.CageType) -> string {RobloxScriptSecurity} [Yields]
 	Function PublishService:PublishDescendantAssets(instance: Instance) -> boolean {RobloxScriptSecurity}
 Class RTAnimationTracker : Instance [NotReplicated]
@@ -5454,7 +5461,6 @@ Class StartPageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StartPageService:getLocalGamesFromRegistry() -> { any } {RobloxScriptSecurity}
 	Function StartPageService:getRecentAPIGamesFromRegistry() -> { any } {RobloxScriptSecurity}
 	Function StartPageService:getTempUrlInContentProvider(url: string) -> string {RobloxScriptSecurity}
-	Function StartPageService:getTutorialVersionForUser() -> string {RobloxScriptSecurity}
 	Function StartPageService:isTutorialBannerClosed() -> boolean {RobloxScriptSecurity}
 	Function StartPageService:isTutorialPopupClosed() -> boolean {RobloxScriptSecurity}
 	Function StartPageService:openLink(link: string) -> () {RobloxScriptSecurity}
@@ -5495,7 +5501,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.GameSettingsAssetIDShirt: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StarterPlayer.GameSettingsAssetIDTeeShirt: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StarterPlayer.GameSettingsAssetIDTorso: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property StarterPlayer.GameSettingsAvatar: Enum.GameAvatarType {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property StarterPlayer.GameSettingsAvatar: Enum.GameAvatarType {RobloxScriptSecurity} [Hidden]
 	Property StarterPlayer.GameSettingsR15Collision: Enum.R15CollisionType {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StarterPlayer.GameSettingsScaleRangeBodyType: NumberRange {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StarterPlayer.GameSettingsScaleRangeHead: NumberRange {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -6272,8 +6278,6 @@ Class Translator : Instance [NotCreatable] [NotReplicated]
 	Function Translator:Translate(context: Instance, text: string) -> string
 Class TutorialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TutorialService:GetMainViewSessionId() -> string {RobloxScriptSecurity}
-	Function TutorialService:GetStudioWidgetFromLabel(label: string) -> StudioWidget {RobloxScriptSecurity}
-	Function TutorialService:GetTutorialIDToLaunch() -> string {RobloxScriptSecurity}
 	Function TutorialService:HasUserCompletedTutorial() -> boolean {RobloxScriptSecurity}
 	Function TutorialService:HideWidgets(commaSeparatedNames: string) -> boolean {RobloxScriptSecurity}
 	Function TutorialService:PromptClosePlace() -> () {RobloxScriptSecurity}
@@ -9031,6 +9035,9 @@ Enum ProductLocationRestriction
 	EnumItem ProductLocationRestriction.AvatarShop : 0
 	EnumItem ProductLocationRestriction.AllowedGames : 1
 	EnumItem ProductLocationRestriction.AllGames : 2
+Enum ProductPurchaseChannel
+	EnumItem ProductPurchaseChannel.InExperience : 1
+	EnumItem ProductPurchaseChannel.ExperienceDetailsPage : 2
 Enum ProductPurchaseDecision
 	EnumItem ProductPurchaseDecision.NotProcessedYet : 0
 	EnumItem ProductPurchaseDecision.PurchaseGranted : 1

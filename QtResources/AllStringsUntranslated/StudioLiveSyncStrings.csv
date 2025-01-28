@@ -1,0 +1,5 @@
+Key,Context,Source,en-us
+Studio.LiveSync.FailedToAccessPlaceMetadata,Unable to save the file sync config,Can't save file sync config: Unable to read place metadata,Can't save file sync config: Unable to read place metadata
+Studio.LiveSync.PackageLinkAdded,Instance cannot be synced now because it is a package,Can't sync %1 to the disk: Instance is a package,Can't sync %1 to the disk: Instance is a package
+Studio.LiveSync.StartSyncContentMismatch,Can't sync the instance to the provided filepath because the contents of the two differ,Can't sync %1 to disk at %2: The local file does not match this scrip,Can't sync %1 to disk at %2: The local file does not match this scrip
+Studio.LiveSync.StartSyncInstanceMissing,Cannot sync the instance because it does not exist,Can't sync to %1: The instance does not exist,Can't sync to %1: The instance does not exist

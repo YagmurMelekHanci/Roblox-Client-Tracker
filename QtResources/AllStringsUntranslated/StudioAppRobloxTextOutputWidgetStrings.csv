@@ -1,4 +1,5 @@
 Key,Context,Source,en-us
+Studio.App.RobloxTextOutputWidget.AskAssistant,Send a message to Assistant using metadata from the selected output message,Ask Assistant,Ask Assistant
 Studio.App.RobloxTextOutputWidget.ClearOutput,,Clear Output,Clear Output
 Studio.App.RobloxTextOutputWidget.Context,,Context,Context
 Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
