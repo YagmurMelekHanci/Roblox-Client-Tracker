@@ -9,7 +9,7 @@ local SafeFlags = require(Packages.SafeFlags)
 return {
 	FoundationStylingPolyfill = SafeFlags.createGetFFlag("FoundationStylingPolyfill")(),
 	FoundationCompositeTextInput = SafeFlags.createGetFFlag("FoundationCompositeTextInput2")(),
-	FoundationIconButtonPaddings = SafeFlags.createGetFFlag("FoundationIconButtonPaddings")(),
-	FoundationSkeletonDarkThemeFix = SafeFlags.createGetFFlag("FoundationSkeletonDarkThemeFix")(),
 	FoundationBadgeSimplifySizing = SafeFlags.createGetFFlag("FoundationBadgeSimplifySizing")(),
+	FoundationFixSupportImageBinding = SafeFlags.createGetFFlag("FoundationFixSupportImageBinding")(),
+	FoundationDisableBadgeTruncation = SafeFlags.createGetFFlag("FoundationDisableBadgeTruncation")(),
 }

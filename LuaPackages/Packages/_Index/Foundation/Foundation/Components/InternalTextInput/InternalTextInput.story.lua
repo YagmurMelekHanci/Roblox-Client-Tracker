@@ -14,6 +14,7 @@ local function Story(props)
 	local controls = props.controls
 
 	local text, setText = React.useState("")
+	local numReturnPressed, setNumReturnPressed = React.useState(0)
 
 	local function handleChange(newText: string)
 		setText(newText)
@@ -21,6 +22,13 @@ local function Story(props)
 
 	local function buttonPress()
 		print("press!")
+	end
+
+	local function onReturnPressed()
+		print("Return pressed!")
+		setNumReturnPressed(function(numPressed)
+			return numPressed + 1
+		end)
 	end
 
 	return React.createElement(View, {
@@ -31,6 +39,7 @@ local function Story(props)
 			hasError = controls.hasError,
 			isDisabled = controls.isDisabled,
 			onChanged = handleChange,
+			onReturnPressed = onReturnPressed,
 			placeholder = controls.placeholder,
 			leadingElement = if controls.leadingComponentIcon == React.None
 				then nil
@@ -52,6 +61,15 @@ local function Story(props)
 				Color3 = Color3.new(1, 0, 0.5),
 			},
 			LayoutOrder = 2,
+			tag = "auto-xy",
+		}),
+		NumReturnPressed = React.createElement(Text, {
+			LayoutOrder = 3,
+			Text = "Num return pressed: " .. tostring(numReturnPressed),
+			textStyle = {
+				Color3 = Color3.new(0, 0, 0),
+			},
+
 			tag = "auto-xy",
 		}),
 	})

@@ -55,6 +55,7 @@ type TextInputProps = {
 	-- Partial TextBox ref exposed via imperative handle
 	textBoxRef: React.Ref<TextInputRef>?,
 	onFocusGained: (() -> ())?,
+	onReturnPressed: (() -> ())?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -85,6 +86,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					textInputType = props.textInputType,
 					onChanged = props.onChanged,
 					onFocus = props.onFocusGained,
+					onReturnPressed = props.onReturnPressed,
 					placeholder = props.placeholder,
 					leadingElement = if props.iconLeading
 						then React.createElement(

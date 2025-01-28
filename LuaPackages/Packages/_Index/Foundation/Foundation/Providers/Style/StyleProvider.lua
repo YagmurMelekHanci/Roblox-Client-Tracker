@@ -22,6 +22,7 @@ export type StyleProviderProps = {
 	theme: Theme,
 	device: Device?,
 	derives: { StyleSheet }?,
+	sheetRef: React.Ref<StyleSheet>?,
 	DONOTUSE_colorUpdate: boolean?,
 	children: React.ReactNode,
 }
@@ -77,6 +78,7 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 						device = props.device :: Device,
 						tags = tags,
 						derives = styleProviderProps.derives,
+						sheetRef = styleProviderProps.sheetRef,
 						DONOTUSE_colorUpdate = styleProviderProps.DONOTUSE_colorUpdate,
 					}),
 				}

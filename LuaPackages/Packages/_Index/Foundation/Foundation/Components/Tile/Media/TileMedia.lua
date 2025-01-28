@@ -6,8 +6,8 @@ local React = require(Packages.React)
 local MediaType = require(Foundation.Enums.MediaType)
 type MediaType = MediaType.MediaType
 
-local Radius = require(Foundation.Enums.Radius)
-type Radius = Radius.Radius
+local MediaShape = require(Foundation.Enums.MediaShape)
+type MediaShape = MediaShape.MediaShape
 
 local useTileLayout = require(Foundation.Components.Tile.useTileLayout)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -18,19 +18,24 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local Types = require(Foundation.Components.Types)
 type ColorStyle = Types.ColorStyle
 
+local SHAPE_TO_ASPECT_RATIO: { [MediaShape]: number } = {
+	[MediaShape.Circle] = 1,
+	[MediaShape.Square] = 1,
+	[MediaShape.Landscape] = 16 / 9,
+	[MediaShape.Portrait] = 9 / 16,
+}
+
 type TileMediaProps = {
-	mediaId: number?,
-	mediaType: MediaType?,
-	aspectRatio: number?,
-	radius: Radius?,
+	id: number?,
+	type: MediaType?,
+	shape: MediaShape?,
 	background: (string | ColorStyle)?,
 	children: React.ReactElement<any, string>?,
 	LayoutOrder: number?,
 }
 
 local defaultProps = {
-	aspectRatio = 1,
-	radius = Radius.None,
+	shape = MediaShape.Square,
 	LayoutOrder = 1,
 }
 
@@ -51,14 +56,25 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 	end
 
 	local image = React.useMemo(function()
-		if props.mediaType == nil or props.mediaId == nil then
+		if props.id == nil or props.type == nil then
 			return nil :: string?
 		end
 
-		return `rbxthumb://type={props.mediaType}&id={props.mediaId}&w=150&h=150`
-	end, { props.mediaType, props.mediaId } :: { any })
+		return `rbxthumb://type={props.type}&id={props.id}&w=150&h=150`
+	end, { props.type, props.id } :: { any })
 
-	local cornerRadius = if props.radius ~= Radius.None then UDim.new(0, tokens.Radius[props.radius]) else nil
+	local cornerRadius = if props.shape :: MediaShape == MediaShape.Circle
+		then UDim.new(0, tokens.Radius.Circle)
+		else UDim.new(0, tokens.Radius.Medium)
+
+	local transparencyGradient = React.createElement("UIGradient", {
+		Rotation = if tileLayout.fillDirection == Enum.FillDirection.Vertical then 90 else 0,
+		Transparency = NumberSequence.new({
+			NumberSequenceKeypoint.new(0, 1),
+			NumberSequenceKeypoint.new(0.5, 0),
+			NumberSequenceKeypoint.new(1, 0),
+		}),
+	})
 
 	return React.createElement(if backgroundImage then Image else View, {
 		Image = backgroundImage,
@@ -69,7 +85,7 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 		LayoutOrder = props.LayoutOrder,
 
 		aspectRatio = {
-			AspectRatio = props.aspectRatio,
+			AspectRatio = SHAPE_TO_ASPECT_RATIO[props.shape],
 			AspectType = Enum.AspectType.ScaleWithParentSize,
 			DominantAxis = if tileLayout.fillDirection == Enum.FillDirection.Vertical
 				then Enum.DominantAxis.Width
@@ -78,35 +94,19 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 		cornerRadius = cornerRadius,
 	}, {
 		-- If the tile has a background and no padding around the media, we only round the top two corners.
-		MiddleCorners = if tileLayout.hasBackground
-				and tileLayout.tilePadding == nil
-				and cornerRadius
+		MiddleCorners = if tileLayout.isContained and cornerRadius
 			then React.createElement(Image, {
 				Image = backgroundImage,
 				ZIndex = 0,
 				tag = "size-full",
 			}, {
-				TransparencyGradient = React.createElement("UIGradient", {
-					Rotation = if tileLayout.fillDirection == Enum.FillDirection.Vertical then 90 else 0,
-					Transparency = NumberSequence.new({
-						NumberSequenceKeypoint.new(0, 1),
-						NumberSequenceKeypoint.new(0.5, 0),
-						NumberSequenceKeypoint.new(1, 0),
-					}),
-				}),
+				TransparencyGradient = transparencyGradient,
 				Image = React.createElement(Image, {
 					Image = image,
 					backgroundStyle = backgroundStyle,
 					tag = "size-full",
 				}, {
-					TransparencyGradient = React.createElement("UIGradient", {
-						Rotation = if tileLayout.fillDirection == Enum.FillDirection.Vertical then 90 else 0,
-						Transparency = NumberSequence.new({
-							NumberSequenceKeypoint.new(0, 1),
-							NumberSequenceKeypoint.new(0.5, 0),
-							NumberSequenceKeypoint.new(1, 0),
-						}),
-					}),
+					TransparencyGradient = transparencyGradient,
 				}),
 			})
 			else nil,

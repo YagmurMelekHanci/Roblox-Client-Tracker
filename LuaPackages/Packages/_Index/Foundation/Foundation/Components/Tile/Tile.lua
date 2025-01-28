@@ -12,27 +12,24 @@ type Bindable<T> = Types.Bindable<T>
 local withDefaults = require(Foundation.Utility.withDefaults)
 local TileLayoutContext = require(script.Parent.TileLayoutContext)
 
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 type FillBehavior = FillBehavior.FillBehavior
+
 type Padding = Types.Padding
 type ColorStyle = Types.ColorStyle
 
 type TileProps = {
-	fillDirection: Enum.FillDirection?,
-	fillBehavior: FillBehavior?,
-	spacing: number?,
-	padding: Padding?,
-	backgroundStyle: ColorStyle?,
+	isContained: boolean?,
 	onStateChanged: StateChangedCallback?,
+	FillDirection: Enum.FillDirection?,
 	Size: Bindable<UDim2>,
 	children: React.ReactElement<any, string>?,
 } & Types.CommonProps
 
 local defaultProps = {
-	fillDirection = Enum.FillDirection.Vertical,
-	fillBehavior = FillBehavior.Fit,
-	spacing = 0,
-	padding = nil,
+	FillDirection = Enum.FillDirection.Vertical,
+	isContained = false,
 }
 
 local function Tile(tileProps: TileProps, ref: React.Ref<GuiObject>?)
@@ -41,26 +38,28 @@ local function Tile(tileProps: TileProps, ref: React.Ref<GuiObject>?)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			backgroundStyle = props.backgroundStyle,
-			Size = props.Size,
+			tag = {
+				["bg-shift-200"] = props.isContained,
+				["gap-small"] = not props.isContained,
+				["radius-medium"] = true,
+			},
+			stateLayer = {
+				affordance = StateLayerAffordance.None,
+			},
 			onStateChanged = props.onStateChanged,
 			layout = {
-				FillDirection = props.fillDirection,
-				Padding = UDim.new(0, props.spacing),
+				FillDirection = props.FillDirection,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			},
-			padding = props.padding,
+			Size = props.Size,
 			ref = ref,
 		}),
 		{
 			TileContext = if props.children
 				then React.createElement(TileLayoutContext.Provider, {
 					value = {
-						fillDirection = props.fillDirection,
-						fillBehavior = props.fillBehavior,
-						tileSpacing = props.spacing,
-						tilePadding = props.padding,
-						hasBackground = props.backgroundStyle ~= nil,
+						isContained = props.isContained,
+						fillDirection = props.FillDirection,
 					},
 				}, props.children)
 				else nil,

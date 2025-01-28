@@ -2,6 +2,7 @@ local strict = require(script.Utility.strict)
 local Flags = require(script.Utility.Flags)
 
 local Types = require(script.Components.Types)
+local Tokens = require(script.Providers.Style.Tokens)
 
 export type Bindable<T> = Types.Bindable<T>
 export type CommonProps = Types.CommonProps
@@ -13,6 +14,7 @@ export type Tags = Types.Tags
 export type ColorStyle = Types.ColorStyle
 export type ColorStyleValue = Types.ColorStyleValue
 export type FontStyle = Types.FontStyle
+export type Tokens = Tokens.Tokens
 
 local TextInput = require(script.Components.TextInput)
 

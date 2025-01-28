@@ -11,6 +11,7 @@ local function withCommonProps<T>(props: CommonProps, baseProps: T)
 		baseProps.Visible = props.Visible
 		baseProps.ZIndex = props.ZIndex
 		baseProps.onAbsoluteSizeChanged = props.onAbsoluteSizeChanged
+		baseProps.onAbsolutePositionChanged = props.onAbsolutePositionChanged
 		baseProps.testId = props.testId
 	end
 	return baseProps :: T & CommonProps

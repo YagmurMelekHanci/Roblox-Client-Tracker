@@ -70,11 +70,16 @@ type StyleSheetProps = {
 	device: Device,
 	tags: { [string]: boolean },
 	derives: { StyleSheet }?,
+	sheetRef: React.Ref<StyleSheet>?,
 	DONOTUSE_colorUpdate: boolean?,
 }
 
 local function StyleSheet(props: StyleSheetProps)
 	local sheet = React.useRef(nil)
+
+	React.useImperativeHandle(props.sheetRef, function()
+		return sheet.current
+	end, { sheet.current })
 
 	local rules = useGeneratedRules(props.theme, props.device, props.DONOTUSE_colorUpdate == true)
 

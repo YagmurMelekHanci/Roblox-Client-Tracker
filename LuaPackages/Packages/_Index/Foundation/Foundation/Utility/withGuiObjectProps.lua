@@ -78,6 +78,8 @@ local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, basePr
 	-- Replace incompatible Common Props
 	fullProps[React.Change.AbsoluteSize] = props.onAbsoluteSizeChanged
 	fullProps.onAbsoluteSizeChanged = nil
+	fullProps[React.Change.AbsolutePosition] = props.onAbsolutePositionChanged
+	fullProps.onAbsolutePositionChanged = nil
 
 	local fullTestId = if fullProps.testId then "data-testid=" .. fullProps.testId else nil
 

@@ -24,6 +24,8 @@ end
 export type Props = {
 	-- Input number value
 	value: number?,
+	-- Whether the input is in an error state
+	hasError: boolean?,
 	-- Whether the input is disabled
 	isDisabled: boolean?,
 	-- Whether the input is required, true for "*", false for " (optional)", nil for nothing
@@ -63,6 +65,7 @@ local defaultProps = {
 
 local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(numberInputProps, defaultProps) :: {
+		hasError: boolean?,
 		isDisabled: boolean?,
 		step: number,
 		maximum: number,
@@ -120,6 +123,7 @@ local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 		withCommonProps(props, {
 			width = props.width,
 			ref = ref,
+			hasError = props.hasError,
 			label = props.label,
 			size = InputLabelSize.Small,
 			isRequired = props.isRequired,
@@ -127,6 +131,7 @@ local function NumberInput(numberInputProps: Props, ref: React.Ref<GuiObject>?)
 			input = function(inputRef)
 				return React.createElement(InternalTextInput, {
 					text = currentText,
+					hasError = props.hasError,
 					onChanged = onChanged,
 					onFocusLost = onFocusLost,
 					onFocus = onFocus,

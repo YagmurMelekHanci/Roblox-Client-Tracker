@@ -16,6 +16,7 @@ local function DefaultStory(props)
 
 	return React.createElement(NumberInput, {
 		value = value,
+		hasError = controls.hasError,
 		isDisabled = controls.isDisabled,
 		isRequired = controls.isRequired,
 		onChanged = handleChange,
@@ -60,6 +61,7 @@ return {
 		label = "Label",
 		hint = "Number from -5 to 100",
 		isRequired = { React.None, false, true },
+		hasError = false,
 		isDisabled = false,
 		maximum = 100,
 		minimum = -5,

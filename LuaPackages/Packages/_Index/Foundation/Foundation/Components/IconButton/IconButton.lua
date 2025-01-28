@@ -1,6 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 
@@ -59,9 +58,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	local radius = tokens.Radius[radiusEnum]
 
 	local paddingKey = ICON_SIZE_TO_PADDING_KEY[props.size]
-	local padding = if Flags.FoundationIconButtonPaddings
-		then UDim.new(0, tokens.Size[paddingKey])
-		else UDim.new(0, radius)
+	local padding = UDim.new(0, tokens.Size[paddingKey])
 
 	local iconSize = tokens.Semantic.Icon.Size[props.size] -- TODO(tokens): Replace with a non-sematic token
 	local size = UDim2.fromOffset(iconSize, iconSize)
@@ -94,7 +91,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 			Icon = React.createElement(Icon, {
 				name = props.icon,
 				size = props.size,
-				style = if Flags.FoundationIconButtonPaddings then tokens.Color.Content.Emphasis else nil,
+				style = tokens.Color.Content.Emphasis,
 			}),
 		}
 	)

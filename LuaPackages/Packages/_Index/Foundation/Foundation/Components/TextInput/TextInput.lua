@@ -60,6 +60,7 @@ type TextInputProps = {
 	-- Partial TextBox ref exposed via imperative handle
 	textBoxRef: React.Ref<TextInputRef>?,
 	onFocusGained: (() -> ())?,
+	onReturnPressed: (() -> ())?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -114,9 +115,15 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 		end
 	end, { props.onFocusGained :: unknown, props.isDisabled })
 
-	local onFocusLost = React.useCallback(function()
-		setFocus(false)
-	end, {})
+	local onFocusLost = React.useCallback(
+		function(_rbx: TextBox, enterPressed: boolean, _inputThatCausedFocusLoss: InputObject)
+			setFocus(false)
+			if enterPressed and props.onReturnPressed then
+				props.onReturnPressed()
+			end
+		end,
+		{ props.onReturnPressed :: unknown }
+	)
 
 	local focusTextBox = React.useCallback(function()
 		if textBox.current then

@@ -23,6 +23,7 @@ export type NativeCommonProps = {
 
 export type CommonProps = {
 	onAbsoluteSizeChanged: (instance: GuiObject) -> ()?,
+	onAbsolutePositionChanged: (instance: GuiObject) -> ()?,
 	testId: string?,
 } & NativeCommonProps
 

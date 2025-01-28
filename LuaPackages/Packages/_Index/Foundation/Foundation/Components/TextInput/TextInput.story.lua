@@ -14,6 +14,7 @@ local function Story(props)
 	local controls = props.controls
 
 	local text, setText = React.useState("")
+	local numReturnPressed, setNumReturnPressed = React.useState(0)
 
 	local ref = React.useRef(nil)
 
@@ -35,6 +36,13 @@ local function Story(props)
 		print("focus gained!")
 	end
 
+	local function onReturnPressed()
+		print("Return pressed!")
+		setNumReturnPressed(function(numPressed)
+			return numPressed + 1
+		end)
+	end
+
 	return React.createElement(View, {
 		tag = "col gap-large auto-xy padding-xlarge",
 	}, {
@@ -47,6 +55,7 @@ local function Story(props)
 			isRequired = controls.isRequired,
 			onChanged = handleChange,
 			onFocusGained = onFocusGained,
+			onReturnPressed = onReturnPressed,
 			label = controls.input,
 			hint = if controls.hint == "" then nil else controls.hint,
 			placeholder = controls.placeholder,
@@ -77,6 +86,16 @@ local function Story(props)
 			text = "Focus TextInput",
 			onActivated = gainFocus,
 			variant = ButtonVariant.Standard,
+		}),
+
+		NumReturnPressed = React.createElement(Text, {
+			LayoutOrder = 4,
+			Text = "Num return pressed: " .. tostring(numReturnPressed),
+			textStyle = {
+				Color3 = Color3.new(0, 0, 0),
+			},
+
+			tag = "auto-xy",
 		}),
 	})
 end

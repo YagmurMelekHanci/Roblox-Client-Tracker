@@ -8,6 +8,7 @@ local PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local isCoreGui = require(Foundation.Utility.isCoreGui)
+local Flags = require(Foundation.Utility.Flags)
 
 local OverlayContext = require(script.Parent.OverlayContext)
 
@@ -16,6 +17,7 @@ local ReactRoblox = require(Packages.ReactRoblox)
 
 type Props = {
 	gui: GuiObject?,
+	sheetRef: React.Ref<StyleSheet>?,
 	children: React.ReactNode,
 }
 
@@ -47,6 +49,12 @@ local function OverlayProvider(props: Props)
 					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 					ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets,
 					ref = overlayRefCallback,
+				}, {
+					FoundationStyleLink = if not Flags.FoundationStylingPolyfill
+						then React.createElement("StyleLink", {
+							StyleSheet = if type(props.sheetRef) == "table" then props.sheetRef.current else nil,
+						})
+						else nil,
 				}),
 				mainGui
 			)

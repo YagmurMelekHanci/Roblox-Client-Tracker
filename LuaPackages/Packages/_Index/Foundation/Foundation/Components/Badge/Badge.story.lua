@@ -7,7 +7,6 @@ local Dash = require(Packages.Dash)
 local Tile = require(Foundation.Components.Tile)
 local MediaType = require(Foundation.Enums.MediaType)
 local Radius = require(Foundation.Enums.Radius)
-local FillBehavior = require(Foundation.Enums.FillBehavior)
 local Theme = require(Foundation.Enums.Theme)
 
 local Badge = require(Foundation.Components.Badge)
@@ -48,10 +47,9 @@ return {
 
 				if props.controls.onTile then
 					return React.createElement(Tile.Root, {
-						fillDirection = Enum.FillDirection.Vertical,
-						fillBehavior = FillBehavior.Fit,
 						spacing = tokens.Gap.Small,
 						backgroundStyle = tokens.Color.Shift.Shift_200,
+						FillDirection = Enum.FillDirection.Vertical,
 						-- Add negative size to offset border
 						Size = itemTileSize - UDim2.fromOffset(2, 2),
 					}, {
@@ -64,8 +62,8 @@ return {
 							CornerRadius = UDim.new(0, tokens.Radius.Medium),
 						}),
 						TileMedia = React.createElement(Tile.Media, {
-							mediaId = itemId,
-							mediaType = MediaType.Asset,
+							id = itemId,
+							type = MediaType.Asset,
 							aspectRatio = 1,
 							radius = Radius.Medium,
 							background = "component_assets/itemBG_"

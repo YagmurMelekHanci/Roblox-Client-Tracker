@@ -105,7 +105,9 @@ return function(
 	}
 
 	local containerTags = `auto-xy radius-circle row align-y-center align-x-center stroke-thick {containerPadding}`
-	local textTags = `auto-xy text-truncate-end {textPadding} {fontStyle}`
+	local textTags = if Flags.FoundationDisableBadgeTruncation
+		then `auto-xy {textPadding} {fontStyle}`
+		else `auto-xy text-truncate-end {textPadding} {fontStyle}`
 
 	return badgeVariants[variant], containerSizeConstraint, textSizeConstraint, containerTags, textTags
 end

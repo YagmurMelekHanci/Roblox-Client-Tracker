@@ -14,12 +14,12 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local ReactOtter = require(Packages.ReactOtter)
 local Cryo = require(Packages.Cryo)
-local Otter = require(Packages.Otter)
 
 local Tile = require(Foundation.Components.Tile)
 local MediaType = require(Foundation.Enums.MediaType)
-local Radius = require(Foundation.Enums.Radius)
+local MediaShape = require(Foundation.Enums.MediaShape)
 local Theme = require(Foundation.Enums.Theme)
 
 local Icon = require(Foundation.Components.Icon)
@@ -148,42 +148,33 @@ return {
 				local tokens = useTokens()
 
 				return React.createElement(Tile.Root, {
-					fillDirection = props.controls.fillDirection,
-					fillBehavior = props.controls.fillBehavior,
+					FillDirection = props.controls.fillDirection,
 					Size = if props.controls.fillDirection == Enum.FillDirection.Vertical
 						then UDim2.fromOffset(150, 275)
 						else UDim2.fromOffset(300, 150),
-					spacing = tokens.Gap.Small,
-					backgroundStyle = tokens.Color.Shift.Shift_200,
+					isContained = props.controls.isContained,
 				}, {
-					Corner = React.createElement("UICorner", {
-						CornerRadius = UDim.new(0, tokens.Radius.Medium),
-					}),
 					TileMedia = React.createElement(Tile.Media, {
-						mediaId = props.controls.itemId,
-						mediaType = MediaType.Asset,
-						aspectRatio = props.controls.aspectRatio,
+						id = props.controls.itemId,
+						type = MediaType.Asset,
+						shape = props.controls.shape,
 						background = tokens.Color.Shift.Shift_200,
-						radius = Radius.Medium,
 					}),
-					TileContent = React.createElement(Tile.Content, {
-						spacing = tokens.Gap.XSmall,
-						padding = tokens.Padding.Small,
-					}, {
+					TileContent = React.createElement(Tile.Content, {}, {
 						TileHeader = React.createElement(Tile.Header, {
 							title = {
 								text = props.controls.title,
 								isLoading = props.controls.title == nil,
 								fontStyle = tokens.Typography.HeadingSmall,
-								numLines = props.controls.numLines,
+								numLines = props.controls.numTitleLines,
 							},
 							subtitle = {
 								text = props.controls.subtitle,
 								isLoading = props.controls.subtitle == nil,
 								fontStyle = tokens.Typography.BodyLarge,
 								colorStyle = tokens.Color.Content.Muted,
+								numLines = props.controls.numSubtitleLines,
 							},
-							spacing = tokens.Gap.Small,
 						}),
 						TileFooter = React.createElement(Tile.Footer, {}, {
 							getPlayerCount(tokens),
@@ -226,24 +217,13 @@ return {
 				end, { itemId })
 
 				return React.createElement(Tile.Root, {
-					fillDirection = Enum.FillDirection.Horizontal,
-					fillBehavior = FillBehavior.Fit,
-					spacing = tokens.Gap.Small,
-					backgroundStyle = tokens.Color.Shift.Shift_200,
+					isContained = true,
 					-- Add negative size to offset border
+					FillDirection = Enum.FillDirection.Horizontal,
 					Size = UDim2.fromOffset(300, 150) - UDim2.fromOffset(2, 2),
 				}, {
-					UIStroke = React.createElement("UIStroke", {
-						Color = tokens.Color.Stroke.Emphasis.Color3,
-						Transparency = tokens.Color.Stroke.Emphasis.Transparency,
-						Thickness = 1,
-					}),
-					UICorner = React.createElement("UICorner", {
-						CornerRadius = UDim.new(0, tokens.Radius.Medium),
-					}),
 					TileMedia = React.createElement(Tile.Media, {
-						aspectRatio = 1,
-						radius = Radius.Medium,
+						shape = MediaShape.Square,
 						background = "component_assets/itemBG_"
 							.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 					}, {
@@ -254,10 +234,7 @@ return {
 							})
 							else nil,
 					}),
-					TileContent = React.createElement(Tile.Content, {
-						spacing = tokens.Gap.XXSmall,
-						padding = tokens.Padding.Small,
-					}, {
+					TileContent = React.createElement(Tile.Content, {}, {
 						TileHeader = React.createElement(Tile.Header, {
 							title = {
 								text = item.Name,
@@ -271,7 +248,6 @@ return {
 								fontStyle = tokens.Typography.BodyLarge,
 								colorStyle = tokens.Color.Content.Muted,
 							},
-							spacing = tokens.Gap.Small,
 						}),
 					}),
 				})
@@ -293,8 +269,6 @@ return {
 					setIsHoveringWide(newState == ControlState.Hover)
 				end, { setIsHoveringWide })
 
-				local size, updateSize = React.useBinding(wideTileSize)
-
 				local place, setPlace = React.useState({} :: { Name: string? })
 				local placeId = props.controls.placeId
 				local universeId = PLACE_TO_UNIVERSE[placeId]
@@ -307,61 +281,33 @@ return {
 					end)
 				end, { placeId })
 
-				local paddingMotorRef = React.useRef(nil :: Otter.SingleMotor?)
+				local sizeOffsetBinding, setGoal = ReactOtter.useAnimatedBinding(0)
+
+				-- Update the animated value whenever isHoveringWide changes
 				React.useEffect(function()
-					local paddingMotor = Otter.createSingleMotor(0)
-					paddingMotorRef.current = paddingMotor
-					paddingMotor:start()
-
-					paddingMotor:onStep(function(newValue)
-						updateSize(wideTileSize + UDim2.fromOffset(newValue, newValue))
-					end)
-
-					return function()
-						paddingMotor:destroy()
-					end
-				end, {})
-
-				React.useEffect(function()
-					local newPadding = if isHoveringWide then tokens.Padding.Small else 0
-					if paddingMotorRef.current then
-						paddingMotorRef.current:setGoal(Otter.spring(newPadding, { frequency = 4 }))
-					end
+					local target = if isHoveringWide then tokens.Size.Size_200 else 0
+					setGoal(ReactOtter.spring(target, { frequency = 4 }))
 				end, { isHoveringWide })
 
 				return React.createElement(View, {
 					tag = "auto-xy gap-large padding-small row",
 				}, {
 					Tile = React.createElement(Tile.Root, {
-						fillDirection = Enum.FillDirection.Vertical,
-						fillBehavior = FillBehavior.Fill,
-						spacing = tokens.Gap.Small,
-						backgroundStyle = tokens.Color.Shift.Shift_200,
+						isContained = true,
 						onStateChanged = onTileStateChanged,
+						FillDirection = Enum.FillDirection.Vertical,
 						-- Add negative size to offset border
 						Size = experienceTileSize - UDim2.fromOffset(2, 2),
 						LayoutOrder = 1,
 					}, {
-						UIStroke = React.createElement("UIStroke", {
-							Color = tokens.Color.Stroke.Emphasis.Color3,
-							Transparency = tokens.Color.Stroke.Emphasis.Transparency,
-							Thickness = 1,
-						}),
-						UICorner = React.createElement("UICorner", {
-							CornerRadius = UDim.new(0, tokens.Radius.Medium),
-						}),
 						TileMedia = React.createElement(Tile.Media, {
-							mediaId = if isHovering then placeId else universeId,
-							mediaType = if isHovering then MediaType.Asset else MediaType.GameIcon,
-							aspectRatio = if isHovering then 1.7778 else 1,
-							radius = Radius.Medium,
+							id = if isHovering then placeId else universeId,
+							type = if isHovering then MediaType.Asset else MediaType.GameIcon,
+							shape = if isHovering then MediaShape.Landscape else MediaShape.Square,
 							background = "component_assets/avatarBG_"
 								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 						}),
-						TileContent = React.createElement(Tile.Content, {
-							spacing = tokens.Gap.Small,
-							padding = tokens.Padding.Small,
-						}, {
+						TileContent = React.createElement(Tile.Content, {}, {
 							TileHeader = React.createElement(Tile.Header, {
 								title = {
 									text = place.Name,
@@ -369,7 +315,6 @@ return {
 									fontStyle = tokens.Typography.HeadingSmall,
 									numLines = 2,
 								},
-								spacing = tokens.Gap.Small,
 							}),
 							TileFooter = React.createElement(Tile.Footer, {}, {
 								getPlayerCount(tokens),
@@ -394,30 +339,23 @@ return {
 						LayoutOrder = 2,
 					}, {
 						WideTile = React.createElement(Tile.Root, {
-							fillDirection = Enum.FillDirection.Vertical,
-							fillBehavior = FillBehavior.Fill,
-							spacing = tokens.Gap.Small,
-							padding = tokens.Padding.Small,
-							backgroundStyle = if isHoveringWide then tokens.Color.Shift.Shift_200 else nil,
 							onStateChanged = onWideTileStateChanged,
-							Size = size,
+							isContained = isHoveringWide,
+							FillDirection = Enum.FillDirection.Vertical,
+							Size = sizeOffsetBinding:map(function(offset: number)
+								return wideTileSize + UDim2.fromOffset(offset * 2, offset * 2)
+							end),
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.fromScale(0.5, 0.5),
 						}, {
-							UICorner = React.createElement("UICorner", {
-								CornerRadius = UDim.new(0, tokens.Radius.Medium),
-							}),
 							TileMedia = React.createElement(Tile.Media, {
-								mediaId = universeId,
-								mediaType = MediaType.GameIcon,
-								aspectRatio = 1.7778,
-								radius = Radius.Medium,
+								id = universeId,
+								type = MediaType.GameIcon,
+								shape = MediaShape.Landscape,
 								background = "component_assets/avatarBG_"
 									.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 							}),
-							TileContent = React.createElement(Tile.Content, {
-								spacing = tokens.Gap.Small,
-							}, {
+							TileContent = React.createElement(Tile.Content, {}, {
 								TileHeader = React.createElement(Tile.Header, {
 									title = {
 										text = place.Name,
@@ -426,7 +364,6 @@ return {
 										numLines = 2,
 									},
 									subtitle = "82% 👍 92k 👤",
-									spacing = tokens.Gap.Small,
 								}),
 								TileActions = React.createElement(Tile.Actions, {
 									Visible = isHoveringWide,
@@ -449,23 +386,16 @@ return {
 						LayoutOrder = 3,
 					}, {
 						WideTile = React.createElement(Tile.Root, {
-							fillDirection = Enum.FillDirection.Vertical,
-							fillBehavior = FillBehavior.Fill,
-							spacing = tokens.Gap.Small,
-							padding = tokens.Padding.Small,
-							backgroundStyle = tokens.Color.Shift.Shift_200,
+							isContained = true,
+							FillDirection = Enum.FillDirection.Vertical,
 							Size = wideTileSize,
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Position = UDim2.fromScale(0.5, 0.5),
 						}, {
-							UICorner = React.createElement("UICorner", {
-								CornerRadius = UDim.new(0, tokens.Radius.Medium),
-							}),
 							TileMedia = React.createElement(Tile.Media, {
-								mediaId = universeId,
-								mediaType = MediaType.GameIcon,
-								aspectRatio = 1.7778,
-								radius = Radius.Medium,
+								id = universeId,
+								type = MediaType.GameIcon,
+								shape = MediaShape.Landscape,
 								background = "component_assets/avatarBG_"
 									.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 							}),
@@ -480,7 +410,6 @@ return {
 										numLines = 2,
 									},
 									subtitle = "82% 👍 92k 👤",
-									spacing = tokens.Gap.Small,
 								}),
 								TileActions = React.createElement(Tile.Actions, {}, {
 									Button = React.createElement(Button, {
@@ -524,33 +453,19 @@ return {
 				end, { itemId })
 
 				return React.createElement(Tile.Root, {
-					fillDirection = Enum.FillDirection.Vertical,
-					fillBehavior = FillBehavior.Fit,
-					spacing = tokens.Gap.Small,
-					backgroundStyle = tokens.Color.Shift.Shift_200,
+					isContained = true,
+					FillDirection = Enum.FillDirection.Vertical,
 					-- Add negative size to offset border
 					Size = itemTileSize - UDim2.fromOffset(2, 2),
 				}, {
-					UIStroke = React.createElement("UIStroke", {
-						Color = tokens.Color.Stroke.Emphasis.Color3,
-						Transparency = tokens.Color.Stroke.Emphasis.Transparency,
-						Thickness = 1,
-					}),
-					UICorner = React.createElement("UICorner", {
-						CornerRadius = UDim.new(0, tokens.Radius.Medium),
-					}),
 					TileMedia = React.createElement(Tile.Media, {
-						mediaId = itemId,
-						mediaType = MediaType.Asset,
-						aspectRatio = 1,
-						radius = Radius.Medium,
+						id = itemId,
+						type = MediaType.Asset,
+						shape = MediaShape.Square,
 						background = "component_assets/itemBG_"
 							.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 					}),
-					TileContent = React.createElement(Tile.Content, {
-						spacing = tokens.Gap.XXSmall,
-						padding = tokens.Padding.Small,
-					}, {
+					TileContent = React.createElement(Tile.Content, {}, {
 						TileHeader = React.createElement(Tile.Header, {
 							title = {
 								text = item.Name,
@@ -564,7 +479,6 @@ return {
 								fontStyle = tokens.Typography.BodyLarge,
 								colorStyle = tokens.Color.Content.Muted,
 							},
-							spacing = tokens.Gap.Small,
 						}),
 					}),
 				})
@@ -613,16 +527,13 @@ return {
 					tag = "auto-xy gap-large row",
 				}, {
 					PlayerTile = React.createElement(Tile.Root, {
-						fillDirection = Enum.FillDirection.Vertical,
-						fillBehavior = FillBehavior.Fit,
-						spacing = tokens.Gap.Small,
+						FillDirection = Enum.FillDirection.Vertical,
 						Size = playerTileSize,
 					}, {
 						TileMedia = React.createElement(Tile.Media, {
-							mediaId = userId,
-							mediaType = MediaType.Avatar,
-							aspectRatio = 1,
-							radius = Radius.Medium,
+							id = userId,
+							type = MediaType.Avatar,
+							shape = MediaShape.Square,
 							background = "component_assets/avatarBG_"
 								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 						}, {
@@ -662,16 +573,13 @@ return {
 						}),
 					}),
 					OldPlayerTile = React.createElement(Tile.Root, {
-						fillDirection = Enum.FillDirection.Vertical,
-						fillBehavior = FillBehavior.Fit,
-						spacing = tokens.Gap.Small,
+						FillDirection = Enum.FillDirection.Vertical,
 						Size = UDim2.fromOffset(90, 115),
 					}, {
 						TileMedia = React.createElement(Tile.Media, {
-							mediaId = userId,
-							mediaType = MediaType.AvatarHeadShot,
-							aspectRatio = 1,
-							radius = Radius.Circle,
+							id = userId,
+							type = MediaType.AvatarHeadShot,
+							shape = MediaShape.Circle,
 							background = "component_assets/avatarBG_"
 								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 						}, {
@@ -722,9 +630,7 @@ return {
 					tag = "auto-xy gap-large row",
 				}, {
 					MarketplaceTile = React.createElement(Tile.Root, {
-						fillDirection = Enum.FillDirection.Horizontal,
-						fillBehavior = FillBehavior.Fit,
-						spacing = tokens.Gap.Small,
+						FillDirection = Enum.FillDirection.Horizontal,
 						Size = UDim2.new(0, 300, 0, 150),
 					}, {
 						TileContent = React.createElement(Tile.Content, {
@@ -742,10 +648,9 @@ return {
 							TileFooter = React.createElement(Tile.Footer, {}, {}),
 						}),
 						TileMedia = React.createElement(Tile.Media, {
-							mediaId = props.controls.placeId,
-							mediaType = MediaType.Asset,
-							aspectRatio = 1,
-							radius = Radius.Medium,
+							id = props.controls.placeId,
+							type = MediaType.Asset,
+							shape = MediaShape.Square,
 							background = "component_assets/avatarBG_"
 								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 							LayoutOrder = 2,
@@ -758,14 +663,12 @@ return {
 
 	controls = {
 		fillDirection = { Enum.FillDirection.Vertical, Enum.FillDirection.Horizontal },
-		fillBehavior = {
-			FillBehavior.Fill,
-			FillBehavior.Fit,
-		} :: { FillBehavior },
 		itemId = { 21070012, 125378389, 14825332446, 3360689775 },
-		aspectRatio = 1,
+		isContained = true,
+		shape = { MediaShape.Square :: any, MediaShape.Landscape, MediaShape.Portrait, MediaShape.Circle },
 		title = "Build a Boat for Treasure",
-		numLines = 2,
+		numTitleLines = 2,
+		numSubtitleLines = 1,
 		subtitle = "By Koi Koi Studios",
 		placeId = { 2727067538, 1537690962 },
 	},

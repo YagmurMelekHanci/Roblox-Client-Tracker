@@ -33,6 +33,7 @@ type TextInputProps = {
 	onChanged: (text: string) -> (),
 	onFocus: (() -> ())?,
 	onFocusLost: (() -> ())?,
+	onReturnPressed: (() -> ())?,
 	-- Placeholder text for input
 	placeholder: string?,
 	leadingElement: React.ReactElement?,
@@ -94,12 +95,19 @@ local function InternalTextInput(props: TextInputProps, ref: React.Ref<InternalT
 		end
 	end, { props.onFocus :: unknown, props.isDisabled })
 
-	local onFocusLost = React.useCallback(function()
-		setFocus(false)
-		if props.onFocusLost then
-			props.onFocusLost()
-		end
-	end, { props.onFocusLost })
+	local onFocusLost = React.useCallback(
+		function(_rbx: TextBox, enterPressed: boolean, _inputThatCausedFocusLoss: InputObject)
+			setFocus(false)
+			if props.onFocusLost then
+				props.onFocusLost()
+			end
+
+			if enterPressed and props.onReturnPressed then
+				props.onReturnPressed()
+			end
+		end,
+		{ props.onReturnPressed :: unknown, props.onFocusLost }
+	)
 
 	local onInputStateChanged = React.useCallback(function(newState: ControlState)
 		setHover(newState == ControlState.Hover)
