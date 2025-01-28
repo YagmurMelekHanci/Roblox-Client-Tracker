@@ -708,7 +708,7 @@ PROTO_30:
 PROTO_31:
   GETUPVAL R2 0
   CALL R2 0 1
-  JUMPIFNOT R2 [+30]
+  JUMPIFNOT R2 [+26]
   MOVE R2 R1
   LOADNIL R3
   LOADNIL R4
@@ -719,23 +719,20 @@ PROTO_31:
   GETTABLEKS R9 R10 K2 ["Sessions"]
   GETTABLEKS R8 R9 K3 ["sessionQueue"]
   GETTABLE R7 R8 R6
-  NAMECALL R8 R0 K4 ["hasCustomDefault"]
-  CALL R8 1 1
-  JUMPIFNOT R8 [+9]
-  GETTABLEKS R8 R7 K5 ["validSession"]
+  GETTABLEKS R8 R7 K4 ["validSession"]
   JUMPIFNOT R8 [+6]
-  GETTABLEKS R10 R0 K6 ["defaultName"]
+  GETTABLEKS R10 R0 K5 ["defaultName"]
   MOVE R11 R7
-  NAMECALL R8 R0 K7 ["resolvePreset"]
+  NAMECALL R8 R0 K6 ["resolvePreset"]
   CALL R8 3 0
-  FORGLOOP R2 2 [-24]
+  FORGLOOP R2 2 [-20]
   RETURN R0 0
   GETTABLEKS R4 R0 K0 ["_store"]
   NAMECALL R4 R4 K1 ["getState"]
   CALL R4 1 1
   GETTABLEKS R3 R4 K2 ["Sessions"]
   GETTABLEKS R2 R3 K3 ["sessionQueue"]
-  GETIMPORT R3 K10 [table.clone]
+  GETIMPORT R3 K9 [table.clone]
   MOVE R4 R2
   CALL R3 1 1
   MOVE R4 R1
@@ -743,20 +740,20 @@ PROTO_31:
   LOADNIL R6
   FORGPREP R4
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["update"]
+  GETTABLEKS R9 R10 K10 ["update"]
   GETTABLE R10 R2 R8
-  DUPTABLE R11 K13 [{"currentPreset"}]
-  GETTABLEKS R12 R0 K6 ["defaultName"]
-  SETTABLEKS R12 R11 K12 ["currentPreset"]
+  DUPTABLE R11 K12 [{"currentPreset"}]
+  GETTABLEKS R12 R0 K5 ["defaultName"]
+  SETTABLEKS R12 R11 K11 ["currentPreset"]
   CALL R9 2 1
-  NAMECALL R10 R0 K4 ["hasCustomDefault"]
+  NAMECALL R10 R0 K13 ["hasCustomDefault"]
   CALL R10 1 1
   JUMPIFNOT R10 [+9]
-  GETTABLEKS R10 R9 K5 ["validSession"]
+  GETTABLEKS R10 R9 K4 ["validSession"]
   JUMPIFNOT R10 [+6]
-  GETTABLEKS R12 R0 K6 ["defaultName"]
+  GETTABLEKS R12 R0 K5 ["defaultName"]
   MOVE R13 R9
-  NAMECALL R10 R0 K7 ["resolvePreset"]
+  NAMECALL R10 R0 K6 ["resolvePreset"]
   CALL R10 3 0
   SETTABLE R9 R3 R8
   FORGLOOP R4 2 [-25]

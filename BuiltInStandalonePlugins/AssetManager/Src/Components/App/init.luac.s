@@ -178,7 +178,7 @@ PROTO_4:
   SETTABLEKS R18 R17 K29 ["OnClick"]
   GETUPVAL R19 7
   GETTABLEKS R18 R19 K30 ["Tag"]
-  LOADK R19 K31 ["SidebarButton"]
+  LOADK R19 K31 ["SidebarButton data-testid=collapse-sidebar-button"]
   SETTABLE R19 R17 R18
   CALL R15 2 1
   SETTABLEKS R15 R14 K32 ["CollapseSidebarButton"]

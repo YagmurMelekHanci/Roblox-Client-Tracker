@@ -1,5 +1,5 @@
 PROTO_0:
-  JUMPIFNOT R0 [+21]
+  JUMPIFNOT R0 [+26]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["createElement"]
   GETUPVAL R4 1
@@ -9,10 +9,14 @@ PROTO_0:
   SETTABLEKS R6 R5 K2 ["LayoutOrder"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K3 ["Tag"]
+  LOADK R8 K4 ["MainContents %*"]
   JUMPIFNOT R1 [+2]
-  LOADK R7 K4 ["HasLoadingBar"]
+  LOADK R10 K5 ["HasLoadingBar"]
   JUMP [+1]
-  LOADK R7 K5 [""]
+  LOADK R10 K6 [""]
+  NAMECALL R8 R8 K7 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
   SETTABLE R7 R5 R6
   CALL R3 2 -1
   RETURN R3 -1
@@ -25,10 +29,14 @@ PROTO_0:
   SETTABLEKS R6 R5 K2 ["LayoutOrder"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K3 ["Tag"]
+  LOADK R8 K4 ["MainContents %*"]
   JUMPIFNOT R1 [+2]
-  LOADK R7 K4 ["HasLoadingBar"]
+  LOADK R10 K5 ["HasLoadingBar"]
   JUMP [+1]
-  LOADK R7 K5 [""]
+  LOADK R10 K6 [""]
+  NAMECALL R8 R8 K7 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
   SETTABLE R7 R5 R6
   CALL R3 2 -1
   RETURN R3 -1

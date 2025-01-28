@@ -1,0 +1,66 @@
+PROTO_0:
+  LENGTH R3 R1
+  JUMPIFNOTEQKN R3 K0 [0] [+13]
+  GETIMPORT R3 K2 [warn]
+  LOADK R4 K3 ["Failed to insert assets. The asset owner must grant permissions to the asset(s)."]
+  CALL R3 1 0
+  MOVE R3 R2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  LOADNIL R8
+  SETTABLE R8 R0 R7
+  FORGLOOP R3 2 [-3]
+  LOADK R3 K4 [""]
+  MOVE R4 R1
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETTABLEKS R9 R8 K5 ["assetId"]
+  LOADNIL R10
+  SETTABLE R10 R0 R9
+  MOVE R9 R3
+  LOADK R11 K6 ["%*%*, "]
+  GETTABLEKS R13 R8 K5 ["assetId"]
+  GETUPVAL R15 0
+  CALL R15 0 1
+  JUMPIFNOT R15 [+8]
+  LOADK R15 K7 [" - Code: %*"]
+  GETTABLEKS R17 R8 K8 ["errorCode"]
+  NAMECALL R15 R15 K9 ["format"]
+  CALL R15 2 1
+  MOVE R14 R15
+  JUMP [+1]
+  LOADNIL R14
+  NAMECALL R11 R11 K9 ["format"]
+  CALL R11 3 1
+  MOVE R10 R11
+  CONCAT R3 R9 R10
+  FORGLOOP R4 2 [-26]
+  GETIMPORT R4 K2 [warn]
+  LOADK R6 K10 ["Failed to insert assets: %*"]
+  MOVE R8 R3
+  NAMECALL R6 R6 K9 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  CALL R4 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetManager"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["getFFlagDebugAmrOutput"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

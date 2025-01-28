@@ -156,96 +156,105 @@ PROTO_6:
   SETTABLEKS R20 R19 K22 ["totalFiles"]
   NAMECALL R15 R12 K18 ["getText"]
   CALL R15 4 1
-  JUMPIFNOT R10 [+6]
-  LOADK R18 K4 ["ImportQueue"]
-  LOADK R19 K26 ["StopQueue"]
+  GETUPVAL R17 0
+  CALL R17 0 1
+  JUMPIFNOT R17 [+6]
+  LOADK R18 K26 ["Plugin"]
+  LOADK R19 K27 ["Import"]
   NAMECALL R16 R12 K18 ["getText"]
   CALL R16 3 1
   JUMP [+5]
-  LOADK R18 K27 ["Plugin"]
+  LOADK R18 K26 ["Plugin"]
   LOADK R19 K28 ["Upload"]
   NAMECALL R16 R12 K18 ["getText"]
   CALL R16 3 1
-  GETTABLEKS R17 R1 K29 ["LayoutOrder"]
-  GETUPVAL R19 0
-  GETTABLEKS R18 R19 K30 ["createElement"]
-  GETUPVAL R19 1
-  DUPTABLE R20 K35 [{"Size", "LayoutOrder", "Layout", "Spacing", "Padding", "Style"}]
-  GETTABLEKS R21 R1 K31 ["Size"]
-  SETTABLEKS R21 R20 K31 ["Size"]
-  SETTABLEKS R17 R20 K29 ["LayoutOrder"]
-  GETIMPORT R21 K39 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R21 R20 K32 ["Layout"]
-  SETTABLEKS R5 R20 K33 ["Spacing"]
-  SETTABLEKS R5 R20 K5 ["Padding"]
-  LOADK R21 K40 ["SubtleBox"]
-  SETTABLEKS R21 R20 K34 ["Style"]
-  DUPTABLE R21 K45 [{"OpenFileButton", "CleanupButton", "SearchBar", "StartImportButton"}]
-  GETTABLEKS R24 R4 K46 ["OpenImage"]
-  GETTABLEKS R25 R0 K47 ["openFile"]
-  MOVE R26 R13
-  NAMECALL R22 R0 K48 ["_createIconButton"]
-  CALL R22 4 1
-  SETTABLEKS R22 R21 K41 ["OpenFileButton"]
-  GETTABLEKS R24 R4 K49 ["CleanupImage"]
-  GETTABLEKS R25 R0 K50 ["cleanUp"]
-  MOVE R26 R14
-  NAMECALL R22 R0 K48 ["_createIconButton"]
-  CALL R22 4 1
-  SETTABLEKS R22 R21 K42 ["CleanupButton"]
-  GETUPVAL R23 0
-  GETTABLEKS R22 R23 K30 ["createElement"]
-  GETUPVAL R23 2
-  DUPTABLE R24 K55 [{"Size", "OnSearchRequested", "LayoutOrder", "ShowSearchIcon", "ShowSearchButton", "IncrementalTextSearch"}]
-  GETIMPORT R25 K10 [UDim2.new]
-  LOADN R26 1
-  MINUS R27 R9
-  LOADN R28 1
-  LOADN R29 0
-  CALL R25 4 1
-  SETTABLEKS R25 R24 K31 ["Size"]
-  GETTABLEKS R25 R0 K56 ["onSearchRequested"]
-  SETTABLEKS R25 R24 K51 ["OnSearchRequested"]
-  LOADN R25 3
-  SETTABLEKS R25 R24 K29 ["LayoutOrder"]
-  LOADB R25 1
-  SETTABLEKS R25 R24 K52 ["ShowSearchIcon"]
-  LOADB R25 0
-  SETTABLEKS R25 R24 K53 ["ShowSearchButton"]
-  LOADB R25 1
-  SETTABLEKS R25 R24 K54 ["IncrementalTextSearch"]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K43 ["SearchBar"]
-  GETUPVAL R23 0
-  GETTABLEKS R22 R23 K30 ["createElement"]
-  GETUPVAL R23 3
-  DUPTABLE R24 K60 [{"OnClick", "Style", "Text", "Size", "StyleModifier", "LayoutOrder"}]
-  GETTABLEKS R25 R0 K61 ["startImport"]
-  SETTABLEKS R25 R24 K57 ["OnClick"]
-  LOADK R25 K62 ["RoundPrimary"]
-  SETTABLEKS R25 R24 K34 ["Style"]
-  SETTABLEKS R16 R24 K58 ["Text"]
-  SETTABLEKS R8 R24 K31 ["Size"]
-  JUMPIFNOT R11 [+4]
-  GETUPVAL R26 4
-  GETTABLEKS R25 R26 K63 ["Disabled"]
+  JUMPIFNOT R10 [+6]
+  LOADK R19 K4 ["ImportQueue"]
+  LOADK R20 K29 ["StopQueue"]
+  NAMECALL R17 R12 K18 ["getText"]
+  CALL R17 3 1
   JUMP [+1]
-  LOADNIL R25
-  SETTABLEKS R25 R24 K59 ["StyleModifier"]
-  LOADN R25 4
-  SETTABLEKS R25 R24 K29 ["LayoutOrder"]
-  DUPTABLE R25 K65 [{"Tooltip"}]
-  GETUPVAL R27 0
-  GETTABLEKS R26 R27 K30 ["createElement"]
+  MOVE R17 R16
+  GETTABLEKS R18 R1 K30 ["LayoutOrder"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K31 ["createElement"]
+  GETUPVAL R20 2
+  DUPTABLE R21 K36 [{"Size", "LayoutOrder", "Layout", "Spacing", "Padding", "Style"}]
+  GETTABLEKS R22 R1 K32 ["Size"]
+  SETTABLEKS R22 R21 K32 ["Size"]
+  SETTABLEKS R18 R21 K30 ["LayoutOrder"]
+  GETIMPORT R22 K40 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R22 R21 K33 ["Layout"]
+  SETTABLEKS R5 R21 K34 ["Spacing"]
+  SETTABLEKS R5 R21 K5 ["Padding"]
+  LOADK R22 K41 ["SubtleBox"]
+  SETTABLEKS R22 R21 K35 ["Style"]
+  DUPTABLE R22 K46 [{"OpenFileButton", "CleanupButton", "SearchBar", "StartImportButton"}]
+  GETTABLEKS R25 R4 K47 ["OpenImage"]
+  GETTABLEKS R26 R0 K48 ["openFile"]
+  MOVE R27 R13
+  NAMECALL R23 R0 K49 ["_createIconButton"]
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K42 ["OpenFileButton"]
+  GETTABLEKS R25 R4 K50 ["CleanupImage"]
+  GETTABLEKS R26 R0 K51 ["cleanUp"]
+  MOVE R27 R14
+  NAMECALL R23 R0 K49 ["_createIconButton"]
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K43 ["CleanupButton"]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K31 ["createElement"]
+  GETUPVAL R24 3
+  DUPTABLE R25 K56 [{"Size", "OnSearchRequested", "LayoutOrder", "ShowSearchIcon", "ShowSearchButton", "IncrementalTextSearch"}]
+  GETIMPORT R26 K10 [UDim2.new]
+  LOADN R27 1
+  MINUS R28 R9
+  LOADN R29 1
+  LOADN R30 0
+  CALL R26 4 1
+  SETTABLEKS R26 R25 K32 ["Size"]
+  GETTABLEKS R26 R0 K57 ["onSearchRequested"]
+  SETTABLEKS R26 R25 K52 ["OnSearchRequested"]
+  LOADN R26 3
+  SETTABLEKS R26 R25 K30 ["LayoutOrder"]
+  LOADB R26 1
+  SETTABLEKS R26 R25 K53 ["ShowSearchIcon"]
+  LOADB R26 0
+  SETTABLEKS R26 R25 K54 ["ShowSearchButton"]
+  LOADB R26 1
+  SETTABLEKS R26 R25 K55 ["IncrementalTextSearch"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K44 ["SearchBar"]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K31 ["createElement"]
+  GETUPVAL R24 4
+  DUPTABLE R25 K61 [{"OnClick", "Style", "Text", "Size", "StyleModifier", "LayoutOrder"}]
+  GETTABLEKS R26 R0 K62 ["startImport"]
+  SETTABLEKS R26 R25 K58 ["OnClick"]
+  LOADK R26 K63 ["RoundPrimary"]
+  SETTABLEKS R26 R25 K35 ["Style"]
+  SETTABLEKS R17 R25 K59 ["Text"]
+  SETTABLEKS R8 R25 K32 ["Size"]
+  JUMPIFNOT R11 [+4]
   GETUPVAL R27 5
-  DUPTABLE R28 K66 [{"Text"}]
-  SETTABLEKS R15 R28 K58 ["Text"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K64 ["Tooltip"]
-  CALL R22 3 1
-  SETTABLEKS R22 R21 K44 ["StartImportButton"]
-  CALL R18 3 -1
-  RETURN R18 -1
+  GETTABLEKS R26 R27 K64 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K60 ["StyleModifier"]
+  LOADN R26 4
+  SETTABLEKS R26 R25 K30 ["LayoutOrder"]
+  DUPTABLE R26 K66 [{"Tooltip"}]
+  GETUPVAL R28 1
+  GETTABLEKS R27 R28 K31 ["createElement"]
+  GETUPVAL R28 6
+  DUPTABLE R29 K67 [{"Text"}]
+  SETTABLEKS R15 R29 K59 ["Text"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K65 ["Tooltip"]
+  CALL R23 3 1
+  SETTABLEKS R23 R22 K45 ["StartImportButton"]
+  CALL R19 3 -1
+  RETURN R19 -1
 
 PROTO_7:
   DUPTABLE R1 K5 [{"ActiveSessionCount", "Parsing", "SessionCount", "SessionQueue", "Uploading"}]
@@ -346,43 +355,49 @@ MAIN:
   GETTABLEKS R22 R23 K28 ["Actions"]
   GETTABLEKS R21 R22 K30 ["SetShowWarning"]
   CALL R20 1 1
-  GETTABLEKS R21 R1 K31 ["PureComponent"]
-  LOADK R23 K32 ["QueueControls"]
-  NAMECALL R21 R21 K33 ["extend"]
-  CALL R21 2 1
-  DUPCLOSURE R22 K34 [PROTO_4]
-  SETTABLEKS R22 R21 K35 ["init"]
-  DUPCLOSURE R22 K36 [PROTO_5]
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R24 R0 K24 ["Src"]
+  GETTABLEKS R23 R24 K31 ["Flags"]
+  GETTABLEKS R22 R23 K32 ["getFFlagImportQueueDesignFixes"]
+  CALL R21 1 1
+  GETTABLEKS R22 R1 K33 ["PureComponent"]
+  LOADK R24 K34 ["QueueControls"]
+  NAMECALL R22 R22 K35 ["extend"]
+  CALL R22 2 1
+  DUPCLOSURE R23 K36 [PROTO_4]
+  SETTABLEKS R23 R22 K37 ["init"]
+  DUPCLOSURE R23 K38 [PROTO_5]
   CAPTURE VAL R1
   CAPTURE VAL R15
-  SETTABLEKS R22 R21 K37 ["_createIconButton"]
-  DUPCLOSURE R22 K38 [PROTO_6]
+  SETTABLEKS R23 R22 K39 ["_createIconButton"]
+  DUPCLOSURE R23 K40 [PROTO_6]
+  CAPTURE VAL R21
   CAPTURE VAL R1
   CAPTURE VAL R12
   CAPTURE VAL R13
   CAPTURE VAL R14
   CAPTURE VAL R10
   CAPTURE VAL R16
-  SETTABLEKS R22 R21 K39 ["render"]
-  MOVE R22 R5
-  DUPTABLE R23 K40 [{"FileController", "QueueController", "Analytics", "Localization", "Stylizer"}]
-  SETTABLEKS R17 R23 K26 ["FileController"]
-  SETTABLEKS R18 R23 K27 ["QueueController"]
-  SETTABLEKS R7 R23 K13 ["Analytics"]
-  SETTABLEKS R6 R23 K12 ["Localization"]
-  SETTABLEKS R8 R23 K15 ["Stylizer"]
-  CALL R22 1 1
-  MOVE R23 R21
-  CALL R22 1 1
-  MOVE R21 R22
-  DUPCLOSURE R22 K41 [PROTO_7]
-  DUPCLOSURE R23 K42 [PROTO_10]
+  SETTABLEKS R23 R22 K41 ["render"]
+  MOVE R23 R5
+  DUPTABLE R24 K42 [{"FileController", "QueueController", "Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R17 R24 K26 ["FileController"]
+  SETTABLEKS R18 R24 K27 ["QueueController"]
+  SETTABLEKS R7 R24 K13 ["Analytics"]
+  SETTABLEKS R6 R24 K12 ["Localization"]
+  SETTABLEKS R8 R24 K15 ["Stylizer"]
+  CALL R23 1 1
+  MOVE R24 R22
+  CALL R23 1 1
+  MOVE R22 R23
+  DUPCLOSURE R23 K43 [PROTO_7]
+  DUPCLOSURE R24 K44 [PROTO_10]
   CAPTURE VAL R19
   CAPTURE VAL R20
-  GETTABLEKS R24 R2 K43 ["connect"]
-  MOVE R25 R22
+  GETTABLEKS R25 R2 K45 ["connect"]
   MOVE R26 R23
-  CALL R24 2 1
-  MOVE R25 R21
-  CALL R24 1 -1
-  RETURN R24 -1
+  MOVE R27 R24
+  CALL R25 2 1
+  MOVE R26 R22
+  CALL R25 1 -1
+  RETURN R25 -1

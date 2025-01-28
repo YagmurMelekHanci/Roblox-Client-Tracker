@@ -17,7 +17,7 @@ PROTO_0:
   SETTABLEKS R8 R7 K3 ["LayoutOrder"]
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K4 ["Tag"]
-  LOADK R10 K5 ["MainContents ContentGrid X-Top X-Column X-Center %*"]
+  LOADK R10 K5 ["ContentGrid X-Top X-Column X-Center %*"]
   GETUPVAL R14 3
   GETTABLEKS R13 R14 K4 ["Tag"]
   GETTABLE R12 R0 R13

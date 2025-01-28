@@ -5,6 +5,7 @@ local RobloxGui = CoreGui.RobloxGui
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local UIManagerRoot = script.Parent
 local Constants = require(UIManagerRoot.Constants)
+local Utils = require(UIManagerRoot.Utils)
 local PanelType = Constants.PanelType
 local SpatialUIType = Constants.SpatialUIType
 local createCompatPanel = require(script.Parent.createCompatPanel)
@@ -32,13 +33,14 @@ export type UIGroupStruct = {
 	draggable: boolean,
 	dragBar: DragBar.DragBarClassType?,
 	dragBarOffset: CFrame?,
+	headScale: number,
 }
 
 local REPOSITION_DEVIATION_ANGLE = 100
 
 local ROBLOX_UI_GROUP_ANGLE = CFrame.Angles(math.rad(-18), math.rad(10), math.rad(0))
 
-local METER_TO_STUD_FACTOR = (workspace.CurrentCamera :: Camera).HeadScale / 0.3
+local METER_TO_STUD_FACTOR = 1 / 0.3
 
 local ROBLOX_UI_GROUP_POSITION =
 	CFrame.new(-0.14 * METER_TO_STUD_FACTOR, -0.24 * METER_TO_STUD_FACTOR, -0.64 * METER_TO_STUD_FACTOR)
@@ -102,6 +104,9 @@ function UIManager.registerRoactPanel(
 	panelStruct: Constants.PanelStruct
 )
 	self.uiElements[panelType] = panelStruct
+
+	-- Make sure the UI is scaled correctly to current scale
+	self:rescaleUIForCurrentHeadScale()
 	self:updateUIGroupsForCurHeadCFrame()
 end
 
@@ -269,6 +274,7 @@ function UIManager.setUpUiGroups(self: UIManagerClassType)
 				- 0.02 * METER_TO_STUD_FACTOR,
 			0
 		),
+		headScale = 1,
 	}
 	self.uiGroups[Constants.SpatialUIGroupType.MainUIGroup] = mainUiGroupStruct
 end
@@ -401,6 +407,46 @@ function UIManager.onMouseTargetChanged(self: UIManagerClassType, target: BasePa
 	end
 end
 
+function UIManager.rescaleUIForCurrentHeadScale(self: UIManagerClassType)
+	local newHeadScale = (workspace.CurrentCamera :: Camera).HeadScale
+
+	for _, uiGroupStruct: UIGroupStruct in pairs(self.uiGroups) do
+		local uiGroupScalingFactor = newHeadScale / uiGroupStruct.headScale
+		uiGroupStruct.positionProps.uiGroupHeadRotation =
+			Utils.rescaleCFramePosition(uiGroupStruct.positionProps.uiGroupHeadRotation, uiGroupScalingFactor)
+		uiGroupStruct.positionProps.uiGroupCameraOffSet =
+			Utils.rescaleCFramePosition(uiGroupStruct.positionProps.uiGroupCameraOffSet, uiGroupScalingFactor)
+		uiGroupStruct.positionProps.defaultGroupHeadRotation =
+			Utils.rescaleCFramePosition(uiGroupStruct.positionProps.defaultGroupHeadRotation, uiGroupScalingFactor)
+		if uiGroupStruct.draggable then
+			uiGroupStruct.dragBarOffset =
+				Utils.rescaleCFramePosition(uiGroupStruct.dragBarOffset :: CFrame, uiGroupScalingFactor)
+			local dragBar = uiGroupStruct.dragBar :: DragBar.DragBarClassType
+			dragBar:rescale(uiGroupScalingFactor)
+		end
+		uiGroupStruct.headScale = newHeadScale
+	end
+	for _, uiElement: Constants.PanelStruct in pairs(self.uiElements) do
+		local uiElementScalingFactor = newHeadScale / uiElement.headScale
+		-- React resets the part size to the property value at each re-render so we would delegate the headscale refresh
+		if uiElement.uiType ~= SpatialUIType.SpatialUIRoact then
+			local panelPart = getPanelPart(uiElement)
+			if panelPart ~= nil then
+				(panelPart :: Part).Size = panelPart.Size * uiElementScalingFactor
+			end
+		end
+		local panelPositionProps = uiElement.panelPositionProps :: Constants.PanelPositionProps
+		if panelPositionProps and panelPositionProps.cameraFixedPanelProp then
+			(panelPositionProps.cameraFixedPanelProp :: Constants.CameraFixedUIObjectProps).uiGroupElementOffset =
+				Utils.rescaleCFramePosition(
+					(panelPositionProps.cameraFixedPanelProp :: Constants.CameraFixedUIObjectProps).uiGroupElementOffset,
+					uiElementScalingFactor
+				)
+		end
+		uiElement.headScale = newHeadScale
+	end
+end
+
 function UIManager.new()
 	local self = {
 		currentMouseTarget = nil :: BasePart?,
@@ -413,6 +459,7 @@ function UIManager.new()
 
 	--- Immediately initialize the UI groups after creation
 	self:setUpUiGroups()
+	self:rescaleUIForCurrentHeadScale()
 	self:updateUIGroupsForCurHeadCFrame()
 
 	RunService:BindToRenderStep("UIManagerRenderStep", Enum.RenderPriority.Last.Value, function()
@@ -426,6 +473,11 @@ function UIManager.new()
 	local camera = workspace.CurrentCamera :: Camera
 	camera:GetPropertyChangedSignal("CFrame"):Connect(function()
 		self:cameraMoved()
+	end)
+
+	camera:GetPropertyChangedSignal("HeadScale"):Connect(function()
+		self:rescaleUIForCurrentHeadScale()
+		self:updateUIGroupsForCurHeadCFrame()
 	end)
 
 	local Player = Players.LocalPlayer :: Player

@@ -24,7 +24,7 @@ PROTO_1:
   SETTABLEKS R7 R6 K3 ["LayoutOrder"]
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K4 ["Tag"]
-  LOADK R9 K5 ["MainContents ContentList X-Top X-Column X-Center %*"]
+  LOADK R9 K5 ["ContentList X-Top X-Column X-Center %*"]
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K4 ["Tag"]
   GETTABLE R11 R0 R12

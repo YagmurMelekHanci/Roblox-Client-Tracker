@@ -1,3 +1,6 @@
+local UIManagerRoot = script.Parent
+local Utils = require(UIManagerRoot.Utils)
+
 type DragBarStateValue = "Hovering" | "Dragging" | "Idle"
 
 local DragBarState = {
@@ -85,6 +88,13 @@ function DragBar.hide(self: DragBarClassType)
 	self.part.Parent = nil
 end
 
+function DragBar.rescale(self: DragBarClassType, rescalingFactor: number)
+	self.part.Size = self.part.Size * rescalingFactor
+	if self.uiGroupOffSet then
+		self.uiGroupOffSet = Utils.rescaleCFramePosition(self.uiGroupOffSet, rescalingFactor)
+	end
+end
+
 function DragBar.new(part: Part, dragBarImage: ImageLabel): DragBarClassType
 	local self = {
 		part = part,
@@ -93,6 +103,7 @@ function DragBar.new(part: Part, dragBarImage: ImageLabel): DragBarClassType
 		dragging = false,
 		dragBarState = DragBarState.Idle,
 		partsParent = part.Parent,
+		uiGroupOffSet = nil,
 	}
 	setmetatable(self, DragBar)
 	self.dragBarImage.ImageTransparency = IDLE_TRANSPARENCY

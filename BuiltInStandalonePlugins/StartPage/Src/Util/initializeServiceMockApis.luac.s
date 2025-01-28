@@ -55,16 +55,16 @@ PROTO_4:
   RETURN R0 1
 
 PROTO_5:
-  DUPTABLE R1 K1 [{"eligibilityByCreator"}]
-  NEWTABLE R2 0 1
-  DUPTABLE R3 K4 [{"userIsEligible", "displayText"}]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K2 ["userIsEligible"]
-  LOADK R4 K5 ["Eligible"]
-  SETTABLEKS R4 R3 K3 ["displayText"]
-  SETLIST R2 R3 1 [1]
-  SETTABLEKS R2 R1 K0 ["eligibilityByCreator"]
-  RETURN R1 1
+  DUPTABLE R0 K1 [{"eligibilityByCreator"}]
+  NEWTABLE R1 0 1
+  DUPTABLE R2 K4 [{"userIsEligible", "displayText"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K2 ["userIsEligible"]
+  LOADK R3 K5 ["Eligible"]
+  SETTABLEKS R3 R2 K3 ["displayText"]
+  SETLIST R1 R2 1 [1]
+  SETTABLEKS R1 R0 K0 ["eligibilityByCreator"]
+  RETURN R0 1
 
 PROTO_6:
   DUPTABLE R1 K1 [{"ageRecommendationDetailsByUniverse"}]

@@ -358,7 +358,7 @@ PROTO_15:
   NAMECALL R7 R2 K20 ["get"]
   CALL R7 1 1
   MOVE R8 R4
-  NAMECALL R5 R5 K22 ["showErrorDialogs"]
+  NAMECALL R5 R5 K22 ["showErrorDialogs_DEPRECATED"]
   CALL R5 3 0
   RETURN R0 0
   JUMPIFNOT R0 [+132]
@@ -411,7 +411,7 @@ PROTO_15:
   JUMPIF R4 [+5]
   GETUPVAL R4 2
   MOVE R6 R3
-  NAMECALL R4 R4 K22 ["showErrorDialogs"]
+  NAMECALL R4 R4 K31 ["showErrorDialogs"]
   CALL R4 2 0
   GETUPVAL R6 2
   GETTABLEKS R5 R6 K9 ["props"]
@@ -425,11 +425,11 @@ PROTO_15:
   GETTABLEKS R7 R8 K18 ["Localization"]
   CALL R4 3 0
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K31 ["removeSelectedTrackInstances"]
+  GETTABLEKS R4 R5 K32 ["removeSelectedTrackInstances"]
   CALL R4 0 0
   JUMP [+24]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K31 ["removeSelectedTrackInstances"]
+  GETTABLEKS R4 R5 K32 ["removeSelectedTrackInstances"]
   CALL R4 0 0
   NAMECALL R4 R2 K20 ["get"]
   CALL R4 1 1
@@ -443,12 +443,12 @@ PROTO_15:
   JUMPIF R4 [+5]
   GETUPVAL R4 2
   MOVE R6 R3
-  NAMECALL R4 R4 K22 ["showErrorDialogs"]
+  NAMECALL R4 R4 K31 ["showErrorDialogs"]
   CALL R4 2 0
   GETUPVAL R4 2
-  DUPTABLE R6 K32 [{"LastValidation"}]
+  DUPTABLE R6 K33 [{"LastValidation"}]
   SETTABLEKS R3 R6 K29 ["LastValidation"]
-  NAMECALL R4 R4 K33 ["setState"]
+  NAMECALL R4 R4 K34 ["setState"]
   CALL R4 2 0
   RETURN R0 0
   JUMPIFNOT R0 [+7]

@@ -48,20 +48,20 @@ PROTO_1:
   RETURN R3 -1
 
 PROTO_2:
-  LOADN R0 3
-  RETURN R0 1
-
-PROTO_3:
   LOADN R0 1
   RETURN R0 1
 
-PROTO_4:
+PROTO_3:
   LOADB R0 0
   RETURN R0 1
 
-PROTO_5:
-  LOADB R0 0
+PROTO_4:
+  GETUPVAL R0 0
   RETURN R0 1
+
+PROTO_5:
+  SETUPVAL R1 0
+  RETURN R0 0
 
 PROTO_6:
   GETIMPORT R1 K1 [require]
@@ -71,81 +71,82 @@ PROTO_6:
   GETTABLEKS R2 R3 K4 ["JestGlobals"]
   CALL R1 1 1
   GETTABLEKS R2 R1 K5 ["jest"]
-  GETUPVAL R3 1
-  MOVE R4 R0
-  DUPTABLE R5 K27 [{"openLink", "openLocalFile", "openPlace", "getStartPageVersionForUser", "getTutorialVersionForUser", "generateTempUrlInContentProvider", "getDaysSinceFirstUserLogin", "isTutorialBannerClosed", "setTutorialBannerClosed", "isTutorialPopupClosed", "setTutorialPopupClosed", "startTutorial", "removeAPIGameFromRegistry", "removeLocalFileFromRegistry", "getRecentAPIGamesFromRegistry", "getLocalGamesFromRegistry", "LocalGamesFromRegistryUpdatedSignal", "RecentApiGamesFromRegistryUpdatedSignal", "ImageImportedSignal", "shouldShowWinOSDeprecationWarning", "shouldShowMacOSDeprecationWarning"}]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K6 ["openLink"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K7 ["openLocalFile"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K8 ["openPlace"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K9 ["getStartPageVersionForUser"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  DUPCLOSURE R7 K29 [PROTO_2]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K10 ["getTutorialVersionForUser"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K11 ["generateTempUrlInContentProvider"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  DUPCLOSURE R7 K30 [PROTO_3]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K12 ["getDaysSinceFirstUserLogin"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  DUPCLOSURE R7 K31 [PROTO_4]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K13 ["isTutorialBannerClosed"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K14 ["setTutorialBannerClosed"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  DUPCLOSURE R7 K32 [PROTO_5]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K15 ["isTutorialPopupClosed"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K16 ["setTutorialPopupClosed"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K17 ["startTutorial"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K18 ["removeAPIGameFromRegistry"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K19 ["removeLocalFileFromRegistry"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K20 ["getRecentAPIGamesFromRegistry"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K21 ["getLocalGamesFromRegistry"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K33 ["new"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K22 ["LocalGamesFromRegistryUpdatedSignal"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K33 ["new"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K23 ["RecentApiGamesFromRegistryUpdatedSignal"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K33 ["new"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K24 ["ImageImportedSignal"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K25 ["shouldShowWinOSDeprecationWarning"]
-  GETTABLEKS R6 R2 K28 ["fn"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K26 ["shouldShowMacOSDeprecationWarning"]
-  CALL R3 2 -1
-  RETURN R3 -1
+  LOADB R3 0
+  GETUPVAL R4 1
+  MOVE R5 R0
+  DUPTABLE R6 K26 [{"openLink", "openLocalFile", "openPlace", "getStartPageVersionForUser", "generateTempUrlInContentProvider", "getDaysSinceFirstUserLogin", "isTutorialBannerClosed", "setTutorialBannerClosed", "isTutorialPopupClosed", "setTutorialPopupClosed", "startTutorial", "removeAPIGameFromRegistry", "removeLocalFileFromRegistry", "getRecentAPIGamesFromRegistry", "getLocalGamesFromRegistry", "LocalGamesFromRegistryUpdatedSignal", "RecentApiGamesFromRegistryUpdatedSignal", "ImageImportedSignal", "shouldShowWinOSDeprecationWarning", "shouldShowMacOSDeprecationWarning"}]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K6 ["openLink"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K7 ["openLocalFile"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K8 ["openPlace"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K9 ["getStartPageVersionForUser"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K10 ["generateTempUrlInContentProvider"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  DUPCLOSURE R8 K28 [PROTO_2]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K11 ["getDaysSinceFirstUserLogin"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  DUPCLOSURE R8 K29 [PROTO_3]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K12 ["isTutorialBannerClosed"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K13 ["setTutorialBannerClosed"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  NEWCLOSURE R8 P2
+  CAPTURE REF R3
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K14 ["isTutorialPopupClosed"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  NEWCLOSURE R8 P3
+  CAPTURE REF R3
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K15 ["setTutorialPopupClosed"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K16 ["startTutorial"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K17 ["removeAPIGameFromRegistry"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K18 ["removeLocalFileFromRegistry"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K19 ["getRecentAPIGamesFromRegistry"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K20 ["getLocalGamesFromRegistry"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K30 ["new"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K21 ["LocalGamesFromRegistryUpdatedSignal"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K30 ["new"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K22 ["RecentApiGamesFromRegistryUpdatedSignal"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K30 ["new"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K23 ["ImageImportedSignal"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K24 ["shouldShowWinOSDeprecationWarning"]
+  GETTABLEKS R7 R2 K27 ["fn"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K25 ["shouldShowMacOSDeprecationWarning"]
+  CALL R4 2 -1
+  CLOSEUPVALS R3
+  RETURN R4 -1
 
 PROTO_7:
   GETUPVAL R1 0

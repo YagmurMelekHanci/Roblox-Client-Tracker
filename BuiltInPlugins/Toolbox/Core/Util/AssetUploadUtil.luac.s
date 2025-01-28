@@ -1,0 +1,90 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["JSONDecode"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETIMPORT R2 K1 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R2 1 2
+  JUMPIFNOT R2 [+7]
+  FASTCALL1 TYPEOF R3 [+3]
+  MOVE R5 R3
+  GETIMPORT R4 K3 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K4 ["table"] [+7]
+  LOADK R6 K5 ["AssetUploadResult"]
+  LOADK R7 K6 ["SubmissionFailed"]
+  NAMECALL R4 R1 K7 ["getText"]
+  CALL R4 3 -1
+  RETURN R4 -1
+  GETTABLEKS R5 R3 K9 ["reason"]
+  ORK R4 R5 K8 ["Unknown"]
+  GETTABLEKS R5 R3 K10 ["simpleErrorMessage"]
+  JUMPIF R5 [+5]
+  LOADK R7 K5 ["AssetUploadResult"]
+  LOADK R8 K6 ["SubmissionFailed"]
+  NAMECALL R5 R1 K7 ["getText"]
+  CALL R5 3 1
+  GETTABLEKS R8 R3 K11 ["metadata"]
+  FASTCALL1 TYPE R8 [+2]
+  GETIMPORT R7 K13 [type]
+  CALL R7 1 1
+  JUMPIFNOTEQKS R7 K4 ["table"] [+4]
+  GETTABLEKS R6 R3 K11 ["metadata"]
+  JUMP [+2]
+  NEWTABLE R6 0 0
+  LOADB R7 0
+  GETIMPORT R8 K15 [pairs]
+  MOVE R9 R6
+  CALL R8 1 3
+  FORGPREP_NEXT R8
+  LOADB R7 1
+  JUMP [+2]
+  FORGLOOP R8 2 [-3]
+  JUMPIFNOTEQKS R4 K16 ["DependenciesPermissionDenied"] [+39]
+  JUMPIFNOT R7 [+37]
+  NEWTABLE R8 0 0
+  GETIMPORT R9 K15 [pairs]
+  MOVE R10 R6
+  CALL R9 1 3
+  FORGPREP_NEXT R9
+  FASTCALL1 TONUMBER R13 [+3]
+  MOVE R15 R13
+  GETIMPORT R14 K18 [tonumber]
+  CALL R14 1 1
+  JUMPIFEQKNIL R14 [+8]
+  FASTCALL2 TABLE_INSERT R8 R13 [+5]
+  MOVE R15 R8
+  MOVE R16 R13
+  GETIMPORT R14 K20 [table.insert]
+  CALL R14 2 0
+  FORGLOOP R9 2 [-15]
+  GETIMPORT R9 K22 [table.concat]
+  MOVE R10 R8
+  LOADK R11 K23 [", "]
+  CALL R9 2 1
+  LOADK R12 K24 ["AssetConfigUpload"]
+  LOADK R13 K16 ["DependenciesPermissionDenied"]
+  DUPTABLE R14 K26 [{"assetIds"}]
+  SETTABLEKS R9 R14 K25 ["assetIds"]
+  NAMECALL R10 R1 K7 ["getText"]
+  CALL R10 4 -1
+  RETURN R10 -1
+  RETURN R5 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NEWTABLE R1 1 0
+  DUPCLOSURE R2 K4 [PROTO_1]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R1 K5 ["computeTranslatedErrorMessage"]
+  RETURN R1 1

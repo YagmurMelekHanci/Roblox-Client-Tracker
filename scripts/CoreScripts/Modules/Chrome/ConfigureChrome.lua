@@ -5,7 +5,7 @@ local GuiService = game:GetService("GuiService")
 
 local ChromeEnabled = require(Chrome.Enabled)
 if not ChromeEnabled() then
-	return
+	return nil
 end
 
 local ChromeAnalytics = require(Chrome.ChromeShared.Analytics.ChromeAnalytics)

@@ -687,8 +687,8 @@ function VRBottomBar:renderWithStyle(style)
 			panelName = "BottomBar",
 			partSize = if IsSpatialRobloxGuiEnabled
 				then Vector2.new(
-					(#itemList - 1) * UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE,
-					UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE
+					(#itemList - 1) * UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE * (workspace.CurrentCamera :: Camera).HeadScale, 
+					UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE * (workspace.CurrentCamera :: Camera).HeadScale
 				)
 				else Vector2.new((#itemList - 1) * basePartSize, basePartSize),
 			virtualScreenSize = Vector2.new((#itemList - 1) * 50, 50),
@@ -740,8 +740,8 @@ function VRBottomBar:renderWithStyle(style)
 			panelName = "MoreMenu",
 			partSize = if IsSpatialRobloxGuiEnabled
 				then Vector2.new(
-					5 * UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE,
-					#moreItemList * UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE
+					5 * UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE * (workspace.CurrentCamera :: Camera).HeadScale,
+					#moreItemList * UIManagerConstants.BOTTOM_BAR_BASE_PART_SIZE * (workspace.CurrentCamera :: Camera).HeadScale
 				)
 				else Vector2.new(5 * basePartSize, #moreItemList * basePartSize),
 			virtualScreenSize = Vector2.new(250, (#moreItemList * 56 + 8)),

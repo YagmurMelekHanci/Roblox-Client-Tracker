@@ -110,6 +110,7 @@ return function(props: Constants.PanelCreationProps): Constants.PanelStruct?
 			uiType = compatPanel.type,
 			panelType = props.panelType,
 			panelPositionProps = Constants.SPATIAL_PANEL_POSITION_PROPS_MAP[props.panelType],
+			headScale = 1,
 		} :: Constants.PanelStruct
 	else
 		local compatPanel: Constants.CompatPanel? = createPanel({

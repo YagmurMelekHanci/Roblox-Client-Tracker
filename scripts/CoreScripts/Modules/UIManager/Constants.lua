@@ -81,6 +81,7 @@ export type PanelStruct = {
 	uiType: SpatialUITypeValue,
 	panelType: PanelTypeValue,
 	panelPositionProps: PanelPositionProps?,
+	headScale: number,
 }
 
 local SpatialUIType = {
@@ -105,7 +106,7 @@ local SpatialUIGroupType = {
 
 local BOTTOM_BAR_BASE_PART_SIZE = 0.15
 
-local METER_TO_STUD_FACTOR = (workspace.CurrentCamera :: Camera).HeadScale / 0.3
+local METER_TO_STUD_FACTOR = 1 / 0.3
 
 local CHAT_PANEL_SIZE = Vector2.new(0.1365, 0.1995) * METER_TO_STUD_FACTOR
 

@@ -38,6 +38,7 @@ local GetFFlagLuaAppEnableFoundationColors = require(SharedFlags).GetFFlagLuaApp
 local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
+local FFlagIsVerifiedBadgeInExperienceVisible = require(SharedFlags).FFlagIsVerifiedBadgeInExperienceVisible
 
 PlayerEntry.validateProps = t.strictInterface(validatePropsWithForwardRef({
 	player = playerInterface,
@@ -322,6 +323,7 @@ function PlayerEntry:render()
 						isTitleEntry = self.props.titlePlayerEntry,
 						isHovered = self.state.isHovered,
 						layoutOrder = 3,
+						showVerifiedBadge = if FFlagIsVerifiedBadgeInExperienceVisible then self.props.badge else nil,
 
 						textStyle = textStyle,
 						textFont = playerNameFont,

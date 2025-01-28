@@ -137,12 +137,12 @@ PROTO_5:
   GETTABLEKS R12 R13 K18 ["Tag"]
   LOADK R13 K19 ["X-FitY X-Transparent"]
   SETTABLE R13 R11 R12
-  NEWTABLE R12 0 1
+  DUPTABLE R12 K21 [{"Child"}]
   GETUPVAL R14 9
   GETTABLEKS R13 R14 K9 ["createElement"]
   LOADK R14 K10 ["Frame"]
   NEWTABLE R15 2 0
-  GETIMPORT R16 K21 [UDim2.new]
+  GETIMPORT R16 K23 [UDim2.new]
   LOADN R17 1
   LOADN R18 0
   LOADN R19 0
@@ -151,30 +151,30 @@ PROTO_5:
   SETTABLEKS R16 R15 K15 ["Size"]
   GETUPVAL R17 9
   GETTABLEKS R16 R17 K18 ["Tag"]
-  LOADK R17 K22 ["X-Transparent X-FitY StartPage-PaddingY8"]
+  LOADK R17 K24 ["X-Transparent X-FitY StartPage-PaddingY8"]
   SETTABLE R17 R15 R16
-  DUPTABLE R16 K25 [{"CityImage", "Container"}]
+  DUPTABLE R16 K27 [{"CityImage", "Container"}]
   GETUPVAL R18 9
   GETTABLEKS R17 R18 K9 ["createElement"]
   LOADK R18 K10 ["Frame"]
-  DUPTABLE R19 K30 [{"BackgroundTransparency", "Position", "AnchorPoint", "ZIndex", "Size"}]
+  DUPTABLE R19 K32 [{"BackgroundTransparency", "Position", "AnchorPoint", "ZIndex", "Size"}]
   LOADN R20 1
-  SETTABLEKS R20 R19 K26 ["BackgroundTransparency"]
-  GETIMPORT R20 K21 [UDim2.new]
-  LOADK R21 K31 [0.5]
+  SETTABLEKS R20 R19 K28 ["BackgroundTransparency"]
+  GETIMPORT R20 K23 [UDim2.new]
+  LOADK R21 K33 [0.5]
   LOADN R22 0
   LOADN R23 0
   LOADN R24 0
   CALL R20 4 1
-  SETTABLEKS R20 R19 K27 ["Position"]
-  GETIMPORT R20 K33 [Vector2.new]
-  LOADK R21 K31 [0.5]
+  SETTABLEKS R20 R19 K29 ["Position"]
+  GETIMPORT R20 K35 [Vector2.new]
+  LOADK R21 K33 [0.5]
   LOADN R22 0
   CALL R20 2 1
-  SETTABLEKS R20 R19 K28 ["AnchorPoint"]
+  SETTABLEKS R20 R19 K30 ["AnchorPoint"]
   LOADN R20 1
-  SETTABLEKS R20 R19 K29 ["ZIndex"]
-  GETIMPORT R20 K21 [UDim2.new]
+  SETTABLEKS R20 R19 K31 ["ZIndex"]
+  GETIMPORT R20 K23 [UDim2.new]
   LOADN R21 1
   JUMPIFNOT R8 [+2]
   LOADN R22 224
@@ -182,12 +182,12 @@ PROTO_5:
   LOADN R22 0
   LOADN R23 0
   JUMPIFNOT R8 [+2]
-  LOADK R24 K34 [165.5]
+  LOADK R24 K36 [165.5]
   JUMP [+1]
   LOADN R24 75
   CALL R20 4 1
   SETTABLEKS R20 R19 K15 ["Size"]
-  DUPTABLE R20 K37 [{"BackgroundImage", "CancelButton"}]
+  DUPTABLE R20 K39 [{"BackgroundImage", "CancelButton"}]
   GETUPVAL R22 9
   GETTABLEKS R21 R22 K9 ["createElement"]
   GETUPVAL R22 10
@@ -197,162 +197,162 @@ PROTO_5:
   LOADN R26 1
   CALL R24 2 1
   SETTABLEKS R24 R23 K15 ["Size"]
-  DUPTABLE R24 K40 [{"Image", "ScaleType"}]
-  LOADK R25 K41 ["rbxasset://textures/StartPage/Tour3Screenshot.png"]
-  SETTABLEKS R25 R24 K38 ["Image"]
-  GETIMPORT R25 K44 [Enum.ScaleType.Crop]
-  SETTABLEKS R25 R24 K39 ["ScaleType"]
-  SETTABLEKS R24 R23 K45 ["Style"]
+  DUPTABLE R24 K42 [{"Image", "ScaleType"}]
+  LOADK R25 K43 ["rbxasset://textures/StartPage/Tour3Screenshot.png"]
+  SETTABLEKS R25 R24 K40 ["Image"]
+  GETIMPORT R25 K46 [Enum.ScaleType.Crop]
+  SETTABLEKS R25 R24 K41 ["ScaleType"]
+  SETTABLEKS R24 R23 K47 ["Style"]
   GETUPVAL R25 9
   GETTABLEKS R24 R25 K18 ["Tag"]
-  LOADK R25 K46 ["StartPage-RoundedCorner8"]
+  LOADK R25 K48 ["StartPage-RoundedCorner8"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
-  SETTABLEKS R21 R20 K35 ["BackgroundImage"]
+  SETTABLEKS R21 R20 K37 ["BackgroundImage"]
   GETUPVAL R22 9
   GETTABLEKS R21 R22 K9 ["createElement"]
-  LOADK R22 K47 ["TextButton"]
+  LOADK R22 K49 ["TextButton"]
   NEWTABLE R23 16 0
   LOADN R24 3
-  SETTABLEKS R24 R23 K29 ["ZIndex"]
-  GETIMPORT R24 K33 [Vector2.new]
+  SETTABLEKS R24 R23 K31 ["ZIndex"]
+  GETIMPORT R24 K35 [Vector2.new]
   LOADN R25 1
   LOADN R26 0
   CALL R24 2 1
-  SETTABLEKS R24 R23 K28 ["AnchorPoint"]
-  GETIMPORT R24 K21 [UDim2.new]
+  SETTABLEKS R24 R23 K30 ["AnchorPoint"]
+  GETIMPORT R24 K23 [UDim2.new]
   LOADN R25 1
   LOADN R26 0
   LOADN R27 0
   LOADN R28 0
   CALL R24 4 1
-  SETTABLEKS R24 R23 K27 ["Position"]
-  GETIMPORT R24 K49 [UDim2.fromOffset]
+  SETTABLEKS R24 R23 K29 ["Position"]
+  GETIMPORT R24 K51 [UDim2.fromOffset]
   LOADN R25 44
   LOADN R26 44
   CALL R24 2 1
   SETTABLEKS R24 R23 K15 ["Size"]
-  LOADK R24 K50 [""]
-  SETTABLEKS R24 R23 K51 ["Text"]
+  LOADK R24 K52 [""]
+  SETTABLEKS R24 R23 K53 ["Text"]
   GETUPVAL R26 9
-  GETTABLEKS R25 R26 K52 ["Event"]
-  GETTABLEKS R24 R25 K53 ["Activated"]
+  GETTABLEKS R25 R26 K54 ["Event"]
+  GETTABLEKS R24 R25 K55 ["Activated"]
   NEWCLOSURE R25 P2
   CAPTURE VAL R1
   CAPTURE UPVAL U11
   CAPTURE VAL R0
   SETTABLE R25 R23 R24
   GETUPVAL R26 9
-  GETTABLEKS R25 R26 K52 ["Event"]
-  GETTABLEKS R24 R25 K54 ["MouseEnter"]
+  GETTABLEKS R25 R26 K54 ["Event"]
+  GETTABLEKS R24 R25 K56 ["MouseEnter"]
   SETTABLE R6 R23 R24
   GETUPVAL R26 9
-  GETTABLEKS R25 R26 K52 ["Event"]
-  GETTABLEKS R24 R25 K55 ["MouseLeave"]
+  GETTABLEKS R25 R26 K54 ["Event"]
+  GETTABLEKS R24 R25 K57 ["MouseLeave"]
   SETTABLE R7 R23 R24
   GETUPVAL R25 9
   GETTABLEKS R24 R25 K18 ["Tag"]
-  LOADK R25 K56 ["X-Transparent"]
+  LOADK R25 K58 ["X-Transparent"]
   SETTABLE R25 R23 R24
-  DUPTABLE R24 K58 [{"Icon"}]
+  DUPTABLE R24 K60 [{"Icon"}]
   GETUPVAL R26 9
   GETTABLEKS R25 R26 K9 ["createElement"]
-  LOADK R26 K59 ["ImageLabel"]
+  LOADK R26 K61 ["ImageLabel"]
   NEWTABLE R27 4 0
   GETIMPORT R28 K14 [UDim2.fromScale]
-  LOADK R29 K31 [0.5]
-  LOADK R30 K31 [0.5]
+  LOADK R29 K33 [0.5]
+  LOADK R30 K33 [0.5]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K27 ["Position"]
-  GETIMPORT R28 K33 [Vector2.new]
-  LOADK R29 K31 [0.5]
-  LOADK R30 K31 [0.5]
+  SETTABLEKS R28 R27 K29 ["Position"]
+  GETIMPORT R28 K35 [Vector2.new]
+  LOADK R29 K33 [0.5]
+  LOADK R30 K33 [0.5]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K28 ["AnchorPoint"]
+  SETTABLEKS R28 R27 K30 ["AnchorPoint"]
   GETUPVAL R29 9
   GETTABLEKS R28 R29 K18 ["Tag"]
-  LOADK R29 K60 ["X-Transparent StartPage-CancelWhiteIcon"]
+  LOADK R29 K62 ["X-Transparent StartPage-CancelWhiteIcon"]
   SETTABLE R29 R27 R28
   CALL R25 2 1
-  SETTABLEKS R25 R24 K57 ["Icon"]
+  SETTABLEKS R25 R24 K59 ["Icon"]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K36 ["CancelButton"]
+  SETTABLEKS R21 R20 K38 ["CancelButton"]
   CALL R17 3 1
-  SETTABLEKS R17 R16 K23 ["CityImage"]
+  SETTABLEKS R17 R16 K25 ["CityImage"]
   GETUPVAL R18 9
   GETTABLEKS R17 R18 K9 ["createElement"]
   LOADK R18 K10 ["Frame"]
   NEWTABLE R19 4 0
   LOADN R20 2
-  SETTABLEKS R20 R19 K29 ["ZIndex"]
+  SETTABLEKS R20 R19 K31 ["ZIndex"]
   JUMPIFNOT R8 [+8]
-  GETIMPORT R20 K21 [UDim2.new]
+  GETIMPORT R20 K23 [UDim2.new]
   LOADN R21 0
   LOADN R22 0
   LOADN R23 0
-  LOADK R24 K61 [173.5]
+  LOADK R24 K63 [173.5]
   CALL R20 4 1
   JUMP [+7]
-  GETIMPORT R20 K21 [UDim2.new]
+  GETIMPORT R20 K23 [UDim2.new]
   LOADN R21 0
   LOADN R22 48
   LOADN R23 0
   LOADN R24 48
   CALL R20 4 1
-  SETTABLEKS R20 R19 K27 ["Position"]
+  SETTABLEKS R20 R19 K29 ["Position"]
   JUMPIFNOT R8 [+6]
   GETIMPORT R20 K14 [UDim2.fromScale]
   LOADN R21 1
   LOADN R22 0
   CALL R20 2 1
   JUMP [+5]
-  GETIMPORT R20 K49 [UDim2.fromOffset]
+  GETIMPORT R20 K51 [UDim2.fromOffset]
   GETUPVAL R21 6
   LOADN R22 235
   CALL R20 2 1
   SETTABLEKS R20 R19 K15 ["Size"]
   GETUPVAL R21 9
   GETTABLEKS R20 R21 K18 ["Tag"]
-  LOADK R22 K62 ["X-ColumnM X-Left StartPage-RoundedCorner8 "]
+  LOADK R22 K64 ["X-ColumnM X-Left StartPage-RoundedCorner8 "]
   JUMPIFNOT R8 [+2]
-  LOADK R23 K63 ["X-Transparent X-FitY StartPage-Padding16"]
+  LOADK R23 K65 ["X-Transparent X-FitY StartPage-Padding16"]
   JUMP [+1]
-  LOADK R23 K64 ["StartPage-TileBackground StartPage-Padding24"]
+  LOADK R23 K66 ["StartPage-TileBackground StartPage-Padding24"]
   GETUPVAL R25 3
   JUMPIFNOT R25 [+2]
-  LOADK R24 K65 [" X-FitY"]
+  LOADK R24 K67 [" X-FitY"]
   JUMP [+1]
-  LOADK R24 K50 [""]
+  LOADK R24 K52 [""]
   CONCAT R21 R22 R24
   SETTABLE R21 R19 R20
-  DUPTABLE R20 K69 [{"Title", "Description", "Button"}]
+  DUPTABLE R20 K71 [{"Title", "Description", "Button"}]
   GETUPVAL R22 9
   GETTABLEKS R21 R22 K9 ["createElement"]
-  LOADK R22 K70 ["TextLabel"]
+  LOADK R22 K72 ["TextLabel"]
   NEWTABLE R23 8 0
-  LOADK R26 K71 ["Plugin"]
-  LOADK R27 K72 ["TutorialTile.TourTitle"]
-  NAMECALL R24 R2 K73 ["getText"]
+  LOADK R26 K73 ["Plugin"]
+  LOADK R27 K74 ["TutorialTile.TourTitle"]
+  NAMECALL R24 R2 K75 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K51 ["Text"]
+  SETTABLEKS R24 R23 K53 ["Text"]
   JUMPIFNOT R8 [+2]
   LOADN R24 30
   JUMP [+1]
   LOADN R24 40
-  SETTABLEKS R24 R23 K74 ["TextSize"]
+  SETTABLEKS R24 R23 K76 ["TextSize"]
   GETUPVAL R25 3
   JUMPIFNOT R25 [+2]
   LOADN R24 1
   JUMP [+1]
   LOADNIL R24
-  SETTABLEKS R24 R23 K75 ["LineHeight"]
-  GETIMPORT R24 K78 [Enum.TextXAlignment.Left]
-  SETTABLEKS R24 R23 K76 ["TextXAlignment"]
+  SETTABLEKS R24 R23 K77 ["LineHeight"]
+  GETIMPORT R24 K80 [Enum.TextXAlignment.Left]
+  SETTABLEKS R24 R23 K78 ["TextXAlignment"]
   LOADB R24 1
-  SETTABLEKS R24 R23 K79 ["TextWrapped"]
+  SETTABLEKS R24 R23 K81 ["TextWrapped"]
   MOVE R24 R3
   CALL R24 0 1
-  SETTABLEKS R24 R23 K80 ["LayoutOrder"]
+  SETTABLEKS R24 R23 K82 ["LayoutOrder"]
   GETIMPORT R24 K14 [UDim2.fromScale]
   LOADN R25 1
   LOADN R26 0
@@ -360,103 +360,103 @@ PROTO_5:
   SETTABLEKS R24 R23 K15 ["Size"]
   GETUPVAL R25 9
   GETTABLEKS R24 R25 K18 ["Tag"]
-  LOADK R25 K81 ["X-Fit X-Left X-Bottom StartPage-TextColor StartPage-FontExtraBold X-Transparent"]
+  LOADK R25 K83 ["X-Fit X-Left X-Bottom StartPage-TextColor StartPage-FontExtraBold X-Transparent"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
-  SETTABLEKS R21 R20 K66 ["Title"]
+  SETTABLEKS R21 R20 K68 ["Title"]
   GETUPVAL R22 9
   GETTABLEKS R21 R22 K9 ["createElement"]
-  LOADK R22 K70 ["TextLabel"]
+  LOADK R22 K72 ["TextLabel"]
   NEWTABLE R23 8 0
-  LOADK R26 K71 ["Plugin"]
-  LOADK R27 K82 ["TutorialTile.TourDesc"]
-  NAMECALL R24 R2 K73 ["getText"]
+  LOADK R26 K73 ["Plugin"]
+  LOADK R27 K84 ["TutorialTile.TourDesc"]
+  NAMECALL R24 R2 K75 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K51 ["Text"]
+  SETTABLEKS R24 R23 K53 ["Text"]
   JUMPIFNOT R8 [+2]
   LOADN R24 18
   JUMP [+1]
   LOADN R24 20
-  SETTABLEKS R24 R23 K74 ["TextSize"]
-  GETIMPORT R24 K21 [UDim2.new]
+  SETTABLEKS R24 R23 K76 ["TextSize"]
+  GETIMPORT R24 K23 [UDim2.new]
   LOADN R25 1
   LOADN R26 240
   LOADN R27 0
   LOADN R28 0
   CALL R24 4 1
   SETTABLEKS R24 R23 K15 ["Size"]
-  LOADK R24 K83 [1.2]
-  SETTABLEKS R24 R23 K75 ["LineHeight"]
+  LOADK R24 K85 [1.2]
+  SETTABLEKS R24 R23 K77 ["LineHeight"]
   LOADB R24 1
-  SETTABLEKS R24 R23 K79 ["TextWrapped"]
-  GETIMPORT R24 K78 [Enum.TextXAlignment.Left]
-  SETTABLEKS R24 R23 K76 ["TextXAlignment"]
+  SETTABLEKS R24 R23 K81 ["TextWrapped"]
+  GETIMPORT R24 K80 [Enum.TextXAlignment.Left]
+  SETTABLEKS R24 R23 K78 ["TextXAlignment"]
   MOVE R24 R3
   CALL R24 0 1
-  SETTABLEKS R24 R23 K80 ["LayoutOrder"]
+  SETTABLEKS R24 R23 K82 ["LayoutOrder"]
   GETUPVAL R25 9
   GETTABLEKS R24 R25 K18 ["Tag"]
-  LOADK R25 K84 ["X-FitY X-Left StartPage-TextColor StartPage-Font X-Transparent StartPage-PaddingY8"]
+  LOADK R25 K86 ["X-FitY X-Left StartPage-TextColor StartPage-Font X-Transparent StartPage-PaddingY8"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
-  SETTABLEKS R21 R20 K67 ["Description"]
+  SETTABLEKS R21 R20 K69 ["Description"]
   GETUPVAL R22 9
   GETTABLEKS R21 R22 K9 ["createElement"]
-  LOADK R22 K85 ["ImageButton"]
+  LOADK R22 K87 ["ImageButton"]
   NEWTABLE R23 8 0
   MOVE R24 R3
   CALL R24 0 1
-  SETTABLEKS R24 R23 K80 ["LayoutOrder"]
-  GETIMPORT R24 K88 [Color3.fromHex]
-  LOADK R25 K89 ["#3C64FA"]
+  SETTABLEKS R24 R23 K82 ["LayoutOrder"]
+  GETIMPORT R24 K90 [Color3.fromHex]
+  LOADK R25 K91 ["#3C64FA"]
   CALL R24 1 1
-  SETTABLEKS R24 R23 K90 ["BackgroundColor3"]
+  SETTABLEKS R24 R23 K92 ["BackgroundColor3"]
   GETUPVAL R26 9
-  GETTABLEKS R25 R26 K52 ["Event"]
-  GETTABLEKS R24 R25 K53 ["Activated"]
+  GETTABLEKS R25 R26 K54 ["Event"]
+  GETTABLEKS R24 R25 K55 ["Activated"]
   NEWCLOSURE R25 P3
   CAPTURE VAL R1
   CAPTURE UPVAL U11
   CAPTURE UPVAL U12
   SETTABLE R25 R23 R24
   GETUPVAL R26 9
-  GETTABLEKS R25 R26 K52 ["Event"]
-  GETTABLEKS R24 R25 K54 ["MouseEnter"]
+  GETTABLEKS R25 R26 K54 ["Event"]
+  GETTABLEKS R24 R25 K56 ["MouseEnter"]
   SETTABLE R6 R23 R24
   GETUPVAL R26 9
-  GETTABLEKS R25 R26 K52 ["Event"]
-  GETTABLEKS R24 R25 K55 ["MouseLeave"]
+  GETTABLEKS R25 R26 K54 ["Event"]
+  GETTABLEKS R24 R25 K57 ["MouseLeave"]
   SETTABLE R7 R23 R24
   GETUPVAL R25 9
   GETTABLEKS R24 R25 K18 ["Tag"]
-  LOADK R25 K91 ["X-Fit X-Row X-Middle StartPage-ButtonPadding StartPage-RoundedCorner8"]
+  LOADK R25 K93 ["X-Fit X-Row X-Middle StartPage-ButtonPadding StartPage-RoundedCorner8"]
   SETTABLE R25 R23 R24
   NEWTABLE R24 0 1
   GETUPVAL R26 9
   GETTABLEKS R25 R26 K9 ["createElement"]
   GETUPVAL R26 13
   NEWTABLE R27 4 0
-  LOADK R30 K71 ["Plugin"]
-  LOADK R31 K92 ["TutorialTile.StartButton"]
-  NAMECALL R28 R2 K73 ["getText"]
+  LOADK R30 K73 ["Plugin"]
+  LOADK R31 K94 ["TutorialTile.StartButton"]
+  NAMECALL R28 R2 K75 ["getText"]
   CALL R28 3 1
-  SETTABLEKS R28 R27 K51 ["Text"]
-  GETIMPORT R28 K95 [Enum.Font.BuilderSansBold]
-  SETTABLEKS R28 R27 K93 ["Font"]
+  SETTABLEKS R28 R27 K53 ["Text"]
+  GETIMPORT R28 K97 [Enum.Font.BuilderSansBold]
+  SETTABLEKS R28 R27 K95 ["Font"]
   LOADN R28 16
-  SETTABLEKS R28 R27 K74 ["TextSize"]
+  SETTABLEKS R28 R27 K76 ["TextSize"]
   GETUPVAL R29 9
   GETTABLEKS R28 R29 K18 ["Tag"]
-  LOADK R29 K96 ["X-Fit StartPage-StandardTextColor"]
+  LOADK R29 K98 ["X-Fit StartPage-StandardTextColor"]
   SETTABLE R29 R27 R28
   CALL R25 2 -1
   SETLIST R24 R25 -1 [1]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K68 ["Button"]
+  SETTABLEKS R21 R20 K70 ["Button"]
   CALL R17 3 1
-  SETTABLEKS R17 R16 K24 ["Container"]
-  CALL R13 3 -1
-  SETLIST R12 R13 -1 [1]
+  SETTABLEKS R17 R16 K26 ["Container"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K20 ["Child"]
   CALL R9 3 -1
   RETURN R9 -1
 

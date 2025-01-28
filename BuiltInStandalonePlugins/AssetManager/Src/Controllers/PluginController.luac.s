@@ -165,21 +165,6 @@ PROTO_2:
   NAMECALL R8 R2 K23 ["getText"]
   CALL R8 3 -1
   CALL R7 -1 0
-  LOADK R9 K21 ["Plugin"]
-  LOADK R10 K27 ["PlaceholderGameName"]
-  NAMECALL R7 R2 K23 ["getText"]
-  CALL R7 3 1
-  GETTABLEKS R9 R4 K5 ["_gameInfo"]
-  GETTABLEKS R8 R9 K17 ["Name"]
-  JUMPIFEQ R8 R7 [+14]
-  GETTABLEKS R8 R4 K5 ["_gameInfo"]
-  SETTABLEKS R7 R8 K17 ["Name"]
-  GETTABLEKS R8 R4 K9 ["OnGameInfoFetched"]
-  GETIMPORT R10 K37 [table.clone]
-  MOVE R11 R7
-  CALL R10 1 -1
-  NAMECALL R8 R8 K38 ["Fire"]
-  CALL R8 -1 0
   RETURN R4 1
 
 PROTO_3:
@@ -246,12 +231,9 @@ PROTO_11:
   RETURN R1 1
 
 PROTO_12:
-  GETTABLEKS R1 R0 K0 ["_isMock"]
-  JUMPIFNOT R1 [+1]
-  RETURN R0 0
-  GETIMPORT R1 K2 [plugin]
-  LOADK R3 K3 ["OnOpenBulkImport"]
-  NAMECALL R1 R1 K4 ["Invoke"]
+  GETTABLEKS R1 R0 K0 ["_plugin"]
+  LOADK R3 K1 ["OnOpenBulkImport"]
+  NAMECALL R1 R1 K2 ["Invoke"]
   CALL R1 2 0
   RETURN R0 0
 

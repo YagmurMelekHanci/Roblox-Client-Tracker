@@ -80,7 +80,7 @@ PROTO_1:
   CALL R12 3 1
   SETTABLEKS R12 R11 K8 ["TitleDesc"]
   GETTABLEKS R13 R0 K26 ["ButtonText"]
-  JUMPIFNOT R13 [+79]
+  JUMPIFNOT R13 [+78]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K1 ["createElement"]
   LOADK R13 K2 ["Frame"]
@@ -115,7 +115,7 @@ PROTO_1:
   GETTABLEKS R19 R20 K3 ["Tag"]
   LOADK R20 K34 ["StartPage-Border StartPage-ButtonPadding StartPage-RoundedCorner8 StartPage-PageBackground X-Fit X-Middle X-Row"]
   SETTABLE R20 R18 R19
-  NEWTABLE R19 0 1
+  DUPTABLE R19 K36 [{"Label"}]
   GETUPVAL R21 2
   GETTABLEKS R20 R21 K1 ["createElement"]
   LOADK R21 K16 ["TextLabel"]
@@ -128,10 +128,10 @@ PROTO_1:
   SETTABLEKS R23 R22 K22 ["TextXAlignment"]
   GETUPVAL R24 2
   GETTABLEKS R23 R24 K3 ["Tag"]
-  LOADK R24 K35 ["X-Fit StartPage-FontBold StartPage-TextColor X-Transparent StartPage-TextSize"]
+  LOADK R24 K37 ["X-Fit StartPage-FontBold StartPage-TextColor X-Transparent StartPage-TextSize"]
   SETTABLE R24 R22 R23
-  CALL R20 2 -1
-  SETLIST R19 R20 -1 [1]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K35 ["Label"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K9 ["Button"]
   CALL R12 3 1
