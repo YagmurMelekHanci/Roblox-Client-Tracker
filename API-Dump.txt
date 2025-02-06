@@ -338,12 +338,14 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function AnnotationsService:CreateAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:DeleteAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:EditAnnotation(uniqueId: string, contents: string) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:GetAnnotationThreads() -> { Instance } {RobloxScriptSecurity}
 	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:LoadResolvedAnnotations(count: number) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:ResolveAnnotation(annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationAdded(requestId: string, annotation: Annotation, parentId: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationDeleted(requestId: string, annotation: Annotation) {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationEdited(requestId: string, uniqueId: string, contents: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationResolved(requestId: string, annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
 	Event AnnotationsService.ServerLoadAnnotationReplies(annotation: Annotation) {RobloxSecurity}
 	Event AnnotationsService.ServerLoadResolvedAnnotations(count: number) {RobloxSecurity}
@@ -489,6 +491,7 @@ Class AudioAnalyzer : Instance
 	Property AudioAnalyzer.PeakLevel: number [ReadOnly]
 	Property AudioAnalyzer.RmsLevel: number [ReadOnly]
 	Property AudioAnalyzer.SpectrumEnabled: boolean
+	Property AudioAnalyzer.WindowSize: Enum.AudioWindowSize
 	Function AudioAnalyzer:GetConnectedWires(pin: string) -> { Instance }
 	Function AudioAnalyzer:GetSpectrum() -> { any } [CustomLuaState]
 	Event AudioAnalyzer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
@@ -539,6 +542,7 @@ Class AudioEcho : Instance
 	Property AudioEcho.RampTime: number
 	Property AudioEcho.WetLevel: number
 	Function AudioEcho:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioEcho:Reset() -> () {RobloxScriptSecurity}
 	Event AudioEcho.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioEmitter : Instance
 	Property AudioEmitter.AngleAttenuation: BinaryString {RobloxSecurity}
@@ -611,17 +615,19 @@ Class AudioListener : Instance
 	Function AudioListener:GetConnectedWires(pin: string) -> { Instance }
 	Function AudioListener:GetDistanceAttenuation() -> { [string]: any } [CustomLuaState]
 	Function AudioListener:GetInteractingEmitters() -> { Instance }
+	Function AudioListener:Reset() -> () {RobloxScriptSecurity}
 	Function AudioListener:SetAngleAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 	Function AudioListener:SetDistanceAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 	Event AudioListener.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioPitchShifter : Instance
 	Property AudioPitchShifter.Bypass: boolean
 	Property AudioPitchShifter.Pitch: number
+	Property AudioPitchShifter.WindowSize: Enum.AudioWindowSize
 	Function AudioPitchShifter:GetConnectedWires(pin: string) -> { Instance }
 	Event AudioPitchShifter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioPlayer : Instance
-	Property AudioPlayer.Asset: string [📁 LoadOnly] [Hidden] [NotScriptable]
-	Property AudioPlayer.AssetId: string
+	Property AudioPlayer.Asset: string
+	Property AudioPlayer.AssetId: string [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property AudioPlayer.AutoLoad: boolean
 	Property AudioPlayer.IsReady: boolean [ReadOnly]
 	Property AudioPlayer.TimeLength: number [ReadOnly]
@@ -654,6 +660,7 @@ Class AudioReverb : Instance
 	Property AudioReverb.ReferenceFrequency: number
 	Property AudioReverb.WetLevel: number
 	Function AudioReverb:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioReverb:Reset() -> () {RobloxScriptSecurity}
 	Event AudioReverb.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.Album: string
@@ -3987,6 +3994,7 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.PhysicsData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.SerializedCSGTree: SharedString [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.SerializedOperationGraph: SharedString [Hidden] [NotReplicated] [NotScriptable]
+	Property PartOperation.SolidMeshData: NetAssetRef [Hidden] [NotScriptable]
 	Property PartOperation.TriangleCount: number [ReadOnly]
 	Property PartOperation.UsePartColor: boolean
 	Function PartOperation:SubstituteGeometry(source: Instance) -> ()
@@ -5227,7 +5235,10 @@ Class GenericSettings : ServiceProvider [NotCreatable]
 Class AnalysticsSettings : GenericSettings [NotCreatable]
 Class GlobalSettings : GenericSettings [NotCreatable] [NotBrowsable]
 	Function GlobalSettings:GetFFlag(name: string) -> boolean
+	Function GlobalSettings:GetFFlagOverrides() -> string {RobloxScriptSecurity}
+	Function GlobalSettings:GetFFlags() -> string {RobloxScriptSecurity}
 	Function GlobalSettings:GetFVariable(name: string) -> string
+	Function GlobalSettings:SetFFlagOverrides(overrides: string) -> boolean {RobloxScriptSecurity}
 Class UserSettings : GenericSettings [NotCreatable]
 	Function UserSettings:IsUserFeatureEnabled(name: string) -> boolean
 	Function UserSettings:Reset() -> ()
@@ -5406,6 +5417,7 @@ Class SoundGroup : Instance
 	Property SoundGroup.Volume: number
 Class SoundService : Instance [NotCreatable] [Service]
 	Property SoundService.AmbientReverb: Enum.ReverbType
+	Property SoundService.CharacterSoundsUseNewApi: Enum.RolloutState {✏️PluginSecurity}
 	Property SoundService.DefaultListenerLocation: Enum.ListenerLocation {PluginSecurity}
 	Property SoundService.DistanceFactor: number
 	Property SoundService.DopplerScale: number
@@ -5557,6 +5569,8 @@ Class Stats : Instance [NotCreatable] [Service]
 	Function Stats:GetMemoryUsageMbForTag(tag: Enum.DeveloperMemoryTag) -> number
 	Function Stats:GetPaginatedMemoryByTexture(queryType: Enum.TextureQueryType, pageIndex: number, pageSize: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function Stats:GetTotalMemoryUsageMb() -> number
+	Function Stats:ResetHarmonyMemoryTarget() -> () {RobloxScriptSecurity}
+	Function Stats:SetHarmonyMemoryTarget(targetMB: number) -> () {RobloxScriptSecurity}
 Class StatsItem : Instance [NotCreatable]
 	Property StatsItem.DisplayName: string {PluginSecurity} [Hidden] [ReadOnly]
 	Function StatsItem:GetValue() -> number {PluginSecurity}
@@ -5627,6 +5641,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.LoadAllBuiltinPluginsInRunModes: boolean {RobloxScriptSecurity}
 	Property Studio.LoadUserPluginsInRunModes: boolean {RobloxScriptSecurity}
 	Property Studio.ActionOnStopSync: Enum.ActionOnStopSync
+	Property Studio.AutoResumeSyncOnPlaceOpen: boolean {RobloxSecurity}
 	Property Studio.DefaultScriptFileDir: QDir
 	Property Studio.IconOverrideDir: QDir {RobloxScriptSecurity}
 	Property Studio.LocalAssetsFolder: QDir {✏️RobloxScriptSecurity}
@@ -6163,7 +6178,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.ChatVersion: Enum.ChatVersion {✏️NotAccessibleSecurity}
 	Property TextChatService.CreateDefaultCommands: boolean {✏️PluginSecurity}
 	Property TextChatService.CreateDefaultTextChannels: boolean {✏️PluginSecurity}
-	Property TextChatService.HasSeenDeprecationDialog: boolean {RobloxScriptSecurity}
+	Property TextChatService.HasSeenDeprecationDialog: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function TextChatService:CanUserChatAsync(userId: number) -> boolean [Yields]
 	Function TextChatService:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
 	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } [Yields]
@@ -6312,11 +6327,14 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CheckMeshInCameraFrustum(meshId: string, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CompareTextureOverlapByteString(byteStringBaseline: string, byteStringFollowup: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CompareTextureOverlapTextureId(textureIdBaseline: string, textureIdFollowup: string) -> { any } {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:CreateEditableImageFromBinaryStringRobloxOnly(value: BinaryStringValue) -> EditableImage {RobloxScriptSecurity}
+	Function UGCValidationService:CreateEditableMeshFromBinaryStringRobloxOnly(value: BinaryStringValue) -> EditableMesh {RobloxScriptSecurity}
 	Function UGCValidationService:FetchAssetWithFormat(url: string, assetFormat: string) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetCagingRelevancyMetrics(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: EditableMesh, controlNames: { any }) -> ...any {RobloxScriptSecurity}
 	Function UGCValidationService:GetDynamicHeadMeshInactiveControls(meshId: string, controlNames: { any }) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetEditableCagingRelevancyMetrics(innerCage: EditableMesh, outerCage: EditableMesh, refMesh: EditableMesh, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:GetEditableImageData(editableImage: EditableImage) -> BinaryStringValue {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableImageSize(editableImage: EditableImage) -> Vector2 {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableMeshMaxNearbyVerticesCollisions(editableMesh: EditableMesh, meshScale: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetEditableMeshTriCount(editableMesh: EditableMesh) -> number {RobloxScriptSecurity}
@@ -6326,6 +6344,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetImageTransparencyWithByteString(textureId: string) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:GetImageTransparencyWithTextureID(textureId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMaxNearbyVerticesCollisions(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:GetMeshDataBinaryString(meshId: string) -> BinaryStringValue {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshTriCount(meshId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshVertColors(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshVerticesSimilarityRate(meshId: string, meshScale: Vector3) -> number {RobloxScriptSecurity} [Yields]
@@ -6334,6 +6353,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:IsEditableMeshNumCoplanarIntersectionsOverLimit(editableMesh: EditableMesh, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:IsNumCoplanarIntersectionsOverLimit(meshId: string, limit: number, meshScale: Vector3, intersectBackFaces: boolean) -> boolean {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:RegisterAlternateMesh(alternateId: string, binaryStringValue: BinaryStringValue) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:RegisterUGCValidationFunction(setFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ReportUGCValidationCounter(success: boolean, validationType: string) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ReportUGCValidationFailureTelemetry(errorType: string) -> () {RobloxScriptSecurity}
@@ -6897,6 +6917,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property VoiceChatService.VoiceChatEnabledForUniverseOnRcc: boolean {RobloxScriptSecurity} [Hidden]
 	Function VoiceChatService:IsVoiceEnabledForUserIdAsync(userId: number) -> boolean [Yields]
 	Function VoiceChatService:joinVoice() -> () {RobloxScriptSecurity}
+	Function VoiceChatService:leaveVoice() -> () {RobloxScriptSecurity}
 	Function VoiceChatService:rejoinVoice() -> () {RobloxScriptSecurity}
 	Event VoiceChatService.ClientRetryJoin() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ClientRetryJoinWithConfig(sessionConfigFlags: number) {RobloxSecurity} [Hidden]
@@ -9038,6 +9059,8 @@ Enum ProductLocationRestriction
 Enum ProductPurchaseChannel
 	EnumItem ProductPurchaseChannel.InExperience : 1
 	EnumItem ProductPurchaseChannel.ExperienceDetailsPage : 2
+	EnumItem ProductPurchaseChannel.AdReward : 3
+	EnumItem ProductPurchaseChannel.CommerceProduct : 4
 Enum ProductPurchaseDecision
 	EnumItem ProductPurchaseDecision.NotProcessedYet : 0
 	EnumItem ProductPurchaseDecision.PurchaseGranted : 1

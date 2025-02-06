@@ -46,6 +46,7 @@ Studio.App.Property.AutoIndentRule,,Auto Indent Rule,Auto Indent Rule
 Studio.App.Property.AutoRecoveryEnabled,,Auto-Recovery Enabled,Auto-Recovery Enabled
 Studio.App.Property.AutoRecoveryIntervalMinutes,,Auto-Recovery Interval (Minutes),Auto-Recovery Interval (Minutes)
 Studio.App.Property.AutoRecoveryPath,,Auto-Recovery Path,Auto-Recovery Path
+Studio.App.Property.AutoResumeSyncOnPlaceOpen,Setting description for auto resuming file sync across sessions,Auto resume sync on place open,Auto resume sync on place open
 Studio.App.Property.AutoSaveEnabled,,Auto-Save Enabled,Auto-Save Enabled
 Studio.App.Property.AutoSaveIntervalMinutes,,Auto-Save Interval (Minutes),Auto-Save Interval (Minutes)
 Studio.App.Property.AutoSavePath,,Auto-Save Path,Auto-Save Path

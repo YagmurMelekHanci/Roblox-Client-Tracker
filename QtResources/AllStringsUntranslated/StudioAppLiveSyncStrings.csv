@@ -11,7 +11,7 @@ Studio.App.LiveSync.ErrorWritingToFile,,Can't sync %1 to disk: Unable to write t
 Studio.App.LiveSync.ErrorWritingToScript,,Can't sync %1 to disk: Unable to write to the data model,Can't sync %1 to disk: Unable to write to the data model
 Studio.App.LiveSync.ExcessPathLengthsOutput,,Path length exceeded:,Path length exceeded:
 Studio.App.LiveSync.FileDeletedStoppingSync,,Error while syncing %1 to the disk: File was deleted,Error while syncing %1 to the disk: File was deleted
-Studio.App.LiveSync.FileNotFoundStoppingSync,,Can't sync %1 to disk: File not found,Can't sync %1 to disk: File not found
+Studio.App.LiveSync.FileNotFoundStoppingSync,File Not Found log output error and tooltip,Can't sync %1 to disk at %2: File not found,Can't sync %1 to disk at %2: File not found
 Studio.App.LiveSync.FileTooLarge,,Can't sync %1 to disk: File too large,Can't sync %1 to disk: File too large
 Studio.App.LiveSync.InstanceDeletedStoppingSync,,Can't sync %1 to disk: Instance deleted,Can't sync %1 to disk: Instance deleted
 Studio.App.LiveSync.InvalidFilesOutput,,Invalid file names:,Invalid file names:

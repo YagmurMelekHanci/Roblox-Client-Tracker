@@ -13,6 +13,7 @@ Studio.App.AutoReconnectDialog.ConnectionLostTerminal2,Auto Reconnect Dialog. Th
 Studio.App.AutoReconnectDialog.ConnectionLostToServer,Auto Reconnect Dialog,Connection Lost to Server,Connection Lost to Server
 Studio.App.AutoReconnectDialog.ConnectionLostUnableToConnect,Auto Reconnect Dialog,Unable to Connect to Server,Unable to Connect to Server
 Studio.App.AutoReconnectDialog.FailedToConnect,Auto Reconnect Dialog,Failed to connect,Failed to connect
+Studio.App.AutoReconnectDialog.FailureReason.NoInternetConnection,Auto Reconnect Dialog,"Unable to reach network, no internet connection.","Unable to reach network, no internet connection."
 Studio.App.AutoReconnectDialog.PlaceIdAndErrorCode2,Auto Reconnect Dialog,<b>Place ID</b>: %1<br><b>Error Code</b>: %2,<b>Place ID</b>: %1<br><b>Error Code</b>: %2
 Studio.App.AutoReconnectDialog.ReconnectCountdown1,Auto Reconnect Dialog,Reconnecting in %1s...,Reconnecting in %1s...
 Studio.App.AutoReconnectDialog.Reconnecting,Auto Reconnect Dialog,Reconnecting...,Reconnecting...
