@@ -12,6 +12,11 @@ local UIManager = require(UIManagerFolder.UIManager)
 
 local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
 
+if game:DefineFastFlag("DebugExpChat", false) then
+	local ExpChatDebug = require(CorePackages.Workspace.Packages.ExpChatDebug)
+	ExpChatDebug.start()
+end
+
 -- Wait for the game to be Loaded before checking ChatVersion
 -- Otherwise it will always return its default value.
 local _ = game:IsLoaded() or game.Loaded:Wait()

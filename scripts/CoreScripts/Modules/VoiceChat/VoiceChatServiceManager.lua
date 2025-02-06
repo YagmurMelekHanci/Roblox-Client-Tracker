@@ -1760,7 +1760,14 @@ function VoiceChatServiceManager:Leave()
 	end
 	local previousGroupId = self.service:GetGroupId()
 	local previousMutedState = self.service:IsPublishPaused()
-	self.service:Leave()
+	if GetFFlagVoiceChatClientRewriteMasterLua() then
+		local voiceChatService = game:GetService("VoiceChatService")
+		if voiceChatService then
+			voiceChatService:leaveVoice()
+		end
+	else
+		self.service:Leave()
+	end
 	self:HideVoiceUI()
 	self.previousGroupId = previousGroupId
 	self.previousMutedState = previousMutedState
@@ -1845,7 +1852,6 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 
 	pcall(function()
 		if GetFFlagVoiceChatClientRewriteMasterLua() then
-			self.service:Leave()
 			self.coreVoiceManager:RejoinVoice()
 			if GetFFlagEnableConnectDisconnectAnalytics() then
 				self.Analytics:reportConnectDisconnectEvents(

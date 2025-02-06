@@ -70,7 +70,6 @@ local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCame
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
 local FFlagEnablePremiumSponsoredExperienceReporting =
 	game:DefineFastFlag("EnablePremiumSponsoredExperienceReporting", false)
-local FFlagMoveUGCValidationFunction = require(RobloxGui.Modules.Common.Flags.FFlagMoveUGCValidationFunctionFeature)
 local FFlagEnableCancelSubscriptionApp = game:GetEngineFeature("EnableCancelSubscriptionApp")
 local FFlagEnableCancelSubscriptionAppLua = game:DefineFastFlag("EnableCancelSubscriptionAppLua", false)
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
@@ -241,7 +240,7 @@ if game:GetEngineFeature("ProximityPrompts") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ProximityPrompt", RobloxGui)
 end
 
-if FFlagMoveUGCValidationFunction and game:GetEngineFeature("ValidateUGCBodyAPIFeature") then
+if game:GetEngineFeature("ValidateUGCBodyAPIFeature") then
 	require(CoreGuiModules.Server.UGCValidation.UGCValidationFunctionInstaller)()
 end
 

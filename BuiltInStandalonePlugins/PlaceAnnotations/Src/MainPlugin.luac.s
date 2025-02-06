@@ -129,6 +129,14 @@ PROTO_7:
   RETURN R0 0
 
 PROTO_8:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"enabled"}]
+  SETTABLEKS R0 R3 K0 ["enabled"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_9:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
@@ -158,49 +166,64 @@ PROTO_8:
   GETUPVAL R9 5
   GETTABLEKS R8 R9 K11 ["createElement"]
   GETUPVAL R9 6
-  DUPTABLE R10 K20 [{"Id", "Enabled", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose"}]
-  LOADK R11 K21 ["PlaceAnnotations"]
+  DUPTABLE R10 K22 [{"Id", "Enabled", "ShouldRestore", "OnWidgetRestored", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose"}]
+  LOADK R11 K23 ["PlaceAnnotations"]
   SETTABLEKS R11 R10 K12 ["Id"]
   SETTABLEKS R4 R10 K13 ["Enabled"]
+  GETUPVAL R13 7
+  GETTABLEKS R12 R13 K24 ["fflagAnnotationsWidgetRestoreFix"]
+  JUMPIFNOT R12 [+2]
+  LOADB R11 1
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K14 ["ShouldRestore"]
+  GETUPVAL R13 7
+  GETTABLEKS R12 R13 K24 ["fflagAnnotationsWidgetRestoreFix"]
+  JUMPIFNOT R12 [+3]
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R0
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K15 ["OnWidgetRestored"]
   GETTABLEKS R11 R0 K7 ["localization"]
   LOADK R13 K2 ["Plugin"]
-  LOADK R14 K22 ["Name"]
-  NAMECALL R11 R11 K23 ["getText"]
+  LOADK R14 K25 ["Name"]
+  NAMECALL R11 R11 K26 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K14 ["Title"]
-  GETIMPORT R11 K26 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R11 R10 K15 ["ZIndexBehavior"]
-  GETIMPORT R11 K28 [Enum.InitialDockState.Left]
-  SETTABLEKS R11 R10 K16 ["InitialDockState"]
-  GETIMPORT R11 K30 [Vector2.new]
+  SETTABLEKS R11 R10 K16 ["Title"]
+  GETIMPORT R11 K29 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K17 ["ZIndexBehavior"]
+  GETIMPORT R11 K31 [Enum.InitialDockState.Left]
+  SETTABLEKS R11 R10 K18 ["InitialDockState"]
+  GETIMPORT R11 K33 [Vector2.new]
   LOADN R12 128
   LOADN R13 224
   CALL R11 2 1
-  SETTABLEKS R11 R10 K17 ["Size"]
-  GETIMPORT R11 K30 [Vector2.new]
+  SETTABLEKS R11 R10 K19 ["Size"]
+  GETIMPORT R11 K33 [Vector2.new]
   LOADN R12 250
   LOADN R13 200
   CALL R11 2 1
-  SETTABLEKS R11 R10 K18 ["MinSize"]
-  GETTABLEKS R11 R0 K31 ["onWidgetClosed"]
-  SETTABLEKS R11 R10 K19 ["OnClose"]
-  DUPTABLE R11 K34 [{"AnnotationListView", "StyleLink"}]
+  SETTABLEKS R11 R10 K20 ["MinSize"]
+  GETTABLEKS R11 R0 K34 ["onWidgetClosed"]
+  SETTABLEKS R11 R10 K21 ["OnClose"]
+  DUPTABLE R11 K37 [{"AnnotationListView", "StyleLink"}]
   JUMPIFNOT R4 [+6]
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K11 ["createElement"]
-  GETUPVAL R13 7
+  GETUPVAL R13 8
   CALL R12 1 1
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K32 ["AnnotationListView"]
+  SETTABLEKS R12 R11 K35 ["AnnotationListView"]
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K11 ["createElement"]
-  LOADK R13 K33 ["StyleLink"]
-  DUPTABLE R14 K36 [{"StyleSheet"}]
-  GETTABLEKS R15 R0 K37 ["design"]
-  SETTABLEKS R15 R14 K35 ["StyleSheet"]
+  LOADK R13 K36 ["StyleLink"]
+  DUPTABLE R14 K39 [{"StyleSheet"}]
+  GETTABLEKS R15 R0 K40 ["design"]
+  SETTABLEKS R15 R14 K38 ["StyleSheet"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K33 ["StyleLink"]
+  SETTABLEKS R12 R11 K36 ["StyleLink"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K9 ["MainWidget"]
   CALL R5 2 -1
@@ -293,7 +316,7 @@ MAIN:
   CAPTURE VAL R14
   CAPTURE VAL R12
   SETTABLEKS R18 R15 K44 ["init"]
-  DUPCLOSURE R18 K45 [PROTO_8]
+  DUPCLOSURE R18 K45 [PROTO_9]
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R9
@@ -301,6 +324,7 @@ MAIN:
   CAPTURE VAL R11
   CAPTURE VAL R1
   CAPTURE VAL R5
+  CAPTURE VAL R4
   CAPTURE VAL R6
   SETTABLEKS R18 R15 K46 ["render"]
   RETURN R15 1

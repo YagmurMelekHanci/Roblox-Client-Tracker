@@ -87,107 +87,124 @@ PROTO_1:
   GETTABLEKS R14 R15 K3 ["new"]
   MOVE R15 R2
   CALL R14 1 1
-  GETUPVAL R17 10
-  GETTABLEKS R16 R17 K23 ["API"]
+  GETTABLEKS R16 R0 K23 ["WebViewMessageBusContext"]
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R15 R0 K23 ["WebViewMessageBusContext"]
+  JUMP [+17]
+  GETUPVAL R16 14
   GETTABLEKS R15 R16 K3 ["new"]
-  DUPTABLE R16 K25 [{"networking"}]
-  GETUPVAL R18 14
-  GETTABLEKS R17 R18 K26 ["mock"]
+  DUPTABLE R16 K25 [{"namespace", "plugin"}]
+  LOADK R17 K26 ["toolbox"]
+  SETTABLEKS R17 R16 K24 ["namespace"]
+  GETTABLEKS R17 R0 K5 ["plugin"]
+  JUMPIF R17 [+4]
+  GETUPVAL R18 4
+  GETTABLEKS R17 R18 K3 ["new"]
   CALL R17 0 1
-  SETTABLEKS R17 R16 K24 ["networking"]
+  SETTABLEKS R17 R16 K5 ["plugin"]
   CALL R15 1 1
   GETUPVAL R18 10
-  GETTABLEKS R17 R18 K27 ["Analytics"]
-  GETTABLEKS R16 R17 K26 ["mock"]
-  CALL R16 0 1
-  GETUPVAL R18 15
-  GETTABLEKS R17 R18 K3 ["new"]
-  MOVE R18 R7
-  CALL R17 1 1
+  GETTABLEKS R17 R18 K27 ["API"]
+  GETTABLEKS R16 R17 K3 ["new"]
+  DUPTABLE R17 K29 [{"networking"}]
+  GETUPVAL R19 15
+  GETTABLEKS R18 R19 K30 ["mock"]
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K28 ["networking"]
+  CALL R16 1 1
+  GETUPVAL R19 10
+  GETTABLEKS R18 R19 K31 ["Analytics"]
+  GETTABLEKS R17 R18 K30 ["mock"]
+  CALL R17 0 1
   GETUPVAL R19 16
   GETTABLEKS R18 R19 K3 ["new"]
-  GETTABLEKS R19 R0 K28 ["assetAnalytics"]
-  JUMPIF R19 [+4]
-  GETUPVAL R20 17
-  GETTABLEKS R19 R20 K26 ["mock"]
-  CALL R19 0 1
+  MOVE R19 R7
   CALL R18 1 1
+  GETUPVAL R20 17
+  GETTABLEKS R19 R20 K3 ["new"]
+  GETTABLEKS R20 R0 K32 ["assetAnalytics"]
+  JUMPIF R20 [+4]
   GETUPVAL R21 18
-  GETTABLEKS R20 R21 K29 ["LocalizationSource"]
-  GETTABLEKS R19 R20 K30 ["SourceStrings"]
-  GETUPVAL R22 18
-  GETTABLEKS R21 R22 K29 ["LocalizationSource"]
-  GETTABLEKS R20 R21 K31 ["LocalizedStrings"]
-  GETUPVAL R23 10
-  GETTABLEKS R22 R23 K32 ["Localization"]
-  GETTABLEKS R21 R22 K3 ["new"]
-  DUPTABLE R22 K40 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries", "overrideGetLocale", "overrideLocaleId", "overrideLocaleChangedSignal"}]
-  SETTABLEKS R19 R22 K33 ["stringResourceTable"]
-  SETTABLEKS R20 R22 K34 ["translationResourceTable"]
-  LOADK R23 K41 ["Toolbox"]
-  SETTABLEKS R23 R22 K35 ["pluginName"]
-  NEWTABLE R23 1 0
-  GETUPVAL R26 19
-  GETTABLEKS R25 R26 K42 ["Resources"]
-  GETTABLEKS R24 R25 K43 ["LOCALIZATION_PROJECT_NAME"]
-  DUPTABLE R25 K44 [{"stringResourceTable", "translationResourceTable"}]
-  GETUPVAL R28 19
-  GETTABLEKS R27 R28 K42 ["Resources"]
-  GETTABLEKS R26 R27 K30 ["SourceStrings"]
-  SETTABLEKS R26 R25 K33 ["stringResourceTable"]
-  GETUPVAL R28 19
-  GETTABLEKS R27 R28 K42 ["Resources"]
-  GETTABLEKS R26 R27 K31 ["LocalizedStrings"]
-  SETTABLEKS R26 R25 K34 ["translationResourceTable"]
-  SETTABLE R25 R23 R24
-  SETTABLEKS R23 R22 K36 ["libraries"]
-  DUPCLOSURE R23 K45 [PROTO_0]
-  SETTABLEKS R23 R22 K37 ["overrideGetLocale"]
-  LOADK R23 K46 ["en-us"]
-  SETTABLEKS R23 R22 K38 ["overrideLocaleId"]
-  GETUPVAL R24 20
+  GETTABLEKS R20 R21 K30 ["mock"]
+  CALL R20 0 1
+  CALL R19 1 1
+  GETUPVAL R22 19
+  GETTABLEKS R21 R22 K33 ["LocalizationSource"]
+  GETTABLEKS R20 R21 K34 ["SourceStrings"]
+  GETUPVAL R23 19
+  GETTABLEKS R22 R23 K33 ["LocalizationSource"]
+  GETTABLEKS R21 R22 K35 ["LocalizedStrings"]
+  GETUPVAL R24 10
+  GETTABLEKS R23 R24 K36 ["Localization"]
+  GETTABLEKS R22 R23 K3 ["new"]
+  DUPTABLE R23 K44 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries", "overrideGetLocale", "overrideLocaleId", "overrideLocaleChangedSignal"}]
+  SETTABLEKS R20 R23 K37 ["stringResourceTable"]
+  SETTABLEKS R21 R23 K38 ["translationResourceTable"]
+  LOADK R24 K45 ["Toolbox"]
+  SETTABLEKS R24 R23 K39 ["pluginName"]
+  NEWTABLE R24 1 0
+  GETUPVAL R27 20
+  GETTABLEKS R26 R27 K46 ["Resources"]
+  GETTABLEKS R25 R26 K47 ["LOCALIZATION_PROJECT_NAME"]
+  DUPTABLE R26 K48 [{"stringResourceTable", "translationResourceTable"}]
+  GETUPVAL R29 20
+  GETTABLEKS R28 R29 K46 ["Resources"]
+  GETTABLEKS R27 R28 K34 ["SourceStrings"]
+  SETTABLEKS R27 R26 K37 ["stringResourceTable"]
+  GETUPVAL R29 20
+  GETTABLEKS R28 R29 K46 ["Resources"]
+  GETTABLEKS R27 R28 K35 ["LocalizedStrings"]
+  SETTABLEKS R27 R26 K38 ["translationResourceTable"]
+  SETTABLE R26 R24 R25
+  SETTABLEKS R24 R23 K40 ["libraries"]
+  DUPCLOSURE R24 K49 [PROTO_0]
+  SETTABLEKS R24 R23 K41 ["overrideGetLocale"]
+  LOADK R24 K50 ["en-us"]
+  SETTABLEKS R24 R23 K42 ["overrideLocaleId"]
+  GETUPVAL R25 21
+  GETTABLEKS R24 R25 K3 ["new"]
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K43 ["overrideLocaleChangedSignal"]
+  CALL R22 1 1
+  GETUPVAL R24 22
   GETTABLEKS R23 R24 K3 ["new"]
   CALL R23 0 1
-  SETTABLEKS R23 R22 K39 ["overrideLocaleChangedSignal"]
-  CALL R21 1 1
-  GETUPVAL R23 21
-  GETTABLEKS R22 R23 K3 ["new"]
-  CALL R22 0 1
-  NEWTABLE R23 0 13
-  MOVE R24 R14
-  MOVE R25 R10
-  MOVE R26 R9
-  MOVE R27 R11
-  MOVE R28 R12
-  MOVE R29 R13
-  MOVE R30 R15
-  MOVE R31 R18
-  MOVE R32 R16
-  MOVE R33 R21
-  MOVE R34 R8
-  MOVE R35 R22
-  MOVE R36 R17
-  SETLIST R23 R24 13 [1]
-  GETUPVAL R25 22
-  GETTABLEKS R24 R25 K47 ["createElement"]
-  GETUPVAL R25 23
-  DUPTABLE R26 K48 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
-  SETTABLEKS R2 R26 K1 ["store"]
-  SETTABLEKS R3 R26 K5 ["plugin"]
-  SETTABLEKS R4 R26 K7 ["pluginGui"]
-  SETTABLEKS R5 R26 K8 ["settings"]
-  SETTABLEKS R6 R26 K9 ["theme"]
-  SETTABLEKS R7 R26 K11 ["networkInterface"]
-  DUPTABLE R27 K50 [{"MockContextProvider"}]
-  GETUPVAL R28 24
-  MOVE R29 R23
-  GETUPVAL R32 22
-  GETTABLEKS R31 R32 K51 ["Children"]
-  GETTABLE R30 R0 R31
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K49 ["MockContextProvider"]
-  CALL R24 3 -1
-  RETURN R24 -1
+  NEWTABLE R24 0 14
+  MOVE R25 R14
+  MOVE R26 R10
+  MOVE R27 R9
+  MOVE R28 R11
+  MOVE R29 R12
+  MOVE R30 R13
+  MOVE R31 R16
+  MOVE R32 R19
+  MOVE R33 R17
+  MOVE R34 R22
+  MOVE R35 R8
+  MOVE R36 R23
+  MOVE R37 R18
+  MOVE R38 R15
+  SETLIST R24 R25 14 [1]
+  GETUPVAL R26 23
+  GETTABLEKS R25 R26 K51 ["createElement"]
+  GETUPVAL R26 24
+  DUPTABLE R27 K52 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
+  SETTABLEKS R2 R27 K1 ["store"]
+  SETTABLEKS R3 R27 K5 ["plugin"]
+  SETTABLEKS R4 R27 K7 ["pluginGui"]
+  SETTABLEKS R5 R27 K8 ["settings"]
+  SETTABLEKS R6 R27 K9 ["theme"]
+  SETTABLEKS R7 R27 K11 ["networkInterface"]
+  DUPTABLE R28 K54 [{"MockContextProvider"}]
+  GETUPVAL R29 25
+  MOVE R30 R24
+  GETUPVAL R33 23
+  GETTABLEKS R32 R33 K55 ["Children"]
+  GETTABLE R31 R0 R32
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K53 ["MockContextProvider"]
+  CALL R25 3 -1
+  RETURN R25 -1
 
 MAIN:
   PREPVARARGS 0
@@ -284,24 +301,30 @@ MAIN:
   GETTABLEKS R24 R25 K33 ["NetworkContext"]
   CALL R23 1 1
   GETIMPORT R24 K5 [require]
-  GETTABLEKS R26 R0 K34 ["TestUtils"]
-  GETTABLEKS R25 R26 K35 ["CoreTestUtils"]
+  GETTABLEKS R28 R0 K11 ["Core"]
+  GETTABLEKS R27 R28 K22 ["Components"]
+  GETTABLEKS R26 R27 K34 ["WebView"]
+  GETTABLEKS R25 R26 K35 ["WebViewMessageBusContext"]
   CALL R24 1 1
-  GETTABLEKS R27 R14 K9 ["TestHelpers"]
-  GETTABLEKS R26 R27 K36 ["Instances"]
-  GETTABLEKS R25 R26 K37 ["MockPlugin"]
-  GETIMPORT R26 K5 [require]
-  GETTABLEKS R30 R0 K11 ["Core"]
-  GETTABLEKS R29 R30 K12 ["Util"]
-  GETTABLEKS R28 R29 K38 ["SharedFlags"]
-  GETTABLEKS R27 R28 K39 ["getFFlagToolboxAddRecentSearchesToAutoComplete"]
-  CALL R26 1 1
-  DUPCLOSURE R27 K40 [PROTO_1]
-  CAPTURE VAL R24
+  GETIMPORT R25 K5 [require]
+  GETTABLEKS R27 R0 K36 ["TestUtils"]
+  GETTABLEKS R26 R27 K37 ["CoreTestUtils"]
+  CALL R25 1 1
+  GETTABLEKS R28 R14 K9 ["TestHelpers"]
+  GETTABLEKS R27 R28 K38 ["Instances"]
+  GETTABLEKS R26 R27 K39 ["MockPlugin"]
+  GETIMPORT R27 K5 [require]
+  GETTABLEKS R31 R0 K11 ["Core"]
+  GETTABLEKS R30 R31 K12 ["Util"]
+  GETTABLEKS R29 R30 K40 ["SharedFlags"]
+  GETTABLEKS R28 R29 K41 ["getFFlagToolboxAddRecentSearchesToAutoComplete"]
+  CALL R27 1 1
+  DUPCLOSURE R28 K42 [PROTO_1]
+  CAPTURE VAL R25
   CAPTURE VAL R3
   CAPTURE VAL R8
+  CAPTURE VAL R27
   CAPTURE VAL R26
-  CAPTURE VAL R25
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R9
@@ -311,6 +334,7 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R13
   CAPTURE VAL R22
+  CAPTURE VAL R24
   CAPTURE VAL R15
   CAPTURE VAL R23
   CAPTURE VAL R10
@@ -322,4 +346,4 @@ MAIN:
   CAPTURE VAL R2
   CAPTURE VAL R12
   CAPTURE VAL R5
-  RETURN R27 1
+  RETURN R28 1

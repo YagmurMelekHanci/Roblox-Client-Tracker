@@ -5,8 +5,10 @@ local CorePackages = game:GetService("CorePackages")
 local IXPService = game:GetService("IXPService")
 local LocalizationService = game:GetService("LocalizationService")
 local PlayersService = game:GetService("Players")
+local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
 local Style = require(CorePackages.Workspace.Packages.Style)
+local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 
 local ReportTypeSelector = require(root.Components.ReportTypeSelector)
 local Constants = require(root.Components.Constants)
@@ -43,6 +45,7 @@ local GetFFlagSelectInSceneReportMenu =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelectInSceneReportMenu
 local GetFFlagAbuseReportMenuConsoleSupportRefactor =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAbuseReportMenuConsoleSupportRefactor
+local GetFFlagAddAbuseReportMenuCoreScriptsProvider = require(root.Flags.GetFFlagAddAbuseReportMenuCoreScriptsProvider)
 local FStringReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportMenuIXPLayer
 local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInScene")
 
@@ -453,19 +456,41 @@ local MenuContainer = function(props: Props)
 	local localization = Localization.new(LocalizationService.RobloxLocaleId)
 
 	if GetFFlagAbuseReportMenuConsoleSupportRefactor() then
-		return React.createElement(StyleProviderWithDefaultTheme, {
-			withDarkTheme = true,
-		}, {
-			LocalizationProvider = React.createElement(LocalizationProvider, {
-				localization = localization,
-			}, {
-				FocusNavigationProvider = React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
-					value = focusNavigationService,
-				}, {
-					[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
-				}),
-			}),
-		})
+		return React.createElement(
+			StyleProviderWithDefaultTheme,
+			{
+				withDarkTheme = true,
+			},
+			if GetFFlagAddAbuseReportMenuCoreScriptsProvider()
+				then {
+					CoreScriptsRootProvider = React.createElement(CoreScriptsRootProvider, {}, {
+						LocalizationProvider = React.createElement(LocalizationProvider, {
+							localization = localization,
+						}, {
+							FoundationProvider = React.createElement(Foundation.FoundationProvider, {
+								theme = Foundation.Enums.Theme.Dark,
+							}, {
+								[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
+							}),
+						}),
+					}),
+				}
+				else {
+					LocalizationProvider = React.createElement(LocalizationProvider, {
+						localization = localization,
+					}, {
+						FocusNavigationProvider = React.createElement(
+							ReactFocusNavigation.FocusNavigationContext.Provider,
+							{
+								value = focusNavigationService,
+							},
+							{
+								[Constants.AbuseReportMenuRootName] = React.createElement(AbuseReportMenuNew, props),
+							}
+						),
+					}),
+				}
+		)
 	else
 		return React.createElement(StyleProviderWithDefaultTheme, {
 			withDarkTheme = true,

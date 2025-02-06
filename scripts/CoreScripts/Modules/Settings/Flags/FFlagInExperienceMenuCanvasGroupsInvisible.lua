@@ -1,1 +1,1 @@
-return game:DefineFastFlag("InExperienceMenuCanvasGroupsInvisible", false)
+return game:DefineFastFlag("InExperienceMenuCanvasGroupsInvisible2", false)

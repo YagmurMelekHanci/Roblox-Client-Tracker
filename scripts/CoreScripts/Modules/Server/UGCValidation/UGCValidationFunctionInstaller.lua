@@ -1,16 +1,7 @@
 -- This installer allows us to run UGC validation on assets in game servers.
-local AssetService = game:GetService("AssetService")
 local CorePackages = game:GetService("CorePackages")
 local UGCValidationService = game:GetService("UGCValidationService")
 local UGCValidation = require(CorePackages.Packages.UGCValidation)
-local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-local FFlagMoveUGCValidationFunction = require(RobloxGui.Modules.Common.Flags.FFlagMoveUGCValidationFunctionFeature)
-local EngineFeatureUGCValidateEditableMeshAndImage = game:GetEngineFeature("EngineUGCValidateEditableMeshAndImage")
-local EngineUGCValidationCallbackResultStrings = game:GetEngineFeature("EngineUGCValidationCallbackResultStrings")
-local EngineFeatureEngineUGCValidateRigidMeshPartAccessories =
-	game:GetEngineFeature("EngineUGCValidateRigidMeshPartAccessories")
-local UGCValidationRequiredFolderContextEngineFeature =
-	game:GetEngineFeature("UGCValidationRequiredFolderContextEngineFeature")
 
 local function UGCValidationFunction(args)
 	local objectInstances = args["instances"]
@@ -29,33 +20,15 @@ local function UGCValidationFunction(args)
 	}
 
 	local success, reasons
-
-	if FFlagMoveUGCValidationFunction then
-		if fullBodyData then
-			success, reasons = UGCValidation.validateFullBody(
-				fullBodyData,
-				isServer,
-				EngineFeatureUGCValidateEditableMeshAndImage, --allowEditableInstances
-				bypassFlags,
-				EngineFeatureUGCValidateEditableMeshAndImage, -- shouldYield
-				if UGCValidationRequiredFolderContextEngineFeature then requireAllFolders else nil
-			)
-		else
-			success, reasons = UGCValidation.validate(
-				objectInstances,
-				assetTypeEnum,
-				isServer,
-				allowUnreviewedAssets,
-				restrictedUserIds,
-				token,
-				universeId,
-				EngineFeatureUGCValidateEditableMeshAndImage, --allowEditableInstances
-				bypassFlags,
-				EngineFeatureUGCValidateEditableMeshAndImage, --shouldYield
-				EngineFeatureEngineUGCValidateRigidMeshPartAccessories, --validateMeshPartAccessories
-				if UGCValidationRequiredFolderContextEngineFeature then requireAllFolders else nil
-			)
-		end
+	if fullBodyData then
+		success, reasons = UGCValidation.validateFullBody(
+			fullBodyData,
+			isServer,
+			true, --allowEditableInstances
+			bypassFlags,
+			true, -- shouldYield
+			requireAllFolders
+		)
 	else
 		success, reasons = UGCValidation.validate(
 			objectInstances,
@@ -63,37 +36,27 @@ local function UGCValidationFunction(args)
 			isServer,
 			allowUnreviewedAssets,
 			restrictedUserIds,
-			token
+			token,
+			universeId,
+			true, --allowEditableInstances
+			bypassFlags,
+			true, --shouldYield
+			true, --validateMeshPartAccessories
+			requireAllFolders
 		)
 	end
 
 	if not success then
-		if EngineUGCValidationCallbackResultStrings then
-			return false, reasons
-		else
-			local failureReasonStr = ""
-			if reasons then
-				failureReasonStr = table.concat(reasons, "\n")
-			end
-			return false, failureReasonStr :: any
-		end
+		return false, reasons
 	end
 
-	if EngineUGCValidationCallbackResultStrings then
-		return true, { "Success" }
-	else
-		return true, "Success" :: any
-	end
+	return true, { "Success" }
 end
 
 local function Install()
 	-- Exposes the Lua-side UGC validation scripts to the game-engine code
 	-- so that we can trigger UGC validation of any asset from RCC game servers.
-	if FFlagMoveUGCValidationFunction then
-		UGCValidationService:RegisterUGCValidationFunction(UGCValidationFunction)
-	else
-		AssetService:RegisterUGCValidationFunction(UGCValidationFunction)
-	end
+	UGCValidationService:RegisterUGCValidationFunction(UGCValidationFunction)
 end
 
 return Install

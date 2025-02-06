@@ -64,6 +64,7 @@ local GetFFlagShouldShowMusicFtuxTooltipXTimes = require(Chrome.Flags.GetFFlagSh
 local GetFFlagFixShowMusicFtuxTooltipWithoutConnect =
 	require(Chrome.Flags.GetFFlagFixShowMusicFtuxTooltipWithoutConnect)
 local GetFStringMusicTooltipLocalStorageKey_v2 = require(Chrome.Flags.GetFStringMusicTooltipLocalStorageKey_v2)
+local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
@@ -77,7 +78,9 @@ local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 	and FFlagAppChatEnabledChromeDropdownFtuxTooltip
 	and GetShouldShowPlatformChatBasedOnPolicy()
 
-local shouldShowMusicTooltip = FFlagEnableUnibarFtuxTooltips and GetFFlagShouldShowMusicFtuxTooltip()
+local shouldShowMusicTooltip = FFlagEnableUnibarFtuxTooltips
+	and GetFFlagShouldShowMusicFtuxTooltip()
+	and GetFFlagEnableSongbirdInChrome()
 
 local SELFIE_ID = Constants.SELFIE_VIEW_ID
 local ICON_SIZE = Constants.ICON_SIZE
@@ -334,7 +337,7 @@ function HamburgerButton(props)
 
 	-- Only show the Music Ftux Tooltip if a track with valid ISRC is encountered
 	local songMeetsCriteria = false
-	if GetFFlagShouldShowMusicFtuxTooltipXTimes() then
+	if shouldShowMusicTooltip and GetFFlagShouldShowMusicFtuxTooltipXTimes() then
 		local song = useCurrentSong()
 		songMeetsCriteria = useMemo(function()
 			if getFFlagSongbirdUnverifiedMusicState() then

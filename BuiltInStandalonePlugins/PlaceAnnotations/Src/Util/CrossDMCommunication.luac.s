@@ -332,6 +332,14 @@ PROTO_18:
   CALL R2 -1 0
   RETURN R0 0
 
+PROTO_19:
+  LOADK R5 K0 ["EditAnnotation"]
+  GETTABLEKS R6 R1 K1 ["Name"]
+  MOVE R7 R2
+  NAMECALL R3 R0 K2 ["Invoke"]
+  CALL R3 4 0
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -393,7 +401,11 @@ MAIN:
   SETTABLEKS R9 R8 K22 ["deleteAnnotation"]
   DUPCLOSURE R9 K35 [PROTO_18]
   SETTABLEKS R9 R8 K20 ["zoomTo"]
-  DUPTABLE R9 K38 [{"Standalone", "Edit"}]
-  SETTABLEKS R7 R9 K36 ["Standalone"]
-  SETTABLEKS R8 R9 K37 ["Edit"]
-  RETURN R9 1
+  NEWTABLE R9 1 0
+  DUPCLOSURE R10 K36 [PROTO_19]
+  SETTABLEKS R10 R9 K37 ["editAnnotation"]
+  DUPTABLE R10 K41 [{"Standalone", "Edit", "Shared"}]
+  SETTABLEKS R7 R10 K38 ["Standalone"]
+  SETTABLEKS R8 R10 K39 ["Edit"]
+  SETTABLEKS R9 R10 K40 ["Shared"]
+  RETURN R10 1

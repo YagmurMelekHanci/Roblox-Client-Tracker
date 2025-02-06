@@ -9,15 +9,11 @@ local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local Cryo = require(CorePackages.Packages.Cryo)
 
-local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local PlayerList = script.Parent.Parent.Parent
 local Connection = PlayerList.Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 local usePlayerCombinedName = require(PlayerList.Hooks.usePlayerCombinedName)
-local useIsShouldShowVerifiedBadgeEnabled = require(PlayerList.Hooks.useShouldShowVerifiedBadge)
-
-local FFlagIsVerifiedBadgeInExperienceVisible = require(SharedFlags).FFlagIsVerifiedBadgeInExperienceVisible
 
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
@@ -29,8 +25,6 @@ PlayerNameTag.validateProps = t.strictInterface({
 	isHovered = t.boolean,
 	layoutOrder = t.integer,
 	name = t.string,
- 	showVerifiedBadge = t.optional(t.boolean),
-
 	textStyle = t.strictInterface({
 		Color = t.Color3,
 		Transparency = t.number,
@@ -48,7 +42,6 @@ type Props = {
 	player: Player,
 	isTitleEntry: boolean,
 	isHovered: boolean,
-	showVerifiedBadge: boolean?,
 	textStyle: {
 		Color: Color3,
 		Transparency: number,
@@ -75,7 +68,7 @@ function PlayerNameTag:render()
 		local playerNameChildren = {}
 		local platformName = self.props.player.PlatformName
 
-		local showVerifiedBadge = if FFlagIsVerifiedBadgeInExperienceVisible then self.props.showVerifiedBadge else UserLib.Utils.isPlayerVerified(self.props.player)
+		local hasVerifiedBadge = UserLib.Utils.isPlayerVerified(self.props.player)
 
 		if layoutValues.IsTenFoot and platformName ~= "" then
 			playerNameChildren["VerticalLayout"] = React.createElement("UIListLayout", {
@@ -122,7 +115,7 @@ function PlayerNameTag:render()
 				}),
 
 				PlayerNameContainer = React.createElement(VerifiedBadges.EmojiWrapper, {
-						emoji = if showVerifiedBadge then VerifiedBadges.emoji.verified else "",
+						emoji = if hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
 						layoutOrder = 2,
 						mockIsEnrolled = true,
 						size = UDim2.new(1, -30, 0, 0),
@@ -148,7 +141,7 @@ function PlayerNameTag:render()
 			})
 		else
 			playerNameChildren["PlayerNameContainer"] = React.createElement(VerifiedBadges.EmojiWrapper, {
-					emoji = if showVerifiedBadge then VerifiedBadges.emoji.verified else "",
+					emoji = if hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
 					anchorPoint = Vector2.new(0, 0.5),
 					position = UDim2.fromScale(0, 0.5),
 					mockIsEnrolled = true,
@@ -184,11 +177,9 @@ end
 
 local function PlayerNameTagContainer(props: Props)
 	local name = usePlayerCombinedName(tostring(props.player.UserId), props.player.DisplayName)
-	local showVerifiedBadge = if FFlagIsVerifiedBadgeInExperienceVisible then useIsShouldShowVerifiedBadgeEnabled(tostring(props.player.UserId), props.player.HasVerifiedBadge) else props.player.HasVerifiedBadge
 
-	return React.createElement(PlayerNameTag, Cryo.Dictionary.union(props, {
-		name = name,
-		showVerifiedBadge = showVerifiedBadge
+	return React.createElement(PlayerNameTag, Cryo.Dictionary.join(props, {
+		name = name
 	}))
 end
 

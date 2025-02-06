@@ -41,7 +41,7 @@ MAIN:
   GETIMPORT R6 K26 [table.insert]
   CALL R6 2 0
   FORNLOOP R3
-  NEWTABLE R3 0 145
+  NEWTABLE R3 0 146
   DUPTABLE R4 K16 [{"id", "eventType", "userId", "universeId", "placeId", "resourceId", "metaData", "createdUnixTimeMs"}]
   LOADN R6 1
   FASTCALL1 TOSTRING R6 [+2]
@@ -3267,26 +3267,60 @@ MAIN:
   SETTABLEKS R20 R19 K15 ["createdUnixTimeMs"]
   SETLIST R3 R4 16 [129]
   DUPTABLE R4 K16 [{"id", "eventType", "userId", "universeId", "placeId", "resourceId", "metaData", "createdUnixTimeMs"}]
-  LOADN R21 145
+  LOADN R6 145
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K18 [tostring]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K8 ["id"]
+  LOADN R5 144
+  SETTABLEKS R5 R4 K9 ["eventType"]
+  LOADK R5 K27 [1511969967]
+  SETTABLEKS R5 R4 K10 ["userId"]
+  LOADK R5 K28 [1849021714]
+  SETTABLEKS R5 R4 K11 ["universeId"]
+  LOADK R5 K29 [5279580942]
+  SETTABLEKS R5 R4 K12 ["placeId"]
+  LOADK R5 K30 [12345678]
+  SETTABLEKS R5 R4 K13 ["resourceId"]
+  DUPTABLE R5 K172 [{"GroupName"}]
+  LOADK R6 K73 ["kangaroo"]
+  SETTABLEKS R6 R5 K171 ["GroupName"]
+  SETTABLEKS R5 R4 K14 ["metaData"]
+  LOADK R5 K40 ["cat"]
+  SETTABLEKS R5 R4 K15 ["createdUnixTimeMs"]
+  DUPTABLE R5 K16 [{"id", "eventType", "userId", "universeId", "placeId", "resourceId", "metaData", "createdUnixTimeMs"}]
+  LOADN R21 146
   FASTCALL1 TOSTRING R21 [+2]
   GETIMPORT R20 K18 [tostring]
   CALL R20 1 1
-  SETTABLEKS R20 R4 K8 ["id"]
-  LOADN R20 144
-  SETTABLEKS R20 R4 K9 ["eventType"]
+  SETTABLEKS R20 R5 K8 ["id"]
+  LOADN R20 145
+  SETTABLEKS R20 R5 K9 ["eventType"]
   LOADK R20 K27 [1511969967]
-  SETTABLEKS R20 R4 K10 ["userId"]
+  SETTABLEKS R20 R5 K10 ["userId"]
   LOADK R20 K28 [1849021714]
-  SETTABLEKS R20 R4 K11 ["universeId"]
+  SETTABLEKS R20 R5 K11 ["universeId"]
   LOADK R20 K29 [5279580942]
-  SETTABLEKS R20 R4 K12 ["placeId"]
+  SETTABLEKS R20 R5 K12 ["placeId"]
   LOADK R20 K30 [12345678]
-  SETTABLEKS R20 R4 K13 ["resourceId"]
-  DUPTABLE R20 K172 [{"GroupName"}]
-  LOADK R21 K73 ["kangaroo"]
-  SETTABLEKS R21 R20 K171 ["GroupName"]
-  SETTABLEKS R20 R4 K14 ["metaData"]
-  LOADK R20 K40 ["cat"]
-  SETTABLEKS R20 R4 K15 ["createdUnixTimeMs"]
-  SETLIST R3 R4 1 [145]
+  SETTABLEKS R20 R5 K13 ["resourceId"]
+  DUPTABLE R20 K301 [{"CommitMessage", "CommitId", "NumberOfScripts", "Scripts"}]
+  LOADK R21 K132 ["dolphin"]
+  SETTABLEKS R21 R20 K297 ["CommitMessage"]
+  LOADK R21 K52 ["koala"]
+  SETTABLEKS R21 R20 K298 ["CommitId"]
+  LOADK R21 K139 ["rabbit"]
+  SETTABLEKS R21 R20 K299 ["NumberOfScripts"]
+  NEWTABLE R21 0 1
+  DUPTABLE R22 K304 [{"Name", "FullName"}]
+  LOADK R23 K46 ["AvatarType"]
+  SETTABLEKS R23 R22 K302 ["Name"]
+  LOADK R23 K47 [{"AvatarType"}]
+  SETTABLEKS R23 R22 K303 ["FullName"]
+  SETLIST R21 R22 1 [1]
+  SETTABLEKS R21 R20 K300 ["Scripts"]
+  SETTABLEKS R20 R5 K14 ["metaData"]
+  LOADK R20 K49 [11679329]
+  SETTABLEKS R20 R5 K15 ["createdUnixTimeMs"]
+  SETLIST R3 R4 2 [145]
   RETURN R3 1

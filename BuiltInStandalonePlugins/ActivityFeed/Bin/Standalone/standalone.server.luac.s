@@ -47,7 +47,11 @@ MAIN:
   GETTABLEKS R2 R3 K4 ["Parent"]
   GETTABLEKS R1 R2 K4 ["Parent"]
   GETTABLEKS R0 R1 K5 ["Common"]
-  GETIMPORT R1 K8 [plugin]
+  GETIMPORT R1 K1 [require]
+  GETTABLEKS R2 R0 K7 ["getUseAssetForDebugging"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+31]
+  GETIMPORT R1 K9 [plugin]
   JUMPIF R1 [+1]
   RETURN R0 0
   GETIMPORT R4 K3 [script]
@@ -55,7 +59,27 @@ MAIN:
   GETTABLEKS R2 R3 K4 ["Parent"]
   GETTABLEKS R1 R2 K4 ["Parent"]
   GETIMPORT R2 K1 [require]
-  GETTABLEKS R3 R0 K9 ["commonInit"]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["TestLoader"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K12 ["launch"]
+  LOADK R4 K13 ["ActivityFeed"]
+  GETTABLEKS R5 R1 K14 ["Src"]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K15 ["isCli"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+91]
+  RETURN R0 0
+  RETURN R0 0
+  GETIMPORT R1 K9 [plugin]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  GETIMPORT R2 K1 [require]
+  GETTABLEKS R3 R0 K16 ["commonInit"]
   CALL R2 1 1
   MOVE R3 R2
   CALL R3 0 0
@@ -72,24 +96,24 @@ MAIN:
   JUMPIFNOT R4 [+1]
   RETURN R0 0
   GETIMPORT R4 K1 [require]
-  GETTABLEKS R5 R0 K16 ["getEnableActivityHistory"]
+  GETTABLEKS R5 R0 K17 ["getEnableActivityHistory"]
   CALL R4 1 1
   JUMPIF R4 [+1]
   RETURN R0 0
-  GETIMPORT R4 K19 [Instance.new]
-  LOADK R5 K20 ["Frame"]
+  GETIMPORT R4 K20 [Instance.new]
+  LOADK R5 K21 ["Frame"]
   CALL R4 1 1
   GETIMPORT R5 K1 [require]
   GETTABLEKS R7 R1 K10 ["Packages"]
-  GETTABLEKS R6 R7 K21 ["React"]
+  GETTABLEKS R6 R7 K22 ["React"]
   CALL R5 1 1
   GETIMPORT R6 K1 [require]
   GETTABLEKS R8 R1 K10 ["Packages"]
-  GETTABLEKS R7 R8 K22 ["ReactRoblox"]
+  GETTABLEKS R7 R8 K23 ["ReactRoblox"]
   CALL R6 1 1
   GETIMPORT R7 K1 [require]
   GETTABLEKS R9 R1 K14 ["Src"]
-  GETTABLEKS R8 R9 K23 ["MainPlugin"]
+  GETTABLEKS R8 R9 K24 ["MainPlugin"]
   CALL R7 1 1
   LOADNIL R8
   NEWCLOSURE R9 P0
@@ -99,11 +123,11 @@ MAIN:
   CAPTURE REF R8
   CAPTURE VAL R6
   CAPTURE VAL R4
-  GETIMPORT R11 K8 [plugin]
-  GETTABLEKS R10 R11 K24 ["Unloading"]
+  GETIMPORT R11 K9 [plugin]
+  GETTABLEKS R10 R11 K25 ["Unloading"]
   NEWCLOSURE R12 P1
   CAPTURE REF R8
-  NAMECALL R10 R10 K25 ["Connect"]
+  NAMECALL R10 R10 K26 ["Connect"]
   CALL R10 2 0
   MOVE R10 R9
   CALL R10 0 0

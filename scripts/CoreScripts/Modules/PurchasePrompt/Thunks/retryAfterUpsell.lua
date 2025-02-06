@@ -73,7 +73,7 @@ local function retryAfterUpsell(retriesRemaining)
 				store:dispatch(SetPromptState(PromptState.PollingBalance))
 			end
 
-			return getBalanceInfo(network, externalSettings):andThen(function(balanceInfo)
+			return getBalanceInfo(network, externalSettings, false --[[overrideStudioMock]]):andThen(function(balanceInfo)
 				local state = store:getState()
 				local isPlayerPremium = state.accountInfo.membershipType == 4
 				local price = getPlayerPrice(state.productInfo, isPlayerPremium)

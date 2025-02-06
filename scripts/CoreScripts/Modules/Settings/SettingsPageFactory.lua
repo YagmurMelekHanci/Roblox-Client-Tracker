@@ -367,7 +367,9 @@ local function Initialize()
 		local endPos = UDim2.new(0,0,0,0)
 		local animationComplete = function()
 			if FFlagInExperienceMenuCanvasGroupsInvisible then
-				pageParent.InnerCanvasGroupShow.Visible = false
+				if UserGameSettings.ReducedMotion then
+					pageParent.InnerCanvasGroupShow.Visible = false
+				end
 			end
 			if FFlagFixIGMTabTransitions() then
 				if UserGameSettings.ReducedMotion then
@@ -429,7 +431,9 @@ local function Initialize()
 			local endPos = UDim2.new(1 * direction,0,0,0)
 			local animationComplete = function()
 				if FFlagInExperienceMenuCanvasGroupsInvisible then
-					pageParent.InnerCanvasGroupHide.Visible = false
+					if UserGameSettings.ReducedMotion and isPrevPage then
+						pageParent.InnerCanvasGroupHide.Visible = false
+					end
 				else
 					if FFlagFixIGMTabTransitions() and UserGameSettings.ReducedMotion then
 						pageParent.InnerCanvasGroupShow.GroupTransparency = 1

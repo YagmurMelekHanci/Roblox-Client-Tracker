@@ -55,10 +55,6 @@ PROTO_1:
 
 PROTO_2:
   GETUPVAL R6 0
-  CALL R6 0 1
-  JUMPIF R6 [+1]
-  RETURN R0 0
-  GETUPVAL R6 1
   LOADK R7 K0 ["GenerateMaterials"]
   DUPTABLE R8 K6 [{"generationId", "inputType", "samples", "promptText", "filteredPromptText"}]
   SETTABLEKS R1 R8 K1 ["generationId"]
@@ -70,11 +66,7 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIF R4 [+1]
-  RETURN R0 0
-  GETUPVAL R6 1
+  GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["isEnumValue"]
   MOVE R6 R2
   CALL R5 1 1
@@ -97,7 +89,7 @@ PROTO_3:
   GETIMPORT R5 K8 [tostring]
   CALL R5 1 1
   MOVE R4 R5
-  GETUPVAL R5 2
+  GETUPVAL R5 1
   LOADK R6 K9 ["GenerateMaterialsError"]
   DUPTABLE R7 K12 [{"promptText", "errorMessage"}]
   SETTABLEKS R1 R7 K10 ["promptText"]
@@ -117,28 +109,23 @@ PROTO_4:
   GETTABLEKS R5 R1 K2 ["MaterialPattern"]
   GETTABLEKS R4 R5 K1 ["Name"]
   GETUPVAL R5 0
-  GETUPVAL R7 1
-  CALL R7 0 1
-  JUMPIFNOT R7 [+2]
   LOADK R6 K3 ["SaveGeneratedMaterial"]
-  JUMP [+1]
-  LOADK R6 K4 ["SaveButtonClicked"]
-  DUPTABLE R7 K14 [{"colorMap", "metalnessMap", "normalMap", "roughnessMap", "name", "baseMaterial", "materialPattern", "studsPerTile", "generationId"}]
-  GETTABLEKS R8 R1 K15 ["ColorMap"]
-  SETTABLEKS R8 R7 K5 ["colorMap"]
-  GETTABLEKS R8 R1 K16 ["MetalnessMap"]
-  SETTABLEKS R8 R7 K6 ["metalnessMap"]
-  GETTABLEKS R8 R1 K17 ["NormalMap"]
-  SETTABLEKS R8 R7 K7 ["normalMap"]
-  GETTABLEKS R8 R1 K18 ["RoughnessMap"]
-  SETTABLEKS R8 R7 K8 ["roughnessMap"]
+  DUPTABLE R7 K13 [{"colorMap", "metalnessMap", "normalMap", "roughnessMap", "name", "baseMaterial", "materialPattern", "studsPerTile", "generationId"}]
+  GETTABLEKS R8 R1 K14 ["ColorMap"]
+  SETTABLEKS R8 R7 K4 ["colorMap"]
+  GETTABLEKS R8 R1 K15 ["MetalnessMap"]
+  SETTABLEKS R8 R7 K5 ["metalnessMap"]
+  GETTABLEKS R8 R1 K16 ["NormalMap"]
+  SETTABLEKS R8 R7 K6 ["normalMap"]
+  GETTABLEKS R8 R1 K17 ["RoughnessMap"]
+  SETTABLEKS R8 R7 K7 ["roughnessMap"]
   GETTABLEKS R8 R1 K1 ["Name"]
-  SETTABLEKS R8 R7 K9 ["name"]
-  SETTABLEKS R3 R7 K10 ["baseMaterial"]
-  SETTABLEKS R4 R7 K11 ["materialPattern"]
-  GETTABLEKS R8 R1 K19 ["StudsPerTile"]
-  SETTABLEKS R8 R7 K12 ["studsPerTile"]
-  SETTABLEKS R2 R7 K13 ["generationId"]
+  SETTABLEKS R8 R7 K8 ["name"]
+  SETTABLEKS R3 R7 K9 ["baseMaterial"]
+  SETTABLEKS R4 R7 K10 ["materialPattern"]
+  GETTABLEKS R8 R1 K18 ["StudsPerTile"]
+  SETTABLEKS R8 R7 K11 ["studsPerTile"]
+  SETTABLEKS R2 R7 K12 ["generationId"]
   CALL R5 2 0
   RETURN R0 0
 
@@ -153,17 +140,14 @@ PROTO_5:
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K0 ["generateButtonClicked"]
   NEWCLOSURE R3 P2
-  CAPTURE UPVAL U3
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K1 ["generateMaterials"]
   NEWCLOSURE R3 P3
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K2 ["generateMaterialsError"]
   NEWCLOSURE R3 P4
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
   SETTABLEKS R3 R2 K3 ["saveButtonClicked"]
   RETURN R2 1
 
@@ -184,27 +168,21 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K8 [require]
   GETTABLEKS R6 R1 K9 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Flags"]
-  GETTABLEKS R4 R5 K13 ["getFFlagMaterialGeneratorFixAnalytics"]
+  GETTABLEKS R5 R6 K12 ["Enum"]
+  GETTABLEKS R4 R5 K13 ["GenerationErrorType"]
   CALL R3 1 1
   GETIMPORT R4 K8 [require]
-  GETTABLEKS R7 R1 K9 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Enum"]
-  GETTABLEKS R5 R6 K15 ["GenerationErrorType"]
+  GETTABLEKS R6 R1 K9 ["Src"]
+  GETTABLEKS R5 R6 K14 ["Types"]
   CALL R4 1 1
   GETIMPORT R5 K8 [require]
-  GETTABLEKS R7 R1 K9 ["Src"]
-  GETTABLEKS R6 R7 K16 ["Types"]
+  GETTABLEKS R7 R1 K15 ["Packages"]
+  GETTABLEKS R6 R7 K16 ["Dash"]
   CALL R5 1 1
-  GETIMPORT R6 K8 [require]
-  GETTABLEKS R8 R1 K17 ["Packages"]
-  GETTABLEKS R7 R8 K18 ["Dash"]
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K19 ["join"]
-  DUPCLOSURE R8 K20 [PROTO_5]
-  CAPTURE VAL R7
+  GETTABLEKS R6 R5 K17 ["join"]
+  DUPCLOSURE R7 K18 [PROTO_5]
+  CAPTURE VAL R6
   CAPTURE VAL R2
   CAPTURE VAL R0
   CAPTURE VAL R3
-  CAPTURE VAL R4
-  RETURN R8 1
+  RETURN R7 1

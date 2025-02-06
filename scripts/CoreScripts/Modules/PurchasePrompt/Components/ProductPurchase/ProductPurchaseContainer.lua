@@ -52,6 +52,7 @@ local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse
 local initiateUserPurchaseSettingsPrecheck = require(Root.Thunks.initiateUserPurchaseSettingsPrecheck)
 local GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow =
 	require(Root.Flags.GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow)
+local GetFFlagDisableTestTextForAvatarFee = require(Root.Flags.GetFFlagDisableTestTextForAvatarFee)
 local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.VerifiedParentalConsentDialog)
 local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
 local VPCModalType = require(Root.Enums.VPCModalType)
@@ -614,6 +615,12 @@ function ProductPurchaseContainer:render()
 end
 
 local function mapStateToProps(state)
+	local isTestPurchase
+	if GetFFlagDisableTestTextForAvatarFee() then
+		isTestPurchase = isMockingPurchases(state.promptRequest.requestType)
+	else
+		isTestPurchase = isMockingPurchases(nil)
+	end
 	return {
 		purchaseFlow = state.purchaseFlow,
 		promptState = state.promptState,
@@ -625,7 +632,7 @@ local function mapStateToProps(state)
 		productInfo = state.productInfo,
 		accountInfo = state.accountInfo,
 		nativeUpsell = state.nativeUpsell,
-		isTestPurchase = isMockingPurchases(),
+		isTestPurchase = isTestPurchase,
 		isGamepadEnabled = state.gamepadEnabled,
 	}
 end

@@ -36,6 +36,7 @@ local ExternalEventConnection = require(Root.Components.Connection.ExternalEvent
 local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
 	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
 local GetFFlagEnableEventMetadataInUpsell = IAPExperience.Flags.GetFFlagEnableEventMetadataInUpsell
+local GetFFlagDisableTestTextForAvatarFee = require(Root.Flags.GetFFlagDisableTestTextForAvatarFee)
 
 local RobuxUpsellOverlay = require(script.Parent.RobuxUpsellOverlay)
 
@@ -151,6 +152,13 @@ function RobuxUpsellContainer:render()
 end
 
 RobuxUpsellContainer = connectToStore(function(state)
+	local isTestPurchase
+	if GetFFlagDisableTestTextForAvatarFee() then
+		isTestPurchase = isMockingPurchases(state.promptRequest.requestType)
+	else
+		isTestPurchase = isMockingPurchases(nil)
+	end
+
 	if FFlagFixLimitedUMobilePurchasePrompt then
 		return {
 			purchaseFlow = state.purchaseFlow,
@@ -164,7 +172,7 @@ RobuxUpsellContainer = connectToStore(function(state)
 			accountInfo = state.accountInfo,
 			nativeUpsell = state.nativeUpsell,
 
-			isTestPurchase = isMockingPurchases(),
+			isTestPurchase = isTestPurchase,
 			isGamepadEnabled = state.gamepadEnabled,
 
 			humanoidModel = state.promptRequest.humanoidModel,
@@ -181,7 +189,7 @@ RobuxUpsellContainer = connectToStore(function(state)
 			accountInfo = state.accountInfo,
 			nativeUpsell = state.nativeUpsell,
 
-			isTestPurchase = isMockingPurchases(),
+			isTestPurchase = isTestPurchase,
 			isGamepadEnabled = state.gamepadEnabled,
 
 			humanoidModel = state.promptRequest.humanoidModel,

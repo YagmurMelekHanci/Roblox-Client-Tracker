@@ -255,26 +255,11 @@ Constants.FieldLabelSizeSmall = 16
 Constants.LeftContainerWidthSmall = 100
 Constants.RightContainerWidthSmall = 180
 
-Constants.FieldLabelSizeConsole = 30
-Constants.LeftContainerWidthConsole = 400
-Constants.RightContainerWidthConsole = 350
-
 Constants.SmallLayoutThreshold = 540
 
-Constants.ReportMenuItemPadding = 12
-Constants.ReportMenuTopPadding = 0
-Constants.ReportMenuTextOffset = 0
-Constants.ReportMenuDropdownTextSize = 20
-Constants.ReportMenuFontStyle = nil
-Constants.ReportTextEntryFontRelativeSize = 1
+Constants.ReportMenuFontStyle = "Header1"
 Constants.ReportMenuButtonSize = 36
 
-Constants.ReportMenuItemPaddingConsole = 40
-Constants.ReportMenuTopPaddingConsole = 16
-Constants.ReportMenuTextOffsetConsole = 20
-Constants.ReportMenuDropdownTextSizeConsole = 30
-Constants.ReportMenuFontStyleConsole = "Header1"
-Constants.ReportTextEntryFontRelativeSizeConsole = 1.4
 Constants.ReportMenuButtonSizeConsole = 48
 
 Constants.InitPersonUIState = {

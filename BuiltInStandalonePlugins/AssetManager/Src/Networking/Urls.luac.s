@@ -51,4 +51,10 @@ MAIN:
   GETTABLEKS R6 R7 K31 ["Assets"]
   GETTABLEKS R5 R6 K32 ["permissions"]
   SETTABLEKS R5 R4 K33 ["PatchAssetsPermissionsRequest"]
+  GETTABLEKS R9 R4 K12 ["_FrameworkAPI"]
+  GETTABLEKS R8 R9 K29 ["APIS"]
+  GETTABLEKS R7 R8 K34 ["StudioPluginApi"]
+  GETTABLEKS R6 R7 K14 ["V1"]
+  GETTABLEKS R5 R6 K35 ["plugins"]
+  SETTABLEKS R5 R4 K36 ["GetPluginInfoRequest"]
   RETURN R4 1

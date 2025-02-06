@@ -8,51 +8,44 @@ PROTO_0:
   CALL R3 3 1
   SETTABLE R3 R1 R2
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["Localization"]
+  GETTABLEKS R2 R3 K4 ["Monetization"]
   LOADK R5 K1 ["FilterMenu"]
-  LOADK R6 K5 ["FilterForLocalization"]
+  LOADK R6 K5 ["FilterForMonetization"]
   NAMECALL R3 R0 K3 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K6 ["Monetization"]
+  GETTABLEKS R2 R3 K6 ["Permissions"]
   LOADK R5 K1 ["FilterMenu"]
-  LOADK R6 K7 ["FilterForMonetization"]
+  LOADK R6 K7 ["FilterForPermissions"]
   NAMECALL R3 R0 K3 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K8 ["Permissions"]
+  GETTABLEKS R2 R3 K8 ["Place"]
   LOADK R5 K1 ["FilterMenu"]
-  LOADK R6 K9 ["FilterForPermissions"]
+  LOADK R6 K9 ["FilterForPlace"]
   NAMECALL R3 R0 K3 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K10 ["Place"]
+  GETTABLEKS R2 R3 K10 ["Publish"]
   LOADK R5 K1 ["FilterMenu"]
-  LOADK R6 K11 ["FilterForPlace"]
+  LOADK R6 K11 ["FilterForPublish"]
   NAMECALL R3 R0 K3 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K12 ["Publish"]
+  GETTABLEKS R2 R3 K12 ["Package"]
   LOADK R5 K1 ["FilterMenu"]
-  LOADK R6 K13 ["FilterForPublish"]
+  LOADK R6 K13 ["FilterForPackage"]
   NAMECALL R3 R0 K3 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K14 ["Package"]
+  GETTABLEKS R2 R3 K14 ["Scripts"]
   LOADK R5 K1 ["FilterMenu"]
-  LOADK R6 K15 ["FilterForPackage"]
-  NAMECALL R3 R0 K3 ["getText"]
-  CALL R3 3 1
-  SETTABLE R3 R1 R2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K16 ["Organization"]
-  LOADK R5 K1 ["FilterMenu"]
-  LOADK R6 K17 ["FilterForOrganization"]
+  LOADK R6 K15 ["FilterForScripts"]
   NAMECALL R3 R0 K3 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2

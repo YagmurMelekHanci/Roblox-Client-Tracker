@@ -6,22 +6,15 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 
-local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
-local Cryo = require(CorePackages.Packages.Cryo)
-
 local withStyle = UIBlox.Style.withStyle
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
-local PlayerList = script.Parent.Parent.Parent
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
-local useIsShouldShowVerifiedBadgeEnabled = require(PlayerList.Hooks.useShouldShowVerifiedBadge)
 
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local Emoji = UIBlox.App.Emoji.Enum.Emoji
-
-local FFlagIsVerifiedBadgeInExperienceVisible = require(SharedFlags).FFlagIsVerifiedBadgeInExperienceVisible
 
 local TEXT_PADDING = 0
 
@@ -33,7 +26,6 @@ local DropDownPlayerHeader = Roact.PureComponent:extend("DropDownPlayerHeader")
 
 DropDownPlayerHeader.validateProps = t.strictInterface({
 	player = t.instanceIsA("Player"),
-	showVerifiedBadge = t.optional(t.boolean),
 })
 
 function DropDownPlayerHeader:render()
@@ -41,7 +33,7 @@ function DropDownPlayerHeader:render()
 		return withStyle(function(style)
 			local player = self.props.player
 			local avatarBackgroundImage = "rbxasset://textures/ui/PlayerList/NewAvatarBackground.png"
-			local showVerifiedBadge = if FFlagIsVerifiedBadgeInExperienceVisible then self.props.showVerifiedBadge else UserLib.Utils.isPlayerVerified(player)
+			local showVerifiedBadge = UserLib.Utils.isPlayerVerified(player)
 
 			return Roact.createElement("TextButton", {
 				--Used as a text button instead of a frame so that clicking on this doesn't close the player drop down.
@@ -146,12 +138,4 @@ function DropDownPlayerHeader:render()
 	end)
 end
 
-local function DropDownContainer(props: any)
-	local showVerifiedBadge = useIsShouldShowVerifiedBadgeEnabled(tostring(props.player.UserId), UserLib.Utils.isPlayerVerified(props.player))
-
-	return Roact.createElement(DropDownPlayerHeader, Cryo.Dictionary.union(props, {
-		showVerifiedBadge = showVerifiedBadge
-	}))
-end
-
-return if FFlagIsVerifiedBadgeInExperienceVisible then DropDownContainer else DropDownPlayerHeader
+return DropDownPlayerHeader

@@ -67,7 +67,7 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 			productInfo = getProductInfo(network, id, infoType),
 			accountInfo = getAccountInfo(network, externalSettings),
 			alreadyOwned = getIsAlreadyOwned(network, id, infoType),
-			balanceInfo = getBalanceInfo(network, externalSettings),
+			balanceInfo = getBalanceInfo(network, externalSettings, false --[[overrideStudioMock]]),
 		})
 			:andThen(function(results)
 				-- Once we've finished all of our async data fetching, we'll

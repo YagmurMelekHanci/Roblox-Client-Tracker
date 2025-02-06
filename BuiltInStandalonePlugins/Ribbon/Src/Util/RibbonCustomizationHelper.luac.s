@@ -100,7 +100,7 @@ PROTO_1:
   LOADK R3 K0 ["RibbonConfiguration"]
   NAMECALL R1 R0 K1 ["GetPluginComponent"]
   CALL R1 2 1
-  NAMECALL R1 R1 K2 ["ReloadAndGetRibbonDefinitionAsync"]
+  NAMECALL R1 R1 K2 ["DEPRECATED_ReloadAndGetRibbonDefinitionAsync"]
   CALL R1 1 1
   RETURN R1 1
 

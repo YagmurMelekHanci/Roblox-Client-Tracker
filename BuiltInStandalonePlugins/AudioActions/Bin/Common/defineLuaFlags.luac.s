@@ -57,13 +57,18 @@ MAIN:
   NAMECALL R0 R0 K4 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K11 ["EnableAudioActionWireUp"]
+  LOADK R2 K11 ["EnableAudioActionStopPlaying"]
   LOADB R3 0
   NAMECALL R0 R0 K4 ["DefineFastFlag"]
   CALL R0 3 0
-  DUPTABLE R0 K14 [{"getFFlagEnableAudioActions", "getFFlagEnableAction"}]
-  DUPCLOSURE R1 K15 [PROTO_0]
-  SETTABLEKS R1 R0 K12 ["getFFlagEnableAudioActions"]
-  DUPCLOSURE R1 K16 [PROTO_1]
-  SETTABLEKS R1 R0 K13 ["getFFlagEnableAction"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K12 ["EnableAudioActionWireUp"]
+  LOADB R3 0
+  NAMECALL R0 R0 K4 ["DefineFastFlag"]
+  CALL R0 3 0
+  DUPTABLE R0 K15 [{"getFFlagEnableAudioActions", "getFFlagEnableAction"}]
+  DUPCLOSURE R1 K16 [PROTO_0]
+  SETTABLEKS R1 R0 K13 ["getFFlagEnableAudioActions"]
+  DUPCLOSURE R1 K17 [PROTO_1]
+  SETTABLEKS R1 R0 K14 ["getFFlagEnableAction"]
   RETURN R0 1

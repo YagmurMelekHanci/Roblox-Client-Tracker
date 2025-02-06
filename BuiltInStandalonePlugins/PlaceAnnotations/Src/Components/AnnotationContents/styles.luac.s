@@ -11,161 +11,181 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K7 ["Styling"]
   GETTABLEKS R2 R3 K8 ["createStyleRule"]
-  MOVE R3 R2
-  LOADK R4 K9 [".Component-AnnotationContents"]
-  DUPTABLE R5 K14 [{"Size", "AutomaticSize", "BackgroundTransparency", "ClipsDescendants"}]
-  GETIMPORT R6 K17 [UDim2.fromScale]
-  LOADN R7 1
-  LOADN R8 0
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K10 ["Size"]
-  GETIMPORT R6 K20 [Enum.AutomaticSize.Y]
-  SETTABLEKS R6 R5 K11 ["AutomaticSize"]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K12 ["BackgroundTransparency"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K13 ["ClipsDescendants"]
-  NEWTABLE R6 0 3
-  MOVE R7 R2
-  LOADK R8 K21 ["::UIPadding"]
-  DUPTABLE R9 K23 [{"PaddingBottom"}]
-  GETIMPORT R10 K26 [UDim.new]
-  LOADN R11 0
-  LOADN R12 4
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K22 ["PaddingBottom"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K9 ["Bin"]
+  GETTABLEKS R5 R6 K10 ["Common"]
+  GETTABLEKS R4 R5 K11 ["defineLuaFlags"]
+  CALL R3 1 1
+  MOVE R4 R2
+  LOADK R5 K12 [".Component-AnnotationContents"]
+  DUPTABLE R6 K17 [{"Size", "AutomaticSize", "BackgroundTransparency", "ClipsDescendants"}]
+  GETIMPORT R7 K20 [UDim2.fromScale]
+  LOADN R8 1
+  LOADN R9 0
   CALL R7 2 1
+  SETTABLEKS R7 R6 K13 ["Size"]
+  GETIMPORT R7 K23 [Enum.AutomaticSize.Y]
+  SETTABLEKS R7 R6 K14 ["AutomaticSize"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K15 ["BackgroundTransparency"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K16 ["ClipsDescendants"]
+  NEWTABLE R7 0 3
   MOVE R8 R2
-  LOADK R9 K27 [">> Frame"]
-  DUPTABLE R10 K28 [{"BackgroundTransparency"}]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K12 ["BackgroundTransparency"]
+  LOADK R9 K24 ["::UIPadding"]
+  DUPTABLE R10 K27 [{"PaddingBottom", "PaddingRight"}]
+  GETIMPORT R11 K30 [UDim.new]
+  LOADN R12 0
+  LOADN R13 4
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K25 ["PaddingBottom"]
+  GETIMPORT R11 K30 [UDim.new]
+  LOADN R12 0
+  LOADN R13 4
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K26 ["PaddingRight"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K29 ["> #TextColumn"]
-  DUPTABLE R11 K30 [{"Size", "AutomaticSize"}]
-  GETIMPORT R12 K31 [UDim2.new]
-  LOADN R13 1
-  LOADN R14 216
-  LOADN R15 0
+  LOADK R10 K31 [">> Frame"]
+  DUPTABLE R11 K32 [{"BackgroundTransparency"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K15 ["BackgroundTransparency"]
+  CALL R9 2 1
+  MOVE R10 R2
+  LOADK R11 K33 ["> #TextColumn"]
+  DUPTABLE R12 K34 [{"Size", "AutomaticSize"}]
+  GETIMPORT R13 K35 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 216
   LOADN R16 0
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K10 ["Size"]
-  GETIMPORT R12 K20 [Enum.AutomaticSize.Y]
-  SETTABLEKS R12 R11 K11 ["AutomaticSize"]
-  NEWTABLE R12 0 2
-  MOVE R13 R2
-  LOADK R14 K32 [">> #UsernameRow"]
-  DUPTABLE R15 K30 [{"Size", "AutomaticSize"}]
-  GETIMPORT R16 K17 [UDim2.fromScale]
-  LOADN R17 1
-  LOADN R18 0
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K10 ["Size"]
-  GETIMPORT R16 K20 [Enum.AutomaticSize.Y]
-  SETTABLEKS R16 R15 K11 ["AutomaticSize"]
-  NEWTABLE R16 0 2
-  MOVE R17 R2
-  LOADK R18 K33 ["> Frame"]
-  DUPTABLE R19 K34 [{"AutomaticSize"}]
-  GETIMPORT R20 K36 [Enum.AutomaticSize.XY]
-  SETTABLEKS R20 R19 K11 ["AutomaticSize"]
-  NEWTABLE R20 0 3
-  MOVE R21 R2
-  LOADK R22 K37 ["> TextLabel"]
-  DUPTABLE R23 K40 [{"AutomaticSize", "BackgroundTransparency", "TextScaled", "LineHeight"}]
-  GETIMPORT R24 K36 [Enum.AutomaticSize.XY]
-  SETTABLEKS R24 R23 K11 ["AutomaticSize"]
-  LOADN R24 1
-  SETTABLEKS R24 R23 K12 ["BackgroundTransparency"]
-  LOADB R24 0
-  SETTABLEKS R24 R23 K38 ["TextScaled"]
-  LOADK R24 K41 [1.5]
-  SETTABLEKS R24 R23 K39 ["LineHeight"]
-  CALL R21 2 1
-  MOVE R22 R2
-  LOADK R23 K42 ["> #Username"]
-  DUPTABLE R24 K46 [{"TextColor3", "TextSize", "Font"}]
-  LOADK R25 K47 ["$TextPrimary"]
-  SETTABLEKS R25 R24 K43 ["TextColor3"]
-  LOADK R25 K48 ["$FontSizeM"]
-  SETTABLEKS R25 R24 K44 ["TextSize"]
-  LOADK R25 K49 ["$FontBold"]
-  SETTABLEKS R25 R24 K45 ["Font"]
-  CALL R22 2 1
-  MOVE R23 R2
-  LOADK R24 K50 ["> #CreationTime"]
-  DUPTABLE R25 K51 [{"TextColor3", "TextSize"}]
-  LOADK R26 K52 ["$TextSecondary"]
-  SETTABLEKS R26 R25 K43 ["TextColor3"]
-  LOADK R26 K53 ["$FontSizeS"]
-  SETTABLEKS R26 R25 K44 ["TextSize"]
-  CALL R23 2 -1
-  SETLIST R20 R21 -1 [1]
-  CALL R17 3 1
-  MOVE R18 R2
-  LOADK R19 K54 ["> #MoreIcon"]
-  DUPTABLE R20 K57 [{"Image", "Size", "Position"}]
-  LOADK R21 K58 ["$MoreIcon"]
-  SETTABLEKS R21 R20 K55 ["Image"]
-  GETIMPORT R21 K60 [UDim2.fromOffset]
-  LOADN R22 16
-  LOADN R23 16
-  CALL R21 2 1
-  SETTABLEKS R21 R20 K10 ["Size"]
-  GETIMPORT R21 K31 [UDim2.new]
-  LOADN R22 1
-  LOADN R23 240
-  LOADN R24 0
-  LOADN R25 0
-  CALL R21 4 1
-  SETTABLEKS R21 R20 K56 ["Position"]
-  NEWTABLE R21 0 2
-  MOVE R22 R2
-  LOADK R23 K61 [":hover"]
-  DUPTABLE R24 K63 [{"BackgroundTransparency", "BackgroundColor3"}]
-  LOADN R25 0
-  SETTABLEKS R25 R24 K12 ["BackgroundTransparency"]
-  LOADK R25 K64 ["$ResolveIconBase"]
-  SETTABLEKS R25 R24 K62 ["BackgroundColor3"]
-  CALL R22 2 1
-  MOVE R23 R2
-  LOADK R24 K65 [":pressed"]
-  DUPTABLE R25 K63 [{"BackgroundTransparency", "BackgroundColor3"}]
-  LOADN R26 0
-  SETTABLEKS R26 R25 K12 ["BackgroundTransparency"]
-  LOADK R26 K66 ["$ResolveIconSelected"]
-  SETTABLEKS R26 R25 K62 ["BackgroundColor3"]
-  CALL R23 2 -1
-  SETLIST R21 R22 -1 [1]
-  CALL R18 3 -1
-  SETLIST R16 R17 -1 [1]
-  CALL R13 3 1
+  LOADN R17 0
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K13 ["Size"]
+  GETIMPORT R13 K23 [Enum.AutomaticSize.Y]
+  SETTABLEKS R13 R12 K14 ["AutomaticSize"]
+  NEWTABLE R13 0 3
   MOVE R14 R2
-  LOADK R15 K67 [">> #Contents"]
-  DUPTABLE R16 K70 [{"Size", "AutomaticSize", "TextWrapped", "TextColor3", "TextSize", "BackgroundTransparency", "LineHeight", "TextXAlignment"}]
-  GETIMPORT R17 K17 [UDim2.fromScale]
+  LOADK R15 K36 [">> #UsernameRow"]
+  DUPTABLE R16 K34 [{"Size", "AutomaticSize"}]
+  GETIMPORT R17 K20 [UDim2.fromScale]
   LOADN R18 1
   LOADN R19 0
   CALL R17 2 1
-  SETTABLEKS R17 R16 K10 ["Size"]
-  GETIMPORT R17 K20 [Enum.AutomaticSize.Y]
-  SETTABLEKS R17 R16 K11 ["AutomaticSize"]
-  LOADB R17 1
-  SETTABLEKS R17 R16 K68 ["TextWrapped"]
-  LOADK R17 K47 ["$TextPrimary"]
-  SETTABLEKS R17 R16 K43 ["TextColor3"]
-  LOADN R17 16
-  SETTABLEKS R17 R16 K44 ["TextSize"]
-  LOADN R17 1
-  SETTABLEKS R17 R16 K12 ["BackgroundTransparency"]
-  LOADK R17 K41 [1.5]
-  SETTABLEKS R17 R16 K39 ["LineHeight"]
-  GETIMPORT R17 K72 [Enum.TextXAlignment.Left]
-  SETTABLEKS R17 R16 K69 ["TextXAlignment"]
-  CALL R14 2 -1
-  SETLIST R12 R13 -1 [1]
-  CALL R9 3 -1
-  SETLIST R6 R7 -1 [1]
-  CALL R3 3 -1
-  RETURN R3 -1
+  SETTABLEKS R17 R16 K13 ["Size"]
+  GETIMPORT R17 K23 [Enum.AutomaticSize.Y]
+  SETTABLEKS R17 R16 K14 ["AutomaticSize"]
+  NEWTABLE R17 0 2
+  MOVE R18 R2
+  LOADK R19 K37 ["> Frame"]
+  DUPTABLE R20 K38 [{"AutomaticSize"}]
+  GETIMPORT R21 K40 [Enum.AutomaticSize.XY]
+  SETTABLEKS R21 R20 K14 ["AutomaticSize"]
+  NEWTABLE R21 0 3
+  MOVE R22 R2
+  LOADK R23 K41 ["> TextLabel"]
+  DUPTABLE R24 K44 [{"AutomaticSize", "BackgroundTransparency", "TextScaled", "LineHeight"}]
+  GETIMPORT R25 K40 [Enum.AutomaticSize.XY]
+  SETTABLEKS R25 R24 K14 ["AutomaticSize"]
+  LOADN R25 1
+  SETTABLEKS R25 R24 K15 ["BackgroundTransparency"]
+  LOADB R25 0
+  SETTABLEKS R25 R24 K42 ["TextScaled"]
+  LOADK R25 K45 [1.5]
+  SETTABLEKS R25 R24 K43 ["LineHeight"]
+  CALL R22 2 1
+  MOVE R23 R2
+  LOADK R24 K46 ["> #Username"]
+  DUPTABLE R25 K50 [{"TextColor3", "TextSize", "Font"}]
+  LOADK R26 K51 ["$TextPrimary"]
+  SETTABLEKS R26 R25 K47 ["TextColor3"]
+  LOADK R26 K52 ["$FontSizeM"]
+  SETTABLEKS R26 R25 K48 ["TextSize"]
+  LOADK R26 K53 ["$FontBold"]
+  SETTABLEKS R26 R25 K49 ["Font"]
+  CALL R23 2 1
+  MOVE R24 R2
+  LOADK R25 K54 ["> #CreationTime"]
+  DUPTABLE R26 K55 [{"TextColor3", "TextSize"}]
+  LOADK R27 K56 ["$TextSecondary"]
+  SETTABLEKS R27 R26 K47 ["TextColor3"]
+  LOADK R27 K57 ["$FontSizeS"]
+  SETTABLEKS R27 R26 K48 ["TextSize"]
+  CALL R24 2 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 1
+  MOVE R19 R2
+  LOADK R20 K58 ["> #MoreIcon"]
+  DUPTABLE R21 K61 [{"Image", "Size", "Position"}]
+  LOADK R22 K62 ["$MoreIcon"]
+  SETTABLEKS R22 R21 K59 ["Image"]
+  GETIMPORT R22 K64 [UDim2.fromOffset]
+  LOADN R23 16
+  LOADN R24 16
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K13 ["Size"]
+  GETIMPORT R22 K35 [UDim2.new]
+  LOADN R23 1
+  LOADN R24 240
+  LOADN R25 0
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K60 ["Position"]
+  NEWTABLE R22 0 2
+  MOVE R23 R2
+  LOADK R24 K65 [":hover"]
+  DUPTABLE R25 K67 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADN R26 0
+  SETTABLEKS R26 R25 K15 ["BackgroundTransparency"]
+  LOADK R26 K68 ["$ResolveIconBase"]
+  SETTABLEKS R26 R25 K66 ["BackgroundColor3"]
+  CALL R23 2 1
+  MOVE R24 R2
+  LOADK R25 K69 [":pressed"]
+  DUPTABLE R26 K67 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADN R27 0
+  SETTABLEKS R27 R26 K15 ["BackgroundTransparency"]
+  LOADK R27 K70 ["$ResolveIconSelected"]
+  SETTABLEKS R27 R26 K66 ["BackgroundColor3"]
+  CALL R24 2 -1
+  SETLIST R22 R23 -1 [1]
+  CALL R19 3 -1
+  SETLIST R17 R18 -1 [1]
+  CALL R14 3 1
+  MOVE R15 R2
+  LOADK R16 K71 [">> TextLabel #Contents"]
+  DUPTABLE R17 K74 [{"Size", "AutomaticSize", "TextWrapped", "TextColor3", "TextSize", "BackgroundTransparency", "LineHeight", "TextXAlignment"}]
+  GETIMPORT R18 K20 [UDim2.fromScale]
+  LOADN R19 1
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K13 ["Size"]
+  GETIMPORT R18 K23 [Enum.AutomaticSize.Y]
+  SETTABLEKS R18 R17 K14 ["AutomaticSize"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K72 ["TextWrapped"]
+  LOADK R18 K51 ["$TextPrimary"]
+  SETTABLEKS R18 R17 K47 ["TextColor3"]
+  LOADN R18 16
+  SETTABLEKS R18 R17 K48 ["TextSize"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K15 ["BackgroundTransparency"]
+  LOADK R18 K45 [1.5]
+  SETTABLEKS R18 R17 K43 ["LineHeight"]
+  GETIMPORT R18 K76 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K73 ["TextXAlignment"]
+  CALL R15 2 1
+  MOVE R16 R2
+  LOADK R17 K77 [">> TextBox"]
+  DUPTABLE R18 K78 [{"TextSize"}]
+  GETTABLEKS R20 R3 K79 ["fflagAnnotationsEditOperation"]
+  JUMPIFNOT R20 [+2]
+  LOADN R19 16
+  JUMP [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K48 ["TextSize"]
+  CALL R16 2 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 -1
+  SETLIST R7 R8 -1 [1]
+  CALL R4 3 -1
+  RETURN R4 -1

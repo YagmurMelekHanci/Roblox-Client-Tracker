@@ -321,7 +321,7 @@ PROTO_4:
   GETIMPORT R5 K8 [table.insert]
   CALL R5 2 0
   GETTABLEKS R5 R0 K9 ["SoundId"]
-  SETTABLEKS R5 R4 K10 ["AssetId"]
+  SETTABLEKS R5 R4 K10 ["Asset"]
   GETTABLEKS R5 R0 K11 ["PlaybackSpeed"]
   SETTABLEKS R5 R4 K11 ["PlaybackSpeed"]
   GETTABLEKS R5 R0 K12 ["Looped"]

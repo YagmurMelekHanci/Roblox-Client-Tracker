@@ -25,8 +25,10 @@ MAIN:
   SETTABLEKS R4 R3 K20 ["threedotsicon"]
   LOADK R4 K21 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/UnsavedExperience.png"]
   SETTABLEKS R4 R3 K22 ["unsavedexperience"]
+  LOADK R4 K23 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/Script.png"]
+  SETTABLEKS R4 R3 K24 ["scripticon"]
   MOVE R4 R2
-  LOADK R5 K23 ["NotificationsPluginLightTheme"]
+  LOADK R5 K25 ["NotificationsPluginLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

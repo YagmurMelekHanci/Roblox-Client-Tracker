@@ -13,7 +13,10 @@ local UpdateCoreGuiEnabled = require(TopBar.Actions.UpdateCoreGuiEnabled)
 
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
 
+local FFlagMountCoreGuiHealthBar = require(TopBar.Flags.FFlagMountCoreGuiHealthBar)
+
 local CoreGuiConnector = Roact.PureComponent:extend("CoreGuiConnector")
+
 
 CoreGuiConnector.validateProps = t.strictInterface({
 	updateCoreGuiEnabled = t.callback,
@@ -22,8 +25,14 @@ CoreGuiConnector.validateProps = t.strictInterface({
 function CoreGuiConnector:didMount()
 	local initalCoreGuiTypes = Enum.CoreGuiType:GetEnumItems()
 	for _, coreGuiType in ipairs(initalCoreGuiTypes) do
-		if coreGuiType ~= Enum.CoreGuiType.All then
-			self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
+		if FFlagMountCoreGuiHealthBar then
+			if coreGuiType ~= Enum.CoreGuiType.All and coreGuiType ~= Enum.CoreGuiType.Health then
+				self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
+			end
+		else
+			if coreGuiType ~= Enum.CoreGuiType.All then
+				self.props.updateCoreGuiEnabled(coreGuiType, StarterGui:GetCoreGuiEnabled(coreGuiType))
+			end
 		end
 	end
 end
@@ -33,10 +42,17 @@ function CoreGuiConnector:render()
 		CoreGuiChangedConnection = Roact.createElement(EventConnection, {
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = function(coreGuiType, enabled)
-				self.props.updateCoreGuiEnabled(coreGuiType, enabled)
+				if FFlagMountCoreGuiHealthBar then
+					if coreGuiType ~= Enum.CoreGuiType.Health then
+						self.props.updateCoreGuiEnabled(coreGuiType, enabled)
+					end
+				else
+					self.props.updateCoreGuiEnabled(coreGuiType, enabled)
+				end
 			end,
 		}),
 	})
+
 end
 
 local function mapDispatchToProps(dispatch)

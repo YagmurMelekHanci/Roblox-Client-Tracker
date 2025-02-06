@@ -340,7 +340,7 @@ PROTO_10:
   LOADK R11 K8 ["RibbonConfiguration"]
   NAMECALL R9 R9 K9 ["GetPluginComponent"]
   CALL R9 2 1
-  NAMECALL R9 R9 K10 ["GetRibbonDefinitionAsync"]
+  NAMECALL R9 R9 K10 ["DEPRECATED_GetRibbonDefinitionAsync"]
   CALL R9 1 1
   GETUPVAL R10 6
   MOVE R11 R9

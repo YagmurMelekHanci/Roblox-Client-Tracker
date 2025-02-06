@@ -43,8 +43,6 @@ local function TestProviders(props: any)
 								platformName = `platformName{userId}`,
 								inExperienceCombinedName = `inExperienceCombinedName{userId}`,
 							},
-							isVerified = if props.isVerified ~= nil then props.isVerified else false,
-							inExperienceIsVerified = if props.inExperienceIsVerified ~= nil then props.inExperienceIsVerified else false,
 						}
 					end)
 					return res

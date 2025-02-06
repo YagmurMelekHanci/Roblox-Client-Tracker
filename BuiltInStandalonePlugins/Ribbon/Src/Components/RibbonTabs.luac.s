@@ -124,7 +124,7 @@ PROTO_3:
   LOADK R8 K2 ["RibbonConfiguration"]
   NAMECALL R6 R6 K3 ["GetPluginComponent"]
   CALL R6 2 1
-  NAMECALL R6 R6 K4 ["GetRibbonDefinitionAsync"]
+  NAMECALL R6 R6 K4 ["DEPRECATED_GetRibbonDefinitionAsync"]
   CALL R6 1 1
   GETTABLEKS R7 R6 K5 ["CustomControls"]
   JUMPIFNOT R7 [+30]

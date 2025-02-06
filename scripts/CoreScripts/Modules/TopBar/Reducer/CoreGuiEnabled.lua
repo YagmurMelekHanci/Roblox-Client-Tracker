@@ -3,16 +3,30 @@ local CorePackages = game:GetService("CorePackages")
 local Rodux = require(CorePackages.Packages.Rodux)
 local Cryo = require(CorePackages.Packages.Cryo)
 
-local Actions = script.Parent.Parent.Actions
+local TopBar = script.Parent.Parent
+
+local Actions = TopBar.Actions
 local UpdateCoreGuiEnabled = require(Actions.UpdateCoreGuiEnabled)
 
-local initialCoreGuiEnabled = {
-	[Enum.CoreGuiType.PlayerList] = true,
-	[Enum.CoreGuiType.Health] = true,
-	[Enum.CoreGuiType.Backpack] = true,
-	[Enum.CoreGuiType.Chat] = true,
-	[Enum.CoreGuiType.EmotesMenu] = true,
-}
+local FFlagMountCoreGuiHealthBar = require(TopBar.Flags.FFlagMountCoreGuiHealthBar)
+
+local initialCoreGuiEnabled = nil
+if FFlagMountCoreGuiHealthBar then
+	initialCoreGuiEnabled = {
+		[Enum.CoreGuiType.PlayerList] = true,
+		[Enum.CoreGuiType.Backpack] = true,
+		[Enum.CoreGuiType.Chat] = true,
+		[Enum.CoreGuiType.EmotesMenu] = true,
+	}
+else
+	initialCoreGuiEnabled = {
+		[Enum.CoreGuiType.PlayerList] = true,
+		[Enum.CoreGuiType.Health] = true,
+		[Enum.CoreGuiType.Backpack] = true,
+		[Enum.CoreGuiType.Chat] = true,
+		[Enum.CoreGuiType.EmotesMenu] = true,
+	}
+end
 
 local CoreGuiEanbled = Rodux.createReducer(initialCoreGuiEnabled, {
 	[UpdateCoreGuiEnabled.name] = function(state, action)
