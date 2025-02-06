@@ -154,4 +154,7 @@ return {
 
 	-- Turn on scrolling for AnimatedFlatList, which is what Console EDP uses
 	enableAnimatedFlatListScrolling = false,
+
+	-- Remove Details Page files moved to LuaApps
+	moveDetailsPageToLuaApps = false,
 }

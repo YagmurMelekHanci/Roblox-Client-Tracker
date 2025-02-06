@@ -158,6 +158,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 			onActivated = props.onActivated,
 			onStateChanged = setControlState :: StateChangedCallback,
 			isDisabled = props.isDisabled or isDelaying,
+			stateLayer = variantProps.container.stateLayer,
 			tag = variantProps.container.tag,
 			ref = ref,
 		}),

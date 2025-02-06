@@ -23,7 +23,6 @@ local getMeshInfo = require(root.util.getMeshInfo)
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
-local getFFlagUGCValidateStraightenLimbs = require(root.flags.getFFlagUGCValidateStraightenLimbs)
 local getFFlagUGCValidateCalculateScaleToValidateBounds =
 	require(root.flags.getFFlagUGCValidateCalculateScaleToValidateBounds)
 local getFFlagUGCValidateUseMeshSizeProperty = require(root.flags.getFFlagUGCValidateUseMeshSizeProperty)
@@ -45,12 +44,7 @@ local function orientSingleAssetToWorldAxes(
 		return
 	end
 
-	local results
-	if getFFlagUGCValidateStraightenLimbs() then
-		results = AssetCalculator.calculateStraightenedLimb(singleAsset, partsCFrames, findMeshHandle)
-	else
-		results = AssetCalculator.calculatePartsLocalToAsset(singleAsset, partsCFrames)
-	end
+	local results = AssetCalculator.calculateStraightenedLimb(singleAsset, partsCFrames, findMeshHandle)
 
 	for name, newCFrame in results do
 		partsCFrames[name] = newCFrame

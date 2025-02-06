@@ -15,6 +15,8 @@ local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
+local Flags = require(Foundation.Utility.Flags)
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local ButtonSize = require(Foundation.Enums.ButtonSize)
@@ -33,11 +35,14 @@ type ToastProps = {
 	title: string?,
 	text: string?,
 	icon: string?,
-
 	actions: { ToastButtonProps }?,
+
+	-- Width of the toast. If not defined, toast will be `400px` wide on desktop.
+	width: UDim?,
 } & Types.CommonProps
 
 local MAX_BUTTON_COUNT = 2
+local DEFAULT_TOAST_WIDTH = 400
 
 local defaultButtonProps = {
 	onActivated = function() end,
@@ -77,11 +82,14 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 	local hasIcon = props.icon and props.icon ~= ""
 	local hasTitle = props.title and props.title ~= ""
 	local hasBody = props.text and props.text ~= ""
+	local width = props.width or UDim.new(0, useScaledValue(DEFAULT_TOAST_WIDTH))
 
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			Size = UDim2.new(0, tokens.Size.Size_1000 * 9, 0, 0),
+			Size = if Flags.FoundationAddWidthToToast
+				then UDim2.new(width, UDim.new())
+				else UDim2.new(0, tokens.Size.Size_1000 * 9, 0, 0),
 			Position = UDim2.new(0.5, 0, 0.1, 0),
 			selection = {
 				-- We do not currently have an action associated with the toast itself, nor do we support it on consoles,

@@ -37,6 +37,7 @@ local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 
 local getFFlagUGCValidateLCHandleScale = require(root.flags.getFFlagUGCValidateLCHandleScale)
 local getFFlagUGCValidatePartMass = require(root.flags.getFFlagUGCValidatePartMass)
+local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
 
 local function joinTables(...)
 	local result = {}
@@ -219,6 +220,11 @@ end
 
 if getFFlagUGCValidatePartMass() then
 	Analytics.ErrorType.resetPhysicsData_LargeMass = "resetPhysicsData_LargeMass"
+end
+
+if getFFlagUGCValidateMeshMin() then
+	Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize = "validateBodyBlockingTests_ZeroMeshSize"
+	Analytics.ErrorType.validateFullBody_ZeroMeshSize = "validateFullBody_ZeroMeshSize"
 end
 
 setmetatable(Analytics.ErrorType, {

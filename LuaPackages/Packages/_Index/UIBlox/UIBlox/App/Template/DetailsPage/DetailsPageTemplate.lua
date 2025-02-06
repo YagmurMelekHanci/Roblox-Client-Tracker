@@ -1,4 +1,5 @@
 --!nonstrict
+-- moving this file to LuaApps, please replicate any changes in the LuaApps file as well
 local DetailsPage = script.Parent
 local Template = DetailsPage.Parent
 local App = Template.Parent
@@ -68,7 +69,9 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	actionBarWidth = t.optional(t.number),
 
 	-- The table of props for the content of the details page
-	componentList = t.optional(validateDetailsPageComponentList),
+	componentList = t.optional(
+		if UIBloxConfig.moveDetailsPageToLuaApps then t.table else validateDetailsPageComponentList
+	),
 	-- The dual panel breakpoint
 	dualPanelBreakpoint = t.optional(t.number),
 	-- The side margin of the body components
@@ -449,4 +452,4 @@ function DetailsPageTemplate:didUpdate()
 	end
 end
 
-return DetailsPageTemplate
+return if UIBloxConfig.moveDetailsPageToLuaApps then nil else DetailsPageTemplate

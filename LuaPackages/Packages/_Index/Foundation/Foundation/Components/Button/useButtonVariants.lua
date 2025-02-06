@@ -1,4 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
+local Flags = require(Foundation.Utility.Flags)
 
 local ButtonSize = require(Foundation.Enums.ButtonSize)
 type ButtonSize = ButtonSize.ButtonSize
@@ -6,8 +7,11 @@ type ButtonSize = ButtonSize.ButtonSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
+local StateLayerMode = require(Foundation.Enums.StateLayerMode)
+
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
+type StateLayer = Types.StateLayer
 type Stroke = {
 	Color: Color3,
 	Transparency: number,
@@ -30,6 +34,7 @@ type ButtonVariantProps = {
 		height: number,
 		stroke: Stroke,
 		background: ColorStyleValue,
+		stateLayer: StateLayer?,
 	},
 	text: {
 		tag: string,
@@ -98,6 +103,11 @@ local variants = function(tokens: Tokens)
 			container = {
 				tag = "bg-action-sub-emphasis",
 				stroke = toStroke(tokens.Color.ActionSubEmphasis.Border),
+				stateLayer = if Flags.FoundationButtonSubEmphasisInverseStateLayer
+					then {
+						mode = StateLayerMode.Inverse,
+					}
+					else nil,
 			},
 			text = {
 				tag = "content-action-sub-emphasis",

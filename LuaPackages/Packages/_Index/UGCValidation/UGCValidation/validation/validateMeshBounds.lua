@@ -12,8 +12,6 @@ local Analytics = require(root.Analytics)
 
 local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
-local FFlagUGCValidationPositionCheck = game:DefineFastFlag("UGCValidationPositionCheck", false)
-
 local FFlagUGCValidationScaleMinimum = game:DefineFastFlag("UGCValidationScaleMinimum", false)
 local FIntUGCValidationScaleMinimumThousandths = game:DefineFastInt("UGCValidationScaleMinimumThousandths", 10) -- 1 = 0.001
 
@@ -62,27 +60,25 @@ local function validateMeshBounds(
 	local boundsOffset = boundsInfo.offset or DEFAULT_OFFSET
 	local boundsCF = handle.CFrame * attachment.CFrame * CFrame.new(boundsOffset)
 
-	if FFlagUGCValidationPositionCheck then
-		if
-			handle.Position.X > 10000
-			or handle.Position.X < -10000
-			or handle.Position.Y > 10000
-			or handle.Position.Y < -10000
-			or handle.Position.Z > 10000
-			or handle.Position.Z < -10000
-		then
-			return false, { "Position is outside of bounds" }
-		end
-		if
-			boundsCF.Position.X > 10000
-			or boundsCF.Position.X < -10000
-			or boundsCF.Position.Y > 10000
-			or boundsCF.Position.Y < -10000
-			or boundsCF.Position.Z > 10000
-			or boundsCF.Position.Z < -10000
-		then
-			return false, { "Position is outside of bounds" }
-		end
+	if
+		handle.Position.X > 10000
+		or handle.Position.X < -10000
+		or handle.Position.Y > 10000
+		or handle.Position.Y < -10000
+		or handle.Position.Z > 10000
+		or handle.Position.Z < -10000
+	then
+		return false, { "Position is outside of bounds" }
+	end
+	if
+		boundsCF.Position.X > 10000
+		or boundsCF.Position.X < -10000
+		or boundsCF.Position.Y > 10000
+		or boundsCF.Position.Y < -10000
+		or boundsCF.Position.Z > 10000
+		or boundsCF.Position.Z < -10000
+	then
+		return false, { "Position is outside of bounds" }
 	end
 
 	if FFlagUGCValidationScaleMinimum then

@@ -13,6 +13,7 @@ local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFla
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
 local getFFlagUGCValidateOrientedSizing = require(root.flags.getFFlagUGCValidateOrientedSizing)
+local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
@@ -31,6 +32,8 @@ local validateModeration = require(root.validation.validateModeration)
 local validateAssetTransparency = require(root.validation.validateAssetTransparency)
 local DEPRECATED_validateAssetTransparency = require(root.validation.DEPRECATED_validateAssetTransparency)
 local validatePose = require(root.validation.validatePose)
+local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
+
 local validateWithSchema = require(root.util.validateWithSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local resetPhysicsData = require(root.util.resetPhysicsData)
@@ -78,6 +81,14 @@ local function validateMeshPartBodyPart(
 	local success, errorMessage = resetPhysicsData({ inst }, validationContext)
 	if not success then
 		return false, { errorMessage }
+	end
+
+	if getFFlagUGCValidateMeshMin() then
+		-- anything which would cause a crash later on, we check in here and exit early
+		local successBlocking, errorMessageBlocking = ValidateBodyBlockingTests.validate(inst, validationContext)
+		if not successBlocking then
+			return false, errorMessageBlocking
+		end
 	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()

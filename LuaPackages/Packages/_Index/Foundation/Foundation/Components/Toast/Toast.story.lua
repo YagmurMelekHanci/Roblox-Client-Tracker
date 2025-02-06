@@ -40,6 +40,7 @@ return {
 							}
 							else nil,
 					},
+					width = UDim.new(0, props.controls.width),
 				} :: any)
 			end,
 		},
@@ -54,5 +55,6 @@ return {
 		text = "U have been toasted . >:)",
 		button1 = "Action 1",
 		button2 = "Action 2",
+		width = { 400, 300, 500 },
 	},
 }

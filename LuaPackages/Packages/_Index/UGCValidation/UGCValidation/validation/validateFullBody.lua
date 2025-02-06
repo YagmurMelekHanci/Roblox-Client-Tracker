@@ -10,12 +10,16 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 
+local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
+
 local Types = require(root.util.Types)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local validateWithSchema = require(root.util.validateWithSchema)
 
 local validateAssetBounds = require(root.validation.validateAssetBounds)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
+local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
+
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
 local createLimbsAndTorsoSchema = require(root.util.createLimbsAndTorsoSchema)
 local resetPhysicsData = require(root.util.resetPhysicsData)
@@ -209,6 +213,18 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 	success, reasons = resetAllPhysicsData(validationContext)
 	if not success then
 		return false, reasons
+	end
+
+	if getFFlagUGCValidateMeshMin() then
+		-- anything which would cause a crash later on, we check in here and exit early
+		if not ValidateBodyBlockingTests.validateAll(validationContext) then
+			Analytics.reportFailure(Analytics.ErrorType.validateFullBody_ZeroMeshSize, nil, validationContext)
+			-- don't need more detailed error, as this is a check which has been done for each individual asset
+			return false,
+				{
+					"Unable to run full body validation due to previous errors detected while processing individual body parts.",
+				}
+		end
 	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()

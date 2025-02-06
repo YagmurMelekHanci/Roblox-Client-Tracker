@@ -1,4 +1,5 @@
 --!nonstrict
+-- moving this file to LuaApps, please replicate any changes in the LuaApps file as well
 local Button = script.Parent
 local App = Button.Parent
 local UIBlox = App.Parent
@@ -16,6 +17,7 @@ local withStyle = require(Core.Style.withStyle)
 local GetTextSize = require(Core.Text.GetTextSize)
 
 local ActionBar = require(Button.ActionBar)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 -- StickyActionBar layout parameters
 local PADDING_LEFT = 56
@@ -274,4 +276,4 @@ function StickyActionBar:renderHorizontalLayout(extraProps, children)
 	})
 end
 
-return StickyActionBar
+return if UIBloxConfig.moveDetailsPageToLuaApps then nil else StickyActionBar

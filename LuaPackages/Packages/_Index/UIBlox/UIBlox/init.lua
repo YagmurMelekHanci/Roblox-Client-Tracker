@@ -586,6 +586,7 @@ local function initializeLibrary(configs)
 			CursorType = require(script.App.SelectionCursor.CursorType),
 		}),
 
+		-- remove when cleaning up moveDetailsPageToLuaApps as true
 		Template = strict({
 			DetailsPage = {
 				Enum = {
