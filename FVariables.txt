@@ -4089,6 +4089,7 @@
 [C++] DFIntRobloxTelemetryExampleEventThrottleHundredthsPercent
 [C++] DFIntRobloxTelemetryMarketplaceDeprecatedSubscriptionFuncUseThrottleHundredthsPercent
 [C++] DFIntRobloxTelemetryPacketMissFrameWindowMetricsThrottleHundredthsPercent
+[C++] DFIntRobloxTelemetryPointV2ProdTrafficPercent
 [C++] DFIntRobloxTelemetryRccDisconnectEventsThrottleHundredthsPercent
 [C++] DFIntRobloxTelemetryRccDisconnectPointsThrottleHundredthsPercent
 [C++] DFIntRobloxTelemetryRealtimeConnectionEventsThrottleHundredthsPercent
@@ -4974,6 +4975,7 @@
 [C++] DFLogDRSMaximumMegapixelsPerFRMQL
 [C++] DFLogDualWriteEphemeralCounterToV2WhiteList
 [C++] DFLogDualWriteEphemeralStatToV2WhiteList
+[C++] DFLogDualWritePointToV2WhiteList
 [C++] DFLogDynamicFastVariableReloaderTest4
 [C++] DFLogDynamicFastVariableReloaderTest5
 [C++] DFLogExperienceSignalsIngestCustomSourceName
@@ -5061,6 +5063,7 @@
 [C++] DFLogPermCheckForInExpPublish
 [C++] DFLogPlayerHydrationServicePublicKey
 [C++] DFLogProcessingConfigPerDC
+[C++] DFLogProductionPointToV2WhiteList
 [C++] DFLogR15CollisionTypeField
 [C++] DFLogRaknetDownloadBandwidthCacheFileName
 [C++] DFLogRccBucketName
@@ -5069,7 +5072,9 @@
 [C++] DFLogRobloxAnalyticsURL
 [C++] DFLogRobloxTelemetryAdapterPointV2Prefix
 [C++] DFLogRobloxTelemetryCheckSumSalt
+[C++] DFLogRobloxTelemetryPointV2Prefix
 [C++] DFLogRobloxTelemetryProdAdapterPointV2Prefix
+[C++] DFLogRobloxTelemetryProdPointV2Prefix
 [C++] DFLogRobloxTelemetryReliabilityCountAllowList
 [C++] DFLogRobloxTelemetryV2PointAdatpterDualWriteWhitelist
 [C++] DFLogRobloxTelemetryV2PointAdatpterProductionWhitelist
@@ -5158,6 +5163,7 @@
 [C++] DFStringDRSMaximumMegapixelsPerFRMQL
 [C++] DFStringDualWriteEphemeralCounterToV2WhiteList
 [C++] DFStringDualWriteEphemeralStatToV2WhiteList
+[C++] DFStringDualWritePointToV2WhiteList
 [C++] DFStringDynamicFastVariableReloaderTest4
 [C++] DFStringDynamicFastVariableReloaderTest5
 [C++] DFStringExperienceSignalsIngestCustomSourceName
@@ -5245,6 +5251,7 @@
 [C++] DFStringPermCheckForInExpPublish
 [C++] DFStringPlayerHydrationServicePublicKey
 [C++] DFStringProcessingConfigPerDC
+[C++] DFStringProductionPointToV2WhiteList
 [C++] DFStringR15CollisionTypeField
 [C++] DFStringRaknetDownloadBandwidthCacheFileName
 [C++] DFStringRccBucketName
@@ -5253,7 +5260,9 @@
 [C++] DFStringRobloxAnalyticsURL
 [C++] DFStringRobloxTelemetryAdapterPointV2Prefix
 [C++] DFStringRobloxTelemetryCheckSumSalt
+[C++] DFStringRobloxTelemetryPointV2Prefix
 [C++] DFStringRobloxTelemetryProdAdapterPointV2Prefix
+[C++] DFStringRobloxTelemetryProdPointV2Prefix
 [C++] DFStringRobloxTelemetryReliabilityCountAllowList
 [C++] DFStringRobloxTelemetryV2PointAdatpterDualWriteWhitelist
 [C++] DFStringRobloxTelemetryV2PointAdatpterProductionWhitelist
@@ -15179,6 +15188,7 @@
 [C++] SFFlagRobloxTelemetryExampleEventThrottleHundredthsPercent
 [C++] SFFlagRobloxTelemetryMarketplaceDeprecatedSubscriptionFuncUseThrottleHundredthsPercent
 [C++] SFFlagRobloxTelemetryPacketMissFrameWindowMetricsThrottleHundredthsPercent
+[C++] SFFlagRobloxTelemetryPointV2ProdTrafficPercent
 [C++] SFFlagRobloxTelemetryRccDisconnectEventsThrottleHundredthsPercent
 [C++] SFFlagRobloxTelemetryRccDisconnectPointsThrottleHundredthsPercent
 [C++] SFFlagRobloxTelemetryRealtimeConnectionEventsThrottleHundredthsPercent
