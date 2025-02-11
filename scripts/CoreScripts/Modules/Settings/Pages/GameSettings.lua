@@ -55,8 +55,6 @@ local FFlagAvatarChatCoreScriptSupport = SharedFlags.GetFFlagAvatarChatCoreScrip
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
-local FFlagInExperienceSettingsRefactorAnalytics =
-	require(RobloxGui.Modules.Flags.FFlagInExperienceSettingsRefactorAnalytics)
 local GetFFlagEnableCrossExpVoiceVolumeIXPCheck = SharedFlags.GetFFlagEnableCrossExpVoiceVolumeIXPCheck
 local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnablePreferredTextSizeSettingInMenus
 local FFlagCameraSensitivityPadding = game:DefineFastFlag("CameraSensitivityPadding2", false)
@@ -610,30 +608,21 @@ local function Initialize()
 		end)
 
 		this.GraphicsQualityEnabler.IndexChanged:connect(function(newIndex)
-			if FFlagInExperienceSettingsRefactorAnalytics then
-				local GFX_MODES = {
-					Automatic = { Name = "Automatic", Value = 1 },
-					Manual = { Name = "Manual", Value = 2 },
-				}
-				local gfx_mode_old_val = GFX_MODES.Automatic.Name
-				local gfx_mode_new_val = GFX_MODES.Manual.Name
-				if newIndex == GFX_MODES.Automatic.Value then
-					gfx_mode_old_val = GFX_MODES.Manual.Name
-					gfx_mode_new_val = GFX_MODES.Automatic.Name
-					setGraphicsToAuto()
-				elseif newIndex == GFX_MODES.Manual.Value then
-					setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
-				end
-				reportSettingsForAnalytics()
-				reportSettingsChangeForAnalytics("gfx_mode", gfx_mode_old_val, gfx_mode_new_val)
-			else
-				if newIndex == 1 then
-					setGraphicsToAuto()
-				elseif newIndex == 2 then
-					setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
-				end
-				reportSettingsForAnalytics()
+			local GFX_MODES = {
+				Automatic = { Name = "Automatic", Value = 1 },
+				Manual = { Name = "Manual", Value = 2 },
+			}
+			local gfx_mode_old_val = GFX_MODES.Automatic.Name
+			local gfx_mode_new_val = GFX_MODES.Manual.Name
+			if newIndex == GFX_MODES.Automatic.Value then
+				gfx_mode_old_val = GFX_MODES.Manual.Name
+				gfx_mode_new_val = GFX_MODES.Automatic.Name
+				setGraphicsToAuto()
+			elseif newIndex == GFX_MODES.Manual.Value then
+				setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
 			end
+			reportSettingsForAnalytics()
+			reportSettingsChangeForAnalytics("gfx_mode", gfx_mode_old_val, gfx_mode_new_val)
 		end)
 
 		game.GraphicsQualityChangeRequest:Connect(function(isIncrease)
@@ -1333,26 +1322,19 @@ local function Initialize()
 				this.VREnabledFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["VREnabledFrame"]
 
 				this.VREnabledSelector.IndexChanged:connect(function(newIndex)
-					if FFlagInExperienceSettingsRefactorAnalytics then
-						local VR_MODE = {
-							On = { Name = "On", Value = 1 },
-							Off = { Name = "Off", Value = 2 },
-						}
-						local vrEnabledSetting = (newIndex == VR_MODE.On.Value)
-						if GameSettings.VREnabled ~= vrEnabledSetting then
-							GameSettings.VREnabled = vrEnabledSetting
-							local vr_mode_old_val = optionNames[VR_MODE.On.Value]
-							local vr_mode_new_val = optionNames[newIndex]
-							if vr_mode_new_val == optionNames[VR_MODE.On.Value] then
-								vr_mode_old_val = optionNames[VR_MODE.Off.Value]
-							end
-							reportSettingsChangeForAnalytics("vr_mode", vr_mode_old_val, vr_mode_new_val)
+					local VR_MODE = {
+						On = { Name = "On", Value = 1 },
+						Off = { Name = "Off", Value = 2 },
+					}
+					local vrEnabledSetting = (newIndex == VR_MODE.On.Value)
+					if GameSettings.VREnabled ~= vrEnabledSetting then
+						GameSettings.VREnabled = vrEnabledSetting
+						local vr_mode_old_val = optionNames[VR_MODE.On.Value]
+						local vr_mode_new_val = optionNames[newIndex]
+						if vr_mode_new_val == optionNames[VR_MODE.On.Value] then
+							vr_mode_old_val = optionNames[VR_MODE.Off.Value]
 						end
-					else
-						local vrEnabledSetting = (newIndex == 1)
-						if GameSettings.VREnabled ~= vrEnabledSetting then
-							GameSettings.VREnabled = vrEnabledSetting
-						end
+						reportSettingsChangeForAnalytics("vr_mode", vr_mode_old_val, vr_mode_new_val)
 					end
 				end)
 			end
@@ -1841,9 +1823,7 @@ local function Initialize()
 						-- In this function ExperienceStateCaptureService should always exist, but just in case we do a nil check before we attempt a toggle
 						ExperienceStateCaptureService:ToggleCaptureMode()
 					end
-					if FFlagInExperienceSettingsRefactorAnalytics then
-						reportSettingsChangeForAnalytics("translation_feedback", "", "pressed")
-					end
+					reportSettingsChangeForAnalytics("translation_feedback", "", "pressed")
 				end
 
 				local toggleFeedbackModeButton, toggleFeedbackModeText = nil, nil
@@ -2066,11 +2046,9 @@ local function Initialize()
 					LocalPlayer:SetExperienceSettingsLocaleId(languageCodeMetadataMappings[newLanguageCode].localeCode)
 				end
 
-				if FFlagInExperienceSettingsRefactorAnalytics then
-					-- stores current language
-					this.LanguageSelectorMode.CurrentLanguage =
-						this.LanguageSelectorMode.DropDownFrame.DropDownFrameTextLabel.Text
-				end
+				-- stores current language
+				this.LanguageSelectorMode.CurrentLanguage =
+					this.LanguageSelectorMode.DropDownFrame.DropDownFrameTextLabel.Text
 
 				-- Create on toggle change function
 				local function toggleTranslation(newIndex)
@@ -2089,14 +2067,12 @@ local function Initialize()
 							languageCodeMetadataMappings[languageNameToLanguageCodeMapping[languageOptions[newIndex]]].id
 					end
 
-					if FFlagInExperienceSettingsRefactorAnalytics then
-						local old_lang = this.LanguageSelectorMode.CurrentLanguage
-						local new_lang = languageOptions[newIndex]
-						if old_lang ~= new_lang then
-							-- update current language when new language is selected
-							this.LanguageSelectorMode.CurrentLanguage = new_lang
-							reportSettingsChangeForAnalytics("experience_language", old_lang, new_lang)
-						end
+					local old_lang = this.LanguageSelectorMode.CurrentLanguage
+					local new_lang = languageOptions[newIndex]
+					if old_lang ~= new_lang then
+						-- update current language when new language is selected
+						this.LanguageSelectorMode.CurrentLanguage = new_lang
+						reportSettingsChangeForAnalytics("experience_language", old_lang, new_lang)
 					end
 
 					local payload = {
@@ -2852,9 +2828,7 @@ local function Initialize()
 					if MenuModule then
 						MenuModule:SetVisibility(false)
 					end
-					if FFlagInExperienceSettingsRefactorAnalytics then
-						reportSettingsChangeForAnalytics("dev_console", "", "pressed")
-					end
+					reportSettingsChangeForAnalytics("dev_console", "", "pressed")
 				end
 			end
 
@@ -3109,9 +3083,7 @@ local function Initialize()
 			Guid = selectedIndex > 0 and guids[selectedIndex] or nil,
 		}
 
-		if FFlagInExperienceSettingsRefactorAnalytics then
-			this[deviceType .. "PrevDeviceName"] = this[deviceType .. "DeviceInfo"].Name
-		end
+		this[deviceType .. "PrevDeviceName"] = this[deviceType .. "DeviceInfo"].Name
 
 		local indexChangedInvocations = 0
 		local indexChangedDelay = GetFIntVoiceChatDeviceChangeDebounceDelay()
@@ -3151,10 +3123,8 @@ local function Initialize()
 						CrossExperienceVoiceManager:changeOutputDevice(deviceName, deviceGuid)
 					end
 				end
-				if FFlagInExperienceSettingsRefactorAnalytics then
-					reportSettingsChangeForAnalytics(deviceType, this[deviceType .. "PrevDeviceName"], deviceName)
-					this[deviceType .. "PrevDeviceName"] = deviceName
-				end
+				reportSettingsChangeForAnalytics(deviceType, this[deviceType .. "PrevDeviceName"], deviceName)
+				this[deviceType .. "PrevDeviceName"] = deviceName
 			end
 		end)
 	end
@@ -3177,9 +3147,7 @@ local function Initialize()
 			Guid = selectedIndex > 0 and guids[selectedIndex] or nil,
 		}
 
-		if FFlagInExperienceSettingsRefactorAnalytics then
-			this.prevCameraDeviceName = this[CAMERA_DEVICE_INFO_KEY].Name
-		end
+		this.prevCameraDeviceName = this[CAMERA_DEVICE_INFO_KEY].Name
 
 		this[CAMERA_DEVICE_SELECTOR_KEY].IndexChanged:connect(function(newIndex)
 			if
@@ -3197,14 +3165,12 @@ local function Initialize()
 			local deviceGuid = this[CAMERA_DEVICE_INFO_KEY].Guid
 			log:info("Changed webcam to: {}", deviceGuid)
 			UserGameSettings.DefaultCameraID = deviceGuid
-			if FFlagInExperienceSettingsRefactorAnalytics then
-				reportSettingsChangeForAnalytics(
-					"video_camera",
-					this.prevCameraDeviceName or "None",
-					this[CAMERA_DEVICE_INFO_KEY].Name
-				)
-				this.prevCameraDeviceName = this[CAMERA_DEVICE_INFO_KEY].Name
-			end
+			reportSettingsChangeForAnalytics(
+				"video_camera",
+				this.prevCameraDeviceName or "None",
+				this[CAMERA_DEVICE_INFO_KEY].Name
+			)
+			this.prevCameraDeviceName = this[CAMERA_DEVICE_INFO_KEY].Name
 		end)
 	end
 

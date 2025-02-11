@@ -1,6 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local PlayersService = game:GetService("Players")
+local VoiceChatService = game:GetService("VoiceChatService")
 local Promise = require(CorePackages.Packages.Promise)
 local Roact = require(CorePackages.Packages.Roact)
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
@@ -40,7 +41,6 @@ local GetFFlagUseLuaSignalrConsumer = require(VoiceChatCore.Flags.GetFFlagUseLua
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 local GetFFlagNonVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNonVoiceFTUX
 local GetFFlagEnableNudgeAnalytics = require(VoiceChatCore.Flags.GetFFlagEnableNudgeAnalytics)
-local GetFFlagVoiceUseAudioRoutingAPI = require(VoiceChatCore.Flags.GetFFlagVoiceUseAudioRoutingAPI)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
 local GetFFlagJoinWithoutMicPermissions =
@@ -1565,7 +1565,7 @@ function VoiceChatServiceManager:EnsureCorrectMuteState(userIds: { number }, mut
 		-- the UI updates correctly
 		local participant = self.participants[tostring(userId)]
 		if participant and participant.isMutedLocally ~= muteState then
-			if GetFFlagVoiceUseAudioRoutingAPI() then
+			if VoiceChatService.UseNewAudioApi then
 				userIdSet[userId] = true
 				self.mutedPlayers[userId] = muteState
 			else
@@ -1577,15 +1577,12 @@ function VoiceChatServiceManager:EnsureCorrectMuteState(userIds: { number }, mut
 		end
 	end
 
-	if GetFFlagVoiceUseAudioRoutingAPI() then
+	if VoiceChatService.UseNewAudioApi then
 		for device in self.audioDevices do
 			if device.Player and userIdSet[device.Player.UserId] then
 				if FFlagUseLocalMutePropertyForMutingOthers and device.Player ~= PlayersService.LocalPlayer then
 					device.MutedByLocalUser = muteState
 				else
-					if FFlagUseLocalMutePropertyForMutingOthers then
-						-- panic("Setting AudioDeviceInput.Active without a corresponding Client -> Server Event")
-					end
 					device.Active = not muteState
 				end
 			end

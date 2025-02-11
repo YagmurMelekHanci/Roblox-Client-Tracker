@@ -21,9 +21,6 @@ local OpenValidationErrorModal = require(PublishAssetPrompt.Actions.OpenValidati
 local EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled =
 	game:GetEngineFeature("PromptImportAnimationClipFromVideoAsyncEnabled")
 
-local FFlagAvatarPublishPromptUpdateAttachments = game:DefineFastFlag("AvatarPublishPromptUpdateAttachments", false)
-local EngineFeatureWrapDeformerUpdateAttachments = game:GetEngineFeature("WrapDeformerUpdateAttachments")
-
 local function updateModelAttachmentsWithWrapDeformers(avatarModel: Instance)
 	-- The Avatar model needs to be parented to the DataModel for GetDeformedCFrameAsync to work
 	avatarModel.Parent = RobloxReplicatedStorage
@@ -100,9 +97,7 @@ local function ConnectAssetServiceEvents(store)
 				if state and state.promptRequest.promptInfo.guid == guid then
 					local deserializedModel = AvatarCreationService:DeserializeAvatarModel(serializedModel)
 
-					if EngineFeatureWrapDeformerUpdateAttachments and FFlagAvatarPublishPromptUpdateAttachments then
-						updateModelAttachmentsWithWrapDeformers(deserializedModel)
-					end
+					updateModelAttachmentsWithWrapDeformers(deserializedModel)
 
 					store:dispatch(SetHumanoidModel(deserializedModel))
 					store:dispatch(SetPriceInRobux(priceFromToken))

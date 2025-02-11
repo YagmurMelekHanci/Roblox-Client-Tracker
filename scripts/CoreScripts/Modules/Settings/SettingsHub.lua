@@ -100,11 +100,9 @@ local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = require(CorePackages.Work
 local GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
 local GetFFlagDisplayServerChannel = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisplayServerChannel
-local FFlagCoreGuiFinalStateAnalytic = require(RobloxGui.Modules.Flags.FFlagCoreGuiFinalStateAnalytic)
 local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagSettingsHubIndependentBackgroundVisibility = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagSettingsHubIndependentBackgroundVisibility()
 local FFlagAppChatReappearIfClosedByTiltMenu = game:DefineFastFlag("AppChatReappearIfClosedByTiltMenu", true)
-local FFlagInExperienceMenuResetButtonTextToRespawn = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuResetButtonTextToRespawn)
 local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 local EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons")
 local FFlagInExperienceMenuReorderFirstVariant = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
@@ -463,12 +461,8 @@ local function CreateSettingsHub()
 		MicOn = "",
 	}
 
-	local localeId
-	local localization
-	if FFlagInExperienceMenuResetButtonTextToRespawn then
-		localeId = LocalizationService.RobloxLocaleId
-		localization = Localization.new(localeId)
-	end
+	local localeId = LocalizationService.RobloxLocaleId
+	local localization = Localization.new(localeId)
 
 	local function pollVoiceTextLabel()
 		-- Lazy load and cache strings from IGMv3
@@ -1059,12 +1053,10 @@ local function CreateSettingsHub()
 		this.RespawnBehaviourChangedEvent:Fire(resetEnabled, customCallback)
 	end)
 
-	if FFlagCoreGuiFinalStateAnalytic then
-		StarterGui:RegisterGetCore("ResetButtonCallback", function()
-			local isResetEnabled, _ = this:GetRespawnBehaviour()
-			return isResetEnabled
-		end)
-	end
+	StarterGui:RegisterGetCore("ResetButtonCallback", function()
+		local isResetEnabled, _ = this:GetRespawnBehaviour()
+		return isResetEnabled
+	end)
 
 	local setVisibilityInternal = nil
 
@@ -2069,7 +2061,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		local RESET_TEXT = if FFlagInExperienceMenuResetButtonTextToRespawn then localization:Format(Constants.RespawnLocalizedKey) else "Reset Character"
+		local RESET_TEXT = localization:Format(Constants.RespawnLocalizedKey)
 		if Theme.UseIconButtons then
 			addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", RESET_TEXT, buttonY,
 				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),

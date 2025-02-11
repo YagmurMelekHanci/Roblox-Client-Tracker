@@ -1,12 +1,28 @@
 PROTO_0:
-  DUPTABLE R4 K4 [{"Key", "Position", "AssetInfo", "Size"}]
-  SETTABLEKS R1 R4 K0 ["Key"]
-  SETTABLEKS R2 R4 K1 ["Position"]
-  SETTABLEKS R0 R4 K2 ["AssetInfo"]
-  SETTABLEKS R3 R4 K3 ["Size"]
+  GETUPVAL R7 0
+  GETTABLE R6 R7 R1
+  JUMPIFEQ R6 R0 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K0 [+4]
+  LOADK R6 K0 ["Row index does not match row"]
+  GETIMPORT R4 K2 [assert]
+  CALL R4 2 0
+  DUPTABLE R4 K7 [{"Key", "Position", "AssetInfo", "Size"}]
+  SETTABLEKS R1 R4 K3 ["Key"]
+  SETTABLEKS R2 R4 K4 ["Position"]
+  SETTABLEKS R0 R4 K5 ["AssetInfo"]
+  SETTABLEKS R3 R4 K6 ["Size"]
   RETURN R4 1
 
 PROTO_1:
+  GETUPVAL R2 0
+  MOVE R4 R1
+  NAMECALL R2 R2 K0 ["requestNextPage"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["new"]
   CALL R1 0 1
@@ -57,11 +73,12 @@ PROTO_1:
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K2 ["createElement"]
   GETUPVAL R13 6
-  DUPTABLE R14 K20 [{"LayoutOrder", "GetRowProps", "Rows", "RowComponent", "RowHeight", "ScrollingDirection"}]
+  DUPTABLE R14 K21 [{"LayoutOrder", "GetRowProps", "Rows", "RowComponent", "RowHeight", "OnLoadRange", "ScrollingDirection"}]
   NAMECALL R15 R1 K11 ["getNextOrder"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K3 ["LayoutOrder"]
-  DUPCLOSURE R15 K21 [PROTO_0]
+  NEWCLOSURE R15 P0
+  CAPTURE VAL R3
   SETTABLEKS R15 R14 K15 ["GetRowProps"]
   SETTABLEKS R3 R14 K16 ["Rows"]
   GETUPVAL R15 7
@@ -71,8 +88,11 @@ PROTO_1:
   NAMECALL R15 R15 K22 ["GetAttribute"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K18 ["RowHeight"]
+  NEWCLOSURE R15 P1
+  CAPTURE VAL R2
+  SETTABLEKS R15 R14 K19 ["OnLoadRange"]
   GETIMPORT R15 K25 [Enum.ScrollingDirection.XY]
-  SETTABLEKS R15 R14 K19 ["ScrollingDirection"]
+  SETTABLEKS R15 R14 K20 ["ScrollingDirection"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K13 ["List"]
   CALL R8 3 1
@@ -125,7 +145,7 @@ MAIN:
   CALL R11 1 1
   GETTABLEKS R13 R2 K21 ["Util"]
   GETTABLEKS R12 R13 K22 ["LayoutOrderIterator"]
-  DUPCLOSURE R13 K23 [PROTO_1]
+  DUPCLOSURE R13 K23 [PROTO_2]
   CAPTURE VAL R12
   CAPTURE VAL R8
   CAPTURE VAL R9

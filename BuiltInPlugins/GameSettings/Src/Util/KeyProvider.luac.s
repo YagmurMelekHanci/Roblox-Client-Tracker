@@ -114,6 +114,10 @@ PROTO_28:
   LOADK R0 K0 ["TeamCreateEnabled"]
   RETURN R0 1
 
+PROTO_29:
+  LOADK R0 K0 ["AudioApiByDefault"]
+  RETURN R0 1
+
 MAIN:
   PREPVARARGS 0
   NEWTABLE R0 32 0
@@ -175,4 +179,6 @@ MAIN:
   SETTABLEKS R1 R0 K55 ["getScriptCollaborationEnabledOnServerKeyName"]
   DUPCLOSURE R1 K56 [PROTO_28]
   SETTABLEKS R1 R0 K57 ["getTeamCreateEnabledKeyName"]
+  DUPCLOSURE R1 K58 [PROTO_29]
+  SETTABLEKS R1 R0 K59 ["getAudioApiByDefaultKeyName"]
   RETURN R0 1

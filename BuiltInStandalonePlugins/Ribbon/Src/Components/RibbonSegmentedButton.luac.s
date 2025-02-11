@@ -173,11 +173,13 @@ PROTO_2:
   GETUPVAL R10 4
   GETTABLEKS R9 R10 K11 ["createElement"]
   LOADK R10 K12 ["Frame"]
-  NEWTABLE R11 1 0
+  NEWTABLE R11 2 0
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K15 ["Tag"]
   LOADK R13 K31 ["Component-RibbonSegmentedButton X-Fit"]
   SETTABLE R13 R11 R12
+  GETTABLEKS R12 R0 K13 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
   DUPTABLE R12 K33 [{"SegmentedButton"}]
   GETUPVAL R14 4
   GETTABLEKS R13 R14 K11 ["createElement"]

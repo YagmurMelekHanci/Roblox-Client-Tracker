@@ -109,6 +109,30 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["AutoSetupRequested"]
+  NEWTABLE R2 0 0
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+12]
+  GETUPVAL R5 1
+  LOADK R6 K0 ["AutoSetupCancelled"]
+  DUPTABLE R7 K5 [{"assetUrl", "assetHash", "timeToComplete", "cancelReason"}]
+  SETTABLEKS R2 R7 K1 ["assetUrl"]
+  SETTABLEKS R3 R7 K2 ["assetHash"]
+  SETTABLEKS R1 R7 K3 ["timeToComplete"]
+  SETTABLEKS R4 R7 K4 ["cancelReason"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_9:
   GETUPVAL R4 0
   LOADK R5 K0 ["AutoSetupFinish"]
   DUPTABLE R6 K4 [{"assetUrl", "assetHash", "timeToComplete"}]
@@ -131,7 +155,7 @@ PROTO_7:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_10:
   GETUPVAL R3 0
   LOADK R4 K0 ["AutoSetupAssetsGenerated"]
   DUPTABLE R5 K3 [{"inputAssetId", "outputAssetIds"}]
@@ -144,7 +168,7 @@ PROTO_8:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_11:
   GETUPVAL R2 0
   LOADK R3 K0 ["BundlesMetadataError"]
   DUPTABLE R4 K2 [{"problem"}]
@@ -152,13 +176,13 @@ PROTO_9:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_12:
   GETUPVAL R0 0
   LOADK R1 K0 ["ChangedLayers"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_13:
   GETUPVAL R2 0
   LOADK R3 K0 ["EquipItem"]
   GETUPVAL R4 1
@@ -174,7 +198,15 @@ PROTO_11:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_14:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["EditingToolOpen"]
+  DUPTABLE R4 K2 [{"editingTool"}]
+  SETTABLEKS R1 R4 K1 ["editingTool"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_15:
   GETUPVAL R2 0
   LOADK R3 K0 ["PaletteOpen"]
   DUPTABLE R4 K2 [{"paletteKey"}]
@@ -182,13 +214,13 @@ PROTO_12:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_16:
   GETUPVAL R0 0
   LOADK R1 K0 ["PluginOpen"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_17:
   GETUPVAL R2 0
   LOADK R3 K0 ["TabOpen"]
   DUPTABLE R4 K2 [{"tabKey"}]
@@ -196,7 +228,7 @@ PROTO_14:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_18:
   GETUPVAL R2 0
   CALL R2 0 1
   JUMPIFNOT R2 [+7]
@@ -218,7 +250,7 @@ PROTO_15:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_19:
   GETUPVAL R2 0
   LOADK R3 K0 ["SelectScreenChoice"]
   DUPTABLE R4 K2 [{"choice"}]
@@ -226,7 +258,7 @@ PROTO_16:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_20:
   GETUPVAL R4 0
   LOADK R5 K0 ["AutoSetupSurvey"]
   DUPTABLE R6 K7 [{"userId", "rating", "message", "problems", "inputAssetId", "outputAssetIds"}]
@@ -255,7 +287,7 @@ PROTO_17:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_21:
   GETUPVAL R2 0
   LOADK R3 K0 ["SetStage"]
   DUPTABLE R4 K2 [{"stageKey"}]
@@ -263,13 +295,13 @@ PROTO_18:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_22:
   GETUPVAL R0 0
   LOADK R1 K0 ["TestInExperience"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_23:
   GETUPVAL R2 0
   LOADK R3 K0 ["UnequipItem"]
   GETUPVAL R4 1
@@ -278,7 +310,7 @@ PROTO_20:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_24:
   GETUPVAL R0 0
   LOADK R2 K0 ["AutoSetupPassedValidation"]
   LOADNIL R3
@@ -286,7 +318,7 @@ PROTO_21:
   CALL R0 3 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_25:
   GETUPVAL R0 0
   LOADK R2 K0 ["AutoSetupFailedValidation"]
   LOADNIL R3
@@ -294,7 +326,7 @@ PROTO_22:
   CALL R0 3 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_26:
   GETUPVAL R2 0
   LOADK R4 K0 ["AutoSetupValidationDuration"]
   MOVE R5 R1
@@ -302,7 +334,7 @@ PROTO_23:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_27:
   GETUPVAL R2 0
   LOADK R4 K0 ["AutoSetupValidationErrorCount"]
   MOVE R5 R1
@@ -310,7 +342,7 @@ PROTO_24:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_28:
   DUPTABLE R3 K2 [{"inputAssetId", "errorText"}]
   SETTABLEKS R1 R3 K0 ["inputAssetId"]
   SETTABLEKS R2 R3 K1 ["errorText"]
@@ -322,7 +354,7 @@ PROTO_25:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_29:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
@@ -333,7 +365,7 @@ PROTO_26:
   NEWCLOSURE R4 P3
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  DUPTABLE R5 K21 [{"addUserItems", "autoSetupFailure", "autoSetupFinish", "autoSetupAssetsGenerated", "bundlesMetadataError", "changedLayers", "equipItem", "openPalette", "openPlugin", "openTab", "publish", "selectScreenChoice", "sendAutoSetupSurvey", "setStage", "testInExperience", "unequipItem", "autoSetupPassedValidation", "autoSetupFailedValidation", "autoSetupValidationDuration", "autoSetupValidationErrorCount", "autoSetupValidationError"}]
+  DUPTABLE R5 K24 [{"addUserItems", "autoSetupFailure", "autoSetupRequested", "autoSetupCancelled", "autoSetupFinish", "autoSetupAssetsGenerated", "bundlesMetadataError", "changedLayers", "equipItem", "openEditingTool", "openPalette", "openPlugin", "openTab", "publish", "selectScreenChoice", "sendAutoSetupSurvey", "setStage", "testInExperience", "unequipItem", "autoSetupPassedValidation", "autoSetupFailedValidation", "autoSetupValidationDuration", "autoSetupValidationErrorCount", "autoSetupValidationError"}]
   NEWCLOSURE R6 P4
   CAPTURE VAL R1
   SETTABLEKS R6 R5 K0 ["addUserItems"]
@@ -342,78 +374,89 @@ PROTO_26:
   CAPTURE UPVAL U2
   SETTABLEKS R6 R5 K1 ["autoSetupFailure"]
   NEWCLOSURE R6 P6
-  CAPTURE VAL R1
-  CAPTURE UPVAL U2
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  SETTABLEKS R6 R5 K2 ["autoSetupFinish"]
-  NEWCLOSURE R6 P7
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K3 ["autoSetupAssetsGenerated"]
+  SETTABLEKS R6 R5 K2 ["autoSetupRequested"]
+  NEWCLOSURE R6 P7
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K3 ["autoSetupCancelled"]
   NEWCLOSURE R6 P8
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K4 ["bundlesMetadataError"]
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  SETTABLEKS R6 R5 K4 ["autoSetupFinish"]
   NEWCLOSURE R6 P9
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K5 ["changedLayers"]
+  SETTABLEKS R6 R5 K5 ["autoSetupAssetsGenerated"]
   NEWCLOSURE R6 P10
   CAPTURE VAL R1
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U7
-  SETTABLEKS R6 R5 K6 ["equipItem"]
+  SETTABLEKS R6 R5 K6 ["bundlesMetadataError"]
   NEWCLOSURE R6 P11
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K7 ["openPalette"]
+  SETTABLEKS R6 R5 K7 ["changedLayers"]
   NEWCLOSURE R6 P12
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K8 ["openPlugin"]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U8
+  SETTABLEKS R6 R5 K8 ["equipItem"]
   NEWCLOSURE R6 P13
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K9 ["openTab"]
+  SETTABLEKS R6 R5 K9 ["openEditingTool"]
   NEWCLOSURE R6 P14
-  CAPTURE UPVAL U8
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U9
-  SETTABLEKS R6 R5 K10 ["publish"]
+  SETTABLEKS R6 R5 K10 ["openPalette"]
   NEWCLOSURE R6 P15
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K11 ["selectScreenChoice"]
+  SETTABLEKS R6 R5 K11 ["openPlugin"]
   NEWCLOSURE R6 P16
   CAPTURE VAL R1
-  CAPTURE UPVAL U10
-  CAPTURE UPVAL U0
-  SETTABLEKS R6 R5 K12 ["sendAutoSetupSurvey"]
+  SETTABLEKS R6 R5 K12 ["openTab"]
   NEWCLOSURE R6 P17
+  CAPTURE UPVAL U9
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K13 ["setStage"]
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U10
+  SETTABLEKS R6 R5 K13 ["publish"]
   NEWCLOSURE R6 P18
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K14 ["testInExperience"]
+  SETTABLEKS R6 R5 K14 ["selectScreenChoice"]
   NEWCLOSURE R6 P19
   CAPTURE VAL R1
-  CAPTURE UPVAL U6
-  SETTABLEKS R6 R5 K15 ["unequipItem"]
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U0
+  SETTABLEKS R6 R5 K15 ["sendAutoSetupSurvey"]
   NEWCLOSURE R6 P20
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K16 ["autoSetupPassedValidation"]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K16 ["setStage"]
   NEWCLOSURE R6 P21
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K17 ["autoSetupFailedValidation"]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K17 ["testInExperience"]
   NEWCLOSURE R6 P22
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K18 ["autoSetupValidationDuration"]
+  CAPTURE VAL R1
+  CAPTURE UPVAL U7
+  SETTABLEKS R6 R5 K18 ["unequipItem"]
   NEWCLOSURE R6 P23
   CAPTURE VAL R0
-  SETTABLEKS R6 R5 K19 ["autoSetupValidationErrorCount"]
+  SETTABLEKS R6 R5 K19 ["autoSetupPassedValidation"]
   NEWCLOSURE R6 P24
   CAPTURE VAL R0
+  SETTABLEKS R6 R5 K20 ["autoSetupFailedValidation"]
+  NEWCLOSURE R6 P25
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K21 ["autoSetupValidationDuration"]
+  NEWCLOSURE R6 P26
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K22 ["autoSetupValidationErrorCount"]
+  NEWCLOSURE R6 P27
+  CAPTURE VAL R0
   CAPTURE UPVAL U1
-  SETTABLEKS R6 R5 K20 ["autoSetupValidationError"]
+  SETTABLEKS R6 R5 K23 ["autoSetupValidationError"]
   RETURN R5 1
 
 MAIN:
@@ -458,68 +501,74 @@ MAIN:
   GETTABLEKS R10 R11 K16 ["Flags"]
   GETTABLEKS R9 R10 K19 ["getFFlagAvatarPreviewerSendTelemetryCounter"]
   CALL R8 1 1
-  DUPTABLE R9 K25 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-  LOADK R10 K26 ["SBT_AvatarAutoSetupSucceeded"]
-  SETTABLEKS R10 R9 K20 ["eventName"]
-  NEWTABLE R10 0 3
-  LOADN R11 232
-  LOADN R12 11
-  LOADN R13 21
-  SETLIST R10 R11 3 [1]
-  SETTABLEKS R10 R9 K21 ["lastUpdated"]
-  LOADK R10 K27 ["Avatar auto setup succeeded."]
-  SETTABLEKS R10 R9 K22 ["description"]
-  LOADK R10 K28 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-  SETTABLEKS R10 R9 K23 ["links"]
-  NEWTABLE R10 0 1
-  LOADK R11 K29 ["RobloxTelemetryCounter"]
-  SETLIST R10 R11 1 [1]
-  SETTABLEKS R10 R9 K24 ["backends"]
-  DUPTABLE R10 K25 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-  LOADK R11 K30 ["SBT_AvatarPreviewerItemEquipped"]
-  SETTABLEKS R11 R10 K20 ["eventName"]
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R12 R0 K12 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Flags"]
+  GETTABLEKS R10 R11 K20 ["getFFlagStudioAvatarAutosetupCancellationTelemetry"]
+  CALL R9 1 1
+  DUPTABLE R10 K26 [{"eventName", "lastUpdated", "description", "links", "backends"}]
+  LOADK R11 K27 ["SBT_AvatarAutoSetupSucceeded"]
+  SETTABLEKS R11 R10 K21 ["eventName"]
   NEWTABLE R11 0 3
   LOADN R12 232
   LOADN R13 11
   LOADN R14 21
   SETLIST R11 R12 3 [1]
-  SETTABLEKS R11 R10 K21 ["lastUpdated"]
-  LOADK R11 K31 ["Avatar previewer equipped an avatar item for testing."]
-  SETTABLEKS R11 R10 K22 ["description"]
-  LOADK R11 K28 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-  SETTABLEKS R11 R10 K23 ["links"]
+  SETTABLEKS R11 R10 K22 ["lastUpdated"]
+  LOADK R11 K28 ["Avatar auto setup succeeded."]
+  SETTABLEKS R11 R10 K23 ["description"]
+  LOADK R11 K29 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
+  SETTABLEKS R11 R10 K24 ["links"]
   NEWTABLE R11 0 1
-  LOADK R12 K29 ["RobloxTelemetryCounter"]
+  LOADK R12 K30 ["RobloxTelemetryCounter"]
   SETLIST R11 R12 1 [1]
-  SETTABLEKS R11 R10 K24 ["backends"]
-  DUPTABLE R11 K25 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-  LOADK R12 K32 ["SBT_AvatarPreviewerPublished"]
-  SETTABLEKS R12 R11 K20 ["eventName"]
+  SETTABLEKS R11 R10 K25 ["backends"]
+  DUPTABLE R11 K26 [{"eventName", "lastUpdated", "description", "links", "backends"}]
+  LOADK R12 K31 ["SBT_AvatarPreviewerItemEquipped"]
+  SETTABLEKS R12 R11 K21 ["eventName"]
   NEWTABLE R12 0 3
   LOADN R13 232
   LOADN R14 11
   LOADN R15 21
   SETLIST R12 R13 3 [1]
-  SETTABLEKS R12 R11 K21 ["lastUpdated"]
-  LOADK R12 K33 ["Avatar previewer published an asset to the marketplace."]
-  SETTABLEKS R12 R11 K22 ["description"]
-  LOADK R12 K28 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-  SETTABLEKS R12 R11 K23 ["links"]
+  SETTABLEKS R12 R11 K22 ["lastUpdated"]
+  LOADK R12 K32 ["Avatar previewer equipped an avatar item for testing."]
+  SETTABLEKS R12 R11 K23 ["description"]
+  LOADK R12 K29 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
+  SETTABLEKS R12 R11 K24 ["links"]
   NEWTABLE R12 0 1
-  LOADK R13 K29 ["RobloxTelemetryCounter"]
+  LOADK R13 K30 ["RobloxTelemetryCounter"]
   SETLIST R12 R13 1 [1]
-  SETTABLEKS R12 R11 K24 ["backends"]
-  DUPCLOSURE R12 K34 [PROTO_0]
-  DUPCLOSURE R13 K35 [PROTO_26]
+  SETTABLEKS R12 R11 K25 ["backends"]
+  DUPTABLE R12 K26 [{"eventName", "lastUpdated", "description", "links", "backends"}]
+  LOADK R13 K33 ["SBT_AvatarPreviewerPublished"]
+  SETTABLEKS R13 R12 K21 ["eventName"]
+  NEWTABLE R13 0 3
+  LOADN R14 232
+  LOADN R15 11
+  LOADN R16 21
+  SETLIST R13 R14 3 [1]
+  SETTABLEKS R13 R12 K22 ["lastUpdated"]
+  LOADK R13 K34 ["Avatar previewer published an asset to the marketplace."]
+  SETTABLEKS R13 R12 K23 ["description"]
+  LOADK R13 K29 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
+  SETTABLEKS R13 R12 K24 ["links"]
+  NEWTABLE R13 0 1
+  LOADK R14 K30 ["RobloxTelemetryCounter"]
+  SETLIST R13 R14 1 [1]
+  SETTABLEKS R13 R12 K25 ["backends"]
+  DUPCLOSURE R13 K35 [PROTO_0]
+  DUPCLOSURE R14 K36 [PROTO_29]
   CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R7
+  CAPTURE VAL R9
   CAPTURE VAL R8
   CAPTURE VAL R2
-  CAPTURE VAL R9
-  CAPTURE VAL R12
   CAPTURE VAL R10
-  CAPTURE VAL R6
+  CAPTURE VAL R13
   CAPTURE VAL R11
+  CAPTURE VAL R6
+  CAPTURE VAL R12
   CAPTURE VAL R1
-  RETURN R13 1
+  RETURN R14 1

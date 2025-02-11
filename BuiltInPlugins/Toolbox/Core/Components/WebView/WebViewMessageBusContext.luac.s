@@ -97,7 +97,7 @@ PROTO_5:
   GETTABLEKS R3 R4 K1 ["MessageBusErrorCode"]
   GETTABLEKS R2 R3 K2 ["WEBVIEW_NOT_INITIALIZED"]
   RETURN R2 1
-  GETTABLEKS R2 R1 K3 ["MessageBusReceivedEvent"]
+  GETTABLEKS R2 R1 K3 ["MessageReceivedFromWebEvent"]
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U1
   CAPTURE VAL R0
@@ -119,7 +119,7 @@ PROTO_6:
   RETURN R4 1
   GETTABLEKS R6 R1 K4 ["name"]
   MOVE R7 R2
-  NAMECALL R4 R3 K5 ["FireMessageBusSendEventAsync"]
+  NAMECALL R4 R3 K5 ["FireMessageReceivedFromStudioEventAsync"]
   CALL R4 3 0
   RETURN R0 0
 

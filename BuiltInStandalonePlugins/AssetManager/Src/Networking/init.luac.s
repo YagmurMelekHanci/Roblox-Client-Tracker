@@ -1,23 +1,27 @@
 PROTO_0:
-  DUPTABLE R1 K4 [{"_isMock", "_impl", "OnFetchFinished", "OnFetchProgressChanged"}]
+  DUPTABLE R1 K6 [{"_isMock", "_impl", "nextPageToken", "nextPlacesPageToken", "OnFetchFinished", "OnFetchProgressChanged"}]
   SETTABLEKS R0 R1 K0 ["_isMock"]
   JUMPIFNOT R0 [+2]
   GETUPVAL R2 0
   JUMP [+1]
   GETUPVAL R2 1
   SETTABLEKS R2 R1 K1 ["_impl"]
+  LOADK R2 K7 [""]
+  SETTABLEKS R2 R1 K2 ["nextPageToken"]
+  LOADK R2 K7 [""]
+  SETTABLEKS R2 R1 K3 ["nextPlacesPageToken"]
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K5 ["new"]
+  GETTABLEKS R2 R3 K8 ["new"]
   CALL R2 0 1
-  SETTABLEKS R2 R1 K2 ["OnFetchFinished"]
+  SETTABLEKS R2 R1 K4 ["OnFetchFinished"]
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K5 ["new"]
+  GETTABLEKS R2 R3 K8 ["new"]
   CALL R2 0 1
-  SETTABLEKS R2 R1 K3 ["OnFetchProgressChanged"]
+  SETTABLEKS R2 R1 K5 ["OnFetchProgressChanged"]
   GETUPVAL R4 3
   FASTCALL2 SETMETATABLE R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K7 [setmetatable]
+  GETIMPORT R2 K10 [setmetatable]
   CALL R2 2 0
   RETURN R1 1
 
@@ -27,8 +31,8 @@ PROTO_1:
   LOADB R1 1
   CALL R0 1 1
   GETTABLEKS R2 R0 K1 ["_impl"]
-  GETTABLEKS R1 R2 K2 ["ResumeAsync"]
-  SETTABLEKS R1 R0 K2 ["ResumeAsync"]
+  GETTABLEKS R1 R2 K2 ["resume"]
+  SETTABLEKS R1 R0 K2 ["resume"]
   RETURN R0 1
 
 PROTO_2:
@@ -36,7 +40,7 @@ PROTO_2:
 
 PROTO_3:
   GETTABLEKS R2 R0 K0 ["_impl"]
-  GETTABLEKS R1 R2 K1 ["incrementFetchSessionId"]
+  GETTABLEKS R1 R2 K1 ["setupNewFetchSession"]
   CALL R1 0 0
   RETURN R0 0
 
@@ -62,46 +66,127 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
-  GETTABLEKS R4 R0 K0 ["OnFetchFinished"]
-  SETTABLEKS R4 R1 K0 ["OnFetchFinished"]
-  GETTABLEKS R4 R0 K1 ["OnFetchProgressChanged"]
-  SETTABLEKS R4 R1 K1 ["OnFetchProgressChanged"]
-  GETTABLEKS R5 R0 K2 ["_impl"]
-  GETTABLEKS R4 R5 K3 ["fetchAssetsAsync"]
-  MOVE R5 R1
-  MOVE R6 R2
-  MOVE R7 R3
-  CALL R4 3 0
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R4 0
+  SETTABLEKS R3 R4 K0 ["nextPageToken"]
+  JUMP [+4]
+  GETUPVAL R4 0
+  LOADK R5 K1 [""]
+  SETTABLEKS R5 R4 K0 ["nextPageToken"]
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  CALL R4 2 0
   RETURN R0 0
 
 PROTO_8:
-  GETTABLEKS R4 R0 K0 ["OnFetchFinished"]
-  SETTABLEKS R4 R1 K0 ["OnFetchFinished"]
-  GETTABLEKS R4 R0 K1 ["OnFetchProgressChanged"]
-  SETTABLEKS R4 R1 K1 ["OnFetchProgressChanged"]
-  GETTABLEKS R5 R0 K2 ["_impl"]
-  GETTABLEKS R4 R5 K3 ["searchAssetsAsync"]
-  MOVE R5 R1
-  MOVE R6 R2
-  MOVE R7 R3
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R4 0
+  SETTABLEKS R3 R4 K0 ["nextPlacesPageToken"]
+  JUMP [+4]
+  GETUPVAL R4 0
+  LOADK R5 K1 [""]
+  SETTABLEKS R5 R4 K0 ["nextPlacesPageToken"]
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
   CALL R4 3 0
   RETURN R0 0
 
 PROTO_9:
+  GETTABLEKS R4 R0 K0 ["OnFetchFinished"]
+  SETTABLEKS R4 R1 K0 ["OnFetchFinished"]
+  GETTABLEKS R4 R0 K1 ["OnFetchProgressChanged"]
+  SETTABLEKS R4 R1 K1 ["OnFetchProgressChanged"]
+  GETTABLEKS R4 R0 K2 ["nextPageToken"]
+  SETTABLEKS R4 R1 K3 ["PageToken"]
+  GETTABLEKS R4 R0 K4 ["nextPlacesPageToken"]
+  SETTABLEKS R4 R1 K5 ["PlacesPageToken"]
+  LOADN R4 238
+  SETTABLEKS R4 R1 K6 ["MaxPageSize"]
+  GETTABLEKS R5 R0 K7 ["_impl"]
+  GETTABLEKS R4 R5 K8 ["setupNewFetchSession"]
+  CALL R4 0 1
+  SETTABLEKS R4 R1 K9 ["FetchSessionId"]
+  GETTABLEKS R5 R0 K7 ["_impl"]
+  GETTABLEKS R4 R5 K10 ["fetchAssetsAsync"]
+  MOVE R5 R1
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  MOVE R7 R3
+  CALL R4 3 0
+  GETTABLEKS R5 R1 K11 ["ScopeInfo"]
+  GETTABLEKS R4 R5 K12 ["Scope"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K12 ["Scope"]
+  GETTABLEKS R5 R6 K13 ["Universe"]
+  JUMPIFNOTEQ R4 R5 [+11]
+  GETTABLEKS R5 R0 K7 ["_impl"]
+  GETTABLEKS R4 R5 K14 ["fetchPlacesAsync"]
+  MOVE R5 R1
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  MOVE R7 R3
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_10:
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R3 0
+  SETTABLEKS R2 R3 K0 ["nextPageToken"]
+  JUMP [+4]
+  GETUPVAL R3 0
+  LOADK R4 K1 [""]
+  SETTABLEKS R4 R3 K0 ["nextPageToken"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R4 R0 K0 ["OnFetchFinished"]
+  SETTABLEKS R4 R1 K0 ["OnFetchFinished"]
+  GETTABLEKS R4 R0 K1 ["OnFetchProgressChanged"]
+  SETTABLEKS R4 R1 K1 ["OnFetchProgressChanged"]
+  GETTABLEKS R4 R0 K2 ["nextPageToken"]
+  SETTABLEKS R4 R1 K3 ["PageToken"]
+  GETTABLEKS R4 R0 K4 ["nextPlacesPageToken"]
+  SETTABLEKS R4 R1 K5 ["PlacesPageToken"]
+  LOADN R4 238
+  SETTABLEKS R4 R1 K6 ["MaxPageSize"]
+  GETTABLEKS R5 R0 K7 ["_impl"]
+  GETTABLEKS R4 R5 K8 ["setupNewFetchSession"]
+  CALL R4 0 1
+  SETTABLEKS R4 R1 K9 ["FetchSessionId"]
+  GETTABLEKS R5 R0 K7 ["_impl"]
+  GETTABLEKS R4 R5 K10 ["searchAssetsAsync"]
+  MOVE R5 R1
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  MOVE R7 R3
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_12:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["grantUniverseUseAssetsPermissions"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_10:
+PROTO_13:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["getThumbnailUriForScope"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_11:
+PROTO_14:
   GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["getThumbnailForScopeAsync"]
   MOVE R4 R1
@@ -109,14 +194,14 @@ PROTO_11:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_15:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["getThumbnailForItem"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_13:
+PROTO_16:
   GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["getThumbnailForItemAsync"]
   MOVE R4 R1
@@ -124,7 +209,7 @@ PROTO_13:
   CALL R3 2 -1
   RETURN R3 -1
 
-PROTO_14:
+PROTO_17:
   GETTABLEKS R5 R0 K0 ["_impl"]
   GETTABLEKS R4 R5 K1 ["fetchPluginInfoAsync"]
   MOVE R5 R1
@@ -181,20 +266,21 @@ MAIN:
   SETTABLEKS R10 R9 K29 ["fetchGameName"]
   DUPCLOSURE R10 K30 [PROTO_6]
   SETTABLEKS R10 R9 K31 ["fetchGroupsAsync"]
-  DUPCLOSURE R10 K32 [PROTO_7]
+  DUPCLOSURE R10 K32 [PROTO_9]
+  CAPTURE VAL R8
   SETTABLEKS R10 R9 K33 ["fetchAssetsAsync"]
-  DUPCLOSURE R10 K34 [PROTO_8]
+  DUPCLOSURE R10 K34 [PROTO_11]
   SETTABLEKS R10 R9 K35 ["searchAssetsAsync"]
-  DUPCLOSURE R10 K36 [PROTO_9]
+  DUPCLOSURE R10 K36 [PROTO_12]
   SETTABLEKS R10 R9 K37 ["grantUniverseUseAssetsPermissions"]
-  DUPCLOSURE R10 K38 [PROTO_10]
+  DUPCLOSURE R10 K38 [PROTO_13]
   SETTABLEKS R10 R9 K39 ["getThumbnailUriForScope"]
-  DUPCLOSURE R10 K40 [PROTO_11]
+  DUPCLOSURE R10 K40 [PROTO_14]
   SETTABLEKS R10 R9 K41 ["getThumbnailForScopeAsync"]
-  DUPCLOSURE R10 K42 [PROTO_12]
+  DUPCLOSURE R10 K42 [PROTO_15]
   SETTABLEKS R10 R9 K43 ["getThumbnailForItem"]
-  DUPCLOSURE R10 K44 [PROTO_13]
+  DUPCLOSURE R10 K44 [PROTO_16]
   SETTABLEKS R10 R9 K45 ["getThumbnailForItemAsync"]
-  DUPCLOSURE R10 K46 [PROTO_14]
+  DUPCLOSURE R10 K46 [PROTO_17]
   SETTABLEKS R10 R9 K47 ["fetchPluginInfoAsync"]
   RETURN R9 1

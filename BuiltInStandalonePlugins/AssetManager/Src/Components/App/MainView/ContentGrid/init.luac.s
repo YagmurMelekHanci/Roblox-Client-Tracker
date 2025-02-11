@@ -1,5 +1,12 @@
 PROTO_0:
   GETUPVAL R2 0
+  MOVE R4 R1
+  NAMECALL R2 R2 K0 ["requestNextPage"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["use"]
   CALL R1 0 1
   GETUPVAL R2 1
@@ -29,24 +36,27 @@ PROTO_0:
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
   GETUPVAL R10 5
-  DUPTABLE R11 K13 [{"Cells", "CellSize", "CellPadding", "CellComponent"}]
+  DUPTABLE R11 K14 [{"Cells", "CellSize", "CellPadding", "CellComponent", "OnLoadRange"}]
   SETTABLEKS R2 R11 K9 ["Cells"]
-  GETIMPORT R12 K16 [UDim2.fromOffset]
+  GETIMPORT R12 K17 [UDim2.fromOffset]
   MOVE R13 R4
   GETUPVAL R15 6
-  LOADK R17 K17 ["CellHeightDiff"]
-  NAMECALL R15 R15 K18 ["GetAttribute"]
+  LOADK R17 K18 ["CellHeightDiff"]
+  NAMECALL R15 R15 K19 ["GetAttribute"]
   CALL R15 2 1
   ADD R14 R4 R15
   CALL R12 2 1
   SETTABLEKS R12 R11 K10 ["CellSize"]
   GETUPVAL R12 6
   LOADK R14 K11 ["CellPadding"]
-  NAMECALL R12 R12 K18 ["GetAttribute"]
+  NAMECALL R12 R12 K19 ["GetAttribute"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K11 ["CellPadding"]
   GETUPVAL R12 7
   SETTABLEKS R12 R11 K12 ["CellComponent"]
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R1
+  SETTABLEKS R12 R11 K13 ["OnLoadRange"]
   CALL R9 2 1
   SETTABLEKS R9 R8 K7 ["View"]
   CALL R5 3 -1
@@ -92,7 +102,7 @@ MAIN:
   GETIMPORT R12 K1 [script]
   GETTABLEKS R11 R12 K19 ["styles"]
   CALL R10 1 1
-  DUPCLOSURE R11 K20 [PROTO_0]
+  DUPCLOSURE R11 K20 [PROTO_1]
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R9

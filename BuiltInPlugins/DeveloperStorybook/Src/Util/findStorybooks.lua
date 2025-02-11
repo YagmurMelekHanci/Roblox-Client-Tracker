@@ -218,9 +218,11 @@ local function safeGetService(_index: number, serviceName: string)
 end
 
 local function findStorybooks()
+	-- TODO (AleksandrSl 14/01/2025): Merge isEmbedded checks
 	-- We have an _Index if we are a plugin, not an embedded storybook
 	local index = Main.Packages:FindFirstChild("_Index")
 	local sources = collectArray(STORYBOOK_SOURCES, safeGetService)
+
 	-- index.DF.DF is a hack to reduce path length, should be removed soon STUDIOPLAT-37669
 	local devFramework
 	if index then
@@ -233,8 +235,19 @@ local function findStorybooks()
 		devFramework = Main.Parent.Framework
 	end
 	insert(sources, devFramework)
-	local foundation = index and index.Foundation.Foundation or Main.Parent.Foundation
-	insert(sources, foundation)
+
+	local hasFoundation = Dash.find(sources, function(source)
+		if source.Name == "ReplicatedStorage" then
+			local packages = source:FindFirstChild("Packages")
+			return packages and packages:FindFirstChild("Foundation")
+		end
+		return false
+	end)
+	if not hasFoundation then
+		local foundation = index and index.Foundation.Foundation or Main.Parent.Foundation
+		insert(sources, foundation)
+	end
+
 	-- CONTRACTORS: These are not available
 	-- local materialFramework = index and index.MaterialFramework.MaterialFramework or Main.Parent.MaterialFramework
 	-- insert(sources, materialFramework)
@@ -242,9 +255,6 @@ local function findStorybooks()
 	-- 	sources,
 	-- 	if index then index.ViewportToolingFramework.ViewportToolingFramework else Main.Parent.ViewportToolingFramework
 	-- )
-
-	local foldersByPath: { [string]: Types.StoryItem } = {}
-	local storybookItems: { Types.StoryItem } = {}
 
 	if index then
 		local PluginDebugService = safeGetService(0, "PluginDebugService")
@@ -259,6 +269,8 @@ local function findStorybooks()
 		end
 	end
 
+	local foldersByPath: { [string]: Types.StoryItem } = {}
+	local storybookItems: { Types.StoryItem } = {}
 	local missingItems = {}
 
 	forEach(sources, function(source: Instance)

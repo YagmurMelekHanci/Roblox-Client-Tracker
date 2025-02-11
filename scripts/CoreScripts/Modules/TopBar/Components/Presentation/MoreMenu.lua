@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
+local StarterGui = game:GetService("StarterGui")
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
@@ -32,19 +33,22 @@ local InputType = Constants.InputType
 local IconButton = require(script.Parent.IconButton)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
-local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local Modules = RobloxGui.Modules
+local TenFootInterface = require(Modules.TenFootInterface)
+local VRHub = require(Modules.VR.VRHub)
 
-local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
-local BackpackModule = require(RobloxGui.Modules.BackpackScript)
-local ChatSelector = require(RobloxGui.Modules.ChatSelector)
-local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
+local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
+local BackpackModule = require(Modules.BackpackScript)
+local ChatSelector = require(Modules.ChatSelector)
+local PlayerListMaster = require(Modules.PlayerList.PlayerListManager)
 
-local EmotesConstants = require(RobloxGui.Modules.EmotesMenu.Constants)
+local EmotesConstants = require(Modules.EmotesMenu.Constants)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
+
+local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 
 local MORE_BUTTON_SIZE = 32
 local ICON_SIZE = 24
@@ -84,7 +88,7 @@ MoreMenu.validateProps = t.strictInterface({
 	topBarEnabled = t.boolean,
 	leaderboardEnabled = t.boolean,
 	emotesEnabled = t.boolean,
-	backpackEnabled = t.boolean,
+	backpackEnabled = if FFlagMountCoreGuiBackpack then nil else t.boolean,
 
 	leaderboardOpen = t.boolean,
 	backpackOpen = t.boolean,
@@ -101,9 +105,24 @@ function MoreMenu:init()
 		self.analytics = TopBarAnalytics.default
 	end
 
-	self:setState({
-		vrShowMenuIcon = false,
-	})
+	if FFlagMountCoreGuiBackpack then
+		self:setState({
+			mountBackpack = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Backpack),
+			vrShowMenuIcon = false,
+		})
+
+		StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType: Enum.CoreGuiType, enabled: boolean)
+			if coreGuiType == Enum.CoreGuiType.Backpack or coreGuiType == Enum.CoreGuiType.All then
+				self:setState({
+					mountBackpack = enabled,
+				})
+			end
+		end)
+	else
+		self:setState({
+			vrShowMenuIcon = false,
+		})
+	end
 
 	self.chatWasHidden = false
 
@@ -182,7 +201,14 @@ function MoreMenu:renderWithStyle(style)
 		hasOptions = true
 	end
 
-	if self.props.backpackEnabled then
+	local backpackEnabled = nil
+	if FFlagMountCoreGuiBackpack then
+		backpackEnabled = self.state.mountBackpack
+	else
+		backpackEnabled = self.props.backpackEnabled
+	end
+
+	if backpackEnabled then
 		local backpackIcon = BACKPACK_ICON_ON
 		if not self.props.backpackOpen then
 			backpackIcon = BACKPACK_ICON_OFF
@@ -336,7 +362,7 @@ local function mapStateToProps(state)
 
 		leaderboardEnabled = state.coreGuiEnabled[Enum.CoreGuiType.PlayerList],
 		emotesEnabled = state.moreMenu.emotesEnabled and state.coreGuiEnabled[Enum.CoreGuiType.EmotesMenu],
-		backpackEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Backpack],
+		backpackEnabled = if FFlagMountCoreGuiBackpack then nil else state.coreGuiEnabled[Enum.CoreGuiType.Backpack],
 
 		leaderboardOpen = state.moreMenu.leaderboardOpen,
 		backpackOpen = state.moreMenu.backpackOpen,

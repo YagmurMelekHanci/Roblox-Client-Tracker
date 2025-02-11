@@ -36,7 +36,6 @@ local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagC
 local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
 local FFlagRemoveKickWhitespaceSub = require(RobloxGui.Modules.Flags.FFlagRemoveKickWhitespaceSub)
-local FFlagEmptyKickMessageTranslation = require(RobloxGui.Modules.Flags.FFlagEmptyKickMessageTranslation)
 
 local FFlagAllowDisconnectGuiForOkUnknown = require(RobloxGui.Modules.Flags.FFlagAllowDisconnectGuiForOkUnknown)
 
@@ -510,17 +509,10 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 		-- errorMsg is dev message
 		local success = false
 		local attemptTranslation = errorMsg
-		if FFlagEmptyKickMessageTranslation() then
-			if errorMsg == '' then
-				success, attemptTranslation = pcall(function()
-					return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.DisconnectLuaKick")
-				end)
-			else
-				success, attemptTranslation = pcall(function()
-					local luaKickMessageKey = "InGame.ConnectionError.DisconnectLuaKickWithMessage"
-					return coreScriptTableTranslator:FormatByKey(luaKickMessageKey, { RBX_STR = errorMsg })
-				end)
-			end
+		if errorMsg == '' then
+			success, attemptTranslation = pcall(function()
+				return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.DisconnectLuaKick")
+			end)
 		else
 			success, attemptTranslation = pcall(function()
 				local luaKickMessageKey = "InGame.ConnectionError.DisconnectLuaKickWithMessage"

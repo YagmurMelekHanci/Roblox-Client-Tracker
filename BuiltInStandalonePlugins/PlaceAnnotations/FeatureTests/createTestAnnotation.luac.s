@@ -19,17 +19,20 @@ PROTO_0:
   GETIMPORT R2 K7 [Instance.new]
   LOADK R3 K12 ["WorkspaceAnnotation"]
   CALL R2 1 1
-  LOADK R3 K13 [123456789]
-  SETTABLEKS R3 R2 K14 ["AuthorId"]
-  GETIMPORT R4 K17 [DateTime.now]
+  NAMECALL R3 R2 K13 ["GetStringUniqueId"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K9 ["Name"]
+  LOADK R3 K14 [123456789]
+  SETTABLEKS R3 R2 K15 ["AuthorId"]
+  GETIMPORT R4 K18 [DateTime.now]
   CALL R4 0 1
-  GETTABLEKS R3 R4 K18 ["UnixTimestamp"]
-  SETTABLEKS R3 R2 K19 ["CreationTimeUnix"]
-  GETTABLEKS R3 R2 K19 ["CreationTimeUnix"]
-  SETTABLEKS R3 R2 K20 ["LastModifiedTimeUnix"]
-  SETTABLEKS R1 R2 K21 ["Adornee"]
+  GETTABLEKS R3 R4 K19 ["UnixTimestamp"]
+  SETTABLEKS R3 R2 K20 ["CreationTimeUnix"]
+  GETTABLEKS R3 R2 K20 ["CreationTimeUnix"]
+  SETTABLEKS R3 R2 K21 ["LastModifiedTimeUnix"]
+  SETTABLEKS R1 R2 K22 ["Adornee"]
   JUMPIFNOT R0 [+2]
-  SETTABLEKS R0 R2 K22 ["Contents"]
+  SETTABLEKS R0 R2 K23 ["Contents"]
   RETURN R2 1
 
 MAIN:

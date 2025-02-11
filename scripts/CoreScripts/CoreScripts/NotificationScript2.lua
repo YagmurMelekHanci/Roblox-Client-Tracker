@@ -621,14 +621,14 @@ local function onSendNotificationInfo(notificationInfo)
 		if button1Text and button1Text ~= "" then
 			table.insert(
 				buttons,
-				createNotificationButtonDetails(button1Text, Enum.NotificationButtonType.Secondary, callback)
+				createNotificationButtonDetails(button1Text, Enum.NotificationButtonType.Primary, callback)
 			)
 		end
 
 		if button2Text and button2Text ~= "" then
 			table.insert(
 				buttons,
-				createNotificationButtonDetails(button2Text, Enum.NotificationButtonType.Primary, callback)
+				createNotificationButtonDetails(button2Text, Enum.NotificationButtonType.Secondary, callback)
 			)
 		end
 

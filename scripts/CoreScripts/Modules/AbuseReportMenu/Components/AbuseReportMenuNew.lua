@@ -5,6 +5,7 @@ local CorePackages = game:GetService("CorePackages")
 local IXPService = game:GetService("IXPService")
 local LocalizationService = game:GetService("LocalizationService")
 local PlayersService = game:GetService("Players")
+local SafetyService = game:GetService("SafetyService")
 local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
 local Style = require(CorePackages.Workspace.Packages.Style)
@@ -46,6 +47,8 @@ local GetFFlagSelectInSceneReportMenu =
 local GetFFlagAbuseReportMenuConsoleSupportRefactor =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAbuseReportMenuConsoleSupportRefactor
 local GetFFlagAddAbuseReportMenuCoreScriptsProvider = require(root.Flags.GetFFlagAddAbuseReportMenuCoreScriptsProvider)
+local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled)
+
 local FStringReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportMenuIXPLayer
 local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInScene")
 
@@ -113,11 +116,20 @@ local AbuseReportMenuNew = function(props: Props)
 	React.useEffect(function()
 		props.registerOnReportTabDisplayed(function()
 			setIsReportTabVisible(true)
+			-- only send menu open signal AFTER screenshot capture
+			if isAbuseReportMenuOpenCloseSignalEnabled() then
+				if reportAnythingState.screenshotContentId ~= "" then
+					SafetyService:ReportMenuTabOpen()
+				end
+			end
 		end)
 		props.registerOnReportTabHidden(function()
 			setIsReportTabVisible(false)
 			AnnotationModal.unmountAnnotationPage()
 			ModalBasedSelectorDialogController.unmountModalSelector() -- added so that modal selector doesnt stay after closing menu
+			if isAbuseReportMenuOpenCloseSignalEnabled() then
+				SafetyService:ReportMenuTabClose()
+			end
 		end)
 		props.registerSetNextPlayerToReport(function(player: Player)
 			setPreselectedPlayer(player)
@@ -132,7 +144,7 @@ local AbuseReportMenuNew = function(props: Props)
 				})
 			end
 		end)
-	end, {})
+	end, { reportAnythingState })
 
 	React.useEffect(function()
 		if not isReportTabVisible then

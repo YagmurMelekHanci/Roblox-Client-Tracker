@@ -49,6 +49,9 @@ PROTO_2:
   RETURN R1 1
 
 PROTO_3:
+  RETURN R0 0
+
+PROTO_4:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useCallback"]
   NEWCLOSURE R2 P0
@@ -73,23 +76,29 @@ PROTO_3:
   GETTABLEKS R3 R4 K0 ["useCallback"]
   DUPCLOSURE R4 K4 [PROTO_2]
   CALL R3 1 1
-  DUPTABLE R4 K9 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal"}]
-  SETTABLEKS R3 R4 K5 ["uploadModelAsync"]
-  SETTABLEKS R1 R4 K6 ["startAutoSetupAsync"]
-  SETTABLEKS R2 R4 K7 ["DEPRECATED_startAutoSetupAsync"]
-  GETTABLEKS R5 R0 K8 ["autoSetupClickedSignal"]
-  SETTABLEKS R5 R4 K8 ["autoSetupClickedSignal"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K10 ["createElement"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K11 ["Provider"]
-  DUPTABLE R7 K13 [{"value"}]
-  SETTABLEKS R4 R7 K12 ["value"]
-  GETTABLEKS R8 R0 K14 ["children"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["useCallback"]
+  DUPCLOSURE R5 K5 [PROTO_3]
+  NEWTABLE R6 0 0
+  CALL R4 2 1
+  DUPTABLE R5 K11 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
+  SETTABLEKS R3 R5 K6 ["uploadModelAsync"]
+  SETTABLEKS R1 R5 K7 ["startAutoSetupAsync"]
+  SETTABLEKS R2 R5 K8 ["DEPRECATED_startAutoSetupAsync"]
+  GETTABLEKS R6 R0 K9 ["autoSetupClickedSignal"]
+  SETTABLEKS R6 R5 K9 ["autoSetupClickedSignal"]
+  SETTABLEKS R4 R5 K10 ["cancelAutoSetup"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K12 ["createElement"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K13 ["Provider"]
+  DUPTABLE R8 K15 [{"value"}]
+  SETTABLEKS R5 R8 K14 ["value"]
+  GETTABLEKS R9 R0 K16 ["children"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
-PROTO_4:
+PROTO_5:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["signal"]
   NAMECALL R0 R0 K1 ["Wait"]
@@ -108,11 +117,14 @@ PROTO_4:
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_5:
+PROTO_6:
   LOADK R1 K0 ["rbxasset://mock"]
   RETURN R1 1
 
-PROTO_6:
+PROTO_7:
+  RETURN R0 0
+
+PROTO_8:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useRef"]
   LOADB R2 0
@@ -128,23 +140,29 @@ PROTO_6:
   CALL R2 2 1
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K1 ["useCallback"]
-  DUPCLOSURE R4 K3 [PROTO_5]
+  DUPCLOSURE R4 K3 [PROTO_6]
   CALL R3 1 1
-  DUPTABLE R4 K8 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal"}]
-  SETTABLEKS R3 R4 K4 ["uploadModelAsync"]
-  SETTABLEKS R2 R4 K5 ["startAutoSetupAsync"]
-  SETTABLEKS R2 R4 K6 ["DEPRECATED_startAutoSetupAsync"]
-  GETTABLEKS R5 R0 K7 ["autoSetupClickedSignal"]
-  SETTABLEKS R5 R4 K7 ["autoSetupClickedSignal"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K9 ["createElement"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K10 ["Provider"]
-  DUPTABLE R7 K12 [{"value"}]
-  SETTABLEKS R4 R7 K11 ["value"]
-  GETTABLEKS R8 R0 K13 ["children"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["useCallback"]
+  DUPCLOSURE R5 K4 [PROTO_7]
+  NEWTABLE R6 0 0
+  CALL R4 2 1
+  DUPTABLE R5 K10 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
+  SETTABLEKS R3 R5 K5 ["uploadModelAsync"]
+  SETTABLEKS R2 R5 K6 ["startAutoSetupAsync"]
+  SETTABLEKS R2 R5 K7 ["DEPRECATED_startAutoSetupAsync"]
+  GETTABLEKS R6 R0 K8 ["autoSetupClickedSignal"]
+  SETTABLEKS R6 R5 K8 ["autoSetupClickedSignal"]
+  SETTABLEKS R4 R5 K9 ["cancelAutoSetup"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K12 ["Provider"]
+  DUPTABLE R8 K14 [{"value"}]
+  SETTABLEKS R5 R8 K13 ["value"]
+  GETTABLEKS R9 R0 K15 ["children"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -165,10 +183,10 @@ MAIN:
   GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K11 ["Types"]
   CALL R3 1 1
-  DUPCLOSURE R4 K12 [PROTO_3]
+  DUPCLOSURE R4 K12 [PROTO_4]
   CAPTURE VAL R2
   CAPTURE VAL R1
-  DUPCLOSURE R5 K13 [PROTO_6]
+  DUPCLOSURE R5 K13 [PROTO_8]
   CAPTURE VAL R2
   CAPTURE VAL R1
   DUPTABLE R6 K16 [{"Success", "FailsOnce"}]

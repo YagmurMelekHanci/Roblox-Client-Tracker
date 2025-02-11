@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
-local FFlagClientToastNotificationsRedirect = game:DefineFastFlag("ClientToastNotificationsRedirect3", false)
+local FFlagClientToastNotificationsRedirect = game:DefineFastFlag("ClientToastNotificationsRedirect4", false)
 local FFlagEnableClientToastNotificationExperiment = game:DefineFastFlag("EnableClientToastNotificationsRedirectExperiment", false)
 local layerName = game:DefineFastString("ClientToastNotificationsRedirectLayerName", "Notification.Toast")
 local layerValue = game:DefineFastString("ClientToastNotificationsRedirectLayerValue", "NotificationRedirect")

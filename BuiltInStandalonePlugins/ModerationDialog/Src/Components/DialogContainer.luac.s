@@ -96,6 +96,27 @@ PROTO_4:
 
 PROTO_5:
   GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["CloseStudioInstance"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R0 K2 [table.freeze]
+  DUPTABLE R1 K5 [{"Label", "OnActivated"}]
+  GETUPVAL R2 0
+  LOADK R4 K6 ["Buttons"]
+  LOADK R5 K7 ["Quit"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K3 ["Label"]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K4 ["OnActivated"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_7:
+  GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
   GETUPVAL R3 1
@@ -122,62 +143,76 @@ PROTO_5:
   GETTABLEKS R8 R1 K3 ["locale"]
   SETLIST R7 R8 1 [1]
   CALL R5 2 1
-  LOADNIL R6
-  GETUPVAL R7 2
-  DUPTABLE R8 K12 [{"Intent", "Heading", "Contents", "ActionPrimary", "ActionSecondary", "Modal", "DisableTitleBar", "Width"}]
-  GETTABLEKS R10 R0 K13 ["Type"]
-  JUMPIFNOTEQKS R10 K14 ["Warn"] [+3]
-  LOADK R9 K15 ["Warning"]
-  JUMP [+1]
-  LOADK R9 K16 ["Error"]
-  SETTABLEKS R9 R8 K4 ["Intent"]
-  GETUPVAL R9 3
-  GETTABLEKS R10 R0 K13 ["Type"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K5 ["Heading"]
-  GETUPVAL R9 4
-  DUPTABLE R10 K23 [{"ReviewDateTime", "ModeratorNote", "Reason", "SetChecked", "Checked", "Type", "BannedDateTime"}]
-  GETTABLEKS R11 R0 K17 ["ReviewDateTime"]
-  SETTABLEKS R11 R10 K17 ["ReviewDateTime"]
-  GETTABLEKS R11 R0 K18 ["ModeratorNote"]
-  SETTABLEKS R11 R10 K18 ["ModeratorNote"]
-  GETTABLEKS R11 R0 K19 ["Reason"]
-  SETTABLEKS R11 R10 K19 ["Reason"]
-  SETTABLEKS R3 R10 K20 ["SetChecked"]
-  SETTABLEKS R2 R10 K21 ["Checked"]
-  GETTABLEKS R11 R0 K13 ["Type"]
-  SETTABLEKS R11 R10 K13 ["Type"]
-  GETTABLEKS R11 R0 K22 ["BannedDateTime"]
-  SETTABLEKS R11 R10 K22 ["BannedDateTime"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K6 ["Contents"]
-  GETTABLEKS R10 R0 K13 ["Type"]
-  JUMPIFNOTEQKS R10 K14 ["Warn"] [+3]
-  MOVE R9 R4
-  JUMP [+1]
-  MOVE R9 R5
-  SETTABLEKS R9 R8 K7 ["ActionPrimary"]
-  GETTABLEKS R10 R0 K13 ["Type"]
-  JUMPIFNOTEQKS R10 K14 ["Warn"] [+3]
-  MOVE R9 R5
-  JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K8 ["ActionSecondary"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K9 ["Modal"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K10 ["DisableTitleBar"]
-  LOADN R9 254
-  SETTABLEKS R9 R8 K11 ["Width"]
-  CALL R7 1 1
-  MOVE R6 R7
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K24 ["useEffect"]
-  MOVE R8 R6
-  NEWTABLE R9 0 0
-  CALL R7 2 0
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K2 ["useMemo"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  NEWTABLE R8 0 1
+  GETTABLEKS R9 R1 K3 ["locale"]
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
   LOADNIL R7
-  RETURN R7 1
+  GETUPVAL R8 2
+  DUPTABLE R9 K13 [{"Intent", "Heading", "Contents", "ActionPrimary", "ActionSecondary", "Modal", "DisableTitleBar", "OnClosed", "Width"}]
+  GETTABLEKS R11 R0 K14 ["Type"]
+  JUMPIFNOTEQKS R11 K15 ["Warn"] [+3]
+  LOADK R10 K16 ["Warning"]
+  JUMP [+1]
+  LOADK R10 K17 ["Error"]
+  SETTABLEKS R10 R9 K4 ["Intent"]
+  GETUPVAL R10 3
+  GETTABLEKS R11 R0 K14 ["Type"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K5 ["Heading"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K24 [{"ReviewDateTime", "ModeratorNote", "Reason", "SetChecked", "Checked", "Type", "BannedDateTime"}]
+  GETTABLEKS R12 R0 K18 ["ReviewDateTime"]
+  SETTABLEKS R12 R11 K18 ["ReviewDateTime"]
+  GETTABLEKS R12 R0 K19 ["ModeratorNote"]
+  SETTABLEKS R12 R11 K19 ["ModeratorNote"]
+  GETTABLEKS R12 R0 K20 ["Reason"]
+  SETTABLEKS R12 R11 K20 ["Reason"]
+  SETTABLEKS R3 R11 K21 ["SetChecked"]
+  SETTABLEKS R2 R11 K22 ["Checked"]
+  GETTABLEKS R12 R0 K14 ["Type"]
+  SETTABLEKS R12 R11 K14 ["Type"]
+  GETTABLEKS R12 R0 K23 ["BannedDateTime"]
+  SETTABLEKS R12 R11 K23 ["BannedDateTime"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K6 ["Contents"]
+  GETTABLEKS R11 R0 K14 ["Type"]
+  JUMPIFNOTEQKS R11 K15 ["Warn"] [+3]
+  MOVE R10 R4
+  JUMP [+1]
+  MOVE R10 R5
+  SETTABLEKS R10 R9 K7 ["ActionPrimary"]
+  GETTABLEKS R11 R0 K14 ["Type"]
+  JUMPIFNOTEQKS R11 K15 ["Warn"] [+3]
+  MOVE R10 R5
+  JUMP [+1]
+  MOVE R10 R6
+  SETTABLEKS R10 R9 K8 ["ActionSecondary"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K9 ["Modal"]
+  GETTABLEKS R11 R0 K14 ["Type"]
+  JUMPIFNOTEQKS R11 K15 ["Warn"] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K10 ["DisableTitleBar"]
+  GETTABLEKS R10 R0 K25 ["OpenQuitDialog"]
+  SETTABLEKS R10 R9 K11 ["OnClosed"]
+  LOADN R10 254
+  SETTABLEKS R10 R9 K12 ["Width"]
+  CALL R8 1 1
+  MOVE R7 R8
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K26 ["useEffect"]
+  MOVE R9 R7
+  NEWTABLE R10 0 0
+  CALL R8 2 0
+  LOADNIL R8
+  RETURN R8 1
 
 MAIN:
   PREPVARARGS 0
@@ -205,7 +240,7 @@ MAIN:
   CALL R6 1 1
   DUPCLOSURE R7 K17 [PROTO_0]
   CAPTURE VAL R4
-  DUPCLOSURE R8 K18 [PROTO_5]
+  DUPCLOSURE R8 K18 [PROTO_7]
   CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R5

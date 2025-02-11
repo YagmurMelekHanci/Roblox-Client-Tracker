@@ -7,8 +7,10 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
+local Modules = RobloxGui.Modules
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
 local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
+local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 
 local BackpackScript = {}
 BackpackScript.OpenClose = nil -- Function to toggle open/close
@@ -92,16 +94,13 @@ local PlayersService = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local StarterGui = game:GetService('StarterGui')
 local GuiService = game:GetService('GuiService')
-local CoreGui = game:GetService('CoreGui')
 local ContextActionService = game:GetService('ContextActionService')
 local VRService = game:GetService("VRService")
 local GamepadService = game:GetService("GamepadService")
-local CorePackages = game:GetService("CorePackages")
-local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
-local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+local IsTenFootInterface = require(Modules.TenFootInterface):IsEnabled()
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
-local GameTranslator = require(RobloxGui.Modules.GameTranslator)
+local GameTranslator = require(Modules.GameTranslator)
 
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
@@ -1337,7 +1336,15 @@ local function OnCoreGuiChanged(coreGuiType, enabled)
 	if coreGuiType == Enum.CoreGuiType.Backpack or coreGuiType == Enum.CoreGuiType.All then
 		enabled = enabled and TopbarEnabled
 		WholeThingEnabled = enabled
-		MainFrame.Visible = enabled
+		if FFlagMountCoreGuiBackpack then
+			if enabled then
+				MainFrame.Parent = RobloxGui
+			else
+				MainFrame.Parent = nil
+			end
+		else
+			MainFrame.Visible = enabled
+		end
 
 		-- Eat/Release hotkeys (Doesn't affect UserInputService)
 		for _, keyString in pairs(HotkeyStrings) do
@@ -1382,8 +1389,15 @@ end
 
 -- Make the main frame, which (mostly) covers the screen
 MainFrame = NewGui('Frame', 'Backpack')
-MainFrame.Visible = false
-MainFrame.Parent = RobloxGui
+if FFlagMountCoreGuiBackpack then
+	if StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Backpack) then
+		MainFrame.Parent = RobloxGui
+	end
+else
+	MainFrame.Visible = false
+	MainFrame.Parent = RobloxGui
+end
+
 
 -- Make the HotbarFrame, which holds only the Hotbar Slots
 HotbarFrame = NewGui('Frame', 'Hotbar')

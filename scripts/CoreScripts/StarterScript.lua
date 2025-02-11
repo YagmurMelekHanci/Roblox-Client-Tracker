@@ -75,7 +75,6 @@ local FFlagEnableCancelSubscriptionAppLua = game:DefineFastFlag("EnableCancelSub
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
 local FFlagEnableExperienceMenuSessionTracking =
 	require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
-local FFlagCoreGuiEnableAnalytics = game:DefineFastFlag("CoreGuiEnableAnalytics", false)
 local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 	game:DefineFastFlag("EnableExperienceGenericChallengeRenderingOnLoadingScript", false)
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
@@ -512,9 +511,8 @@ end
 if FFlagEnableRobloxCommerce then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CommercePurchaseApp", RobloxGui)
 end
-if FFlagCoreGuiEnableAnalytics then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/CoreGuiEnableAnalytics", RobloxGui)
-end
+	
+ScriptContext:AddCoreScriptLocal("CoreScripts/CoreGuiEnableAnalytics", RobloxGui)
 
 if not FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript then
 	-- Initializes the in-experience challenge interceptor, used to handle

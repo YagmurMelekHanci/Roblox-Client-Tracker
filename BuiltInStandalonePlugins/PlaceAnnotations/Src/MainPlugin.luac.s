@@ -143,7 +143,7 @@ PROTO_9:
   GETTABLEKS R4 R2 K3 ["enabled"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K4 ["provide"]
-  NEWTABLE R6 0 6
+  NEWTABLE R6 0 7
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K5 ["new"]
   MOVE R8 R3
@@ -160,24 +160,27 @@ PROTO_9:
   CALL R11 0 1
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K5 ["new"]
-  CALL R12 0 -1
+  CALL R12 0 1
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K5 ["new"]
+  CALL R13 0 -1
   SETLIST R6 R7 -1 [1]
   DUPTABLE R7 K10 [{"MainWidget"}]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K11 ["createElement"]
   GETUPVAL R9 6
+  GETTABLEKS R8 R9 K11 ["createElement"]
+  GETUPVAL R9 7
   DUPTABLE R10 K22 [{"Id", "Enabled", "ShouldRestore", "OnWidgetRestored", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose"}]
   LOADK R11 K23 ["PlaceAnnotations"]
   SETTABLEKS R11 R10 K12 ["Id"]
   SETTABLEKS R4 R10 K13 ["Enabled"]
-  GETUPVAL R13 7
+  GETUPVAL R13 8
   GETTABLEKS R12 R13 K24 ["fflagAnnotationsWidgetRestoreFix"]
   JUMPIFNOT R12 [+2]
   LOADB R11 1
   JUMP [+1]
   LOADNIL R11
   SETTABLEKS R11 R10 K14 ["ShouldRestore"]
-  GETUPVAL R13 7
+  GETUPVAL R13 8
   GETTABLEKS R12 R13 K24 ["fflagAnnotationsWidgetRestoreFix"]
   JUMPIFNOT R12 [+3]
   NEWCLOSURE R11 P0
@@ -209,14 +212,14 @@ PROTO_9:
   SETTABLEKS R11 R10 K21 ["OnClose"]
   DUPTABLE R11 K37 [{"AnnotationListView", "StyleLink"}]
   JUMPIFNOT R4 [+6]
-  GETUPVAL R13 5
+  GETUPVAL R13 6
   GETTABLEKS R12 R13 K11 ["createElement"]
-  GETUPVAL R13 8
+  GETUPVAL R13 9
   CALL R12 1 1
   JUMP [+1]
   LOADNIL R12
   SETTABLEKS R12 R11 K35 ["AnnotationListView"]
-  GETUPVAL R13 5
+  GETUPVAL R13 6
   GETTABLEKS R12 R13 K11 ["createElement"]
   LOADK R13 K36 ["StyleLink"]
   DUPTABLE R14 K39 [{"StyleSheet"}]
@@ -274,57 +277,63 @@ MAIN:
   GETTABLEKS R13 R14 K23 ["Contexts"]
   GETTABLEKS R12 R13 K25 ["InputListenerContext"]
   CALL R11 1 1
-  GETTABLEKS R13 R2 K26 ["Styling"]
-  GETTABLEKS R12 R13 K27 ["registerPluginStyles"]
-  GETTABLEKS R16 R0 K9 ["Src"]
-  GETTABLEKS R15 R16 K28 ["Resources"]
-  GETTABLEKS R14 R15 K29 ["Localization"]
-  GETTABLEKS R13 R14 K30 ["SourceStrings"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K9 ["Src"]
+  GETTABLEKS R14 R15 K23 ["Contexts"]
+  GETTABLEKS R13 R14 K26 ["AnnotationsServiceContext"]
+  CALL R12 1 1
+  GETTABLEKS R14 R2 K27 ["Styling"]
+  GETTABLEKS R13 R14 K28 ["registerPluginStyles"]
   GETTABLEKS R17 R0 K9 ["Src"]
-  GETTABLEKS R16 R17 K28 ["Resources"]
-  GETTABLEKS R15 R16 K29 ["Localization"]
-  GETTABLEKS R14 R15 K31 ["LocalizedStrings"]
-  GETTABLEKS R15 R1 K32 ["PureComponent"]
-  LOADK R17 K33 ["MainPlugin"]
-  NAMECALL R15 R15 K34 ["extend"]
-  CALL R15 2 1
-  DUPTABLE R16 K39 [{"DataModel", "Category", "PluginId", "ItemId"}]
-  LOADK R17 K12 ["Standalone"]
-  SETTABLEKS R17 R16 K35 ["DataModel"]
-  LOADK R17 K40 ["Actions"]
-  SETTABLEKS R17 R16 K36 ["Category"]
-  LOADK R17 K2 ["PlaceAnnotations"]
-  SETTABLEKS R17 R16 K37 ["PluginId"]
-  LOADK R17 K41 ["Toggle"]
-  SETTABLEKS R17 R16 K38 ["ItemId"]
-  DUPTABLE R17 K39 [{"DataModel", "Category", "PluginId", "ItemId"}]
+  GETTABLEKS R16 R17 K29 ["Resources"]
+  GETTABLEKS R15 R16 K30 ["Localization"]
+  GETTABLEKS R14 R15 K31 ["SourceStrings"]
+  GETTABLEKS R18 R0 K9 ["Src"]
+  GETTABLEKS R17 R18 K29 ["Resources"]
+  GETTABLEKS R16 R17 K30 ["Localization"]
+  GETTABLEKS R15 R16 K32 ["LocalizedStrings"]
+  GETTABLEKS R16 R1 K33 ["PureComponent"]
+  LOADK R18 K34 ["MainPlugin"]
+  NAMECALL R16 R16 K35 ["extend"]
+  CALL R16 2 1
+  DUPTABLE R17 K40 [{"DataModel", "Category", "PluginId", "ItemId"}]
   LOADK R18 K12 ["Standalone"]
-  SETTABLEKS R18 R17 K35 ["DataModel"]
-  LOADK R18 K40 ["Actions"]
-  SETTABLEKS R18 R17 K36 ["Category"]
+  SETTABLEKS R18 R17 K36 ["DataModel"]
+  LOADK R18 K41 ["Actions"]
+  SETTABLEKS R18 R17 K37 ["Category"]
   LOADK R18 K2 ["PlaceAnnotations"]
-  SETTABLEKS R18 R17 K37 ["PluginId"]
-  LOADK R18 K42 ["AddAnnotation"]
-  SETTABLEKS R18 R17 K38 ["ItemId"]
-  DUPCLOSURE R18 K43 [PROTO_7]
+  SETTABLEKS R18 R17 K38 ["PluginId"]
+  LOADK R18 K42 ["Toggle"]
+  SETTABLEKS R18 R17 K39 ["ItemId"]
+  DUPTABLE R18 K40 [{"DataModel", "Category", "PluginId", "ItemId"}]
+  LOADK R19 K12 ["Standalone"]
+  SETTABLEKS R19 R18 K36 ["DataModel"]
+  LOADK R19 K41 ["Actions"]
+  SETTABLEKS R19 R18 K37 ["Category"]
+  LOADK R19 K2 ["PlaceAnnotations"]
+  SETTABLEKS R19 R18 K38 ["PluginId"]
+  LOADK R19 K43 ["AddAnnotation"]
+  SETTABLEKS R19 R18 K39 ["ItemId"]
+  DUPCLOSURE R19 K44 [PROTO_7]
   CAPTURE VAL R4
-  CAPTURE VAL R16
   CAPTURE VAL R17
+  CAPTURE VAL R18
   CAPTURE VAL R3
   CAPTURE VAL R7
-  CAPTURE VAL R13
   CAPTURE VAL R14
-  CAPTURE VAL R12
-  SETTABLEKS R18 R15 K44 ["init"]
-  DUPCLOSURE R18 K45 [PROTO_9]
+  CAPTURE VAL R15
+  CAPTURE VAL R13
+  SETTABLEKS R19 R16 K45 ["init"]
+  DUPCLOSURE R19 K46 [PROTO_9]
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R6
-  SETTABLEKS R18 R15 K46 ["render"]
-  RETURN R15 1
+  SETTABLEKS R19 R16 K47 ["render"]
+  RETURN R16 1

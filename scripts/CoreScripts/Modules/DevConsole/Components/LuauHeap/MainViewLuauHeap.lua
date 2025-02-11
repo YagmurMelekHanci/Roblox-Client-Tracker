@@ -4,8 +4,11 @@ local CorePackages = game:GetService("CorePackages")
 local ScriptContext = game:GetService("ScriptContext")
 local HttpService = game:GetService("HttpService")
 
+local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
+
+local memoize = AppCommonLib.memoize
 
 local Components = script.Parent.Parent.Parent.Components
 local DataConsumer = require(Components.DataConsumer)
@@ -24,6 +27,123 @@ local PADDING = Constants.GeneralFormatting.MainRowPadding
 local MainViewLuauHeap = Roact.PureComponent:extend("MainViewLuauHeap")
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local FFlagHeapProfilerSearch = require(RobloxGui.Modules.Flags.FFlagHeapProfilerSearch)
+
+local function filterNode(entry: any, term: string?): any?
+	if term == nil then
+		return false
+	end
+
+	local entry = table.clone(entry)
+	local found = false
+
+	if entry.Name ~= nil then
+		found = string.find(string.lower(entry.Name), string.lower(term), 1, true) ~= nil
+	end
+
+	if entry.Source ~= nil then
+		local isMatch = string.find(string.lower(entry.Source), string.lower(term), 1, true) ~= nil
+		found = found or isMatch
+	end
+
+	if entry.Paths ~= nil then
+		for _, path in entry.Paths do
+			for _, pathEntry in path do
+				local isMatch = string.find(string.lower(pathEntry), string.lower(term), 1, true) ~= nil
+				found = found or isMatch
+			end
+		end
+	end
+
+	if entry.Roots ~= nil then
+		local newRoots = {}
+		for _, root in entry.Roots do
+			local newNode = table.clone(root) :: LuauHeapTypes.UniqueRefEntry
+			local isMatch = filterNode(newNode, term)
+			if isMatch then
+				table.insert(newRoots, newNode)
+			end
+			found = found or isMatch
+		end
+		entry.Roots = newRoots
+	end
+
+	if entry.Children ~= nil then
+		local newChildren = {}
+		for _, child in entry.Children do
+			local newNode = table.clone(child) :: LuauHeapTypes.UniqueRefEntry
+			local isMatch = filterNode(newNode, term)
+			if isMatch then
+				table.insert(newChildren, child)
+			end
+			found = found or isMatch
+		end
+		entry.Children = newChildren
+	end
+
+	if found then
+		return entry
+	else
+		return nil
+	end
+end
+
+local function filterSnapshots(snapshots: { LuauHeapTypes.HeapReport }, term: string?): { LuauHeapTypes.HeapReport }
+	if term == nil then
+		return snapshots
+	end
+
+	local newSnapshots = {}
+	for _, snapshot in snapshots do
+		local newSnapshot = table.clone(snapshot) :: LuauHeapTypes.HeapReport
+
+		-- Filter newState.TagBreakdown
+		local newTagBreakdown = {}
+		for _, node in newSnapshot.TagBreakdown do
+			local newNode = filterNode(node, term)
+			if newNode then
+				table.insert(newTagBreakdown, newNode)
+			end
+		end
+		newSnapshot.TagBreakdown = newTagBreakdown
+
+		-- Filter newState.MemcatBreakdown
+		local newMemcatBreakdown = {}
+		for _, node in newSnapshot.MemcatBreakdown do
+			local newNode = filterNode(node, term)
+			if newNode then
+				table.insert(newMemcatBreakdown, newNode)
+			end
+		end
+		newSnapshot.MemcatBreakdown = newMemcatBreakdown 
+
+		-- Filter newState.UserdataBreakdown
+		local newUserdataBreakdown = {}
+		for _, node in newSnapshot.UserdataBreakdown do
+			local newNode = filterNode(node, term)
+			if newNode then
+				table.insert(newUserdataBreakdown, newNode)
+			end
+		end
+		newSnapshot.UserdataBreakdown = newUserdataBreakdown 
+
+		-- Filter newState.Graph
+		newSnapshot.Graph = filterNode(newSnapshot.Graph, term) :: LuauHeapTypes.HeapReportGraphEntry
+
+		-- Filter newState.Refs.Roots
+		if newSnapshot.Refs then
+			newSnapshot.Refs = filterNode(newSnapshot.Refs, term)
+		end
+
+		table.insert(newSnapshots, newSnapshot)
+	end
+
+	return newSnapshots
+end
+
 
 function MainViewLuauHeap:getState(isClient: boolean): LuauHeapTypes.SessionState
 	return if isClient then self.props.client else self.props.server
@@ -47,6 +167,8 @@ function MainViewLuauHeap:init()
 	self.onServerButton = function()
 		self.props.dispatchSetLuauHeapProfileTarget(false)
 	end
+	
+	self.filterSnapshots = memoize(filterSnapshots)
 
 	self.onCreateSnapshot = function()
 		local isClientView, state = self:getActiveState()
@@ -86,8 +208,21 @@ function MainViewLuauHeap:init()
 	self.utilRef = Roact.createRef()
 
 	self.state = {
+		searchTerm = nil,
 		utilTabHeight = 0,
 	}
+
+	self.onSearchTermChanged = function(searchTerm: string?)
+		if searchTerm == nil or searchTerm == "" then
+			self:setState({
+				searchTerm = Roact.None,
+			})
+		else
+			self:setState({
+				searchTerm = searchTerm,
+			})
+		end
+	end
 end
 
 function MainViewLuauHeap:didMount()
@@ -160,6 +295,8 @@ function MainViewLuauHeap:render()
 
 			refForParent = self.utilRef,
 			onHeightChanged = self.onUtilTabHeightChanged,
+
+			onSearchTermChanged = if FFlagHeapProfilerSearch then self.onSearchTermChanged else nil,
 		}, {
 			Roact.createElement(BoxButton, {
 				text = "Create Snaphot",
@@ -175,7 +312,7 @@ function MainViewLuauHeap:render()
 		LuauHeapView = Roact.createElement(LuauHeapView, {
 			size = UDim2.new(1, 0, 1, -utilTabHeight),
 			layoutOrder = 2,
-			data = state.snapshots,
+			data = if FFlagHeapProfilerSearch then self.filterSnapshots(state.snapshots, self.state.searchTerm) else state.snapshots,
 			activeSnapshot = state.active,
 			compareSnapshot = state.compare,
 		}),

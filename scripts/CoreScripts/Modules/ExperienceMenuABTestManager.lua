@@ -33,13 +33,15 @@ local GetFFlagDisableChromeV3DockedMic = require(script.Parent.Flags.GetFFlagDis
 local GetFFlagDisableChromeV4Baseline = require(script.Parent.Flags.GetFFlagDisableChromeV4Baseline)()
 local GetFFlagDisableChromeV4ClosedSelfView = require(script.Parent.Flags.GetFFlagDisableChromeV4ClosedSelfView)()
 
+local GetFFlagSetupSongbirdWindowExperimentFeb2025 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSetupSongbirdWindowExperimentFeb2025
+
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
 local TEST_VERSION = "t10" -- bump on new A/B campaigns
 local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
-local SONGBIRD_TEST_VERSION = "s2"
+local SONGBIRD_TEST_VERSION = if GetFFlagSetupSongbirdWindowExperimentFeb2025() then "s3" else "s2"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION

@@ -147,8 +147,6 @@ local GetFFlagDefaultFriendingLabelTextNonEmpty =
 local GetFFlagEnableLeaveGameUpsellEntrypoint =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
 local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
-local FFlagInExperienceMenuResetButtonTextToRespawn =
-	require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuResetButtonTextToRespawn)
 local GetFFlagDisableMuteAllCheckForIsMuted =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagDisableMuteAllCheckForIsMuted)
 
@@ -190,14 +188,10 @@ local function Initialize()
 	end
 
 	--[[ Localization Package Initialization ]]
-	local LocalizationStrings
-	local localeId
-	if FFlagInExperienceMenuResetButtonTextToRespawn or FFlagAppChatRebrandInNonChrome then
-		LocalizationStrings = {}
-		localeId = LocalizationService.RobloxLocaleId
-		if not LocalizationStrings[localeId] then
-			LocalizationStrings[localeId] = Localization.new(localeId)
-		end
+	local LocalizationStrings = {}
+	local localeId = LocalizationService.RobloxLocaleId
+	if not LocalizationStrings[localeId] then
+		LocalizationStrings[localeId] = Localization.new(localeId)
 	end
 
 	------ TAB CUSTOMIZATION -------
@@ -828,9 +822,7 @@ local function Initialize()
 	end
 
 	-- Adds to mobile
-	local RESET_TEXT = if FFlagInExperienceMenuResetButtonTextToRespawn
-		then LocalizationStrings[localeId]:Format(Constants.RespawnLocalizedKey)
-		else "Reset Character"
+	local RESET_TEXT = LocalizationStrings[localeId]:Format(Constants.RespawnLocalizedKey)
 	local resetButton, resetLabel =
 		utility:MakeStyledButton("ResetButton", RESET_TEXT, UDim2.new(1 / 3, -buttonPadding, 1, 0), resetFunc)
 	resetButton.AnchorPoint = Vector2.new(0.5, 0)
