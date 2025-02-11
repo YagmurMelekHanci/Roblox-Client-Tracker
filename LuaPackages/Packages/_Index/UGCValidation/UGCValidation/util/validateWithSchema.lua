@@ -1,6 +1,8 @@
 --!nonstrict
 local root = script.Parent.Parent
 
+local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
+
 local checkForProxyWrap = require(root.util.checkForProxyWrap)
 
 local function checkName(nameList, instanceName)
@@ -90,8 +92,10 @@ local function validateWithSchema(schema, instance, validationContext)
 	local unauthorizedDescendantPaths = {}
 	for _, descendant in pairs(instance:GetDescendants()) do
 		if authorizedSet[descendant] == nil then
-			if allowEditableInstances and checkForProxyWrap(descendant) then
-				continue
+			if not getEngineFeatureRemoveProxyWrap() then
+				if allowEditableInstances and checkForProxyWrap(descendant) then
+					continue
+				end
 			end
 			unauthorizedDescendantPaths[#unauthorizedDescendantPaths + 1] = descendant:GetFullName()
 		end

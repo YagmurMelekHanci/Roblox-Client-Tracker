@@ -9,6 +9,8 @@ local getFIntMeshDivisionFullExtended = require(root.flags.getFIntMeshDivisionFu
 local getFIntMeshDivisionMedium = require(root.flags.getFIntMeshDivisionMedium)
 local getFIntMeshDivisionNarrow = require(root.flags.getFIntMeshDivisionNarrow)
 
+local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
+
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagUGCValidationAdjustLegBounds = require(root.flags.getFFlagUGCValidationAdjustLegBounds)
 local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
@@ -1002,7 +1004,9 @@ end
 Constants.GUIDAttributeName = "RBXGUID"
 Constants.GUIDAttributeMaxLength = 100
 
-Constants.ProxyWrapAttributeName = "RBX_WRAP_DEFORMER_PROXY"
+if not getEngineFeatureRemoveProxyWrap() then
+	Constants.ProxyWrapAttributeName = "RBX_WRAP_DEFORMER_PROXY"
+end
 Constants.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID"
 
 return Constants

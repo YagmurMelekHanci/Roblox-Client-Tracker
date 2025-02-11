@@ -50,6 +50,7 @@ export type ValidationContext = {
 	validateMeshPartAccessories: boolean,
 	partSizes: PartSizes?,
 	requireAllFolders: boolean?,
+	specialMeshAccessory: Accessory?,
 }
 
 export type MeshInfo = {

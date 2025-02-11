@@ -35,8 +35,6 @@ local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCVal
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFFlagUGCValidateCageUVTriangleArea = require(root.flags.getFFlagUGCValidateCageUVTriangleArea)
-local getFFlagUGCValidateMeshTriangleAreaForCages = require(root.flags.getFFlagUGCValidateMeshTriangleAreaForCages)
-local getFFlagUGCValidateMeshTriangleAreaForMeshes = require(root.flags.getFFlagUGCValidateMeshTriangleAreaForMeshes)
 local getFFlagUGCValidateUVValuesInReference = require(root.flags.getFFlagUGCValidateUVValuesInReference)
 local getFFlagUGCValidateTotalSurfaceAreaTestBody = require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestBody)
 local getFFlagUGCValidateAllowFlexibleTriangleLimit = require(root.flags.getFFlagUGCValidateAllowFlexibleTriangleLimit)
@@ -329,9 +327,7 @@ local function validateDescendantMeshMetrics(
 			)
 			Analytics.recordScriptTime("validateIsSkinned", startTime, validationContext)
 
-			if getFFlagUGCValidateMeshTriangleAreaForMeshes() then
-				reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
-			end
+			reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
 		elseif data.instance.ClassName == "WrapTarget" then
 			assert(data.fieldName == "CageMeshId")
 			meshInfo.fullName = meshInfo.fullName .. "OuterCage"
@@ -351,9 +347,7 @@ local function validateDescendantMeshMetrics(
 				)
 			end
 
-			if getFFlagUGCValidateMeshTriangleAreaForCages() then
-				reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
-			end
+			reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
 		end
 
 		if getFFlagUGCValidateBodyPartsExtendedMeshTests() then

@@ -14,6 +14,7 @@ return {
 	FoundationFixSupportImageBinding = SafeFlags.createGetFFlag("FoundationFixSupportImageBinding")(),
 	FoundationDisableBadgeTruncation = SafeFlags.createGetFFlag("FoundationDisableBadgeTruncation")(),
 	FoundationAddWidthToToast = SafeFlags.createGetFFlag("FoundationAddWidthToToast")(),
+	FoundationToastButtonsFillRightToLeft = SafeFlags.createGetFFlag("FoundationToastButtonsFillRightToLeft")(),
 	FoundationButtonSubEmphasisInverseStateLayer = SafeFlags.createGetFFlag(
 		"FoundationButtonSubEmphasisInverseStateLayer"
 	)(),

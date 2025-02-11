@@ -1,6 +1,8 @@
 local root = script
 
 local getFFlagUGCValidateUseDataCache = require(root.flags.getFFlagUGCValidateUseDataCache)
+local getEngineFeatureUGCValidationWithContextEntrypoint =
+	require(root.flags.getEngineFeatureUGCValidationWithContextEntrypoint)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -26,6 +28,56 @@ local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynami
 
 local UGCValidation = {}
 
+if getEngineFeatureUGCValidationWithContextEntrypoint() then
+	function UGCValidation.validateWithContext(validationContext: Types.ValidationContext)
+		local instances = validationContext.instances
+		local isServer = validationContext.isServer
+		local assetTypeEnum = validationContext.assetTypeEnum
+		local allowEditableInstances = validationContext.allowEditableInstances
+
+		local startTime = tick()
+
+		Analytics.setMetadata({
+			entrypoint = "validate",
+			assetType = assetTypeEnum.Name,
+			isServer = isServer,
+		})
+
+		local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+		if not success then
+			if isServer then
+				error(result[1])
+			else
+				return success, result
+			end
+		end
+
+		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = result.editableImages :: Types.EditableImages
+
+		local validationSuccess, reasons = validateInternal(validationContext)
+
+		destroyEditableInstances(
+			validationContext.editableMeshes :: Types.EditableMeshes,
+			validationContext.editableImages :: Types.EditableImages
+		)
+
+		if validationSuccess then
+			Analytics.recordScriptTime(script.Name, startTime, validationContext)
+			Analytics.reportScriptTimes(validationContext)
+		end
+
+		Analytics.reportCounter(
+			validationSuccess,
+			if assetTypeEnum == Enum.AssetType.DynamicHead then "Head" else "BodyPart",
+			validationContext
+		)
+
+		return validationSuccess, reasons
+	end
+end
+
+-- TODO: Remove with getEngineFeatureUGCValidationWithContextEntrypoint
 function UGCValidation.validate(
 	instances: { Instance },
 	assetTypeEnum: Enum.AssetType,
@@ -136,6 +188,7 @@ function UGCValidation.validateAsync(
 	end)()
 end
 
+-- TODO: this isn't used anywhere, remove?
 function UGCValidation.validateMeshPartFormat(
 	instances: { Instance },
 	assetTypeEnum: Enum.AssetType,
@@ -224,6 +277,51 @@ function UGCValidation.validateAsyncMeshPartFormat(
 	end)()
 end
 
+if getEngineFeatureUGCValidationWithContextEntrypoint() then
+	function UGCValidation.validateMeshPartAssetFormatWithContext(validationContext: Types.ValidationContext)
+		local instances = validationContext.instances
+		local assetTypeEnum = validationContext.assetTypeEnum
+		local isServer = validationContext.isServer
+		local specialMeshAccessory = validationContext.specialMeshAccessory
+
+		Analytics.setMetadata({
+			entrypoint = "validateMeshPartAssetFormat2",
+			assetType = assetTypeEnum.Name,
+			isServer = isServer,
+		})
+
+		local success, result = createEditableInstancesForContext(instances)
+		if not success then
+			if isServer then
+				error(result[1])
+			else
+				return success, result
+			end
+		end
+
+		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = result.editableImages :: Types.EditableImages
+		validationContext.validateMeshPartAccessories = false
+
+		local validationSuccess, reasons
+		if isLayeredClothing(instances[1]) then
+			validationSuccess, reasons =
+				validateLayeredClothingAccessoryMeshPartAssetFormat(specialMeshAccessory, validationContext)
+		else
+			validationSuccess, reasons =
+				validateLegacyAccessoryMeshPartAssetFormat(specialMeshAccessory, validationContext)
+		end
+
+		destroyEditableInstances(
+			validationContext.editableMeshes :: Types.EditableMeshes,
+			validationContext.editableImages :: Types.EditableImages
+		)
+
+		return validationSuccess, reasons
+	end
+end
+
+-- TODO remove with getEngineFeatureUGCValidationWithContextEntrypoint
 function UGCValidation.validateMeshPartAssetFormat2(
 	instances: { Instance },
 	specialMeshAccessory: Instance,
@@ -323,6 +421,60 @@ UGCValidation.util = {
 UGCValidation.util.isLayeredClothingAllowed = RigidOrLayeredAllowed.isLayeredClothingAllowed
 UGCValidation.util.isRigidAccessoryAllowed = RigidOrLayeredAllowed.isRigidAccessoryAllowed
 
+if getEngineFeatureUGCValidationWithContextEntrypoint() then
+	function UGCValidation.validateFullBodyWithContext(
+		validationContext: Types.ValidationContext
+	): (boolean, { string }?)
+		local isServer = validationContext.isServer
+		local fullBodyData = validationContext.fullBodyData
+		local allowEditableInstances = validationContext.allowEditableInstances
+
+		Analytics.setMetadata({
+			entrypoint = "validateFullBody",
+			assetType = "",
+			isServer = isServer,
+		})
+
+		local startTime = tick()
+
+		local instances = {}
+		for _, instancesAndType in fullBodyData do
+			for _, instance in instancesAndType.allSelectedInstances do
+				table.insert(instances, instance)
+			end
+		end
+
+		local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+		if not success then
+			if isServer then
+				error(result[1])
+			else
+				return success, result
+			end
+		end
+
+		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = result.editableImages :: Types.EditableImages
+
+		local validationSuccess, reasons = validateFullBody(validationContext)
+
+		destroyEditableInstances(
+			validationContext.editableMeshes :: Types.EditableMeshes,
+			validationContext.editableImages :: Types.EditableImages
+		)
+
+		if validationSuccess then
+			Analytics.recordScriptTime(script.Name, startTime, validationContext)
+			Analytics.reportScriptTimes(validationContext)
+		end
+
+		Analytics.reportCounter(validationSuccess, "FullBody", validationContext)
+
+		return validationSuccess, reasons
+	end
+end
+
+-- TODO: Remove with getEngineFeatureUGCValidationWithContextEntrypoint
 function UGCValidation.validateFullBody(
 	fullBodyData: Types.FullBodyData,
 	isServer: boolean?,

@@ -7,6 +7,8 @@
 
 local root = script.Parent.Parent
 
+local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
+
 local Constants = require(root.Constants)
 local checkForProxyWrap = require(root.util.checkForProxyWrap)
 local isProxyWrapParent = require(root.util.isProxyWrapParent)
@@ -108,16 +110,30 @@ end
 local function parseContentId(contentIds, contentIdMap, allResults, object, fieldName, isRequired, validationContext)
 	local contentId = object[fieldName]
 
-	if contentId == "" or (validationContext.allowEditableInstances and isProxyWrapParent(object)) then
-		if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
-			if allResults then
-				table.insert(allResults, { fieldName = fieldName, instance = object })
+	if getEngineFeatureRemoveProxyWrap() then
+		if contentId == "" then
+			if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
+				if allResults then
+					table.insert(allResults, { fieldName = fieldName, instance = object })
+				end
+			elseif isRequired then
+				return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
 			end
-		elseif isRequired then
-			return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
-		end
 
-		return true
+			return true
+		end
+	else
+		if contentId == "" or (validationContext.allowEditableInstances and isProxyWrapParent(object)) then
+			if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
+				if allResults then
+					table.insert(allResults, { fieldName = fieldName, instance = object })
+				end
+			elseif isRequired then
+				return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
+			end
+
+			return true
+		end
 	end
 
 	local id = tryGetAssetIdFromContentIdInternal(contentId)
@@ -167,8 +183,10 @@ local function parseWithErrorCheckInternal(
 	table.insert(descendantsAndObject, object)
 
 	for _, descendant in pairs(descendantsAndObject) do
-		if allowEditableInstances and checkForProxyWrap(descendant) then
-			continue
+		if not getEngineFeatureRemoveProxyWrap() then
+			if allowEditableInstances and checkForProxyWrap(descendant) then
+				continue
+			end
 		end
 		local contentIdFields = allFields[descendant.ClassName]
 		if contentIdFields then

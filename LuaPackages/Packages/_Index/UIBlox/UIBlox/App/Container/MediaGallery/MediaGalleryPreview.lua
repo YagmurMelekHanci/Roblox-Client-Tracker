@@ -24,6 +24,8 @@ local getShowItems = require(MediaGallery.getShowItems)
 local calcMediaGallerySizesFromWidth = require(MediaGallery.calcMediaGallerySizesFromWidth)
 local calcMediaGallerySizesFromHeight = require(MediaGallery.calcMediaGallerySizesFromHeight)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local ICON_CYCLE_LEFT = "icons/actions/cycleLeft"
 local ICON_CYCLE_RIGHT = "icons/actions/cycleRight"
 
@@ -49,6 +51,8 @@ MediaGalleryPreview.validateProps = t.strictInterface({
 	-- The Size of the cell.
 	-- If it's no set, the cell will size itself to the parent container
 	size = t.optional(t.UDim2),
+	-- If true then preview and pagination should take up full width of size without leaving room for pagination arrows
+	fullWidth = if UIBloxConfig.enableEdpComponentAlignment then t.optional(t.boolean) else nil,
 	-- The AnchorPoint of the cell
 	anchorPoint = t.optional(t.Vector2),
 	-- The Position of the cell
@@ -71,6 +75,7 @@ MediaGalleryPreview.validateProps = t.strictInterface({
 MediaGalleryPreview.defaultProps = {
 	size = UDim2.fromScale(1, 1),
 	numberOfThumbnails = DEFAULT_THUMBNAILS_COUNT,
+	fullWidth = if UIBloxConfig.enableEdpComponentAlignment then false else nil,
 }
 
 function MediaGalleryPreview.getDerivedStateFromProps(nextProps, lastState)
@@ -538,9 +543,17 @@ function MediaGalleryPreview:updateSizes(container)
 	local containerHeight = container.AbsoluteSize.Y
 	local numberOfThumbnails = self.props.numberOfThumbnails
 
-	local sizes = calcMediaGallerySizesFromWidth(containerWidth, numberOfThumbnails)
+	local sizes = calcMediaGallerySizesFromWidth(
+		containerWidth,
+		numberOfThumbnails,
+		if UIBloxConfig.enableEdpComponentAlignment then self.props.fullWidth else nil
+	)
 	if sizes.contentSize.Y.Offset > containerHeight then
-		sizes = calcMediaGallerySizesFromHeight(containerHeight, numberOfThumbnails)
+		sizes = calcMediaGallerySizesFromHeight(
+			containerHeight,
+			numberOfThumbnails,
+			if UIBloxConfig.enableEdpComponentAlignment then self.props.fullWidth else nil
+		)
 	end
 
 	self.updateContentSize(sizes.contentSize)

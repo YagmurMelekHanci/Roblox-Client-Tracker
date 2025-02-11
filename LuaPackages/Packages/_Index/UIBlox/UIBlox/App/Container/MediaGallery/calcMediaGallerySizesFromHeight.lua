@@ -1,6 +1,8 @@
 local MediaGallery = script.Parent
 local Container = MediaGallery.Parent
 local App = Container.Parent
+local UIBlox = App.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local getIconSize = require(App.ImageSet.getIconSize)
 local IconSize = require(App.ImageSet.Enum.IconSize)
@@ -13,7 +15,7 @@ local PADDING_ITEMS = 12
 local IMAGE_RATIO = 16 / 9 -- width / height
 local PAGINATION_ARROW_WIDTH = getIconSize(IconSize.Medium)
 
-function calcMediaGallerySizesFromHeight(containerHeight: number, numberOfThumbnails: number)
+function calcMediaGallerySizesFromHeight(containerHeight: number, numberOfThumbnails: number, fullWidth: boolean?)
 	-- reverse calculation of calcMediaGallerySizesFromWidth()
 	local contentWidth = math.floor(
 		(
@@ -24,7 +26,11 @@ function calcMediaGallerySizesFromHeight(containerHeight: number, numberOfThumbn
 		) / (numberOfThumbnails + 1)
 	)
 
-	return calcMediaGallerySizesFromWidth(contentWidth, numberOfThumbnails)
+	return calcMediaGallerySizesFromWidth(
+		contentWidth,
+		numberOfThumbnails,
+		if UIBloxConfig.enableEdpComponentAlignment then fullWidth else nil
+	)
 end
 
 return calcMediaGallerySizesFromHeight

@@ -65,9 +65,6 @@ return {
 	-- Indicate whether the fix for button loading shimmer panel not covering edges is enabled
 	enableButtonLoadingShimmerPanelFix = false,
 
-	-- Use GetTextSize and AutomaticSize to add support for larger than default text in Tile and TileName
-	refactorTileTextHeights = false,
-
 	-- Bugfix for HeaderBar title flickering
 	fixHeaderBarTitleFlickering = false,
 
@@ -157,4 +154,7 @@ return {
 
 	-- Remove Details Page files moved to LuaApps
 	moveDetailsPageToLuaApps = false,
+
+	-- Enable changes to align all EDP components
+	enableEdpComponentAlignment = false,
 }

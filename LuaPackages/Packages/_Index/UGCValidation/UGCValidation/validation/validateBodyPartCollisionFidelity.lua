@@ -1,5 +1,7 @@
 local root = script.Parent.Parent
 
+local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
+
 local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
@@ -24,8 +26,10 @@ local function validateBodyPartCollisionFidelity(
 	local failures = {}
 
 	for _, instance in instances do
-		if allowEditableInstances and checkForProxyWrap(instance) then
-			continue
+		if not getEngineFeatureRemoveProxyWrap() then
+			if allowEditableInstances and checkForProxyWrap(instance) then
+				continue
+			end
 		end
 		if instance:IsA("MeshPart") and instance.CollisionFidelity ~= expectedCollisionFidelity then
 			table.insert(

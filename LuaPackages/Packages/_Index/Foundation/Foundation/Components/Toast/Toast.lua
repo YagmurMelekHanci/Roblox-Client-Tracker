@@ -69,7 +69,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 				end
 
 				local buttonProps = Cryo.Dictionary.union(withDefaults(action, defaultButtonProps), {
-					LayoutOrder = i,
+					LayoutOrder = if Flags.FoundationToastButtonsFillRightToLeft then #actions - i else i,
 					size = ButtonSize.Small,
 					fillBehavior = FillBehavior.Fill,
 				})

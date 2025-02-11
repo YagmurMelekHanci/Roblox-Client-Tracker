@@ -7,6 +7,8 @@ local DEPRECATED_Constants = require(root.DEPRECATED_Constants)
 local getEngineFeatureEngineUGCValidationEnableGetValidationRules =
 	require(root.flags.getEngineFeatureEngineUGCValidationEnableGetValidationRules)
 
+local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
+
 if not getEngineFeatureEngineUGCValidationEnableGetValidationRules() then
 	return DEPRECATED_Constants
 end
@@ -371,7 +373,9 @@ end
 Constants.GUIDAttributeName = "RBXGUID"
 Constants.GUIDAttributeMaxLength = 100
 
-Constants.ProxyWrapAttributeName = "RBX_WRAP_DEFORMER_PROXY"
+if not getEngineFeatureRemoveProxyWrap() then
+	Constants.ProxyWrapAttributeName = "RBX_WRAP_DEFORMER_PROXY"
+end
 Constants.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID"
 
 return Constants

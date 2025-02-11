@@ -8,11 +8,12 @@ local ReactUtils = require(Root.Parent.ReactUtils)
 
 local getFStringSceneAnalysisProcessingMode = require(Root.flags.getFStringSceneAnalysisProcessingMode)
 
+local useCallback = React.useCallback
 local useEffect = React.useEffect
 local useState = React.useState
 local useEventConnection = ReactUtils.useEventConnection
 
-local function getAllSounds(): { Sound }
+local function getAllAudioSources(): { AudioPlayer | Sound }
 	local processingMode = getFStringSceneAnalysisProcessingMode()
 
 	if processingMode == "AudioInstances" then
@@ -28,7 +29,7 @@ local function getAllSounds(): { Sound }
 
 		if success then
 			return Cryo.List.filter(results, function(instance: Instance)
-				return instance:IsA("Sound")
+				return instance:IsA("Sound") or instance:IsA("AudioPlayer")
 			end)
 		else
 			return {}
@@ -42,15 +43,25 @@ local function getAllSounds(): { Sound }
 	end
 end
 
-local function useAllSounds(): { Sound }
+local function useAudioSources(): { AudioPlayer | Sound }
 	local processingMode = getFStringSceneAnalysisProcessingMode()
 
-	local sounds, setSounds = useState(getAllSounds)
+	local audioSources, setAudioSources = useState(getAllAudioSources)
+
+	local onAncestryChanged = useCallback(function(instance: Instance)
+		if not instance:IsDescendantOf(game) then
+			setAudioSources(function(prev)
+				return Cryo.List.filter(prev, function(other)
+					return instance ~= other
+				end)
+			end)
+		end
+	end, {})
 
 	if processingMode == "AudioInstances" then
 		useEventConnection(SoundService.AudioInstanceAdded, function(instance)
-			if instance:IsA("Sound") then
-				setSounds(function(prev)
+			if instance:IsA("Sound") or instance:IsA("AudioPlayer") then
+				setAudioSources(function(prev)
 					return Cryo.List.join(prev, { instance })
 				end)
 			end
@@ -60,15 +71,8 @@ local function useAllSounds(): { Sound }
 	useEffect(function()
 		local connections: { RBXScriptConnection } = {}
 
-		for _, sound in sounds do
-			table.insert(
-				connections,
-				sound.AncestryChanged:Connect(function()
-					if not sound:IsDescendantOf(game) then
-						setSounds(getAllSounds())
-					end
-				end)
-			)
+		for _, audioSource in audioSources do
+			table.insert(connections, audioSource.AncestryChanged:Connect(onAncestryChanged))
 		end
 
 		return function()
@@ -76,9 +80,9 @@ local function useAllSounds(): { Sound }
 				connection:Disconnect()
 			end
 		end
-	end, { sounds })
+	end, { audioSources })
 
-	return sounds
+	return audioSources
 end
 
-return useAllSounds
+return useAudioSources
