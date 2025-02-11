@@ -878,6 +878,7 @@ HighlightStudioSelectionFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateFS_00000000,Fragment
 LanczosFS,Fragment
+LanczosNonRingingFS,Fragment
 LanczosSeparateAxisFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
@@ -1065,7 +1066,9 @@ UIFogVS,Vertex
 UIFogVS_08000000,Vertex
 UIFS,Fragment
 UIFS_08000000,Fragment
+UIFSMdrSDBox,Fragment
 UILitFogFSSDBox,Fragment
+UILitFogFSSDBox_08000000,Fragment
 UITransformedLitFogVS,Vertex
 UITransformedLitFogVS_08000000,Vertex
 UITransformedVS,Vertex

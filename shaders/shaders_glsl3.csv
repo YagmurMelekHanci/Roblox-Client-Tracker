@@ -1024,6 +1024,7 @@ GridVS__0000000e,Vertex
 GridVS__00001000,Vertex
 GridVS__00001002,Vertex
 GridVS__00001006,Vertex
+GridVS__00001008,Vertex
 GridVS__0000100a,Vertex
 GridVS__0000100e,Vertex
 GridVS__00100001,Vertex
@@ -1031,6 +1032,7 @@ GridVS__00100009,Vertex
 GridVS__04000006,Vertex
 GridVS__0400000e,Vertex
 GridVS__04001006,Vertex
+GridVS__0400100e,Vertex
 GridVS_00000000,Vertex
 HighlightInPlaceFS_00000000,Fragment
 HighlightPostprocessAlphaTestFS_00000000,Fragment
@@ -1040,6 +1042,7 @@ HighlightStudioSelectionFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateFS_00000000,Fragment
 LanczosFS,Fragment
+LanczosNonRingingFS,Fragment
 LanczosSeparateAxisFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex

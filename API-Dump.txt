@@ -27,7 +27,6 @@ Class EditableMesh : Object [NotCreatable]
 	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
 	Function EditableMesh:AddUV(uv: Vector2) -> number
 	Function EditableMesh:AddVertex(p: Vector3) -> number
-	Function EditableMesh:CreateMeshPartAsync(initialSize: Vector3, options: { [string]: any }? = nil) -> MeshPart [Yields] [Deprecated]
 	Function EditableMesh:Destroy() -> ()
 	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any
 	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number
@@ -435,7 +434,6 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreateEditableImageAsync(content: Content, editableImageOptions: { [string]: any }?) -> EditableImage [Yields]
 	Function AssetService:CreateEditableMesh(editableMeshOptions: { [string]: any }?) -> EditableMesh
 	Function AssetService:CreateEditableMeshAsync(content: Content, editableMeshOptions: { [string]: any }?) -> EditableMesh [Yields]
-	Function AssetService:CreateEditableMeshFromPartAsync(meshPart: Instance) -> EditableMesh [Yields] [Deprecated]
 	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: string) -> EditableMesh {RobloxScriptSecurity} [Yields]
 	Function AssetService:CreateMeshPartAsync(meshContent: Content, options: { [string]: any }? = nil) -> MeshPart [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
@@ -493,14 +491,26 @@ Class AudioAnalyzer : Instance
 	Property AudioAnalyzer.SpectrumEnabled: boolean
 	Property AudioAnalyzer.WindowSize: Enum.AudioWindowSize
 	Function AudioAnalyzer:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioAnalyzer:GetInputPins() -> { any }
+	Function AudioAnalyzer:GetOutputPins() -> { any }
 	Function AudioAnalyzer:GetSpectrum() -> { any } [CustomLuaState]
 	Event AudioAnalyzer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
+Class AudioChannelMixer : Instance [NotBrowsable]
+	Property AudioChannelMixer.Layout: Enum.AudioChannelLayout
+	Function AudioChannelMixer:GetConnectedWires(pin: string) -> { Instance }
+	Event AudioChannelMixer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
+Class AudioChannelSplitter : Instance [NotBrowsable]
+	Property AudioChannelSplitter.Layout: Enum.AudioChannelLayout
+	Function AudioChannelSplitter:GetConnectedWires(pin: string) -> { Instance }
+	Event AudioChannelSplitter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioChorus : Instance
 	Property AudioChorus.Bypass: boolean
 	Property AudioChorus.Depth: number
 	Property AudioChorus.Mix: number
 	Property AudioChorus.Rate: number
 	Function AudioChorus:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioChorus:GetInputPins() -> { any }
+	Function AudioChorus:GetOutputPins() -> { any }
 	Event AudioChorus.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioCompressor : Instance
 	Property AudioCompressor.Attack: number
@@ -511,6 +521,8 @@ Class AudioCompressor : Instance
 	Property AudioCompressor.Threshold: number
 	Property AudioCompressor.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Function AudioCompressor:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioCompressor:GetInputPins() -> { any }
+	Function AudioCompressor:GetOutputPins() -> { any }
 	Event AudioCompressor.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioDeviceInput : Instance
 	Property AudioDeviceInput.AccessList: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
@@ -522,17 +534,23 @@ Class AudioDeviceInput : Instance
 	Property AudioDeviceInput.Player: Player?
 	Property AudioDeviceInput.Volume: number
 	Function AudioDeviceInput:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioDeviceInput:GetInputPins() -> { any }
+	Function AudioDeviceInput:GetOutputPins() -> { any }
 	Function AudioDeviceInput:GetUserIdAccessList() -> { any }
 	Function AudioDeviceInput:SetUserIdAccessList(userIds: { any }) -> ()
 	Event AudioDeviceInput.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioDeviceOutput : Instance
 	Property AudioDeviceOutput.Player: Player?
 	Function AudioDeviceOutput:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioDeviceOutput:GetInputPins() -> { any }
+	Function AudioDeviceOutput:GetOutputPins() -> { any }
 	Event AudioDeviceOutput.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioDistortion : Instance
 	Property AudioDistortion.Bypass: boolean
 	Property AudioDistortion.Level: number
 	Function AudioDistortion:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioDistortion:GetInputPins() -> { any }
+	Function AudioDistortion:GetOutputPins() -> { any }
 	Event AudioDistortion.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioEcho : Instance
 	Property AudioEcho.Bypass: boolean
@@ -542,6 +560,8 @@ Class AudioEcho : Instance
 	Property AudioEcho.RampTime: number
 	Property AudioEcho.WetLevel: number
 	Function AudioEcho:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioEcho:GetInputPins() -> { any }
+	Function AudioEcho:GetOutputPins() -> { any }
 	Function AudioEcho:Reset() -> () {RobloxScriptSecurity}
 	Event AudioEcho.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioEmitter : Instance
@@ -550,10 +570,12 @@ Class AudioEmitter : Instance
 	Property AudioEmitter.AudioInteractionGroup: string
 	Property AudioEmitter.SimulationFidelity: Enum.AudioSimulationFidelity
 	Function AudioEmitter:GetAngleAttenuation() -> { [string]: any } [CustomLuaState]
-	Function AudioEmitter:GetAudibilityFor(listener: AudioListener) -> number {RobloxScriptSecurity}
+	Function AudioEmitter:GetAudibilityFor(listener: AudioListener) -> number
 	Function AudioEmitter:GetConnectedWires(pin: string) -> { Instance }
 	Function AudioEmitter:GetDistanceAttenuation() -> { [string]: any } [CustomLuaState]
+	Function AudioEmitter:GetInputPins() -> { any }
 	Function AudioEmitter:GetInteractingListeners() -> { Instance }
+	Function AudioEmitter:GetOutputPins() -> { any }
 	Function AudioEmitter:SetAngleAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 	Function AudioEmitter:SetDistanceAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 	Event AudioEmitter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
@@ -565,11 +587,15 @@ Class AudioEqualizer : Instance
 	Property AudioEqualizer.MidRange: NumberRange
 	Property AudioEqualizer.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Function AudioEqualizer:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioEqualizer:GetInputPins() -> { any }
+	Function AudioEqualizer:GetOutputPins() -> { any }
 	Event AudioEqualizer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioFader : Instance
 	Property AudioFader.Bypass: boolean
 	Property AudioFader.Volume: number
 	Function AudioFader:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioFader:GetInputPins() -> { any }
+	Function AudioFader:GetOutputPins() -> { any }
 	Event AudioFader.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioFilter : Instance
 	Property AudioFilter.Bypass: boolean
@@ -580,6 +606,8 @@ Class AudioFilter : Instance
 	Property AudioFilter.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Function AudioFilter:GetConnectedWires(pin: string) -> { Instance }
 	Function AudioFilter:GetGainAt(frequency: number) -> number
+	Function AudioFilter:GetInputPins() -> { any }
+	Function AudioFilter:GetOutputPins() -> { any }
 	Event AudioFilter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioFlanger : Instance
 	Property AudioFlanger.Bypass: boolean
@@ -587,6 +615,8 @@ Class AudioFlanger : Instance
 	Property AudioFlanger.Mix: number
 	Property AudioFlanger.Rate: number
 	Function AudioFlanger:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioFlanger:GetInputPins() -> { any }
+	Function AudioFlanger:GetOutputPins() -> { any }
 	Event AudioFlanger.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioFocusService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AudioFocusService:AcquireFocus(contextId: number) -> boolean {RobloxScriptSecurity}
@@ -604,6 +634,8 @@ Class AudioLimiter : Instance
 	Property AudioLimiter.Release: number
 	Property AudioLimiter.Editor: boolean {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Function AudioLimiter:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioLimiter:GetInputPins() -> { any }
+	Function AudioLimiter:GetOutputPins() -> { any }
 	Event AudioLimiter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioListener : Instance
 	Property AudioListener.AudioInteractionGroup: string
@@ -611,10 +643,12 @@ Class AudioListener : Instance
 	Property AudioListener.DistanceAttenuation: BinaryString {RobloxSecurity}
 	Property AudioListener.SimulationFidelity: Enum.AudioSimulationFidelity
 	Function AudioListener:GetAngleAttenuation() -> { [string]: any } [CustomLuaState]
-	Function AudioListener:GetAudibilityOf(emitter: AudioEmitter) -> number {RobloxScriptSecurity}
+	Function AudioListener:GetAudibilityFor(emitter: AudioEmitter) -> number
 	Function AudioListener:GetConnectedWires(pin: string) -> { Instance }
 	Function AudioListener:GetDistanceAttenuation() -> { [string]: any } [CustomLuaState]
+	Function AudioListener:GetInputPins() -> { any }
 	Function AudioListener:GetInteractingEmitters() -> { Instance }
+	Function AudioListener:GetOutputPins() -> { any }
 	Function AudioListener:Reset() -> () {RobloxScriptSecurity}
 	Function AudioListener:SetAngleAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 	Function AudioListener:SetDistanceAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
@@ -624,6 +658,8 @@ Class AudioPitchShifter : Instance
 	Property AudioPitchShifter.Pitch: number
 	Property AudioPitchShifter.WindowSize: Enum.AudioWindowSize
 	Function AudioPitchShifter:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioPitchShifter:GetInputPins() -> { any }
+	Function AudioPitchShifter:GetOutputPins() -> { any }
 	Event AudioPitchShifter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioPlayer : Instance
 	Property AudioPlayer.Asset: string
@@ -639,6 +675,8 @@ Class AudioPlayer : Instance
 	Property AudioPlayer.PlaybackRegion: NumberRange
 	Property AudioPlayer.Volume: number
 	Function AudioPlayer:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioPlayer:GetInputPins() -> { any }
+	Function AudioPlayer:GetOutputPins() -> { any }
 	Function AudioPlayer:GetWaveformAsync(timeRange: NumberRange, samples: number) -> { any } [Yields]
 	Function AudioPlayer:Play() -> ()
 	Function AudioPlayer:Stop() -> ()
@@ -660,6 +698,8 @@ Class AudioReverb : Instance
 	Property AudioReverb.ReferenceFrequency: number
 	Property AudioReverb.WetLevel: number
 	Function AudioReverb:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioReverb:GetInputPins() -> { any }
+	Function AudioReverb:GetOutputPins() -> { any }
 	Function AudioReverb:Reset() -> () {RobloxScriptSecurity}
 	Event AudioReverb.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioSearchParams : Instance [NotReplicated]
@@ -673,6 +713,7 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.Tag: string
 	Property AudioSearchParams.Title: string
 Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
+	Property AuroraService.RollbackEnabled: boolean [Deprecated]
 	Function AuroraService:GetDesyncedInstances() -> { any } [Deprecated]
 	Function AuroraService:GetRemoteWorldStepId() -> number [Deprecated]
 	Function AuroraService:GetServerView(target: Instance) -> Instance? [Deprecated]
@@ -681,10 +722,14 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraService:NetDesync(target: Instance) -> () [Deprecated]
 	Function AuroraService:NetSync(target: Instance) -> () [Deprecated]
 	Function AuroraService:SetIncomingReplicationLag(seconds: number) -> () [Deprecated]
+	Function AuroraService:StartPrediction(target: Instance) -> () [Deprecated]
 	Function AuroraService:StepPhysics(worldSteps: number, parts: { Instance }?) -> () [Deprecated]
+	Function AuroraService:StopPrediction(target: Instance) -> () [Deprecated]
 	Function AuroraService:UpdateProperties(target: Instance) -> () [Deprecated]
 	Event AuroraService.Desynced(target: Instance) [Deprecated]
 	Event AuroraService.FixedRateTick(deltaTime: number, worldStepId: number) [Deprecated]
+	Event AuroraService.Rollback() [Deprecated]
+	Event AuroraService.Step() [Deprecated]
 	Event AuroraService.Synced(target: Instance) [Deprecated]
 Class AvatarChatService : Instance [NotCreatable] [Service]
 	Property AvatarChatService.ClientFeatures: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -947,7 +992,7 @@ Class BaseWrap : Instance [NotCreatable]
 Class WrapDeformer : BaseWrap
 	Function WrapDeformer:CreateEditableMeshAsync() -> EditableMesh [Yields]
 	Function WrapDeformer:GetDeformedCFrameAsync(originalCFrame: CFrame) -> CFrame [Yields]
-	Function WrapDeformer:SetCageMeshContent(content: Content) -> ()
+	Function WrapDeformer:SetCageMeshContent(content: Content, cageOrigin: CFrame?) -> ()
 Class WrapLayer : BaseWrap
 	Property WrapLayer.Order: number
 	Property WrapLayer.Puffiness: number
@@ -2749,6 +2794,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:GetClosestDialogToPosition(position: Vector3) -> Instance? {RobloxScriptSecurity}
 	Function GuiService:GetEmotesMenuOpen() -> boolean
 	Function GuiService:GetErrorCode() -> Enum.ConnectionError {RobloxScriptSecurity}
+	Function GuiService:GetErrorDetails() -> { [string]: any } {RobloxScriptSecurity}
 	Function GuiService:GetErrorMessage() -> string {RobloxScriptSecurity} [Deprecated]
 	Function GuiService:GetErrorType() -> Enum.ConnectionError {RobloxScriptSecurity}
 	Function GuiService:GetGameplayPausedNotificationEnabled() -> boolean
@@ -4442,6 +4488,7 @@ Class Player : Instance
 	Property Player.Neutral: boolean
 	Property Player.Team: Team? [NotReplicated]
 	Property Player.TeamColor: BrickColor
+	Function Player:AddReplicationFocus(part: BasePart) -> ()
 	Function Player:AddToBlockList(userIds: { any }) -> () {RobloxScriptSecurity}
 	Function Player:ClearCharacterAppearance() -> ()
 	Function Player:DistanceFromCharacter(point: Vector3) -> number
@@ -4471,6 +4518,7 @@ Class Player : Instance
 	Function Player:LoadString(key: string) -> string [Deprecated]
 	Function Player:Move(walkDirection: Vector3, relativeToCamera: boolean? = false) -> ()
 	Function Player:RemoveCharacter() -> () {LocalUserSecurity}
+	Function Player:RemoveReplicationFocus(part: BasePart) -> ()
 	Function Player:RequestFriendship(player: Player) -> () {RobloxScriptSecurity}
 	Function Player:RequestStreamAroundAsync(position: Vector3, timeOut: number? = 0) -> () [Yields]
 	Function Player:RevokeFriendship(player: Player) -> () {RobloxScriptSecurity}
@@ -4991,6 +5039,8 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
 	Property SafetyService.IsCaptureModeForReport: boolean {RobloxScriptSecurity}
+	Function SafetyService:ReportMenuTabClose() -> () {RobloxScriptSecurity}
+	Function SafetyService:ReportMenuTabOpen() -> () {RobloxScriptSecurity}
 	Function SafetyService:TakeScreenshot(screenshotOptions: { [string]: any }) -> number {RobloxScriptSecurity}
 	Event SafetyService.FSTriggeredSignal(requestId: string, playerId: number, mac: string, args: ...any) {RobloxSecurity} [Hidden]
 	Event SafetyService.ScreenshotContentReady(screenshotJobId: number, contentId: string) {RobloxScriptSecurity}
@@ -5038,7 +5088,7 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptContext:StartScriptProfiling(frequency: number?) -> () {RobloxScriptSecurity}
 	Function ScriptContext:StopScriptProfiling() -> string {RobloxScriptSecurity}
 	Event ScriptContext.Error(message: string, stackTrace: string, script: Instance)
-	Event ScriptContext.ErrorDetailed(message: string, stackTrace: string, script: Instance, details: string, securityLevel: number) {RobloxScriptSecurity}
+	Event ScriptContext.ErrorDetailed(message: string, stackTrace: string, script: Instance, details: string, securityLevel: number, messageId: string) {RobloxScriptSecurity}
 Class ScriptDebugger : Instance [NotCreatable]
 	Property ScriptDebugger.CoreScriptIdentifier: string [Hidden] [NotScriptable]
 	Property ScriptDebugger.CurrentLine: number [ReadOnly]
@@ -5417,15 +5467,18 @@ Class SoundGroup : Instance
 	Property SoundGroup.Volume: number
 Class SoundService : Instance [NotCreatable] [Service]
 	Property SoundService.AmbientReverb: Enum.ReverbType
+	Property SoundService.AudioApiByDefault: Enum.RolloutState {RobloxScriptSecurity} [Hidden]
 	Property SoundService.CharacterSoundsUseNewApi: Enum.RolloutState {✏️PluginSecurity}
 	Property SoundService.DefaultListenerLocation: Enum.ListenerLocation {PluginSecurity}
 	Property SoundService.DistanceFactor: number
 	Property SoundService.DopplerScale: number
+	Property SoundService.IsNewExpForAudioApiByDefault: boolean {RobloxScriptSecurity} [Hidden]
 	Property SoundService.RespectFilteringEnabled: boolean
 	Property SoundService.RolloffScale: number
 	Property SoundService.VolumetricAudio: Enum.VolumetricAudio [NotScriptable]
 	Function SoundService:BeginRecording() -> boolean {RobloxScriptSecurity}
 	Function SoundService:EndRecording() -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function SoundService:GetAudioApiByDefault() -> boolean {RobloxScriptSecurity}
 	Function SoundService:GetAudioInstances() -> { any } {RobloxScriptSecurity}
 	Function SoundService:GetInputDevice() -> ...any {RobloxScriptSecurity}
 	Function SoundService:GetInputDevices() -> ...any {RobloxScriptSecurity}
@@ -5434,9 +5487,11 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function SoundService:GetOutputDevices() -> ...any {RobloxScriptSecurity}
 	Function SoundService:GetRecordingDevices() -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function SoundService:GetSoundMemoryData() -> { [string]: any } {RobloxScriptSecurity}
+	Function SoundService:InsertAsset(assetId: string, assetName: string, useSelection: boolean? = true) -> { Instance } {RobloxScriptSecurity}
 	Function SoundService:OpenAttenuationCurveEditor(selectedCurveObjects: { Instance }) -> () {PluginSecurity}
 	Function SoundService:OpenDirectionalCurveEditor(selectedCurveObjects: { Instance }) -> () {PluginSecurity}
 	Function SoundService:PlayLocalSound(sound: Instance) -> ()
+	Function SoundService:SetAudioApiByDefault(enabled: boolean) -> () {RobloxScriptSecurity}
 	Function SoundService:SetInputDevice(name: string, guid: string) -> () {RobloxScriptSecurity}
 	Function SoundService:SetListener(listenerType: Enum.ListenerType, listener: ...any) -> ()
 	Function SoundService:SetOutputDevice(name: string, guid: string) -> () {RobloxScriptSecurity}
@@ -5772,6 +5827,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioAssetService:AutoSetupAvatarAsync(modelId: string, progressCallback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
+	Function StudioAssetService:CancelAutoSetupAvatarAsync(jobId: string) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioAssetService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:DEPRECATED_SerializeInstances(instances: { Instance }) -> string {RobloxScriptSecurity} [Yields]
 	Function StudioAssetService:FireOnUGCSubmitCompleted(cancelled: boolean) -> () {RobloxScriptSecurity}
@@ -5798,6 +5854,7 @@ Class StudioCallout : Instance [NotReplicated]
 	Property StudioCallout.Text: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StudioCallout.Title: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function StudioCallout:SetOnNextClicked(onClick: (...any) -> ...any) -> () {RobloxScriptSecurity}
+Class StudioCameraService : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioData : Instance [NotCreatable] [Service]
 	Property StudioData.EnableScriptCollabByDefaultOnLoad: boolean {RobloxScriptSecurity} [Hidden]
 Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -6030,9 +6087,10 @@ Class TerrainRegion : Instance
 Class TestService : Instance [Service]
 	Property TestService.Description: string
 	Property TestService.AutoRuns: boolean
-	Property TestService.Is30FpsThrottleEnabled: boolean
+	Property TestService.Is30FpsThrottleEnabled: boolean [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property TestService.IsPhysicsEnvironmentalThrottled: boolean
 	Property TestService.IsSleepAllowed: boolean
+	Property TestService.ThrottlePhysicsToRealtime: boolean
 	Property TestService.ErrorCount: number [ReadOnly]
 	Property TestService.TestCount: number [ReadOnly]
 	Property TestService.WarnCount: number [ReadOnly]
@@ -6523,6 +6581,8 @@ Class UIStroke : UIComponent
 	Property UIStroke.Transparency: number
 	Property UIStroke.Enabled: boolean
 Class UIDragDetectorService : Instance [NotCreatable] [Service] [NotReplicated]
+Class UniqueIdLookupService : Instance [NotCreatable] [Service]
+	Function UniqueIdLookupService:GetInstanceByRfc4122String(id: string) -> Instance? {RobloxScriptSecurity}
 Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
 	Property UnvalidatedAssetService.CachedData: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Function UnvalidatedAssetService:AppendTempAssetId(userId: number, id: number, lookAt: Vector3, camPos: Vector3, usage: string) -> () {RobloxScriptSecurity}
@@ -6929,6 +6989,8 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.PublishingHandshakeInitiated(handshakeOffer: string, muteState: Enum.MuteState, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ReJoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.RuppInitialToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.RuppPeriodicToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number, sourceIpAddress: string, sourcePort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscribeStateChange(muteState: Enum.MuteState, userIds: string, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionDropped(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionFeedStarted(eventTag: number, sessionId: string) {RobloxSecurity} [Hidden]
@@ -6974,6 +7036,7 @@ Class Wire : Instance
 	Property Wire.SourceName: string
 	Property Wire.TargetInstance: Instance?
 	Property Wire.TargetName: string
+	Function Wire:RenameToDefault() -> () {RobloxScriptSecurity}
 Enum AccessModifierType
 	EnumItem AccessModifierType.Allow : 0
 	EnumItem AccessModifierType.Deny : 1
@@ -7260,6 +7323,14 @@ Enum AudioApiRollout
 	EnumItem AudioApiRollout.Disabled : 0
 	EnumItem AudioApiRollout.Automatic : 1
 	EnumItem AudioApiRollout.Enabled : 2
+Enum AudioChannelLayout
+	EnumItem AudioChannelLayout.Mono : 0
+	EnumItem AudioChannelLayout.Stereo : 1
+	EnumItem AudioChannelLayout.Quad : 2
+	EnumItem AudioChannelLayout.Surround_5 : 3
+	EnumItem AudioChannelLayout.Surround_5_1 : 4
+	EnumItem AudioChannelLayout.Surround_7_1 : 5
+	EnumItem AudioChannelLayout.Surround_7_1_4 : 6
 Enum AudioFilterType
 	EnumItem AudioFilterType.Peak : 0
 	EnumItem AudioFilterType.LowShelf : 1
@@ -7687,6 +7758,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.NetworkSecurity : 300
 	EnumItem ConnectionError.ReplacementReady : 301
 	EnumItem ConnectionError.ServerEmpty : 302
+	EnumItem ConnectionError.PhantomFreeze : 303
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516

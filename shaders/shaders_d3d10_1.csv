@@ -509,6 +509,8 @@ DefaultUnifiedNeonInGuiVS_10000000,Vertex
 DefaultUnifiedNeonInGuiVS_10000001,Vertex
 DefaultUnifiedNeonInGuiVS_10000002,Vertex
 DefaultUnifiedNeonInGuiVS_10000006,Vertex
+DefaultUnifiedNeonInGuiVS_10001002,Vertex
+DefaultUnifiedNeonInGuiVS_10001006,Vertex
 DefaultUnifiedNeonInGuiVS_10100001,Vertex
 DefaultUnifiedNeonInGuiVS_10200000,Vertex
 DefaultUnifiedNeonInGuiVS_10300000,Vertex
@@ -1160,6 +1162,7 @@ InstancedDebugGarbage_DEPRECATED,Compute
 InstancedUploadFull,Compute
 InstancedUploadFull_DEPRECATED,Compute
 LanczosFS,Fragment
+LanczosNonRingingFS,Fragment
 LanczosSeparateAxisFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex

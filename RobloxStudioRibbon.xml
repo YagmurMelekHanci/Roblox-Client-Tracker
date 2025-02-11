@@ -110,16 +110,16 @@
           <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
-        <MenuPopupButton fflag="LuaRibbonAnchorLockModes" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.LockTool" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.LockModeTooltip">
+        <MenuPopupButton fflag="LuaRibbonAnchorLockModes2" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.LockTool" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.LockModeTooltip">
           <addaction name="lockToolAction" modernIcon="Lock" />
           <addaction name="unlockAllAction" modernIcon="Unlock" />
         </MenuPopupButton>
-        <addaction fflag="LuaRibbonAnchorLockModes" name="anchorAction" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" width="16" height="16" />
-        <MenuPopupButton fflag="!LuaRibbonAnchorLockModes" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
+        <addaction fflag="LuaRibbonAnchorLockModes2" name="anchorAction" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" width="16" height="16" />
+        <MenuPopupButton fflag="!LuaRibbonAnchorLockModes2" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
           <addaction name="lockToolAction" text="Studio.App.RobloxRibbonMainWindow.LockTool" modernIcon="Lock" />
           <addaction name="unlockAllAction" modernIcon="Unlock" />
         </MenuPopupButton>
-        <addaction fflag="!LuaRibbonAnchorLockModes" name="anchorAction" text="Studio.App.RobloxRibbonMainWindow.Anchor" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor" width="16" height="16" />
+        <addaction fflag="!LuaRibbonAnchorLockModes2" name="anchorAction" text="Studio.App.RobloxRibbonMainWindow.Anchor" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor" width="16" height="16" />
       </Group>
       <Group name="Test" text="Studio.App.RobloxRibbonMainWindow.Test" modernIcon="Play" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo.png" width="32" height="32">
         <MenuPopupButton handleMenuTrigger="true"  selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Play" tooltip="Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" modernIcon="Run" value="simulationPlayAction" width="32" height="32">
@@ -217,16 +217,16 @@
           <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
-        <MenuPopupButton fflag="LuaRibbonAnchorLockModes" name="lockToolAction" style="textbesideicon" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock">
+        <MenuPopupButton fflag="LuaRibbonAnchorLockModes2" name="lockToolAction" style="textbesideicon" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock">
           <addaction name="lockToolAction" modernIcon="Lock" />
           <addaction name="unlockAllAction" modernIcon="Unlock" />
         </MenuPopupButton>
-        <addaction fflag="LuaRibbonAnchorLockModes" name="anchorAction" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" width="16" height="16" />
-        <MenuPopupButton fflag="!LuaRibbonAnchorLockModes" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
+        <addaction fflag="LuaRibbonAnchorLockModes2" name="anchorAction" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" width="16" height="16" />
+        <MenuPopupButton fflag="!LuaRibbonAnchorLockModes2" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
           <addaction name="lockToolAction" text="Studio.App.RobloxRibbonMainWindow.LockTool" modernIcon="Lock" />
           <addaction name="unlockAllAction" modernIcon="Unlock" />
         </MenuPopupButton>
-        <addaction fflag="!LuaRibbonAnchorLockModes" name="anchorAction" text="Studio.App.RobloxRibbonMainWindow.Anchor" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor" width="16" height="16" />
+        <addaction fflag="!LuaRibbonAnchorLockModes2" name="anchorAction" text="Studio.App.RobloxRibbonMainWindow.Anchor" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor" width="16" height="16" />
       </Group>
       <Group name="Solid Modeling" text="Studio.App.RobloxRibbonMainWindow.SolidModeling" modernIcon="UnionOperation" icon=":/RibbonBar/images/RibbonIcons/Home/Union.png" width="32" height="32">
         <addaction name="unionSelectionAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Union.png" modernIcon="UnionOperation" tooltip="Studio.App.RobloxRibbonMainWindow.FusePartsTogether" width="32" height="32" />
@@ -447,8 +447,7 @@
         <addaction fflag="!EnableRibbonPlugin2" name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis"/>
         <addaction fflagList="CodeSnippet_Alpha4,!EnableRibbonPlugin2" name="toggleCodeSnippetsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCodeSnippet"/>
         <addaction fflag="!EnableRibbonPlugin2" name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="CommandBar" tooltip="Studio.App.RBXMainWindow.ViewCommandBar" text="Studio.App.RBXMainWindow.CommandBar"/>
-        <!-- Remove with FFlag::StudioRemoveNoGraphics -->
-        <addaction fflag="!StudioRemoveNoGraphics" name="toggleDiagnosticsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png" modernIcon="Performance"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo"/>
+        <addaction name="toggleDiagnosticsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png" modernIcon="Performance"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo"/>
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" modernIcon="TaskScheduler" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation"/>
         <addaction fflag="EnableRibbonPlugin2" name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance"/>
         <addaction fflag="!EnableRibbonPlugin2" name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat"/>
