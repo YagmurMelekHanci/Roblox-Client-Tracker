@@ -160,6 +160,7 @@ Studio.App.Property.IncomingReplicationLag,,Incoming Replication Lag (seconds),I
 Studio.App.Property.IncommingReplicationLag,,Incomming Replication Lag,Incomming Replication Lag
 Studio.App.Property.IndentUsingSpaces,,Indent Using Spaces,Indent Using Spaces
 Studio.App.Property.InformationColor,,Information Color,Information Color
+Studio.App.Property.InsertObjectWidgetUIInstancePolicySelection,Selects which properties to use when creating new UI Instances with the Insert Object Widget. Only applies to Studio.,UI Instance defaults,UI Instance defaults
 Studio.App.Property.InstanceCount,,Instance Count,Instance Count
 Studio.App.Property.IsFmodProfilingEnabled,,Is Fmod Profiling Enabled,Is Fmod Profiling Enabled
 Studio.App.Property.IsInterpolationThrottleShown,,Is Interpolation Throttle Shown,Is Interpolation Throttle Shown

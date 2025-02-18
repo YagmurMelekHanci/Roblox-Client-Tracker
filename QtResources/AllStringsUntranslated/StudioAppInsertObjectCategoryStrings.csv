@@ -9,6 +9,7 @@ Studio.App.InsertObjectCategory.Effects,,Effects,Effects
 Studio.App.InsertObjectCategory.Environment,,Environment,Environment
 Studio.App.InsertObjectCategory.FavoritesCategory,,Frequently Used,Frequently Used
 Studio.App.InsertObjectCategory.GUI,,GUI,GUI
+Studio.App.InsertObjectCategory.Input,Related to user input from devices,Input,Input
 Studio.App.InsertObjectCategory.Interaction,,Interaction,Interaction
 Studio.App.InsertObjectCategory.LegacyBodyMovers,,Legacy Body Movers,Legacy Body Movers
 Studio.App.InsertObjectCategory.Lights,,Lights,Lights

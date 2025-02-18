@@ -91,7 +91,7 @@ dependencies = [
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.12.0 registry",
+    "Foundation Foundation 1.13.0 registry",
     "FoundationImages FoundationImages 1.18.0 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
@@ -103,7 +103,7 @@ dependencies = [
     "JestGlobals JestGlobals 2.4.1 registry",
     "JestGlobals3 JestGlobals 3.8.1 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1.5.5 registry",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1.5.6 registry",
     "LuauPolyfill LuauPolyfill 0.4.2 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Merge Merge 0.3.1 registry",
@@ -146,7 +146,7 @@ dependencies = [
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.3.0 registry",
     "UGCValidation UGCValidation 1.14.0 registry",
-    "UIBlox UIBlox 0.2.56 registry",
+    "UIBlox UIBlox 0.2.58 registry",
     "UrlBuilder UrlBuilder 1.2.7 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
@@ -290,7 +290,7 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.12.0"
+version = "1.13.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -374,7 +374,7 @@ dependencies = [
     "Roact RoactCompat 17.1.11 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.56 registry",
+    "UIBlox UIBlox 0.2.58 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -906,7 +906,7 @@ dependencies = [
 
 [[package]]
 name = "LuaSocialLibrariesDeps"
-version = "1.5.5"
+version = "1.5.6"
 source = "registry"
 dependencies = [
     "CollisionMatchers CollisionMatchers2D 1.1.0 registry",
@@ -1655,7 +1655,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.56 registry",
+    "UIBlox UIBlox 0.2.58 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1752,12 +1752,12 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.56"
+version = "0.2.58"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.12.0 registry",
+    "Foundation Foundation 1.13.0 registry",
     "FoundationImages FoundationImages 1.18.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",

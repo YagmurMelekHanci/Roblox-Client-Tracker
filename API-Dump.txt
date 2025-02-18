@@ -336,16 +336,18 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Property AnnotationsService.Mode: Enum.AnnotationEditingMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function AnnotationsService:CreateAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:DEPRECATED_EditAnnotation(uniqueId: string, contents: string) -> ()
 	Function AnnotationsService:DeleteAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
-	Function AnnotationsService:EditAnnotation(uniqueId: string, contents: string) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:EditAnnotation(uniqueId: string, contents: string, taggedUsers: string) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:GetAnnotationThreads() -> { Instance } {RobloxScriptSecurity}
 	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:LoadResolvedAnnotations(count: number) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:ResolveAnnotation(annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationAdded(requestId: string, annotation: Annotation, parentId: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationDeleted(requestId: string, annotation: Annotation) {RobloxScriptSecurity}
-	Event AnnotationsService.AnnotationEdited(requestId: string, uniqueId: string, contents: string) {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationEdited(requestId: string, uniqueId: string, contents: string, taggedUsers: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationResolved(requestId: string, annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
+	Event AnnotationsService.DEPRECATED_AnnotationEdited(requestId: string, uniqueId: string, contents: string) {RobloxScriptSecurity}
 	Event AnnotationsService.ServerLoadAnnotationReplies(annotation: Annotation) {RobloxSecurity}
 	Event AnnotationsService.ServerLoadResolvedAnnotations(count: number) {RobloxSecurity}
 Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -712,6 +714,14 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.SearchKeyword: string
 	Property AudioSearchParams.Tag: string
 	Property AudioSearchParams.Title: string
+Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
+	Property AuroraScriptService.BufferSize: number {✏️PluginSecurity} [Deprecated]
+	Property AuroraScriptService.LocalFrameId: number {✏️RobloxSecurity} [NotReplicated] [Deprecated]
+	Property AuroraScriptService.RemoteFrameId: number {✏️RobloxSecurity} [Deprecated]
+	Function AuroraScriptService:GetProperty(instance: Instance, name: string) -> any [Deprecated] {🧬Safe}
+	Function AuroraScriptService:GetTime() -> number [Deprecated] {🧬Safe}
+	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () [Deprecated] {🧬Safe}
+	Function AuroraScriptService:SetProperty(instance: Instance, name: string, value: any) -> () [Deprecated] {🧬Safe}
 Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Property AuroraService.RollbackEnabled: boolean [Deprecated]
 	Function AuroraService:GetDesyncedInstances() -> { any } [Deprecated]
@@ -748,16 +758,13 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Event AvatarChatService.RefreshClientFeatures() {RobloxSecurity} [Hidden]
 Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:DeserializeAvatarModel(serializedModel: string) -> Instance? {RobloxScriptSecurity}
-	Function AvatarCreationService:GenerateAvatarAsync(sessionId: string, previewId: string) -> string [Yields]
-	Function AvatarCreationService:GenerateAvatarModelAsync(player: Player, previewJobId: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
-	Function AvatarCreationService:GenerateAvatarPreviewAsync(player: Player, textPrompt: string, options: { [string]: any }, progressCallback: (...any) -> ...any) -> string [Yields]
-	Function AvatarCreationService:GenerateAvatarPreviewAsync2(sessionId: string, fileId: string, textPrompt: string, options: { [string]: any }) -> string [Yields]
+	Function AvatarCreationService:GenerateAvatar2DPreviewAsync(avatarGeneration2dPreviewParams: { [string]: any }) -> string [Yields]
+	Function AvatarCreationService:GenerateAvatarAsync(avatarGenerationParams: { [string]: any }) -> string [Yields]
 	Function AvatarCreationService:GetAvatarGenerationConfig() -> { [string]: any } [Yields]
 	Function AvatarCreationService:GetBatchTokenDetailsAsync(tokenIds: { any }) -> { any } [Yields]
 	Function AvatarCreationService:GetValidationRules() -> { [string]: any } [CustomLuaState]
-	Function AvatarCreationService:LoadAvatarHumanoidDescriptionAsync(id: string) -> HumanoidDescription [Yields]
-	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
-	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
+	Function AvatarCreationService:LoadAvatar2DPreviewAsync(previewId: string) -> EditableImage [Yields]
+	Function AvatarCreationService:LoadGeneratedAvatarAsync(generationId: string) -> HumanoidDescription [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(tokenId: string, player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
 	Function AvatarCreationService:PromptSelectAvatarGenerationImageAsync(player: Player) -> string [Yields]
 	Function AvatarCreationService:RequestAvatarGenerationSessionAsync(player: Player, callback: (...any) -> ...any) -> ...any [Yields]
@@ -948,6 +955,7 @@ Class StarterGui : BasePlayerGui [NotCreatable] [Service]
 	Property StarterGui.ResetPlayerGuiOnSpawn: boolean [Deprecated]
 	Property StarterGui.ScreenOrientation: Enum.ScreenOrientation
 	Property StarterGui.ShowDevelopmentGui: boolean
+	Property StarterGui.StudioInsertWidgetLayerCollectorAutoLinkStyleSheet: StyleSheet? {RobloxScriptSecurity} [Hidden]
 	Function StarterGui:GetCore(parameterName: string) -> any [Yields]
 	Function StarterGui:GetCoreGuiEnabled(coreGuiType: Enum.CoreGuiType) -> boolean
 	Function StarterGui:RegisterGetCore(parameterName: string, getFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
@@ -1249,7 +1257,7 @@ Class Skin : CharacterAppearance [Deprecated]
 Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Chat.BubbleChatEnabled: boolean
 	Property Chat.LoadDefaultChat: boolean {✏️NotAccessibleSecurity}
-	Property Chat.IsAutoMigrated: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property Chat.IsAutoMigrated: boolean {RobloxScriptSecurity} [Hidden]
 	Function Chat:CanUserChatAsync(userId: number) -> boolean [Yields]
 	Function Chat:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
 	Function Chat:Chat(partOrCharacter: Instance, message: string, color: Enum.ChatColor? = "Blue") -> ()
@@ -1712,6 +1720,8 @@ Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CoreScriptSyncService:GetScriptFilePath(script: Instance) -> any {RobloxScriptSecurity}
 Class CreationDBService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CreatorStoreService : Instance [NotCreatable] [Service]
+	Function CreatorStoreService:GetAssetInfoAsync(assetId: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function CreatorStoreService:GetCreatorStoreProductInfoAsync(productTargetId: number, assetType: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CreatorStoreService:PerformCreatorStorePurchase(productTargetId: number, assetType: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 Class CrossDMScriptChangeListener : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CrossDMScriptChangeListener:IsWatchingScriptLine(scriptRef: string, lineNumber: number) -> boolean {RobloxScriptSecurity}
@@ -1730,6 +1740,11 @@ Class CustomEventReceiver : Instance [Deprecated]
 	Event CustomEventReceiver.EventConnected(event: Instance) [Deprecated]
 	Event CustomEventReceiver.EventDisconnected(event: Instance) [Deprecated]
 	Event CustomEventReceiver.SourceValueChanged(newValue: number) [Deprecated]
+Class CustomLog : Instance [NotReplicated]
+	Function CustomLog:Close() -> ()
+	Function CustomLog:GetLogPath() -> string
+	Function CustomLog:Open() -> ()
+	Function CustomLog:WriteAppend(append: string) -> ()
 Class DataModelMesh : Instance [NotCreatable] [NotBrowsable]
 	Property DataModelMesh.Offset: Vector3
 	Property DataModelMesh.Scale: Vector3
@@ -2199,6 +2214,11 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GamepadService:GetGamepadCursorPosition() -> Vector2 {RobloxScriptSecurity}
 	Function GamepadService:SetGamepadCursorPosition(position: Vector2) -> () {RobloxScriptSecurity}
 	Event GamepadService.GamepadThumbstick1Changed(event: Vector2) {RobloxScriptSecurity}
+Class GenerationService : Instance [NotCreatable] [Service]
+	Function GenerationService:GenerateMeshAsync(inputs: { [string]: any }, player: Player, options: { [string]: any }, intermediateResultCallback: ((...any) -> ...any)?) -> ...any [Yields]
+	Function GenerationService:LoadGeneratedMeshAsync(generationId: string) -> MeshPart [Yields]
+	Event GenerationService.ReplicateGeneration(id: string, success: boolean, serializedModel: string) {RobloxSecurity} [Hidden]
+	Event GenerationService.RequestGenerationReplication(id: string) {RobloxSecurity} [Hidden]
 Class GenericChallengeService : Instance [NotCreatable] [Service]
 	Function GenericChallengeService:SignalChallengeAbandoned(challengeID: string) -> () {RobloxScriptSecurity}
 	Function GenericChallengeService:SignalChallengeCompleted(challengeID: string, challengeType: string, challengeMetadata: string) -> () {RobloxScriptSecurity}
@@ -2518,6 +2538,16 @@ Class TextBox : GuiObject
 	Event TextBox.FocusLost(enterPressed: boolean, inputThatCausedFocusLoss: InputObject)
 	Event TextBox.Focused()
 	Event TextBox.ReturnPressedFromOnScreenKeyboard()
+Class VideoDisplay : GuiObject [NotBrowsable]
+	Property VideoDisplay.ResampleMode: Enum.ResamplerMode
+	Property VideoDisplay.ScaleType: Enum.ScaleType
+	Property VideoDisplay.TileSize: UDim2
+	Property VideoDisplay.VideoColor3: Color3
+	Property VideoDisplay.VideoRectOffset: Vector2
+	Property VideoDisplay.VideoRectSize: Vector2
+	Property VideoDisplay.VideoTransparency: number
+	Function VideoDisplay:GetConnectedWires(pin: string) -> { Instance }
+	Event VideoDisplay.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class VideoFrame : GuiObject
 	Property VideoFrame.IsLoaded: boolean [ReadOnly]
 	Property VideoFrame.Looped: boolean
@@ -2875,6 +2905,11 @@ Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HapticService:IsMotorSupported(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> boolean
 	Function HapticService:IsVibrationSupported(inputType: Enum.UserInputType) -> boolean
 	Function HapticService:SetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor, vibrationValues: ...any) -> ()
+Class HeapProfilerService : Instance [NotCreatable] [Service]
+	Function HeapProfilerService:ClientRequestDataAsync(player: Player) -> string {PluginSecurity} [Yields]
+	Function HeapProfilerService:ServerRequestDataAsync() -> string {PluginSecurity} [Yields]
+	Event HeapProfilerService.OnNewData(player: Player, jsonString: buffer, id: number, compressedLength: number, uncompressedLength: number) {PluginSecurity}
+	Event HeapProfilerService.RequestData(id: number) {RobloxSecurity} [Hidden]
 Class HeatmapService : Instance [NotCreatable] [Service]
 Class HeightmapImporterService : Instance [Service] [NotReplicated]
 	Function HeightmapImporterService:CancelImportHeightmap() -> () {RobloxScriptSecurity}
@@ -3134,6 +3169,21 @@ Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated
 	Property IncrementalPatchBuilder.HighCompression: boolean
 	Property IncrementalPatchBuilder.SerializePatch: boolean
 	Property IncrementalPatchBuilder.ZstdCompression: boolean
+Class InputAction : Instance [NotBrowsable]
+	Property InputAction.Enabled: boolean
+	Property InputAction.Type: Enum.InputActionType
+	Function InputAction:Fire(value: any) -> ()
+	Function InputAction:GetState() -> any
+	Event InputAction.Pressed()
+	Event InputAction.Released()
+	Event InputAction.StateChanged(value: any)
+Class InputBinding : Instance [NotBrowsable]
+	Property InputBinding.KeyCode: Enum.KeyCode
+	Property InputBinding.UIButton: GuiButton?
+Class InputContext : Instance [NotBrowsable]
+	Property InputContext.Enabled: boolean
+	Property InputContext.Priority: number
+	Property InputContext.Sink: boolean
 Class InputObject : Instance [NotCreatable]
 	Property InputObject.Delta: Vector3
 	Property InputObject.KeyCode: Enum.KeyCode
@@ -3410,6 +3460,17 @@ Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property LuaSourceContainer.SandboxedSource: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property LuaSourceContainer.ScriptGuid: string [Hidden] [NotScriptable]
 	Property LuaSourceContainer.isPlayerScript: boolean {RobloxSecurity} [Hidden] [NotScriptable]
+Class AuroraScript : LuaSourceContainer [Deprecated]
+	Property AuroraScript.DumpMispredictions: boolean {PluginSecurity} [Deprecated]
+	Property AuroraScript.EnableLOD: boolean {PluginSecurity} [Deprecated]
+	Property AuroraScript.LODDistanceFactor: number {PluginSecurity} [Deprecated]
+	Property AuroraScript.LODFrequencyFactor: number {PluginSecurity} [Deprecated]
+	Property AuroraScript.Priority: number {PluginSecurity} [Deprecated]
+	Property AuroraScript.RunInParallel: boolean {PluginSecurity} [Deprecated]
+	Property AuroraScript.Source: string {PluginSecurity} [Deprecated]
+	Property AuroraScript.Tag: string {✏️PluginSecurity} [Deprecated]
+	Event AuroraScript.LODUpdate(frameId: number, instance: Instance, lodLevel: number) {RobloxSecurity} [Hidden] [Deprecated]
+	Event AuroraScript.SynchronizeState(frameId: number, instance: Instance, state: { [string]: any }, ingressHeaders: string, ingressArgs: { any }, egressHeaders: string, egressArgs: { any }) {RobloxSecurity} [Hidden] [Deprecated]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property BaseScript.Disabled: boolean
 	Property BaseScript.Enabled: boolean [NotReplicated]
@@ -4561,6 +4622,39 @@ Class Player : Instance
 	Event Player.SetShutdownMessage(message: string) {RobloxSecurity} [Hidden]
 	Event Player.SimulationRadiusChanged(radius: number) {LocalUserSecurity}
 	Event Player.StatsAvailable(info: string) {LocalUserSecurity} [Hidden]
+Class PlayerData : Instance [NotCreatable] [NotReplicated]
+	Function PlayerData:GetPlayer() -> Player
+	Function PlayerData:GetRecord(recordName: string? = "Default") -> PlayerDataRecord
+Class PlayerDataRecord : Instance [NotCreatable] [NotReplicated]
+	Property PlayerDataRecord.CreatedTime: number [ReadOnly]
+	Property PlayerDataRecord.DefaultRecordName: boolean [ReadOnly]
+	Property PlayerDataRecord.Dirty: boolean [ReadOnly]
+	Property PlayerDataRecord.Error: Enum.PlayerDataErrorState [ReadOnly]
+	Property PlayerDataRecord.FlushedTime: number [ReadOnly]
+	Property PlayerDataRecord.LoadedTime: number [ReadOnly]
+	Property PlayerDataRecord.ModifiedTime: number [ReadOnly]
+	Property PlayerDataRecord.NewRecord: boolean [ReadOnly]
+	Property PlayerDataRecord.Readable: boolean [ReadOnly]
+	Property PlayerDataRecord.RecordName: string [ReadOnly]
+	Property PlayerDataRecord.Writable: boolean [ReadOnly]
+	Function PlayerDataRecord:GetPlayer() -> Player
+	Function PlayerDataRecord:GetValue(key: string) -> any
+	Function PlayerDataRecord:GetValueChangedSignal(key: string) -> RBXScriptSignal
+	Function PlayerDataRecord:Release() -> ()
+	Function PlayerDataRecord:RemoveValue(key: string) -> ()
+	Function PlayerDataRecord:RequestFlushAsync() -> () [Yields]
+	Function PlayerDataRecord:SetValue(key: string, value: any) -> ()
+	Function PlayerDataRecord:WaitForLoadAsync() -> () [Yields]
+	Event PlayerDataRecord.Changed(key: string, value: any)
+	Event PlayerDataRecord.Flushed(flushState: boolean, error: string?)
+	Event PlayerDataRecord.Loaded(success: boolean, error: string?)
+Class PlayerDataRecordConfig : Instance [NotCreatable] [NotReplicated]
+	Property PlayerDataRecordConfig.RecordName: string [ReadOnly]
+	Function PlayerDataRecordConfig:GetDefaultValue(key: string) -> any
+	Function PlayerDataRecordConfig:SetDefaultValue(key: string, value: any) -> ()
+Class PlayerDataService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property PlayerDataService.LoadFailureBehavior: Enum.PlayerDataLoadFailureBehavior
+	Function PlayerDataService:GetRecordConfig(recordName: string? = "Default") -> PlayerDataRecordConfig
 Class PlayerEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property PlayerEmulatorService.CustomPoliciesEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property PlayerEmulatorService.EmulatedCountryCode: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -6877,8 +6971,8 @@ Class VideoPlayer : Instance [NotBrowsable]
 	Function VideoPlayer:Play() -> ()
 	Function VideoPlayer:SetStudioPreview(isPreview: boolean) -> () {RobloxScriptSecurity}
 	Function VideoPlayer:Stop() -> ()
-	Event VideoPlayer.Ended()
-	Event VideoPlayer.Looped()
+	Event VideoPlayer.DidEnd()
+	Event VideoPlayer.DidLoop()
 Class VideoService : Instance [NotCreatable] [Service]
 Class VirtualInputManager : Instance [Service]
 	Property VirtualInputManager.AdditionalLuaState: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -8397,10 +8491,16 @@ Enum InitialDockState
 	EnumItem InitialDockState.Left : 2
 	EnumItem InitialDockState.Right : 3
 	EnumItem InitialDockState.Float : 4
+Enum InputActionType
+	EnumItem InputActionType.Bool : 0
+	EnumItem InputActionType.Float : 1
+	EnumItem InputActionType.Direction2D : 2
 Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12
 	EnumItem InputType.Sin : 13
+Enum IntermediateMeshGenerationResult
+	EnumItem IntermediateMeshGenerationResult.HighQualityMesh : 0
 Enum InterpolationThrottlingMode
 	EnumItem InterpolationThrottlingMode.Default : 0
 	EnumItem InterpolationThrottlingMode.Disabled : 1
@@ -9088,6 +9188,14 @@ Enum PlayerChatType
 	EnumItem PlayerChatType.All : 0
 	EnumItem PlayerChatType.Team : 1
 	EnumItem PlayerChatType.Whisper : 2
+Enum PlayerDataErrorState
+	EnumItem PlayerDataErrorState.LoadFailed : 0
+	EnumItem PlayerDataErrorState.FlushFailed : 1
+	EnumItem PlayerDataErrorState.None : 2
+Enum PlayerDataLoadFailureBehavior
+	EnumItem PlayerDataLoadFailureBehavior.Failure : 0
+	EnumItem PlayerDataLoadFailureBehavior.FallbackToDefault : 1
+	EnumItem PlayerDataLoadFailureBehavior.Kick : 2
 Enum PoseEasingDirection
 	EnumItem PoseEasingDirection.In : 0
 	EnumItem PoseEasingDirection.Out : 1
@@ -9459,6 +9567,7 @@ Enum ShowAdResult
 	EnumItem ShowAdResult.AdAlreadyShowing : 3
 	EnumItem ShowAdResult.InternalError : 4
 	EnumItem ShowAdResult.ShowInterrupted : 5
+	EnumItem ShowAdResult.InsufficientMemory : 6
 Enum SignalBehavior
 	EnumItem SignalBehavior.Default : 0
 	EnumItem SignalBehavior.Immediate : 1

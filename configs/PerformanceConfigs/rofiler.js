@@ -219,7 +219,6 @@ li a{ float:none; }
 `;
 
 g_Loader.bodyText = `
-<body style="">
 <div id='filterinput' style="display: none;">
 <div class="filterinput0">Group<br><input type="text" id="filtergroup"></div>
 <div class="filterinput1">Timer/Thread<br><input type="text" id="filtertimer"></div>
@@ -689,6 +688,7 @@ function InitViewerVars() {
     window.IsMac = navigator.platform.indexOf("Mac") === 0;
     window.IsHtmlSavable = !window.g_wasReloaded && (GetHtmlSource(true) != null);
     window.MaxStackDepthToVisualize = 50;
+    window.HelpTooltipShowTime = window.HelpTooltipShowTimeInitial = 10000;
 }
 
 function RangeInit() {
@@ -1608,6 +1608,9 @@ function SetMode(NewMode, Groups) {
     var buttonCounters = document.getElementById('buttonCounters');
     var ilThreads = document.getElementById('ilThreads');
     var ilGroups = document.getElementById('ilGroups');
+    var ilPlugins = document.getElementById('ilPlugins');
+    var ilHighlight = document.getElementById('ilHighlight');
+    var ilExport = document.getElementById('ilExport');
     var ModeElement = null;
     buttonTimers.style['text-decoration'] = 'none';
     buttonGroups.style['text-decoration'] = 'none';
@@ -1615,6 +1618,9 @@ function SetMode(NewMode, Groups) {
     buttonDetailed.style['text-decoration'] = 'none';
     buttonCounters.style['text-decoration'] = 'none';
 
+    let isDetailed = (NewMode == 'detailed' || NewMode == ModeDetailed);
+    let extraEntriesStyle = isDetailed ? 'block' : 'none';
+    ilPlugins.style['display'] = ilHighlight.style['display'] = ilExport.style['display'] = extraEntriesStyle;
 
     if (NewMode == 'counters' || NewMode == ModeCounters) {
         buttonCounters.style['text-decoration'] = 'underline';
@@ -2437,18 +2443,18 @@ function DrawDetailedFrameHistory() {
 
         var origColor = context.fillStyle;
         var xrayColor = "";
-        if (g_Ext.xray.viewEnabled || g_Ext.xray.barEnabled) {
+        if (g_Ext.xray.isViewEnabled() || g_Ext.xray.isBarEnabled()) {
             var txAcc = Frames[i].txAcc;
             var txNorm = GetNormalizedFromTx(txAcc, true);
             xrayColor = txNorm.color;
-            if (g_Ext.xray.viewEnabled) {
+            if (g_Ext.xray.isViewEnabled()) {
                 context.fillStyle = xrayColor;
             }
         }
 
         context.fillRect(fX, fHeight - fH, fWidth - 1, fH);
 
-        if (!g_Ext.xray.viewEnabled && g_Ext.xray.barEnabled) {
+        if (!g_Ext.xray.isViewEnabled() && g_Ext.xray.isBarEnabled()) {
             // Top bar for frames
             context.fillStyle = xrayColor;
             context.fillRect(fX, fHeight - g_Ext.xray.barFrameHeight, fWidth - 1, g_Ext.xray.barFrameHeight);
@@ -2485,13 +2491,7 @@ function DrawDetailedFrameHistory() {
 
     if (HistoryViewMouseY < fHeight && (HistoryViewMouseY >= fHeight - g_Ext.xray.barFrameHeight) &&
         !g_Loader.barFramesTooltipBlocked && !MouseDragging &&
-        g_Ext.xray.barEnabled && !g_Ext.xray.viewEnabled && g_Ext.currentPlugin && g_Ext.currentPlugin.tooltipBarFrames) {
-        if (!g_Loader.barFramesTooltipShown) {
-            g_Loader.barFramesTooltipShown = true;
-            setTimeout(function () {
-                g_Loader.barFramesTooltipBlocked = true;
-            }, 4500);
-        }
+        g_Ext.xray.isBarEnabled() && !g_Ext.xray.isViewEnabled() && g_Ext.currentPlugin && g_Ext.currentPlugin.tooltipBarFrames) {
         var StringArray = [];
         g_Ext.currentPlugin.tooltipBarFrames.forEach(line => {
             StringArray.push(line);
@@ -2607,7 +2607,7 @@ function DrawDetailedBackground(context) {
     context.font = Font;
 
     var barYOffset = 0;
-    if (g_Ext.xray.barEnabled) {
+    if (g_Ext.xray.isBarEnabled()) {
         // Background for the top bar for the detailed view
         barYOffset = g_Ext.xray.barYOffset;
         context.fillStyle = "#000000";
@@ -2726,6 +2726,12 @@ function CloneArray(arr) {
     }
     return result;
 }
+
+function IsMouseOnXRayDetailedBar() {
+    return (DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0 &&
+        g_Ext.xray.isBarEnabled() && g_Ext.currentPlugin && g_Ext.currentPlugin.tooltipBarDetailed);
+}
+
 function DrawHoverToolTip() {
     // Do not draw the tooltip if the events window is visible
     const EventsWindow = document.getElementById('eventswindow');
@@ -2738,7 +2744,38 @@ function DrawHoverToolTip() {
         return;
     }
     ProfileEnter("DrawHoverToolTip");
-    if (nHoverToken !== -1) {
+    
+    var skipTooltip = false;
+    var needToHighlightScope = g_Loader.hoverScope;
+
+    if (skipTooltip) {
+    } else if (needToHighlightScope != null) {
+        let StringArray = [];
+        let isFirstEnter = needToHighlightScope.jobInfo.isFirstEnter;
+        let isLastEnter = needToHighlightScope.jobInfo.isLastEnter;
+        if (isFirstEnter && isLastEnter) {
+            StringArray.push("This job was fully executed within a single scope");
+            StringArray.push("");
+        } else {
+            StringArray.push("This job was executed across multiple scopes");
+            StringArray.push("");
+            if (isFirstEnter) {
+                StringArray.push("It started here");
+                StringArray.push("");
+            } else if (isLastEnter) {
+                StringArray.push("It finished here");
+                StringArray.push("");
+            } else {
+                StringArray.push("It was midway through execution here");
+                StringArray.push("");
+            }
+            if (g_Loader.lockScope == null) {
+                StringArray.push("Right-click to hold this view");
+                StringArray.push("");
+            }
+        }
+        DrawToolTip(StringArray, CanvasDetailedView, DetailedViewMouseX, DetailedViewMouseY + 20);
+    } else if (nHoverToken != -1) {
         const StringArray = [];
 
         const Timer = TimerInfo[nHoverToken];
@@ -3003,21 +3040,20 @@ function DrawHoverToolTip() {
         StringArray.push("" + RangeCpu.End);
         DrawToolTip(StringArray, CanvasDetailedView, DetailedViewMouseX, DetailedViewMouseY + 20);
     }
-    else if (DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0 && !g_Loader.barDetailedTooltipBlocked &&
-        g_Ext.xray.barEnabled && g_Ext.currentPlugin && g_Ext.currentPlugin.tooltipBarDetailed) {
-        if (!g_Loader.barDetailedTooltipShown) {
-            g_Loader.barDetailedTooltipShown = true;
-            setTimeout(function () {
-                g_Loader.barDetailedTooltipBlocked = true;
-            }, 4500);
+    else if (IsMouseOnXRayDetailedBar()) {
+        if (g_Loader.mouseOnDetailedBarStartTime == null) {
+            g_Loader.mouseOnDetailedBarStartTime = new Date;
         }
-        const StringArray = [];
-        g_Ext.currentPlugin.tooltipBarDetailed.forEach(line => {
-            StringArray.push(line);
-            StringArray.push("");
-        });
-        DrawToolTip(StringArray, CanvasDetailedView, DetailedViewMouseX, DetailedViewMouseY + 20);
+        if (!g_Loader.barDetailedTooltipBlocked) {
+            var StringArray = [];
+            g_Ext.currentPlugin.tooltipBarDetailed.forEach(line => {
+                StringArray.push(line);
+                StringArray.push("");
+            });
+            DrawToolTip(StringArray, CanvasDetailedView, DetailedViewMouseX, DetailedViewMouseY + 20);
+        }        
     }
+    
     ProfileLeave();
 }
 
@@ -3859,14 +3895,166 @@ function rgbToDesaturated(color, amount) {
     return desaturatedHex;
 }
 
+function DrawAuxHints(context, fOffsetY) {
+    if (window.HelpTooltipShowTime > 0) {
+        var HelpFontHeight = 17;
+        var HelpFont = 'Bold ' + HelpFontHeight + 'px Courier New';        
+        var HelpBoxHeight = HelpFontHeight + 2;
+        var HelpAlpha = 0.6 * window.HelpTooltipShowTime / window.HelpTooltipShowTimeInitial;
+
+        context.font = HelpFont;
+        context.globalAlpha = HelpAlpha;
+
+        var lines = [
+            "Mouse drag = navigate",
+            "Mouse wheel = zoom",
+            "Ctrl(Cmd) + F = find",
+        ];
+        if (IsPluginsTabVisible()) {
+            lines.push("X key = X-Ray mode");
+        }
+        if (g_Loader.toolsData.ComboDiffFuncName) {
+            lines.push("Drop dump to view diff");
+        }
+        if (fOffsetY > nHeight) {
+            lines.push("\u21D3 More threads below \u21D3");
+        }
+
+        var textSizeMax = 0;
+        lines.forEach(line => {
+            var textSize = context.measureText(line).width;
+            textSizeMax = Math.max(textSizeMax, textSize);
+        });
+        lines.forEach((line, i) => {
+            context.fillText(line, nWidth - textSizeMax, nHeight - 10 - HelpBoxHeight * (lines.length - i));
+        });
+        
+        context.globalAlpha = 1;
+        context.font = Font;
+    }
+    
+    if (g_Ext.xray.isViewEnabled())
+    {
+        var ModeFontHeight = 20;
+        var ModeFont = 'Bold ' + ModeFontHeight + 'px Courier New';        
+        var ModeBoxHeight = ModeFontHeight + 2;
+        var ModeAlpha = 0.6;
+        
+        context.font = ModeFont;
+        context.globalAlpha = ModeAlpha;
+
+        var lines = [
+            "X-Ray view",
+        ];
+        if (g_Ext.currentPlugin.hint) {
+            lines.push("(" + g_Ext.currentPlugin.hint + ")");
+        }
+
+        lines.forEach((line, i) => {
+            var textSize = context.measureText(line).width;
+            context.fillText(line, nWidth / 2 - textSize / 2, nHeight - 10 - ModeBoxHeight * (lines.length - i));
+        });
+
+        context.globalAlpha = 1;
+        context.font = Font;
+    }
+}
+
+function SortScopeTimes(times, refTimeStart, refTimeEnd) {
+    let ids = Array.from({ length: times.length / 2 }, (_, i) => i);
+    ids.sort((a, b) => times[a * 2 + 1] - times[b * 2 + 1]); // sort indexes by timeEnd
+    let refOffset = ids.findIndex(i => times[i * 2 + 1] === refTimeEnd);
+    return {
+        ids: ids,
+        refOffset: refOffset,
+        prevOffset: refOffset > 0 ? refOffset - 1 : -1,
+        nextOffset: refOffset < ids.length - 1 ? refOffset + 1 : -1,
+    };
+}
+
+function DrawConnectedScopeLines(context, ids, a) {
+    for (let k = 0; k < ids.length - 1; k++) {
+        var entryOffset0 = ids[k + 0] * 3;
+        var X0 = a[entryOffset0 + 0];
+        var Y0 = a[entryOffset0 + 1];
+        var W0 = a[entryOffset0 + 2];
+
+        var entryOffset1 = ids[k + 1] * 3;
+        var X1 = a[entryOffset1 + 0];
+        var Y1 = a[entryOffset1 + 1];
+        var W1 = a[entryOffset1 + 2];
+
+        context.strokeStyle = '#59d0ff';
+        context.beginPath();
+
+        const arrowBridgeHeight = 20;
+        const arrowHeight = 4;
+        const arrowWidth = 2;
+        const minWidthToDrawArrows = 4;
+        var drawArrows = (X1 - (X0 + W0)) > minWidthToDrawArrows;
+
+        // Start
+        context.moveTo(X0 + W0, Y0);
+        context.lineTo(X0 + W0, Y0 - arrowBridgeHeight);
+        if (drawArrows) {        
+            context.moveTo(X0 + W0, Y0 - arrowBridgeHeight + arrowHeight);
+            context.lineTo(X0 + W0 + arrowWidth, Y0 - arrowBridgeHeight + arrowHeight);
+            context.lineTo(X0 + W0, Y0 - arrowBridgeHeight);
+        }
+        context.moveTo(X0 + W0, Y0 - arrowBridgeHeight);
+
+        // Bridge
+        context.lineTo(X1, Y0 - arrowBridgeHeight);
+        context.lineTo(X1, Y1 - arrowBridgeHeight);
+
+        // Finish
+        context.lineTo(X1, Y1 - arrowBridgeHeight);
+        context.lineTo(X1, Y1);
+        if (drawArrows) {        
+            context.moveTo(X1, Y1 - arrowHeight);
+            context.lineTo(X1 - arrowWidth, Y1 - arrowHeight);
+            context.lineTo(X1, Y1);
+        }
+        context.moveTo(X1, Y1);
+        
+        context.stroke();
+    } 
+}
+
+
 function DrawDetailedView(context, MinWidth, bDrawEnabled) {
+    if (g_Loader.hoverScope != g_Loader.prevHoverScope) {
+        bDrawEnabled = true;
+    }
+    
     if (bDrawEnabled) {
         DrawDetailedBackground(context);
     }
 
-    const barYOffset = g_Ext.xray.barEnabled ? g_Ext.xray.barYOffset : 0;
-    const fScaleX = nWidth / fDetailedRange;
-    let fOffsetY = -nOffsetY + BoxHeight + barYOffset;
+    var needToHighlightScope = g_Loader.lockScope ? g_Loader.lockScope : g_Loader.hoverScope;
+    g_Loader.prevHoverScope = g_Loader.hoverScope;
+    g_Loader.hoverScope = null;
+
+    function ReplaceTopLevelName(name) {
+        const replacements = new Map([
+            ["Sleep", {
+                name: "\u{1F4A4}",
+                noTime: true,
+                transparent: true,
+            }],
+        ]);
+        if (replacements.has(name)) {
+            return replacements.get(name);
+        }
+        return null;
+    }
+    var transparentTimerIndexes = new Set;
+    const transparentTimerFillAlpha = 0.2;
+    const transparentTimerTextAlpha = 0.3;
+
+    var barYOffset = g_Ext.xray.isBarEnabled() ? g_Ext.xray.barYOffset : 0;
+    var fScaleX = nWidth / fDetailedRange;
+    var fOffsetY = -nOffsetY + BoxHeight + barYOffset;
     nHoverTokenNext = -1;
     nHoverTokenLogIndexNext = -1;
     nHoverTokenIndexNext = -1;
@@ -3897,30 +4085,42 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
     var fTimeEnd = fDetailedOffset + fDetailedRange;
 
     var FirstFrame = 0;
+    var fLastFrameTimeEnd = 0;
     for (var i = 0; i < Frames.length; i++) {
         if (Frames[i].frameend < fDetailedOffset) {
             FirstFrame = i;
         }
+        if (Frames[i].framestart > fTimeEnd) {
+            fLastFrameTimeEnd = Frames[i].frameend;
+            break;
+        }
     }
+    
     var nMinTimeMs = MinWidth / fScaleX;
     {
-        var BatchesHighlighted = new Array(TimerInfo.length);
-        var Batches = new Array(TimerInfo.length);
-        var BatchesXtra = new Array(TimerInfo.length); // Color intensities for Events
+        // The first half is for regular scopes, while the second half is for highlighted TaskScheduler scopes
+        const maxBatches = TimerInfo.length * 2;
+        var BatchesHighlighted = new Array(maxBatches);
+        var Batches = new Array(maxBatches);
+        var BatchesXtra = new Array(maxBatches); // Color intensities for Events
+        var BatchesTime = new Array(maxBatches); // timestart/timeend
+        var selectedScopeInstanceCount = 0;
+        
         var BatchesTxt = Array();
         var BatchesTxtPos = Array();
-        var BatchesTxtColor = ['#ffffff', '#333333'];
+        var BatchesTxtColor = ['#ffffff', '#333333', '#ffffff']; // txtidx=2 is for transparent texts
         if (!ThreadY) {
             ThreadY = new Array(ThreadNames.length + 1);
         }
 
-        for (var i = 0; i < 2; ++i) {
+        for (var i = 0; i < BatchesTxtColor.length; ++i) {
             BatchesTxt[i] = Array();
             BatchesTxtPos[i] = Array();
         }
         for (var i = 0; i < Batches.length; ++i) {
             Batches[i] = Array();
             BatchesXtra[i] = Array();
+            BatchesTime[i] = Array();
             BatchesHighlighted[i] = Array();
         }
         for (nLog = 0; nLog < nNumLogs; nLog++) {
@@ -4015,21 +4215,32 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                             StackPos--;
                             var highlightedAttr = HighlightedStack[StackPos];
                             var globstart = Stack[StackPos];
+                            var xtrastart = XtraArray[globstart];
                             var timestart = TimeArray[globstart];
                             var timeend = time;
                             var X = (timestart - fDetailedOffset) * fScaleX;
                             var Y = fOffsetY + StackPos * BoxHeight;
                             var W = (timeend - timestart) * fScaleX;
 
-                            if (StackPos < window.MaxStackDepthToVisualize && W > MinWidth && X < nWidth && X + W > 0) {
+                            var onScreen = (X < nWidth && X + W > 0);
+                            if (StackPos < window.MaxStackDepthToVisualize && W > MinWidth && (onScreen || needToHighlightScope)) {
                                 const isMaxDepth = (StackPos == window.MaxStackDepthToVisualize - 1);
 
                                 if (bDrawEnabled || index == nHoverToken) {
-                                    BatchesHighlighted[index].push(highlightedAttr);
+                                    let batchIndex = index;
 
-                                    Batches[index].push(X);
-                                    Batches[index].push(Y);
-                                    Batches[index].push(W);
+                                    if (needToHighlightScope && xtrastart.jobInfo && needToHighlightScope.jobInfo.instanceId == xtrastart.jobInfo.instanceId) {
+                                        selectedScopeInstanceCount++;
+                                        batchIndex = TimerInfo.length + index;
+                                        BatchesTime[batchIndex].push(timestart);
+                                        BatchesTime[batchIndex].push(timeend);
+                                    }
+    
+                                    BatchesHighlighted[batchIndex].push(highlightedAttr);
+
+                                    Batches[batchIndex].push(X);
+                                    Batches[batchIndex].push(Y);
+                                    Batches[batchIndex].push(W);
                                     DebugDrawQuadCount++;
 
                                     var XText = X < 0 ? 0 : X;
@@ -4045,31 +4256,61 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                         Name = "(STACK_LIMIT) " + Name;
                                     }
 
+                                    if (xtrastart && xtrastart.jobInfo) {
+                                        const isFirstEnter = xtrastart.jobInfo.isFirstEnter;
+                                        const isLastEnter = xtrastart.jobInfo.isLastEnter;
+                                        if (!isFirstEnter || !isLastEnter) {
+                                            if (isFirstEnter) {
+                                                Name = "\u25B6 " + Name; // triangle
+                                            } else if (isLastEnter) {
+                                                Name = "\u25A0 " + Name; // square
+                                            } else {
+                                                Name = "\u25CF " + Name; // circle
+                                            }
+                                        }
+                                    }
+
                                     var txNorm;
-                                    if (g_Ext.xray.viewEnabled || g_Ext.xray.barEnabled) {
-                                        var txEntry = XtraArray[globstart];
+                                    if (g_Ext.xray.isViewEnabled() || g_Ext.xray.isBarEnabled()) {
+                                        var txEntry = xtrastart;
                                         txNorm = GetNormalizedFromTx(txEntry, false);
-                                        BatchesXtra[index].push(txNorm);
-                                        if (g_Ext.xray.viewEnabled && txNorm.value > 0 && g_Ext.currentPlugin) {
+                                        BatchesXtra[batchIndex].push(txNorm);
+                                        if (g_Ext.xray.isViewEnabled() && txNorm.value > 0 && g_Ext.currentPlugin) {
                                             Name = "(" + g_Ext.currentPlugin.decorate(txNorm.value) + ") " + Name;
                                         }
                                     }
 
                                     if (BarTextLen >= 2) {
-                                        if (BarTextLen < Name.length)
-                                            Name = Name.substr(0, BarTextLen);
                                         var txtidx = TimerInfo[index].textcolorindex;
-                                        if (g_Ext.xray.viewEnabled) {
+                                        if (g_Ext.xray.isViewEnabled()) {
                                             // Dark scope = bright text and vise versa
                                             txtidx = txNorm.isDark ? 0 : 1;
                                         }
+                                        
+                                        var noTime = false;
+                                        if (StackPos == 0) {
+                                            var repl = ReplaceTopLevelName(Name);
+                                            if (repl) {
+                                                Name = repl.name;
+                                                noTime = repl.noTime;
+                                                if (repl.transparent) {
+                                                    txtidx = 2;
+                                                }
+                                                transparentTimerIndexes.add(index);
+                                            }
+                                        }
+
+                                        if (BarTextLen < Name.length)
+                                            Name = Name.substr(0, BarTextLen);
+                                        
                                         var YPos = Y + BoxHeight - FontAscent;
                                         BatchesTxt[txtidx].push(Name);
                                         BatchesTxtPos[txtidx].push(XText + 2);
 
                                         BatchesTxtPos[txtidx].push(YPos);
                                         DebugDrawTextCount++;
-                                        if (BarTextLen - Name.length > TimeTextLen) {
+                                        
+                                        if (!noTime && BarTextLen - Name.length > TimeTextLen) {
                                             BatchesTxt[txtidx].push(TimeText);
                                             BatchesTxtPos[txtidx].push(XText + WText - 2 - TimeTextLen * FontWidth);
                                             BatchesTxtPos[txtidx].push(YPos);
@@ -4099,11 +4340,24 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                         RangeGpuNext.Begin = -1;
                                         RangeGpuNext.End = -1;
                                     }
+                                    
+                                    if (xtrastart && xtrastart.jobInfo) {
+                                        g_Loader.hoverScope = {
+                                            globIndex: globstart,
+                                            isScanPerformed: false,
+                                            hasSeveralInstances: false,
+                                            jobInfo: xtrastart.jobInfo,
+                                            timestart: timestart,
+                                            timeend: timeend,
+                                        };
+                                    }
 
                                     SetHoverToken(index, glob, nLog);
                                 }
                             }
-                            if (StackPos == 0 && time > fTimeEnd)
+                            
+                            var endTime = needToHighlightScope ? fLastFrameTimeEnd : fTimeEnd;
+                            if (StackPos == 0 && time > endTime)
                                 break;
                         }
                     }
@@ -4113,30 +4367,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
             ThreadY[nLog + 1] = fOffsetY;
         }
 
-        if (!g_Loader.hasUserInteracted) {
-            var lines = [
-                "Mouse drag = navigate",
-                "Mouse wheel = zoom",
-                "Ctrl(Cmd) + F = find",
-            ];
-            if (IsPluginsTabVisible()) {
-                lines.push("X key = X-Ray mode");
-            }
-            if (g_Loader.toolsData.ComboDiffFuncName) {
-                lines.push("Drop dump to view diff");
-            }
-            if (fOffsetY > nHeight) {
-                lines.push("\u21D3 More threads below \u21D3");
-            }
-            var textSizeMax = 0;
-            lines.forEach(line => {
-                var textSize = context.measureText(line).width;
-                textSizeMax = Math.max(textSizeMax, textSize);
-            });
-            lines.forEach((line, i) => {
-                context.fillText(line, nWidth - textSizeMax - FontWidth, nHeight - 10 - BoxHeight * (lines.length - i));
-            });
-        }
+        DrawAuxHints(context, fOffsetY);
 
         if (nContextSwitchEnabled) //non instrumented threads.
         {
@@ -4178,9 +4409,27 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
         }
 
         {
+            var hasSelectedScopeInstances = selectedScopeInstanceCount > 0;
+            var hasSeveralSelectedScopeInstances = selectedScopeInstanceCount > 1;
+
+            if (needToHighlightScope && g_Loader.hoverScope && needToHighlightScope.globIndex == g_Loader.hoverScope.globIndex) {
+                g_Loader.hoverScope.isScanPerformed = true;
+                g_Loader.hoverScope.hasSeveralInstances = hasSeveralSelectedScopeInstances;
+            }
+     
             for (var i = 0; i < Batches.length; ++i) {
+                var isSelectedScope = (i >= TimerInfo.length);
+                var timerIndex = i % TimerInfo.length;
+                var isTransparentScope = transparentTimerIndexes.has(timerIndex);
+                
                 var a = Batches[i];
                 if (a.length) {
+                    if (hasSeveralSelectedScopeInstances && isSelectedScope) {
+                        var sortedScopes = SortScopeTimes(BatchesTime[i], needToHighlightScope.timestart, needToHighlightScope.timeend);
+                        var ids = sortedScopes.ids;
+                        DrawConnectedScopeLines(context, ids, a);
+                    }
+                    
                     if (!DisableMerge) {
                         for (var j = 0; j < a.length; j += 3) {
                             var X = a[j];
@@ -4209,7 +4458,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                     }
                     var off = 0.7;
                     var off2 = 2 * off;
-                    var outlineColor = TimerInfo[i].colordark;
+                    var outlineColor = TimerInfo[timerIndex].colordark;
                     context.fillStyle = outlineColor;
                     for (var j = 0; j < a.length; j += 3) {
                         var colorChanged = false;
@@ -4226,7 +4475,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                         var Y = a[j + 1];
                         var W = a[j + 2];
                         if (W >= 1) {
-                            context.fillRect(X, Y, W, BoxHeight - 1);
+                            if (!isTransparentScope) {
+                                context.fillRect(X, Y, W, BoxHeight - 1);
+                            }
                         }
 
                         if (colorChanged) {
@@ -4234,7 +4485,16 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                         }
                     }
 
-                    var origColor = (i == nHoverToken) ? nHoverColor : TimerInfo[i].color;
+                    var origColor = TimerInfo[timerIndex].color;
+                    if (hasSelectedScopeInstances) {
+                        if (isSelectedScope && needToHighlightScope && g_Loader.hoverScope &&
+                            needToHighlightScope.jobInfo.instanceId == g_Loader.hoverScope.jobInfo.instanceId) {
+                            origColor = nHoverColor;
+                        }
+                    } else if (timerIndex == nHoverToken) {
+                        origColor = nHoverColor;
+                    }
+                    
                     context.fillStyle = origColor;
                     for (var j = 0; j < a.length; j += 3) {
                         var X = a[j];
@@ -4253,7 +4513,16 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                             }
                         }
 
-                        if (g_Ext.xray.viewEnabled) {
+                        if (hasSeveralSelectedScopeInstances && !isSelectedScope) {
+                            context.fillStyle = rgbToDesaturated(origColor, 1);
+                            colorChanged = true;
+                        }
+
+                        if (isTransparentScope) {
+                            context.globalAlpha = transparentTimerFillAlpha;
+                        }
+
+                        if (g_Ext.xray.isViewEnabled()) {
                             var txNorm = BatchesXtra[i][j / 3];
                             context.fillStyle = txNorm.color;
                             colorChanged = true;
@@ -4262,10 +4531,14 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                             context.fillRect(X + off, Y + off, W - off2, BoxHeight - 1 - off2);
                         }
 
-                        if (g_Ext.xray.viewEnabled || g_Ext.xray.barEnabled) {
+                        if (isTransparentScope) {
+                            context.globalAlpha = 1;
+                        }
+
+                        if (g_Ext.xray.isViewEnabled() || g_Ext.xray.isBarEnabled()) {
                             var txNorm = BatchesXtra[i][j / 3];
                             // Top bar for the detailed view
-                            if (g_Ext.xray.barEnabled && (W > 0)) {
+                            if (g_Ext.xray.isBarEnabled() && (W > 0)) {
                                 var thresholds = g_Ext.xray.calculatedLimits.barThresholds;
                                 var barIntensityCoef = (g_Ext.xray.mode == XRayModes.Count) ? thresholds.count : thresholds.sum;
                                 const grad255 = Math.floor(txNorm.grad255 * (1 - barIntensityCoef / 100));
@@ -4278,7 +4551,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                             }
                             // Small scopes highlighting
                             var smallScopes = g_Ext.xray.smallScopesHighlighting;
-                            if (g_Ext.xray.viewEnabled && (W > 0) && (txNorm.grad01 > smallScopes.thresholdIntensity) && (W - off2 < smallScopes.thresholdWidth)) {
+                            if (g_Ext.xray.isViewEnabled() && (W > 0) && (txNorm.grad01 > smallScopes.thresholdIntensity) && (W - off2 < smallScopes.thresholdWidth)) {
                                 const extender = 3;
                                 context.globalCompositeOperation = "lighter";
                                 context.fillStyle = GradToColor(smallScopes.extraIntensity);
@@ -4295,13 +4568,21 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 } // if (Batches[i].length)
             }
         }
+        
         for (var i = 0; i < BatchesTxt.length; ++i) {
+            var isTransparent = (i >= 2);
+            if (isTransparent) {
+                context.globalAlpha = transparentTimerTextAlpha;
+            }
             context.fillStyle = BatchesTxtColor[i];
             var TxtArray = BatchesTxt[i];
             var PosArray = BatchesTxtPos[i];
             for (var j = 0; j < TxtArray.length; ++j) {
                 var k = j * 2;
                 context.fillText(TxtArray[j], PosArray[k], PosArray[k + 1]);
+            }
+            if (isTransparent) {
+                context.globalAlpha = 1;
             }
         }
 
@@ -4323,7 +4604,7 @@ function DrawTextBox(context, text, x, y, align, bgColor) {
     context.fillText(text, x, y);
 
 }
-function DrawRange(context, Range, ColorBack, ColorFront, Name) {
+function DrawRange(context, Range, ColorBack, ColorFront, Name, IsSimplified) {
     var fBegin = Range.Begin;
     var fEnd = Range.End;
     var OffsetTop = Range.YBegin;
@@ -4346,6 +4627,17 @@ function DrawRange(context, Range, ColorBack, ColorFront, Name) {
         context.fillStyle = ColorBack;
         context.fillRect(X, OffsetTop + fRulerOffset, W, OffsetBottom - OffsetTop);
         context.globalAlpha = 1;
+
+        var Duration = (fEnd - fBegin).toFixed(2) + "ms";
+        var Center = ((fBegin + fEnd) / 2.0) - fDetailedOffset;
+        var DurationWidth = context.measureText(Duration + "   ").width;
+        if (IsSimplified) {
+            context.textAlign = 'center';
+            DrawTextBox(context, Duration, Center * fScaleX, Y + YSpace, 'center');
+            context.textAlign = 'left';
+            return 1;
+        }
+        
         context.strokeStyle = ColorFront;
         context.beginPath();
         context.moveTo(X, 0);
@@ -4353,9 +4645,6 @@ function DrawRange(context, Range, ColorBack, ColorFront, Name) {
         context.moveTo(X + W, 0);
         context.lineTo(X + W, nHeight);
         context.stroke();
-        var Duration = (fEnd - fBegin).toFixed(2) + "ms";
-        var Center = ((fBegin + fEnd) / 2.0) - fDetailedOffset;
-        var DurationWidth = context.measureText(Duration + "   ").width;
 
         context.fillStyle = 'white';
         context.textAlign = 'right';
@@ -4418,7 +4707,6 @@ function DrawDetailed(Animation) {
     RangeGpuNext = RangeInit();
     RangeGpu = RangeInit();
 
-    var start = new Date();
     nDrawCount++;
 
     var context = CanvasDetailedView.getContext('2d');
@@ -4480,13 +4768,20 @@ function DrawDetailed(Animation) {
             RangeCopy(RangeCpu, RangeCpuNext);
             RangeCopy(RangeGpu, RangeGpuNext);
         }
+        
+        if (nHoverToken >= 0) {
+            var timer = TimerInfo[nHoverToken];
+            if (GroupInfo[timer.group].isgpu) {
+                RangeCpu = RangeInit();
+            }
+        }
     }
 
-    var barYOffset = g_Ext.xray.barEnabled ? g_Ext.xray.barYOffset : 0;
+    var barYOffset = g_Ext.xray.isBarEnabled() ? g_Ext.xray.barYOffset : 0;
     DrawTextBox(context, TimeToMsString(fDetailedOffset), 0, FontHeight + barYOffset, 'left');
     context.textAlign = 'right';
     DrawTextBox(context, TimeToMsString(fDetailedOffset + fDetailedRange), nWidth, FontHeight + barYOffset, 'right');
-    if (g_Ext.xray.barEnabled && g_Ext.currentPlugin) {
+    if (g_Ext.xray.isBarEnabled() && g_Ext.currentPlugin) {
         // Top bar text
         var eventNames = [];
         g_Ext.typeLookup.forEach(function (entry) {
@@ -4536,7 +4831,9 @@ function DrawDetailed(Animation) {
     }
 
     Offset = DrawRange(context, RangeSelect, '#59d0ff', '#00ddff', "Selection");
-    Offset = DrawRange(context, RangeCpu, '#009900', '#00ff00', "Cpu");
+
+    var IsSimplifiedCpuRange = (g_Loader.hoverScope != null);
+    Offset = DrawRange(context, RangeCpu, '#009900', '#00ff00', "Cpu", IsSimplifiedCpuRange);
     Offset = DrawRange(context, RangeGpu, '#996600', '#775500', "Gpu");
 
     nHoverCSCpu = nHoverCSCpuNext;
@@ -4544,7 +4841,7 @@ function DrawDetailed(Animation) {
 }
 function ZoomToHighlight(NoGpu) {
     // In XRay mode, display events on scope click instead of zooming in
-    if (g_Ext.xray.viewEnabled && g_Ext.currentPlugin && g_Ext.currentPlugin.display &&
+    if (g_Ext.xray.isViewEnabled() && g_Ext.currentPlugin && g_Ext.currentPlugin.display &&
         NoGpu == undefined && nHoverToken != -1) {
         ShowEvents(true);
         return;
@@ -4873,6 +5170,57 @@ function AutoRedraw(Timestamp) {
     else if (FlashFrameCounter > 0) {
         Draw(0);
     }
+
+    // Short animations, delayed transitions
+    var needRedraw = false;
+    var curTime = new Date;
+    if (g_Loader.lastAutoRedrawTime > 0) {
+        var frameDeltaTime = curTime - g_Loader.lastAutoRedrawTime;
+
+        // Help hint fade-out
+        if (g_Loader.hasUserInteracted) {
+            if (window.HelpTooltipShowTime > 0) {
+                window.HelpTooltipShowTime -= frameDeltaTime;
+                needRedraw = true;
+            }
+        }
+
+        if (g_Loader.mouseOnDetailedBarStartTime != null) {
+            if (IsMouseOnXRayDetailedBar()) {
+                // X-Ray detailed bar hiding
+                if (!g_Loader.barDetailedTooltipBlocked) {
+                    g_Loader.mouseOnDetailedBarCounter = g_Loader.mouseOnDetailedBarCounter ? g_Loader.mouseOnDetailedBarCounter : 0;
+                    g_Loader.mouseOnDetailedBarCounter += frameDeltaTime;
+                    const hideAfterLastShownMs = 1200;
+                    const hideAfterTotalShownMs = 8000;
+                    if (curTime - g_Loader.mouseOnDetailedBarStartTime >= hideAfterLastShownMs && g_Loader.mouseOnDetailedBarCounter >= hideAfterTotalShownMs) {
+                        g_Loader.barDetailedTooltipBlocked = true;
+                        needRedraw = true;
+                    }
+                }
+                // Temporal enabling of X-Ray view
+                const xrayDetailedTooltipDelayMs = 140;
+                if (!g_Ext.xray.viewEnabledForced && curTime - g_Loader.mouseOnDetailedBarStartTime >= xrayDetailedTooltipDelayMs) {
+                    g_Ext.xray.viewEnabledForced = true;
+                    AdjustXRayStyle();
+                    needRedraw = true;
+                }
+            } else {
+                // Disabling the temporarily enabled X-Ray view
+                g_Loader.mouseOnDetailedBarStartTime = null;
+                if (g_Ext.xray.viewEnabledForced) {
+                    g_Ext.xray.viewEnabledForced = false;
+                    AdjustXRayStyle();
+                    needRedraw = true;
+                }
+            }
+        }
+    }
+    g_Loader.lastAutoRedrawTime = curTime;
+    
+    if (needRedraw)
+        RequestRedraw();
+    
     requestAnimationFrame(AutoRedraw);
 }
 
@@ -5127,19 +5475,30 @@ function MouseDrag(Source, Event) {
         MouseDragReset();
         return;
     }
-
+    
+    const MouseButtonRight = 3;
+    if (MapMouseButton(Event) == MouseButtonRight) {
+        g_Loader.lockScope = g_Loader.hoverScope;
+        if (g_Loader.lockScope != null)
+            return;
+    }
+    
     var LocalRect = Event.target.getBoundingClientRect();
     MouseDragX = Event.clientX - LocalRect.left;
     MouseDragY = Event.clientY - LocalRect.top;
 
-    function HasSelection() {
+    function GetDxDySum() {
         var dx = Math.abs(MouseDragX - MouseDragXStart);
         var dy = Math.abs(MouseDragY - MouseDragYStart);
-        return (dx + dy > 1);
+        return (dx + dy);
+    }
+    function HasSelection() {
+        return (GetDxDySum() > 1);
     }
 
     if (Source == MouseDragUp && !HasSelection()) {
         RangeSelect = RangeInit();
+        g_Loader.lockScope = null;
         Invalidate = 0;
     }
 
@@ -5153,6 +5512,11 @@ function MouseDrag(Source, Event) {
         }
         else {
             MouseHandleDrag();
+        }
+        
+        if (window.HelpTooltipShowTime > 0) {
+            const pixelsToShowTime = 0.15 * DPR;
+            window.HelpTooltipShowTime -= GetDxDySum() * pixelsToShowTime;
         }
         g_Loader.hasUserInteracted = true;
     }
@@ -5296,10 +5660,10 @@ function MouseWheel(e) {
     }
 
     if (e.target == CanvasDetailedView) {
-        if (KeyShiftDown == 1 && g_Ext.xray.barEnabled && DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0) {
+        if (KeyShiftDown == 1 && g_Ext.xray.isBarEnabled() && DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0) {
             // Select X-Ray threshold for the preview bar
             clickBtnIdDir("xthreshold_bar");
-        } else if (KeyShiftDown == 1 && g_Ext.xray.viewEnabled) {
+        } else if (KeyShiftDown == 1 && g_Ext.xray.isViewEnabled()) {
             // Select X-Ray threshold for the main view
             clickBtnIdDir("xthreshold_main");
         } else if (KeyCtrlDown == 0) {
@@ -5307,7 +5671,7 @@ function MouseWheel(e) {
             ZoomGraph((-4 * delta / 120.0) | 0);
         }
     } else if (e.target = CanvasHistory) {
-        if (KeyShiftDown == 1 && (g_Ext.xray.viewEnabled || g_Ext.xray.barEnabled)) {
+        if (KeyShiftDown == 1 && (g_Ext.xray.isViewEnabled() || g_Ext.xray.isBarEnabled())) {
             // Select X-Ray threshold for frames
             clickBtnIdDir("xthreshold_frames");
         } else if (KeyCtrlDown == 0) {
@@ -5463,6 +5827,7 @@ function KeyUp(evt) {
     }
     if (evt.keyCode == 27) {
         RangeSelect = RangeInit();
+        g_Loader.lockScope = null;
         SortColumn = 0;
         SortColumnMouseOver = "";
         if ((Mode == ModeTimers) || (Mode == ModeDetailed)) {
@@ -6059,20 +6424,6 @@ function Preprocess() {
     ProfileModeDump();
     ProfileMode = ProfileModeOld;
     Initialized = 1;
-}
-
-function ShowHelp(Show, Forever) {
-    var HelpWindow = document.getElementById('helpwindow');
-    if (Show) {
-        HelpWindow.style['display'] = 'block';
-    }
-    else {
-        HelpWindow.style['display'] = 'none';
-    }
-    if (Forever) {
-        nHideHelp = Show ? 0 : 1;
-        WriteCookie();
-    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -7430,16 +7781,23 @@ function ScanEvents() {
 }
 
 function PrepareEvents() {
-    g_Ext.reset();
+    g_Ext.prepareEventsBefore();
+
     var frameEntries = [];
     var scopeEntries = [];
+
+    var logTxStacks = Array();
+    var nNumLogs = Frames[0].ts.length;
+    for (var nLog = 0; nLog < nNumLogs; ++nLog) {
+        logTxStacks[nLog] = Array();
+    }
+
     for (var i = 0; i < Frames.length; ++i) {
         var fr = Frames[i];
         fr.txAcc = DeepCopy(TxType);
         if (fr.tx == undefined) {
             fr.tx = [];
         }
-        var nNumLogs = Frames[0].ts.length;
         for (var nLog = 0; nLog < nNumLogs; ++nLog) {
             var ts = fr.ts[nLog]; // timestamp (ms)
             var ti = fr.ti[nLog]; // timer index
@@ -7449,7 +7807,7 @@ function PrepareEvents() {
                 fr.tx[nLog] = [];
             }
             var tx = fr.tx[nLog]; // custom events
-            var txStack = Array();
+            var txStack = logTxStacks[nLog];
             var numEntries = tt.length;
             for (var j = 0; j < numEntries; ++j) {
                 var logType = tt[j];
@@ -7458,16 +7816,25 @@ function PrepareEvents() {
                     if (tx[j] == undefined) {
                         tx[j] = DeepCopy(TxType);
                     } else {
+                        for (let key in tx[j]) {
+                            if (tx[j].hasOwnProperty(key)) {
+                                delete tx[j][key];
+                            }
+                        }
                         tx[j].count = 0;
                         tx[j].sum = 0;
                     }
-                    txStack.push(j);
+                    txStack.push({
+                        frame: Frames[i],
+                        txEntry: tx[j],
+                    });
                 } else if (logType == 0) {
                     // EXIT
                     if (txStack.length > 0) {
-                        const topId = txStack[txStack.length - 1];
-                        if (tx[topId].count > 0) { // Collect scopes
-                            scopeEntries.push(tx[topId]);
+                        const curScope = txStack[txStack.length - 1];
+                        let curScopeTx = curScope.txEntry;
+                        if (curScopeTx.count > 0) { // Collect scopes
+                            scopeEntries.push(curScopeTx);
                         }
                     }
                     txStack.pop();
@@ -7480,11 +7847,31 @@ function PrepareEvents() {
                         var evt = RawToEvent(ts, ti, tt, tl, j);
                         var ctx = plugin.decode(evt);
                         if (typeLookup.isBackground) {
-                            plugin.prepare(ctx);
+                            let topFrame = null;
+                            let curFrame = null;
+                            let topScopeTx = null;
+                            let curScopeTx = null;
+                            if (txStack.length > 0) {
+                                const topScope = txStack[0];
+                                const curScope = txStack[txStack.length - 1];
+                                topFrame = topScope.frame;
+                                curFrame = curScope.frame;
+                                topScopeTx = topScope.txEntry;
+                                curScopeTx = curScope.txEntry;
+                            };
+                            plugin.prepare(ctx, {
+                                evtFrame: fr,
+                                topFrame: topFrame,
+                                curFrame: curFrame,
+                                topScopeTx: topScopeTx,
+                                curScopeTx: curScopeTx,
+                            });
                         } else if (txStack.length > 0) {
-                            const topId = txStack[txStack.length - 1];
-                            tx[topId].add(ctx.value, ctx.count);
-                            fr.txAcc.add(ctx.value, ctx.count);
+                            const curScope = txStack[txStack.length - 1];
+                            let curFrame = curScope.frame;
+                            let curScopeTx = curScope.txEntry;
+                            curScopeTx.add(ctx.value, ctx.count);
+                            curFrame.txAcc.add(ctx.value, ctx.count);
                         }
                     } // plugin
                 } // logType
@@ -7503,6 +7890,8 @@ function PrepareEvents() {
     var scopeVariants = g_Ext.xray.calculatedLimits.scopeVariants;
     scopeVariants.count = CalcPercentiles(scopeEntries, XRayModes.Count);
     scopeVariants.sum = CalcPercentiles(scopeEntries, XRayModes.Sum);
+
+    g_Ext.prepareEventsAfter();
 }
 
 function ShowEvents(Show) {
@@ -7771,7 +8160,7 @@ function InitPluginStates() {
     g_Ext.hasForegroundPlugins = false;
     var isPresetSet = false;
     g_Ext.plugins.forEach(function (p) {
-        var shouldHide = (p.preset && p.preset.hideIfNoEvents == true && !p.isPresented);
+        var shouldHide = p.preset && (p.preset.hideAlways == true || (p.preset.hideIfNoEvents == true && !p.isPresented));
         if (shouldHide) {
             p.isHidden = true;
             return;
@@ -7792,7 +8181,7 @@ function InitPluginStates() {
 }
 
 function AdjustXRayStyle() {
-    CanvasHistory.style.backgroundColor = g_Ext.xray.viewEnabled ? '#242424' : '#474747';
+    CanvasHistory.style.backgroundColor = g_Ext.xray.isViewEnabled() ? '#242424' : '#474747';
 }
 
 function MenuAddEntry(menuElement, id, text, clickFn, isCategory) {
@@ -7832,15 +8221,38 @@ function MenuUpdateEntry(elId, isSel, isHid, text) {
     }
 };
 
-function AdjustMenuItemsWidth(MenuElement) {
-    // Adjust the width of all menu items according to max text length
-    var maxLen = 0;
-    var As = MenuElement.getElementsByTagName('a');
+function GetMaxMenuItemTextWidth(As) {
+    let tempSpan = document.createElement('span');
+    tempSpan.style.visibility = 'hidden';
+    tempSpan.style.position = 'absolute';
+    tempSpan.style.whiteSpace = 'nowrap';
+    document.body.appendChild(tempSpan);
+
+    let maxWidth = 0;
     for (var i = 0; i < As.length; ++i) {
-        maxLen = Math.max(maxLen, As[i].textContent.length);
+        let a = As[i];
+        if (i == 0) {
+            var computedStyle = getComputedStyle(a);
+            tempSpan.style.fontFamily = computedStyle.fontFamily;
+            tempSpan.style.fontSize = computedStyle.fontSize;
+            tempSpan.style.fontWeight = computedStyle.fontWeight;
+            tempSpan.style.fontStyle = computedStyle.fontStyle;
+        }
+        tempSpan.textContent = a.textContent;
+        let w = tempSpan.getBoundingClientRect().width;
+        maxWidth = Math.max(maxWidth, w);
     }
 
-    var LenStr = (5 + (0 + maxLen) * (1 + FontWidth)) + 'px';
+    document.body.removeChild(tempSpan);
+    return maxWidth;
+}
+
+function AdjustMenuItemsWidth(MenuElement) {
+    // Adjust the width of all menu items according to max text length
+    var As = MenuElement.getElementsByTagName('a');
+    var maxWidth = GetMaxMenuItemTextWidth(As);
+
+    var LenStr = (2 + maxWidth) + 'px'; 
     var Lis = MenuElement.getElementsByTagName('li');
     for (var i = 0; i < Lis.length; ++i) {
         Lis[i].style['width'] = LenStr;
@@ -8009,7 +8421,10 @@ function InitPluginVars() {
 
         xray: {
             viewEnabled: false,
+            viewEnabledForced: false,
             barEnabled: false,
+            isViewEnabled: function() { return this.viewEnabled || this.viewEnabledForced; },
+            isBarEnabled: function() { return this.barEnabled; },
             mode: XRayModes.Count,
             barFrameHeight: BoxHeight * 0.8,
             barYOffset: BoxHeight,
@@ -8051,6 +8466,21 @@ function InitPluginVars() {
         spans: [],
         reset: function () {
             this.spans = [];
+        },
+        prepareEventsBefore: function () {
+            this.reset();
+            this.plugins.forEach(function (p) {
+                if (p.prepareEventsBefore) {
+                    p.prepareEventsBefore();
+                }
+            });
+        },
+        prepareEventsAfter: function () {
+            this.plugins.forEach(function (p) {
+                if (p.prepareEventsAfter) {
+                    p.prepareEventsAfter();
+                }
+            });
         },
     };
 
@@ -8125,6 +8555,40 @@ DefinePlugin(function () {
 
 DefinePlugin(function () {
     return {
+        category: "Multitasking",
+        events: ["ThreadInfo"],
+        baseId: 33,
+        isBackground: true,
+        preset: {
+            hideAlways: true,
+        },
+        decode: function (evt, full) {
+            let data = BigInt(evt.data);
+            let rtThreadId = Number(data & 0xffffffffffffn);
+            let isFirstEnter = Number((data >> 48n) & 0x1n) == 1;
+            let isLastEnter = Number((data >> 49n) & 0x1n) == 1;
+            var ctx = {
+                evt: evt,
+                rtThreadId: rtThreadId,
+                isFirstEnter: isFirstEnter,
+                isLastEnter: isLastEnter,
+            };
+            return ctx;
+        },
+        prepare: function (ctx, txInfo) {
+            if (txInfo.topScopeTx != null) {
+                txInfo.topScopeTx.jobInfo = {
+                    instanceId: ctx.rtThreadId,
+                    isFirstEnter: ctx.isFirstEnter,
+                    isLastEnter: ctx.isLastEnter,
+                };
+            }
+        },
+    }
+});
+
+DefinePlugin(function () {
+    return {
         category: "Memory",
         events: ["Alloc", "Free", "Realloc"],
         baseId: 17,
@@ -8182,6 +8646,7 @@ DefinePlugin(function () {
 DefinePlugin(function () {
     return {
         category: "MemoryScope",
+        hint: "Memory operations",
         events: [{ name: "MemoryScopeStats", subnames: ["Alloc", "Free"] }],
         baseId: 20,
         preset: {
@@ -8189,8 +8654,8 @@ DefinePlugin(function () {
             events: ["Alloc"],
             hideIfNoEvents: true,
         },
-        tooltipBarFrames: ["Memory operations' intensity"],
-        tooltipBarDetailed: ["Memory operations' intensity", "localized within frames.", "Use X-Ray for details."],
+        tooltipBarFrames: ["Memory operation intensity"],
+        tooltipBarDetailed: ["Memory operation intensity", "localized within frames.", "Use X-Ray for details."],
         decorate: ValueToBytes,
         decode: function (evt, full) {
             var count = 0;

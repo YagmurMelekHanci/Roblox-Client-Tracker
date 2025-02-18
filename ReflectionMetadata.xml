@@ -4374,6 +4374,36 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">InputAction</string>
+        <string name="ExplorerOrder">31</string>
+        <string name="ClassCategory">Input</string>
+        <string name="PreferredParent">InputContext</string>
+        <string name="FFlag">ContextActionServiceRedesign</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">InputBinding</string>
+        <string name="ExplorerOrder">31</string>
+        <string name="ClassCategory">Input</string>
+        <string name="PreferredParent">InputAction</string>
+        <string name="FFlag">ContextActionServiceRedesign</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">InputContext</string>
+        <string name="ExplorerOrder">31</string>
+        <string name="ClassCategory">Input</string>
+        <string name="PreferredParent">StarterPlayerScripts</string>
+        <string name="FFlag">ContextActionServiceRedesign</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">PointsService</string>
         <bool name="Deprecated">true</bool>
       </Properties>
@@ -8119,6 +8149,24 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">VideoDisplay</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableVideoApiStudio</bool>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">VideoTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">CanvasGroup</string>
         <string name="FFlag">RenderCanvasGroupToTexture</string>
         <string name="ClassCategory">GUI</string>
@@ -9675,6 +9723,14 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ModuleScript</string>
+        <string name="ClassCategory">Scripting</string>
+        <string name="ExplorerOrder">50</string>
+        <string name="ExplorerImageIndex">76</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AuroraScript</string>
         <string name="ClassCategory">Scripting</string>
         <string name="ExplorerOrder">50</string>
         <string name="ExplorerImageIndex">76</string>
