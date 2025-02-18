@@ -28,6 +28,7 @@ local GetFFlagEnableAppChatInExperience = require(CorePackages.Workspace.Package
 local getFStringAppChatInExperienceIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).getFStringAppChatInExperienceIXPLayer
 local FStringReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportMenuIXPLayer
 local FStringReportingIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportingIXPLayer
+local FStringEARReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringEARReportMenuIXPLayer
 
 return function()
 	local layers = {
@@ -35,6 +36,7 @@ return function()
 		getFStringDesktopToastNotificationLayer(),
 		FStringReportMenuIXPLayer,
 		FStringReportingIXPLayer,
+		FStringEARReportMenuIXPLayer,
 		FStringSocialCaptureIXPLayer,
 		FStringSocialCaptureTakenIXPLayer,
 	}

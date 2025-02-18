@@ -5,17 +5,43 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  DUPTABLE R1 K2 [{"FindAsync", "ReplaceAsync"}]
-  DUPCLOSURE R2 K3 [PROTO_0]
-  SETTABLEKS R2 R1 K0 ["FindAsync"]
-  DUPCLOSURE R2 K4 [PROTO_1]
-  SETTABLEKS R2 R1 K1 ["ReplaceAsync"]
-  DUPTABLE R4 K6 [{"__index"}]
+  RETURN R0 0
+
+PROTO_3:
+  DUPTABLE R1 K1 [{"Disconnect"}]
+  DUPCLOSURE R2 K2 [PROTO_2]
+  SETTABLEKS R2 R1 K0 ["Disconnect"]
+  RETURN R1 1
+
+PROTO_4:
+  RETURN R0 0
+
+PROTO_5:
+  DUPTABLE R1 K1 [{"Disconnect"}]
+  DUPCLOSURE R2 K2 [PROTO_4]
+  SETTABLEKS R2 R1 K0 ["Disconnect"]
+  RETURN R1 1
+
+PROTO_6:
+  DUPTABLE R1 K4 [{"UpdateQueryAsync", "GetResultsAsync", "ResultsAvailable", "FindComplete"}]
+  DUPCLOSURE R2 K5 [PROTO_0]
+  SETTABLEKS R2 R1 K0 ["UpdateQueryAsync"]
+  DUPCLOSURE R2 K6 [PROTO_1]
+  SETTABLEKS R2 R1 K1 ["GetResultsAsync"]
+  DUPTABLE R2 K8 [{"Connect"}]
+  DUPCLOSURE R3 K9 [PROTO_3]
+  SETTABLEKS R3 R2 K7 ["Connect"]
+  SETTABLEKS R2 R1 K2 ["ResultsAvailable"]
+  DUPTABLE R2 K8 [{"Connect"}]
+  DUPCLOSURE R3 K10 [PROTO_5]
+  SETTABLEKS R3 R2 K7 ["Connect"]
+  SETTABLEKS R2 R1 K3 ["FindComplete"]
+  DUPTABLE R4 K12 [{"__index"}]
   GETUPVAL R5 0
-  SETTABLEKS R5 R4 K5 ["__index"]
+  SETTABLEKS R5 R4 K11 ["__index"]
   FASTCALL2 SETMETATABLE R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K8 [setmetatable]
+  GETIMPORT R2 K14 [setmetatable]
   CALL R2 2 0
   RETURN R1 1
 
@@ -23,7 +49,7 @@ MAIN:
   PREPVARARGS 0
   NEWTABLE R0 2 0
   SETTABLEKS R0 R0 K0 ["__index"]
-  DUPCLOSURE R1 K1 [PROTO_2]
+  DUPCLOSURE R1 K1 [PROTO_6]
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K2 ["new"]
   RETURN R0 1

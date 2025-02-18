@@ -6,20 +6,29 @@ local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local GamepadService = game:GetService("GamepadService")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 
 local properties = require(VirtualCursorFolder.Properties)
 local Interface = require(VirtualCursorFolder.Interface)
+local getFFlagDirectionalAnalogStick = require(VirtualCursorFolder.getFFlagDirectionalAnalogStick)
 
 local FFlagResetVCThumbstickOnDisable = game:DefineFastFlag("ResetVCThumbstickOnDisable", false)
+local FFlagDirectionalAnalogStick = getFFlagDirectionalAnalogStick()
 
 local Input = {}
 
 -- variables
-local currentSensitivity = 1
 local thumbstickVector = Vector2.new()
 local thumbstick2Vector = Vector2.new()
-local enabled = false
+local cursorEnabled = false
+local previewEnabled = false
+local previousSelection = nil
+local previousSelectionTime = os.clock()
+local gamepadAnimatedSelectionPreviewConnection = nil
 local gamepadThumbstick1ChangedConnection = nil
 
 local function processThumbstickInput(position) -- process raw input from the thumbstick and account for deadzone
@@ -46,8 +55,58 @@ local function onThumbstick2Input(action, state, iobj)
 	return Enum.ContextActionResult.Pass
 end
 
+local function processPreviewEnabled(enabled: boolean)
+    assert(FFlagDirectionalAnalogStick, "processPreviewEnabled should only be called when FFlagDirectionalAnalogStick is true")
+
+    local insetTop, _ = GuiService:GetGuiInset()
+    if enabled and not previewEnabled then
+        Interface:EnableUI(GuiService.SelectedObject.AbsolutePosition + (GuiService.SelectedObject.AbsoluteSize / 2) + insetTop)
+        previewEnabled = true
+    elseif not enabled and previewEnabled then
+        Interface:DisableUI()
+        previewEnabled = false
+    end
+
+    if enabled then
+        if previousSelection then
+            Interface:SetCursorPosition(previousSelection.AbsolutePosition + (GuiService.SelectedObject.AbsoluteSize / 2) + insetTop)
+        end
+        Interface:TweenCursorPosition(GuiService.SelectedObject.AbsolutePosition + (GuiService.SelectedObject.AbsoluteSize / 2) + insetTop)
+    end
+end
+
+local function onThumbstick1Input()
+    assert(FFlagDirectionalAnalogStick, "onThumbstick1Input should only be called when FFlagDirectionalAnalogStick is true")
+    if GuiService.SelectedObject then
+        local gamepadState = UserInputService:GetGamepadState(Enum.UserInputType.Gamepad1)
+
+        local thumbstickVector = Vector2.zero
+        for _, input in gamepadState do
+            if input.KeyCode == Enum.KeyCode.Thumbstick1 then
+                thumbstickVector = processThumbstickInput(input.Position)
+            end
+        end
+
+        processPreviewEnabled(thumbstickVector ~= Vector2.zero)
+    else
+        processPreviewEnabled(false)
+    end
+end
+
+local function onSelectedObjectChanged()
+    if not previewEnabled then return end
+
+    onThumbstick1Input()
+
+    previousSelection = GuiService.SelectedObject
+    if os.clock() - previousSelectionTime > 0.1 then
+        SoundManager:PlaySound(Sounds.AppHover1.Name, { Volume = 0.75 })
+        previousSelectionTime = os.clock()
+    end
+end
+
 UserInputService.InputBegan:Connect(function(input)
-	if not enabled then return end
+	if not cursorEnabled then return end
 	if input.UserInputType == Enum.UserInputType.Gamepad1 then
 		if input.KeyCode == Enum.KeyCode.ButtonA then
 			if GuiService.SelectedObject or GuiService.SelectedCoreObject then
@@ -58,7 +117,7 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 UserInputService.InputEnded:Connect(function(input)
-	if not enabled then return end
+	if not cursorEnabled then return end
 	if input.UserInputType == Enum.UserInputType.Gamepad1 then
 		if input.KeyCode == Enum.KeyCode.ButtonA then
 			Interface:PlayCursorTweenDefault()
@@ -66,12 +125,38 @@ UserInputService.InputEnded:Connect(function(input)
 	end
 end)
 
+if FFlagDirectionalAnalogStick then
+    UserInputService.InputChanged:Connect(function(input)
+        if cursorEnabled then return end
+        if input.UserInputType == Enum.UserInputType.Gamepad1 then
+            if input.KeyCode == Enum.KeyCode.Thumbstick1 then
+                onThumbstick1Input()
+            end
+        end
+    end)
+end
+
 function Input:GetThumbstickVector()
 	return thumbstickVector
 end
 
 function Input:GetThumbstick2Vector()
 	return thumbstick2Vector
+end
+
+function Input:EnablePreview()
+    assert(FFlagDirectionalAnalogStick, "onThumbstick1Input should only be called when FFlagDirectionalAnalogStick is true")
+
+    gamepadAnimatedSelectionPreviewConnection = GuiService:GetPropertyChangedSignal("SelectedObject"):Connect(onSelectedObjectChanged)
+end
+
+function Input:DisablePreview()
+    assert(FFlagDirectionalAnalogStick, "onThumbstick1Input should only be called when FFlagDirectionalAnalogStick is true")
+
+    if gamepadAnimatedSelectionPreviewConnection then
+        gamepadAnimatedSelectionPreviewConnection:Disconnect()
+        gamepadAnimatedSelectionPreviewConnection = nil
+    end
 end
 
 function Input:EnableInput()
@@ -84,12 +169,14 @@ function Input:EnableInput()
 
 	ContextActionService:BindCoreActionAtPriority("VirtualCursorThumbstick2Movement", onThumbstick2Input, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.Thumbstick2)
 
-	enabled = true
+	cursorEnabled = true
 end
 
 function Input:DisableInput()
-	gamepadThumbstick1ChangedConnection:Disconnect()
-	gamepadThumbstick1ChangedConnection = nil
+    if not getFFlagDirectionalAnalogStick() or gamepadThumbstick1ChangedConnection then
+        gamepadThumbstick1ChangedConnection:Disconnect()
+        gamepadThumbstick1ChangedConnection = nil
+    end
 
 	if FFlagResetVCThumbstickOnDisable then
 		thumbstickVector = Vector2.new()
@@ -100,7 +187,7 @@ function Input:DisableInput()
 	ContextActionService:UnbindCoreAction("VirtualCursorThumbstick2Movement")
 	onThumbstick2Input("VirtualCursorThumbstick2Movement", Enum.UserInputState.Cancel, nil)
 
-	enabled = false
+	cursorEnabled = false
 end
 
 return Input

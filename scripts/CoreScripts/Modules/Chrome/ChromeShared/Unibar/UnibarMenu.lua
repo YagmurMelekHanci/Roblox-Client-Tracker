@@ -46,8 +46,6 @@ local GetFFlagEnableJoinVoiceOnUnibar =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableJoinVoiceOnUnibar
 local GetFFlagChromeUsePreferredTransparency =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
-local GetFFlagPostLaunchUnibarDesignTweaks =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
 local GetFFlagDisableSongbirdForVRConsole =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableSongbirdForVRConsole
 
@@ -280,14 +278,7 @@ function IconPositionBinding(
 				end
 				local openDelta = open - closedPos
 
-				return UDim2.new(
-					0,
-					(if GetFFlagPostLaunchUnibarDesignTweaks() then Constants.UNIBAR_END_PADDING else 0)
-						+ closedPos
-						+ openDelta * val[1],
-					0,
-					0
-				)
+				return UDim2.new(0, Constants.UNIBAR_END_PADDING + closedPos + openDelta * val[1], 0, 0)
 			end) :: any
 end
 
@@ -313,10 +304,9 @@ function Unibar(props: UnibarProp)
 	local menuItems = useChromeMenuItems()
 
 	-- Animation for menu open(toggleTransition = 1), closed(toggleTransition = 0) status
-	local menuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
-	local toggleTransition, setToggleTransition = ReactOtter.useAnimatedBinding(if menuOpen then 1 else 0)
-	local toggleIconTransition, setToggleIconTransition = ReactOtter.useAnimatedBinding(if menuOpen then 1 else 0)
-	local toggleWidthTransition, setToggleWidthTransition = ReactOtter.useAnimatedBinding(if menuOpen then 1 else 0)
+	local toggleTransition, setToggleTransition = ReactOtter.useAnimatedBinding(1)
+	local toggleIconTransition, setToggleIconTransition = ReactOtter.useAnimatedBinding(1)
+	local toggleWidthTransition, setToggleWidthTransition = ReactOtter.useAnimatedBinding(1)
 	local unibarWidth, setUnibarWidth = ReactOtter.useAnimatedBinding(0)
 	local lastUnibarGoal
 	if FFlagFixUnibarResizing then
@@ -487,11 +477,7 @@ function Unibar(props: UnibarProp)
 	if props.onMinWidthChanged then
 		props.onMinWidthChanged(minSize)
 	end
-	if GetFFlagPostLaunchUnibarDesignTweaks() then
-		expandSize = Constants.UNIBAR_END_PADDING * 2 + xOffset
-	else
-		expandSize = xOffset
-	end
+	expandSize = Constants.UNIBAR_END_PADDING * 2 + xOffset
 
 	React.useEffect(function()
 		local lastUnibarWidth
@@ -512,14 +498,8 @@ function Unibar(props: UnibarProp)
 				lastUnibarGoal.current = expandSize
 			end
 		end
+		ChromeService:setMenuAbsoluteSize(Vector2.new(expandSize, Constants.ICON_CELL_WIDTH))
 	end, { expandSize })
-
-	React.useEffect(function()
-		ChromeService:setMenuAbsoluteSize(
-			Vector2.new(minSize, Constants.ICON_CELL_WIDTH),
-			Vector2.new(expandSize, Constants.ICON_CELL_WIDTH)
-		)
-	end, { minSize, expandSize })
 
 	if updatePositions then
 		positionUpdateCount.current = (positionUpdateCount.current or 0) + 1

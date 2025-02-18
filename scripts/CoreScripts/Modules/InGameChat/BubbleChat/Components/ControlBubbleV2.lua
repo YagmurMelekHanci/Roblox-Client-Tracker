@@ -23,7 +23,6 @@ local getVoiceIndicatorAssetName = require(script.Parent.Parent.Helpers.getVoice
 local Modules = CoreGui.RobloxGui.Modules
 local getFFlagEnableShimmeringIconLegacyChatService =
 	require(Modules.Flags.getFFlagEnableShimmeringIconLegacyChatService)
-local getFFlagLegacyConnectingMicStateFix = require(Modules.Flags.getFFlagLegacyConnectingMicStateFix)
 
 local SHIMMER_TRANSPARENCY = 0.6
 local GRADIENT_INITIAL_OFFSET = Vector2.new(-1, 0)
@@ -93,14 +92,11 @@ return function(props: propArgs)
 
 			return function()
 				shimmer:Cancel()
-
-				if getFFlagLegacyConnectingMicStateFix() then
-					-- reset to the initial offset so that subsequent tweens can animate correctly
-					if shimmerGradientRef and shimmerGradientRef.current then
-						shimmerGradientRef.current.Offset = GRADIENT_INITIAL_OFFSET
-					end
+				-- reset to the initial offset so that subsequent tweens can animate correctly
+				if shimmerGradientRef and shimmerGradientRef.current then
+					shimmerGradientRef.current.Offset = GRADIENT_INITIAL_OFFSET
 				end
-			end
+		end
 		else
 			return function()
 				if props.renderStepName then

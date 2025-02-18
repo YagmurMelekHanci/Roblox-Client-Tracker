@@ -1,13 +1,13 @@
 PROTO_0:
   GETUPVAL R0 0
-  LOADK R2 K0 ["ToolboxDebugFlags"]
+  LOADK R2 K0 ["ConvertToPackageFlags"]
   NAMECALL R0 R0 K1 ["FindFirstChild"]
   CALL R0 2 -1
   RETURN R0 -1
 
 PROTO_1:
   GETUPVAL R0 0
-  LOADK R2 K0 ["ToolboxDebugFlags"]
+  LOADK R2 K0 ["ConvertToPackageFlags"]
   NAMECALL R0 R0 K1 ["FindFirstChild"]
   CALL R0 2 1
   JUMPIF R0 [+11]
@@ -15,7 +15,7 @@ PROTO_1:
   LOADK R2 K5 ["Folder"]
   CALL R1 1 1
   MOVE R0 R1
-  LOADK R1 K0 ["ToolboxDebugFlags"]
+  LOADK R1 K0 ["ConvertToPackageFlags"]
   SETTABLEKS R1 R0 K6 ["Name"]
   GETUPVAL R1 0
   SETTABLEKS R1 R0 K7 ["Parent"]
@@ -23,7 +23,7 @@ PROTO_1:
 
 PROTO_2:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+2]
@@ -39,28 +39,58 @@ PROTO_2:
   RETURN R3 1
 
 PROTO_3:
-  GETIMPORT R0 K1 [wait]
-  LOADK R1 K2 [0.3]
-  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADK R2 K0 ["ConvertToPackageFlags"]
+  NAMECALL R0 R0 K1 ["FindFirstChild"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R3 1
+  NAMECALL R1 R0 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  GETUPVAL R1 2
+  RETURN R1 1
+  GETUPVAL R3 1
+  GETTABLE R2 R0 R3
+  GETTABLEKS R1 R2 K2 ["Value"]
+  RETURN R1 1
+
+PROTO_4:
+  ORK R1 R1 K0 [False]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE REF R1
+  CLOSEUPVALS R1
+  RETURN R2 1
+
+PROTO_5:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ProcessService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_6:
   GETUPVAL R1 0
-  LOADK R3 K3 ["ToolboxDebugFlags"]
-  NAMECALL R1 R1 K4 ["FindFirstChild"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+2]
   LOADB R0 0
   RETURN R0 1
-  LOADK R4 K5 ["RunToolboxTests"]
-  NAMECALL R2 R1 K4 ["FindFirstChild"]
+  LOADK R4 K2 ["RunTests"]
+  NAMECALL R2 R1 K1 ["FindFirstChild"]
   CALL R2 2 1
   JUMPIFNOT R2 [+3]
-  GETTABLEKS R0 R2 K6 ["Value"]
+  GETTABLEKS R0 R2 K3 ["Value"]
   RETURN R0 1
   LOADB R0 0
   RETURN R0 1
 
-PROTO_4:
+PROTO_7:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+2]
@@ -75,9 +105,9 @@ PROTO_4:
   LOADB R0 0
   RETURN R0 1
 
-PROTO_5:
+PROTO_8:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+2]
@@ -92,9 +122,9 @@ PROTO_5:
   LOADB R0 0
   RETURN R0 1
 
-PROTO_6:
+PROTO_9:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+2]
@@ -109,9 +139,9 @@ PROTO_6:
   LOADB R0 0
   RETURN R0 1
 
-PROTO_7:
+PROTO_10:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+2]
@@ -126,9 +156,9 @@ PROTO_7:
   LOADB R0 0
   RETURN R0 1
 
-PROTO_8:
+PROTO_11:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+2]
@@ -143,9 +173,9 @@ PROTO_8:
   LOADB R0 0
   RETURN R0 1
 
-PROTO_9:
+PROTO_12:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+2]
@@ -160,9 +190,9 @@ PROTO_9:
   LOADB R0 0
   RETURN R0 1
 
-PROTO_10:
+PROTO_13:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+2]
@@ -177,9 +207,9 @@ PROTO_10:
   LOADB R0 0
   RETURN R0 1
 
-PROTO_11:
+PROTO_14:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+11]
@@ -187,7 +217,7 @@ PROTO_11:
   LOADK R3 K5 ["Folder"]
   CALL R2 1 1
   MOVE R1 R2
-  LOADK R2 K0 ["ToolboxDebugFlags"]
+  LOADK R2 K0 ["ConvertToPackageFlags"]
   SETTABLEKS R2 R1 K6 ["Name"]
   GETUPVAL R2 0
   SETTABLEKS R2 R1 K7 ["Parent"]
@@ -207,9 +237,9 @@ PROTO_11:
   SETTABLEKS R0 R1 K7 ["Parent"]
   RETURN R1 1
 
-PROTO_12:
+PROTO_15:
   GETUPVAL R1 0
-  LOADK R3 K0 ["ToolboxDebugFlags"]
+  LOADK R3 K0 ["ConvertToPackageFlags"]
   NAMECALL R1 R1 K1 ["FindFirstChild"]
   CALL R1 2 1
   JUMPIF R1 [+11]
@@ -217,7 +247,7 @@ PROTO_12:
   LOADK R3 K5 ["Folder"]
   CALL R2 1 1
   MOVE R1 R2
-  LOADK R2 K0 ["ToolboxDebugFlags"]
+  LOADK R2 K0 ["ConvertToPackageFlags"]
   SETTABLEKS R2 R1 K6 ["Name"]
   GETUPVAL R2 0
   SETTABLEKS R2 R1 K7 ["Parent"]
@@ -249,35 +279,49 @@ MAIN:
   CAPTURE VAL R0
   DUPCLOSURE R3 K6 [PROTO_2]
   CAPTURE VAL R0
-  NEWTABLE R4 16 0
-  DUPCLOSURE R5 K7 [PROTO_3]
+  DUPCLOSURE R4 K7 [PROTO_4]
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K8 ["shouldRunTests"]
-  DUPCLOSURE R5 K9 [PROTO_4]
+  GETIMPORT R5 K9 [pcall]
+  DUPCLOSURE R6 K10 [PROTO_5]
+  CALL R5 1 1
+  NEWTABLE R6 16 0
+  MOVE R8 R5
+  ORK R8 R8 K11 [False]
+  LOADK R9 K12 ["RunningUnderCLI"]
+  NEWCLOSURE R7 P5
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K10 ["shouldDisableTooltips"]
-  DUPCLOSURE R5 K11 [PROTO_5]
+  CAPTURE VAL R9
+  CAPTURE REF R8
+  CLOSEUPVALS R8
+  SETTABLEKS R7 R6 K13 ["runningUnderCli"]
+  DUPCLOSURE R7 K14 [PROTO_6]
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K12 ["shouldDebugUrls"]
-  DUPCLOSURE R5 K13 [PROTO_6]
+  SETTABLEKS R7 R6 K15 ["RunTests"]
+  DUPCLOSURE R7 K16 [PROTO_7]
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K14 ["shouldDebugState"]
-  DUPCLOSURE R5 K15 [PROTO_7]
+  SETTABLEKS R7 R6 K17 ["shouldDisableTooltips"]
+  DUPCLOSURE R7 K18 [PROTO_8]
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K16 ["shouldDebugWarnings"]
-  DUPCLOSURE R5 K17 [PROTO_8]
+  SETTABLEKS R7 R6 K19 ["shouldDebugUrls"]
+  DUPCLOSURE R7 K20 [PROTO_9]
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K18 ["shouldLogSettings"]
-  DUPCLOSURE R5 K19 [PROTO_9]
+  SETTABLEKS R7 R6 K21 ["shouldDebugState"]
+  DUPCLOSURE R7 K22 [PROTO_10]
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K20 ["shouldUseTestCustomLocale"]
-  DUPCLOSURE R5 K21 [PROTO_10]
+  SETTABLEKS R7 R6 K23 ["shouldDebugWarnings"]
+  DUPCLOSURE R7 K24 [PROTO_11]
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K22 ["shouldUseTestRealLocale"]
-  DUPCLOSURE R5 K23 [PROTO_11]
+  SETTABLEKS R7 R6 K25 ["shouldLogSettings"]
+  DUPCLOSURE R7 K26 [PROTO_12]
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K24 ["getOrCreateTestCustomLocale"]
-  DUPCLOSURE R5 K25 [PROTO_12]
+  SETTABLEKS R7 R6 K27 ["shouldUseTestCustomLocale"]
+  DUPCLOSURE R7 K28 [PROTO_13]
   CAPTURE VAL R0
-  SETTABLEKS R5 R4 K26 ["getOrCreateTestRealLocale"]
-  RETURN R4 1
+  SETTABLEKS R7 R6 K29 ["shouldUseTestRealLocale"]
+  DUPCLOSURE R7 K30 [PROTO_14]
+  CAPTURE VAL R0
+  SETTABLEKS R7 R6 K31 ["getOrCreateTestCustomLocale"]
+  DUPCLOSURE R7 K32 [PROTO_15]
+  CAPTURE VAL R0
+  SETTABLEKS R7 R6 K33 ["getOrCreateTestRealLocale"]
+  RETURN R6 1

@@ -102,10 +102,12 @@ MAIN:
   SETLIST R16 R17 -1 [1]
   CALL R13 3 -1
   SETLIST R6 R7 -1 [1]
-  DUPTABLE R7 K51 [{"ThumbnailSize", "CellContentPadding"}]
+  DUPTABLE R7 K52 [{"ThumbnailSize", "CellContentPadding", "InputHeight"}]
   LOADN R8 35
   SETTABLEKS R8 R7 K49 ["ThumbnailSize"]
   LOADN R8 10
   SETTABLEKS R8 R7 K50 ["CellContentPadding"]
+  LOADN R8 30
+  SETTABLEKS R8 R7 K51 ["InputHeight"]
   CALL R3 4 -1
   RETURN R3 -1

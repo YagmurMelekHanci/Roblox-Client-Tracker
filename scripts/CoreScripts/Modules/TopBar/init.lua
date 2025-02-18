@@ -30,6 +30,7 @@ local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
 local GetFFlagMountSceneAnalysisProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagMountSceneAnalysisProvider
+local FFlagUIBloxFoundationProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUIBloxFoundationProvider()
 
 if ChromeEnabled and not TenFootInterface:IsEnabled() then
 	-- set this prior to TopBarApp require
@@ -194,6 +195,12 @@ function TopBar.new()
 		self.root = Roact.createElement(VoiceStateContext.Provider, nil, self.root)
 	end
 	
+	-- Root should be a Folder so that style provider stylesheet elements can be portaled properly; otherwise, they will attach to CoreGui
+	if FFlagUIBloxFoundationProvider then
+		self.root = Roact.createElement("Folder", {
+			Name = "TopBarApp",
+		}, self.root)
+	end
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 
 	-- add binding

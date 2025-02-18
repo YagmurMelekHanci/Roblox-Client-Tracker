@@ -83,7 +83,6 @@ function VoiceBetaBadge:init()
 	self.buttonRef = Roact.createRef()
 
 	self:setState({
-		chromeMenuOpen = ChromeService and ChromeService:status():get() == ChromeService.MenuStatus.Open,
 		vrShowMenuIcon = VRService.VREnabled and GamepadService.GamepadCursorEnabled,
 		voiceChatServiceConnected = false,
 		showPopup = false,
@@ -114,23 +113,6 @@ function VoiceBetaBadge:init()
 
 		openWebview(url)
 		self.props.Analytics.EventStream:setRBXEvent(eventContext, "clickBetaBadgeLearnMore")
-	end
-end
-
-function VoiceBetaBadge:didMount()
-	if ChromeService then
-		self.chromeMenuStatusConn = ChromeService:status():connect(function()
-			self:setState({
-				chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open,
-			})
-		end)
-	end
-end
-
-function VoiceBetaBadge:onUnmount()
-	if self.chromeMenuStatusConn then
-		self.chromeMenuStatusConn:Disconnect()
-		self.chromeMenuStatusConn = nil
 	end
 end
 

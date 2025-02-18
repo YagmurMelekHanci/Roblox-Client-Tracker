@@ -31,7 +31,6 @@ local SubscriptionPurchaseContainer = Roact.Component:extend(script.Name)
 local SELECTION_GROUP_NAME = "SubscriptionPurchaseContainer"
 
 local GetFFlagFixPlayerGuiSelectionBugOnPromptExit = require(Root.Flags.GetFFlagFixPlayerGuiSelectionBugOnPromptExit)
-local GetFFlagEnableRobloxCreditPurchase = require(Root.Flags.GetFFlagEnableRobloxCreditPurchase)
 local GetFFlagEnableSubscriptionPurchaseToast = require(Root.Flags.GetFFlagEnableSubscriptionPurchaseToast)
 
 function SubscriptionPurchaseContainer:init()
@@ -86,7 +85,7 @@ function SubscriptionPurchaseContainer:createElement()
 	local primaryPaymentMethod = nil
 	local secondaryPaymentMethod = nil
 	local info = props.subscriptionPurchaseInfo
-	if GetFFlagEnableRobloxCreditPurchase() and info ~= nil then
+	if info ~= nil then
 		primaryPaymentMethod = info.PrimaryPaymentProviderType
 		secondaryPaymentMethod = if info.AllPaymentProviderTypes then info.AllPaymentProviderTypes[2] else nil
 	end

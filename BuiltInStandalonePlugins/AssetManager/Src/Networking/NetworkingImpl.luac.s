@@ -174,7 +174,7 @@ PROTO_10:
   JUMPIF R8 [+17]
   GETUPVAL R8 1
   CALL R8 0 1
-  JUMPIFNOT R8 [+155]
+  JUMPIFNOT R8 [+161]
   GETIMPORT R8 K8 [warn]
   LOADK R10 K9 ["Could not convert asset response for asset %*"]
   GETUPVAL R13 2
@@ -185,7 +185,7 @@ PROTO_10:
   CALL R10 2 1
   MOVE R9 R10
   CALL R8 1 0
-  JUMP [+141]
+  JUMP [+147]
   GETTABLEKS R9 R7 K0 ["assetItem"]
   GETTABLEKS R8 R9 K1 ["asset"]
   GETTABLEKS R11 R7 K0 ["assetItem"]
@@ -240,14 +240,14 @@ PROTO_10:
   GETTABLEKS R15 R16 K29 ["SharedWithMe"]
   JUMP [+1]
   LOADNIL R15
-  DUPTABLE R16 K39 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived"}]
-  GETTABLEKS R17 R8 K40 ["assetId"]
+  DUPTABLE R16 K40 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived", "SearchRank"}]
+  GETTABLEKS R17 R8 K41 ["assetId"]
   SETTABLEKS R17 R16 K30 ["AssetId"]
   GETUPVAL R17 0
   GETTABLEKS R18 R8 K6 ["assetType"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K31 ["AssetType"]
-  GETTABLEKS R17 R8 K41 ["displayName"]
+  GETTABLEKS R17 R8 K42 ["displayName"]
   SETTABLEKS R17 R16 K32 ["DisplayName"]
   GETTABLEKS R17 R8 K4 ["createTime"]
   SETTABLEKS R17 R16 K33 ["Created"]
@@ -255,25 +255,29 @@ PROTO_10:
   SETTABLEKS R17 R16 K34 ["Modified"]
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K35 ["ModerationStatus"]
-  GETTABLEKS R17 R18 K42 ["Placeholder"]
+  GETTABLEKS R17 R18 K43 ["Placeholder"]
   SETTABLEKS R17 R16 K35 ["ModerationStatus"]
-  DUPTABLE R17 K45 [{"Id", "Name", "Scope"}]
-  SETTABLEKS R11 R17 K43 ["Id"]
-  SETTABLEKS R12 R17 K44 ["Name"]
+  DUPTABLE R17 K46 [{"Id", "Name", "Scope"}]
+  SETTABLEKS R11 R17 K44 ["Id"]
+  SETTABLEKS R12 R17 K45 ["Name"]
   SETTABLEKS R13 R17 K18 ["Scope"]
   SETTABLEKS R17 R16 K36 ["Creator"]
   SETTABLEKS R15 R16 K37 ["Source"]
   SETTABLEKS R14 R16 K38 ["Archived"]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K47 ["_fetchTotalAssets"]
+  ADD R17 R18 R6
+  SETTABLEKS R17 R16 K39 ["SearchRank"]
   FASTCALL2 TABLE_INSERT R1 R16 [+5]
   MOVE R18 R1
   MOVE R19 R16
-  GETIMPORT R17 K48 [table.insert]
+  GETIMPORT R17 K50 [table.insert]
   CALL R17 2 0
   GETTABLEKS R18 R16 K36 ["Creator"]
-  GETTABLEKS R17 R18 K44 ["Name"]
+  GETTABLEKS R17 R18 K45 ["Name"]
   GETTABLEKS R18 R16 K36 ["Creator"]
   SETTABLE R18 R2 R17
-  FORGLOOP R3 2 [-182]
+  FORGLOOP R3 2 [-188]
   RETURN R1 2
 
 PROTO_11:
@@ -480,41 +484,45 @@ PROTO_15:
   LOADNIL R6
   LOADNIL R7
   FORGPREP R5
-  DUPTABLE R10 K16 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived"}]
-  GETTABLEKS R11 R9 K17 ["id"]
+  DUPTABLE R10 K17 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived", "SearchRank"}]
+  GETTABLEKS R11 R9 K18 ["id"]
   SETTABLEKS R11 R10 K7 ["AssetId"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K8 ["AssetType"]
-  GETTABLEKS R11 R12 K18 ["Place"]
+  GETTABLEKS R11 R12 K19 ["Place"]
   SETTABLEKS R11 R10 K8 ["AssetType"]
-  GETTABLEKS R11 R9 K19 ["name"]
+  GETTABLEKS R11 R9 K20 ["name"]
   SETTABLEKS R11 R10 K9 ["DisplayName"]
-  LOADK R11 K20 [""]
+  LOADK R11 K21 [""]
   SETTABLEKS R11 R10 K10 ["Created"]
-  LOADK R11 K20 [""]
+  LOADK R11 K21 [""]
   SETTABLEKS R11 R10 K11 ["Modified"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K12 ["ModerationStatus"]
-  GETTABLEKS R11 R12 K21 ["Placeholder"]
+  GETTABLEKS R11 R12 K22 ["Placeholder"]
   SETTABLEKS R11 R10 K12 ["ModerationStatus"]
   GETTABLEKS R12 R1 K0 ["Name"]
   GETTABLE R11 R3 R12
   SETTABLEKS R11 R10 K13 ["Creator"]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K22 ["AssetSource"]
-  GETTABLEKS R11 R12 K23 ["Uploaded"]
+  GETTABLEKS R12 R13 K23 ["AssetSource"]
+  GETTABLEKS R11 R12 K24 ["Uploaded"]
   SETTABLEKS R11 R10 K14 ["Source"]
   LOADB R11 0
   SETTABLEKS R11 R10 K15 ["Archived"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K25 ["_fetchTotalAssets"]
+  ADD R11 R12 R8
+  SETTABLEKS R11 R10 K16 ["SearchRank"]
   FASTCALL2 TABLE_INSERT R2 R10 [+5]
   MOVE R12 R2
   MOVE R13 R10
-  GETIMPORT R11 K26 [table.insert]
+  GETIMPORT R11 K28 [table.insert]
   CALL R11 2 0
-  GETTABLEKS R11 R9 K27 ["isRootPlace"]
+  GETTABLEKS R11 R9 K29 ["isRootPlace"]
   JUMPIFNOT R11 [+2]
-  GETTABLEKS R4 R9 K17 ["id"]
-  FORGLOOP R5 2 [-57]
+  GETTABLEKS R4 R9 K18 ["id"]
+  FORGLOOP R5 2 [-63]
   RETURN R2 3
 
 PROTO_16:
@@ -586,14 +594,25 @@ PROTO_17:
   RETURN R0 0
 
 PROTO_18:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["CreateFetchPlacesRequest"]
-  GETTABLEKS R5 R0 K1 ["ScopeInfo"]
-  GETTABLEKS R4 R5 K2 ["Id"]
-  LOADK R5 K3 [""]
+  GETTABLEKS R4 R0 K0 ["ScopeInfo"]
+  GETTABLEKS R3 R4 K1 ["Scope"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["Scope"]
+  GETTABLEKS R4 R5 K2 ["Universe"]
+  JUMPIFEQ R3 R4 [+7]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["_finishFetch"]
+  MOVE R4 R0
+  CALL R3 1 0
+  RETURN R0 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K4 ["CreateFetchPlacesRequest"]
+  GETTABLEKS R5 R0 K0 ["ScopeInfo"]
+  GETTABLEKS R4 R5 K5 ["Id"]
+  LOADK R5 K6 [""]
   LOADN R6 100
   CALL R3 3 1
-  NAMECALL R3 R3 K4 ["makeRequest"]
+  NAMECALL R3 R3 K7 ["makeRequest"]
   CALL R3 1 1
   NEWCLOSURE R5 P0
   CAPTURE UPVAL U1
@@ -604,7 +623,7 @@ PROTO_18:
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   CAPTURE VAL R2
-  NAMECALL R3 R3 K5 ["andThen"]
+  NAMECALL R3 R3 K8 ["andThen"]
   CALL R3 3 0
   RETURN R0 0
 
@@ -1104,6 +1123,7 @@ MAIN:
   CAPTURE VAL R10
   CAPTURE VAL R2
   CAPTURE VAL R1
+  CAPTURE VAL R12
   SETTABLEKS R15 R12 K42 ["_convertResponseToItemsData"]
   DUPCLOSURE R15 K43 [PROTO_11]
   CAPTURE VAL R12
@@ -1114,10 +1134,12 @@ MAIN:
   SETTABLEKS R15 R12 K46 ["_fetchAssetsImplAsync"]
   DUPCLOSURE R15 K47 [PROTO_15]
   CAPTURE VAL R1
+  CAPTURE VAL R12
   SETTABLEKS R15 R12 K48 ["_parseFetchPlacesResponse"]
   DUPCLOSURE R15 K49 [PROTO_18]
-  CAPTURE VAL R3
+  CAPTURE VAL R1
   CAPTURE VAL R12
+  CAPTURE VAL R3
   SETTABLEKS R15 R12 K50 ["fetchPlacesAsync"]
   DUPCLOSURE R15 K51 [PROTO_19]
   CAPTURE VAL R1

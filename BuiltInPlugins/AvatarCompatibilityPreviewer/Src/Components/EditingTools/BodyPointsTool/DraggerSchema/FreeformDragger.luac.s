@@ -8,15 +8,17 @@ PROTO_0:
   CALL R1 1 1
   JUMP [+1]
   LOADNIL R1
-  DUPTABLE R3 K6 [{"_draggerContext", "_selectedPoint", "_updatePointPosition"}]
-  SETTABLEKS R0 R3 K3 ["_draggerContext"]
+  GETTABLEKS R2 R0 K3 ["onFreeformDragBegin"]
+  CALL R2 0 0
+  DUPTABLE R3 K7 [{"_draggerContext", "_selectedPoint", "_updatePointPosition"}]
+  SETTABLEKS R0 R3 K4 ["_draggerContext"]
   GETTABLEKS R5 R0 K0 ["selectedPoints"]
   GETTABLEN R4 R5 1
-  SETTABLEKS R4 R3 K4 ["_selectedPoint"]
-  SETTABLEKS R1 R3 K5 ["_updatePointPosition"]
+  SETTABLEKS R4 R3 K5 ["_selectedPoint"]
+  SETTABLEKS R1 R3 K6 ["_updatePointPosition"]
   GETUPVAL R4 0
   FASTCALL2 SETMETATABLE R3 R4 [+3]
-  GETIMPORT R2 K8 [setmetatable]
+  GETIMPORT R2 K9 [setmetatable]
   CALL R2 2 1
   RETURN R2 1
 
@@ -111,51 +113,58 @@ PROTO_3:
   CALL R5 1 0
   RETURN R0 0
   LOADNIL R5
-  GETUPVAL R6 1
-  GETTABLEKS R9 R1 K17 ["Origin"]
+  LOADN R6 10
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+34]
+  SUBK R6 R6 K32 [1]
+  GETUPVAL R7 1
+  GETTABLEKS R10 R1 K17 ["Origin"]
+  GETTABLEKS R12 R1 K18 ["Direction"]
+  MULK R11 R12 K33 [0.05]
+  ADD R9 R10 R11
   GETTABLEKS R11 R1 K18 ["Direction"]
-  MULK R10 R11 K32 [0.05]
-  ADD R8 R9 R10
-  GETTABLEKS R10 R1 K18 ["Direction"]
-  MINUS R9 R10
-  MOVE R10 R2
-  NAMECALL R6 R6 K19 ["Raycast"]
-  CALL R6 4 1
-  JUMPIFEQKNIL R6 [+16]
-  JUMPIFNOTEQKNIL R6 [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K1 ["LUAU_ANALYZE_ERROR"]
-  FASTCALL2 ASSERT R8 R9 [+3]
-  GETIMPORT R7 K3 [assert]
-  CALL R7 2 0
-  GETTABLEKS R5 R6 K21 ["Position"]
+  MINUS R10 R11
+  MOVE R11 R2
+  NAMECALL R7 R7 K19 ["Raycast"]
+  CALL R7 4 1
+  JUMPIFEQKNIL R7 [+16]
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K1 ["LUAU_ANALYZE_ERROR"]
+  FASTCALL2 ASSERT R9 R10 [+3]
+  GETIMPORT R8 K3 [assert]
+  CALL R8 2 0
+  GETTABLEKS R5 R7 K21 ["Position"]
   JUMP [+1]
-  JUMPBACK [-32]
-  MOVE R8 R5
-  LOADK R9 K33 [0.5]
-  NAMECALL R6 R4 K34 ["Lerp"]
-  CALL R6 3 1
-  GETTABLEKS R7 R0 K0 ["_updatePointPosition"]
-  GETIMPORT R9 K26 [CFrame.new]
-  GETTABLEKS R13 R0 K4 ["_draggerContext"]
-  GETTABLEKS R12 R13 K27 ["worldModel"]
-  GETTABLEKS R11 R12 K28 ["PrimaryPart"]
-  GETTABLEKS R10 R11 K25 ["CFrame"]
-  MOVE R12 R6
-  NAMECALL R10 R10 K29 ["PointToObjectSpace"]
-  CALL R10 2 -1
-  CALL R9 -1 1
-  GETTABLEKS R12 R0 K14 ["_selectedPoint"]
-  GETTABLEKS R11 R12 K30 ["getCFrame"]
-  CALL R11 0 1
-  GETTABLEKS R10 R11 K31 ["Rotation"]
-  MUL R8 R9 R10
-  CALL R7 1 0
+  JUMPBACK [-36]
+  MOVE R9 R5
+  LOADK R10 K34 [0.5]
+  NAMECALL R7 R4 K35 ["Lerp"]
+  CALL R7 3 1
+  GETTABLEKS R8 R0 K0 ["_updatePointPosition"]
+  GETIMPORT R10 K26 [CFrame.new]
+  GETTABLEKS R14 R0 K4 ["_draggerContext"]
+  GETTABLEKS R13 R14 K27 ["worldModel"]
+  GETTABLEKS R12 R13 K28 ["PrimaryPart"]
+  GETTABLEKS R11 R12 K25 ["CFrame"]
+  MOVE R13 R7
+  NAMECALL R11 R11 K29 ["PointToObjectSpace"]
+  CALL R11 2 -1
+  CALL R10 -1 1
+  GETTABLEKS R13 R0 K14 ["_selectedPoint"]
+  GETTABLEKS R12 R13 K30 ["getCFrame"]
+  CALL R12 0 1
+  GETTABLEKS R11 R12 K31 ["Rotation"]
+  MUL R9 R10 R11
+  CALL R8 1 0
   RETURN R0 0
 
 PROTO_4:
+  GETTABLEKS R2 R0 K0 ["_draggerContext"]
+  GETTABLEKS R1 R2 K1 ["onFreeformDragEnd"]
+  CALL R1 0 0
   RETURN R0 0
 
 MAIN:

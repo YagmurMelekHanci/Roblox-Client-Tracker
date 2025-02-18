@@ -368,11 +368,6 @@ local function getSubscriptionPurchaseInfo(subscriptinId)
 	return MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptinId)
 end
 
-local function DEPRECATED_performSubscriptionPurchase(subscriptinId)
-	-- remove with Flag EnableRobloxCreditPurchase
-	return MarketplaceService:performSubscriptionPurchase(subscriptinId)
-end
-
 local function performSubscriptionPurchase(subscriptinId, paymentMethod)
 	return MarketplaceService:PerformSubscriptionPurchaseV2(subscriptinId, paymentMethod)
 end
@@ -473,7 +468,6 @@ function Network.new()
 		postPremiumImpression = Promise.promisify(postPremiumImpression),
 		getPremiumUpsellPrecheck = Promise.promisify(getPremiumUpsellPrecheck),
 		getSubscriptionPurchaseInfo = Promise.promisify(getSubscriptionPurchaseInfo),
-		DEPRECATED_performSubscriptionPurchase = Promise.promisify(DEPRECATED_performSubscriptionPurchase),
 		performSubscriptionPurchase = Promise.promisify(performSubscriptionPurchase),
 		getPurchaseWarning = Promise.promisify(getPurchaseWarning),
 		postPurchaseWarningAcknowledge = Promise.promisify(postPurchaseWarningAcknowledge),

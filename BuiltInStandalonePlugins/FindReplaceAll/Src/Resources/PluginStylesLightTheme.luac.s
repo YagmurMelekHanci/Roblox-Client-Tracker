@@ -29,8 +29,12 @@ MAIN:
   SETTABLEKS R4 R3 K25 ["FindNext"]
   LOADK R4 K26 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/Filter.png"]
   SETTABLEKS R4 R3 K27 ["Filter"]
+  LOADK R4 K28 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/ArrowRight.png"]
+  SETTABLEKS R4 R3 K29 ["ExpandArrow"]
+  LOADK R4 K30 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/ArrowDown.png"]
+  SETTABLEKS R4 R3 K31 ["CollapseArrow"]
   MOVE R4 R2
-  LOADK R5 K28 ["FindReplaceAllLightTheme"]
+  LOADK R5 K32 ["FindReplaceAllLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

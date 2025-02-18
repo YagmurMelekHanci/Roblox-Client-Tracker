@@ -9,36 +9,27 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Common"]
   GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
   CALL R1 1 0
-  GETTABLEKS R2 R0 K9 ["Src"]
-  GETTABLEKS R1 R2 K10 ["SharedFlags"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K9 ["Packages"]
+  GETTABLEKS R2 R3 K10 ["TestLoader"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K11 ["launch"]
+  LOADK R3 K2 ["AssetAccess"]
+  GETTABLEKS R4 R0 K12 ["Src"]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K13 ["isCli"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K15 [plugin]
+  GETTABLEKS R3 R0 K16 ["Name"]
+  SETTABLEKS R3 R2 K16 ["Name"]
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R1 K11 ["getFFlagAssetAccessErrorMessageImprovements"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K17 ["Parent"]
+  GETTABLEKS R3 R4 K18 ["main"]
   CALL R2 1 1
   MOVE R3 R2
-  CALL R3 0 1
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K12 ["Packages"]
-  GETTABLEKS R4 R5 K13 ["TestLoader"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K14 ["launch"]
-  LOADK R5 K2 ["AssetAccess"]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  CALL R4 2 0
-  GETTABLEKS R4 R3 K15 ["isCli"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+1]
-  RETURN R0 0
-  GETIMPORT R4 K17 [plugin]
-  GETTABLEKS R5 R0 K18 ["Name"]
-  SETTABLEKS R5 R4 K18 ["Name"]
-  GETIMPORT R4 K5 [require]
-  GETIMPORT R7 K1 [script]
-  GETTABLEKS R6 R7 K19 ["Parent"]
-  GETTABLEKS R5 R6 K20 ["main"]
-  CALL R4 1 1
-  MOVE R5 R4
-  GETIMPORT R6 K17 [plugin]
-  CALL R5 1 0
+  GETIMPORT R4 K15 [plugin]
+  CALL R3 1 0
   RETURN R0 0

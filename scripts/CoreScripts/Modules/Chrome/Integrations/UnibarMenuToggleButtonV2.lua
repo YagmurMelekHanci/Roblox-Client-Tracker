@@ -61,7 +61,7 @@ function ToggleMenuButton(props)
 					if value == 1 then
 						buttonPressed = false
 					end
-					return buttonPressed or ChromeService:status():get() == ChromeService.MenuStatus.Closed
+					return buttonPressed
 				end)
 				else nil,
 			ImageColor3 = style.Theme.IconEmphasis.Color,
@@ -123,7 +123,7 @@ function ToggleMenuButton(props)
 			end),
 			Visible = if GetFFlagUsePolishedAnimations()
 				then toggleIconTransition:map(function(_)
-					return not (buttonPressed or ChromeService:status():get() == ChromeService.MenuStatus.Closed)
+					return not buttonPressed
 				end)
 				else hasCurrentUtility,
 			ImageColor3 = style.Theme.IconEmphasis.Color,

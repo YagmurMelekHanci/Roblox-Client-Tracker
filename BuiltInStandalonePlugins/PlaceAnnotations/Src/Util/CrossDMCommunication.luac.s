@@ -191,8 +191,8 @@ PROTO_14:
   LOADK R4 K1 ["Workplace annotations must be the children of another annotation or an instance."]
   GETIMPORT R2 K3 [assert]
   CALL R2 2 0
-  DUPTABLE R2 K13 [{"UniqueId", "AuthorId", "CreationTimeUnix", "LastModifiedTimeUnix", "Contents", "Resolved", "ParentId", "HeaderInfo", "ReplyCount"}]
-  NAMECALL R3 R1 K14 ["GetStringUniqueId"]
+  DUPTABLE R2 K14 [{"UniqueId", "AuthorId", "CreationTimeUnix", "LastModifiedTimeUnix", "Contents", "Resolved", "ParentId", "HeaderInfo", "ReplyCount", "TaggedUsers"}]
+  NAMECALL R3 R1 K15 ["GetStringUniqueId"]
   CALL R3 1 1
   SETTABLEKS R3 R2 K4 ["UniqueId"]
   GETTABLEKS R3 R1 K5 ["AuthorId"]
@@ -208,73 +208,75 @@ PROTO_14:
   GETTABLEKS R4 R1 K0 ["Parent"]
   JUMPIFNOT R4 [+13]
   GETTABLEKS R4 R1 K0 ["Parent"]
-  LOADK R6 K15 ["Annotation"]
-  NAMECALL R4 R4 K16 ["IsA"]
+  LOADK R6 K16 ["Annotation"]
+  NAMECALL R4 R4 K17 ["IsA"]
   CALL R4 2 1
   JUMPIFNOT R4 [+6]
   GETTABLEKS R3 R1 K0 ["Parent"]
-  NAMECALL R3 R3 K14 ["GetStringUniqueId"]
+  NAMECALL R3 R3 K15 ["GetStringUniqueId"]
   CALL R3 1 1
   JUMP [+1]
   LOADNIL R3
   SETTABLEKS R3 R2 K10 ["ParentId"]
-  GETTABLEKS R4 R1 K17 ["Adornee"]
+  GETTABLEKS R4 R1 K18 ["Adornee"]
   JUMPIFNOT R4 [+14]
-  DUPTABLE R3 K20 [{"HeaderText", "AdorneeClass"}]
-  GETTABLEKS R5 R1 K17 ["Adornee"]
-  GETTABLEKS R4 R5 K21 ["Name"]
-  SETTABLEKS R4 R3 K18 ["HeaderText"]
-  GETTABLEKS R5 R1 K17 ["Adornee"]
-  GETTABLEKS R4 R5 K22 ["ClassName"]
-  SETTABLEKS R4 R3 K19 ["AdorneeClass"]
+  DUPTABLE R3 K21 [{"HeaderText", "AdorneeClass"}]
+  GETTABLEKS R5 R1 K18 ["Adornee"]
+  GETTABLEKS R4 R5 K22 ["Name"]
+  SETTABLEKS R4 R3 K19 ["HeaderText"]
+  GETTABLEKS R5 R1 K18 ["Adornee"]
+  GETTABLEKS R4 R5 K23 ["ClassName"]
+  SETTABLEKS R4 R3 K20 ["AdorneeClass"]
   JUMP [+1]
   LOADNIL R3
   SETTABLEKS R3 R2 K11 ["HeaderInfo"]
   GETTABLEKS R3 R1 K12 ["ReplyCount"]
   SETTABLEKS R3 R2 K12 ["ReplyCount"]
-  GETTABLEKS R3 R1 K17 ["Adornee"]
+  GETTABLEKS R3 R1 K13 ["TaggedUsers"]
+  SETTABLEKS R3 R2 K13 ["TaggedUsers"]
+  GETTABLEKS R3 R1 K18 ["Adornee"]
   JUMPIFNOT R3 [+26]
-  GETTABLEKS R3 R1 K17 ["Adornee"]
-  LOADK R5 K21 ["Name"]
-  NAMECALL R3 R3 K23 ["GetPropertyChangedSignal"]
+  GETTABLEKS R3 R1 K18 ["Adornee"]
+  LOADK R5 K22 ["Name"]
+  NAMECALL R3 R3 K24 ["GetPropertyChangedSignal"]
   CALL R3 2 1
   NEWCLOSURE R5 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   CAPTURE VAL R1
-  NAMECALL R3 R3 K24 ["Connect"]
+  NAMECALL R3 R3 K25 ["Connect"]
   CALL R3 2 1
-  LOADK R6 K17 ["Adornee"]
-  NAMECALL R4 R1 K23 ["GetPropertyChangedSignal"]
+  LOADK R6 K18 ["Adornee"]
+  NAMECALL R4 R1 K24 ["GetPropertyChangedSignal"]
   CALL R4 2 1
   NEWCLOSURE R6 P1
   CAPTURE REF R3
   CAPTURE VAL R1
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  NAMECALL R4 R4 K24 ["Connect"]
+  NAMECALL R4 R4 K25 ["Connect"]
   CALL R4 2 0
   CLOSEUPVALS R3
   GETTABLEKS R3 R1 K12 ["ReplyCount"]
   JUMPIFNOT R3 [+11]
   LOADK R5 K12 ["ReplyCount"]
-  NAMECALL R3 R1 K23 ["GetPropertyChangedSignal"]
+  NAMECALL R3 R1 K24 ["GetPropertyChangedSignal"]
   CALL R3 2 1
   NEWCLOSURE R5 P2
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   CAPTURE VAL R1
-  NAMECALL R3 R3 K24 ["Connect"]
+  NAMECALL R3 R3 K25 ["Connect"]
   CALL R3 2 0
-  GETTABLEKS R3 R1 K25 ["RequestInitiated"]
+  GETTABLEKS R3 R1 K26 ["RequestInitiated"]
   NEWCLOSURE R5 P3
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   CAPTURE VAL R1
   CAPTURE UPVAL U1
-  NAMECALL R3 R3 K24 ["Connect"]
+  NAMECALL R3 R3 K25 ["Connect"]
   CALL R3 2 0
-  GETTABLEKS R3 R1 K26 ["RequestCompleted"]
+  GETTABLEKS R3 R1 K27 ["RequestCompleted"]
   NEWCLOSURE R5 P4
   CAPTURE UPVAL U0
   CAPTURE VAL R0
@@ -282,17 +284,17 @@ PROTO_14:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U1
   CAPTURE UPVAL U3
-  NAMECALL R3 R3 K24 ["Connect"]
+  NAMECALL R3 R3 K25 ["Connect"]
   CALL R3 2 0
-  GETTABLEKS R3 R1 K27 ["Destroying"]
+  GETTABLEKS R3 R1 K28 ["Destroying"]
   NEWCLOSURE R5 P5
   CAPTURE VAL R0
   CAPTURE VAL R1
-  NAMECALL R3 R3 K28 ["Once"]
+  NAMECALL R3 R3 K29 ["Once"]
   CALL R3 2 0
-  LOADK R5 K29 ["CreateAnnotation"]
+  LOADK R5 K30 ["CreateAnnotation"]
   MOVE R6 R2
-  NAMECALL R3 R0 K30 ["Invoke"]
+  NAMECALL R3 R0 K31 ["Invoke"]
   CALL R3 3 0
   RETURN R0 0
 
@@ -333,11 +335,20 @@ PROTO_18:
   RETURN R0 0
 
 PROTO_19:
-  LOADK R5 K0 ["EditAnnotation"]
+  LOADK R5 K0 ["DEPRECATED_EditAnnotation"]
   GETTABLEKS R6 R1 K1 ["Name"]
   MOVE R7 R2
   NAMECALL R3 R0 K2 ["Invoke"]
   CALL R3 4 0
+  RETURN R0 0
+
+PROTO_20:
+  LOADK R6 K0 ["EditAnnotation"]
+  GETTABLEKS R7 R1 K1 ["Name"]
+  MOVE R8 R2
+  MOVE R9 R3
+  NAMECALL R4 R0 K2 ["Invoke"]
+  CALL R4 5 0
   RETURN R0 0
 
 MAIN:
@@ -401,11 +412,13 @@ MAIN:
   SETTABLEKS R9 R8 K22 ["deleteAnnotation"]
   DUPCLOSURE R9 K35 [PROTO_18]
   SETTABLEKS R9 R8 K20 ["zoomTo"]
-  NEWTABLE R9 1 0
+  NEWTABLE R9 2 0
   DUPCLOSURE R10 K36 [PROTO_19]
-  SETTABLEKS R10 R9 K37 ["editAnnotation"]
-  DUPTABLE R10 K41 [{"Standalone", "Edit", "Shared"}]
-  SETTABLEKS R7 R10 K38 ["Standalone"]
-  SETTABLEKS R8 R10 K39 ["Edit"]
-  SETTABLEKS R9 R10 K40 ["Shared"]
+  SETTABLEKS R10 R9 K37 ["DEPRECATED_editAnnotation"]
+  DUPCLOSURE R10 K38 [PROTO_20]
+  SETTABLEKS R10 R9 K39 ["editAnnotation"]
+  DUPTABLE R10 K43 [{"Standalone", "Edit", "Shared"}]
+  SETTABLEKS R7 R10 K40 ["Standalone"]
+  SETTABLEKS R8 R10 K41 ["Edit"]
+  SETTABLEKS R9 R10 K42 ["Shared"]
   RETURN R10 1

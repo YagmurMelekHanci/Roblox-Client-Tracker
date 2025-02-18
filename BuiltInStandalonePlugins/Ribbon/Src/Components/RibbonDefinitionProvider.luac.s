@@ -1,0 +1,135 @@
+PROTO_0:
+  GETIMPORT R0 K2 [table.freeze]
+  GETUPVAL R1 0
+  LOADK R3 K3 ["RibbonConfiguration"]
+  NAMECALL R1 R1 K4 ["GetPluginComponent"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K5 ["ReloadAndGetRibbonDefinitionAsync"]
+  CALL R1 1 -1
+  CALL R0 -1 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K6 ["OnDefinitionLoad"]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K6 ["OnDefinitionLoad"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R1 2
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K2 [task.defer]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["FFlagRibbonConfigUniqueControlsIdentifiers must be true to use RibbonDefinitionProvider"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["use"]
+  CALL R1 0 1
+  NAMECALL R1 R1 K4 ["get"]
+  CALL R1 1 1
+  GETUPVAL R2 2
+  GETUPVAL R3 3
+  CALL R2 1 2
+  GETUPVAL R4 4
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  NEWTABLE R6 0 3
+  MOVE R7 R1
+  GETTABLEKS R8 R0 K5 ["OnDefinitionLoad"]
+  MOVE R9 R3
+  SETLIST R6 R7 3 [1]
+  CALL R4 2 1
+  GETUPVAL R5 5
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R4
+  NEWTABLE R7 0 1
+  MOVE R8 R4
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 0
+  DUPTABLE R5 K8 [{"Definition", "ReloadDefinition"}]
+  SETTABLEKS R2 R5 K6 ["Definition"]
+  SETTABLEKS R4 R5 K7 ["ReloadDefinition"]
+  GETUPVAL R7 6
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R8 7
+  GETTABLEKS R7 R8 K10 ["Provider"]
+  DUPTABLE R8 K12 [{"value"}]
+  SETTABLEKS R5 R8 K11 ["value"]
+  GETTABLEKS R9 R0 K13 ["children"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Contexts"]
+  GETTABLEKS R4 R5 K11 ["RibbonDefinition"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K13 ["SharedFlags"]
+  GETTABLEKS R6 R7 K14 ["getFFlagRibbonConfigUniqueControlsIdentifiers"]
+  CALL R5 1 1
+  GETTABLEKS R7 R1 K15 ["ContextServices"]
+  GETTABLEKS R6 R7 K16 ["Plugin"]
+  GETTABLEKS R7 R2 K17 ["useCallback"]
+  GETTABLEKS R8 R2 K18 ["useEffect"]
+  GETTABLEKS R9 R2 K19 ["useState"]
+  GETIMPORT R10 K22 [table.freeze]
+  DUPTABLE R11 K26 [{"Layout", "TabControls", "MezzanineControls"}]
+  DUPTABLE R12 K28 [{"TabLayout"}]
+  NEWTABLE R13 0 0
+  SETTABLEKS R13 R12 K27 ["TabLayout"]
+  SETTABLEKS R12 R11 K23 ["Layout"]
+  NEWTABLE R12 0 0
+  SETTABLEKS R12 R11 K24 ["TabControls"]
+  NEWTABLE R12 0 0
+  SETTABLEKS R12 R11 K25 ["MezzanineControls"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K29 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R11 1

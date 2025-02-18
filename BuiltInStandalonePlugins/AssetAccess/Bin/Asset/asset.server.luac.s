@@ -18,44 +18,35 @@ MAIN:
   GETIMPORT R2 K9 [require]
   GETTABLEKS R3 R1 K10 ["defineLuaFlags"]
   CALL R2 1 0
-  GETTABLEKS R3 R0 K11 ["Src"]
-  GETTABLEKS R2 R3 K12 ["SharedFlags"]
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K11 ["Packages"]
+  GETTABLEKS R3 R4 K12 ["TestLoader"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K13 ["launch"]
+  LOADK R4 K4 ["AssetAccess"]
+  GETTABLEKS R5 R0 K14 ["Src"]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K15 ["isCli"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+1]
+  RETURN R0 0
+  GETIMPORT R4 K1 [plugin]
+  GETTABLEKS R3 R4 K16 ["HostDataModelType"]
+  GETIMPORT R4 K20 [Enum.StudioDataModelType.Edit]
+  JUMPIFEQ R3 R4 [+2]
+  RETURN R0 0
   GETIMPORT R3 K9 [require]
-  GETTABLEKS R4 R2 K13 ["getFFlagAssetAccessErrorMessageImprovements"]
+  GETTABLEKS R6 R0 K14 ["Src"]
+  GETTABLEKS R5 R6 K21 ["Util"]
+  GETTABLEKS R4 R5 K22 ["ShareDialogController"]
   CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R6 R0 K14 ["Packages"]
-  GETTABLEKS R5 R6 K15 ["TestLoader"]
+  GETTABLEKS R4 R3 K23 ["new"]
+  GETIMPORT R5 K1 [plugin]
   CALL R4 1 1
-  GETTABLEKS R5 R4 K16 ["launch"]
-  LOADK R6 K4 ["AssetAccess"]
-  GETTABLEKS R7 R0 K11 ["Src"]
-  CALL R5 2 0
-  GETTABLEKS R5 R4 K17 ["isCli"]
-  CALL R5 0 1
-  JUMPIFNOT R5 [+1]
-  RETURN R0 0
-  MOVE R5 R3
-  CALL R5 0 1
-  JUMPIF R5 [+1]
-  RETURN R0 0
   GETIMPORT R6 K1 [plugin]
-  GETTABLEKS R5 R6 K18 ["HostDataModelType"]
-  GETIMPORT R6 K22 [Enum.StudioDataModelType.Edit]
-  JUMPIFEQ R5 R6 [+2]
-  RETURN R0 0
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R8 R0 K11 ["Src"]
-  GETTABLEKS R7 R8 K23 ["Util"]
-  GETTABLEKS R6 R7 K24 ["ShareDialogController"]
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K25 ["new"]
-  GETIMPORT R7 K1 [plugin]
-  CALL R6 1 1
-  GETIMPORT R8 K1 [plugin]
-  GETTABLEKS R7 R8 K26 ["Unloading"]
-  DUPCLOSURE R9 K27 [PROTO_0]
-  CAPTURE VAL R6
-  NAMECALL R7 R7 K28 ["Once"]
-  CALL R7 2 0
+  GETTABLEKS R5 R6 K24 ["Unloading"]
+  DUPCLOSURE R7 K25 [PROTO_0]
+  CAPTURE VAL R4
+  NAMECALL R5 R5 K26 ["Once"]
+  CALL R5 2 0
   RETURN R0 0

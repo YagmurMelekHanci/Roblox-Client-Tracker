@@ -72,8 +72,6 @@ local FFlagHideVoiceUIUntilInputExists = require(VoiceChatCore.Flags.GetFFlagHid
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging =
 	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
-local GetFFlagVoiceBanShowToastOnSubsequentJoins =
-	require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 local GetFFlagEnableInExpVoiceConsentAnalytics =
@@ -900,8 +898,7 @@ function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings
 		end
 
 		if
-			GetFFlagVoiceBanShowToastOnSubsequentJoins()
-			and informedOfBanResult
+			informedOfBanResult
 			and informedOfBanResult.informedOfBan
 		then
 			self:ShowPlayerModeratedMessage(true)
@@ -1028,17 +1025,13 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage(informedOfBan: boole
 		else
 			self.bannedUntil = userSettings.bannedUntil
 
-			if not GetFFlagVoiceBanShowToastOnSubsequentJoins() then
-				self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+			if informedOfBan then
+				self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryToast)
 			else
-				if informedOfBan then
-					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryToast)
+				if GetFFlagUpdateNudgeV3VoiceBanUI() and self.banReason == BAN_REASON.NUDGE_V3 then
+					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
 				else
-					if GetFFlagUpdateNudgeV3VoiceBanUI() and self.banReason == BAN_REASON.NUDGE_V3 then
-						self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
-					else
-						self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
-					end
+					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
 				end
 			end
 		end

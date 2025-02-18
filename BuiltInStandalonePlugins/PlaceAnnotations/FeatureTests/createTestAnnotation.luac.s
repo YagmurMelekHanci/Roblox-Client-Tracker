@@ -31,8 +31,10 @@ PROTO_0:
   GETTABLEKS R3 R2 K20 ["CreationTimeUnix"]
   SETTABLEKS R3 R2 K21 ["LastModifiedTimeUnix"]
   SETTABLEKS R1 R2 K22 ["Adornee"]
+  LOADK R3 K23 [""]
+  SETTABLEKS R3 R2 K24 ["TaggedUsers"]
   JUMPIFNOT R0 [+2]
-  SETTABLEKS R0 R2 K23 ["Contents"]
+  SETTABLEKS R0 R2 K25 ["Contents"]
   RETURN R2 1
 
 MAIN:

@@ -16,14 +16,6 @@ local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTe
 local GetFStringLuaAppExperienceMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLuaAppExperienceMenuLayer
 local GetFStringLuaAppConsoleExperienceMenuLayer = require(script.Parent.Flags.GetFStringLuaAppConsoleExperienceMenuLayer)
 
-local GetFFlagDisableChromeUnibar = require(script.Parent.Flags.GetFFlagDisableChromeUnibar)()
-local GetFFlagDisableChromePinnedChat = require(script.Parent.Flags.GetFFlagDisableChromePinnedChat)()
-local GetFFlagDisableChromeDefaultOpen = require(script.Parent.Flags.GetFFlagDisableChromeDefaultOpen)()
-
-local GetFFlagDisableChromeFollowupUnibar = require(script.Parent.Flags.GetFFlagDisableChromeFollowupUnibar)()
-local GetFFlagDisableChromeFollowupFTUX = require(script.Parent.Flags.GetFFlagDisableChromeFollowupFTUX)()
-local GetFFlagDisableChromeFollowupOcclusion = require(script.Parent.Flags.GetFFlagDisableChromeFollowupOcclusion)()
-
 local GetFFlagDisableChromeV3Baseline = require(script.Parent.Flags.GetFFlagDisableChromeV3Baseline)()
 local GetFFlagDisableChromeV3Captures = require(script.Parent.Flags.GetFFlagDisableChromeV3Captures)()
 local GetFFlagDisableChromeV3StaticSelfView = require(script.Parent.Flags.GetFFlagDisableChromeV3StaticSelfView)()
@@ -47,18 +39,6 @@ local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
 local MENU_VERSION_V3 = "v3"..TEST_VERSION
 local REPORT_ABUSE_MENU_VERSION_V2 = "ARv2"..REPORT_ABUSE_MENU_TEST_VERSION
-
-local MENU_VERSION_CHROME_ENUM = {
-	UNIBAR = "v6.1"..TEST_VERSION,
-	PINNED_CHAT = "v6.2"..TEST_VERSION,
-	DEFAULT_OPEN = "v6.3"..TEST_VERSION,
-}
-
-local MENU_VERSION_CHROME_FOLLOWUP_ENUM = {
-	UNIBAR = "v7.1.1"..TEST_VERSION,
-	FTUX = "v7.2.1"..TEST_VERSION,
-	OCCLUSION = "v7.3"..TEST_VERSION,
-}
 
 local MENU_VERSION_CHROME_V3_ENUM = {
 	BASELINE = "v8.1"..TEST_VERSION,
@@ -86,13 +66,7 @@ local validVersion = {
 	[DEFAULT_MENU_VERSION] = true,
 	[MENU_VERSION_V2] = false,
 	[MENU_VERSION_V3] = false,
-	[MENU_VERSION_CHROME_ENUM.UNIBAR] = not GetFFlagDisableChromeUnibar,
-	[MENU_VERSION_CHROME_ENUM.PINNED_CHAT] = not GetFFlagDisableChromePinnedChat,
-	[MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN] = not GetFFlagDisableChromeDefaultOpen,
 	[REPORT_ABUSE_MENU_VERSION_V2] = false,
-	[MENU_VERSION_CHROME_FOLLOWUP_ENUM.UNIBAR] = not GetFFlagDisableChromeFollowupUnibar,
-	[MENU_VERSION_CHROME_FOLLOWUP_ENUM.FTUX] = not GetFFlagDisableChromeFollowupFTUX,
-	[MENU_VERSION_CHROME_FOLLOWUP_ENUM.OCCLUSION] = not GetFFlagDisableChromeFollowupOcclusion,
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD] = true,
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR] = true,
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK] = true,
@@ -144,30 +118,6 @@ end
 
 function ExperienceMenuABTestManager.reportAbuseMenuV2VersionId()
 	return REPORT_ABUSE_MENU_VERSION_V2
-end
-
-function ExperienceMenuABTestManager.chromeVersionId()
-	return MENU_VERSION_CHROME_ENUM.UNIBAR
-end
-
-function ExperienceMenuABTestManager.chromePinnedChatVersionId()
-	return MENU_VERSION_CHROME_ENUM.PINNED_CHAT
-end
-
-function ExperienceMenuABTestManager.chromeDefaultOpenVersionId()
-	return MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN
-end
-
-function ExperienceMenuABTestManager.chromeFollowupVersionId()
-	return MENU_VERSION_CHROME_FOLLOWUP_ENUM.UNIBAR
-end
-
-function ExperienceMenuABTestManager.chromeFTUXVersionId()
-	return MENU_VERSION_CHROME_FOLLOWUP_ENUM.FTUX
-end
-
-function ExperienceMenuABTestManager.chromeOcclusionVersionId()
-	return MENU_VERSION_CHROME_FOLLOWUP_ENUM.OCCLUSION
 end
 
 function ExperienceMenuABTestManager.chromeV3BaselineVersionId()
@@ -283,19 +233,6 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 		end
 	end
 
-	for _, version in MENU_VERSION_CHROME_ENUM do
-		if self:getVersion() == version then
-			return true
-		end
-	end
-
-	for _, version in MENU_VERSION_CHROME_FOLLOWUP_ENUM do
-		if self:getVersion() == version then
-			return true
-		end
-	end
-
-
 	for _, version in MENU_VERSION_SONGBIRD_ENUM do
 		if self:getVersion() == version then
 			return true
@@ -303,10 +240,6 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 	end
 
 	return false
-end
-
-function ExperienceMenuABTestManager:shouldShowFTUX()
-	return self:getVersion() == MENU_VERSION_CHROME_FOLLOWUP_ENUM.FTUX
 end
 
 function ExperienceMenuABTestManager:shouldShowCaptures()

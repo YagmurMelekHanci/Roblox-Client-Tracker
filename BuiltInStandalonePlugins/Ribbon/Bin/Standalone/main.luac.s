@@ -29,85 +29,71 @@ PROTO_1:
   GETTABLEKS R5 R6 K9 ["Src"]
   GETTABLEKS R4 R5 K10 ["MainPlugin"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K9 ["Src"]
-  GETTABLEKS R6 R7 K11 ["SharedFlags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagStudioFloatingRibbon"]
-  CALL R4 1 1
-  CALL R4 0 1
-  LOADK R7 K13 ["Ribbon"]
-  DUPTABLE R8 K24 [{"Id", "InitialEnabled", "MinSize", "Modal", "Panel", "Resizable", "Size", "Title", "Parent", "AddToParentLayout"}]
-  LOADK R9 K13 ["Ribbon"]
-  SETTABLEKS R9 R8 K14 ["Id"]
+  LOADK R6 K11 ["Ribbon"]
+  DUPTABLE R7 K22 [{"Id", "InitialEnabled", "MinSize", "Modal", "Panel", "Resizable", "Size", "Title", "Parent", "AddToParentLayout"}]
+  LOADK R8 K11 ["Ribbon"]
+  SETTABLEKS R8 R7 K12 ["Id"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K13 ["InitialEnabled"]
+  GETIMPORT R8 K25 [Vector2.new]
+  LOADN R9 128
+  LOADN R10 129
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["MinSize"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K15 ["Modal"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K16 ["Panel"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K17 ["Resizable"]
+  GETIMPORT R8 K25 [Vector2.new]
+  LOADN R9 128
+  LOADN R10 129
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K18 ["Size"]
+  LOADK R8 K11 ["Ribbon"]
+  SETTABLEKS R8 R7 K19 ["Title"]
+  LOADK R8 K26 ["studioTopBar"]
+  SETTABLEKS R8 R7 K20 ["Parent"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K21 ["AddToParentLayout"]
+  NAMECALL R4 R0 K27 ["CreateQWidgetPluginGui"]
+  CALL R4 3 1
+  GETIMPORT R5 K31 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R5 R4 K29 ["ZIndexBehavior"]
+  LOADK R7 K32 ["Floating"]
+  DUPTABLE R8 K34 [{"Id", "Callout", "Resizable", "Title"}]
+  LOADK R9 K32 ["Floating"]
+  SETTABLEKS R9 R8 K12 ["Id"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K15 ["InitialEnabled"]
-  GETIMPORT R9 K27 [Vector2.new]
-  LOADN R10 128
-  LOADN R11 129
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K16 ["MinSize"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K17 ["Modal"]
+  SETTABLEKS R9 R8 K33 ["Callout"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K18 ["Panel"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K19 ["Resizable"]
-  GETIMPORT R9 K27 [Vector2.new]
-  LOADN R10 128
-  LOADN R11 129
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K20 ["Size"]
-  LOADK R9 K13 ["Ribbon"]
-  SETTABLEKS R9 R8 K21 ["Title"]
-  LOADK R9 K28 ["studioTopBar"]
-  SETTABLEKS R9 R8 K22 ["Parent"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K23 ["AddToParentLayout"]
-  NAMECALL R5 R0 K29 ["CreateQWidgetPluginGui"]
+  SETTABLEKS R9 R8 K17 ["Resizable"]
+  LOADK R9 K32 ["Floating"]
+  SETTABLEKS R9 R8 K19 ["Title"]
+  NAMECALL R5 R0 K27 ["CreateQWidgetPluginGui"]
   CALL R5 3 1
-  GETIMPORT R6 K33 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R6 R5 K31 ["ZIndexBehavior"]
-  LOADNIL R6
-  JUMPIFNOT R4 [+22]
-  LOADK R9 K34 ["Floating"]
-  DUPTABLE R10 K36 [{"Id", "Callout", "Resizable", "Title"}]
-  LOADK R11 K34 ["Floating"]
-  SETTABLEKS R11 R10 K14 ["Id"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K35 ["Callout"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K19 ["Resizable"]
-  LOADK R11 K34 ["Floating"]
-  SETTABLEKS R11 R10 K21 ["Title"]
-  NAMECALL R7 R0 K29 ["CreateQWidgetPluginGui"]
-  CALL R7 3 1
-  MOVE R6 R7
-  GETIMPORT R7 K33 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R7 R6 K31 ["ZIndexBehavior"]
-  GETTABLEKS R7 R1 K37 ["createElement"]
-  MOVE R8 R3
-  DUPTABLE R9 K40 [{"Plugin", "Widget", "Floating"}]
-  SETTABLEKS R0 R9 K38 ["Plugin"]
-  SETTABLEKS R5 R9 K39 ["Widget"]
-  JUMPIFNOT R4 [+2]
+  GETIMPORT R6 K31 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R6 R5 K29 ["ZIndexBehavior"]
+  GETTABLEKS R6 R1 K35 ["createElement"]
+  MOVE R7 R3
+  DUPTABLE R8 K38 [{"Plugin", "Widget", "Floating"}]
+  SETTABLEKS R0 R8 K36 ["Plugin"]
+  SETTABLEKS R4 R8 K37 ["Widget"]
+  SETTABLEKS R5 R8 K32 ["Floating"]
+  CALL R6 2 1
+  GETTABLEKS R7 R2 K39 ["createRoot"]
+  MOVE R8 R4
+  CALL R7 1 1
   MOVE R10 R6
-  JUMP [+1]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K34 ["Floating"]
-  CALL R7 2 1
-  GETTABLEKS R8 R2 K41 ["createRoot"]
-  MOVE R9 R5
-  CALL R8 1 1
-  MOVE R11 R7
-  NAMECALL R9 R8 K42 ["render"]
-  CALL R9 2 0
-  GETTABLEKS R9 R0 K43 ["Unloading"]
-  NEWCLOSURE R11 P0
-  CAPTURE VAL R8
-  CAPTURE VAL R5
-  NAMECALL R9 R9 K44 ["Once"]
-  CALL R9 2 0
+  NAMECALL R8 R7 K40 ["render"]
+  CALL R8 2 0
+  GETTABLEKS R8 R0 K41 ["Unloading"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  NAMECALL R8 R8 K42 ["Once"]
+  CALL R8 2 0
   RETURN R0 0
 
 MAIN:

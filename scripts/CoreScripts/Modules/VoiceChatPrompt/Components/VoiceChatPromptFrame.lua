@@ -37,8 +37,6 @@ local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetF
 local GetFFlagEnableVoiceNudge = require(VoiceChatCore.Flags.GetFFlagEnableVoiceNudge)
 local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
-local GetFFlagVoiceBanShowToastOnSubsequentJoins =
-	require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
 local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
@@ -339,14 +337,12 @@ function VoiceChatPromptFrame:init()
 			local toastTitle = PromptTitle[promptType]
 			local toastSubtitle = PromptSubTitle[promptType]
 
-			if GetFFlagVoiceBanShowToastOnSubsequentJoins() then
-				if typeof(toastTitle) == "function" then
-					toastTitle = toastTitle(self.props.bannedUntil)
-				end
+			if typeof(toastTitle) == "function" then
+				toastTitle = toastTitle(self.props.bannedUntil)
+			end
 
-				if typeof(toastSubtitle) == "function" then
-					toastSubtitle = toastSubtitle(self.props.bannedUntil)
-				end
+			if typeof(toastSubtitle) == "function" then
+				toastSubtitle = toastSubtitle(self.props.bannedUntil)
 			end
 
 			local iconImage

@@ -325,7 +325,7 @@ PROTO_4:
   NAMECALL R10 R5 K31 ["ScaleTo"]
   CALL R10 2 0
   GETTABLEKS R7 R6 K36 ["source"]
-  JUMPIFNOT R7 [+44]
+  JUMPIFNOT R7 [+52]
   LOADK R9 K37 ["Script"]
   NAMECALL R7 R5 K20 ["IsA"]
   CALL R7 2 1
@@ -333,99 +333,104 @@ PROTO_4:
   LOADK R9 K38 ["ModuleScript"]
   NAMECALL R7 R5 K20 ["IsA"]
   CALL R7 2 1
-  JUMPIFNOT R7 [+34]
+  JUMPIFNOT R7 [+42]
   GETUPVAL R7 4
   CALL R7 0 1
-  JUMPIFNOT R7 [+24]
+  JUMPIFNOT R7 [+32]
   GETUPVAL R8 5
   NAMECALL R8 R8 K39 ["GetSettings"]
   CALL R8 1 1
   GETTABLEKS R7 R8 K40 ["ScriptDiffTreatment"]
-  JUMPIFNOT R7 [+17]
+  JUMPIFNOT R7 [+25]
   GETUPVAL R7 5
   LOADK R9 K41 ["UpdateScriptSource"]
-  DUPTABLE R10 K43 [{"requestId", "instanceId", "script", "source"}]
+  DUPTABLE R10 K44 [{"requestId", "instanceId", "script", "source", "isNewScript"}]
   SETTABLEKS R1 R10 K0 ["requestId"]
   SETTABLEKS R4 R10 K4 ["instanceId"]
   SETTABLEKS R5 R10 K42 ["script"]
   GETTABLEKS R11 R6 K36 ["source"]
   SETTABLEKS R11 R10 K36 ["source"]
-  NAMECALL R7 R7 K44 ["DisplayContent"]
+  GETTABLEKS R12 R2 K3 ["newInstanceId"]
+  JUMPIFEQ R4 R12 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  SETTABLEKS R11 R10 K43 ["isNewScript"]
+  NAMECALL R7 R7 K45 ["DisplayContent"]
   CALL R7 3 0
   JUMP [+7]
   GETUPVAL R7 6
   MOVE R9 R5
   NEWCLOSURE R10 P0
   CAPTURE VAL R6
-  NAMECALL R7 R7 K45 ["UpdateSourceAsync"]
+  NAMECALL R7 R7 K46 ["UpdateSourceAsync"]
   CALL R7 3 0
-  GETTABLEKS R7 R6 K46 ["color"]
+  GETTABLEKS R7 R6 K47 ["color"]
   JUMPIFNOT R7 [+70]
-  GETTABLEKS R7 R6 K46 ["color"]
+  GETTABLEKS R7 R6 K47 ["color"]
   LOADK R10 K19 ["BasePart"]
   NAMECALL R8 R5 K20 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+25]
   FASTCALL1 TYPEOF R7 [+3]
   MOVE R9 R7
-  GETIMPORT R8 K48 [typeof]
+  GETIMPORT R8 K49 [typeof]
   CALL R8 1 1
-  JUMPIFNOTEQKS R8 K49 ["string"] [+8]
-  GETIMPORT R8 K52 [Color3.fromHex]
+  JUMPIFNOTEQKS R8 K50 ["string"] [+8]
+  GETIMPORT R8 K53 [Color3.fromHex]
   MOVE R9 R7
   CALL R8 1 1
-  SETTABLEKS R8 R5 K53 ["Color"]
+  SETTABLEKS R8 R5 K54 ["Color"]
   JUMP [+11]
-  GETIMPORT R8 K55 [Color3.fromRGB]
-  GETTABLEKS R9 R7 K56 ["r"]
-  GETTABLEKS R10 R7 K57 ["g"]
-  GETTABLEKS R11 R7 K58 ["b"]
+  GETIMPORT R8 K56 [Color3.fromRGB]
+  GETTABLEKS R9 R7 K57 ["r"]
+  GETTABLEKS R10 R7 K58 ["g"]
+  GETTABLEKS R11 R7 K59 ["b"]
   CALL R8 3 1
-  SETTABLEKS R8 R5 K53 ["Color"]
-  NAMECALL R7 R5 K59 ["GetDescendants"]
+  SETTABLEKS R8 R5 K54 ["Color"]
+  NAMECALL R7 R5 K60 ["GetDescendants"]
   CALL R7 1 3
   FORGPREP R7
-  GETTABLEKS R12 R6 K46 ["color"]
+  GETTABLEKS R12 R6 K47 ["color"]
   LOADK R15 K19 ["BasePart"]
   NAMECALL R13 R11 K20 ["IsA"]
   CALL R13 2 1
   JUMPIFNOT R13 [+25]
   FASTCALL1 TYPEOF R12 [+3]
   MOVE R14 R12
-  GETIMPORT R13 K48 [typeof]
+  GETIMPORT R13 K49 [typeof]
   CALL R13 1 1
-  JUMPIFNOTEQKS R13 K49 ["string"] [+8]
-  GETIMPORT R13 K52 [Color3.fromHex]
+  JUMPIFNOTEQKS R13 K50 ["string"] [+8]
+  GETIMPORT R13 K53 [Color3.fromHex]
   MOVE R14 R12
   CALL R13 1 1
-  SETTABLEKS R13 R11 K53 ["Color"]
+  SETTABLEKS R13 R11 K54 ["Color"]
   JUMP [+11]
-  GETIMPORT R13 K55 [Color3.fromRGB]
-  GETTABLEKS R14 R12 K56 ["r"]
-  GETTABLEKS R15 R12 K57 ["g"]
-  GETTABLEKS R16 R12 K58 ["b"]
+  GETIMPORT R13 K56 [Color3.fromRGB]
+  GETTABLEKS R14 R12 K57 ["r"]
+  GETTABLEKS R15 R12 K58 ["g"]
+  GETTABLEKS R16 R12 K59 ["b"]
   CALL R13 3 1
-  SETTABLEKS R13 R11 K53 ["Color"]
+  SETTABLEKS R13 R11 K54 ["Color"]
   FORGLOOP R7 2 [-33]
-  GETTABLEKS R7 R6 K60 ["material"]
+  GETTABLEKS R7 R6 K61 ["material"]
   JUMPIFNOT R7 [+12]
   LOADK R9 K19 ["BasePart"]
   NAMECALL R7 R5 K20 ["IsA"]
   CALL R7 2 1
   JUMPIFNOT R7 [+7]
-  GETIMPORT R8 K63 [Enum.Material]
-  GETTABLEKS R9 R6 K60 ["material"]
+  GETIMPORT R8 K64 [Enum.Material]
+  GETTABLEKS R9 R6 K61 ["material"]
   GETTABLE R7 R8 R9
-  SETTABLEKS R7 R5 K62 ["Material"]
+  SETTABLEKS R7 R5 K63 ["Material"]
   MOVE R7 R3
   JUMPIF R7 [+11]
-  GETTABLEKS R7 R6 K64 ["position"]
+  GETTABLEKS R7 R6 K65 ["position"]
   JUMPIF R7 [+8]
-  GETTABLEKS R7 R6 K65 ["elevation"]
+  GETTABLEKS R7 R6 K66 ["elevation"]
   JUMPIF R7 [+5]
-  GETTABLEKS R7 R6 K66 ["rotation"]
+  GETTABLEKS R7 R6 K67 ["rotation"]
   JUMPIF R7 [+2]
-  GETTABLEKS R7 R6 K67 ["referenceInstance"]
+  GETTABLEKS R7 R6 K68 ["referenceInstance"]
   JUMPIFNOT R7 [+12]
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K34 ["getWorldBoundingBox"]
@@ -449,17 +454,17 @@ PROTO_4:
   SETTABLEKS R8 R5 K17 ["Parent"]
   JUMPIF R3 [+5]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K68 ["EndRecordingActions"]
+  GETTABLEKS R8 R9 K69 ["EndRecordingActions"]
   MOVE R9 R1
   CALL R8 1 0
   GETUPVAL R9 8
-  GETTABLEKS R8 R9 K69 ["getInstanceTypes"]
+  GETTABLEKS R8 R9 K70 ["getInstanceTypes"]
   CALL R8 0 1
   GETUPVAL R10 8
-  GETTABLEKS R9 R10 K70 ["registerInstanceV2"]
+  GETTABLEKS R9 R10 K71 ["registerInstanceV2"]
   MOVE R10 R5
   MOVE R11 R1
-  GETTABLEKS R12 R8 K71 ["Created"]
+  GETTABLEKS R12 R8 K72 ["Created"]
   CALL R9 3 0
   RETURN R0 0
 

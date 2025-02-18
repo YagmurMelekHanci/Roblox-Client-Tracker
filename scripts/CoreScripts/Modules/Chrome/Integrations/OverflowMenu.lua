@@ -45,8 +45,6 @@ local useCurrentSong = Songbird.useCurrentSong
 local getFFlagSongbirdUnverifiedMusicState = Songbird.getFFlagSongbirdUnverifiedMusicState
 
 local GetFFlagUnpinUnavailable = require(Chrome.Flags.GetFFlagUnpinUnavailable)
-local GetFFlagPostLaunchUnibarDesignTweaks =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
@@ -331,7 +329,6 @@ end
 function HamburgerButton(props)
 	local toggleIconTransition = props.toggleTransition
 	local style = useStyle()
-	local iconColor = style.Theme.IconEmphasis
 
 	local submenuOpen = submenuVisibility and useMappedSignal(submenuVisibility) or false
 
@@ -475,59 +472,21 @@ function HamburgerButton(props)
 				return value * style.Theme.IconEmphasis.Transparency
 			end),
 		}) :: any,
-		if GetFFlagPostLaunchUnibarDesignTweaks()
-			then React.createElement(ImageSetLabel, {
-				Name = "Close",
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				BackgroundTransparency = 1,
-				Image = Images["icons/navigation/close"],
-				Size = toggleIconTransition:map(function(value: any): any
-					return UDim2.new(0, Constants.MEDIUM_ICON_SIZE * value, 0, Constants.MEDIUM_ICON_SIZE * value)
-				end),
-				ImageColor3 = style.Theme.IconEmphasis.Color,
+		React.createElement(ImageSetLabel, {
+			Name = "Close",
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			BackgroundTransparency = 1,
+			Image = Images["icons/navigation/close"],
+			Size = toggleIconTransition:map(function(value: any): any
+				return UDim2.new(0, Constants.MEDIUM_ICON_SIZE * value, 0, Constants.MEDIUM_ICON_SIZE * value)
+			end),
+			ImageColor3 = style.Theme.IconEmphasis.Color,
 
-				ImageTransparency = toggleIconTransition:map(function(value: any): any
-					return (1 - value) * style.Theme.IconEmphasis.Transparency
-				end),
-			})
-			else nil,
-		if not GetFFlagPostLaunchUnibarDesignTweaks()
-			then React.createElement("Frame", {
-				Name = "X1",
-				Position = toggleIconTransition:map(function(value): any
-					return UDim2.new(0.5, 0, 0.5, 0)
-				end),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = toggleIconTransition:map(function(value: any): any
-					return UDim2.new(0, 16 * value, 0, 2)
-				end),
-				BorderSizePixel = 0,
-				BackgroundColor3 = iconColor.Color,
-				BackgroundTransparency = toggleIconTransition:map(function(value: any): any
-					return 1 - value
-				end),
-				Rotation = 45,
-			}) :: any
-			else nil,
-		if not GetFFlagPostLaunchUnibarDesignTweaks()
-			then React.createElement("Frame", {
-				Name = "X2",
-				Position = toggleIconTransition:map(function(value): any
-					return UDim2.new(0.5, 0, 0.5, 0)
-				end),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = toggleIconTransition:map(function(value: any): any
-					return UDim2.new(0, 16 * value, 0, 2)
-				end),
-				BorderSizePixel = 0,
-				BackgroundColor3 = iconColor.Color,
-				BackgroundTransparency = toggleIconTransition:map(function(value: any): any
-					return 1 - value
-				end),
-				Rotation = -45,
-			}) :: any
-			else nil,
+			ImageTransparency = toggleIconTransition:map(function(value: any): any
+				return (1 - value) * style.Theme.IconEmphasis.Transparency
+			end),
+		}),
 		if SelfieView.useCameraOn()
 				and not ChromeService:isWindowOpen(SELFIE_ID)
 				and not submenuOpen

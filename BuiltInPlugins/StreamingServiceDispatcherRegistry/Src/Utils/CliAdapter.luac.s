@@ -359,74 +359,80 @@ MAIN:
   MOVE R19 R7
   GETIMPORT R17 K51 [setmetatable]
   CALL R17 2 1
-  GETIMPORT R18 K5 [require]
-  GETTABLEKS R21 R0 K31 ["Src"]
-  GETTABLEKS R20 R21 K46 ["Mocks"]
-  GETTABLEKS R19 R20 K52 ["MockChangeHistoryService"]
-  CALL R18 1 1
-  GETTABLEKS R19 R2 K13 ["Globals"]
-  NEWTABLE R21 0 0
-  FASTCALL2 SETMETATABLE R21 R7 [+4]
-  MOVE R22 R7
-  GETIMPORT R20 K51 [setmetatable]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K10 ["game"]
-  DUPTABLE R19 K54 [{"UpdateSourceAsync"}]
-  DUPCLOSURE R20 K55 [PROTO_14]
-  SETTABLEKS R20 R19 K53 ["UpdateSourceAsync"]
-  DUPTABLE R20 K67 [{"StreamingService", "ChatbotUIService", "MarketplaceService", "ConversationalAIAcceptanceService", "MaterialGenerationService", "MemStorageService", "StudioAssetService", "ScriptEditorService", "PublishService", "ChangeHistoryService", "InsertService"}]
-  GETTABLEKS R21 R10 K19 ["new"]
-  CALL R21 0 1
-  SETTABLEKS R21 R20 K56 ["StreamingService"]
-  GETTABLEKS R21 R11 K19 ["new"]
-  CALL R21 0 1
-  SETTABLEKS R21 R20 K57 ["ChatbotUIService"]
-  SETTABLEKS R13 R20 K58 ["MarketplaceService"]
-  SETTABLEKS R15 R20 K59 ["ConversationalAIAcceptanceService"]
-  GETTABLEKS R21 R12 K19 ["new"]
-  CALL R21 0 1
-  SETTABLEKS R21 R20 K60 ["MaterialGenerationService"]
-  SETTABLEKS R14 R20 K61 ["MemStorageService"]
-  SETTABLEKS R16 R20 K62 ["StudioAssetService"]
-  SETTABLEKS R19 R20 K63 ["ScriptEditorService"]
-  SETTABLEKS R17 R20 K64 ["PublishService"]
-  GETTABLEKS R21 R18 K19 ["new"]
-  CALL R21 0 1
-  SETTABLEKS R21 R20 K65 ["ChangeHistoryService"]
-  MOVE R21 R4
-  CALL R21 0 1
-  JUMPIFNOT R21 [+21]
-  GETTABLEKS R21 R8 K19 ["new"]
-  MOVE R24 R4
-  CALL R24 0 1
-  FASTCALL2K ASSERT R24 K68 [+4]
-  LOADK R25 K68 ["tryGetService should only be used with getFFlagConvAIGetFreeModelsFallback enabled"]
-  GETIMPORT R23 K70 [assert]
-  CALL R23 2 0
-  GETIMPORT R23 K72 [pcall]
-  LOADK R25 K66 ["InsertService"]
-  NEWCLOSURE R24 P10
-  CAPTURE VAL R25
-  CALL R23 1 2
-  JUMPIFNOT R23 [+2]
-  MOVE R22 R24
+  NEWTABLE R19 0 0
+  FASTCALL2 SETMETATABLE R19 R7 [+4]
+  MOVE R20 R7
+  GETIMPORT R18 K51 [setmetatable]
+  CALL R18 2 1
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K31 ["Src"]
+  GETTABLEKS R21 R22 K46 ["Mocks"]
+  GETTABLEKS R20 R21 K52 ["MockChangeHistoryService"]
+  CALL R19 1 1
+  GETTABLEKS R20 R2 K13 ["Globals"]
+  NEWTABLE R22 0 0
+  FASTCALL2 SETMETATABLE R22 R7 [+4]
+  MOVE R23 R7
+  GETIMPORT R21 K51 [setmetatable]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K10 ["game"]
+  DUPTABLE R20 K54 [{"UpdateSourceAsync"}]
+  DUPCLOSURE R21 K55 [PROTO_14]
+  SETTABLEKS R21 R20 K53 ["UpdateSourceAsync"]
+  DUPTABLE R21 K68 [{"StreamingService", "ChatbotUIService", "MarketplaceService", "ConversationalAIAcceptanceService", "MaterialGenerationService", "MemStorageService", "StudioAssetService", "ScriptEditorService", "PublishService", "RunService", "ChangeHistoryService", "InsertService"}]
+  GETTABLEKS R22 R10 K19 ["new"]
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K56 ["StreamingService"]
+  GETTABLEKS R22 R11 K19 ["new"]
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K57 ["ChatbotUIService"]
+  SETTABLEKS R13 R21 K58 ["MarketplaceService"]
+  SETTABLEKS R15 R21 K59 ["ConversationalAIAcceptanceService"]
+  GETTABLEKS R22 R12 K19 ["new"]
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K60 ["MaterialGenerationService"]
+  SETTABLEKS R14 R21 K61 ["MemStorageService"]
+  SETTABLEKS R16 R21 K62 ["StudioAssetService"]
+  SETTABLEKS R20 R21 K63 ["ScriptEditorService"]
+  SETTABLEKS R17 R21 K64 ["PublishService"]
+  SETTABLEKS R18 R21 K65 ["RunService"]
+  GETTABLEKS R22 R19 K19 ["new"]
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K66 ["ChangeHistoryService"]
+  MOVE R22 R4
+  CALL R22 0 1
+  JUMPIFNOT R22 [+21]
+  GETTABLEKS R22 R8 K19 ["new"]
+  MOVE R25 R4
+  CALL R25 0 1
+  FASTCALL2K ASSERT R25 K69 [+4]
+  LOADK R26 K69 ["tryGetService should only be used with getFFlagConvAIGetFreeModelsFallback enabled"]
+  GETIMPORT R24 K71 [assert]
+  CALL R24 2 0
+  GETIMPORT R24 K73 [pcall]
+  LOADK R26 K67 ["InsertService"]
+  NEWCLOSURE R25 P10
+  CAPTURE VAL R26
+  CALL R24 1 2
+  JUMPIFNOT R24 [+2]
+  MOVE R23 R25
   JUMP [+1]
-  LOADNIL R22
-  CALL R21 1 1
-  SETTABLEKS R21 R20 K66 ["InsertService"]
-  DUPCLOSURE R21 K73 [PROTO_16]
-  CAPTURE VAL R2
-  CAPTURE VAL R20
-  SETTABLEKS R21 R2 K28 ["GetService"]
-  DUPTABLE R21 K75 [{"MaterialGenerator"}]
-  NEWTABLE R23 0 0
-  FASTCALL2 SETMETATABLE R23 R7 [+4]
-  MOVE R24 R7
-  GETIMPORT R22 K51 [setmetatable]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K74 ["MaterialGenerator"]
-  DUPCLOSURE R22 K76 [PROTO_18]
+  LOADNIL R23
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K67 ["InsertService"]
+  DUPCLOSURE R22 K74 [PROTO_16]
   CAPTURE VAL R2
   CAPTURE VAL R21
-  SETTABLEKS R22 R2 K30 ["GetPluginComponent"]
+  SETTABLEKS R22 R2 K28 ["GetService"]
+  DUPTABLE R22 K76 [{"MaterialGenerator"}]
+  NEWTABLE R24 0 0
+  FASTCALL2 SETMETATABLE R24 R7 [+4]
+  MOVE R25 R7
+  GETIMPORT R23 K51 [setmetatable]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K75 ["MaterialGenerator"]
+  DUPCLOSURE R23 K77 [PROTO_18]
+  CAPTURE VAL R2
+  CAPTURE VAL R22
+  SETTABLEKS R23 R2 K30 ["GetPluginComponent"]
   RETURN R2 1

@@ -9,7 +9,7 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["createContext"]
-  DUPTABLE R3 K20 [{"connectGamepadId", "setMapping", "loadMappingsForGamepad", "setIsUpdatingMappingFor", "restoreDefaults", "saveMappings", "setIsMappingsDialogOpen", "setVRConnected", "changeEmulatedDevice", "DEPRECATED_setVRActiveUserCFrame", "setVRUserCFrameActive"}]
+  DUPTABLE R3 K21 [{"connectGamepadId", "setMapping", "loadMappingsForGamepad", "setIsUpdatingMappingFor", "restoreDefaults", "saveMappings", "setIsMappingsDialogOpen", "setVRConnected", "changeEmulatedDevice", "DEPRECATED_setVRActiveUserCFrame", "setVRUserCFrameActive", "setVRCFrameTranslationSensitivity"}]
   LOADNIL R4
   SETTABLEKS R4 R3 K9 ["connectGamepadId"]
   LOADNIL R4
@@ -32,5 +32,7 @@ MAIN:
   SETTABLEKS R4 R3 K18 ["DEPRECATED_setVRActiveUserCFrame"]
   LOADNIL R4
   SETTABLEKS R4 R3 K19 ["setVRUserCFrameActive"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K20 ["setVRCFrameTranslationSensitivity"]
   CALL R2 1 1
   RETURN R2 1

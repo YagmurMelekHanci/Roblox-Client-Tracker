@@ -20,6 +20,8 @@ local RoactGlobalConfig = require(script.RoactGlobalConfig)
 
 local ConnectAvatarEditorServiceEvents = require(script.ConnectAvatarEditorServiceEvents)
 
+local FFlagUIBloxFoundationProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUIBloxFoundationProvider()
+
 local AvatarEditorPrompts = {}
 AvatarEditorPrompts.__index = AvatarEditorPrompts
 
@@ -42,7 +44,8 @@ function AvatarEditorPrompts.new()
 	})
 
 	self.store:dispatch(GetGameName)
-	self.root = Roact.createElement(RoactRodux.StoreProvider, {
+
+	local providerWrappedApp = Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.store,
 	}, {
 		PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
@@ -53,6 +56,10 @@ function AvatarEditorPrompts.new()
 			}),
 		}),
 	})
+	-- Root should be a Folder so that style provider stylesheet elements can be portaled properly; otherwise, they will attach to CoreGui
+	self.root = if FFlagUIBloxFoundationProvider then Roact.createElement("Folder", {
+		Name = "AvatarEditorPromptsApp",
+	}, providerWrappedApp) else providerWrappedApp
 
 	self.element = Roact.mount(self.root, CoreGui, "AvatarEditorPrompts")
 

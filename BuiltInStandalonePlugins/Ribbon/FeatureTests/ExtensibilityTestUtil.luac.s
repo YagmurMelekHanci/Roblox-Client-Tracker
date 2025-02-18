@@ -1,0 +1,65 @@
+PROTO_0:
+  GETIMPORT R0 K2 [task.defer]
+  GETUPVAL R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R2 K2 [coroutine.running]
+  CALL R2 0 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  NAMECALL R3 R0 K3 ["Once"]
+  CALL R3 2 0
+  GETIMPORT R3 K6 [task.defer]
+  MOVE R4 R1
+  CALL R3 1 0
+  GETIMPORT R3 K8 [coroutine.yield]
+  CALL R3 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETIMPORT R3 K1 [plugin]
+  LOADK R5 K2 ["Actions"]
+  NAMECALL R3 R3 K3 ["GetPluginComponent"]
+  CALL R3 2 1
+  MOVE R5 R0
+  NAMECALL R3 R3 K4 ["BindToActivatedAsync"]
+  CALL R3 2 1
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETIMPORT R3 K1 [plugin]
+  LOADK R5 K2 ["Settings"]
+  NAMECALL R3 R3 K3 ["GetPluginComponent"]
+  CALL R3 2 1
+  MOVE R5 R0
+  NAMECALL R3 R3 K4 ["BindAsync"]
+  CALL R3 2 1
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  NEWTABLE R2 2 0
+  DUPCLOSURE R3 K8 [PROTO_1]
+  DUPCLOSURE R4 K9 [PROTO_2]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R2 K10 ["actWithActionContext"]
+  DUPCLOSURE R4 K11 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R2 K12 ["actWithSettingContext"]
+  RETURN R2 1

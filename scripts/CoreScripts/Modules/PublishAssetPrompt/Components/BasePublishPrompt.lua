@@ -40,8 +40,6 @@ local ValidationErrorModal = require(Components.ValidationErrorModal)
 local PurchasePrompt = require(RobloxGui.Modules.PurchasePrompt)
 local Analytics = PurchasePrompt.PublishAssetAnalytics
 
-local FFlagCoreScriptPublishPromptModal = require(RobloxGui.Modules.Flags.FFlagCoreScriptPublishPromptModal)
-
 local NAME_HEIGHT_PIXELS = 30
 local DISCLAIMER_HEIGHT_PIXELS = 50
 local LABEL_PADDING = 24
@@ -121,9 +119,7 @@ function BasePublishPrompt:init()
 		-- if showUnsavedDataWarning is false, show the prompt
 		-- if true, we are showing a warning that says data is lost when prompt is closed
 		showUnsavedDataWarning = false,
-		isGamepad = if FFlagCoreScriptPublishPromptModal
-			then isGamepadInput(UserInputService:GetLastInputType())
-			else nil,
+		isGamepad = isGamepadInput(UserInputService:GetLastInputType()),
 	})
 	-- TODO: AVBURST-13016 Add back checking name for spaces or special characters after investigating
 	self.closePrompt = function()
@@ -213,9 +209,7 @@ function BasePublishPrompt:didMount()
 	-- Prompt should be visible when this component is mounted
 	self.props.SetPromptVisibility(true)
 
-	if FFlagCoreScriptPublishPromptModal then
-		self:overrideMouseIconBehavior()
-	end
+	self:overrideMouseIconBehavior()
 end
 
 function BasePublishPrompt:didUpdate(prevProps, prevState)
@@ -227,10 +221,8 @@ function BasePublishPrompt:didUpdate(prevProps, prevState)
 		self.closePrompt()
 	end
 
-	if FFlagCoreScriptPublishPromptModal then
-		if self.state.isGamepad ~= prevState.isGamepad then
-			self:overrideMouseIconBehavior()
-		end
+	if self.state.isGamepad ~= prevState.isGamepad then
+		self:overrideMouseIconBehavior()
 	end
 end
 
@@ -339,15 +331,14 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 			else localized[SUBMIT_TEXT]
 
 		return Roact.createFragment({
-			LastInputTypeConnection = FFlagCoreScriptPublishPromptModal
-				and Roact.createElement(ExternalEventConnection, {
-					event = UserInputService.LastInputTypeChanged :: RBXScriptSignal,
-					callback = function(lastInputType)
-						self:setState({
-							isGamepad = isGamepadInput(lastInputType),
-						})
-					end,
-				}),
+			LastInputTypeConnection = Roact.createElement(ExternalEventConnection, {
+				event = UserInputService.LastInputTypeChanged :: RBXScriptSignal,
+				callback = function(lastInputType)
+					self:setState({
+						isGamepad = isGamepadInput(lastInputType),
+					})
+				end,
+			}),
 
 			-- Render transparent black frame over the whole screen to de-focus anything in the background.
 			BottomScrim = Roact.createElement("Frame", {
@@ -364,7 +355,7 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 					BackgroundTransparency = 1,
 					Text = "",
 					-- Prevents mouse from being locked while rendered
-					Modal = if FFlagCoreScriptPublishPromptModal then true else nil,
+					Modal = true,
 				}),
 			}),
 
@@ -461,9 +452,7 @@ function BasePublishPrompt:render()
 end
 
 function BasePublishPrompt:willUnmount()
-	if FFlagCoreScriptPublishPromptModal then
-		self:removeMouseIconBehaviorOverride()
-	end
+	self:removeMouseIconBehaviorOverride()
 
 	self:cleanupGamepad()
 

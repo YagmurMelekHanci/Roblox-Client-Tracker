@@ -1416,7 +1416,7 @@ MAIN:
   NAMECALL R18 R18 K29 ["GetFastFlag"]
   CALL R18 2 1
   GETIMPORT R19 K27 [game]
-  LOADK R21 K32 ["DevFrameworkMarkdownViewer3"]
+  LOADK R21 K32 ["DevFrameworkMarkdownViewer4"]
   NAMECALL R19 R19 K29 ["GetFastFlag"]
   CALL R19 2 1
   DUPTABLE R20 K42 [{"Universe", "Place", "User", "Badge", "DeveloperProduct", "GamePass", "Group", "Package", "Script"}]

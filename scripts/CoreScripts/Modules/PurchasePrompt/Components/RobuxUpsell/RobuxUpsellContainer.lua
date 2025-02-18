@@ -44,8 +44,6 @@ local RobuxUpsellContainer = Roact.Component:extend(script.Name)
 
 local SELECTION_GROUP_NAME = "RobuxUpsellContainer"
 
-local FFlagFixLimitedUMobilePurchasePrompt = game:DefineFastFlag("FixLimitedUMobilePurchasePrompt", false)
-
 local GetFFlagEnableTexasU18VPCForInExperienceRobuxUpsellFlow =
 	require(Root.Flags.GetFFlagEnableTexasU18VPCForInExperienceRobuxUpsellFlow)
 
@@ -78,10 +76,6 @@ function RobuxUpsellContainer:createElement()
 		imageIcon = nil
 	end
 
-	local itemRobuxCost = FFlagFixLimitedUMobilePurchasePrompt
-			and getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4, props.expectedPrice)
-		or getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4)
-
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		[Roact.Change.AbsoluteSize] = self.changeScreenSize,
@@ -102,7 +96,7 @@ function RobuxUpsellContainer:createElement()
 			itemIcon = imageIcon,
 			itemProductId = if GetFFlagEnableEventMetadataInUpsell then props.productInfo.productId else nil,
 			itemName = props.productInfo.name,
-			itemRobuxCost = itemRobuxCost,
+			itemRobuxCost = getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4, props.expectedPrice),
 			iapRobuxAmount = props.nativeUpsell.robuxPurchaseAmount or 0,
 			beforeRobuxBalance = props.accountInfo.balance,
 
@@ -159,42 +153,23 @@ RobuxUpsellContainer = connectToStore(function(state)
 		isTestPurchase = isMockingPurchases(nil)
 	end
 
-	if FFlagFixLimitedUMobilePurchasePrompt then
-		return {
-			purchaseFlow = state.purchaseFlow,
-			requestType = state.promptRequest.requestType,
-			expectedPrice = state.promptRequest.expectedPrice,
+	return {
+		purchaseFlow = state.purchaseFlow,
+		requestType = state.promptRequest.requestType,
+		expectedPrice = state.promptRequest.expectedPrice,
 
-			promptState = state.promptState,
-			purchaseError = state.purchaseError,
+		promptState = state.promptState,
+		purchaseError = state.purchaseError,
 
-			productInfo = state.productInfo,
-			accountInfo = state.accountInfo,
-			nativeUpsell = state.nativeUpsell,
+		productInfo = state.productInfo,
+		accountInfo = state.accountInfo,
+		nativeUpsell = state.nativeUpsell,
 
-			isTestPurchase = isTestPurchase,
-			isGamepadEnabled = state.gamepadEnabled,
+		isTestPurchase = isTestPurchase,
+		isGamepadEnabled = state.gamepadEnabled,
 
-			humanoidModel = state.promptRequest.humanoidModel,
-		}
-	else
-		return {
-			purchaseFlow = state.purchaseFlow,
-			requestType = state.promptRequest.requestType,
-
-			promptState = state.promptState,
-			purchaseError = state.purchaseError,
-
-			productInfo = state.productInfo,
-			accountInfo = state.accountInfo,
-			nativeUpsell = state.nativeUpsell,
-
-			isTestPurchase = isTestPurchase,
-			isGamepadEnabled = state.gamepadEnabled,
-
-			humanoidModel = state.promptRequest.humanoidModel,
-		}
-	end
+		humanoidModel = state.promptRequest.humanoidModel,
+	}
 end, function(dispatch)
 	return {
 		purchaseItem = function()

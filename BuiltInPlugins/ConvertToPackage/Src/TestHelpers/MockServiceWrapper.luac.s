@@ -36,26 +36,30 @@ PROTO_0:
   JUMPIF R6 [+2]
   NEWTABLE R6 0 0
   GETTABLEKS R8 R0 K0 ["props"]
-  GETTABLEKS R7 R8 K10 ["focusGui"]
+  GETTABLEKS R7 R8 K10 ["mouse"]
   JUMPIF R7 [+2]
   NEWTABLE R7 0 0
-  GETTABLEKS R9 R0 K0 ["props"]
+  GETIMPORT R8 K12 [Instance.new]
+  LOADK R9 K13 ["ScreenGui"]
+  CALL R8 1 1
+  GETTABLEKS R10 R0 K0 ["props"]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K14 ["Children"]
+  GETTABLE R9 R10 R11
   GETUPVAL R11 5
-  GETTABLEKS R10 R11 K11 ["Children"]
-  GETTABLE R8 R9 R10
-  GETUPVAL R10 5
-  GETTABLEKS R9 R10 K12 ["createElement"]
-  GETUPVAL R10 6
-  DUPTABLE R11 K14 [{"localization", "plugin", "focusGui", "networkInterface", "store", "theme"}]
-  SETTABLEKS R1 R11 K1 ["localization"]
-  SETTABLEKS R6 R11 K9 ["plugin"]
-  SETTABLEKS R7 R11 K10 ["focusGui"]
-  SETTABLEKS R5 R11 K8 ["networkInterface"]
-  SETTABLEKS R3 R11 K13 ["store"]
-  SETTABLEKS R4 R11 K7 ["theme"]
-  MOVE R12 R8
-  CALL R9 3 -1
-  RETURN R9 -1
+  GETTABLEKS R10 R11 K15 ["createElement"]
+  GETUPVAL R11 6
+  DUPTABLE R12 K18 [{"localization", "plugin", "mouse", "focusGui", "networkInterface", "store", "theme"}]
+  SETTABLEKS R1 R12 K1 ["localization"]
+  SETTABLEKS R6 R12 K9 ["plugin"]
+  SETTABLEKS R7 R12 K10 ["mouse"]
+  SETTABLEKS R8 R12 K16 ["focusGui"]
+  SETTABLEKS R5 R12 K8 ["networkInterface"]
+  SETTABLEKS R3 R12 K17 ["store"]
+  SETTABLEKS R4 R12 K7 ["theme"]
+  MOVE R13 R9
+  CALL R10 3 -1
+  RETURN R10 -1
 
 MAIN:
   PREPVARARGS 0

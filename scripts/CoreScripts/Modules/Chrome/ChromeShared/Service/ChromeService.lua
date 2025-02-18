@@ -44,8 +44,6 @@ local GetFFlagChromeDefaultWindowStartingPosition =
 
 local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
 
-local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 2.5
-local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_PINNED_KEY = "ChromePinned"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -58,18 +56,14 @@ local ChromeService = {} :: ChromeService
 ChromeService.__index = ChromeService
 
 ChromeService.AvailabilitySignal = utils.AvailabilitySignalState
-ChromeService.MenuStatus = { Closed = 0, Open = 1 }
 ChromeService.IntegrationStatus = { None = 0, Icon = 1, Window = 2 }
 ChromeService.Key = {
 	MostRecentlyUsed = "MRU",
 	UserPinned = if GetFFlagEnableChromePinIntegrations then "UP" else nil,
 }
 
-export type UnibarLayoutInfo = {
-	[number]: Rect,
-}
+export type UnibarLayoutInfo = Rect
 
-export type ObservableMenuStatus = utils.ObservableValue<number>
 export type ObservableSubMenu = utils.ObservableValue<string?>
 export type ObservableMenuList = utils.ObservableValue<Types.MenuList>
 export type ObservableIntegration = utils.ObservableValue<Types.IntegrationComponentProps | nil>
@@ -94,7 +88,6 @@ export type ChromeService = {
 
 	Key: { [string]: string },
 	IntegrationStatus: { [string]: number },
-	MenuStatus: { [string]: number },
 	AvailabilitySignal: { [string]: number },
 
 	new: () -> ChromeService,
@@ -104,10 +97,9 @@ export type ChromeService = {
 	inFocusNav: (ChromeService) -> ObservableInFocusNav,
 	enableFocusNav: (ChromeService) -> (),
 	disableFocusNav: (ChromeService) -> (),
-	status: (ChromeService) -> ObservableMenuStatus,
 	layout: (ChromeService) -> ObservableMenuLayout,
 	setMenuAbsolutePosition: (ChromeService, position: Vector2) -> (),
-	setMenuAbsoluteSize: (ChromeService, closed: Vector2, open: Vector2) -> (),
+	setMenuAbsoluteSize: (ChromeService, open: Vector2) -> (),
 	menuList: (ChromeService) -> ObservableMenuList,
 	windowList: (ChromeService) -> ObservableWindowList,
 	updateLocalization: (ChromeService, component: Types.IntegrationRegisterProps) -> Types.IntegrationRegisterProps,
@@ -119,7 +111,6 @@ export type ChromeService = {
 	subMenuNotifications: (ChromeService, subMenuId: Types.IntegrationId) -> utils.NotifySignal,
 	totalNotifications: (ChromeService) -> utils.NotifySignal,
 	notificationIndicator: (ChromeService) -> ObservableIntegration,
-	triggerNotificationIndicator: (ChromeService, Types.IntegrationId) -> (),
 	updateNotificationTotals: (ChromeService) -> (),
 	configureReset: (ChromeService) -> (),
 	configureMenu: (ChromeService, menuConfig: Types.MenuConfig) -> (),
@@ -193,11 +184,9 @@ export type ChromeService = {
 	repairSelected: (ChromeService) -> (),
 	setSelectedByOffset: (ChromeService, number) -> (),
 
-	_status: ObservableMenuStatus,
 	_layout: ObservableMenuLayout,
 	_menuAbsolutePosition: Vector2,
 	_menuAbsoluteSizeOpen: Vector2,
-	_menuAbsoluteSizeClosed: Vector2,
 	_currentSubMenu: ObservableSubMenu,
 
 	_integrations: Types.IntegrationList,
@@ -218,15 +207,11 @@ export type ChromeService = {
 	_userPins: Types.IntegrationIdList,
 	_mostRecentlyUsedAndPinnedLimit: number,
 	_notificationIndicator: ObservableIntegration,
-	_lastDisplayedNotificationTick: number,
-	_lastDisplayedNotificationId: Types.IntegrationId,
 
 	_onIntegrationRegistered: SignalLib.Signal,
 	_onIntegrationActivated: SignalLib.Signal,
 	_onIntegrationStatusChanged: SignalLib.Signal,
 	_onIntegrationHovered: SignalLib.Signal,
-
-	_lastInputToOpenMenu: Enum.UserInputType,
 
 	_localization: any,
 	_localizedLabelKeys: {
@@ -248,11 +233,8 @@ local DummyIntegration = {
 	hideNotificationCountWhileOpen = false,
 }
 
-function createUnibarLayoutInfo(position: Vector2, closedSize: Vector2, openSize: Vector2): UnibarLayoutInfo
-	return {
-		[ChromeService.MenuStatus.Open] = Rect.new(position, (position + openSize)),
-		[ChromeService.MenuStatus.Closed] = Rect.new(position, (position + closedSize)),
-	}
+function createUnibarLayoutInfo(position: Vector2, openSize: Vector2): UnibarLayoutInfo
+	return Rect.new(position, (position + openSize))
 end
 
 function ChromeService.new(): ChromeService
@@ -260,12 +242,9 @@ function ChromeService.new(): ChromeService
 	local self = {}
 	self._peekService = if GetFFlagChromePeekArchitecture() then PeekService.new() else nil :: never
 
-	local status: ObservableMenuStatus = utils.ObservableValue.new(ChromeService.MenuStatus.Open)
-	self._status = status
-	self._layout = utils.ObservableValue.new(createUnibarLayoutInfo(Vector2.zero, Vector2.zero, Vector2.zero))
+	self._layout = utils.ObservableValue.new(createUnibarLayoutInfo(Vector2.zero, Vector2.zero))
 	self._menuAbsolutePosition = Vector2.zero
 	self._menuAbsoluteSizeOpen = Vector2.zero
-	self._menuAbsoluteSizeClosed = Vector2.zero
 	self._currentSubMenu = utils.ObservableValue.new(nil)
 	self._selectedItem = utils.ObservableValue.new(nil)
 	self._selectedItemIdx = 0
@@ -292,8 +271,6 @@ function ChromeService.new(): ChromeService
 	self._localizedLabelKeys = {}
 
 	self._notificationIndicator = ObservableValue.new(nil)
-	self._lastDisplayedNotificationTick = 0
-	self._lastDisplayedNotificationId = ""
 	self._orderAlignment = ObservableValue.new(Enum.HorizontalAlignment.Left)
 
 	self._onIntegrationRegistered = Signal.new()
@@ -301,10 +278,6 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationStatusChanged = Signal.new()
 	self._onIntegrationHovered = Signal.new()
 
-	-- Init last input as MouseButton1 to prevent focus navigation at startup
-	self._lastInputToOpenMenu = if status:get() == ChromeService.MenuStatus.Open
-		then Enum.UserInputType.MouseButton1
-		else Enum.UserInputType.None
 	self._inFocusNav = ObservableValue.new(false)
 
 	local service = (setmetatable(self, ChromeService) :: any) :: ChromeService
@@ -471,62 +444,11 @@ function ChromeService:updateContainerSlotSignals()
 	end
 end
 
-function ChromeService:triggerNotificationIndicator(id: Types.IntegrationId)
-	local menuStatus: ObservableMenuStatus = self._status
-	local integration = self._integrations[id]
-	local integrationAvailability = integration.availability:get()
-
-	if
-		integrationAvailability == ChromeService.AvailabilitySignal.Unavailable
-		or integrationAvailability == ChromeService.AvailabilitySignal.Pinned
-	then
-		-- Early exit for pinned and hidden items
-		return
-	end
-
-	if menuStatus:get() ~= ChromeService.MenuStatus.Closed then
-		-- Early out if the menu isn't closed.  We only need to show this in the closed state.
-		return
-	end
-
-	local notification = integration.notification:get()
-	if notification.type == "count" then
-		local count: number = notification.value :: any
-		-- Only run if the count is non zero.
-		-- triggerNotificationIndicator will also run when notications get cleared
-		if count > 0 then
-			local now = tick()
-			local timeSinceLastDisplay = (now - self._lastDisplayedNotificationTick)
-			self._lastDisplayedNotificationTick = now
-
-			if
-				self._lastDisplayedNotificationId == id
-				and timeSinceLastDisplay < NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC
-			then
-				-- Early exit if within a cooloff period.
-				-- We don't need to keep flashing the same icon.
-				return
-			end
-
-			self._lastDisplayedNotificationId = id
-			self._notificationIndicator:setMomentary(
-				self:createIconProps(id, 0, false),
-				NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC
-			)
-		end
-	end
-end
-
 function ChromeService:notificationIndicator()
 	return self._notificationIndicator
 end
 
 function ChromeService:toggleSubMenu(subMenuId: Types.IntegrationId)
-	if self._status:get() == ChromeService.MenuStatus.Closed then
-		warn("Can't toggleSubMenu while menu is closed")
-		return
-	end
-
 	if not self._subMenuConfig[subMenuId] then
 		warn("Not a valid subMenuId:" .. subMenuId)
 		return
@@ -564,10 +486,6 @@ function ChromeService:disableFocusNav()
 	end
 end
 
-function ChromeService:getLastInputToOpenMenu()
-	return self._lastInputToOpenMenu
-end
-
 function ChromeService:toggleWindow(componentId: Types.IntegrationId)
 	local window = self._integrations[componentId].components.Window
 	if window then
@@ -598,11 +516,6 @@ function ChromeService:isWindowOpen(componentId: Types.IntegrationId)
 	local window = self._integrations[componentId].components.Window
 	return window and self._integrationsStatus[componentId] == ChromeService.IntegrationStatus.Window
 end
-
-function ChromeService:status()
-	return self._status
-end
-
 function ChromeService:menuList()
 	return self._menuList
 end
@@ -705,7 +618,6 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 
 	if component.notification and not component.notification:excludeFromTotalCounts() then
 		conns[#conns + 1] = component.notification:connect(function()
-			self:triggerNotificationIndicator(component.id)
 			self:updateNotificationTotals()
 		end)
 	end
@@ -1399,15 +1311,14 @@ end
 function ChromeService:setMenuAbsolutePosition(position: Vector2)
 	if position ~= self._menuAbsolutePosition then
 		self._menuAbsolutePosition = position
-		self._layout:set(createUnibarLayoutInfo(position, self._menuAbsoluteSizeClosed, self._menuAbsoluteSizeOpen))
+		self._layout:set(createUnibarLayoutInfo(position, self._menuAbsoluteSizeOpen))
 	end
 end
 
-function ChromeService:setMenuAbsoluteSize(closed: Vector2, open: Vector2)
-	if closed ~= self._menuAbsoluteSizeClosed or open ~= self._menuAbsoluteSizeOpen then
-		self._menuAbsoluteSizeClosed = closed
+function ChromeService:setMenuAbsoluteSize(open: Vector2)
+	if open ~= self._menuAbsoluteSizeOpen then
 		self._menuAbsoluteSizeOpen = open
-		self._layout:set(createUnibarLayoutInfo(self._menuAbsolutePosition, closed, open))
+		self._layout:set(createUnibarLayoutInfo(self._menuAbsolutePosition, open))
 	end
 end
 

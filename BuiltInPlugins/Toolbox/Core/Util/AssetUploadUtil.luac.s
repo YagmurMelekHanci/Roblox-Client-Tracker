@@ -75,6 +75,22 @@ PROTO_1:
   NAMECALL R10 R1 K7 ["getText"]
   CALL R10 4 -1
   RETURN R10 -1
+  JUMPIFNOTEQKS R4 K27 ["DependenciesLimitExceeded"] [+21]
+  GETTABLEKS R8 R6 K28 ["countLimit"]
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R8 R6 K28 ["countLimit"]
+  SETUPVAL R8 1
+  LOADK R10 K24 ["AssetConfigUpload"]
+  LOADK R11 K27 ["DependenciesLimitExceeded"]
+  DUPTABLE R12 K29 [{"countLimit"}]
+  GETUPVAL R14 1
+  FASTCALL1 TOSTRING R14 [+2]
+  GETIMPORT R13 K31 [tostring]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K28 ["countLimit"]
+  NAMECALL R8 R1 K7 ["getText"]
+  CALL R8 4 -1
+  RETURN R8 -1
   RETURN R5 1
 
 MAIN:
@@ -84,7 +100,10 @@ MAIN:
   NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
   NEWTABLE R1 1 0
-  DUPCLOSURE R2 K4 [PROTO_1]
+  LOADK R2 K4 [""]
+  NEWCLOSURE R3 P0
   CAPTURE VAL R0
-  SETTABLEKS R2 R1 K5 ["computeTranslatedErrorMessage"]
+  CAPTURE REF R2
+  SETTABLEKS R3 R1 K5 ["computeTranslatedErrorMessage"]
+  CLOSEUPVALS R2
   RETURN R1 1

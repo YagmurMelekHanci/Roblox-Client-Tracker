@@ -22,23 +22,28 @@ PROTO_2:
   GETTABLEKS R4 R5 K2 ["Url"]
   MOVE R5 R0
   MOVE R6 R1
-  CALL R4 2 -1
-  CALL R2 -1 1
+  CALL R4 2 1
+  DUPTABLE R5 K5 [{"limit", "sortOrder"}]
+  LOADK R6 K6 ["100"]
+  SETTABLEKS R6 R5 K3 ["limit"]
+  LOADK R6 K7 ["Asc"]
+  SETTABLEKS R6 R5 K4 ["sortOrder"]
+  CALL R2 3 1
   GETUPVAL R3 2
-  DUPTABLE R5 K5 [{"Method", "Url", "Headers"}]
-  LOADK R6 K6 ["GET"]
-  SETTABLEKS R6 R5 K3 ["Method"]
+  DUPTABLE R5 K10 [{"Method", "Url", "Headers"}]
+  LOADK R6 K11 ["GET"]
+  SETTABLEKS R6 R5 K8 ["Method"]
   SETTABLEKS R2 R5 K2 ["Url"]
   GETUPVAL R6 3
-  SETTABLEKS R6 R5 K4 ["Headers"]
-  NAMECALL R3 R3 K7 ["request"]
+  SETTABLEKS R6 R5 K9 ["Headers"]
+  NAMECALL R3 R3 K12 ["request"]
   CALL R3 2 1
-  DUPCLOSURE R5 K8 [PROTO_0]
+  DUPCLOSURE R5 K13 [PROTO_0]
   CAPTURE UPVAL U4
-  NAMECALL R3 R3 K9 ["andThen"]
+  NAMECALL R3 R3 K14 ["andThen"]
   CALL R3 2 1
-  DUPCLOSURE R5 K10 [PROTO_1]
-  NAMECALL R3 R3 K11 ["catch"]
+  DUPCLOSURE R5 K15 [PROTO_1]
+  NAMECALL R3 R3 K16 ["catch"]
   CALL R3 2 -1
   RETURN R3 -1
 
@@ -59,7 +64,7 @@ MAIN:
   GETTABLEKS R5 R6 K7 ["Networking"]
   GETTABLEKS R4 R5 K8 ["Urls"]
   CALL R3 1 1
-  GETTABLEKS R2 R3 K9 ["composeUrl"]
+  GETTABLEKS R2 R3 K9 ["composeUrlWithArgs"]
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K6 ["Src"]
   GETTABLEKS R6 R7 K10 ["Util"]

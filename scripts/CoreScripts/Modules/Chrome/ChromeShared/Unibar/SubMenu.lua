@@ -54,8 +54,6 @@ local GetFFlagEnableChromePinAnalytics =
 local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
 local GetFFlagChromeUsePreferredTransparency =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
-local GetFFlagPostLaunchUnibarDesignTweaks =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
 
 local FFlagFixChromeIntegrationLayoutBug = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
 local FFlagSubmenuV4Layout = game:DefineFastFlag("SubmenuV4Layout2", false)
@@ -215,11 +213,9 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		LayoutOrder = props.order,
 		onStateChanged = if useTouchTargets then nil else stateChange,
 	}, {
-		UICorner = if GetFFlagPostLaunchUnibarDesignTweaks()
-			then React.createElement("UICorner", {
-				CornerRadius = UDim.new(0, 10),
-			})
-			else nil,
+		UICorner = React.createElement("UICorner", {
+			CornerRadius = UDim.new(0, 10),
+		}),
 		ButtonTouchTarget = if useTouchTargets
 			then React.createElement(Interactable, {
 				Size = UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING * 2, 0, ROW_HEIGHT),
@@ -466,16 +462,9 @@ function SubMenu(props: SubMenuProps)
 		else style.Theme.BackgroundUIContrast.Transparency
 
 	return React.createElement("Frame", {
-		Size = if GetFFlagPostLaunchUnibarDesignTweaks()
-			then UDim2.new(0, Constants.ICON_CELL_WIDTH * 4 + unibarLeftMargin + Constants.UNIBAR_END_PADDING * 2, 0, 0)
-			elseif FFlagSubmenuV4Layout then UDim2.new(0, topbarInsetHeight + Constants.ICON_CELL_WIDTH * 3, 0, 0)
-			else UDim2.new(0, 240, 0, 0),
+		Size = UDim2.new(0, Constants.ICON_CELL_WIDTH * 4 + unibarLeftMargin + Constants.UNIBAR_END_PADDING * 2, 0, 0),
 		AnchorPoint = if leftAlign then Vector2.zero else Vector2.new(1, 0),
-		Position = if GetFFlagPostLaunchUnibarDesignTweaks()
-			then UDim2.new(0, -topbarInsetHeight - 2 + unibarLeftMargin, 0, 0)
-			elseif FFlagSubmenuV4Layout then UDim2.new(0, -topbarInsetHeight + 2, 0, 0)
-			elseif leftAlign then UDim2.new(0, 0, 0, 0)
-			else UDim2.new(1, 0, 0, 0),
+		Position = UDim2.new(0, -topbarInsetHeight - 2 + unibarLeftMargin, 0, 0),
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,
 		BackgroundTransparency = if GetFFlagAnimateSubMenu() and props.menuTransition
 			then props.menuTransition:map(function(v)
@@ -485,12 +474,6 @@ function SubMenu(props: SubMenuProps)
 		AutomaticSize = Enum.AutomaticSize.Y,
 		ref = menuRef,
 	}, {
-		UIPadding = if not GetFFlagPostLaunchUnibarDesignTweaks()
-			then React.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, 8),
-				PaddingBottom = UDim.new(0, 8),
-			})
-			else nil,
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, 10),
 		}),

@@ -70,6 +70,7 @@ local TopBar = Presentation.Parent.Parent
 local Constants = require(TopBar.Constants)
 local GetFFlagChangeTopbarHeightCalculation = require(TopBar.Flags.GetFFlagChangeTopbarHeightCalculation)
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local FFlagUnibarMenuIconLayoutFix = require(TopBar.Flags.FFlagUnibarMenuIconLayoutFix)
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
@@ -197,8 +198,10 @@ function TopBarApp:renderWithStyle(style)
 	end
 
 	if TenFootInterface:IsEnabled() then
-		screenSideOffset = Constants.ScreenSideOffsetTenFoot
-		topBarHeight = Constants.TopBarHeightTenFoot
+		if not FFlagUnibarMenuIconLayoutFix or not ChromeEnabled() then
+			screenSideOffset = Constants.ScreenSideOffsetTenFoot
+			topBarHeight = Constants.TopBarHeightTenFoot
+		end
 	end
 	local isTopBarVisible = not (self.props.menuOpen or self.props.inspectMenuOpen)
 	local topBarFramePosition =

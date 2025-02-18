@@ -58,45 +58,59 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
+  LOADB R0 0
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["new"]
-  CALL R0 0 1
+  NAMECALL R1 R1 K0 ["GetDescendants"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K1 ["WrapTarget"]
+  NAMECALL R6 R5 K2 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  LOADB R0 1
+  JUMP [+2]
+  FORGLOOP R1 2 [-8]
+  JUMPIF R0 [+1]
+  RETURN R0 0
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["outerCageContextRef"]
-  SETTABLEKS R0 R1 K2 ["current"]
-  GETIMPORT R3 K6 [Enum.CageType.Outer]
-  GETUPVAL R4 2
-  NAMECALL R1 R0 K7 ["initFromCageMesh"]
-  CALL R1 3 0
-  GETUPVAL R1 3
-  MOVE R3 R0
-  NAMECALL R1 R1 K8 ["setOuterCageContext"]
-  CALL R1 2 0
-  GETUPVAL R1 3
-  LOADK R3 K9 ["BrushTool"]
-  NAMECALL R1 R1 K10 ["setCurrentTool"]
-  CALL R1 2 0
-  GETUPVAL R1 3
-  GETIMPORT R3 K6 [Enum.CageType.Outer]
-  NAMECALL R1 R1 K11 ["changeEditingCage"]
-  CALL R1 2 0
-  GETUPVAL R1 4
+  GETTABLEKS R1 R2 K3 ["new"]
+  CALL R1 0 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K4 ["outerCageContextRef"]
+  SETTABLEKS R1 R2 K5 ["current"]
+  GETIMPORT R4 K9 [Enum.CageType.Outer]
+  GETUPVAL R5 0
+  NAMECALL R2 R1 K10 ["initFromCageMesh"]
+  CALL R2 3 0
   GETUPVAL R2 3
-  NAMECALL R2 R2 K12 ["getCurrentTool"]
-  CALL R2 1 -1
-  CALL R1 -1 0
-  NAMECALL R1 R0 K13 ["getMeshDataChangedSignal"]
-  CALL R1 1 1
-  NEWCLOSURE R3 P0
+  MOVE R4 R1
+  NAMECALL R2 R2 K11 ["setOuterCageContext"]
+  CALL R2 2 0
+  GETUPVAL R2 3
+  LOADK R4 K12 ["BrushTool"]
+  NAMECALL R2 R2 K13 ["setCurrentTool"]
+  CALL R2 2 0
+  GETUPVAL R2 3
+  GETIMPORT R4 K9 [Enum.CageType.Outer]
+  NAMECALL R2 R2 K14 ["changeEditingCage"]
+  CALL R2 2 0
+  GETUPVAL R2 4
+  GETUPVAL R3 3
+  NAMECALL R3 R3 K15 ["getCurrentTool"]
+  CALL R3 1 -1
+  CALL R2 -1 0
+  NAMECALL R2 R1 K16 ["getMeshDataChangedSignal"]
+  CALL R2 1 1
+  NEWCLOSURE R4 P0
   CAPTURE UPVAL U5
-  NAMECALL R1 R1 K14 ["Connect"]
-  CALL R1 2 1
-  NEWCLOSURE R2 P1
-  CAPTURE VAL R1
+  NAMECALL R2 R2 K17 ["Connect"]
+  CALL R2 2 1
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
-  CAPTURE UPVAL U1
-  RETURN R2 1
+  CAPTURE UPVAL U2
+  RETURN R3 1
 
 PROTO_5:
   GETUPVAL R0 0
@@ -113,47 +127,43 @@ PROTO_6:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["outerCageContextRef"]
   GETTABLEKS R0 R1 K1 ["current"]
-  JUMPIFNOTEQKNIL R0 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K2 [+4]
-  LOADK R3 K2 ["No outerCageContext"]
-  GETIMPORT R1 K4 [assert]
-  CALL R1 2 0
+  JUMPIF R0 [+2]
+  LOADNIL R1
+  RETURN R1 1
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K5 ["segmentationMap"]
-  GETTABLEKS R1 R2 K6 ["state"]
-  JUMPIFEQKS R1 K7 ["ok"] [+2]
+  GETTABLEKS R2 R3 K2 ["segmentationMap"]
+  GETTABLEKS R1 R2 K3 ["state"]
+  JUMPIFEQKS R1 K4 ["ok"] [+2]
   RETURN R0 0
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["segmentationMap"]
-  GETTABLEKS R3 R4 K8 ["value"]
-  NAMECALL R1 R0 K9 ["setSegmentationMap"]
+  GETTABLEKS R4 R5 K2 ["segmentationMap"]
+  GETTABLEKS R3 R4 K5 ["value"]
+  NAMECALL R1 R0 K6 ["setSegmentationMap"]
   CALL R1 2 0
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K10 ["symmetrical"]
+  GETTABLEKS R1 R2 K7 ["symmetrical"]
   JUMPIF R1 [+2]
   LOADNIL R1
   RETURN R1 1
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K11 ["symmetryMap"]
-  GETTABLEKS R1 R2 K6 ["state"]
-  JUMPIFEQKS R1 K7 ["ok"] [+2]
+  GETTABLEKS R2 R3 K8 ["symmetryMap"]
+  GETTABLEKS R1 R2 K3 ["state"]
+  JUMPIFEQKS R1 K4 ["ok"] [+2]
   RETURN R0 0
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K11 ["symmetryMap"]
-  GETTABLEKS R3 R4 K6 ["state"]
-  JUMPIFEQKS R3 K7 ["ok"] [+2]
+  GETTABLEKS R4 R5 K8 ["symmetryMap"]
+  GETTABLEKS R3 R4 K3 ["state"]
+  JUMPIFEQKS R3 K4 ["ok"] [+2]
   LOADB R2 0 +1
   LOADB R2 1
-  FASTCALL2K ASSERT R2 K12 [+4]
-  LOADK R3 K12 ["Luau"]
-  GETIMPORT R1 K4 [assert]
+  FASTCALL2K ASSERT R2 K9 [+4]
+  LOADK R3 K9 ["Luau"]
+  GETIMPORT R1 K11 [assert]
   CALL R1 2 0
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K11 ["symmetryMap"]
-  GETTABLEKS R3 R4 K8 ["value"]
-  NAMECALL R1 R0 K13 ["setSymmetryMap"]
+  GETTABLEKS R4 R5 K8 ["symmetryMap"]
+  GETTABLEKS R3 R4 K5 ["value"]
+  NAMECALL R1 R0 K12 ["setSymmetryMap"]
   CALL R1 2 0
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
@@ -201,9 +211,9 @@ PROTO_7:
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K6 ["useEffect"]
   NEWCLOSURE R10 P2
+  CAPTURE VAL R2
   CAPTURE UPVAL U7
   CAPTURE VAL R0
-  CAPTURE VAL R2
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R8
@@ -215,28 +225,30 @@ PROTO_7:
   GETTABLEKS R9 R10 K6 ["useEffect"]
   NEWCLOSURE R10 P3
   CAPTURE VAL R0
-  NEWTABLE R11 0 3
+  NEWTABLE R11 0 4
   GETTABLEKS R12 R0 K7 ["symmetrical"]
   GETTABLEKS R13 R0 K8 ["symmetryMap"]
   GETTABLEKS R14 R0 K9 ["segmentationMap"]
-  SETLIST R11 R12 3 [1]
+  GETTABLEKS R16 R0 K10 ["outerCageContextRef"]
+  GETTABLEKS R15 R16 K11 ["current"]
+  SETLIST R11 R12 4 [1]
   CALL R9 2 0
   MOVE R9 R5
   JUMPIFNOT R9 [+26]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K10 ["createElement"]
+  GETTABLEKS R9 R10 K12 ["createElement"]
   GETUPVAL R10 8
-  DUPTABLE R11 K18 [{"Mouse", "Plugin", "VertexToolBase", "Radius", "Falloff", "Mannequin", "OnChangeSelectedPositions"}]
-  SETTABLEKS R3 R11 K11 ["Mouse"]
-  SETTABLEKS R4 R11 K12 ["Plugin"]
-  SETTABLEKS R5 R11 K13 ["VertexToolBase"]
-  GETTABLEKS R12 R0 K19 ["radius"]
-  SETTABLEKS R12 R11 K14 ["Radius"]
-  GETTABLEKS R12 R0 K20 ["falloff"]
-  SETTABLEKS R12 R11 K15 ["Falloff"]
-  SETTABLEKS R2 R11 K16 ["Mannequin"]
-  GETTABLEKS R12 R0 K21 ["onChangeSelectedPositions"]
-  SETTABLEKS R12 R11 K17 ["OnChangeSelectedPositions"]
+  DUPTABLE R11 K20 [{"Mouse", "Plugin", "VertexToolBase", "Radius", "Falloff", "Mannequin", "OnChangeSelectedPositions"}]
+  SETTABLEKS R3 R11 K13 ["Mouse"]
+  SETTABLEKS R4 R11 K14 ["Plugin"]
+  SETTABLEKS R5 R11 K15 ["VertexToolBase"]
+  GETTABLEKS R12 R0 K21 ["radius"]
+  SETTABLEKS R12 R11 K16 ["Radius"]
+  GETTABLEKS R12 R0 K22 ["falloff"]
+  SETTABLEKS R12 R11 K17 ["Falloff"]
+  SETTABLEKS R2 R11 K18 ["Mannequin"]
+  GETTABLEKS R12 R0 K23 ["onChangeSelectedPositions"]
+  SETTABLEKS R12 R11 K19 ["OnChangeSelectedPositions"]
   CALL R9 2 1
   RETURN R9 1
 

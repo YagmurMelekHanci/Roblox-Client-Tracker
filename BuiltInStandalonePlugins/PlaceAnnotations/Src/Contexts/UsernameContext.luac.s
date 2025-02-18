@@ -1,20 +1,31 @@
 PROTO_0:
-  DUPTABLE R1 K2 [{"playersService", "usernames"}]
-  GETIMPORT R2 K4 [game]
-  LOADK R4 K5 ["Players"]
-  NAMECALL R2 R2 K6 ["GetService"]
+  DUPTABLE R1 K3 [{"playersService", "usernames", "mock"}]
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K6 ["Players"]
+  NAMECALL R2 R2 K7 ["GetService"]
   CALL R2 2 1
   SETTABLEKS R2 R1 K0 ["playersService"]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K1 ["usernames"]
+  SETTABLEKS R0 R1 K2 ["mock"]
   GETUPVAL R4 0
   FASTCALL2 SETMETATABLE R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K8 [setmetatable]
+  GETIMPORT R2 K9 [setmetatable]
   CALL R2 2 0
   RETURN R1 1
 
 PROTO_1:
+  GETTABLEKS R4 R0 K0 ["mock"]
+  FASTCALL2K ASSERT R4 K1 [+4]
+  LOADK R5 K1 ["Cannot add mock user when not in mock mode"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K4 ["usernames"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_2:
   GETUPVAL R1 1
   GETTABLEKS R0 R1 K0 ["playersService"]
   GETUPVAL R2 2
@@ -23,31 +34,36 @@ PROTO_1:
   SETUPVAL R0 0
   RETURN R0 0
 
-PROTO_2:
-  GETTABLEKS R3 R0 K0 ["usernames"]
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["mock"]
+  JUMPIFNOT R2 [+4]
+  GETTABLEKS R3 R0 K1 ["usernames"]
+  GETTABLE R2 R3 R1
+  RETURN R2 1
+  GETTABLEKS R3 R0 K1 ["usernames"]
   GETTABLE R2 R3 R1
   JUMPIF R2 [+23]
   LOADNIL R2
-  GETIMPORT R3 K2 [pcall]
+  GETIMPORT R3 K3 [pcall]
   NEWCLOSURE R4 P0
   CAPTURE REF R2
   CAPTURE VAL R0
   CAPTURE VAL R1
   CALL R3 1 2
   JUMPIFNOT R3 [+5]
-  GETTABLEKS R5 R0 K0 ["usernames"]
+  GETTABLEKS R5 R0 K1 ["usernames"]
   SETTABLE R2 R5 R1
   CLOSEUPVALS R2
   RETURN R2 1
-  GETIMPORT R5 K4 [warn]
-  LOADK R6 K5 ["Annotations: Unable to find username for UserId "]
+  GETIMPORT R5 K5 [warn]
+  LOADK R6 K6 ["Annotations: Unable to find username for UserId "]
   MOVE R7 R1
   CALL R5 2 0
   LOADNIL R5
   CLOSEUPVALS R2
   RETURN R5 1
   CLOSEUPVALS R2
-  GETTABLEKS R3 R0 K0 ["usernames"]
+  GETTABLEKS R3 R0 K1 ["usernames"]
   GETTABLE R2 R3 R1
   RETURN R2 1
 
@@ -69,6 +85,8 @@ MAIN:
   DUPCLOSURE R4 K12 [PROTO_0]
   CAPTURE VAL R3
   SETTABLEKS R4 R3 K13 ["new"]
-  DUPCLOSURE R4 K14 [PROTO_2]
-  SETTABLEKS R4 R3 K15 ["getUsername"]
+  DUPCLOSURE R4 K14 [PROTO_1]
+  SETTABLEKS R4 R3 K15 ["addMockUser"]
+  DUPCLOSURE R4 K16 [PROTO_3]
+  SETTABLEKS R4 R3 K17 ["getUsername"]
   RETURN R3 1

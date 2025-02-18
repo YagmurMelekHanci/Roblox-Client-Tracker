@@ -19,6 +19,9 @@ local input = require(VirtualCursorFolder:WaitForChild("Input"))
 local interface = require(VirtualCursorFolder:WaitForChild("Interface"))
 local onRenderStep = require(VirtualCursorFolder:WaitForChild("OnRenderStep"))
 
+local getFFlagDirectionalAnalogStick = require(VirtualCursorFolder:WaitForChild("getFFlagDirectionalAnalogStick"))
+local FFlagDirectionalAnalogStick = getFFlagDirectionalAnalogStick()
+
 -- There should only be one instance of virtual cursor.
 -- This will allow it to stay a class, while also still being able to rely on guiservice enabling/disabling
 local VirtualCursorSingleton = nil
@@ -38,6 +41,9 @@ local function enableVirtualCursor(position)
 	interface:EnableUI(position)
 	GamepadService:SetGamepadCursorPosition(position)
 	input:EnableInput()
+	if FFlagDirectionalAnalogStick then
+		input:DisablePreview()
+	end
 
 	RunService:BindToRenderStep(bindToRenderStepName, Enum.RenderPriority.Input.Value + 1, VirtualCursorSingleton.OnRenderStep)
 	
@@ -58,6 +64,9 @@ local function disableVirtualCursor()
 
 	interface:DisableUI()
 	input:DisableInput()
+	if FFlagDirectionalAnalogStick then
+		input:EnablePreview()
+	end
 
 	RunService:UnbindFromRenderStep(bindToRenderStepName)
 

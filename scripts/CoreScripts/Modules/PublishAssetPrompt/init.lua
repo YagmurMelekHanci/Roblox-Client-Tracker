@@ -18,6 +18,9 @@ local PublishAssetPromptApp = require(script.Components.PublishAssetPromptApp)
 local Reducer = require(script.Reducer)
 local ConnectAssetServiceEvents = require(script.ConnectAssetServiceEvents)
 
+local FFlagUIBloxFoundationProvider =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUIBloxFoundationProvider()
+
 local PublishAssetPrompt = {}
 PublishAssetPrompt.__index = PublishAssetPrompt
 
@@ -29,7 +32,7 @@ function PublishAssetPrompt.new()
 		Rodux.thunkMiddleware,
 	})
 
-	self.root = Roact.createElement(RoactRodux.StoreProvider, {
+	local providerWrappedApp = Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.store,
 	}, {
 		ThemeProvider = renderWithCoreScriptsStyleProvider({
@@ -40,6 +43,12 @@ function PublishAssetPrompt.new()
 			}),
 		}),
 	})
+	-- Root should be a Folder so that style provider stylesheet elements can be portaled properly; otherwise, they will attach to CoreGui
+	self.root = if FFlagUIBloxFoundationProvider
+		then Roact.createElement("Folder", {
+			Name = "PublishAssetPrompt",
+		}, providerWrappedApp)
+		else providerWrappedApp
 
 	self.element = Roact.mount(self.root, CoreGui, "PublishAssetPrompt")
 

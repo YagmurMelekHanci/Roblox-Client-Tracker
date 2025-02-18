@@ -57,6 +57,8 @@ local SetGuiInset = require(Actions.SetGuiInset)
 local SetLayout = require(Actions.SetLayout)
 local SetLocale = require(Actions.SetLocale)
 
+local FFlagUIBloxFoundationProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUIBloxFoundationProvider()
+
 local EmotesMenuMaster = {}
 EmotesMenuMaster.__index = EmotesMenuMaster
 
@@ -311,7 +313,7 @@ function EmotesMenuMaster:_mount()
 	}
 
 	if not self.instance then
-		local app = Roact.createElement(RoactRodux.StoreProvider, {
+		local appWithProviders = Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.store,
 		}, {
 			StyleProvider = Roact.createElement(UiModeStyleProvider, {
@@ -320,6 +322,10 @@ function EmotesMenuMaster:_mount()
 				EmotesMenu = Roact.createElement(EmotesMenu),
 			}),
 		})
+		-- Root should be a Folder so that style provider stylesheet elements can be portaled properly; otherwise, they will attach to CoreGui
+		local app = if FFlagUIBloxFoundationProvider then Roact.createElement("Folder", {
+			Name = "EmotesMenu",
+		}, appWithProviders) else appWithProviders
 
 		self.instance = Roact.mount(app, RobloxGui, "EmotesMenu")
 

@@ -10,28 +10,23 @@ PROTO_0:
   LOADK R2 K3 ["Standard"]
   JUMP [+1]
   LOADK R2 K4 ["Medium"]
-  GETUPVAL R3 0
-  JUMPIFNOT R3 [+6]
   JUMPIFNOT R0 [+2]
-  JUMPIFNOTEQKS R0 K5 [""] [+6]
+  JUMPIFNOTEQKS R0 K5 [""] [+3]
   LOADNIL R3
   RETURN R3 1
-  JUMP [+2]
-  JUMPIF R0 [+1]
-  LOADK R0 K6 ["Placeholder"]
   JUMPIFNOTEQKS R1 K2 ["Small"] [+3]
   MOVE R3 R1
   JUMP [+1]
   LOADK R3 K5 [""]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K7 ["getThemeName"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["getThemeName"]
   CALL R4 0 1
-  LOADK R6 K8 ["rbxasset://studio_svg_textures/Shared/Ribbon/%*/%*/Ribbon%*%*.png"]
+  LOADK R6 K7 ["rbxasset://studio_svg_textures/Shared/Ribbon/%*/%*/Ribbon%*%*.png"]
   MOVE R8 R4
   MOVE R9 R2
   MOVE R10 R0
   MOVE R11 R3
-  NAMECALL R6 R6 K9 ["format"]
+  NAMECALL R6 R6 K8 ["format"]
   CALL R6 5 1
   MOVE R5 R6
   RETURN R5 1
@@ -49,13 +44,7 @@ MAIN:
   GETTABLEKS R3 R1 K8 ["Style"]
   GETTABLEKS R2 R3 K9 ["ThemeSwitcher"]
   NEWTABLE R3 1 0
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["SharedFlags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagStudioActionsRespectNilIcon"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K13 [PROTO_0]
-  CAPTURE VAL R4
+  DUPCLOSURE R4 K10 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLEKS R5 R3 K14 ["getPathForIcon"]
+  SETTABLEKS R4 R3 K11 ["getPathForIcon"]
   RETURN R3 1

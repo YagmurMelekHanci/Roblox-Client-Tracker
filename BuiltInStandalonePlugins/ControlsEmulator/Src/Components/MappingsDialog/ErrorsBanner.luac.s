@@ -88,46 +88,53 @@ PROTO_4:
   MOVE R13 R4
   SETLIST R9 R10 4 [1]
   CALL R7 2 0
-  JUMPIFNOT R2 [+56]
+  JUMPIFNOT R2 [+64]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K7 ["createElement"]
   LOADK R8 K8 ["Frame"]
-  NEWTABLE R9 2 0
+  NEWTABLE R9 4 0
+  LOADK R10 K9 ["MappingsCollisionsBanner"]
+  SETTABLEKS R10 R9 K10 ["Name"]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K9 ["Tag"]
-  LOADK R11 K10 ["Component-MappingsCollisionsBanner CX-Invisible X-Fill"]
+  GETTABLEKS R10 R11 K11 ["Tag"]
+  GETUPVAL R11 2
+  LOADK R12 K12 ["Component-MappingsCollisionsBanner"]
+  LOADK R13 K13 ["data-testid=Component-MappingsCollisionsBanner"]
+  LOADK R14 K14 ["CX-Invisible"]
+  LOADK R15 K15 ["X-Fill"]
+  CALL R11 4 1
   SETTABLE R11 R9 R10
-  GETUPVAL R10 2
-  NAMECALL R10 R10 K11 ["getNextOrder"]
+  GETUPVAL R10 3
+  NAMECALL R10 R10 K16 ["getNextOrder"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K12 ["LayoutOrder"]
-  DUPTABLE R10 K14 [{"BannerContents"}]
+  SETTABLEKS R10 R9 K17 ["LayoutOrder"]
+  DUPTABLE R10 K19 [{"BannerContents"}]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K7 ["createElement"]
   LOADK R12 K8 ["Frame"]
-  DUPTABLE R13 K15 [{"LayoutOrder"}]
-  GETUPVAL R14 2
-  NAMECALL R14 R14 K11 ["getNextOrder"]
+  DUPTABLE R13 K20 [{"LayoutOrder"}]
+  GETUPVAL R14 3
+  NAMECALL R14 R14 K16 ["getNextOrder"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K12 ["LayoutOrder"]
-  DUPTABLE R14 K17 [{"WarningText"}]
+  SETTABLEKS R14 R13 K17 ["LayoutOrder"]
+  DUPTABLE R14 K22 [{"WarningText"}]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K7 ["createElement"]
-  LOADK R16 K18 ["TextLabel"]
-  DUPTABLE R17 K20 [{"Text", "LayoutOrder"}]
+  LOADK R16 K23 ["TextLabel"]
+  DUPTABLE R17 K25 [{"Text", "LayoutOrder"}]
   FASTCALL1 TOSTRING R1 [+3]
   MOVE R19 R1
-  GETIMPORT R18 K22 [tostring]
+  GETIMPORT R18 K27 [tostring]
   CALL R18 1 1
-  SETTABLEKS R18 R17 K19 ["Text"]
-  GETUPVAL R18 2
-  NAMECALL R18 R18 K11 ["getNextOrder"]
+  SETTABLEKS R18 R17 K24 ["Text"]
+  GETUPVAL R18 3
+  NAMECALL R18 R18 K16 ["getNextOrder"]
   CALL R18 1 1
-  SETTABLEKS R18 R17 K12 ["LayoutOrder"]
+  SETTABLEKS R18 R17 K17 ["LayoutOrder"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K16 ["WarningText"]
+  SETTABLEKS R15 R14 K21 ["WarningText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K13 ["BannerContents"]
+  SETTABLEKS R11 R10 K18 ["BannerContents"]
   CALL R7 3 1
   RETURN R7 1
   LOADNIL R7
@@ -151,16 +158,19 @@ MAIN:
   GETTABLEKS R3 R4 K10 ["LayoutOrderIterator"]
   GETTABLEKS R4 R3 K11 ["new"]
   CALL R4 0 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K12 ["Src"]
-  GETTABLEKS R7 R8 K9 ["Util"]
-  GETTABLEKS R6 R7 K13 ["MappingsContext"]
-  CALL R5 1 1
-  DUPCLOSURE R6 K14 [PROTO_4]
+  GETTABLEKS R6 R2 K12 ["Styling"]
+  GETTABLEKS R5 R6 K13 ["joinTags"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K14 ["Src"]
+  GETTABLEKS R8 R9 K9 ["Util"]
+  GETTABLEKS R7 R8 K15 ["MappingsContext"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K16 [PROTO_4]
   CAPTURE VAL R1
+  CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R4
-  GETTABLEKS R7 R1 K15 ["memo"]
-  MOVE R8 R6
-  CALL R7 1 -1
-  RETURN R7 -1
+  GETTABLEKS R8 R1 K17 ["memo"]
+  MOVE R9 R7
+  CALL R8 1 -1
+  RETURN R8 -1

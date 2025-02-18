@@ -50,7 +50,9 @@ local GetFFlagAddAbuseReportMenuCoreScriptsProvider = require(root.Flags.GetFFla
 local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled)
 
 local FStringReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportMenuIXPLayer
+local FStringEARReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringEARReportMenuIXPLayer
 local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInScene")
+local IXPFieldWHAM1707 = game:DefineFastString("WHAM1707IXPField", "EnableWHAM1707")
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
 
@@ -86,6 +88,20 @@ local function isInSelectInSceneExperiment(): boolean
 	return IXPData[IXPField]
 end
 
+local function isInWHAM1707Experiment(): boolean -- also need engine feature check
+	-- Getting IXP layer data
+	local success, IXPData = pcall(function()
+		return IXPService:GetUserLayerVariables(FStringEARReportMenuIXPLayer)
+	end)
+	if not success or not IXPData or IXPData[IXPFieldWHAM1707] == nil then
+		return false
+	end
+
+	-- Log user layer exposure (enrollment here)
+	IXPService:LogUserLayerExposure(FStringEARReportMenuIXPLayer)
+	return IXPData[IXPFieldWHAM1707]
+end
+
 local AbuseReportMenuNew = function(props: Props)
 	local isReportTabVisible, setIsReportTabVisible = React.useState(false)
 	local reportModeIndex, setReportModeIndex = React.useState(1)
@@ -117,7 +133,7 @@ local AbuseReportMenuNew = function(props: Props)
 		props.registerOnReportTabDisplayed(function()
 			setIsReportTabVisible(true)
 			-- only send menu open signal AFTER screenshot capture
-			if isAbuseReportMenuOpenCloseSignalEnabled() then
+			if isAbuseReportMenuOpenCloseSignalEnabled() and isInWHAM1707Experiment() then
 				if reportAnythingState.screenshotContentId ~= "" then
 					SafetyService:ReportMenuTabOpen()
 				end
@@ -127,7 +143,7 @@ local AbuseReportMenuNew = function(props: Props)
 			setIsReportTabVisible(false)
 			AnnotationModal.unmountAnnotationPage()
 			ModalBasedSelectorDialogController.unmountModalSelector() -- added so that modal selector doesnt stay after closing menu
-			if isAbuseReportMenuOpenCloseSignalEnabled() then
+			if isAbuseReportMenuOpenCloseSignalEnabled() and isInWHAM1707Experiment() then
 				SafetyService:ReportMenuTabClose()
 			end
 		end)

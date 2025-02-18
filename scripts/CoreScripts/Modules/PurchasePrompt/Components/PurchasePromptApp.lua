@@ -33,12 +33,26 @@ local ProductPurchaseContainer = require(script.Parent.ProductPurchase.ProductPu
 local RobuxUpsellContainer = require(script.Parent.RobuxUpsell.RobuxUpsellContainer)
 local PremiumUpsellContainer = require(script.Parent.PremiumUpsell.PremiumUpsellContainer)
 local SubscriptionPurchaseContainer = require(script.Parent.SubscriptionPurchase.SubscriptionPurchaseContainer)
-
-local GetFFlagEnableToastLiteRender = require(Root.Flags.GetFFlagEnableToastLiteRender)
 local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 
+local SelectionCursorProvider = require(CorePackages.Packages.UIBlox).App.SelectionImage.SelectionCursorProvider
+local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
+local focusNavigationService =
+	ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
+local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
+local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
+
+local GetFFlagEnableToastLiteRender = require(Root.Flags.GetFFlagEnableToastLiteRender)
+local FFlagUIBloxFoundationProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUIBloxFoundationProvider()
+local FFlagAddCursorProviderToPurchasePromptApp = game:DefineFastFlag("AddCursorProviderToPurchasePromptApp", false)
+
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
+
+local SELECTION_GROUP_NAME = "PurchasePromptApp"
 
 function PurchasePromptApp:init()
 	local externalSettings = ExternalSettings.new()
@@ -54,35 +68,88 @@ end
 
 function PurchasePromptApp:render()
 	return provideRobloxLocale(function()
-		return Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.props.store,
-		}, {
-			StyleProvider = self:renderWithStyle({
-				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-					isTenFootInterface = self.state.isTenFootInterface,
+		local children = {
+			LocaleProvider = Roact.createElement(LocaleProvider, {
+				locale = LocalizationService.RobloxLocaleId,
+			}, {
+				ProductPurchaseContainer = Roact.createElement(ProductPurchaseContainer),
+				RobuxUpsellContainer = Roact.createElement(RobuxUpsellContainer),
+				PremiumUpsellContainer = Roact.createElement(PremiumUpsellContainer),
+				SubscriptionPurchaseContainer = Roact.createElement(SubscriptionPurchaseContainer),
+			}),
+			EventConnections = Roact.createElement(EventConnections),
+			Toast = if GetFFlagEnableToastLiteRender() then Roact.createElement(Toast) else nil,
+		} :: any
+
+		if FFlagAddCursorProviderToPurchasePromptApp
+		then
+			children = {
+				CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+						FocusNavigationProvider = Roact.createElement(
+							ReactFocusNavigation.FocusNavigationContext.Provider,
+							{
+								value = focusNavigationService,
+							},
+							{
+								FocusNavigationRegistryProvider = Roact.createElement(
+									FocusNavigationRegistryProvider,
+									nil,
+									{
+										FocusNavigationCoreScriptsWrapper = Roact.createElement(
+											FocusNavigationCoreScriptsWrapper,
+											{
+												selectionGroupName = SELECTION_GROUP_NAME,
+												focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+											},
+											children
+										),
+									}
+								),
+							}
+						),
+					})
+			} :: any
+		end
+
+		if FFlagUIBloxFoundationProvider then
+			return Roact.createElement("ScreenGui", {
+				AutoLocalize = false,
+				IgnoreGuiInset = true,
+			}, {
+				StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+					store = self.props.store,
 				}, {
-					PolicyProvider = Roact.createElement(PurchasePromptPolicy.Provider, {
-						policy = { PurchasePromptPolicy.Mapper },
-					}, {
-						PurchasePrompt = Roact.createElement("ScreenGui", {
-							AutoLocalize = false,
-							IgnoreGuiInset = true,
+					StyleProvider = self:renderWithStyle({
+						LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+							isTenFootInterface = self.state.isTenFootInterface,
 						}, {
-							LocaleProvider = Roact.createElement(LocaleProvider, {
-								locale = LocalizationService.RobloxLocaleId,
-							}, {
-								ProductPurchaseContainer = Roact.createElement(ProductPurchaseContainer),
-								RobuxUpsellContainer = Roact.createElement(RobuxUpsellContainer),
-								PremiumUpsellContainer = Roact.createElement(PremiumUpsellContainer),
-								SubscriptionPurchaseContainer = Roact.createElement(SubscriptionPurchaseContainer),
-							}),
-							EventConnections = Roact.createElement(EventConnections),
-							Toast = if GetFFlagEnableToastLiteRender() then Roact.createElement(Toast) else nil,
+							PolicyProvider = Roact.createElement(PurchasePromptPolicy.Provider, {
+								policy = { PurchasePromptPolicy.Mapper },
+							}, children),
 						}),
 					}),
 				}),
-			}),
-		})
+			})
+		else
+			return Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.props.store,
+			}, {
+				StyleProvider = self:renderWithStyle({
+					LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+						isTenFootInterface = self.state.isTenFootInterface,
+					}, {
+						PolicyProvider = Roact.createElement(PurchasePromptPolicy.Provider, {
+							policy = { PurchasePromptPolicy.Mapper },
+						}, {
+							PurchasePrompt = Roact.createElement("ScreenGui", {
+								AutoLocalize = false,
+								IgnoreGuiInset = true,
+							}, children),
+						}),
+					}),
+				}),
+			})
+		end
 	end)
 end
 

@@ -42,14 +42,8 @@ return function(props)
         end):catch(function() end)
     end, {})
 
-    local chromeClosed = true
-    if ChromeService then
-        local menuStatus = require(Chrome.ChromeShared.Hooks.useChromeMenuStatus)()
-        chromeClosed = menuStatus == ChromeService.MenuStatus.Closed
-    end
-
     local shouldRender = (isVREnabled == false or isGamepadCursorEnabled == true) and (isUnfilteredChat == true or isVoiceEnabled == true)
-    shouldRender = shouldRender and chromeClosed
+    shouldRender = shouldRender and not ChromeService
 
     if props.visibilityChanged then
         props.visibilityChanged(shouldRender)

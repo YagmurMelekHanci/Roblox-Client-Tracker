@@ -1,31 +1,17 @@
 local CorePackages = game:GetService("CorePackages")
-local UserInputService = game:GetService("UserInputService")
 
 local Modules = script.Parent.Parent
 local TenFootInterface = require(Modules.TenFootInterface)
 local ChromeEnabled = require(Modules.Chrome.Enabled)
 local isNewTiltIconEnabled = require(Modules.isNewTiltIconEnabled)
 local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
-local GetFFlagPostLaunchUnibarDesignTweaks = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
+local FFlagUnibarMenuIconLayoutFix = require(script.Parent.Flags.FFlagUnibarMenuIconLayoutFix)
 
 local DEFAULT_TOPBAR_HEIGHT = 36
 local DEFAULT_TOPBAR_BUTTON_HEIGHT = DEFAULT_TOPBAR_HEIGHT - 4
 
 local DEFAULT_CHROME_TOPBAR_HEIGHT = 58
 local DEFAULT_CHROME_TOPBAR_BUTTON_HEIGHT = 44
-local DEFAULT_CHROME_MOBILE_TOPBAR_HEIGHT = 52
-
-local function getChromeTopbarHeight()
-	local platform
-	pcall(function()
-		platform = UserInputService:GetPlatform()
-	end)
-
-	if platform == Enum.Platform.IOS or platform == Enum.Platform.Android then
-		return DEFAULT_CHROME_MOBILE_TOPBAR_HEIGHT
-	end
-	return DEFAULT_CHROME_TOPBAR_HEIGHT
-end
 
 local function getTopbarHeight()
 	if not isNewTiltIconEnabled() then
@@ -33,11 +19,7 @@ local function getTopbarHeight()
 	end
 
 	if ChromeEnabled() then
-		if GetFFlagPostLaunchUnibarDesignTweaks() then
-			return DEFAULT_CHROME_TOPBAR_HEIGHT
-		else
-			return getChromeTopbarHeight()
-		end
+		return DEFAULT_CHROME_TOPBAR_HEIGHT
 	end
 
 	return DEFAULT_TOPBAR_HEIGHT
@@ -53,7 +35,7 @@ end
 
 return {
 	TopBarHeight = topbarHeight,
-	TopBarHeightTenFoot = 72,
+	TopBarHeightTenFoot = if FFlagUnibarMenuIconLayoutFix then nil else 72,
 	TopBarButtonHeight = topbarButtonHeight,
 	TopBarButtonPadding = topbarButtonPadding,
 	TopBarTopMargin = topbarHeight - topbarButtonHeight - 2 * topbarButtonPadding,
@@ -68,9 +50,9 @@ return {
 	VoiceBetaBadgeKeepOutAreaId = "badge-voice-beta",
 
 	ScreenSideOffset = 16,
-	ScreenSideOffsetTenFoot = 48,
+	ScreenSideOffsetTenFoot = if FFlagUnibarMenuIconLayoutFix then nil else 48,
 
-	Padding = if GetFFlagPostLaunchUnibarDesignTweaks() and ChromeEnabled() then 8 else 12,
+	Padding = if ChromeEnabled() then 8 else 12,
 
 	HealthPercentForOverlay = 5 / 100,
 	HealthRedColor = Color3.fromRGB(255, 28, 0),

@@ -2,8 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
-local GetFFlagPostLaunchUnibarDesignTweaks =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPostLaunchUnibarDesignTweaks
 local GetFFlagSongbirdWindowResponsiveSizing =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdWindowResponsiveSizing
 
@@ -33,7 +31,7 @@ return {
 	MEDIUM_ICON_SIZE = 28,
 	UNIBAR_END_PADDING = 4,
 	-- Duplicate of TopBarConstants.Padding
-	UNIBAR_LEFT_MARGIN = if GetFFlagPostLaunchUnibarDesignTweaks() then 8 else 12,
+	UNIBAR_LEFT_MARGIN = 8,
 	-- Duplicate of TopBarConstants.ScreenSideOffset
 	MENU_ICON_SCREEN_SIDE_OFFSET = 16,
 	SUB_MENU_ROW_HEIGHT = 56,
@@ -124,8 +122,6 @@ return {
 
 			[Enum.UserInputType.Touch] = InputTypes.Touch,
 		},
-		UNIBAR_OPENED = "chrome_unibar_opened",
-		UNIBAR_CLOSED = "chrome_unibar_closed",
 		ICON_ACTIVATED = "chrome_unibar_icon_activated",
 		ICON_DRAG_START = "chrome_unibar_icon_drag_started",
 		ICON_DRAG_END = "chrome_unibar_icon_drag_ended",

@@ -99,11 +99,6 @@ end
 
 function HealthBar:init()
 	self.rootRef = Roact.createRef()
-	if ChromeService then
-		self:setState({
-			chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open,
-		})
-	end
 	if FFlagMountCoreGuiHealthBar then
 		local function getHealthEnabled()
 			return StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Health)
@@ -125,25 +120,7 @@ function HealthBar:init()
 	end
 end
 
-function HealthBar:didMount()
-	if not UseUpdatedHealthBar then
-		if ChromeService then
-			self.chromeMenuStatusConn = ChromeService:status():connect(function()
-				self:setState({
-					chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open,
-				})
-			end)
-		end
-	end
-end
-
 function HealthBar:onUnmount()
-	if not UseUpdatedHealthBar then
-		if self.chromeMenuStatusConn then
-			self.chromeMenuStatusConn:Disconnect()
-			self.chromeMenuStatusConn = nil
-		end
-	end
 	if FFlagMountCoreGuiHealthBar then
 		self.state.coreGuiChangedSignalConn:Disconnect()
 	end
@@ -155,12 +132,6 @@ function HealthBar:renderHealth()
 		healthVisible = self.props.health < self.props.maxHealth
 	else
 		healthVisible = self.props.healthEnabled and self.props.health < self.props.maxHealth
-	end
-
-	if UseUpdatedHealthBar then
-		healthVisible = healthVisible
-	else
-		healthVisible = healthVisible and not self.state.chromeMenuOpen
 	end
 
 	local healthPercent = 1

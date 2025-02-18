@@ -10,7 +10,7 @@ PROTO_0:
   NAMECALL R2 R1 K1 ["GetImportTree"]
   CALL R2 1 1
   NEWTABLE R3 8 0
-  JUMPIFNOT R2 [+66]
+  JUMPIFNOT R2 [+62]
   GETUPVAL R4 1
   MOVE R5 R2
   CALL R4 1 1
@@ -33,22 +33,20 @@ PROTO_0:
   MOVE R7 R2
   CALL R6 1 1
   LOADB R7 1
-  JUMPIFEQKN R5 K6 [0] [+2]
+  JUMPIFEQKN R5 K6 [0] [+8]
   MOVE R7 R6
-  SETTABLEKS R7 R3 K7 ["importDataError"]
-  GETTABLEKS R7 R2 K8 ["ImportName"]
+  JUMPIF R7 [+5]
+  GETUPVAL R8 4
+  GETTABLEKS R9 R2 K7 ["ImportName"]
+  CALL R8 1 1
+  NOT R7 R8
+  SETTABLEKS R7 R3 K8 ["importDataError"]
+  GETTABLEKS R7 R2 K7 ["ImportName"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K9 ["assetName"]
   JUMPIFEQ R7 R8 [+5]
-  GETTABLEKS R7 R2 K8 ["ImportName"]
+  GETTABLEKS R7 R2 K7 ["ImportName"]
   SETTABLEKS R7 R3 K9 ["assetName"]
-  GETTABLEKS R7 R3 K7 ["importDataError"]
-  JUMPIF R7 [+5]
-  GETUPVAL R8 4
-  GETTABLEKS R9 R2 K8 ["ImportName"]
-  CALL R8 1 1
-  NOT R7 R8
-  SETTABLEKS R7 R3 K7 ["importDataError"]
   GETTABLEKS R7 R2 K10 ["PreferredUploadId"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K11 ["creatorId"]

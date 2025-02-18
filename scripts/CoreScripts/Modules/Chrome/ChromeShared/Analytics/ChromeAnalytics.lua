@@ -31,7 +31,6 @@ local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChro
 
 local Tracker = require(Root.Analytics.Tracker)
 
-local TRACKER_NAME_UNIBAR_TIME = "unibar_time"
 local TRACKER_NAME_WINDOW_SIZE_PREFIX = "window_size_"
 local TRACKER_NAME_WINDOW_DEFAULT_POSITION_PREFIX = "window_dposition_"
 local TRACKER_NAME_WINDOW_LAST_POSITION_PREFIX = "window_position_"
@@ -68,7 +67,6 @@ export type ChromeAnalytics = {
 		userPins: Types.IntegrationIdList
 	) -> nil,
 
-	onUnibarToggle: (ChromeAnalytics, unibarStatus: number) -> nil,
 	onIconActivated: (ChromeAnalytics, integrationId: Types.IntegrationId) -> nil,
 	onIconTouchBegan: (ChromeAnalytics, integrationId: Types.IntegrationId) -> nil,
 	onIconDrag: (ChromeAnalytics, integrationId: Types.IntegrationId) -> nil,
@@ -122,17 +120,6 @@ local function getDynamicEventProps()
 	}
 
 	return props
-end
-
-local function getVisibleIntegrationIds()
-	local ids = {}
-	local menuList = ChromeService:menuList():get()
-	for _, menuItem in menuList do
-		if menuItem.integration and not menuItem.isDivider then
-			table.insert(ids, menuItem.integration.id)
-		end
-	end
-	return table.concat(ids, ",")
 end
 
 local function getTrackerName(prefix: string, integrationId: Types.IntegrationId)
@@ -243,10 +230,6 @@ function ChromeAnalytics.new(): ChromeAnalytics
 		self._tracker:set(getTrackerName(TRACKER_NAME_WINDOW_LAST_POSITION_PREFIX, integrationId), position)
 	end
 
-	ChromeService:status():connect(function(unibarStatus: number)
-		self:onUnibarToggle(unibarStatus)
-	end)
-
 	GuiService.MenuOpened:Connect(function()
 		self._defaultProps.is_game_menu_opened = not self._defaultProps.is_game_menu_opened
 	end)
@@ -292,22 +275,6 @@ end
 function ChromeAnalytics:setScreenSize(screenSize: Vector2)
 	self._defaultProps.screen_width = screenSize.X
 	self._defaultProps.screen_height = screenSize.Y
-	return nil
-end
-
-function ChromeAnalytics:onUnibarToggle(unibarStatus: number)
-	local props = {
-		visible_integrations = getVisibleIntegrationIds(),
-		mru_slots = #Cryo.Dictionary.keys(ChromeService:mostRecentlyUsed()),
-	}
-
-	if unibarStatus == ChromeService.MenuStatus.Open then
-		self._tracker:startTime(TRACKER_NAME_UNIBAR_TIME)
-		self._sendEvent(Constants.ANALYTICS.UNIBAR_OPENED, props)
-	elseif unibarStatus == ChromeService.MenuStatus.Closed then
-		props.total_open_time = self._tracker:finishTime(TRACKER_NAME_UNIBAR_TIME)
-		self._sendEvent(Constants.ANALYTICS.UNIBAR_CLOSED, props)
-	end
 	return nil
 end
 
