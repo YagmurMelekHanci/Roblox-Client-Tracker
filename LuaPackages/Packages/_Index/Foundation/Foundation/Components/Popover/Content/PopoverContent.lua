@@ -119,7 +119,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 			slice = {
 				center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
 			},
-			imageStyle = tokens.Color.Shift.Shift_100,
+			imageStyle = tokens.Color.Extended.Black.Black_20,
 		}),
 		Arrow = if props.hasArrow
 			then React.createElement(View, {
@@ -130,7 +130,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				Rotation = 45,
 				ZIndex = 3,
 				Visible = isVisible,
-				tag = "bg-surface-300 anchor-center-center",
+				tag = "bg-surface-100 anchor-center-center",
 			})
 			else nil,
 		Content = React.createElement(View, {
@@ -147,7 +147,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 			ZIndex = 4,
 			-- If onPressedOutside is provided, we need to swallow the press event to prevent it from propagating to the backdrop
 			onActivated = if props.onPressedOutside then function() end else nil,
-			tag = "auto-xy bg-surface-300 radius-medium",
+			tag = "auto-xy bg-surface-100 radius-medium",
 			ref = ref,
 		}, props.children),
 	})

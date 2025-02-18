@@ -129,17 +129,15 @@ local function AppStyleProvider(props: Props)
 		end
 	end, { isMountedRef, setThemeName } :: { any })
 
-	local themeNameConstant = if UIBloxConfig.enableUseStyleMetadata
-		then React.useMemo(function()
-			if themeName:lower() == Constants.ThemeName.Dark:lower() then
-				return Constants.ThemeName.Dark
-			elseif themeName:lower() == Constants.ThemeName.Light:lower() then
-				return Constants.ThemeName.Light
-			else
-				return Constants.DefaultThemeName
-			end
-		end, { themeName })
-		else nil
+	local themeNameConstant = React.useMemo(function()
+		if themeName:lower() == Constants.ThemeName.Dark:lower() then
+			return Constants.ThemeName.Dark
+		elseif themeName:lower() == Constants.ThemeName.Light:lower() then
+			return Constants.ThemeName.Light
+		else
+			return Constants.DefaultThemeName
+		end
+	end, { themeName })
 
 	local styleProvider = React.createElement(StyleContext.Provider, {
 		value = {
@@ -148,16 +146,14 @@ local function AppStyleProvider(props: Props)
 			derivedValues = {
 				textSizeOffset = textSizeOffset,
 			},
-			styleMetadata = if UIBloxConfig.enableUseStyleMetadata
-				then {
-					ThemeName = themeNameConstant,
-				}
-				else nil,
+			styleMetadata = {
+				ThemeName = themeNameConstant,
+			},
 		},
 	}, Roact.oneChild(props.children :: any))
 
 	if not foundationProviderPresent and UIBloxConfig.useFoundationProvider then
-		if not isJest then
+		if not isJest and _G.__DEV__ then
 			Logger:warning(
 				debug.traceback(
 					"FoundationProvider not found. Please ensure that the FoundationProvider is present in the component tree."

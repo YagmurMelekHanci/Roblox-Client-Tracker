@@ -9,6 +9,7 @@ local SafeFlags = require(Packages.SafeFlags)
 return {
 	FoundationInteractableUseGuiState = SafeFlags.createGetFFlag("FoundationInteractableUseGuiState")(),
 	FoundationStylingPolyfill = SafeFlags.createGetFFlag("FoundationStylingPolyfill")(),
+	FoundationEnableColorUpdate = SafeFlags.createGetFFlag("FoundationEnableColorUpdate")(),
 	FoundationCompositeTextInput = SafeFlags.createGetFFlag("FoundationCompositeTextInput2")(),
 	FoundationBadgeSimplifySizing = SafeFlags.createGetFFlag("FoundationBadgeSimplifySizing")(),
 	FoundationFixSupportImageBinding = SafeFlags.createGetFFlag("FoundationFixSupportImageBinding")(),

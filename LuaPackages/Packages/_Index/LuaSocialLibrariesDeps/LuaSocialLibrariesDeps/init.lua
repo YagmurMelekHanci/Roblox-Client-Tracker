@@ -2,6 +2,8 @@ local LuaSocialLibrariesDeps = script.Parent
 local lazyRequire = require(LuaSocialLibrariesDeps.LazyRequire).lazyRequire
 
 local FFlagLuaAppLazyRequireSocialLibsDeps = game:DefineFastFlag("LuaAppLazyRequireSocialLibsDeps", false)
+local FFlagRemoveFriendsRoduxAndNetworking = game:DefineFastFlag("RemoveFriendsRoduxAndNetworking", false)
+
 
 return if FFlagLuaAppLazyRequireSocialLibsDeps
 	then {
@@ -18,7 +20,7 @@ return if FFlagLuaAppLazyRequireSocialLibsDeps
 		NetworkingChat = lazyRequire(LuaSocialLibrariesDeps.NetworkingChat) :: typeof(require(LuaSocialLibrariesDeps.NetworkingChat)),
 		NetworkingContacts = lazyRequire(LuaSocialLibrariesDeps.NetworkingContacts) :: typeof(require(LuaSocialLibrariesDeps.NetworkingContacts)),
 		NetworkingCurrentlyWearing = lazyRequire(LuaSocialLibrariesDeps.NetworkingCurrentlyWearing) :: typeof(require(LuaSocialLibrariesDeps.NetworkingCurrentlyWearing)),
-		NetworkingFriends = lazyRequire(LuaSocialLibrariesDeps.NetworkingFriends) :: typeof(require(LuaSocialLibrariesDeps.NetworkingFriends)),
+		NetworkingFriends = if FFlagRemoveFriendsRoduxAndNetworking then nil else lazyRequire(LuaSocialLibrariesDeps.NetworkingFriends) :: typeof(require(LuaSocialLibrariesDeps.NetworkingFriends)),
 		NetworkingGames = lazyRequire(LuaSocialLibrariesDeps.NetworkingGames) :: typeof(require(LuaSocialLibrariesDeps.NetworkingGames)),
 		NetworkingPremiumFeatures = lazyRequire(LuaSocialLibrariesDeps.NetworkingPremiumFeatures) :: typeof(require(LuaSocialLibrariesDeps.NetworkingPremiumFeatures)),
 		NetworkingPresence = lazyRequire(LuaSocialLibrariesDeps.NetworkingPresence) :: typeof(require(LuaSocialLibrariesDeps.NetworkingPresence)),
@@ -29,7 +31,7 @@ return if FFlagLuaAppLazyRequireSocialLibsDeps
 		RoduxAliases = lazyRequire(LuaSocialLibrariesDeps.RoduxAliases) :: typeof(require(LuaSocialLibrariesDeps.RoduxAliases)),
 		RoduxCall = lazyRequire(LuaSocialLibrariesDeps.RoduxCall) :: typeof(require(LuaSocialLibrariesDeps.RoduxCall)),
 		RoduxContacts = lazyRequire(LuaSocialLibrariesDeps.RoduxContacts) :: typeof(require(LuaSocialLibrariesDeps.RoduxContacts)),
-		RoduxFriends = lazyRequire(LuaSocialLibrariesDeps.RoduxFriends) :: typeof(require(LuaSocialLibrariesDeps.RoduxFriends)),
+		RoduxFriends = if FFlagRemoveFriendsRoduxAndNetworking then nil else lazyRequire(LuaSocialLibrariesDeps.RoduxFriends) :: typeof(require(LuaSocialLibrariesDeps.RoduxFriends)),
 		RoduxGames = lazyRequire(LuaSocialLibrariesDeps.RoduxGames) :: typeof(require(LuaSocialLibrariesDeps.RoduxGames)),
 		RoduxNetworking = lazyRequire(LuaSocialLibrariesDeps.RoduxNetworking) :: typeof(require(LuaSocialLibrariesDeps.RoduxNetworking)),
 		RoduxPresence = lazyRequire(LuaSocialLibrariesDeps.RoduxPresence) :: typeof(require(LuaSocialLibrariesDeps.RoduxPresence)),
@@ -52,7 +54,7 @@ return if FFlagLuaAppLazyRequireSocialLibsDeps
 		NetworkingChat = require(LuaSocialLibrariesDeps.NetworkingChat),
 		NetworkingContacts = require(LuaSocialLibrariesDeps.NetworkingContacts),
 		NetworkingCurrentlyWearing = require(LuaSocialLibrariesDeps.NetworkingCurrentlyWearing),
-		NetworkingFriends = require(LuaSocialLibrariesDeps.NetworkingFriends),
+		NetworkingFriends = if FFlagRemoveFriendsRoduxAndNetworking then nil else require(LuaSocialLibrariesDeps.NetworkingFriends),
 		NetworkingGames = require(LuaSocialLibrariesDeps.NetworkingGames),
 		NetworkingPremiumFeatures = require(LuaSocialLibrariesDeps.NetworkingPremiumFeatures),
 		NetworkingPresence = require(LuaSocialLibrariesDeps.NetworkingPresence),
@@ -63,7 +65,7 @@ return if FFlagLuaAppLazyRequireSocialLibsDeps
 		RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
 		RoduxCall = require(LuaSocialLibrariesDeps.RoduxCall),
 		RoduxContacts = require(LuaSocialLibrariesDeps.RoduxContacts),
-		RoduxFriends = require(LuaSocialLibrariesDeps.RoduxFriends),
+		RoduxFriends = if FFlagRemoveFriendsRoduxAndNetworking then nil else require(LuaSocialLibrariesDeps.RoduxFriends),
 		RoduxGames = require(LuaSocialLibrariesDeps.RoduxGames),
 		RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 		RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),

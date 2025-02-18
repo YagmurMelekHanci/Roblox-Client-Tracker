@@ -113,9 +113,7 @@ local function initializeLibrary(configs)
 			useStyle = require(script.Core.Style.useStyle),
 			useTextSizeOffset = require(script.Core.Style.useTextSizeOffset),
 			withTextSizeOffset = require(script.Core.Style.withTextSizeOffset),
-			useStyleMetadata = if configs.enableUseStyleMetadata
-				then require(script.Core.Style.useStyleMetadata)
-				else nil,
+			useStyleMetadata = require(script.Core.Style.useStyleMetadata),
 		}),
 
 		VR = strict({

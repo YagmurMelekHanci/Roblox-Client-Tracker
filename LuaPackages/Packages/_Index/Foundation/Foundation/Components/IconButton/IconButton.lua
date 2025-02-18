@@ -14,11 +14,13 @@ type ControlState = ControlState.ControlState
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useCursor = require(Foundation.Providers.Cursor.useCursor)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local useIconSize = require(Foundation.Utility.useIconSize)
+
 local Icon = require(Foundation.Components.Icon)
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
-local withDefaults = require(Foundation.Utility.withDefaults)
 
 local ICON_SIZE_TO_RADIUS: { [IconSize]: Radius } = {
 	[IconSize.Small] = Radius.Small,
@@ -60,8 +62,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	local paddingKey = ICON_SIZE_TO_PADDING_KEY[props.size]
 	local padding = UDim.new(0, tokens.Size[paddingKey])
 
-	local iconSize = tokens.Semantic.Icon.Size[props.size] -- TODO(tokens): Replace with a non-sematic token
-	local size = UDim2.fromOffset(iconSize, iconSize)
+	local size = useIconSize(props.size)
 
 	local cursor = useCursor({
 		radius = UDim.new(0, radius),

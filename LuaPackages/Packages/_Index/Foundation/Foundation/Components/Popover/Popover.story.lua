@@ -54,7 +54,7 @@ return {
 							}, {
 								Title = React.createElement(Text, {
 									Text = "Tooltip Title",
-									tag = "auto-xy text-title-medium",
+									tag = "auto-xy text-title-medium content-emphasis",
 								}),
 								Subtitle = React.createElement(Text, {
 									Text = "Here's the tootip's subtitle and content.",
@@ -110,7 +110,7 @@ return {
 							}, {
 								Title = React.createElement(Text, {
 									Text = "Click outside example",
-									tag = "auto-xy text-title-medium",
+									tag = "auto-xy text-title-medium content-emphasis",
 								}),
 								Subtitle = React.createElement(Text, {
 									Text = "Click anywhere outside to close this",

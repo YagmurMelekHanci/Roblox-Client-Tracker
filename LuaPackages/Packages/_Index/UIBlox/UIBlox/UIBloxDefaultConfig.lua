@@ -101,9 +101,6 @@ return {
 	-- Update FullPageModal sizing on mount
 	didMountUpdateFullPageModal = false,
 
-	-- Enable useStyleMetadata hook
-	enableUseStyleMetadata = false,
-
 	-- Add optional action bar label to DetailsPageHeader
 	enableDetailsPageHeaderActionBarLabel = false,
 
