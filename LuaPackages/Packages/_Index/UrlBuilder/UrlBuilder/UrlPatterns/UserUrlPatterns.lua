@@ -2,6 +2,7 @@ return function(UrlBuilder)
 	return {
 		profile = UrlBuilder.fromString("www:users/{userId}/profile?friendshipSourceType={sourceType|}"),
 		group = UrlBuilder.fromString("www:communities/{groupId}/{groupName|}#!/about"),
+		forumComment = UrlBuilder.fromString("www:communities/{groupId}#!/forums/{categoryId}/post/{postId}/comment/{commentId}"),
 		friends = UrlBuilder.fromString("www:users/{userId}/friends"),
 		inventory = UrlBuilder.fromString("www:users/{userId}/inventory"),
 		search = UrlBuilder.fromString("www:search/users?{keyword}"),

@@ -68,6 +68,8 @@ MediaGalleryPreview.validateProps = t.strictInterface({
 	numberOfThumbnails = t.optional(t.integer),
 	-- Callback for clicking the previewing image
 	onPreviewActivated = t.optional(t.callback),
+	-- Callback for clicking a thumbnail image
+	onThumbnailActivated = t.optional(t.callback),
 	-- Callback for clicking the video item or the play button on it
 	onVideoPlayActivated = t.optional(t.callback),
 })
@@ -225,6 +227,9 @@ function MediaGalleryPreview:init()
 	self.onItemActivated = function(index)
 		local itemsToShow = self.state.itemsToShow
 		local isVideo = itemsToShow[index].isVideo
+		local originalIndex = if UIBloxConfig.addThumbnailCallbackToMediaGalleryPreview
+			then self.state.selectedIndex
+			else nil
 
 		self.resetAnimation()
 		self:setState({
@@ -234,6 +239,10 @@ function MediaGalleryPreview:init()
 
 		if isVideo then
 			self.onVideoPlayActivated(index)
+		end
+
+		if UIBloxConfig.addThumbnailCallbackToMediaGalleryPreview and self.props.onThumbnailActivated then
+			self.props.onThumbnailActivated(originalIndex, index)
 		end
 	end
 

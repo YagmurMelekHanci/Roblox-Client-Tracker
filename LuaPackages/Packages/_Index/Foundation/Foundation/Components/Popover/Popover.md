@@ -19,13 +19,21 @@ local PopoverSide = Foundation.Enums.PopoverSide
 local Button = Foundation.Button
 local Text = Foundation.Text
 
+...
+local open, setOpen = React.useState(false)
+
 return React.createElement(Popover.Root, {
-    Anchor = Roact.createElement(Popover.Anchor, nil, {
+    isOpen = open,
+} {
+    Anchor = React.createElement(Popover.Anchor, nil, {
         React.createElement(Button, {
-            text = "Open Popover",
+            text = "Toggle Popover",
+            onActivated = function()
+                setOpen(not open)
+            end,
         }),
     }),
-    Content = Roact.createElement(Popover.Content, nil, {
+    Content = React.createElement(Popover.Content, nil, {
         React.createElement(Text, {
             text = "This is a popover!",
         }),

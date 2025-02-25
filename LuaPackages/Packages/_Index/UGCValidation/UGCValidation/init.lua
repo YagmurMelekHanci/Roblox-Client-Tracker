@@ -22,6 +22,7 @@ local validateLayeredClothingAccessoryMeshPartAssetFormat =
 	require(root.validation.validateLayeredClothingAccessoryMeshPartAssetFormat)
 local validateLegacyAccessoryMeshPartAssetFormat = require(root.validation.validateLegacyAccessoryMeshPartAssetFormat)
 local validateFullBody = require(root.validation.validateFullBody)
+local validateShoes = require(root.validation.validateShoes)
 
 local validateBundleReadyForUpload = require(root.validation.validateBundleReadyForUpload)
 local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynamicHeadMeshPartFormat)
@@ -54,6 +55,7 @@ if getEngineFeatureUGCValidationWithContextEntrypoint() then
 
 		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
 		validationContext.editableImages = result.editableImages :: Types.EditableImages
+		validationContext.lastTickSeconds = tick()
 
 		local validationSuccess, reasons = validateInternal(validationContext)
 
@@ -455,6 +457,7 @@ if getEngineFeatureUGCValidationWithContextEntrypoint() then
 
 		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
 		validationContext.editableImages = result.editableImages :: Types.EditableImages
+		validationContext.lastTickSeconds = tick()
 
 		local validationSuccess, reasons = validateFullBody(validationContext)
 
@@ -530,6 +533,56 @@ function UGCValidation.validateFullBody(
 	end
 
 	Analytics.reportCounter(validationSuccess, "FullBody", validationContext)
+
+	return validationSuccess, reasons
+end
+
+function UGCValidation.validateShoesWithContext(validationContext: Types.ValidationContext): (boolean, { string }?)
+	local isServer = validationContext.isServer
+	local fullBodyData = validationContext.fullBodyData
+	local allowEditableInstances = validationContext.allowEditableInstances
+
+	Analytics.setMetadata({
+		entrypoint = "validateShoes",
+		assetType = "",
+		isServer = isServer,
+	})
+
+	local startTime = tick()
+
+	local instances = {}
+	for _, instancesAndType in fullBodyData do
+		for _, instance in instancesAndType.allSelectedInstances do
+			table.insert(instances, instance)
+		end
+	end
+
+	local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+	if not success then
+		if isServer then
+			error(result[1])
+		else
+			return success, result
+		end
+	end
+
+	validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+	validationContext.editableImages = result.editableImages :: Types.EditableImages
+	validationContext.lastTickSeconds = tick()
+
+	local validationSuccess, reasons = validateShoes(validationContext)
+
+	destroyEditableInstances(
+		validationContext.editableMeshes :: Types.EditableMeshes,
+		validationContext.editableImages :: Types.EditableImages
+	)
+
+	if validationSuccess then
+		Analytics.recordScriptTime(script.Name, startTime, validationContext)
+		Analytics.reportScriptTimes(validationContext)
+	end
+
+	Analytics.reportCounter(validationSuccess, "Shoes", validationContext)
 
 	return validationSuccess, reasons
 end

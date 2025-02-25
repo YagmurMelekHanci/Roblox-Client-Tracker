@@ -70,7 +70,14 @@ local function NavigationBarV2(providedProps: Props)
 	local props = Cryo.Dictionary.join(defaultProps, providedProps)
 	local style = useStyle()
 	local animationY, setAnimationY = React.useState(if props.size then props.size.Y.Offset else 0)
-	local itemSize, setItemSize = React.useBinding(UDim2.new())
+	local itemSize: any, setItemSize
+	if not UIBloxConfig.enableAppNavNavigationBarV2Fix then
+		itemSize, setItemSize = React.useBinding(UDim2.new())
+	end
+	local absSize, setAbsSize
+	if UIBloxConfig.enableAppNavNavigationBarV2Fix then
+		absSize, setAbsSize = React.useState(Vector2.new(0, 0))
+	end
 	local paddingTop = if props.paddings and props.paddings.Top
 		then props.paddings.Top
 		else style.Tokens.Global.Space_75
@@ -96,20 +103,31 @@ local function NavigationBarV2(providedProps: Props)
 		error("NavigationBar Alignment type is incorrect!")
 	end
 	-- animation
-	local onAbsoluteSizeChanged = React.useCallback(function(rbx: GuiObject)
-		if props.animated then
-			setAnimationY(rbx.AbsoluteSize.Y)
-		end
-		if props.alignment == NavigationBarAlignment.EvenlyDistributed and not UIBloxConfig.enableAppNavFlexLayout then
-			-- Calculate itemSize width based on the number of items
-			local totalWidth = if props.maxWidth ~= nil and rbx.AbsoluteSize.X > props.maxWidth
-				then props.maxWidth
-				else rbx.AbsoluteSize.X
-			local itemWidth = (totalWidth - paddingLeft - paddingRight) / #props.items
-			local itemHeight = rbx.AbsoluteSize.Y - paddingTop - paddingBottom
-			setItemSize(UDim2.new(0, itemWidth, 0, itemHeight))
-		end
-	end, { props.animated, props.alignment, props.maxWidth, #props.items })
+	local onAbsoluteSizeChanged = React.useCallback(
+		function(rbx: GuiObject)
+			if props.animated then
+				setAnimationY(rbx.AbsoluteSize.Y)
+			end
+			if
+				props.alignment == NavigationBarAlignment.EvenlyDistributed and not UIBloxConfig.enableAppNavFlexLayout
+			then
+				if UIBloxConfig.enableAppNavNavigationBarV2Fix then
+					setAbsSize(rbx.AbsoluteSize)
+				else
+					-- Calculate itemSize width based on the number of items
+					local totalWidth = if props.maxWidth ~= nil and rbx.AbsoluteSize.X > props.maxWidth
+						then props.maxWidth
+						else rbx.AbsoluteSize.X
+					local itemWidth = (totalWidth - paddingLeft - paddingRight) / #props.items
+					local itemHeight = rbx.AbsoluteSize.Y - paddingTop - paddingBottom
+					setItemSize(UDim2.new(0, itemWidth, 0, itemHeight))
+				end
+			end
+		end,
+		if UIBloxConfig.enableAppNavNavigationBarV2Fix
+			then { props.animated, props.alignment }
+			else { props.animated, props.alignment, props.maxWidth, #props.items }
+	)
 	local yOffset, animateYOffset = ReactOtter.useAnimatedBinding(0)
 	React.useEffect(function()
 		if props.animated then
@@ -121,6 +139,17 @@ local function NavigationBarV2(providedProps: Props)
 		end
 		return nil
 	end, { props.animated, props.isVisible, animationY, props.animationConfig })
+	if UIBloxConfig.enableAppNavNavigationBarV2Fix then
+		-- calculate item size
+		if props.alignment == NavigationBarAlignment.EvenlyDistributed and not UIBloxConfig.enableAppNavFlexLayout then
+			local totalWidth = if props.maxWidth ~= nil and absSize.X > props.maxWidth
+				then props.maxWidth
+				else absSize.X
+			local itemWidth = (totalWidth - paddingLeft - paddingRight) / #props.items
+			local itemHeight = absSize.Y - paddingTop - paddingBottom
+			itemSize = UDim2.new(0, itemWidth, 0, itemHeight)
+		end
+	end
 	-- render items
 	local children = {
 		Constraint = if props.maxWidth ~= nil

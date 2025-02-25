@@ -9,6 +9,8 @@ local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 type FillBehavior = FillBehavior.FillBehavior
 
+local Flags = require(Foundation.Utility.Flags)
+
 return {
 	summary = "Button",
 	stories = Dash.map(ButtonVariant, function(variant)
@@ -16,6 +18,8 @@ return {
 			name = variant,
 			story = function(props)
 				local controls = props.controls
+				Flags.FoundationDisableCanvasGroupsInButton = controls.disableCanvasGroupsInButton
+				Flags.FoundationButtonSubEmphasisInverseStateLayer = controls.buttonSubEmphasisInverseStateLayer
 
 				return React.createElement(Button, {
 					icon = if controls.icon == "" then nil else props.controls.icon,
@@ -48,5 +52,7 @@ return {
 			FillBehavior.Fill,
 		} :: { FillBehavior },
 		inputDelay = 0,
+		disableCanvasGroupsInButton = Flags.FoundationDisableCanvasGroupsInButton,
+		buttonSubEmphasisInverseStateLayer = Flags.FoundationButtonSubEmphasisInverseStateLayer,
 	},
 }

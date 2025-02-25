@@ -24,6 +24,7 @@ local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFie
 local getEngineFeatureUGCValidateFullBodyBoundsAvatarRules =
 	require(root.flags.getEngineFeatureUGCValidateFullBodyBoundsAvatarRules)
 local getFFlagUGCValidateConfigurableFullBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableFullBodyBounds)
+local getFFlagFixValidateTransparencyProperty = require(root.flags.getFFlagFixValidateTransparencyProperty)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -194,6 +195,10 @@ if getFFlagUGCValidateAddSpecificPropertyRequirements() then
 	Constants.PROPERTIES_UNRESTRICTED = {}
 end
 
+if getFFlagFixValidateTransparencyProperty() then
+	Constants.PROP_PRECISE = {}
+end
+
 Constants.PROPERTIES = {
 	Instance = {
 		Archivable = true,
@@ -218,7 +223,7 @@ Constants.PROPERTIES = {
 		Reflectance = 0,
 		RootPriority = 0,
 		RotVelocity = Vector3.new(0, 0, 0),
-		Transparency = 0,
+		Transparency = if getFFlagFixValidateTransparencyProperty() then { 0, Constants.PROP_PRECISE } else 0,
 		Velocity = Vector3.new(0, 0, 0),
 
 		-- surface properties

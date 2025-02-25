@@ -33,15 +33,17 @@ type ButtonVariantProps = {
 		tag: string,
 		height: number,
 		stroke: Stroke,
-		background: ColorStyleValue,
+		style: ColorStyleValue,
 		stateLayer: StateLayer?,
+	},
+	content: {
+		style: ColorStyleValue,
 	},
 	text: {
 		tag: string,
 	},
 	icon: {
 		size: IconSize,
-		style: ColorStyleValue,
 	},
 }
 
@@ -89,19 +91,16 @@ local variants = function(tokens: Tokens)
 	local types: { [ButtonVariant]: VariantProps } = {
 		[ButtonVariant.Emphasis] = {
 			container = {
-				tag = "bg-action-emphasis",
+				style = tokens.Color.ActionEmphasis.Background,
 				stroke = toStroke(tokens.Color.ActionEmphasis.Border),
 			},
-			text = {
-				tag = "content-action-emphasis",
-			},
-			icon = {
+			content = {
 				style = tokens.Color.ActionEmphasis.Foreground,
 			},
 		},
 		[ButtonVariant.SubEmphasis] = {
 			container = {
-				tag = "bg-action-sub-emphasis",
+				style = tokens.Color.ActionSubEmphasis.Background,
 				stroke = toStroke(tokens.Color.ActionSubEmphasis.Border),
 				stateLayer = if Flags.FoundationButtonSubEmphasisInverseStateLayer
 					then {
@@ -109,62 +108,53 @@ local variants = function(tokens: Tokens)
 					}
 					else nil,
 			},
-			text = {
-				tag = "content-action-sub-emphasis",
-			},
-			icon = {
+			content = {
 				style = tokens.Color.ActionSubEmphasis.Foreground,
+			},
+		},
+		[ButtonVariant.SoftEmphasis] = {
+			container = {
+				style = tokens.Color.ActionSoftEmphasis.Background,
+				stroke = toStroke(tokens.Color.ActionSoftEmphasis.Border),
+			},
+			content = {
+				style = tokens.Color.ActionSoftEmphasis.Foreground,
 			},
 		},
 		[ButtonVariant.Standard] = {
 			container = {
-				tag = "bg-action-standard",
+				style = tokens.Color.ActionStandard.Background,
 				stroke = toStroke(tokens.Color.ActionStandard.Border),
 			},
-			text = {
-				tag = "content-action-standard",
-			},
-			icon = {
+			content = {
 				style = tokens.Color.ActionStandard.Foreground,
 			},
 		},
 		[ButtonVariant.Subtle] = {
 			container = {
-				tag = "bg-action-subtle",
+				style = tokens.Color.ActionSubtle.Background,
 				stroke = toStroke(tokens.Color.ActionSubtle.Border),
 			},
-			text = {
-				tag = "content-action-subtle",
-			},
-			icon = {
+			content = {
 				style = tokens.Color.ActionSubtle.Foreground,
 			},
 		},
 		[ButtonVariant.Alert] = {
 			container = {
-				tag = "bg-action-alert",
+				style = tokens.Color.ActionAlert.Background,
 				stroke = toStroke(tokens.Color.ActionAlert.Border),
 			},
-			text = {
-				tag = "content-action-alert",
-			},
-			icon = {
+			content = {
 				style = tokens.Color.ActionAlert.Foreground,
 			},
 		},
 		[ButtonVariant.Text] = {
-			text = {
-				tag = "content-emphasis",
-			},
-			icon = {
+			content = {
 				style = tokens.Color.Content.Emphasis,
 			},
 		},
 		[ButtonVariant.Link] = {
-			text = {
-				tag = "content-link",
-			},
-			icon = {
+			content = {
 				style = tokens.Color.Content.Link,
 			},
 		},

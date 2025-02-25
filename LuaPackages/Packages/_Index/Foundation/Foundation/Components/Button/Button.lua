@@ -23,6 +23,7 @@ local Types = require(Foundation.Components.Types)
 local Icon = require(Foundation.Components.Icon)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
+local Flags = require(Foundation.Utility.Flags)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
@@ -54,8 +55,12 @@ local function onProgressChange(progress: number)
 	})
 end
 
-local function getTransparency(transparency: number, isDisabled: boolean)
-	return if isDisabled then transparency + (1 - transparency) * DISABLED_TRANSPARENCY else transparency
+local function getTransparency(transparency: number?, isDisabled: boolean): number?
+	if transparency ~= nil and isDisabled then
+		return transparency + (1 - transparency) * DISABLED_TRANSPARENCY
+	end
+
+	return transparency
 end
 
 type ButtonProps = {
@@ -125,8 +130,18 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 		View,
 		withCommonProps(props, {
 			AutomaticSize = if props.width.Scale == 0 then Enum.AutomaticSize.X else nil,
-			GroupTransparency = if props.isDisabled and not isDelaying then DISABLED_TRANSPARENCY else nil,
-			backgroundStyle = variantProps.container.background,
+			GroupTransparency = if not Flags.FoundationDisableCanvasGroupsInButton
+					and props.isDisabled
+					and not isDelaying
+				then DISABLED_TRANSPARENCY
+				else nil,
+			backgroundStyle = if Flags.FoundationDisableCanvasGroupsInButton
+					and variantProps.container.style ~= nil
+				then {
+					Color3 = variantProps.container.style.Color3,
+					Transparency = getTransparency(variantProps.container.style.Transparency, props.isDisabled),
+				}
+				else variantProps.container.style,
 			flexItem = if props.fillBehavior
 				then {
 					FlexMode = if props.fillBehavior == FillBehavior.Fill
@@ -167,7 +182,12 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 				then React.createElement(Icon, {
 					name = props.icon,
 					size = variantProps.icon.size,
-					style = variantProps.icon.style,
+					style = if Flags.FoundationDisableCanvasGroupsInButton
+						then {
+							Color3 = variantProps.content.style.Color3,
+							Transparency = getTransparency(variantProps.content.style.Transparency, props.isDisabled),
+						}
+						else variantProps.content.style,
 					LayoutOrder = 1,
 				})
 				else nil,
@@ -176,6 +196,12 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 					Text = controlState:map(formatText) :: any,
 					RichText = if BUTTON_VARIANT_TO_RICH_TEXT_FORMAT[props.variant] ~= nil then true else false,
 					tag = variantProps.text.tag,
+					textStyle = if Flags.FoundationDisableCanvasGroupsInButton
+						then {
+							Color3 = variantProps.content.style.Color3,
+							Transparency = getTransparency(variantProps.content.style.Transparency, props.isDisabled),
+						}
+						else variantProps.content.style,
 					LayoutOrder = 2,
 				})
 				else nil,

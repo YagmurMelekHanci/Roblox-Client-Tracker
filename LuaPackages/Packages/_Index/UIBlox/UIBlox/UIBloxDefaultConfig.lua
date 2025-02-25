@@ -140,6 +140,12 @@ return {
 	-- Fix the AppNav NavigationBar/Rail animation issues
 	enableAppNavAnimationFix = false,
 
+	-- Fix the NavigationBarV2 bug
+	enableAppNavNavigationBarV2Fix = false,
+
+	-- Enable the workaround to fix the text flickering engine bug
+	enableAppNavTextFlickerFix = false,
+
 	-- Enable ComboButton support in ExperienceActionRow
 	enableComboButtonInExperienceActionRow = false,
 
@@ -154,4 +160,7 @@ return {
 
 	-- Enable changes to align all EDP components
 	enableEdpComponentAlignment = false,
+
+	-- Add the option to pass in callback to MediaGalleryPreview that runs on thumbnail activation
+	addThumbnailCallbackToMediaGalleryPreview = false,
 }

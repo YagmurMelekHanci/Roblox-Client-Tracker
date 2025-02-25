@@ -23,6 +23,7 @@ local getFFlagUGCValidateConfigurableBodyBounds = require(root.flags.getFFlagUGC
 local getFFlagUGCValidateConfigurableFullBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableFullBodyBounds)
 local getFFlagUGCValidateConfigurableAssetTriangleLimits =
 	require(root.flags.getFFlagUGCValidateConfigurableAssetTriangleLimits)
+local getFFlagFixValidateTransparencyProperty = require(root.flags.getFFlagFixValidateTransparencyProperty)
 
 local FIntUGCValidateTriangleLimitDynamicHead = game:DefineFastInt("UGCValidateTriangleLimitDynamicHead", 4000)
 local FIntUGCValidateTriangleLimitLeftArm = game:DefineFastInt("UGCValidateTriangleLimitLeftArm", 1248)
@@ -816,6 +817,10 @@ if getFFlagUGCValidateAddSpecificPropertyRequirements() then
 	Constants.PROPERTIES_UNRESTRICTED = {}
 end
 
+if getFFlagFixValidateTransparencyProperty() then
+	Constants.PROP_PRECISE = {}
+end
+
 Constants.PROPERTIES = {
 	Instance = {
 		Archivable = true,
@@ -840,7 +845,7 @@ Constants.PROPERTIES = {
 		Reflectance = 0,
 		RootPriority = 0,
 		RotVelocity = Vector3.new(0, 0, 0),
-		Transparency = 0,
+		Transparency = if getFFlagFixValidateTransparencyProperty() then { 0, Constants.PROP_PRECISE } else 0,
 		Velocity = Vector3.new(0, 0, 0),
 
 		-- surface properties

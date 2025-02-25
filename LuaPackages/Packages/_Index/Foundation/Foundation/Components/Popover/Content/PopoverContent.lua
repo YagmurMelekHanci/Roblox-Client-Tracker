@@ -16,6 +16,9 @@ local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 
+local Types = require(Foundation.Components.Types)
+type Selection = Types.Selection
+
 type PopoverSide = PopoverSide.PopoverSide
 type PopoverAlign = PopoverAlign.PopoverAlign
 
@@ -31,6 +34,7 @@ type PopoverContentProps = {
 	hasArrow: boolean?,
 	-- Callback for when the backdrop is pressed. Does not swallow the press event.
 	onPressedOutside: () -> ()?,
+	selection: Selection?,
 	children: React.ReactNode,
 }
 
@@ -38,6 +42,9 @@ local defaultProps = {
 	side = PopoverSide.Bottom,
 	align = PopoverAlign.Center,
 	hasArrow = true,
+	selection = {
+		Selectable = false,
+	},
 }
 
 local SHADOW_IMAGE = "component_assets/dropshadow_17_8"
@@ -138,6 +145,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				return UDim2.fromOffset(value.X, value.Y)
 			end),
 			Visible = isVisible,
+			selection = props.selection,
 			sizeConstraint = {
 				MaxSize = screenSize,
 			},

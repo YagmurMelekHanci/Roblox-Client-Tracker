@@ -22,6 +22,7 @@ local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateSurfaceAppearances = require(root.validation.validateSurfaceAppearances)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
+local validateRigidMeshNotSkinned = require(root.validation.validateRigidMeshNotSkinned)
 
 local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
@@ -39,6 +40,9 @@ local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGC
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getFFlagUGCValidateTotalSurfaceAreaTestAccessory =
 	require(root.flags.getFFlagUGCValidateTotalSurfaceAreaTestAccessory)
+
+local getEngineFeatureEngineUGCValidateRigidNonSkinned =
+	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
 
 local function validateMeshPartAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	assert(
@@ -214,6 +218,10 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	if getFFlagMeshPartAccessoryPBRSupport() then
 		reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance, validationContext))
+	end
+
+	if getEngineFeatureEngineUGCValidateRigidNonSkinned() and not validationContext.allowEditableInstances then
+		reasonsAccumulator:updateReasons(validateRigidMeshNotSkinned(meshInfo.contentId, validationContext))
 	end
 
 	local partScaleType = handle:FindFirstChild("AvatarPartScaleType")

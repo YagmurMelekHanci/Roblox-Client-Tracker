@@ -21,6 +21,7 @@ local validateThumbnailConfiguration = require(root.validation.validateThumbnail
 local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
+local validateRigidMeshNotSkinned = require(root.validation.validateRigidMeshNotSkinned)
 
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createAccessorySchema = require(root.util.createAccessorySchema)
@@ -34,6 +35,9 @@ local getFFlagUGCValidateCoplanarTriTestAccessory = require(root.flags.getFFlagU
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
+local getEngineFeatureEngineUGCValidateRigidNonSkinned =
+	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
+
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
 local FFlagLegacyAccessoryCheckCategory = game:DefineFastFlag("LegacyAccessoryCheckCategory", false)
@@ -255,6 +259,14 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 		if getFFlagUGCValidateCoplanarTriTestAccessory() then
 			success, failedReason = validateCoplanarIntersection(meshInfo, meshScale, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+
+		if getEngineFeatureEngineUGCValidateRigidNonSkinned() then
+			success, failedReason = validateRigidMeshNotSkinned(meshInfo.contentId, validationContext)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false

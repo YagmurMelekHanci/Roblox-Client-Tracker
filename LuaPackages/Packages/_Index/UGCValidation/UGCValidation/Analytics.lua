@@ -32,12 +32,16 @@ local getEngineFeatureEngineUGCValidateLCCagesVerticesSimilarity =
 local getEngineFeatureEngineUGCValidateLCCagingRelevancy =
 	require(root.flags.getEngineFeatureEngineUGCValidateLCCagingRelevancy)
 
+local getEngineFeatureEngineUGCValidateRigidNonSkinned =
+	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
+
 local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
 
 local getFFlagUGCValidateLCHandleScale = require(root.flags.getFFlagUGCValidateLCHandleScale)
 local getFFlagUGCValidatePartMass = require(root.flags.getFFlagUGCValidatePartMass)
 local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
+local getFFlagUGCValidateUseAnalyticsEntryPoint = require(root.flags.getFFlagUGCValidateUseAnalyticsEntryPoint)
 
 local function joinTables(...)
 	local result = {}
@@ -222,6 +226,11 @@ if getFFlagUGCValidatePartMass() then
 	Analytics.ErrorType.resetPhysicsData_LargeMass = "resetPhysicsData_LargeMass"
 end
 
+if getEngineFeatureEngineUGCValidateRigidNonSkinned() then
+	Analytics.ErrorType.validateRigidMeshSkinning_FailedToDownload = "validateRigidMeshSkinning_FailedToDownload"
+	Analytics.ErrorType.validateRigidMeshSkinning_BonesFoundInMesh = "validateRigidMeshSkinning_BonesFoundInMesh"
+end
+
 if getFFlagUGCValidateMeshMin() then
 	Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize = "validateBodyBlockingTests_ZeroMeshSize"
 	Analytics.ErrorType.validateFullBody_ZeroMeshSize = "validateFullBody_ZeroMeshSize"
@@ -331,10 +340,27 @@ function Analytics.reportScriptTimes(validationContext: Types.ValidationContext)
 	end
 
 	if validationContext.isServer and not RunService:IsStudio() and validationContext.scriptTimes then
-		(UGCValidationService :: any):ReportUGCValidationTelemetry(
-			if validationContext.assetTypeEnum then validationContext.assetTypeEnum.Name else "FullBody",
-			validationContext.scriptTimes :: Types.ScriptTimes
-		)
+		if getFFlagUGCValidateUseAnalyticsEntryPoint() then
+			assert(Analytics.metadata, "Metadata is never nil")
+			local entrypoint = (Analytics.metadata :: any).entrypoint
+
+			local typeForTelemetry = "FullBody"
+			if validationContext.assetTypeEnum then
+				typeForTelemetry = validationContext.assetTypeEnum.Name
+			elseif entrypoint and "string" == type(entrypoint) and #entrypoint > 0 then
+				typeForTelemetry = entrypoint
+			end
+
+			(UGCValidationService :: any):ReportUGCValidationTelemetry(
+				typeForTelemetry,
+				validationContext.scriptTimes :: Types.ScriptTimes
+			)
+		else
+			(UGCValidationService :: any):ReportUGCValidationTelemetry(
+				if validationContext.assetTypeEnum then validationContext.assetTypeEnum.Name else "FullBody",
+				validationContext.scriptTimes :: Types.ScriptTimes
+			)
+		end
 	end
 end
 
