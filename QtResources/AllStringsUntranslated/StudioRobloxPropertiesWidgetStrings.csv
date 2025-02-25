@@ -85,6 +85,7 @@ Studio.RobloxPropertiesWidget.Category.Link,,Link,Link
 Studio.RobloxPropertiesWidget.Category.Listening,,Listening,Listening
 Studio.RobloxPropertiesWidget.Category.Localization,,Localization,Localization
 Studio.RobloxPropertiesWidget.Category.LuaDebugger,,Lua Debugger,Lua Debugger
+Studio.RobloxPropertiesWidget.Category.Mapping,Category Mapping,Mapping,Mapping
 Studio.RobloxPropertiesWidget.Category.Material,,Material,Material
 Studio.RobloxPropertiesWidget.Category.MaterialOverrides,,Material Overrides,Material Overrides
 Studio.RobloxPropertiesWidget.Category.MaterialPack,,Material Pack,Material Pack
@@ -113,6 +114,7 @@ Studio.RobloxPropertiesWidget.Category.PrimaryPart,,Primary Part,Primary Part
 Studio.RobloxPropertiesWidget.Category.Profile,,Profile,Profile
 Studio.RobloxPropertiesWidget.Category.ProxySettings,,Proxy Settings,Proxy Settings
 Studio.RobloxPropertiesWidget.Category.PseudoInstances,,PseudoInstances,PseudoInstances
+Studio.RobloxPropertiesWidget.Category.Range,Category Range,Range,Range
 Studio.RobloxPropertiesWidget.Category.Recording,,Recording,Recording
 Studio.RobloxPropertiesWidget.Category.Reflection,,Reflection,Reflection
 Studio.RobloxPropertiesWidget.Category.Regions,,Regions,Regions
@@ -131,6 +133,7 @@ Studio.RobloxPropertiesWidget.Category.Servo,,Servo,Servo
 Studio.RobloxPropertiesWidget.Category.Settings,,Settings,Settings
 Studio.RobloxPropertiesWidget.Category.Shape,,Shape,Shape
 Studio.RobloxPropertiesWidget.Category.Simulation,,Simulation,Simulation
+Studio.RobloxPropertiesWidget.Category.Size,Category Size,Size,Size
 Studio.RobloxPropertiesWidget.Category.Sizing,,Sizing,Sizing
 Studio.RobloxPropertiesWidget.Category.Slider,,Slider,Slider
 Studio.RobloxPropertiesWidget.Category.Spring,,Spring,Spring
@@ -148,6 +151,7 @@ Studio.RobloxPropertiesWidget.Category.Thrust,,Thrust,Thrust
 Studio.RobloxPropertiesWidget.Category.Tongue,,Tongue,Tongue
 Studio.RobloxPropertiesWidget.Category.Tools,,Tools,Tools
 Studio.RobloxPropertiesWidget.Category.Torque,,Torque,Torque
+Studio.RobloxPropertiesWidget.Category.Tpose,Category T-pose,T-pose,T-pose
 Studio.RobloxPropertiesWidget.Category.Transform,,Transform,Transform
 Studio.RobloxPropertiesWidget.Category.Tuning,,Tuning,Tuning
 Studio.RobloxPropertiesWidget.Category.Turn,,Turn,Turn

@@ -11,6 +11,8 @@
 [C++] DFFlagAdditionalPrePauseStats
 [C++] DFFlagAddKtxContentHash
 [C++] DFFlagAddKtxContentHash2
+[C++] DFFlagAddKtxTranscodedWidthHeight
+[C++] DFFlagAddMipPackMetadata
 [C++] DFFlagAddMoreInfoToReentrancyErrors
 [C++] DFFlagAddMultToEventIngest
 [C++] DFFlagAddNoPathMetrics
@@ -90,6 +92,7 @@
 [C++] DFFlagAssetAuthFallback
 [C++] DFFlagAssetPreloadingUrlVersionEnabled
 [C++] DFFlagAssetPreloadingUrlVersionEnabled2
+[C++] DFFlagAssetRequestAddCacheSourceToTotalDelayStat
 [C++] DFFlagAssetRequestFixDiskMissing
 [C++] DFFlagAssetRequestFixExpiredMetrics
 [C++] DFFlagAssetRequestReportLastHost
@@ -182,8 +185,6 @@
 [C++] DFFlagClearEvictedCacheEntriesTracking
 [C++] DFFlagCLI_128879_DeprecateAddSessionId
 [C++] DFFlagCLI_128879_ReportSessionIdWithTags
-[C++] DFFlagCLI102833PrelimTelemetry2
-[C++] DFFlagCLI102833v2
 [C++] DFFlagCLI103221
 [C++] DFFlagCLI106225
 [C++] DFFlagCLI106238
@@ -201,9 +202,9 @@
 [C++] DFFlagCLI119458
 [C++] DFFlagCLI119458E
 [C++] DFFlagCLI119458R
-[C++] DFFlagCLI120700Enabled
 [C++] DFFlagCLI138766A
 [C++] DFFlagCLI139085
+[C++] DFFlagCLI143295
 [C++] DFFlagCLI46794SendToEventStream
 [C++] DFFlagCLI46794SendToTelemetry
 [C++] DFFlagCLI48770
@@ -457,7 +458,6 @@
 [C++] DFFlagDebugSimPrimalFeedback
 [C++] DFFlagDebugSimPrimalImplicitSprings
 [C++] DFFlagDebugSimPrimalLaggedFriction
-[C++] DFFlagDebugSimPrimalReserveConstraintDimensionsConservatively
 [C++] DFFlagDebugSimRaycastStats
 [C++] DFFlagDebugSimShapecastStats
 [C++] DFFlagDebugSimShowStabilityDebuggingData
@@ -519,6 +519,7 @@
 [C++] DFFlagDisableAAIfEc
 [C++] DFFlagDisableAAIfR
 [C++] DFFlagDisableAAIfV
+[C++] DFFlagDisableAeroUnderwater
 [C++] DFFlagDisableAutoTagLocationToV2CounterStats
 [C++] DFFlagDisableCaptureModeGuiObjectFiltering
 [C++] DFFlagDisableCaptureModeTouchGuiCantSelect
@@ -550,6 +551,7 @@
 [C++] DFFlagDoNotReadKdTreeFromMeshHFB
 [C++] DFFlagDoNotReadKdTreeFromMeshHFB2
 [C++] DFFlagDoNotUpdateSensorsWithoutLock
+[C++] DFFlagDoNotUseBody0OnManifold
 [C++] DFFlagDontAllocatePointsIfCantSend
 [C++] DFFlagDontCullNewestLogsFirst
 [C++] DFFlagDoVIPTeleport
@@ -569,7 +571,6 @@
 [C++] DFFlagEditableImageDrawImageTransformedBoundingBox
 [C++] DFFlagEditableImageDrawImageTransformedCheckInputs
 [C++] DFFlagEditableImageDrawImageTransformedEnabled
-[C++] DFFlagEditableMeshRenderingFixBBox
 [C++] DFFlagEditablePolicyErrorReporting
 [C++] DFFlagEditableSkipPolicyCheckForStudioEditMode
 [C++] DFFlagELFReportPlayerSetCharacter
@@ -679,6 +680,7 @@
 [C++] DFFlagEnableRealWorldCommercePOC
 [C++] DFFlagEnableRemoteProfiling
 [C++] DFFlagEnableRemoteSaveValidatorTelemetry
+[C++] DFFlagEnableRewardedAdsLog
 [C++] DFFlagEnableRewardedAdsSessionTrackingFields
 [C++] DFFlagEnableRewardedVideoStudioOutput
 [C++] DFFlagEnableRobloxCNDomains
@@ -715,7 +717,6 @@
 [C++] DFFlagEnableToSwitchToSettingsAppWithRouteWin32
 [C++] DFFlagEnableTrackingAccessoryDestoyedWithLiveSignals
 [C++] DFFlagEnableTunableClientReplicatorStatsForSessionTracking
-[C++] DFFlagEnableTwoSecondVideoView
 [C++] DFFlagEnableV2POCCounter
 [C++] DFFlagEnableV2POCStat
 [C++] DFFlagEnableValidateEngineContextCrash
@@ -727,7 +728,6 @@
 [C++] DFFlagEnableVideoAudibilityStats
 [C++] DFFlagEnableVideoContInViewSanityCheck
 [C++] DFFlagEnableVideoLengthStats
-[C++] DFFlagEnableVideoPlaybackSanityCheck
 [C++] DFFlagEnforceInstanceIdForPromptCollectiblesPurchase
 [C++] DFFlagEnforceValidUuidForPromptCollectiblesPurchase
 [C++] DFFlagEngineAddActivityManagerMemoryClassifications
@@ -765,6 +765,7 @@
 [C++] DFFlagFireUnloadEventNormallyImage2
 [C++] DFFlagFixAccoutrementWeldCreationForCloudEdit4
 [C++] DFFlagFixAccoutrementWeldCreationForPluginGUI
+[C++] DFFlagFixAdRewardToastTruncation
 [C++] DFFlagFixAdsEventMetadata
 [C++] DFFlagFixAdsNoFillReasonParsing
 [C++] DFFlagFixAppSuccssMult
@@ -794,7 +795,6 @@
 [C++] DFFlagFixJobTimeOfLastStep
 [C++] DFFlagFixJoinMismatchReport
 [C++] DFFlagFixJoinMismatchSkip
-[C++] DFFlagFixLackOfHumanoidDescriptionInDefaultCharacter
 [C++] DFFlagFixLadderSearchDepth
 [C++] DFFlagFixLastAssetDeliveredTime
 [C++] DFFlagFixMeshScale
@@ -805,6 +805,7 @@
 [C++] DFFlagFixPlaceSizeReporting
 [C++] DFFlagFixRawDumpAlignment
 [C++] DFFlagFixRCCDisconnectReasonReporting
+[C++] DFFlagFixReplicatorIdentityCheck
 [C++] DFFlagFixSanitizeAnimationId
 [C++] DFFlagFixSessionMetricTeleportCondition
 [C++] DFFlagFixSkyBoxTextureBlurrines
@@ -872,6 +873,7 @@
 [C++] DFFlagGameLoadDataStatistics
 [C++] DFFlagGameNetFixReplicationSkipBug
 [C++] DFFlagGamepadCursorUsesRawPosition
+[C++] DFFlagGamepadCursorUsesRawPosition2
 [C++] DFFlagGatherStatsPerFrame
 [C++] DFFlagGCJobMoreScopesAndLabels
 [C++] DFFlagGCJobMoreScopesAndLabels2
@@ -962,6 +964,7 @@
 [C++] DFFlagHumanoidProfilingEnabled
 [C++] DFFlagHumanoidReplicateSimulated2
 [C++] DFFlagHumanoidReplicateSimulated2TurnOffLocalState
+[C++] DFFlagHumanoidRigDescriptionEnabled
 [C++] DFFlagHumanoidSimWorld
 [C++] DFFlagIdempotentRejectionReporting
 [C++] DFFlagIgnoreLagOutsideStudio
@@ -970,12 +973,15 @@
 [C++] DFFlagIkControlConstraintSupportProperty
 [C++] DFFlagIkControlDeepProfile
 [C++] DFFlagIkControlEnableAutopole
+[C++] DFFlagIkControlRecomputeChainOnScale
 [C++] DFFlagIkLimitFixLimitCrash
 [C++] DFFlagIkLimitFixPoleJitter
 [C++] DFFlagIkSolverFreeUseOgFabrikSolver
 [C++] DFFlagImprovedGCDeletionRateMetrics
 [C++] DFFlagImprovedGuiFilter
 [C++] DFFlagInExpAvatarCreationDisableEphemeralCounters
+[C++] DFFlagInExpAvatarCreationDisableEphemeralCounters2
+[C++] DFFlagInExpAvatarCreationEnableNewCounterAgain
 [C++] DFFlagInExpCreationMonitor
 [C++] DFFlagInferredCrashOverwriteUserId
 [C++] DFFlagInferredCrashOverwriteUserId2
@@ -994,6 +1000,7 @@
 [C++] DFFlagIntegrateSendInPeer
 [C++] DFFlagIntegrityCheckedProcessorDisableAllAdditions
 [C++] DFFlagIntegrityClientOS
+[C++] DFFlagInternalTestPermission
 [C++] DFFlagInternationalizationUseNewFormat
 [C++] DFFlagInvalidNumPropertyAssignReport
 [C++] DFFlagInvalidNumPropertyAssignWarning
@@ -1020,6 +1027,7 @@
 [C++] DFFlagLatencyLoggingRemoteName
 [C++] DFFlagLegacyRedundantPlayerCheckAnalytics
 [C++] DFFlagLightGridSimdNew
+[C++] DFFlagLightGridSimdNew2
 [C++] DFFlagLimitDeprecatedStringSize
 [C++] DFFlagLimitSpawnName
 [C++] DFFlagLimitStylingClasses
@@ -1060,6 +1068,8 @@
 [C++] DFFlagLuauRunCustomModuleChecks
 [C++] DFFlagLuauStackLimit
 [C++] DFFlagLuauStringFormatFixC
+[C++] DFFlagLVMSGet
+[C++] DFFlagLVMSPut
 [C++] DFFlagMakeBezierEvaluationFast
 [C++] DFFlagMakeBezierEvaluationFast2
 [C++] DFFlagMalformedAnimationUrl2
@@ -1100,8 +1110,11 @@
 [C++] DFFlagMigrateAvatarTelemetryToDurationLogger
 [C++] DFFlagMigrateSimpleDeprecatedSetAvatar
 [C++] DFFlagMigrateSimpleDeprecatedSetDatamodel
+[C++] DFFlagMigrateSimpleDeprecatedSetDatamodel2
 [C++] DFFlagMigrateSimpleDeprecatedSetTrail
 [C++] DFFlagMigrateSimpleDeprecatedSetUI
+[C++] DFFlagMipPacksBySize
+[C++] DFFlagMipPacksHaveFullMipChain
 [C++] DFFlagMoreSanitizationCoverage
 [C++] DFFlagMoveESEIReplicatorStatsToNewFlow
 [C++] DFFlagMoveToStringUtil
@@ -1120,6 +1133,7 @@
 [C++] DFFlagNetCompressorUseCommonCodePath
 [C++] DFFlagNetworkPingNewSentinelValue
 [C++] DFFlagNetworkReportContentIdLimit
+[C++] DFFlagNetworkValueTypeCrashFix
 [C++] DFFlagNewCreateMeshPart
 [C++] DFFlagNewCreateMeshPartAllowAsyncAero
 [C++] DFFlagNewCreateMeshPartAllowAsyncAero2
@@ -1157,7 +1171,6 @@
 [C++] DFFlagOptimizeClusterCacheAlloc
 [C++] DFFlagOptimizeNoCollisionPrimitiveInMidphaseCrash
 [C++] DFFlagOptimizePartsInPart
-[C++] DFFlagOptimizePropertyGetSet
 [C++] DFFlagOptimizeRayCasts
 [C++] DFFlagOptimizeVRMatrices
 [C++] DFFlagOrder66
@@ -1194,6 +1207,7 @@
 [C++] DFFlagPerformanceControlReportQuality
 [C++] DFFlagPerformanceControlReportQuality2
 [C++] DFFlagPerformanceControlSendSessionTrackingOOMSignalsToPerfData
+[C++] DFFlagPerMipLoading
 [C++] DFFlagPhantomFreezeDisconnect
 [C++] DFFlagPhantomFreezeDisconnect2
 [C++] DFFlagPhysicsMechanismCacheOptimizeAlloc
@@ -1302,6 +1316,7 @@
 [C++] DFFlagRenderMeshBulkUploadEnable
 [C++] DFFlagRenderMeshBulkUploadIgnoreBudget
 [C++] DFFlagRenderRecordLongestShaderTime
+[C++] DFFlagRenderRecordLongestShaderTime2
 [C++] DFFlagRenderRecordMemoryInShaderTime
 [C++] DFFlagRenderSmootherStepUpsampling
 [C++] DFFlagRenderSunRaysMakeResolutionIndependent
@@ -1425,9 +1440,8 @@
 [C++] DFFlagSafeSensorBase
 [C++] DFFlagSafetyRCCTelemetryFilterDomainsWithHttpErrorsEnable
 [C++] DFFlagSafetyRCCTelemetryTrimDomainsWithNoisySubdomainsEnable
-[C++] DFFlagSafetyServiceEnableGenreForcedScreenshot
 [C++] DFFlagSafetyServiceEnableScreenshotUserMetadata
-[C++] DFFlagSafetyServiceScreenshot
+[C++] DFFlagSafetyServiceScreenshotMetadataStruct
 [C++] DFFlagSafeUpdateKernelJoint
 [C++] DFFlagSafeUpdateKernelJoint2
 [C++] DFFlagSampleAndRefreshRakPing
@@ -1482,11 +1496,13 @@
 [C++] DFFlagSimAdaptiveEnableEightDt
 [C++] DFFlagSimAdaptiveExplicitlyMarkInterpolatedAssemblies
 [C++] DFFlagSimAdaptiveRefactorIterationScaling
+[C++] DFFlagSimAdaptiveRefactorIterationScaling2
 [C++] DFFlagSimAdaptiveScaleCollisionParameters
 [C++] DFFlagSimAddInterpolationThrottlingViz
 [C++] DFFlagSimAeroEnableYieldInMeshProcessing
 [C++] DFFlagSimAeroFixConvexDeserializedIndices
 [C++] DFFlagSimAeroIncreaseStateMachineCoverage
+[C++] DFFlagSimAeroQuantizersUseStdArrays
 [C++] DFFlagSimBucketCountAnalyticsFix
 [C++] DFFlagSimCalcUnifiedInertia
 [C++] DFFlagSimClampInertiaOnRead
@@ -1500,7 +1516,6 @@
 [C++] DFFlagSimCrashOnNoBroadphaseCollider
 [C++] DFFlagSimCreateMeshPartFromEditableMeshTelemetry
 [C++] DFFlagSimCSG3DCDStats
-[C++] DFFlagSimCSG3EnableClientSideCSG
 [C++] DFFlagSimCSG3EnableNewAPIPluginUse
 [C++] DFFlagSimCSG4FixBoxMapping
 [C++] DFFlagSimCSG4FixEmptyResultCrash
@@ -1514,6 +1529,7 @@
 [C++] DFFlagSimCSGStudioUseClosedVoxel
 [C++] DFFlagSimCSGStudioUseClosedVoxel4
 [C++] DFFlagSimDcdBadCvxTelemetry
+[C++] DFFlagSimDcdEnableDelta
 [C++] DFFlagSimDCDEnableWithoutRollout
 [C++] DFFlagSimDCDEnableWithoutRollout2
 [C++] DFFlagSimDcdErrReproTelemetry
@@ -1522,6 +1538,7 @@
 [C++] DFFlagSimDcdRecompUseClosedVoxel
 [C++] DFFlagSimDcdRecompUseClosedVoxel4
 [C++] DFFlagSimDcdRecomputeFix
+[C++] DFFlagSimDcdRefactorSetPhysics
 [C++] DFFlagSimDcdSwitchConvexHull
 [C++] DFFlagSimDcdUsePlaneCutTol
 [C++] DFFlagSimDeterministicAssemblyRadius
@@ -1530,7 +1547,6 @@
 [C++] DFFlagSimEditableImageDisableRendering
 [C++] DFFlagSimEditableMeshDisableRendering
 [C++] DFFlagSimEditableMeshFixPlanes
-[C++] DFFlagSimEditableMeshFixVertexNormalConversion
 [C++] DFFlagSimEditableMeshNoPublishInStudioEdit
 [C++] DFFlagSimEditableMeshPostEditFix
 [C++] DFFlagSimEditableMeshSlotTypeChecking
@@ -1577,6 +1593,8 @@
 [C++] DFFlagSimShowJointCoordinatesGetCofmFromPart
 [C++] DFFlagSimSmoothedRunningController2
 [C++] DFFlagSimSolverDeDupeForceVisLogic
+[C++] DFFlagSimSolverImprovedPartialSleep
+[C++] DFFlagSimSolverImprovedPartialSleepDefaultEnabled
 [C++] DFFlagSimSolverLevitationSurfaceExternalForcesToPlatform
 [C++] DFFlagSimSolverLevitationSurfaceExternalForcesToPlatform3
 [C++] DFFlagSimSolverRefactorNetworkPhiInv
@@ -1609,6 +1627,7 @@
 [C++] DFFlagSkipHighResolutiontextureMipsOnLowMemoryDevices2
 [C++] DFFlagSkipInaccessiblePropDesc
 [C++] DFFlagSkipInaccessiblePropDesc2
+[C++] DFFlagSkipInstallGmasdk
 [C++] DFFlagSkipInternalScriptCodegenErrorMessage
 [C++] DFFlagSkipNewGuidItems
 [C++] DFFlagSkipNewGuidItemsClient
@@ -1661,6 +1680,7 @@
 [C++] DFFlagStudioReportGetPlaceInfo
 [C++] DFFlagStudioReportLuauNewSolverUse
 [C++] DFFlagStyleRuleCanValueBeStyled
+[C++] DFFlagStyleRulePriorityChangedFix
 [C++] DFFlagStylingFixScopeCrash
 [C++] DFFlagSupportEncryptedAssets
 [C++] DFFlagSupportFunctionRefactor
@@ -1689,10 +1709,6 @@
 [C++] DFFlagTattletaleReportWordCount
 [C++] DFFlagTattletaleUseNewWordListFeatures
 [C++] DFFlagTattletaleUseOriginalWordList
-[C++] DFFlagTeamCreateNewPlaceUploadDisableFallback
-[C++] DFFlagTeamCreateNewPlaceUploadPublishRollout
-[C++] DFFlagTeamCreateNewPlaceUploadSaveRollout
-[C++] DFFlagTeamCreateNewPlaceUploadUseNewFlow
 [C++] DFFlagTeamCreatePlaceUploadRetryEnabled
 [C++] DFFlagTeamCreatePlaceUploadSendCompressedRollout2
 [C++] DFFlagTeamCreateRemoteSaveValidatorMasterSwitchOptIn
@@ -1750,11 +1766,13 @@
 [C++] DFFlagTransferNPCsToServerOnJointBreak
 [C++] DFFlagTransferOwnershipToServerOnJointBreak
 [C++] DFFlagTransportTestPeer
+[C++] DFFlagTTFromRuppHeaderOnly
 [C++] DFFlagTurnoffContentProviderTempIdReturnEmptyIdStudioHack
 [C++] DFFlagUADFDisableImportLoD
 [C++] DFFlagUGCValidateMeshTriangleAreaFacesFix
 [C++] DFFlagUGCValidationReportScriptTimeBlocking
 [C++] DFFlagUIStrokeWithRichTextEnabled
+[C++] DFFlagUndoRedoShortcutsTextBoxTelemetry
 [C++] DFFlagUnifiedCookieProtocolEnabled
 [C++] DFFlagUnifySessionTrackingReporting
 [C++] DFFlagUpdateBoundExtentsForHugeMixedReplicationComponents
@@ -1783,7 +1801,6 @@
 [C++] DFFlagUseMemoryProfiler
 [C++] DFFlagUseMemoryProfiler2
 [C++] DFFlagUseNetworkStreamInterface
-[C++] DFFlagUseNewTranslationKey
 [C++] DFFlagUsePreciseMemSizeForMeshes
 [C++] DFFlagUserAnimateScaleRun
 [C++] DFFlagUseUGCValidationForEmote
@@ -1805,13 +1822,10 @@
 [C++] DFFlagVideoReportSessionTrackingVisibleAndPlaying
 [C++] DFFlagVideoSeparateHttpCachePerUniverse
 [C++] DFFlagVideoServiceMetricsUpsampleEventstream
-[C++] DFFlagVisBugFixBlockTelemetry
 [C++] DFFlagVisBugFixClipNear
 [C++] DFFlagVisBugFixCrashOnSO
-[C++] DFFlagVisBugFixCylinderSpecialMeshScale
 [C++] DFFlagVisBugFixMaxRecusionCheck
 [C++] DFFlagVisBugFixMissingMesh
-[C++] DFFlagVisBugFixNegativeScale
 [C++] DFFlagVisBugFixVR
 [C++] DFFlagVisBugHashFix
 [C++] DFFlagVisBugHighlightImprovement
@@ -1826,7 +1840,6 @@
 [C++] DFFlagVoiceChatAutoTest
 [C++] DFFlagVoiceChatCientV2AddProfilerTags
 [C++] DFFlagVoiceChatCreateRoomTagTracing
-[C++] DFFlagVoiceChatCullingAudibilityScalarEnabled
 [C++] DFFlagVoiceChatCullingDataChannelOrdered
 [C++] DFFlagVoiceChatCullingEmitStreamTransactionMessageSenderDestructorStats
 [C++] DFFlagVoiceChatCullingEnableOnlyCullWhenNotMutedOptimization
@@ -2034,6 +2047,7 @@
 [C++] DFIntAudioOcclusionMaxProcessingTimeTenthsUsec
 [C++] DFIntAudioOcclusionUpdateRateMs
 [C++] DFIntAudioPermissionsHundredthPercentageSent
+[C++] DFIntAudioTextToSpeech
 [C++] DFIntAudioTrackerWorkerThreadTrace
 [C++] DFIntAudioVolumetricMeshCalcStrategy
 [C++] DFIntAutocompleteDetailViewLineCount
@@ -2139,6 +2153,9 @@
 [C++] DFIntBootcampCLI139439Log
 [C++] DFIntBootcampCLI139737Log
 [C++] DFIntBootcampCLI139810Log
+[C++] DFIntBootcampCLI142594Log
+[C++] DFIntBootcampCLI142785Log
+[C++] DFIntBootcampCLI142809Log
 [C++] DFIntBorrowedStackShrinkBounds
 [C++] DFIntBouncingScriptPermyriad
 [C++] DFIntBrandProjectDecisionTelemetryThrottleHundredths
@@ -2207,8 +2224,6 @@
 [C++] DFIntCheckPVLinearVelocityIntegrateVsDeltaPositionThresholdPercent
 [C++] DFIntCheckSubscriptionStatusDelay
 [C++] DFIntCheckSubscriptionStatusRetryCount
-[C++] DFIntCLI102833TelemFailureReportsPerMillion
-[C++] DFIntCLI102833TelemSuccessReportsPerMillion
 [C++] DFIntCLI119458HundredthsPercentage
 [C++] DFIntCLI46794InputTelemetryIntervalSeconds
 [C++] DFIntCLI46794SendInputTelemetryHundredthsPercentage
@@ -3515,7 +3530,6 @@
 [C++] DFIntNewPDAltitudeNoForceZonePercent
 [C++] DFIntNewPDAltitudeWeakPushFinalDepressPercent
 [C++] DFIntNewPDSteepSlopeSlidingWithGravityPercent
-[C++] DFIntNewRunningBaseGravityReductionFactorHundredth
 [C++] DFIntNewSettingsEndpointExceptionInfluxPermyriad
 [C++] DFIntNewVRSystemHandPitch
 [C++] DFIntNfwlTrackingPermyriad
@@ -3715,6 +3729,7 @@
 [C++] DFIntPlayerCharacterLoadingLog
 [C++] DFIntPlayerConfigurerCDNProbeDelayMs
 [C++] DFIntPlayerConfigurerLMSTestDelayMs
+[C++] DFIntPlayerDataMaxRecordConfigCount
 [C++] DFIntPlayerHumanoidTypeAnalyticsReportPercent
 [C++] DFIntPlayerHydrationServiceBlobMaximumLength
 [C++] DFIntPlayerHydrationServiceSignatureMaximumLength
@@ -4036,6 +4051,7 @@
 [C++] DFIntReportLatencyStatsHundredthsPercentage
 [C++] DFIntReportLodDataStatsHundredthsPercentage
 [C++] DFIntReportLodOscillationHundredthsPercentage
+[C++] DFIntReportLogDirSizeHundredthsPercent
 [C++] DFIntReportLongRunningScriptsThresholdMsec
 [C++] DFIntReportLuauConnIssuePermyriad
 [C++] DFIntReportManifestParseLoadingErrorHundrethsPercentage
@@ -4111,12 +4127,15 @@
 [C++] DFIntReportVirtualCursorModeThrottleHundrethsPercent2
 [C++] DFIntReportVREnabledEventThrottleHundrethsPercent3
 [C++] DFIntReportVRRefreshRateChangeBelowLowerBoundThrottleHundrethsPercent
+[C++] DFIntRequestApiServiceNotFoundEventThrottleHundredthPercent
 [C++] DFIntRequireByStringUseEventHundredthsPercent
 [C++] DFIntRequiredMemoryInMebibytesForDeviceCapture
 [C++] DFIntRequireScriptHundredthsPercentage
 [C++] DFIntResetNetworkFloorAfterNoFloorTenthSeconds
 [C++] DFIntRestartFmodRecordingCooldownMs
 [C++] DFIntRetryBaseTimeMSec
+[C++] DFIntReverbCameraPushForwardStudsHundredths
+[C++] DFIntRewardedAdsLogCount
 [C++] DFIntRewardedVideoAvailabilityErrorEventThrottleHundrethsPercent
 [C++] DFIntRewardedVideoAvailabilityResultEventThrottleHundrethsPercent
 [C++] DFIntRingingTimerInterval
@@ -4133,6 +4152,8 @@
 [C++] DFIntRobloxTelemetryCreationDBInstanceStats
 [C++] DFIntRobloxTelemetryCreationDBPropChangesDetail
 [C++] DFIntRobloxTelemetryExampleEventThrottleHundredthsPercent
+[C++] DFIntRobloxTelemetryLogDirSizeEventThrottleHundredthsPercent
+[C++] DFIntRobloxTelemetryLogDirSizeStatThrottleHundredthsPercent
 [C++] DFIntRobloxTelemetryMarketplaceDeprecatedSubscriptionFuncUseThrottleHundredthsPercent
 [C++] DFIntRobloxTelemetryPacketMissFrameWindowMetricsThrottleHundredthsPercent
 [C++] DFIntRobloxTelemetryPointV2ProdTrafficPercent
@@ -4149,6 +4170,7 @@
 [C++] DFIntRobloxTelemetryThrottlingTimeToServeMeshes
 [C++] DFIntRobloxTelemetryThrottlingTimeToTrackMeshSizeBuckets
 [C++] DFIntRobloxTelemetryThrottlingTTMQMilestone0Mesh
+[C++] DFIntRobloxTelemetryTryCutAndSendSignalTimerIntervalMs
 [C++] DFIntRobloxTelemetryUint64addFieldWorkaound
 [C++] DFIntRobloxTelemetryV2PointAdatpterTrafficPercent
 [C++] DFIntRTAnimationTrackerTrace
@@ -4363,12 +4385,16 @@
 [C++] DFIntSimSlidingVelocitySleepThreshold
 [C++] DFIntSimSolverBatchBufferMaxAge
 [C++] DFIntSimSolverFixCircularRead
-[C++] DFIntSimSolverImprovedSleepCriteriaH
+[C++] DFIntSimSolverImprovedPartialSleepAngularWeight
+[C++] DFIntSimSolverImprovedPartialSleepLinearWidth
+[C++] DFIntSimSolverImprovedPartialSleepTolerance
 [C++] DFIntSimSolverLargeIslandCountMax
 [C++] DFIntSimSolverLargeIslandCountThreshold
 [C++] DFIntSimSolverLargeWorkloadThreshold
 [C++] DFIntSimSolverNumTasksForLargeIslandCount
 [C++] DFIntSimSolverStatisticsHundrethsPercentage
+[C++] DFIntSimSolverWakeDisplacementMultiplier
+[C++] DFIntSimSolverWakeDisplacementScalingNoContacts
 [C++] DFIntSimStepPhysicsStatsHundredthsPercentage
 [C++] DFIntSimTelemetrizeSporadicFluidUsageHundredthsPercentage
 [C++] DFIntSimTimestepMultiplierDebounceCount
@@ -4571,8 +4597,6 @@
 [C++] DFIntTCSTranslateServerPartitionId
 [C++] DFIntTeamCreateJoinServerFailureThrottleHundrethsPercent
 [C++] DFIntTeamCreateJoinSuccessLoggingPerMyriad
-[C++] DFIntTeamCreateNewPlaceUploadPublishRolloutHundredthPercent
-[C++] DFIntTeamCreateNewPlaceUploadSaveRolloutHundredthPercent
 [C++] DFIntTeamCreatePlaceUploadRetryCount
 [C++] DFIntTeamCreatePlaceUploadSendCompressedRollout2HundredthPercent
 [C++] DFIntTeamCreatePublishExtraInfo
@@ -4738,6 +4762,7 @@
 [C++] DFIntTrackPublishingHashOutput
 [C++] DFIntTrackServerPhysicsPerfSessionNMinutes
 [C++] DFIntTrackTeamCreateSaveMD5HashOutput
+[C++] DFIntTranscoderMipTailByteSize
 [C++] DFIntTranslationLocaleIdParseErrorThrottleHundrethsPercentage
 [C++] DFIntTreeDiffModCheckShadowReportingRate
 [C++] DFIntTreeDiffWorldCFrameEpsilonMultiplier
@@ -5080,6 +5105,7 @@
 [C++] DFLogInstanceSanitizationAssetIdWhiteList
 [C++] DFLogInstanceSanitizationClassNameBlackList
 [C++] DFLogIntegrityCheckedProcessorV2CountersMatcher
+[C++] DFLogInternalTestGroupIds
 [C++] DFLogJdiDeserializerConfigPerDC
 [C++] DFLogJdiDeserializerConfigUserIdPer100
 [C++] DFLogLatestConfigName
@@ -5092,10 +5118,10 @@
 [C++] DFLogLocalizationTableAnalyticsSenderImplementationAnalyticsSuffix
 [C++] DFLogLogUploadToBacktraceSynchronousToken
 [C++] DFLogLogUploadToBacktraceToken
+[C++] DFLogMeshGenerationAPIOverride
 [C++] DFLogMeshLODTranscodeDefaultFidelity
 [C++] DFLogMeshLODTranscodeDefaultFormat
 [C++] DFLogMeshLODTranscodeMajorVersion
-[C++] DFLogMLWorkflowOrchestratorAPIOverride
 [C++] DFLogModerationFilterTextUrlV2
 [C++] DFLogNetworkInDeserializeLimitGameplayMsClientPer100
 [C++] DFLogNetworkInDeserializeLimitGameplayMsClientPerDc
@@ -5272,6 +5298,7 @@
 [C++] DFStringInstanceSanitizationAssetIdWhiteList
 [C++] DFStringInstanceSanitizationClassNameBlackList
 [C++] DFStringIntegrityCheckedProcessorV2CountersMatcher
+[C++] DFStringInternalTestGroupIds
 [C++] DFStringJdiDeserializerConfigPerDC
 [C++] DFStringJdiDeserializerConfigUserIdPer100
 [C++] DFStringLatestConfigName
@@ -5284,10 +5311,10 @@
 [C++] DFStringLocalizationTableAnalyticsSenderImplementationAnalyticsSuffix
 [C++] DFStringLogUploadToBacktraceSynchronousToken
 [C++] DFStringLogUploadToBacktraceToken
+[C++] DFStringMeshGenerationAPIOverride
 [C++] DFStringMeshLODTranscodeDefaultFidelity
 [C++] DFStringMeshLODTranscodeDefaultFormat
 [C++] DFStringMeshLODTranscodeMajorVersion
-[C++] DFStringMLWorkflowOrchestratorAPIOverride
 [C++] DFStringModerationFilterTextUrlV2
 [C++] DFStringNetworkInDeserializeLimitGameplayMsClientPer100
 [C++] DFStringNetworkInDeserializeLimitGameplayMsClientPerDc
@@ -5403,7 +5430,7 @@
 [C++] FFlagAddConcurrentRequestLimitToTelemetry
 [C++] FFlagAddCreatorContextAsset
 [C++] FFlagAddCriticalSectionToCoreAudio
-[Lua] FFlagAddCursorProviderToPurchasePromptApp
+[Lua] FFlagAddCursorProviderToPurchasePromptAppV2
 [C++] FFlagAddDeviceRAMToTelemetryGlobalPointsFields
 [C++] FFlagAddEngineContextId
 [C++] FFlagAddExperimentalPlaceUploadTelemetry
@@ -5414,11 +5441,13 @@
 [C++] FFlagAddIxpLayersPlatformExcellenceQualityImprovementVR
 [C++] FFlagAddIxpLayersPlatformExcellenceVRSpatialUI
 [C++] FFlagAddJoinAttemptId
+[C++] FFlagAddMatchmakingTypeToDM
 [C++] FFlagAddMutexToLatchedSignal
 [C++] FFlagAddOptionToGetAnimationClipIgnoringUniverseCheckAsync
 [C++] FFlagAddPlaceVersionIdToOnPlacePublishPackage
 [Lua] FFlagAddPublishAssetPrompt6
 [C++] FFlagAddPublishResponse
+[C++] FFlagAddRolloutUpdateTimestamp
 [C++] FFlagAddRomarkAnalyticsForPathfinding
 [C++] FFlagAddScriptDiffTelemetry
 [C++] FFlagAddSoundReloadCount
@@ -5480,6 +5509,7 @@
 [Lua] FFlagAlwaysMountVoicePrompt
 [C++] FFlagAlwaysRenderPlaceholderText
 [Lua] FFlagAlwaysSelectButtonDismissesGamepadNavigationDialog
+[Lua] FFlagAlwaysShowChatButtonWhenWindowIsVisible
 [Lua] FFlagAlwaysShowDisplayNameInExpMenu
 [Lua] FFlagAlwaysShowGamepadNavigationDialog
 [Lua] FFlagAlwaysShowVRToggleV3
@@ -5509,6 +5539,7 @@
 [C++] FFlagApolloAddErrorLogging
 [C++] FFlagApolloUseDeviceNameOverride
 [C++] FFlagAppBadgingProtocolEnabledDev
+[Lua] FFlagAppChatConnectIconDropdownAlwaysAvailable
 [Lua] FFlagAppChatDisableInExpU13
 [Lua] FFlagAppChatEnabledChromeDropdownFtuxTooltip
 [Lua] FFlagAppChatInExpConnectIconEnableSquadIndicator2
@@ -5533,7 +5564,6 @@
 [C++] FFlagAssetImportCachePreviewTextures
 [C++] FFlagAssetImportEnableImportQueueModal
 [C++] FFlagAssetImporterExpandExceptionReporting
-[C++] FFlagAssetImportErrorMessageDialog
 [C++] FFlagAssetImportFaceSurfaceAppearanceRemoval
 [C++] FFlagAssetImportFacsSupport
 [C++] FFlagAssetImportFixTelemetryAfterCleanup
@@ -5545,6 +5575,7 @@
 [C++] FFlagAssetImportRemoveAnimationSuffix
 [C++] FFlagAssetImportRespectGltfTangents
 [C++] FFlagAssetImportRigVizFixes
+[C++] FFlagAssetImportSetDefaultAnimationNames
 [C++] FFlagAssetImportShowBoneEnds
 [C++] FFlagAssetImportStartSessionAsync
 [C++] FFlagAssetImportSupportTextureConversion
@@ -5558,8 +5589,8 @@
 [C++] FFlagAssetUploadDirectUploadMesh
 [C++] FFlagAssistantLabBetaFeature
 [C++] FFlagAsyncHttpQueueRemoveIStream
-[C++] FFlagAtomicDirectMetatableLookup
 [C++] FFlagAudioAnalyzerSpectrumEnabledProperty
+[C++] FFlagAudioAssetInsertAssetManagerUsesSelection
 [C++] FFlagAudioAssetInsertCreatesEmitter
 [C++] FFlagAudioAssetInsertCreatesListener
 [C++] FFlagAudioAssetInsertCreatesOutput
@@ -5592,7 +5623,6 @@
 [C++] FFlagAuthenticationProtocolEnabledOnWin32
 [C++] FFlagAutoCanvasSizeShouldHaveLargeMaxSize
 [C++] FFlagAutoCanvasSizeShouldHaveLargeMaxSize2
-[C++] FFlagAutocompleteRequirePathSuggestions2
 [C++] FFlagAutoSaveDelayOnUserInput
 [C++] FFlagAutoSetupBetaFeature
 [C++] FFlagAvatarAutosetupCancel
@@ -5671,6 +5701,9 @@
 [C++] FFlagBootcampCLI139439
 [C++] FFlagBootcampCLI139737
 [C++] FFlagBootcampCLI139810
+[C++] FFlagBootcampCLI142594
+[C++] FFlagBootcampCLI142785
+[C++] FFlagBootcampCLI142809
 [C++] FFlagBootcampCLI50852
 [C++] FFlagBootcampCLI7459
 [C++] FFlagBootcampCLI96223
@@ -5705,6 +5738,7 @@
 [C++] FFlagCAPScriptIterationDiffExperiment
 [C++] FFlagCapsShowProperty
 [Lua] FFlagCaptureModeNativeExitSupport
+[C++] FFlagCaptureServiceContentObjectEnabled
 [C++] FFlagCASGraveyard
 [C++] FFlagCASGraveyard2
 [C++] FFlagCatchHttpErrorCode
@@ -5712,8 +5746,6 @@
 [C++] FFlagCDLayerDebugDraw
 [Lua] FFlagCEVBacktraceRepeatedErrorRateLimiting
 [C++] FFlagCEVFlowStart
-[C++] FFlagCevIdleTimeoutMode
-[C++] FFlagCevIdleTimeoutMode2
 [C++] FFlagCevIdleTimeoutTelemetry
 [C++] FFlagChallengeRetryEnabled
 [C++] FFlagChangeAttachmentNames
@@ -5725,7 +5757,7 @@
 [C++] FFlagChatServiceCompatibilityCheck
 [C++] FFlagChatServiceCompatibilityCheck2
 [C++] FFlagChatServiceCompatibilityForAll
-[C++] FFlagChatServiceCompatibilityForAll2
+[C++] FFlagChatServiceCompatibilityForAll3
 [Lua] FFlagChatTranslationForceSetting
 [Lua] FFlagChatTranslationHoldoutEnabled
 [Lua] FFlagChatTranslationLaunchEnabled
@@ -5759,6 +5791,7 @@
 [C++] FFlagCinFixApplyForBadSession
 [C++] FFlagCinFixUploadResults
 [C++] FFlagClampEdgePlaneIntersection
+[C++] FFlagCleanUpAssemblyJoint
 [C++] FFlagCleanupDestructedInstanceNodes
 [Lua] FFlagCleanUpFullscreenTitleBarPromiseOnUnmount
 [C++] FFlagClearDynamicRolloutState
@@ -5774,7 +5807,7 @@
 [C++] FFlagCLI56034
 [C++] FFlagCliAssignStudioUriToRunnerPlugin
 [C++] FFlagClientAssetFormatResolution
-[C++] FFlagClientAssetFormatResolution9
+[C++] FFlagClientAssetFormatResolution10
 [C++] FFlagClientFixCreatorIdValue
 [C++] FFlagClientFixCreatorIdValueForSimulation
 [C++] FFlagClientFRMManualToAutoExperimentCheck
@@ -5806,7 +5839,6 @@
 [C++] FFlagCOLLAB4221DisplayPackageDescriptionMassUpdate
 [C++] FFlagCOLLAB4260ActivityFeed
 [C++] FFlagCOLLAB4475_FixBusyStateLogic
-[C++] FFlagCOLLAB4519OpenPlaceVersionHistoryVerbRunInUIThread
 [C++] FFlagCOLLAB4667RevertDMIdOnPublishAsFailure
 [C++] FFlagCOLLAB5167TeamCreateSettings
 [C++] FFlagCOLLAB5668HideTCWidget
@@ -5816,6 +5848,7 @@
 [C++] FFlagCOLLAB6095LocalServerAssert
 [C++] FFlagCOLLAB6169UseIXPActivityFeed
 [C++] FFlagCOLLAB6176PlaceAnnotations
+[C++] FFlagCOLLAB6176PlaceAnnotations2
 [C++] FFlagCOLLAB6176PlaceAnnotationsRCC
 [C++] FFlagCOLLAB6176PlaceAnnotationsStudio
 [C++] FFlagCOLLAB6176PlaceAnnotationsStudio2
@@ -5888,6 +5921,7 @@
 [C++] FFlagConvAICodeRunnerUndoTelemetry
 [C++] FFlagConvAICodeRunnerUndoTelemetry2
 [C++] FFlagConvAIDebugAssist
+[C++] FFlagConvAIDebugAssist2
 [C++] FFlagConvAIDefaultSettingAutoExpandDropdowns
 [C++] FFlagConvAIDefaultSettingAutoRunCode
 [C++] FFlagConvAIDeprecateOldSignalREvent
@@ -5926,11 +5960,13 @@
 [C++] FFlagCookieProtocolEnabled
 [C++] FFlagCookieStoreMacStickyEnabled
 [Lua] FFlagCoreGuiAnalyticSessionTime
+[C++] FFlagCoreGuiSelfViewVisibilityIsEnabled
 [Lua] FFlagCoreScriptBacktraceRepeatedErrorRateLimiting
 [Lua] FFlagCoreScriptPublishPromptModal2
 [Lua] FFlagCoreScriptShowTeleportPrompt
 [C++] FFlagCorrectGlyphAtlasUploadOrder
 [Lua] FFlagCorrectlyPositionMuteButton
+[C++] FFlagCountAcousticSimulationUsageTelemetry
 [C++] FFlagCPPErrorReporterStopListening
 [C++] FFlagCrashOnDataModelValidationFailure
 [C++] FFlagCrashpadAddLocations
@@ -5938,7 +5974,9 @@
 [C++] FFlagCrashpadIncludeIndirectMemoryOnOOM
 [C++] FFlagCrashReportDX11WindowsHResult
 [C++] FFlagCrashUploadDX11WindowsHResultANR
+[C++] FFlagCrashUploadDX11WindowsHResultANR2
 [C++] FFlagCrashUploadDX11WindowsHResultCrashPadReporter
+[C++] FFlagCrashUploadDX11WindowsHResultCrashPadReporter2
 [C++] FFlagCreateAnimationFromVideoBetaFeature
 [C++] FFlagCreateAssetAsyncBetaFeature
 [C++] FFlagCreateCalloutRelay
@@ -5946,6 +5984,7 @@
 [C++] FFlagCreatePluginHasUniquePluginId
 [C++] FFlagCreationDBCompressRequest
 [C++] FFlagCreationStorageChangesSerializationEnabled
+[Lua] FFlagCreatorBanLocalization
 [C++] FFlagCSG4StudioBetaFeature
 [C++] FFlagCSGDecalOptimizeVB
 [C++] FFlagCSGPublishBugFix
@@ -5984,6 +6023,7 @@
 [C++] FFlagDebugAssertOnServiceProviderLockViolation
 [C++] FFlagDebugAssetConfigNetworkError
 [C++] FFlagDebugAssetImportTemplatesIgnoreQSettings
+[C++] FFlagDebugAssetMgInAssetDm
 [C++] FFlagDebugAudioStoreAllocationCallstack
 [C++] FFlagDebugAvatarAutosetupJobIdToConsole
 [C++] FFlagDebugAvatarAutosetupWarningsToConsole
@@ -6001,6 +6041,8 @@
 [C++] FFlagDebugCancelOpenPlaceRunServer
 [C++] FFlagDebugCancelPlaySoloDataModelCreation
 [C++] FFlagDebugCancelPlaySoloEnterDataModelScope
+[C++] FFlagDebugCancelPlaySoloEnterDataModelScopeClient
+[C++] FFlagDebugCancelPlaySoloEnterDataModelScopeServer
 [C++] FFlagDebugCancelPlaySoloInit
 [C++] FFlagDebugCancelPlaySoloLoadClient
 [C++] FFlagDebugCancelPlaySoloLoadServer
@@ -6113,6 +6155,7 @@
 [C++] FFlagDebugGraphicsDisableVulkan11
 [C++] FFlagDebugGraphicsForceGL2
 [C++] FFlagDebugGraphicsGLDisableDiscard
+[C++] FFlagDebugGraphicsNoPotentialModes
 [C++] FFlagDebugGraphicsPreferD3D11
 [C++] FFlagDebugGraphicsPreferD3D11FL10
 [C++] FFlagDebugGraphicsPreferMetal
@@ -6143,6 +6186,7 @@
 [C++] FFlagDebugLocalRccServerConnection
 [C++] FFlagDebugLocalRccTicketTesting
 [C++] FFlagDebugLocalTeamCreateTesting
+[Lua] FFlagDebugLogExpchatMigration
 [C++] FFlagDebugLogHSRDataType
 [C++] FFlagDebugLogHSRGeneratioinInStudio
 [C++] FFlagDebugLogHSRGeneratioNullParent
@@ -6218,6 +6262,7 @@
 [C++] FFlagDebugPrintTreeAfterLoad
 [C++] FFlagDebugPublishAssetsInBatches
 [C++] FFlagDebugR15MigratorPlugin
+[C++] FFlagDebugRbxStorageFillCache
 [C++] FFlagDebugRbxStorageNullCache
 [Lua] FFlagDebugRefactorInExpGameSettings
 [C++] FFlagDebugRenderCollectGpuCounters
@@ -6227,6 +6272,7 @@
 [C++] FFlagDebugRenderingSetDeterministic
 [C++] FFlagDebugReplaceUniversalAppWithHelloWorldApp
 [C++] FFlagDebugReportPhysicsMissingPlaceSpecific
+[C++] FFlagDebugRollbackResim
 [C++] FFlagDebugRomarkMockingAudioDevices
 [C++] FFlagDebugRomarkUseToneSignal
 [C++] FFlagDebugRunParallelLuaOnMainThread
@@ -6260,7 +6306,6 @@
 [C++] FFlagDebugSimPrimalBoxFriction
 [C++] FFlagDebugSimPrimalCRConvergenceHistory
 [C++] FFlagDebugSimPrimalDisableGS
-[C++] FFlagDebugSimPrimalGSLump
 [C++] FFlagDebugSimPrimalHybridStiffness
 [C++] FFlagDebugSimPrimalInitializeImpulses
 [C++] FFlagDebugSimPrimalLinearSolveStatsOutput
@@ -6389,13 +6434,9 @@
 [C++] FFlagDevVoiceChatIncludePCSetupInSubsProcess
 [C++] FFlagDevVoiceChatRuppTokenEvents
 [C++] FFlagDHAnalyticsNewUser
-[C++] FFlagDiffToolTelemetryDrafts
-[C++] FFlagDiffToolTelemetryMergeResolution
-[C++] FFlagDiffToolTelemetryPackages
-[C++] FFlagDiffToolTelemetryVersionHistory
-[C++] FFlagDiffTreeTelemetry
 [Lua] FFlagDirectionalAnalogStick
 [C++] FFlagDirectionalAnalogStick
+[C++] FFlagDirectionalAnalogStick2
 [C++] FFlagDisableAccoutrementWeldCreationForCloudEditAndPackages
 [C++] FFlagDisableAppLaunchFlowThrottling
 [C++] FFlagDisableBuiltinAEC
@@ -6450,6 +6491,8 @@
 [C++] FFlagDisconnectShutdownCamera2
 [Lua] FFlagDisplayCollectiblesIcon
 [C++] FFlagDisplayTopbarSafeInsetsInStudio
+[C++] FFlagDMQIconCacheKey
+[C++] FFlagDMQIconCacheUseTextureSize
 [C++] FFlagDoNotIncludeGroupNodesInTheAnimation
 [C++] FFlagDoNotLoadCoreScriptsInStandaloneDM
 [Lua] FFlagDoNotPromptCameraPermissionsOnMount
@@ -6510,9 +6553,6 @@
 [C++] FFlagEditableMeshOnRenderShapeChanged
 [C++] FFlagEditableMeshPublish
 [C++] FFlagEditableMeshPublish4
-[C++] FFlagEditableMeshRendering
-[C++] FFlagEditableMeshRendering3
-[C++] FFlagEditableMeshRenderingOnBind
 [C++] FFlagEditableMeshSkinMorph
 [C++] FFlagEditableMeshSkinningEnabled
 [C++] FFlagEditableMeshStudioBetaEnabled
@@ -6543,6 +6583,7 @@
 [C++] FFlagEnableAppPolicyDefaultsFile
 [C++] FFlagEnableAppTracing3
 [Lua] FFlagEnableARFlowSession
+[C++] FFlagEnableAssetManager
 [C++] FFlagEnableAssetPrivacyForInExperienceCreation
 [C++] FFlagEnableAudioChannelCountProperty
 [C++] FFlagEnableAudioChannelSelector
@@ -6550,6 +6591,7 @@
 [C++] FFlagEnableAudioCompressorEditor
 [C++] FFlagEnableAudioDuckingAroundRewardedVideoAds
 [C++] FFlagEnableAudioDuckingAroundRewardedVideoAds4
+[C++] FFlagEnableAudioDuckingFixes
 [C++] FFlagEnableAudioFocusManagement
 [C++] FFlagEnableAudioFocusManagement2
 [C++] FFlagEnableAudioPannerFiltering
@@ -6655,7 +6697,6 @@
 [C++] FFlagEnableGenericChallengeStudioCheck
 [C++] FFlagEnableGetAllOrNone
 [C++] FFlagEnableGetBatchTokenDetails
-[C++] FFlagEnableGetHumanoidDescriptionFromUserIdThrottle
 [C++] FFlagEnableGetValidationRules
 [C++] FFlagEnableGImageDetectsExif
 [C++] FFlagEnableGmaAdsInEngine
@@ -6722,6 +6763,8 @@
 [C++] FFlagEnableNewMaterialGenerationServiceApi
 [Lua] FFlagEnableNewVoiceReportFlows
 [C++] FFlagEnableNonUAPAccessoryAdjustment
+[C++] FFlagEnableOctreeInputSanitize
+[C++] FFlagEnableOctreeIsFiniteChecks
 [C++] FFlagEnableODACapability
 [C++] FFlagEnableOnDemandAdsProviderHttpDebounce
 [Lua] FFlagEnableOptionalScreenshotButton2
@@ -6771,7 +6814,6 @@
 [C++] FFlagEnablePSAuthAndHomepagePrefetch
 [Lua] FFlagEnableQuestIAPAnalytics
 [C++] FFlagEnableQuickGameLaunch
-[C++] FFlagEnableQuickOpenActionsAction
 [C++] FFlagEnableRccBundleSplit
 [C++] FFlagEnableRCCOpenCloudSessionAssetPublish
 [Lua] FFlagEnableReactPerfSummaryEvents
@@ -6854,6 +6896,7 @@
 [Lua] FFlagEnableUniveralVoiceToasts
 [C++] FFlagEnableUniversalAppUserAgentOnMacAndWin32
 [C++] FFlagEnableVideoApiStudio
+[C++] FFlagEnableViewLock
 [C++] FFlagEnableViewportFrameBackgroundExtension
 [C++] FFlagEnableVisBugChecks
 [C++] FFlagEnableVisBugChecks28
@@ -7008,12 +7051,12 @@
 [C++] FFlagFilterRespects13PlusPlus
 [C++] FFlagFilterSendsUnfilteredEnrollment
 [C++] FFlagFindAllHighlightsInScriptEditor
+[C++] FFlagFindAllHighlightsInScriptEditor2
 [C++] FFlagFindAndReplaceResizing
 [C++] FFlagFindAssetUtilRefactorAppendSlashIfRequired
 [C++] FFlagFinishFetchingAssetsCorrectly
 [C++] FFlagFinishRolloutsForStaleFlags2
 [Lua] FFlagFixActionBindingSecurity
-[C++] FFlagFixApplyDescriptionArchivableCrash
 [Lua] FFlagFixAppPolicyDefaultUserId
 [C++] FFlagFixAssetFetchRequestRace
 [C++] FFlagFixAudioAnalyzerWindowRace
@@ -7027,6 +7070,8 @@
 [C++] FFlagFixBacktraceUniqueID
 [C++] FFlagFixBacktraceUniqueID2
 [C++] FFlagFixBaseScriptHangOnShutdown
+[C++] FFlagFixBTIDState
+[C++] FFlagFixBTIDStateTelemetry
 [Lua] FFlagFixBundlePromptThumbnail
 [Lua] FFlagFixBundleThumbnailOnDetailPage
 [C++] FFlagFixCalloutResizeOgreWidget
@@ -7069,6 +7114,7 @@
 [C++] FFlagFixGradientEditorColorSelectionOnMacOS
 [C++] FFlagFixGradientEditorColorSelectionOnMacOS2
 [C++] FFlagFixGuiInputForDeferredSignals
+[Lua] FFlagFixHeadSacleAdjustment
 [C++] FFlagFixHealthBarDirtyBit
 [Lua] FFlagFixHealthDesync
 [C++] FFlagFixHlsStringCopying
@@ -7113,6 +7159,7 @@
 [C++] FFlagFixParticleEmissionBias
 [C++] FFlagFixParticleEmissionBias2
 [Lua] FFlagFixPermissionsButtonsEvents
+[C++] FFlagFixPersistentConstantBufferInstancing
 [Lua] FFlagFixPlainTextAutomaticSizeClippingText
 [Lua] FFlagFixPlayerGuiSelectionBugOnPromptExit
 [Lua] FFlagFixPlayerGuiSelectionBugOnPromptExitPremium
@@ -7130,6 +7177,7 @@
 [C++] FFlagFixRemindMeButtonStall
 [Lua] FFlagFixReportButtonCutOff
 [C++] FFlagFixRichTextFontNotUpdating
+[C++] FFlagFixRootScopeDestructionDeadlock
 [Lua] FFlagFixSafetyBubbleWidth
 [C++] FFlagFixSavePlaceDialogDirtyBitRaceCondition
 [C++] FFlagFixScalingValueRename
@@ -7153,6 +7201,7 @@
 [C++] FFlagFixSkipDeleteEvents
 [C++] FFlagFixSmallSurfaceGuiMouseInput
 [C++] FFlagFixSmoothingDegenerateTriangles
+[C++] FFlagFixSomeFieldsNotBeingReadFromContextInfo
 [C++] FFlagFixSoundDidLoopMultiFire
 [C++] FFlagFixSoundDidLoopMultiFire3
 [C++] FFlagFixSoundLoopPointsOffByOne
@@ -7161,8 +7210,8 @@
 [C++] FFlagFixStalePublishingToNewSlotFlag
 [C++] FFlagFixStrangerThingsIssueUsingAdditionalInvalidationSignal
 [Lua] FFlagFixSTUXShowingIncorrectly
+[C++] FFlagFixStyleLinkNotUpdating
 [C++] FFlagFixSurfaceGuisBreakingAfterRespawn
-[C++] FFlagFixTaskSleepRaceProblem
 [C++] FFlagFixTextBoundsRoundingIssue
 [C++] FFlagFixTextboxSinkingInputOfOverlappingButtons
 [C++] FFlagFixTextMismatchAndOverlap
@@ -7178,13 +7227,14 @@
 [Lua] FFlagFixUpdateMicIconCallBeforeReady
 [C++] FFlagFixUploadMeshPartUrl
 [C++] FFlagFixUREPayloadGuidLimit
-[Lua] FFlagFixVirtualCursorErrorOnDyingGuiObject
+[Lua] FFlagFixValidateTransparencyProperty
 [C++] FFlagFixVoxelizerDataIndex
 [C++] FFlagFixVoxelSmoothUndo
 [C++] FFlagFixWalkRunTimewarp
 [C++] FFlagFixWindowAverageUnderflow
 [C++] FFlagFixWinWatcherWstringCompatibility
 [C++] FFlagFixWrapDeformerPublishingBlockingSavingInStudio
+[C++] FFlagFixWrapFcThreadIssue
 [C++] FFlagFixWrongTextBoundsInBillboard
 [C++] FFlagFixZeroSizedViewportProjection
 [C++] FFlagFlagRolloutTestStaticBool0
@@ -7239,7 +7289,6 @@
 [C++] FFlagFlagRolloutTestStaticBool9
 [Lua] FFlagFlashingDotUseAsyncInit
 [C++] FFlagFlexLayoutIntrinsicSizeIsFinalSize
-[C++] FFlagFlexLayoutStopCountingRelayouts
 [C++] FFlagFmodUseRuntimeThreading
 [C++] FFlagFmodUseRuntimeThreading2
 [C++] FFlagFmodWasapiRecordBTHeadsetMatching
@@ -7250,6 +7299,8 @@
 [C++] FFlagForceConversationalAIScriptDiffTreatment
 [C++] FFlagForgottenExplorerVerbs
 [C++] FFlagFreeTypeAllocOrCrash
+[Lua] FFlagFriendshipNotifsUseSendrEnabledForAll
+[Lua] FFlagFriendshipNotifsUseSendrExperiment
 [Lua] FFlagFullscreenTitleBarInjectGameServices
 [C++] FFlagFutureIsBrightPhase3Vulkan
 [C++] FFlagFutureIsBrightPhase3VulkanVR
@@ -7345,6 +7396,7 @@
 [C++] FFlagHashWatcherReportingPath
 [Lua] FFlagHeapProfilerSearch
 [Lua] FFlagHideAvatarIECPromptOnUpsellSuccess
+[Lua] FFlagHideChatButtonForChatDisabledUsers
 [C++] FFlagHideCoreGui
 [C++] FFlagHideCoreGuiFixes
 [Lua] FFlagHideVoiceDisconnectButton
@@ -7370,7 +7422,7 @@
 [C++] FFlagHttpRbxStorageInitOnly5
 [C++] FFlagHttpRetryOn424
 [C++] FFlagHttpUseRbxStorage
-[C++] FFlagHttpUseRbxStorage9
+[C++] FFlagHttpUseRbxStorage10
 [C++] FFlagHttpWrapperParseMapEnabled
 [C++] FFlagHttpWslayMalloc
 [C++] FFlagHumanoidDefaultReplaceUnsafeBlockingLoadInstance
@@ -7418,7 +7470,6 @@
 [C++] FFlagImprovePluginSpeed_ManageCollaborators
 [C++] FFlagImprovePluginSpeed_RigGenerator
 [C++] FFlagImprovePluginSpeed_TagEditor
-[C++] FFlagImproveRequireParameterType
 [C++] FFlagImproveShiftLockTransition
 [C++] FFlagIncludeGuidWithAvatarBodyDependancies
 [C++] FFlagIncludeUGCAssetNameInUploadErrorMessages
@@ -7501,7 +7552,7 @@
 [C++] FFlagKillOldExplorer3
 [C++] FFlagKillOldProperties
 [C++] FFlagKillOldProperties2
-[C++] FFlagLanguageFeaturesBanner1
+[C++] FFlagLandingPageMountSignalEnabled
 [C++] FFlagLanguageFeaturesTelemetry
 [C++] FFlagLanguageServiceCancelCbCheckAsync
 [C++] FFlagLanguageServiceCheckedSignal
@@ -7517,6 +7568,7 @@
 [C++] FFlagLayerCollectorGetGuiObjectsAtPosition
 [C++] FFlagLayoutNodeChildVisibilityConsiderRotation
 [C++] FFlagLayoutNodeChildVisibilityConsiderRotation2
+[C++] FFlagLCAppearanceRemovalCrashFix
 [C++] FFlagLCCheckCageDimensions
 [C++] FFlagLCCheckCageDimNonSkinnedNonUniform
 [C++] FFlagLCCheckDimIndexReset
@@ -7568,6 +7620,7 @@
 [C++] FFlagLogModifiedPackageChangeInfo
 [C++] FFlagLogRenderViewCD
 [C++] FFlagLogReportingPerformLogCulling
+[C++] FFlagLogTotalPlaySoloTime
 [C++] FFlagLTAnalyticsQueueSampling
 [Lua] FFlagLuaAppAbuseReportAnalyticsHasLaunchData
 [C++] FFlagLuaAppConvertUniverseIdToStringV364
@@ -7604,7 +7657,7 @@
 [C++] FFlagLuaPropertiesBetaFeature
 [C++] FFlagLuaRequireCountEnabled
 [C++] FFlagLuaRibbonAnchorLockModes
-[C++] FFlagLuaRibbonAnchorLockModes2
+[C++] FFlagLuaRibbonAnchorLockModes3
 [C++] FFlagLuaSMTelemtry2
 [C++] FFlagLuaStartPageFixFailingNetworkRequests
 [C++] FFlagLuaStartPagePlaceIdHardcodeRemoval
@@ -7627,14 +7680,19 @@
 [C++] FFlagLuauCodeGenLimitLiveSlotReuse
 [C++] FFlagLuauCodegenScriptStatsNativeCodeSize
 [C++] FFlagLuauCompileMathLerp
+[C++] FFlagLuauCompilerAlignmentFix
 [C++] FFlagLuauCountSelfCallsNonstrict
 [C++] FFlagLuauDataModelAwarenessBetaFeature
 [C++] FFlagLuauDCRBetaFeature
+[C++] FFlagLuauDebugInfoDefn
+[C++] FFlagLuauDeferBidirectionalInferenceForTableAssignment
 [C++] FFlagLuauDoNotGeneralizeInTypeFunctions
 [C++] FFlagLuauDontInPlaceMutateTableType
 [C++] FFlagLuauErrorRecoveryForClassNames
 [C++] FFlagLuauErrorRecoveryForTableTypes
+[C++] FFlagLuauExtendedSimpleRequire
 [C++] FFlagLuauExtendStatEndPosWithSemicolon
+[C++] FFlagLuauFixDoBlockEndLocation
 [C++] FFlagLuauFixFunctionNameStartPosition
 [C++] FFlagLuauFixIndexerSubtypingOrdering
 [C++] FFlagLuauFixInfiniteRecursionInNormalization
@@ -7643,7 +7701,7 @@
 [C++] FFlagLuauFollowTableFreeze
 [C++] FFlagLuauFreeTypesMustHaveBounds
 [C++] FFlagLuauFreezeIgnorePersistent
-[C++] FFlagLuauGeneralizationRemoveRecursiveUpperBound
+[C++] FFlagLuauGeneralizationRemoveRecursiveUpperBound2
 [C++] FFlagLuauIncrementalAutocompleteBugfixes
 [C++] FFlagLuauIncrementalAutocompleteCommentDetection
 [C++] FFlagLuauInferLocalTypesInMultipleAssignments
@@ -7660,15 +7718,15 @@
 [C++] FFlagLuauNonStrictByDefaultBetaFeature
 [C++] FFlagLuauNonStrictVisitorImprovements
 [C++] FFlagLuauOldSolverCreatesChildScopePointers
-[C++] FFlagLuauPrecalculateMutatedFreeTypes
+[C++] FFlagLuauPrecalculateMutatedFreeTypes2
 [C++] FFlagLuauPreserveUnionIntersectionNodeForLeadingTokenSingleType
 [C++] FFlagLuauPreventReentrantTypeFunctionReduction
-[C++] FFlagLuauReferenceAllocatorInNewSolver
 [C++] FFlagLuauSelectivelyRetainDFGArena
 [C++] FFlagLuauSolverV2
 [C++] FFlagLuauStoreCSTData
 [C++] FFlagLuauStoreSolverTypeOnModule
 [C++] FFlagLuauStringFormatErrorSuppression
+[C++] FFlagLuauSubtypingFixTailPack
 [C++] FFlagLuauSymbolEquality
 [C++] FFlagLuauSyntheticErrors
 [C++] FFlagLuauTableCloneClonesType3
@@ -7676,7 +7734,10 @@
 [C++] FFlagLuauTrackInteriorFreeTablesOnScope
 [C++] FFlagLuauTrackInteriorFreeTypesOnScope
 [C++] FFlagLuauTransitiveSubtyping
+[C++] FFlagLuauTypeFunFixHydratedClasses
+[C++] FFlagLuauTypeFunSingletonEquality
 [C++] FFlagLuauUnifierRecursionOnRestart
+[C++] FFlagLuauUserTypeFunTypeofReturnsType
 [C++] FFlagLuauVector2Constants
 [C++] FFlagLuauVector2Constructor
 [C++] FFlagLuauVectorLibNativeCodegen
@@ -7749,8 +7810,10 @@
 [C++] FFlagMigratePackagesOffOfWWWPart2
 [C++] FFlagMigratePackagesOffOfWWWPartThree
 [C++] FFlagMigratePlayerGuiSelection
+[C++] FFlagMigratePlayerGuiSelection2
 [C++] FFlagMigratePublishingNewEndpoint
 [Lua] FFlagMigratePublishPromptFromRoactGamepad
+[C++] FFlagMinSpecBlockStudio
 [C++] FFlagMMapAudioStreams
 [C++] FFlagMMapAudioStreams2
 [C++] FFlagMobileOutlineColorFix
@@ -7775,11 +7838,9 @@
 [C++] FFlagMoveCSGOperationsToPlugin
 [C++] FFlagMoveNamespaceFromHandlerToDispatcher
 [C++] FFlagMovePrerender
-[C++] FFlagMoveRelocationToPerform
 [C++] FFlagMoveSessionResultEvaluation
 [C++] FFlagMoveSessionResultEvaluation2
 [C++] FFlagMoveSpeedFactorUpdatesConstraints
-[C++] FFlagMoveVisBugChecksLifetime
 [C++] FFlagMPHARevertHeadCollision2
 [C++] FFlagMPTriangleCount
 [C++] FFlagMRDTablePerfImprov
@@ -7839,7 +7900,7 @@
 [C++] FFlagNewFindReplaceTasker
 [C++] FFlagNewFixContainerAsserts
 [C++] FFlagNewHapticService
-[C++] FFlagNewHapticService12
+[C++] FFlagNewHapticService13
 [Lua] FFlagNewInGameMenuDisabledInVR
 [C++] FFlagNewLightAttenuation
 [C++] FFlagNewOptimizeNoCollisionPrimitiveInMidphase
@@ -7877,7 +7938,6 @@
 [C++] FFlagOnlyDecrementCompletenessIfReplicating
 [Lua] FFlagOnlyEnableJoinVoiceInVoiceEnabledUniversesV2
 [Lua] FFlagOnlyMakeInputsForVoiceUsers
-[C++] FFlagOnlyRecordUIPerfDataWhenNeccessary
 [Lua] FFlagOnlyShowToastOnce2
 [Lua] FFlagOnlyShowToastOnceInLifetime2
 [C++] FFlagOnlyVisibleFramesAllowModal
@@ -7907,7 +7967,7 @@
 [Lua] FFlagOptimizeHelpMenuInputEvent
 [C++] FFlagOpusCodecUsePool
 [C++] FFlagOpusCodecUsePool2
-[C++] FFlagOverlappingRemoteNameTags
+[C++] FFlagOTABackupTimerEnabled
 [Lua] FFlagOverrideInExperienceMenuReorderFirstVariant2
 [C++] FFlagPackageActionsToActivityHistory
 [C++] FFlagPackageAnalyticsPlacePublishOptimization
@@ -7947,15 +8007,21 @@
 [Lua] FFlagPauseMuteFixV2
 [C++] FFlagPCSCEVFeasibieAnalytics
 [C++] FFlagPerformanceControlDeprecateEffectPredictorTelemetry
+[C++] FFlagPerformanceControlEffectRegistrySubsystem
+[C++] FFlagPerformanceControlEffectRegistrySubsystem2
 [C++] FFlagPerformanceControlEnablePortTextureManagerTrimMemory
 [C++] FFlagPerformanceControlFixSegmentBefore
 [C++] FFlagPerformanceControlFixTelemetryName
 [C++] FFlagPerformanceControlPortTextureManagerTrimMemoryPrereq
+[C++] FFlagPerformanceControlPredictiveAPINotConsume
 [C++] FFlagPerformanceControlPredictiveAPITelemetry
 [C++] FFlagPerformanceControlRecordTunableChangeEvent
 [C++] FFlagPerformanceControlRecordTunableChangeEvent3
+[C++] FFlagPerformanceControlRecordTunableTimeToComplete
 [C++] FFlagPerformanceControlReleaseAPI
+[C++] FFlagPerformanceControlReleaseAPI2
 [C++] FFlagPerformanceControlRequestCompleteEvent
+[C++] FFlagPerformanceControlRequestCompleteEvent2
 [C++] FFlagPerformanceControlSendJavaHeapInfo
 [C++] FFlagPerformanceControlSendLmkdPropertiesToTelemetry
 [C++] FFlagPerformanceControlSendMemoryAccountingInfo
@@ -8043,6 +8109,7 @@
 [C++] FFlagQtLateBoundInvokeRemoval0
 [C++] FFlagQuaternionPoseCorrection
 [C++] FFlagQuickOpenDialogScrollBar
+[Lua] FFlagQuickPayUpsell
 [C++] FFlagR15MigratorBetaFeature
 [C++] FFlagR15ToArtistIntentAssetMigratorEnabled
 [C++] FFlagRaknetAllocOrCrash
@@ -8094,7 +8161,7 @@
 [C++] FFlagRelatedScriptsChatBot
 [C++] FFlagRelatedScriptsCodeAssist
 [C++] FFlagRelativeGuiEnable
-[C++] FFlagRelativeGuiEnable3
+[C++] FFlagRelativeGuiEnable4
 [C++] FFlagRelayoutFlexLayoutOnChildDirty
 [C++] FFlagRemapAnimationR6ToR15Rig
 [C++] FFlagRemapR6Animation4
@@ -8129,7 +8196,6 @@
 [C++] FFlagRemovePSMLDebuggerPlaceSessionModelListener2
 [C++] FFlagRemovePSMLFromPlaceSessionPluginWidgetsView
 [C++] FFlagRemovePSMLFromPlaceSessionPluginWidgetsView2
-[C++] FFlagRemovePSMListenerForDialog
 [C++] FFlagRemoveQMLFromStudio
 [C++] FFlagRemoveRbxCrashForMissingGlyphRenderer
 [C++] FFlagRemoveServiceInitGeometryService
@@ -8137,6 +8203,7 @@
 [C++] FFlagRemoveSingleUserCookieMigration
 [C++] FFlagRemoveStepToolsFromScriptTab
 [Lua] FFlagRemoveSubMenuTopBarConstants
+[Lua] FFlagRemoveTopBarInputTypeRodux
 [C++] FFlagRemoveUnusedFlagFetch
 [Lua] FFlagRemoveVoiceJoiceDisconnectFix
 [C++] FFlagRemovingUnusedParameter
@@ -8148,7 +8215,6 @@
 [C++] FFlagRenderCLI117434
 [C++] FFlagRenderCrashOnFailedMemoryMap2
 [C++] FFlagRenderDebugCheckThreading2
-[C++] FFlagRenderDeferClearInstanceBindingDirtyBit
 [C++] FFlagRenderDynamicResolutionScale
 [C++] FFlagRenderDynamicResolutionScale12
 [C++] FFlagRenderEditableImageDecal
@@ -8168,6 +8234,7 @@
 [C++] FFlagRenderEnableLateResourceBindOrbis
 [C++] FFlagRenderFixBrokenAvatarShadow
 [C++] FFlagRenderFixCloudsXbox
+[C++] FFlagRenderFixDofFramebufferDrawportSetting
 [C++] FFlagRenderFixFog
 [C++] FFlagRenderFixGrassPrepass
 [C++] FFlagRenderFixIncorrectVRDepthBufferInitialization
@@ -8179,8 +8246,7 @@
 [C++] FFlagRenderHighlightManagerPrepare2
 [C++] FFlagRenderHighlightTransparency
 [C++] FFlagRenderInitShadowmaps
-[C++] FFlagRenderInstanceClusterRetryPartInvalidationWhenMeshNotReady
-[C++] FFlagRenderInstanceClusterRetryPartInvalidationWhenMeshNotReady4
+[C++] FFlagRenderLazyLoadShadersGLES3
 [C++] FFlagRenderLegacyShadowsQualityRefactor
 [C++] FFlagRenderMeshEvictUnusedEnable
 [C++] FFlagRenderModelMeshVLayoutFix
@@ -8201,6 +8267,8 @@
 [C++] FFlagRenderUnifiedLighting
 [C++] FFlagRenderUnifiedLighting12
 [Lua] FFlagRenderVoiceBubbleAfterAsyncInit
+[C++] FFlagReorderDataModelScopesAndPluginLoading
+[C++] FFlagReorderDataModelScopesAndPluginLoadingExtraReviews
 [C++] FFlagReorderKeyEventAfterTextInputEvent
 [C++] FFlagReplicateAnimationLooped
 [C++] FFlagReplicatorEBVPTelemetryInfoCloudEdit2
@@ -8212,6 +8280,7 @@
 [Lua] FFlagReportAnythingLocalizationEnabled
 [Lua] FFlagReportAnythingMultistepScreenshot
 [Lua] FFlagReportAnythingScreenshot
+[C++] FFlagReportAudioChannelMixerSplitterUsage
 [C++] FFlagReportCacheDirSizesCrossPlatform
 [C++] FFlagReportClientRbxmBundleSplitExperimentTreatment
 [C++] FFlagReportClientRbxmBundleSplitExperimentTreatment2
@@ -8257,13 +8326,7 @@
 [C++] FFlagReportUserPluginByteCode
 [C++] FFlagRequestNoButtonPromptFallback
 [Lua] FFlagRequestServerStats
-[C++] FFlagRequireByStringAutocompleteEnabled
-[C++] FFlagRequireByStringAutocompleteEnabled2
 [C++] FFlagRequireByStringClosuresCaptureRequireContext
-[C++] FFlagRequireByStringEnabled
-[C++] FFlagRequireByStringErrorImprovements
-[C++] FFlagRequireByStringFixRequireTracingForInit
-[C++] FFlagRequireByStringTracingEnabled
 [C++] FFlagRequiredScriptsChatBot
 [C++] FFlagRequiredScriptsCodeAssist
 [C++] FFlagResetCacheOnLeaveGame
@@ -8286,10 +8349,12 @@
 [C++] FFlagReverbAbsorptionFieldFileFormat
 [C++] FFlagRevertUIScaleForMaxSize
 [C++] FFlagRibbonConfigSave
+[C++] FFlagRibbonConfigSave2
 [C++] FFlagRibbonConfigUniqueControlsIdentifiers
-[C++] FFlagRibbonConfigUniqueControlsIdentifiers3
+[C++] FFlagRibbonConfigUniqueControlsIdentifiers4
 [C++] FFlagRibbonControlsRefactor
 [C++] FFlagRibbonEnableSlider
+[C++] FFlagRibbonSpinboxStyleUpdate
 [C++] FFlagRIDE11263EnableFeature
 [C++] FFlagRigScaleShouldAffectAnimations
 [C++] FFlagRigScaleShouldAffectBones
@@ -8340,6 +8405,8 @@
 [C++] FFlagScriptSyncM2_5BetaFeature
 [C++] FFlagScriptTypingLatencyThrottle
 [C++] FFlagScrollEventOverhaul
+[C++] FFlagScrollEventOverhaul2
+[C++] FFlagScrollEventOverhaulBetaFeature
 [C++] FFlagScrollEventOverhaulLegacyWheelMomentum
 [C++] FFlagScrollEventOverhaulSupportHorizontalTrackpad
 [C++] FFlagScrollingFrameAddMouseWheelEvents
@@ -8351,6 +8418,7 @@
 [C++] FFlagSelectAllComponent
 [C++] FFlagSelectAllComponent2
 [C++] FFlagSelectedInputOnButtonsActivateStateChanges
+[C++] FFlagSelectedObjectCheckRateLimit
 [C++] FFlagSelectionHighlightManagerPerf
 [C++] FFlagSelectionHighlightManagerPerfFixStickyHighlights
 [C++] FFlagSelectionModeKeyboardReturnShouldSinkEvent
@@ -8380,9 +8448,11 @@
 [C++] FFlagSendMobileAdvertisingIdEnabled2
 [C++] FFlagSendRenderFidelityTelemetry
 [C++] FFlagSendRenderFidelityTelemetry2
+[C++] FFlagSendRolloutFlagsUpdatedSignalToTelemetry
 [C++] FFlagSendWebViewUserAgentEnabled
 [C++] FFlagSerializeModifiedPropertiesXml
 [Lua] FFlagServerCoreScriptSourceCode
+[C++] FFlagServiceVisibilityServiceLuauSignal
 [C++] FFlagSessionChangeEventLogging
 [C++] FFlagSessionL0Fix
 [C++] FFlagSessionLoggingForAirTest3
@@ -8391,6 +8461,7 @@
 [C++] FFlagSessionTaskServiceMasterSwitch
 [C++] FFlagSessionTrackingHttpFailureTracking
 [C++] FFlagSessionTrackingReportDX11HResult
+[C++] FFlagSessionTrackingReportDX11HResult2
 [C++] FFlagSesssionTaskEnableAllApis
 [C++] FFlagSetContextInfoAttributesOnClient
 [C++] FFlagSetDbgInfoD3D11
@@ -8456,7 +8527,6 @@
 [C++] FFlagSimConstraintDetailsBudget
 [C++] FFlagSimCSG3AsyncWarmv2LegacyAPI
 [C++] FFlagSimCSG3DCDEnablePreciseCD
-[C++] FFlagSimCSG3FixReturnAndCompletion
 [C++] FFlagSimCSG3NewAPIFixColorAndScale
 [C++] FFlagSimCSG3PreserveAttachmentsNoConstraints
 [C++] FFlagSimCSG3PreserveAttachmentsNoConstraints2
@@ -8466,17 +8536,13 @@
 [C++] FFlagSimCSG4CacheInputs
 [C++] FFlagSimCSG4DeltaUseTriGroup
 [C++] FFlagSimCSG4EnableMesh
-[C++] FFlagSimCSG4EnableSolidMesh
 [C++] FFlagSimCSG4ForceColdstart
 [C++] FFlagSimCSG4ImprovedSimplification
 [C++] FFlagSimCSG4ImprovedTransform
-[C++] FFlagSimCSG4PreservePropertyTopology
-[C++] FFlagSimCSG4PreservePropertyTopology2
-[C++] FFlagSimCSG4SolidMesh
-[C++] FFlagSimCSG4SolidMesh2
 [C++] FFlagSimCSG4SubstituteFixInertiaData
 [C++] FFlagSimCSG4SubstituteFixInertiaData2
 [C++] FFlagSimCSGLargeAssetSolidMesh
+[C++] FFlagSimCSGLargeAssetSolidMesh3
 [C++] FFlagSimCSGSerializationFailCleanlyOnEmptyBuffers
 [C++] FFlagSimCSGV3CheckMeshValidityBeforeSplit
 [C++] FFlagSimCSGV3DetailedProfiling
@@ -8492,8 +8558,6 @@
 [C++] FFlagSimCSGV3IncrementalTriangulationStreamingCompression
 [C++] FFlagSimCSGV3LogCSGTreeForCrashNewOperator
 [C++] FFlagSimCSGV3MeshUpdateVectorOpt
-[C++] FFlagSimCSGV3MoreDescriptiveErrorMessages
-[C++] FFlagSimCSGV3MoreDescriptiveErrorMessages2
 [C++] FFlagSimCSGV3NotMergingIncorrectCoplanarFaces
 [C++] FFlagSimCSGV3OptimizedFaceUVNormalTransform
 [C++] FFlagSimCSGV3PruneNonManifoldVertexGraphCrash2
@@ -8531,7 +8595,6 @@
 [C++] FFlagSimSimplifyBreakJoints
 [C++] FFlagSimSkeletonAnimationConstraint
 [C++] FFlagSimSolverEnableMoverConstraintRootBehaviorPhasedRollout
-[C++] FFlagSimSolverImprovedSleepCriteria
 [C++] FFlagSimSolverRefactorLDLTaskManagement
 [C++] FFlagSimStepPhysicsEnableTelemetry
 [C++] FFlagSimStepPhysicsFixSimulationDuringTeamCreate
@@ -8541,6 +8604,7 @@
 [C++] FFlagSimStoreSerializedOperationGraph
 [C++] FFlagSimTouchEventCallCollisionStateChanged
 [C++] FFlagSimUnifyBroadphaseUpdateCalls
+[C++] FFlagSimUpgradeSolidMesh
 [C++] FFlagSimV1BallCheckValidity
 [C++] FFlagSinglePointMesh3DThumbnailBugfix
 [Lua] FFlagSingleUserInvitePageKeybind
@@ -8608,6 +8672,7 @@
 [C++] FFlagStreamingSolverV2Release
 [C++] FFlagStreamingSolverV2Release661
 [C++] FFlagStreamJobMRF
+[C++] FFlagStreamJobMRF2
 [C++] FFlagStringAtomRespectLength
 [C++] FFlagStudioAccountSwitchingUtilsUseScopedNamedMutex
 [C++] FFlagStudioActionComponentConversionGroupA
@@ -8618,7 +8683,6 @@
 [C++] FFlagStudioAddAllowedLegacyLockUsageFromFString
 [C++] FFlagStudioAddAuxiliaryWindowOnce
 [C++] FFlagStudioAddAuxiliaryWindowOnce2
-[C++] FFlagStudioAddComponentDependencyMacros
 [C++] FFlagStudioAddInternalDebugWidgetToSystemMenu
 [C++] FFlagStudioAdditionalFontHangInfo
 [C++] FFlagStudioAddMaterialPickerNewRibbon
@@ -8661,7 +8725,8 @@
 [C++] FFlagStudioExpandMMEndMetrics
 [C++] FFlagStudioFindReplaceResetPositionOnCloseFix
 [C++] FFlagStudioFixAsyncComponentCallEvery
-[C++] FFlagStudioFixFetchUserSettingsCrash
+[C++] FFlagStudioFixCheckingGraphicsMode
+[C++] FFlagStudioFixCommandBarActionStates
 [C++] FFlagStudioFixInstanceSignalStackOverflow
 [C++] FFlagStudioFixLateBoundActionShortcuts
 [C++] FFlagStudioFixLogoutCloseSavePlaceProblem
@@ -8672,7 +8737,6 @@
 [C++] FFlagStudioFixNullLuaToolbarRelayCrash
 [C++] FFlagStudioFixPanelsObserverInvalidAccess
 [C++] FFlagStudioFixPersistingTcEnableFlag
-[C++] FFlagStudioFixPluginLoadingControllerUserPluginsModel
 [C++] FFlagStudioFixPublishingDependency
 [C++] FFlagStudioFixPublishingDependency2
 [C++] FFlagStudioFixRunnablePluginsProviderRace
@@ -8680,12 +8744,15 @@
 [C++] FFlagStudioFloatingRibbon
 [C++] FFlagStudioFloatingRibbon2
 [C++] FFlagStudioForceAngleD3D11
+[C++] FFlagStudioForceGraphicsMode
 [C++] FFlagStudioForceReauthenticationOnGameJoin403
 [C++] FFlagStudioFragmentAutocomplete
 [C++] FFlagStudioFragmentAutocomplete4
+[C++] FFlagStudioFragmentAutocompleteSimplify
 [C++] FFlagStudioGenreOverhaulInfo
 [C++] FFlagStudioGenreOverhaulPlaceholder
 [C++] FFlagStudioHandleDebuggerHittingBreakpointDuringResume
+[C++] FFlagStudioHasTeamTestChildProcess
 [C++] FFlagStudioHelpMenuActions
 [C++] FFlagStudioHelpMenuTourAction
 [C++] FFlagStudioHelpMenuTourAction2
@@ -8756,8 +8823,10 @@
 [C++] FFlagStudioPreAllocateUniqueIdCollisionDetectorMaps
 [C++] FFlagStudioPreloadLoginPageQImages
 [C++] FFlagStudioPrevent3DViewUndocking
+[C++] FFlagStudioQWidgetObserverSafeRelease
 [C++] FFlagStudioReapplyDockWindowGeometryWithDelayedExecution
 [C++] FFlagStudioReEnableNetworkProxy_Dev
+[C++] FFlagStudioRefactorGraphicsModes
 [C++] FFlagStudioRemoveExitAllPlaceSessionScopes
 [C++] FFlagStudioRemoveNulloptResultUsage
 [C++] FFlagStudioRenderingSettingsViewMode
@@ -8790,6 +8859,7 @@
 [C++] FFlagStudioSpecificDMTasksWithSuspendOverride
 [C++] FFlagStudioSpecificDMTasksWithSuspendOverride2
 [C++] FFlagStudioSplitRunServer
+[C++] FFlagStudioSquishDisableBetaCloudLoading
 [C++] FFlagStudioSupportCreatorHubAssetUrlPaste
 [C++] FFlagStudioSystemMenuCleanupMenuBars
 [C++] FFlagStudioTCCEnabledTooEarlyBugfix
@@ -8869,6 +8939,7 @@
 [C++] FFlagTeamCreatePresenceIndicator
 [C++] FFlagTeamCreatePresenceIndicatorRollout
 [C++] FFlagTelemetryAddFlagRolloutRefactor
+[C++] FFlagTelemetryCacheCleanupSlowStats
 [C++] FFlagTelemetryDataReArchCompressBodyData
 [C++] FFlagTelemetryDataReArchTransmission
 [C++] FFlagTelemetryDataReArchTransmission4
@@ -8888,6 +8959,7 @@
 [C++] FFlagTerrainVTEnableRelease587Fix
 [C++] FFlagTestFlexLayoutCountThreadSafeMetrics
 [C++] FFlagTestingControlsBeta
+[C++] FFlagTextBoxEmitReturn
 [C++] FFlagTextBoxUTFValidateSetText
 [C++] FFlagTextChatServiceInsertedByDefault
 [C++] FFlagTextChatServiceSettingsSaved
@@ -8916,6 +8988,7 @@
 [C++] FFlagThumbnailLoadingAnalyticsMetrics
 [C++] FFlagThumbnailSeparateAssetFetchingMetrics
 [C++] FFlagTimeAndNewJoinDataTelemetry
+[C++] FFlagTimeToSelectReportExtras
 [C++] FFlagToastNotificationsProtocolEnabled2
 [C++] FFlagToastNotificationsReceivedAndDismissedSignals
 [C++] FFlagToastNotificationsResendDisplayOnInit
@@ -8989,7 +9062,7 @@
 [Lua] FFlagUGCValidateFixTransparencyReporting
 [C++] FFlagUGCValidateFixUsingVerts
 [C++] FFlagUGCValidateFullBodyBoundsAvatarRules
-[Lua] FFlagUGCValidateImportOrigin
+[Lua] FFlagUGCValidateImportOrigin2
 [Lua] FFlagUGCValidateLCCagesQuality
 [C++] FFlagUGCValidateLCCagesVerticesSimilarity
 [C++] FFlagUGCValidateLCCagingRelevancy
@@ -9011,12 +9084,14 @@
 [Lua] FFlagUGCValidatePreciseVectorPrint
 [Lua] FFlagUGCValidateRestrictAttachmentPositions
 [C++] FFlagUGCValidateRestrictAttachmentPositions
+[C++] FFlagUGCValidateRigidNonSkinned
 [Lua] FFlagUGCValidateStraightenLimbsPose
 [Lua] FFlagUGCValidateSurfaceAppearanceAlphaMode
 [Lua] FFlagUGCValidateThumbnailConfiguration
 [Lua] FFlagUGCValidateTotalSurfaceAreaTestAccessory
 [Lua] FFlagUGCValidateTotalSurfaceAreaTestBody
 [Lua] FFlagUGCValidateTraversalOptimizations
+[Lua] FFlagUGCValidateUseAnalyticsEntryPoint
 [Lua] FFlagUGCValidateUseDataCache
 [Lua] FFlagUGCValidateUseMeshSizeProperty
 [Lua] FFlagUGCValidateUVValuesInReference
@@ -9065,7 +9140,6 @@
 [C++] FFlagUIListLayoutEnableFlex3
 [C++] FFlagUIListLayoutFixFlexCrossPadding
 [C++] FFlagUIListLayoutReplicateHorizontalVerticalPadding
-[C++] FFlagUIListLayoutShowFlexProperties
 [C++] FFlagUIListLayoutShowHorizontalVerticalPaddingProps
 [C++] FFlagUIListLayoutTrackInstanceCount
 [C++] FFlagUIListLayoutTrackInstanceCount2
@@ -9083,6 +9157,7 @@
 [C++] FFlagUISystemSupportStyling2
 [C++] FFlagUITextureRendererFixFontAtlasMipmapUpdate
 [C++] FFlagUITextureRendererUpdateRefWhenRequested
+[C++] FFlagUITextureRendererUpdateRefWhenRequested2
 [Lua] FFlagUnbindRenderSteps
 [C++] FFlagUnderlineGoToDeclaration1
 [Lua] FFlagUnibarHoldoutChatIconUseNewIconSize
@@ -9174,6 +9249,7 @@
 [C++] FFlagUserClearPanOnCameraDisable
 [C++] FFlagUserClickToMoveSupportAgentCanClimb2
 [C++] FFlagUserControlModuleEnableIdempotent
+[C++] FFlagUserCurrentCameraUpdate
 [C++] FFlagUserDynamicThumbstickMoveOverButtons
 [C++] FFlagUserDynamicThumbstickMoveOverButtons2
 [C++] FFlagUserDynamicThumbstickSafeAreaUpdate
@@ -9264,10 +9340,12 @@
 [C++] FFlagUseSizeConstraintModifier
 [C++] FFlagUseSkyReadyState
 [C++] FFlagUseSteadyClockLocalTime2
+[C++] FFlagUseSubscriptionRequest
 [C++] FFlagUseTempDirectoryForLargeSoundPlayback
 [C++] FFlagUseTempDirectoryForLargeSoundPlayback5
 [C++] FFlagUseTextToImageInitialImage2
 [C++] FFlagUseTextureCopyForLightGrid
+[C++] FFlagUseThemedClassIcons
 [C++] FFlagUseUIPaddingModifier
 [C++] FFlagUseUIRenderModifiers
 [C++] FFlagUseUIScaleModifier
@@ -9370,6 +9448,7 @@
 [C++] FFlagVideoStreamNotUseVideoService2
 [C++] FFlagVideoStudioPreviewPermissionFix
 [C++] FFlagVideoSupportFragmentedMp4
+[C++] FFlagVideoSupportFragmentedMp42
 [C++] FFlagVideoTextureYuvUseBuffer
 [C++] FFlagVideoThreadPoolUseWaitForRunningTasksShutdownPolicy
 [C++] FFlagVideoUpdateLatestFramePixelFormat
@@ -9493,7 +9572,7 @@
 [C++] FFlagVREmulationRenderView2
 [C++] FFlagVREmulatorBetaFeature
 [C++] FFlagVREmulatorFullRelease
-[C++] FFlagVREmulatorFullRelease3
+[C++] FFlagVREmulatorFullRelease4
 [C++] FFlagVRLaserPointerNotOnTop
 [Lua] FFlagVRMoveVoiceIndicatorToBottomBar
 [C++] FFlagVRServiceUpdateAtEdit
@@ -9502,6 +9581,8 @@
 [C++] FFlagWarnOnNoCoreFunction
 [C++] FFlagWASDKeyIgnore
 [Lua] FFlagWaveEmoteOnAvatarContextMenuWithExpChat
+[C++] FFlagWebBrowserNewCallbacksEnabled
+[C++] FFlagWebBrowserNewCallbacksEnabled2
 [C++] FFlagWebrtcUseProfiledAudioDecoder
 [C++] FFlagWebViewCheckPlatformAvailable
 [C++] FFlagWebViewProtocol
@@ -9525,7 +9606,6 @@
 [C++] FFlagWrapDeformerRespectsCageOrigin2
 [C++] FFlagWrapDeformerTargetModifier
 [C++] FFlagWrapDeformerTargetModifier7
-[C++] FFlagWrapDispatcherTickLimit
 [C++] FFlagWrapLayerReferenceMeshContentSupported
 [C++] FFlagWriteBodyToFile
 [C++] FFlagWriteFileMeshToChunks
@@ -9758,7 +9838,6 @@
 [C++] FIntConnectionMonitorDelayedStartupSummaryDelayMs
 [C++] FIntConnectionTelemetryPollIntervalMS
 [C++] FIntConnectivityProtocolCore
-[Lua] FIntConsolidateBubbleChatRollout4
 [Lua] FIntContactListHttpRetryCount
 [C++] FIntContentProviderPreloadHangHashRepeatCount
 [C++] FIntContentProviderRequests
@@ -9795,6 +9874,7 @@
 [C++] FIntCreateAssetasync
 [C++] FIntCreateAssetAsyncBetaFeatureRoleSet
 [C++] FIntCreateAssetAsyncBetaFeatureRolloutPercent
+[C++] FIntCreateGraphicsEngine
 [C++] FIntCreationStorageChangesSerializationEnrolledHundredthsPercent
 [C++] FIntCrossExperienceContextualizer
 [C++] FIntCrossExperienceExecutor
@@ -9872,7 +9952,6 @@
 [C++] FIntDebugRateLimitRandom
 [C++] FIntDebugSignalRHubConnectionDelayMs
 [C++] FIntDebugSignalRNotificationVerbose
-[C++] FIntDebugSimPrimalGSLumpAlpha
 [C++] FIntDebugSimPrimalMaxLambda
 [C++] FIntDebugSimPrimalMotorStiffnessBoost
 [C++] FIntDebugSimPrimalNonlinearPrint
@@ -9943,7 +10022,6 @@
 [C++] FIntEnableModerationControllerHundredthPercent
 [Lua] FIntEnableNewInviteMenuStyleRollout
 [C++] FIntEnableRealtimeProtocolRolloutV601HundredthPercent
-[C++] FIntEnableVisBugChecksHundredthPercent27
 [C++] FIntEnvMapMaxRayLength
 [C++] FIntEnvMapPercentHitThreshold
 [C++] FIntEnvMapRaycastCount
@@ -10346,6 +10424,7 @@
 [C++] FIntMeshSplitting
 [C++] FIntMessageBus
 [C++] FIntMinimumDecreasingMemoryPerRegionPercent
+[C++] FIntMininumRequiredMemoryInGB
 [C++] FIntMLChatCompleteRelatedDocTokens
 [C++] FIntMLChatCompleteRelatedDocTrailingTokens
 [C++] FIntMLChatCompleteRequestTokens
@@ -10420,7 +10499,6 @@
 [C++] FIntNetworkStepsMultipliers
 [C++] FIntNewCameraControlsBetaFeatureRoleSet
 [C++] FIntNewCameraControlsBetaFeatureRolloutPercent
-[C++] FIntNewCSGAPIRenderingFlag
 [C++] FIntNewDevConsoleMaxGraphCount
 [C++] FIntNewDevConsoleMaxHttpCount
 [C++] FIntNewDevConsoleMaxLogCount
@@ -10455,6 +10533,7 @@
 [C++] FIntOPENXRHaptics
 [C++] FIntOptimizedContactPipelineSpatialHashOverlapToleranceMicro
 [C++] FIntOptimizedContactWakeDepth
+[C++] FIntOTABackupTimerPeriod
 [C++] FIntOverrideISRReplicatorStepBandwidthBytes
 [C++] FIntPackagePropertyModDeug
 [C++] FIntPackagePublish
@@ -10606,12 +10685,24 @@
 [C++] FIntRbxStorageDBPreallocateMB
 [C++] FIntRbxStorageDeleteOldCacheMB
 [C++] FIntRbxStorageMinAvailableDiskSpaceMB
+[C++] FIntRbxStorageMinMemoryRequirementMB
 [C++] FIntRbxStorageMinOpenCount
 [C++] FIntRbxStorageRollingTelemetryThreadStackSizeBytes
 [C++] FIntRbxStorageSlowInitDelayMS
 [C++] FIntRccTemporaryAutosaveLoggingPercentage
+[Lua] FIntReactFrameCountThrottleHunderedthsPercent
 [Lua] FIntReactMicroprofilerLevel3
 [Lua] FIntReactPerfTrackerKibana
+[Lua] FIntReactPeriodStatThrottleHunderedthsPercent
+[Lua] FIntReactPeriodSummaryEventThrottleHunderedthsPercent
+[Lua] FIntReactRootPeriodStatThrottleHunderedthsPercent
+[Lua] FIntReactRootPeriodTaskStatThrottleHunderedthsPercent
+[Lua] FIntReactRootSummaryEventThrottleHunderedthsPercent
+[Lua] FIntReactRootTaskCountThrottleHunderedthsPercent
+[Lua] FIntReactRootUpdateStatThrottleHunderedthsPercent
+[Lua] FIntReactSchedulingTracker
+[Lua] FIntReactSchedulingTrackerPeriodMs
+[Lua] FIntReactSchedulingTrackerStartUpDelayMs
 [C++] FIntReadLockSpinLockBudgetUSec
 [C++] FIntRealTimeAnimationQueueProcessorStackSize
 [C++] FIntRealTimeAnimationVideoInputQueueProcessorStackSize
@@ -10757,6 +10848,8 @@
 [C++] FIntScriptProfilerMaxFrequency
 [C++] FIntScriptSyncM2_5BetaFeatureRoleSet
 [C++] FIntScriptSyncM2_5BetaFeatureRolloutPercent
+[C++] FIntScrollEventOverhaulBetaFeatureRoleSet
+[C++] FIntScrollEventOverhaulBetaFeatureRolloutPercent
 [C++] FIntScrollWheelDeltaAmount
 [C++] FIntScrollWheelStartOfScrollMilliseconds
 [Lua] FIntSeamlessVoiceSTUXDisplayCount
@@ -10927,6 +11020,8 @@
 [C++] FIntStudioLoginAccessTokenRefreshTimeoutMs
 [C++] FIntStudioLoginEndSuccessThresholdMB
 [C++] FIntStudioLowMemoryThresholdMB
+[C++] FIntStudioMacWheelXGainThousandths
+[C++] FIntStudioMacWheelYGainThousandths
 [C++] FIntStudioMain
 [C++] FIntStudioMainWindowLowMemoryThresholdMB
 [C++] FIntStudioMaxDockCount
@@ -11082,6 +11177,8 @@
 [C++] FIntStudioThumbnailImageRetryInterval
 [C++] FIntStudioThumbnailImageRetryMaximum
 [C++] FIntStudioTimingLog
+[C++] FIntStudioTrackpadXGainThousandths
+[C++] FIntStudioTrackpadYGainThousandths
 [C++] FIntStudioTranslator
 [C++] FIntStudioTreeWidgetEventProcessingTime
 [C++] FIntStudioTreeWidgetFilterTime
@@ -11244,6 +11341,7 @@
 [C++] FIntUGCValidateArmZMinNormal
 [Lua] FIntUGCValidateArmZMinSlender
 [C++] FIntUGCValidateArmZMinSlender
+[Lua] FIntUGCValidateBodyImportOriginMax
 [Lua] FIntUGCValidateBodyPartMaxCageOrigin
 [Lua] FIntUGCValidateCageDuplicateUVThreshold
 [Lua] FIntUGCValidateCageMeshDistanceThreshold
@@ -11640,7 +11738,6 @@
 [C++] FIntWorldStepsBehindG
 [C++] FIntWrapDeformerLog
 [C++] FIntWrapDispatcherMaxStateChangesPerHB
-[C++] FIntWrapDispatcherTickLimitUs
 [C++] FIntWrapLogChannel
 [C++] FIntWrapPuffinessDefaultPercent
 [C++] FIntWriteLockSpinLockBudgetUSec
@@ -11838,6 +11935,7 @@
 [C++] FLogGraphicsGLShlangExcludeListHQShaders
 [C++] FLogGraphicsGLShlangExcludeListSuperHQShaders
 [C++] FLogGraphicsGLSyncWorkaroundForVendorGPUDriver
+[C++] FLogGraphicsLazyShaderLoadingForVendorGPUDriver
 [C++] FLogGraphicsVulkanAdrenoFutureDeviceBlacklist
 [C++] FLogGraphicsVulkanAdrenoFutureDriverBlacklist
 [C++] FLogGraphicsVulkanAdrenoMTBlacklist
@@ -11973,6 +12071,7 @@
 [C++] FLogSaveOptimizationDocsLinkString
 [C++] FLogScriptIterationDiffExperimentLayer
 [C++] FLogScriptSyncM2_5BetaFeatureUrl
+[C++] FLogScrollEventOverhaulBetaFeatureUrl
 [C++] FLogServerConfigAbuseReportUrl
 [C++] FLogServerConfigChatFilterUrl
 [C++] FLogSessionEventDebugVersion
@@ -11998,6 +12097,8 @@
 [C++] FLogStudioIncrementalAutocompleteBetaFeatureUrl
 [C++] FLogStudioInsertCheckTimeSeconds
 [C++] FLogStudioLuauLints
+[C++] FLogStudioMinSpecCreatorHubLink
+[C++] FLogStudioMinSpecLearnMoreLink
 [C++] FLogStudioPackagesDynamicIgnoreList
 [C++] FLogStudioPlaceVersionHistoryHelpLink
 [C++] FLogStudioPlayModeAllowedBuiltins
@@ -12227,6 +12328,8 @@
 [C++] FStringFmodUseVoiceDriverIxpLayerParam
 [C++] FStringForceSyncLuaAppDestroyIxpLayerName
 [C++] FStringForceSyncLuaAppDestroyIxpVariableName
+[Lua] FStringFriendshipNotifsUseSendrLayerName
+[Lua] FStringFriendshipNotifsUseSendrLayerValue
 [C++] FStringFriendsOnlineUrl
 [C++] FStringFRMAutoManualExperimentDevicesParam
 [C++] FStringFRMAutoManualExperimentMaxQualityLevelParam
@@ -12254,6 +12357,7 @@
 [C++] FStringGraphicsGLShlangExcludeListHQShaders
 [C++] FStringGraphicsGLShlangExcludeListSuperHQShaders
 [C++] FStringGraphicsGLSyncWorkaroundForVendorGPUDriver
+[C++] FStringGraphicsLazyShaderLoadingForVendorGPUDriver
 [C++] FStringGraphicsVulkanAdrenoFutureDeviceBlacklist
 [C++] FStringGraphicsVulkanAdrenoFutureDriverBlacklist
 [C++] FStringGraphicsVulkanAdrenoMTBlacklist
@@ -12412,6 +12516,7 @@
 [C++] FStringSaveOptimizationDocsLinkString
 [C++] FStringScriptIterationDiffExperimentLayer
 [C++] FStringScriptSyncM2_5BetaFeatureUrl
+[C++] FStringScrollEventOverhaulBetaFeatureUrl
 [Lua] FStringSelectInSceneIXPField
 [Lua] FStringSelectInSceneReportMenuOverrideUserIds
 [C++] FStringServerConfigAbuseReportUrl
@@ -12445,6 +12550,8 @@
 [C++] FStringStudioIncrementalAutocompleteBetaFeatureUrl
 [C++] FStringStudioInsertCheckTimeSeconds
 [C++] FStringStudioLuauLints
+[C++] FStringStudioMinSpecCreatorHubLink
+[C++] FStringStudioMinSpecLearnMoreLink
 [C++] FStringStudioPackagesDynamicIgnoreList
 [C++] FStringStudioPlaceVersionHistoryHelpLink
 [C++] FStringStudioPlayModeAllowedBuiltins
@@ -12926,8 +13033,6 @@
 [C++] SFFlagCheckSubscriptionStatusRetryCount
 [C++] SFFlagChromeBetaFeatureRoleSet
 [C++] SFFlagChromeBetaFeatureRolloutPercent
-[C++] SFFlagCLI102833TelemFailureReportsPerMillion
-[C++] SFFlagCLI102833TelemSuccessReportsPerMillion
 [C++] SFFlagCLI119458HundredthsPercentage
 [C++] SFFlagCLI20390_2
 [C++] SFFlagCLI46794InputTelemetryIntervalSeconds
@@ -13300,7 +13405,6 @@
 [C++] SFFlagDebugSignalRHubConnectionDelayMs
 [C++] SFFlagDebugSimPhysicsSteppingMethodOverride
 [C++] SFFlagDebugSimPrimalDualIts
-[C++] SFFlagDebugSimPrimalGSLumpAlpha
 [C++] SFFlagDebugSimPrimalIterationIncrement
 [C++] SFFlagDebugSimPrimalLineSearch
 [C++] SFFlagDebugSimPrimalMaxLambda
@@ -13489,7 +13593,6 @@
 [C++] SFFlagEnableModerationControllerHundredthPercent
 [C++] SFFlagEnableRealtimeProtocolRolloutV601HundredthPercent
 [C++] SFFlagEnableReflectionCrashFixLoggingPercent
-[C++] SFFlagEnableVisBugChecksHundredthPercent
 [C++] SFFlagEngineAPICloudProcessingDelayedPollingFrequencyInSeconds
 [C++] SFFlagEngineAPICloudProcessingMaxPayloadSize
 [C++] SFFlagEngineAPICloudProcessingQuickPollingFrequencyInSeconds
@@ -14417,6 +14520,7 @@
 [C++] SFFlagMinimumPollingInterval
 [C++] SFFlagMinimumRadiusCoefficientForPauseHundredths
 [C++] SFFlagMinimumTerrainStreamingRadiusRegions
+[C++] SFFlagMininumRequiredMemoryInGB
 [C++] SFFlagMinOccludableVolumeThousandths
 [C++] SFFlagMinRadiusMinQuota
 [C++] SFFlagMinRbxcdnAuthTokenLifeSec
@@ -14560,7 +14664,6 @@
 [C++] SFFlagNewCameraControls_TelemetryPerFrameThrottle
 [C++] SFFlagNewCameraControlsBetaFeatureRoleSet
 [C++] SFFlagNewCameraControlsBetaFeatureRolloutPercent
-[C++] SFFlagNewCSGAPIRenderingFlag
 [C++] SFFlagNewCSGAPISessionStatsHundredthsPercentage
 [C++] SFFlagNewDevConsoleMaxGraphCount
 [C++] SFFlagNewDevConsoleMaxHttpCount
@@ -14568,7 +14671,6 @@
 [C++] SFFlagNewPDAltitudeNoForceZonePercent
 [C++] SFFlagNewPDAltitudeWeakPushFinalDepressPercent
 [C++] SFFlagNewPDSteepSlopeSlidingWithGravityPercent
-[C++] SFFlagNewRunningBaseGravityReductionFactorHundredth
 [C++] SFFlagNewSettingsEndpointExceptionInfluxPermyriad
 [C++] SFFlagNewVRSystemHandPitch
 [C++] SFFlagNextGenStudioBetaFeatureRoleSet
@@ -14646,6 +14748,7 @@
 [C++] SFFlagOperationStatusPollingPeriodInSeconds
 [C++] SFFlagOptimizedContactPipelineSpatialHashOverlapToleranceMicro
 [C++] SFFlagOptimizedContactWakeDepth
+[C++] SFFlagOTABackupTimerPeriod
 [C++] SFFlagOverlapParamsMaxMarginCents
 [C++] SFFlagOverrideISRReplicatorStepBandwidthBytes
 [C++] SFFlagPacakgeServiceReportFailedRequestsRate
@@ -14823,6 +14926,7 @@
 [C++] SFFlagPlaceUploadFailureStatusBarDurationMs
 [C++] SFFlagPlayerConfigurerCDNProbeDelayMs
 [C++] SFFlagPlayerConfigurerLMSTestDelayMs
+[C++] SFFlagPlayerDataMaxRecordConfigCount
 [C++] SFFlagPlayerHumanoidTypeAnalyticsReportPercent
 [C++] SFFlagPlayerHydrationServiceApiTimeoutMilliseconds
 [C++] SFFlagPlayerHydrationServiceBlobMaximumLength
@@ -14995,6 +15099,7 @@
 [C++] SFFlagRbxStorageMigrationSizeThresholdForAssetDeliveryResponseBytes
 [C++] SFFlagRbxStorageMinAvailableDiskSpaceMB
 [C++] SFFlagRbxStorageMinimumCleanupChunkMB
+[C++] SFFlagRbxStorageMinMemoryRequirementMB
 [C++] SFFlagRbxStorageMinOpenCount
 [C++] SFFlagRbxStoragePeriodicCleanupIntervalSec
 [C++] SFFlagRbxStorageRollingStatsHundredthsPercent
@@ -15216,6 +15321,7 @@
 [C++] SFFlagReportLatencyStatsHundredthsPercentage
 [C++] SFFlagReportLodDataStatsHundredthsPercentage
 [C++] SFFlagReportLodOscillationHundredthsPercentage
+[C++] SFFlagReportLogDirSizeHundredthsPercent
 [C++] SFFlagReportLongRunningScriptsThresholdMsec
 [C++] SFFlagReportLuaScriptHangTimeoutSendReport
 [C++] SFFlagReportLuaScriptHangTimeoutStartSampling
@@ -15295,6 +15401,7 @@
 [C++] SFFlagReportVirtualCursorModeThrottleHundrethsPercent2
 [C++] SFFlagReportVREnabledEventThrottleHundrethsPercent3
 [C++] SFFlagReportVRRefreshRateChangeBelowLowerBoundThrottleHundrethsPercent
+[C++] SFFlagRequestApiServiceNotFoundEventThrottleHundredthPercent
 [C++] SFFlagRequireByStringUseEventHundredthsPercent
 [C++] SFFlagRequiredMemoryInMebibytesForDeviceCapture
 [C++] SFFlagRequiredScriptsChatBotFiles
@@ -15307,6 +15414,8 @@
 [C++] SFFlagRetryBaseTimeMSec
 [C++] SFFlagRetryCountOnPlaceLauncherTimeout
 [C++] SFFlagRetryCountOnPlaceLauncherTimeoutV2
+[C++] SFFlagReverbCameraPushForwardStudsHundredths
+[C++] SFFlagRewardedAdsLogCount
 [C++] SFFlagRewardedVideoAvailabilityErrorEventThrottleHundrethsPercent
 [C++] SFFlagRewardedVideoAvailabilityResultEventThrottleHundrethsPercent
 [C++] SFFlagRingingTimerInterval
@@ -15324,6 +15433,8 @@
 [C++] SFFlagRobloxTelemetryCreationDBInstanceStats
 [C++] SFFlagRobloxTelemetryCreationDBPropChangesDetail
 [C++] SFFlagRobloxTelemetryExampleEventThrottleHundredthsPercent
+[C++] SFFlagRobloxTelemetryLogDirSizeEventThrottleHundredthsPercent
+[C++] SFFlagRobloxTelemetryLogDirSizeStatThrottleHundredthsPercent
 [C++] SFFlagRobloxTelemetryMarketplaceDeprecatedSubscriptionFuncUseThrottleHundredthsPercent
 [C++] SFFlagRobloxTelemetryPacketMissFrameWindowMetricsThrottleHundredthsPercent
 [C++] SFFlagRobloxTelemetryPointV2ProdTrafficPercent
@@ -15340,6 +15451,7 @@
 [C++] SFFlagRobloxTelemetryThrottlingTimeToServeMeshes
 [C++] SFFlagRobloxTelemetryThrottlingTimeToTrackMeshSizeBuckets
 [C++] SFFlagRobloxTelemetryThrottlingTTMQMilestone0Mesh
+[C++] SFFlagRobloxTelemetryTryCutAndSendSignalTimerIntervalMs
 [C++] SFFlagRobloxTelemetryUint64addFieldWorkaound
 [C++] SFFlagRobloxTelemetryV2PointAdatpterTrafficPercent
 [C++] SFFlagRolloutEnrollmentExpirationMinutes
@@ -15404,6 +15516,8 @@
 [C++] SFFlagScriptSyncM2_5BetaFeatureRolloutPercent
 [C++] SFFlagScriptTypingLatencyWithMulticursorEventThrottleHundrethsPercent
 [C++] SFFlagScriptVersionHistoryEventThrottleHundredthPercent
+[C++] SFFlagScrollEventOverhaulBetaFeatureRoleSet
+[C++] SFFlagScrollEventOverhaulBetaFeatureRolloutPercent
 [C++] SFFlagScrollWheelDeltaAmount
 [C++] SFFlagScrollWheelStartOfScrollMilliseconds
 [C++] SFFlagSDLGameControllerAxisDriftDeadZoneHundredth
@@ -15595,7 +15709,9 @@
 [C++] SFFlagSimSlidingVelocitySleepThreshold
 [C++] SFFlagSimSolverBatchBufferMaxAge
 [C++] SFFlagSimSolverFixCircularRead
-[C++] SFFlagSimSolverImprovedSleepCriteriaH
+[C++] SFFlagSimSolverImprovedPartialSleepAngularWeight
+[C++] SFFlagSimSolverImprovedPartialSleepLinearWidth
+[C++] SFFlagSimSolverImprovedPartialSleepTolerance
 [C++] SFFlagSimSolverLargeIslandCountMax
 [C++] SFFlagSimSolverLargeIslandCountThreshold
 [C++] SFFlagSimSolverLargeWorkloadThreshold
@@ -15604,6 +15720,8 @@
 [C++] SFFlagSimSolverNumTasksForLargeIslandCount
 [C++] SFFlagSimSolverResponsiveness
 [C++] SFFlagSimSolverStatisticsHundrethsPercentage
+[C++] SFFlagSimSolverWakeDisplacementMultiplier
+[C++] SFFlagSimSolverWakeDisplacementScalingNoContacts
 [C++] SFFlagSimStepPhysicsStatsHundredthsPercentage
 [C++] SFFlagSimTelemetrizeSporadicFluidUsageHundredthsPercentage
 [C++] SFFlagSimTimestepMultiplierDebounceCount
@@ -15789,6 +15907,8 @@
 [C++] SFFlagStudioLoginAccessTokenRefreshTimeoutMs
 [C++] SFFlagStudioLoginEndSuccessThresholdMB
 [C++] SFFlagStudioLowMemoryThresholdMB
+[C++] SFFlagStudioMacWheelXGainThousandths
+[C++] SFFlagStudioMacWheelYGainThousandths
 [C++] SFFlagStudioMainWindowLowMemoryThresholdMB
 [C++] SFFlagStudioMaxDockCount
 [C++] SFFlagStudioMaxOutputRecentRowCount
@@ -15876,6 +15996,8 @@
 [C++] SFFlagStudioTeamCreateRCCPingCount
 [C++] SFFlagStudioThumbnailImageRetryInterval
 [C++] SFFlagStudioThumbnailImageRetryMaximum
+[C++] SFFlagStudioTrackpadXGainThousandths
+[C++] SFFlagStudioTrackpadYGainThousandths
 [C++] SFFlagStudioTreeWidgetEventProcessingTime
 [C++] SFFlagStudioTreeWidgetFilterTime
 [C++] SFFlagStudioTreeWidgetProcessingTime
@@ -15959,8 +16081,6 @@
 [C++] SFFlagTeamCreateAutoRecoveryDirectoryPlaceFileCountLimit
 [C++] SFFlagTeamCreateJoinServerFailureThrottleHundrethsPercent
 [C++] SFFlagTeamCreateJoinSuccessLoggingPerMyriad
-[C++] SFFlagTeamCreateNewPlaceUploadPublishRolloutHundredthPercent
-[C++] SFFlagTeamCreateNewPlaceUploadSaveRolloutHundredthPercent
 [C++] SFFlagTeamCreatePlaceUploadRetryCount
 [C++] SFFlagTeamCreatePlaceUploadSendCompressedRollout2HundredthPercent
 [C++] SFFlagTeamCreatePresenceIndicatorRolloutHundredthPercent
@@ -16147,6 +16267,7 @@
 [C++] SFFlagTrackPlayerTextScrapingCheckTimerSec
 [C++] SFFlagTrackPlayerTextScrapingMaxQueueSize
 [C++] SFFlagTrackServerPhysicsPerfSessionNMinutes
+[C++] SFFlagTranscoderMipTailByteSize
 [C++] SFFlagTranslationLocaleIdParseErrorThrottleHundrethsPercentage
 [C++] SFFlagTreeDiffModCheckShadowReportingRate
 [C++] SFFlagTreeDiffWorldCFrameEpsilonMultiplier
@@ -16565,7 +16686,6 @@
 [C++] SFFlagWorldStepsOffsetAdjustRate
 [C++] SFFlagWrapDeformerPublishLoggingHundredthsPercentage
 [C++] SFFlagWrapDispatcherMaxStateChangesPerHB
-[C++] SFFlagWrapDispatcherTickLimitUs
 [C++] SFFlagWrapPuffinessDefaultPercent
 [C++] SFFlagWriteLockSpinLockBudgetUSec
 [C++] SFFlagWriteOnlyBufferSizeThresholdKiB

@@ -3163,6 +3163,35 @@
       </Item>
     </Item>
 
+    <!-- Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioTextToSpeech</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PlaybackSpeed</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Volume</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">3</double>
+            <double name="UINumTicks">100</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item -->
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">EchoSoundEffect</string>
@@ -3578,7 +3607,6 @@
           <Properties>
             <string name="Name">VolumetricAudio</string>
             <bool name="FFlag">AudioToggleVolumetricPanning</bool>
-
           </Properties>
         </Item>
       </Item>
@@ -7500,7 +7528,6 @@
         <string name="ExplorerOrder">130</string>
         <string name="ExplorerImageIndex">26</string>
         <string name="PreferredParent">GuiObject</string>
-        <string name="FFlag">UIListLayoutShowFlexProperties</string>
       </Properties>
     </Item>
 

@@ -90,3 +90,6 @@ Studio.Common.Action.Value,,Value,Value
 Studio.Common.Action.Warning,,Warning,Warning
 Studio.Common.Action.Width,,Width,Width
 Studio.Common.Action.Yes,,Yes,Yes
+Studio.Common.Input.NumberErrorAbove,Used in inputs across Studio to enforce numbers in a range,Please enter a number that is at least {minRange:int}.,Please enter a number that is at least {minRange:int}.
+Studio.Common.Input.NumberErrorBelow,Used in inputs across Studio to enforce numbers in a range,Please enter a number up to {maxRange:int}.,Please enter a number up to {maxRange:int}.
+Studio.Common.Input.NumberErrorBetween,Used with inputs across Studio to enforce numbers in a range,Please enter a number between {minRange:int} and {maxRange:int}.,Please enter a number between {minRange:int} and {maxRange:int}.

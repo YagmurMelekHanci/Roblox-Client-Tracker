@@ -3,6 +3,8 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 	Function Object:GetPropertyChangedSignal(property: string) -> RBXScriptSignal
 	Function Object:IsA(className: string) -> boolean [CustomLuaState] {🧬Safe}
 	Event Object.Changed(property: string)
+Class Capture : Object [NotCreatable] [NotReplicated]
+Class ScreenshotCapture : Capture [NotCreatable] [NotReplicated]
 Class EditableImage : Object [NotCreatable]
 	Property EditableImage.ImageData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property EditableImage.IsReplicatedCopy: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
@@ -314,15 +316,18 @@ Class Animator : Instance
 Class Annotation : Instance
 	Property Annotation.AuthorColor3: Color3 {RobloxScriptSecurity} [Hidden]
 	Property Annotation.AuthorId: number {RobloxScriptSecurity} [Hidden]
+	Property Annotation.ChannelId: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Annotation.Contents: string {RobloxScriptSecurity} [Hidden]
 	Property Annotation.CreationTimeUnix: number {RobloxScriptSecurity} [Hidden]
 	Property Annotation.LastModifiedTimeUnix: number {RobloxScriptSecurity} [Hidden]
 	Property Annotation.LoadingReplies: boolean {RobloxScriptSecurity} [Hidden]
+	Property Annotation.MessageId: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Annotation.ReplyCount: number {RobloxScriptSecurity} [Hidden]
 	Property Annotation.Resolved: boolean {RobloxScriptSecurity} [Hidden]
 	Property Annotation.TaggedUsers: string {RobloxScriptSecurity} [Hidden]
 	Function Annotation:GetRequests() -> { [string]: any } {RobloxScriptSecurity}
 	Function Annotation:GetStringUniqueId() -> string {RobloxScriptSecurity}
+	Function Annotation:IsThreadParent() -> boolean {RobloxScriptSecurity}
 	Event Annotation.RequestCompleted(requestId: string, requestType: Enum.AnnotationRequestType, result: Enum.AnnotationRequestResult) {RobloxScriptSecurity}
 	Event Annotation.RequestInitiated(requestId: string, requestType: Enum.AnnotationRequestType) {RobloxScriptSecurity}
 Class WorkspaceAnnotation : Annotation
@@ -343,7 +348,7 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:LoadResolvedAnnotations(count: number) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:ResolveAnnotation(annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
-	Event AnnotationsService.AnnotationAdded(requestId: string, annotation: Annotation, parentId: string) {RobloxScriptSecurity}
+	Event AnnotationsService.AnnotationAdded(requestId: string, annotation: Annotation, channelId: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationDeleted(requestId: string, annotation: Annotation) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationEdited(requestId: string, uniqueId: string, contents: string, taggedUsers: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationResolved(requestId: string, annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
@@ -353,6 +358,7 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppLifecycleObserverService:GetCurrentState() -> Enum.AppLifecycleManagerState {RobloxScriptSecurity}
 	Function AppLifecycleObserverService:IsDidDetachSupported() -> boolean {RobloxScriptSecurity}
+	Function AppLifecycleObserverService:TriggerOnLandingPageMount() -> () {RobloxScriptSecurity}
 	Function AppLifecycleObserverService:TriggerOnLuaAppInteractive() -> () {RobloxScriptSecurity}
 	Event AppLifecycleObserverService.OnBecomeActive() {RobloxScriptSecurity}
 	Event AppLifecycleObserverService.OnDetach() {RobloxScriptSecurity}
@@ -500,10 +506,14 @@ Class AudioAnalyzer : Instance
 Class AudioChannelMixer : Instance [NotBrowsable]
 	Property AudioChannelMixer.Layout: Enum.AudioChannelLayout
 	Function AudioChannelMixer:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioChannelMixer:GetInputPins() -> { any }
+	Function AudioChannelMixer:GetOutputPins() -> { any }
 	Event AudioChannelMixer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioChannelSplitter : Instance [NotBrowsable]
 	Property AudioChannelSplitter.Layout: Enum.AudioChannelLayout
 	Function AudioChannelSplitter:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioChannelSplitter:GetInputPins() -> { any }
+	Function AudioChannelSplitter:GetOutputPins() -> { any }
 	Event AudioChannelSplitter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioChorus : Instance
 	Property AudioChorus.Bypass: boolean
@@ -714,6 +724,7 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.SearchKeyword: string
 	Property AudioSearchParams.Tag: string
 	Property AudioSearchParams.Title: string
+Class AudioTextToSpeech : Instance
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Property AuroraScriptService.BufferSize: number {✏️PluginSecurity} [Deprecated]
 	Property AuroraScriptService.LocalFrameId: number {✏️RobloxSecurity} [NotReplicated] [Deprecated]
@@ -738,7 +749,7 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraService:UpdateProperties(target: Instance) -> () [Deprecated]
 	Event AuroraService.Desynced(target: Instance) [Deprecated]
 	Event AuroraService.FixedRateTick(deltaTime: number, worldStepId: number) [Deprecated]
-	Event AuroraService.Rollback() [Deprecated]
+	Event AuroraService.Rollback(worldStepId: number) [Deprecated]
 	Event AuroraService.Step() [Deprecated]
 	Event AuroraService.Synced(target: Instance) [Deprecated]
 Class AvatarChatService : Instance [NotCreatable] [Service]
@@ -1183,28 +1194,29 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:CreatePostAsync(pathArr: { any }, caption: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:DeleteCapturesAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
-	Function CaptureService:GetCaptureFilePathAsync(captureContentId: string) -> string {RobloxScriptSecurity} [Yields]
-	Function CaptureService:GetCaptureSizeAsync(captureContentId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
+	Function CaptureService:GetCaptureFilePathAsync(captureContent: Content) -> string {RobloxScriptSecurity} [Yields]
+	Function CaptureService:GetCaptureSizeAsync(captureContent: Content) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureUploadDataAsync(capturePath: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureShared(capturePath: string) -> () {RobloxScriptSecurity}
-	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity}
+	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity} [CustomLuaState]
 	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {RobloxScriptSecurity}
-	Function CaptureService:PromptSaveCapturesToGallery(contentIds: { any }, resultCallback: (...any) -> ...any) -> ()
-	Function CaptureService:PromptShareCapture(contentId: string, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
+	Function CaptureService:PromptSaveCapturesToGallery(captures: { any }, resultCallback: (...any) -> ...any) -> ()
+	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
 	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:SaveCapturesToExternalStorageAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:SaveScreenshotCapture(additionalInfo: string? = "") -> () {RobloxScriptSecurity}
+	Function CaptureService:TakeCapture(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> ()
 	Event CaptureService.CaptureBegan()
 	Event CaptureService.CaptureEnded()
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) [Deprecated]
 	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {RobloxScriptSecurity}
 	Event CaptureService.OnCaptureSignatureResult(content: string, signature: string, signatureVersion: number) {RobloxSecurity} [Hidden]
-	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, contentIds: { any }) {RobloxScriptSecurity}
-	Event CaptureService.OpenShareCapturePrompt(promptId: number, contentId: string, launchData: string) {RobloxScriptSecurity}
+	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, captures: { any }) {RobloxScriptSecurity}
+	Event CaptureService.OpenShareCapturePrompt(promptId: number, captureContent: any, launchData: string) {RobloxScriptSecurity}
 	Event CaptureService.RequestCaptureSignature(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
@@ -2216,6 +2228,7 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GamepadService.GamepadThumbstick1Changed(event: Vector2) {RobloxScriptSecurity}
 Class GenerationService : Instance [NotCreatable] [Service]
 	Function GenerationService:GenerateMeshAsync(inputs: { [string]: any }, player: Player, options: { [string]: any }, intermediateResultCallback: ((...any) -> ...any)?) -> ...any [Yields]
+	Function GenerationService:InternalGenerateMeshAsync(inputs: { [string]: any }, userId: number, options: { [string]: any }, intermediateResultCallback: ((...any) -> ...any)?) -> ...any {RobloxScriptSecurity} [Yields]
 	Function GenerationService:LoadGeneratedMeshAsync(generationId: string) -> MeshPart [Yields]
 	Event GenerationService.ReplicateGeneration(id: string, success: boolean, serializedModel: string) {RobloxSecurity} [Hidden]
 	Event GenerationService.RequestGenerationReplication(id: string) {RobloxSecurity} [Hidden]
@@ -2497,6 +2510,7 @@ Class TextBox : GuiObject
 	Property TextBox.OverlayNativeInput: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.ReturnKeyType: Enum.ReturnKeyType {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.SelectionStart: number
+	Property TextBox.ShouldEmitReturnEvents: boolean {RobloxScriptSecurity}
 	Property TextBox.ShouldEmitUpAndDownArrowEvents: boolean {RobloxScriptSecurity}
 	Property TextBox.ShowNativeInput: boolean
 	Property TextBox.TextEditable: boolean
@@ -3128,6 +3142,121 @@ Class HumanoidDescription : Instance
 	Function HumanoidDescription:SetEquippedEmotes(equippedEmotes: { any }) -> ()
 	Event HumanoidDescription.EmotesChanged(newEmotes: { [string]: any })
 	Event HumanoidDescription.EquippedEmotesChanged(newEquippedEmotes: { any })
+Class HumanoidRigDescription : Instance
+	Property HumanoidRigDescription.Chest: Instance?
+	Property HumanoidRigDescription.Head: Instance?
+	Property HumanoidRigDescription.LeftAnkle: Instance?
+	Property HumanoidRigDescription.LeftClavicle: Instance?
+	Property HumanoidRigDescription.LeftElbow: Instance?
+	Property HumanoidRigDescription.LeftHip: Instance?
+	Property HumanoidRigDescription.LeftKnee: Instance?
+	Property HumanoidRigDescription.LeftShoulder: Instance?
+	Property HumanoidRigDescription.LeftToes: Instance?
+	Property HumanoidRigDescription.LeftWrist: Instance?
+	Property HumanoidRigDescription.Neck: Instance?
+	Property HumanoidRigDescription.Pelvis: Instance?
+	Property HumanoidRigDescription.RightAnkle: Instance?
+	Property HumanoidRigDescription.RightClavicle: Instance?
+	Property HumanoidRigDescription.RightElbow: Instance?
+	Property HumanoidRigDescription.RightHip: Instance?
+	Property HumanoidRigDescription.RightKnee: Instance?
+	Property HumanoidRigDescription.RightShoulder: Instance?
+	Property HumanoidRigDescription.RightToes: Instance?
+	Property HumanoidRigDescription.RightWrist: Instance?
+	Property HumanoidRigDescription.Root: Instance?
+	Property HumanoidRigDescription.Waist: Instance?
+	Property HumanoidRigDescription.ChestRangeMax: Vector3
+	Property HumanoidRigDescription.ChestRangeMin: Vector3
+	Property HumanoidRigDescription.HeadRangeMax: Vector3
+	Property HumanoidRigDescription.HeadRangeMin: Vector3
+	Property HumanoidRigDescription.LeftAnkleRangeMax: Vector3
+	Property HumanoidRigDescription.LeftAnkleRangeMin: Vector3
+	Property HumanoidRigDescription.LeftClavicleRangeMax: Vector3
+	Property HumanoidRigDescription.LeftClavicleRangeMin: Vector3
+	Property HumanoidRigDescription.LeftElbowRangeMax: Vector3
+	Property HumanoidRigDescription.LeftElbowRangeMin: Vector3
+	Property HumanoidRigDescription.LeftHipRangeMax: Vector3
+	Property HumanoidRigDescription.LeftHipRangeMin: Vector3
+	Property HumanoidRigDescription.LeftKneeRangeMax: Vector3
+	Property HumanoidRigDescription.LeftKneeRangeMin: Vector3
+	Property HumanoidRigDescription.LeftShoulderRangeMax: Vector3
+	Property HumanoidRigDescription.LeftShoulderRangeMin: Vector3
+	Property HumanoidRigDescription.LeftToesRangeMax: Vector3
+	Property HumanoidRigDescription.LeftToesRangeMin: Vector3
+	Property HumanoidRigDescription.LeftWristRangeMax: Vector3
+	Property HumanoidRigDescription.LeftWristRangeMin: Vector3
+	Property HumanoidRigDescription.NeckRangeMax: Vector3
+	Property HumanoidRigDescription.NeckRangeMin: Vector3
+	Property HumanoidRigDescription.PelvisRangeMax: Vector3
+	Property HumanoidRigDescription.PelvisRangeMin: Vector3
+	Property HumanoidRigDescription.RightAnkleRangeMax: Vector3
+	Property HumanoidRigDescription.RightAnkleRangeMin: Vector3
+	Property HumanoidRigDescription.RightClavicleRangeMax: Vector3
+	Property HumanoidRigDescription.RightClavicleRangeMin: Vector3
+	Property HumanoidRigDescription.RightElbowRangeMax: Vector3
+	Property HumanoidRigDescription.RightElbowRangeMin: Vector3
+	Property HumanoidRigDescription.RightHipRangeMax: Vector3
+	Property HumanoidRigDescription.RightHipRangeMin: Vector3
+	Property HumanoidRigDescription.RightKneeRangeMax: Vector3
+	Property HumanoidRigDescription.RightKneeRangeMin: Vector3
+	Property HumanoidRigDescription.RightShoulderRangeMax: Vector3
+	Property HumanoidRigDescription.RightShoulderRangeMin: Vector3
+	Property HumanoidRigDescription.RightToesRangeMax: Vector3
+	Property HumanoidRigDescription.RightToesRangeMin: Vector3
+	Property HumanoidRigDescription.RightWristRangeMax: Vector3
+	Property HumanoidRigDescription.RightWristRangeMin: Vector3
+	Property HumanoidRigDescription.RootRangeMax: Vector3
+	Property HumanoidRigDescription.RootRangeMin: Vector3
+	Property HumanoidRigDescription.WaistRangeMax: Vector3
+	Property HumanoidRigDescription.WaistRangeMin: Vector3
+	Property HumanoidRigDescription.ChestSize: number
+	Property HumanoidRigDescription.HeadSize: number
+	Property HumanoidRigDescription.LeftAnkleSize: number
+	Property HumanoidRigDescription.LeftClavicleSize: number
+	Property HumanoidRigDescription.LeftElbowSize: number
+	Property HumanoidRigDescription.LeftHipSize: number
+	Property HumanoidRigDescription.LeftKneeSize: number
+	Property HumanoidRigDescription.LeftShoulderSize: number
+	Property HumanoidRigDescription.LeftToesSize: number
+	Property HumanoidRigDescription.LeftWristSize: number
+	Property HumanoidRigDescription.NeckSize: number
+	Property HumanoidRigDescription.PelvisSize: number
+	Property HumanoidRigDescription.RightAnkleSize: number
+	Property HumanoidRigDescription.RightClavicleSize: number
+	Property HumanoidRigDescription.RightElbowSize: number
+	Property HumanoidRigDescription.RightHipSize: number
+	Property HumanoidRigDescription.RightKneeSize: number
+	Property HumanoidRigDescription.RightShoulderSize: number
+	Property HumanoidRigDescription.RightToesSize: number
+	Property HumanoidRigDescription.RightWristSize: number
+	Property HumanoidRigDescription.RootSize: number
+	Property HumanoidRigDescription.WaistSize: number
+	Property HumanoidRigDescription.ChestTposeAdjustment: CFrame
+	Property HumanoidRigDescription.HeadTposeAdjustment: CFrame
+	Property HumanoidRigDescription.LeftAnkleTposeAdjustment: CFrame
+	Property HumanoidRigDescription.LeftClavicleTposeAdjustment: CFrame
+	Property HumanoidRigDescription.LeftElbowTposeAdjustment: CFrame
+	Property HumanoidRigDescription.LeftHipTposeAdjustment: CFrame
+	Property HumanoidRigDescription.LeftKneeTposeAdjustment: CFrame
+	Property HumanoidRigDescription.LeftShoulderTposeAdjustment: CFrame
+	Property HumanoidRigDescription.LeftToesTposeAdjustment: CFrame
+	Property HumanoidRigDescription.LeftWristTposeAdjustment: CFrame
+	Property HumanoidRigDescription.NeckTposeAdjustment: CFrame
+	Property HumanoidRigDescription.PelvisTposeAdjustment: CFrame
+	Property HumanoidRigDescription.RightAnkleTposeAdjustment: CFrame
+	Property HumanoidRigDescription.RightClavicleTposeAdjustment: CFrame
+	Property HumanoidRigDescription.RightElbowTposeAdjustment: CFrame
+	Property HumanoidRigDescription.RightHipTposeAdjustment: CFrame
+	Property HumanoidRigDescription.RightKneeTposeAdjustment: CFrame
+	Property HumanoidRigDescription.RightShoulderTposeAdjustment: CFrame
+	Property HumanoidRigDescription.RightToesTposeAdjustment: CFrame
+	Property HumanoidRigDescription.RightWristTposeAdjustment: CFrame
+	Property HumanoidRigDescription.RootTposeAdjustment: CFrame
+	Property HumanoidRigDescription.WaistTposeAdjustment: CFrame
+	Function HumanoidRigDescription:Automap(character: Instance) -> () {🧬Safe}
+	Function HumanoidRigDescription:GetJointNames() -> { any } {🧬Safe}
+	Function HumanoidRigDescription:GetR15JointNames() -> { any } {🧬Safe}
+	Function HumanoidRigDescription:GetR6JointNames() -> { any } {🧬Safe}
 Class IKControl : Instance
 	Property IKControl.ChainRoot: Instance?
 	Property IKControl.Enabled: boolean
@@ -4064,6 +4193,7 @@ Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.UnscaledVolume: number {RobloxSecurity} [Hidden]
 	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.AeroMeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
+	Property TriangleMeshPart.ConvexDecompData: NetAssetRef {RobloxSecurity} [Hidden] [NotScriptable]
 	Property TriangleMeshPart.MeshSize: Vector3 [ReadOnly]
 	Property TriangleMeshPart.PhysicalConfigData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 Class MeshPart : TriangleMeshPart
@@ -4237,6 +4367,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MoverConstraintRootBehavior: Enum.MoverConstraintRootBehaviorMode [NotScriptable]
 	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable]
+	Property Workspace.PhysicsImprovedSleep: Enum.RolloutState [NotScriptable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
 	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
 	Property Workspace.PrimalPhysicsSolver: Enum.PrimalPhysicsSolver [NotScriptable]
@@ -4550,6 +4681,7 @@ Class Player : Instance
 	Property Player.Team: Team? [NotReplicated]
 	Property Player.TeamColor: BrickColor
 	Function Player:AddReplicationFocus(part: BasePart) -> ()
+	Function Player:AddReplicationFocusPosition(center: Vector3, radius: number) -> () {RobloxSecurity}
 	Function Player:AddToBlockList(userIds: { any }) -> () {RobloxScriptSecurity}
 	Function Player:ClearCharacterAppearance() -> ()
 	Function Player:DistanceFromCharacter(point: Vector3) -> number
@@ -4580,6 +4712,7 @@ Class Player : Instance
 	Function Player:Move(walkDirection: Vector3, relativeToCamera: boolean? = false) -> ()
 	Function Player:RemoveCharacter() -> () {LocalUserSecurity}
 	Function Player:RemoveReplicationFocus(part: BasePart) -> ()
+	Function Player:RemoveReplicationFocusPosition(center: Vector3, radius: number) -> () {RobloxSecurity}
 	Function Player:RequestFriendship(player: Player) -> () {RobloxScriptSecurity}
 	Function Player:RequestStreamAroundAsync(position: Vector3, timeOut: number? = 0) -> () [Yields]
 	Function Player:RevokeFriendship(player: Player) -> () {RobloxScriptSecurity}
@@ -4785,6 +4918,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:IsActivatedWithExclusiveMouse() -> boolean {PluginSecurity}
 	Function Plugin:Negate(objects: { Instance }) -> { Instance } {PluginSecurity}
 	Function Plugin:OnInvoke(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
+	Function Plugin:OnInvokeSuspendOverride(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
 	Function Plugin:OnSetItem(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
 	Function Plugin:OpenScript(script: LuaSourceContainer, lineNumber: number? = 1) -> () {PluginSecurity}
 	Function Plugin:OpenWikiPage(url: string) -> () {PluginSecurity}
@@ -5314,6 +5448,7 @@ Class ServiceProvider : Instance [NotCreatable] [NotBrowsable]
 	Event ServiceProvider.ServiceRemoving(service: Instance)
 Class DataModel : ServiceProvider [NotCreatable]
 	Property DataModel.IsSFFlagsLoaded: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property DataModel.MatchmakingType: Enum.MatchmakingType [ReadOnly]
 	Property DataModel.PrivateServerId: string [ReadOnly]
 	Property DataModel.PrivateServerOwnerId: number [ReadOnly]
 	Property DataModel.VIPServerId: string [Hidden] [ReadOnly] [Deprecated]
@@ -5391,6 +5526,7 @@ Class ServiceVisibilityService : Instance [NotCreatable] [Service]
 	Property ServiceVisibilityService.HiddenServices: BinaryString {RobloxSecurity}
 	Property ServiceVisibilityService.VisibleServices: BinaryString {RobloxSecurity}
 	Function ServiceVisibilityService:SetServiceVisibilityPreference(service: Instance, visible: boolean) -> () {RobloxScriptSecurity}
+	Event ServiceVisibilityService.ServiceVisibilityChanged(serviceName: string) {RobloxScriptSecurity}
 Class SessionService : Instance [NotCreatable] [Service]
 	Function SessionService:AcquireContextFocus(context: string) -> () {RobloxScriptSecurity}
 	Function SessionService:GenerateSessionInfoString(includeArbitrarySessions: boolean, includeTag: boolean, includeTimestamps: boolean, includeMetadata: boolean) -> string {RobloxScriptSecurity}
@@ -6481,6 +6617,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CompareTextureOverlapTextureId(textureIdBaseline: string, textureIdFollowup: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CreateEditableImageFromBinaryStringRobloxOnly(value: BinaryStringValue) -> EditableImage {RobloxScriptSecurity}
 	Function UGCValidationService:CreateEditableMeshFromBinaryStringRobloxOnly(value: BinaryStringValue) -> EditableMesh {RobloxScriptSecurity}
+	Function UGCValidationService:DoesMeshHaveSkinningData(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:FetchAssetWithFormat(url: string, assetFormat: string) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetCagingRelevancyMetrics(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: EditableMesh, controlNames: { any }) -> ...any {RobloxScriptSecurity}
@@ -6988,6 +7125,7 @@ Class VirtualInputManager : Instance [Service]
 	Function VirtualInputManager:SendMouseButtonEvent(x: number, y: number, mouseButton: number, isDown: boolean, layerCollector: Instance, repeatCount: number) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SendMouseMoveEvent(x: number, y: number, layerCollector: Instance) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SendMouseWheelEvent(x: number, y: number, isForwardScroll: boolean, layerCollector: Instance) -> () {RobloxScriptSecurity}
+	Function VirtualInputManager:SendScroll(x: number, y: number, deltaX: number, deltaY: number, options: { [string]: any }, layerCollector: Instance) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SendTextInputCharacterEvent(str: string, layerCollector: Instance) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SendTouchEvent(touchId: number, state: number, x: number, y: number) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SetInputTypesToIgnore(inputTypesToIgnore: any) -> () {RobloxScriptSecurity}
@@ -7629,6 +7767,10 @@ Enum CameraType
 	EnumItem CameraType.Custom : 5
 	EnumItem CameraType.Scriptable : 6
 	EnumItem CameraType.Orbital : 7
+Enum CaptureUIHideMode
+	EnumItem CaptureUIHideMode.All : 0
+	EnumItem CaptureUIHideMode.None : 1
+	EnumItem CaptureUIHideMode.Core : 2
 Enum CatalogCategoryFilter
 	EnumItem CatalogCategoryFilter.None : 1
 	EnumItem CatalogCategoryFilter.Featured : 2
@@ -7853,6 +7995,8 @@ Enum ConnectionError
 	EnumItem ConnectionError.ReplacementReady : 301
 	EnumItem ConnectionError.ServerEmpty : 302
 	EnumItem ConnectionError.PhantomFreeze : 303
+	EnumItem ConnectionError.AndroidAnticheatKick : 304
+	EnumItem ConnectionError.AndroidEmulatorKick : 305
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -8777,13 +8921,13 @@ Enum KeyCode
 	EnumItem KeyCode.DPadDown : 1015
 	EnumItem KeyCode.Thumbstick1 : 1016
 	EnumItem KeyCode.Thumbstick2 : 1017
-	EnumItem KeyCode.MouseLeftButton : 1018
-	EnumItem KeyCode.MouseRightButton : 1019
-	EnumItem KeyCode.MouseMiddleButton : 1020
-	EnumItem KeyCode.MouseBackButton : 1021
-	EnumItem KeyCode.MouseNoButton : 1022
-	EnumItem KeyCode.MouseX : 1023
-	EnumItem KeyCode.MouseY : 1024
+	EnumItem KeyCode.MouseLeftButton : 1018 [Deprecated]
+	EnumItem KeyCode.MouseRightButton : 1019 [Deprecated]
+	EnumItem KeyCode.MouseMiddleButton : 1020 [Deprecated]
+	EnumItem KeyCode.MouseBackButton : 1021 [Deprecated]
+	EnumItem KeyCode.MouseNoButton : 1022 [Deprecated]
+	EnumItem KeyCode.MouseX : 1023 [Deprecated]
+	EnumItem KeyCode.MouseY : 1024 [Deprecated]
 Enum KeyInterpolationMode
 	EnumItem KeyInterpolationMode.Constant : 0
 	EnumItem KeyInterpolationMode.Linear : 1
@@ -8890,6 +9034,10 @@ Enum MarketplaceProductType
 Enum MarkupKind
 	EnumItem MarkupKind.PlainText : 0
 	EnumItem MarkupKind.Markdown : 1
+Enum MatchmakingType
+	EnumItem MatchmakingType.Default : 1
+	EnumItem MatchmakingType.XboxOnly : 2
+	EnumItem MatchmakingType.PlayStationOnly : 3
 Enum Material
 	EnumItem Material.Plastic : 256
 	EnumItem Material.SmoothPlastic : 272

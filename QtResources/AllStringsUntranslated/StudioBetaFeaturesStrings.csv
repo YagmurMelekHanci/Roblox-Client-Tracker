@@ -203,6 +203,8 @@ Studio.BetaFeatures.ScriptEditorLintTitle,,Script Editor Linting,Script Editor L
 Studio.BetaFeatures.ScriptEditorTitle,,Script Editor Beta Features,Script Editor Beta Features
 Studio.BetaFeatures.ScriptSyncDescription,,"Very early preview for syncing Scripts with files on disk. Not ready for full workflows, please read the DevForum post linked before enabling.","Very early preview for syncing Scripts with files on disk. Not ready for full workflows, please read the DevForum post linked before enabling."
 Studio.BetaFeatures.ScriptSyncTitle,,Script Sync [Early Preview],Script Sync [Early Preview]
+Studio.BetaFeatures.ScrollEventOverhaulDescription,Description of beta feature.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.
+Studio.BetaFeatures.ScrollEventOverhaulTitle,Title of beta feature which improves trackpad scrolling.,Scroll Event Overhaul,Scroll Event Overhaul
 Studio.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
 Studio.BetaFeatures.SelectionImprovementsDescription,,"Enables a new selection outline style, the ability to select objects that are behind other objects, a new option for showing bounding boxes, and a context menu item for selecting parents of objects.","Enables a new selection outline style, the ability to select objects that are behind other objects, a new option for showing bounding boxes, and a context menu item for selecting parents of objects."
 Studio.BetaFeatures.SelectionImprovementsTitle,,Selection Improvements,Selection Improvements
