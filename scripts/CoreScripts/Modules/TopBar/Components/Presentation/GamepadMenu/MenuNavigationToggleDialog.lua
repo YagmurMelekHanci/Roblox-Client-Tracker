@@ -7,14 +7,22 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local useExternalEvent = UIBlox.Core.Hooks.useExternalEvent
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
 local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
+local Topbar = script.Parent.Parent.Parent.Parent
+local Modules = Topbar.Parent
+local Chrome = Modules.Chrome
+local ChromeEnabled = require(Chrome.Enabled)()
+local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: any
+local useObservableValue = require(Chrome.ChromeShared.Hooks.useObservableValue)
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 local FFlagLocalizeMenuNavigationToggleDialog =
 	require(CoreGui.RobloxGui.Modules.TopBar.Flags.FFlagLocalizeMenuNavigationToggleDialog)
+local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 
 local SELECT_ICON_ASSET_ID = "rbxasset://textures/ui/Controls/DesignSystem/ButtonSelect@2x.png"
 local PRE_ICON_LOCALIZATION_KEY = "CoreScripts.InGameMenu.VirtualCursorHintPreIcon"
@@ -86,12 +94,15 @@ local function MenuNavigationToggleDialog(props: Props)
 		return leftTextSize_, rightTextSize_
 	end, { font.FontSize, font.Font, leftText, rightText })
 
+	local topbarFocus = if ChromeEnabled and FFlagConnectGamepadChrome then useObservableValue(ChromeService:inFocusNav()) else nil
+
 	return React.createElement("Frame", {
 		BackgroundColor3 = backgroundUiColor.Color3,
 		BackgroundTransparency = backgroundUiColor.Transparency,
 		AutomaticSize = Enum.AutomaticSize.XY,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = props.Position,
+		Visible = if ChromeEnabled and FFlagConnectGamepadChrome then topbarFocus else true,
 	}, {
 		Corner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, cornerRadius),

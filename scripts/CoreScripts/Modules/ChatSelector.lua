@@ -26,7 +26,7 @@ local BubbleChatEnabled = Players.BubbleChat
 local VRService = game:GetService("VRService")
 
 local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
-local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
+local GetFFlagChatActiveChangedSignal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChatActiveChangedSignal
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -140,8 +140,11 @@ do
 
 
 	interface.ChatBarFocusChanged = Util.Signal()
-	if getFFlagExpChatAlwaysRunTCS() then
-		interface.ChromeVisibilityStateChanged = Util.Signal()
+	if GetFFlagChatActiveChangedSignal() then
+		interface.ChatActiveChanged = Util.Signal()
+		interface.ChatActiveChanged:connect(function(visible)
+			 interface:SetVisible(visible)
+		end)
 	end
 	interface.VisibilityStateChanged = Util.Signal()
 	interface.MessagesChanged = Util.Signal()
@@ -172,7 +175,11 @@ StarterGui:RegisterGetCore("ChatActive", function()
 	return interface:GetVisibility()
 end)
 StarterGui:RegisterSetCore("ChatActive", function(visible)
-	return interface:SetVisible(visible)
+	if GetFFlagChatActiveChangedSignal() then
+		interface.ChatActiveChanged:fire(visible)
+	else
+		return interface:SetVisible(visible)
+	end
 end)
 
 
@@ -191,8 +198,8 @@ if TenFootInterfaceExpChatExperimentation.getIsEnabled() or (not isConsole) then
 
 		ConnectSignals(useModule, interface, "ChatBarFocusChanged")
 		ConnectSignals(useModule, interface, "VisibilityStateChanged")
-		if getFFlagExpChatAlwaysRunTCS() then
-			ConnectSignals(useModule, interface, "ChromeVisibilityStateChanged")
+		if GetFFlagChatActiveChangedSignal() then
+			ConnectSignals(useModule, interface, "ChatActiveChanged")
 		end
 		ConnectSignals(useModule, interface, "BubbleChatOnlySet")
 		ConnectSignals(useModule, interface, "ChatDisabled")

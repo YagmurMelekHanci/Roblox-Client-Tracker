@@ -31,19 +31,27 @@ local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeA
 local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
 local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
-local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
+local GetFFlagChatActiveChangedSignal =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChatActiveChangedSignal
 local FFlagShowChatButtonWhenChatForceOpened = game:DefineFastFlag("ShowChatButtonWhenChatForceOpened", false)
+local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
+local FFlagAlwaysShowChatButtonWhenWindowIsVisible =
+	game:DefineFastFlag("AlwaysShowChatButtonWhenWindowIsVisible", false)
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
 local chatVisibility: boolean = ChatSelector:GetVisibility()
 local chatChromeIntegration
 
-local chatSelectorVisibilitySignal
-if getFFlagExpChatAlwaysRunTCS() then
-	chatSelectorVisibilitySignal = ChatSelector.ChromeVisibilityStateChanged
-else
-	chatSelectorVisibilitySignal = ChatSelector.VisibilityStateChanged
+local chatSelectorVisibilitySignal = ChatSelector.VisibilityStateChanged
+local function localUserCanChat()
+	if not RunService:IsStudio() then
+		local success, localUserCanChat = pcall(function()
+			return Chat:CanUserChatAsync(Players.LocalPlayer and Players.LocalPlayer.UserId or 0)
+		end)
+		return success and localUserCanChat
+	end
+	return true
 end
 
 local chatVisibilitySignal = MappedSignal.new(chatSelectorVisibilitySignal, function()
@@ -51,6 +59,11 @@ local chatVisibilitySignal = MappedSignal.new(chatSelectorVisibilitySignal, func
 end, function(visibility)
 	-- TODO: On flag removal, remove visibility as a param
 	local isVisible = if GetFFlagFixMappedSignalRaceCondition() then ChatSelector.GetVisibility() else visibility
+
+	-- Is there a less imperative way to do this?
+	if FFlagHideChatButtonForChatDisabledUsers and not isVisible and not localUserCanChat() then
+		chatChromeIntegration.availability:unavailable()
+	end
 
 	if not GuiService.MenuIsOpen then
 		-- chat is inhibited (visibility = false) during menu open; not user intent; don't save
@@ -145,17 +158,16 @@ ChatSelector.MessagesChanged:connect(function(messages: number)
 	lastMessagesChangedValue = messages
 end)
 
-local function localUserCanChat()
-	if not RunService:IsStudio() then
-		local success, localUserCanChat = pcall(function()
-			return Chat:CanUserChatAsync(Players.LocalPlayer and Players.LocalPlayer.UserId or 0)
-		end)
-		return success and localUserCanChat
-	end
-	return true
-end
-
-if FFlagShowChatButtonWhenChatForceOpened then
+if GetFFlagChatActiveChangedSignal() then
+	ChatSelector.ChatActiveChanged:connect(function(visible: boolean)
+		if visible then
+			local canLocalUserChat = localUserCanChat()
+			if not canLocalUserChat then
+				chatChromeIntegration.availability:available()
+			end
+		end
+	end)
+elseif FFlagShowChatButtonWhenChatForceOpened then
 	StarterGui:RegisterSetCore("ChatActive", function(visible)
 		if visible then
 			local canLocalUserChat = localUserCanChat()
@@ -200,6 +212,9 @@ coroutine.wrap(function()
 		end
 		chatVisibility = willEnableChat
 		ChatSelector:SetVisible(willEnableChat)
+	end
+	if FFlagAlwaysShowChatButtonWhenWindowIsVisible and chatVisibility then
+		chatChromeIntegration.availability:pinned()
 	end
 end)()
 

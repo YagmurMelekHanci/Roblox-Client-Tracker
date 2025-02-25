@@ -19,6 +19,13 @@ PROTO_2:
   CALL R0 2 -1
   RETURN R0 -1
 
+PROTO_3:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Path2DWrapperMaxPointsRefactor"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
@@ -41,11 +48,18 @@ MAIN:
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
-  DUPTABLE R0 K11 [{"getFFlagLoadAttenuationCurveEditorInAssetDM", "getFIntDistanceAttenuationMaxPoints", "getFIntPath2DMaxControlPointLimit"}]
-  DUPCLOSURE R1 K12 [PROTO_0]
-  SETTABLEKS R1 R0 K8 ["getFFlagLoadAttenuationCurveEditorInAssetDM"]
-  DUPCLOSURE R1 K13 [PROTO_1]
-  SETTABLEKS R1 R0 K9 ["getFIntDistanceAttenuationMaxPoints"]
-  DUPCLOSURE R1 K14 [PROTO_2]
-  SETTABLEKS R1 R0 K10 ["getFIntPath2DMaxControlPointLimit"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K8 ["Path2DWrapperMaxPointsRefactor"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  DUPTABLE R0 K13 [{"getFFlagLoadAttenuationCurveEditorInAssetDM", "getFIntDistanceAttenuationMaxPoints", "getFIntPath2DMaxControlPointLimit", "getFFlagPath2DWrapperMaxPointsRefactor"}]
+  DUPCLOSURE R1 K14 [PROTO_0]
+  SETTABLEKS R1 R0 K9 ["getFFlagLoadAttenuationCurveEditorInAssetDM"]
+  DUPCLOSURE R1 K15 [PROTO_1]
+  SETTABLEKS R1 R0 K10 ["getFIntDistanceAttenuationMaxPoints"]
+  DUPCLOSURE R1 K16 [PROTO_2]
+  SETTABLEKS R1 R0 K11 ["getFIntPath2DMaxControlPointLimit"]
+  DUPCLOSURE R1 K17 [PROTO_3]
+  SETTABLEKS R1 R0 K12 ["getFFlagPath2DWrapperMaxPointsRefactor"]
   RETURN R0 1

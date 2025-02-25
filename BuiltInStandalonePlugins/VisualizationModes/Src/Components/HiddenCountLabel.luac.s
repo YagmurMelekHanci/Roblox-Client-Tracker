@@ -3,30 +3,63 @@ PROTO_0:
   GETTABLEKS R1 R2 K0 ["Localization"]
   NAMECALL R1 R1 K1 ["use"]
   CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["createElement"]
-  LOADK R3 K3 ["TextLabel"]
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+43]
+  GETTABLEKS R2 R0 K2 ["Visible"]
+  JUMPIF R2 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K3 ["createElement"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K4 ["UI"]
+  GETTABLEKS R3 R4 K5 ["TextLabel"]
   NEWTABLE R4 4 0
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K4 ["Tag"]
-  LOADK R6 K5 ["VisualizationModes-HiddenCountLabel"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["Tag"]
+  LOADK R6 K7 ["VisualizationModes-HiddenCountLabel"]
   SETTABLE R6 R4 R5
-  GETTABLEKS R5 R0 K6 ["LayoutOrder"]
-  SETTABLEKS R5 R4 K6 ["LayoutOrder"]
-  GETTABLEKS R5 R0 K7 ["Visible"]
-  SETTABLEKS R5 R4 K7 ["Visible"]
-  GETTABLEKS R8 R0 K8 ["AllHidden"]
+  GETTABLEKS R5 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K8 ["LayoutOrder"]
+  GETTABLEKS R8 R0 K9 ["AllHidden"]
   JUMPIFNOT R8 [+2]
-  LOADK R7 K9 ["AllHiddenCount"]
+  LOADK R7 K10 ["AllHiddenCount"]
   JUMP [+1]
-  LOADK R7 K10 ["HiddenCount"]
-  LOADK R8 K11 ["Text"]
-  DUPTABLE R9 K13 [{"hidden"}]
-  GETTABLEKS R10 R0 K10 ["HiddenCount"]
-  SETTABLEKS R10 R9 K12 ["hidden"]
-  NAMECALL R5 R1 K14 ["getText"]
+  LOADK R7 K11 ["HiddenCount"]
+  LOADK R8 K12 ["Text"]
+  DUPTABLE R9 K14 [{"hidden"}]
+  GETTABLEKS R10 R0 K11 ["HiddenCount"]
+  SETTABLEKS R10 R9 K13 ["hidden"]
+  NAMECALL R5 R1 K15 ["getText"]
   CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["Text"]
+  SETTABLEKS R5 R4 K12 ["Text"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K3 ["createElement"]
+  LOADK R3 K5 ["TextLabel"]
+  NEWTABLE R4 4 0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["Tag"]
+  LOADK R6 K7 ["VisualizationModes-HiddenCountLabel"]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K8 ["LayoutOrder"]
+  GETTABLEKS R5 R0 K2 ["Visible"]
+  SETTABLEKS R5 R4 K2 ["Visible"]
+  GETTABLEKS R8 R0 K9 ["AllHidden"]
+  JUMPIFNOT R8 [+2]
+  LOADK R7 K10 ["AllHiddenCount"]
+  JUMP [+1]
+  LOADK R7 K11 ["HiddenCount"]
+  LOADK R8 K12 ["Text"]
+  DUPTABLE R9 K14 [{"hidden"}]
+  GETTABLEKS R10 R0 K11 ["HiddenCount"]
+  SETTABLEKS R10 R9 K13 ["hidden"]
+  NAMECALL R5 R1 K15 ["getText"]
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K12 ["Text"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -44,8 +77,15 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Packages"]
   GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["ContextServices"]
-  DUPCLOSURE R4 K10 [PROTO_0]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Flags"]
+  GETTABLEKS R4 R5 K11 ["getFFlagStudioVisualizationModesFontFix"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K12 ["ContextServices"]
+  DUPCLOSURE R5 K13 [PROTO_0]
+  CAPTURE VAL R4
   CAPTURE VAL R3
   CAPTURE VAL R1
-  RETURN R4 1
+  CAPTURE VAL R2
+  RETURN R5 1

@@ -1,4 +1,5 @@
 --!nonstrict
+-- APPEXP-2274: Remove with FFlagConnectGamepadChrome
 local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Packages.Roact)

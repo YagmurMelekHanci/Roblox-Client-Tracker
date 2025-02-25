@@ -119,7 +119,14 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 					end
 
 					analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
-					store:dispatch(PromptNativeUpsell(product.providerId, product.id, product.robuxAmount))
+					store:dispatch(
+						PromptNativeUpsell(
+							product.providerId,
+							product.id,
+							product.robuxAmount,
+							product.robuxAmountBeforeBonus
+						)
+					)
 					store:dispatch(sendCounter(Counter.UpsellModalShown))
 				end,
 				function()

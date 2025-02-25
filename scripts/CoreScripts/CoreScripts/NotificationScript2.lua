@@ -31,7 +31,6 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui.RobloxGui
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
-
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
 
 local FFlagLogBadgeAwardImpression = game:DefineFastFlag("LogBadgeAwardImpression", false)
@@ -42,6 +41,8 @@ local FFlagLogAcceptFriendshipEvent = game:DefineFastFlag("LogAcceptFriendshipEv
 local FFlagClientToastNotificationsEnabled = game:GetEngineFeature("ClientToastNotificationsEnabled")
 local GetFFlagClientToastNotificationsRedirect =
 	require(RobloxGui.Modules.Flags.GetFFlagClientToastNotificationsRedirect)
+
+local GetFFlagFriendshipNotifsUseSendr = require(RobloxGui.Modules.Flags.GetFFlagFriendshipNotifsUseSendr)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
@@ -871,6 +872,9 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 	elseif toPlayer == LocalPlayer then
 		if event == Enum.FriendRequestEvent.Issue then
 			if FriendRequestBlacklist[fromPlayer] then
+				return
+			end
+			if GetFFlagFriendshipNotifsUseSendr() then
 				return
 			end
 			sendFriendNotification(fromPlayer)

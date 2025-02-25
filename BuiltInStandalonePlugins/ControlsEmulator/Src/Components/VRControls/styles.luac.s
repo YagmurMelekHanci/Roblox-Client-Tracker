@@ -231,7 +231,7 @@ MAIN:
   CALL R28 3 1
   MOVE R29 R2
   LOADK R30 K89 [">> #ResetPositionsFrame"]
-  DUPTABLE R31 K90 [{"Size", "BackgroundTransparency", "VerticalAlignment"}]
+  DUPTABLE R31 K53 [{"Size", "BackgroundTransparency"}]
   GETIMPORT R32 K17 [UDim2.new]
   LOADN R33 1
   LOADN R34 1
@@ -241,19 +241,26 @@ MAIN:
   SETTABLEKS R32 R31 K13 ["Size"]
   LOADN R32 0
   SETTABLEKS R32 R31 K52 ["BackgroundTransparency"]
-  GETIMPORT R32 K61 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R32 R31 K54 ["VerticalAlignment"]
-  NEWTABLE R32 0 1
+  NEWTABLE R32 0 2
   MOVE R33 R2
   LOADK R34 K19 ["::UIListLayout"]
-  DUPTABLE R35 K91 [{"FillDirection", "SortOrder", "HorizontalAlignment"}]
+  DUPTABLE R35 K90 [{"FillDirection", "SortOrder", "HorizontalAlignment"}]
   GETIMPORT R36 K58 [Enum.FillDirection.Horizontal]
   SETTABLEKS R36 R35 K22 ["FillDirection"]
   GETIMPORT R36 K26 [Enum.SortOrder.LayoutOrder]
   SETTABLEKS R36 R35 K20 ["SortOrder"]
-  GETIMPORT R36 K93 [Enum.HorizontalAlignment.Right]
+  GETIMPORT R36 K92 [Enum.HorizontalAlignment.Right]
   SETTABLEKS R36 R35 K21 ["HorizontalAlignment"]
-  CALL R33 2 -1
+  CALL R33 2 1
+  MOVE R34 R2
+  LOADK R35 K68 ["::UIPadding"]
+  DUPTABLE R36 K93 [{"PaddingBottom"}]
+  GETIMPORT R37 K63 [UDim.new]
+  LOADN R38 0
+  LOADN R39 1
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K70 ["PaddingBottom"]
+  CALL R34 2 -1
   SETLIST R32 R33 -1 [1]
   CALL R29 3 1
   MOVE R30 R2

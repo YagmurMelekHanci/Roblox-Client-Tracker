@@ -532,3 +532,15 @@ if ReactPerfTracker then
 		reactPerfTracker:start()
 	end)
 end
+
+local FIntReactSchedulingTrackerStartUpDelayMs = game:DefineFastInt("ReactSchedulingTrackerStartUpDelayMs", 5000)
+local ReactSchedulingDelaySeconds = FIntReactSchedulingTrackerStartUpDelayMs / 1000
+
+local ReactSchedulingTracker = require(CoreGuiModules.Common.ReactSchedulingTracker)
+if ReactSchedulingTracker then
+	local reactSchedulingTracker = ReactSchedulingTracker.new()
+	-- delay to reduce startup noise
+	task.delay(ReactSchedulingDelaySeconds, function()
+		reactSchedulingTracker:start()
+	end)
+end

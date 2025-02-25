@@ -1,0 +1,69 @@
+PROTO_0:
+  GETUPVAL R1 0
+  DUPTABLE R2 K7 [{"Activate", "OpenMenu", "CloseMenus", "MenuView", "Select", "MenuData", "Items"}]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["fn"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K0 ["Activate"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["fn"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K1 ["OpenMenu"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["fn"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K2 ["CloseMenus"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["fn"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K3 ["MenuView"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["fn"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K4 ["Select"]
+  DUPTABLE R3 K11 [{"depth", "isOpen"}]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K9 ["depth"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K10 ["isOpen"]
+  SETTABLEKS R3 R2 K5 ["MenuData"]
+  GETUPVAL R3 0
+  DUPTABLE R4 K14 [{"Actions", "Settings"}]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K12 ["Actions"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K13 ["Settings"]
+  GETTABLEKS R5 R0 K6 ["Items"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K6 ["Items"]
+  MOVE R3 R0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Dev"]
+  GETTABLEKS R2 R3 K8 ["JestGlobals"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["jest"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K10 ["Dash"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K11 ["join"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Components"]
+  GETTABLEKS R7 R8 K14 ["ControlsView"]
+  GETTABLEKS R6 R7 K15 ["ControlProps"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K16 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  RETURN R6 1

@@ -25,6 +25,7 @@ local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
+local getFFlagExpChatMigrationSetup = SharedFlags.getFFlagExpChatMigrationSetup
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 
@@ -93,25 +94,22 @@ do
 	function moduleApiTable:ToggleVisibility()
 		ChatWindowState.Visible = not ChatWindowState.Visible
 
-		if not shouldForceLegacyChatToBeHidden() then
+		if shouldForceLegacyChatToBeHidden() then
+			moduleApiTable.VisibilityStateChanged:fire(ChatWindowState.Visible)
+		else
 			local didFire = DispatchEvent("ToggleVisibility")
 			if not didFire then
 				moduleApiTable.VisibilityStateChanged:fire(ChatWindowState.Visible)
 			end
 		end
 
-		if getFFlagExpChatAlwaysRunTCS() then
-			moduleApiTable.ChromeVisibilityStateChanged:fire(ChatWindowState.Visible)
-		end
 		ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
 	end
 
 	function moduleApiTable:SetVisible(visible)
 		ChatWindowState.Visible = visible
 
-		if getFFlagExpChatAlwaysRunTCS() then
-			moduleApiTable.ChromeVisibilityStateChanged:fire(ChatWindowState.Visible)
-		end
+
 		ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
 
 		if shouldForceLegacyChatToBeHidden() then
@@ -205,14 +203,23 @@ do
 
 	moduleApiTable.ChatBarFocusChanged = Util.Signal()
 	moduleApiTable.VisibilityStateChanged = Util.Signal()
-	if getFFlagExpChatAlwaysRunTCS() then
-		moduleApiTable.ChromeVisibilityStateChanged = Util.Signal()
-	end
 	moduleApiTable.MessagesChanged = Util.Signal()
 
 	-- Signals that are called when we get information on if Bubble Chat and Classic chat are enabled from the chat.
 	moduleApiTable.BubbleChatOnlySet = Util.Signal()
 	moduleApiTable.ChatDisabled = Util.Signal()
+
+	if getFFlagExpChatMigrationSetup() then
+		local Chat = game:GetService("Chat")
+		Chat:GetPropertyChangedSignal("IsAutoMigrated"):Connect(function()
+			if Chat.IsAutoMigrated then
+				local didFire = DispatchEvent("SetVisible", false)
+				if not didFire then
+					moduleApiTable.VisibilityStateChanged:fire(false)
+				end
+			end
+		end)
+	end
 
 	StarterGui.CoreGuiChangedSignal:connect(function(coreGuiType, enabled)
 		if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.Chat then

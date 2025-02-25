@@ -11,7 +11,8 @@ local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExper
 
 local registerConnectIntegration = require(script.Parent.registerConnectIntegration)
 local isConnectDropdownEnabled = require(script.Parent.isConnectDropdownEnabled)
-
+local FFlagAppChatConnectIconDropdownAlwaysAvailable =
+	game:DefineFastFlag("AppChatConnectIconDropdownAlwaysAvailable", false)
 -- "Connect" icon and option are used to open AppChat (InExperienceAppChat)
 -- It will also serve as an entry point for Party
 
@@ -19,7 +20,11 @@ local integration = nil
 if isConnectDropdownEnabled() then
 	integration = registerConnectIntegration("connect_dropdown", ChromeService.AvailabilitySignal.Available)
 
-	if GetFFlagAppChatAddConnectUnibarForActiveSquad() and SquadExperimentation.getSquadEntrypointsEnabled() then
+	if
+		not FFlagAppChatConnectIconDropdownAlwaysAvailable
+		and GetFFlagAppChatAddConnectUnibarForActiveSquad()
+		and SquadExperimentation.getSquadEntrypointsEnabled()
+	then
 		-- active squad initial value
 		local hasActiveSquad = InExperienceAppChatModal.default.currentSquadId ~= ""
 		if hasActiveSquad then

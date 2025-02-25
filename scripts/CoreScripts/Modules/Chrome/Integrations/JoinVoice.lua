@@ -19,6 +19,8 @@ local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
+local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 
 local FFlagJoinVoiceHideWhenPartyVoiceFocused = game:DefineFastFlag("JoinVoiceHideWhenPartyVoiceFocused", false)
 local FFlagCheckShouldShowJoinVoiceInEvent = game:DefineFastFlag("CheckShouldShowJoinVoiceInEvent", false)
@@ -45,6 +47,10 @@ joinVoice = ChromeService:register({
 		end,
 	},
 })
+
+if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
+	return joinVoice
+end
 
 local function setAvailability(availability: number)
 	lastKnownIntegrationAvailability = availability

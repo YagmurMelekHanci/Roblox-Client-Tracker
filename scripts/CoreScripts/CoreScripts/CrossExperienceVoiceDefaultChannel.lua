@@ -30,6 +30,8 @@ local FFlagDefaultChannelDontWaitOnCharacterWithAudioApi =
 	game:DefineFastFlag("DefaultChannelDontWaitOnCharacterWithAudioApi", false)
 local FFlagEnableCrossExpVoiceDebug = game:DefineFastFlag("EnableCrossExpVoiceDebug", false)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
+local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
@@ -44,6 +46,12 @@ local VoiceChatService = game:GetService("VoiceChatService")
 type VoiceStatus = CrossExperience.VoiceStatus
 local Constants = CrossExperience.Constants
 local VOICE_STATUS = Constants.VOICE_STATUS
+
+if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
+	CoreVoiceManager:setOptions({
+		allowSeamlessVoice = false,
+	})
+end
 
 local PersistenceMiddleware = createPersistenceMiddleware({
 	storeKey = CrossExperience.Constants.STORAGE_CEV_STORE_KEY,

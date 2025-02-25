@@ -189,19 +189,21 @@ PROTO_14:
   RETURN R0 0
 
 PROTO_15:
-  GETTABLEKS R3 R0 K0 ["_impl"]
-  GETTABLEKS R2 R3 K1 ["getThumbnailForItem"]
-  MOVE R3 R1
-  CALL R2 1 -1
-  RETURN R2 -1
-
-PROTO_16:
   GETTABLEKS R4 R0 K0 ["_impl"]
-  GETTABLEKS R3 R4 K1 ["getThumbnailForItemAsync"]
+  GETTABLEKS R3 R4 K1 ["getThumbnailForItem"]
   MOVE R4 R1
   MOVE R5 R2
   CALL R3 2 -1
   RETURN R3 -1
+
+PROTO_16:
+  GETTABLEKS R5 R0 K0 ["_impl"]
+  GETTABLEKS R4 R5 K1 ["getThumbnailForItemAsync"]
+  MOVE R5 R1
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R4 3 -1
+  RETURN R4 -1
 
 PROTO_17:
   GETTABLEKS R5 R0 K0 ["_impl"]

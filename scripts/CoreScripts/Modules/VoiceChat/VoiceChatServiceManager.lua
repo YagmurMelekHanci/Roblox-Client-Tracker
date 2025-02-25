@@ -72,7 +72,6 @@ local FFlagHideVoiceUIUntilInputExists = require(VoiceChatCore.Flags.GetFFlagHid
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging =
 	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
-local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 local GetFFlagEnableInExpVoiceConsentAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceConsentAnalytics)
@@ -153,6 +152,7 @@ local FFlagUseLocalMutePropertyForMutingOthers = game:GetEngineFeature("EnableMu
 
 type VoiceMuteIndividualArgs = VoiceChatCore.VoiceMuteIndividualArgs
 type VoiceMuteGroupArgs = VoiceChatCore.VoiceMuteGroupArgs
+type CoreVoiceManagerEvent = VoiceChatCore.CoreVoiceManagerEvent
 
 type VoiceChatPlaceSettings = {
 	isUniverseEnabledForVoice: boolean,
@@ -295,6 +295,8 @@ local VOICE_CHAT_CORE_PROPERTIES = LuauPolyfill.Set.new({
 	"muteChanged",
 	"audioDeviceInputAdded",
 	"talkingChanged",
+
+	"canUseServiceResult",
 })
 
 VOICE_CHAT_CORE_PROPERTIES:add("_mutedAnyone")
@@ -585,6 +587,10 @@ local function bind(t, k)
 	return function(...)
 		return t[k](t, ...)
 	end
+end
+
+function VoiceChatServiceManager:subscribe(eventName: CoreVoiceManagerEvent, callback: any)
+	return self.coreVoiceManager:subscribe(eventName, callback)
 end
 
 function VoiceChatServiceManager:_reportJoinFailed(result, level)
@@ -888,7 +894,7 @@ function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings
 					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
 				else
 					self.bannedUntil = userSettings.bannedUntil
-					if GetFFlagUpdateNudgeV3VoiceBanUI() and userSettings.banReason == BAN_REASON.NUDGE_V3 then
+					if userSettings.banReason == BAN_REASON.NUDGE_V3 then
 						self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
 					else
 						self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
@@ -1028,7 +1034,7 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage(informedOfBan: boole
 			if informedOfBan then
 				self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryToast)
 			else
-				if GetFFlagUpdateNudgeV3VoiceBanUI() and self.banReason == BAN_REASON.NUDGE_V3 then
+				if self.banReason == BAN_REASON.NUDGE_V3 then
 					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
 				else
 					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
@@ -1132,8 +1138,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 			errorText = self.errorText
 		end
 
-		local isUpdatedBanModalB = GetFFlagUpdateNudgeV3VoiceBanUI()
-			and promptType == VoiceChatPromptType.VoiceChatSuspendedTemporaryB
+		local isUpdatedBanModalB = promptType == VoiceChatPromptType.VoiceChatSuspendedTemporaryB
 		local banEnd = ""
 		if self.bannedUntil ~= nil then
 			if isUpdatedBanModalB then

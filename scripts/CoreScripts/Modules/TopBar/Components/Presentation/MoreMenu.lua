@@ -25,6 +25,7 @@ local SetMoreMenuOpen = require(Actions.SetMoreMenuOpen)
 local TopBarAnalytics = require(TopBar.Analytics)
 
 local FFlagEnableTopBarAnalytics = require(TopBar.Flags.GetFFlagEnableTopBarAnalytics)()
+local FFlagRemoveTopBarInputTypeRodux = require(TopBar.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 
 local Constants = require(TopBar.Constants)
@@ -94,7 +95,7 @@ MoreMenu.validateProps = t.strictInterface({
 	backpackOpen = t.boolean,
 	emotesOpen = t.boolean,
 
-	inputType = t.string,
+	inputType = if FFlagRemoveTopBarInputTypeRodux then nil else t.string,
 	setKeepOutArea = t.callback,
 	removeKeepOutArea = t.callback,
 })
@@ -140,7 +141,7 @@ function MoreMenu:renderWithStyle(style)
 	local menuOptions = {}
 	local hasOptions = false
 
-	local isUsingKeyBoard = self.props.inputType == InputType.MouseAndKeyBoard
+	local isUsingKeyBoard = if FFlagRemoveTopBarInputTypeRodux then false else self.props.inputType == InputType.MouseAndKeyBoard
 
 	local enableLeaderboardButton = self.props.leaderboardEnabled
 
@@ -368,7 +369,7 @@ local function mapStateToProps(state)
 		backpackOpen = state.moreMenu.backpackOpen,
 		emotesOpen = state.moreMenu.emotesOpen,
 
-		inputType = state.displayOptions.inputType,
+		inputType = if FFlagRemoveTopBarInputTypeRodux then nil else state.displayOptions.inputType,
 	}
 end
 

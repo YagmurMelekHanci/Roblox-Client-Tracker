@@ -5,6 +5,7 @@ type Json = {
 	provider_product_id: string, -- The id of the product defined by the provider.
 	roblox_product_name: string, -- The name of the product defined by Roblox.
 	robux_amount: number, -- The amount of Robux this product grants.
+	robux_amount_before_bonus: number?, -- The amount of Robux this product grants before bonus.
 }
 
 export type Product = {
@@ -12,11 +13,17 @@ export type Product = {
 	providerId: string, -- The id of the product defined by the provider.
 	productName: string, -- The name of the product defined by Roblox.
 	robuxAmount: number, -- The amount of Robux this product grants.
+	robuxAmountBeforeBonus: number?, -- The amount of Robux this product grants before bonus.
 }
 
 local RobuxUpsellProduct = {}
 
-function RobuxUpsellProduct.new(productId: number, providerId: string, productName: string, robuxAmount: number) : Product
+function RobuxUpsellProduct.new(
+	productId: number,
+	providerId: string,
+	productName: string,
+	robuxAmount: number
+): Product
 	return {
 		id = productId,
 		providerId = providerId,
@@ -25,12 +32,13 @@ function RobuxUpsellProduct.new(productId: number, providerId: string, productNa
 	}
 end
 
-function RobuxUpsellProduct.fromJson(jsonData : Json) : Product
+function RobuxUpsellProduct.fromJson(jsonData: Json): Product
 	return {
 		id = jsonData.roblox_product_id,
 		providerId = jsonData.provider_product_id,
 		productName = jsonData.roblox_product_name,
 		robuxAmount = jsonData.robux_amount,
+		robuxAmountBeforeBonus = jsonData.robux_amount_before_bonus,
 	}
 end
 

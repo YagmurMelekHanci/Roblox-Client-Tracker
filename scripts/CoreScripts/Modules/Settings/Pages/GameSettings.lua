@@ -46,6 +46,8 @@ local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermiss
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
 
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
+local isVoiceFocused = require(CorePackages.Workspace.Packages.CrossExperience).Utils.isVoiceFocused
+local observeIsVoiceFocused = require(CorePackages.Workspace.Packages.CrossExperience).Utils.observeIsVoiceFocused
 local cameraDevicePermissionGrantedSignal =
 	require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount =
@@ -66,6 +68,7 @@ local FFlagOverrideInExperienceMenuReorderFirstVariant =
 	require(RobloxGui.Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant)
 local FFlagCameraToggleInitBugFix = game:DefineFastFlag("CameraToggleInitBugFix", false)
 local FFlagMicroprofileGameSettingsFix = game:DefineFastFlag("MicroprofileGameSettingsFix", false)
+local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 
 local CrossExpVoiceIXPManager = require(CorePackages.Workspace.Packages.CrossExperienceVoice).IXPManager.default
 
@@ -3290,8 +3293,33 @@ local function Initialize()
 				:andThen(function()
 					VoiceChatService = VoiceChatServiceManager:getService()
 					checkVoiceChatOptions()
+					local isCurrentlyVoiceFocused = false
 					if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
 						createVoiceConnectDisconnect()
+
+						if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
+							isCurrentlyVoiceFocused = isVoiceFocused()
+
+							observeIsVoiceFocused(function(isFocused)
+								isCurrentlyVoiceFocused = isFocused
+
+								if isFocused then
+									if this[VOICE_CONNECT_FRAME_KEY] then
+										this[VOICE_CONNECT_FRAME_KEY].Visible = false
+									end
+									if this[VOICE_DISCONNECT_FRAME_KEY] then
+										this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
+									end
+								elseif VoiceChatServiceManager:ShouldShowJoinVoice() then
+									if this[VOICE_CONNECT_FRAME_KEY] then
+										this[VOICE_CONNECT_FRAME_KEY].Visible = true
+									end
+									if this[VOICE_DISCONNECT_FRAME_KEY] then
+										this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
+									end
+								end
+							end)
+						end
 					end
 
 					-- Check volume settings. Show prompt if volume is 0
@@ -3308,6 +3336,9 @@ local function Initialize()
 
 					if GetFFlagEnableShowVoiceUI() then
 						VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
+							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
+								return
+							end
 							this.VoiceChatOptionsEnabled = true
 							updateInputDeviceVisibility()
 							if
@@ -3323,6 +3354,9 @@ local function Initialize()
 							end
 						end)
 						VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
+							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
+								return
+							end
 							this.VoiceChatOptionsEnabled = false
 							updateInputDeviceVisibility()
 							if

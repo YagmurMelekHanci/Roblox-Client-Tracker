@@ -15,66 +15,73 @@ PROTO_2:
   GETTABLEKS R3 R0 K0 ["apis"]
   GETTABLEKS R4 R1 K1 ["Url"]
   GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+28]
-  GETTABLEKS R3 R0 K0 ["apis"]
-  GETTABLEKS R4 R1 K1 ["Url"]
-  GETTABLE R2 R3 R4
+  JUMPIFNOT R2 [+40]
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R4 R2
+  GETIMPORT R3 K3 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K4 ["table"] [+11]
+  GETTABLEKS R3 R2 K5 ["error"]
+  JUMPIFNOT R3 [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["reject"]
+  GETTABLEKS R4 R2 K5 ["error"]
+  CALL R3 1 -1
+  RETURN R3 -1
   FASTCALL1 TYPEOF R2 [+3]
   MOVE R5 R2
   GETIMPORT R4 K3 [typeof]
   CALL R4 1 1
-  JUMPIFNOTEQKS R4 K4 ["function"] [+6]
+  JUMPIFNOTEQKS R4 K7 ["function"] [+6]
   MOVE R3 R2
-  GETTABLEKS R4 R1 K5 ["Body"]
+  GETTABLEKS R4 R1 K8 ["Body"]
   CALL R3 1 1
   JUMP [+1]
   MOVE R3 R2
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["resolve"]
-  DUPTABLE R5 K9 [{"responseBody", "requestOptions"}]
-  SETTABLEKS R3 R5 K7 ["responseBody"]
-  SETTABLEKS R1 R5 K8 ["requestOptions"]
+  GETTABLEKS R4 R5 K9 ["resolve"]
+  DUPTABLE R5 K12 [{"responseBody", "requestOptions"}]
+  SETTABLEKS R3 R5 K10 ["responseBody"]
+  SETTABLEKS R1 R5 K11 ["requestOptions"]
   CALL R4 1 -1
   RETURN R4 -1
-  GETIMPORT R2 K11 [error]
-  LOADK R4 K12 ["Unexpected url: %*"]
-  GETTABLEKS R6 R1 K1 ["Url"]
-  NAMECALL R4 R4 K13 ["format"]
-  CALL R4 2 1
-  MOVE R3 R4
-  CALL R2 1 0
+  GETIMPORT R3 K13 [error]
+  LOADK R5 K14 ["Unexpected url: %*"]
+  GETTABLEKS R7 R1 K1 ["Url"]
+  NAMECALL R5 R5 K15 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["apis"]
-  SETTABLEKS R2 R0 K0 ["apis"]
+  NEWTABLE R2 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["UNIVERSES_SEARCH_TEST_URL"]
+  LOADK R4 K1 ["{\"id\":0,\"name\":\"test place\",\"description\":null,\"isArchived\":false,\"rootPlaceId\":0,\"isActive\":false,\"privacyType\":\"Private\",\"creatorType\":\"User\",\"creatorTargetId\":123,\"creatorName\":\"testCreator\",\"created\":\"2024-09-10T21:14:20.017Z\",\"updated\":\"2024-09-10T21:14:21.953Z\"}"]
+  SETTABLE R4 R2 R3
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["UNIVERSES_PERMISSIONS_TEST_URL"]
+  LOADK R4 K3 ["{\"data\":[{\"userId\":\"1234\",\"userName\":\"testuser\",\"action\":\"Edit\",\"allowedPermissions\":\"Edit\"}]}"]
+  SETTABLE R4 R2 R3
+  SETTABLEKS R2 R0 K4 ["apis"]
   JUMPIFNOT R1 [+10]
   MOVE R2 R1
   LOADNIL R3
   LOADNIL R4
   FORGPREP R2
-  GETTABLEKS R7 R0 K0 ["apis"]
+  GETTABLEKS R7 R0 K4 ["apis"]
   GETTABLE R8 R1 R5
   SETTABLE R8 R7 R5
   FORGLOOP R2 1 [-5]
   RETURN R0 0
 
 PROTO_4:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Networking"]
+  GETUPVAL R3 0
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K1 ["apis"]
-  SETTABLEKS R4 R3 K1 ["apis"]
-  JUMPIFNOT R0 [+10]
-  MOVE R4 R0
-  LOADNIL R5
-  LOADNIL R6
-  FORGPREP R4
-  GETTABLEKS R9 R3 K1 ["apis"]
-  GETTABLE R10 R0 R7
-  SETTABLE R10 R9 R7
-  FORGLOOP R4 1 [-5]
+  GETTABLEKS R4 R5 K0 ["Networking"]
+  MOVE R5 R0
+  CALL R3 2 0
   RETURN R0 0
 
 MAIN:
@@ -116,7 +123,7 @@ MAIN:
   LOADK R10 K20 ["{\"id\":0,\"name\":\"test place\",\"description\":null,\"isArchived\":false,\"rootPlaceId\":0,\"isActive\":false,\"privacyType\":\"Private\",\"creatorType\":\"User\",\"creatorTargetId\":123,\"creatorName\":\"testCreator\",\"created\":\"2024-09-10T21:14:20.017Z\",\"updated\":\"2024-09-10T21:14:21.953Z\"}"]
   SETTABLE R10 R8 R9
   GETTABLEKS R9 R6 K21 ["UNIVERSES_PERMISSIONS_TEST_URL"]
-  LOADK R10 K22 ["{\"data\":[{\"userId\":\"123\",\"userName\":\"testuser\",\"action\":\"Edit\",\"allowedPermissions\":\"Edit\"}]}"]
+  LOADK R10 K22 ["{\"data\":[{\"userId\":\"1234\",\"userName\":\"testuser\",\"action\":\"Edit\",\"allowedPermissions\":\"Edit\"}]}"]
   SETTABLE R10 R8 R9
   SETTABLEKS R8 R7 K17 ["apis"]
   DUPCLOSURE R8 K23 [PROTO_0]
@@ -128,7 +135,7 @@ MAIN:
   CAPTURE VAL R3
   SETTABLEKS R8 R7 K28 ["request"]
   DUPCLOSURE R8 K29 [PROTO_3]
-  CAPTURE VAL R7
+  CAPTURE VAL R6
   LOADNIL R9
   DUPTABLE R10 K31 [{"Networking", "mock"}]
   GETTABLEKS R12 R2 K32 ["isCli"]
@@ -139,8 +146,8 @@ MAIN:
   MOVE R11 R5
   SETTABLEKS R11 R10 K15 ["Networking"]
   NEWCLOSURE R11 P4
+  CAPTURE VAL R8
   CAPTURE REF R9
-  CAPTURE VAL R7
   SETTABLEKS R11 R10 K30 ["mock"]
   MOVE R9 R10
   CLOSEUPVALS R9

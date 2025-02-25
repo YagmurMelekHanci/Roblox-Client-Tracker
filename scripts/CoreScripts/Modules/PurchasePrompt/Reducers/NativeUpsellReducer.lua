@@ -12,6 +12,7 @@ local NativeUpsellReducer = Rodux.createReducer({}, {
 			robuxProductId = action.robuxProductId,
 			productId = action.productId,
 			robuxPurchaseAmount = action.robuxPurchaseAmount,
+			robuxAmountBeforeBonus = action.robuxAmountBeforeBonus,
 		}
 	end,
 })

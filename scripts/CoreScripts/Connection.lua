@@ -14,6 +14,8 @@ local CorePackages = game:GetService("CorePackages")
 CorePackages:WaitForChild("Workspace"):WaitForChild("Packages") -- WaitForChild used here because Workspace is not available on startup
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 
 local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
@@ -36,6 +38,7 @@ local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagC
 local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
 local FFlagRemoveKickWhitespaceSub = require(RobloxGui.Modules.Flags.FFlagRemoveKickWhitespaceSub)
+local FFlagCreatorBanLocalization = require(RobloxGui.Modules.Flags.FFlagCreatorBanLocalization)
 
 local FFlagAllowDisconnectGuiForOkUnknown = require(RobloxGui.Modules.Flags.FFlagAllowDisconnectGuiForOkUnknown)
 
@@ -68,6 +71,24 @@ local reconnectDisabledReason = safeGetFString(
 local lastErrorTimeStamp = tick()
 
 local coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
+
+-- The new, supported way to translate strings in the client.
+-- This function should be used instead of coreScriptTableTranslator:FormatByKey.
+-- Errors will be caught and an empty string will be returned if the translation fails.
+local function translateString(key: string, arguments: { [string]: any }?): string
+	local localeId = LocalizationService.RobloxLocaleId
+	local localization = Localization.new(localeId)
+	localization:SetLocale(localeId)
+
+	local success, result = pcall(function()
+		return localization:Format(key, arguments)
+	end)
+	if success then
+		return result
+	end
+	Logging.warn("Failed to translate string with key: " .. key)
+	return ""
+end
 
 local errorPrompt
 local graceTimeout = -1
@@ -481,6 +502,74 @@ local function stateTransit(errorType, errorCode, oldState)
 	return oldState
 end
 
+local function getCreatorBanString(errorMsg: string)
+	local errorDetails = GuiService:GetErrorDetails()
+	if errorDetails then
+		local time = errorDetails['time']
+
+		local banMessage
+		if time then
+			local minutes = errorDetails['minutes']
+			local hours = errorDetails['hours']
+			local days = errorDetails['days']
+
+			local minutesString
+			if minutes == 1 then
+				minutesString = translateString("InGame.ConnectionError.CreatorBanMinutesSingular")
+			else
+				minutesString = translateString("InGame.ConnectionError.CreatorBanMinutesPlural", { ["RBX_TIME_MINUTES:int"] = minutes })
+			end
+
+			local hoursString
+			if hours == 1 then
+				hoursString = translateString("InGame.ConnectionError.CreatorBanHoursSingular")
+			else
+				hoursString = translateString("InGame.ConnectionError.CreatorBanHoursPlural", { ["RBX_TIME_HOURS:int"] = hours })
+			end
+
+			local daysString
+			if days == 1 then
+				daysString = translateString("InGame.ConnectionError.CreatorBanDaysSingular")
+			else
+				daysString = translateString("InGame.ConnectionError.CreatorBanDaysPlural", { ["RBX_TIME_DAYS:int"] = days })
+			end
+
+			if minutesString ~= "" and hoursString ~= "" and daysString ~= "" then
+				local joinedTime = minutesString
+				if hours > 0 then
+					joinedTime = hoursString .. ", " .. joinedTime
+				end
+				if days > 0 then
+					joinedTime = daysString .. ", " .. joinedTime
+				end
+
+				banMessage = translateString("InGame.ConnectionError.CreatorBanWithTime", { RBX_TIME_REMAINING = joinedTime })
+			else
+				return errorMsg
+			end
+		else
+			banMessage = translateString("InGame.ConnectionError.CreatorBanNoTime")
+		end
+
+		if banMessage == "" then
+			return errorMsg
+		end
+
+		local displayReason = errorDetails['displayReason']
+		if displayReason and displayReason ~= "" then
+			local reasonMessage = translateString("InGame.ConnectionError.CreatorBanMessage", { RBX_STR = displayReason })
+			if reasonMessage ~= "" then
+				return banMessage .. " " .. reasonMessage
+			else
+				return errorMsg
+			end
+		end
+		return banMessage
+	end
+	
+	return errorMsg
+end
+
 -- Look up in corelocalization for new string. Otherwise fallback to the original string
 -- If it is teleport error but not TELEPORT_FAILED, use general string "Reconnect failed."
 local function getErrorString(errorMsg: string, errorCode, reconnectError)
@@ -557,7 +646,9 @@ local function updateErrorPrompt(errorMsg, errorCode, errorType)
 		onEnter(newPromptState)
 	end
 
-	if
+	if FFlagCreatorBanLocalization() and errorCode == Enum.ConnectionError.PlacelaunchCreatorBan then
+		errorMsg = getCreatorBanString(errorMsg)
+	elseif
 		errorType == Enum.ConnectionError.TeleportErrors
 		and connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED
 	then

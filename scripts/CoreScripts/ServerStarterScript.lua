@@ -21,6 +21,8 @@ local ScriptContext = game:GetService("ScriptContext")
 local CoreGui = game:GetService("CoreGui")
 local GetFFlagDisplayServerChannel = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisplayServerChannel
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
+local getFFlagExpChatMigrationSetup = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatMigrationSetup
+local FFlagDebugLogExpchatMigration = game:DefineFastFlag("DebugLogExpchatMigration", false)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
@@ -136,6 +138,17 @@ local chatVersion = TextChatService.ChatVersion
 if getFFlagExpChatAlwaysRunTCS() or chatVersion == Enum.ChatVersion.TextChatService then
 	local ExperienceChatServer = require(CorePackages.Workspace.Packages.ExpChatServer)
 	ExperienceChatServer.mountServerApp({})
+elseif getFFlagExpChatMigrationSetup() and chatVersion == Enum.ChatVersion.LegacyChatService then
+	local Chat = game:GetService("Chat")
+	Chat:GetPropertyChangedSignal("IsAutoMigrated"):Connect(function()
+		if Chat.IsAutoMigrated then
+			if FFlagDebugLogExpchatMigration then
+				print("Migrating to ExpChat")
+			end
+			local ExperienceChatServer = require(CorePackages.Workspace.Packages.ExpChatServer)
+			ExperienceChatServer.mountServerApp({})
+		end
+	end)
 end
 
 if runService:IsStudio() == false then

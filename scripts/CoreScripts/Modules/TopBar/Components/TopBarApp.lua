@@ -29,7 +29,6 @@ local ConnectIcon = require(Presentation.ConnectIcon)
 local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
-local GamepadMenu = require(Presentation.GamepadMenu)
 local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
 local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
@@ -46,6 +45,7 @@ local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.Share
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagEnableSceneAnalysisPerformanceTest = SharedFlags.GetFFlagEnableSceneAnalysisPerformanceTest
 local GetFFlagEnableSongbirdPeek = require(Chrome.Flags.GetFFlagEnableSongbirdPeek)
+local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -74,6 +74,17 @@ local FFlagUnibarMenuIconLayoutFix = require(TopBar.Flags.FFlagUnibarMenuIconLay
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
+local GamepadMenu = nil
+local GamepadConnector = nil
+local FFlagAddMenuNavigationToggleDialog = nil
+local MenuNavigationToggleDialog = nil
+if ChromeEnabled() and FFlagConnectGamepadChrome then
+	GamepadConnector = require(script.Parent.GamepadConnector)
+	FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
+	MenuNavigationToggleDialog = require(Presentation.GamepadMenu.MenuNavigationToggleDialog)
+else
+	GamepadMenu = require(Presentation.GamepadMenu)
+end
 
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
@@ -92,6 +103,19 @@ local GetFFlagPeekUseFixedHeight = require(CorePackages.Workspace.Packages.Share
 local GetFFlagSongbirdMountDebugAudioEmitters = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdMountDebugAudioEmitters
 
 local PartyMicBinder = require(script.Parent.Parent.Parent.Chrome.Integrations.Party.PartyMicBinder)
+
+local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
+local GetFFlagEnableJoinVoiceOnUnibar =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableJoinVoiceOnUnibar
+
+local JoinVoiceBinder
+if game:GetEngineFeature("VoiceChatSupported")
+	and GetFFlagEnableJoinVoiceOnUnibar()
+	and GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice()
+	and ChromeEnabled() then
+	JoinVoiceBinder = require(script.Parent.Parent.Parent.Chrome.Integrations.JoinVoiceBinder)
+end
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
@@ -133,6 +157,10 @@ function TopBarApp:init()
 		self:setState({
 			unibarAlignment = ChromeService:orderAlignment():get(),
 		})
+
+		if FFlagConnectGamepadChrome then
+			self.GamepadConnector = GamepadConnector.new()
+		end
 	end
 
 	if TenFootInterfaceExpChatExperimentation.getIsEnabled() then
@@ -160,6 +188,10 @@ function TopBarApp:didMount()
 				unibarAlignment = ChromeService:orderAlignment():get(),
 			})
 		end)
+
+		if FFlagConnectGamepadChrome then
+			self.GamepadConnector:connectToTopbar()
+		end
 	end
 end
 
@@ -168,6 +200,10 @@ function TopBarApp:willUnmount()
 		if self.orderAlignmentConnection then
 			self.orderAlignmentConnection:disconnect()
 			self.orderAlignmentConnection = nil
+		end
+		
+		if FFlagConnectGamepadChrome then
+			self.GamepadConnector:disconnectFromTopbar()
 		end
 	end
 end
@@ -246,11 +282,18 @@ function TopBarApp:renderWithStyle(style)
 		end,
 	}, {
 		Connection = Roact.createElement(Connection),
-		GamepadMenu = if TenFootInterfaceExpChatExperimentation.getIsEnabled()
-			then Roact.createElement(GamepadMenu, {
-				chatVersion = self.state.chatVersion,
+		GamepadMenu = if not FFlagConnectGamepadChrome then 
+				if TenFootInterfaceExpChatExperimentation.getIsEnabled()
+					then Roact.createElement(GamepadMenu, {
+						chatVersion = self.state.chatVersion,
+					})
+				else Roact.createElement(GamepadMenu) 
+			else nil,
+		MenuNavigationToggleDialog = if FFlagConnectGamepadChrome and FFlagAddMenuNavigationToggleDialog
+			then Roact.createElement(MenuNavigationToggleDialog, {
+				Position = UDim2.fromScale(0.5, 0.1),
 			})
-			else Roact.createElement(GamepadMenu),
+			else nil,
 		GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
 			then Roact.createElement(GamepadNavigationDialog)
 			else nil,
@@ -421,6 +464,7 @@ function TopBarApp:renderWithStyle(style)
 						else topBarRightFramePosition,
 					AnchorPoint = Vector2.new(1, 0),
 				}, {
+					JoinVoiceBinder = if chromeEnabled and JoinVoiceBinder then Roact.createElement(JoinVoiceBinder) else nil,
 					PartyMicBinder = if chromeEnabled
 							and GetFFlagEnablePartyMicIconInChrome()
 							and GetFFlagEnableCrossExpVoice()

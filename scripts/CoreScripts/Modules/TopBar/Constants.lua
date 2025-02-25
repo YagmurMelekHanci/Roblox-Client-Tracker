@@ -35,7 +35,7 @@ end
 
 return {
 	TopBarHeight = topbarHeight,
-	TopBarHeightTenFoot = if FFlagUnibarMenuIconLayoutFix then nil else 72,
+	TopBarHeightTenFoot = if FFlagUnibarMenuIconLayoutFix and ChromeEnabled() then nil else 72,
 	TopBarButtonHeight = topbarButtonHeight,
 	TopBarButtonPadding = topbarButtonPadding,
 	TopBarTopMargin = topbarHeight - topbarButtonHeight - 2 * topbarButtonPadding,
@@ -50,7 +50,7 @@ return {
 	VoiceBetaBadgeKeepOutAreaId = "badge-voice-beta",
 
 	ScreenSideOffset = 16,
-	ScreenSideOffsetTenFoot = if FFlagUnibarMenuIconLayoutFix then nil else 48,
+	ScreenSideOffsetTenFoot = if FFlagUnibarMenuIconLayoutFix and ChromeEnabled() then nil else 48,
 
 	Padding = if ChromeEnabled() then 8 else 12,
 

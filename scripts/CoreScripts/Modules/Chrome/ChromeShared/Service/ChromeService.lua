@@ -6,6 +6,8 @@ local UserInputService = game:GetService("UserInputService")
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local reverse = LuauPolyfill.Array.reverse
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
@@ -22,25 +24,22 @@ local Types = require(Root.Service.Types)
 local Constants = require(Root.Unibar.Constants)
 local PeekService = require(Root.Service.PeekService)
 
-local GetFFlagRefactorChromeAssert = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRefactorChromeAssert
+local GetFFlagRefactorChromeAssert = SharedFlags.GetFFlagRefactorChromeAssert
 local ChromeEnabled
 if not GetFFlagRefactorChromeAssert() then
 	ChromeEnabled = require(Root.Parent.Enabled)
 end
 
-local GetFFlagEnableChromePinIntegrations =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinIntegrations
-local GetFFlagEnableSaveUserPins = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSaveUserPins
+local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
+local GetFFlagEnableSaveUserPins = SharedFlags.GetFFlagEnableSaveUserPins
 -- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
-local GetFFlagEnableUserPinPortraitFix =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableUserPinPortraitFix
-local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
-local GetFFlagChromePeekArchitecture =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromePeekArchitecture
+local GetFFlagEnableUserPinPortraitFix = SharedFlags.GetFFlagEnableUserPinPortraitFix
+local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
+local GetFFlagChromePeekArchitecture = SharedFlags.GetFFlagChromePeekArchitecture
 local GetFFlagChromeTrackWindowStatus = require(Root.Parent.Flags.GetFFlagChromeTrackWindowStatus)
 local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
-local GetFFlagChromeDefaultWindowStartingPosition =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeDefaultWindowStartingPosition
+local GetFFlagChromeDefaultWindowStartingPosition = SharedFlags.GetFFlagChromeDefaultWindowStartingPosition
+local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 
 local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
 
@@ -1228,6 +1227,9 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 
 			local success, err = pcall(function()
 				integrationActivated(self._integrations[componentId])
+				if FFlagConnectGamepadChrome then
+					self:disableFocusNav()
+				end
 			end)
 			if not success then
 				warn("ChromeService: activate error thrown for " .. componentId)

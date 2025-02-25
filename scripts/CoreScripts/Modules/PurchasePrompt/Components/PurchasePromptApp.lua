@@ -48,7 +48,7 @@ local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableS
 
 local GetFFlagEnableToastLiteRender = require(Root.Flags.GetFFlagEnableToastLiteRender)
 local FFlagUIBloxFoundationProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUIBloxFoundationProvider()
-local FFlagAddCursorProviderToPurchasePromptApp = game:DefineFastFlag("AddCursorProviderToPurchasePromptApp", false)
+local FFlagAddCursorProviderToPurchasePromptApp = require(Root.Flags.FFlagAddCursorProviderToPurchasePromptApp)
 
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 

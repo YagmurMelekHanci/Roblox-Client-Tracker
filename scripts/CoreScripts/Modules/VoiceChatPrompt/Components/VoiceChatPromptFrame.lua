@@ -38,7 +38,6 @@ local GetFFlagEnableVoiceNudge = require(VoiceChatCore.Flags.GetFFlagEnableVoice
 local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
 local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
-local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 local GetFFlagEnableInExpVoiceConsentAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceConsentAnalytics)
@@ -144,9 +143,9 @@ local PromptSubTitle = {
 	[PromptType.VoiceToxicityToast] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.Subtitle.VoiceToxicityToast"
 	),
-	[PromptType.VoiceToxicityFeedbackToast] = if GetFFlagUpdateNudgeV3VoiceBanUI()
-		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.ThanksForLettingUsKnow")
-		else RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.ThankYouForFeedback"),
+	[PromptType.VoiceToxicityFeedbackToast] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.Subtitle.ThanksForLettingUsKnow"
+	),
 	[PromptType.VoiceChatSuspendedTemporaryToast] = function(dateTime)
 		return RobloxTranslator:FormatByKey(
 			"Feature.SettingsHub.Description.ChatWithVoiceDisabledUntil",
@@ -378,8 +377,7 @@ function VoiceChatPromptFrame:init()
 					"Feature.SettingsHub.Prompt.XMinuteSuspension",
 					{ banDurationInMinutes = self.props.bannedUntil }
 				)
-				local banEnd = if GetFFlagUpdateNudgeV3VoiceBanUI()
-						and promptType == PromptType.VoiceChatSuspendedTemporaryB
+				local banEnd = if promptType == PromptType.VoiceChatSuspendedTemporaryB
 					then xMinuteSuspension
 					else " " .. self.props.bannedUntil .. "."
 
@@ -403,8 +401,7 @@ function VoiceChatPromptFrame:init()
 			self.props.onContinueFunc()
 		end
 		ContextActionService:UnbindCoreAction(CLOSE_VOICE_BAN_PROMPT)
-		local isUpdatedBanModalB = GetFFlagUpdateNudgeV3VoiceBanUI()
-			and self.state.promptType == PromptType.VoiceChatSuspendedTemporaryB
+		local isUpdatedBanModalB = self.state.promptType == PromptType.VoiceChatSuspendedTemporaryB
 		if FFlagVoiceChatOnlyReportVoiceBans then
 			if PromptTypeIsBan(self.state.promptType) then
 				-- We don't want these events to fire for Nudge v3 because pressing both buttons in the modal to close it will fire these events.
@@ -455,8 +452,7 @@ function VoiceChatPromptFrame:render()
 	local errorText = GetFFlagEnableVoicePromptReasonText() and self.props.errorText or nil
 	local isNudgeModal = IsModalNudge(self.state.promptType)
 	local isNudgeToast = self.state.promptType == PromptType.VoiceToxicityToast
-	local isUpdatedBanModalB = GetFFlagUpdateNudgeV3VoiceBanUI()
-		and self.state.promptType == PromptType.VoiceChatSuspendedTemporaryB
+	local isUpdatedBanModalB = self.state.promptType == PromptType.VoiceChatSuspendedTemporaryB
 	local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell() and IsVoiceConsentModal(self.state.promptType)
 	local isDevicePermissionsModal = GetFFlagShowDevicePermissionsModal()
 		and IsDevicePermissionsModal(self.state.promptType)
@@ -502,9 +498,7 @@ function VoiceChatPromptFrame:render()
 		).Y
 		local subBodyTextContainerHeight = PADDING + subTextHeight
 
-		local showSecondaryButton = if GetFFlagUpdateNudgeV3VoiceBanUI()
-			then ShouldShowSecondaryButton(self.state.promptType)
-			else isNudgeModal
+		local showSecondaryButton = ShouldShowSecondaryButton(self.state.promptType)
 
 		local inGameMenuInformationalDialog = Roact.createElement("ScreenGui", {
 			DisplayOrder = 8,

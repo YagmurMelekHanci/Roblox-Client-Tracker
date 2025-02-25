@@ -5,6 +5,7 @@ local CorePackages = game:GetService("CorePackages")
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
 local Base64 = require(Root.Utils.Base64)
+local PurchaseFlow = require(Root.Enums.PurchaseFlow)
 
 local MarketplaceService = game:GetService("MarketplaceService")
 local PlatformService = nil
@@ -48,6 +49,14 @@ function PlatformInterface.new()
 			GuiService:OpenBrowserWindow(("%supgrades/paymentmethods?ap=%s"):format(BASE_URL, productId))
 		else
 			GuiService:OpenBrowserWindow(("%sUpgrades/Robux.aspx"):format(BASE_URL))
+		end
+	end
+
+	function service.startRobuxUpsellWebByFlow(purchaseFlow, productId: string)
+		if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
+			GuiService:OpenBrowserWindow(("%supgrades/paymentmethods?ap=%s"):format(BASE_URL, productId))
+		else
+			GuiService:OpenBrowserWindow(("%sUpgrades/Robux.aspx?product_id=%s"):format(BASE_URL, productId))
 		end
 	end
 

@@ -40,21 +40,21 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  DUPTABLE R4 K16 [{"_isMock", "_networking", "_pluginController", "_explorerController", "_searchTerm", "_searchOptions", "_sourceList", "_showSearchOptions", "_isDefaultSearchState", "OnSearchRequested", "OnSearchTermChanged", "OnSearchOptionsChanged", "OnSourceListChanged", "OnShowSearchOptionsChanged", "OnIsDefaultSearchStateChanged", "OnSearchClosed"}]
+  DUPTABLE R4 K17 [{"_isMock", "_networking", "_pluginController", "_explorerController", "_searchTerm", "_searchOptions", "_sourceList", "_showSearchOptions", "_isDefaultSearchState", "_searchSessionId", "OnSearchRequested", "OnSearchTermChanged", "OnSearchOptionsChanged", "OnSourceListChanged", "OnShowSearchOptionsChanged", "OnIsDefaultSearchStateChanged", "OnSearchClosed"}]
   SETTABLEKS R3 R4 K0 ["_isMock"]
   SETTABLEKS R2 R4 K1 ["_networking"]
   SETTABLEKS R0 R4 K2 ["_pluginController"]
   SETTABLEKS R1 R4 K3 ["_explorerController"]
-  LOADK R5 K17 [""]
+  LOADK R5 K18 [""]
   SETTABLEKS R5 R4 K4 ["_searchTerm"]
-  DUPTABLE R5 K20 [{"AssetType", "Source"}]
+  DUPTABLE R5 K21 [{"AssetType", "Source"}]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K18 ["AssetType"]
-  GETTABLEKS R6 R7 K21 ["Model"]
-  SETTABLEKS R6 R5 K18 ["AssetType"]
-  NAMECALL R6 R1 K22 ["getSelection"]
+  GETTABLEKS R7 R8 K19 ["AssetType"]
+  GETTABLEKS R6 R7 K22 ["Model"]
+  SETTABLEKS R6 R5 K19 ["AssetType"]
+  NAMECALL R6 R1 K23 ["getSelection"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K19 ["Source"]
+  SETTABLEKS R6 R5 K20 ["Source"]
   SETTABLEKS R5 R4 K5 ["_searchOptions"]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R4 K6 ["_sourceList"]
@@ -62,55 +62,57 @@ PROTO_3:
   SETTABLEKS R5 R4 K7 ["_showSearchOptions"]
   LOADB R5 1
   SETTABLEKS R5 R4 K8 ["_isDefaultSearchState"]
+  LOADK R5 K18 [""]
+  SETTABLEKS R5 R4 K9 ["_searchSessionId"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K23 ["new"]
+  GETTABLEKS R5 R6 K24 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K9 ["OnSearchRequested"]
+  SETTABLEKS R5 R4 K10 ["OnSearchRequested"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K23 ["new"]
+  GETTABLEKS R5 R6 K24 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K10 ["OnSearchTermChanged"]
+  SETTABLEKS R5 R4 K11 ["OnSearchTermChanged"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K23 ["new"]
+  GETTABLEKS R5 R6 K24 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K11 ["OnSearchOptionsChanged"]
+  SETTABLEKS R5 R4 K12 ["OnSearchOptionsChanged"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K23 ["new"]
+  GETTABLEKS R5 R6 K24 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K12 ["OnSourceListChanged"]
+  SETTABLEKS R5 R4 K13 ["OnSourceListChanged"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K23 ["new"]
+  GETTABLEKS R5 R6 K24 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K13 ["OnShowSearchOptionsChanged"]
+  SETTABLEKS R5 R4 K14 ["OnShowSearchOptionsChanged"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K23 ["new"]
+  GETTABLEKS R5 R6 K24 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K14 ["OnIsDefaultSearchStateChanged"]
+  SETTABLEKS R5 R4 K15 ["OnIsDefaultSearchStateChanged"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K23 ["new"]
+  GETTABLEKS R5 R6 K24 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K15 ["OnSearchClosed"]
+  SETTABLEKS R5 R4 K16 ["OnSearchClosed"]
   NEWCLOSURE R5 P0
   CAPTURE VAL R4
-  SETTABLEKS R5 R4 K24 ["_updateSourceList"]
+  SETTABLEKS R5 R4 K25 ["_updateSourceList"]
   GETTABLEKS R6 R4 K3 ["_explorerController"]
-  GETTABLEKS R5 R6 K25 ["OnExplorerItemsChanged"]
+  GETTABLEKS R5 R6 K26 ["OnExplorerItemsChanged"]
   NEWCLOSURE R7 P1
   CAPTURE VAL R4
-  NAMECALL R5 R5 K26 ["Connect"]
+  NAMECALL R5 R5 K27 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K27 ["_explorerItemsChangedConnection"]
+  SETTABLEKS R5 R4 K28 ["_explorerItemsChangedConnection"]
   GETTABLEKS R6 R4 K2 ["_pluginController"]
-  GETTABLEKS R5 R6 K28 ["OnSelectionChanged"]
+  GETTABLEKS R5 R6 K29 ["OnSelectionChanged"]
   NEWCLOSURE R7 P2
   CAPTURE VAL R4
-  NAMECALL R5 R5 K26 ["Connect"]
+  NAMECALL R5 R5 K27 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K29 ["_explorerSelectionConnection"]
+  SETTABLEKS R5 R4 K30 ["_explorerSelectionConnection"]
   GETUPVAL R7 2
   FASTCALL2 SETMETATABLE R4 R7 [+4]
   MOVE R6 R4
-  GETIMPORT R5 K31 [setmetatable]
+  GETIMPORT R5 K32 [setmetatable]
   CALL R5 2 0
   RETURN R4 1
 
@@ -180,6 +182,18 @@ PROTO_8:
   GETTABLEKS R1 R0 K5 ["OnSearchRequested"]
   NAMECALL R1 R1 K4 ["Fire"]
   CALL R1 1 0
+  DUPTABLE R1 K9 [{"searchAssetType", "searchKeywords", "searchId"}]
+  GETTABLEKS R3 R0 K10 ["_searchOptions"]
+  GETTABLEKS R2 R3 K11 ["AssetType"]
+  SETTABLEKS R2 R1 K6 ["searchAssetType"]
+  GETTABLEKS R2 R0 K0 ["_searchTerm"]
+  SETTABLEKS R2 R1 K7 ["searchKeywords"]
+  GETTABLEKS R2 R0 K12 ["_searchSessionId"]
+  SETTABLEKS R2 R1 K8 ["searchId"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K13 ["sendSearchEvent"]
+  MOVE R3 R1
+  CALL R2 1 0
   RETURN R0 0
 
 PROTO_9:
@@ -257,7 +271,7 @@ PROTO_15:
 
 PROTO_16:
   GETTABLEKS R1 R0 K0 ["_showSearchOptions"]
-  JUMPIFEQKB R1 TRUE [+20]
+  JUMPIFEQKB R1 TRUE [+26]
   LOADB R1 1
   SETTABLEKS R1 R0 K0 ["_showSearchOptions"]
   LOADB R1 1
@@ -270,11 +284,15 @@ PROTO_16:
   LOADB R3 1
   NAMECALL R1 R1 K3 ["Fire"]
   CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["createSearchSessionId"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K6 ["_searchSessionId"]
   RETURN R0 0
 
 PROTO_17:
   GETTABLEKS R1 R0 K0 ["_showSearchOptions"]
-  JUMPIFEQKB R1 FALSE [+46]
+  JUMPIFEQKB R1 FALSE [+49]
   LOADB R1 0
   SETTABLEKS R1 R0 K0 ["_showSearchOptions"]
   GETTABLEKS R1 R0 K1 ["OnShowSearchOptionsChanged"]
@@ -303,7 +321,13 @@ PROTO_17:
   GETTABLEKS R1 R0 K16 ["OnSearchClosed"]
   NAMECALL R1 R1 K2 ["Fire"]
   CALL R1 1 0
+  LOADK R1 K3 [""]
+  SETTABLEKS R1 R0 K17 ["_searchSessionId"]
   RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R1 R0 K0 ["_searchSessionId"]
+  RETURN R1 1
 
 MAIN:
   PREPVARARGS 0
@@ -321,44 +345,52 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["Signal"]
   GETIMPORT R5 K5 [require]
   GETTABLEKS R7 R0 K12 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Types"]
+  GETTABLEKS R6 R7 K13 ["Analytics"]
   CALL R5 1 1
-  LOADK R8 K14 ["SearchController"]
-  NAMECALL R6 R3 K15 ["extend"]
-  CALL R6 2 1
-  DUPCLOSURE R7 K16 [PROTO_3]
-  CAPTURE VAL R5
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Types"]
+  CALL R6 1 1
+  LOADK R9 K15 ["SearchController"]
+  NAMECALL R7 R3 K16 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K17 [PROTO_3]
+  CAPTURE VAL R6
   CAPTURE VAL R4
-  CAPTURE VAL R6
-  SETTABLEKS R7 R6 K17 ["new"]
-  DUPCLOSURE R7 K18 [PROTO_4]
-  CAPTURE VAL R6
-  SETTABLEKS R7 R6 K19 ["mock"]
-  DUPCLOSURE R7 K20 [PROTO_5]
-  SETTABLEKS R7 R6 K21 ["destroy"]
-  DUPCLOSURE R7 K22 [PROTO_6]
-  SETTABLEKS R7 R6 K23 ["getSearchTerm"]
-  DUPCLOSURE R7 K24 [PROTO_7]
-  SETTABLEKS R7 R6 K25 ["setSearchTerm"]
-  DUPCLOSURE R7 K26 [PROTO_8]
-  SETTABLEKS R7 R6 K27 ["requestSearch"]
-  DUPCLOSURE R7 K28 [PROTO_9]
-  SETTABLEKS R7 R6 K29 ["getSearchOptions"]
-  DUPCLOSURE R7 K30 [PROTO_10]
-  SETTABLEKS R7 R6 K31 ["setSearchOptions"]
-  DUPCLOSURE R7 K32 [PROTO_11]
-  SETTABLEKS R7 R6 K33 ["setSource"]
-  DUPCLOSURE R7 K34 [PROTO_12]
-  SETTABLEKS R7 R6 K35 ["getSourceList"]
-  DUPCLOSURE R7 K36 [PROTO_13]
-  SETTABLEKS R7 R6 K37 ["setAssetTypeFilter"]
-  DUPCLOSURE R7 K38 [PROTO_14]
-  SETTABLEKS R7 R6 K39 ["getIsDefaultSearchState"]
-  DUPCLOSURE R7 K40 [PROTO_15]
-  SETTABLEKS R7 R6 K41 ["getShowSearchOptions"]
-  DUPCLOSURE R7 K42 [PROTO_16]
-  SETTABLEKS R7 R6 K43 ["showSearchOptions"]
-  DUPCLOSURE R7 K44 [PROTO_17]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R7 K18 ["new"]
+  DUPCLOSURE R8 K19 [PROTO_4]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R7 K20 ["mock"]
+  DUPCLOSURE R8 K21 [PROTO_5]
+  SETTABLEKS R8 R7 K22 ["destroy"]
+  DUPCLOSURE R8 K23 [PROTO_6]
+  SETTABLEKS R8 R7 K24 ["getSearchTerm"]
+  DUPCLOSURE R8 K25 [PROTO_7]
+  SETTABLEKS R8 R7 K26 ["setSearchTerm"]
+  DUPCLOSURE R8 K27 [PROTO_8]
   CAPTURE VAL R5
-  SETTABLEKS R7 R6 K45 ["hideSearchOptions"]
-  RETURN R6 1
+  SETTABLEKS R8 R7 K28 ["requestSearch"]
+  DUPCLOSURE R8 K29 [PROTO_9]
+  SETTABLEKS R8 R7 K30 ["getSearchOptions"]
+  DUPCLOSURE R8 K31 [PROTO_10]
+  SETTABLEKS R8 R7 K32 ["setSearchOptions"]
+  DUPCLOSURE R8 K33 [PROTO_11]
+  SETTABLEKS R8 R7 K34 ["setSource"]
+  DUPCLOSURE R8 K35 [PROTO_12]
+  SETTABLEKS R8 R7 K36 ["getSourceList"]
+  DUPCLOSURE R8 K37 [PROTO_13]
+  SETTABLEKS R8 R7 K38 ["setAssetTypeFilter"]
+  DUPCLOSURE R8 K39 [PROTO_14]
+  SETTABLEKS R8 R7 K40 ["getIsDefaultSearchState"]
+  DUPCLOSURE R8 K41 [PROTO_15]
+  SETTABLEKS R8 R7 K42 ["getShowSearchOptions"]
+  DUPCLOSURE R8 K43 [PROTO_16]
+  CAPTURE VAL R5
+  SETTABLEKS R8 R7 K44 ["showSearchOptions"]
+  DUPCLOSURE R8 K45 [PROTO_17]
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K46 ["hideSearchOptions"]
+  DUPCLOSURE R8 K47 [PROTO_18]
+  SETTABLEKS R8 R7 K48 ["getSearchId"]
+  RETURN R7 1

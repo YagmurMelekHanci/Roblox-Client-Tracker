@@ -57,6 +57,7 @@ local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.Ve
 local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
 local VPCModalType = require(Root.Enums.VPCModalType)
 local Animator = require(script.Parent.Animator)
+local FFlagAddCursorProviderToPurchasePromptApp = require(Root.Flags.FFlagAddCursorProviderToPurchasePromptApp)
 
 local ProductPurchaseContainer = Roact.Component:extend(script.Name)
 
@@ -301,6 +302,12 @@ function ProductPurchaseContainer:didUpdate(prevProps, prevState)
 		self.configContextActionService(self.props.windowState)
 
 		GuiService:SetPurchasePromptIsShown(self.props.windowState == WindowState.Shown)
+
+		if FFlagAddCursorProviderToPurchasePromptApp then
+			if self.props.windowState == WindowState.Hidden then
+				self.props.completeRequest()
+			end
+		end
 	end
 
 	if
@@ -440,6 +447,7 @@ function ProductPurchaseContainer:render()
 			itemName = productInfo.name,
 			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 			robuxPurchaseAmount = nativeUpsell.robuxPurchaseAmount,
+			robuxPurchaseAmountBeforeBonus = nativeUpsell.robuxAmountBeforeBonus,
 			balanceAmount = accountInfo.balance,
 
 			isDelayedInput = self.hasDelayedInput(),
@@ -461,7 +469,7 @@ function ProductPurchaseContainer:render()
 			cancelActivated = self.cancelButtonPressed,
 			continueActivated = self.confirmButtonPressed,
 		})
-	elseif promptState == PromptState.PurchaseComplete and requestType == RequestType.AvatarCreationFee	then
+	elseif promptState == PromptState.PurchaseComplete and requestType == RequestType.AvatarCreationFee then
 		prompt = Roact.createElement(InteractiveAlert, {
 			bodyText = RobloxTranslator:FormatByKey(PURCHASE_COMPLETE_DESC_KEY),
 			buttonStackInfo = {
@@ -580,8 +588,10 @@ function ProductPurchaseContainer:render()
 					isAnimating = nil,
 					doneAnimatingTime = nil,
 				})
-				if self.props.windowState == WindowState.Hidden and isRelevantRequestType(self.props.requestType) then
-					self.props.completeRequest()
+				if not FFlagAddCursorProviderToPurchasePromptApp then
+					if self.props.windowState == WindowState.Hidden and isRelevantRequestType(self.props.requestType) then
+						self.props.completeRequest()
+					end
 				end
 			end,
 			[Roact.Ref] = self.animatorRef,

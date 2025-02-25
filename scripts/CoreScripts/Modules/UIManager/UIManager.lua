@@ -13,6 +13,7 @@ local createUIGroupDragBar = require(script.Parent.createUIGroupDragBar)
 local DragBar = require(UIManagerRoot.DragBar)
 local Players = game:GetService("Players")
 local FIntUIResetDelayInSec = game:DefineFastInt("FIntUIResetDelayInSec", 3)
+local FFlagFixHeadSacleAdjustment = game:DefineFastFlag("FixHeadSacleAdjustment", false)
 
 export type UIGroupPositionProps = {
 	-- The rotation of the UI group relative to the head, used to update the CFrame of the UI group
@@ -359,7 +360,7 @@ function UIManager.onShowTopBarChanged(self: UIManagerClassType)
 	end
 end
 
-function UIManager.cameraMoved(self: UIManagerClassType)
+function UIManager.updateUIGroupsForCurCamera(self: UIManagerClassType)
 	if not VRService.VREnabled then
 		return
 	end
@@ -460,7 +461,11 @@ function UIManager.new()
 	--- Immediately initialize the UI groups after creation
 	self:setUpUiGroups()
 	self:rescaleUIForCurrentHeadScale()
-	self:updateUIGroupsForCurHeadCFrame()
+	if FFlagFixHeadSacleAdjustment then
+		self:updateUIGroupsForCurCamera()
+	else
+		self:updateUIGroupsForCurHeadCFrame()
+	end
 
 	RunService:BindToRenderStep("UIManagerRenderStep", Enum.RenderPriority.Last.Value, function()
 		self:step()
@@ -472,7 +477,7 @@ function UIManager.new()
 
 	local camera = workspace.CurrentCamera :: Camera
 	camera:GetPropertyChangedSignal("CFrame"):Connect(function()
-		self:cameraMoved()
+		self:updateUIGroupsForCurCamera()
 	end)
 
 	camera:GetPropertyChangedSignal("HeadScale"):Connect(function()

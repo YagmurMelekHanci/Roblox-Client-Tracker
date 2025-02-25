@@ -44,19 +44,23 @@ PROTO_2:
   SETTABLEKS R4 R1 K0 ["Parent"]
   SETTABLEKS R3 R1 K0 ["Parent"]
   GETTABLEKS R4 R1 K1 ["Resolved"]
-  JUMPIF R4 [+5]
-  JUMPIFNOTEQKS R2 K2 [""] [+4]
+  JUMPIF R4 [+10]
+  GETTABLEKS R4 R1 K0 ["Parent"]
+  LOADK R6 K2 ["AnnotationsService"]
+  NAMECALL R4 R4 K3 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+3]
   GETUPVAL R4 0
   MOVE R5 R1
   CALL R4 1 0
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K3 ["createAnnotation"]
+  GETTABLEKS R4 R5 K4 ["createAnnotation"]
   GETUPVAL R5 2
   MOVE R6 R1
   CALL R4 2 0
   GETUPVAL R4 3
   GETUPVAL R5 4
-  NAMECALL R5 R5 K4 ["GetAnnotationThreads"]
+  NAMECALL R5 R5 K5 ["GetAnnotationThreads"]
   CALL R5 1 -1
   CALL R4 -1 0
   RETURN R0 0
