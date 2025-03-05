@@ -341,7 +341,7 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Property AnnotationsService.Mode: Enum.AnnotationEditingMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function AnnotationsService:CreateAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
-	Function AnnotationsService:DEPRECATED_EditAnnotation(uniqueId: string, contents: string) -> ()
+	Function AnnotationsService:DEPRECATED_EditAnnotation(uniqueId: string, contents: string) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:DeleteAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:EditAnnotation(uniqueId: string, contents: string, taggedUsers: string) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:GetAnnotationThreads() -> { Instance } {RobloxScriptSecurity}
@@ -724,7 +724,6 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.SearchKeyword: string
 	Property AudioSearchParams.Tag: string
 	Property AudioSearchParams.Title: string
-Class AudioTextToSpeech : Instance
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Property AuroraScriptService.BufferSize: number {✏️PluginSecurity} [Deprecated]
 	Property AuroraScriptService.LocalFrameId: number {✏️RobloxSecurity} [NotReplicated] [Deprecated]
@@ -743,6 +742,7 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraService:NetDesync(target: Instance) -> () [Deprecated]
 	Function AuroraService:NetSync(target: Instance) -> () [Deprecated]
 	Function AuroraService:SetIncomingReplicationLag(seconds: number) -> () [Deprecated]
+	Function AuroraService:SetPropertyIsInput(target: Instance, propertyName: string, isInput: boolean) -> () [Deprecated]
 	Function AuroraService:StartPrediction(target: Instance) -> () [Deprecated]
 	Function AuroraService:StepPhysics(worldSteps: number, parts: { Instance }?) -> () [Deprecated]
 	Function AuroraService:StopPrediction(target: Instance) -> () [Deprecated]
@@ -776,6 +776,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:GetValidationRules() -> { [string]: any } [CustomLuaState]
 	Function AvatarCreationService:LoadAvatar2DPreviewAsync(previewId: string) -> EditableImage [Yields]
 	Function AvatarCreationService:LoadGeneratedAvatarAsync(generationId: string) -> HumanoidDescription [Yields]
+	Function AvatarCreationService:PrepareAvatarForPreviewAsync(humanoidModel: Model) -> () [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(tokenId: string, player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
 	Function AvatarCreationService:PromptSelectAvatarGenerationImageAsync(player: Player) -> string [Yields]
 	Function AvatarCreationService:RequestAvatarGenerationSessionAsync(player: Player, callback: (...any) -> ...any) -> ...any [Yields]
@@ -783,6 +784,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:ValidateUGCAccessoryAsync(player: Player, accessory: Instance, accessoryType: Enum.AccessoryType) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCBodyPartAsync(player: Player, instance: Instance, bodyPart: Enum.BodyPart) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCFullBodyAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
+	Event AvatarCreationService.AvatarModerationCompleted(outfitId: number, moderationStatus: Enum.ModerationStatus)
 	Event AvatarCreationService.ReplicateAvatarGenerationImageId(fileId: string, error: string) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.ReplicateAvatarModel(id: string, success: boolean, serializedModel: string, bufferTable: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.ReplicateAvatarPreviewUrl(id: string, downloadUrl: string) {RobloxSecurity} [Hidden]
@@ -1346,6 +1348,7 @@ Class DragDetector : ClickDetector
 	Event DragDetector.DragEndReplicate(playerWhoDragged: Player) [Hidden]
 	Event DragDetector.DragStart(playerWhoDragged: Player, cursorRay: Ray, viewFrame: CFrame, hitFrame: CFrame, clickedPart: BasePart, vrInputFrame: CFrame?, isModeSwitchKeyDown: boolean)
 	Event DragDetector.DragStartReplicate(playerWhoDragged: Player, cursorRay: Ray, viewFrame: CFrame, hitFrame: CFrame, clickedPart: BasePart, vrInputFrame: CFrame?, isModeSwitchKeyDown: boolean) [Hidden]
+	Event DragDetector.RestartPhysicalDragReplicate(hitPoint: Vector3) [Hidden]
 Class CloudCRUDService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Clouds : Instance
 	Property Clouds.Cover: number
@@ -1725,6 +1728,9 @@ Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [Not
 	Function ConversationalAIAcceptanceService:RecordingActionEnded(requestId: string, waypointName: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:ReportJSONEncodeFailure(instanceName: string, className: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:SendCommandErrorTelemetry(requestId: string, commandName: string, errorMessage: string) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:SendMeshGenMeshInsertedTelemetry() -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:SendMeshGenPublishedAssetsTelemetry() -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:SendMeshGenResultTelemetry(success: boolean) -> () {RobloxScriptSecurity}
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptDebuggingManagerHelper : Instance [NotCreatable] [Service]
@@ -2315,6 +2321,7 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property GuiObject.LayoutOrder: number
 	Property GuiObject.Position: UDim2
 	Property GuiObject.Rotation: number
+	Property GuiObject.SelectionRect2D: Rect {RobloxScriptSecurity} [Hidden] [ReadOnly] {🧬Unsafe}
 	Property GuiObject.Size: UDim2
 	Property GuiObject.SizeConstraint: Enum.SizeConstraint
 	Property GuiObject.Transparency: number [📁 LoadOnly] [Hidden] [NotReplicated]
@@ -4670,9 +4677,11 @@ Class Player : Instance
 	Property Player.ReplicationFocus: Instance?
 	Property Player.RespawnLocation: SpawnLocation?
 	Property Player.SimulationRadius: number {LocalUserSecurity} [Hidden]
+	Property Player.StepIdOffset: number {RobloxSecurity}
 	Property Player.SuperSafeChatReplicate: boolean {LocalUserSecurity} [Hidden] [NotScriptable]
 	Property Player.Teleported: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Player.TeleportedIn: boolean {RobloxScriptSecurity} [Hidden]
+	Property Player.ThirdPartyTextChatRestrictionStatus: Enum.ChatRestrictionStatus {RobloxScriptSecurity} [ReadOnly]
 	Property Player.UnfilteredChat: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Player.UserId: number
 	Property Player.VRDevice: string {RobloxScriptSecurity} [Hidden]
@@ -4894,6 +4903,7 @@ Class Plugin : Instance [NotCreatable]
 	Property Plugin.GridSize: number [ReadOnly]
 	Property Plugin.HostDataModelType: Enum.StudioDataModelType {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Plugin.HostDataModelTypeIsCurrent: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Plugin.IsDebuggable: boolean {RobloxScriptSecurity}
 	Property Plugin.MultipleDocumentInterfaceInstance: MultipleDocumentInterfaceInstance? {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function Plugin:Activate(exclusiveMouse: boolean) -> () {PluginSecurity}
 	Function Plugin:CreateDockWidgetPluginGui(pluginGuiId: string, dockWidgetPluginGuiInfo: DockWidgetPluginGuiInfo) -> DockWidgetPluginGui {PluginSecurity} [Yields]
@@ -4916,6 +4926,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:Invoke(key: string, arguments: ...any) -> () {RobloxScriptSecurity}
 	Function Plugin:IsActivated() -> boolean {PluginSecurity}
 	Function Plugin:IsActivatedWithExclusiveMouse() -> boolean {PluginSecurity}
+	Function Plugin:IsLoadedFromProject() -> boolean {RobloxScriptSecurity}
 	Function Plugin:Negate(objects: { Instance }) -> { Instance } {PluginSecurity}
 	Function Plugin:OnInvoke(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
 	Function Plugin:OnInvokeSuspendOverride(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
@@ -6523,6 +6534,7 @@ Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ThirdPartyUserService:GetUserPlatformId() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetUserPlatformName() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:HaveActiveUser() -> boolean {RobloxScriptSecurity}
+	Function ThirdPartyUserService:IsChatRestrictionSupported() -> boolean {RobloxScriptSecurity}
 	Function ThirdPartyUserService:IsOver13() -> boolean {RobloxScriptSecurity}
 	Function ThirdPartyUserService:RegisterActiveUser(gamepadId: Enum.UserInputType) -> number {RobloxScriptSecurity} [Yields]
 	Function ThirdPartyUserService:ReturnToEngagement() -> () {RobloxScriptSecurity}
@@ -7123,6 +7135,7 @@ Class VirtualInputManager : Instance [Service]
 	Function VirtualInputManager:SendGyroscopeEvent(quatX: number, quatY: number, quatZ: number, quatW: number) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SendKeyEvent(isPressed: boolean, keyCode: Enum.KeyCode, isRepeatedKey: boolean, layerCollector: Instance) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SendMouseButtonEvent(x: number, y: number, mouseButton: number, isDown: boolean, layerCollector: Instance, repeatCount: number) -> () {RobloxScriptSecurity}
+	Function VirtualInputManager:SendMouseMoveDeltaEvent(deltaX: number, deltaY: number, layerCollector: Instance) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SendMouseMoveEvent(x: number, y: number, layerCollector: Instance) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SendMouseWheelEvent(x: number, y: number, isForwardScroll: boolean, layerCollector: Instance) -> () {RobloxScriptSecurity}
 	Function VirtualInputManager:SendScroll(x: number, y: number, deltaX: number, deltaY: number, options: { [string]: any }, layerCollector: Instance) -> () {RobloxScriptSecurity}

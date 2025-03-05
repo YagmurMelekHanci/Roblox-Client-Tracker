@@ -2727,9 +2727,10 @@ function CloneArray(arr) {
     return result;
 }
 
-function IsMouseOnXRayDetailedBar() {
+function IsMouseOnXRayDetailedBar(hasTooltip) {
+    let tooltipCheck = !hasTooltip || g_Ext.currentPlugin.tooltipBarDetailed;
     return (DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0 &&
-        g_Ext.xray.isBarEnabled() && g_Ext.currentPlugin && g_Ext.currentPlugin.tooltipBarDetailed);
+        g_Ext.xray.isBarEnabled() && g_Ext.currentPlugin && tooltipCheck);
 }
 
 function DrawHoverToolTip() {
@@ -3040,7 +3041,7 @@ function DrawHoverToolTip() {
         StringArray.push("" + RangeCpu.End);
         DrawToolTip(StringArray, CanvasDetailedView, DetailedViewMouseX, DetailedViewMouseY + 20);
     }
-    else if (IsMouseOnXRayDetailedBar()) {
+    else if (IsMouseOnXRayDetailedBar(true)) {
         if (g_Loader.mouseOnDetailedBarStartTime == null) {
             g_Loader.mouseOnDetailedBarStartTime = new Date;
         }
@@ -3900,7 +3901,7 @@ function DrawAuxHints(context, fOffsetY) {
         var HelpFontHeight = 17;
         var HelpFont = 'Bold ' + HelpFontHeight + 'px Courier New';        
         var HelpBoxHeight = HelpFontHeight + 2;
-        var HelpAlpha = 0.6 * window.HelpTooltipShowTime / window.HelpTooltipShowTimeInitial;
+        var HelpAlpha = 0.8 * window.HelpTooltipShowTime / window.HelpTooltipShowTimeInitial;
 
         context.font = HelpFont;
         context.globalAlpha = HelpAlpha;
@@ -3938,7 +3939,7 @@ function DrawAuxHints(context, fOffsetY) {
         var ModeFontHeight = 20;
         var ModeFont = 'Bold ' + ModeFontHeight + 'px Courier New';        
         var ModeBoxHeight = ModeFontHeight + 2;
-        var ModeAlpha = 0.6;
+        var ModeAlpha = 0.8;
         
         context.font = ModeFont;
         context.globalAlpha = ModeAlpha;
@@ -4343,6 +4344,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                     
                                     if (xtrastart && xtrastart.jobInfo) {
                                         g_Loader.hoverScope = {
+                                            nLog: nLog,
                                             globIndex: globstart,
                                             isScanPerformed: false,
                                             hasSeveralInstances: false,
@@ -4367,7 +4369,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
             ThreadY[nLog + 1] = fOffsetY;
         }
 
-        DrawAuxHints(context, fOffsetY);
+        if (bDrawEnabled) {
+            DrawAuxHints(context, fOffsetY);
+        }
 
         if (nContextSwitchEnabled) //non instrumented threads.
         {
@@ -4412,7 +4416,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
             var hasSelectedScopeInstances = selectedScopeInstanceCount > 0;
             var hasSeveralSelectedScopeInstances = selectedScopeInstanceCount > 1;
 
-            if (needToHighlightScope && g_Loader.hoverScope && needToHighlightScope.globIndex == g_Loader.hoverScope.globIndex) {
+            if (needToHighlightScope && g_Loader.hoverScope &&
+                needToHighlightScope.globIndex == g_Loader.hoverScope.globIndex &&
+                needToHighlightScope.nLog == g_Loader.hoverScope.nLog) {
                 g_Loader.hoverScope.isScanPerformed = true;
                 g_Loader.hoverScope.hasSeveralInstances = hasSeveralSelectedScopeInstances;
             }
@@ -4421,7 +4427,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 var isSelectedScope = (i >= TimerInfo.length);
                 var timerIndex = i % TimerInfo.length;
                 var isTransparentScope = transparentTimerIndexes.has(timerIndex);
-                
+                if (!bDrawEnabled && isTransparentScope)
+                    continue;
+
                 var a = Batches[i];
                 if (a.length) {
                     if (hasSeveralSelectedScopeInstances && isSelectedScope) {
@@ -4487,11 +4495,11 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
 
                     var origColor = TimerInfo[timerIndex].color;
                     if (hasSelectedScopeInstances) {
-                        if (isSelectedScope && needToHighlightScope && g_Loader.hoverScope &&
+                        if (!hasSeveralSelectedScopeInstances && isSelectedScope && needToHighlightScope && g_Loader.hoverScope &&
                             needToHighlightScope.jobInfo.instanceId == g_Loader.hoverScope.jobInfo.instanceId) {
                             origColor = nHoverColor;
                         }
-                    } else if (timerIndex == nHoverToken) {
+                    } else if (timerIndex == nHoverToken && !isTransparentScope) {
                         origColor = nHoverColor;
                     }
                     
@@ -4571,6 +4579,8 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
         
         for (var i = 0; i < BatchesTxt.length; ++i) {
             var isTransparent = (i >= 2);
+            if (!bDrawEnabled && isTransparent)
+                continue;
             if (isTransparent) {
                 context.globalAlpha = transparentTimerTextAlpha;
             }
@@ -5186,7 +5196,7 @@ function AutoRedraw(Timestamp) {
         }
 
         if (g_Loader.mouseOnDetailedBarStartTime != null) {
-            if (IsMouseOnXRayDetailedBar()) {
+            if (IsMouseOnXRayDetailedBar(true)) {
                 // X-Ray detailed bar hiding
                 if (!g_Loader.barDetailedTooltipBlocked) {
                     g_Loader.mouseOnDetailedBarCounter = g_Loader.mouseOnDetailedBarCounter ? g_Loader.mouseOnDetailedBarCounter : 0;
@@ -5435,7 +5445,11 @@ function MouseHandleDragClick() {
             }
         }
         else {
-            ZoomToHighlight();
+            if (IsMouseOnXRayDetailedBar()) {
+                ClickMenuButton('xmode');
+            } else {
+                ZoomToHighlight();
+            }
         }
     }
     else if (MouseDragTarget == CanvasHistory) {
@@ -5660,7 +5674,7 @@ function MouseWheel(e) {
     }
 
     if (e.target == CanvasDetailedView) {
-        if (KeyShiftDown == 1 && g_Ext.xray.isBarEnabled() && DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0) {
+        if (KeyShiftDown == 1 && IsMouseOnXRayDetailedBar()) {
             // Select X-Ray threshold for the preview bar
             clickBtnIdDir("xthreshold_bar");
         } else if (KeyShiftDown == 1 && g_Ext.xray.isViewEnabled()) {
@@ -5759,6 +5773,14 @@ function GotoWorst(Token) {
     }
 }
 
+function ClickMenuButton(elId) {
+    if (IsPluginsTabVisible()) {
+        var XView = document.getElementById(elId);
+        var firstA = XView.querySelector('a');
+        firstA.click();
+    }
+}
+
 function KeyUp(evt) {
     if (!FFlagMicroprofilerThreadSearch) {
         if (evt.keyCode == 39) {
@@ -5851,14 +5873,6 @@ function KeyUp(evt) {
                 ToolTipStr = "Detailed";
         }
         ShowFlashMessage('ToolTip: ' + ToolTipStr, 100);
-    }
-
-    function ClickMenuButton(elId) {
-        if (IsPluginsTabVisible()) {
-            var XView = document.getElementById(elId);
-            var firstA = XView.querySelector('a');
-            firstA.click();
-        }
     }
 
     if (evt.keyCode == 88) { // x to toggle XRay view
@@ -7860,6 +7874,7 @@ function PrepareEvents() {
                                 curScopeTx = curScope.txEntry;
                             };
                             plugin.prepare(ctx, {
+                                nLog: nLog,
                                 evtFrame: fr,
                                 topFrame: topFrame,
                                 curFrame: curFrame,

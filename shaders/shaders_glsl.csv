@@ -822,9 +822,6 @@ ImageProcessBlurFS,Fragment
 ImageProcessBlurFS_00002000,Fragment
 ImageProcessBlurFS_02000000,Fragment
 ImageProcessBlurFS_02002000,Fragment
-ImageProcessBlurFXCompositionFS,Fragment
-ImageProcessBlurFXCompositionFS_00002000,Fragment
-ImageProcessBlurFXCompositionFS_02000000,Fragment
 ImageProcessFS,Fragment
 ImageProcessFS_00002000,Fragment
 ImageProcessFS_02000000,Fragment
@@ -1001,7 +998,10 @@ SmootherStepFS,Fragment
 SmoothWaterFS_00000000,Fragment
 SmoothWaterFSUnified_10000000,Fragment
 SmoothWaterFSUnified_10000400,Fragment
+SmoothWaterFSUnified_12000000,Fragment
+SmoothWaterFSUnified_12000400,Fragment
 SmoothWaterFSUnified_20000000,Fragment
+SmoothWaterFSUnified_22000000,Fragment
 SmoothWaterHQFS_00000000,Fragment
 SmoothWaterHQVS_00000000,Vertex
 SmoothWaterSuperHQFS__02000000,Fragment

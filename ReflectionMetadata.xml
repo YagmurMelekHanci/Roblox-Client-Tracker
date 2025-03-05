@@ -4702,7 +4702,7 @@
         <string name="Name">VoiceChatService</string>
         <string name="ExplorerOrder">520</string>
         <string name="ExplorerImageIndex">136</string>
-        <token name="ServiceVisibility">1</token>        <!-- Off -->
+        <token name="ServiceVisibility">2</token>        <!-- WithChildren -->
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">

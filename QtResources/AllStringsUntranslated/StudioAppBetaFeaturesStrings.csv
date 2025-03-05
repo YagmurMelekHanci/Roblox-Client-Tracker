@@ -407,6 +407,4 @@ Studio.App.BetaFeatures.VideoApiTitle,,New Video API,New Video API
 Studio.App.BetaFeatures.VirtualCursorDescription,,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.
 Studio.App.BetaFeatures.VirtualCursorTitle,,Gamepad Virtual Cursor,Gamepad Virtual Cursor
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
-Studio.App.BetaFeatures.ScrollEventOverhaulTitle,,Scroll Event Overhaul,Scroll Event Overhaul
-Studio.App.BetaFeatures.ScrollEventOverhaulDescription,,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.
 Studio.App.BetaFeatures.WhatsNewWindowTitle,,New Updates Window,New Updates Window

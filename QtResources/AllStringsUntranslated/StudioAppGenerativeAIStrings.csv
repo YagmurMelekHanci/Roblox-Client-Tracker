@@ -75,6 +75,15 @@ Studio.App.GenerativeAI.LegalMessageNo,,"No, I don't accept","No, I don't accept
 Studio.App.GenerativeAI.LegalMessageNoResponse,,"No problem. You can click ""Yes"" anytime above, if you change your mind.","No problem. You can click ""Yes"" anytime above, if you change your mind."
 Studio.App.GenerativeAI.LegalMessageYes,,"Yes, I accept","Yes, I accept"
 Studio.App.GenerativeAI.LegalMessageYesResponse,,"Thanks, looking forward to working with you.","Thanks, looking forward to working with you."
+Studio.App.GenerativeAI.MeshGen.GeneratingStatusMesh,Status text to tell the user that the mesh is being generated,Generating mesh...,Generating mesh...
+Studio.App.GenerativeAI.MeshGen.GeneratingStatusTexture,Status message to tell the user that the texture is being generated,Generating texture...,Generating texture...
+Studio.App.GenerativeAI.MeshGen.GenerationFailed,Response message when mesh generation fails.,Generation failed.,Generation failed.
+Studio.App.GenerativeAI.MeshGen.Insert,Button to insert the published mesh into the DataModel,Insert,Insert
+Studio.App.GenerativeAI.MeshGen.Inserting,When the published asset is being inserted into the DataModel,Inserting,Inserting
+Studio.App.GenerativeAI.MeshGen.Publish,Button to publish the generated mesh as real assets.,Publish,Publish
+Studio.App.GenerativeAI.MeshGen.PublishFailed,Response message when meshgen publish fails.,Publish failed.,Publish failed.
+Studio.App.GenerativeAI.MeshGen.Publishing,Text to notify the user that the mesh assets are currently being published.,Publishing,Publishing
+Studio.App.GenerativeAI.MeshGen.Retry,Clickable link to allow user to retry publish or mesh generation after a failure.,Retry,Retry
 Studio.App.GenerativeAI.NetworkError,,"Network error, please try again later.","Network error, please try again later."
 Studio.App.GenerativeAI.NextVariation,,Next Variation,Next Variation
 Studio.App.GenerativeAI.Organic,,Organic,Organic
