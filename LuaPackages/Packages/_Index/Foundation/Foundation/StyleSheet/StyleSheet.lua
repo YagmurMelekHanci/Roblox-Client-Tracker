@@ -5,6 +5,7 @@ local React = require(Packages.React)
 local StyleRule = require(StyleSheetRoot.StyleRule)
 local generateRules = require(StyleSheetRoot.generateRules)
 local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
+local Flags = require(Foundation.Utility.Flags)
 
 local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
@@ -70,7 +71,9 @@ type StyleSheetProps = {
 	device: Device,
 	tags: { [string]: boolean },
 	derives: { StyleSheet }?,
-	sheetRef: React.Ref<StyleSheet>?,
+	-- drop when FoundationStyleSheetContext is removed
+	sheetRef: React.Ref<StyleSheet?>?,
+	setStyleSheetRef: { current: ((StyleSheet?) -> ()) | nil }?,
 	DONOTUSE_colorUpdate: boolean?,
 }
 
@@ -79,10 +82,20 @@ local function StyleSheet(props: StyleSheetProps)
 
 	React.useImperativeHandle(props.sheetRef, function()
 		return sheet.current
-	end, { sheet.current })
+	end, {})
+
+	if Flags.FoundationStyleSheetContext then
+		React.useLayoutEffect(function()
+			if props.setStyleSheetRef and props.setStyleSheetRef.current then
+				props.setStyleSheetRef.current(sheet.current)
+			end
+		end)
+	end
 
 	local rules = useGeneratedRules(props.theme, props.device, props.DONOTUSE_colorUpdate == true)
 
+	-- Deprecated: remove as soon as StudioPlugins using this are migrated.
+	-- https://roblox.atlassian.net/browse/STUDIOPLAT-38539
 	React.useLayoutEffect(function()
 		if sheet.current then
 			sheet.current:SetDerives(props.derives or {})

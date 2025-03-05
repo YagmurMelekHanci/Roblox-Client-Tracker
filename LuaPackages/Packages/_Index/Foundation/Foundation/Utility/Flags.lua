@@ -11,7 +11,7 @@ return {
 	FoundationStylingPolyfill = SafeFlags.createGetFFlag("FoundationStylingPolyfill")(),
 	FoundationDisableCanvasGroupsInButton = SafeFlags.createGetFFlag("FoundationDisableCanvasGroupsInButton")(),
 	FoundationEnableColorUpdate = SafeFlags.createGetFFlag("FoundationEnableColorUpdate")(),
-	FoundationCompositeTextInput = SafeFlags.createGetFFlag("FoundationCompositeTextInput2")(),
+	FoundationCompositeTextInput = SafeFlags.createGetFFlag("FoundationCompositeTextInput3")(),
 	FoundationBadgeSimplifySizing = SafeFlags.createGetFFlag("FoundationBadgeSimplifySizing")(),
 	FoundationFixSupportImageBinding = SafeFlags.createGetFFlag("FoundationFixSupportImageBinding")(),
 	FoundationDisableBadgeTruncation = SafeFlags.createGetFFlag("FoundationDisableBadgeTruncation")(),
@@ -20,4 +20,5 @@ return {
 	FoundationButtonSubEmphasisInverseStateLayer = SafeFlags.createGetFFlag(
 		"FoundationButtonSubEmphasisInverseStateLayer"
 	)(),
+	FoundationStyleSheetContext = SafeFlags.createGetFFlag("FoundationStyleSheetContext")(),
 }

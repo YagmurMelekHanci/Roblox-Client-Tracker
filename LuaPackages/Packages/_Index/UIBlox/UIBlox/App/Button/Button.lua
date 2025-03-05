@@ -226,9 +226,10 @@ local ButtonFunctionalWrapper = function(passedProps)
 	return React.createElement(Button, props)
 end
 
-local ButtonForwardRef = React.forwardRef(function(props, ref)
+local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 	if UIBloxConfig.useFoundationButton then
 		local tokens = Foundation.Hooks.useTokens()
+		local props = Cryo.Dictionary.join(Button.defaultProps, buttonProps)
 		local isRoactGamepadEnabled = props.isRoactGamepadEnabled
 		return React.createElement(
 			if isRoactGamepadEnabled then RoactGamepad.Focusable[Foundation.Button] else Foundation.Button,
@@ -241,7 +242,8 @@ local ButtonForwardRef = React.forwardRef(function(props, ref)
 				LayoutOrder = props.layoutOrder,
 				icon = FoundationButtonUtils.findIcon(props.icon),
 				text = props.text,
-				isDisabled = props.isDisabled or props.userInteractionEnabled == false,
+				-- UIBLOX-1667: Follow up with a proper isLoading state from Foundation
+				isDisabled = props.isDisabled or props.userInteractionEnabled == false or props.isLoading,
 				inputDelay = if props.isDelayedInput and props.enableInputDelayed
 					then props.delayInputSeconds or 3
 					else nil,
@@ -258,7 +260,7 @@ local ButtonForwardRef = React.forwardRef(function(props, ref)
 	else
 		return React.createElement(
 			if UIBloxConfig.useNewSelectionCursor then ButtonFunctionalWrapper else Button,
-			Cryo.Dictionary.join(props, {
+			Cryo.Dictionary.join(buttonProps, {
 				buttonRef = ref,
 			})
 		)

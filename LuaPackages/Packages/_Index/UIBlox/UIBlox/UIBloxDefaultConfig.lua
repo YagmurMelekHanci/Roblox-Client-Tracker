@@ -125,9 +125,6 @@ return {
 	-- Enable custom hover image support
 	enableGenericButtonHoverImage = false,
 
-	-- Disable the default icon used in ExperienceActionRow
-	disableExperienceActionRowDefaultIcon = false,
-
 	-- Enable ComboButton support in ActionBar
 	enableComboButtonInActionBar = false,
 

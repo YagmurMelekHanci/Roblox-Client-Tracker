@@ -59,6 +59,7 @@ local Foundation = strict({
 		useScaledValue = require(script.Utility.useScaledValue),
 		useStyleTags = require(script.Providers.Style.useStyleTags),
 		useTokens = require(script.Providers.Style.useTokens),
+		useStyleSheet = require(script.Providers.Style.StyleSheetContext).useStyleSheet,
 	},
 
 	-- Enums

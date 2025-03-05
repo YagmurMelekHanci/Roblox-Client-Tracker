@@ -22,6 +22,7 @@ export type FoundationProviderProps = StyleProps & {
 local function FoundationProvider(props: FoundationProviderProps)
 	-- TODO: not any, children types acting weird
 	local preferences: any = if props.preferences then props.preferences else {}
+	-- drop when FoundationStyleSheetContext is removed
 	local sheetRef = React.useRef(nil :: StyleSheet?)
 
 	return React.createElement(PreferencesProvider, preferences, {

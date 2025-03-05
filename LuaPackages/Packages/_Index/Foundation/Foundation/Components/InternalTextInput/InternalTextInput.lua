@@ -12,7 +12,6 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
 local isCoreGui = require(Foundation.Utility.isCoreGui)
 
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
@@ -116,27 +115,8 @@ local function InternalTextInput(props: TextInputProps, ref: React.Ref<InternalT
 	local textBoxTag = if Flags.FoundationStylingPolyfill
 		then nil
 		else useStyleTags(
-			`gui-object-defaults size-full fill clip text-align-x-left text-align-y-center text-body-large content-emphasis {props.tag}`
+			`gui-object-defaults size-full clip text-align-x-left text-align-y-center text-body-large content-emphasis`
 		)
-
-	local tagPolyfillChildren
-	if Flags.FoundationStylingPolyfill then
-		tagPolyfillChildren = {
-			UIFlexItem = React.createElement("UIFlexItem", {
-				FlexMode = Enum.UIFlexMode.Fill,
-			}),
-		}
-		-- Hook is used under the condition, but it should not change across the life of the component
-		local defaultPropsWithStyles = useStyledDefaults("TextBox", props.tag, nil, {})
-		if defaultPropsWithStyles["padding"] then
-			tagPolyfillChildren["UIPadding"] = React.createElement("UIPadding", {
-				PaddingLeft = defaultPropsWithStyles["padding"]["left"],
-				PaddingRight = defaultPropsWithStyles["padding"]["right"],
-				PaddingTop = defaultPropsWithStyles["padding"]["top"],
-				PaddingBottom = defaultPropsWithStyles["padding"]["bottom"],
-			})
-		end
-	end
 
 	local inputCursor = useCursor({
 		radius = UDim.new(0, tokens.Radius.Medium),
@@ -193,34 +173,37 @@ local function InternalTextInput(props: TextInputProps, ref: React.Ref<InternalT
 							tag = "size-0-full auto-x",
 						}, props.leadingElement)
 						else nil,
-					TextBox = React.createElement("TextBox", {
-						ref = textBox,
-						Text = props.text,
-						TextInputType = if isCoreGui then props.textInputType else nil,
-						ClearTextOnFocus = false,
-						TextEditable = not props.isDisabled,
-						PlaceholderText = props.placeholder,
-						Selectable = false,
+					TextBoxWrapper = React.createElement(View, {
 						LayoutOrder = 2,
-						LineHeight = 1,
+						tag = `size-full fill {props.tag}` :: any,
+					}, {
+						TextBox = React.createElement("TextBox", {
+							ref = textBox,
+							Text = props.text,
+							TextInputType = if isCoreGui then props.textInputType else nil,
+							ClearTextOnFocus = false,
+							TextEditable = not props.isDisabled,
+							PlaceholderText = props.placeholder,
+							Selectable = false,
+							LineHeight = 1,
+							-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
+							Size = UDim2.fromScale(1, 1),
+							BackgroundTransparency = 1,
+							ClipsDescendants = true,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextYAlignment = Enum.TextYAlignment.Center,
+							Font = tokens.Typography.BodyLarge.Font,
+							TextSize = tokens.Typography.BodyLarge.FontSize,
+							TextColor3 = tokens.Color.Content.Emphasis.Color3,
+							TextTransparency = tokens.Color.Content.Emphasis.Transparency,
+							-- END: Remove when Flags.FoundationStylingPolyfill is removed
 
-						-- BEGIN: Remove when Flags.FoundationStylingPolyfill is removed
-						Size = UDim2.fromScale(1, 1),
-						BackgroundTransparency = 1,
-						ClipsDescendants = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextYAlignment = Enum.TextYAlignment.Center,
-						Font = tokens.Typography.BodyLarge.Font,
-						TextSize = tokens.Typography.BodyLarge.FontSize,
-						TextColor3 = tokens.Color.Content.Emphasis.Color3,
-						TextTransparency = tokens.Color.Content.Emphasis.Transparency,
-						-- END: Remove when Flags.FoundationStylingPolyfill is removed
-
-						[React.Tag] = textBoxTag :: any,
-						[React.Event.Focused] = onFocusGained,
-						[React.Event.FocusLost] = onFocusLost,
-						[React.Change.Text] = onTextChange,
-					}, tagPolyfillChildren),
+							[React.Tag] = textBoxTag :: any,
+							[React.Event.Focused] = onFocusGained,
+							[React.Event.FocusLost] = onFocusLost,
+							[React.Change.Text] = onTextChange,
+						}),
+					}),
 					Trailing = if props.trailingElement
 						then React.createElement(View, {
 							LayoutOrder = 3,

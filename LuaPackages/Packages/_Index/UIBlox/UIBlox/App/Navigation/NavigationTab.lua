@@ -10,7 +10,6 @@ local StateLayer = require(UIBlox.Core.Control.StateLayer)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local Badge = require(UIBlox.App.Indicator.Badge)
-local BadgeVariant = require(UIBlox.App.Indicator.Enum.BadgeVariant)
 local NavigationTabLayout = require(UIBlox.App.Navigation.Enum.NavigationTabLayout)
 local ImagesTypes = require(UIBlox.App.ImageSet.ImagesTypes)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
@@ -40,6 +39,8 @@ export type Props = {
 	isChecked: boolean?,
 	-- Value for the badge, can be string, integer oe BadgeStates.isEnumValue
 	badgeValue: any?,
+	-- Badge variant for different color options
+	badgeVariant: any?,
 	-- Layout style of the component
 	layout: NavigationTabLayoutType?,
 	-- Anchor point
@@ -119,7 +120,7 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 				position = UDim2.fromScale(1, 0),
 				anchorPoint = Vector2.new(0.6, 0.35),
 				value = props.badgeValue,
-				badgeVariant = BadgeVariant.Alert,
+				badgeVariant = props.badgeVariant,
 			}),
 		})
 	end
@@ -210,7 +211,7 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 				then React.createElement(Badge, {
 					layoutOrder = 3,
 					value = props.badgeValue,
-					badgeVariant = BadgeVariant.Alert,
+					badgeVariant = props.badgeVariant,
 				})
 				else nil,
 		})

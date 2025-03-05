@@ -9,6 +9,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local isCoreGui = require(Foundation.Utility.isCoreGui)
 local Flags = require(Foundation.Utility.Flags)
+local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
 
 local OverlayContext = require(script.Parent.OverlayContext)
 
@@ -25,6 +26,10 @@ local mainGui = if isCoreGui then CoreGui else PlayerGui
 
 local function OverlayProvider(props: Props)
 	local overlay: GuiObject?, setOverlay = React.useState(props.gui)
+	local styleSheet
+	if Flags.FoundationStyleSheetContext then
+		styleSheet = useStyleSheet()
+	end
 
 	local overlayRefCallback = React.useCallback(function(screenGui: GuiObject)
 		setOverlay(screenGui)
@@ -52,7 +57,9 @@ local function OverlayProvider(props: Props)
 				}, {
 					FoundationStyleLink = if not Flags.FoundationStylingPolyfill
 						then React.createElement("StyleLink", {
-							StyleSheet = if type(props.sheetRef) == "table" then props.sheetRef.current else nil,
+							StyleSheet = if Flags.FoundationStyleSheetContext
+								then styleSheet
+								else if type(props.sheetRef) == "table" then props.sheetRef.current else nil,
 						})
 						else nil,
 				}),

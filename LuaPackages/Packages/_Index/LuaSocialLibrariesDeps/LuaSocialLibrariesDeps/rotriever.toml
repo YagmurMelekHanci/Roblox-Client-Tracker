@@ -1,6 +1,6 @@
 [package]
 name = "LuaSocialLibrariesDeps"
-version = "1.5.6"
+version = "1.6.6"
 readme = "README.md"
 content_root = "src"
 files = ["*"]

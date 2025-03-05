@@ -17,9 +17,7 @@ local BUTTON_HEIGHT = 36
 local DEFAULT_ROW_HEIGHT = 48
 local DEFAULT_BUTTON_PADDING = 6
 
-local PLAY_ICON = "icons/common/play"
 local TRUNCATION_COLLAPSE = "icons/actions/truncationCollapse"
-local UNAVAILABLE_ICON = "icons/status/unavailable"
 
 local NOOP = function() end
 
@@ -54,9 +52,6 @@ local function ExperienceActionRow(props: Props)
 	local height = props.height or DEFAULT_ROW_HEIGHT
 	local text = props.text
 	local icon = props.icon
-	if not icon and not UIBloxConfig.disableExperienceActionRowDefaultIcon then
-		icon = if isActionable then Images[PLAY_ICON] else Images[UNAVAILABLE_ICON]
-	end
 
 	if UIBloxConfig.enableComboButtonInExperienceActionRow and props.onOverflowPressed then
 		return React.createElement(ComboButton, {
