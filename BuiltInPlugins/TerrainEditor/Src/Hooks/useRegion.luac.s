@@ -100,9 +100,9 @@ PROTO_1:
   GETUPVAL R3 1
   GETUPVAL R5 5
   GETTABLEKS R4 R5 K12 ["Select"]
-  JUMPIFNOTEQ R3 R4 [+5]
+  JUMPIFNOTEQ R3 R4 [+4]
   GETUPVAL R3 11
-  GETIMPORT R4 K15 [Vector3.one]
+  LOADK R4 K13 [{1, 1, 1}]
   CALL R3 1 0
   RETURN R0 0
 
@@ -255,19 +255,19 @@ PROTO_10:
   SETTABLEKS R5 R4 K20 ["Summonable"]
   GETUPVAL R6 8
   CALL R6 0 1
-  JUMPIFNOT R6 [+26]
+  JUMPIFNOT R6 [+25]
   GETUPVAL R6 9
   GETUPVAL R8 10
   GETTABLEKS R7 R8 K14 ["Build"]
-  JUMPIFNOTEQ R6 R7 [+21]
+  JUMPIFNOTEQ R6 R7 [+20]
   GETUPVAL R7 13
   GETTABLEKS R6 R7 K22 ["ExtrudeHandlesImplementation"]
   GETTABLEKS R5 R6 K3 ["new"]
   MOVE R6 R0
   DUPTABLE R7 K25 [{"Max", "UseVolume"}]
-  GETIMPORT R9 K28 [Vector3.one]
+  LOADK R9 K26 [{1, 1, 1}]
   GETUPVAL R11 14
-  GETTABLEKS R10 R11 K29 ["MaxBuildRegion"]
+  GETTABLEKS R10 R11 K27 ["MaxBuildRegion"]
   MUL R8 R9 R10
   SETTABLEKS R8 R7 K23 ["Max"]
   LOADB R8 1
@@ -276,11 +276,11 @@ PROTO_10:
   JUMP [+52]
   GETUPVAL R6 9
   GETUPVAL R8 10
-  GETTABLEKS R7 R8 K30 ["Import"]
+  GETTABLEKS R7 R8 K28 ["Import"]
   JUMPIFEQ R6 R7 [+7]
   GETUPVAL R6 9
   GETUPVAL R8 10
-  GETTABLEKS R7 R8 K31 ["Generate"]
+  GETTABLEKS R7 R8 K29 ["Generate"]
   JUMPIFNOTEQ R6 R7 [+34]
   GETUPVAL R7 13
   GETTABLEKS R6 R7 K22 ["ExtrudeHandlesImplementation"]
@@ -289,18 +289,18 @@ PROTO_10:
   DUPTABLE R7 K25 [{"Max", "UseVolume"}]
   LOADN R10 0
   GETUPVAL R12 14
-  GETTABLEKS R11 R12 K32 ["VoxelResolution"]
+  GETTABLEKS R11 R12 K30 ["VoxelResolution"]
   MUL R9 R10 R11
   LOADN R11 0
   GETUPVAL R13 14
-  GETTABLEKS R12 R13 K32 ["VoxelResolution"]
+  GETTABLEKS R12 R13 K30 ["VoxelResolution"]
   MUL R10 R11 R12
   LOADN R12 0
   GETUPVAL R14 14
-  GETTABLEKS R13 R14 K32 ["VoxelResolution"]
+  GETTABLEKS R13 R14 K30 ["VoxelResolution"]
   MUL R11 R12 R13
   FASTCALL VECTOR [+2]
-  GETIMPORT R8 K33 [Vector3.new]
+  GETIMPORT R8 K32 [Vector3.new]
   CALL R8 3 1
   SETTABLEKS R8 R7 K23 ["Max"]
   LOADB R8 1
@@ -316,15 +316,15 @@ PROTO_10:
   GETUPVAL R4 15
   GETTABLEKS R3 R4 K3 ["new"]
   MOVE R4 R0
-  DUPTABLE R5 K35 [{"ShowBoundingBox", "Summonable", "Outset"}]
+  DUPTABLE R5 K34 [{"ShowBoundingBox", "Summonable", "Outset"}]
   LOADB R6 0
   SETTABLEKS R6 R5 K19 ["ShowBoundingBox"]
   LOADB R6 0
   SETTABLEKS R6 R5 K20 ["Summonable"]
   LOADN R6 1
-  SETTABLEKS R6 R5 K34 ["Outset"]
+  SETTABLEKS R6 R5 K33 ["Outset"]
   GETUPVAL R8 13
-  GETTABLEKS R7 R8 K36 ["TransformHandlesImplementation"]
+  GETTABLEKS R7 R8 K35 ["TransformHandlesImplementation"]
   GETTABLEKS R6 R7 K3 ["new"]
   MOVE R7 R0
   CALL R6 1 -1
@@ -336,51 +336,51 @@ PROTO_10:
   GETUPVAL R5 17
   GETTABLEKS R4 R5 K3 ["new"]
   MOVE R5 R0
-  DUPTABLE R6 K35 [{"ShowBoundingBox", "Summonable", "Outset"}]
+  DUPTABLE R6 K34 [{"ShowBoundingBox", "Summonable", "Outset"}]
   LOADB R7 0
   SETTABLEKS R7 R6 K19 ["ShowBoundingBox"]
   LOADB R7 0
   SETTABLEKS R7 R6 K20 ["Summonable"]
   LOADN R7 1
-  SETTABLEKS R7 R6 K34 ["Outset"]
+  SETTABLEKS R7 R6 K33 ["Outset"]
   GETUPVAL R9 13
-  GETTABLEKS R8 R9 K36 ["TransformHandlesImplementation"]
+  GETTABLEKS R8 R9 K35 ["TransformHandlesImplementation"]
   GETTABLEKS R7 R8 K3 ["new"]
   MOVE R8 R0
   CALL R7 1 -1
   CALL R4 -1 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R2 K39 [table.insert]
+  GETIMPORT R2 K38 [table.insert]
   CALL R2 -1 0
-  DUPTABLE R2 K44 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
+  DUPTABLE R2 K43 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K4 ["Parent"]
-  NAMECALL R3 R3 K45 ["GetMouse"]
+  NAMECALL R3 R3 K44 ["GetMouse"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K40 ["Mouse"]
-  SETTABLEKS R0 R2 K41 ["DraggerContext"]
+  SETTABLEKS R3 R2 K39 ["Mouse"]
+  SETTABLEKS R0 R2 K40 ["DraggerContext"]
   GETUPVAL R3 13
-  SETTABLEKS R3 R2 K42 ["DraggerSchema"]
-  DUPTABLE R3 K53 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowDragSelect", "ShowLocalSpaceIndicator", "ShowPivotIndicator", "HandlesList"}]
-  LOADK R4 K54 ["TerrainEditorRegion"]
-  SETTABLEKS R4 R3 K46 ["AnalyticsName"]
+  SETTABLEKS R3 R2 K41 ["DraggerSchema"]
+  DUPTABLE R3 K52 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowDragSelect", "ShowLocalSpaceIndicator", "ShowPivotIndicator", "HandlesList"}]
+  LOADK R4 K53 ["TerrainEditorRegion"]
+  SETTABLEKS R4 R3 K45 ["AnalyticsName"]
   GETUPVAL R5 9
   GETUPVAL R7 10
   GETTABLEKS R6 R7 K14 ["Build"]
   JUMPIFNOTEQ R5 R6 [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  SETTABLEKS R4 R3 K47 ["AllowDragSelect"]
+  SETTABLEKS R4 R3 K46 ["AllowDragSelect"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K48 ["AllowFreeformDrag"]
+  SETTABLEKS R4 R3 K47 ["AllowFreeformDrag"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K49 ["ShowDragSelect"]
+  SETTABLEKS R4 R3 K48 ["ShowDragSelect"]
   LOADB R4 1
-  SETTABLEKS R4 R3 K50 ["ShowLocalSpaceIndicator"]
+  SETTABLEKS R4 R3 K49 ["ShowLocalSpaceIndicator"]
   LOADB R4 1
-  SETTABLEKS R4 R3 K51 ["ShowPivotIndicator"]
-  SETTABLEKS R1 R3 K52 ["HandlesList"]
-  SETTABLEKS R3 R2 K43 ["DraggerSettings"]
+  SETTABLEKS R4 R3 K50 ["ShowPivotIndicator"]
+  SETTABLEKS R1 R3 K51 ["HandlesList"]
+  SETTABLEKS R3 R2 K42 ["DraggerSettings"]
   RETURN R2 1
 
 PROTO_11:
@@ -662,9 +662,9 @@ PROTO_16:
   GETUPVAL R0 0
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K11 ["Select"]
-  JUMPIFNOTEQ R0 R1 [+5]
+  JUMPIFNOTEQ R0 R1 [+4]
   GETUPVAL R0 7
-  GETIMPORT R1 K14 [Vector3.one]
+  LOADK R1 K12 [{1, 1, 1}]
   CALL R0 1 0
   RETURN R0 0
 

@@ -45,7 +45,6 @@ export type CompatPanel = {
 
 export type DropBarProps = {
 	name: string,
-	size: Vector3?,
 	dragFunction: (
 		dragger: Player,
 		cursorRay: Ray,

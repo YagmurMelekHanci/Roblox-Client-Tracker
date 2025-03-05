@@ -28,39 +28,39 @@ PROTO_0:
   JUMPIFNOTEQKS R7 K11 ["AccessoryWeld"] [+5]
   NAMECALL R7 R6 K12 ["Destroy"]
   CALL R7 1 0
-  JUMP [+45]
+  JUMP [+43]
   LOADK R9 K13 ["BasePart"]
   NAMECALL R7 R6 K6 ["IsA"]
   CALL R7 2 1
-  JUMPIFNOT R7 [+8]
-  GETIMPORT R7 K16 [Vector3.zero]
-  SETTABLEKS R7 R6 K17 ["Velocity"]
-  GETIMPORT R7 K16 [Vector3.zero]
-  SETTABLEKS R7 R6 K18 ["RotVelocity"]
+  JUMPIFNOT R7 [+6]
+  LOADK R7 K14 [{0, 0, 0}]
+  SETTABLEKS R7 R6 K15 ["Velocity"]
+  LOADK R7 K14 [{0, 0, 0}]
+  SETTABLEKS R7 R6 K16 ["RotVelocity"]
   GETTABLEKS R8 R6 K4 ["Parent"]
   JUMPIFNOT R8 [+7]
   GETTABLEKS R7 R6 K4 ["Parent"]
-  LOADK R9 K19 ["Accessory"]
+  LOADK R9 K17 ["Accessory"]
   NAMECALL R7 R7 K6 ["IsA"]
   CALL R7 2 1
   JUMP [+1]
   LOADB R7 0
-  LOADK R10 K20 ["MeshPart"]
+  LOADK R10 K18 ["MeshPart"]
   NAMECALL R8 R6 K6 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+16]
   JUMPIF R7 [+15]
-  GETTABLEKS R8 R6 K21 ["TextureID"]
-  JUMPIFNOTEQKS R8 K22 [""] [+12]
-  LOADK R10 K23 ["SurfaceAppearance"]
-  NAMECALL R8 R6 K24 ["FindFirstChildWhichIsA"]
+  GETTABLEKS R8 R6 K19 ["TextureID"]
+  JUMPIFNOTEQKS R8 K20 [""] [+12]
+  LOADK R10 K21 ["SurfaceAppearance"]
+  NAMECALL R8 R6 K22 ["FindFirstChildWhichIsA"]
   CALL R8 2 1
   JUMPIF R8 [+6]
-  GETIMPORT R8 K27 [Instance.new]
-  LOADK R9 K23 ["SurfaceAppearance"]
+  GETIMPORT R8 K25 [Instance.new]
+  LOADK R9 K21 ["SurfaceAppearance"]
   CALL R8 1 1
   SETTABLEKS R6 R8 K4 ["Parent"]
-  FORGLOOP R2 2 [-76]
+  FORGLOOP R2 2 [-74]
   RETURN R0 0
 
 MAIN:

@@ -34,10 +34,12 @@ local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNaviga
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
+local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 -- flagging roact gamepad for removal due to deprecation - focusNavigation will be used instead for engine navigation
 local FFlagMigratePublishPromptFromRoactGamepad = game:DefineFastFlag("MigratePublishPromptFromRoactGamepad", false)
+local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 
 --Displays behind the in-game menu so that developers can't block interaction with the InGameMenu by constantly prompting.
 --The in-game menu displays at level 0, to render behind it we need to display at level -1.
@@ -142,11 +144,19 @@ function PublishAssetPromptApp:render()
 								nil,
 								{
 									FocusNavigationCoreScriptsWrapper = Roact.createElement(
-										FocusNavigationCoreScriptsWrapper,
-										{
-											selectionGroupName = SELECTION_GROUP_NAME,
-											focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-										},
+										if FFlagCSFocusWrapperRefactor
+											then FocusRoot
+											else FocusNavigationCoreScriptsWrapper,
+										if FFlagCSFocusWrapperRefactor
+											then {
+												surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
+												isIsolated = true,
+												isAutoFocusRoot = true,
+											}
+											else {
+												selectionGroupName = SELECTION_GROUP_NAME,
+												focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
+											},
 										{
 											Prompt = promptElement,
 										}

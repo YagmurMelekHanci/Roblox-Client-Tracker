@@ -120,91 +120,94 @@ PROTO_1:
   GETTABLEKS R18 R19 K3 ["new"]
   MOVE R19 R7
   CALL R18 1 1
-  GETUPVAL R20 17
-  GETTABLEKS R19 R20 K3 ["new"]
-  GETTABLEKS R20 R0 K32 ["assetAnalytics"]
-  JUMPIF R20 [+4]
-  GETUPVAL R21 18
-  GETTABLEKS R20 R21 K30 ["mock"]
-  CALL R20 0 1
-  CALL R19 1 1
-  GETUPVAL R22 19
-  GETTABLEKS R21 R22 K33 ["LocalizationSource"]
-  GETTABLEKS R20 R21 K34 ["SourceStrings"]
+  GETTABLEKS R20 R0 K32 ["publishServiceContext"]
+  ORK R19 R20 K6 []
+  GETUPVAL R21 17
+  GETTABLEKS R20 R21 K3 ["new"]
+  GETTABLEKS R21 R0 K33 ["assetAnalytics"]
+  JUMPIF R21 [+4]
+  GETUPVAL R22 18
+  GETTABLEKS R21 R22 K30 ["mock"]
+  CALL R21 0 1
+  CALL R20 1 1
   GETUPVAL R23 19
-  GETTABLEKS R22 R23 K33 ["LocalizationSource"]
-  GETTABLEKS R21 R22 K35 ["LocalizedStrings"]
-  GETUPVAL R24 10
-  GETTABLEKS R23 R24 K36 ["Localization"]
-  GETTABLEKS R22 R23 K3 ["new"]
-  DUPTABLE R23 K44 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries", "overrideGetLocale", "overrideLocaleId", "overrideLocaleChangedSignal"}]
-  SETTABLEKS R20 R23 K37 ["stringResourceTable"]
-  SETTABLEKS R21 R23 K38 ["translationResourceTable"]
-  LOADK R24 K45 ["Toolbox"]
-  SETTABLEKS R24 R23 K39 ["pluginName"]
-  NEWTABLE R24 1 0
-  GETUPVAL R27 20
-  GETTABLEKS R26 R27 K46 ["Resources"]
-  GETTABLEKS R25 R26 K47 ["LOCALIZATION_PROJECT_NAME"]
-  DUPTABLE R26 K48 [{"stringResourceTable", "translationResourceTable"}]
-  GETUPVAL R29 20
-  GETTABLEKS R28 R29 K46 ["Resources"]
-  GETTABLEKS R27 R28 K34 ["SourceStrings"]
-  SETTABLEKS R27 R26 K37 ["stringResourceTable"]
-  GETUPVAL R29 20
-  GETTABLEKS R28 R29 K46 ["Resources"]
-  GETTABLEKS R27 R28 K35 ["LocalizedStrings"]
-  SETTABLEKS R27 R26 K38 ["translationResourceTable"]
-  SETTABLE R26 R24 R25
-  SETTABLEKS R24 R23 K40 ["libraries"]
-  DUPCLOSURE R24 K49 [PROTO_0]
-  SETTABLEKS R24 R23 K41 ["overrideGetLocale"]
-  LOADK R24 K50 ["en-us"]
-  SETTABLEKS R24 R23 K42 ["overrideLocaleId"]
-  GETUPVAL R25 21
+  GETTABLEKS R22 R23 K34 ["LocalizationSource"]
+  GETTABLEKS R21 R22 K35 ["SourceStrings"]
+  GETUPVAL R24 19
+  GETTABLEKS R23 R24 K34 ["LocalizationSource"]
+  GETTABLEKS R22 R23 K36 ["LocalizedStrings"]
+  GETUPVAL R25 10
+  GETTABLEKS R24 R25 K37 ["Localization"]
+  GETTABLEKS R23 R24 K3 ["new"]
+  DUPTABLE R24 K45 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries", "overrideGetLocale", "overrideLocaleId", "overrideLocaleChangedSignal"}]
+  SETTABLEKS R21 R24 K38 ["stringResourceTable"]
+  SETTABLEKS R22 R24 K39 ["translationResourceTable"]
+  LOADK R25 K46 ["Toolbox"]
+  SETTABLEKS R25 R24 K40 ["pluginName"]
+  NEWTABLE R25 1 0
+  GETUPVAL R28 20
+  GETTABLEKS R27 R28 K47 ["Resources"]
+  GETTABLEKS R26 R27 K48 ["LOCALIZATION_PROJECT_NAME"]
+  DUPTABLE R27 K49 [{"stringResourceTable", "translationResourceTable"}]
+  GETUPVAL R30 20
+  GETTABLEKS R29 R30 K47 ["Resources"]
+  GETTABLEKS R28 R29 K35 ["SourceStrings"]
+  SETTABLEKS R28 R27 K38 ["stringResourceTable"]
+  GETUPVAL R30 20
+  GETTABLEKS R29 R30 K47 ["Resources"]
+  GETTABLEKS R28 R29 K36 ["LocalizedStrings"]
+  SETTABLEKS R28 R27 K39 ["translationResourceTable"]
+  SETTABLE R27 R25 R26
+  SETTABLEKS R25 R24 K41 ["libraries"]
+  DUPCLOSURE R25 K50 [PROTO_0]
+  SETTABLEKS R25 R24 K42 ["overrideGetLocale"]
+  LOADK R25 K51 ["en-us"]
+  SETTABLEKS R25 R24 K43 ["overrideLocaleId"]
+  GETUPVAL R26 21
+  GETTABLEKS R25 R26 K3 ["new"]
+  CALL R25 0 1
+  SETTABLEKS R25 R24 K44 ["overrideLocaleChangedSignal"]
+  CALL R23 1 1
+  GETUPVAL R25 22
   GETTABLEKS R24 R25 K3 ["new"]
   CALL R24 0 1
-  SETTABLEKS R24 R23 K43 ["overrideLocaleChangedSignal"]
-  CALL R22 1 1
-  GETUPVAL R24 22
-  GETTABLEKS R23 R24 K3 ["new"]
-  CALL R23 0 1
-  NEWTABLE R24 0 14
-  MOVE R25 R14
-  MOVE R26 R10
-  MOVE R27 R9
-  MOVE R28 R11
-  MOVE R29 R12
-  MOVE R30 R13
-  MOVE R31 R16
-  MOVE R32 R19
-  MOVE R33 R17
-  MOVE R34 R22
-  MOVE R35 R8
-  MOVE R36 R23
-  MOVE R37 R18
-  MOVE R38 R15
-  SETLIST R24 R25 14 [1]
-  GETUPVAL R26 23
-  GETTABLEKS R25 R26 K51 ["createElement"]
-  GETUPVAL R26 24
-  DUPTABLE R27 K52 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
-  SETTABLEKS R2 R27 K1 ["store"]
-  SETTABLEKS R3 R27 K5 ["plugin"]
-  SETTABLEKS R4 R27 K7 ["pluginGui"]
-  SETTABLEKS R5 R27 K8 ["settings"]
-  SETTABLEKS R6 R27 K9 ["theme"]
-  SETTABLEKS R7 R27 K11 ["networkInterface"]
-  DUPTABLE R28 K54 [{"MockContextProvider"}]
-  GETUPVAL R29 25
-  MOVE R30 R24
-  GETUPVAL R33 23
-  GETTABLEKS R32 R33 K55 ["Children"]
-  GETTABLE R31 R0 R32
-  CALL R29 2 1
-  SETTABLEKS R29 R28 K53 ["MockContextProvider"]
-  CALL R25 3 -1
-  RETURN R25 -1
+  NEWTABLE R25 0 15
+  MOVE R26 R14
+  MOVE R27 R10
+  MOVE R28 R9
+  MOVE R29 R11
+  MOVE R30 R12
+  MOVE R31 R13
+  MOVE R32 R16
+  MOVE R33 R20
+  MOVE R34 R17
+  MOVE R35 R23
+  MOVE R36 R8
+  MOVE R37 R24
+  MOVE R38 R18
+  MOVE R39 R15
+  MOVE R40 R19
+  SETLIST R25 R26 15 [1]
+  GETUPVAL R27 23
+  GETTABLEKS R26 R27 K52 ["createElement"]
+  GETUPVAL R27 24
+  DUPTABLE R28 K53 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
+  SETTABLEKS R2 R28 K1 ["store"]
+  SETTABLEKS R3 R28 K5 ["plugin"]
+  SETTABLEKS R4 R28 K7 ["pluginGui"]
+  SETTABLEKS R5 R28 K8 ["settings"]
+  SETTABLEKS R6 R28 K9 ["theme"]
+  SETTABLEKS R7 R28 K11 ["networkInterface"]
+  DUPTABLE R29 K55 [{"MockContextProvider"}]
+  GETUPVAL R30 25
+  MOVE R31 R25
+  GETUPVAL R34 23
+  GETTABLEKS R33 R34 K56 ["Children"]
+  GETTABLE R32 R0 R33
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K54 ["MockContextProvider"]
+  CALL R26 3 -1
+  RETURN R26 -1
 
 MAIN:
   PREPVARARGS 0

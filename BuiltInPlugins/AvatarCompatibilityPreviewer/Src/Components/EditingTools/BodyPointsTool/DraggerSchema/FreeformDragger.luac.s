@@ -10,12 +10,12 @@ PROTO_0:
   LOADNIL R1
   GETTABLEKS R2 R0 K3 ["onFreeformDragBegin"]
   CALL R2 0 0
-  DUPTABLE R3 K7 [{"_draggerContext", "_selectedPoint", "_updatePointPosition"}]
+  DUPTABLE R3 K7 [{"_draggerContext", "_selectedPoint", "_updatePointPositionCallback"}]
   SETTABLEKS R0 R3 K4 ["_draggerContext"]
   GETTABLEKS R5 R0 K0 ["selectedPoints"]
   GETTABLEN R4 R5 1
   SETTABLEKS R4 R3 K5 ["_selectedPoint"]
-  SETTABLEKS R1 R3 K6 ["_updatePointPosition"]
+  SETTABLEKS R1 R3 K6 ["_updatePointPositionCallback"]
   GETUPVAL R4 0
   FASTCALL2 SETMETATABLE R3 R4 [+3]
   GETIMPORT R2 K9 [setmetatable]
@@ -30,10 +30,10 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETTABLEKS R1 R0 K0 ["_updatePointPosition"]
+  GETTABLEKS R1 R0 K0 ["_updatePointPositionCallback"]
   JUMPIFNOTEQKNIL R1 [+2]
   RETURN R0 0
-  GETTABLEKS R3 R0 K0 ["_updatePointPosition"]
+  GETTABLEKS R3 R0 K0 ["_updatePointPositionCallback"]
   JUMPIFNOTEQKNIL R3 [+2]
   LOADB R2 0 +1
   LOADB R2 1
@@ -95,7 +95,7 @@ PROTO_3:
   GETTABLEKS R6 R0 K4 ["_draggerContext"]
   GETTABLEKS R5 R6 K24 ["projectionEnabled"]
   JUMPIFNOT R5 [+27]
-  GETTABLEKS R5 R0 K0 ["_updatePointPosition"]
+  GETTABLEKS R5 R0 K0 ["_updatePointPositionCallback"]
   GETIMPORT R7 K26 [CFrame.new]
   GETTABLEKS R11 R0 K4 ["_draggerContext"]
   GETTABLEKS R10 R11 K27 ["worldModel"]
@@ -143,7 +143,7 @@ PROTO_3:
   LOADK R10 K34 [0.5]
   NAMECALL R7 R4 K35 ["Lerp"]
   CALL R7 3 1
-  GETTABLEKS R8 R0 K0 ["_updatePointPosition"]
+  GETTABLEKS R8 R0 K0 ["_updatePointPositionCallback"]
   GETIMPORT R10 K26 [CFrame.new]
   GETTABLEKS R14 R0 K4 ["_draggerContext"]
   GETTABLEKS R13 R14 K27 ["worldModel"]

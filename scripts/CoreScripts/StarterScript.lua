@@ -19,6 +19,7 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptErrorReporter", RobloxGui)
 
 local Roact = require(CorePackages.Packages.Roact)
+local ReactScheduler = require(CorePackages.Packages.Scheduler)
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
@@ -82,6 +83,14 @@ local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
 UIBlox.init(uiBloxConfig)
+
+-- Set up React Scheduler experiment
+
+local GetReactSchedulerIXPConfig = require(CorePackages.Workspace.Packages.SharedFlags).GetReactSchedulerIXPConfig
+local ReactSchedulerConfig = GetReactSchedulerIXPConfig()
+if ReactSchedulerConfig then
+	ReactScheduler.unstable_setSchedulerFlags(ReactSchedulerConfig)
+end
 
 local localPlayer = Players.LocalPlayer
 while not localPlayer do
@@ -152,13 +161,6 @@ local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getF
 if getFFlagEnableAlwaysAvailableCamera() then
 	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 	ExperienceChat.GlobalFlags.EnableAlwaysAvailableCamera = true
-end
-
-local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
-if GetFFlagConsolidateBubbleChat() then
-	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
-	local GlobalFlags = ExperienceChat.GlobalFlags :: any
-	GlobalFlags.ConsolidateBubbleChat = true
 end
 
 local getFFlagRenderVoiceBubbleAfterAsyncInit = require(RobloxGui.Modules.Flags.getFFlagRenderVoiceBubbleAfterAsyncInit)

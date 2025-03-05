@@ -24,6 +24,19 @@ PROTO_1:
   CALL R2 2 -1
   RETURN R2 -1
 
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K4 [{"groupBundlesUploadEnabledForUser", "allowedBundleTypeSettings"}]
+  GETTABLEKS R5 R1 K2 ["groupBundlesUploadEnabledForUser"]
+  SETTABLEKS R5 R4 K2 ["groupBundlesUploadEnabledForUser"]
+  GETTABLEKS R5 R1 K3 ["allowedBundleTypeSettings"]
+  SETTABLEKS R5 R4 K3 ["allowedBundleTypeSettings"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -45,24 +58,48 @@ MAIN:
   GETIMPORT R6 K5 [require]
   GETTABLEKS R7 R4 K11 ["SetAllowedBundleTypes"]
   CALL R6 1 1
-  GETTABLEKS R7 R3 K12 ["createReducer"]
-  DUPTABLE R8 K17 [{"allowedAssetTypesForRelease", "allowedAssetTypesForUpload", "allowedAssetTypesForFree", "allowedBundleTypeSettings"}]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K13 ["allowedAssetTypesForRelease"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K14 ["allowedAssetTypesForUpload"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K15 ["allowedAssetTypesForFree"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K16 ["allowedBundleTypeSettings"]
-  NEWTABLE R9 2 0
-  GETTABLEKS R10 R5 K18 ["name"]
-  DUPCLOSURE R11 K19 [PROTO_0]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R4 K12 ["BundlesMetadataReceived"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Core"]
+  GETTABLEKS R10 R11 K13 ["Flags"]
+  GETTABLEKS R9 R10 K14 ["getFFlagEnableUploadingGroupBundles"]
+  CALL R8 1 1
+  GETTABLEKS R9 R3 K15 ["createReducer"]
+  DUPTABLE R10 K21 [{"allowedAssetTypesForRelease", "allowedAssetTypesForUpload", "allowedAssetTypesForFree", "allowedBundleTypeSettings", "groupBundlesUploadEnabledForUser"}]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K16 ["allowedAssetTypesForRelease"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K17 ["allowedAssetTypesForUpload"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K18 ["allowedAssetTypesForFree"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K19 ["allowedBundleTypeSettings"]
+  MOVE R12 R8
+  CALL R12 0 1
+  JUMPIFNOT R12 [+2]
+  LOADB R11 0
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K20 ["groupBundlesUploadEnabledForUser"]
+  NEWTABLE R11 4 0
+  GETTABLEKS R12 R5 K22 ["name"]
+  DUPCLOSURE R13 K23 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLE R11 R9 R10
-  GETTABLEKS R10 R6 K18 ["name"]
-  DUPCLOSURE R11 K20 [PROTO_1]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R6 K22 ["name"]
+  DUPCLOSURE R13 K24 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLE R11 R9 R10
-  CALL R7 2 -1
-  RETURN R7 -1
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R7 K22 ["name"]
+  MOVE R14 R8
+  CALL R14 0 1
+  JUMPIFNOT R14 [+3]
+  DUPCLOSURE R13 K25 [PROTO_2]
+  CAPTURE VAL R2
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLE R13 R11 R12
+  CALL R9 2 -1
+  RETURN R9 -1

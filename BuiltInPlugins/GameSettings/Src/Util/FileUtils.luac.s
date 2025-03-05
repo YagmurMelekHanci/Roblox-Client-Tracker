@@ -34,43 +34,42 @@ PROTO_1:
   DUPTABLE R4 K7 [{"Size", "Title", "Header", "Entries", "Buttons", "Wrapped", "Truncate"}]
   GETIMPORT R5 K10 [Vector2.new]
   LOADN R6 204
-  LOADN R8 200
-  LENGTH R10 R3
-  MULK R9 R10 K11 [22]
-  ADD R7 R8 R9
+  LENGTH R9 R3
+  MULK R8 R9 K12 [22]
+  ADDK R7 R8 K11 [200]
   CALL R5 2 1
   SETTABLEKS R5 R4 K0 ["Size"]
-  LOADK R7 K12 ["General"]
-  LOADK R8 K13 ["MultiImageDialogHeader"]
-  NAMECALL R5 R1 K14 ["getText"]
+  LOADK R7 K13 ["General"]
+  LOADK R8 K14 ["MultiImageDialogHeader"]
+  NAMECALL R5 R1 K15 ["getText"]
   CALL R5 3 1
   SETTABLEKS R5 R4 K1 ["Title"]
-  LOADK R7 K12 ["General"]
-  LOADK R8 K15 ["MultiImageDialogBody"]
-  DUPTABLE R9 K17 [{"maxThumbnailSize"}]
+  LOADK R7 K13 ["General"]
+  LOADK R8 K16 ["MultiImageDialogBody"]
+  DUPTABLE R9 K18 [{"maxThumbnailSize"}]
   GETUPVAL R11 0
-  DIVK R10 R11 K18 [1000000]
-  SETTABLEKS R10 R9 K16 ["maxThumbnailSize"]
-  NAMECALL R5 R1 K14 ["getText"]
+  DIVK R10 R11 K19 [1000000]
+  SETTABLEKS R10 R9 K17 ["maxThumbnailSize"]
+  NAMECALL R5 R1 K15 ["getText"]
   CALL R5 4 1
   SETTABLEKS R5 R4 K2 ["Header"]
   SETTABLEKS R3 R4 K3 ["Entries"]
   NEWTABLE R5 0 1
-  LOADK R8 K12 ["General"]
-  LOADK R9 K19 ["ReplyOK"]
-  NAMECALL R6 R1 K14 ["getText"]
+  LOADK R8 K13 ["General"]
+  LOADK R9 K20 ["ReplyOK"]
+  NAMECALL R6 R1 K15 ["getText"]
   CALL R6 3 -1
   SETLIST R5 R6 -1 [1]
   SETTABLEKS R5 R4 K4 ["Buttons"]
   LOADB R5 0
   SETTABLEKS R5 R4 K5 ["Wrapped"]
-  GETIMPORT R5 K23 [Enum.TextTruncate.AtEnd]
+  GETIMPORT R5 K24 [Enum.TextTruncate.AtEnd]
   SETTABLEKS R5 R4 K6 ["Truncate"]
   MOVE R5 R2
   GETUPVAL R6 1
   MOVE R7 R4
   CALL R5 2 1
-  NAMECALL R5 R5 K24 ["await"]
+  NAMECALL R5 R5 K25 ["await"]
   CALL R5 1 0
   RETURN R0 0
 

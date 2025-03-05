@@ -21,11 +21,13 @@ local Images = UIBlox.App.ImageSet.Images
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
+local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCSFocusWrapperRefactor = SharedFlags.FFlagCSFocusWrapperRefactor
 local GetFFlagModalSelectorCloseButton = require(root.Flags.GetFFlagModalSelectorCloseButton)
-local GetFFlagLuaAppEnableOpenTypeSupport =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableOpenTypeSupport
+local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 
 type Props = {
 	isShown: boolean,
@@ -189,13 +191,22 @@ end
 
 function DialogWrapper(props)
 	return React.createElement(CoreScriptsRootProvider, {}, {
-		FocusNavigationCoreScriptsWrapper = React.createElement(FocusNavigationCoreScriptsWrapper, {
-			selectionGroupName = Constants.ModalBaseSelectorDialogRootName,
-			focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-		}, {
-
-			DialogContainer = React.createElement(ModalBaseSelectorDialog, props),
-		}),
+		FocusNavigationCoreScriptsWrapper = React.createElement(
+			if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
+			if FFlagCSFocusWrapperRefactor
+				then {
+					surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+					isIsolated = true,
+					isAutoFocusRoot = true,
+				}
+				else {
+					selectionGroupName = Constants.ModalBaseSelectorDialogRootName,
+					focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+				},
+			{
+				DialogContainer = React.createElement(ModalBaseSelectorDialog, props),
+			}
+		),
 	})
 end
 

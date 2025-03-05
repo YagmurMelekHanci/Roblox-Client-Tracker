@@ -1,0 +1,154 @@
+PROTO_0:
+  DUPTABLE R0 K4 [{"Size", "BackgroundColor3", "BorderColor3", "BorderSizePixel"}]
+  GETIMPORT R1 K7 [UDim2.fromOffset]
+  LOADN R2 100
+  LOADN R3 100
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K0 ["Size"]
+  GETIMPORT R1 K10 [Color3.new]
+  LOADN R2 1
+  LOADN R3 1
+  LOADN R4 1
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K1 ["BackgroundColor3"]
+  GETIMPORT R1 K10 [Color3.new]
+  LOADN R2 0
+  LOADN R3 0
+  LOADN R4 0
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K2 ["BorderColor3"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K3 ["BorderSizePixel"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K11 ["Dictionary"]
+  GETTABLEKS R1 R2 K12 ["join"]
+  MOVE R2 R0
+  DUPTABLE R3 K16 [{"Size", "FontFace", "TextSize", "TextColor3"}]
+  GETIMPORT R4 K7 [UDim2.fromOffset]
+  LOADN R5 200
+  LOADN R6 50
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K0 ["Size"]
+  GETIMPORT R4 K19 [Font.fromEnum]
+  GETIMPORT R5 K22 [Enum.Font.SourceSans]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K13 ["FontFace"]
+  LOADN R4 14
+  SETTABLEKS R4 R3 K14 ["TextSize"]
+  GETIMPORT R4 K10 [Color3.new]
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K15 ["TextColor3"]
+  CALL R1 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["Dictionary"]
+  GETTABLEKS R2 R3 K12 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K24 [{"Image"}]
+  LOADK R5 K25 ["rbxasset://textures/ui/GuiImagePlaceholder.png"]
+  SETTABLEKS R5 R4 K23 ["Image"]
+  CALL R2 2 1
+  DUPTABLE R3 K27 [{"SortOrder"}]
+  GETIMPORT R4 K29 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R4 R3 K26 ["SortOrder"]
+  GETUPVAL R4 1
+  LOADK R5 K30 ["StudioDefaultStyleSheet"]
+  NEWTABLE R6 0 14
+  GETUPVAL R7 2
+  LOADK R8 K31 ["Frame"]
+  MOVE R9 R0
+  CALL R7 2 1
+  GETUPVAL R8 2
+  LOADK R9 K32 ["ScrollingFrame"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K11 ["Dictionary"]
+  GETTABLEKS R10 R11 K12 ["join"]
+  MOVE R11 R0
+  DUPTABLE R12 K35 [{"Active", "ScrollBarImageColor3"}]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K33 ["Active"]
+  GETIMPORT R13 K10 [Color3.new]
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 0
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K34 ["ScrollBarImageColor3"]
+  CALL R10 2 -1
+  CALL R8 -1 1
+  GETUPVAL R9 2
+  LOADK R10 K36 ["TextLabel"]
+  MOVE R11 R1
+  CALL R9 2 1
+  GETUPVAL R10 2
+  LOADK R11 K37 ["TextButton"]
+  MOVE R12 R1
+  CALL R10 2 1
+  GETUPVAL R11 2
+  LOADK R12 K38 ["TextBox"]
+  MOVE R13 R1
+  CALL R11 2 1
+  GETUPVAL R12 2
+  LOADK R13 K39 ["ImageButton"]
+  MOVE R14 R2
+  CALL R12 2 1
+  GETUPVAL R13 2
+  LOADK R14 K40 ["ImageLabel"]
+  MOVE R15 R2
+  CALL R13 2 1
+  GETUPVAL R14 2
+  LOADK R15 K41 ["ViewportFrame"]
+  MOVE R16 R0
+  CALL R14 2 1
+  GETUPVAL R15 2
+  LOADK R16 K42 ["VideoFrame"]
+  MOVE R17 R0
+  CALL R15 2 1
+  GETUPVAL R16 2
+  LOADK R17 K43 ["CanvasGroup"]
+  MOVE R18 R0
+  CALL R16 2 1
+  GETUPVAL R17 2
+  LOADK R18 K44 ["UIListLayout"]
+  MOVE R19 R3
+  CALL R17 2 1
+  GETUPVAL R18 2
+  LOADK R19 K45 ["UIGridLayout"]
+  MOVE R20 R3
+  CALL R18 2 1
+  GETUPVAL R19 2
+  LOADK R20 K46 ["UIPageLayout"]
+  MOVE R21 R3
+  CALL R19 2 1
+  GETUPVAL R20 2
+  LOADK R21 K47 ["UITableLayout"]
+  MOVE R22 R3
+  CALL R20 2 -1
+  SETLIST R6 R7 -1 [1]
+  CALL R4 2 1
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETTABLEKS R4 R1 K8 ["Styling"]
+  GETTABLEKS R3 R4 K9 ["createStyleRule"]
+  GETTABLEKS R5 R1 K8 ["Styling"]
+  GETTABLEKS R4 R5 K10 ["createStyleSheet"]
+  DUPCLOSURE R5 K11 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  RETURN R5 1

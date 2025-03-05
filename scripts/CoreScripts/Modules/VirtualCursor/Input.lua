@@ -15,9 +15,11 @@ local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local properties = require(VirtualCursorFolder.Properties)
 local Interface = require(VirtualCursorFolder.Interface)
 local getFFlagDirectionalAnalogStick = require(VirtualCursorFolder.getFFlagDirectionalAnalogStick)
+local getFFlagDirectionalAnalogStickBillboardGuiSupport = require(VirtualCursorFolder.getFFlagDirectionalAnalogStickBillboardGuiSupport)
 
 local FFlagResetVCThumbstickOnDisable = game:DefineFastFlag("ResetVCThumbstickOnDisable", false)
 local FFlagDirectionalAnalogStick = getFFlagDirectionalAnalogStick()
+local FFlagDirectionalAnalogStickBillboardGuiSupport = getFFlagDirectionalAnalogStickBillboardGuiSupport()
 
 local Input = {}
 
@@ -30,6 +32,7 @@ local previousSelection = nil
 local previousSelectionTime = os.clock()
 local gamepadAnimatedSelectionPreviewConnection = nil
 local gamepadThumbstick1ChangedConnection = nil
+local gamepadSelectionRect2DChangedConnection = nil
 
 local function processThumbstickInput(position) -- process raw input from the thumbstick and account for deadzone
 	local x,y = 0,0
@@ -55,23 +58,52 @@ local function onThumbstick2Input(action, state, iobj)
 	return Enum.ContextActionResult.Pass
 end
 
+local function getRectCenter(rect2d: Rect)
+    return (rect2d.Min + rect2d.Max) / 2
+end
+
 local function processPreviewEnabled(enabled: boolean)
     assert(FFlagDirectionalAnalogStick, "processPreviewEnabled should only be called when FFlagDirectionalAnalogStick is true")
 
     local insetTop, _ = GuiService:GetGuiInset()
     if enabled and not previewEnabled then
-        Interface:EnableUI(GuiService.SelectedObject.AbsolutePosition + (GuiService.SelectedObject.AbsoluteSize / 2) + insetTop)
+        if FFlagDirectionalAnalogStickBillboardGuiSupport then
+            Interface:EnableUI(getRectCenter(GuiService.SelectedObject.SelectionRect2D))
+        else
+            Interface:EnableUI(GuiService.SelectedObject.AbsolutePosition + (GuiService.SelectedObject.AbsoluteSize / 2) + insetTop)
+        end
         previewEnabled = true
     elseif not enabled and previewEnabled then
         Interface:DisableUI()
         previewEnabled = false
     end
 
-    if enabled then
-        if previousSelection then
-            Interface:SetCursorPosition(previousSelection.AbsolutePosition + (GuiService.SelectedObject.AbsoluteSize / 2) + insetTop)
+    if FFlagDirectionalAnalogStickBillboardGuiSupport then
+        if gamepadSelectionRect2DChangedConnection then
+            gamepadSelectionRect2DChangedConnection:Disconnect()
         end
-        Interface:TweenCursorPosition(GuiService.SelectedObject.AbsolutePosition + (GuiService.SelectedObject.AbsoluteSize / 2) + insetTop)
+
+        if previewEnabled and GuiService.SelectedObject then
+            gamepadSelectionRect2DChangedConnection = GuiService.SelectedObject:GetPropertyChangedSignal("SelectionRect2D"):Connect(function()
+                if previewEnabled then
+                    Interface:TweenCursorPosition(getRectCenter(GuiService.SelectedObject.SelectionRect2D))
+                end
+            end)
+        end
+
+        if enabled then
+            if previousSelection then
+                Interface:SetCursorPosition(getRectCenter(previousSelection.SelectionRect2D))
+            end
+            Interface:TweenCursorPosition(getRectCenter(GuiService.SelectedObject.SelectionRect2D))
+        end
+    else
+        if enabled then
+            if previousSelection then
+                Interface:SetCursorPosition(previousSelection.AbsolutePosition + (GuiService.SelectedObject.AbsoluteSize / 2) + insetTop)
+            end
+            Interface:TweenCursorPosition(GuiService.SelectedObject.AbsolutePosition + (GuiService.SelectedObject.AbsoluteSize / 2) + insetTop)
+        end
     end
 end
 

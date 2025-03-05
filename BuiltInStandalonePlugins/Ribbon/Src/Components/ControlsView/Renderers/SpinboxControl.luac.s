@@ -1,0 +1,152 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Select"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["Setting"]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["Item"]
+  GETTABLEKS R2 R1 K1 ["Setting"]
+  JUMPIF R2 [+12]
+  GETIMPORT R2 K3 [warn]
+  LOADK R4 K4 ["Missing Setting field for Slider with id %*"]
+  GETTABLEKS R6 R1 K5 ["Id"]
+  NAMECALL R4 R4 K6 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["toString"]
+  GETTABLEKS R3 R1 K1 ["Setting"]
+  CALL R2 1 1
+  GETTABLEKS R5 R0 K8 ["Items"]
+  GETTABLEKS R4 R5 K9 ["Settings"]
+  GETTABLE R3 R4 R2
+  JUMPIF R3 [+13]
+  GETIMPORT R4 K3 [warn]
+  LOADK R6 K10 ["Missing Setting %* for Slider with id %*"]
+  MOVE R8 R2
+  GETTABLEKS R9 R1 K5 ["Id"]
+  NAMECALL R6 R6 K6 ["format"]
+  CALL R6 3 1
+  MOVE R5 R6
+  CALL R4 1 0
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R5 R3 K11 ["Value"]
+  FASTCALL1 TYPEOF R5 [+2]
+  GETIMPORT R4 K13 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K14 ["number"] [+16]
+  GETIMPORT R4 K3 [warn]
+  LOADK R6 K15 ["Setting %* has an invalid value %* for Slider with id %*"]
+  MOVE R8 R2
+  GETTABLEKS R9 R3 K11 ["Value"]
+  GETTABLEKS R10 R1 K5 ["Id"]
+  NAMECALL R6 R6 K6 ["format"]
+  CALL R6 4 1
+  MOVE R5 R6
+  CALL R4 1 0
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R4 R3 K16 ["Range"]
+  JUMPIF R4 [+13]
+  GETIMPORT R5 K3 [warn]
+  LOADK R7 K17 ["Setting %* has an invalid Range field for Slider with id %*"]
+  MOVE R9 R2
+  GETTABLEKS R10 R1 K5 ["Id"]
+  NAMECALL R7 R7 K6 ["format"]
+  CALL R7 3 1
+  MOVE R6 R7
+  CALL R5 1 0
+  LOADNIL R5
+  RETURN R5 1
+  GETUPVAL R5 1
+  GETUPVAL R6 2
+  DUPTABLE R7 K29 [{"Uri", "Disabled", "Increment", "LayoutOrder", "Maximum", "Minimum", "Precision", "Icon", "FormatStringKey", "Value", "IsShort", "OnValueChanged"}]
+  GETTABLEKS R9 R0 K30 ["WidgetUri"]
+  JUMPIFNOT R9 [+12]
+  GETTABLEKS R9 R1 K5 ["Id"]
+  JUMPIFNOT R9 [+9]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K31 ["child"]
+  GETTABLEKS R9 R0 K30 ["WidgetUri"]
+  GETTABLEKS R10 R1 K5 ["Id"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K18 ["Uri"]
+  GETTABLEKS R9 R3 K32 ["Enabled"]
+  NOT R8 R9
+  SETTABLEKS R8 R7 K19 ["Disabled"]
+  GETTABLEKS R8 R4 K20 ["Increment"]
+  SETTABLEKS R8 R7 K20 ["Increment"]
+  GETTABLEKS R8 R0 K21 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K21 ["LayoutOrder"]
+  GETTABLEKS R9 R4 K22 ["Maximum"]
+  ORK R8 R9 K33 [∞]
+  SETTABLEKS R8 R7 K22 ["Maximum"]
+  GETTABLEKS R9 R4 K23 ["Minimum"]
+  ORK R8 R9 K34 [0]
+  SETTABLEKS R8 R7 K23 ["Minimum"]
+  GETTABLEKS R8 R4 K24 ["Precision"]
+  SETTABLEKS R8 R7 K24 ["Precision"]
+  GETTABLEKS R8 R1 K25 ["Icon"]
+  JUMPIF R8 [+2]
+  GETTABLEKS R8 R3 K25 ["Icon"]
+  SETTABLEKS R8 R7 K25 ["Icon"]
+  GETTABLEKS R8 R4 K26 ["FormatStringKey"]
+  SETTABLEKS R8 R7 K26 ["FormatStringKey"]
+  GETTABLEKS R8 R3 K11 ["Value"]
+  SETTABLEKS R8 R7 K11 ["Value"]
+  GETTABLEKS R8 R1 K27 ["IsShort"]
+  SETTABLEKS R8 R7 K27 ["IsShort"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R8 R7 K28 ["OnValueChanged"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["createElement"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["StudioUri"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Components"]
+  GETTABLEKS R5 R6 K13 ["RibbonSpinbox"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K14 ["ControlsView"]
+  GETTABLEKS R6 R7 K15 ["ControlProps"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K16 ["Types"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K17 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R7 1

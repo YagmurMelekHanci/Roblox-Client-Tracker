@@ -14,227 +14,248 @@ MAIN:
   GETTABLEKS R4 R5 K7 ["Flags"]
   GETTABLEKS R3 R4 K9 ["getFFlagConvAIAddCommandSearchInsertAsset"]
   CALL R2 1 1
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K10 ["Commands"]
-  GETTABLEKS R4 R3 K11 ["DisplayRichText"]
-  GETTABLEKS R5 R3 K12 ["DisplaySuggestions"]
-  GETTABLEKS R6 R3 K13 ["DisplayError"]
-  GETTABLEKS R7 R3 K14 ["QueueRichText"]
-  GETTABLEKS R8 R3 K15 ["BuilderCommands"]
-  GETTABLEKS R9 R8 K16 ["Instantiate"]
-  GETTABLEKS R10 R8 K17 ["InsertAsset"]
-  GETTABLEKS R11 R8 K18 ["SetProperty"]
-  GETTABLEKS R12 R8 K19 ["CreateMaterial"]
-  GETTABLEKS R13 R8 K20 ["SetMaterial"]
-  GETTABLEKS R14 R8 K21 ["RemoveInstance"]
-  GETTABLEKS R15 R8 K22 ["CloneInstance"]
-  GETTABLEKS R16 R8 K23 ["DisplayRegionAdornments"]
-  GETTABLEKS R17 R8 K24 ["DebugBulkPublishToInventory"]
-  GETTABLEKS R18 R8 K25 ["SetDraftMode"]
-  GETTABLEKS R19 R8 K26 ["RunDraftCommand"]
-  GETTABLEKS R20 R8 K27 ["DebugSleep"]
-  GETTABLEKS R21 R8 K28 ["RunCode"]
-  GETTABLEKS R22 R8 K29 ["SavePlace"]
-  GETTABLEKS R23 R8 K30 ["SearchInsertAsset"]
-  NEWTABLE R24 32 0
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R4
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K11 ["DisplayRichText"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R6
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K13 ["DisplayError"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R16
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K23 ["DisplayRegionAdornments"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R9
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K16 ["Instantiate"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R10
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K17 ["InsertAsset"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R11
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K18 ["SetProperty"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R7
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K14 ["QueueRichText"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R12
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K19 ["CreateMaterial"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R13
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K20 ["SetMaterial"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R17
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K24 ["DebugBulkPublishToInventory"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R5
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K12 ["DisplaySuggestions"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R14
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K21 ["RemoveInstance"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R15
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K22 ["CloneInstance"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R18
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K25 ["SetDraftMode"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R19
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K26 ["RunDraftCommand"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R20
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K27 ["DebugSleep"]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R21
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
-  SETTABLEKS R25 R24 K28 ["RunCode"]
-  MOVE R26 R1
-  CALL R26 0 1
-  JUMPIFNOT R26 [+14]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R22
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagConvAIGenerateMesh"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Commands"]
+  GETTABLEKS R5 R4 K12 ["DisplayRichText"]
+  GETTABLEKS R6 R4 K13 ["DisplaySuggestions"]
+  GETTABLEKS R7 R4 K14 ["DisplayError"]
+  GETTABLEKS R8 R4 K15 ["QueueRichText"]
+  GETTABLEKS R9 R4 K16 ["BuilderCommands"]
+  GETTABLEKS R10 R9 K17 ["Instantiate"]
+  GETTABLEKS R11 R9 K18 ["InsertAsset"]
+  GETTABLEKS R12 R9 K19 ["SetProperty"]
+  GETTABLEKS R13 R9 K20 ["CreateMaterial"]
+  GETTABLEKS R14 R9 K21 ["SetMaterial"]
+  GETTABLEKS R15 R9 K22 ["RemoveInstance"]
+  GETTABLEKS R16 R9 K23 ["CloneInstance"]
+  GETTABLEKS R17 R9 K24 ["DisplayRegionAdornments"]
+  GETTABLEKS R18 R9 K25 ["DebugBulkPublishToInventory"]
+  GETTABLEKS R19 R9 K26 ["SetDraftMode"]
+  GETTABLEKS R20 R9 K27 ["RunDraftCommand"]
+  GETTABLEKS R21 R9 K28 ["DebugSleep"]
+  GETTABLEKS R22 R9 K29 ["RunCode"]
+  GETTABLEKS R23 R9 K30 ["SavePlace"]
+  GETTABLEKS R24 R9 K31 ["SearchInsertAsset"]
+  GETTABLEKS R25 R9 K32 ["GenerateMesh"]
+  NEWTABLE R26 32 0
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R5
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K12 ["DisplayRichText"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R7
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K14 ["DisplayError"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R17
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K24 ["DisplayRegionAdornments"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R10
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K17 ["Instantiate"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R11
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K18 ["InsertAsset"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R12
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K19 ["SetProperty"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R8
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K15 ["QueueRichText"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R13
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K20 ["CreateMaterial"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R14
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K21 ["SetMaterial"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R18
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K25 ["DebugBulkPublishToInventory"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R6
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K13 ["DisplaySuggestions"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R15
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K22 ["RemoveInstance"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R16
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K23 ["CloneInstance"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R19
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K26 ["SetDraftMode"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R20
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K27 ["RunDraftCommand"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R21
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K28 ["DebugSleep"]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R22
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  SETTABLEKS R27 R26 K29 ["RunCode"]
+  MOVE R28 R1
+  CALL R28 0 1
+  JUMPIFNOT R28 [+14]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R23
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
   JUMP [+1]
-  LOADNIL R25
-  SETTABLEKS R25 R24 K29 ["SavePlace"]
-  MOVE R26 R2
-  CALL R26 0 1
-  JUMPIFNOT R26 [+14]
-  DUPTABLE R25 K34 [{"Command", "IsSequential", "IsPublic"}]
-  GETIMPORT R26 K5 [require]
-  MOVE R27 R23
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K31 ["Command"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K32 ["IsSequential"]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K33 ["IsPublic"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K30 ["SavePlace"]
+  MOVE R28 R2
+  CALL R28 0 1
+  JUMPIFNOT R28 [+14]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R24
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
   JUMP [+1]
-  LOADNIL R25
-  SETTABLEKS R25 R24 K30 ["SearchInsertAsset"]
-  RETURN R24 1
+  LOADNIL R27
+  SETTABLEKS R27 R26 K31 ["SearchInsertAsset"]
+  MOVE R28 R3
+  CALL R28 0 1
+  JUMPIFNOT R28 [+14]
+  DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
+  GETIMPORT R28 K5 [require]
+  MOVE R29 R25
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K33 ["Command"]
+  LOADB R28 1
+  SETTABLEKS R28 R27 K34 ["IsSequential"]
+  LOADB R28 0
+  SETTABLEKS R28 R27 K35 ["IsPublic"]
+  JUMP [+1]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K32 ["GenerateMesh"]
+  RETURN R26 1

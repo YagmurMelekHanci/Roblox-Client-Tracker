@@ -11,7 +11,9 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local PlayerAudioFocusChanged = ReplicatedStorage:WaitForChild("PlayerAudioFocusChanged")
 
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
+local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local Rodux = require(CorePackages.Packages.Rodux)
+local Cryo = require(CorePackages.Packages.Cryo)
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
 local CoreVoiceManager = VoiceChatCore.CoreVoiceManager.default
 local createPersistenceMiddleware = CrossExperience.Middlewares.createPersistenceMiddleware
@@ -46,6 +48,8 @@ local VoiceChatService = game:GetService("VoiceChatService")
 type VoiceStatus = CrossExperience.VoiceStatus
 local Constants = CrossExperience.Constants
 local VOICE_STATUS = Constants.VOICE_STATUS
+
+local FFlagFixPartyVoiceGetPermissions = SharedFlags.GetFFlagFixPartyVoiceGetPermissions()
 
 if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	CoreVoiceManager:setOptions({
@@ -342,12 +346,36 @@ local function getPlayerUsersIds()
 	return table.concat(playerUserIds, ", ")
 end
 
+local function getPermissions(permissions)
+	local result = {
+		hasMicPermissions = false
+	}
+	
+	return Promise.new(function(resolve, reject)
+		PermissionsProtocol:hasPermissions(permissions)
+			:andThen(function(results)
+				if results.missingPermissions then
+					result.hasMicPermissions = not Cryo.List.find(results.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+				end
+				resolve(result)
+			end)
+			:catch(function()
+				resolve(result)
+			end)
+	end)
+	
+end
+
 local function setupListeners()
 	CoreVoiceManager:subscribe("GetPermissions", function(callback, permissions)
-		-- At this point we assume that you were able to join Background DM and the required permissions were resolved prior to that
-		callback({
-			hasMicPermissions = true,
-		})
+		if FFlagFixPartyVoiceGetPermissions then
+			getPermissions(permissions):andThen(callback)
+		else
+			-- At this point we assume that you were able to join Background DM and the required permissions were resolved prior to that
+			callback({
+				hasMicPermissions = true,
+			})
+		end
 	end)
 
 	-- setup listeners
@@ -568,12 +596,15 @@ cevEventManager:addObserver(CrossExperience.Constants.EVENTS.PARTY_VOICE_RECONNE
 	if voiceStatus == VOICE_STATUS.ERROR_VOICE_SETUP then
 		-- Voice have not managed to confirm basic assumptions, restart the process completely
 		startVoice()
-	elseif voiceStatus == VOICE_STATUS.ERROR_VOICE_INIT then
+	elseif
+		voiceStatus == VOICE_STATUS.ERROR_VOICE_INIT
+		or (FFlagFixPartyVoiceGetPermissions and voiceStatus == VOICE_STATUS.ERROR_VOICE_MIC_REJECTED)
+	then
 		-- Voice has correctly set up but failed to succeed in asyncInit due to some generic issue so never connected. Attempt to reinitialize.
 		initializeVoice()
 	elseif
 		voiceStatus == VOICE_STATUS.ERROR_VOICE_JOIN
-		or voiceStatus == VOICE_STATUS.ERROR_VOICE_MIC_REJECTED
+		or (not FFlagFixPartyVoiceGetPermissions and voiceStatus == VOICE_STATUS.ERROR_VOICE_MIC_REJECTED)
 		or voiceStatus == VOICE_STATUS.ERROR_VOICE_MODERATED
 		or voiceStatus == VOICE_STATUS.ERROR_VOICE_FAILED
 		or voiceStatus == VOICE_STATUS.ERROR_VOICE_DISCONNECTED

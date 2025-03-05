@@ -116,11 +116,11 @@ PROTO_2:
   SETTABLEKS R2 R1 K26 ["SnapPoints"]
   GETUPVAL R2 5
   CALL R2 0 1
-  JUMPIFNOT R2 [+97]
+  JUMPIFNOT R2 [+95]
   GETTABLEKS R2 R0 K14 ["_draggerContext"]
   NAMECALL R2 R2 K23 ["shouldSnapPivotToGeometry"]
   CALL R2 1 1
-  JUMPIF R2 [+91]
+  JUMPIF R2 [+89]
   GETTABLEKS R3 R0 K0 ["_lastDragTarget"]
   GETTABLEKS R2 R3 K28 ["targetMatrix"]
   GETTABLEKS R3 R2 K15 ["Position"]
@@ -131,54 +131,53 @@ PROTO_2:
   GETTABLEKS R7 R0 K0 ["_lastDragTarget"]
   GETTABLEKS R6 R7 K29 ["softSnaps"]
   LENGTH R5 R6
-  JUMPIFNOTEQKN R5 K30 [0] [+57]
+  JUMPIFNOTEQKN R5 K30 [0] [+55]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K5 ["createElement"]
   GETUPVAL R6 6
   DUPTABLE R7 K36 [{"DragTarget", "SourceSize", "Scale", "GridSize", "MajorStep", "Color", "PrimaryColor"}]
   GETTABLEKS R8 R0 K0 ["_lastDragTarget"]
   SETTABLEKS R8 R7 K31 ["DragTarget"]
-  GETIMPORT R9 K40 [Vector3.one]
-  MULK R8 R9 K37 [4]
+  LOADK R8 K37 [{4, 4, 4}]
   SETTABLEKS R8 R7 K32 ["SourceSize"]
   SETTABLEKS R4 R7 K9 ["Scale"]
   GETTABLEKS R9 R0 K14 ["_draggerContext"]
-  NAMECALL R9 R9 K41 ["getGridSnapEnabled"]
+  NAMECALL R9 R9 K38 ["getGridSnapEnabled"]
   CALL R9 1 1
   JUMPIFNOT R9 [+6]
   GETTABLEKS R8 R0 K14 ["_draggerContext"]
-  NAMECALL R8 R8 K42 ["getGridSize"]
+  NAMECALL R8 R8 K39 ["getGridSize"]
   CALL R8 1 1
   JUMP [+1]
   LOADNIL R8
   SETTABLEKS R8 R7 K33 ["GridSize"]
   GETTABLEKS R8 R0 K14 ["_draggerContext"]
-  NAMECALL R8 R8 K43 ["getMajorGridIncrement"]
+  NAMECALL R8 R8 K40 ["getMajorGridIncrement"]
   CALL R8 1 1
   SETTABLEKS R8 R7 K34 ["MajorStep"]
   GETTABLEKS R8 R0 K14 ["_draggerContext"]
-  NAMECALL R8 R8 K44 ["getGridColor"]
+  NAMECALL R8 R8 K41 ["getGridColor"]
   CALL R8 1 1
   SETTABLEKS R8 R7 K7 ["Color"]
   GETTABLEKS R8 R0 K14 ["_draggerContext"]
-  NAMECALL R8 R8 K45 ["getChosenColor"]
+  NAMECALL R8 R8 K42 ["getChosenColor"]
   CALL R8 1 1
   SETTABLEKS R8 R7 K35 ["PrimaryColor"]
   CALL R5 2 1
-  SETTABLEKS R5 R1 K46 ["TargetGrid"]
+  SETTABLEKS R5 R1 K43 ["TargetGrid"]
   JUMP [+16]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K5 ["createElement"]
   GETUPVAL R6 7
-  DUPTABLE R7 K47 [{"DragTarget", "DraggerContext"}]
+  DUPTABLE R7 K44 [{"DragTarget", "DraggerContext"}]
   GETTABLEKS R8 R0 K0 ["_lastDragTarget"]
   SETTABLEKS R8 R7 K31 ["DragTarget"]
   GETTABLEKS R8 R0 K14 ["_draggerContext"]
   SETTABLEKS R8 R7 K17 ["DraggerContext"]
   CALL R5 2 1
-  SETTABLEKS R5 R1 K48 ["TargetSoftSnapView"]
+  SETTABLEKS R5 R1 K45 ["TargetSoftSnapView"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K49 ["createFragment"]
+  GETTABLEKS R2 R3 K46 ["createFragment"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1

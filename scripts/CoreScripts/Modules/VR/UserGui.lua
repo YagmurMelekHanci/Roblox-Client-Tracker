@@ -30,6 +30,7 @@ local Constants = require(UIManagerFolder.Constants)
 -- this var moves the gui and bottom bar together
 local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
 local scaleGuiDistance = GetFIntVRScaleGuiDistance() * 0.01
+local FFlagFixVRActionBinding = game:DefineFastFlag("FixVRActionBinding", false)
 
 if not VRService.VREnabled then
 	warn("UserGui should not be required while not in VR")
@@ -125,7 +126,6 @@ function UserGuiModule:SetVisible(visible, panel)
 	end
 end
 
-
 function UserGuiModule:IsVisible()
 	return GuiVisible
 end
@@ -205,7 +205,12 @@ local function handleAction(actionName, inputState, inputObject)
 		end
 	end
 end
-ContextActionService:BindAction("OpenVRMenu", handleAction, false, Enum.KeyCode.ButtonSelect)
+
+if FFlagFixVRActionBinding then
+	ContextActionService:BindCoreAction("OpenVRMenu", handleAction, false, Enum.KeyCode.ButtonSelect)
+else
+	ContextActionService:BindAction("OpenVRMenu", handleAction, false, Enum.KeyCode.ButtonSelect)
+end
 ContextActionService:BindAction("OpenIGMenu", handleAction, false, Enum.KeyCode.ButtonStart)
 
 local function OnVREnabledChanged()

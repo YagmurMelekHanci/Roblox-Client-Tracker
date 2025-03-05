@@ -4,8 +4,8 @@ PROTO_0:
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K0 ["keyCode"]
   GETUPVAL R4 3
-  GETIMPORT R5 K3 [Vector3.zero]
-  NAMECALL R0 R0 K4 ["SendGamepadEventAsync"]
+  LOADK R5 K1 [{0, 0, 0}]
+  NAMECALL R0 R0 K2 ["SendGamepadEventAsync"]
   CALL R0 5 0
   RETURN R0 0
 
@@ -25,8 +25,8 @@ PROTO_2:
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K0 ["keyCode"]
   GETUPVAL R4 3
-  GETIMPORT R5 K3 [Vector3.zero]
-  NAMECALL R0 R0 K4 ["SendGamepadEventAsync"]
+  LOADK R5 K1 [{0, 0, 0}]
+  NAMECALL R0 R0 K2 ["SendGamepadEventAsync"]
   CALL R0 5 0
   RETURN R0 0
 

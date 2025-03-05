@@ -2,7 +2,6 @@ local Root = script.Parent.Parent
 local RunService = game:GetService("RunService")
 
 local RequestType = require(Root.Enums.RequestType)
-local GetFFlagDisableTestTextForAvatarFee = require(Root.Flags.GetFFlagDisableTestTextForAvatarFee)
 
 --[[
 	CLILUACORE-314: This should be something we get from MarketplaceService,
@@ -10,18 +9,14 @@ local GetFFlagDisableTestTextForAvatarFee = require(Root.Flags.GetFFlagDisableTe
 	not we're mocking purchases
 ]]
 local function isMockingPurchases(requestType)
-	if GetFFlagDisableTestTextForAvatarFee() then
-		--[[
-			Initiating an AvatarCreationFee purchase flow through 
-			in-experience avatar creation does not support mocking
-			the purchase through studio. Therefore, we support
-			actual purchases through studio and should not expect
-			to be mocking a purchase
-		]] 
-		return RunService:IsStudio() and requestType ~= RequestType.AvatarCreationFee
-	else
-		return RunService:IsStudio()
-	end
+	--[[
+		Initiating an AvatarCreationFee purchase flow through 
+		in-experience avatar creation does not support mocking
+		the purchase through studio. Therefore, we support
+		actual purchases through studio and should not expect
+		to be mocking a purchase
+	]] 
+	return RunService:IsStudio() and requestType ~= RequestType.AvatarCreationFee
 end
 
 return isMockingPurchases

@@ -15,7 +15,7 @@ PROTO_1:
   GETTABLEKS R2 R0 K0 ["_draggerContext"]
   NAMECALL R3 R2 K1 ["shouldShowTargetGrids"]
   CALL R3 1 1
-  JUMPIFNOT R3 [+63]
+  JUMPIFNOT R3 [+62]
   GETTABLEKS R5 R1 K2 ["softSnaps"]
   LENGTH R4 R5
   LOADN R5 0
@@ -43,18 +43,18 @@ PROTO_1:
   GETUPVAL R6 2
   DUPTABLE R7 K14 [{"DragTarget", "SourceSize", "Scale", "GridSize", "Color", "PrimaryColor"}]
   SETTABLEKS R1 R7 K4 ["DragTarget"]
-  GETIMPORT R8 K17 [Vector3.zero]
+  LOADK R8 K15 [{0, 0, 0}]
   SETTABLEKS R8 R7 K9 ["SourceSize"]
-  GETTABLEKS R11 R1 K18 ["targetMatrix"]
-  GETTABLEKS R10 R11 K19 ["Position"]
-  NAMECALL R8 R2 K20 ["getHandleScale"]
+  GETTABLEKS R11 R1 K16 ["targetMatrix"]
+  GETTABLEKS R10 R11 K17 ["Position"]
+  NAMECALL R8 R2 K18 ["getHandleScale"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K10 ["Scale"]
   SETTABLEKS R4 R7 K11 ["GridSize"]
-  NAMECALL R8 R2 K21 ["getGridColor"]
+  NAMECALL R8 R2 K19 ["getGridColor"]
   CALL R8 1 1
   SETTABLEKS R8 R7 K12 ["Color"]
-  NAMECALL R8 R2 K22 ["getChosenColor"]
+  NAMECALL R8 R2 K20 ["getChosenColor"]
   CALL R8 1 1
   SETTABLEKS R8 R7 K13 ["PrimaryColor"]
   CALL R5 2 -1

@@ -214,9 +214,9 @@ MAIN:
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K13 ["Src"]
   GETTABLEKS R12 R13 K16 ["Contexts"]
-  GETTABLEKS R11 R12 K18 ["TaggingContext"]
+  GETTABLEKS R11 R12 K18 ["TagDropdownContext"]
   CALL R10 1 1
-  GETTABLEKS R9 R10 K18 ["TaggingContext"]
+  GETTABLEKS R9 R10 K18 ["TagDropdownContext"]
   GETIMPORT R10 K5 [require]
   GETTABLEKS R12 R0 K13 ["Src"]
   GETTABLEKS R11 R12 K19 ["Types"]

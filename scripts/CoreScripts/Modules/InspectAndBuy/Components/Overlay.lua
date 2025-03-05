@@ -20,11 +20,14 @@ local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNaviga
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
+local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local InspectAndBuyFolder = script.Parent.Parent
 local Colors = require(InspectAndBuyFolder.Colors)
 local OverlayComponents = require(InspectAndBuyFolder.Components.OverlayComponents)
+
+local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 
 local SELECTION_GROUP_NAME = "InspectAndBuyOverlay"
 
@@ -45,20 +48,30 @@ local function Overlay(props)
 		value = focusNavigationService,
 	}, {
 		FocusNavigationRegistryProvider = React.createElement(FocusNavigationRegistryProvider, nil, {
-			FocusNavigationCoreScriptsWrapper = React.createElement(FocusNavigationCoreScriptsWrapper, {
-				selectionGroupName = SELECTION_GROUP_NAME,
-				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-			}, {
-				OverlayContainer = React.createElement("Frame", {
-					BackgroundTransparency = style.Tokens.Semantic.Color.Common.Overlay.Transparency,
-					BackgroundColor3 = Colors.Black,
-					BorderSizePixel = 0,
-					Size = UDim2.fromScale(1, 1),
-					Visible = overlayComponent ~= nil,
-				}, {
-					Overlay = overlayComponent and React.createElement(overlayComponent, overlayProps) or nil,
-				}),
-			}),
+			FocusNavigationCoreScriptsWrapper = React.createElement(
+				if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
+				if FFlagCSFocusWrapperRefactor
+					then {
+						surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+						isIsolated = true,
+						isAutoFocusRoot = true,
+					}
+					else {
+						selectionGroupName = SELECTION_GROUP_NAME,
+						focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+					},
+				{
+					OverlayContainer = React.createElement("Frame", {
+						BackgroundTransparency = style.Tokens.Semantic.Color.Common.Overlay.Transparency,
+						BackgroundColor3 = Colors.Black,
+						BorderSizePixel = 0,
+						Size = UDim2.fromScale(1, 1),
+						Visible = overlayComponent ~= nil,
+					}, {
+						Overlay = overlayComponent and React.createElement(overlayComponent, overlayProps) or nil,
+					}),
+				}
+			),
 		}),
 	})
 end

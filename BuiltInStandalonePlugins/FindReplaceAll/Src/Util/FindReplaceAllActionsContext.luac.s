@@ -9,7 +9,7 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["createContext"]
-  DUPTABLE R3 K14 [{"findWithOptions", "replaceWithOptions", "findNext", "findPrevious", "replaceNext"}]
+  DUPTABLE R3 K15 [{"findWithOptions", "replaceWithOptions", "findNext", "findPrevious", "replaceNext", "selectScriptAndLine"}]
   LOADNIL R4
   SETTABLEKS R4 R3 K9 ["findWithOptions"]
   LOADNIL R4
@@ -20,5 +20,7 @@ MAIN:
   SETTABLEKS R4 R3 K12 ["findPrevious"]
   LOADNIL R4
   SETTABLEKS R4 R3 K13 ["replaceNext"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K14 ["selectScriptAndLine"]
   CALL R2 1 1
   RETURN R2 1

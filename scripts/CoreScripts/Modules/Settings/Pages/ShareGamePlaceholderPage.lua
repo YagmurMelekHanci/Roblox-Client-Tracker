@@ -9,11 +9,14 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 
+local FFlagEnableLuaAppsShareLinksPackages = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableLuaAppsShareLinksPackages
+
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 local dependencies = require(CorePackages.Workspace.Packages.NotificationsCommon).ReducerDependencies
 local RoduxShareLinks = dependencies.RoduxShareLinks
-local ClearShareInviteLink = RoduxShareLinks.Actions.ClearShareInviteLink
+local ShareLinksRodux = dependencies.ShareLinksRodux
+local ClearShareInviteLink = if FFlagEnableLuaAppsShareLinksPackages then (ShareLinksRodux :: any).Actions.ClearShareInviteLink else RoduxShareLinks.Actions.ClearShareInviteLink -- Remove any cast with FFlagEnableLuaAppsShareLinksPackages
 local OpenPage = require(ShareGame.Actions.OpenPage)
 local ClosePage = require(ShareGame.Actions.ClosePage)
 

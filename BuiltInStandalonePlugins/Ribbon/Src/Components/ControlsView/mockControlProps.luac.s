@@ -1,41 +1,54 @@
 PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
   GETUPVAL R1 0
-  DUPTABLE R2 K7 [{"Activate", "OpenMenu", "CloseMenus", "MenuView", "Select", "MenuData", "Items"}]
+  DUPTABLE R2 K9 [{"Activate", "OpenMenu", "CloseMenus", "MenuView", "Select", "MenuData", "Items", "Renderers", "Warn"}]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K8 ["fn"]
+  GETTABLEKS R3 R4 K10 ["fn"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K0 ["Activate"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K8 ["fn"]
+  GETTABLEKS R3 R4 K10 ["fn"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K1 ["OpenMenu"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K8 ["fn"]
+  GETTABLEKS R3 R4 K10 ["fn"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K2 ["CloseMenus"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K8 ["fn"]
-  CALL R3 0 1
+  DUPCLOSURE R3 K11 [PROTO_0]
   SETTABLEKS R3 R2 K3 ["MenuView"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K8 ["fn"]
+  GETTABLEKS R3 R4 K10 ["fn"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K4 ["Select"]
-  DUPTABLE R3 K11 [{"depth", "isOpen"}]
+  DUPTABLE R3 K14 [{"depth", "isOpen"}]
   LOADN R4 1
-  SETTABLEKS R4 R3 K9 ["depth"]
+  SETTABLEKS R4 R3 K12 ["depth"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K10 ["isOpen"]
+  SETTABLEKS R4 R3 K13 ["isOpen"]
   SETTABLEKS R3 R2 K5 ["MenuData"]
   GETUPVAL R3 0
-  DUPTABLE R4 K14 [{"Actions", "Settings"}]
+  DUPTABLE R4 K17 [{"Actions", "Settings"}]
   NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K12 ["Actions"]
+  SETTABLEKS R5 R4 K15 ["Actions"]
   NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K13 ["Settings"]
+  SETTABLEKS R5 R4 K16 ["Settings"]
   GETTABLEKS R5 R0 K6 ["Items"]
   CALL R3 2 1
   SETTABLEKS R3 R2 K6 ["Items"]
+  GETIMPORT R3 K19 [require]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K20 ["Src"]
+  GETTABLEKS R6 R7 K21 ["Components"]
+  GETTABLEKS R5 R6 K22 ["ControlsView"]
+  GETTABLEKS R4 R5 K7 ["Renderers"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K7 ["Renderers"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K10 ["fn"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K8 ["Warn"]
   MOVE R3 R0
   CALL R1 2 -1
   RETURN R1 -1
@@ -63,7 +76,8 @@ MAIN:
   GETTABLEKS R7 R8 K14 ["ControlsView"]
   GETTABLEKS R6 R7 K15 ["ControlProps"]
   CALL R5 1 1
-  DUPCLOSURE R6 K16 [PROTO_0]
+  DUPCLOSURE R6 K16 [PROTO_1]
   CAPTURE VAL R4
   CAPTURE VAL R2
+  CAPTURE VAL R0
   RETURN R6 1

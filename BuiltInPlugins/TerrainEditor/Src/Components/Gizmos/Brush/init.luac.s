@@ -110,50 +110,50 @@ PROTO_1:
   GETTABLEKS R23 R0 K11 ["Tool"]
   GETUPVAL R25 7
   GETTABLEKS R24 R25 K13 ["Flatten"]
-  JUMPIFNOTEQ R23 R24 [+65]
+  JUMPIFNOTEQ R23 R24 [+60]
   LOADB R21 1
   GETUPVAL R25 2
   GETTABLEKS R24 R25 K33 ["FlattenPlane"]
   GETTABLE R23 R2 R24
   GETUPVAL R25 10
   GETTABLEKS R24 R25 K32 ["Auto"]
-  JUMPIFNOTEQ R23 R24 [+20]
+  JUMPIFNOTEQ R23 R24 [+18]
   GETIMPORT R23 K26 [CFrame.lookAt]
   FASTCALL VECTOR [+2]
   GETIMPORT R24 K29 [Vector3.new]
   CALL R24 0 1
-  GETIMPORT R25 K35 [Vector3.yAxis]
+  LOADK R25 K34 [{0, 1, 0}]
   CALL R23 2 1
   MOVE R19 R23
   GETIMPORT R23 K26 [CFrame.lookAt]
   MOVE R24 R20
-  GETIMPORT R26 K35 [Vector3.yAxis]
+  LOADK R26 K34 [{0, 1, 0}]
   ADD R25 R20 R26
   CALL R23 2 1
   MOVE R22 R23
-  JUMP [+35]
+  JUMP [+32]
   GETIMPORT R23 K26 [CFrame.lookAt]
   FASTCALL VECTOR [+2]
   GETIMPORT R24 K29 [Vector3.new]
   CALL R24 0 1
-  GETIMPORT R25 K35 [Vector3.yAxis]
+  LOADK R25 K34 [{0, 1, 0}]
   CALL R23 2 1
   MOVE R19 R23
-  GETTABLEKS R24 R20 K36 ["X"]
+  GETTABLEKS R24 R20 K35 ["X"]
   LOADN R25 0
-  GETTABLEKS R26 R20 K37 ["Z"]
+  GETTABLEKS R26 R20 K36 ["Z"]
   FASTCALL VECTOR [+2]
   GETIMPORT R23 K29 [Vector3.new]
   CALL R23 3 1
-  GETIMPORT R25 K35 [Vector3.yAxis]
+  LOADK R25 K34 [{0, 1, 0}]
   GETUPVAL R28 2
-  GETTABLEKS R27 R28 K38 ["FixedYPlane"]
+  GETTABLEKS R27 R28 K37 ["FixedYPlane"]
   GETTABLE R26 R2 R27
   MUL R24 R25 R26
   ADD R20 R23 R24
   GETIMPORT R23 K26 [CFrame.lookAt]
   MOVE R24 R20
-  GETIMPORT R26 K35 [Vector3.yAxis]
+  LOADK R26 K34 [{0, 1, 0}]
   ADD R25 R20 R26
   CALL R23 2 1
   MOVE R22 R23
@@ -171,29 +171,29 @@ PROTO_1:
   GETTABLEKS R24 R25 K6 ["Sphere"]
   JUMPIFNOTEQ R3 R24 [+23]
   GETUPVAL R24 11
-  GETTABLEKS R23 R24 K39 ["createElement"]
+  GETTABLEKS R23 R24 K38 ["createElement"]
   GETUPVAL R24 12
-  DUPTABLE R25 K43 [{"Adornee", "CFrame", "Color", "Radius", "Transparency"}]
-  SETTABLEKS R1 R25 K40 ["Adornee"]
-  GETIMPORT R26 K44 [CFrame.new]
+  DUPTABLE R25 K42 [{"Adornee", "CFrame", "Color", "Radius", "Transparency"}]
+  SETTABLEKS R1 R25 K39 ["Adornee"]
+  GETIMPORT R26 K43 [CFrame.new]
   MOVE R27 R13
   CALL R26 1 1
   SETTABLEKS R26 R25 K24 ["CFrame"]
   SETTABLEKS R17 R25 K22 ["Color"]
-  DIVK R26 R5 K45 [2]
-  SETTABLEKS R26 R25 K41 ["Radius"]
-  SETTABLEKS R18 R25 K42 ["Transparency"]
+  DIVK R26 R5 K44 [2]
+  SETTABLEKS R26 R25 K40 ["Radius"]
+  SETTABLEKS R18 R25 K41 ["Transparency"]
   CALL R23 2 1
   JUMP [+67]
   GETUPVAL R25 4
-  GETTABLEKS R24 R25 K46 ["Cube"]
+  GETTABLEKS R24 R25 K45 ["Cube"]
   JUMPIFNOTEQ R3 R24 [+30]
   GETUPVAL R24 11
-  GETTABLEKS R23 R24 K39 ["createElement"]
+  GETTABLEKS R23 R24 K38 ["createElement"]
   GETUPVAL R24 13
-  DUPTABLE R25 K47 [{"Adornee", "CFrame", "Color", "Size", "Transparency"}]
-  SETTABLEKS R1 R25 K40 ["Adornee"]
-  GETIMPORT R26 K44 [CFrame.new]
+  DUPTABLE R25 K46 [{"Adornee", "CFrame", "Color", "Size", "Transparency"}]
+  SETTABLEKS R1 R25 K39 ["Adornee"]
+  GETIMPORT R26 K43 [CFrame.new]
   MOVE R27 R13
   CALL R26 1 1
   SETTABLEKS R26 R25 K24 ["CFrame"]
@@ -205,19 +205,19 @@ PROTO_1:
   GETIMPORT R26 K29 [Vector3.new]
   CALL R26 3 1
   SETTABLEKS R26 R25 K4 ["Size"]
-  SETTABLEKS R18 R25 K42 ["Transparency"]
+  SETTABLEKS R18 R25 K41 ["Transparency"]
   CALL R23 2 1
   JUMP [+33]
   GETUPVAL R25 4
-  GETTABLEKS R24 R25 K48 ["Cylinder"]
+  GETTABLEKS R24 R25 K47 ["Cylinder"]
   JUMPIFNOTEQ R3 R24 [+28]
   GETUPVAL R24 11
-  GETTABLEKS R23 R24 K39 ["createElement"]
+  GETTABLEKS R23 R24 K38 ["createElement"]
   GETUPVAL R24 14
-  DUPTABLE R25 K49 [{"Adornee", "CFrame", "Color", "Height", "Radius", "Transparency"}]
-  SETTABLEKS R1 R25 K40 ["Adornee"]
-  GETIMPORT R27 K51 [CFrame.Angles]
-  LOADK R28 K52 [1.5707963267949]
+  DUPTABLE R25 K48 [{"Adornee", "CFrame", "Color", "Height", "Radius", "Transparency"}]
+  SETTABLEKS R1 R25 K39 ["Adornee"]
+  GETIMPORT R27 K50 [CFrame.Angles]
+  LOADK R28 K51 [1.5707963267949]
   LOADN R29 0
   LOADN R30 0
   CALL R27 3 1
@@ -225,59 +225,59 @@ PROTO_1:
   SETTABLEKS R26 R25 K24 ["CFrame"]
   SETTABLEKS R17 R25 K22 ["Color"]
   SETTABLEKS R6 R25 K7 ["Height"]
-  DIVK R26 R5 K45 [2]
-  SETTABLEKS R26 R25 K41 ["Radius"]
-  SETTABLEKS R18 R25 K42 ["Transparency"]
+  DIVK R26 R5 K44 [2]
+  SETTABLEKS R26 R25 K40 ["Radius"]
+  SETTABLEKS R18 R25 K41 ["Transparency"]
   CALL R23 2 1
   JUMP [+1]
   LOADNIL R23
   GETUPVAL R25 15
-  GETTABLEKS R24 R25 K53 ["createPortal"]
-  DUPTABLE R25 K56 [{"BrushVisual", "Grid"}]
+  GETTABLEKS R24 R25 K52 ["createPortal"]
+  DUPTABLE R25 K55 [{"BrushVisual", "Grid"}]
   GETUPVAL R27 11
-  GETTABLEKS R26 R27 K39 ["createElement"]
-  LOADK R27 K57 ["Folder"]
+  GETTABLEKS R26 R27 K38 ["createElement"]
+  LOADK R27 K56 ["Folder"]
   NEWTABLE R28 0 0
-  DUPTABLE R29 K60 [{"Cursor", "Central"}]
-  SETTABLEKS R23 R29 K58 ["Cursor"]
+  DUPTABLE R29 K59 [{"Cursor", "Central"}]
+  SETTABLEKS R23 R29 K57 ["Cursor"]
   GETUPVAL R31 11
-  GETTABLEKS R30 R31 K39 ["createElement"]
-  LOADK R31 K61 ["SphereHandleAdornment"]
-  DUPTABLE R32 K64 [{"Adornee", "AlwaysOnTop", "CFrame", "Color", "Radius", "Transparency", "ZIndex"}]
-  SETTABLEKS R1 R32 K40 ["Adornee"]
+  GETTABLEKS R30 R31 K38 ["createElement"]
+  LOADK R31 K60 ["SphereHandleAdornment"]
+  DUPTABLE R32 K63 [{"Adornee", "AlwaysOnTop", "CFrame", "Color", "Radius", "Transparency", "ZIndex"}]
+  SETTABLEKS R1 R32 K39 ["Adornee"]
   LOADB R33 1
-  SETTABLEKS R33 R32 K62 ["AlwaysOnTop"]
-  GETIMPORT R33 K44 [CFrame.new]
+  SETTABLEKS R33 R32 K61 ["AlwaysOnTop"]
+  GETIMPORT R33 K43 [CFrame.new]
   MOVE R34 R13
   CALL R33 1 1
   SETTABLEKS R33 R32 K24 ["CFrame"]
   SETTABLEKS R17 R32 K22 ["Color"]
-  SETTABLEKS R15 R32 K41 ["Radius"]
-  SETTABLEKS R16 R32 K42 ["Transparency"]
+  SETTABLEKS R15 R32 K40 ["Radius"]
+  SETTABLEKS R16 R32 K41 ["Transparency"]
   LOADN R33 1
-  SETTABLEKS R33 R32 K63 ["ZIndex"]
+  SETTABLEKS R33 R32 K62 ["ZIndex"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K59 ["Central"]
+  SETTABLEKS R30 R29 K58 ["Central"]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K54 ["BrushVisual"]
+  SETTABLEKS R26 R25 K53 ["BrushVisual"]
   JUMPIFNOT R21 [+22]
   GETUPVAL R27 11
-  GETTABLEKS R26 R27 K39 ["createElement"]
+  GETTABLEKS R26 R27 K38 ["createElement"]
   GETUPVAL R27 16
-  DUPTABLE R28 K67 [{"AlwaysOnTop", "Center", "Size", "Transform"}]
+  DUPTABLE R28 K66 [{"AlwaysOnTop", "Center", "Size", "Transform"}]
   LOADB R29 1
-  SETTABLEKS R29 R28 K62 ["AlwaysOnTop"]
-  SETTABLEKS R19 R28 K65 ["Center"]
+  SETTABLEKS R29 R28 K61 ["AlwaysOnTop"]
+  SETTABLEKS R19 R28 K64 ["Center"]
   GETUPVAL R32 2
   GETTABLEKS R31 R32 K3 ["BrushSize"]
   GETTABLE R30 R2 R31
   GETTABLEKS R29 R30 K4 ["Size"]
   SETTABLEKS R29 R28 K4 ["Size"]
-  SETTABLEKS R22 R28 K66 ["Transform"]
+  SETTABLEKS R22 R28 K65 ["Transform"]
   CALL R26 2 1
   JUMP [+1]
   LOADNIL R26
-  SETTABLEKS R26 R25 K55 ["Grid"]
+  SETTABLEKS R26 R25 K54 ["Grid"]
   GETUPVAL R26 17
   CALL R24 2 -1
   RETURN R24 -1

@@ -10,8 +10,6 @@ local Constants = require(UIManagerFolder.Constants)
 local PanelType = Constants.PanelType
 local UIManager = require(UIManagerFolder.UIManager)
 
-local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
-
 if game:DefineFastFlag("DebugExpChat", false) then
 	local ExpChatDebug = require(CorePackages.Workspace.Packages.ExpChatDebug)
 	ExpChatDebug.start()
@@ -20,11 +18,6 @@ end
 -- Wait for the game to be Loaded before checking ChatVersion
 -- Otherwise it will always return its default value.
 local _ = game:IsLoaded() or game.Loaded:Wait()
-if not GetFFlagConsolidateBubbleChat() then
-	if TextChatService.ChatVersion ~= Enum.ChatVersion.TextChatService then
-		return
-	end
-end
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
@@ -131,17 +124,12 @@ if FFlagEnableSetCoreGuiEnabledExpChat then
 end
 
 local createdDefaultChannels
-local validateLegacyBubbleChatSettings
-if GetFFlagConsolidateBubbleChat() then
-	if getFFlagExpChatAlwaysRunTCS() then
-		createdDefaultChannels = TextChatService.CreateDefaultTextChannels
-	else
-		createdDefaultChannels = TextChatService.ChatVersion == Enum.ChatVersion.TextChatService
-			and TextChatService.CreateDefaultTextChannels
-	end
-	validateLegacyBubbleChatSettings = require(RobloxGui.Modules.InGameChat.BubbleChat.Types).IChatSettings
-else
+local validateLegacyBubbleChatSettings = require(RobloxGui.Modules.InGameChat.BubbleChat.Types).IChatSettings
+if getFFlagExpChatAlwaysRunTCS() then
 	createdDefaultChannels = TextChatService.CreateDefaultTextChannels
+else
+	createdDefaultChannels = TextChatService.ChatVersion == Enum.ChatVersion.TextChatService
+		and TextChatService.CreateDefaultTextChannels
 end
 
 ExperienceChat.mountClientApp({

@@ -36,7 +36,7 @@ local GetFFlagChatActiveChangedSignal =
 local FFlagShowChatButtonWhenChatForceOpened = game:DefineFastFlag("ShowChatButtonWhenChatForceOpened", false)
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
 local FFlagAlwaysShowChatButtonWhenWindowIsVisible =
-	game:DefineFastFlag("AlwaysShowChatButtonWhenWindowIsVisible", false)
+	game:DefineFastFlag("AlwaysShowChatButtonWhenWindowIsVisibleV2", false)
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -52,6 +52,16 @@ local function localUserCanChat()
 		return success and localUserCanChat
 	end
 	return true
+end
+
+-- MappedSignal doesn't seem to fire in the event where the in-experience menu is closed, but does when it's opened, causing
+-- the chat button to be hidden when the window is open. Using the signal directly fixes this issue
+if FFlagAlwaysShowChatButtonWhenWindowIsVisible then
+	chatSelectorVisibilitySignal:connect(function(visible)
+		if visible then
+			chatChromeIntegration.availability:pinned()
+		end
+	end)
 end
 
 local chatVisibilitySignal = MappedSignal.new(chatSelectorVisibilitySignal, function()
@@ -212,9 +222,6 @@ coroutine.wrap(function()
 		end
 		chatVisibility = willEnableChat
 		ChatSelector:SetVisible(willEnableChat)
-	end
-	if FFlagAlwaysShowChatButtonWhenWindowIsVisible and chatVisibility then
-		chatChromeIntegration.availability:pinned()
 	end
 end)()
 

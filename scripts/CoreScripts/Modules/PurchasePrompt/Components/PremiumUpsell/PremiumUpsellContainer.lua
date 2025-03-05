@@ -11,6 +11,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
+local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local RequestType = require(Root.Enums.RequestType)
@@ -27,6 +28,7 @@ local PremiumUpsellOverlay = require(script.Parent.PremiumUpsellOverlay)
 
 local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
 	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
+local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 
 local PremiumUpsellContainer = Roact.Component:extend(script.Name)
 
@@ -131,12 +133,22 @@ end
 function PremiumUpsellContainer:render()
 	if GetFFLagUseCoreScriptsRootProviderForUpsellModal() then
 		return Roact.createElement(CoreScriptsRootProvider, {}, {
-			FocusNavigationCoreScriptsWrapper = React.createElement(FocusNavigationCoreScriptsWrapper, {
-				selectionGroupName = SELECTION_GROUP_NAME,
-				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-			}, {
-				PremiumUpsellContainer = self:createElement(),
-			}),
+			FocusNavigationCoreScriptsWrapper = React.createElement(
+				if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
+				if FFlagCSFocusWrapperRefactor
+					then {
+						surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+						isIsolated = true,
+						isAutoFocusRoot = true,
+					}
+					else {
+						selectionGroupName = SELECTION_GROUP_NAME,
+						focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+					},
+				{
+					PremiumUpsellContainer = self:createElement(),
+				}
+			),
 		})
 	else
 		return self:createElement()

@@ -47,7 +47,7 @@ PROTO_0:
   GETIMPORT R11 K16 [Vector3.new]
   CALL R11 3 1
   DUPTABLE R12 K19 [{"Plane", "PlanePosition", "Position"}]
-  GETIMPORT R13 K21 [Vector3.yAxis]
+  LOADK R13 K20 [{0, 1, 0}]
   SETTABLEKS R13 R12 K17 ["Plane"]
   SETTABLEKS R11 R12 K18 ["PlanePosition"]
   SETTABLEKS R11 R12 K13 ["Position"]

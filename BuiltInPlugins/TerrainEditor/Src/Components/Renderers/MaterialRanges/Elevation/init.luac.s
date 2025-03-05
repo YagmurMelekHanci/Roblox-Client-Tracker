@@ -395,115 +395,114 @@ PROTO_9:
   SETTABLEKS R24 R23 K46 ["Add"]
   CALL R20 3 1
   SETTABLEKS R20 R11 K63 ["AddMaterial"]
-  LOADN R21 30
-  LENGTH R24 R12
-  ADDK R23 R24 K64 [1]
-  LOADN R24 1
-  LOADN R25 5
+  LENGTH R23 R12
+  ADDK R22 R23 K65 [1]
+  LOADN R23 1
+  LOADN R24 5
   FASTCALL MATH_CLAMP [+2]
-  GETIMPORT R22 K67 [math.clamp]
-  CALL R22 3 1
-  MUL R20 R21 R22
+  GETIMPORT R21 K68 [math.clamp]
+  CALL R21 3 1
+  MULK R20 R21 K64 [30]
   GETUPVAL R22 7
   GETTABLEKS R21 R22 K14 ["createElement"]
-  LOADK R22 K68 ["Frame"]
-  DUPTABLE R23 K70 [{"AutomaticSize", "BackgroundTransparency"}]
+  LOADK R22 K69 ["Frame"]
+  DUPTABLE R23 K71 [{"AutomaticSize", "BackgroundTransparency"}]
   GETIMPORT R24 K37 [Enum.AutomaticSize.XY]
   SETTABLEKS R24 R23 K30 ["AutomaticSize"]
   LOADN R24 1
-  SETTABLEKS R24 R23 K69 ["BackgroundTransparency"]
-  DUPTABLE R24 K74 [{"XAxis", "YAxis", "Sliders"}]
+  SETTABLEKS R24 R23 K70 ["BackgroundTransparency"]
+  DUPTABLE R24 K75 [{"XAxis", "YAxis", "Sliders"}]
   GETUPVAL R26 7
   GETTABLEKS R25 R26 K14 ["createElement"]
-  LOADK R26 K68 ["Frame"]
-  DUPTABLE R27 K75 [{"BackgroundTransparency", "Size", "Position"}]
+  LOADK R26 K69 ["Frame"]
+  DUPTABLE R27 K76 [{"BackgroundTransparency", "Size", "Position"}]
   LOADN R28 1
-  SETTABLEKS R28 R27 K69 ["BackgroundTransparency"]
-  GETIMPORT R28 K77 [UDim2.fromOffset]
+  SETTABLEKS R28 R27 K70 ["BackgroundTransparency"]
+  GETIMPORT R28 K78 [UDim2.fromOffset]
   MOVE R29 R20
   LOADN R30 5
   CALL R28 2 1
   SETTABLEKS R28 R27 K33 ["Size"]
-  GETIMPORT R28 K77 [UDim2.fromOffset]
+  GETIMPORT R28 K78 [UDim2.fromOffset]
   LOADN R29 50
   LOADN R30 200
   CALL R28 2 1
   SETTABLEKS R28 R27 K56 ["Position"]
-  DUPTABLE R28 K79 [{"Separator"}]
+  DUPTABLE R28 K80 [{"Separator"}]
   GETUPVAL R30 7
   GETTABLEKS R29 R30 K14 ["createElement"]
   GETUPVAL R30 14
-  DUPTABLE R31 K81 [{"DominantAxis", "Position"}]
-  GETIMPORT R32 K83 [Enum.DominantAxis.Width]
-  SETTABLEKS R32 R31 K80 ["DominantAxis"]
-  GETIMPORT R32 K77 [UDim2.fromOffset]
+  DUPTABLE R31 K82 [{"DominantAxis", "Position"}]
+  GETIMPORT R32 K84 [Enum.DominantAxis.Width]
+  SETTABLEKS R32 R31 K81 ["DominantAxis"]
+  GETIMPORT R32 K78 [UDim2.fromOffset]
   DIVK R33 R20 K41 [2]
   LOADN R34 0
   CALL R32 2 1
   SETTABLEKS R32 R31 K56 ["Position"]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K78 ["Separator"]
+  SETTABLEKS R29 R28 K79 ["Separator"]
   CALL R25 3 1
-  SETTABLEKS R25 R24 K71 ["XAxis"]
+  SETTABLEKS R25 R24 K72 ["XAxis"]
   GETUPVAL R26 7
   GETTABLEKS R25 R26 K14 ["createElement"]
-  LOADK R26 K68 ["Frame"]
-  DUPTABLE R27 K75 [{"BackgroundTransparency", "Size", "Position"}]
+  LOADK R26 K69 ["Frame"]
+  DUPTABLE R27 K76 [{"BackgroundTransparency", "Size", "Position"}]
   LOADN R28 1
-  SETTABLEKS R28 R27 K69 ["BackgroundTransparency"]
-  GETIMPORT R28 K77 [UDim2.fromOffset]
+  SETTABLEKS R28 R27 K70 ["BackgroundTransparency"]
+  GETIMPORT R28 K78 [UDim2.fromOffset]
   LOADN R29 5
   LOADN R30 200
   CALL R28 2 1
   SETTABLEKS R28 R27 K33 ["Size"]
-  GETIMPORT R28 K77 [UDim2.fromOffset]
+  GETIMPORT R28 K78 [UDim2.fromOffset]
   LOADN R29 50
   LOADN R30 0
   CALL R28 2 1
   SETTABLEKS R28 R27 K56 ["Position"]
-  DUPTABLE R28 K79 [{"Separator"}]
+  DUPTABLE R28 K80 [{"Separator"}]
   GETUPVAL R30 7
   GETTABLEKS R29 R30 K14 ["createElement"]
   GETUPVAL R30 14
-  DUPTABLE R31 K81 [{"DominantAxis", "Position"}]
-  GETIMPORT R32 K85 [Enum.DominantAxis.Height]
-  SETTABLEKS R32 R31 K80 ["DominantAxis"]
-  GETIMPORT R32 K77 [UDim2.fromOffset]
+  DUPTABLE R31 K82 [{"DominantAxis", "Position"}]
+  GETIMPORT R32 K86 [Enum.DominantAxis.Height]
+  SETTABLEKS R32 R31 K81 ["DominantAxis"]
+  GETIMPORT R32 K78 [UDim2.fromOffset]
   LOADN R33 0
   LOADN R34 100
   CALL R32 2 1
   SETTABLEKS R32 R31 K56 ["Position"]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K78 ["Separator"]
+  SETTABLEKS R29 R28 K79 ["Separator"]
   CALL R25 3 1
-  SETTABLEKS R25 R24 K72 ["YAxis"]
+  SETTABLEKS R25 R24 K73 ["YAxis"]
   GETUPVAL R26 7
   GETTABLEKS R25 R26 K14 ["createElement"]
   GETUPVAL R26 11
-  DUPTABLE R27 K89 [{"Layout", "VerticalAlignment", "HorizontalAlignment", "Padding", "Spacing"}]
-  GETIMPORT R28 K91 [Enum.FillDirection.Horizontal]
+  DUPTABLE R27 K90 [{"Layout", "VerticalAlignment", "HorizontalAlignment", "Padding", "Spacing"}]
+  GETIMPORT R28 K92 [Enum.FillDirection.Horizontal]
   SETTABLEKS R28 R27 K31 ["Layout"]
-  GETIMPORT R28 K93 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R28 R27 K86 ["VerticalAlignment"]
-  GETIMPORT R28 K95 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R28 R27 K87 ["HorizontalAlignment"]
-  DUPTABLE R28 K97 [{"Top", "Bottom"}]
-  GETTABLEKS R32 R1 K98 ["TextBoxSize"]
-  GETTABLEKS R31 R32 K99 ["Y"]
-  GETTABLEKS R30 R31 K100 ["Offset"]
+  GETIMPORT R28 K94 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R28 R27 K87 ["VerticalAlignment"]
+  GETIMPORT R28 K96 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R28 R27 K88 ["HorizontalAlignment"]
+  DUPTABLE R28 K98 [{"Top", "Bottom"}]
+  GETTABLEKS R32 R1 K99 ["TextBoxSize"]
+  GETTABLEKS R31 R32 K100 ["Y"]
+  GETTABLEKS R30 R31 K101 ["Offset"]
   DIVK R29 R30 K41 [2]
-  SETTABLEKS R29 R28 K92 ["Top"]
-  GETTABLEKS R32 R1 K98 ["TextBoxSize"]
-  GETTABLEKS R31 R32 K99 ["Y"]
-  GETTABLEKS R30 R31 K100 ["Offset"]
+  SETTABLEKS R29 R28 K93 ["Top"]
+  GETTABLEKS R32 R1 K99 ["TextBoxSize"]
+  GETTABLEKS R31 R32 K100 ["Y"]
+  GETTABLEKS R30 R31 K101 ["Offset"]
   DIVK R29 R30 K41 [2]
-  SETTABLEKS R29 R28 K96 ["Bottom"]
-  SETTABLEKS R28 R27 K88 ["Padding"]
+  SETTABLEKS R29 R28 K97 ["Bottom"]
+  SETTABLEKS R28 R27 K89 ["Padding"]
   GETTABLEKS R28 R1 K32 ["Spacing"]
   SETTABLEKS R28 R27 K32 ["Spacing"]
   MOVE R28 R11
   CALL R25 3 1
-  SETTABLEKS R25 R24 K73 ["Sliders"]
+  SETTABLEKS R25 R24 K74 ["Sliders"]
   CALL R21 3 -1
   RETURN R21 -1
 

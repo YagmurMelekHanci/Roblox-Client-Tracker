@@ -672,43 +672,43 @@ PROTO_20:
   NAMECALL R5 R0 K30 ["getRaycastIgnoreList"]
   CALL R5 1 1
   GETIMPORT R6 K32 [CFrame.identity]
-  GETIMPORT R7 K35 [Vector3.zero]
-  GETIMPORT R8 K35 [Vector3.zero]
-  GETIMPORT R9 K35 [Vector3.zero]
+  LOADK R7 K33 [{0, 0, 0}]
+  LOADK R8 K33 [{0, 0, 0}]
+  LOADK R9 K33 [{0, 0, 0}]
   MOVE R10 R1
   GETTABLEKS R12 R0 K0 ["_draggerContext"]
-  NAMECALL R12 R12 K36 ["shouldGridSnap"]
+  NAMECALL R12 R12 K34 ["shouldGridSnap"]
   CALL R12 1 1
   JUMPIFNOT R12 [+6]
   GETTABLEKS R11 R0 K0 ["_draggerContext"]
-  NAMECALL R11 R11 K37 ["getGridSize"]
+  NAMECALL R11 R11 K35 ["getGridSize"]
   CALL R11 1 1
   JUMP [+1]
   LOADNIL R11
   MOVE R12 R3
   MOVE R13 R2
-  NAMECALL R14 R0 K38 ["shouldAlignDraggedObjects"]
+  NAMECALL R14 R0 K36 ["shouldAlignDraggedObjects"]
   CALL R14 1 1
   JUMPIFNOT R14 [+6]
   GETTABLEKS R15 R0 K0 ["_draggerContext"]
-  NAMECALL R15 R15 K39 ["isAltKeyDown"]
+  NAMECALL R15 R15 K37 ["isAltKeyDown"]
   CALL R15 1 1
   NOT R14 R15
   LOADB R15 0
   GETTABLEKS R16 R0 K0 ["_draggerContext"]
-  NAMECALL R16 R16 K40 ["getSoftSnapMarginFactor"]
+  NAMECALL R16 R16 K38 ["getSoftSnapMarginFactor"]
   CALL R16 1 1
   GETTABLEKS R17 R0 K0 ["_draggerContext"]
-  NAMECALL R17 R17 K41 ["shouldPartSnap"]
+  NAMECALL R17 R17 K39 ["shouldPartSnap"]
   CALL R17 1 1
   LOADB R18 1
   CALL R4 14 1
   GETTABLEKS R5 R0 K0 ["_draggerContext"]
-  GETTABLEKS R7 R1 K42 ["Origin"]
-  GETTABLEKS R8 R1 K43 ["Direction"]
-  GETIMPORT R9 K45 [RaycastParams.new]
+  GETTABLEKS R7 R1 K40 ["Origin"]
+  GETTABLEKS R8 R1 K41 ["Direction"]
+  GETIMPORT R9 K43 [RaycastParams.new]
   CALL R9 0 -1
-  NAMECALL R5 R5 K46 ["gizmoRaycast"]
+  NAMECALL R5 R5 K44 ["gizmoRaycast"]
   CALL R5 -1 1
   LOADNIL R6
   LOADNIL R7
@@ -716,7 +716,7 @@ PROTO_20:
   GETTABLEKS R8 R5 K5 ["Instance"]
   JUMPIFNOT R8 [+22]
   GETTABLEKS R8 R5 K5 ["Instance"]
-  LOADK R10 K47 ["Attachment"]
+  LOADK R10 K45 ["Attachment"]
   NAMECALL R8 R8 K21 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+15]
@@ -724,15 +724,15 @@ PROTO_20:
   GETTABLEKS R9 R0 K9 ["_initialInstance"]
   JUMPIFEQ R8 R9 [+10]
   GETTABLEKS R8 R0 K2 ["_constraintType"]
-  JUMPIFEQKS R8 K47 ["Attachment"] [+6]
+  JUMPIFEQKS R8 K45 ["Attachment"] [+6]
   GETTABLEKS R7 R5 K5 ["Instance"]
-  GETTABLEKS R6 R7 K48 ["WorldCFrame"]
+  GETTABLEKS R6 R7 K46 ["WorldCFrame"]
   JUMP [+8]
   JUMPIFNOT R4 [+7]
-  GETTABLEKS R8 R4 K49 ["targetPart"]
+  GETTABLEKS R8 R4 K47 ["targetPart"]
   JUMPIFNOT R8 [+4]
-  GETTABLEKS R7 R4 K49 ["targetPart"]
-  GETTABLEKS R6 R4 K50 ["mainCFrame"]
+  GETTABLEKS R7 R4 K47 ["targetPart"]
+  GETTABLEKS R6 R4 K48 ["mainCFrame"]
   GETUPVAL R8 6
   JUMPIFNOT R8 [+30]
   GETUPVAL R8 7
@@ -746,22 +746,22 @@ PROTO_20:
   NEWTABLE R10 0 0
   CALL R8 2 1
   JUMPIFNOT R8 [+16]
-  GETTABLEKS R9 R0 K51 ["_lastNormal"]
-  GETTABLEKS R10 R8 K52 ["Normal"]
+  GETTABLEKS R9 R0 K49 ["_lastNormal"]
+  GETTABLEKS R10 R8 K50 ["Normal"]
   JUMPIFEQ R9 R10 [+7]
-  GETTABLEKS R10 R4 K53 ["baseCFrame"]
-  GETTABLEKS R9 R10 K54 ["Rotation"]
-  SETTABLEKS R9 R0 K55 ["_lastDraggedInstanceDefaultOrientation"]
-  GETTABLEKS R9 R8 K52 ["Normal"]
-  SETTABLEKS R9 R0 K51 ["_lastNormal"]
+  GETTABLEKS R10 R4 K51 ["baseCFrame"]
+  GETTABLEKS R9 R10 K52 ["Rotation"]
+  SETTABLEKS R9 R0 K53 ["_lastDraggedInstanceDefaultOrientation"]
+  GETTABLEKS R9 R8 K50 ["Normal"]
+  SETTABLEKS R9 R0 K49 ["_lastNormal"]
   JUMPIFNOT R4 [+5]
-  GETTABLEKS R8 R4 K49 ["targetPart"]
+  GETTABLEKS R8 R4 K47 ["targetPart"]
   JUMPIFNOT R8 [+2]
   SETTABLEKS R4 R0 K26 ["_lastDragTarget"]
   GETTABLEKS R8 R0 K9 ["_initialInstance"]
   JUMPIFNOT R8 [+6]
   JUMPIFNOT R4 [+5]
-  GETTABLEKS R8 R4 K53 ["baseCFrame"]
+  GETTABLEKS R8 R4 K51 ["baseCFrame"]
   GETTABLEKS R9 R0 K28 ["_tiltRotate"]
   MUL R6 R8 R9
   SETTABLEKS R7 R0 K19 ["_currentHoveringInstance"]
@@ -775,53 +775,53 @@ PROTO_20:
   JUMPIFNOT R7 [+199]
   GETUPVAL R8 8
   JUMPIFNOT R8 [+78]
-  GETTABLEKS R8 R0 K56 ["_ghostAssembly"]
+  GETTABLEKS R8 R0 K54 ["_ghostAssembly"]
   JUMPIFNOT R8 [+4]
-  GETTABLEKS R8 R0 K57 ["_lastHoveringInstance"]
+  GETTABLEKS R8 R0 K55 ["_lastHoveringInstance"]
   JUMPIFEQ R8 R7 [+72]
-  GETTABLEKS R8 R0 K56 ["_ghostAssembly"]
+  GETTABLEKS R8 R0 K54 ["_ghostAssembly"]
   JUMPIFNOT R8 [+8]
-  GETTABLEKS R8 R0 K56 ["_ghostAssembly"]
-  NAMECALL R8 R8 K58 ["Destroy"]
+  GETTABLEKS R8 R0 K54 ["_ghostAssembly"]
+  NAMECALL R8 R8 K56 ["Destroy"]
   CALL R8 1 0
   LOADNIL R8
-  SETTABLEKS R8 R0 K56 ["_ghostAssembly"]
+  SETTABLEKS R8 R0 K54 ["_ghostAssembly"]
   GETTABLEKS R8 R0 K9 ["_initialInstance"]
   JUMPIFNOT R8 [+57]
-  GETIMPORT R8 K59 [Instance.new]
-  LOADK R9 K60 ["Model"]
+  GETIMPORT R8 K57 [Instance.new]
+  LOADK R9 K58 ["Model"]
   CALL R8 1 1
-  SETTABLEKS R8 R0 K56 ["_ghostAssembly"]
-  GETTABLEKS R8 R0 K56 ["_ghostAssembly"]
-  LOADK R9 K61 ["GhostAssembly"]
-  SETTABLEKS R9 R8 K62 ["Name"]
-  GETTABLEKS R8 R0 K56 ["_ghostAssembly"]
+  SETTABLEKS R8 R0 K54 ["_ghostAssembly"]
+  GETTABLEKS R8 R0 K54 ["_ghostAssembly"]
+  LOADK R9 K59 ["GhostAssembly"]
+  SETTABLEKS R9 R8 K60 ["Name"]
+  GETTABLEKS R8 R0 K54 ["_ghostAssembly"]
   LOADB R9 0
-  SETTABLEKS R9 R8 K63 ["Archivable"]
-  GETTABLEKS R8 R0 K56 ["_ghostAssembly"]
-  GETIMPORT R10 K65 [workspace]
-  GETTABLEKS R9 R10 K66 ["CurrentCamera"]
-  SETTABLEKS R9 R8 K67 ["Parent"]
+  SETTABLEKS R9 R8 K61 ["Archivable"]
+  GETTABLEKS R8 R0 K54 ["_ghostAssembly"]
+  GETIMPORT R10 K63 [workspace]
+  GETTABLEKS R9 R10 K64 ["CurrentCamera"]
+  SETTABLEKS R9 R8 K65 ["Parent"]
   GETTABLEKS R9 R0 K9 ["_initialInstance"]
-  GETTABLEKS R8 R9 K67 ["Parent"]
-  NAMECALL R8 R8 K68 ["Clone"]
+  GETTABLEKS R8 R9 K65 ["Parent"]
+  NAMECALL R8 R8 K66 ["Clone"]
   CALL R8 1 1
-  GETTABLEKS R9 R0 K56 ["_ghostAssembly"]
-  SETTABLEKS R9 R8 K67 ["Parent"]
-  GETTABLEKS R9 R0 K56 ["_ghostAssembly"]
-  SETTABLEKS R8 R9 K69 ["PrimaryPart"]
+  GETTABLEKS R9 R0 K54 ["_ghostAssembly"]
+  SETTABLEKS R9 R8 K65 ["Parent"]
+  GETTABLEKS R9 R0 K54 ["_ghostAssembly"]
+  SETTABLEKS R8 R9 K67 ["PrimaryPart"]
   GETTABLEKS R10 R0 K9 ["_initialInstance"]
-  GETTABLEKS R9 R10 K67 ["Parent"]
+  GETTABLEKS R9 R10 K65 ["Parent"]
   LOADB R11 1
-  NAMECALL R9 R9 K70 ["GetConnectedParts"]
+  NAMECALL R9 R9 K68 ["GetConnectedParts"]
   CALL R9 2 3
   FORGPREP R9
-  NAMECALL R14 R13 K68 ["Clone"]
+  NAMECALL R14 R13 K66 ["Clone"]
   CALL R14 1 1
-  GETTABLEKS R15 R0 K56 ["_ghostAssembly"]
-  SETTABLEKS R15 R14 K67 ["Parent"]
+  GETTABLEKS R15 R0 K54 ["_ghostAssembly"]
+  SETTABLEKS R15 R14 K65 ["Parent"]
   FORGLOOP R9 2 [-8]
-  GETTABLEKS R8 R0 K71 ["_attachmentAdornment"]
+  GETTABLEKS R8 R0 K69 ["_attachmentAdornment"]
   NAMECALL R10 R0 K18 ["_canMouseDown"]
   CALL R10 1 1
   JUMPIFNOT R10 [+2]
@@ -831,44 +831,44 @@ PROTO_20:
   SETTABLEKS R9 R8 K24 ["Color3"]
   GETUPVAL R8 6
   JUMPIFNOT R8 [+14]
-  GETTABLEKS R8 R0 K55 ["_lastDraggedInstanceDefaultOrientation"]
+  GETTABLEKS R8 R0 K53 ["_lastDraggedInstanceDefaultOrientation"]
   JUMPIFNOT R8 [+11]
   GETIMPORT R9 K15 [CFrame.new]
   GETTABLEKS R10 R6 K8 ["Position"]
   CALL R9 1 1
-  GETTABLEKS R10 R0 K55 ["_lastDraggedInstanceDefaultOrientation"]
+  GETTABLEKS R10 R0 K53 ["_lastDraggedInstanceDefaultOrientation"]
   MUL R8 R9 R10
   GETTABLEKS R9 R0 K28 ["_tiltRotate"]
   MUL R6 R8 R9
-  GETTABLEKS R8 R0 K72 ["_attachmentToolAnimator"]
-  NAMECALL R8 R8 K73 ["inProgress"]
+  GETTABLEKS R8 R0 K70 ["_attachmentToolAnimator"]
+  NAMECALL R8 R8 K71 ["inProgress"]
   CALL R8 1 1
   JUMPIF R8 [+6]
-  GETTABLEKS R10 R0 K71 ["_attachmentAdornment"]
+  GETTABLEKS R10 R0 K69 ["_attachmentAdornment"]
   MOVE R11 R6
-  NAMECALL R8 R0 K74 ["_orientAttachmentAdornment"]
+  NAMECALL R8 R0 K72 ["_orientAttachmentAdornment"]
   CALL R8 3 0
   GETTABLEKS R8 R0 K9 ["_initialInstance"]
   JUMPIFNOT R8 [+77]
   GETTABLEKS R9 R0 K9 ["_initialInstance"]
-  GETTABLEKS R8 R9 K48 ["WorldCFrame"]
+  GETTABLEKS R8 R9 K46 ["WorldCFrame"]
   GETTABLEKS R12 R0 K9 ["_initialInstance"]
-  GETTABLEKS R11 R12 K67 ["Parent"]
+  GETTABLEKS R11 R12 K65 ["Parent"]
   GETTABLEKS R10 R11 K11 ["CFrame"]
-  NAMECALL R8 R8 K75 ["ToObjectSpace"]
+  NAMECALL R8 R8 K73 ["ToObjectSpace"]
   CALL R8 2 1
-  GETTABLEKS R11 R6 K76 ["p"]
+  GETTABLEKS R11 R6 K74 ["p"]
   GETTABLEKS R14 R0 K9 ["_initialInstance"]
-  GETTABLEKS R13 R14 K48 ["WorldCFrame"]
-  GETTABLEKS R12 R13 K76 ["p"]
+  GETTABLEKS R13 R14 K46 ["WorldCFrame"]
+  GETTABLEKS R12 R13 K74 ["p"]
   SUB R10 R11 R12
   GETTABLEKS R9 R10 K10 ["Magnitude"]
   GETTABLEKS R10 R0 K7 ["_constraintConnectionVisual"]
   GETIMPORT R12 K13 [CFrame.lookAt]
   GETTABLEKS R15 R0 K9 ["_initialInstance"]
-  GETTABLEKS R14 R15 K48 ["WorldCFrame"]
-  GETTABLEKS R13 R14 K76 ["p"]
-  GETTABLEKS R14 R6 K76 ["p"]
+  GETTABLEKS R14 R15 K46 ["WorldCFrame"]
+  GETTABLEKS R13 R14 K74 ["p"]
+  GETTABLEKS R14 R6 K74 ["p"]
   CALL R12 2 1
   GETIMPORT R13 K15 [CFrame.new]
   LOADN R14 0
@@ -880,23 +880,23 @@ PROTO_20:
   SETTABLEKS R11 R10 K11 ["CFrame"]
   GETTABLEKS R10 R0 K7 ["_constraintConnectionVisual"]
   SETTABLEKS R9 R10 K17 ["Height"]
-  GETTABLEKS R13 R0 K77 ["_partPassthroughEnabled"]
+  GETTABLEKS R13 R0 K75 ["_partPassthroughEnabled"]
   JUMPIFNOT R13 [+2]
   LOADK R12 K16 [0.5]
   JUMP [+1]
   LOADN R12 0
-  NAMECALL R10 R0 K78 ["_setInitialInstanceTransparency"]
+  NAMECALL R10 R0 K76 ["_setInitialInstanceTransparency"]
   CALL R10 2 0
-  GETTABLEKS R12 R0 K79 ["_initialInstanceAdornment"]
+  GETTABLEKS R12 R0 K77 ["_initialInstanceAdornment"]
   GETTABLEKS R14 R0 K9 ["_initialInstance"]
-  GETTABLEKS R13 R14 K48 ["WorldCFrame"]
-  NAMECALL R10 R0 K74 ["_orientAttachmentAdornment"]
+  GETTABLEKS R13 R14 K46 ["WorldCFrame"]
+  NAMECALL R10 R0 K72 ["_orientAttachmentAdornment"]
   CALL R10 3 0
   GETUPVAL R10 8
   JUMPIFNOT R10 [+6]
-  GETTABLEKS R10 R0 K56 ["_ghostAssembly"]
+  GETTABLEKS R10 R0 K54 ["_ghostAssembly"]
   MUL R12 R6 R8
-  NAMECALL R10 R10 K80 ["SetPrimaryPartCFrame"]
+  NAMECALL R10 R10 K78 ["SetPrimaryPartCFrame"]
   CALL R10 2 0
   RETURN R0 0
 

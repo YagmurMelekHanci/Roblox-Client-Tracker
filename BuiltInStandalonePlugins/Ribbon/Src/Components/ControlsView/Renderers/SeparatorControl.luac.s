@@ -1,0 +1,67 @@
+PROTO_0:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["Frame"]
+  NEWTABLE R3 2 0
+  GETTABLEKS R4 R0 K1 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K1 ["LayoutOrder"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["Tag"]
+  GETUPVAL R5 2
+  LOADK R6 K3 ["Role-Surface X-Fit"]
+  GETTABLEKS R8 R0 K4 ["IsColumn"]
+  JUMPIFNOT R8 [+2]
+  LOADK R7 K5 ["Role-DividerH"]
+  JUMP [+1]
+  LOADK R7 K6 ["Role-DividerV"]
+  GETTABLEKS R9 R0 K7 ["HideLabels"]
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K8 ["Medium RibbonButton-Divider"]
+  JUMP [+9]
+  GETTABLEKS R10 R0 K9 ["Item"]
+  GETTABLEKS R9 R10 K10 ["Size"]
+  JUMPIFNOTEQKS R9 K11 ["Large"] [+3]
+  LOADK R8 K12 ["Large RibbonButton-Divider"]
+  JUMP [+1]
+  LOADK R8 K13 ["Small"]
+  CALL R5 3 1
+  SETTABLE R5 R3 R4
+  DUPTABLE R4 K15 [{"Divider"}]
+  GETUPVAL R5 0
+  LOADK R6 K0 ["Frame"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K14 ["Divider"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["createElement"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Components"]
+  GETTABLEKS R5 R6 K11 ["ControlsView"]
+  GETTABLEKS R4 R5 K12 ["ControlProps"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K15 ["Styling"]
+  GETTABLEKS R7 R6 K16 ["joinTags"]
+  DUPCLOSURE R8 K17 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  RETURN R8 1

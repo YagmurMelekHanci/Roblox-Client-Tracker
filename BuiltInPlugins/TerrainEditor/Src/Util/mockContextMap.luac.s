@@ -6,28 +6,28 @@ PROTO_0:
   NAMECALL R1 R0 K2 ["GetMouse"]
   CALL R1 1 1
   GETIMPORT R2 K4 [Ray.new]
-  GETIMPORT R3 K7 [Vector3.zero]
-  GETIMPORT R4 K9 [Vector3.xAxis]
+  LOADK R3 K5 [{0, 0, 0}]
+  LOADK R4 K6 [{1, 0, 0}]
   CALL R2 2 1
-  SETTABLEKS R2 R1 K10 ["UnitRay"]
+  SETTABLEKS R2 R1 K7 ["UnitRay"]
   NAMECALL R1 R0 K2 ["GetMouse"]
   CALL R1 1 1
   LOADN R2 0
-  SETTABLEKS R2 R1 K11 ["X"]
+  SETTABLEKS R2 R1 K8 ["X"]
   NAMECALL R1 R0 K2 ["GetMouse"]
   CALL R1 1 1
   LOADN R2 0
-  SETTABLEKS R2 R1 K12 ["Y"]
+  SETTABLEKS R2 R1 K9 ["Y"]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K13 ["mock"]
+  GETTABLEKS R1 R2 K10 ["mock"]
   MOVE R2 R0
   CALL R1 1 1
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K13 ["mock"]
+  GETTABLEKS R2 R3 K10 ["mock"]
   GETUPVAL R3 3
   CALL R2 1 1
   GETUPVAL R4 4
-  GETTABLEKS R3 R4 K13 ["mock"]
+  GETTABLEKS R3 R4 K10 ["mock"]
   CALL R3 0 1
   GETUPVAL R5 5
   GETTABLEKS R4 R5 K0 ["new"]
@@ -38,24 +38,24 @@ PROTO_0:
   LOADB R6 1
   CALL R5 1 1
   GETUPVAL R7 7
-  GETTABLEKS R6 R7 K13 ["mock"]
+  GETTABLEKS R6 R7 K10 ["mock"]
   CALL R6 0 1
   GETUPVAL R8 8
-  GETTABLEKS R7 R8 K13 ["mock"]
+  GETTABLEKS R7 R8 K10 ["mock"]
   MOVE R8 R1
   MOVE R9 R4
   MOVE R10 R3
   MOVE R11 R2
   MOVE R12 R5
   CALL R7 5 1
-  DUPTABLE R8 K21 [{"Analytics", "Localization", "PluginController", "ShortcutController", "StudioServices", "Stylizer", "ToolController"}]
-  SETTABLEKS R3 R8 K14 ["Analytics"]
-  SETTABLEKS R2 R8 K15 ["Localization"]
-  SETTABLEKS R1 R8 K16 ["PluginController"]
-  SETTABLEKS R4 R8 K17 ["ShortcutController"]
-  SETTABLEKS R6 R8 K18 ["StudioServices"]
-  SETTABLEKS R5 R8 K19 ["Stylizer"]
-  SETTABLEKS R7 R8 K20 ["ToolController"]
+  DUPTABLE R8 K18 [{"Analytics", "Localization", "PluginController", "ShortcutController", "StudioServices", "Stylizer", "ToolController"}]
+  SETTABLEKS R3 R8 K11 ["Analytics"]
+  SETTABLEKS R2 R8 K12 ["Localization"]
+  SETTABLEKS R1 R8 K13 ["PluginController"]
+  SETTABLEKS R4 R8 K14 ["ShortcutController"]
+  SETTABLEKS R6 R8 K15 ["StudioServices"]
+  SETTABLEKS R5 R8 K16 ["Stylizer"]
+  SETTABLEKS R7 R8 K17 ["ToolController"]
   RETURN R8 1
 
 MAIN:

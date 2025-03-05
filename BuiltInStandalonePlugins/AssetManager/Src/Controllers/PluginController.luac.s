@@ -194,16 +194,18 @@ PROTO_4:
   SETTABLEKS R1 R0 K3 ["OnGameInfoFetched"]
   LOADNIL R1
   SETTABLEKS R1 R0 K4 ["OnSelectionChanged"]
+  NAMECALL R1 R0 K5 ["_unbindScroll"]
+  CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K5 ["OnSidebarToggled"]
+  SETTABLEKS R1 R0 K6 ["OnSidebarToggled"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K6 ["OnPluginWidthChanged"]
+  SETTABLEKS R1 R0 K7 ["OnPluginWidthChanged"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K7 ["OnIsCompactChanged"]
+  SETTABLEKS R1 R0 K8 ["OnIsCompactChanged"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K8 ["OnConfirmRemovePlaceChanged"]
+  SETTABLEKS R1 R0 K9 ["OnConfirmRemovePlaceChanged"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K9 ["OnRenamePlaceIdChanged"]
+  SETTABLEKS R1 R0 K10 ["OnRenamePlaceIdChanged"]
   RETURN R0 0
 
 PROTO_5:
@@ -286,18 +288,19 @@ PROTO_16:
   CALL R4 2 0
   NAMECALL R4 R0 K0 ["getIsCompact"]
   CALL R4 1 1
-  JUMPIFEQ R2 R4 [+22]
+  JUMPIFNOTEQ R2 R4 [+3]
+  JUMPIFNOTEQKN R3 K4 [0] [+22]
   NAMECALL R4 R0 K0 ["getIsCompact"]
   CALL R4 1 1
   JUMPIFNOT R4 [+5]
   LOADB R6 0
-  NAMECALL R4 R0 K4 ["setShowSidebar"]
+  NAMECALL R4 R0 K5 ["setShowSidebar"]
   CALL R4 2 0
   JUMP [+4]
   LOADB R6 1
-  NAMECALL R4 R0 K4 ["setShowSidebar"]
+  NAMECALL R4 R0 K5 ["setShowSidebar"]
   CALL R4 2 0
-  GETTABLEKS R4 R0 K5 ["OnIsCompactChanged"]
+  GETTABLEKS R4 R0 K6 ["OnIsCompactChanged"]
   NAMECALL R6 R0 K0 ["getIsCompact"]
   CALL R6 1 -1
   NAMECALL R4 R4 K3 ["Fire"]
@@ -313,17 +316,80 @@ PROTO_18:
   RETURN R1 1
 
 PROTO_19:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_headerRow"]
+  GETIMPORT R1 K3 [Vector2.new]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["_contentList"]
+  GETTABLEKS R3 R4 K5 ["CanvasPosition"]
+  GETTABLEKS R2 R3 K6 ["X"]
+  LOADN R3 0
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K5 ["CanvasPosition"]
+  RETURN R0 0
+
+PROTO_20:
+  NAMECALL R1 R0 K0 ["_unbindScroll"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K1 ["_contentList"]
+  LOADK R3 K2 ["CanvasPosition"]
+  NAMECALL R1 R1 K3 ["GetPropertyChangedSignal"]
+  CALL R1 2 1
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K4 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K5 ["_scrollerConnection"]
+  RETURN R0 0
+
+PROTO_21:
+  GETTABLEKS R1 R0 K0 ["_scrollerConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["_scrollerConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_scrollerConnection"]
+  RETURN R0 0
+
+PROTO_22:
+  SETTABLEKS R1 R0 K0 ["_contentList"]
+  GETTABLEKS R2 R0 K0 ["_contentList"]
+  JUMPIFNOT R2 [+7]
+  GETTABLEKS R2 R0 K1 ["_headerRow"]
+  JUMPIFNOT R2 [+4]
+  NAMECALL R2 R0 K2 ["_bindScroll"]
+  CALL R2 1 0
+  RETURN R0 0
+  NAMECALL R2 R0 K3 ["_unbindScroll"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_23:
+  SETTABLEKS R1 R0 K0 ["_headerRow"]
+  GETTABLEKS R2 R0 K1 ["_contentList"]
+  JUMPIFNOT R2 [+7]
+  GETTABLEKS R2 R0 K0 ["_headerRow"]
+  JUMPIFNOT R2 [+4]
+  NAMECALL R2 R0 K2 ["_bindScroll"]
+  CALL R2 1 0
+  RETURN R0 0
+  NAMECALL R2 R0 K3 ["_unbindScroll"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_24:
   GETTABLEKS R3 R0 K0 ["_rootPlace"]
   JUMPIFEQ R3 R1 [+2]
   LOADB R2 0 +1
   LOADB R2 1
   RETURN R2 1
 
-PROTO_20:
+PROTO_25:
   GETTABLEKS R1 R0 K0 ["_confirmRemovePlace"]
   RETURN R1 1
 
-PROTO_21:
+PROTO_26:
   SETTABLEKS R1 R0 K0 ["_stagedPlace"]
   GETTABLEKS R2 R0 K1 ["OnConfirmRemovePlaceChanged"]
   LOADB R4 1
@@ -331,7 +397,7 @@ PROTO_21:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_27:
   GETTABLEKS R4 R0 K0 ["_stagedPlace"]
   JUMPIFNOTEQKN R4 K1 [0] [+2]
   LOADB R3 0 +1
@@ -354,7 +420,7 @@ PROTO_22:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_28:
   SETTABLEKS R1 R0 K0 ["_stagedPlace"]
   GETTABLEKS R2 R0 K1 ["OnRenamePlaceIdChanged"]
   MOVE R4 R1
@@ -362,7 +428,7 @@ PROTO_23:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_29:
   GETTABLEKS R4 R0 K0 ["_stagedPlace"]
   JUMPIFNOTEQKN R4 K1 [0] [+2]
   LOADB R3 0 +1
@@ -462,16 +528,24 @@ MAIN:
   SETTABLEKS R10 R9 K54 ["setRootPlace"]
   DUPCLOSURE R10 K55 [PROTO_18]
   SETTABLEKS R10 R9 K56 ["getRootPlace"]
-  DUPCLOSURE R10 K57 [PROTO_19]
-  SETTABLEKS R10 R9 K58 ["isRootPlace"]
-  DUPCLOSURE R10 K59 [PROTO_20]
-  SETTABLEKS R10 R9 K60 ["getConfirmRemovePlace"]
-  DUPCLOSURE R10 K61 [PROTO_21]
-  SETTABLEKS R10 R9 K62 ["stageRemovePlace"]
-  DUPCLOSURE R10 K63 [PROTO_22]
-  SETTABLEKS R10 R9 K64 ["resolveRemovePlace"]
-  DUPCLOSURE R10 K65 [PROTO_23]
-  SETTABLEKS R10 R9 K66 ["stagePlaceForRename"]
-  DUPCLOSURE R10 K67 [PROTO_24]
-  SETTABLEKS R10 R9 K68 ["renamePlace"]
+  DUPCLOSURE R10 K57 [PROTO_20]
+  SETTABLEKS R10 R9 K58 ["_bindScroll"]
+  DUPCLOSURE R10 K59 [PROTO_21]
+  SETTABLEKS R10 R9 K60 ["_unbindScroll"]
+  DUPCLOSURE R10 K61 [PROTO_22]
+  SETTABLEKS R10 R9 K62 ["setContentList"]
+  DUPCLOSURE R10 K63 [PROTO_23]
+  SETTABLEKS R10 R9 K64 ["setListHeaderRow"]
+  DUPCLOSURE R10 K65 [PROTO_24]
+  SETTABLEKS R10 R9 K66 ["isRootPlace"]
+  DUPCLOSURE R10 K67 [PROTO_25]
+  SETTABLEKS R10 R9 K68 ["getConfirmRemovePlace"]
+  DUPCLOSURE R10 K69 [PROTO_26]
+  SETTABLEKS R10 R9 K70 ["stageRemovePlace"]
+  DUPCLOSURE R10 K71 [PROTO_27]
+  SETTABLEKS R10 R9 K72 ["resolveRemovePlace"]
+  DUPCLOSURE R10 K73 [PROTO_28]
+  SETTABLEKS R10 R9 K74 ["stagePlaceForRename"]
+  DUPCLOSURE R10 K75 [PROTO_29]
+  SETTABLEKS R10 R9 K76 ["renamePlace"]
   RETURN R9 1

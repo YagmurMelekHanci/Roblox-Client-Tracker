@@ -27,8 +27,6 @@ local myHttpRequest = HttpRequest.config({
 	maxRetryCount = maxHttpRetries,
 })
 
-local FFlagRoduxAndNetworkingFriendsMigrationFix = game:DefineFastFlag("RoduxAndNetworkingFriendsMigrationFix", false)
-
 local myRoduxNetworking = LuaSocialLibrariesDeps.RoduxNetworking.config({
 	keyPath = "NetworkStatus",
 	networkImpl = myHttpRequest,
@@ -49,13 +47,9 @@ return {
 	RoduxCall = LuaSocialLibrariesDeps.RoduxCall.config({
 		keyPath = "Call",
 	}),
-	RoduxFriends = if FFlagRoduxAndNetworkingFriendsMigrationFix
-		then require(CorePackages.Workspace.Packages.FriendsRodux).config({
-			keyPath = "Friends",
-		})
-		else LuaSocialLibrariesDeps.RoduxFriends.config({
-			keyPath = "Friends",
-		}),
+	RoduxFriends = require(CorePackages.Workspace.Packages.FriendsRodux).config({
+		keyPath = "Friends",
+	}),
 	RoduxPresence = LuaSocialLibrariesDeps.RoduxPresence.config({
 		keyPath = "Presence",
 	}),
@@ -66,13 +60,9 @@ return {
 	NetworkingPresence = LuaSocialLibrariesDeps.NetworkingPresence.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
-	NetworkingFriends = if FFlagRoduxAndNetworkingFriendsMigrationFix
-		then require(CorePackages.Workspace.Packages.FriendsNetworking).config({
-			roduxNetworking = myRoduxNetworking,
-		})
-		else LuaSocialLibrariesDeps.NetworkingFriends.config({
-			roduxNetworking = myRoduxNetworking,
-		}),
+	NetworkingFriends = require(CorePackages.Workspace.Packages.FriendsNetworking).config({
+		roduxNetworking = myRoduxNetworking,
+	}),
 	NetworkingUsers = LuaSocialLibrariesDeps.NetworkingUsers.config({
 		roduxNetworking = myRoduxNetworking,
 	}),

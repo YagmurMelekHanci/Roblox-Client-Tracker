@@ -1,5 +1,6 @@
 local FIntReactSchedulingTrackerEnableHunderedthsPercent: number = game:DefineFastInt("ReactSchedulingTracker", 0)
 local FIntReactSchedulingTrackerPeriodMs: number = game:DefineFastInt("ReactSchedulingTrackerPeriodMs", 30000)
+local EngineFeatureTelemetryServiceMemoryCPUInfoEnabled = game:GetEngineFeature("TelemetryServiceMemoryCPUInfoEnabled")
 
 local MAX_SAMPLE_RATE = 10000
 local SAMPLE_ID_BIAS = 1409
@@ -269,7 +270,7 @@ local RootSummaryEvent = {
 	eventName = "ReactRootSummary",
 	backends = { "EventIngest" },
 	lastUpdated = { 2025, 2, 18 },
-	throttlingPercentage = game:DefineFastInt("ReactRootSummaryEventThrottleHunderedthsPercent", 0),
+	throttlingPercentage = game:DefineFastInt("ReactRootSummaryEventThrottleHunderedthsPercent2", 0),
 	description = "Summary of React performance for a root",
 	links = DOCS_LINK,
 }
@@ -278,7 +279,7 @@ local RootPeriodStatConfig = {
 	eventName = "ReactRootPeriod",
 	backends = { "RobloxTelemetryStat" },
 	lastUpdated = { 2025, 2, 18 },
-	throttlingPercentage = game:DefineFastInt("ReactRootPeriodStatThrottleHunderedthsPercent", 0),
+	throttlingPercentage = game:DefineFastInt("ReactRootPeriodStatThrottleHunderedthsPercent2", 0),
 	description = "Stats for React performance for a root over a period",
 	links = DOCS_LINK,
 }
@@ -287,7 +288,7 @@ local RootTaskCountConfig = {
 	eventName = "ReactRootTaskCount",
 	backends = { "RobloxTelemetryCounter" },
 	lastUpdated = { 2025, 2, 18 },
-	throttlingPercentage = game:DefineFastInt("ReactRootTaskCountThrottleHunderedthsPercent", 0),
+	throttlingPercentage = game:DefineFastInt("ReactRootTaskCountThrottleHunderedthsPercent2", 0),
 	description = "Task counts for React performance for a root over a period",
 	links = DOCS_LINK,
 }
@@ -296,7 +297,7 @@ local RootPeriodTaskStatConfig = {
 	eventName = "ReactRootPeriodTask",
 	backends = { "RobloxTelemetryStat" },
 	lastUpdated = { 2025, 2, 18 },
-	throttlingPercentage = game:DefineFastInt("ReactRootPeriodTaskStatThrottleHunderedthsPercent", 0),
+	throttlingPercentage = game:DefineFastInt("ReactRootPeriodTaskStatThrottleHunderedthsPercent2", 0),
 	description = "Task stats for React performance for a root over a period",
 	links = DOCS_LINK,
 }
@@ -572,8 +573,12 @@ function ReactSchedulingTracker:reportPeriod()
 		react_drop_change3 = frameMetrics.reactDropChangeHistogram[4],
 	}
 
+	local summaryStandardizedFields = { "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo" }
+	if EngineFeatureTelemetryServiceMemoryCPUInfoEnabled then
+		summaryStandardizedFields = { "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo", "addMemoryInfo", "addCPUInfo" }
+	end
 	TelemetryService:LogEvent(PeriodSummaryEvent, {
-		standardizedFields = { "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo" },
+		standardizedFields = summaryStandardizedFields,
 		customFields = periodSummary
 	})
 
@@ -618,7 +623,8 @@ function ReactSchedulingTracker:reportPeriod()
 		)
 	end
 
-	for _, root in self.rootsMetrics do
+	for name, root in self.rootsMetrics do
+		root.root_name = name
 		root.update_total_time_ms = root.render_total_time_ms + root.commit_total_time_ms
 		root.total_time_ms = root.update_total_time_ms + root.passive_effects_total_time_ms
 		root.total_time_pct = (root.update_total_time_ms + root.passive_effects_total_time_ms) / periodSummary.react_total_time_ms
@@ -629,14 +635,14 @@ function ReactSchedulingTracker:reportPeriod()
 		root.avg_time_to_update_ms = root.total_time_to_update_ms / root.update_count
 
 		TelemetryService:LogEvent(RootSummaryEvent, {
-			standardizedFields = { "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo" },
+			standardizedFields = summaryStandardizedFields,
 			customFields = root
 		})
 
 		TelemetryService:LogStat(
 			RootPeriodStatConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				stat = "TotalTimePct",
 			} },
 			root.total_time_pct
@@ -645,7 +651,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogCounter(
 			RootTaskCountConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "RenderAndCommit",
 			} },
 			root.update_count
@@ -653,7 +659,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogCounter(
 			RootTaskCountConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "PassiveEffects",
 			} },
 			root.passive_effects_count
@@ -662,7 +668,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogStat(
 			RootPeriodTaskStatConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "RenderAndCommit",
 				stat = "AvgMs",
 			} },
@@ -671,7 +677,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogStat(
 			RootPeriodTaskStatConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "Commit",
 				stat = "AvgMs",
 			} },
@@ -680,7 +686,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogStat(
 			RootPeriodTaskStatConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "TimeToUpdateMs",
 				stat = "AvgMs",
 			} },
@@ -689,7 +695,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogStat(
 			RootPeriodTaskStatConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "PassiveEffects",
 				stat = "AvgMs",
 			} },
@@ -699,7 +705,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogStat(
 			RootPeriodTaskStatConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "RenderAndCommit",
 				stat = "MaxMs",
 			} },
@@ -708,7 +714,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogStat(
 			RootPeriodTaskStatConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "Commit",
 				stat = "MaxMs",
 			} },
@@ -717,7 +723,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogStat(
 			RootPeriodTaskStatConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "TimeToUpdateMs",
 				stat = "MaxMs",
 			} },
@@ -726,7 +732,7 @@ function ReactSchedulingTracker:reportPeriod()
 		TelemetryService:LogStat(
 			RootPeriodTaskStatConfig,
 			{ customFields = {
-				rootName = root.rootName,
+				rootName = root.root_name,
 				task = "PassiveEffects",
 				stat = "MaxMs",
 			} },

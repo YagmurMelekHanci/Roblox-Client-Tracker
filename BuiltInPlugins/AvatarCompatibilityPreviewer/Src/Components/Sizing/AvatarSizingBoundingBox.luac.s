@@ -84,9 +84,8 @@ PROTO_3:
   JUMP [+2]
   GETTABLEKS R8 R1 K19 ["ValidTransparency"]
   GETTABLEKS R9 R0 K20 ["Inside"]
-  JUMPIFNOT R9 [+2]
-  LOADK R9 K21 [0.5]
-  MUL R8 R9 R8
+  JUMPIFNOT R9 [+1]
+  MULK R8 R8 K21 [0.5]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K22 ["createElement"]
   LOADK R10 K23 ["Part"]

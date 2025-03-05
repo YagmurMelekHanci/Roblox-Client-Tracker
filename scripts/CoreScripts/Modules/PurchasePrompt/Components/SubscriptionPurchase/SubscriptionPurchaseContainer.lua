@@ -12,6 +12,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
+local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local RequestType = require(Root.Enums.RequestType)
@@ -32,6 +33,7 @@ local SELECTION_GROUP_NAME = "SubscriptionPurchaseContainer"
 
 local GetFFlagFixPlayerGuiSelectionBugOnPromptExit = require(Root.Flags.GetFFlagFixPlayerGuiSelectionBugOnPromptExit)
 local GetFFlagEnableSubscriptionPurchaseToast = require(Root.Flags.GetFFlagEnableSubscriptionPurchaseToast)
+local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 
 function SubscriptionPurchaseContainer:init()
 	self.state = {
@@ -145,12 +147,22 @@ function SubscriptionPurchaseContainer:render()
 		return nil
 	end
 	return Roact.createElement(CoreScriptsRootProvider, {}, {
-		FocusNavigationCoreScriptsWrapper = React.createElement(FocusNavigationCoreScriptsWrapper, {
-			selectionGroupName = SELECTION_GROUP_NAME,
-			focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-		}, {
-			SubscriptionPurchaseContainer = self:createElement(),
-		}),
+		FocusNavigationCoreScriptsWrapper = React.createElement(
+			if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
+			if FFlagCSFocusWrapperRefactor
+				then {
+					surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+					isIsolated = true,
+					isAutoFocusRoot = true,
+				}
+				else {
+					selectionGroupName = SELECTION_GROUP_NAME,
+					focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+				},
+			{
+				SubscriptionPurchaseContainer = self:createElement(),
+			}
+		),
 	})
 end
 

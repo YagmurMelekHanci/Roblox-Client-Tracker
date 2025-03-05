@@ -4,7 +4,6 @@ local UserInputService = game:GetService("UserInputService")
 local PurchaseError = require(Root.Enums.PurchaseError)
 local Promise = require(Root.Promise)
 
-local GetFFlagDisableTestTextForAvatarFee = require(Root.Flags.GetFFlagDisableTestTextForAvatarFee)
 
 local MAX_ROBUX = 2147483647
 
@@ -15,8 +14,7 @@ local function getBalanceInfo(network, externalSettings, overrideStudioMock)
 				In studio, we falsely report that users have the maximum amount
 				 of robux, so that they can always test the normal purchase flow
 			]]
-			local override = GetFFlagDisableTestTextForAvatarFee() and overrideStudioMock
-			if externalSettings.isStudio() and not override then
+			if externalSettings.isStudio() and not overrideStudioMock then
 				result.robux = MAX_ROBUX
 			end
 

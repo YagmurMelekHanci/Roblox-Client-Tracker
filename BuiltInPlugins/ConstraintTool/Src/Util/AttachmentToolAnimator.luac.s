@@ -30,8 +30,7 @@ PROTO_2:
   CALL R1 3 1
   MOVE R0 R1
   POWK R2 R0 K3 [3]
-  LOADN R7 6
-  MUL R6 R7 R0
+  MULK R6 R0 K6 [6]
   SUBK R5 R6 K5 [15]
   MUL R4 R0 R5
   ADDK R3 R4 K4 [10]
@@ -58,46 +57,45 @@ PROTO_3:
   CALL R6 3 1
   MOVE R5 R6
   POWK R6 R5 K9 [3]
-  LOADN R11 6
-  MUL R10 R11 R5
+  MULK R10 R5 K12 [6]
   SUBK R9 R10 K11 [15]
   MUL R8 R5 R9
   ADDK R7 R8 K10 [10]
   MUL R4 R6 R7
-  GETTABLEKS R5 R0 K12 ["_animateFrom"]
-  GETTABLEKS R6 R5 K13 ["tiltRotate"]
+  GETTABLEKS R5 R0 K13 ["_animateFrom"]
+  GETTABLEKS R6 R5 K14 ["tiltRotate"]
   GETTABLEKS R9 R0 K0 ["_constraintToolModel"]
-  GETTABLEKS R8 R9 K14 ["_tiltRotate"]
+  GETTABLEKS R8 R9 K15 ["_tiltRotate"]
   MOVE R9 R4
-  NAMECALL R6 R6 K15 ["Lerp"]
+  NAMECALL R6 R6 K16 ["Lerp"]
   CALL R6 3 1
   LOADNIL R7
   GETUPVAL R8 0
   JUMPIFNOT R8 [+10]
-  GETTABLEKS R8 R3 K16 ["offsetCFrame"]
+  GETTABLEKS R8 R3 K17 ["offsetCFrame"]
   MUL R7 R6 R8
-  GETTABLEKS R8 R0 K17 ["_overrideBaseRotation"]
+  GETTABLEKS R8 R0 K18 ["_overrideBaseRotation"]
   JUMPIFNOT R8 [+22]
-  GETTABLEKS R8 R0 K17 ["_overrideBaseRotation"]
+  GETTABLEKS R8 R0 K18 ["_overrideBaseRotation"]
   MUL R7 R8 R7
   JUMP [+18]
-  GETTABLEKS R8 R5 K18 ["baseCFrame"]
-  GETTABLEKS R10 R3 K18 ["baseCFrame"]
+  GETTABLEKS R8 R5 K19 ["baseCFrame"]
+  GETTABLEKS R10 R3 K19 ["baseCFrame"]
   MOVE R11 R4
-  NAMECALL R8 R8 K15 ["Lerp"]
+  NAMECALL R8 R8 K16 ["Lerp"]
   CALL R8 3 1
-  GETTABLEKS R9 R5 K16 ["offsetCFrame"]
-  GETTABLEKS R11 R3 K16 ["offsetCFrame"]
+  GETTABLEKS R9 R5 K17 ["offsetCFrame"]
+  GETTABLEKS R11 R3 K17 ["offsetCFrame"]
   MOVE R12 R4
-  NAMECALL R9 R9 K15 ["Lerp"]
+  NAMECALL R9 R9 K16 ["Lerp"]
   CALL R9 3 1
   MUL R10 R8 R6
   MUL R7 R10 R9
   GETTABLEKS R8 R0 K0 ["_constraintToolModel"]
   GETTABLEKS R11 R0 K0 ["_constraintToolModel"]
-  GETTABLEKS R10 R11 K19 ["_attachmentAdornment"]
+  GETTABLEKS R10 R11 K20 ["_attachmentAdornment"]
   MOVE R11 R7
-  NAMECALL R8 R8 K20 ["_orientAttachmentAdornment"]
+  NAMECALL R8 R8 K21 ["_orientAttachmentAdornment"]
   CALL R8 3 0
   RETURN R0 0
 

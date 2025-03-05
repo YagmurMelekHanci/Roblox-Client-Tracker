@@ -1,8 +1,8 @@
 PROTO_0:
   GETUPVAL R0 0
   CALL R0 0 0
-  GETIMPORT R0 K2 [Vector3.zero]
-  GETIMPORT R1 K2 [Vector3.zero]
+  LOADK R0 K0 [{0, 0, 0}]
+  LOADK R1 K0 [{0, 0, 0}]
   RETURN R0 2
 
 PROTO_1:

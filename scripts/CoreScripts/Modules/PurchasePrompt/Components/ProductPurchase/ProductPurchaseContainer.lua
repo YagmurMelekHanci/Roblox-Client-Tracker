@@ -52,12 +52,15 @@ local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse
 local initiateUserPurchaseSettingsPrecheck = require(Root.Thunks.initiateUserPurchaseSettingsPrecheck)
 local GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow =
 	require(Root.Flags.GetFFlagEnableTexasU18VPCForInExperienceBundleRobuxUpsellFlow)
-local GetFFlagDisableTestTextForAvatarFee = require(Root.Flags.GetFFlagDisableTestTextForAvatarFee)
 local VerifiedParentalConsentDialog = require(CorePackages.Workspace.Packages.VerifiedParentalConsentDialog)
 local VPCModal = VerifiedParentalConsentDialog.VerifiedParentalConsentDialog
 local VPCModalType = require(Root.Enums.VPCModalType)
 local Animator = require(script.Parent.Animator)
 local FFlagAddCursorProviderToPurchasePromptApp = require(Root.Flags.FFlagAddCursorProviderToPurchasePromptApp)
+
+-- Imports needed for analytics
+local HttpService = game:GetService("HttpService")
+local FFlagEnableAnalyticEventV1UpsellFlow = require(Root.Flags.FFlagEnableAnalyticEventV1UpsellFlow)
 
 local ProductPurchaseContainer = Roact.Component:extend(script.Name)
 
@@ -100,10 +103,20 @@ local function isRelevantRequestType(requestType, purchaseFlow)
 		or requestType == RequestType.AvatarCreationFee
 end
 
+-- Since we're mimicking RobuxUpsellFlow, we need to map our prompt state to that component's state
+local function promptStateToViewName(promptState): string
+	local switch = {
+		[PromptState.RobuxUpsell] = "PurchaseModal",
+		[PromptState.UpsellInProgress] = "RobuxPurchasePending",
+	}
+	return switch[promptState]
+end
+
 function ProductPurchaseContainer:init()
 	self.state = {
 		screenSize = Vector2.new(0, 0),
 		isLuobu = false,
+		analyticId = if FFlagEnableAnalyticEventV1UpsellFlow then HttpService:GenerateGUID(false) else nil,
 	}
 
 	coroutine.wrap(function()
@@ -113,6 +126,35 @@ function ProductPurchaseContainer:init()
 			})
 		end
 	end)()
+
+	-- Desktop in game upsell follows a different flow than all other upsells
+	-- We're mimicking the events emitted in the following componenet here:
+	-- modules/economy/in-app-purchasing/iap-experience/src/PurchaseFlow/RobuxUpsell/RobuxUpsellFlow.lua
+	if FFlagEnableAnalyticEventV1UpsellFlow then
+		self.emitPurchaseFlowEvent = function(eventType, inputType)
+			-- If view name not explicitly set, don't emit event
+			local viewName = promptStateToViewName(self.props.promptState)
+			if not viewName then
+				return
+			end
+			local data = {
+				purchase_flow_uuid = self.state.analyticId,
+				purchase_flow = "InGameRobuxUpsell",
+				view_name = viewName,
+				purchase_event_type = eventType,
+				input_type = inputType,
+				event_metadata = HttpService:JSONEncode({
+					universe_id = tostring(game.GameId),
+					item_product_id = tostring(self.props.productInfo.productId),
+					item_name = self.props.productInfo.name,
+					price = tostring(self.props.productInfo.price),
+					user_balance = tostring(self.props.accountInfo.balance) or nil,
+					package_robux_amount = tostring(self.props.nativeUpsell.robuxPurchaseAmount) or nil,
+				}),
+			}
+			self.props.onAnalyticEvent("UserPurchaseFlow", data)
+		end
+	end
 
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
@@ -317,6 +359,12 @@ function ProductPurchaseContainer:didUpdate(prevProps, prevState)
 	then
 		PublishAssetAnalytics.sendPageLoad(PublishAssetAnalytics.Section.ProcessCompleteModal)
 	end
+
+	-- Call the function anytime the prompt state changes
+	-- reportModalShown will be responsible for determining how to process the prompt state
+	if FFlagEnableAnalyticEventV1UpsellFlow and prevProps.promptState ~= self.props.promptState then
+		self.emitPurchaseFlowEvent("ViewShown")
+	end
 end
 
 function ProductPurchaseContainer:getMessageKeysFromPromptState()
@@ -456,8 +504,18 @@ function ProductPurchaseContainer:render()
 			buyItemControllerIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
 			cancelControllerIcon = self.props.isGamepadEnabled and BUTTON_B_ICON or nil,
 
-			buyItemActivated = self.confirmButtonPressed,
-			cancelPurchaseActivated = self.cancelButtonPressed,
+			buyItemActivated = if FFlagEnableAnalyticEventV1UpsellFlow
+				then function()
+					self.confirmButtonPressed()
+					self.emitPurchaseFlowEvent("UserInput", "Buy")
+				end
+				else self.confirmButtonPressed,
+			cancelPurchaseActivated = if FFlagEnableAnalyticEventV1UpsellFlow
+				then function()
+					self.cancelButtonPressed()
+					self.emitPurchaseFlowEvent("UserInput", "Cancel")
+				end
+				else self.cancelButtonPressed,
 
 			isLuobu = self.state.isLuobu,
 			isVng = GetFFlagOpenVngTosForVngRobuxUpsell() and getAppFeaturePolicies().getShowVNGTosForRobuxUpsell(),
@@ -589,7 +647,9 @@ function ProductPurchaseContainer:render()
 					doneAnimatingTime = nil,
 				})
 				if not FFlagAddCursorProviderToPurchasePromptApp then
-					if self.props.windowState == WindowState.Hidden and isRelevantRequestType(self.props.requestType) then
+					if
+						self.props.windowState == WindowState.Hidden and isRelevantRequestType(self.props.requestType)
+					then
 						self.props.completeRequest()
 					end
 				end
@@ -625,12 +685,8 @@ function ProductPurchaseContainer:render()
 end
 
 local function mapStateToProps(state)
-	local isTestPurchase
-	if GetFFlagDisableTestTextForAvatarFee() then
-		isTestPurchase = isMockingPurchases(state.promptRequest.requestType)
-	else
-		isTestPurchase = isMockingPurchases(nil)
-	end
+	local isTestPurchase = isMockingPurchases(state.promptRequest.requestType)
+	
 	return {
 		purchaseFlow = state.purchaseFlow,
 		promptState = state.promptState,

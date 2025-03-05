@@ -13,6 +13,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
+local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local PurchaseFlow = require(Root.Enums.PurchaseFlow)
@@ -36,7 +37,7 @@ local ExternalEventConnection = require(Root.Components.Connection.ExternalEvent
 local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
 	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
 local GetFFlagEnableEventMetadataInUpsell = IAPExperience.Flags.GetFFlagEnableEventMetadataInUpsell
-local GetFFlagDisableTestTextForAvatarFee = require(Root.Flags.GetFFlagDisableTestTextForAvatarFee)
+local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 
 local RobuxUpsellOverlay = require(script.Parent.RobuxUpsellOverlay)
 
@@ -96,7 +97,11 @@ function RobuxUpsellContainer:createElement()
 			itemIcon = imageIcon,
 			itemProductId = if GetFFlagEnableEventMetadataInUpsell then props.productInfo.productId else nil,
 			itemName = props.productInfo.name,
-			itemRobuxCost = getPlayerPrice(props.productInfo, props.accountInfo.membershipType == 4, props.expectedPrice),
+			itemRobuxCost = getPlayerPrice(
+				props.productInfo,
+				props.accountInfo.membershipType == 4,
+				props.expectedPrice
+			),
 			iapRobuxAmount = props.nativeUpsell.robuxPurchaseAmount or 0,
 			beforeRobuxBalance = props.accountInfo.balance,
 
@@ -133,12 +138,22 @@ end
 function RobuxUpsellContainer:render()
 	if GetFFLagUseCoreScriptsRootProviderForUpsellModal() then
 		return Roact.createElement(CoreScriptsRootProvider, {}, {
-			FocusNavigationCoreScriptsWrapper = React.createElement(FocusNavigationCoreScriptsWrapper, {
-				selectionGroupName = SELECTION_GROUP_NAME,
-				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-			}, {
-				RobuxUpsellContainer = self:createElement(),
-			}),
+			FocusNavigationCoreScriptsWrapper = React.createElement(
+				if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
+				if FFlagCSFocusWrapperRefactor
+					then {
+						surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+						isIsolated = true,
+						isAutoFocusRoot = true,
+					}
+					else {
+						selectionGroupName = SELECTION_GROUP_NAME,
+						focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+					},
+				{
+					RobuxUpsellContainer = self:createElement(),
+				}
+			),
 		})
 	else
 		return self:createElement()
@@ -146,12 +161,7 @@ function RobuxUpsellContainer:render()
 end
 
 RobuxUpsellContainer = connectToStore(function(state)
-	local isTestPurchase
-	if GetFFlagDisableTestTextForAvatarFee() then
-		isTestPurchase = isMockingPurchases(state.promptRequest.requestType)
-	else
-		isTestPurchase = isMockingPurchases(nil)
-	end
+	local isTestPurchase = isMockingPurchases(state.promptRequest.requestType)
 
 	return {
 		purchaseFlow = state.purchaseFlow,

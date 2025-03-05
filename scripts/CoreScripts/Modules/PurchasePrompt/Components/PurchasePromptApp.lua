@@ -44,11 +44,14 @@ local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNaviga
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
+local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local GetFFlagEnableToastLiteRender = require(Root.Flags.GetFFlagEnableToastLiteRender)
-local FFlagUIBloxFoundationProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUIBloxFoundationProvider()
+local FFlagUIBloxFoundationProvider =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUIBloxFoundationProvider()
 local FFlagAddCursorProviderToPurchasePromptApp = require(Root.Flags.FFlagAddCursorProviderToPurchasePromptApp)
+local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 
@@ -81,33 +84,40 @@ function PurchasePromptApp:render()
 			Toast = if GetFFlagEnableToastLiteRender() then Roact.createElement(Toast) else nil,
 		} :: any
 
-		if FFlagAddCursorProviderToPurchasePromptApp
-		then
+		if FFlagAddCursorProviderToPurchasePromptApp then
 			children = {
 				CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-						FocusNavigationProvider = Roact.createElement(
-							ReactFocusNavigation.FocusNavigationContext.Provider,
-							{
-								value = focusNavigationService,
-							},
-							{
-								FocusNavigationRegistryProvider = Roact.createElement(
-									FocusNavigationRegistryProvider,
-									nil,
-									{
-										FocusNavigationCoreScriptsWrapper = Roact.createElement(
-											FocusNavigationCoreScriptsWrapper,
-											{
+					FocusNavigationProvider = Roact.createElement(
+						ReactFocusNavigation.FocusNavigationContext.Provider,
+						{
+							value = focusNavigationService,
+						},
+						{
+							FocusNavigationRegistryProvider = Roact.createElement(
+								FocusNavigationRegistryProvider,
+								nil,
+								{
+									FocusNavigationCoreScriptsWrapper = Roact.createElement(
+										if FFlagCSFocusWrapperRefactor
+											then FocusRoot
+											else FocusNavigationCoreScriptsWrapper,
+										if FFlagCSFocusWrapperRefactor
+											then {
+												surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+												isIsolated = true,
+												isAutoFocusRoot = true,
+											}
+											else {
 												selectionGroupName = SELECTION_GROUP_NAME,
 												focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 											},
-											children
-										),
-									}
-								),
-							}
-						),
-					})
+										children
+									),
+								}
+							),
+						}
+					),
+				}),
 			} :: any
 		end
 

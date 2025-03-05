@@ -3,11 +3,11 @@ local DragBar = require(UIManagerRoot.DragBar)
 local Constants = require(UIManagerRoot.Constants)
 local CoreGui = game:GetService("CoreGui")
 
-local DEFAULT_DRAG_BAR_SIZE = Vector3.new(0.3, 0.03, 0.00001)
+local DEFAULT_DRAG_BAR_SIZE = Vector3.new(0.6, 0.12, 0.00001)
 
 return function(props: Constants.DropBarProps): DragBar.DragBarClassType
 	local draggablePart = Instance.new("Part")
-	draggablePart.Size = if props.size then props.size else DEFAULT_DRAG_BAR_SIZE
+	draggablePart.Size = DEFAULT_DRAG_BAR_SIZE
 	draggablePart.Name = props.name .. "_DragBar"
 	draggablePart.Color = Color3.new(1, 1, 1)
 	draggablePart.Parent = workspace.CurrentCamera
@@ -44,7 +44,9 @@ return function(props: Constants.DropBarProps): DragBar.DragBarClassType
 	imageLabel.Parent = surfaceGui
 	imageLabel.BackgroundTransparency = 1
 	imageLabel.BackgroundColor3 = Color3.new(1, 1, 1)
-	imageLabel.Size = UDim2.new(1, 0, 1, 0)
+	imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+	imageLabel.Size = UDim2.new(0.5, 0, 0.25, 0)
 	imageLabel.ImageColor3 = Color3.new(1, 1, 1)
 
 	-- Needed since the part is not replicated to server

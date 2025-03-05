@@ -17,10 +17,13 @@ local GameInfo = require(ShareGame.Reducers.GameInfo)
 local Page = require(ShareGame.Reducers.Page)
 local Toasts = require(ShareGame.Reducers.Toasts)
 
+local FFlagEnableLuaAppsShareLinksPackages = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableLuaAppsShareLinksPackages
+
 local RoduxShareLinks = dependencies.RoduxShareLinks
+local ShareLinksRodux = dependencies.ShareLinksRodux
 local RoduxNetworking = dependencies.RoduxNetworking
 local NetworkStatus = RoduxNetworking.installReducer()
-local ShareLinks = RoduxShareLinks.installReducer()
+local ShareLinks = if FFlagEnableLuaAppsShareLinksPackages then ShareLinksRodux.installReducer() else RoduxShareLinks.installReducer()
 
 return function(state, action)
 	state = state or {}

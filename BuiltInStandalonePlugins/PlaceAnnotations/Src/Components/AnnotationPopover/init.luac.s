@@ -1148,9 +1148,9 @@ MAIN:
   GETIMPORT R28 K5 [require]
   GETTABLEKS R31 R0 K12 ["Src"]
   GETTABLEKS R30 R31 K41 ["Contexts"]
-  GETTABLEKS R29 R30 K42 ["TaggingContext"]
+  GETTABLEKS R29 R30 K42 ["TaggableUsersContext"]
   CALL R28 1 1
-  GETTABLEKS R27 R28 K42 ["TaggingContext"]
+  GETTABLEKS R27 R28 K42 ["TaggableUsersContext"]
   GETIMPORT R28 K44 [game]
   LOADK R30 K45 ["AnnotationsService"]
   NAMECALL R28 R28 K46 ["GetService"]

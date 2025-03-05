@@ -855,9 +855,9 @@ MAIN:
   GETIMPORT R24 K5 [require]
   GETTABLEKS R27 R0 K9 ["Src"]
   GETTABLEKS R26 R27 K30 ["Contexts"]
-  GETTABLEKS R25 R26 K39 ["TaggingContext"]
+  GETTABLEKS R25 R26 K39 ["TaggableUsersContext"]
   CALL R24 1 1
-  GETTABLEKS R23 R24 K39 ["TaggingContext"]
+  GETTABLEKS R23 R24 K39 ["TaggableUsersContext"]
   GETIMPORT R24 K41 [game]
   LOADK R26 K42 ["StudioService"]
   NAMECALL R24 R24 K43 ["GetService"]

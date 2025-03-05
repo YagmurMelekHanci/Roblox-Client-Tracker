@@ -1,0 +1,35 @@
+PROTO_0:
+  NEWTABLE R0 1 0
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K0 ["publishService"]
+  GETUPVAL R3 1
+  FASTCALL2 SETMETATABLE R0 R3 [+4]
+  MOVE R2 R0
+  GETIMPORT R1 K2 [setmetatable]
+  CALL R1 2 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["PublishService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R2 R0 K8 ["Packages"]
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R4 R2 K11 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K12 ["ContextServices"]
+  GETTABLEKS R4 R5 K13 ["ContextItem"]
+  LOADK R7 K14 ["PublishServiceContext"]
+  NAMECALL R5 R4 K15 ["extend"]
+  CALL R5 2 1
+  DUPCLOSURE R6 K16 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K17 ["new"]
+  RETURN R5 1

@@ -1,0 +1,95 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Select"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Setting"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["SettingValue"]
+  MOVE R4 R0
+  CALL R1 3 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["CloseMenus"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K1 ["Item"]
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  DUPTABLE R5 K12 [{"OnSelect", "Disabled", "Selected", "Id", "Icon", "LayoutOrder", "MenuView", "Size", "Text", "WidgetUri"}]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K2 ["OnSelect"]
+  GETTABLEKS R6 R2 K3 ["Disabled"]
+  SETTABLEKS R6 R5 K3 ["Disabled"]
+  GETTABLEKS R6 R2 K4 ["Selected"]
+  SETTABLEKS R6 R5 K4 ["Selected"]
+  GETTABLEKS R6 R2 K5 ["Id"]
+  SETTABLEKS R6 R5 K5 ["Id"]
+  GETTABLEKS R6 R2 K6 ["Icon"]
+  SETTABLEKS R6 R5 K6 ["Icon"]
+  GETTABLEKS R6 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K7 ["LayoutOrder"]
+  GETTABLEKS R6 R0 K8 ["MenuView"]
+  SETTABLEKS R6 R5 K8 ["MenuView"]
+  GETTABLEKS R6 R2 K9 ["Size"]
+  SETTABLEKS R6 R5 K9 ["Size"]
+  GETUPVAL R6 3
+  MOVE R7 R1
+  LOADK R8 K10 ["Text"]
+  MOVE R9 R2
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K10 ["Text"]
+  GETTABLEKS R6 R0 K11 ["WidgetUri"]
+  SETTABLEKS R6 R5 K11 ["WidgetUri"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["createElement"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Components"]
+  GETTABLEKS R4 R5 K11 ["MenuItem"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Components"]
+  GETTABLEKS R6 R7 K12 ["ControlsView"]
+  GETTABLEKS R5 R6 K13 ["getLocalizedField"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K15 ["ContextServices"]
+  GETTABLEKS R7 R6 K16 ["Localization"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K10 ["Components"]
+  GETTABLEKS R10 R11 K12 ["ControlsView"]
+  GETTABLEKS R9 R10 K17 ["ControlProps"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Types"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K19 [PROTO_1]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R10 1

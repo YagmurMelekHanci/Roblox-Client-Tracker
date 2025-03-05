@@ -1,5 +1,5 @@
 PROTO_0:
-  DUPTABLE R2 K4 [{"SelectionChanged", "draggerContext", "_selection", "_setSelectedPointNames"}]
+  DUPTABLE R2 K4 [{"SelectionChanged", "draggerContext", "_selection", "_setSelectedPointNamesCallback"}]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K5 ["new"]
   CALL R3 0 1
@@ -8,7 +8,7 @@ PROTO_0:
   SETTABLEKS R3 R2 K1 ["draggerContext"]
   NEWTABLE R3 0 0
   SETTABLEKS R3 R2 K2 ["_selection"]
-  SETTABLEKS R0 R2 K3 ["_setSelectedPointNames"]
+  SETTABLEKS R0 R2 K3 ["_setSelectedPointNamesCallback"]
   GETUPVAL R3 1
   FASTCALL2 SETMETATABLE R2 R3 [+3]
   GETIMPORT R1 K7 [setmetatable]
@@ -129,7 +129,7 @@ PROTO_4:
   NAMECALL R3 R0 K12 ["_fireOnSelect"]
   CALL R3 2 0
   SETTABLEKS R1 R0 K13 ["_selection"]
-  GETTABLEKS R3 R0 K14 ["_setSelectedPointNames"]
+  GETTABLEKS R3 R0 K14 ["_setSelectedPointNamesCallback"]
   MOVE R4 R1
   CALL R3 1 0
   GETTABLEKS R3 R0 K15 ["SelectionChanged"]

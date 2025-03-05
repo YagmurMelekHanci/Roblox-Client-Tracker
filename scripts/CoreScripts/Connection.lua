@@ -39,6 +39,8 @@ local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagError
 
 local FFlagRemoveKickWhitespaceSub = require(RobloxGui.Modules.Flags.FFlagRemoveKickWhitespaceSub)
 local FFlagCreatorBanLocalization = require(RobloxGui.Modules.Flags.FFlagCreatorBanLocalization)
+local FFlagErrorStringRefactor = game:DefineFastFlag("ErrorStringRefactor", false)
+local FFlagDisableReconnectsForAndroidKicks = game:DefineFastFlag("DisableReconnectsForAndroidKicks", false)
 
 local FFlagAllowDisconnectGuiForOkUnknown = require(RobloxGui.Modules.Flags.FFlagAllowDisconnectGuiForOkUnknown)
 
@@ -259,6 +261,11 @@ if coreGuiOverflowDetection then
 	-- Older versions of the engine don't have this variant, using subscript
 	-- syntax instead avoids a possible type error.
 	reconnectDisabledList[Enum.ConnectionError["DisconnectClientFailure"]] = true
+end
+
+if FFlagDisableReconnectsForAndroidKicks then
+	reconnectDisabledList[Enum.ConnectionError['AndroidAnticheatKick']] = true
+	reconnectDisabledList[Enum.ConnectionError['AndroidEmulatorKick']] = true
 end
 
 local ButtonList = {
@@ -572,7 +579,7 @@ end
 
 -- Look up in corelocalization for new string. Otherwise fallback to the original string
 -- If it is teleport error but not TELEPORT_FAILED, use general string "Reconnect failed."
-local function getErrorString(errorMsg: string, errorCode, reconnectError)
+local function getErrorString_deprecated(errorMsg: string, errorCode, reconnectError)
 	if errorCode == Enum.ConnectionError.OK then
 		return ""
 	end
@@ -638,6 +645,53 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 	return errorMsg
 end
 
+-- Localize the error string, with a fallback to the original string upon failure.
+-- If it is a teleport error but not TELEPORT_FAILED, use general string "Reconnect failed."
+local function getErrorString(errorMsg: string, errorCode, reconnectError)
+	if errorCode == Enum.ConnectionError.OK then
+		return ""
+	end
+
+	if reconnectError then
+		local attemptTranslation = translateString("InGame.ConnectionError.ReconnectFailed")
+		if attemptTranslation ~= '' then
+			return attemptTranslation
+		end
+		return "Reconnect was unsuccessful. Please try again."
+	end
+
+	if errorCode == Enum.ConnectionError.DisconnectLuaKick and errorMsg ~= '' then
+		-- Limit final message length to a reasonable value
+		errorMsg = errorMsg:sub(1, fintMaxKickMessageLength)
+
+		-- errorMsg is dev message
+		local attemptTranslation = translateString("InGame.ConnectionError.DisconnectLuaKickWithMessage", { RBX_STR = errorMsg })
+		if attemptTranslation ~= '' then
+			return attemptTranslation
+		end
+		return errorMsg
+	end
+
+	local key = string.gsub(tostring(errorCode), "Enum", "InGame")
+
+	local attemptTranslation
+	if errorCode == Enum.ConnectionError.DisconnectIdle then
+		attemptTranslation = translateString(key, { RBX_NUM = tostring(20) })
+	else
+		attemptTranslation = translateString(key)
+	end
+
+	if attemptTranslation ~= '' then
+		return attemptTranslation
+	end
+
+	if fflagShouldMuteUnlocalizedError then
+		return translateString("InGame.ConnectionError.UnknownError")
+	end
+
+	return errorMsg
+end
+
 local function updateErrorPrompt(errorMsg, errorCode, errorType)
 	local newPromptState = stateTransit(errorType, errorCode, connectionPromptState)
 	if newPromptState ~= connectionPromptState then
@@ -648,13 +702,22 @@ local function updateErrorPrompt(errorMsg, errorCode, errorType)
 
 	if FFlagCreatorBanLocalization() and errorCode == Enum.ConnectionError.PlacelaunchCreatorBan then
 		errorMsg = getCreatorBanString(errorMsg)
-	elseif
-		errorType == Enum.ConnectionError.TeleportErrors
+	elseif FFlagErrorStringRefactor then
+		if errorType == Enum.ConnectionError.TeleportErrors
 		and connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED
-	then
-		errorMsg = getErrorString(errorMsg, errorCode, true)
+		then
+			errorMsg = getErrorString(errorMsg, errorCode, true)
+		else
+			errorMsg = getErrorString(errorMsg, errorCode)
+		end
 	else
-		errorMsg = getErrorString(errorMsg, errorCode)
+		if errorType == Enum.ConnectionError.TeleportErrors
+		and connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED
+		then
+			errorMsg = getErrorString_deprecated(errorMsg, errorCode, true)
+		else
+			errorMsg = getErrorString_deprecated(errorMsg, errorCode)
+		end
 	end
 
 	if connectionPromptState == ConnectionPromptState.RECONNECT_DISABLED then

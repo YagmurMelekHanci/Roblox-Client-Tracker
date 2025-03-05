@@ -21,11 +21,11 @@ PROTO_0:
   GETUPVAL R1 1
   MOVE R2 R0
   GETIMPORT R3 K7 [Ray.new]
-  GETIMPORT R4 K10 [Vector3.zero]
-  GETIMPORT R5 K10 [Vector3.zero]
+  LOADK R4 K8 [{0, 0, 0}]
+  LOADK R5 K8 [{0, 0, 0}]
   CALL R3 2 1
-  GETTABLEKS R4 R0 K11 ["selection"]
-  NAMECALL R4 R4 K12 ["Get"]
+  GETTABLEKS R4 R0 K9 ["selection"]
+  NAMECALL R4 R4 K10 ["Get"]
   CALL R4 1 -1
   CALL R1 -1 1
   JUMPIFNOTEQKNIL R1 [+3]
@@ -44,11 +44,11 @@ PROTO_0:
   LOADNIL R4
   FORGPREP R2
   LENGTH R9 R6
-  JUMPIFEQKN R9 K13 [2] [+2]
+  JUMPIFEQKN R9 K11 [2] [+2]
   LOADB R8 0 +1
   LOADB R8 1
-  FASTCALL2K ASSERT R8 K14 [+4]
-  LOADK R9 K14 ["Generally equivalent point names should be in pairs"]
+  FASTCALL2K ASSERT R8 K12 [+4]
+  LOADK R9 K12 ["Generally equivalent point names should be in pairs"]
   GETIMPORT R7 K3 [assert]
   CALL R7 2 0
   GETTABLEN R7 R6 1

@@ -95,6 +95,16 @@ PROTO_2:
   GETTABLEKS R12 R13 K10 ["createElement"]
   GETUPVAL R13 5
   NEWTABLE R14 16 0
+  GETUPVAL R16 6
+  CALL R16 0 1
+  JUMPIFNOT R16 [+8]
+  GETIMPORT R15 K12 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 232
+  LOADN R18 0
+  LOADN R19 0
+  CALL R15 4 1
+  JUMP [+7]
   GETIMPORT R15 K12 [UDim2.new]
   LOADN R16 1
   LOADN R17 0
@@ -102,11 +112,29 @@ PROTO_2:
   LOADN R19 0
   CALL R15 4 1
   SETTABLEKS R15 R14 K13 ["Size"]
+  GETUPVAL R16 6
+  CALL R16 0 1
+  JUMPIFNOT R16 [+6]
+  GETIMPORT R15 K15 [Vector2.new]
+  LOADK R16 K16 [0.5]
+  LOADN R17 1
+  CALL R15 2 1
+  JUMP [+5]
   GETIMPORT R15 K15 [Vector2.new]
   LOADK R16 K16 [0.5]
   LOADN R17 0
   CALL R15 2 1
   SETTABLEKS R15 R14 K17 ["AnchorPoint"]
+  GETUPVAL R16 6
+  CALL R16 0 1
+  JUMPIFNOT R16 [+8]
+  GETIMPORT R15 K12 [UDim2.new]
+  LOADK R16 K16 [0.5]
+  LOADN R17 0
+  LOADN R18 1
+  LOADN R19 244
+  CALL R15 4 1
+  JUMP [+7]
   GETIMPORT R15 K12 [UDim2.new]
   LOADK R16 K16 [0.5]
   LOADN R17 0
@@ -124,7 +152,7 @@ PROTO_2:
   JUMPIFNOT R16 [+12]
   GETTABLEKS R16 R5 K28 ["enabled"]
   JUMPIF R16 [+9]
-  GETUPVAL R16 6
+  GETUPVAL R16 7
   GETTABLEKS R15 R16 K29 ["darker"]
   GETTABLEKS R16 R3 K30 ["BackgroundColor"]
   GETTABLEKS R17 R3 K31 ["BackgroundColorHoverDarkerMultiplier"]
@@ -166,7 +194,7 @@ PROTO_2:
   DUPTABLE R19 K56 [{"Title", "PrimaryAction"}]
   GETUPVAL R21 4
   GETTABLEKS R20 R21 K10 ["createElement"]
-  GETUPVAL R21 7
+  GETUPVAL R21 8
   DUPTABLE R22 K64 [{"Size", "AutomaticSize", "LayoutOrder", "Font", "Text", "TextColor", "TextWrapped", "TextSize", "TextXAlignment", "TextYAlignment"}]
   GETIMPORT R23 K66 [UDim2.fromScale]
   LOADN R24 0
@@ -208,7 +236,7 @@ PROTO_2:
   SETTABLEKS R20 R19 K54 ["Title"]
   GETUPVAL R21 4
   GETTABLEKS R20 R21 K10 ["createElement"]
-  GETUPVAL R21 7
+  GETUPVAL R21 8
   DUPTABLE R22 K84 [{"AutomaticSize", "Font", "LayoutOrder", "RichText", "Text", "TextColor"}]
   GETIMPORT R23 K68 [Enum.AutomaticSize.XY]
   SETTABLEKS R23 R22 K20 ["AutomaticSize"]
@@ -256,7 +284,7 @@ PROTO_2:
   SETTABLEKS R16 R15 K44 ["UISizeConstraint"]
   GETUPVAL R17 4
   GETTABLEKS R16 R17 K10 ["createElement"]
-  GETUPVAL R17 8
+  GETUPVAL R17 9
   DUPTABLE R18 K99 [{"LayoutOrder", "estimatedTotalTime", "startProgress", "holdProgress", "displayPercentLabel"}]
   NAMECALL R19 R2 K51 ["getNextOrder"]
   CALL R19 1 1
@@ -265,7 +293,7 @@ PROTO_2:
   SETTABLEKS R19 R18 K95 ["estimatedTotalTime"]
   SETTABLEKS R8 R18 K96 ["startProgress"]
   SETTABLEKS R10 R18 K97 ["holdProgress"]
-  GETUPVAL R19 9
+  GETUPVAL R19 10
   SETTABLEKS R19 R18 K98 ["displayPercentLabel"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K6 ["ProgressBar"]
@@ -289,7 +317,7 @@ PROTO_2:
   JUMPIFEQKNIL R7 [+51]
   GETUPVAL R21 4
   GETTABLEKS R20 R21 K10 ["createElement"]
-  GETUPVAL R21 7
+  GETUPVAL R21 8
   DUPTABLE R22 K103 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextColor", "TextWrapped", "TextXAlignment"}]
   GETIMPORT R23 K22 [Enum.AutomaticSize.Y]
   SETTABLEKS R23 R22 K20 ["AutomaticSize"]
@@ -297,7 +325,7 @@ PROTO_2:
   CALL R23 1 1
   SETTABLEKS R23 R22 K49 ["LayoutOrder"]
   GETIMPORT R23 K66 [UDim2.fromScale]
-  GETUPVAL R25 10
+  GETUPVAL R25 11
   JUMPIFNOT R25 [+2]
   LOADN R24 1
   JUMP [+1]
@@ -323,12 +351,12 @@ PROTO_2:
   JUMP [+1]
   LOADNIL R20
   SETTABLEKS R20 R19 K100 ["CurrentStage"]
-  GETUPVAL R21 10
+  GETUPVAL R21 11
   NOT R20 R21
   JUMPIFNOT R20 [+66]
   GETUPVAL R21 4
   GETTABLEKS R20 R21 K10 ["createElement"]
-  GETUPVAL R21 7
+  GETUPVAL R21 8
   DUPTABLE R22 K104 [{"AutomaticSize", "Font", "LayoutOrder", "RichText", "Size", "Text", "TextXAlignment", "TextColor"}]
   GETIMPORT R23 K22 [Enum.AutomaticSize.Y]
   SETTABLEKS R23 R22 K20 ["AutomaticSize"]
@@ -432,38 +460,44 @@ MAIN:
   GETTABLEKS R8 R9 K17 ["Hooks"]
   GETTABLEKS R7 R8 K18 ["useToggleState"]
   CALL R6 1 1
-  GETIMPORT R7 K20 [game]
-  LOADK R9 K21 ["DebugAvatarAutosetupProgressPercentLabel"]
-  LOADB R10 0
-  NAMECALL R7 R7 K22 ["DefineFastFlag"]
-  CALL R7 3 1
-  GETIMPORT R8 K20 [game]
-  LOADK R10 K23 ["AvatarPreviewerDisableAutosetupEstimatedTime"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K19 ["Flags"]
+  GETTABLEKS R8 R9 K20 ["getFFlagAvatarPreviewerPaddingFix"]
+  CALL R7 1 1
+  GETIMPORT R8 K22 [game]
+  LOADK R10 K23 ["DebugAvatarAutosetupProgressPercentLabel"]
   LOADB R11 0
-  NAMECALL R8 R8 K22 ["DefineFastFlag"]
+  NAMECALL R8 R8 K24 ["DefineFastFlag"]
   CALL R8 3 1
-  GETTABLEKS R10 R1 K24 ["ContextServices"]
-  GETTABLEKS R9 R10 K25 ["Localization"]
-  GETTABLEKS R11 R1 K24 ["ContextServices"]
-  GETTABLEKS R10 R11 K26 ["Stylizer"]
-  GETTABLEKS R12 R1 K27 ["Style"]
-  GETTABLEKS R11 R12 K28 ["Colors"]
-  GETTABLEKS R12 R1 K29 ["UI"]
-  GETTABLEKS R13 R12 K30 ["Pane"]
-  GETTABLEKS R14 R12 K31 ["TextLabel"]
-  GETTABLEKS R16 R1 K32 ["Util"]
-  GETTABLEKS R15 R16 K33 ["LayoutOrderIterator"]
-  DUPCLOSURE R16 K34 [PROTO_0]
-  DUPCLOSURE R17 K35 [PROTO_2]
-  CAPTURE VAL R9
-  CAPTURE VAL R15
+  GETIMPORT R9 K22 [game]
+  LOADK R11 K25 ["AvatarPreviewerDisableAutosetupEstimatedTime"]
+  LOADB R12 0
+  NAMECALL R9 R9 K24 ["DefineFastFlag"]
+  CALL R9 3 1
+  GETTABLEKS R11 R1 K26 ["ContextServices"]
+  GETTABLEKS R10 R11 K27 ["Localization"]
+  GETTABLEKS R12 R1 K26 ["ContextServices"]
+  GETTABLEKS R11 R12 K28 ["Stylizer"]
+  GETTABLEKS R13 R1 K29 ["Style"]
+  GETTABLEKS R12 R13 K30 ["Colors"]
+  GETTABLEKS R13 R1 K31 ["UI"]
+  GETTABLEKS R14 R13 K32 ["Pane"]
+  GETTABLEKS R15 R13 K33 ["TextLabel"]
+  GETTABLEKS R17 R1 K34 ["Util"]
+  GETTABLEKS R16 R17 K35 ["LayoutOrderIterator"]
+  DUPCLOSURE R17 K36 [PROTO_0]
+  DUPCLOSURE R18 K37 [PROTO_2]
   CAPTURE VAL R10
+  CAPTURE VAL R16
+  CAPTURE VAL R11
   CAPTURE VAL R6
   CAPTURE VAL R2
-  CAPTURE VAL R13
-  CAPTURE VAL R11
   CAPTURE VAL R14
-  CAPTURE VAL R3
   CAPTURE VAL R7
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  CAPTURE VAL R3
   CAPTURE VAL R8
-  RETURN R17 1
+  CAPTURE VAL R9
+  RETURN R18 1

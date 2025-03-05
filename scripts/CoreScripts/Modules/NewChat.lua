@@ -26,10 +26,15 @@ local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
 local getFFlagExpChatMigrationSetup = SharedFlags.getFFlagExpChatMigrationSetup
+local getFFlagFireSignalForLegacyWindow = SharedFlags.getFFlagFireSignalForLegacyWindow
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 
 local function shouldForceLegacyChatToBeHidden()
+	if getFFlagFireSignalForLegacyWindow() then
+		isChatVersionLegacy = TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService
+	end
+
 	if getFFlagExpChatAlwaysRunTCS() then
 		return isChatVersionLegacy
 	end
@@ -114,6 +119,9 @@ do
 
 		if shouldForceLegacyChatToBeHidden() then
 			DispatchEvent("SetVisible", false)
+			if getFFlagFireSignalForLegacyWindow() then 
+				moduleApiTable.VisibilityStateChanged:fire(false)
+			end
 		else
 			local didFire = DispatchEvent("SetVisible", ChatWindowState.Visible)
 			if not didFire then

@@ -23,6 +23,29 @@ PROTO_0:
   SETTABLEKS R5 R4 K8 ["replaceOptions"]
   CALL R2 2 -1
   RETURN R2 -1
+  GETTABLEKS R2 R1 K0 ["type"]
+  JUMPIFNOTEQKS R2 K10 ["SelectScriptAndLine"] [+37]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["Dictionary"]
+  GETTABLEKS R2 R3 K3 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K12 [{"openScriptData"}]
+  DUPTABLE R5 K17 [{"scriptGuid", "index", "id", "temp"}]
+  GETTABLEKS R7 R1 K6 ["payload"]
+  GETTABLEKS R6 R7 K13 ["scriptGuid"]
+  SETTABLEKS R6 R5 K13 ["scriptGuid"]
+  GETTABLEKS R7 R1 K6 ["payload"]
+  GETTABLEKS R6 R7 K14 ["index"]
+  SETTABLEKS R6 R5 K14 ["index"]
+  GETTABLEKS R7 R1 K6 ["payload"]
+  GETTABLEKS R6 R7 K15 ["id"]
+  SETTABLEKS R6 R5 K15 ["id"]
+  GETTABLEKS R7 R1 K6 ["payload"]
+  GETTABLEKS R6 R7 K16 ["temp"]
+  SETTABLEKS R6 R5 K16 ["temp"]
+  SETTABLEKS R5 R4 K11 ["openScriptData"]
+  CALL R2 2 -1
+  RETURN R2 -1
   RETURN R0 1
 
 PROTO_1:
@@ -68,7 +91,7 @@ PROTO_4:
   CALL R1 1 2
   JUMPIF R1 [+5]
   GETIMPORT R3 K3 [warn]
-  LOADK R4 K4 ["Error in ReplaceWithOptions: "]
+  LOADK R4 K4 ["Error in FindReplace:GetResultsAsync: "]
   MOVE R5 R2
   CALL R3 2 0
   GETUPVAL R3 1
@@ -82,18 +105,59 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  GETUPVAL R4 3
+  GETUPVAL R5 4
+  NAMECALL R0 R0 K0 ["OpenScriptToMatchAsync"]
+  CALL R0 5 0
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R4 K1 [pcall]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CALL R4 1 2
+  JUMPIF R4 [+5]
+  GETIMPORT R6 K3 [warn]
+  LOADK R7 K4 ["Error in FindReplace:SelectScriptAndLineAsync: "]
+  MOVE R8 R5
+  CALL R6 2 0
+  GETUPVAL R6 1
+  DUPTABLE R7 K7 [{"type", "payload"}]
+  LOADK R8 K8 ["SelectScriptAndLine"]
+  SETTABLEKS R8 R7 K5 ["type"]
+  DUPTABLE R8 K13 [{"scriptGuid", "index", "id", "temp"}]
+  SETTABLEKS R0 R8 K9 ["scriptGuid"]
+  SETTABLEKS R1 R8 K10 ["index"]
+  SETTABLEKS R2 R8 K11 ["id"]
+  SETTABLEKS R3 R8 K12 ["temp"]
+  SETTABLEKS R8 R7 K6 ["payload"]
+  CALL R6 1 0
+  RETURN R0 0
+
+PROTO_7:
   NEWCLOSURE R3 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   NEWCLOSURE R4 P1
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  DUPTABLE R5 K2 [{"findWithOptions", "replaceWithOptions"}]
-  SETTABLEKS R3 R5 K0 ["findWithOptions"]
-  SETTABLEKS R4 R5 K1 ["replaceWithOptions"]
-  RETURN R5 1
+  NEWCLOSURE R5 P2
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  DUPTABLE R6 K3 [{"findWithOptions", "replaceWithOptions", "selectScriptAndLine"}]
+  SETTABLEKS R3 R6 K0 ["findWithOptions"]
+  SETTABLEKS R4 R6 K1 ["replaceWithOptions"]
+  SETTABLEKS R5 R6 K2 ["selectScriptAndLine"]
+  RETURN R6 1
 
-PROTO_6:
+PROTO_8:
   GETUPVAL R0 0
   GETUPVAL R1 1
   GETUPVAL R2 2
@@ -102,7 +166,7 @@ PROTO_6:
   CALL R0 3 1
   RETURN R0 1
 
-PROTO_7:
+PROTO_9:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useReducer"]
   GETUPVAL R2 1
@@ -182,9 +246,9 @@ MAIN:
   CALL R7 1 1
   DUPCLOSURE R8 K17 [PROTO_0]
   CAPTURE VAL R3
-  DUPCLOSURE R9 K18 [PROTO_5]
+  DUPCLOSURE R9 K18 [PROTO_7]
   CAPTURE VAL R6
-  DUPCLOSURE R10 K19 [PROTO_7]
+  DUPCLOSURE R10 K19 [PROTO_9]
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R7

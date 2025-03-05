@@ -875,7 +875,7 @@ PROTO_18:
   GETIMPORT R22 K36 [Enum.VerticalAlignment.Center]
   SETTABLEKS R22 R21 K25 ["VerticalAlignment"]
   DUPTABLE R22 K43 [{"InstanceView", "PromptLabel", "ThumbsUpButton", "ThumbsDownButton", "Button", "FeedbackFrom"}]
-  JUMPIFNOT R13 [+42]
+  JUMPIFNOT R13 [+41]
   GETUPVAL R24 0
   GETTABLEKS R23 R24 K20 ["createElement"]
   GETUPVAL R24 14
@@ -899,8 +899,7 @@ PROTO_18:
   LOADN R29 1
   CALL R26 3 1
   SETTABLEKS R26 R25 K51 ["LightColor"]
-  LOADK R27 K59 [{1, 1, 1}]
-  MINUS R26 R27
+  LOADK R26 K59 [{-1, -1, -1}]
   SETTABLEKS R26 R25 K52 ["LightDirection"]
   CALL R23 2 1
   JUMP [+1]

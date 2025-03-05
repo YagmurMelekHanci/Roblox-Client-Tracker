@@ -55,7 +55,7 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  NEWTABLE R2 2 0
+  NEWTABLE R2 4 0
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["UNIVERSES_SEARCH_TEST_URL"]
   LOADK R4 K1 ["{\"id\":0,\"name\":\"test place\",\"description\":null,\"isArchived\":false,\"rootPlaceId\":0,\"isActive\":false,\"privacyType\":\"Private\",\"creatorType\":\"User\",\"creatorTargetId\":123,\"creatorName\":\"testCreator\",\"created\":\"2024-09-10T21:14:20.017Z\",\"updated\":\"2024-09-10T21:14:21.953Z\"}"]
@@ -64,13 +64,21 @@ PROTO_3:
   GETTABLEKS R3 R4 K2 ["UNIVERSES_PERMISSIONS_TEST_URL"]
   LOADK R4 K3 ["{\"data\":[{\"userId\":\"1234\",\"userName\":\"testuser\",\"action\":\"Edit\",\"allowedPermissions\":\"Edit\"}]}"]
   SETTABLE R4 R2 R3
-  SETTABLEKS R2 R0 K4 ["apis"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["FRIENDS_COUNT_TEST_URL"]
+  LOADK R4 K5 ["{\"count\":2}"]
+  SETTABLE R4 R2 R3
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["GROUPS_INFO_TEST_URL"]
+  LOADK R4 K7 ["{\"memberCount\":3}"]
+  SETTABLE R4 R2 R3
+  SETTABLEKS R2 R0 K8 ["apis"]
   JUMPIFNOT R1 [+10]
   MOVE R2 R1
   LOADNIL R3
   LOADNIL R4
   FORGPREP R2
-  GETTABLEKS R7 R0 K4 ["apis"]
+  GETTABLEKS R7 R0 K8 ["apis"]
   GETTABLE R8 R1 R5
   SETTABLE R8 R7 R5
   FORGLOOP R2 1 [-5]
@@ -118,27 +126,33 @@ MAIN:
   CALL R7 1 1
   GETTABLEKS R6 R7 K16 ["Urls"]
   DUPTABLE R7 K18 [{"apis"}]
-  NEWTABLE R8 2 0
+  NEWTABLE R8 4 0
   GETTABLEKS R9 R6 K19 ["UNIVERSES_SEARCH_TEST_URL"]
   LOADK R10 K20 ["{\"id\":0,\"name\":\"test place\",\"description\":null,\"isArchived\":false,\"rootPlaceId\":0,\"isActive\":false,\"privacyType\":\"Private\",\"creatorType\":\"User\",\"creatorTargetId\":123,\"creatorName\":\"testCreator\",\"created\":\"2024-09-10T21:14:20.017Z\",\"updated\":\"2024-09-10T21:14:21.953Z\"}"]
   SETTABLE R10 R8 R9
   GETTABLEKS R9 R6 K21 ["UNIVERSES_PERMISSIONS_TEST_URL"]
   LOADK R10 K22 ["{\"data\":[{\"userId\":\"1234\",\"userName\":\"testuser\",\"action\":\"Edit\",\"allowedPermissions\":\"Edit\"}]}"]
   SETTABLE R10 R8 R9
+  GETTABLEKS R9 R6 K23 ["FRIENDS_COUNT_TEST_URL"]
+  LOADK R10 K24 ["{\"count\":12}"]
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R6 K25 ["GROUPS_INFO_TEST_URL"]
+  LOADK R10 K26 ["{\"memberCount\":3}"]
+  SETTABLE R10 R8 R9
   SETTABLEKS R8 R7 K17 ["apis"]
-  DUPCLOSURE R8 K23 [PROTO_0]
+  DUPCLOSURE R8 K27 [PROTO_0]
   CAPTURE VAL R7
-  SETTABLEKS R8 R7 K24 ["new"]
-  DUPCLOSURE R8 K25 [PROTO_1]
-  SETTABLEKS R8 R7 K26 ["parseJson"]
-  DUPCLOSURE R8 K27 [PROTO_2]
+  SETTABLEKS R8 R7 K28 ["new"]
+  DUPCLOSURE R8 K29 [PROTO_1]
+  SETTABLEKS R8 R7 K30 ["parseJson"]
+  DUPCLOSURE R8 K31 [PROTO_2]
   CAPTURE VAL R3
-  SETTABLEKS R8 R7 K28 ["request"]
-  DUPCLOSURE R8 K29 [PROTO_3]
+  SETTABLEKS R8 R7 K32 ["request"]
+  DUPCLOSURE R8 K33 [PROTO_3]
   CAPTURE VAL R6
   LOADNIL R9
-  DUPTABLE R10 K31 [{"Networking", "mock"}]
-  GETTABLEKS R12 R2 K32 ["isCli"]
+  DUPTABLE R10 K35 [{"Networking", "mock"}]
+  GETTABLEKS R12 R2 K36 ["isCli"]
   CALL R12 0 1
   JUMPIFNOT R12 [+2]
   MOVE R11 R7
@@ -148,7 +162,7 @@ MAIN:
   NEWCLOSURE R11 P4
   CAPTURE VAL R8
   CAPTURE REF R9
-  SETTABLEKS R11 R10 K30 ["mock"]
+  SETTABLEKS R11 R10 K34 ["mock"]
   MOVE R9 R10
   CLOSEUPVALS R9
   RETURN R9 1

@@ -20,9 +20,7 @@ local RobloxGui = CoreGui.RobloxGui
 
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
 
-local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
-local App = require(RobloxGui.Modules.InGameChat.BubbleChat.Components.App)
 local chatReducer = require(RobloxGui.Modules.InGameChat.BubbleChat.Reducers.chatReducer)
 local SetMessageText = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.SetMessageText)
 local AddMessageFromEvent = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.AddMessageFromEvent)
@@ -45,7 +43,6 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
 local GetFFlagLocalMutedNilFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLocalMutedNilFix
-local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
 local GetFFlagBatchVoiceParticipantsUpdates = require(VoiceChatCore.Flags.GetFFlagBatchVoiceParticipantsUpdates)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
@@ -113,19 +110,6 @@ else
 	gameLoadedConn = game.Loaded:Connect(function()
 		if game:IsLoaded() then
 			gameLoadedConn:Disconnect()
-			if not GetFFlagConsolidateBubbleChat() then
-				if isTextChatServiceOn() then
-					return
-				else
-					Roact.mount(
-						Roact.createElement(App, {
-							store = chatStore,
-						}),
-						CoreGui,
-						"BubbleChat"
-					)
-				end
-			end
 		end
 	end)
 end
@@ -177,13 +161,10 @@ local function initBubbleChat()
 				if not validateMessageWithWarning("OnNewMessage", messageData.Message) then
 					return
 				end
-				if GetFFlagConsolidateBubbleChat() then
-					local messageDataCopy = table.clone(messageData)
-					messageDataCopy.Time = workspace:GetServerTimeNow() * 1000
-					chatStore:dispatch(AddMessageFromEvent(messageDataCopy))
-				else
-					chatStore:dispatch(AddMessageFromEvent(messageData))
-				end
+
+				local messageDataCopy = table.clone(messageData)
+				messageDataCopy.Time = workspace:GetServerTimeNow() * 1000
+				chatStore:dispatch(AddMessageFromEvent(messageDataCopy))
 			end
 		end)
 
@@ -201,13 +182,9 @@ local function initBubbleChat()
 				if chatStore:getState().messages[id] then
 					chatStore:dispatch(SetMessageText(id, messageData.Message))
 				else
-					if GetFFlagConsolidateBubbleChat() then
-						local messageDataCopy = table.clone(messageData)
-						messageDataCopy.Time = workspace:GetServerTimeNow() * 1000
-						chatStore:dispatch(AddMessageFromEvent(messageDataCopy))
-					else
-						chatStore:dispatch(AddMessageFromEvent(messageData))
-					end
+					local messageDataCopy = table.clone(messageData)
+					messageDataCopy.Time = workspace:GetServerTimeNow() * 1000
+					chatStore:dispatch(AddMessageFromEvent(messageDataCopy))
 				end
 			end)
 	end))

@@ -258,48 +258,52 @@ PROTO_11:
   SETTABLEKS R11 R10 K41 ["Widget"]
   GETTABLEKS R11 R0 K42 ["onDockWidgetCreated"]
   SETTABLEKS R11 R10 K43 ["OnWidgetCreated"]
+  GETTABLEKS R11 R0 K44 ["onRestore"]
+  SETTABLEKS R11 R10 K45 ["OnWidgetRestored"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K46 ["ShouldRestore"]
   GETUPVAL R13 4
-  GETTABLEKS R12 R13 K44 ["Change"]
+  GETTABLEKS R12 R13 K47 ["Change"]
   GETTABLEKS R11 R12 K22 ["Enabled"]
-  GETTABLEKS R12 R0 K45 ["onWidgetEnabledChanged"]
+  GETTABLEKS R12 R0 K48 ["onWidgetEnabledChanged"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K48 [{"Wrapper", "StyleLink"}]
+  DUPTABLE R11 K51 [{"Wrapper", "StyleLink"}]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K19 ["createElement"]
   GETUPVAL R13 6
   NEWTABLE R14 1 0
   GETUPVAL R16 4
-  GETTABLEKS R15 R16 K49 ["Tag"]
-  LOADK R16 K50 ["X-Fill X-Column"]
+  GETTABLEKS R15 R16 K52 ["Tag"]
+  LOADK R16 K53 ["X-Fill X-Column"]
   SETTABLE R16 R14 R15
-  DUPTABLE R15 K53 [{"App", "KeyboardListener"}]
+  DUPTABLE R15 K56 [{"App", "KeyboardListener"}]
   GETUPVAL R17 4
   GETTABLEKS R16 R17 K19 ["createElement"]
   GETUPVAL R17 7
   CALL R16 1 1
-  SETTABLEKS R16 R15 K51 ["App"]
+  SETTABLEKS R16 R15 K54 ["App"]
   GETUPVAL R17 4
   GETTABLEKS R16 R17 K19 ["createElement"]
   GETUPVAL R17 8
-  DUPTABLE R18 K56 [{"OnKeyPressed", "OnKeyReleased"}]
+  DUPTABLE R18 K59 [{"OnKeyPressed", "OnKeyReleased"}]
   NEWCLOSURE R19 P0
   CAPTURE VAL R0
-  SETTABLEKS R19 R18 K54 ["OnKeyPressed"]
+  SETTABLEKS R19 R18 K57 ["OnKeyPressed"]
   NEWCLOSURE R19 P1
   CAPTURE VAL R0
-  SETTABLEKS R19 R18 K55 ["OnKeyReleased"]
+  SETTABLEKS R19 R18 K58 ["OnKeyReleased"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K52 ["KeyboardListener"]
+  SETTABLEKS R16 R15 K55 ["KeyboardListener"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K46 ["Wrapper"]
+  SETTABLEKS R12 R11 K49 ["Wrapper"]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K19 ["createElement"]
-  LOADK R13 K47 ["StyleLink"]
-  DUPTABLE R14 K58 [{"StyleSheet"}]
+  LOADK R13 K50 ["StyleLink"]
+  DUPTABLE R14 K61 [{"StyleSheet"}]
   GETTABLEKS R15 R0 K7 ["design"]
-  SETTABLEKS R15 R14 K57 ["StyleSheet"]
+  SETTABLEKS R15 R14 K60 ["StyleSheet"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K47 ["StyleLink"]
+  SETTABLEKS R12 R11 K50 ["StyleLink"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K17 ["MainWidget"]
   CALL R5 2 -1

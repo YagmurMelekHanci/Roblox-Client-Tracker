@@ -1,0 +1,134 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Select"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["Uri"]
+  SUBK R4 R0 K2 [1]
+  MOVE R5 R1
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["Item"]
+  GETTABLEKS R2 R1 K1 ["Setting"]
+  JUMPIF R2 [+12]
+  GETIMPORT R2 K3 [warn]
+  LOADK R4 K4 ["Missing Setting field for SegmentedButton with id %*"]
+  GETTABLEKS R6 R1 K5 ["Id"]
+  NAMECALL R4 R4 K6 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["toString"]
+  GETTABLEKS R3 R1 K1 ["Setting"]
+  CALL R2 1 1
+  GETTABLEKS R5 R0 K8 ["Items"]
+  GETTABLEKS R4 R5 K9 ["Settings"]
+  GETTABLE R3 R4 R2
+  JUMPIF R3 [+13]
+  GETIMPORT R4 K3 [warn]
+  LOADK R6 K10 ["Missing Setting %* for SegmentedButton with id %*"]
+  MOVE R8 R2
+  GETTABLEKS R9 R1 K5 ["Id"]
+  NAMECALL R6 R6 K6 ["format"]
+  CALL R6 3 1
+  MOVE R5 R6
+  CALL R4 1 0
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R4 R3 K11 ["Values"]
+  JUMPIF R4 [+13]
+  GETIMPORT R4 K3 [warn]
+  LOADK R6 K12 ["Setting %* has no Values field to display for SegmentedButton with id %*"]
+  MOVE R8 R2
+  GETTABLEKS R9 R1 K5 ["Id"]
+  NAMECALL R6 R6 K6 ["format"]
+  CALL R6 3 1
+  MOVE R5 R6
+  CALL R4 1 0
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R5 R3 K13 ["Value"]
+  FASTCALL1 TYPEOF R5 [+2]
+  GETIMPORT R4 K15 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K16 ["number"] [+16]
+  GETIMPORT R4 K3 [warn]
+  LOADK R6 K17 ["Setting %* has an invalid value %* for SegmentedButton with id %*"]
+  MOVE R8 R2
+  GETTABLEKS R9 R3 K13 ["Value"]
+  GETTABLEKS R10 R1 K5 ["Id"]
+  NAMECALL R6 R6 K6 ["format"]
+  CALL R6 4 1
+  MOVE R5 R6
+  CALL R4 1 0
+  LOADNIL R4
+  RETURN R4 1
+  GETUPVAL R4 1
+  GETUPVAL R5 2
+  DUPTABLE R6 K22 [{"Uri", "LayoutOrder", "SelectedIndex", "Items", "OnItemActivated"}]
+  GETTABLEKS R8 R0 K23 ["WidgetUri"]
+  JUMPIFNOT R8 [+12]
+  GETTABLEKS R8 R1 K5 ["Id"]
+  JUMPIFNOT R8 [+9]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K24 ["child"]
+  GETTABLEKS R8 R0 K23 ["WidgetUri"]
+  GETTABLEKS R9 R1 K5 ["Id"]
+  CALL R7 2 1
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K18 ["Uri"]
+  GETTABLEKS R7 R0 K19 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K19 ["LayoutOrder"]
+  GETTABLEKS R8 R3 K13 ["Value"]
+  ADDK R7 R8 K25 [1]
+  SETTABLEKS R7 R6 K20 ["SelectedIndex"]
+  GETTABLEKS R7 R3 K11 ["Values"]
+  SETTABLEKS R7 R6 K8 ["Items"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K21 ["OnItemActivated"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["createElement"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["StudioUri"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Components"]
+  GETTABLEKS R5 R6 K13 ["RibbonSegmentedButton"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K14 ["ControlsView"]
+  GETTABLEKS R6 R7 K15 ["ControlProps"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K16 ["Types"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K17 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R7 1

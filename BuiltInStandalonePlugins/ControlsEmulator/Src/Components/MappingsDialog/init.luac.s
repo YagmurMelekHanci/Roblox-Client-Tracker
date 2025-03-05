@@ -246,83 +246,83 @@ PROTO_7:
   SETTABLEKS R35 R34 K23 ["LayoutOrder"]
   GETTABLEKS R35 R1 K30 ["connectGamepadId"]
   SETTABLEKS R35 R34 K31 ["onChanged"]
-  GETUPVAL R36 11
-  CALL R36 0 1
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K32 ["EnableVRControllers"]
   JUMPIFNOT R36 [+3]
-  GETTABLEKS R35 R0 K32 ["availableDeviceIds"]
+  GETTABLEKS R35 R0 K33 ["availableDeviceIds"]
   JUMP [+1]
-  GETUPVAL R35 12
-  SETTABLEKS R35 R34 K33 ["deviceIds"]
+  GETUPVAL R35 11
+  SETTABLEKS R35 R34 K34 ["deviceIds"]
   GETTABLEKS R36 R0 K6 ["isUpdatingMappingForGamepadId"]
-  ORK R35 R36 K34 [101]
-  SETTABLEKS R35 R34 K35 ["selectedGamepadId"]
+  ORK R35 R36 K35 [101]
+  SETTABLEKS R35 R34 K36 ["selectedGamepadId"]
   CALL R32 2 1
-  SETTABLEKS R32 R31 K36 ["leftContents"]
+  SETTABLEKS R32 R31 K37 ["leftContents"]
   GETUPVAL R33 0
   GETTABLEKS R32 R33 K10 ["createElement"]
   GETUPVAL R34 0
-  GETTABLEKS R33 R34 K37 ["Fragment"]
+  GETTABLEKS R33 R34 K38 ["Fragment"]
   NEWTABLE R34 0 0
-  DUPTABLE R35 K40 [{"MappingsRestoreDefaultsButton", "MappingsSaveButton"}]
+  DUPTABLE R35 K41 [{"MappingsRestoreDefaultsButton", "MappingsSaveButton"}]
   GETUPVAL R37 0
   GETTABLEKS R36 R37 K10 ["createElement"]
-  LOADK R37 K41 ["TextButton"]
+  LOADK R37 K42 ["TextButton"]
   NEWTABLE R38 4 0
   GETUPVAL R40 0
   GETTABLEKS R39 R40 K12 ["Tag"]
-  GETUPVAL R40 13
-  LOADK R41 K42 ["RestoreDefaultsButton"]
-  LOADK R42 K43 ["data-testid=Component-ResetMappingsButton"]
-  LOADK R43 K44 ["HeaderButton"]
-  LOADK R44 K45 ["Secondary"]
+  GETUPVAL R40 12
+  LOADK R41 K43 ["RestoreDefaultsButton"]
+  LOADK R42 K44 ["data-testid=Component-ResetMappingsButton"]
+  LOADK R43 K45 ["HeaderButton"]
+  LOADK R44 K46 ["Secondary"]
   CALL R40 4 1
   SETTABLE R40 R38 R39
   GETUPVAL R39 8
   NAMECALL R39 R39 K22 ["getNextOrder"]
   CALL R39 1 1
   SETTABLEKS R39 R38 K23 ["LayoutOrder"]
-  LOADK R41 K46 ["MappingsDialog"]
-  LOADK R42 K47 ["RestoreDefaultsButtonLabel"]
-  NAMECALL R39 R2 K48 ["getText"]
+  LOADK R41 K47 ["MappingsDialog"]
+  LOADK R42 K48 ["RestoreDefaultsButtonLabel"]
+  NAMECALL R39 R2 K49 ["getText"]
   CALL R39 3 1
-  SETTABLEKS R39 R38 K49 ["Text"]
+  SETTABLEKS R39 R38 K50 ["Text"]
   GETUPVAL R41 0
-  GETTABLEKS R40 R41 K50 ["Event"]
-  GETTABLEKS R39 R40 K51 ["Activated"]
+  GETTABLEKS R40 R41 K51 ["Event"]
+  GETTABLEKS R39 R40 K52 ["Activated"]
   SETTABLE R12 R38 R39
   CALL R36 2 1
-  SETTABLEKS R36 R35 K38 ["MappingsRestoreDefaultsButton"]
+  SETTABLEKS R36 R35 K39 ["MappingsRestoreDefaultsButton"]
   GETUPVAL R37 0
   GETTABLEKS R36 R37 K10 ["createElement"]
-  LOADK R37 K41 ["TextButton"]
+  LOADK R37 K42 ["TextButton"]
   NEWTABLE R38 8 0
   GETUPVAL R40 0
   GETTABLEKS R39 R40 K12 ["Tag"]
-  GETUPVAL R40 13
-  LOADK R41 K52 ["SaveChangesButton"]
-  LOADK R42 K53 ["data-testid=Component-SaveChangesButton"]
-  LOADK R43 K44 ["HeaderButton"]
+  GETUPVAL R40 12
+  LOADK R41 K53 ["SaveChangesButton"]
+  LOADK R42 K54 ["data-testid=Component-SaveChangesButton"]
+  LOADK R43 K45 ["HeaderButton"]
   GETUPVAL R46 4
   GETTABLEKS R45 R46 K3 ["VREmulatorFullRelease"]
   JUMPIFNOT R45 [+3]
   JUMPIF R4 [+2]
-  LOADK R44 K54 ["Inactive"]
+  LOADK R44 K55 ["Inactive"]
   JUMP [+1]
-  LOADK R44 K55 ["Primary"]
+  LOADK R44 K56 ["Primary"]
   CALL R40 4 1
   SETTABLE R40 R38 R39
   GETUPVAL R39 8
   NAMECALL R39 R39 K22 ["getNextOrder"]
   CALL R39 1 1
   SETTABLEKS R39 R38 K23 ["LayoutOrder"]
-  LOADK R41 K46 ["MappingsDialog"]
-  LOADK R42 K56 ["SaveButtonLabel"]
-  NAMECALL R39 R2 K48 ["getText"]
+  LOADK R41 K47 ["MappingsDialog"]
+  LOADK R42 K57 ["SaveButtonLabel"]
+  NAMECALL R39 R2 K49 ["getText"]
   CALL R39 3 1
-  SETTABLEKS R39 R38 K49 ["Text"]
+  SETTABLEKS R39 R38 K50 ["Text"]
   GETUPVAL R41 0
-  GETTABLEKS R40 R41 K50 ["Event"]
-  GETTABLEKS R39 R40 K51 ["Activated"]
+  GETTABLEKS R40 R41 K51 ["Event"]
+  GETTABLEKS R39 R40 K52 ["Activated"]
   SETTABLE R3 R38 R39
   GETUPVAL R41 4
   GETTABLEKS R40 R41 K3 ["VREmulatorFullRelease"]
@@ -330,11 +330,11 @@ PROTO_7:
   MOVE R39 R4
   JUMP [+1]
   LOADB R39 1
-  SETTABLEKS R39 R38 K57 ["Active"]
+  SETTABLEKS R39 R38 K58 ["Active"]
   CALL R36 2 1
-  SETTABLEKS R36 R35 K39 ["MappingsSaveButton"]
+  SETTABLEKS R36 R35 K40 ["MappingsSaveButton"]
   CALL R32 3 1
-  SETTABLEKS R32 R31 K58 ["rightContents"]
+  SETTABLEKS R32 R31 K59 ["rightContents"]
   CALL R29 2 1
   SETTABLEKS R29 R28 K24 ["WidgetHeader"]
   GETUPVAL R30 0
@@ -343,7 +343,7 @@ PROTO_7:
   NEWTABLE R31 2 0
   GETUPVAL R33 0
   GETTABLEKS R32 R33 K12 ["Tag"]
-  LOADK R33 K59 ["CX-Divider"]
+  LOADK R33 K60 ["CX-Divider"]
   SETTABLE R33 R31 R32
   GETUPVAL R32 8
   NAMECALL R32 R32 K22 ["getNextOrder"]
@@ -353,7 +353,7 @@ PROTO_7:
   SETTABLEKS R29 R28 K25 ["Divider"]
   GETUPVAL R30 0
   GETTABLEKS R29 R30 K10 ["createElement"]
-  LOADK R30 K60 ["ScrollingFrame"]
+  LOADK R30 K61 ["ScrollingFrame"]
   NEWTABLE R31 2 0
   GETUPVAL R33 0
   GETTABLEKS R32 R33 K12 ["Tag"]
@@ -363,84 +363,84 @@ PROTO_7:
   NAMECALL R32 R32 K22 ["getNextOrder"]
   CALL R32 1 1
   SETTABLEKS R32 R31 K23 ["LayoutOrder"]
-  DUPTABLE R32 K62 [{"BlueprintAndListContainer"}]
+  DUPTABLE R32 K63 [{"BlueprintAndListContainer"}]
   GETUPVAL R34 0
   GETTABLEKS R33 R34 K10 ["createElement"]
   LOADK R34 K11 ["Frame"]
   NEWTABLE R35 2 0
   GETUPVAL R37 0
   GETTABLEKS R36 R37 K12 ["Tag"]
-  LOADK R37 K63 ["X-Row X-Fill CX-Invisible"]
+  LOADK R37 K64 ["X-Row X-Fill CX-Invisible"]
   SETTABLE R37 R35 R36
   GETUPVAL R36 8
   NAMECALL R36 R36 K22 ["getNextOrder"]
   CALL R36 1 1
   SETTABLEKS R36 R35 K23 ["LayoutOrder"]
-  DUPTABLE R36 K66 [{"BlueprintContainer", "ListScrollingContainer"}]
+  DUPTABLE R36 K67 [{"BlueprintContainer", "ListScrollingContainer"}]
   GETUPVAL R38 0
   GETTABLEKS R37 R38 K10 ["createElement"]
   LOADK R38 K11 ["Frame"]
   NEWTABLE R39 2 0
   GETUPVAL R41 0
   GETTABLEKS R40 R41 K12 ["Tag"]
-  LOADK R41 K67 ["CX-Invisible"]
+  LOADK R41 K68 ["CX-Invisible"]
   SETTABLE R41 R39 R40
   GETUPVAL R40 8
   NAMECALL R40 R40 K22 ["getNextOrder"]
   CALL R40 1 1
   SETTABLEKS R40 R39 K23 ["LayoutOrder"]
-  DUPTABLE R40 K69 [{"DeviceBlueprint"}]
+  DUPTABLE R40 K70 [{"DeviceBlueprint"}]
   GETUPVAL R42 0
   GETTABLEKS R41 R42 K10 ["createElement"]
-  GETUPVAL R42 14
-  DUPTABLE R43 K72 [{"LayoutOrder", "selectedGamepadId", "displayMappings", "activeInputs"}]
+  GETUPVAL R42 13
+  DUPTABLE R43 K73 [{"LayoutOrder", "selectedGamepadId", "displayMappings", "activeInputs"}]
   GETUPVAL R44 8
   NAMECALL R44 R44 K22 ["getNextOrder"]
   CALL R44 1 1
   SETTABLEKS R44 R43 K23 ["LayoutOrder"]
   GETTABLEKS R44 R0 K6 ["isUpdatingMappingForGamepadId"]
-  SETTABLEKS R44 R43 K35 ["selectedGamepadId"]
+  SETTABLEKS R44 R43 K36 ["selectedGamepadId"]
   LOADB R44 0
-  SETTABLEKS R44 R43 K70 ["displayMappings"]
-  SETTABLEKS R8 R43 K71 ["activeInputs"]
+  SETTABLEKS R44 R43 K71 ["displayMappings"]
+  SETTABLEKS R8 R43 K72 ["activeInputs"]
   CALL R41 2 1
-  SETTABLEKS R41 R40 K68 ["DeviceBlueprint"]
+  SETTABLEKS R41 R40 K69 ["DeviceBlueprint"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K64 ["BlueprintContainer"]
+  SETTABLEKS R37 R36 K65 ["BlueprintContainer"]
   GETUPVAL R38 0
   GETTABLEKS R37 R38 K10 ["createElement"]
-  LOADK R38 K60 ["ScrollingFrame"]
+  LOADK R38 K61 ["ScrollingFrame"]
   NEWTABLE R39 4 0
   GETUPVAL R41 0
   GETTABLEKS R40 R41 K12 ["Tag"]
-  LOADK R41 K73 ["CX-Invisible "]
+  LOADK R41 K74 ["CX-Invisible "]
   SETTABLE R41 R39 R40
   GETUPVAL R40 8
   NAMECALL R40 R40 K22 ["getNextOrder"]
   CALL R40 1 1
   SETTABLEKS R40 R39 K23 ["LayoutOrder"]
-  SETTABLEKS R14 R39 K74 ["ref"]
+  SETTABLEKS R14 R39 K75 ["ref"]
   GETUPVAL R42 0
-  GETTABLEKS R41 R42 K75 ["Change"]
-  GETTABLEKS R40 R41 K76 ["AbsoluteSize"]
+  GETTABLEKS R41 R42 K76 ["Change"]
+  GETTABLEKS R40 R41 K77 ["AbsoluteSize"]
   SETTABLE R15 R39 R40
-  DUPTABLE R40 K78 [{"Mappings"}]
+  DUPTABLE R40 K79 [{"Mappings"}]
   GETUPVAL R42 0
   GETTABLEKS R41 R42 K10 ["createElement"]
-  GETUPVAL R42 15
-  DUPTABLE R43 K81 [{"LayoutOrder", "onAbsoluteSizeChanged", "onHoveredMappingChanged"}]
+  GETUPVAL R42 14
+  DUPTABLE R43 K82 [{"LayoutOrder", "onAbsoluteSizeChanged", "onHoveredMappingChanged"}]
   GETUPVAL R44 8
   NAMECALL R44 R44 K22 ["getNextOrder"]
   CALL R44 1 1
   SETTABLEKS R44 R43 K23 ["LayoutOrder"]
-  SETTABLEKS R16 R43 K79 ["onAbsoluteSizeChanged"]
-  SETTABLEKS R7 R43 K80 ["onHoveredMappingChanged"]
+  SETTABLEKS R16 R43 K80 ["onAbsoluteSizeChanged"]
+  SETTABLEKS R7 R43 K81 ["onHoveredMappingChanged"]
   CALL R41 2 1
-  SETTABLEKS R41 R40 K77 ["Mappings"]
+  SETTABLEKS R41 R40 K78 ["Mappings"]
   CALL R37 3 1
-  SETTABLEKS R37 R36 K65 ["ListScrollingContainer"]
+  SETTABLEKS R37 R36 K66 ["ListScrollingContainer"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K61 ["BlueprintAndListContainer"]
+  SETTABLEKS R33 R32 K62 ["BlueprintAndListContainer"]
   CALL R29 3 1
   SETTABLEKS R29 R28 K26 ["HorizontalScrollingFrame"]
   CALL R25 3 1
@@ -453,27 +453,27 @@ PROTO_7:
   GETUPVAL R24 4
   GETTABLEKS R23 R24 K3 ["VREmulatorFullRelease"]
   JUMPIFNOT R23 [+2]
-  GETUPVAL R22 16
+  GETUPVAL R22 15
   JUMP [+1]
-  GETUPVAL R22 17
-  DUPTABLE R23 K83 [{"hideConfirmationDialog"}]
-  SETTABLEKS R11 R23 K82 ["hideConfirmationDialog"]
+  GETUPVAL R22 16
+  DUPTABLE R23 K84 [{"hideConfirmationDialog"}]
+  SETTABLEKS R11 R23 K83 ["hideConfirmationDialog"]
   CALL R21 2 1
   JUMP [+1]
   LOADNIL R21
   SETTABLEKS R21 R20 K15 ["MappingsConfirmationDialog"]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K10 ["createElement"]
-  GETUPVAL R22 18
+  GETUPVAL R22 17
   NEWTABLE R23 2 0
   GETUPVAL R25 0
   GETTABLEKS R24 R25 K12 ["Tag"]
-  GETUPVAL R25 13
+  GETUPVAL R25 12
   LOADK R26 K16 ["ErrorsBanner"]
-  LOADK R27 K84 ["data-testid=Component-ErrorsBanner"]
+  LOADK R27 K85 ["data-testid=Component-ErrorsBanner"]
   CALL R25 2 1
   SETTABLE R25 R23 R24
-  SETTABLEKS R11 R23 K82 ["hideConfirmationDialog"]
+  SETTABLEKS R11 R23 K83 ["hideConfirmationDialog"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K16 ["ErrorsBanner"]
   CALL R17 3 -1
@@ -562,39 +562,32 @@ MAIN:
   GETTABLEKS R20 R21 K30 ["ErrorsBanner"]
   CALL R19 1 1
   GETIMPORT R20 K5 [require]
-  GETTABLEKS R23 R0 K31 ["Bin"]
-  GETTABLEKS R22 R23 K32 ["Common"]
-  GETTABLEKS R21 R22 K33 ["defineLuaFlags"]
+  GETTABLEKS R23 R0 K17 ["Src"]
+  GETTABLEKS R22 R23 K12 ["Util"]
+  GETTABLEKS R21 R22 K31 ["MockableEngineFeatures"]
   CALL R20 1 1
-  GETTABLEKS R21 R20 K34 ["getFFlagEnableVRControllers"]
-  GETIMPORT R22 K5 [require]
-  GETTABLEKS R25 R0 K17 ["Src"]
-  GETTABLEKS R24 R25 K12 ["Util"]
-  GETTABLEKS R23 R24 K35 ["MockableEngineFeatures"]
-  CALL R22 1 1
-  GETTABLEKS R23 R18 K36 ["KEY_NAMES_DEFINITIONS"]
-  GETTABLEKS R24 R8 K37 ["LISTED_DEVICE_IDS"]
-  DUPCLOSURE R25 K38 [PROTO_7]
+  GETTABLEKS R21 R18 K32 ["KEY_NAMES_DEFINITIONS"]
+  GETTABLEKS R22 R8 K33 ["LISTED_DEVICE_IDS"]
+  DUPCLOSURE R23 K34 [PROTO_7]
   CAPTURE VAL R2
   CAPTURE VAL R10
   CAPTURE VAL R9
   CAPTURE VAL R4
-  CAPTURE VAL R22
+  CAPTURE VAL R20
   CAPTURE VAL R1
-  CAPTURE VAL R23
+  CAPTURE VAL R21
   CAPTURE VAL R12
   CAPTURE VAL R6
   CAPTURE VAL R13
   CAPTURE VAL R14
-  CAPTURE VAL R21
-  CAPTURE VAL R24
+  CAPTURE VAL R22
   CAPTURE VAL R7
   CAPTURE VAL R15
   CAPTURE VAL R11
   CAPTURE VAL R17
   CAPTURE VAL R16
   CAPTURE VAL R19
-  GETTABLEKS R26 R2 K39 ["memo"]
-  MOVE R27 R25
-  CALL R26 1 -1
-  RETURN R26 -1
+  GETTABLEKS R24 R2 K35 ["memo"]
+  MOVE R25 R23
+  CALL R24 1 -1
+  RETURN R24 -1

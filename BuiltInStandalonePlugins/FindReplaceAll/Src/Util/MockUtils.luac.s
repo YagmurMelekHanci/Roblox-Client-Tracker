@@ -1,0 +1,152 @@
+PROTO_0:
+  JUMPIF R2 [+2]
+  LOADN R3 0
+  JUMP [+1]
+  MOVE R3 R2
+  NAMECALL R4 R0 K0 ["GetChildren"]
+  CALL R4 1 1
+  GETIMPORT R5 K2 [ipairs]
+  MOVE R6 R4
+  CALL R5 1 3
+  FORGPREP_INEXT R5
+  MOVE R10 R1
+  MOVE R11 R9
+  CALL R10 1 1
+  JUMPIFNOT R10 [+1]
+  RETURN R9 1
+  GETUPVAL R10 0
+  MOVE R11 R9
+  MOVE R12 R1
+  ADDK R13 R3 K3 [1]
+  CALL R10 3 1
+  JUMPIFEQKNIL R10 [+2]
+  RETURN R10 1
+  FORGLOOP R5 2 [inext] [-14]
+  LOADNIL R5
+  RETURN R5 1
+
+PROTO_1:
+  JUMPIF R3 [+2]
+  LOADN R4 0
+  JUMP [+1]
+  MOVE R4 R3
+  NAMECALL R5 R0 K0 ["GetChildren"]
+  CALL R5 1 1
+  GETIMPORT R6 K2 [ipairs]
+  MOVE R7 R5
+  CALL R6 1 3
+  FORGPREP_INEXT R6
+  MOVE R11 R1
+  MOVE R12 R10
+  CALL R11 1 1
+  JUMPIFNOT R11 [+7]
+  FASTCALL2 TABLE_INSERT R2 R10 [+5]
+  MOVE R12 R2
+  MOVE R13 R10
+  GETIMPORT R11 K5 [table.insert]
+  CALL R11 2 0
+  GETUPVAL R11 0
+  MOVE R12 R10
+  MOVE R13 R1
+  MOVE R14 R2
+  ADDK R15 R4 K6 [1]
+  CALL R11 4 0
+  FORGLOOP R6 2 [inext] [-18]
+  RETURN R2 1
+
+PROTO_2:
+  JUMPIF R1 [+2]
+  LOADN R2 0
+  JUMP [+1]
+  MOVE R2 R1
+  NAMECALL R3 R0 K0 ["GetChildren"]
+  CALL R3 1 1
+  GETIMPORT R4 K2 [ipairs]
+  MOVE R5 R3
+  CALL R4 1 3
+  FORGPREP_INEXT R4
+  GETIMPORT R9 K5 [string.rep]
+  LOADK R10 K6 ["--"]
+  MOVE R11 R2
+  CALL R9 2 1
+  GETIMPORT R10 K8 [print]
+  LOADK R12 K9 ["%* %*> %* (%*)"]
+  MOVE R14 R2
+  MOVE R15 R9
+  GETTABLEKS R16 R8 K10 ["Name"]
+  GETTABLEKS R17 R8 K11 ["ClassName"]
+  NAMECALL R12 R12 K12 ["format"]
+  CALL R12 5 1
+  MOVE R11 R12
+  CALL R10 1 0
+  GETUPVAL R10 0
+  MOVE R11 R8
+  ADDK R12 R2 K13 [1]
+  CALL R10 2 0
+  FORGLOOP R4 2 [inext] [-24]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K3 [{"NumAllResults", "NumAllScripts", "Results"}]
+  LOADN R1 4
+  SETTABLEKS R1 R0 K0 ["NumAllResults"]
+  LOADN R1 2
+  SETTABLEKS R1 R0 K1 ["NumAllScripts"]
+  NEWTABLE R1 0 2
+  DUPTABLE R2 K11 [{"Guid", "Name", "Type", "BaseIndex", "Id", "Matches", "Lines"}]
+  LOADK R3 K12 ["1234"]
+  SETTABLEKS R3 R2 K4 ["Guid"]
+  LOADK R3 K13 ["Workspace.Baseplate.Script"]
+  SETTABLEKS R3 R2 K5 ["Name"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K6 ["Type"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K7 ["BaseIndex"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K8 ["Id"]
+  NEWTABLE R3 0 2
+  LOADK R4 K14 ["Item 1.1"]
+  LOADK R5 K15 ["Item 1.2"]
+  SETLIST R3 R4 2 [1]
+  SETTABLEKS R3 R2 K9 ["Matches"]
+  NEWTABLE R3 0 2
+  LOADN R4 1
+  LOADN R5 2
+  SETLIST R3 R4 2 [1]
+  SETTABLEKS R3 R2 K10 ["Lines"]
+  DUPTABLE R3 K11 [{"Guid", "Name", "Type", "BaseIndex", "Id", "Matches", "Lines"}]
+  LOADK R4 K16 ["5678"]
+  SETTABLEKS R4 R3 K4 ["Guid"]
+  LOADK R4 K17 ["ReplacatedStorage.Modules.MyGreatModuleScript"]
+  SETTABLEKS R4 R3 K5 ["Name"]
+  LOADN R4 3
+  SETTABLEKS R4 R3 K6 ["Type"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K7 ["BaseIndex"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K8 ["Id"]
+  NEWTABLE R4 0 2
+  LOADK R5 K18 ["Item 2.1"]
+  LOADK R6 K19 ["Item 2.2"]
+  SETLIST R4 R5 2 [1]
+  SETTABLEKS R4 R3 K9 ["Matches"]
+  NEWTABLE R4 0 2
+  LOADN R5 42
+  LOADN R6 142
+  SETLIST R4 R5 2 [1]
+  SETTABLEKS R4 R3 K10 ["Lines"]
+  SETLIST R1 R2 2 [1]
+  SETTABLEKS R1 R0 K2 ["Results"]
+  DUPCLOSURE R1 K20 [PROTO_0]
+  CAPTURE VAL R1
+  DUPCLOSURE R2 K21 [PROTO_1]
+  CAPTURE VAL R2
+  DUPCLOSURE R3 K22 [PROTO_2]
+  CAPTURE VAL R3
+  DUPTABLE R4 K27 [{"testFindResults", "findFirstDescendant", "findDescendants", "printAllDescendants"}]
+  SETTABLEKS R0 R4 K23 ["testFindResults"]
+  SETTABLEKS R1 R4 K24 ["findFirstDescendant"]
+  SETTABLEKS R2 R4 K25 ["findDescendants"]
+  SETTABLEKS R3 R4 K26 ["printAllDescendants"]
+  RETURN R4 1

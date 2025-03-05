@@ -3,6 +3,8 @@
 local CorePackages = game:GetService("CorePackages")
 local ScriptContext = game:GetService("ScriptContext")
 local HttpService = game:GetService("HttpService")
+local HeapProfilerService = (if game:GetEngineFeature("HeapProfilerService") then game:GetService("HeapProfilerService") else nil) :: HeapProfilerService
+local Players = game:GetService("Players")
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Roact = require(CorePackages.Packages.Roact)
@@ -172,11 +174,24 @@ function MainViewLuauHeap:init()
 
 	self.onCreateSnapshot = function()
 		local isClientView, state = self:getActiveState()
+		if game:GetEngineFeature("HeapProfilerService") then
+			local success, message = nil, nil
+			if isClientView then
+				success, message = pcall(HeapProfilerService.ClientRequestDataAsync, HeapProfilerService, Players.LocalPlayer :: Player)
+			else
+				success, message = pcall(HeapProfilerService.ServerRequestDataAsync, HeapProfilerService)
+			end
 
-		if isClientView then
-			local snapshot = ScriptContext:GetLuauHeapMemoryReport("game") :: LuauHeapTypes.HeapReport
+			if not success then
+				warn(message)
+				return
+			end
 
-			snapshot.Refs = ScriptContext:GetLuauHeapInstanceReferenceReport("game") :: LuauHeapTypes.UniqueRefReport
+			local data = HttpService:JSONDecode(message)
+			local snapshot = data.Report :: LuauHeapTypes.HeapReport
+			local refs = data.Refs :: LuauHeapTypes.UniqueRefReport
+
+			snapshot.Refs = refs
 
 			local newState: LuauHeapTypes.SessionState = table.clone(state)
 
@@ -184,12 +199,26 @@ function MainViewLuauHeap:init()
 
 			newState.active = #newState.snapshots
 
-			self.props.dispatchSetLuauHeapState(true, newState)
+			self.props.dispatchSetLuauHeapState(isClientView, newState)
 		else
-			local clientReplicator = getClientReplicator()
+			if isClientView then
+				local snapshot = ScriptContext:GetLuauHeapMemoryReport("game") :: LuauHeapTypes.HeapReport
 
-			if clientReplicator then
-				clientReplicator:RequestServerLuauHeapData()
+				snapshot.Refs = ScriptContext:GetLuauHeapInstanceReferenceReport("game") :: LuauHeapTypes.UniqueRefReport
+
+				local newState: LuauHeapTypes.SessionState = table.clone(state)
+
+				table.insert(newState.snapshots, snapshot)
+
+				newState.active = #newState.snapshots
+
+				self.props.dispatchSetLuauHeapState(true, newState)
+			else
+				local clientReplicator = getClientReplicator()
+
+				if clientReplicator then
+					clientReplicator:RequestServerLuauHeapData()
+				end
 			end
 		end
 	end
@@ -230,28 +259,31 @@ function MainViewLuauHeap:didMount()
 	self:setState({
 		utilTabHeight = utilSize.Y.Offset,
 	})
+	if not game:GetEngineFeature("HeapProfilerService") then
+		self.statsConnector = self.props.LuauHeapData:Signal():Connect(function(data)
+			local state = self:getState(false)
 
-	self.statsConnector = self.props.LuauHeapData:Signal():Connect(function(data)
-		local state = self:getState(false)
+			local snapshot = data.Report :: LuauHeapTypes.HeapReport
+			local refs = data.Refs :: LuauHeapTypes.UniqueRefReport
 
-		local snapshot = data.Report :: LuauHeapTypes.HeapReport
-		local refs = data.Refs :: LuauHeapTypes.UniqueRefReport
+			snapshot.Refs = refs
 
-		snapshot.Refs = refs
+			local newState: LuauHeapTypes.SessionState = table.clone(state)
 
-		local newState: LuauHeapTypes.SessionState = table.clone(state)
+			table.insert(newState.snapshots, snapshot)
 
-		table.insert(newState.snapshots, snapshot)
+			newState.active = #newState.snapshots
 
-		newState.active = #newState.snapshots
-
-		self.props.dispatchSetLuauHeapState(false, newState)
-	end)
+			self.props.dispatchSetLuauHeapState(false, newState)
+		end)
+	end
 end
 
 function MainViewLuauHeap:willUnmount()
-	self.statsConnector:Disconnect()
-	self.statsConnector = nil
+	if not game:GetEngineFeature("HeapProfilerService") then
+		self.statsConnector:Disconnect()
+		self.statsConnector = nil
+	end
 end
 
 function MainViewLuauHeap:didUpdate()

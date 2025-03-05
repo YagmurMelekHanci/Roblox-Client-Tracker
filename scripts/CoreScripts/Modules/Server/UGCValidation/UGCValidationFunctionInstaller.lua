@@ -2,6 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local UGCValidationService = game:GetService("UGCValidationService")
 local UGCValidation = require(CorePackages.Packages.UGCValidation)
+local EngineFeatureUGCValidationWithContextEntrypoint = game:GetEngineFeature("UGCValidationWithContextEntrypointFeature")
 
 local function UGCValidationFunction(args)
 	local objectInstances = args["instances"]
@@ -19,31 +20,65 @@ local function UGCValidationFunction(args)
 		skipPhysicsDataReset = true,
 	}
 
+	local validationContext, fullBodyValidationContext
 	local success, reasons
-	if fullBodyData then
-		success, reasons = UGCValidation.validateFullBody(
-			fullBodyData,
-			isServer,
-			true, --allowEditableInstances
-			bypassFlags,
-			true, -- shouldYield
-			requireAllFolders
-		)
+	if EngineFeatureUGCValidationWithContextEntrypoint then
+		validationContext = {
+			instances = objectInstances,
+			assetTypeEnum = assetTypeEnum,
+			isServer = isServer,
+			allowUnreviewedAssets = allowUnreviewedAssets,
+			restrictedUserIds = restrictedUserIds,
+			token = token,
+			universeId = universeId,
+			allowEditableInstances = true,
+			shouldYield = true,
+			validateMeshPartAccessories = true,
+			requireAllFolders = requireAllFolders,
+			bypassFlags = bypassFlags,
+		}
+
+		fullBodyValidationContext = {
+			fullBodyData = fullBodyData,
+			isServer = isServer,
+			allowEditableInstances = true,
+			bypassFlags = bypassFlags,
+			shouldYield = true,
+			requireAllFolders = requireAllFolders,
+			validateMeshPartAccessories = false,
+		}
+
+		if fullBodyData then
+			success, reasons = UGCValidation.validateFullBodyWithContext(fullBodyValidationContext)
+		else
+			success, reasons = UGCValidation.validateWithContext(validationContext)
+		end
 	else
-		success, reasons = UGCValidation.validate(
-			objectInstances,
-			assetTypeEnum,
-			isServer,
-			allowUnreviewedAssets,
-			restrictedUserIds,
-			token,
-			universeId,
-			true, --allowEditableInstances
-			bypassFlags,
-			true, --shouldYield
-			true, --validateMeshPartAccessories
-			requireAllFolders
-		)
+		if fullBodyData then
+			success, reasons = UGCValidation.validateFullBody(
+				fullBodyData,
+				isServer,
+				true, --allowEditableInstances
+				bypassFlags,
+				true, -- shouldYield
+				requireAllFolders
+			)
+		else
+			success, reasons = UGCValidation.validate(
+				objectInstances :: { Instance },
+				assetTypeEnum :: Enum.AssetType,
+				isServer,
+				allowUnreviewedAssets,
+				restrictedUserIds,
+				token,
+				universeId,
+				true, --allowEditableInstances
+				bypassFlags,
+				true, --shouldYield
+				true, --validateMeshPartAccessories
+				requireAllFolders
+			)
+		end
 	end
 
 	if not success then
