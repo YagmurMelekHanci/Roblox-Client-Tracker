@@ -12,12 +12,15 @@ local Constants = require(root.Constants)
 local util = root.util
 local Types = require(util.Types)
 local floatEquals = require(util.floatEquals)
+local getExpectedPartSize = require(util.getExpectedPartSize)
 local FailureReasonsAccumulator = require(util.FailureReasonsAccumulator)
 
 local flags = root.flags
 local getFFlagUGCValidateMeshMin = require(flags.getFFlagUGCValidateMeshMin)
 
 local ValidateBodyBlockingTests = {}
+
+local meshSizeAsDefault = true
 
 function ValidateBodyBlockingTests.validateMeshMin(meshSize: Vector3, meshName: string): (boolean, { string }?)
 	local ok = true
@@ -40,49 +43,46 @@ end
 
 function ValidateBodyBlockingTests.validateInternal(
 	meshHandle: MeshPart,
-	validationContext: Types.ValidationContext
+	validationContext: Types.ValidationContext,
+	reportFailure: boolean
 ): (boolean, { string }?)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	local success, errorMessages = ValidateBodyBlockingTests.validateMeshMin(meshHandle.MeshSize, meshHandle.Name)
+	local meshSize = getExpectedPartSize(meshHandle, validationContext, meshSizeAsDefault)
+	local success, errorMessages = ValidateBodyBlockingTests.validateMeshMin(meshSize, meshHandle.Name)
 	reasonsAccumulator:updateReasons(success, errorMessages)
 	if not success then
 		if getFFlagUGCValidateMeshMin() then
-			Analytics.reportFailure(Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize, nil, validationContext)
+			if reportFailure then
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize,
+					nil,
+					validationContext
+				)
+			end
 		end
 	end
 	return reasonsAccumulator:getFinalResults()
 end
 
-function ValidateBodyBlockingTests.validateAll(validationContext: Types.ValidationContext): boolean
+function ValidateBodyBlockingTests.validateAll(
+	allBodyParts: Types.AllBodyParts,
+	validationContext: Types.ValidationContext
+): boolean
 	local startTime = tick()
-	assert(
-		validationContext.fullBodyData ~= nil,
-		"fullBodyData required in validationContext for ValidateBodyBlockingTests.validateAll"
-	)
 
-	local fullBodyData = validationContext.fullBodyData :: Types.FullBodyData
-
-	for _, instancesAndType in fullBodyData do
-		for _, rootInst in instancesAndType.allSelectedInstances do
-			local allInstances = rootInst:GetDescendants()
-			table.insert(allInstances, 1, rootInst)
-
-			for _, instance in allInstances do
-				if instance:IsA("MeshPart") then
-					local success =
-						ValidateBodyBlockingTests.validateMeshMin((instance :: MeshPart).MeshSize, instance.Name)
-					if not success then
-						Analytics.recordScriptTime(script.Name, startTime, validationContext)
-						return false
-					end
-				end
-			end
+	local result = true
+	for _, instance in allBodyParts do
+		assert(instance:IsA("MeshPart"))
+		local success = ValidateBodyBlockingTests.validateInternal(instance :: MeshPart, validationContext, false)
+		if not success then
+			result = false
+			break
 		end
 	end
 
 	Analytics.recordScriptTime(script.Name, startTime, validationContext)
-	return true
+	return result
 end
 
 function ValidateBodyBlockingTests.validate(
@@ -98,7 +98,7 @@ function ValidateBodyBlockingTests.validate(
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
 		reasonsAccumulator:updateReasons(
-			ValidateBodyBlockingTests.validateInternal(inst :: MeshPart, validationContext)
+			ValidateBodyBlockingTests.validateInternal(inst :: MeshPart, validationContext, true)
 		)
 	else
 		for subPartName in pairs(assetInfo.subParts) do
@@ -106,7 +106,7 @@ function ValidateBodyBlockingTests.validate(
 			assert(meshHandle) -- expected parts have been checked for existance before calling this function
 
 			reasonsAccumulator:updateReasons(
-				ValidateBodyBlockingTests.validateInternal(meshHandle :: MeshPart, validationContext)
+				ValidateBodyBlockingTests.validateInternal(meshHandle :: MeshPart, validationContext, true)
 			)
 		end
 	end

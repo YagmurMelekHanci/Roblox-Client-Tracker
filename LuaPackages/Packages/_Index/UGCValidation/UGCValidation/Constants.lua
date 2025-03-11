@@ -25,6 +25,7 @@ local getEngineFeatureUGCValidateFullBodyBoundsAvatarRules =
 	require(root.flags.getEngineFeatureUGCValidateFullBodyBoundsAvatarRules)
 local getFFlagUGCValidateConfigurableFullBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableFullBodyBounds)
 local getFFlagFixValidateTransparencyProperty = require(root.flags.getFFlagFixValidateTransparencyProperty)
+local getFFlagUGCValidateWrapLayersEnabled = require(root.flags.getFFlagUGCValidateWrapLayersEnabled)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -188,6 +189,32 @@ Constants.AvatarPartScaleTypes = {
 
 ValidationRulesUtil:getBodyPartRules(Constants.ASSET_TYPE_INFO)
 
+Constants.BODYPART_TO_PARENT = {
+	-- "Parent" here is in regards to the way parts are rigged together in a single asset. Full tree in AssetTraversalUtils.assetHierarchy
+	-- nil indicates this is the root of the asset, it has no parent in the asset
+	-- head asset
+	["Head"] = nil, -- root
+	-- torso
+	["LowerTorso"] = nil, --
+	["UpperTorso"] = "LowerTorso",
+	-- left arm
+	["LeftUpperArm"] = nil,
+	["LeftLowerArm"] = "LeftUpperArm",
+	["LeftHand"] = "LeftLowerArm",
+	-- left leg
+	["LeftUpperLeg"] = nil,
+	["LeftLowerLeg"] = "LeftUpperLeg",
+	["LeftLeg"] = "LeftLowerLeg",
+	-- right arm
+	["RightUpperArm"] = nil,
+	["RightLowerArm"] = "RightUpperArm",
+	["RightHand"] = "RightLowerArm",
+	-- right leg
+	["RightUpperLeg"] = nil,
+	["RightLowerLeg"] = "RightUpperLeg",
+	["RightLeg"] = "RightLowerLeg",
+}
+
 Constants.RenderVsWrapMeshMaxDiff = ValidationRulesUtil:getRules().MeshRules.CageMeshMaxDistanceFromRenderMesh
 
 if getFFlagUGCValidateAddSpecificPropertyRequirements() then
@@ -259,6 +286,11 @@ Constants.PROPERTIES = {
 	SurfaceAppearance = if getFFlagUGCValidateSurfaceAppearanceAlphaMode()
 		then {
 			AlphaMode = Enum.AlphaMode.Overlay,
+		}
+		else nil,
+	WrapLayer = if getFFlagUGCValidateWrapLayersEnabled()
+		then {
+			Enabled = true,
 		}
 		else nil,
 }

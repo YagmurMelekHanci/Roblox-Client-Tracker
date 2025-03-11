@@ -298,14 +298,19 @@ local function validateAssetTransparency(inst: Instance, validationContext: Type
 				}
 		end
 		srcMesh:Triangulate()
+
+		local meshScaling = nil
+		if getFFlagUGCValidateFixTransparencyReporting() then
+			-- for in-experience creation these two calls to getExpectedPartSize() will return the same result meaning the meshScaling will be 1
+			meshScaling = getExpectedPartSize(meshPart, validationContext)
+				/ getExpectedPartSize(meshPart, validationContext, true)
+		end
 		getCombinedMeshData(
 			srcMesh,
 			combinedMeshData,
 			origins[meshPart.Name].cframe,
 			boundsData,
-			if getFFlagUGCValidateFixTransparencyReporting()
-				then getExpectedPartSize(meshPart, validationContext) / meshPart.MeshSize
-				else nil,
+			meshScaling,
 			validationContext
 		)
 	end

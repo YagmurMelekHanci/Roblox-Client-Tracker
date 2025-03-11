@@ -215,23 +215,23 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 		return false, reasons
 	end
 
-	if getFFlagUGCValidateMeshMin() then
-		-- anything which would cause a crash later on, we check in here and exit early
-		if not ValidateBodyBlockingTests.validateAll(validationContext) then
-			Analytics.reportFailure(Analytics.ErrorType.validateFullBody_ZeroMeshSize, nil, validationContext)
-			-- don't need more detailed error, as this is a check which has been done for each individual asset
-			return false,
-				{
-					"Unable to run full body validation due to previous errors detected while processing individual body parts.",
-				}
-		end
-	end
-
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	for _, folderName in requiredTopLevelFolders do
 		local allBodyParts: Types.AllBodyParts = createAllBodyPartsTable(folderName, fullBodyData)
 		assert(allBodyParts) -- if validateInstanceHierarchy() has passed, this should not have any problems
+
+		if getFFlagUGCValidateMeshMin() then
+			-- anything which would cause a crash later on, we check in here and exit early
+			if not ValidateBodyBlockingTests.validateAll(allBodyParts, validationContext) then
+				Analytics.reportFailure(Analytics.ErrorType.validateFullBody_ZeroMeshSize, nil, validationContext)
+				-- don't need more detailed error, as this is a check which has been done for each individual asset
+				return false,
+					{
+						"Unable to run full body validation due to previous errors detected while processing individual body parts.",
+					}
+			end
+		end
 
 		reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, validationContext))
 	end

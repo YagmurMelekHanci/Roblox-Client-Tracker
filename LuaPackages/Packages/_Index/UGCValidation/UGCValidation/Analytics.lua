@@ -42,6 +42,8 @@ local getFFlagUGCValidateLCHandleScale = require(root.flags.getFFlagUGCValidateL
 local getFFlagUGCValidatePartMass = require(root.flags.getFFlagUGCValidatePartMass)
 local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
 local getFFlagUGCValidateUseAnalyticsEntryPoint = require(root.flags.getFFlagUGCValidateUseAnalyticsEntryPoint)
+local getEngineFeatureUGCValidateExtraShoesTests = require(root.flags.getEngineFeatureUGCValidateExtraShoesTests)
+local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
 
 local function joinTables(...)
 	local result = {}
@@ -212,6 +214,22 @@ if getEngineFeatureEngineUGCValidationCageUVDuplicates() then
 	Analytics.ErrorType.validateCageUVDuplicate_UnexpectedUVValue = "validateCageUVDuplicate_UnexpectedUVValue"
 end
 
+if getEngineFeatureUGCValidateExtraShoesTests() then
+	Analytics.ErrorType.validateExcludedModifiedCageUVs_FailedToExecute =
+		"validateExcludedModifiedCageUVs_FailedToExecute"
+	Analytics.ErrorType.validateExcludedModifiedCageUVs_UnexpectedUVValue =
+		"validateExcludedModifiedCageUVs_UnexpectedUVValue"
+
+	Analytics.ErrorType.validateMainModifiedCageUVs_FailedToExecute = "validateMainModifiedCageUVs_FailedToExecute"
+	Analytics.ErrorType.validateMainModifiedCageUVs_TooFewModifiedUVsFound =
+		"validateMainModifiedCageUVs_TooFewModifiedUVsFound"
+
+	Analytics.ErrorType.validateRenderMeshInsideModifiedOuterCageArea_FailedToExecute =
+		"validateRenderMeshInsideModifiedOuterCageArea_FailedToExecute"
+	Analytics.ErrorType.validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly =
+		"validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly"
+end
+
 if getFFlagUGCValidatePartSizeWithinRenderSizeLimits() then
 	Analytics.ErrorType.validatePartSizeWithinRenderSizeLimits_SizeExceeded =
 		"validatePartSizeWithinRenderSizeLimits_SizeExceeded"
@@ -234,6 +252,13 @@ end
 if getFFlagUGCValidateMeshMin() then
 	Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize = "validateBodyBlockingTests_ZeroMeshSize"
 	Analytics.ErrorType.validateFullBody_ZeroMeshSize = "validateFullBody_ZeroMeshSize"
+end
+
+if getFFlagUGCValidateIndividualPartBBoxes() then
+	Analytics.ErrorType.validateBodyAttPosRelativeToParent_PartAboveParent =
+		"validateBodyAttPosRelativeToParent_PartAboveParent"
+	Analytics.ErrorType.validateBodyAttPosRelativeToParent_ParentBelowPart =
+		"validateBodyAttPosRelativeToParent_ParentBelowPart"
 end
 
 setmetatable(Analytics.ErrorType, {

@@ -303,6 +303,7 @@ local function validateBodyPartChildAttachmentBounds(
 
 	local assetTypeEnum = validationContext.assetTypeEnum
 	local isServer = validationContext.isServer
+	assert(assetTypeEnum)
 
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
 	assert(assetInfo)

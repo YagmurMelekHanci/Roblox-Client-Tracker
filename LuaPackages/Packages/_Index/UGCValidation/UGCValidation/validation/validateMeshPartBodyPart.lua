@@ -14,10 +14,12 @@ local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCVal
 local getFFlagRefactorValidateAssetTransparency = require(root.flags.getFFlagRefactorValidateAssetTransparency)
 local getFFlagUGCValidateOrientedSizing = require(root.flags.getFFlagUGCValidateOrientedSizing)
 local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
+local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
 local validateBodyPartChildAttachmentBounds = require(root.validation.validateBodyPartChildAttachmentBounds)
+local validateBodyPartExtentsRelativeToParent = require(root.validation.validateBodyPartExtentsRelativeToParent)
 local validateDependencies = require(root.validation.validateDependencies)
 local validateDescendantMeshMetrics = require(root.validation.validateDescendantMeshMetrics)
 local validateDescendantTextureMetrics = require(root.validation.validateDescendantTextureMetrics)
@@ -96,6 +98,9 @@ local function validateMeshPartBodyPart(
 	reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, validationContext))
 
 	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))
+	if getFFlagUGCValidateIndividualPartBBoxes() then
+		reasonsAccumulator:updateReasons(validateBodyPartExtentsRelativeToParent.runValidation(inst, validationContext))
+	end
 
 	if getFFlagUGCValidateOrientedSizing() then
 		reasonsAccumulator:updateReasons(validatePose(inst, validationContext))
