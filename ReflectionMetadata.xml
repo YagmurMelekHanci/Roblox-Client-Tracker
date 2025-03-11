@@ -3163,7 +3163,7 @@
       </Item>
     </Item>
 
-    <!-- Item class="ReflectionMetadataClass">
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">AudioTextToSpeech</string>
         <string name="ClassCategory">Sounds</string>
@@ -3173,10 +3173,28 @@
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">Pitch</string>
+            <double name="UIMinimum">-12</double>
+            <double name="UIMaximum">12</double>
+            <double name="UINumTicks">240</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">PlaybackSpeed</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">20</double>
             <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Speed</string>
+            <double name="UIMinimum">0.5</double>
+            <double name="UIMaximum">2</double>
+            <double name="UINumTicks">100</double>
             <string name="SliderScaling">Square</string>
           </Properties>
         </Item>
@@ -3190,7 +3208,7 @@
           </Properties>
         </Item>
       </Item>
-    </Item -->
+    </Item>
 
     <Item class="ReflectionMetadataClass">
       <Properties>

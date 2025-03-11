@@ -97,6 +97,7 @@ Studio.App.PropertyEnum.Skip4,,Skip 4,Skip 4
 Studio.App.PropertyEnum.Skip8,,Skip 8,Skip 8
 Studio.App.PropertyEnum.Slow,,Slow,Slow
 Studio.App.PropertyEnum.Snapshot,,Snapshot,Snapshot
+Studio.App.PropertyEnum.SpaceScroll,Camera speed adjust binding option,Space + Scroll,Space + Scroll
 Studio.App.PropertyEnum.Studio,,Studio,Studio
 Studio.App.PropertyEnum.SystemDefault,,System Default,System Default
 Studio.App.PropertyEnum.Threads1,,Threads 1,Threads 1
@@ -110,3 +111,4 @@ Studio.App.PropertyEnum.Vertical,,Vertical,Vertical
 Studio.App.PropertyEnum.VeryFast,,Very Fast,Very Fast
 Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
 Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
+Studio.App.PropertyEnum.WASDScroll,Option for camera speed adjust binding,WASD + Scroll,WASD + Scroll

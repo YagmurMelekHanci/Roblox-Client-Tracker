@@ -26,6 +26,8 @@ Studio.BetaFeatures.AssetManagerDescription,,"Manage your assets in a brand new 
 Studio.BetaFeatures.AssetManagerTitle,,Asset Manager,Asset Manager
 Studio.BetaFeatures.AssistantLabDescription,,"Preview next-generation Assistant features, including new UI and advanced AI models. Opt-in anytime and switch back to default Assistant features as needed.","Preview next-generation Assistant features, including new UI and advanced AI models. Opt-in anytime and switch back to default Assistant features as needed."
 Studio.BetaFeatures.AssistantLabTitle,,Assistant Lab,Assistant Lab
+Studio.BetaFeatures.AssistantMeshGenDescription,Description of the Assistant mesh generation beta feature.,"Adds mesh generation capabilities to the Assistant. Mesh generation can be activated by starting your prompt with ""/generate"".","Adds mesh generation capabilities to the Assistant. Mesh generation can be activated by starting your prompt with ""/generate""."
+Studio.BetaFeatures.AssistantMeshGenTitle,Title of the beta feature for Assistant mesh generation.,Assistant Mesh Generation,Assistant Mesh Generation
 Studio.BetaFeatures.AsyncPublishDescription,,Keep working in Studio as we publish in the background,Keep working in Studio as we publish in the background
 Studio.BetaFeatures.AsyncPublishTitle,,Async Publish Beta,Async Publish Beta
 Studio.BetaFeatures.AttributesUIDescription,,Customize instances with your own data,Customize instances with your own data
@@ -94,6 +96,8 @@ Studio.BetaFeatures.FasterPlaySoloTitle,,Faster Play Solo,Faster Play Solo
 Studio.BetaFeatures.ForumPostTitleEnding,,%1 is now enabled,%1 is now enabled
 Studio.BetaFeatures.GamepadEmulatorDescription,,Enabling this feature allows you to simulate gamepad inputs directly in Roblox Studio without the need for physical controllers.,Enabling this feature allows you to simulate gamepad inputs directly in Roblox Studio without the need for physical controllers.
 Studio.BetaFeatures.GamepadEmulatorTitle,,Gamepad Emulator,Gamepad Emulator
+Studio.BetaFeatures.HapticEffectDescription,"Haptic Effect is a new instance that will support multiple haptic effect types, looped effects, and customizable haptics.","Haptic Effect is a new instance that will support multiple haptic effect types, looped effects, and customizable haptics.","Haptic Effect is a new instance that will support multiple haptic effect types, looped effects, and customizable haptics."
+Studio.BetaFeatures.HapticEffectTitle,Haptic Effect,Haptic Effect,Haptic Effect
 Studio.BetaFeatures.ImportQueueDescription,,Enable the bulk import of multiple 3D files through the Import 3D tool.,Enable the bulk import of multiple 3D files through the Import 3D tool.
 Studio.BetaFeatures.ImportQueueTitle,,Import Queue,Import Queue
 Studio.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
