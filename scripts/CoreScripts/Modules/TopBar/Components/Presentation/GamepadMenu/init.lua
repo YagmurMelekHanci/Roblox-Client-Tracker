@@ -84,6 +84,7 @@ local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
+local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -637,10 +638,10 @@ function GamepadMenu:render()
 			}, menuChildren),
 
 			ControllerBar = controllerBarComponent,
-			MenuNavigationToggleDialog = if FFlagAddMenuNavigationToggleDialog
+			MenuNavigationToggleDialog = if not ChromeEnabled() and not FFlagTiltIconUnibarFocusNav and FFlagAddMenuNavigationToggleDialog
 				then Roact.createElement(MenuNavigationToggleDialog, {
 					Position = UDim2.fromScale(0.5, 0.1),
-				})
+				} :: never)
 				else nil,
 		}
 

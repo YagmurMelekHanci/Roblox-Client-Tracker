@@ -33,32 +33,35 @@ MAIN:
   MOVE R8 R2
   LOADK R9 K24 ["::UICorner"]
   DUPTABLE R10 K26 [{"CornerRadius"}]
-  LOADN R11 18
+  GETIMPORT R11 K29 [UDim.new]
+  LOADN R12 0
+  LOADN R13 16
+  CALL R11 2 1
   SETTABLEKS R11 R10 K25 ["CornerRadius"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K27 ["::UIPadding"]
-  DUPTABLE R11 K32 [{"PaddingTop", "PaddingLeft", "PaddingBottom", "PaddingRight"}]
-  GETIMPORT R12 K35 [UDim.new]
+  LOADK R10 K30 ["::UIPadding"]
+  DUPTABLE R11 K35 [{"PaddingTop", "PaddingLeft", "PaddingBottom", "PaddingRight"}]
+  GETIMPORT R12 K29 [UDim.new]
   LOADN R13 0
   LOADN R14 12
   CALL R12 2 1
-  SETTABLEKS R12 R11 K28 ["PaddingTop"]
-  GETIMPORT R12 K35 [UDim.new]
+  SETTABLEKS R12 R11 K31 ["PaddingTop"]
+  GETIMPORT R12 K29 [UDim.new]
   LOADN R13 0
   LOADN R14 16
   CALL R12 2 1
-  SETTABLEKS R12 R11 K29 ["PaddingLeft"]
-  GETIMPORT R12 K35 [UDim.new]
+  SETTABLEKS R12 R11 K32 ["PaddingLeft"]
+  GETIMPORT R12 K29 [UDim.new]
   LOADN R13 0
   LOADN R14 12
   CALL R12 2 1
-  SETTABLEKS R12 R11 K30 ["PaddingBottom"]
-  GETIMPORT R12 K35 [UDim.new]
+  SETTABLEKS R12 R11 K33 ["PaddingBottom"]
+  GETIMPORT R12 K29 [UDim.new]
   LOADN R13 0
   LOADN R14 16
   CALL R12 2 1
-  SETTABLEKS R12 R11 K31 ["PaddingRight"]
+  SETTABLEKS R12 R11 K34 ["PaddingRight"]
   CALL R9 2 -1
   SETLIST R7 R8 -1 [1]
   CALL R4 3 -1

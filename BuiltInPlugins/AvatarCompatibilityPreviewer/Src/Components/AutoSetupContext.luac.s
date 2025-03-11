@@ -1,93 +1,120 @@
 PROTO_0:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+76]
-  MOVE R1 R0
-  DUPTABLE R2 K6 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId"}]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K0 ["progressPercentage"]
-  LOADK R3 K7 ["Initializing"]
-  SETTABLEKS R3 R2 K1 ["progressName"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K2 ["completionStart"]
-  LOADK R3 K8 [0.2]
-  SETTABLEKS R3 R2 K3 ["completionEnd"]
-  LOADK R3 K9 ["Created"]
-  SETTABLEKS R3 R2 K4 ["jobStatus"]
-  LOADK R3 K10 ["abcd"]
-  SETTABLEKS R3 R2 K5 ["jobId"]
-  CALL R1 1 0
-  GETIMPORT R1 K13 [task.wait]
-  LOADN R2 5
-  CALL R1 1 0
-  MOVE R1 R0
-  DUPTABLE R2 K6 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId"}]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K0 ["progressPercentage"]
-  LOADK R3 K14 ["NotProcessing"]
-  SETTABLEKS R3 R2 K1 ["progressName"]
-  LOADK R3 K8 [0.2]
-  SETTABLEKS R3 R2 K2 ["completionStart"]
-  LOADK R3 K15 [0.95]
-  SETTABLEKS R3 R2 K3 ["completionEnd"]
-  LOADK R3 K16 ["Processing"]
-  SETTABLEKS R3 R2 K4 ["jobStatus"]
-  LOADK R3 K10 ["abcd"]
-  SETTABLEKS R3 R2 K5 ["jobId"]
-  CALL R1 1 0
-  GETIMPORT R1 K13 [task.wait]
-  LOADN R2 12
-  CALL R1 1 0
-  MOVE R1 R0
-  DUPTABLE R2 K6 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId"}]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K0 ["progressPercentage"]
-  LOADK R3 K17 ["Finalizing"]
-  SETTABLEKS R3 R2 K1 ["progressName"]
-  LOADK R3 K15 [0.95]
-  SETTABLEKS R3 R2 K2 ["completionStart"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K3 ["completionEnd"]
-  LOADK R3 K17 ["Finalizing"]
-  SETTABLEKS R3 R2 K4 ["jobStatus"]
-  LOADK R3 K10 ["abcd"]
-  SETTABLEKS R3 R2 K5 ["jobId"]
-  CALL R1 1 0
-  GETIMPORT R1 K13 [task.wait]
-  LOADN R2 3
-  CALL R1 1 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+112]
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+13]
+  JUMPIFEQKNIL R1 [+12]
+  MOVE R2 R1
+  DUPTABLE R3 K2 [{"notificationType", "jobId"}]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["AUTO_SETUP_JOB_INITIALIZATION"]
+  SETTABLEKS R4 R3 K0 ["notificationType"]
+  LOADK R4 K4 ["abcd"]
+  SETTABLEKS R4 R3 K1 ["jobId"]
+  CALL R2 1 0
+  MOVE R2 R0
+  DUPTABLE R3 K10 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId"}]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K5 ["progressPercentage"]
+  LOADK R4 K11 ["Initializing"]
+  SETTABLEKS R4 R3 K6 ["progressName"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K7 ["completionStart"]
+  LOADK R4 K12 [0.2]
+  SETTABLEKS R4 R3 K8 ["completionEnd"]
+  LOADK R4 K13 ["Created"]
+  SETTABLEKS R4 R3 K9 ["jobStatus"]
+  LOADK R4 K4 ["abcd"]
+  SETTABLEKS R4 R3 K1 ["jobId"]
+  CALL R2 1 0
+  GETIMPORT R2 K16 [task.wait]
+  LOADN R3 5
+  CALL R2 1 0
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+17]
+  JUMPIFEQKNIL R1 [+16]
+  MOVE R2 R1
+  DUPTABLE R3 K19 [{"notificationType", "jobId", "level", "message"}]
+  LOADK R4 K20 ["AutoSetupMetadataNotification"]
+  SETTABLEKS R4 R3 K0 ["notificationType"]
+  LOADK R4 K4 ["abcd"]
+  SETTABLEKS R4 R3 K1 ["jobId"]
+  LOADK R4 K21 ["info"]
+  SETTABLEKS R4 R3 K17 ["level"]
+  LOADK R4 K22 ["Test message for status notification"]
+  SETTABLEKS R4 R3 K18 ["message"]
+  CALL R2 1 0
+  MOVE R2 R0
+  DUPTABLE R3 K10 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId"}]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K5 ["progressPercentage"]
+  LOADK R4 K23 ["NotProcessing"]
+  SETTABLEKS R4 R3 K6 ["progressName"]
+  LOADK R4 K12 [0.2]
+  SETTABLEKS R4 R3 K7 ["completionStart"]
+  LOADK R4 K24 [0.95]
+  SETTABLEKS R4 R3 K8 ["completionEnd"]
+  LOADK R4 K25 ["Processing"]
+  SETTABLEKS R4 R3 K9 ["jobStatus"]
+  LOADK R4 K4 ["abcd"]
+  SETTABLEKS R4 R3 K1 ["jobId"]
+  CALL R2 1 0
+  GETIMPORT R2 K16 [task.wait]
+  LOADN R3 12
+  CALL R2 1 0
+  MOVE R2 R0
+  DUPTABLE R3 K10 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId"}]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K5 ["progressPercentage"]
+  LOADK R4 K26 ["Finalizing"]
+  SETTABLEKS R4 R3 K6 ["progressName"]
+  LOADK R4 K24 [0.95]
+  SETTABLEKS R4 R3 K7 ["completionStart"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K8 ["completionEnd"]
+  LOADK R4 K26 ["Finalizing"]
+  SETTABLEKS R4 R3 K9 ["jobStatus"]
+  LOADK R4 K4 ["abcd"]
+  SETTABLEKS R4 R3 K1 ["jobId"]
+  CALL R2 1 0
+  GETIMPORT R2 K16 [task.wait]
+  LOADN R3 3
+  CALL R2 1 0
   JUMP [+12]
-  LOADN R3 30
-  LOADN R1 1
-  LOADN R2 255
-  FORNPREP R1
-  MOVE R4 R0
-  MOVE R5 R3
-  CALL R4 1 0
-  GETIMPORT R4 K13 [task.wait]
-  LOADN R5 1
-  CALL R4 1 0
-  FORNLOOP R1
-  GETUPVAL R1 1
-  LOADN R3 109
-  NAMECALL R1 R1 K18 ["CreateHumanoidModelFromUserId"]
-  CALL R1 2 1
-  LOADK R4 K19 ["Accessory"]
-  NAMECALL R2 R1 K20 ["FindFirstChildWhichIsA"]
+  LOADN R4 30
+  LOADN R2 1
+  LOADN R3 255
+  FORNPREP R2
+  MOVE R5 R0
+  MOVE R6 R4
+  CALL R5 1 0
+  GETIMPORT R5 K16 [task.wait]
+  LOADN R6 1
+  CALL R5 1 0
+  FORNLOOP R2
+  GETUPVAL R2 3
+  LOADN R4 109
+  NAMECALL R2 R2 K27 ["CreateHumanoidModelFromUserId"]
   CALL R2 2 1
-  JUMPIFEQKNIL R2 [+17]
-  JUMPIFNOTEQKNIL R2 [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K21 ["LUAU_ANALYZE_ERROR"]
-  FASTCALL2 ASSERT R4 R5 [+3]
-  GETIMPORT R3 K23 [assert]
-  CALL R3 2 0
-  NAMECALL R3 R2 K24 ["Destroy"]
-  CALL R3 1 0
+  LOADK R5 K28 ["Accessory"]
+  NAMECALL R3 R2 K29 ["FindFirstChildWhichIsA"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+17]
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K30 ["LUAU_ANALYZE_ERROR"]
+  FASTCALL2 ASSERT R5 R6 [+3]
+  GETIMPORT R4 K32 [assert]
+  CALL R4 2 0
+  NAMECALL R4 R3 K33 ["Destroy"]
+  CALL R4 1 0
   JUMPBACK [-22]
-  RETURN R1 1
+  RETURN R2 1
 
 PROTO_1:
   LOADK R4 K0 ["SurfaceAppearance"]
@@ -176,78 +203,111 @@ PROTO_3:
   SETLIST R7 R8 1 [1]
   NAMECALL R5 R1 K18 ["SerializeInstances"]
   CALL R5 2 1
-  GETIMPORT R6 K22 [Enum.AssetCreatorType.User]
+  LOADNIL R6
   GETUPVAL R7 1
-  NAMECALL R7 R7 K23 ["GetUserId"]
-  CALL R7 1 1
+  CALL R7 0 1
+  JUMPIFNOT R7 [+39]
   GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+21]
-  GETIMPORT R9 K2 [game]
-  GETTABLEKS R8 R9 K24 ["CreatorType"]
-  GETIMPORT R9 K26 [Enum.CreatorType.Group]
-  JUMPIFNOTEQ R8 R9 [+14]
-  GETIMPORT R9 K2 [game]
-  GETTABLEKS R8 R9 K27 ["CreatorId"]
+  GETTABLEKS R7 R8 K19 ["getCreatorData"]
+  CALL R7 0 1
+  DUPTABLE R8 K29 [{"AssetType", "AssetName", "Description", "AssetId", "CreatorId", "CreatorType", "ContentType", "Token", "AdditionalParameters"}]
+  LOADK R9 K30 ["Model"]
+  SETTABLEKS R9 R8 K20 ["AssetType"]
+  LOADK R9 K31 ["Auto-setup character model"]
+  SETTABLEKS R9 R8 K21 ["AssetName"]
+  LOADK R9 K31 ["Auto-setup character model"]
+  SETTABLEKS R9 R8 K22 ["Description"]
   LOADN R9 0
-  JUMPIFNOTLT R9 R8 [+7]
-  GETIMPORT R6 K28 [Enum.AssetCreatorType.Group]
-  GETIMPORT R8 K2 [game]
-  GETTABLEKS R7 R8 K27 ["CreatorId"]
-  DUPTABLE R8 K36 [{"AssetType", "AssetName", "Description", "AssetId", "CreatorId", "CreatorType", "ContentType", "Token", "AdditionalParameters"}]
-  LOADK R9 K37 ["Model"]
-  SETTABLEKS R9 R8 K29 ["AssetType"]
-  LOADK R9 K38 ["Auto-setup character model"]
-  SETTABLEKS R9 R8 K30 ["AssetName"]
-  LOADK R9 K38 ["Auto-setup character model"]
-  SETTABLEKS R9 R8 K31 ["Description"]
-  LOADN R9 0
-  SETTABLEKS R9 R8 K32 ["AssetId"]
-  SETTABLEKS R7 R8 K27 ["CreatorId"]
-  SETTABLEKS R6 R8 K24 ["CreatorType"]
-  LOADK R9 K39 ["model/x-rbxm"]
-  SETTABLEKS R9 R8 K33 ["ContentType"]
-  LOADK R9 K40 [""]
-  SETTABLEKS R9 R8 K34 ["Token"]
-  DUPTABLE R9 K42 [{"PublishAsPackage"}]
+  SETTABLEKS R9 R8 K23 ["AssetId"]
+  GETTABLEKS R9 R7 K32 ["creatorId"]
+  SETTABLEKS R9 R8 K24 ["CreatorId"]
+  GETTABLEKS R9 R7 K33 ["creatorType"]
+  SETTABLEKS R9 R8 K25 ["CreatorType"]
+  LOADK R9 K34 ["model/x-rbxm"]
+  SETTABLEKS R9 R8 K26 ["ContentType"]
+  LOADK R9 K35 [""]
+  SETTABLEKS R9 R8 K27 ["Token"]
+  DUPTABLE R9 K37 [{"PublishAsPackage"}]
   LOADB R10 0
-  SETTABLEKS R10 R9 K41 ["PublishAsPackage"]
-  SETTABLEKS R9 R8 K35 ["AdditionalParameters"]
-  GETUPVAL R9 3
-  MOVE R11 R5
-  MOVE R12 R8
-  NAMECALL R9 R9 K43 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam"]
-  CALL R9 3 1
-  LOADK R11 K44 ["rbxassetid://%*"]
-  GETTABLEKS R13 R9 K32 ["AssetId"]
-  NAMECALL R11 R11 K45 ["format"]
-  CALL R11 2 1
-  MOVE R10 R11
-  RETURN R10 1
+  SETTABLEKS R10 R9 K36 ["PublishAsPackage"]
+  SETTABLEKS R9 R8 K28 ["AdditionalParameters"]
+  MOVE R6 R8
+  JUMP [+60]
+  GETIMPORT R7 K41 [Enum.AssetCreatorType.User]
+  GETUPVAL R8 3
+  NAMECALL R8 R8 K42 ["GetUserId"]
+  CALL R8 1 1
+  GETUPVAL R9 4
+  CALL R9 0 1
+  JUMPIFNOT R9 [+21]
+  GETIMPORT R10 K2 [game]
+  GETTABLEKS R9 R10 K25 ["CreatorType"]
+  GETIMPORT R10 K44 [Enum.CreatorType.Group]
+  JUMPIFNOTEQ R9 R10 [+14]
+  GETIMPORT R10 K2 [game]
+  GETTABLEKS R9 R10 K24 ["CreatorId"]
+  LOADN R10 0
+  JUMPIFNOTLT R10 R9 [+7]
+  GETIMPORT R7 K45 [Enum.AssetCreatorType.Group]
+  GETIMPORT R9 K2 [game]
+  GETTABLEKS R8 R9 K24 ["CreatorId"]
+  DUPTABLE R9 K29 [{"AssetType", "AssetName", "Description", "AssetId", "CreatorId", "CreatorType", "ContentType", "Token", "AdditionalParameters"}]
+  LOADK R10 K30 ["Model"]
+  SETTABLEKS R10 R9 K20 ["AssetType"]
+  LOADK R10 K31 ["Auto-setup character model"]
+  SETTABLEKS R10 R9 K21 ["AssetName"]
+  LOADK R10 K31 ["Auto-setup character model"]
+  SETTABLEKS R10 R9 K22 ["Description"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K23 ["AssetId"]
+  SETTABLEKS R8 R9 K24 ["CreatorId"]
+  SETTABLEKS R7 R9 K25 ["CreatorType"]
+  LOADK R10 K34 ["model/x-rbxm"]
+  SETTABLEKS R10 R9 K26 ["ContentType"]
+  LOADK R10 K35 [""]
+  SETTABLEKS R10 R9 K27 ["Token"]
+  DUPTABLE R10 K37 [{"PublishAsPackage"}]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K36 ["PublishAsPackage"]
+  SETTABLEKS R10 R9 K28 ["AdditionalParameters"]
+  MOVE R6 R9
+  GETUPVAL R7 5
+  MOVE R9 R5
+  MOVE R10 R6
+  NAMECALL R7 R7 K46 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam"]
+  CALL R7 3 1
+  LOADK R9 K47 ["rbxassetid://%*"]
+  GETTABLEKS R11 R7 K23 ["AssetId"]
+  NAMECALL R9 R9 K48 ["format"]
+  CALL R9 2 1
+  MOVE R8 R9
+  RETURN R8 1
 
 PROTO_4:
-  GETUPVAL R3 0
+  GETUPVAL R4 0
+  CALL R4 0 1
+  FASTCALL2K ASSERT R4 K0 [+4]
+  LOADK R5 K0 ["FFlag::AvatarPreviewerUseAnyModel is not enabled"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETUPVAL R3 1
   CALL R3 0 1
-  FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["FFlag::AvatarPreviewerUseAnyModel is not enabled"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  GETUPVAL R2 1
-  CALL R2 0 1
-  JUMPIFNOT R2 [+4]
-  GETUPVAL R2 2
-  MOVE R3 R1
-  CALL R2 1 1
-  RETURN R2 1
-  GETIMPORT R2 K4 [game]
-  LOADK R4 K5 ["StudioAssetService"]
-  NAMECALL R2 R2 K6 ["GetService"]
-  CALL R2 2 1
-  MOVE R5 R0
-  MOVE R6 R1
-  NAMECALL R3 R2 K7 ["AutoSetupAvatarAsync"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  JUMPIFNOT R3 [+5]
+  GETUPVAL R3 2
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 1
+  RETURN R3 1
+  GETIMPORT R3 K4 [game]
+  LOADK R5 K5 ["StudioAssetService"]
+  NAMECALL R3 R3 K6 ["GetService"]
+  CALL R3 2 1
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  NAMECALL R4 R3 K7 ["AutoSetupAvatarAsync"]
+  CALL R4 4 -1
+  RETURN R4 -1
 
 PROTO_5:
   LOADK R5 K0 ["MeshPart"]
@@ -370,61 +430,79 @@ MAIN:
   CALL R6 1 1
   GETIMPORT R7 K11 [require]
   GETTABLEKS R10 R3 K14 ["Src"]
-  GETTABLEKS R9 R10 K18 ["Flags"]
-  GETTABLEKS R8 R9 K19 ["getFFlagAvatarAutosetupCancel"]
+  GETTABLEKS R9 R10 K15 ["Util"]
+  GETTABLEKS R8 R9 K18 ["AssetCreatorUtils"]
   CALL R7 1 1
   GETIMPORT R8 K11 [require]
   GETTABLEKS R11 R3 K14 ["Src"]
-  GETTABLEKS R10 R11 K18 ["Flags"]
-  GETTABLEKS R9 R10 K20 ["getFFlagAvatarPreviewerUseAnyModel"]
+  GETTABLEKS R10 R11 K19 ["Flags"]
+  GETTABLEKS R9 R10 K20 ["getFFlagAvatarAutosetupCancel"]
   CALL R8 1 1
   GETIMPORT R9 K11 [require]
   GETTABLEKS R12 R3 K14 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Flags"]
-  GETTABLEKS R10 R11 K21 ["getFFlagDebugAvatarPreviewerMockAutoSetup"]
+  GETTABLEKS R11 R12 K19 ["Flags"]
+  GETTABLEKS R10 R11 K21 ["getFFlagAvatarAutosetupStatusNotifications"]
   CALL R9 1 1
   GETIMPORT R10 K11 [require]
   GETTABLEKS R13 R3 K14 ["Src"]
-  GETTABLEKS R12 R13 K18 ["Flags"]
-  GETTABLEKS R11 R12 K22 ["getFFlagStudioAvatarAutosetupReportsProgress"]
+  GETTABLEKS R12 R13 K19 ["Flags"]
+  GETTABLEKS R11 R12 K22 ["getFFlagAvatarPreviewerUseAnyModel"]
   CALL R10 1 1
   GETIMPORT R11 K11 [require]
   GETTABLEKS R14 R3 K14 ["Src"]
-  GETTABLEKS R13 R14 K18 ["Flags"]
-  GETTABLEKS R12 R13 K23 ["getFFlagStudioAvatarAutoSetupGroupUpload"]
+  GETTABLEKS R13 R14 K19 ["Flags"]
+  GETTABLEKS R12 R13 K23 ["getFFlagDebugAvatarPreviewerMockAutoSetup"]
   CALL R11 1 1
-  DUPCLOSURE R12 K24 [PROTO_0]
-  CAPTURE VAL R10
-  CAPTURE VAL R0
+  GETIMPORT R12 K11 [require]
+  GETTABLEKS R15 R3 K14 ["Src"]
+  GETTABLEKS R14 R15 K19 ["Flags"]
+  GETTABLEKS R13 R14 K24 ["getFFlagStudioAvatarAutosetupReportsProgress"]
+  CALL R12 1 1
+  GETIMPORT R13 K11 [require]
+  GETTABLEKS R16 R3 K14 ["Src"]
+  GETTABLEKS R15 R16 K19 ["Flags"]
+  GETTABLEKS R14 R15 K25 ["getFFlagStudioAvatarAutoSetupGroupUpload"]
+  CALL R13 1 1
+  GETIMPORT R14 K11 [require]
+  GETTABLEKS R17 R3 K14 ["Src"]
+  GETTABLEKS R16 R17 K19 ["Flags"]
+  GETTABLEKS R15 R16 K26 ["getFFlagAvatarPreviewerEditingTools"]
+  CALL R14 1 1
+  DUPCLOSURE R15 K27 [PROTO_0]
+  CAPTURE VAL R12
+  CAPTURE VAL R9
   CAPTURE VAL R5
-  DUPCLOSURE R13 K25 [PROTO_1]
-  DUPCLOSURE R14 K26 [PROTO_2]
-  CAPTURE VAL R13
-  DUPCLOSURE R15 K27 [PROTO_3]
-  CAPTURE VAL R9
-  CAPTURE VAL R2
+  CAPTURE VAL R0
+  DUPCLOSURE R16 K28 [PROTO_1]
+  DUPCLOSURE R17 K29 [PROTO_2]
+  CAPTURE VAL R16
+  DUPCLOSURE R18 K30 [PROTO_3]
   CAPTURE VAL R11
-  CAPTURE VAL R1
-  DUPCLOSURE R16 K28 [PROTO_4]
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE VAL R12
-  DUPCLOSURE R17 K29 [PROTO_5]
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE VAL R12
   CAPTURE VAL R14
-  DUPCLOSURE R18 K30 [PROTO_8]
   CAPTURE VAL R7
-  CAPTURE VAL R9
-  DUPTABLE R19 K36 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
-  SETTABLEKS R15 R19 K31 ["uploadModelAsync"]
-  SETTABLEKS R16 R19 K32 ["startAutoSetupAsync"]
-  SETTABLEKS R17 R19 K33 ["DEPRECATED_startAutoSetupAsync"]
-  LOADNIL R20
-  SETTABLEKS R20 R19 K34 ["autoSetupClickedSignal"]
-  SETTABLEKS R18 R19 K35 ["cancelAutoSetup"]
-  GETTABLEKS R20 R4 K37 ["createContext"]
-  MOVE R21 R19
-  CALL R20 1 1
-  RETURN R20 1
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  DUPCLOSURE R19 K31 [PROTO_4]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R15
+  DUPCLOSURE R20 K32 [PROTO_5]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R15
+  CAPTURE VAL R17
+  DUPCLOSURE R21 K33 [PROTO_8]
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  DUPTABLE R22 K39 [{"uploadModelAsync", "startAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
+  SETTABLEKS R18 R22 K34 ["uploadModelAsync"]
+  SETTABLEKS R19 R22 K35 ["startAutoSetupAsync"]
+  SETTABLEKS R20 R22 K36 ["DEPRECATED_startAutoSetupAsync"]
+  LOADNIL R23
+  SETTABLEKS R23 R22 K37 ["autoSetupClickedSignal"]
+  SETTABLEKS R21 R22 K38 ["cancelAutoSetup"]
+  GETTABLEKS R23 R4 K40 ["createContext"]
+  MOVE R24 R22
+  CALL R23 1 1
+  RETURN R23 1

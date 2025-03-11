@@ -62,11 +62,23 @@ PROTO_1:
   GETIMPORT R5 K31 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R5 R4 K29 ["ZIndexBehavior"]
   LOADK R7 K32 ["Floating"]
-  DUPTABLE R8 K34 [{"Id", "Callout", "Resizable", "Title"}]
+  DUPTABLE R8 K35 [{"Id", "Callout", "Popup", "Resizable", "Title"}]
   LOADK R9 K32 ["Floating"]
   SETTABLEKS R9 R8 K12 ["Id"]
+  GETUPVAL R10 1
+  JUMPIFNOT R10 [+2]
+  LOADNIL R9
+  JUMP [+1]
   LOADB R9 1
   SETTABLEKS R9 R8 K33 ["Callout"]
+  GETUPVAL R10 1
+  JUMPIFNOT R10 [+5]
+  DUPTABLE R9 K37 [{"PassesThroughMouseEvents"}]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K36 ["PassesThroughMouseEvents"]
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K34 ["Popup"]
   LOADB R9 1
   SETTABLEKS R9 R8 K17 ["Resizable"]
   LOADK R9 K32 ["Floating"]
@@ -75,24 +87,24 @@ PROTO_1:
   CALL R5 3 1
   GETIMPORT R6 K31 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R6 R5 K29 ["ZIndexBehavior"]
-  GETTABLEKS R6 R1 K35 ["createElement"]
+  GETTABLEKS R6 R1 K38 ["createElement"]
   MOVE R7 R3
-  DUPTABLE R8 K38 [{"Plugin", "Widget", "Floating"}]
-  SETTABLEKS R0 R8 K36 ["Plugin"]
-  SETTABLEKS R4 R8 K37 ["Widget"]
+  DUPTABLE R8 K41 [{"Plugin", "Widget", "Floating"}]
+  SETTABLEKS R0 R8 K39 ["Plugin"]
+  SETTABLEKS R4 R8 K40 ["Widget"]
   SETTABLEKS R5 R8 K32 ["Floating"]
   CALL R6 2 1
-  GETTABLEKS R7 R2 K39 ["createRoot"]
+  GETTABLEKS R7 R2 K42 ["createRoot"]
   MOVE R8 R4
   CALL R7 1 1
   MOVE R10 R6
-  NAMECALL R8 R7 K40 ["render"]
+  NAMECALL R8 R7 K43 ["render"]
   CALL R8 2 0
-  GETTABLEKS R8 R0 K41 ["Unloading"]
+  GETTABLEKS R8 R0 K44 ["Unloading"]
   NEWCLOSURE R10 P0
   CAPTURE VAL R7
   CAPTURE VAL R4
-  NAMECALL R8 R8 K42 ["Once"]
+  NAMECALL R8 R8 K45 ["Once"]
   CALL R8 2 0
   RETURN R0 0
 
@@ -102,6 +114,12 @@ MAIN:
   LOADK R2 K2 ["Ribbon"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_1]
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["RibbonFloatingPopup"]
+  LOADB R4 0
+  NAMECALL R1 R1 K7 ["DefineFastFlag"]
+  CALL R1 3 1
+  DUPCLOSURE R2 K8 [PROTO_1]
   CAPTURE VAL R0
-  RETURN R1 1
+  CAPTURE VAL R1
+  RETURN R2 1

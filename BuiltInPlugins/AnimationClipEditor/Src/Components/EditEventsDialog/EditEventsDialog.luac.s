@@ -672,49 +672,48 @@ PROTO_22:
 PROTO_23:
   GETTABLEKS R3 R0 K0 ["state"]
   GETTABLEKS R4 R3 K1 ["deleteAllName"]
-  GETTABLEKS R5 R1 K2 ["button"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K3 ["createElement"]
-  GETUPVAL R7 1
-  DUPTABLE R8 K8 [{"Buttons", "PromptText", "OnButtonClicked", "OnClose"}]
-  NEWTABLE R9 0 2
-  DUPTABLE R10 K12 [{"Key", "Text", "Style"}]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K9 ["Key"]
-  LOADK R13 K13 ["Dialog"]
-  LOADK R14 K14 ["No"]
-  NAMECALL R11 R2 K15 ["getText"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K7 [{"Buttons", "PromptText", "OnButtonClicked", "OnClose"}]
+  NEWTABLE R8 0 2
+  DUPTABLE R9 K11 [{"Key", "Text", "Style"}]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K8 ["Key"]
+  LOADK R12 K12 ["Dialog"]
+  LOADK R13 K13 ["No"]
+  NAMECALL R10 R2 K14 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K9 ["Text"]
+  LOADK R10 K15 ["Round"]
+  SETTABLEKS R10 R9 K10 ["Style"]
+  DUPTABLE R10 K11 [{"Key", "Text", "Style"}]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K8 ["Key"]
+  LOADK R13 K12 ["Dialog"]
+  LOADK R14 K16 ["Yes"]
+  NAMECALL R11 R2 K14 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K10 ["Text"]
-  LOADK R11 K16 ["Round"]
-  SETTABLEKS R11 R10 K11 ["Style"]
-  DUPTABLE R11 K12 [{"Key", "Text", "Style"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K9 ["Key"]
-  LOADK R14 K13 ["Dialog"]
-  LOADK R15 K17 ["Yes"]
-  NAMECALL R12 R2 K15 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K10 ["Text"]
-  LOADK R12 K18 ["RoundPrimary"]
-  SETTABLEKS R12 R11 K11 ["Style"]
-  SETLIST R9 R10 2 [1]
-  SETTABLEKS R9 R8 K4 ["Buttons"]
-  LOADK R11 K13 ["Dialog"]
-  LOADK R12 K19 ["DeleteAllPrompt_Migrated"]
-  DUPTABLE R13 K21 [{"name"}]
-  SETTABLEKS R4 R13 K20 ["name"]
-  NAMECALL R9 R2 K15 ["getText"]
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K5 ["PromptText"]
-  NEWCLOSURE R9 P0
+  SETTABLEKS R11 R10 K9 ["Text"]
+  LOADK R11 K17 ["RoundPrimary"]
+  SETTABLEKS R11 R10 K10 ["Style"]
+  SETLIST R8 R9 2 [1]
+  SETTABLEKS R8 R7 K3 ["Buttons"]
+  LOADK R10 K12 ["Dialog"]
+  LOADK R11 K18 ["DeleteAllPrompt_Migrated"]
+  DUPTABLE R12 K20 [{"name"}]
+  SETTABLEKS R4 R12 K19 ["name"]
+  NAMECALL R8 R2 K14 ["getText"]
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K4 ["PromptText"]
+  NEWCLOSURE R8 P0
   CAPTURE VAL R0
   CAPTURE VAL R4
-  SETTABLEKS R9 R8 K6 ["OnButtonClicked"]
-  GETTABLEKS R9 R0 K22 ["hideDeleteAllPrompt"]
-  SETTABLEKS R9 R8 K7 ["OnClose"]
-  CALL R6 2 -1
-  RETURN R6 -1
+  SETTABLEKS R8 R7 K5 ["OnButtonClicked"]
+  GETTABLEKS R8 R0 K21 ["hideDeleteAllPrompt"]
+  SETTABLEKS R8 R7 K6 ["OnClose"]
+  CALL R5 2 -1
+  RETURN R5 -1
 
 PROTO_24:
   JUMPIFNOT R0 [+7]
@@ -797,148 +796,147 @@ PROTO_26:
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R4 R0 K5 ["state"]
   GETTABLEKS R5 R1 K6 ["dialogTheme"]
-  GETTABLEKS R6 R1 K7 ["button"]
-  GETTABLEKS R8 R4 K8 ["deleteAllName"]
+  GETTABLEKS R7 R4 K7 ["deleteAllName"]
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETTABLEKS R8 R4 K8 ["renameAllNames"]
   JUMPIFNOTEQKNIL R8 [+2]
   LOADB R7 0 +1
   LOADB R7 1
-  GETTABLEKS R9 R4 K9 ["renameAllNames"]
-  JUMPIFNOTEQKNIL R9 [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  NEWTABLE R9 0 2
-  DUPTABLE R10 K13 [{"Key", "Text", "Style"}]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K10 ["Key"]
-  LOADK R13 K14 ["Dialog"]
-  LOADK R14 K15 ["Cancel"]
-  NAMECALL R11 R2 K16 ["getText"]
+  NEWTABLE R8 0 2
+  DUPTABLE R9 K12 [{"Key", "Text", "Style"}]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K9 ["Key"]
+  LOADK R12 K13 ["Dialog"]
+  LOADK R13 K14 ["Cancel"]
+  NAMECALL R10 R2 K15 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K10 ["Text"]
+  LOADK R10 K16 ["Round"]
+  SETTABLEKS R10 R9 K11 ["Style"]
+  DUPTABLE R10 K12 [{"Key", "Text", "Style"}]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K9 ["Key"]
+  LOADK R13 K13 ["Dialog"]
+  LOADK R14 K17 ["Save"]
+  NAMECALL R11 R2 K15 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K11 ["Text"]
-  LOADK R11 K17 ["Round"]
-  SETTABLEKS R11 R10 K12 ["Style"]
-  DUPTABLE R11 K13 [{"Key", "Text", "Style"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K10 ["Key"]
-  LOADK R14 K14 ["Dialog"]
-  LOADK R15 K18 ["Save"]
-  NAMECALL R12 R2 K16 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K11 ["Text"]
-  LOADK R12 K19 ["RoundPrimary"]
-  SETTABLEKS R12 R11 K12 ["Style"]
-  SETLIST R9 R10 2 [1]
-  DUPTABLE R10 K21 [{"Layout"}]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K22 ["createElement"]
-  LOADK R12 K23 ["UITableLayout"]
-  DUPTABLE R13 K26 [{"SortOrder", "FillEmptySpaceColumns"}]
-  GETIMPORT R14 K29 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R14 R13 K24 ["SortOrder"]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K25 ["FillEmptySpaceColumns"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K20 ["Layout"]
+  SETTABLEKS R11 R10 K10 ["Text"]
+  LOADK R11 K18 ["RoundPrimary"]
+  SETTABLEKS R11 R10 K11 ["Style"]
+  SETLIST R8 R9 2 [1]
+  DUPTABLE R9 K20 [{"Layout"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K21 ["createElement"]
+  LOADK R11 K22 ["UITableLayout"]
+  DUPTABLE R12 K25 [{"SortOrder", "FillEmptySpaceColumns"}]
+  GETIMPORT R13 K28 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R13 R12 K23 ["SortOrder"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K24 ["FillEmptySpaceColumns"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K19 ["Layout"]
+  MOVE R12 R1
+  MOVE R13 R2
+  NAMECALL R10 R0 K29 ["addTitleRow"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K30 ["TitleRow"]
+  MOVE R12 R1
+  MOVE R13 R9
+  NAMECALL R10 R0 K31 ["renderEvents"]
+  CALL R10 3 1
   MOVE R13 R1
   MOVE R14 R2
-  NAMECALL R11 R0 K30 ["addTitleRow"]
+  NAMECALL R11 R0 K32 ["addNewEventRow"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K31 ["TitleRow"]
+  SETTABLEKS R11 R9 K33 ["AddNew"]
+  JUMPIFNOT R6 [+8]
   MOVE R13 R1
-  MOVE R14 R10
-  NAMECALL R11 R0 K32 ["renderEvents"]
+  MOVE R14 R2
+  NAMECALL R11 R0 K34 ["renderDeleteAllPrompt"]
   CALL R11 3 1
-  MOVE R14 R1
-  MOVE R15 R2
-  NAMECALL R12 R0 K33 ["addNewEventRow"]
-  CALL R12 3 1
-  SETTABLEKS R12 R10 K34 ["AddNew"]
-  JUMPIFNOT R7 [+8]
-  MOVE R14 R1
-  MOVE R15 R2
-  NAMECALL R12 R0 K35 ["renderDeleteAllPrompt"]
-  CALL R12 3 1
-  SETTABLEKS R12 R10 K36 ["DeleteAllPrompt"]
+  SETTABLEKS R11 R9 K35 ["DeleteAllPrompt"]
   JUMP [+8]
-  JUMPIFNOT R8 [+7]
-  MOVE R14 R1
-  MOVE R15 R2
-  NAMECALL R12 R0 K37 ["renderRenameAllPrompt"]
-  CALL R12 3 1
-  SETTABLEKS R12 R10 K38 ["RenameAllPrompt"]
-  GETIMPORT R12 K40 [Vector2.new]
-  LOADN R13 204
-  FASTCALL2K MATH_MAX R11 K41 [+5]
-  MOVE R16 R11
-  LOADK R17 K41 [110]
-  GETIMPORT R15 K44 [math.max]
-  CALL R15 2 1
-  GETUPVAL R16 2
-  ADD R14 R15 R16
-  CALL R12 2 1
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K22 ["createElement"]
-  GETUPVAL R14 3
-  DUPTABLE R15 K57 [{"Size", "MinContentSize", "TextSize", "Resizable", "Buttons", "OnButtonPressed", "OnClose", "BorderPadding", "ButtonPadding", "ButtonHeight", "ButtonWidth", "Title"}]
-  SETTABLEKS R12 R15 K45 ["Size"]
-  SETTABLEKS R12 R15 K46 ["MinContentSize"]
-  GETTABLEKS R16 R5 K58 ["textSize"]
-  SETTABLEKS R16 R15 K47 ["TextSize"]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K48 ["Resizable"]
-  SETTABLEKS R9 R15 K49 ["Buttons"]
-  GETTABLEKS R16 R0 K59 ["onButtonClicked"]
-  SETTABLEKS R16 R15 K50 ["OnButtonPressed"]
-  GETTABLEKS R16 R3 K51 ["OnClose"]
-  SETTABLEKS R16 R15 K51 ["OnClose"]
-  LOADN R16 10
-  SETTABLEKS R16 R15 K52 ["BorderPadding"]
+  JUMPIFNOT R7 [+7]
+  MOVE R13 R1
+  MOVE R14 R2
+  NAMECALL R11 R0 K36 ["renderRenameAllPrompt"]
+  CALL R11 3 1
+  SETTABLEKS R11 R9 K37 ["RenameAllPrompt"]
+  GETIMPORT R11 K39 [Vector2.new]
+  LOADN R12 204
+  FASTCALL2K MATH_MAX R10 K40 [+5]
+  MOVE R15 R10
+  LOADK R16 K40 [110]
+  GETIMPORT R14 K43 [math.max]
+  CALL R14 2 1
+  GETUPVAL R15 2
+  ADD R13 R14 R15
+  CALL R11 2 1
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K21 ["createElement"]
+  GETUPVAL R13 3
+  DUPTABLE R14 K56 [{"Size", "MinContentSize", "TextSize", "Resizable", "Buttons", "OnButtonPressed", "OnClose", "BorderPadding", "ButtonPadding", "ButtonHeight", "ButtonWidth", "Title"}]
+  SETTABLEKS R11 R14 K44 ["Size"]
+  SETTABLEKS R11 R14 K45 ["MinContentSize"]
+  GETTABLEKS R15 R5 K57 ["textSize"]
+  SETTABLEKS R15 R14 K46 ["TextSize"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K47 ["Resizable"]
+  SETTABLEKS R8 R14 K48 ["Buttons"]
+  GETTABLEKS R15 R0 K58 ["onButtonClicked"]
+  SETTABLEKS R15 R14 K49 ["OnButtonPressed"]
+  GETTABLEKS R15 R3 K50 ["OnClose"]
+  SETTABLEKS R15 R14 K50 ["OnClose"]
+  LOADN R15 10
+  SETTABLEKS R15 R14 K51 ["BorderPadding"]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K59 ["PROMPT_BUTTON_PADDING"]
+  SETTABLEKS R15 R14 K52 ["ButtonPadding"]
   GETUPVAL R17 4
-  GETTABLEKS R16 R17 K60 ["PROMPT_BUTTON_PADDING"]
-  SETTABLEKS R16 R15 K53 ["ButtonPadding"]
-  GETUPVAL R18 4
-  GETTABLEKS R17 R18 K61 ["PROMPT_BUTTON_SIZE"]
-  GETTABLEKS R16 R17 K62 ["Y"]
-  SETTABLEKS R16 R15 K54 ["ButtonHeight"]
-  GETUPVAL R18 4
-  GETTABLEKS R17 R18 K61 ["PROMPT_BUTTON_SIZE"]
-  GETTABLEKS R16 R17 K63 ["X"]
-  SETTABLEKS R16 R15 K55 ["ButtonWidth"]
-  LOADK R18 K56 ["Title"]
-  LOADK R19 K64 ["EditEvents"]
-  NAMECALL R16 R2 K16 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K56 ["Title"]
-  DUPTABLE R16 K66 [{"Container"}]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K22 ["createElement"]
-  LOADK R18 K67 ["ScrollingFrame"]
-  DUPTABLE R19 K72 [{"BorderSizePixel", "BackgroundColor3", "Size", "ScrollBarThickness", "CanvasSize"}]
+  GETTABLEKS R16 R17 K60 ["PROMPT_BUTTON_SIZE"]
+  GETTABLEKS R15 R16 K61 ["Y"]
+  SETTABLEKS R15 R14 K53 ["ButtonHeight"]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K60 ["PROMPT_BUTTON_SIZE"]
+  GETTABLEKS R15 R16 K62 ["X"]
+  SETTABLEKS R15 R14 K54 ["ButtonWidth"]
+  LOADK R17 K55 ["Title"]
+  LOADK R18 K63 ["EditEvents"]
+  NAMECALL R15 R2 K15 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K55 ["Title"]
+  DUPTABLE R15 K65 [{"Container"}]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K21 ["createElement"]
+  LOADK R17 K66 ["ScrollingFrame"]
+  DUPTABLE R18 K71 [{"BorderSizePixel", "BackgroundColor3", "Size", "ScrollBarThickness", "CanvasSize"}]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K67 ["BorderSizePixel"]
+  GETTABLEKS R19 R1 K72 ["backgroundColor"]
+  SETTABLEKS R19 R18 K68 ["BackgroundColor3"]
+  GETIMPORT R19 K74 [UDim2.new]
+  LOADN R20 1
+  LOADN R21 0
+  LOADN R22 1
+  LOADN R23 246
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K44 ["Size"]
+  LOADN R19 8
+  SETTABLEKS R19 R18 K69 ["ScrollBarThickness"]
+  GETIMPORT R19 K74 [UDim2.new]
   LOADN R20 0
-  SETTABLEKS R20 R19 K68 ["BorderSizePixel"]
-  GETTABLEKS R20 R1 K73 ["backgroundColor"]
-  SETTABLEKS R20 R19 K69 ["BackgroundColor3"]
-  GETIMPORT R20 K75 [UDim2.new]
-  LOADN R21 1
-  LOADN R22 0
-  LOADN R23 1
-  LOADN R24 246
-  CALL R20 4 1
-  SETTABLEKS R20 R19 K45 ["Size"]
-  LOADN R20 8
-  SETTABLEKS R20 R19 K70 ["ScrollBarThickness"]
-  GETIMPORT R20 K75 [UDim2.new]
   LOADN R21 0
   LOADN R22 0
-  LOADN R23 0
-  MOVE R24 R11
-  CALL R20 4 1
-  SETTABLEKS R20 R19 K71 ["CanvasSize"]
-  MOVE R20 R10
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K65 ["Container"]
-  CALL R13 3 -1
-  RETURN R13 -1
+  MOVE R23 R10
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K70 ["CanvasSize"]
+  MOVE R19 R9
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K64 ["Container"]
+  CALL R12 3 -1
+  RETURN R12 -1
 
 MAIN:
   PREPVARARGS 0

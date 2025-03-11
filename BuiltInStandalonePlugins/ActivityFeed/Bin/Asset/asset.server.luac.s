@@ -112,8 +112,9 @@ MAIN:
   GETTABLEKS R3 R4 K4 ["Parent"]
   GETTABLEKS R2 R3 K4 ["Parent"]
   GETIMPORT R3 K1 [require]
-  GETTABLEKS R6 R2 K12 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Util"]
+  GETTABLEKS R7 R2 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Util"]
+  GETTABLEKS R5 R6 K14 ["LinkerFunction"]
   GETTABLEKS R4 R5 K14 ["LinkerFunction"]
   CALL R3 1 1
   GETIMPORT R4 K8 [game]

@@ -50,7 +50,6 @@ local function ReportTextEntry(props: Props)
 			TextWrapped = true,
 			ClearTextOnFocus = false,
 			OverlayNativeInput = true,
-			ClipsDescendants = true,
 			[React.Event.FocusLost] = function() end,
 			[React.Event.Focused] = function() end,
 			[React.Change.AbsoluteSize] = function() end,

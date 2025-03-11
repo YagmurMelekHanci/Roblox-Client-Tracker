@@ -2428,7 +2428,7 @@ PROTO_52:
   GETUPVAL R2 0
   CALL R2 0 1
   FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["FFlagConvAIGenerateMesh is not enabled!"]
+  LOADK R3 K0 ["FFlagConvAIMeshGen is not enabled!"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
   GETIMPORT R1 K4 [pcall]
@@ -2543,7 +2543,7 @@ MAIN:
   GETIMPORT R23 K7 [require]
   GETTABLEKS R26 R1 K8 ["Src"]
   GETTABLEKS R25 R26 K21 ["Flags"]
-  GETTABLEKS R24 R25 K35 ["getFFlagConvAIGenerateMesh"]
+  GETTABLEKS R24 R25 K35 ["getFFlagConvAIMeshGen"]
   CALL R23 1 1
   GETTABLEKS R25 R2 K36 ["Globals"]
   GETTABLEKS R24 R25 K37 ["game"]

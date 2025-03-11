@@ -17,7 +17,6 @@ local Interface = require(VirtualCursorFolder.Interface)
 local getFFlagDirectionalAnalogStick = require(VirtualCursorFolder.getFFlagDirectionalAnalogStick)
 local getFFlagDirectionalAnalogStickBillboardGuiSupport = require(VirtualCursorFolder.getFFlagDirectionalAnalogStickBillboardGuiSupport)
 
-local FFlagResetVCThumbstickOnDisable = game:DefineFastFlag("ResetVCThumbstickOnDisable", false)
 local FFlagDirectionalAnalogStick = getFFlagDirectionalAnalogStick()
 local FFlagDirectionalAnalogStickBillboardGuiSupport = getFFlagDirectionalAnalogStickBillboardGuiSupport()
 
@@ -210,10 +209,8 @@ function Input:DisableInput()
         gamepadThumbstick1ChangedConnection = nil
     end
 
-	if FFlagResetVCThumbstickOnDisable then
-		thumbstickVector = Vector2.new()
-		thumbstick2Vector = Vector2.new()
-	end
+	thumbstickVector = Vector2.new()
+	thumbstick2Vector = Vector2.new()
 
 	ContextActionService:UnbindCoreAction("VirtualCursorThumbstick1Movement")
 	ContextActionService:UnbindCoreAction("VirtualCursorThumbstick2Movement")

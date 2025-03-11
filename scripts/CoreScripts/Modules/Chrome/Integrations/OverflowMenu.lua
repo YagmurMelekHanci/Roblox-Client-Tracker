@@ -59,8 +59,6 @@ local GetFStringMusicTooltipLocalStorageKey = require(Chrome.Flags.GetFStringMus
 local GetFIntMusicFtuxShowDelayMs = require(Chrome.Flags.GetFIntMusicFtuxShowDelayMs)
 local GetFIntMusicFtuxDismissDelayMs = require(Chrome.Flags.GetFIntMusicFtuxDismissDelayMs)
 local GetFFlagShouldShowMusicFtuxTooltipXTimes = require(Chrome.Flags.GetFFlagShouldShowMusicFtuxTooltipXTimes)
-local GetFFlagFixShowMusicFtuxTooltipWithoutConnect =
-	require(Chrome.Flags.GetFFlagFixShowMusicFtuxTooltipWithoutConnect)
 local GetFStringMusicTooltipLocalStorageKey_v2 = require(Chrome.Flags.GetFStringMusicTooltipLocalStorageKey_v2)
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 
@@ -346,10 +344,8 @@ function HamburgerButton(props)
 	end
 
 	-- Tooltips should be shown one after the other (Connect, then Music)
-	local hasUserAlreadySeenConnectTooltip = if GetFFlagFixShowMusicFtuxTooltipWithoutConnect()
-		then if shouldShowConnectTooltip
-			then LocalStore.getValue(GetFStringConnectTooltipLocalStorageKey()) or false
-			else true
+	local hasUserAlreadySeenConnectTooltip = if shouldShowConnectTooltip
+		then LocalStore.getValue(GetFStringConnectTooltipLocalStorageKey()) or false
 		else LocalStore.getValue(GetFStringConnectTooltipLocalStorageKey())
 	local hasUserAlreadySeenMusicTooltip = if GetFFlagShouldShowMusicFtuxTooltipXTimes()
 		then LocalStore.getNumUniversesExposedTo(GetFStringMusicTooltipLocalStorageKey_v2())

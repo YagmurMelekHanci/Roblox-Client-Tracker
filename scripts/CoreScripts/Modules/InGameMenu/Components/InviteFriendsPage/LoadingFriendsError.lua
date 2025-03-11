@@ -22,6 +22,9 @@ local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
 
+local FFlagUIBloxUseFoundationButton =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseFoundationButton()
+
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 
@@ -40,7 +43,7 @@ function LoadingFriendsError:init()
 	self.buttonRef = Roact.createRef()
 
 	self.state = {
-		buttonIsInitialized = false,
+		buttonIsInitialized = if FFlagUIBloxUseFoundationButton then true else false,
 	}
 end
 

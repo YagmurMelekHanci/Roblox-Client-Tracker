@@ -94,33 +94,16 @@ PROTO_3:
   GETTABLEKS R4 R3 K21 ["Position"]
   GETTABLEKS R6 R0 K4 ["_draggerContext"]
   GETTABLEKS R5 R6 K24 ["projectionEnabled"]
-  JUMPIFNOT R5 [+27]
-  GETTABLEKS R5 R0 K0 ["_updatePointPositionCallback"]
-  GETIMPORT R7 K26 [CFrame.new]
-  GETTABLEKS R11 R0 K4 ["_draggerContext"]
-  GETTABLEKS R10 R11 K27 ["worldModel"]
-  GETTABLEKS R9 R10 K28 ["PrimaryPart"]
-  GETTABLEKS R8 R9 K25 ["CFrame"]
-  MOVE R10 R4
-  NAMECALL R8 R8 K29 ["PointToObjectSpace"]
-  CALL R8 2 -1
-  CALL R7 -1 1
-  GETTABLEKS R10 R0 K14 ["_selectedPoint"]
-  GETTABLEKS R9 R10 K30 ["getCFrame"]
-  CALL R9 0 1
-  GETTABLEKS R8 R9 K31 ["Rotation"]
-  MUL R6 R7 R8
-  CALL R5 1 0
-  RETURN R0 0
+  JUMPIFNOT R5 [+70]
   LOADNIL R5
   LOADN R6 10
   LOADN R7 0
   JUMPIFNOTLT R7 R6 [+34]
-  SUBK R6 R6 K32 [1]
+  SUBK R6 R6 K25 [1]
   GETUPVAL R7 1
   GETTABLEKS R10 R1 K17 ["Origin"]
   GETTABLEKS R12 R1 K18 ["Direction"]
-  MULK R11 R12 K33 [0.05]
+  MULK R11 R12 K26 [0.05]
   ADD R9 R10 R11
   GETTABLEKS R11 R1 K18 ["Direction"]
   MINUS R10 R11
@@ -140,25 +123,42 @@ PROTO_3:
   JUMP [+1]
   JUMPBACK [-36]
   MOVE R9 R5
-  LOADK R10 K34 [0.5]
-  NAMECALL R7 R4 K35 ["Lerp"]
+  LOADK R10 K27 [0.5]
+  NAMECALL R7 R4 K28 ["Lerp"]
   CALL R7 3 1
   GETTABLEKS R8 R0 K0 ["_updatePointPositionCallback"]
-  GETIMPORT R10 K26 [CFrame.new]
+  GETIMPORT R10 K30 [CFrame.new]
   GETTABLEKS R14 R0 K4 ["_draggerContext"]
-  GETTABLEKS R13 R14 K27 ["worldModel"]
-  GETTABLEKS R12 R13 K28 ["PrimaryPart"]
-  GETTABLEKS R11 R12 K25 ["CFrame"]
+  GETTABLEKS R13 R14 K31 ["worldModel"]
+  GETTABLEKS R12 R13 K32 ["PrimaryPart"]
+  GETTABLEKS R11 R12 K29 ["CFrame"]
   MOVE R13 R7
-  NAMECALL R11 R11 K29 ["PointToObjectSpace"]
+  NAMECALL R11 R11 K33 ["PointToObjectSpace"]
   CALL R11 2 -1
   CALL R10 -1 1
   GETTABLEKS R13 R0 K14 ["_selectedPoint"]
-  GETTABLEKS R12 R13 K30 ["getCFrame"]
+  GETTABLEKS R12 R13 K34 ["getCFrame"]
   CALL R12 0 1
-  GETTABLEKS R11 R12 K31 ["Rotation"]
+  GETTABLEKS R11 R12 K35 ["Rotation"]
   MUL R9 R10 R11
   CALL R8 1 0
+  RETURN R0 0
+  GETTABLEKS R5 R0 K0 ["_updatePointPositionCallback"]
+  GETIMPORT R7 K30 [CFrame.new]
+  GETTABLEKS R11 R0 K4 ["_draggerContext"]
+  GETTABLEKS R10 R11 K31 ["worldModel"]
+  GETTABLEKS R9 R10 K32 ["PrimaryPart"]
+  GETTABLEKS R8 R9 K29 ["CFrame"]
+  MOVE R10 R4
+  NAMECALL R8 R8 K33 ["PointToObjectSpace"]
+  CALL R8 2 -1
+  CALL R7 -1 1
+  GETTABLEKS R10 R0 K14 ["_selectedPoint"]
+  GETTABLEKS R9 R10 K34 ["getCFrame"]
+  CALL R9 0 1
+  GETTABLEKS R8 R9 K35 ["Rotation"]
+  MUL R6 R7 R8
+  CALL R5 1 0
   RETURN R0 0
 
 PROTO_4:

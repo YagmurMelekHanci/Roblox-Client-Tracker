@@ -50,23 +50,22 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R2 K9 ["ContextServices"]
   GETTABLEKS R4 R3 K10 ["withContext"]
-  GETTABLEKS R5 R3 K11 ["Localization"]
-  GETTABLEKS R7 R2 K12 ["UI"]
-  GETTABLEKS R6 R7 K13 ["Tooltip"]
-  GETTABLEKS R7 R1 K14 ["PureComponent"]
-  LOADK R9 K13 ["Tooltip"]
-  NAMECALL R7 R7 K15 ["extend"]
-  CALL R7 2 1
-  DUPCLOSURE R8 K16 [PROTO_0]
+  GETTABLEKS R6 R2 K11 ["UI"]
+  GETTABLEKS R5 R6 K12 ["Tooltip"]
+  GETTABLEKS R6 R1 K13 ["PureComponent"]
+  LOADK R8 K12 ["Tooltip"]
+  NAMECALL R6 R6 K14 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K15 [PROTO_0]
   CAPTURE VAL R1
-  CAPTURE VAL R6
-  SETTABLEKS R8 R7 K17 ["render"]
-  MOVE R8 R4
-  DUPTABLE R9 K18 [{"Localization"}]
-  GETTABLEKS R10 R3 K11 ["Localization"]
-  SETTABLEKS R10 R9 K11 ["Localization"]
-  CALL R8 1 1
-  MOVE R9 R7
-  CALL R8 1 1
-  MOVE R7 R8
-  RETURN R7 1
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K16 ["render"]
+  MOVE R7 R4
+  DUPTABLE R8 K18 [{"Localization"}]
+  GETTABLEKS R9 R3 K17 ["Localization"]
+  SETTABLEKS R9 R8 K17 ["Localization"]
+  CALL R7 1 1
+  MOVE R8 R6
+  CALL R7 1 1
+  MOVE R6 R7
+  RETURN R6 1

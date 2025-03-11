@@ -540,7 +540,8 @@ local ReactSchedulingDelaySeconds = FIntReactSchedulingTrackerStartUpDelayMs / 1
 
 local ReactSchedulingTracker = require(CoreGuiModules.Common.ReactSchedulingTracker)
 if ReactSchedulingTracker then
-	local reactSchedulingTracker = ReactSchedulingTracker.new()
+	local FStringReactSchedulingContext = game:DefineFastString("ReactSchedulingContext", "default")
+	local reactSchedulingTracker = ReactSchedulingTracker.new(FStringReactSchedulingContext)
 	-- delay to reduce startup noise
 	task.delay(ReactSchedulingDelaySeconds, function()
 		reactSchedulingTracker:start()

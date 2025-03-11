@@ -283,11 +283,12 @@ MAIN:
   GETTABLEKS R3 R4 K6 ["Util"]
   GETTABLEKS R2 R3 K7 ["SharedTypes"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K6 ["Util"]
-  GETTABLEKS R3 R4 K8 ["MockActivityHistoryEvents"]
-  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Src"]
+  GETTABLEKS R5 R6 K6 ["Util"]
+  GETTABLEKS R4 R5 K8 ["MockActivityHistoryEvents"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K8 ["MockActivityHistoryEvents"]
   GETIMPORT R3 K4 [require]
   GETTABLEKS R5 R0 K9 ["Packages"]
   GETTABLEKS R4 R5 K10 ["Framework"]

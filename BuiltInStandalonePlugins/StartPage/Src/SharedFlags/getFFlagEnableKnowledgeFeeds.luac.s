@@ -1,0 +1,42 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnableKnowledgeFeeds"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+33]
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["IXPCreatorDocumentationKnowledgeFeedsLayerName"]
+  NAMECALL R1 R1 K5 ["GetFastString"]
+  CALL R1 2 1
+  GETUPVAL R2 0
+  MOVE R4 R1
+  NAMECALL R2 R2 K6 ["GetUserStatusForLayer"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [Enum.IXPLoadingStatus.Initialized]
+  JUMPIFNOTEQ R2 R3 [+18]
+  GETUPVAL R3 0
+  MOVE R5 R1
+  NAMECALL R3 R3 K11 ["LogUserLayerExposure"]
+  CALL R3 2 0
+  GETUPVAL R3 0
+  MOVE R5 R1
+  NAMECALL R3 R3 K12 ["GetUserLayerVariables"]
+  CALL R3 2 1
+  GETTABLEKS R4 R3 K13 ["EnableKnowledgeFeedsUI"]
+  JUMPIFNOT R4 [+2]
+  LOADB R0 1
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["IXPService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

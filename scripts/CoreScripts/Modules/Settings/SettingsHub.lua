@@ -112,6 +112,7 @@ local FFlagInExperienceMenuCanvasGroupsInvisible = require(RobloxGui.Modules.Set
 local GetFFlagPackagifySettingsShowSignal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPackagifySettingsShowSignal
 local FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false)
 local FFlagCenterIGMConsoleBottomButtons = game:DefineFastFlag("CenterIGMConsoleBottomButtons", false)
+local FFlagDelayEscCoreActionIEMOpen = game:DefineFastFlag("DelayEscCoreActionIEMOpen", false)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -3716,14 +3717,16 @@ local function CreateSettingsHub()
 	OnVREnabled("VREnabled")
 
 
-	if not isNewInGameMenuEnabled() then
-		--If the new in game menu is enabled the settings hub is just used for the gamepad leave game prompt
-		--as a special case until gamepad support for the new menu is complete.
-		local closeMenuFunc = function(name, inputState, input)
-			if inputState ~= Enum.UserInputState.Begin then return end
-			this:PopMenu(false, true)
+	if not FFlagDelayEscCoreActionIEMOpen then
+		if not isNewInGameMenuEnabled() then
+			--If the new in game menu is enabled the settings hub is just used for the gamepad leave game prompt
+			--as a special case until gamepad support for the new menu is complete.
+			local closeMenuFunc = function(name, inputState, input)
+				if inputState ~= Enum.UserInputState.Begin then return end
+				this:PopMenu(false, true)
+			end
+			ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 		end
-		ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 	end
 
 	this.ResetCharacterPage:SetHub(this)
@@ -3872,6 +3875,18 @@ local function CreateSettingsHub()
 	end
 
 	this:InitInPage(this:GetFirstPageWithTabHeader())
+
+	if FFlagDelayEscCoreActionIEMOpen then
+		if not isNewInGameMenuEnabled() then
+			--If the new in game menu is enabled the settings hub is just used for the gamepad leave game prompt
+			--as a special case until gamepad support for the new menu is complete.
+			local closeMenuFunc = function(name, inputState, input)
+				if inputState ~= Enum.UserInputState.Begin then return end
+				this:PopMenu(false, true)
+			end
+			ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
+		end
+	end
 
 	if GetFFlagEnableAppChatInExperience() then
 		if this.AppChatPage then

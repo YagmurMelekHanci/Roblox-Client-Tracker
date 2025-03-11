@@ -136,6 +136,122 @@ PROTO_4:
   RETURN R1 1
 
 PROTO_5:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["TutorialService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  LOADB R3 1
+  NAMECALL R1 R0 K4 ["SetTutorialCompletionStatus"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+  GETTABLEKS R1 R0 K0 ["instances"]
+  GETUPVAL R2 2
+  LOADK R4 K1 ["Part"]
+  NAMECALL R2 R2 K2 ["FindFirstChild"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K3 ["wedge"]
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  LOADK R2 K0 [{-843.991, -192.828, 68.512}]
+  SETTABLEKS R2 R1 K1 ["Position"]
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  LOADK R2 K0 [{0, -90, 0}]
+  SETTABLEKS R2 R1 K1 ["Rotation"]
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  LOADK R2 K0 [{-846.491, -185.828, 67.012}]
+  SETTABLEKS R2 R1 K1 ["Position"]
+  LOADK R2 K2 [{40, 15, 25}]
+  SETTABLEKS R2 R1 K3 ["Size"]
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETIMPORT R2 K2 [Color3.fromRGB]
+  LOADN R3 129
+  LOADN R4 246
+  LOADN R5 136
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K3 ["Color"]
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["Anchored"]
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R1 1
+  NEWTABLE R3 0 1
+  MOVE R4 R0
+  SETLIST R3 R4 1 [1]
+  NAMECALL R1 R1 K0 ["Set"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R1 1
+  NEWTABLE R3 0 1
+  MOVE R4 R0
+  SETLIST R3 R4 1 [1]
+  NAMECALL R1 R1 K0 ["Set"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+5]
+  LOADK R3 K0 ["Speed"]
+  LOADN R4 250
+  NAMECALL R1 R0 K1 ["SetAttribute"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_17:
   GETTABLEKS R1 R0 K0 ["instances"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["CurrentCamera"]
@@ -153,7 +269,7 @@ PROTO_5:
   FORGLOOP R1 2 [-9]
   RETURN R0 0
 
-PROTO_6:
+PROTO_18:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["GetDescendants"]
   CALL R0 1 3
@@ -165,122 +281,6 @@ PROTO_6:
   LOADB R5 0
   SETTABLEKS R5 R4 K3 ["Locked"]
   FORGLOOP R0 2 [-9]
-  RETURN R0 0
-
-PROTO_7:
-  GETUPVAL R0 0
-  CALL R0 0 0
-  RETURN R0 0
-
-PROTO_8:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["TutorialService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  LOADB R3 1
-  NAMECALL R1 R0 K4 ["SetTutorialCompletionStatus"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_9:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_10:
-  GETUPVAL R1 0
-  JUMPIFNOT R1 [+4]
-  GETUPVAL R1 1
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
-  GETTABLEKS R1 R0 K0 ["instances"]
-  GETUPVAL R2 2
-  LOADK R4 K1 ["Part"]
-  NAMECALL R2 R2 K2 ["FindFirstChild"]
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K3 ["wedge"]
-  RETURN R0 0
-
-PROTO_11:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 1
-  LOADK R2 K0 [{-843.991, -192.828, 68.512}]
-  SETTABLEKS R2 R1 K1 ["Position"]
-  RETURN R0 0
-
-PROTO_12:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 1
-  LOADK R2 K0 [{0, -90, 0}]
-  SETTABLEKS R2 R1 K1 ["Rotation"]
-  RETURN R0 0
-
-PROTO_13:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 1
-  LOADK R2 K0 [{-846.491, -185.828, 67.012}]
-  SETTABLEKS R2 R1 K1 ["Position"]
-  LOADK R2 K2 [{40, 15, 25}]
-  SETTABLEKS R2 R1 K3 ["Size"]
-  RETURN R0 0
-
-PROTO_14:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 1
-  GETIMPORT R2 K2 [Color3.fromRGB]
-  LOADN R3 129
-  LOADN R4 246
-  LOADN R5 136
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K3 ["Color"]
-  RETURN R0 0
-
-PROTO_15:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 1
-  LOADB R2 1
-  SETTABLEKS R2 R1 K0 ["Anchored"]
-  RETURN R0 0
-
-PROTO_16:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  JUMPIFNOT R0 [+9]
-  GETUPVAL R1 1
-  NEWTABLE R3 0 1
-  MOVE R4 R0
-  SETLIST R3 R4 1 [1]
-  NAMECALL R1 R1 K0 ["Set"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_17:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  JUMPIFNOT R0 [+9]
-  GETUPVAL R1 1
-  NEWTABLE R3 0 1
-  MOVE R4 R0
-  SETLIST R3 R4 1 [1]
-  NAMECALL R1 R1 K0 ["Set"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_18:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  JUMPIFNOT R0 [+5]
-  LOADK R3 K0 ["Speed"]
-  LOADN R4 250
-  NAMECALL R1 R0 K1 ["SetAttribute"]
-  CALL R1 3 0
   RETURN R0 0
 
 MAIN:
@@ -314,992 +314,1014 @@ MAIN:
   CALL R4 1 1
   CALL R4 0 1
   GETIMPORT R5 K12 [game]
-  LOADK R7 K13 ["Workspace"]
-  NAMECALL R5 R5 K14 ["GetService"]
-  CALL R5 2 1
+  LOADK R7 K13 ["StudioTourSaveStep"]
+  LOADB R8 0
+  NAMECALL R5 R5 K14 ["DefineFastFlag"]
+  CALL R5 3 1
   GETIMPORT R6 K12 [game]
-  LOADK R8 K15 ["Selection"]
-  NAMECALL R6 R6 K14 ["GetService"]
+  LOADK R8 K15 ["Workspace"]
+  NAMECALL R6 R6 K16 ["GetService"]
   CALL R6 2 1
-  DUPTABLE R7 K19 [{"assetIds", "positionOverride", "scriptWarningOverride"}]
-  NEWTABLE R8 0 1
-  LOADK R9 K20 [17274156146]
-  SETLIST R8 R9 1 [1]
-  SETTABLEKS R8 R7 K16 ["assetIds"]
-  LOADK R8 K21 [{-363.583, 18.009, 74.073}]
-  SETTABLEKS R8 R7 K17 ["positionOverride"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K18 ["scriptWarningOverride"]
-  DUPCLOSURE R8 K22 [PROTO_0]
-  DUPCLOSURE R9 K23 [PROTO_1]
+  GETIMPORT R7 K12 [game]
+  LOADK R9 K17 ["Selection"]
+  NAMECALL R7 R7 K16 ["GetService"]
+  CALL R7 2 1
+  DUPTABLE R8 K21 [{"assetIds", "positionOverride", "scriptWarningOverride"}]
+  NEWTABLE R9 0 1
+  LOADK R10 K22 [17274156146]
+  SETLIST R9 R10 1 [1]
+  SETTABLEKS R9 R8 K18 ["assetIds"]
+  LOADK R9 K23 [{-363.583, 18.009, 74.073}]
+  SETTABLEKS R9 R8 K19 ["positionOverride"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K20 ["scriptWarningOverride"]
+  DUPCLOSURE R9 K24 [PROTO_0]
+  DUPCLOSURE R10 K25 [PROTO_1]
   JUMPIFNOT R3 [+17]
-  DUPTABLE R10 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R11 K30 ["Standalone"]
-  SETTABLEKS R11 R10 K24 ["DataModel"]
-  LOADK R11 K30 ["Standalone"]
-  SETTABLEKS R11 R10 K25 ["PluginType"]
-  LOADK R11 K31 ["ExplorerPlugin"]
-  SETTABLEKS R11 R10 K26 ["PluginId"]
-  LOADK R11 K32 ["Widgets"]
-  SETTABLEKS R11 R10 K27 ["Category"]
-  LOADK R11 K31 ["ExplorerPlugin"]
-  SETTABLEKS R11 R10 K28 ["ItemId"]
+  DUPTABLE R11 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R12 K32 ["Standalone"]
+  SETTABLEKS R12 R11 K26 ["DataModel"]
+  LOADK R12 K32 ["Standalone"]
+  SETTABLEKS R12 R11 K27 ["PluginType"]
+  LOADK R12 K33 ["ExplorerPlugin"]
+  SETTABLEKS R12 R11 K28 ["PluginId"]
+  LOADK R12 K34 ["Widgets"]
+  SETTABLEKS R12 R11 K29 ["Category"]
+  LOADK R12 K33 ["ExplorerPlugin"]
+  SETTABLEKS R12 R11 K30 ["ItemId"]
   JUMP [+10]
-  DUPTABLE R10 K33 [{"PluginId", "Category", "ItemId"}]
-  LOADK R11 K34 ["Explorer"]
-  SETTABLEKS R11 R10 K26 ["PluginId"]
-  LOADK R11 K32 ["Widgets"]
-  SETTABLEKS R11 R10 K27 ["Category"]
-  LOADK R11 K35 ["Main"]
-  SETTABLEKS R11 R10 K28 ["ItemId"]
-  DUPTABLE R11 K33 [{"PluginId", "Category", "ItemId"}]
-  LOADK R12 K36 ["Properties"]
-  SETTABLEKS R12 R11 K26 ["PluginId"]
-  LOADK R12 K32 ["Widgets"]
-  SETTABLEKS R12 R11 K27 ["Category"]
-  LOADK R12 K35 ["Main"]
-  SETTABLEKS R12 R11 K28 ["ItemId"]
-  DUPTABLE R12 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R13 K37 ["Edit"]
-  SETTABLEKS R13 R12 K24 ["DataModel"]
-  LOADK R13 K38 ["Asset"]
-  SETTABLEKS R13 R12 K25 ["PluginType"]
-  LOADK R13 K39 ["Toolbox"]
-  SETTABLEKS R13 R12 K26 ["PluginId"]
-  LOADK R13 K32 ["Widgets"]
-  SETTABLEKS R13 R12 K27 ["Category"]
-  LOADK R13 K39 ["Toolbox"]
-  SETTABLEKS R13 R12 K28 ["ItemId"]
-  DUPCLOSURE R13 K40 [PROTO_3]
-  CAPTURE VAL R5
-  DUPCLOSURE R14 K41 [PROTO_4]
+  DUPTABLE R11 K35 [{"PluginId", "Category", "ItemId"}]
+  LOADK R12 K36 ["Explorer"]
+  SETTABLEKS R12 R11 K28 ["PluginId"]
+  LOADK R12 K34 ["Widgets"]
+  SETTABLEKS R12 R11 K29 ["Category"]
+  LOADK R12 K37 ["Main"]
+  SETTABLEKS R12 R11 K30 ["ItemId"]
+  DUPTABLE R12 K35 [{"PluginId", "Category", "ItemId"}]
+  LOADK R13 K38 ["Properties"]
+  SETTABLEKS R13 R12 K28 ["PluginId"]
+  LOADK R13 K34 ["Widgets"]
+  SETTABLEKS R13 R12 K29 ["Category"]
+  LOADK R13 K37 ["Main"]
+  SETTABLEKS R13 R12 K30 ["ItemId"]
+  DUPTABLE R13 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R14 K39 ["Edit"]
+  SETTABLEKS R14 R13 K26 ["DataModel"]
+  LOADK R14 K40 ["Asset"]
+  SETTABLEKS R14 R13 K27 ["PluginType"]
+  LOADK R14 K41 ["Toolbox"]
+  SETTABLEKS R14 R13 K28 ["PluginId"]
+  LOADK R14 K34 ["Widgets"]
+  SETTABLEKS R14 R13 K29 ["Category"]
+  LOADK R14 K41 ["Toolbox"]
+  SETTABLEKS R14 R13 K30 ["ItemId"]
+  DUPCLOSURE R14 K42 [PROTO_3]
+  CAPTURE VAL R6
+  DUPCLOSURE R15 K43 [PROTO_4]
   CAPTURE VAL R2
-  CAPTURE VAL R5
-  DUPTABLE R15 K46 [{"id", "onStart", "onComplete", "steps"}]
-  LOADK R16 K47 ["StudioTour3"]
-  SETTABLEKS R16 R15 K42 ["id"]
-  DUPCLOSURE R16 K48 [PROTO_5]
-  CAPTURE VAL R5
-  SETTABLEKS R16 R15 K43 ["onStart"]
-  DUPCLOSURE R16 K49 [PROTO_6]
-  CAPTURE VAL R5
-  SETTABLEKS R16 R15 K44 ["onComplete"]
-  NEWTABLE R16 0 27
-  DUPTABLE R17 K55 [{"id", "topic", "showNext", "cameraFocus", "cameraOffset", "cameraMoveDuration"}]
-  LOADK R18 K56 ["intro1"]
-  SETTABLEKS R18 R17 K42 ["id"]
-  LOADK R18 K57 ["introduction"]
-  SETTABLEKS R18 R17 K50 ["topic"]
+  CAPTURE VAL R6
+  NEWTABLE R16 0 23
+  DUPTABLE R17 K50 [{"id", "topic", "showNext", "cameraFocus", "cameraOffset", "cameraMoveDuration"}]
+  LOADK R18 K51 ["intro1"]
+  SETTABLEKS R18 R17 K44 ["id"]
+  LOADK R18 K52 ["introduction"]
+  SETTABLEKS R18 R17 K45 ["topic"]
   LOADB R18 1
-  SETTABLEKS R18 R17 K51 ["showNext"]
-  LOADK R18 K21 [{-363.583, 18.009, 74.073}]
-  SETTABLEKS R18 R17 K52 ["cameraFocus"]
-  LOADK R18 K58 [{80, 30, -20}]
-  SETTABLEKS R18 R17 K53 ["cameraOffset"]
+  SETTABLEKS R18 R17 K46 ["showNext"]
+  LOADK R18 K23 [{-363.583, 18.009, 74.073}]
+  SETTABLEKS R18 R17 K47 ["cameraFocus"]
+  LOADK R18 K53 [{80, 30, -20}]
+  SETTABLEKS R18 R17 K48 ["cameraOffset"]
   LOADN R18 0
-  SETTABLEKS R18 R17 K54 ["cameraMoveDuration"]
-  DUPTABLE R18 K59 [{"id", "topic", "showNext"}]
-  LOADK R19 K60 ["intro2"]
-  SETTABLEKS R19 R18 K42 ["id"]
-  LOADK R19 K57 ["introduction"]
-  SETTABLEKS R19 R18 K50 ["topic"]
+  SETTABLEKS R18 R17 K49 ["cameraMoveDuration"]
+  DUPTABLE R18 K54 [{"id", "topic", "showNext"}]
+  LOADK R19 K55 ["intro2"]
+  SETTABLEKS R19 R18 K44 ["id"]
+  LOADK R19 K52 ["introduction"]
+  SETTABLEKS R19 R18 K45 ["topic"]
   LOADB R19 1
-  SETTABLEKS R19 R18 K51 ["showNext"]
-  DUPTABLE R19 K63 [{"id", "kind", "topic", "instanceId"}]
-  LOADK R20 K64 ["rotateCamera"]
-  SETTABLEKS R20 R19 K42 ["id"]
-  LOADK R20 K65 ["Rotate"]
-  SETTABLEKS R20 R19 K61 ["kind"]
-  LOADK R20 K66 ["navigation"]
-  SETTABLEKS R20 R19 K50 ["topic"]
-  LOADK R20 K67 ["camera"]
-  SETTABLEKS R20 R19 K62 ["instanceId"]
-  DUPTABLE R20 K69 [{"id", "kind", "keys", "topic"}]
-  LOADK R21 K70 ["moveCamera"]
-  SETTABLEKS R21 R20 K42 ["id"]
-  LOADK R21 K71 ["Input"]
-  SETTABLEKS R21 R20 K61 ["kind"]
+  SETTABLEKS R19 R18 K46 ["showNext"]
+  DUPTABLE R19 K58 [{"id", "kind", "topic", "instanceId"}]
+  LOADK R20 K59 ["rotateCamera"]
+  SETTABLEKS R20 R19 K44 ["id"]
+  LOADK R20 K60 ["Rotate"]
+  SETTABLEKS R20 R19 K56 ["kind"]
+  LOADK R20 K61 ["navigation"]
+  SETTABLEKS R20 R19 K45 ["topic"]
+  LOADK R20 K62 ["camera"]
+  SETTABLEKS R20 R19 K57 ["instanceId"]
+  DUPTABLE R20 K64 [{"id", "kind", "keys", "topic"}]
+  LOADK R21 K65 ["moveCamera"]
+  SETTABLEKS R21 R20 K44 ["id"]
+  LOADK R21 K66 ["Input"]
+  SETTABLEKS R21 R20 K56 ["kind"]
   NEWTABLE R21 0 4
-  GETIMPORT R22 K75 [Enum.KeyCode.W]
-  GETIMPORT R23 K77 [Enum.KeyCode.A]
-  GETIMPORT R24 K79 [Enum.KeyCode.S]
-  GETIMPORT R25 K81 [Enum.KeyCode.D]
+  GETIMPORT R22 K70 [Enum.KeyCode.W]
+  GETIMPORT R23 K72 [Enum.KeyCode.A]
+  GETIMPORT R24 K74 [Enum.KeyCode.S]
+  GETIMPORT R25 K76 [Enum.KeyCode.D]
   SETLIST R21 R22 4 [1]
-  SETTABLEKS R21 R20 K68 ["keys"]
-  LOADK R21 K66 ["navigation"]
-  SETTABLEKS R21 R20 K50 ["topic"]
-  DUPTABLE R21 K69 [{"id", "kind", "keys", "topic"}]
-  LOADK R22 K82 ["panCamera"]
-  SETTABLEKS R22 R21 K42 ["id"]
-  LOADK R22 K71 ["Input"]
-  SETTABLEKS R22 R21 K61 ["kind"]
+  SETTABLEKS R21 R20 K63 ["keys"]
+  LOADK R21 K61 ["navigation"]
+  SETTABLEKS R21 R20 K45 ["topic"]
+  DUPTABLE R21 K64 [{"id", "kind", "keys", "topic"}]
+  LOADK R22 K77 ["panCamera"]
+  SETTABLEKS R22 R21 K44 ["id"]
+  LOADK R22 K66 ["Input"]
+  SETTABLEKS R22 R21 K56 ["kind"]
   NEWTABLE R22 0 2
-  GETIMPORT R23 K84 [Enum.KeyCode.E]
-  GETIMPORT R24 K86 [Enum.KeyCode.Q]
+  GETIMPORT R23 K79 [Enum.KeyCode.E]
+  GETIMPORT R24 K81 [Enum.KeyCode.Q]
   SETLIST R22 R23 2 [1]
-  SETTABLEKS R22 R21 K68 ["keys"]
-  LOADK R22 K66 ["navigation"]
-  SETTABLEKS R22 R21 K50 ["topic"]
-  DUPTABLE R22 K88 [{"id", "kind", "inputs", "topic"}]
-  LOADK R23 K89 ["zoomCamera"]
-  SETTABLEKS R23 R22 K42 ["id"]
-  LOADK R23 K71 ["Input"]
-  SETTABLEKS R23 R22 K61 ["kind"]
+  SETTABLEKS R22 R21 K63 ["keys"]
+  LOADK R22 K61 ["navigation"]
+  SETTABLEKS R22 R21 K45 ["topic"]
+  DUPTABLE R22 K83 [{"id", "kind", "inputs", "topic"}]
+  LOADK R23 K84 ["zoomCamera"]
+  SETTABLEKS R23 R22 K44 ["id"]
+  LOADK R23 K66 ["Input"]
+  SETTABLEKS R23 R22 K56 ["kind"]
   NEWTABLE R23 0 1
-  GETIMPORT R24 K92 [Enum.UserInputType.MouseWheel]
+  GETIMPORT R24 K87 [Enum.UserInputType.MouseWheel]
   SETLIST R23 R24 1 [1]
-  SETTABLEKS R23 R22 K87 ["inputs"]
-  LOADK R23 K66 ["navigation"]
-  SETTABLEKS R23 R22 K50 ["topic"]
-  DUPTABLE R23 K96 [{"id", "topic", "widgets", "showNext", "spotlight", "toolboxLimits"}]
-  LOADK R24 K97 ["marketplace"]
-  SETTABLEKS R24 R23 K42 ["id"]
-  LOADK R24 K97 ["marketplace"]
-  SETTABLEKS R24 R23 K50 ["topic"]
-  LOADK R24 K39 ["Toolbox"]
-  SETTABLEKS R24 R23 K93 ["widgets"]
+  SETTABLEKS R23 R22 K82 ["inputs"]
+  LOADK R23 K61 ["navigation"]
+  SETTABLEKS R23 R22 K45 ["topic"]
+  DUPTABLE R23 K91 [{"id", "topic", "widgets", "showNext", "spotlight", "toolboxLimits"}]
+  LOADK R24 K92 ["marketplace"]
+  SETTABLEKS R24 R23 K44 ["id"]
+  LOADK R24 K92 ["marketplace"]
+  SETTABLEKS R24 R23 K45 ["topic"]
+  LOADK R24 K41 ["Toolbox"]
+  SETTABLEKS R24 R23 K88 ["widgets"]
   LOADB R24 1
-  SETTABLEKS R24 R23 K51 ["showNext"]
-  DUPTABLE R24 K102 [{"TargetWidgetUri", "ShowBox", "ShowHighlight", "ShowShadows"}]
-  SETTABLEKS R12 R24 K98 ["TargetWidgetUri"]
+  SETTABLEKS R24 R23 K46 ["showNext"]
+  DUPTABLE R24 K97 [{"TargetWidgetUri", "ShowBox", "ShowHighlight", "ShowShadows"}]
+  SETTABLEKS R13 R24 K93 ["TargetWidgetUri"]
   LOADB R25 1
-  SETTABLEKS R25 R24 K99 ["ShowBox"]
+  SETTABLEKS R25 R24 K94 ["ShowBox"]
   LOADB R25 1
-  SETTABLEKS R25 R24 K100 ["ShowHighlight"]
+  SETTABLEKS R25 R24 K95 ["ShowHighlight"]
   LOADB R25 1
-  SETTABLEKS R25 R24 K101 ["ShowShadows"]
-  SETTABLEKS R24 R23 K94 ["spotlight"]
-  SETTABLEKS R7 R23 K95 ["toolboxLimits"]
-  DUPTABLE R24 K104 [{"id", "kind", "search", "toolboxLimits", "topic", "widgets"}]
-  LOADK R25 K105 ["searchMarketplace"]
-  SETTABLEKS R25 R24 K42 ["id"]
-  LOADK R25 K106 ["ToolboxSearch"]
-  SETTABLEKS R25 R24 K61 ["kind"]
-  LOADK R25 K107 ["ball"]
-  SETTABLEKS R25 R24 K103 ["search"]
-  SETTABLEKS R7 R24 K95 ["toolboxLimits"]
-  LOADK R25 K97 ["marketplace"]
-  SETTABLEKS R25 R24 K50 ["topic"]
-  LOADK R25 K39 ["Toolbox"]
-  SETTABLEKS R25 R24 K93 ["widgets"]
-  DUPTABLE R25 K109 [{"id", "kind", "toolboxLimits", "topic", "onSkip", "widgets"}]
-  LOADK R26 K110 ["insertMarketplace"]
-  SETTABLEKS R26 R25 K42 ["id"]
-  LOADK R26 K111 ["ToolboxInsert"]
-  SETTABLEKS R26 R25 K61 ["kind"]
-  SETTABLEKS R7 R25 K95 ["toolboxLimits"]
-  LOADK R26 K97 ["marketplace"]
-  SETTABLEKS R26 R25 K50 ["topic"]
-  DUPCLOSURE R26 K112 [PROTO_7]
-  CAPTURE VAL R13
-  SETTABLEKS R26 R25 K108 ["onSkip"]
-  LOADK R26 K39 ["Toolbox"]
-  SETTABLEKS R26 R25 K93 ["widgets"]
-  DUPTABLE R26 K114 [{"id", "topic", "kind", "widgets", "hideWidgets"}]
-  LOADK R27 K115 ["playtest"]
-  SETTABLEKS R27 R26 K42 ["id"]
-  LOADK R27 K115 ["playtest"]
-  SETTABLEKS R27 R26 K50 ["topic"]
-  LOADK R27 K116 ["StartPlaytest"]
-  SETTABLEKS R27 R26 K61 ["kind"]
-  LOADK R27 K117 ["Ribbon-Home"]
-  SETTABLEKS R27 R26 K93 ["widgets"]
-  LOADK R27 K39 ["Toolbox"]
-  SETTABLEKS R27 R26 K113 ["hideWidgets"]
-  DUPTABLE R27 K119 [{"id", "topic", "kind", "state", "widgets"}]
-  LOADK R28 K120 ["avatar"]
-  SETTABLEKS R28 R27 K42 ["id"]
-  LOADK R28 K115 ["playtest"]
-  SETTABLEKS R28 R27 K50 ["topic"]
-  LOADK R28 K121 ["Avatar"]
-  SETTABLEKS R28 R27 K61 ["kind"]
-  GETIMPORT R28 K124 [Enum.HumanoidStateType.Seated]
-  SETTABLEKS R28 R27 K118 ["state"]
-  LOADK R28 K117 ["Ribbon-Home"]
-  SETTABLEKS R28 R27 K93 ["widgets"]
-  DUPTABLE R28 K125 [{"id", "topic", "kind", "widgets"}]
-  LOADK R29 K126 ["stopPlaytest"]
-  SETTABLEKS R29 R28 K42 ["id"]
-  LOADK R29 K115 ["playtest"]
-  SETTABLEKS R29 R28 K50 ["topic"]
-  LOADK R29 K127 ["StopPlaytest"]
-  SETTABLEKS R29 R28 K61 ["kind"]
-  LOADK R29 K117 ["Ribbon-Home"]
-  SETTABLEKS R29 R28 K93 ["widgets"]
-  DUPTABLE R29 K133 [{"id", "kind", "topic", "callout", "spotlight", "cameraFocus", "cameraOffset", "instanceId", "className", "properties", "onBind", "onSkip", "onUnbind", "widgets"}]
-  LOADK R30 K134 ["wedge"]
-  SETTABLEKS R30 R29 K42 ["id"]
-  LOADK R30 K135 ["Insert"]
-  SETTABLEKS R30 R29 K61 ["kind"]
-  LOADK R30 K136 ["parts"]
-  SETTABLEKS R30 R29 K50 ["topic"]
+  SETTABLEKS R25 R24 K96 ["ShowShadows"]
+  SETTABLEKS R24 R23 K89 ["spotlight"]
+  SETTABLEKS R8 R23 K90 ["toolboxLimits"]
+  DUPTABLE R24 K99 [{"id", "kind", "search", "toolboxLimits", "topic", "widgets"}]
+  LOADK R25 K100 ["searchMarketplace"]
+  SETTABLEKS R25 R24 K44 ["id"]
+  LOADK R25 K101 ["ToolboxSearch"]
+  SETTABLEKS R25 R24 K56 ["kind"]
+  LOADK R25 K102 ["ball"]
+  SETTABLEKS R25 R24 K98 ["search"]
+  SETTABLEKS R8 R24 K90 ["toolboxLimits"]
+  LOADK R25 K92 ["marketplace"]
+  SETTABLEKS R25 R24 K45 ["topic"]
+  LOADK R25 K41 ["Toolbox"]
+  SETTABLEKS R25 R24 K88 ["widgets"]
+  DUPTABLE R25 K104 [{"id", "kind", "toolboxLimits", "topic", "onSkip", "widgets"}]
+  LOADK R26 K105 ["insertMarketplace"]
+  SETTABLEKS R26 R25 K44 ["id"]
+  LOADK R26 K106 ["ToolboxInsert"]
+  SETTABLEKS R26 R25 K56 ["kind"]
+  SETTABLEKS R8 R25 K90 ["toolboxLimits"]
+  LOADK R26 K92 ["marketplace"]
+  SETTABLEKS R26 R25 K45 ["topic"]
+  DUPCLOSURE R26 K107 [PROTO_5]
+  CAPTURE VAL R14
+  SETTABLEKS R26 R25 K103 ["onSkip"]
+  LOADK R26 K41 ["Toolbox"]
+  SETTABLEKS R26 R25 K88 ["widgets"]
+  DUPTABLE R26 K109 [{"id", "topic", "kind", "widgets", "hideWidgets"}]
+  LOADK R27 K110 ["playtest"]
+  SETTABLEKS R27 R26 K44 ["id"]
+  LOADK R27 K110 ["playtest"]
+  SETTABLEKS R27 R26 K45 ["topic"]
+  LOADK R27 K111 ["StartPlaytest"]
+  SETTABLEKS R27 R26 K56 ["kind"]
+  LOADK R27 K112 ["Ribbon-Home"]
+  SETTABLEKS R27 R26 K88 ["widgets"]
+  LOADK R27 K41 ["Toolbox"]
+  SETTABLEKS R27 R26 K108 ["hideWidgets"]
+  DUPTABLE R27 K114 [{"id", "topic", "kind", "state", "widgets"}]
+  LOADK R28 K115 ["avatar"]
+  SETTABLEKS R28 R27 K44 ["id"]
+  LOADK R28 K110 ["playtest"]
+  SETTABLEKS R28 R27 K45 ["topic"]
+  LOADK R28 K116 ["Avatar"]
+  SETTABLEKS R28 R27 K56 ["kind"]
+  GETIMPORT R28 K119 [Enum.HumanoidStateType.Seated]
+  SETTABLEKS R28 R27 K113 ["state"]
+  LOADK R28 K112 ["Ribbon-Home"]
+  SETTABLEKS R28 R27 K88 ["widgets"]
+  DUPTABLE R28 K120 [{"id", "topic", "kind", "widgets"}]
+  LOADK R29 K121 ["stopPlaytest"]
+  SETTABLEKS R29 R28 K44 ["id"]
+  LOADK R29 K110 ["playtest"]
+  SETTABLEKS R29 R28 K45 ["topic"]
+  LOADK R29 K122 ["StopPlaytest"]
+  SETTABLEKS R29 R28 K56 ["kind"]
+  LOADK R29 K112 ["Ribbon-Home"]
+  SETTABLEKS R29 R28 K88 ["widgets"]
+  DUPTABLE R29 K128 [{"id", "kind", "topic", "callout", "spotlight", "cameraFocus", "cameraOffset", "instanceId", "className", "properties", "onBind", "onSkip", "onUnbind", "widgets"}]
+  LOADK R30 K129 ["wedge"]
+  SETTABLEKS R30 R29 K44 ["id"]
+  LOADK R30 K130 ["Insert"]
+  SETTABLEKS R30 R29 K56 ["kind"]
+  LOADK R30 K131 ["parts"]
+  SETTABLEKS R30 R29 K45 ["topic"]
   JUMPIFNOT R1 [+30]
-  DUPTABLE R30 K138 [{"TargetWidgetUri", "Offset"}]
+  DUPTABLE R30 K133 [{"TargetWidgetUri", "Offset"}]
   JUMPIFNOT R4 [+2]
-  LOADK R32 K139 ["Tabs/BuiltIn_HomeTab/Part"]
+  LOADK R32 K134 ["Tabs/BuiltIn_HomeTab/Part"]
   JUMP [+1]
-  LOADK R32 K140 ["Tabs/Home/Part"]
-  DUPTABLE R31 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R33 K30 ["Standalone"]
-  SETTABLEKS R33 R31 K24 ["DataModel"]
-  LOADK R33 K30 ["Standalone"]
-  SETTABLEKS R33 R31 K25 ["PluginType"]
-  LOADK R33 K141 ["Ribbon"]
-  SETTABLEKS R33 R31 K26 ["PluginId"]
-  LOADK R33 K32 ["Widgets"]
-  SETTABLEKS R33 R31 K27 ["Category"]
-  SETTABLEKS R32 R31 K28 ["ItemId"]
-  SETTABLEKS R31 R30 K98 ["TargetWidgetUri"]
-  GETIMPORT R31 K144 [Vector2.new]
+  LOADK R32 K135 ["Tabs/Home/Part"]
+  DUPTABLE R31 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R33 K32 ["Standalone"]
+  SETTABLEKS R33 R31 K26 ["DataModel"]
+  LOADK R33 K32 ["Standalone"]
+  SETTABLEKS R33 R31 K27 ["PluginType"]
+  LOADK R33 K136 ["Ribbon"]
+  SETTABLEKS R33 R31 K28 ["PluginId"]
+  LOADK R33 K34 ["Widgets"]
+  SETTABLEKS R33 R31 K29 ["Category"]
+  SETTABLEKS R32 R31 K30 ["ItemId"]
+  SETTABLEKS R31 R30 K93 ["TargetWidgetUri"]
+  GETIMPORT R31 K139 [Vector2.new]
   LOADN R32 5
   LOADN R33 20
   CALL R31 2 1
-  SETTABLEKS R31 R30 K137 ["Offset"]
+  SETTABLEKS R31 R30 K132 ["Offset"]
   JUMP [+20]
-  DUPTABLE R30 K138 [{"TargetWidgetUri", "Offset"}]
-  DUPTABLE R31 K33 [{"PluginId", "Category", "ItemId"}]
-  LOADK R32 K145 ["QtRibbon"]
-  SETTABLEKS R32 R31 K26 ["PluginId"]
-  LOADK R32 K32 ["Widgets"]
-  SETTABLEKS R32 R31 K27 ["Category"]
-  LOADK R32 K146 ["Part"]
-  SETTABLEKS R32 R31 K28 ["ItemId"]
-  SETTABLEKS R31 R30 K98 ["TargetWidgetUri"]
-  GETIMPORT R31 K144 [Vector2.new]
+  DUPTABLE R30 K133 [{"TargetWidgetUri", "Offset"}]
+  DUPTABLE R31 K35 [{"PluginId", "Category", "ItemId"}]
+  LOADK R32 K140 ["QtRibbon"]
+  SETTABLEKS R32 R31 K28 ["PluginId"]
+  LOADK R32 K34 ["Widgets"]
+  SETTABLEKS R32 R31 K29 ["Category"]
+  LOADK R32 K141 ["Part"]
+  SETTABLEKS R32 R31 K30 ["ItemId"]
+  SETTABLEKS R31 R30 K93 ["TargetWidgetUri"]
+  GETIMPORT R31 K139 [Vector2.new]
   LOADN R32 0
   LOADN R33 5
   CALL R31 2 1
-  SETTABLEKS R31 R30 K137 ["Offset"]
-  SETTABLEKS R30 R29 K128 ["callout"]
+  SETTABLEKS R31 R30 K132 ["Offset"]
+  SETTABLEKS R30 R29 K123 ["callout"]
   JUMPIFNOT R1 [+26]
-  DUPTABLE R30 K147 [{"TargetWidgetUri", "ShowHighlight"}]
+  DUPTABLE R30 K142 [{"TargetWidgetUri", "ShowHighlight"}]
   JUMPIFNOT R4 [+2]
-  LOADK R32 K139 ["Tabs/BuiltIn_HomeTab/Part"]
+  LOADK R32 K134 ["Tabs/BuiltIn_HomeTab/Part"]
   JUMP [+1]
-  LOADK R32 K140 ["Tabs/Home/Part"]
-  DUPTABLE R31 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R33 K30 ["Standalone"]
-  SETTABLEKS R33 R31 K24 ["DataModel"]
-  LOADK R33 K30 ["Standalone"]
-  SETTABLEKS R33 R31 K25 ["PluginType"]
-  LOADK R33 K141 ["Ribbon"]
-  SETTABLEKS R33 R31 K26 ["PluginId"]
-  LOADK R33 K32 ["Widgets"]
-  SETTABLEKS R33 R31 K27 ["Category"]
-  SETTABLEKS R32 R31 K28 ["ItemId"]
-  SETTABLEKS R31 R30 K98 ["TargetWidgetUri"]
+  LOADK R32 K135 ["Tabs/Home/Part"]
+  DUPTABLE R31 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R33 K32 ["Standalone"]
+  SETTABLEKS R33 R31 K26 ["DataModel"]
+  LOADK R33 K32 ["Standalone"]
+  SETTABLEKS R33 R31 K27 ["PluginType"]
+  LOADK R33 K136 ["Ribbon"]
+  SETTABLEKS R33 R31 K28 ["PluginId"]
+  LOADK R33 K34 ["Widgets"]
+  SETTABLEKS R33 R31 K29 ["Category"]
+  SETTABLEKS R32 R31 K30 ["ItemId"]
+  SETTABLEKS R31 R30 K93 ["TargetWidgetUri"]
   LOADB R31 1
-  SETTABLEKS R31 R30 K100 ["ShowHighlight"]
+  SETTABLEKS R31 R30 K95 ["ShowHighlight"]
   JUMP [+7]
-  DUPTABLE R30 K150 [{"target", "showHighlight"}]
-  LOADK R31 K151 ["placePartActionRibbonControl"]
-  SETTABLEKS R31 R30 K148 ["target"]
+  DUPTABLE R30 K145 [{"target", "showHighlight"}]
+  LOADK R31 K146 ["placePartActionRibbonControl"]
+  SETTABLEKS R31 R30 K143 ["target"]
   LOADB R31 1
-  SETTABLEKS R31 R30 K149 ["showHighlight"]
-  SETTABLEKS R30 R29 K94 ["spotlight"]
-  LOADK R30 K152 [{-843.991, -192.828, 68.512}]
-  SETTABLEKS R30 R29 K52 ["cameraFocus"]
-  LOADK R30 K153 [{20, 20, 5}]
-  SETTABLEKS R30 R29 K53 ["cameraOffset"]
-  LOADK R30 K134 ["wedge"]
-  SETTABLEKS R30 R29 K62 ["instanceId"]
-  LOADK R30 K146 ["Part"]
-  SETTABLEKS R30 R29 K129 ["className"]
-  DUPTABLE R30 K155 [{"Shape"}]
-  GETIMPORT R31 K158 [Enum.PartType.Wedge]
-  SETTABLEKS R31 R30 K154 ["Shape"]
-  SETTABLEKS R30 R29 K130 ["properties"]
-  DUPCLOSURE R30 K159 [PROTO_8]
-  SETTABLEKS R30 R29 K131 ["onBind"]
-  DUPCLOSURE R30 K160 [PROTO_9]
-  CAPTURE VAL R14
-  SETTABLEKS R30 R29 K108 ["onSkip"]
-  DUPCLOSURE R30 K161 [PROTO_10]
+  SETTABLEKS R31 R30 K144 ["showHighlight"]
+  SETTABLEKS R30 R29 K89 ["spotlight"]
+  LOADK R30 K147 [{-843.991, -192.828, 68.512}]
+  SETTABLEKS R30 R29 K47 ["cameraFocus"]
+  LOADK R30 K148 [{20, 20, 5}]
+  SETTABLEKS R30 R29 K48 ["cameraOffset"]
+  LOADK R30 K129 ["wedge"]
+  SETTABLEKS R30 R29 K57 ["instanceId"]
+  LOADK R30 K141 ["Part"]
+  SETTABLEKS R30 R29 K124 ["className"]
+  DUPTABLE R30 K150 [{"Shape"}]
+  GETIMPORT R31 K153 [Enum.PartType.Wedge]
+  SETTABLEKS R31 R30 K149 ["Shape"]
+  SETTABLEKS R30 R29 K125 ["properties"]
+  DUPCLOSURE R30 K154 [PROTO_6]
+  SETTABLEKS R30 R29 K126 ["onBind"]
+  DUPCLOSURE R30 K155 [PROTO_7]
+  CAPTURE VAL R15
+  SETTABLEKS R30 R29 K103 ["onSkip"]
+  DUPCLOSURE R30 K156 [PROTO_8]
   CAPTURE VAL R2
-  CAPTURE VAL R14
-  CAPTURE VAL R5
-  SETTABLEKS R30 R29 K132 ["onUnbind"]
-  LOADK R30 K117 ["Ribbon-Home"]
-  SETTABLEKS R30 R29 K93 ["widgets"]
-  DUPTABLE R30 K164 [{"id", "kind", "topic", "callout", "spotlight", "position", "distance", "instanceId", "onSkip", "widgets"}]
-  LOADK R31 K165 ["move"]
-  SETTABLEKS R31 R30 K42 ["id"]
-  LOADK R31 K166 ["Move"]
-  SETTABLEKS R31 R30 K61 ["kind"]
-  LOADK R31 K136 ["parts"]
-  SETTABLEKS R31 R30 K50 ["topic"]
+  CAPTURE VAL R15
+  CAPTURE VAL R6
+  SETTABLEKS R30 R29 K127 ["onUnbind"]
+  LOADK R30 K112 ["Ribbon-Home"]
+  SETTABLEKS R30 R29 K88 ["widgets"]
+  DUPTABLE R30 K159 [{"id", "kind", "topic", "callout", "spotlight", "position", "distance", "instanceId", "onSkip", "widgets"}]
+  LOADK R31 K160 ["move"]
+  SETTABLEKS R31 R30 K44 ["id"]
+  LOADK R31 K161 ["Move"]
+  SETTABLEKS R31 R30 K56 ["kind"]
+  LOADK R31 K131 ["parts"]
+  SETTABLEKS R31 R30 K45 ["topic"]
   JUMPIFNOT R1 [+44]
-  DUPTABLE R31 K169 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+  DUPTABLE R31 K164 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
   JUMPIFNOT R4 [+2]
-  LOADK R33 K170 ["Tabs/BuiltIn_HomeTab/Move"]
+  LOADK R33 K165 ["Tabs/BuiltIn_HomeTab/Move"]
   JUMP [+1]
-  LOADK R33 K171 ["Tabs/Home/Move"]
-  DUPTABLE R32 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R34 K30 ["Standalone"]
-  SETTABLEKS R34 R32 K24 ["DataModel"]
-  LOADK R34 K30 ["Standalone"]
-  SETTABLEKS R34 R32 K25 ["PluginType"]
-  LOADK R34 K141 ["Ribbon"]
-  SETTABLEKS R34 R32 K26 ["PluginId"]
-  LOADK R34 K32 ["Widgets"]
-  SETTABLEKS R34 R32 K27 ["Category"]
-  SETTABLEKS R33 R32 K28 ["ItemId"]
-  SETTABLEKS R32 R31 K98 ["TargetWidgetUri"]
-  GETIMPORT R32 K144 [Vector2.new]
+  LOADK R33 K166 ["Tabs/Home/Move"]
+  DUPTABLE R32 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R34 K32 ["Standalone"]
+  SETTABLEKS R34 R32 K26 ["DataModel"]
+  LOADK R34 K32 ["Standalone"]
+  SETTABLEKS R34 R32 K27 ["PluginType"]
+  LOADK R34 K136 ["Ribbon"]
+  SETTABLEKS R34 R32 K28 ["PluginId"]
+  LOADK R34 K34 ["Widgets"]
+  SETTABLEKS R34 R32 K29 ["Category"]
+  SETTABLEKS R33 R32 K30 ["ItemId"]
+  SETTABLEKS R32 R31 K93 ["TargetWidgetUri"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 1
   CALL R32 2 1
-  SETTABLEKS R32 R31 K167 ["TargetAnchorPoint"]
-  GETIMPORT R32 K144 [Vector2.new]
+  SETTABLEKS R32 R31 K162 ["TargetAnchorPoint"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 0
   CALL R32 2 1
-  SETTABLEKS R32 R31 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R32 K144 [Vector2.new]
+  SETTABLEKS R32 R31 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 20
   CALL R32 2 1
-  SETTABLEKS R32 R31 K137 ["Offset"]
+  SETTABLEKS R32 R31 K132 ["Offset"]
   JUMP [+34]
-  DUPTABLE R31 K169 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-  DUPTABLE R32 K33 [{"PluginId", "Category", "ItemId"}]
-  LOADK R33 K145 ["QtRibbon"]
-  SETTABLEKS R33 R32 K26 ["PluginId"]
-  LOADK R33 K32 ["Widgets"]
-  SETTABLEKS R33 R32 K27 ["Category"]
-  LOADK R33 K166 ["Move"]
-  SETTABLEKS R33 R32 K28 ["ItemId"]
-  SETTABLEKS R32 R31 K98 ["TargetWidgetUri"]
-  GETIMPORT R32 K144 [Vector2.new]
+  DUPTABLE R31 K164 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+  DUPTABLE R32 K35 [{"PluginId", "Category", "ItemId"}]
+  LOADK R33 K140 ["QtRibbon"]
+  SETTABLEKS R33 R32 K28 ["PluginId"]
+  LOADK R33 K34 ["Widgets"]
+  SETTABLEKS R33 R32 K29 ["Category"]
+  LOADK R33 K161 ["Move"]
+  SETTABLEKS R33 R32 K30 ["ItemId"]
+  SETTABLEKS R32 R31 K93 ["TargetWidgetUri"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 1
   CALL R32 2 1
-  SETTABLEKS R32 R31 K167 ["TargetAnchorPoint"]
-  GETIMPORT R32 K144 [Vector2.new]
+  SETTABLEKS R32 R31 K162 ["TargetAnchorPoint"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 0
   CALL R32 2 1
-  SETTABLEKS R32 R31 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R32 K144 [Vector2.new]
+  SETTABLEKS R32 R31 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 5
   CALL R32 2 1
-  SETTABLEKS R32 R31 K137 ["Offset"]
-  SETTABLEKS R31 R30 K128 ["callout"]
+  SETTABLEKS R32 R31 K132 ["Offset"]
+  SETTABLEKS R31 R30 K123 ["callout"]
   JUMPIFNOT R1 [+40]
-  DUPTABLE R31 K172 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "ShowHighlight"}]
+  DUPTABLE R31 K167 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "ShowHighlight"}]
   JUMPIFNOT R4 [+2]
-  LOADK R33 K170 ["Tabs/BuiltIn_HomeTab/Move"]
+  LOADK R33 K165 ["Tabs/BuiltIn_HomeTab/Move"]
   JUMP [+1]
-  LOADK R33 K171 ["Tabs/Home/Move"]
-  DUPTABLE R32 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R34 K30 ["Standalone"]
-  SETTABLEKS R34 R32 K24 ["DataModel"]
-  LOADK R34 K30 ["Standalone"]
-  SETTABLEKS R34 R32 K25 ["PluginType"]
-  LOADK R34 K141 ["Ribbon"]
-  SETTABLEKS R34 R32 K26 ["PluginId"]
-  LOADK R34 K32 ["Widgets"]
-  SETTABLEKS R34 R32 K27 ["Category"]
-  SETTABLEKS R33 R32 K28 ["ItemId"]
-  SETTABLEKS R32 R31 K98 ["TargetWidgetUri"]
-  GETIMPORT R32 K144 [Vector2.new]
+  LOADK R33 K166 ["Tabs/Home/Move"]
+  DUPTABLE R32 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R34 K32 ["Standalone"]
+  SETTABLEKS R34 R32 K26 ["DataModel"]
+  LOADK R34 K32 ["Standalone"]
+  SETTABLEKS R34 R32 K27 ["PluginType"]
+  LOADK R34 K136 ["Ribbon"]
+  SETTABLEKS R34 R32 K28 ["PluginId"]
+  LOADK R34 K34 ["Widgets"]
+  SETTABLEKS R34 R32 K29 ["Category"]
+  SETTABLEKS R33 R32 K30 ["ItemId"]
+  SETTABLEKS R32 R31 K93 ["TargetWidgetUri"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 1
   CALL R32 2 1
-  SETTABLEKS R32 R31 K167 ["TargetAnchorPoint"]
-  GETIMPORT R32 K144 [Vector2.new]
+  SETTABLEKS R32 R31 K162 ["TargetAnchorPoint"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 0
   CALL R32 2 1
-  SETTABLEKS R32 R31 K168 ["SubjectAnchorPoint"]
+  SETTABLEKS R32 R31 K163 ["SubjectAnchorPoint"]
   LOADB R32 1
-  SETTABLEKS R32 R31 K100 ["ShowHighlight"]
+  SETTABLEKS R32 R31 K95 ["ShowHighlight"]
   JUMP [+21]
-  DUPTABLE R31 K175 [{"target", "targetAnchorPoint", "subjectAnchorPoint", "showHighlight"}]
-  LOADK R32 K176 ["advTranslateAction"]
-  SETTABLEKS R32 R31 K148 ["target"]
-  GETIMPORT R32 K144 [Vector2.new]
+  DUPTABLE R31 K170 [{"target", "targetAnchorPoint", "subjectAnchorPoint", "showHighlight"}]
+  LOADK R32 K171 ["advTranslateAction"]
+  SETTABLEKS R32 R31 K143 ["target"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 1
   CALL R32 2 1
-  SETTABLEKS R32 R31 K173 ["targetAnchorPoint"]
-  GETIMPORT R32 K144 [Vector2.new]
+  SETTABLEKS R32 R31 K168 ["targetAnchorPoint"]
+  GETIMPORT R32 K139 [Vector2.new]
   LOADN R33 0
   LOADN R34 0
   CALL R32 2 1
-  SETTABLEKS R32 R31 K174 ["subjectAnchorPoint"]
+  SETTABLEKS R32 R31 K169 ["subjectAnchorPoint"]
   LOADB R32 1
-  SETTABLEKS R32 R31 K149 ["showHighlight"]
-  SETTABLEKS R31 R30 K94 ["spotlight"]
-  LOADK R31 K177 [{-851.33, -193.045, 60.764}]
-  SETTABLEKS R31 R30 K162 ["position"]
+  SETTABLEKS R32 R31 K144 ["showHighlight"]
+  SETTABLEKS R31 R30 K89 ["spotlight"]
+  LOADK R31 K172 [{-851.33, -193.045, 60.764}]
+  SETTABLEKS R31 R30 K157 ["position"]
   LOADN R31 80
-  SETTABLEKS R31 R30 K163 ["distance"]
-  LOADK R31 K134 ["wedge"]
-  SETTABLEKS R31 R30 K62 ["instanceId"]
-  DUPCLOSURE R31 K178 [PROTO_11]
-  CAPTURE VAL R14
-  SETTABLEKS R31 R30 K108 ["onSkip"]
-  LOADK R31 K117 ["Ribbon-Home"]
-  SETTABLEKS R31 R30 K93 ["widgets"]
-  DUPTABLE R31 K180 [{"id", "kind", "topic", "callout", "spotlight", "rotation", "distance", "instanceId", "onSkip", "widgets"}]
-  LOADK R32 K181 ["rotate"]
-  SETTABLEKS R32 R31 K42 ["id"]
-  LOADK R32 K65 ["Rotate"]
-  SETTABLEKS R32 R31 K61 ["kind"]
-  LOADK R32 K136 ["parts"]
-  SETTABLEKS R32 R31 K50 ["topic"]
+  SETTABLEKS R31 R30 K158 ["distance"]
+  LOADK R31 K129 ["wedge"]
+  SETTABLEKS R31 R30 K57 ["instanceId"]
+  DUPCLOSURE R31 K173 [PROTO_9]
+  CAPTURE VAL R15
+  SETTABLEKS R31 R30 K103 ["onSkip"]
+  LOADK R31 K112 ["Ribbon-Home"]
+  SETTABLEKS R31 R30 K88 ["widgets"]
+  DUPTABLE R31 K175 [{"id", "kind", "topic", "callout", "spotlight", "rotation", "distance", "instanceId", "onSkip", "widgets"}]
+  LOADK R32 K176 ["rotate"]
+  SETTABLEKS R32 R31 K44 ["id"]
+  LOADK R32 K60 ["Rotate"]
+  SETTABLEKS R32 R31 K56 ["kind"]
+  LOADK R32 K131 ["parts"]
+  SETTABLEKS R32 R31 K45 ["topic"]
   JUMPIFNOT R1 [+44]
-  DUPTABLE R32 K169 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+  DUPTABLE R32 K164 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
   JUMPIFNOT R4 [+2]
-  LOADK R34 K182 ["Tabs/BuiltIn_HomeTab/Rotate"]
+  LOADK R34 K177 ["Tabs/BuiltIn_HomeTab/Rotate"]
   JUMP [+1]
-  LOADK R34 K183 ["Tabs/Home/Rotate"]
-  DUPTABLE R33 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R35 K30 ["Standalone"]
-  SETTABLEKS R35 R33 K24 ["DataModel"]
-  LOADK R35 K30 ["Standalone"]
-  SETTABLEKS R35 R33 K25 ["PluginType"]
-  LOADK R35 K141 ["Ribbon"]
-  SETTABLEKS R35 R33 K26 ["PluginId"]
-  LOADK R35 K32 ["Widgets"]
-  SETTABLEKS R35 R33 K27 ["Category"]
-  SETTABLEKS R34 R33 K28 ["ItemId"]
-  SETTABLEKS R33 R32 K98 ["TargetWidgetUri"]
-  GETIMPORT R33 K144 [Vector2.new]
+  LOADK R34 K178 ["Tabs/Home/Rotate"]
+  DUPTABLE R33 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R35 K32 ["Standalone"]
+  SETTABLEKS R35 R33 K26 ["DataModel"]
+  LOADK R35 K32 ["Standalone"]
+  SETTABLEKS R35 R33 K27 ["PluginType"]
+  LOADK R35 K136 ["Ribbon"]
+  SETTABLEKS R35 R33 K28 ["PluginId"]
+  LOADK R35 K34 ["Widgets"]
+  SETTABLEKS R35 R33 K29 ["Category"]
+  SETTABLEKS R34 R33 K30 ["ItemId"]
+  SETTABLEKS R33 R32 K93 ["TargetWidgetUri"]
+  GETIMPORT R33 K139 [Vector2.new]
   LOADN R34 0
   LOADN R35 1
   CALL R33 2 1
-  SETTABLEKS R33 R32 K167 ["TargetAnchorPoint"]
-  GETIMPORT R33 K144 [Vector2.new]
+  SETTABLEKS R33 R32 K162 ["TargetAnchorPoint"]
+  GETIMPORT R33 K139 [Vector2.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R33 K144 [Vector2.new]
+  SETTABLEKS R33 R32 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R33 K139 [Vector2.new]
   LOADN R34 0
   LOADN R35 20
   CALL R33 2 1
-  SETTABLEKS R33 R32 K137 ["Offset"]
+  SETTABLEKS R33 R32 K132 ["Offset"]
   JUMP [+34]
-  DUPTABLE R32 K169 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-  DUPTABLE R33 K33 [{"PluginId", "Category", "ItemId"}]
-  LOADK R34 K145 ["QtRibbon"]
-  SETTABLEKS R34 R33 K26 ["PluginId"]
-  LOADK R34 K32 ["Widgets"]
-  SETTABLEKS R34 R33 K27 ["Category"]
-  LOADK R34 K65 ["Rotate"]
-  SETTABLEKS R34 R33 K28 ["ItemId"]
-  SETTABLEKS R33 R32 K98 ["TargetWidgetUri"]
-  GETIMPORT R33 K144 [Vector2.new]
+  DUPTABLE R32 K164 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+  DUPTABLE R33 K35 [{"PluginId", "Category", "ItemId"}]
+  LOADK R34 K140 ["QtRibbon"]
+  SETTABLEKS R34 R33 K28 ["PluginId"]
+  LOADK R34 K34 ["Widgets"]
+  SETTABLEKS R34 R33 K29 ["Category"]
+  LOADK R34 K60 ["Rotate"]
+  SETTABLEKS R34 R33 K30 ["ItemId"]
+  SETTABLEKS R33 R32 K93 ["TargetWidgetUri"]
+  GETIMPORT R33 K139 [Vector2.new]
   LOADN R34 0
   LOADN R35 1
   CALL R33 2 1
-  SETTABLEKS R33 R32 K167 ["TargetAnchorPoint"]
-  GETIMPORT R33 K144 [Vector2.new]
+  SETTABLEKS R33 R32 K162 ["TargetAnchorPoint"]
+  GETIMPORT R33 K139 [Vector2.new]
   LOADN R34 0
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R33 K144 [Vector2.new]
+  SETTABLEKS R33 R32 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R33 K139 [Vector2.new]
   LOADN R34 0
   LOADN R35 5
   CALL R33 2 1
-  SETTABLEKS R33 R32 K137 ["Offset"]
-  SETTABLEKS R32 R31 K128 ["callout"]
+  SETTABLEKS R33 R32 K132 ["Offset"]
+  SETTABLEKS R32 R31 K123 ["callout"]
   JUMPIFNOT R1 [+26]
-  DUPTABLE R32 K147 [{"TargetWidgetUri", "ShowHighlight"}]
+  DUPTABLE R32 K142 [{"TargetWidgetUri", "ShowHighlight"}]
   JUMPIFNOT R4 [+2]
-  LOADK R34 K182 ["Tabs/BuiltIn_HomeTab/Rotate"]
+  LOADK R34 K177 ["Tabs/BuiltIn_HomeTab/Rotate"]
   JUMP [+1]
-  LOADK R34 K183 ["Tabs/Home/Rotate"]
-  DUPTABLE R33 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R35 K30 ["Standalone"]
-  SETTABLEKS R35 R33 K24 ["DataModel"]
-  LOADK R35 K30 ["Standalone"]
-  SETTABLEKS R35 R33 K25 ["PluginType"]
-  LOADK R35 K141 ["Ribbon"]
-  SETTABLEKS R35 R33 K26 ["PluginId"]
-  LOADK R35 K32 ["Widgets"]
-  SETTABLEKS R35 R33 K27 ["Category"]
-  SETTABLEKS R34 R33 K28 ["ItemId"]
-  SETTABLEKS R33 R32 K98 ["TargetWidgetUri"]
+  LOADK R34 K178 ["Tabs/Home/Rotate"]
+  DUPTABLE R33 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R35 K32 ["Standalone"]
+  SETTABLEKS R35 R33 K26 ["DataModel"]
+  LOADK R35 K32 ["Standalone"]
+  SETTABLEKS R35 R33 K27 ["PluginType"]
+  LOADK R35 K136 ["Ribbon"]
+  SETTABLEKS R35 R33 K28 ["PluginId"]
+  LOADK R35 K34 ["Widgets"]
+  SETTABLEKS R35 R33 K29 ["Category"]
+  SETTABLEKS R34 R33 K30 ["ItemId"]
+  SETTABLEKS R33 R32 K93 ["TargetWidgetUri"]
   LOADB R33 1
-  SETTABLEKS R33 R32 K100 ["ShowHighlight"]
+  SETTABLEKS R33 R32 K95 ["ShowHighlight"]
   JUMP [+7]
-  DUPTABLE R32 K150 [{"target", "showHighlight"}]
-  LOADK R33 K184 ["advRotateAction"]
-  SETTABLEKS R33 R32 K148 ["target"]
+  DUPTABLE R32 K145 [{"target", "showHighlight"}]
+  LOADK R33 K179 ["advRotateAction"]
+  SETTABLEKS R33 R32 K143 ["target"]
   LOADB R33 1
-  SETTABLEKS R33 R32 K149 ["showHighlight"]
-  SETTABLEKS R32 R31 K94 ["spotlight"]
-  LOADK R32 K185 [{0, -90, 0}]
-  SETTABLEKS R32 R31 K179 ["rotation"]
+  SETTABLEKS R33 R32 K144 ["showHighlight"]
+  SETTABLEKS R32 R31 K89 ["spotlight"]
+  LOADK R32 K180 [{0, -90, 0}]
+  SETTABLEKS R32 R31 K174 ["rotation"]
   LOADN R32 30
-  SETTABLEKS R32 R31 K163 ["distance"]
-  LOADK R32 K134 ["wedge"]
-  SETTABLEKS R32 R31 K62 ["instanceId"]
-  DUPCLOSURE R32 K186 [PROTO_12]
-  CAPTURE VAL R14
-  SETTABLEKS R32 R31 K108 ["onSkip"]
-  LOADK R32 K117 ["Ribbon-Home"]
-  SETTABLEKS R32 R31 K93 ["widgets"]
-  DUPTABLE R32 K188 [{"id", "kind", "topic", "callout", "spotlight", "minSize", "instanceId", "onSkip", "widgets"}]
-  LOADK R33 K189 ["scale"]
-  SETTABLEKS R33 R32 K42 ["id"]
-  LOADK R33 K190 ["Scale"]
-  SETTABLEKS R33 R32 K61 ["kind"]
-  LOADK R33 K136 ["parts"]
-  SETTABLEKS R33 R32 K50 ["topic"]
+  SETTABLEKS R32 R31 K158 ["distance"]
+  LOADK R32 K129 ["wedge"]
+  SETTABLEKS R32 R31 K57 ["instanceId"]
+  DUPCLOSURE R32 K181 [PROTO_10]
+  CAPTURE VAL R15
+  SETTABLEKS R32 R31 K103 ["onSkip"]
+  LOADK R32 K112 ["Ribbon-Home"]
+  SETTABLEKS R32 R31 K88 ["widgets"]
+  DUPTABLE R32 K183 [{"id", "kind", "topic", "callout", "spotlight", "minSize", "instanceId", "onSkip", "widgets"}]
+  LOADK R33 K184 ["scale"]
+  SETTABLEKS R33 R32 K44 ["id"]
+  LOADK R33 K185 ["Scale"]
+  SETTABLEKS R33 R32 K56 ["kind"]
+  LOADK R33 K131 ["parts"]
+  SETTABLEKS R33 R32 K45 ["topic"]
   JUMPIFNOT R1 [+44]
-  DUPTABLE R33 K169 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+  DUPTABLE R33 K164 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
   JUMPIFNOT R4 [+2]
-  LOADK R35 K191 ["Tabs/BuiltIn_HomeTab/Scale"]
+  LOADK R35 K186 ["Tabs/BuiltIn_HomeTab/Scale"]
   JUMP [+1]
-  LOADK R35 K192 ["Tabs/Home/Scale"]
-  DUPTABLE R34 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R36 K30 ["Standalone"]
-  SETTABLEKS R36 R34 K24 ["DataModel"]
-  LOADK R36 K30 ["Standalone"]
-  SETTABLEKS R36 R34 K25 ["PluginType"]
-  LOADK R36 K141 ["Ribbon"]
-  SETTABLEKS R36 R34 K26 ["PluginId"]
-  LOADK R36 K32 ["Widgets"]
-  SETTABLEKS R36 R34 K27 ["Category"]
-  SETTABLEKS R35 R34 K28 ["ItemId"]
-  SETTABLEKS R34 R33 K98 ["TargetWidgetUri"]
-  GETIMPORT R34 K144 [Vector2.new]
+  LOADK R35 K187 ["Tabs/Home/Scale"]
+  DUPTABLE R34 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R36 K32 ["Standalone"]
+  SETTABLEKS R36 R34 K26 ["DataModel"]
+  LOADK R36 K32 ["Standalone"]
+  SETTABLEKS R36 R34 K27 ["PluginType"]
+  LOADK R36 K136 ["Ribbon"]
+  SETTABLEKS R36 R34 K28 ["PluginId"]
+  LOADK R36 K34 ["Widgets"]
+  SETTABLEKS R36 R34 K29 ["Category"]
+  SETTABLEKS R35 R34 K30 ["ItemId"]
+  SETTABLEKS R34 R33 K93 ["TargetWidgetUri"]
+  GETIMPORT R34 K139 [Vector2.new]
   LOADN R35 0
   LOADN R36 1
   CALL R34 2 1
-  SETTABLEKS R34 R33 K167 ["TargetAnchorPoint"]
-  GETIMPORT R34 K144 [Vector2.new]
+  SETTABLEKS R34 R33 K162 ["TargetAnchorPoint"]
+  GETIMPORT R34 K139 [Vector2.new]
   LOADN R35 0
   LOADN R36 0
   CALL R34 2 1
-  SETTABLEKS R34 R33 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R34 K144 [Vector2.new]
+  SETTABLEKS R34 R33 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R34 K139 [Vector2.new]
   LOADN R35 0
   LOADN R36 20
   CALL R34 2 1
-  SETTABLEKS R34 R33 K137 ["Offset"]
+  SETTABLEKS R34 R33 K132 ["Offset"]
   JUMP [+34]
-  DUPTABLE R33 K169 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-  DUPTABLE R34 K33 [{"PluginId", "Category", "ItemId"}]
-  LOADK R35 K145 ["QtRibbon"]
-  SETTABLEKS R35 R34 K26 ["PluginId"]
-  LOADK R35 K32 ["Widgets"]
-  SETTABLEKS R35 R34 K27 ["Category"]
-  LOADK R35 K190 ["Scale"]
-  SETTABLEKS R35 R34 K28 ["ItemId"]
-  SETTABLEKS R34 R33 K98 ["TargetWidgetUri"]
-  GETIMPORT R34 K144 [Vector2.new]
+  DUPTABLE R33 K164 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+  DUPTABLE R34 K35 [{"PluginId", "Category", "ItemId"}]
+  LOADK R35 K140 ["QtRibbon"]
+  SETTABLEKS R35 R34 K28 ["PluginId"]
+  LOADK R35 K34 ["Widgets"]
+  SETTABLEKS R35 R34 K29 ["Category"]
+  LOADK R35 K185 ["Scale"]
+  SETTABLEKS R35 R34 K30 ["ItemId"]
+  SETTABLEKS R34 R33 K93 ["TargetWidgetUri"]
+  GETIMPORT R34 K139 [Vector2.new]
   LOADN R35 0
   LOADN R36 1
   CALL R34 2 1
-  SETTABLEKS R34 R33 K167 ["TargetAnchorPoint"]
-  GETIMPORT R34 K144 [Vector2.new]
+  SETTABLEKS R34 R33 K162 ["TargetAnchorPoint"]
+  GETIMPORT R34 K139 [Vector2.new]
   LOADN R35 0
   LOADN R36 0
   CALL R34 2 1
-  SETTABLEKS R34 R33 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R34 K144 [Vector2.new]
+  SETTABLEKS R34 R33 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R34 K139 [Vector2.new]
   LOADN R35 0
   LOADN R36 5
   CALL R34 2 1
-  SETTABLEKS R34 R33 K137 ["Offset"]
-  SETTABLEKS R33 R32 K128 ["callout"]
+  SETTABLEKS R34 R33 K132 ["Offset"]
+  SETTABLEKS R33 R32 K123 ["callout"]
   JUMPIFNOT R1 [+26]
-  DUPTABLE R33 K147 [{"TargetWidgetUri", "ShowHighlight"}]
+  DUPTABLE R33 K142 [{"TargetWidgetUri", "ShowHighlight"}]
   JUMPIFNOT R4 [+2]
-  LOADK R35 K191 ["Tabs/BuiltIn_HomeTab/Scale"]
+  LOADK R35 K186 ["Tabs/BuiltIn_HomeTab/Scale"]
   JUMP [+1]
-  LOADK R35 K192 ["Tabs/Home/Scale"]
-  DUPTABLE R34 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R36 K30 ["Standalone"]
-  SETTABLEKS R36 R34 K24 ["DataModel"]
-  LOADK R36 K30 ["Standalone"]
-  SETTABLEKS R36 R34 K25 ["PluginType"]
-  LOADK R36 K141 ["Ribbon"]
-  SETTABLEKS R36 R34 K26 ["PluginId"]
-  LOADK R36 K32 ["Widgets"]
-  SETTABLEKS R36 R34 K27 ["Category"]
-  SETTABLEKS R35 R34 K28 ["ItemId"]
-  SETTABLEKS R34 R33 K98 ["TargetWidgetUri"]
+  LOADK R35 K187 ["Tabs/Home/Scale"]
+  DUPTABLE R34 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R36 K32 ["Standalone"]
+  SETTABLEKS R36 R34 K26 ["DataModel"]
+  LOADK R36 K32 ["Standalone"]
+  SETTABLEKS R36 R34 K27 ["PluginType"]
+  LOADK R36 K136 ["Ribbon"]
+  SETTABLEKS R36 R34 K28 ["PluginId"]
+  LOADK R36 K34 ["Widgets"]
+  SETTABLEKS R36 R34 K29 ["Category"]
+  SETTABLEKS R35 R34 K30 ["ItemId"]
+  SETTABLEKS R34 R33 K93 ["TargetWidgetUri"]
   LOADB R34 1
-  SETTABLEKS R34 R33 K100 ["ShowHighlight"]
+  SETTABLEKS R34 R33 K95 ["ShowHighlight"]
   JUMP [+7]
-  DUPTABLE R33 K150 [{"target", "showHighlight"}]
-  LOADK R34 K193 ["resizeAction"]
-  SETTABLEKS R34 R33 K148 ["target"]
+  DUPTABLE R33 K145 [{"target", "showHighlight"}]
+  LOADK R34 K188 ["resizeAction"]
+  SETTABLEKS R34 R33 K143 ["target"]
   LOADB R34 1
-  SETTABLEKS R34 R33 K149 ["showHighlight"]
-  SETTABLEKS R33 R32 K94 ["spotlight"]
-  LOADK R33 K194 [{15, 5, 10}]
-  SETTABLEKS R33 R32 K187 ["minSize"]
-  LOADK R33 K134 ["wedge"]
-  SETTABLEKS R33 R32 K62 ["instanceId"]
-  DUPCLOSURE R33 K195 [PROTO_13]
-  CAPTURE VAL R14
-  SETTABLEKS R33 R32 K108 ["onSkip"]
-  LOADK R33 K117 ["Ribbon-Home"]
-  SETTABLEKS R33 R32 K93 ["widgets"]
+  SETTABLEKS R34 R33 K144 ["showHighlight"]
+  SETTABLEKS R33 R32 K89 ["spotlight"]
+  LOADK R33 K189 [{15, 5, 10}]
+  SETTABLEKS R33 R32 K182 ["minSize"]
+  LOADK R33 K129 ["wedge"]
+  SETTABLEKS R33 R32 K57 ["instanceId"]
+  DUPCLOSURE R33 K190 [PROTO_11]
+  CAPTURE VAL R15
+  SETTABLEKS R33 R32 K103 ["onSkip"]
+  LOADK R33 K112 ["Ribbon-Home"]
+  SETTABLEKS R33 R32 K88 ["widgets"]
   SETLIST R16 R17 16 [1]
-  DUPTABLE R17 K197 [{"id", "kind", "topic", "callout", "spotlight", "className", "changes", "onSkip", "widgets"}]
-  LOADK R18 K198 ["color"]
-  SETTABLEKS R18 R17 K42 ["id"]
-  LOADK R18 K37 ["Edit"]
-  SETTABLEKS R18 R17 K61 ["kind"]
-  LOADK R18 K130 ["properties"]
-  SETTABLEKS R18 R17 K50 ["topic"]
+  DUPTABLE R17 K192 [{"id", "kind", "topic", "callout", "spotlight", "className", "changes", "onSkip", "widgets"}]
+  LOADK R18 K193 ["color"]
+  SETTABLEKS R18 R17 K44 ["id"]
+  LOADK R18 K39 ["Edit"]
+  SETTABLEKS R18 R17 K56 ["kind"]
+  LOADK R18 K125 ["properties"]
+  SETTABLEKS R18 R17 K45 ["topic"]
   JUMPIFNOT R1 [+30]
-  DUPTABLE R18 K138 [{"TargetWidgetUri", "Offset"}]
+  DUPTABLE R18 K133 [{"TargetWidgetUri", "Offset"}]
   JUMPIFNOT R4 [+2]
-  LOADK R20 K199 ["Tabs/BuiltIn_HomeTab/Color"]
+  LOADK R20 K194 ["Tabs/BuiltIn_HomeTab/Color"]
   JUMP [+1]
-  LOADK R20 K200 ["Tabs/Home/Color"]
-  DUPTABLE R19 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R21 K30 ["Standalone"]
-  SETTABLEKS R21 R19 K24 ["DataModel"]
-  LOADK R21 K30 ["Standalone"]
-  SETTABLEKS R21 R19 K25 ["PluginType"]
-  LOADK R21 K141 ["Ribbon"]
-  SETTABLEKS R21 R19 K26 ["PluginId"]
-  LOADK R21 K32 ["Widgets"]
-  SETTABLEKS R21 R19 K27 ["Category"]
-  SETTABLEKS R20 R19 K28 ["ItemId"]
-  SETTABLEKS R19 R18 K98 ["TargetWidgetUri"]
-  GETIMPORT R19 K144 [Vector2.new]
+  LOADK R20 K195 ["Tabs/Home/Color"]
+  DUPTABLE R19 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R21 K32 ["Standalone"]
+  SETTABLEKS R21 R19 K26 ["DataModel"]
+  LOADK R21 K32 ["Standalone"]
+  SETTABLEKS R21 R19 K27 ["PluginType"]
+  LOADK R21 K136 ["Ribbon"]
+  SETTABLEKS R21 R19 K28 ["PluginId"]
+  LOADK R21 K34 ["Widgets"]
+  SETTABLEKS R21 R19 K29 ["Category"]
+  SETTABLEKS R20 R19 K30 ["ItemId"]
+  SETTABLEKS R19 R18 K93 ["TargetWidgetUri"]
+  GETIMPORT R19 K139 [Vector2.new]
   LOADN R20 5
   LOADN R21 20
   CALL R19 2 1
-  SETTABLEKS R19 R18 K137 ["Offset"]
+  SETTABLEKS R19 R18 K132 ["Offset"]
   JUMP [+20]
-  DUPTABLE R18 K138 [{"TargetWidgetUri", "Offset"}]
-  DUPTABLE R19 K33 [{"PluginId", "Category", "ItemId"}]
-  LOADK R20 K145 ["QtRibbon"]
-  SETTABLEKS R20 R19 K26 ["PluginId"]
-  LOADK R20 K32 ["Widgets"]
-  SETTABLEKS R20 R19 K27 ["Category"]
-  LOADK R20 K201 ["Color"]
-  SETTABLEKS R20 R19 K28 ["ItemId"]
-  SETTABLEKS R19 R18 K98 ["TargetWidgetUri"]
-  GETIMPORT R19 K144 [Vector2.new]
+  DUPTABLE R18 K133 [{"TargetWidgetUri", "Offset"}]
+  DUPTABLE R19 K35 [{"PluginId", "Category", "ItemId"}]
+  LOADK R20 K140 ["QtRibbon"]
+  SETTABLEKS R20 R19 K28 ["PluginId"]
+  LOADK R20 K34 ["Widgets"]
+  SETTABLEKS R20 R19 K29 ["Category"]
+  LOADK R20 K196 ["Color"]
+  SETTABLEKS R20 R19 K30 ["ItemId"]
+  SETTABLEKS R19 R18 K93 ["TargetWidgetUri"]
+  GETIMPORT R19 K139 [Vector2.new]
   LOADN R20 0
   LOADN R21 5
   CALL R19 2 1
-  SETTABLEKS R19 R18 K137 ["Offset"]
-  SETTABLEKS R18 R17 K128 ["callout"]
+  SETTABLEKS R19 R18 K132 ["Offset"]
+  SETTABLEKS R18 R17 K123 ["callout"]
   JUMPIFNOT R1 [+26]
-  DUPTABLE R18 K147 [{"TargetWidgetUri", "ShowHighlight"}]
+  DUPTABLE R18 K142 [{"TargetWidgetUri", "ShowHighlight"}]
   JUMPIFNOT R4 [+2]
-  LOADK R20 K199 ["Tabs/BuiltIn_HomeTab/Color"]
+  LOADK R20 K194 ["Tabs/BuiltIn_HomeTab/Color"]
   JUMP [+1]
-  LOADK R20 K200 ["Tabs/Home/Color"]
-  DUPTABLE R19 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R21 K30 ["Standalone"]
-  SETTABLEKS R21 R19 K24 ["DataModel"]
-  LOADK R21 K30 ["Standalone"]
-  SETTABLEKS R21 R19 K25 ["PluginType"]
-  LOADK R21 K141 ["Ribbon"]
-  SETTABLEKS R21 R19 K26 ["PluginId"]
-  LOADK R21 K32 ["Widgets"]
-  SETTABLEKS R21 R19 K27 ["Category"]
-  SETTABLEKS R20 R19 K28 ["ItemId"]
-  SETTABLEKS R19 R18 K98 ["TargetWidgetUri"]
+  LOADK R20 K195 ["Tabs/Home/Color"]
+  DUPTABLE R19 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R21 K32 ["Standalone"]
+  SETTABLEKS R21 R19 K26 ["DataModel"]
+  LOADK R21 K32 ["Standalone"]
+  SETTABLEKS R21 R19 K27 ["PluginType"]
+  LOADK R21 K136 ["Ribbon"]
+  SETTABLEKS R21 R19 K28 ["PluginId"]
+  LOADK R21 K34 ["Widgets"]
+  SETTABLEKS R21 R19 K29 ["Category"]
+  SETTABLEKS R20 R19 K30 ["ItemId"]
+  SETTABLEKS R19 R18 K93 ["TargetWidgetUri"]
   LOADB R19 1
-  SETTABLEKS R19 R18 K100 ["ShowHighlight"]
+  SETTABLEKS R19 R18 K95 ["ShowHighlight"]
   JUMP [+7]
-  DUPTABLE R18 K150 [{"target", "showHighlight"}]
-  LOADK R19 K202 ["actionColorSelector"]
-  SETTABLEKS R19 R18 K148 ["target"]
+  DUPTABLE R18 K145 [{"target", "showHighlight"}]
+  LOADK R19 K197 ["actionColorSelector"]
+  SETTABLEKS R19 R18 K143 ["target"]
   LOADB R19 1
-  SETTABLEKS R19 R18 K149 ["showHighlight"]
-  SETTABLEKS R18 R17 K94 ["spotlight"]
-  LOADK R18 K146 ["Part"]
-  SETTABLEKS R18 R17 K129 ["className"]
-  DUPTABLE R18 K203 [{"Color"}]
+  SETTABLEKS R19 R18 K144 ["showHighlight"]
+  SETTABLEKS R18 R17 K89 ["spotlight"]
+  LOADK R18 K141 ["Part"]
+  SETTABLEKS R18 R17 K124 ["className"]
+  DUPTABLE R18 K198 [{"Color"}]
   LOADB R19 1
-  SETTABLEKS R19 R18 K201 ["Color"]
-  SETTABLEKS R18 R17 K196 ["changes"]
-  DUPCLOSURE R18 K204 [PROTO_14]
-  CAPTURE VAL R14
-  SETTABLEKS R18 R17 K108 ["onSkip"]
-  LOADK R18 K117 ["Ribbon-Home"]
-  SETTABLEKS R18 R17 K93 ["widgets"]
-  DUPTABLE R18 K197 [{"id", "kind", "topic", "callout", "spotlight", "className", "changes", "onSkip", "widgets"}]
-  LOADK R19 K205 ["anchor"]
-  SETTABLEKS R19 R18 K42 ["id"]
-  LOADK R19 K37 ["Edit"]
-  SETTABLEKS R19 R18 K61 ["kind"]
-  LOADK R19 K130 ["properties"]
-  SETTABLEKS R19 R18 K50 ["topic"]
+  SETTABLEKS R19 R18 K196 ["Color"]
+  SETTABLEKS R18 R17 K191 ["changes"]
+  DUPCLOSURE R18 K199 [PROTO_12]
+  CAPTURE VAL R15
+  SETTABLEKS R18 R17 K103 ["onSkip"]
+  LOADK R18 K112 ["Ribbon-Home"]
+  SETTABLEKS R18 R17 K88 ["widgets"]
+  DUPTABLE R18 K192 [{"id", "kind", "topic", "callout", "spotlight", "className", "changes", "onSkip", "widgets"}]
+  LOADK R19 K200 ["anchor"]
+  SETTABLEKS R19 R18 K44 ["id"]
+  LOADK R19 K39 ["Edit"]
+  SETTABLEKS R19 R18 K56 ["kind"]
+  LOADK R19 K125 ["properties"]
+  SETTABLEKS R19 R18 K45 ["topic"]
   JUMPIFNOT R1 [+30]
-  DUPTABLE R19 K138 [{"TargetWidgetUri", "Offset"}]
+  DUPTABLE R19 K133 [{"TargetWidgetUri", "Offset"}]
   JUMPIFNOT R4 [+2]
-  LOADK R21 K206 ["Tabs/BuiltIn_HomeTab/Anchor"]
+  LOADK R21 K201 ["Tabs/BuiltIn_HomeTab/Anchor"]
   JUMP [+1]
-  LOADK R21 K207 ["Tabs/Home/Anchor"]
-  DUPTABLE R20 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R22 K30 ["Standalone"]
-  SETTABLEKS R22 R20 K24 ["DataModel"]
-  LOADK R22 K30 ["Standalone"]
-  SETTABLEKS R22 R20 K25 ["PluginType"]
-  LOADK R22 K141 ["Ribbon"]
-  SETTABLEKS R22 R20 K26 ["PluginId"]
-  LOADK R22 K32 ["Widgets"]
-  SETTABLEKS R22 R20 K27 ["Category"]
-  SETTABLEKS R21 R20 K28 ["ItemId"]
-  SETTABLEKS R20 R19 K98 ["TargetWidgetUri"]
-  GETIMPORT R20 K144 [Vector2.new]
+  LOADK R21 K202 ["Tabs/Home/Anchor"]
+  DUPTABLE R20 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R22 K32 ["Standalone"]
+  SETTABLEKS R22 R20 K26 ["DataModel"]
+  LOADK R22 K32 ["Standalone"]
+  SETTABLEKS R22 R20 K27 ["PluginType"]
+  LOADK R22 K136 ["Ribbon"]
+  SETTABLEKS R22 R20 K28 ["PluginId"]
+  LOADK R22 K34 ["Widgets"]
+  SETTABLEKS R22 R20 K29 ["Category"]
+  SETTABLEKS R21 R20 K30 ["ItemId"]
+  SETTABLEKS R20 R19 K93 ["TargetWidgetUri"]
+  GETIMPORT R20 K139 [Vector2.new]
   LOADN R21 0
   LOADN R22 20
   CALL R20 2 1
-  SETTABLEKS R20 R19 K137 ["Offset"]
+  SETTABLEKS R20 R19 K132 ["Offset"]
   JUMP [+20]
-  DUPTABLE R19 K138 [{"TargetWidgetUri", "Offset"}]
-  DUPTABLE R20 K33 [{"PluginId", "Category", "ItemId"}]
-  LOADK R21 K145 ["QtRibbon"]
-  SETTABLEKS R21 R20 K26 ["PluginId"]
-  LOADK R21 K32 ["Widgets"]
-  SETTABLEKS R21 R20 K27 ["Category"]
-  LOADK R21 K208 ["Anchor"]
-  SETTABLEKS R21 R20 K28 ["ItemId"]
-  SETTABLEKS R20 R19 K98 ["TargetWidgetUri"]
-  GETIMPORT R20 K144 [Vector2.new]
+  DUPTABLE R19 K133 [{"TargetWidgetUri", "Offset"}]
+  DUPTABLE R20 K35 [{"PluginId", "Category", "ItemId"}]
+  LOADK R21 K140 ["QtRibbon"]
+  SETTABLEKS R21 R20 K28 ["PluginId"]
+  LOADK R21 K34 ["Widgets"]
+  SETTABLEKS R21 R20 K29 ["Category"]
+  LOADK R21 K203 ["Anchor"]
+  SETTABLEKS R21 R20 K30 ["ItemId"]
+  SETTABLEKS R20 R19 K93 ["TargetWidgetUri"]
+  GETIMPORT R20 K139 [Vector2.new]
   LOADN R21 0
   LOADN R22 5
   CALL R20 2 1
-  SETTABLEKS R20 R19 K137 ["Offset"]
-  SETTABLEKS R19 R18 K128 ["callout"]
+  SETTABLEKS R20 R19 K132 ["Offset"]
+  SETTABLEKS R19 R18 K123 ["callout"]
   JUMPIFNOT R1 [+26]
-  DUPTABLE R19 K147 [{"TargetWidgetUri", "ShowHighlight"}]
+  DUPTABLE R19 K142 [{"TargetWidgetUri", "ShowHighlight"}]
   JUMPIFNOT R4 [+2]
-  LOADK R21 K206 ["Tabs/BuiltIn_HomeTab/Anchor"]
+  LOADK R21 K201 ["Tabs/BuiltIn_HomeTab/Anchor"]
   JUMP [+1]
-  LOADK R21 K207 ["Tabs/Home/Anchor"]
-  DUPTABLE R20 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R22 K30 ["Standalone"]
-  SETTABLEKS R22 R20 K24 ["DataModel"]
-  LOADK R22 K30 ["Standalone"]
-  SETTABLEKS R22 R20 K25 ["PluginType"]
-  LOADK R22 K141 ["Ribbon"]
-  SETTABLEKS R22 R20 K26 ["PluginId"]
-  LOADK R22 K32 ["Widgets"]
-  SETTABLEKS R22 R20 K27 ["Category"]
-  SETTABLEKS R21 R20 K28 ["ItemId"]
-  SETTABLEKS R20 R19 K98 ["TargetWidgetUri"]
+  LOADK R21 K202 ["Tabs/Home/Anchor"]
+  DUPTABLE R20 K31 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R22 K32 ["Standalone"]
+  SETTABLEKS R22 R20 K26 ["DataModel"]
+  LOADK R22 K32 ["Standalone"]
+  SETTABLEKS R22 R20 K27 ["PluginType"]
+  LOADK R22 K136 ["Ribbon"]
+  SETTABLEKS R22 R20 K28 ["PluginId"]
+  LOADK R22 K34 ["Widgets"]
+  SETTABLEKS R22 R20 K29 ["Category"]
+  SETTABLEKS R21 R20 K30 ["ItemId"]
+  SETTABLEKS R20 R19 K93 ["TargetWidgetUri"]
   LOADB R20 1
-  SETTABLEKS R20 R19 K100 ["ShowHighlight"]
+  SETTABLEKS R20 R19 K95 ["ShowHighlight"]
   JUMP [+7]
-  DUPTABLE R19 K150 [{"target", "showHighlight"}]
-  LOADK R20 K209 ["anchorAction"]
-  SETTABLEKS R20 R19 K148 ["target"]
+  DUPTABLE R19 K145 [{"target", "showHighlight"}]
+  LOADK R20 K204 ["anchorAction"]
+  SETTABLEKS R20 R19 K143 ["target"]
   LOADB R20 1
-  SETTABLEKS R20 R19 K149 ["showHighlight"]
-  SETTABLEKS R19 R18 K94 ["spotlight"]
-  LOADK R19 K146 ["Part"]
-  SETTABLEKS R19 R18 K129 ["className"]
-  DUPTABLE R19 K211 [{"Anchored"}]
+  SETTABLEKS R20 R19 K144 ["showHighlight"]
+  SETTABLEKS R19 R18 K89 ["spotlight"]
+  LOADK R19 K141 ["Part"]
+  SETTABLEKS R19 R18 K124 ["className"]
+  DUPTABLE R19 K206 [{"Anchored"}]
   LOADB R20 1
-  SETTABLEKS R20 R19 K210 ["Anchored"]
-  SETTABLEKS R19 R18 K196 ["changes"]
-  DUPCLOSURE R19 K212 [PROTO_15]
-  CAPTURE VAL R14
-  SETTABLEKS R19 R18 K108 ["onSkip"]
-  LOADK R19 K117 ["Ribbon-Home"]
-  SETTABLEKS R19 R18 K93 ["widgets"]
-  DUPTABLE R19 K213 [{"id", "callout", "spotlight", "topic", "showNext", "widgets"}]
-  LOADK R20 K214 ["explorer"]
-  SETTABLEKS R20 R19 K42 ["id"]
-  DUPTABLE R20 K215 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  SETTABLEKS R10 R20 K98 ["TargetWidgetUri"]
-  GETIMPORT R21 K144 [Vector2.new]
+  SETTABLEKS R20 R19 K205 ["Anchored"]
+  SETTABLEKS R19 R18 K191 ["changes"]
+  DUPCLOSURE R19 K207 [PROTO_13]
+  CAPTURE VAL R15
+  SETTABLEKS R19 R18 K103 ["onSkip"]
+  LOADK R19 K112 ["Ribbon-Home"]
+  SETTABLEKS R19 R18 K88 ["widgets"]
+  DUPTABLE R19 K208 [{"id", "callout", "spotlight", "topic", "showNext", "widgets"}]
+  LOADK R20 K209 ["explorer"]
+  SETTABLEKS R20 R19 K44 ["id"]
+  DUPTABLE R20 K210 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  SETTABLEKS R11 R20 K93 ["TargetWidgetUri"]
+  GETIMPORT R21 K139 [Vector2.new]
   LOADN R22 1
   LOADN R23 0
   CALL R21 2 1
-  SETTABLEKS R21 R20 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R21 K144 [Vector2.new]
+  SETTABLEKS R21 R20 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R21 K139 [Vector2.new]
   LOADN R22 0
   LOADN R23 0
   CALL R21 2 1
-  SETTABLEKS R21 R20 K167 ["TargetAnchorPoint"]
-  GETIMPORT R21 K144 [Vector2.new]
+  SETTABLEKS R21 R20 K162 ["TargetAnchorPoint"]
+  GETIMPORT R21 K139 [Vector2.new]
   LOADN R22 246
   LOADN R23 20
   CALL R21 2 1
-  SETTABLEKS R21 R20 K137 ["Offset"]
-  SETTABLEKS R20 R19 K128 ["callout"]
-  DUPTABLE R20 K102 [{"TargetWidgetUri", "ShowBox", "ShowHighlight", "ShowShadows"}]
-  SETTABLEKS R10 R20 K98 ["TargetWidgetUri"]
+  SETTABLEKS R21 R20 K132 ["Offset"]
+  SETTABLEKS R20 R19 K123 ["callout"]
+  DUPTABLE R20 K97 [{"TargetWidgetUri", "ShowBox", "ShowHighlight", "ShowShadows"}]
+  SETTABLEKS R11 R20 K93 ["TargetWidgetUri"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K99 ["ShowBox"]
+  SETTABLEKS R21 R20 K94 ["ShowBox"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K100 ["ShowHighlight"]
+  SETTABLEKS R21 R20 K95 ["ShowHighlight"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K101 ["ShowShadows"]
-  SETTABLEKS R20 R19 K94 ["spotlight"]
-  LOADK R20 K130 ["properties"]
-  SETTABLEKS R20 R19 K50 ["topic"]
+  SETTABLEKS R21 R20 K96 ["ShowShadows"]
+  SETTABLEKS R20 R19 K89 ["spotlight"]
+  LOADK R20 K125 ["properties"]
+  SETTABLEKS R20 R19 K45 ["topic"]
   LOADB R20 1
-  SETTABLEKS R20 R19 K51 ["showNext"]
-  LOADK R20 K216 ["Ribbon-Home,Explorer"]
-  SETTABLEKS R20 R19 K93 ["widgets"]
-  DUPTABLE R20 K218 [{"id", "kind", "path", "topic", "callout", "onSkip", "widgets"}]
-  LOADK R21 K219 ["select"]
-  SETTABLEKS R21 R20 K42 ["id"]
-  LOADK R21 K220 ["Select"]
-  SETTABLEKS R21 R20 K61 ["kind"]
-  LOADK R21 K221 ["Ball"]
-  SETTABLEKS R21 R20 K217 ["path"]
-  LOADK R21 K130 ["properties"]
-  SETTABLEKS R21 R20 K50 ["topic"]
-  DUPTABLE R21 K215 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  SETTABLEKS R10 R21 K98 ["TargetWidgetUri"]
-  GETIMPORT R22 K144 [Vector2.new]
+  SETTABLEKS R20 R19 K46 ["showNext"]
+  LOADK R20 K211 ["Ribbon-Home,Explorer"]
+  SETTABLEKS R20 R19 K88 ["widgets"]
+  DUPTABLE R20 K213 [{"id", "kind", "path", "topic", "callout", "onSkip", "widgets"}]
+  LOADK R21 K214 ["select"]
+  SETTABLEKS R21 R20 K44 ["id"]
+  LOADK R21 K215 ["Select"]
+  SETTABLEKS R21 R20 K56 ["kind"]
+  LOADK R21 K216 ["Ball"]
+  SETTABLEKS R21 R20 K212 ["path"]
+  LOADK R21 K125 ["properties"]
+  SETTABLEKS R21 R20 K45 ["topic"]
+  DUPTABLE R21 K210 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  SETTABLEKS R11 R21 K93 ["TargetWidgetUri"]
+  GETIMPORT R22 K139 [Vector2.new]
   LOADN R23 1
   LOADN R24 0
   CALL R22 2 1
-  SETTABLEKS R22 R21 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R22 K144 [Vector2.new]
+  SETTABLEKS R22 R21 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R22 K139 [Vector2.new]
   LOADN R23 0
   LOADN R24 0
   CALL R22 2 1
-  SETTABLEKS R22 R21 K167 ["TargetAnchorPoint"]
-  GETIMPORT R22 K144 [Vector2.new]
+  SETTABLEKS R22 R21 K162 ["TargetAnchorPoint"]
+  GETIMPORT R22 K139 [Vector2.new]
   LOADN R23 246
   LOADN R24 20
   CALL R22 2 1
-  SETTABLEKS R22 R21 K137 ["Offset"]
-  SETTABLEKS R21 R20 K128 ["callout"]
-  DUPCLOSURE R21 K222 [PROTO_16]
-  CAPTURE VAL R13
-  CAPTURE VAL R6
-  SETTABLEKS R21 R20 K108 ["onSkip"]
-  LOADK R21 K216 ["Ribbon-Home,Explorer"]
-  SETTABLEKS R21 R20 K93 ["widgets"]
-  DUPTABLE R21 K223 [{"id", "topic", "kind", "onSkip", "widgets"}]
-  LOADK R22 K224 ["focus"]
-  SETTABLEKS R22 R21 K42 ["id"]
-  LOADK R22 K130 ["properties"]
-  SETTABLEKS R22 R21 K50 ["topic"]
-  LOADK R22 K225 ["Focus"]
-  SETTABLEKS R22 R21 K61 ["kind"]
-  DUPCLOSURE R22 K226 [PROTO_17]
-  CAPTURE VAL R13
-  CAPTURE VAL R6
-  SETTABLEKS R22 R21 K108 ["onSkip"]
-  LOADK R22 K117 ["Ribbon-Home"]
-  SETTABLEKS R22 R21 K93 ["widgets"]
-  DUPTABLE R22 K227 [{"id", "topic", "callout", "spotlight", "showNext", "widgets"}]
-  LOADK R23 K130 ["properties"]
-  SETTABLEKS R23 R22 K42 ["id"]
-  LOADK R23 K130 ["properties"]
-  SETTABLEKS R23 R22 K50 ["topic"]
-  DUPTABLE R23 K215 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  SETTABLEKS R11 R23 K98 ["TargetWidgetUri"]
-  GETIMPORT R24 K144 [Vector2.new]
+  SETTABLEKS R22 R21 K132 ["Offset"]
+  SETTABLEKS R21 R20 K123 ["callout"]
+  DUPCLOSURE R21 K217 [PROTO_14]
+  CAPTURE VAL R14
+  CAPTURE VAL R7
+  SETTABLEKS R21 R20 K103 ["onSkip"]
+  LOADK R21 K211 ["Ribbon-Home,Explorer"]
+  SETTABLEKS R21 R20 K88 ["widgets"]
+  DUPTABLE R21 K218 [{"id", "topic", "kind", "onSkip", "widgets"}]
+  LOADK R22 K219 ["focus"]
+  SETTABLEKS R22 R21 K44 ["id"]
+  LOADK R22 K125 ["properties"]
+  SETTABLEKS R22 R21 K45 ["topic"]
+  LOADK R22 K220 ["Focus"]
+  SETTABLEKS R22 R21 K56 ["kind"]
+  DUPCLOSURE R22 K221 [PROTO_15]
+  CAPTURE VAL R14
+  CAPTURE VAL R7
+  SETTABLEKS R22 R21 K103 ["onSkip"]
+  LOADK R22 K112 ["Ribbon-Home"]
+  SETTABLEKS R22 R21 K88 ["widgets"]
+  DUPTABLE R22 K222 [{"id", "topic", "callout", "spotlight", "showNext", "widgets"}]
+  LOADK R23 K125 ["properties"]
+  SETTABLEKS R23 R22 K44 ["id"]
+  LOADK R23 K125 ["properties"]
+  SETTABLEKS R23 R22 K45 ["topic"]
+  DUPTABLE R23 K210 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  SETTABLEKS R12 R23 K93 ["TargetWidgetUri"]
+  GETIMPORT R24 K139 [Vector2.new]
   LOADN R25 1
   LOADN R26 1
   CALL R24 2 1
-  SETTABLEKS R24 R23 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R24 K144 [Vector2.new]
+  SETTABLEKS R24 R23 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R24 K139 [Vector2.new]
   LOADN R25 0
   LOADN R26 1
   CALL R24 2 1
-  SETTABLEKS R24 R23 K167 ["TargetAnchorPoint"]
-  GETIMPORT R24 K144 [Vector2.new]
+  SETTABLEKS R24 R23 K162 ["TargetAnchorPoint"]
+  GETIMPORT R24 K139 [Vector2.new]
   LOADN R25 246
   LOADN R26 0
   CALL R24 2 1
-  SETTABLEKS R24 R23 K137 ["Offset"]
-  SETTABLEKS R23 R22 K128 ["callout"]
-  DUPTABLE R23 K102 [{"TargetWidgetUri", "ShowBox", "ShowHighlight", "ShowShadows"}]
-  SETTABLEKS R11 R23 K98 ["TargetWidgetUri"]
+  SETTABLEKS R24 R23 K132 ["Offset"]
+  SETTABLEKS R23 R22 K123 ["callout"]
+  DUPTABLE R23 K97 [{"TargetWidgetUri", "ShowBox", "ShowHighlight", "ShowShadows"}]
+  SETTABLEKS R12 R23 K93 ["TargetWidgetUri"]
   LOADB R24 1
-  SETTABLEKS R24 R23 K99 ["ShowBox"]
+  SETTABLEKS R24 R23 K94 ["ShowBox"]
   LOADB R24 1
-  SETTABLEKS R24 R23 K100 ["ShowHighlight"]
+  SETTABLEKS R24 R23 K95 ["ShowHighlight"]
   LOADB R24 1
-  SETTABLEKS R24 R23 K101 ["ShowShadows"]
-  SETTABLEKS R23 R22 K94 ["spotlight"]
+  SETTABLEKS R24 R23 K96 ["ShowShadows"]
+  SETTABLEKS R23 R22 K89 ["spotlight"]
   LOADB R23 1
-  SETTABLEKS R23 R22 K51 ["showNext"]
-  LOADK R23 K228 ["Ribbon-Home,Explorer,Properties"]
-  SETTABLEKS R23 R22 K93 ["widgets"]
-  DUPTABLE R23 K229 [{"id", "topic", "kind", "callout", "className", "changes", "onSkip", "widgets"}]
-  LOADK R24 K230 ["speed"]
-  SETTABLEKS R24 R23 K42 ["id"]
-  LOADK R24 K130 ["properties"]
-  SETTABLEKS R24 R23 K50 ["topic"]
-  LOADK R24 K37 ["Edit"]
-  SETTABLEKS R24 R23 K61 ["kind"]
-  DUPTABLE R24 K215 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  SETTABLEKS R11 R24 K98 ["TargetWidgetUri"]
-  GETIMPORT R25 K144 [Vector2.new]
-  LOADN R26 1
-  LOADN R27 1
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K168 ["SubjectAnchorPoint"]
-  GETIMPORT R25 K144 [Vector2.new]
-  LOADN R26 0
-  LOADN R27 1
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K167 ["TargetAnchorPoint"]
-  GETIMPORT R25 K144 [Vector2.new]
-  LOADN R26 246
-  LOADN R27 0
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K137 ["Offset"]
-  SETTABLEKS R24 R23 K128 ["callout"]
-  LOADK R24 K231 ["Model"]
-  SETTABLEKS R24 R23 K129 ["className"]
-  DUPTABLE R24 K233 [{"Attributes"}]
-  DUPTABLE R25 K235 [{"Speed"}]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K234 ["Speed"]
-  SETTABLEKS R25 R24 K232 ["Attributes"]
-  SETTABLEKS R24 R23 K196 ["changes"]
-  DUPCLOSURE R24 K236 [PROTO_18]
-  CAPTURE VAL R13
-  SETTABLEKS R24 R23 K108 ["onSkip"]
-  LOADK R24 K228 ["Ribbon-Home,Explorer,Properties"]
-  SETTABLEKS R24 R23 K93 ["widgets"]
-  DUPTABLE R24 K237 [{"id", "topic", "showNext", "widgets"}]
-  LOADK R25 K238 ["save"]
-  SETTABLEKS R25 R24 K42 ["id"]
-  LOADK R25 K239 ["summary"]
-  SETTABLEKS R25 R24 K50 ["topic"]
-  LOADB R25 1
-  SETTABLEKS R25 R24 K51 ["showNext"]
-  LOADK R25 K228 ["Ribbon-Home,Explorer,Properties"]
-  SETTABLEKS R25 R24 K93 ["widgets"]
-  DUPTABLE R25 K125 [{"id", "topic", "kind", "widgets"}]
-  LOADK R26 K240 ["playtest2"]
-  SETTABLEKS R26 R25 K42 ["id"]
-  LOADK R26 K239 ["summary"]
-  SETTABLEKS R26 R25 K50 ["topic"]
-  LOADK R26 K116 ["StartPlaytest"]
-  SETTABLEKS R26 R25 K61 ["kind"]
-  LOADK R26 K228 ["Ribbon-Home,Explorer,Properties"]
-  SETTABLEKS R26 R25 K93 ["widgets"]
-  DUPTABLE R26 K125 [{"id", "topic", "kind", "widgets"}]
-  LOADK R27 K241 ["stopPlaytest2"]
-  SETTABLEKS R27 R26 K42 ["id"]
-  LOADK R27 K239 ["summary"]
-  SETTABLEKS R27 R26 K50 ["topic"]
-  LOADK R27 K127 ["StopPlaytest"]
-  SETTABLEKS R27 R26 K61 ["kind"]
-  LOADK R27 K228 ["Ribbon-Home,Explorer,Properties"]
-  SETTABLEKS R27 R26 K93 ["widgets"]
-  DUPTABLE R27 K242 [{"id", "topic", "widgets"}]
-  LOADK R33 K243 ["complete"]
-  SETTABLEKS R33 R27 K42 ["id"]
-  LOADK R33 K239 ["summary"]
-  SETTABLEKS R33 R27 K50 ["topic"]
-  LOADK R33 K228 ["Ribbon-Home,Explorer,Properties"]
-  SETTABLEKS R33 R27 K93 ["widgets"]
-  SETLIST R16 R17 11 [17]
-  SETTABLEKS R16 R15 K45 ["steps"]
-  RETURN R15 1
+  SETTABLEKS R23 R22 K46 ["showNext"]
+  LOADK R23 K223 ["Ribbon-Home,Explorer,Properties"]
+  SETTABLEKS R23 R22 K88 ["widgets"]
+  DUPTABLE R23 K224 [{"id", "topic", "kind", "callout", "className", "changes", "onSkip", "widgets"}]
+  LOADK R33 K225 ["speed"]
+  SETTABLEKS R33 R23 K44 ["id"]
+  LOADK R33 K125 ["properties"]
+  SETTABLEKS R33 R23 K45 ["topic"]
+  LOADK R33 K39 ["Edit"]
+  SETTABLEKS R33 R23 K56 ["kind"]
+  DUPTABLE R33 K210 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  SETTABLEKS R12 R33 K93 ["TargetWidgetUri"]
+  GETIMPORT R34 K139 [Vector2.new]
+  LOADN R35 1
+  LOADN R36 1
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K163 ["SubjectAnchorPoint"]
+  GETIMPORT R34 K139 [Vector2.new]
+  LOADN R35 0
+  LOADN R36 1
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K162 ["TargetAnchorPoint"]
+  GETIMPORT R34 K139 [Vector2.new]
+  LOADN R35 246
+  LOADN R36 0
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K132 ["Offset"]
+  SETTABLEKS R33 R23 K123 ["callout"]
+  LOADK R33 K226 ["Model"]
+  SETTABLEKS R33 R23 K124 ["className"]
+  DUPTABLE R33 K228 [{"Attributes"}]
+  DUPTABLE R34 K230 [{"Speed"}]
+  LOADB R35 1
+  SETTABLEKS R35 R34 K229 ["Speed"]
+  SETTABLEKS R34 R33 K227 ["Attributes"]
+  SETTABLEKS R33 R23 K191 ["changes"]
+  DUPCLOSURE R33 K231 [PROTO_16]
+  CAPTURE VAL R14
+  SETTABLEKS R33 R23 K103 ["onSkip"]
+  LOADK R33 K223 ["Ribbon-Home,Explorer,Properties"]
+  SETTABLEKS R33 R23 K88 ["widgets"]
+  SETLIST R16 R17 7 [17]
+  JUMPIF R5 [+19]
+  DUPTABLE R19 K232 [{"id", "topic", "showNext", "widgets"}]
+  LOADK R20 K233 ["save"]
+  SETTABLEKS R20 R19 K44 ["id"]
+  LOADK R20 K234 ["summary"]
+  SETTABLEKS R20 R19 K45 ["topic"]
+  LOADB R20 1
+  SETTABLEKS R20 R19 K46 ["showNext"]
+  LOADK R20 K223 ["Ribbon-Home,Explorer,Properties"]
+  SETTABLEKS R20 R19 K88 ["widgets"]
+  FASTCALL2 TABLE_INSERT R16 R19 [+4]
+  MOVE R18 R16
+  GETIMPORT R17 K237 [table.insert]
+  CALL R17 2 0
+  DUPTABLE R19 K120 [{"id", "topic", "kind", "widgets"}]
+  LOADK R20 K238 ["playtest2"]
+  SETTABLEKS R20 R19 K44 ["id"]
+  LOADK R20 K234 ["summary"]
+  SETTABLEKS R20 R19 K45 ["topic"]
+  LOADK R20 K111 ["StartPlaytest"]
+  SETTABLEKS R20 R19 K56 ["kind"]
+  LOADK R20 K223 ["Ribbon-Home,Explorer,Properties"]
+  SETTABLEKS R20 R19 K88 ["widgets"]
+  FASTCALL2 TABLE_INSERT R16 R19 [+4]
+  MOVE R18 R16
+  GETIMPORT R17 K237 [table.insert]
+  CALL R17 2 0
+  DUPTABLE R19 K120 [{"id", "topic", "kind", "widgets"}]
+  LOADK R20 K239 ["stopPlaytest2"]
+  SETTABLEKS R20 R19 K44 ["id"]
+  LOADK R20 K234 ["summary"]
+  SETTABLEKS R20 R19 K45 ["topic"]
+  LOADK R20 K122 ["StopPlaytest"]
+  SETTABLEKS R20 R19 K56 ["kind"]
+  LOADK R20 K223 ["Ribbon-Home,Explorer,Properties"]
+  SETTABLEKS R20 R19 K88 ["widgets"]
+  FASTCALL2 TABLE_INSERT R16 R19 [+4]
+  MOVE R18 R16
+  GETIMPORT R17 K237 [table.insert]
+  CALL R17 2 0
+  DUPTABLE R19 K240 [{"id", "topic", "widgets"}]
+  LOADK R20 K241 ["complete"]
+  SETTABLEKS R20 R19 K44 ["id"]
+  LOADK R20 K234 ["summary"]
+  SETTABLEKS R20 R19 K45 ["topic"]
+  LOADK R20 K223 ["Ribbon-Home,Explorer,Properties"]
+  SETTABLEKS R20 R19 K88 ["widgets"]
+  FASTCALL2 TABLE_INSERT R16 R19 [+4]
+  MOVE R18 R16
+  GETIMPORT R17 K237 [table.insert]
+  CALL R17 2 0
+  DUPTABLE R17 K245 [{"id", "onStart", "onComplete", "steps"}]
+  LOADK R18 K246 ["StudioTour3"]
+  SETTABLEKS R18 R17 K44 ["id"]
+  DUPCLOSURE R18 K247 [PROTO_17]
+  CAPTURE VAL R6
+  SETTABLEKS R18 R17 K242 ["onStart"]
+  DUPCLOSURE R18 K248 [PROTO_18]
+  CAPTURE VAL R6
+  SETTABLEKS R18 R17 K243 ["onComplete"]
+  SETTABLEKS R16 R17 K244 ["steps"]
+  RETURN R17 1

@@ -167,139 +167,167 @@ MAIN:
   LOADK R3 K13 ["RunService"]
   NAMECALL R1 R1 K14 ["GetService"]
   CALL R1 2 1
-  LOADNIL R2
+  GETIMPORT R2 K12 [game]
+  LOADK R4 K15 ["TestingControlsBetaEnabled"]
+  NAMECALL R2 R2 K16 ["GetEngineFeature"]
+  CALL R2 2 1
   LOADNIL R3
   LOADNIL R4
   LOADNIL R5
   LOADNIL R6
   LOADNIL R7
-  NEWTABLE R8 16 0
-  NEWCLOSURE R9 P0
+  LOADNIL R8
+  NEWTABLE R9 16 0
+  NEWCLOSURE R10 P0
   CAPTURE VAL R1
-  CAPTURE REF R2
   CAPTURE REF R3
   CAPTURE REF R4
   CAPTURE REF R5
   CAPTURE REF R6
   CAPTURE REF R7
-  SETTABLEKS R9 R8 K15 ["pauseButtons"]
-  DUPCLOSURE R9 K16 [PROTO_1]
-  CAPTURE VAL R8
+  CAPTURE REF R8
+  SETTABLEKS R10 R9 K17 ["pauseButtons"]
+  DUPCLOSURE R10 K18 [PROTO_1]
+  CAPTURE VAL R9
   CAPTURE VAL R1
-  LOADK R12 K17 ["RunState"]
-  NAMECALL R10 R1 K18 ["GetPropertyChangedSignal"]
-  CALL R10 2 1
-  MOVE R12 R9
-  NAMECALL R10 R10 K19 ["Connect"]
-  CALL R10 2 1
-  SETTABLEKS R10 R8 K20 ["checkRunState"]
-  DUPCLOSURE R10 K21 [PROTO_2]
-  CAPTURE VAL R1
-  CAPTURE VAL R8
-  SETTABLEKS R10 R8 K22 ["onPause"]
-  DUPCLOSURE R10 K23 [PROTO_3]
-  CAPTURE VAL R1
-  CAPTURE VAL R8
-  SETTABLEKS R10 R8 K24 ["onResume"]
-  DUPCLOSURE R10 K25 [PROTO_4]
-  CAPTURE VAL R1
-  SETTABLEKS R10 R8 K26 ["onStepForward"]
-  DUPCLOSURE R10 K27 [PROTO_5]
-  CAPTURE VAL R1
-  CAPTURE VAL R8
-  SETTABLEKS R10 R8 K28 ["invokeAction"]
-  GETIMPORT R10 K9 [plugin]
-  LOADK R12 K29 ["syncRunState"]
-  GETTABLEKS R13 R8 K28 ["invokeAction"]
-  NAMECALL R10 R10 K30 ["OnInvoke"]
-  CALL R10 3 0
-  DUPCLOSURE R10 K31 [PROTO_6]
-  SETTABLEKS R10 R8 K32 ["pauseAll"]
-  DUPCLOSURE R10 K33 [PROTO_7]
-  SETTABLEKS R10 R8 K34 ["resumeAll"]
-  DUPCLOSURE R10 K35 [PROTO_8]
-  SETTABLEKS R10 R8 K36 ["stepForwardAll"]
-  NAMECALL R11 R1 K37 ["IsRunning"]
-  CALL R11 1 1
-  NOT R10 R11
-  GETIMPORT R11 K9 [plugin]
-  LOADK R13 K38 ["simulationStep"]
-  NAMECALL R11 R11 K39 ["CreateToolbar"]
+  LOADK R13 K19 ["RunState"]
+  NAMECALL R11 R1 K20 ["GetPropertyChangedSignal"]
   CALL R11 2 1
-  LOADK R14 K40 ["ResumeAll"]
-  LOADK R15 K41 [""]
-  LOADK R16 K42 ["rbxlocaltheme://Resume"]
-  NAMECALL R12 R11 K43 ["CreateButton"]
-  CALL R12 4 1
-  MOVE R2 R12
-  LOADB R12 1
-  SETTABLEKS R12 R2 K44 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R12 R2 K45 ["Click"]
-  GETTABLEKS R14 R8 K34 ["resumeAll"]
-  NAMECALL R12 R12 K19 ["Connect"]
-  CALL R12 2 0
-  LOADK R14 K46 ["Resume"]
-  LOADK R15 K41 [""]
-  LOADK R16 K42 ["rbxlocaltheme://Resume"]
-  NAMECALL R12 R11 K43 ["CreateButton"]
-  CALL R12 4 1
-  MOVE R3 R12
-  LOADB R12 1
-  SETTABLEKS R12 R3 K44 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R12 R3 K45 ["Click"]
-  GETTABLEKS R14 R8 K24 ["onResume"]
-  NAMECALL R12 R12 K19 ["Connect"]
-  CALL R12 2 0
-  LOADK R14 K47 ["PauseAll"]
-  LOADK R15 K41 [""]
-  LOADK R16 K48 ["rbxlocaltheme://Pause"]
-  NAMECALL R12 R11 K43 ["CreateButton"]
-  CALL R12 4 1
-  MOVE R4 R12
-  LOADB R12 1
-  SETTABLEKS R12 R4 K44 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R12 R4 K45 ["Click"]
-  GETTABLEKS R14 R8 K32 ["pauseAll"]
-  NAMECALL R12 R12 K19 ["Connect"]
-  CALL R12 2 0
-  LOADK R14 K49 ["Pause"]
-  LOADK R15 K41 [""]
-  LOADK R16 K48 ["rbxlocaltheme://Pause"]
-  NAMECALL R12 R11 K43 ["CreateButton"]
-  CALL R12 4 1
-  MOVE R5 R12
-  LOADB R12 1
-  SETTABLEKS R12 R5 K44 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R12 R5 K45 ["Click"]
-  GETTABLEKS R14 R8 K22 ["onPause"]
-  NAMECALL R12 R12 K19 ["Connect"]
-  CALL R12 2 0
-  LOADK R14 K50 ["StepForwardAll"]
-  LOADK R15 K41 [""]
-  LOADK R16 K51 ["rbxlocaltheme://Fwd"]
-  NAMECALL R12 R11 K43 ["CreateButton"]
-  CALL R12 4 1
-  MOVE R6 R12
-  LOADB R12 1
-  SETTABLEKS R12 R6 K44 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R12 R6 K45 ["Click"]
-  GETTABLEKS R14 R8 K36 ["stepForwardAll"]
-  NAMECALL R12 R12 K19 ["Connect"]
-  CALL R12 2 0
-  LOADK R14 K52 ["StepForward"]
-  LOADK R15 K41 [""]
-  LOADK R16 K51 ["rbxlocaltheme://Fwd"]
-  NAMECALL R12 R11 K43 ["CreateButton"]
-  CALL R12 4 1
-  MOVE R7 R12
-  LOADB R12 1
-  SETTABLEKS R12 R7 K44 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R12 R7 K45 ["Click"]
-  GETTABLEKS R14 R8 K26 ["onStepForward"]
-  NAMECALL R12 R12 K19 ["Connect"]
-  CALL R12 2 0
-  GETTABLEKS R12 R8 K15 ["pauseButtons"]
   MOVE R13 R10
-  CALL R12 1 0
-  CLOSEUPVALS R2
+  NAMECALL R11 R11 K21 ["Connect"]
+  CALL R11 2 1
+  SETTABLEKS R11 R9 K22 ["checkRunState"]
+  DUPCLOSURE R11 K23 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  SETTABLEKS R11 R9 K24 ["onPause"]
+  DUPCLOSURE R11 K25 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  SETTABLEKS R11 R9 K26 ["onResume"]
+  DUPCLOSURE R11 K27 [PROTO_4]
+  CAPTURE VAL R1
+  SETTABLEKS R11 R9 K28 ["onStepForward"]
+  DUPCLOSURE R11 K29 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  SETTABLEKS R11 R9 K30 ["invokeAction"]
+  GETIMPORT R11 K9 [plugin]
+  LOADK R13 K31 ["syncRunState"]
+  GETTABLEKS R14 R9 K30 ["invokeAction"]
+  NAMECALL R11 R11 K32 ["OnInvoke"]
+  CALL R11 3 0
+  DUPCLOSURE R11 K33 [PROTO_6]
+  SETTABLEKS R11 R9 K34 ["pauseAll"]
+  DUPCLOSURE R11 K35 [PROTO_7]
+  SETTABLEKS R11 R9 K36 ["resumeAll"]
+  DUPCLOSURE R11 K37 [PROTO_8]
+  SETTABLEKS R11 R9 K38 ["stepForwardAll"]
+  NAMECALL R12 R1 K39 ["IsRunning"]
+  CALL R12 1 1
+  NOT R11 R12
+  GETIMPORT R12 K9 [plugin]
+  LOADK R14 K40 ["simulationStep"]
+  NAMECALL R12 R12 K41 ["CreateToolbar"]
+  CALL R12 2 1
+  JUMPIFNOT R2 [+2]
+  LOADK R13 K42 ["RibbonResumeSmall"]
+  JUMP [+1]
+  LOADK R13 K43 ["Resume"]
+  JUMPIFNOT R2 [+2]
+  LOADK R14 K44 ["RibbonPauseSmall"]
+  JUMP [+1]
+  LOADK R14 K45 ["Pause"]
+  JUMPIFNOT R2 [+2]
+  LOADK R15 K46 ["RibbonStepForwardSmall"]
+  JUMP [+1]
+  LOADK R15 K47 ["Fwd"]
+  LOADK R18 K48 ["ResumeAll"]
+  LOADK R19 K49 [""]
+  LOADK R21 K50 ["rbxlocaltheme://"]
+  MOVE R22 R13
+  CONCAT R20 R21 R22
+  NAMECALL R16 R12 K51 ["CreateButton"]
+  CALL R16 4 1
+  MOVE R3 R16
+  LOADB R16 1
+  SETTABLEKS R16 R3 K52 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R3 K53 ["Click"]
+  GETTABLEKS R18 R9 K36 ["resumeAll"]
+  NAMECALL R16 R16 K21 ["Connect"]
+  CALL R16 2 0
+  LOADK R18 K43 ["Resume"]
+  LOADK R19 K49 [""]
+  LOADK R21 K50 ["rbxlocaltheme://"]
+  MOVE R22 R13
+  CONCAT R20 R21 R22
+  NAMECALL R16 R12 K51 ["CreateButton"]
+  CALL R16 4 1
+  MOVE R4 R16
+  LOADB R16 1
+  SETTABLEKS R16 R4 K52 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R4 K53 ["Click"]
+  GETTABLEKS R18 R9 K26 ["onResume"]
+  NAMECALL R16 R16 K21 ["Connect"]
+  CALL R16 2 0
+  LOADK R18 K54 ["PauseAll"]
+  LOADK R19 K49 [""]
+  LOADK R21 K50 ["rbxlocaltheme://"]
+  MOVE R22 R14
+  CONCAT R20 R21 R22
+  NAMECALL R16 R12 K51 ["CreateButton"]
+  CALL R16 4 1
+  MOVE R5 R16
+  LOADB R16 1
+  SETTABLEKS R16 R5 K52 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R5 K53 ["Click"]
+  GETTABLEKS R18 R9 K34 ["pauseAll"]
+  NAMECALL R16 R16 K21 ["Connect"]
+  CALL R16 2 0
+  LOADK R18 K45 ["Pause"]
+  LOADK R19 K49 [""]
+  LOADK R21 K50 ["rbxlocaltheme://"]
+  MOVE R22 R14
+  CONCAT R20 R21 R22
+  NAMECALL R16 R12 K51 ["CreateButton"]
+  CALL R16 4 1
+  MOVE R6 R16
+  LOADB R16 1
+  SETTABLEKS R16 R6 K52 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R6 K53 ["Click"]
+  GETTABLEKS R18 R9 K24 ["onPause"]
+  NAMECALL R16 R16 K21 ["Connect"]
+  CALL R16 2 0
+  LOADK R18 K55 ["StepForwardAll"]
+  LOADK R19 K49 [""]
+  LOADK R21 K50 ["rbxlocaltheme://"]
+  MOVE R22 R15
+  CONCAT R20 R21 R22
+  NAMECALL R16 R12 K51 ["CreateButton"]
+  CALL R16 4 1
+  MOVE R7 R16
+  LOADB R16 1
+  SETTABLEKS R16 R7 K52 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R7 K53 ["Click"]
+  GETTABLEKS R18 R9 K38 ["stepForwardAll"]
+  NAMECALL R16 R16 K21 ["Connect"]
+  CALL R16 2 0
+  LOADK R18 K56 ["StepForward"]
+  LOADK R19 K49 [""]
+  LOADK R21 K50 ["rbxlocaltheme://"]
+  MOVE R22 R15
+  CONCAT R20 R21 R22
+  NAMECALL R16 R12 K51 ["CreateButton"]
+  CALL R16 4 1
+  MOVE R8 R16
+  LOADB R16 1
+  SETTABLEKS R16 R8 K52 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R8 K53 ["Click"]
+  GETTABLEKS R18 R9 K28 ["onStepForward"]
+  NAMECALL R16 R16 K21 ["Connect"]
+  CALL R16 2 0
+  GETTABLEKS R16 R9 K17 ["pauseButtons"]
+  MOVE R17 R11
+  CALL R16 1 0
+  CLOSEUPVALS R3
   RETURN R0 0

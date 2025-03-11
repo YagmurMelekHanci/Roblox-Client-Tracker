@@ -104,34 +104,30 @@ MAIN:
   LOADK R2 K2 ["AnimationClipEditor"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Cryo"]
-  CALL R1 1 1
-  GETTABLEKS R3 R0 K8 ["Src"]
-  GETTABLEKS R2 R3 K9 ["Util"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R2 K10 ["RigInfo"]
-  CALL R3 1 1
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K11 ["Actions"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R6 R4 K12 ["SetSelectedTracks"]
+  GETTABLEKS R2 R0 K4 ["Src"]
+  GETTABLEKS R1 R2 K5 ["Util"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R3 R1 K8 ["RigInfo"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K4 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Actions"]
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R5 R3 K10 ["SetSelectedTracks"]
+  CALL R4 1 1
+  GETIMPORT R5 K7 [require]
+  GETTABLEKS R6 R3 K11 ["SetSelectedTrackInstances"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R7 R4 K13 ["SetSelectedTrackInstances"]
+  GETIMPORT R6 K7 [require]
+  GETTABLEKS R7 R3 K12 ["SetTopTrackIndex"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R8 R4 K14 ["SetTopTrackIndex"]
+  GETIMPORT R7 K7 [require]
+  GETTABLEKS R9 R0 K13 ["LuaFlags"]
+  GETTABLEKS R8 R9 K14 ["GetFFlagSelectFromViewport"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K15 ["LuaFlags"]
-  GETTABLEKS R9 R10 K16 ["GetFFlagSelectFromViewport"]
-  CALL R8 1 1
-  DUPCLOSURE R9 K17 [PROTO_1]
-  CAPTURE VAL R6
+  DUPCLOSURE R8 K15 [PROTO_1]
   CAPTURE VAL R5
-  CAPTURE VAL R3
-  CAPTURE VAL R8
+  CAPTURE VAL R4
+  CAPTURE VAL R2
   CAPTURE VAL R7
-  RETURN R9 1
+  CAPTURE VAL R6
+  RETURN R8 1

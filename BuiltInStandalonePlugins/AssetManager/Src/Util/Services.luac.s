@@ -32,56 +32,62 @@ MAIN:
   DUPTABLE R3 K9 [{"__index"}]
   DUPCLOSURE R4 K10 [PROTO_1]
   SETTABLEKS R4 R3 K8 ["__index"]
-  DUPTABLE R4 K18 [{"AssetManagerService", "BulkImportService", "GuiService", "RbxAnalyticsService", "SoundService", "StartPageService", "StudioService"}]
+  DUPTABLE R4 K19 [{"AssetManagerService", "BulkImportService", "GuiService", "InsertService", "RbxAnalyticsService", "SoundService", "StartPageService", "StudioService"}]
   NEWTABLE R6 0 0
   FASTCALL2 SETMETATABLE R6 R3 [+4]
   MOVE R7 R3
-  GETIMPORT R5 K20 [setmetatable]
+  GETIMPORT R5 K21 [setmetatable]
   CALL R5 2 1
   SETTABLEKS R5 R4 K11 ["AssetManagerService"]
   NEWTABLE R6 0 0
   FASTCALL2 SETMETATABLE R6 R3 [+4]
   MOVE R7 R3
-  GETIMPORT R5 K20 [setmetatable]
+  GETIMPORT R5 K21 [setmetatable]
   CALL R5 2 1
   SETTABLEKS R5 R4 K12 ["BulkImportService"]
   NEWTABLE R6 0 0
   FASTCALL2 SETMETATABLE R6 R3 [+4]
   MOVE R7 R3
-  GETIMPORT R5 K20 [setmetatable]
+  GETIMPORT R5 K21 [setmetatable]
   CALL R5 2 1
   SETTABLEKS R5 R4 K13 ["GuiService"]
   NEWTABLE R6 0 0
   FASTCALL2 SETMETATABLE R6 R3 [+4]
   MOVE R7 R3
-  GETIMPORT R5 K20 [setmetatable]
+  GETIMPORT R5 K21 [setmetatable]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K14 ["RbxAnalyticsService"]
+  SETTABLEKS R5 R4 K14 ["InsertService"]
   NEWTABLE R6 0 0
   FASTCALL2 SETMETATABLE R6 R3 [+4]
   MOVE R7 R3
-  GETIMPORT R5 K20 [setmetatable]
+  GETIMPORT R5 K21 [setmetatable]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K15 ["SoundService"]
+  SETTABLEKS R5 R4 K15 ["RbxAnalyticsService"]
   NEWTABLE R6 0 0
   FASTCALL2 SETMETATABLE R6 R3 [+4]
   MOVE R7 R3
-  GETIMPORT R5 K20 [setmetatable]
+  GETIMPORT R5 K21 [setmetatable]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K16 ["StartPageService"]
+  SETTABLEKS R5 R4 K16 ["SoundService"]
   NEWTABLE R6 0 0
   FASTCALL2 SETMETATABLE R6 R3 [+4]
   MOVE R7 R3
-  GETIMPORT R5 K20 [setmetatable]
+  GETIMPORT R5 K21 [setmetatable]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K17 ["StudioService"]
-  GETTABLEKS R5 R1 K21 ["isCli"]
+  SETTABLEKS R5 R4 K17 ["StartPageService"]
+  NEWTABLE R6 0 0
+  FASTCALL2 SETMETATABLE R6 R3 [+4]
+  MOVE R7 R3
+  GETIMPORT R5 K21 [setmetatable]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K18 ["StudioService"]
+  GETTABLEKS R5 R1 K22 ["isCli"]
   CALL R5 0 1
   JUMPIFNOT R5 [+5]
-  DUPCLOSURE R5 K22 [PROTO_2]
+  DUPCLOSURE R5 K23 [PROTO_2]
   CAPTURE VAL R4
-  SETTABLEKS R5 R2 K23 ["GetService"]
+  SETTABLEKS R5 R2 K24 ["GetService"]
   RETURN R2 1
-  DUPCLOSURE R5 K24 [PROTO_3]
-  SETTABLEKS R5 R2 K23 ["GetService"]
+  DUPCLOSURE R5 K25 [PROTO_3]
+  SETTABLEKS R5 R2 K24 ["GetService"]
   RETURN R2 1

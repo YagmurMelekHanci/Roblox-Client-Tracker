@@ -1,0 +1,162 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  DUPTABLE R2 K2 [{"__mode"}]
+  LOADK R3 K3 ["k"]
+  SETTABLEKS R3 R2 K1 ["__mode"]
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K5 [setmetatable]
+  CALL R0 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["current"]
+  DUPTABLE R2 K2 [{"__mode"}]
+  LOADK R3 K3 ["k"]
+  SETTABLEKS R3 R2 K1 ["__mode"]
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K5 [setmetatable]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["current"]
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["current"]
+  SETTABLE R1 R2 R0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["current"]
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["current"]
+  SETTABLE R1 R2 R0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useRef"]
+  NEWTABLE R2 0 0
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useRef"]
+  NEWTABLE R3 0 0
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["useEffect"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  NEWTABLE R5 0 2
+  GETTABLEKS R6 R1 K2 ["current"]
+  GETTABLEKS R7 R2 K2 ["current"]
+  SETLIST R5 R6 2 [1]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["useCallback"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R1
+  NEWTABLE R5 0 1
+  GETTABLEKS R6 R1 K2 ["current"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["useCallback"]
+  NEWCLOSURE R5 P2
+  CAPTURE VAL R1
+  NEWTABLE R6 0 1
+  GETTABLEKS R7 R1 K2 ["current"]
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["useCallback"]
+  NEWCLOSURE R6 P3
+  CAPTURE VAL R2
+  NEWTABLE R7 0 1
+  GETTABLEKS R8 R2 K2 ["current"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["useCallback"]
+  NEWCLOSURE R7 P4
+  CAPTURE VAL R2
+  NEWTABLE R8 0 1
+  GETTABLEKS R9 R2 K2 ["current"]
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  DUPTABLE R7 K8 [{"getUndoStack", "setUndoStack", "getInitialMeshesData", "setInitialMeshesData"}]
+  SETTABLEKS R3 R7 K4 ["getUndoStack"]
+  SETTABLEKS R4 R7 K5 ["setUndoStack"]
+  SETTABLEKS R5 R7 K6 ["getInitialMeshesData"]
+  SETTABLEKS R6 R7 K7 ["setInitialMeshesData"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K10 ["Provider"]
+  DUPTABLE R10 K12 [{"value"}]
+  SETTABLEKS R7 R10 K11 ["value"]
+  GETTABLEKS R11 R0 K13 ["children"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["createUnimplemented"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Packages"]
+  GETTABLEKS R8 R9 K12 ["_Index"]
+  GETTABLEKS R7 R8 K13 ["LuaMeshEditingModule"]
+  GETTABLEKS R6 R7 K13 ["LuaMeshEditingModule"]
+  GETTABLEKS R5 R6 K9 ["Types"]
+  CALL R4 1 1
+  DUPTABLE R5 K18 [{"getUndoStack", "setUndoStack", "setInitialMeshesData", "getInitialMeshesData"}]
+  MOVE R6 R3
+  LOADK R7 K14 ["getUndoStack"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K14 ["getUndoStack"]
+  MOVE R6 R3
+  LOADK R7 K15 ["setUndoStack"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K15 ["setUndoStack"]
+  MOVE R6 R3
+  LOADK R7 K16 ["setInitialMeshesData"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K16 ["setInitialMeshesData"]
+  MOVE R6 R3
+  LOADK R7 K17 ["getInitialMeshesData"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K17 ["getInitialMeshesData"]
+  GETTABLEKS R6 R1 K19 ["createContext"]
+  MOVE R7 R5
+  CALL R6 1 1
+  DUPCLOSURE R7 K20 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  DUPTABLE R8 K23 [{"Context", "Provider"}]
+  SETTABLEKS R6 R8 K21 ["Context"]
+  SETTABLEKS R7 R8 K22 ["Provider"]
+  RETURN R8 1

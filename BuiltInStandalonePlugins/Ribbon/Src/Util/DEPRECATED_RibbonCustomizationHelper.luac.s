@@ -134,22 +134,18 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R2 K10 ["join"]
   NEWTABLE R4 2 0
-  GETIMPORT R5 K12 [game]
-  LOADK R7 K13 ["StudioWidgetsService"]
-  NAMECALL R5 R5 K14 ["GetService"]
-  CALL R5 2 1
-  NEWTABLE R6 2 0
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K15 ["SharedFlags"]
-  GETTABLEKS R8 R9 K16 ["getFFlagRibbonConfigUniqueControlsIdentifiers"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K17 [PROTO_0]
-  CAPTURE VAL R7
-  CAPTURE VAL R3
+  NEWTABLE R5 2 0
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K11 ["SharedFlags"]
+  GETTABLEKS R7 R8 K12 ["getFFlagRibbonConfigUniqueControlsIdentifiers"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K13 [PROTO_0]
   CAPTURE VAL R6
-  SETTABLEKS R8 R4 K18 ["createCustomizationActionsAsync"]
-  DUPCLOSURE R8 K19 [PROTO_1]
-  CAPTURE VAL R7
-  SETTABLEKS R8 R4 K20 ["getLatestRibbonControlsAsync"]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  SETTABLEKS R7 R4 K14 ["createCustomizationActionsAsync"]
+  DUPCLOSURE R7 K15 [PROTO_1]
+  CAPTURE VAL R6
+  SETTABLEKS R7 R4 K16 ["getLatestRibbonControlsAsync"]
   RETURN R4 1

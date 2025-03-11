@@ -1,0 +1,122 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  NEWTABLE R3 0 0
+  NEWTABLE R4 0 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K5 [{"Size", "SubjectType", "Id", "DisplayName"}]
+  GETIMPORT R8 K8 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADN R11 0
+  GETTABLEKS R13 R0 K9 ["controls"]
+  GETTABLEKS R12 R13 K10 ["height"]
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K1 ["Size"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K2 ["SubjectType"]
+  SETTABLEKS R8 R7 K2 ["SubjectType"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K3 ["Id"]
+  SETTABLEKS R8 R7 K3 ["Id"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K4 ["DisplayName"]
+  SETTABLEKS R8 R7 K4 ["DisplayName"]
+  CALL R5 2 -1
+  SETLIST R4 R5 -1 [1]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Stories"]
+  GETTABLEKS R4 R5 K9 ["ToolboxStoryWrapper"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K10 ["Parent"]
+  GETTABLEKS R5 R6 K11 ["CollaboratorLabel"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  DUPTABLE R6 K16 [{"summary", "controls", "stories"}]
+  LOADK R7 K17 ["This component displays a collaborator (user or group) with icon, display name and (optional) handle"]
+  SETTABLEKS R7 R6 K13 ["summary"]
+  DUPTABLE R7 K19 [{"height"}]
+  LOADN R8 60
+  SETTABLEKS R8 R7 K18 ["height"]
+  SETTABLEKS R7 R6 K14 ["controls"]
+  NEWTABLE R7 0 3
+  DUPTABLE R8 K22 [{"name", "story"}]
+  LOADK R9 K23 ["User"]
+  SETTABLEKS R9 R8 K20 ["name"]
+  DUPTABLE R10 K27 [{"SubjectType", "Id", "DisplayName"}]
+  GETIMPORT R11 K30 [Enum.CreatorType.User]
+  SETTABLEKS R11 R10 K24 ["SubjectType"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K25 ["Id"]
+  LOADK R11 K31 ["Display Name"]
+  SETTABLEKS R11 R10 K26 ["DisplayName"]
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  SETTABLEKS R9 R8 K21 ["story"]
+  DUPTABLE R9 K22 [{"name", "story"}]
+  LOADK R10 K32 ["Group"]
+  SETTABLEKS R10 R9 K20 ["name"]
+  DUPTABLE R11 K27 [{"SubjectType", "Id", "DisplayName"}]
+  GETIMPORT R12 K33 [Enum.CreatorType.Group]
+  SETTABLEKS R12 R11 K24 ["SubjectType"]
+  LOADK R12 K34 [1200769]
+  SETTABLEKS R12 R11 K25 ["Id"]
+  LOADK R12 K31 ["Display Name"]
+  SETTABLEKS R12 R11 K26 ["DisplayName"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  SETTABLEKS R10 R9 K21 ["story"]
+  DUPTABLE R10 K22 [{"name", "story"}]
+  LOADK R11 K35 ["Invalid Id / Loading"]
+  SETTABLEKS R11 R10 K20 ["name"]
+  DUPTABLE R12 K27 [{"SubjectType", "Id", "DisplayName"}]
+  GETIMPORT R13 K30 [Enum.CreatorType.User]
+  SETTABLEKS R13 R12 K24 ["SubjectType"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K25 ["Id"]
+  LOADK R13 K31 ["Display Name"]
+  SETTABLEKS R13 R12 K26 ["DisplayName"]
+  NEWCLOSURE R11 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  SETTABLEKS R11 R10 K21 ["story"]
+  SETLIST R7 R8 3 [1]
+  SETTABLEKS R7 R6 K15 ["stories"]
+  RETURN R6 1

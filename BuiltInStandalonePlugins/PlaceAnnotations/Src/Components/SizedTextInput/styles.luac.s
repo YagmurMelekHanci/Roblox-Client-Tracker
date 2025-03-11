@@ -36,76 +36,79 @@ MAIN:
   MOVE R8 R3
   LOADK R9 K26 ["::UICorner"]
   DUPTABLE R10 K28 [{"CornerRadius"}]
-  LOADN R11 18
+  GETIMPORT R11 K31 [UDim.new]
+  LOADN R12 0
+  LOADN R13 16
+  CALL R11 2 1
   SETTABLEKS R11 R10 K27 ["CornerRadius"]
   CALL R8 2 1
   MOVE R9 R3
-  LOADK R10 K29 [".Error"]
+  LOADK R10 K32 [".Error"]
   NEWTABLE R11 0 0
   NEWTABLE R12 0 1
   MOVE R13 R3
-  LOADK R14 K30 ["::UIStroke"]
-  DUPTABLE R15 K35 [{"Thickness", "ApplyStrokeMode", "Color", "Transparency"}]
+  LOADK R14 K33 ["::UIStroke"]
+  DUPTABLE R15 K38 [{"Thickness", "ApplyStrokeMode", "Color", "Transparency"}]
   LOADN R16 1
-  SETTABLEKS R16 R15 K31 ["Thickness"]
-  GETIMPORT R16 K37 [Enum.ApplyStrokeMode.Border]
-  SETTABLEKS R16 R15 K32 ["ApplyStrokeMode"]
-  LOADK R16 K38 ["$ErrorMain"]
-  SETTABLEKS R16 R15 K33 ["Color"]
+  SETTABLEKS R16 R15 K34 ["Thickness"]
+  GETIMPORT R16 K40 [Enum.ApplyStrokeMode.Border]
+  SETTABLEKS R16 R15 K35 ["ApplyStrokeMode"]
+  LOADK R16 K41 ["$ErrorMain"]
+  SETTABLEKS R16 R15 K36 ["Color"]
   LOADK R16 K25 [0.4]
-  SETTABLEKS R16 R15 K34 ["Transparency"]
+  SETTABLEKS R16 R15 K37 ["Transparency"]
   CALL R13 2 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 1
   MOVE R10 R3
-  LOADK R11 K39 ["> ScrollingFrame"]
-  DUPTABLE R12 K43 [{"ScrollingDirection", "ScrollBarThickness", "BorderSizePixel", "BackgroundTransparency"}]
-  GETIMPORT R13 K44 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R13 R12 K40 ["ScrollingDirection"]
+  LOADK R11 K42 ["> ScrollingFrame"]
+  DUPTABLE R12 K46 [{"ScrollingDirection", "ScrollBarThickness", "BorderSizePixel", "BackgroundTransparency"}]
+  GETIMPORT R13 K47 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R13 R12 K43 ["ScrollingDirection"]
   LOADN R13 4
-  SETTABLEKS R13 R12 K41 ["ScrollBarThickness"]
+  SETTABLEKS R13 R12 K44 ["ScrollBarThickness"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K42 ["BorderSizePixel"]
+  SETTABLEKS R13 R12 K45 ["BorderSizePixel"]
   LOADN R13 1
   SETTABLEKS R13 R12 K16 ["BackgroundTransparency"]
   NEWTABLE R13 0 1
   MOVE R14 R3
-  LOADK R15 K45 ["> TextBox"]
-  DUPTABLE R16 K55 [{"TextColor3", "TextSize", "LineHeight", "BackgroundTransparency", "TextXAlignment", "TextWrapped", "TextScaled", "ClearTextOnFocus", "Font", "RichText"}]
-  LOADK R17 K56 ["$TextPrimary"]
-  SETTABLEKS R17 R16 K46 ["TextColor3"]
-  LOADK R17 K57 ["$FontSizeM"]
-  SETTABLEKS R17 R16 K47 ["TextSize"]
-  LOADK R17 K58 [1.5]
-  SETTABLEKS R17 R16 K48 ["LineHeight"]
+  LOADK R15 K48 ["> TextBox"]
+  DUPTABLE R16 K58 [{"TextColor3", "TextSize", "LineHeight", "BackgroundTransparency", "TextXAlignment", "TextWrapped", "TextScaled", "ClearTextOnFocus", "Font", "RichText"}]
+  LOADK R17 K59 ["$TextPrimary"]
+  SETTABLEKS R17 R16 K49 ["TextColor3"]
+  LOADK R17 K60 ["$FontSizeM"]
+  SETTABLEKS R17 R16 K50 ["TextSize"]
+  LOADK R17 K61 [1.5]
+  SETTABLEKS R17 R16 K51 ["LineHeight"]
   LOADN R17 1
   SETTABLEKS R17 R16 K16 ["BackgroundTransparency"]
-  GETIMPORT R17 K60 [Enum.TextXAlignment.Left]
-  SETTABLEKS R17 R16 K49 ["TextXAlignment"]
+  GETIMPORT R17 K63 [Enum.TextXAlignment.Left]
+  SETTABLEKS R17 R16 K52 ["TextXAlignment"]
   LOADB R17 1
-  SETTABLEKS R17 R16 K50 ["TextWrapped"]
+  SETTABLEKS R17 R16 K53 ["TextWrapped"]
   LOADB R17 0
-  SETTABLEKS R17 R16 K51 ["TextScaled"]
+  SETTABLEKS R17 R16 K54 ["TextScaled"]
   LOADB R17 0
-  SETTABLEKS R17 R16 K52 ["ClearTextOnFocus"]
-  LOADK R17 K61 ["$Font"]
-  SETTABLEKS R17 R16 K53 ["Font"]
+  SETTABLEKS R17 R16 K55 ["ClearTextOnFocus"]
+  LOADK R17 K64 ["$Font"]
+  SETTABLEKS R17 R16 K56 ["Font"]
   LOADB R17 1
-  SETTABLEKS R17 R16 K54 ["RichText"]
+  SETTABLEKS R17 R16 K57 ["RichText"]
   NEWTABLE R17 0 2
   MOVE R18 R3
-  LOADK R19 K62 ["::UIPadding"]
-  DUPTABLE R20 K65 [{"PaddingLeft", "PaddingRight"}]
-  GETIMPORT R21 K68 [UDim.new]
+  LOADK R19 K65 ["::UIPadding"]
+  DUPTABLE R20 K68 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R21 K31 [UDim.new]
   LOADN R22 0
   LOADN R23 10
   CALL R21 2 1
-  SETTABLEKS R21 R20 K63 ["PaddingLeft"]
-  GETIMPORT R21 K68 [UDim.new]
+  SETTABLEKS R21 R20 K66 ["PaddingLeft"]
+  GETIMPORT R21 K31 [UDim.new]
   LOADN R22 0
   LOADN R23 12
   CALL R21 2 1
-  SETTABLEKS R21 R20 K64 ["PaddingRight"]
+  SETTABLEKS R21 R20 K67 ["PaddingRight"]
   CALL R18 2 1
   MOVE R19 R3
   LOADK R20 K69 [".Disabled"]

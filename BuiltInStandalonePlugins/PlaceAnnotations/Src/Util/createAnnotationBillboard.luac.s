@@ -98,9 +98,16 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R0 2 0
   RETURN R0 0
 
 PROTO_7:
+  RETURN R0 0
+
+PROTO_8:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["Disconnect"]
   CALL R0 1 0
@@ -119,9 +126,12 @@ PROTO_7:
   GETUPVAL R0 5
   NAMECALL R0 R0 K0 ["Disconnect"]
   CALL R0 1 0
+  GETUPVAL R0 6
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   LOADK R4 K0 ["Highlight"]
   NAMECALL R2 R1 K1 ["FindFirstChild"]
   CALL R2 2 1
@@ -173,23 +183,33 @@ PROTO_8:
   CAPTURE VAL R1
   NAMECALL R8 R8 K3 ["Connect"]
   CALL R8 2 1
-  GETTABLEKS R9 R0 K11 ["Destroying"]
-  DUPCLOSURE R11 K12 [PROTO_6]
-  NAMECALL R9 R9 K13 ["Once"]
-  CALL R9 2 0
-  GETTABLEKS R9 R1 K11 ["Destroying"]
-  NEWCLOSURE R11 P7
+  LOADK R11 K11 ["ReplyCount"]
+  NAMECALL R9 R0 K7 ["GetPropertyChangedSignal"]
+  CALL R9 2 1
+  NEWCLOSURE R11 P6
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NAMECALL R9 R9 K3 ["Connect"]
+  CALL R9 2 1
+  GETTABLEKS R10 R0 K12 ["Destroying"]
+  DUPCLOSURE R12 K13 [PROTO_7]
+  NAMECALL R10 R10 K14 ["Once"]
+  CALL R10 2 0
+  GETTABLEKS R10 R1 K12 ["Destroying"]
+  NEWCLOSURE R12 P8
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R6
   CAPTURE VAL R8
-  NAMECALL R9 R9 K3 ["Connect"]
-  CALL R9 2 0
+  CAPTURE VAL R9
+  NAMECALL R10 R10 K3 ["Connect"]
+  CALL R10 2 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Success"]
   JUMPIFNOTEQ R2 R3 [+13]
@@ -204,13 +224,13 @@ PROTO_9:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["Destroy"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
   GETTABLEKS R2 R0 K0 ["Adornee"]
   JUMPIFNOT R2 [+2]
   GETTABLEKS R2 R0 K1 ["AdorneeOffset"]
@@ -232,169 +252,497 @@ PROTO_11:
   LOADNIL R2
   LOADNIL R3
   RETURN R2 2
-  GETIMPORT R2 K13 [Instance.new]
-  LOADK R3 K14 ["BillboardGui"]
-  CALL R2 1 1
-  NAMECALL R3 R0 K10 ["GetStringUniqueId"]
+  GETTABLEKS R3 R0 K11 ["ReplyCount"]
+  JUMPIFEQKN R3 K12 [0] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETIMPORT R3 K15 [Instance.new]
+  LOADK R4 K16 ["BillboardGui"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K15 ["Name"]
-  GETTABLEKS R3 R0 K0 ["Adornee"]
-  SETTABLEKS R3 R2 K0 ["Adornee"]
-  GETTABLEKS R3 R0 K1 ["AdorneeOffset"]
-  SETTABLEKS R3 R2 K16 ["StudsOffsetWorldSpace"]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K17 ["AlwaysOnTop"]
-  GETIMPORT R3 K20 [UDim2.fromScale]
-  LOADN R4 3
+  NAMECALL R4 R0 K10 ["GetStringUniqueId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K17 ["Name"]
+  GETTABLEKS R4 R0 K0 ["Adornee"]
+  SETTABLEKS R4 R3 K0 ["Adornee"]
+  GETTABLEKS R4 R0 K1 ["AdorneeOffset"]
+  SETTABLEKS R4 R3 K18 ["StudsOffsetWorldSpace"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K19 ["AlwaysOnTop"]
+  JUMPIFNOT R2 [+8]
+  GETIMPORT R4 K21 [UDim2.new]
+  LOADN R5 2
+  GETUPVAL R6 0
+  LOADN R7 2
+  GETUPVAL R8 0
+  CALL R4 4 1
+  JUMP [+8]
+  GETIMPORT R4 K21 [UDim2.new]
   LOADN R5 3
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K21 ["Size"]
-  GETIMPORT R3 K23 [Vector2.new]
-  LOADK R4 K24 [0.5]
-  LOADK R5 K24 [0.5]
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K25 ["SizeOffset"]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K26 ["Active"]
-  SETTABLEKS R1 R2 K27 ["Parent"]
-  LOADK R5 K28 ["IsDraft"]
-  NAMECALL R3 R0 K29 ["GetAttribute"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+18]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K30 ["Enabled"]
-  LOADK R5 K28 ["IsDraft"]
-  LOADB R6 1
-  NAMECALL R3 R2 K31 ["SetAttribute"]
-  CALL R3 3 0
-  GETTABLEKS R3 R0 K32 ["RequestCompleted"]
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R2
+  GETUPVAL R7 0
+  MULK R6 R7 K22 [1.5]
+  LOADN R7 2
+  GETUPVAL R8 0
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K23 ["Size"]
+  GETIMPORT R4 K25 [Vector2.new]
+  LOADK R5 K26 [0.5]
+  LOADK R6 K26 [0.5]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K27 ["SizeOffset"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K28 ["Active"]
+  SETTABLEKS R1 R3 K29 ["Parent"]
+  LOADK R6 K30 ["IsDraft"]
+  NAMECALL R4 R0 K31 ["GetAttribute"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+18]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K32 ["Enabled"]
+  LOADK R6 K30 ["IsDraft"]
+  LOADB R7 1
+  NAMECALL R4 R3 K33 ["SetAttribute"]
+  CALL R4 3 0
+  GETTABLEKS R4 R0 K34 ["RequestCompleted"]
+  NEWCLOSURE R6 P0
   CAPTURE UPVAL U1
-  NAMECALL R3 R3 K33 ["Once"]
-  CALL R3 2 0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U2
+  NAMECALL R4 R4 K35 ["Once"]
+  CALL R4 2 0
   JUMP [+5]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K34 ["AnnotationsVisible"]
-  SETTABLEKS R3 R2 K30 ["Enabled"]
-  GETTABLEKS R3 R0 K35 ["Destroying"]
-  NEWCLOSURE R5 P1
-  CAPTURE VAL R2
-  NAMECALL R3 R3 K36 ["Connect"]
-  CALL R3 2 0
-  GETIMPORT R3 K13 [Instance.new]
-  LOADK R4 K37 ["ImageButton"]
-  MOVE R5 R2
-  CALL R3 2 1
-  LOADK R4 K38 ["Indicator"]
-  SETTABLEKS R4 R3 K15 ["Name"]
-  LOADK R4 K39 ["rbxasset://textures/PlaceAnnotations/AnnotationSingle.png"]
-  SETTABLEKS R4 R3 K40 ["Image"]
-  LOADN R4 0
-  SETTABLEKS R4 R3 K41 ["BorderSizePixel"]
-  LOADN R4 1
-  SETTABLEKS R4 R3 K42 ["BackgroundTransparency"]
-  LOADK R4 K43 [0.2]
-  SETTABLEKS R4 R3 K44 ["ImageTransparency"]
-  GETIMPORT R4 K20 [UDim2.fromScale]
-  LOADN R5 1
-  LOADN R6 1
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K21 ["Size"]
-  GETIMPORT R4 K23 [Vector2.new]
-  LOADN R5 0
-  LOADN R6 1
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K45 ["AnchorPoint"]
-  GETIMPORT R4 K20 [UDim2.fromScale]
-  LOADN R5 0
-  LOADN R6 1
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K46 ["Position"]
-  GETIMPORT R4 K13 [Instance.new]
-  LOADK R5 K47 ["UISizeConstraint"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K36 ["AnnotationsVisible"]
+  SETTABLEKS R4 R3 K32 ["Enabled"]
+  GETTABLEKS R4 R0 K37 ["Destroying"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R3
+  NAMECALL R4 R4 K38 ["Connect"]
+  CALL R4 2 0
+  GETIMPORT R4 K15 [Instance.new]
+  LOADK R5 K39 ["ImageButton"]
   MOVE R6 R3
   CALL R4 2 1
-  GETIMPORT R5 K23 [Vector2.new]
-  LOADN R6 48
-  LOADN R7 48
+  LOADK R5 K40 ["Indicator"]
+  SETTABLEKS R5 R4 K17 ["Name"]
+  JUMPIFNOT R2 [+2]
+  LOADK R5 K41 ["rbxasset://textures/PlaceAnnotations/AnnotationSingle.png"]
+  JUMP [+1]
+  LOADK R5 K42 ["rbxasset://textures/PlaceAnnotations/AnnotationMulti.png"]
+  SETTABLEKS R5 R4 K43 ["Image"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K44 ["BorderSizePixel"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K45 ["BackgroundTransparency"]
+  GETIMPORT R5 K47 [UDim2.fromScale]
+  LOADN R6 1
+  LOADN R7 1
   CALL R5 2 1
-  SETTABLEKS R5 R4 K48 ["MaxSize"]
-  GETIMPORT R5 K13 [Instance.new]
-  LOADK R6 K49 ["ImageLabel"]
+  SETTABLEKS R5 R4 K23 ["Size"]
+  GETIMPORT R5 K25 [Vector2.new]
+  LOADN R6 0
+  LOADN R7 1
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K48 ["AnchorPoint"]
+  GETIMPORT R5 K47 [UDim2.fromScale]
+  LOADN R6 0
+  LOADN R7 1
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K49 ["Position"]
+  GETIMPORT R5 K15 [Instance.new]
+  LOADK R6 K50 ["UISizeConstraint"]
+  MOVE R7 R4
+  CALL R5 2 1
+  JUMPIFNOT R2 [+15]
+  GETIMPORT R6 K25 [Vector2.new]
+  GETUPVAL R7 3
+  GETUPVAL R8 3
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K51 ["MaxSize"]
+  GETIMPORT R6 K25 [Vector2.new]
+  GETUPVAL R7 0
+  GETUPVAL R8 0
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K52 ["MinSize"]
+  JUMP [+16]
+  GETIMPORT R6 K25 [Vector2.new]
+  GETUPVAL R8 3
+  MULK R7 R8 K22 [1.5]
+  GETUPVAL R8 3
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K51 ["MaxSize"]
+  GETIMPORT R6 K25 [Vector2.new]
+  GETUPVAL R8 0
+  MULK R7 R8 K22 [1.5]
+  GETUPVAL R8 0
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K52 ["MinSize"]
+  GETIMPORT R6 K15 [Instance.new]
+  LOADK R7 K53 ["ImageLabel"]
+  MOVE R8 R4
+  CALL R6 2 1
+  LOADK R7 K54 ["Highlight"]
+  SETTABLEKS R7 R6 K17 ["Name"]
+  JUMPIFNOT R2 [+2]
+  LOADK R7 K55 ["rbxasset://textures/PlaceAnnotations/AnnotationSingleHighlight.png"]
+  JUMP [+1]
+  LOADK R7 K56 ["rbxasset://textures/PlaceAnnotations/AnnotationMultiHighlight.png"]
+  SETTABLEKS R7 R6 K43 ["Image"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K44 ["BorderSizePixel"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K45 ["BackgroundTransparency"]
+  GETIMPORT R7 K47 [UDim2.fromScale]
+  LOADN R8 1
+  LOADN R9 1
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K23 ["Size"]
+  GETIMPORT R7 K59 [Color3.fromRGB]
+  LOADN R8 69
+  LOADN R9 153
+  LOADN R10 255
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K60 ["ImageColor3"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K61 ["Visible"]
+  GETUPVAL R7 4
+  MOVE R8 R0
+  CALL R7 1 1
+  SETTABLEKS R4 R7 K29 ["Parent"]
+  GETTABLEKS R8 R0 K11 ["ReplyCount"]
+  LOADN R9 0
+  JUMPIFNOTLT R9 R8 [+6]
+  GETUPVAL R8 5
+  MOVE R9 R0
+  CALL R8 1 1
+  SETTABLEKS R4 R8 K29 ["Parent"]
+  GETUPVAL R8 6
+  MOVE R9 R0
+  MOVE R10 R4
+  CALL R8 2 0
+  MOVE R8 R4
+  MOVE R9 R6
+  RETURN R8 2
+
+PROTO_13:
+  GETTABLEKS R2 R0 K0 ["ReplyCount"]
+  JUMPIFEQKN R2 K1 [0] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  GETIMPORT R2 K4 [Instance.new]
+  LOADK R3 K5 ["ImageLabel"]
+  CALL R2 1 1
+  LOADK R3 K6 ["Avatar"]
+  SETTABLEKS R3 R2 K7 ["Name"]
+  LOADK R4 K8 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=150&h=150"]
+  GETTABLEKS R6 R0 K9 ["AuthorId"]
+  NAMECALL R4 R4 K10 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  SETTABLEKS R3 R2 K11 ["Image"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["BorderSizePixel"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K13 ["BackgroundTransparency"]
+  GETIMPORT R3 K16 [Color3.fromHex]
+  LOADK R4 K17 ["#989898"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K18 ["BackgroundColor3"]
+  JUMPIFNOT R1 [+6]
+  GETIMPORT R3 K21 [UDim2.fromScale]
+  LOADK R4 K22 [0.75]
+  LOADK R5 K22 [0.75]
+  CALL R3 2 1
+  JUMP [+5]
+  GETIMPORT R3 K21 [UDim2.fromScale]
+  LOADK R4 K23 [0.5]
+  LOADK R5 K22 [0.75]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K24 ["Size"]
+  JUMPIFNOT R1 [+6]
+  GETIMPORT R3 K21 [UDim2.fromScale]
+  LOADK R4 K23 [0.5]
+  LOADK R5 K23 [0.5]
+  CALL R3 2 1
+  JUMP [+5]
+  GETIMPORT R3 K21 [UDim2.fromScale]
+  LOADK R4 K25 [0.333333333333333]
+  LOADK R5 K23 [0.5]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K26 ["Position"]
+  GETIMPORT R3 K28 [Vector2.new]
+  LOADK R4 K23 [0.5]
+  LOADK R5 K23 [0.5]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K29 ["AnchorPoint"]
+  GETIMPORT R3 K4 [Instance.new]
+  LOADK R4 K30 ["UICorner"]
+  MOVE R5 R2
+  CALL R3 2 1
+  GETIMPORT R4 K32 [UDim.new]
+  LOADN R5 1
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K33 ["CornerRadius"]
+  RETURN R2 1
+
+PROTO_14:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["TextLabel"]
+  CALL R1 1 1
+  LOADK R2 K4 ["ReplyCount"]
+  SETTABLEKS R2 R1 K5 ["Name"]
+  LOADK R2 K6 [""]
+  SETTABLEKS R2 R1 K7 ["Text"]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K8 ["BackgroundTransparency"]
+  GETIMPORT R2 K11 [Color3.fromRGB]
+  LOADN R3 255
+  LOADN R4 255
+  LOADN R5 255
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K12 ["BackgroundColor3"]
+  GETIMPORT R2 K15 [UDim2.fromScale]
+  LOADK R3 K16 [0.53]
+  LOADK R4 K17 [0.8]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K18 ["Size"]
+  GETIMPORT R2 K15 [UDim2.fromScale]
+  LOADK R3 K19 [0.7]
+  LOADK R4 K20 [0.5]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K21 ["Position"]
+  GETIMPORT R2 K23 [Vector2.new]
+  LOADK R3 K20 [0.5]
+  LOADK R4 K20 [0.5]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K24 ["AnchorPoint"]
+  GETIMPORT R2 K28 [Enum.TextXAlignment.Center]
+  SETTABLEKS R2 R1 K26 ["TextXAlignment"]
+  GETIMPORT R2 K30 [Enum.TextYAlignment.Center]
+  SETTABLEKS R2 R1 K29 ["TextYAlignment"]
+  GETIMPORT R2 K2 [Instance.new]
+  LOADK R3 K31 ["UICorner"]
+  MOVE R4 R1
+  CALL R2 2 1
+  GETIMPORT R3 K33 [UDim.new]
+  LOADN R4 1
+  LOADN R5 0
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K34 ["CornerRadius"]
+  GETIMPORT R3 K2 [Instance.new]
+  LOADK R4 K3 ["TextLabel"]
+  MOVE R5 R1
+  CALL R3 2 1
+  LOADK R4 K35 ["ReplyCountInner"]
+  SETTABLEKS R4 R3 K5 ["Name"]
+  LOADK R4 K6 [""]
+  SETTABLEKS R4 R3 K7 ["Text"]
+  GETIMPORT R4 K11 [Color3.fromRGB]
+  LOADN R5 69
+  LOADN R6 153
+  LOADN R7 255
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K12 ["BackgroundColor3"]
+  GETIMPORT R4 K15 [UDim2.fromScale]
+  LOADK R5 K36 [0.85]
+  LOADK R6 K36 [0.85]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K18 ["Size"]
+  GETIMPORT R4 K23 [Vector2.new]
+  LOADK R5 K20 [0.5]
+  LOADK R6 K20 [0.5]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K24 ["AnchorPoint"]
+  GETIMPORT R4 K15 [UDim2.fromScale]
+  LOADK R5 K20 [0.5]
+  LOADK R6 K20 [0.5]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K21 ["Position"]
+  GETIMPORT R4 K2 [Instance.new]
+  LOADK R5 K3 ["TextLabel"]
+  MOVE R6 R3
+  CALL R4 2 1
+  LOADK R5 K37 ["ReplyCountText"]
+  SETTABLEKS R5 R4 K5 ["Name"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K8 ["BackgroundTransparency"]
+  LOADK R6 K38 ["+%*"]
+  GETTABLEKS R9 R0 K4 ["ReplyCount"]
+  FASTCALL1 TOSTRING R9 [+2]
+  GETIMPORT R8 K40 [tostring]
+  CALL R8 1 1
+  NAMECALL R6 R6 K41 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K7 ["Text"]
+  GETIMPORT R5 K11 [Color3.fromRGB]
+  LOADN R6 255
+  LOADN R7 255
+  LOADN R8 255
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K42 ["TextColor3"]
+  GETIMPORT R5 K45 [Enum.Font.SourceSansBold]
+  SETTABLEKS R5 R4 K43 ["Font"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K46 ["TextScaled"]
+  GETIMPORT R5 K23 [Vector2.new]
+  LOADK R6 K20 [0.5]
+  LOADK R7 K20 [0.5]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K24 ["AnchorPoint"]
+  GETIMPORT R5 K15 [UDim2.fromScale]
+  LOADK R6 K20 [0.5]
+  LOADK R7 K20 [0.5]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K21 ["Position"]
+  GETIMPORT R5 K15 [UDim2.fromScale]
+  LOADK R6 K47 [0.6]
+  LOADK R7 K47 [0.6]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K18 ["Size"]
+  GETIMPORT R5 K2 [Instance.new]
+  LOADK R6 K31 ["UICorner"]
   MOVE R7 R3
   CALL R5 2 1
-  LOADK R7 K50 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=150&h=150"]
-  GETTABLEKS R9 R0 K51 ["AuthorId"]
-  NAMECALL R7 R7 K52 ["format"]
-  CALL R7 2 1
-  MOVE R6 R7
-  SETTABLEKS R6 R5 K40 ["Image"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K41 ["BorderSizePixel"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K42 ["BackgroundTransparency"]
-  GETIMPORT R6 K55 [Color3.fromHex]
-  LOADK R7 K56 ["#989898"]
+  MOVE R2 R5
+  GETIMPORT R5 K33 [UDim.new]
+  LOADN R6 1
+  LOADN R7 0
+  CALL R5 2 1
+  SETTABLEKS R5 R2 K34 ["CornerRadius"]
+  RETURN R1 1
+
+PROTO_15:
+  LOADK R5 K0 ["ReplyCount"]
+  LOADB R6 1
+  NAMECALL R3 R1 K1 ["FindFirstChild"]
+  CALL R3 3 1
+  JUMPIFEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETTABLEKS R3 R0 K0 ["ReplyCount"]
+  JUMPIFNOTEQKN R3 K2 [0] [+68]
+  JUMPIF R2 [+66]
+  GETTABLEKS R3 R1 K3 ["Parent"]
+  GETIMPORT R4 K6 [UDim2.new]
+  LOADN R5 2
+  GETUPVAL R6 0
+  LOADN R7 2
+  GETUPVAL R8 0
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K7 ["Size"]
+  LOADK R3 K8 ["rbxasset://textures/PlaceAnnotations/AnnotationSingle.png"]
+  SETTABLEKS R3 R1 K9 ["Image"]
+  LOADK R5 K10 ["UISizeConstraint"]
+  NAMECALL R3 R1 K11 ["FindFirstChildWhichIsA"]
+  CALL R3 2 1
+  GETIMPORT R4 K13 [Vector2.new]
+  GETUPVAL R5 1
+  GETUPVAL R6 1
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K14 ["MaxSize"]
+  GETIMPORT R4 K13 [Vector2.new]
+  GETUPVAL R5 0
+  GETUPVAL R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K15 ["MinSize"]
+  LOADK R6 K16 ["Highlight"]
+  NAMECALL R4 R1 K1 ["FindFirstChild"]
+  CALL R4 2 1
+  LOADK R5 K17 ["rbxasset://textures/PlaceAnnotations/AnnotationSingleHighlight.png"]
+  SETTABLEKS R5 R4 K9 ["Image"]
+  LOADK R7 K18 ["Avatar"]
+  NAMECALL R5 R1 K1 ["FindFirstChild"]
+  CALL R5 2 1
+  GETIMPORT R6 K20 [UDim2.fromScale]
+  LOADK R7 K21 [0.5]
+  LOADK R8 K21 [0.5]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K22 ["Position"]
+  GETIMPORT R6 K20 [UDim2.fromScale]
+  LOADK R7 K23 [0.75]
+  LOADK R8 K23 [0.75]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K7 ["Size"]
+  LOADK R8 K0 ["ReplyCount"]
+  LOADB R9 1
+  NAMECALL R6 R1 K1 ["FindFirstChild"]
+  CALL R6 3 1
+  NAMECALL R6 R6 K24 ["Destroy"]
+  CALL R6 1 0
+  RETURN R0 0
+  GETTABLEKS R3 R0 K0 ["ReplyCount"]
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+70]
+  JUMPIFNOT R2 [+68]
+  GETTABLEKS R3 R1 K3 ["Parent"]
+  GETIMPORT R4 K6 [UDim2.new]
+  LOADN R5 3
+  GETUPVAL R7 0
+  MULK R6 R7 K25 [1.5]
+  LOADN R7 2
+  GETUPVAL R8 0
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K7 ["Size"]
+  LOADK R3 K26 ["rbxasset://textures/PlaceAnnotations/AnnotationMulti.png"]
+  SETTABLEKS R3 R1 K9 ["Image"]
+  LOADK R5 K16 ["Highlight"]
+  NAMECALL R3 R1 K1 ["FindFirstChild"]
+  CALL R3 2 1
+  LOADK R4 K27 ["rbxasset://textures/PlaceAnnotations/AnnotationMultiHighlight.png"]
+  SETTABLEKS R4 R3 K9 ["Image"]
+  LOADK R6 K10 ["UISizeConstraint"]
+  NAMECALL R4 R1 K11 ["FindFirstChildWhichIsA"]
+  CALL R4 2 1
+  GETIMPORT R5 K13 [Vector2.new]
+  LOADK R7 K25 [1.5]
+  GETUPVAL R8 1
+  MUL R6 R7 R8
+  GETUPVAL R7 1
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K14 ["MaxSize"]
+  GETIMPORT R5 K13 [Vector2.new]
+  LOADK R7 K25 [1.5]
+  GETUPVAL R8 0
+  MUL R6 R7 R8
+  GETUPVAL R7 0
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K15 ["MinSize"]
+  LOADK R7 K18 ["Avatar"]
+  NAMECALL R5 R1 K1 ["FindFirstChild"]
+  CALL R5 2 1
+  GETIMPORT R6 K20 [UDim2.fromScale]
+  LOADK R7 K28 [0.333333333333333]
+  LOADK R8 K21 [0.5]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K22 ["Position"]
+  GETIMPORT R6 K20 [UDim2.fromScale]
+  LOADK R7 K21 [0.5]
+  LOADK R8 K23 [0.75]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K7 ["Size"]
+  GETUPVAL R6 2
+  MOVE R7 R0
   CALL R6 1 1
-  SETTABLEKS R6 R5 K57 ["BackgroundColor3"]
-  GETIMPORT R6 K20 [UDim2.fromScale]
-  LOADK R7 K58 [0.8]
-  LOADK R8 K58 [0.8]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K21 ["Size"]
-  GETIMPORT R6 K20 [UDim2.fromScale]
-  LOADK R7 K24 [0.5]
-  LOADK R8 K24 [0.5]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K46 ["Position"]
-  GETIMPORT R6 K23 [Vector2.new]
-  LOADK R7 K24 [0.5]
-  LOADK R8 K24 [0.5]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K45 ["AnchorPoint"]
-  GETIMPORT R6 K13 [Instance.new]
-  LOADK R7 K59 ["UICorner"]
-  MOVE R8 R5
-  CALL R6 2 1
-  GETIMPORT R7 K61 [UDim.new]
-  LOADN R8 1
-  LOADN R9 0
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K62 ["CornerRadius"]
-  GETIMPORT R7 K13 [Instance.new]
-  LOADK R8 K49 ["ImageLabel"]
-  MOVE R9 R3
-  CALL R7 2 1
-  LOADK R8 K63 ["Highlight"]
-  SETTABLEKS R8 R7 K15 ["Name"]
-  LOADK R8 K64 ["rbxasset://textures/PlaceAnnotations/AnnotationSingleHighlight.png"]
-  SETTABLEKS R8 R7 K40 ["Image"]
-  LOADN R8 0
-  SETTABLEKS R8 R7 K41 ["BorderSizePixel"]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K42 ["BackgroundTransparency"]
-  GETIMPORT R8 K20 [UDim2.fromScale]
-  LOADN R9 1
-  LOADN R10 1
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K21 ["Size"]
-  GETIMPORT R8 K66 [Color3.fromRGB]
-  LOADN R9 69
-  LOADN R10 153
-  LOADN R11 255
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K67 ["ImageColor3"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K68 ["Visible"]
-  GETUPVAL R8 2
-  MOVE R9 R0
-  MOVE R10 R3
-  CALL R8 2 0
-  MOVE R8 R3
-  MOVE R9 R7
-  RETURN R8 2
+  SETTABLEKS R1 R6 K3 ["Parent"]
+  RETURN R0 0
+  GETTABLEKS R3 R0 K0 ["ReplyCount"]
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+19]
+  LOADK R5 K29 ["ReplyCountText"]
+  LOADB R6 1
+  NAMECALL R3 R1 K1 ["FindFirstChild"]
+  CALL R3 3 1
+  LOADK R5 K30 ["+%*"]
+  GETTABLEKS R8 R0 K0 ["ReplyCount"]
+  FASTCALL1 TOSTRING R8 [+2]
+  GETIMPORT R7 K32 [tostring]
+  CALL R7 1 1
+  NAMECALL R5 R5 K33 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K34 ["Text"]
+  RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
@@ -407,24 +755,46 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Types"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Enums"]
-  GETTABLEKS R3 R4 K9 ["AnnotationEditingMode"]
+  GETTABLEKS R5 R0 K8 ["Bin"]
+  GETTABLEKS R4 R5 K9 ["Common"]
+  GETTABLEKS R3 R4 K10 ["defineLuaFlags"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Enums"]
-  GETTABLEKS R4 R5 K10 ["AnnotationRequestResult"]
+  GETTABLEKS R5 R6 K11 ["Enums"]
+  GETTABLEKS R4 R5 K12 ["AnnotationEditingMode"]
   CALL R3 1 1
-  GETIMPORT R4 K12 [game]
-  LOADK R6 K13 ["AnnotationsService"]
-  NAMECALL R4 R4 K14 ["GetService"]
-  CALL R4 2 1
-  DUPCLOSURE R5 K15 [PROTO_8]
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  DUPCLOSURE R6 K16 [PROTO_11]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Enums"]
+  GETTABLEKS R5 R6 K13 ["AnnotationRequestResult"]
+  CALL R4 1 1
+  GETIMPORT R5 K15 [game]
+  LOADK R7 K16 ["AnnotationsService"]
+  NAMECALL R5 R5 K17 ["GetService"]
+  CALL R5 2 1
+  GETTABLEKS R6 R2 K18 ["fintAnnotationsPointerMaxSize"]
+  GETTABLEKS R7 R2 K19 ["fintAnnotationsPointerMinSize"]
+  LOADNIL R8
+  LOADNIL R9
+  LOADNIL R10
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R5
   CAPTURE VAL R3
+  CAPTURE REF R10
+  NEWCLOSURE R12 P1
+  CAPTURE VAL R7
   CAPTURE VAL R4
   CAPTURE VAL R5
-  RETURN R6 1
+  CAPTURE VAL R6
+  CAPTURE REF R8
+  CAPTURE REF R9
+  CAPTURE VAL R11
+  DUPCLOSURE R8 K20 [PROTO_13]
+  DUPCLOSURE R9 K21 [PROTO_14]
+  NEWCLOSURE R10 P4
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE REF R9
+  CLOSEUPVALS R8
+  RETURN R12 1

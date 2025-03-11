@@ -178,6 +178,7 @@ MAIN:
   SETLIST R14 R15 5 [1]
   SETTABLEKS R14 R13 K27 ["Values"]
   SETTABLE R13 R11 R12
+  JUMPIF R9 [+9]
   MOVE R12 R7
   LOADK R13 K24 ["RunTools"]
   LOADK R14 K41 ["ServerAndClients"]
@@ -191,11 +192,15 @@ MAIN:
   LOADK R14 K49 ["Play"]
   CALL R12 2 1
   DUPTABLE R13 K57 [{"Icon", "ForceRefreshAfterBind"}]
+  JUMPIFNOT R9 [+2]
+  LOADNIL R14
+  JUMP [+1]
   LOADK R14 K49 ["Play"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   LOADB R14 1
   SETTABLEKS R14 R13 K56 ["ForceRefreshAfterBind"]
   SETTABLE R13 R11 R12
+  JUMPIF R9 [+54]
   MOVE R12 R7
   LOADK R13 K24 ["RunTools"]
   LOADK R14 K51 ["PlayHere"]
@@ -244,7 +249,7 @@ MAIN:
   LOADK R14 K61 ["Resume"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
-  JUMPIFNOT R9 [+210]
+  JUMPIFNOT R9 [+156]
   MOVE R12 R8
   LOADK R13 K24 ["RunTools"]
   LOADK R14 K62 ["PauseMode"]
@@ -338,69 +343,21 @@ MAIN:
   SETLIST R14 R15 2 [1]
   SETTABLEKS R14 R13 K27 ["Values"]
   SETTABLE R13 R11 R12
-  MOVE R12 R7
-  LOADK R13 K24 ["RunTools"]
-  LOADK R14 K64 ["PausePhysicsCurrent"]
-  CALL R12 2 1
-  DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K60 ["Pause"]
-  SETTABLEKS R14 R13 K53 ["Icon"]
-  SETTABLE R13 R11 R12
-  MOVE R12 R7
-  LOADK R13 K24 ["RunTools"]
-  LOADK R14 K63 ["PausePhysicsAll"]
-  CALL R12 2 1
-  DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K60 ["Pause"]
-  SETTABLEKS R14 R13 K53 ["Icon"]
-  SETTABLE R13 R11 R12
-  MOVE R12 R7
-  LOADK R13 K24 ["RunTools"]
-  LOADK R14 K67 ["ResumePhysicsCurrent"]
-  CALL R12 2 1
-  DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K61 ["Resume"]
-  SETTABLEKS R14 R13 K53 ["Icon"]
-  SETTABLE R13 R11 R12
-  MOVE R12 R7
-  LOADK R13 K24 ["RunTools"]
-  LOADK R14 K66 ["ResumePhysicsAll"]
-  CALL R12 2 1
-  DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K61 ["Resume"]
-  SETTABLEKS R14 R13 K53 ["Icon"]
-  SETTABLE R13 R11 R12
-  MOVE R12 R7
-  LOADK R13 K24 ["RunTools"]
-  LOADK R14 K70 ["StepForwardPhysicsCurrent"]
-  CALL R12 2 1
-  DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K71 ["PhysicsStepper"]
-  SETTABLEKS R14 R13 K53 ["Icon"]
-  SETTABLE R13 R11 R12
-  MOVE R12 R7
-  LOADK R13 K24 ["RunTools"]
-  LOADK R14 K69 ["StepForwardPhysicsAll"]
-  CALL R12 2 1
-  DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K71 ["PhysicsStepper"]
-  SETTABLEKS R14 R13 K53 ["Icon"]
-  SETTABLE R13 R11 R12
   MOVE R12 R8
   LOADK R13 K24 ["RunTools"]
-  LOADK R14 K72 ["AddClients"]
+  LOADK R14 K71 ["AddClients"]
   CALL R12 2 1
-  DUPTABLE R13 K74 [{"Icon", "Text", "Tooltip"}]
-  LOADK R14 K75 ["AddClient"]
+  DUPTABLE R13 K73 [{"Icon", "Text", "Tooltip"}]
+  LOADK R14 K74 ["AddClient"]
   SETTABLEKS R14 R13 K53 ["Icon"]
-  LOADK R14 K72 ["AddClients"]
+  LOADK R14 K71 ["AddClients"]
   SETTABLEKS R14 R13 K31 ["Text"]
-  LOADK R14 K76 ["AddClientsTooltip"]
-  SETTABLEKS R14 R13 K73 ["Tooltip"]
+  LOADK R14 K75 ["AddClientsTooltip"]
+  SETTABLEKS R14 R13 K72 ["Tooltip"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
   LOADK R13 K24 ["RunTools"]
-  LOADK R14 K77 ["LaunchTestMode"]
+  LOADK R14 K76 ["LaunchTestMode"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
   LOADK R14 K49 ["Play"]
@@ -408,297 +365,298 @@ MAIN:
   SETTABLE R13 R11 R12
   MOVE R12 R7
   LOADK R13 K24 ["RunTools"]
-  LOADK R14 K78 ["ExitClient"]
+  LOADK R14 K77 ["ExitClient"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
   LOADK R14 K59 ["ExitGame"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
+  JUMPIF R9 [+9]
   MOVE R12 R7
   LOADK R13 K24 ["RunTools"]
-  LOADK R14 K79 ["Stop"]
+  LOADK R14 K78 ["Stop"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K80 ["StopActive"]
-  SETTABLEKS R14 R13 K53 ["Icon"]
-  SETTABLE R13 R11 R12
-  MOVE R12 R7
-  LOADK R13 K24 ["RunTools"]
-  LOADK R14 K81 ["ToggleDM"]
-  CALL R12 2 1
-  DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K82 ["ClientServer"]
+  LOADK R14 K79 ["StopActive"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
   LOADK R13 K24 ["RunTools"]
-  LOADK R14 K83 ["CleanupServerAndClients"]
+  LOADK R14 K80 ["ToggleDM"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K84 ["ExitTestSession"]
+  LOADK R14 K81 ["ClientServer"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K85 ["Assistant"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K24 ["RunTools"]
+  LOADK R14 K82 ["CleanupServerAndClients"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K87 ["AI"]
+  LOADK R14 K83 ["ExitTestSession"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K88 ["ShareGame"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K84 ["Assistant"]
+  LOADK R14 K85 ["Toggle"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K89 ["Share"]
+  LOADK R14 K86 ["AI"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K90 ["ConnectionIndicator"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K87 ["ShareGame"]
+  LOADK R14 K85 ["Toggle"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K91 ["Status_Green"]
+  LOADK R14 K88 ["Share"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K92 ["Notifications"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K89 ["ConnectionIndicator"]
+  LOADK R14 K85 ["Toggle"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K93 ["Notification"]
+  LOADK R14 K90 ["Status_Green"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K94 ["UpdateAvailable"]
-  LOADK R14 K86 ["Toggle"]
-  CALL R12 2 1
-  DUPTABLE R13 K96 [{"Icon", "RibbonOverrideText"}]
-  LOADK R14 K97 ["Update"]
-  SETTABLEKS R14 R13 K53 ["Icon"]
-  LOADK R14 K98 ["Action_UpdateAvailable"]
-  SETTABLEKS R14 R13 K95 ["RibbonOverrideText"]
-  SETTABLE R13 R11 R12
-  MOVE R12 R7
-  LOADK R13 K99 ["LogoutMenu"]
-  LOADK R14 K86 ["Toggle"]
-  CALL R12 2 1
-  DUPTABLE R13 K101 [{"Icon", "IconSide"}]
-  LOADK R14 K102 ["ArrowDown"]
-  SETTABLEKS R14 R13 K53 ["Icon"]
-  LOADK R14 K103 ["Right"]
-  SETTABLEKS R14 R13 K100 ["IconSide"]
-  SETTABLE R13 R11 R12
-  MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K105 ["Select"]
+  LOADK R13 K91 ["Notifications"]
+  LOADK R14 K85 ["Toggle"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K105 ["Select"]
+  LOADK R14 K92 ["Notification"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K106 ["Move"]
+  LOADK R13 K93 ["UpdateAvailable"]
+  LOADK R14 K85 ["Toggle"]
+  CALL R12 2 1
+  DUPTABLE R13 K95 [{"Icon", "RibbonOverrideText"}]
+  LOADK R14 K96 ["Update"]
+  SETTABLEKS R14 R13 K53 ["Icon"]
+  LOADK R14 K97 ["Action_UpdateAvailable"]
+  SETTABLEKS R14 R13 K94 ["RibbonOverrideText"]
+  SETTABLE R13 R11 R12
+  MOVE R12 R7
+  LOADK R13 K98 ["LogoutMenu"]
+  LOADK R14 K85 ["Toggle"]
+  CALL R12 2 1
+  DUPTABLE R13 K100 [{"Icon", "IconSide"}]
+  LOADK R14 K101 ["ArrowDown"]
+  SETTABLEKS R14 R13 K53 ["Icon"]
+  LOADK R14 K102 ["Right"]
+  SETTABLEKS R14 R13 K99 ["IconSide"]
+  SETTABLE R13 R11 R12
+  MOVE R12 R7
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K104 ["Select"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K106 ["Move"]
+  LOADK R14 K104 ["Select"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K107 ["Rotate"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K105 ["Move"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K107 ["Rotate"]
+  LOADK R14 K105 ["Move"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K108 ["Scale"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K106 ["Rotate"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K108 ["Scale"]
+  LOADK R14 K106 ["Rotate"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K109 ["Transform"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K107 ["Scale"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K109 ["Transform"]
+  LOADK R14 K107 ["Scale"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K110 ["SelectColor"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K108 ["Transform"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K111 ["Color"]
+  LOADK R14 K108 ["Transform"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K112 ["TerrainTools"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K109 ["SelectColor"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K113 ["Terrain"]
+  LOADK R14 K110 ["Color"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K114 ["Character"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K111 ["TerrainTools"]
+  LOADK R14 K85 ["Toggle"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K114 ["Character"]
+  LOADK R14 K112 ["Terrain"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K115 ["MaterialManager"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K113 ["Character"]
+  LOADK R14 K85 ["Toggle"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K116 ["Material"]
+  LOADK R14 K113 ["Character"]
+  SETTABLEKS R14 R13 K53 ["Icon"]
+  SETTABLE R13 R11 R12
+  MOVE R12 R7
+  LOADK R13 K114 ["MaterialManager"]
+  LOADK R14 K85 ["Toggle"]
+  CALL R12 2 1
+  DUPTABLE R13 K54 [{"Icon"}]
+  LOADK R14 K115 ["Material"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R8
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K117 ["Group"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K116 ["Group"]
   CALL R12 2 1
-  DUPTABLE R13 K118 [{"Type", "Text", "Tooltip", "Values"}]
+  DUPTABLE R13 K117 [{"Type", "Text", "Tooltip", "Values"}]
   LOADK R14 K29 ["Enum"]
   SETTABLEKS R14 R13 K26 ["Type"]
-  LOADK R14 K119 ["Setting_Group"]
+  LOADK R14 K118 ["Setting_Group"]
   SETTABLEKS R14 R13 K31 ["Text"]
-  LOADK R14 K120 ["Tooltip_Group"]
-  SETTABLEKS R14 R13 K73 ["Tooltip"]
+  LOADK R14 K119 ["Tooltip_Group"]
+  SETTABLEKS R14 R13 K72 ["Tooltip"]
   NEWTABLE R14 0 2
-  DUPTABLE R15 K121 [{"Id", "Action"}]
-  LOADK R16 K122 ["GroupAsModel"]
+  DUPTABLE R15 K120 [{"Id", "Action"}]
+  LOADK R16 K121 ["GroupAsModel"]
   SETTABLEKS R16 R15 K30 ["Id"]
   MOVE R16 R5
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K122 ["GroupAsModel"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K121 ["GroupAsModel"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K46 ["Action"]
-  DUPTABLE R16 K121 [{"Id", "Action"}]
-  LOADK R17 K123 ["GroupAsFolder"]
+  DUPTABLE R16 K120 [{"Id", "Action"}]
+  LOADK R17 K122 ["GroupAsFolder"]
   SETTABLEKS R17 R16 K30 ["Id"]
   MOVE R17 R5
-  LOADK R18 K104 ["BuilderTools"]
-  LOADK R19 K123 ["GroupAsFolder"]
+  LOADK R18 K103 ["BuilderTools"]
+  LOADK R19 K122 ["GroupAsFolder"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K46 ["Action"]
   SETLIST R14 R15 2 [1]
   SETTABLEKS R14 R13 K27 ["Values"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K122 ["GroupAsModel"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K121 ["GroupAsModel"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K117 ["Group"]
+  LOADK R14 K116 ["Group"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K123 ["GroupAsFolder"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K122 ["GroupAsFolder"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K124 ["GroupAsAFolder"]
+  LOADK R14 K123 ["GroupAsAFolder"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   JUMPIFNOT R4 [+119]
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K125 ["Anchor"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K124 ["Anchor"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K125 ["Anchor"]
+  LOADK R14 K124 ["Anchor"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K126 ["Lock"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K125 ["Lock"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K126 ["Lock"]
+  LOADK R14 K125 ["Lock"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K127 ["AnchorTool"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K126 ["AnchorTool"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K127 ["AnchorTool"]
+  LOADK R14 K126 ["AnchorTool"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K128 ["LockTool"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K127 ["LockTool"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K128 ["LockTool"]
+  LOADK R14 K127 ["LockTool"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R8
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K129 ["AnchorMode"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K128 ["AnchorMode"]
   CALL R12 2 1
-  DUPTABLE R13 K130 [{"Type", "Text", "RibbonOverrideText", "Values"}]
+  DUPTABLE R13 K129 [{"Type", "Text", "RibbonOverrideText", "Values"}]
   LOADK R14 K29 ["Enum"]
   SETTABLEKS R14 R13 K26 ["Type"]
-  LOADK R14 K131 ["Setting_Anchor"]
+  LOADK R14 K130 ["Setting_Anchor"]
   SETTABLEKS R14 R13 K31 ["Text"]
-  LOADK R14 K132 ["AnchorToolRibbonAction"]
-  SETTABLEKS R14 R13 K95 ["RibbonOverrideText"]
+  LOADK R14 K131 ["AnchorToolRibbonAction"]
+  SETTABLEKS R14 R13 K94 ["RibbonOverrideText"]
   NEWTABLE R14 0 2
-  DUPTABLE R15 K121 [{"Id", "Action"}]
-  LOADK R16 K125 ["Anchor"]
+  DUPTABLE R15 K120 [{"Id", "Action"}]
+  LOADK R16 K124 ["Anchor"]
   SETTABLEKS R16 R15 K30 ["Id"]
   MOVE R16 R5
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K125 ["Anchor"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K124 ["Anchor"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K46 ["Action"]
-  DUPTABLE R16 K121 [{"Id", "Action"}]
-  LOADK R17 K127 ["AnchorTool"]
+  DUPTABLE R16 K120 [{"Id", "Action"}]
+  LOADK R17 K126 ["AnchorTool"]
   SETTABLEKS R17 R16 K30 ["Id"]
   MOVE R17 R5
-  LOADK R18 K104 ["BuilderTools"]
-  LOADK R19 K127 ["AnchorTool"]
+  LOADK R18 K103 ["BuilderTools"]
+  LOADK R19 K126 ["AnchorTool"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K46 ["Action"]
   SETLIST R14 R15 2 [1]
   SETTABLEKS R14 R13 K27 ["Values"]
   SETTABLE R13 R11 R12
   MOVE R12 R8
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K133 ["LockMode"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K132 ["LockMode"]
   CALL R12 2 1
-  DUPTABLE R13 K130 [{"Type", "Text", "RibbonOverrideText", "Values"}]
+  DUPTABLE R13 K129 [{"Type", "Text", "RibbonOverrideText", "Values"}]
   LOADK R14 K29 ["Enum"]
   SETTABLEKS R14 R13 K26 ["Type"]
-  LOADK R14 K134 ["Setting_Lock"]
+  LOADK R14 K133 ["Setting_Lock"]
   SETTABLEKS R14 R13 K31 ["Text"]
-  LOADK R14 K135 ["LockToolRibbonAction"]
-  SETTABLEKS R14 R13 K95 ["RibbonOverrideText"]
+  LOADK R14 K134 ["LockToolRibbonAction"]
+  SETTABLEKS R14 R13 K94 ["RibbonOverrideText"]
   NEWTABLE R14 0 2
-  DUPTABLE R15 K121 [{"Id", "Action"}]
-  LOADK R16 K126 ["Lock"]
+  DUPTABLE R15 K120 [{"Id", "Action"}]
+  LOADK R16 K125 ["Lock"]
   SETTABLEKS R16 R15 K30 ["Id"]
   MOVE R16 R5
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K126 ["Lock"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K125 ["Lock"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K46 ["Action"]
-  DUPTABLE R16 K121 [{"Id", "Action"}]
-  LOADK R17 K128 ["LockTool"]
+  DUPTABLE R16 K120 [{"Id", "Action"}]
+  LOADK R17 K127 ["LockTool"]
   SETTABLEKS R17 R16 K30 ["Id"]
   MOVE R17 R5
-  LOADK R18 K104 ["BuilderTools"]
-  LOADK R19 K128 ["LockTool"]
+  LOADK R18 K103 ["BuilderTools"]
+  LOADK R19 K127 ["LockTool"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K46 ["Action"]
   SETLIST R14 R15 2 [1]
@@ -706,935 +664,943 @@ MAIN:
   SETTABLE R13 R11 R12
   JUMP [+48]
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K126 ["Lock"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K125 ["Lock"]
   CALL R12 2 1
-  DUPTABLE R13 K138 [{"Text", "Icon", "Enabled", "NoBinding"}]
-  LOADK R14 K126 ["Lock"]
+  DUPTABLE R13 K137 [{"Text", "Icon", "Enabled", "NoBinding"}]
+  LOADK R14 K125 ["Lock"]
   SETTABLEKS R14 R13 K31 ["Text"]
-  LOADK R14 K126 ["Lock"]
+  LOADK R14 K125 ["Lock"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   LOADB R14 0
-  SETTABLEKS R14 R13 K136 ["Enabled"]
+  SETTABLEKS R14 R13 K135 ["Enabled"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K137 ["NoBinding"]
+  SETTABLEKS R14 R13 K136 ["NoBinding"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K133 ["LockMode"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K132 ["LockMode"]
   CALL R12 2 1
-  DUPTABLE R13 K139 [{"RibbonOverrideText"}]
-  LOADK R14 K135 ["LockToolRibbonAction"]
-  SETTABLEKS R14 R13 K95 ["RibbonOverrideText"]
+  DUPTABLE R13 K138 [{"RibbonOverrideText"}]
+  LOADK R14 K134 ["LockToolRibbonAction"]
+  SETTABLEKS R14 R13 K94 ["RibbonOverrideText"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K125 ["Anchor"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K124 ["Anchor"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K125 ["Anchor"]
+  LOADK R14 K124 ["Anchor"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K129 ["AnchorMode"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K128 ["AnchorMode"]
   CALL R12 2 1
-  DUPTABLE R13 K140 [{"RibbonOverrideText", "NoBinding"}]
-  LOADK R14 K132 ["AnchorToolRibbonAction"]
-  SETTABLEKS R14 R13 K95 ["RibbonOverrideText"]
+  DUPTABLE R13 K139 [{"RibbonOverrideText", "NoBinding"}]
+  LOADK R14 K131 ["AnchorToolRibbonAction"]
+  SETTABLEKS R14 R13 K94 ["RibbonOverrideText"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K137 ["NoBinding"]
+  SETTABLEKS R14 R13 K136 ["NoBinding"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K141 ["EditPivot"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K140 ["EditPivot"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K141 ["EditPivot"]
+  LOADK R14 K140 ["EditPivot"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K142 ["ResetPivot"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K141 ["ResetPivot"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K142 ["ResetPivot"]
+  LOADK R14 K141 ["ResetPivot"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K143 ["Align"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K142 ["Align"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K144 ["AlignTool"]
+  LOADK R14 K143 ["AlignTool"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K145 ["UnionSelection"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K144 ["UnionSelection"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K146 ["UnionOperation"]
+  LOADK R14 K145 ["UnionOperation"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K147 ["IntersectSelection"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K146 ["IntersectSelection"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K148 ["IntersectOperation"]
+  LOADK R14 K147 ["IntersectOperation"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K149 ["SeparateSelection"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K148 ["SeparateSelection"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K150 ["SeparateOperation"]
+  LOADK R14 K149 ["SeparateOperation"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K151 ["NegateSelection"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K150 ["NegateSelection"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K152 ["NegateOperation"]
+  LOADK R14 K151 ["NegateOperation"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K153 ["Properties"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K152 ["Properties"]
+  LOADK R14 K85 ["Toggle"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K153 ["Properties"]
+  LOADK R14 K152 ["Properties"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K154 ["Explorer"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K153 ["Explorer"]
+  LOADK R14 K85 ["Toggle"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K154 ["Explorer"]
+  LOADK R14 K153 ["Explorer"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R7
-  LOADK R13 K155 ["Toolbox"]
-  LOADK R14 K86 ["Toggle"]
+  LOADK R13 K154 ["Toolbox"]
+  LOADK R14 K85 ["Toggle"]
   CALL R12 2 1
   DUPTABLE R13 K54 [{"Icon"}]
-  LOADK R14 K155 ["Toolbox"]
+  LOADK R14 K154 ["Toolbox"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   SETTABLE R13 R11 R12
   MOVE R12 R8
   LOADK R13 K24 ["RunTools"]
-  LOADK R14 K156 ["PlayersMode"]
+  LOADK R14 K155 ["PlayersMode"]
   CALL R12 2 1
-  DUPTABLE R13 K162 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "Icon", "IsShort"}]
-  LOADK R14 K163 ["Number"]
+  DUPTABLE R13 K161 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "Icon", "IsShort"}]
+  LOADK R14 K162 ["Number"]
   SETTABLEKS R14 R13 K26 ["Type"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K157 ["Increment"]
+  SETTABLEKS R14 R13 K156 ["Increment"]
   LOADN R14 8
-  SETTABLEKS R14 R13 K158 ["Maximum"]
+  SETTABLEKS R14 R13 K157 ["Maximum"]
   LOADN R14 255
-  SETTABLEKS R14 R13 K159 ["Minimum"]
+  SETTABLEKS R14 R13 K158 ["Minimum"]
   LOADN R14 0
-  SETTABLEKS R14 R13 K160 ["Precision"]
+  SETTABLEKS R14 R13 K159 ["Precision"]
   JUMPIFNOT R9 [+2]
-  LOADK R14 K164 ["Player"]
+  LOADK R14 K163 ["Player"]
   JUMP [+1]
-  LOADK R14 K165 ["AddCollaborator"]
+  LOADK R14 K164 ["AddCollaborator"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K161 ["IsShort"]
+  SETTABLEKS R14 R13 K160 ["IsShort"]
   SETTABLE R13 R11 R12
   JUMPIFNOT R9 [+27]
   MOVE R12 R8
   LOADK R13 K24 ["RunTools"]
-  LOADK R14 K166 ["AddPlayer"]
+  LOADK R14 K165 ["AddPlayer"]
   CALL R12 2 1
-  DUPTABLE R13 K162 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "Icon", "IsShort"}]
-  LOADK R14 K163 ["Number"]
+  DUPTABLE R13 K161 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "Icon", "IsShort"}]
+  LOADK R14 K162 ["Number"]
   SETTABLEKS R14 R13 K26 ["Type"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K157 ["Increment"]
+  SETTABLEKS R14 R13 K156 ["Increment"]
   LOADN R14 8
-  SETTABLEKS R14 R13 K158 ["Maximum"]
+  SETTABLEKS R14 R13 K157 ["Maximum"]
   LOADN R14 0
-  SETTABLEKS R14 R13 K159 ["Minimum"]
+  SETTABLEKS R14 R13 K158 ["Minimum"]
   LOADN R14 0
-  SETTABLEKS R14 R13 K160 ["Precision"]
-  LOADK R14 K164 ["Player"]
+  SETTABLEKS R14 R13 K159 ["Precision"]
+  LOADK R14 K163 ["Player"]
   SETTABLEKS R14 R13 K53 ["Icon"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K161 ["IsShort"]
+  SETTABLEKS R14 R13 K160 ["IsShort"]
   SETTABLE R13 R11 R12
   MOVE R12 R8
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K167 ["MoveGridSize"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K166 ["MoveGridSize"]
   CALL R12 2 1
-  DUPTABLE R13 K169 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "FormatStringKey"}]
-  LOADK R14 K163 ["Number"]
+  DUPTABLE R13 K168 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "FormatStringKey"}]
+  LOADK R14 K162 ["Number"]
   SETTABLEKS R14 R13 K26 ["Type"]
-  LOADK R14 K170 [0.2]
-  SETTABLEKS R14 R13 K157 ["Increment"]
+  LOADK R14 K169 [0.2]
+  SETTABLEKS R14 R13 K156 ["Increment"]
   LOADN R14 0
-  SETTABLEKS R14 R13 K158 ["Maximum"]
+  SETTABLEKS R14 R13 K157 ["Maximum"]
   LOADN R14 0
-  SETTABLEKS R14 R13 K159 ["Minimum"]
+  SETTABLEKS R14 R13 K158 ["Minimum"]
   LOADN R14 3
-  SETTABLEKS R14 R13 K160 ["Precision"]
-  LOADK R14 K171 ["StudsFormat"]
-  SETTABLEKS R14 R13 K168 ["FormatStringKey"]
+  SETTABLEKS R14 R13 K159 ["Precision"]
+  LOADK R14 K170 ["StudsFormat"]
+  SETTABLEKS R14 R13 K167 ["FormatStringKey"]
   SETTABLE R13 R11 R12
   MOVE R12 R8
-  LOADK R13 K104 ["BuilderTools"]
-  LOADK R14 K172 ["RotateGridSize"]
+  LOADK R13 K103 ["BuilderTools"]
+  LOADK R14 K171 ["RotateGridSize"]
   CALL R12 2 1
-  DUPTABLE R13 K169 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "FormatStringKey"}]
-  LOADK R14 K163 ["Number"]
+  DUPTABLE R13 K168 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "FormatStringKey"}]
+  LOADK R14 K162 ["Number"]
   SETTABLEKS R14 R13 K26 ["Type"]
   LOADN R14 5
-  SETTABLEKS R14 R13 K157 ["Increment"]
+  SETTABLEKS R14 R13 K156 ["Increment"]
   LOADN R14 180
-  SETTABLEKS R14 R13 K158 ["Maximum"]
+  SETTABLEKS R14 R13 K157 ["Maximum"]
   LOADN R14 0
-  SETTABLEKS R14 R13 K159 ["Minimum"]
+  SETTABLEKS R14 R13 K158 ["Minimum"]
   LOADN R14 3
-  SETTABLEKS R14 R13 K160 ["Precision"]
-  LOADK R14 K173 ["DegreesFormat"]
-  SETTABLEKS R14 R13 K168 ["FormatStringKey"]
+  SETTABLEKS R14 R13 K159 ["Precision"]
+  LOADK R14 K172 ["DegreesFormat"]
+  SETTABLEKS R14 R13 K167 ["FormatStringKey"]
   SETTABLE R13 R11 R12
   NEWTABLE R12 0 4
-  DUPTABLE R13 K121 [{"Id", "Action"}]
-  LOADK R14 K174 ["ScreenGui"]
+  DUPTABLE R13 K120 [{"Id", "Action"}]
+  LOADK R14 K173 ["ScreenGui"]
   SETTABLEKS R14 R13 K30 ["Id"]
   MOVE R14 R5
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K175 ["Insert/ScreenGui"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K174 ["Insert/ScreenGui"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K46 ["Action"]
-  DUPTABLE R14 K121 [{"Id", "Action"}]
-  LOADK R15 K176 ["SurfaceGui"]
+  DUPTABLE R14 K120 [{"Id", "Action"}]
+  LOADK R15 K175 ["SurfaceGui"]
   SETTABLEKS R15 R14 K30 ["Id"]
   MOVE R15 R5
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K177 ["Insert/SurfaceGui"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K176 ["Insert/SurfaceGui"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K46 ["Action"]
-  DUPTABLE R15 K121 [{"Id", "Action"}]
-  LOADK R16 K178 ["AdGui"]
+  DUPTABLE R15 K120 [{"Id", "Action"}]
+  LOADK R16 K177 ["AdGui"]
   SETTABLEKS R16 R15 K30 ["Id"]
   MOVE R16 R5
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K179 ["Insert/AdGui"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K178 ["Insert/AdGui"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K46 ["Action"]
-  DUPTABLE R16 K121 [{"Id", "Action"}]
-  LOADK R17 K180 ["BillboardGui"]
+  DUPTABLE R16 K120 [{"Id", "Action"}]
+  LOADK R17 K179 ["BillboardGui"]
   SETTABLEKS R17 R16 K30 ["Id"]
   MOVE R17 R5
-  LOADK R18 K104 ["BuilderTools"]
-  LOADK R19 K181 ["Insert/BillboardGui"]
+  LOADK R18 K103 ["BuilderTools"]
+  LOADK R19 K180 ["Insert/BillboardGui"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K46 ["Action"]
   SETLIST R12 R13 4 [1]
   MOVE R13 R8
-  LOADK R14 K104 ["BuilderTools"]
-  LOADK R15 K182 ["InsertGui"]
+  LOADK R14 K103 ["BuilderTools"]
+  LOADK R15 K181 ["InsertGui"]
   CALL R13 2 1
-  DUPTABLE R14 K118 [{"Type", "Text", "Tooltip", "Values"}]
+  DUPTABLE R14 K117 [{"Type", "Text", "Tooltip", "Values"}]
   LOADK R15 K29 ["Enum"]
   SETTABLEKS R15 R14 K26 ["Type"]
-  LOADK R15 K183 ["Setting_GUI"]
+  LOADK R15 K182 ["Setting_GUI"]
   SETTABLEKS R15 R14 K31 ["Text"]
-  LOADK R15 K184 ["Tooltip_GUI"]
-  SETTABLEKS R15 R14 K73 ["Tooltip"]
+  LOADK R15 K183 ["Tooltip_GUI"]
+  SETTABLEKS R15 R14 K72 ["Tooltip"]
   SETTABLEKS R12 R14 K27 ["Values"]
   SETTABLE R14 R11 R13
   MOVE R13 R7
-  LOADK R14 K104 ["BuilderTools"]
-  LOADK R15 K175 ["Insert/ScreenGui"]
+  LOADK R14 K103 ["BuilderTools"]
+  LOADK R15 K174 ["Insert/ScreenGui"]
   CALL R13 2 1
   DUPTABLE R14 K54 [{"Icon"}]
-  LOADK R15 K185 ["GUI"]
+  LOADK R15 K184 ["GUI"]
   SETTABLEKS R15 R14 K53 ["Icon"]
   SETTABLE R14 R11 R13
   MOVE R13 R7
-  LOADK R14 K104 ["BuilderTools"]
-  LOADK R15 K177 ["Insert/SurfaceGui"]
+  LOADK R14 K103 ["BuilderTools"]
+  LOADK R15 K176 ["Insert/SurfaceGui"]
   CALL R13 2 1
   DUPTABLE R14 K54 [{"Icon"}]
-  LOADK R15 K186 ["SurfaceGUI"]
+  LOADK R15 K185 ["SurfaceGUI"]
   SETTABLEKS R15 R14 K53 ["Icon"]
   SETTABLE R14 R11 R13
   MOVE R13 R7
-  LOADK R14 K104 ["BuilderTools"]
-  LOADK R15 K179 ["Insert/AdGui"]
+  LOADK R14 K103 ["BuilderTools"]
+  LOADK R15 K178 ["Insert/AdGui"]
   CALL R13 2 1
   DUPTABLE R14 K54 [{"Icon"}]
-  LOADK R15 K187 ["Placeholder"]
+  LOADK R15 K186 ["Placeholder"]
   SETTABLEKS R15 R14 K53 ["Icon"]
   SETTABLE R14 R11 R13
   MOVE R13 R7
-  LOADK R14 K104 ["BuilderTools"]
-  LOADK R15 K181 ["Insert/BillboardGui"]
+  LOADK R14 K103 ["BuilderTools"]
+  LOADK R15 K180 ["Insert/BillboardGui"]
   CALL R13 2 1
   DUPTABLE R14 K54 [{"Icon"}]
-  LOADK R15 K188 ["BillboardGUI"]
+  LOADK R15 K187 ["BillboardGUI"]
   SETTABLEKS R15 R14 K53 ["Icon"]
   SETTABLE R14 R11 R13
   NEWTABLE R13 0 2
-  DUPTABLE R14 K121 [{"Id", "Action"}]
-  LOADK R15 K189 ["ImageLabel"]
+  DUPTABLE R14 K120 [{"Id", "Action"}]
+  LOADK R15 K188 ["ImageLabel"]
   SETTABLEKS R15 R14 K30 ["Id"]
   MOVE R15 R5
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K190 ["Insert/ImageLabel"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K189 ["Insert/ImageLabel"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K46 ["Action"]
-  DUPTABLE R15 K121 [{"Id", "Action"}]
-  LOADK R16 K191 ["TextLabel"]
+  DUPTABLE R15 K120 [{"Id", "Action"}]
+  LOADK R16 K190 ["TextLabel"]
   SETTABLEKS R16 R15 K30 ["Id"]
   MOVE R16 R5
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K192 ["Insert/TextLabel"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K191 ["Insert/TextLabel"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K46 ["Action"]
   SETLIST R13 R14 2 [1]
   MOVE R14 R8
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K193 ["InsertUILabel"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K192 ["InsertUILabel"]
   CALL R14 2 1
-  DUPTABLE R15 K194 [{"Type", "Text", "Values"}]
+  DUPTABLE R15 K193 [{"Type", "Text", "Values"}]
   LOADK R16 K29 ["Enum"]
   SETTABLEKS R16 R15 K26 ["Type"]
-  LOADK R16 K195 ["Setting_Label"]
+  LOADK R16 K194 ["Setting_Label"]
   SETTABLEKS R16 R15 K31 ["Text"]
   SETTABLEKS R13 R15 K27 ["Values"]
   SETTABLE R15 R11 R14
   MOVE R14 R7
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K192 ["Insert/TextLabel"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K191 ["Insert/TextLabel"]
   CALL R14 2 1
   DUPTABLE R15 K54 [{"Icon"}]
-  LOADK R16 K191 ["TextLabel"]
+  LOADK R16 K190 ["TextLabel"]
   SETTABLEKS R16 R15 K53 ["Icon"]
   SETTABLE R15 R11 R14
   MOVE R14 R7
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K190 ["Insert/ImageLabel"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K189 ["Insert/ImageLabel"]
   CALL R14 2 1
   DUPTABLE R15 K54 [{"Icon"}]
-  LOADK R16 K189 ["ImageLabel"]
+  LOADK R16 K188 ["ImageLabel"]
   SETTABLEKS R16 R15 K53 ["Icon"]
   SETTABLE R15 R11 R14
   MOVE R14 R8
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K196 ["InsertUIFrame"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K195 ["InsertUIFrame"]
   CALL R14 2 1
-  DUPTABLE R15 K194 [{"Type", "Text", "Values"}]
+  DUPTABLE R15 K193 [{"Type", "Text", "Values"}]
   LOADK R16 K29 ["Enum"]
   SETTABLEKS R16 R15 K26 ["Type"]
-  LOADK R16 K197 ["Setting_Frame"]
+  LOADK R16 K196 ["Setting_Frame"]
   SETTABLEKS R16 R15 K31 ["Text"]
   NEWTABLE R16 0 5
-  DUPTABLE R17 K121 [{"Id", "Action"}]
-  LOADK R18 K198 ["Frame"]
+  DUPTABLE R17 K120 [{"Id", "Action"}]
+  LOADK R18 K197 ["Frame"]
   SETTABLEKS R18 R17 K30 ["Id"]
   MOVE R18 R5
-  LOADK R19 K104 ["BuilderTools"]
-  LOADK R20 K199 ["Insert/Frame"]
+  LOADK R19 K103 ["BuilderTools"]
+  LOADK R20 K198 ["Insert/Frame"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K46 ["Action"]
-  DUPTABLE R18 K121 [{"Id", "Action"}]
-  LOADK R19 K200 ["CanvasGroup"]
+  DUPTABLE R18 K120 [{"Id", "Action"}]
+  LOADK R19 K199 ["CanvasGroup"]
   SETTABLEKS R19 R18 K30 ["Id"]
   MOVE R19 R5
-  LOADK R20 K104 ["BuilderTools"]
-  LOADK R21 K201 ["Insert/CanvasGroup"]
+  LOADK R20 K103 ["BuilderTools"]
+  LOADK R21 K200 ["Insert/CanvasGroup"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K46 ["Action"]
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K202 ["ScrollingFrame"]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K201 ["ScrollingFrame"]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K104 ["BuilderTools"]
-  LOADK R22 K203 ["Insert/ScrollingFrame"]
+  LOADK R21 K103 ["BuilderTools"]
+  LOADK R22 K202 ["Insert/ScrollingFrame"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K204 ["VideoFrame"]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K203 ["VideoFrame"]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K104 ["BuilderTools"]
-  LOADK R23 K205 ["Insert/VideoFrame"]
+  LOADK R22 K103 ["BuilderTools"]
+  LOADK R23 K204 ["Insert/VideoFrame"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
-  DUPTABLE R21 K121 [{"Id", "Action"}]
-  LOADK R22 K206 ["ViewportFrame"]
+  DUPTABLE R21 K120 [{"Id", "Action"}]
+  LOADK R22 K205 ["ViewportFrame"]
   SETTABLEKS R22 R21 K30 ["Id"]
   MOVE R22 R5
-  LOADK R23 K104 ["BuilderTools"]
-  LOADK R24 K207 ["Insert/ViewportFrame"]
+  LOADK R23 K103 ["BuilderTools"]
+  LOADK R24 K206 ["Insert/ViewportFrame"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K46 ["Action"]
   SETLIST R16 R17 5 [1]
   SETTABLEKS R16 R15 K27 ["Values"]
   SETTABLE R15 R11 R14
   MOVE R14 R7
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K201 ["Insert/CanvasGroup"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K200 ["Insert/CanvasGroup"]
   CALL R14 2 1
   DUPTABLE R15 K54 [{"Icon"}]
-  LOADK R16 K200 ["CanvasGroup"]
+  LOADK R16 K199 ["CanvasGroup"]
   SETTABLEKS R16 R15 K53 ["Icon"]
   SETTABLE R15 R11 R14
   MOVE R14 R7
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K205 ["Insert/VideoFrame"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K204 ["Insert/VideoFrame"]
   CALL R14 2 1
   DUPTABLE R15 K54 [{"Icon"}]
-  LOADK R16 K204 ["VideoFrame"]
+  LOADK R16 K203 ["VideoFrame"]
   SETTABLEKS R16 R15 K53 ["Icon"]
   SETTABLE R15 R11 R14
   MOVE R14 R7
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K207 ["Insert/ViewportFrame"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K206 ["Insert/ViewportFrame"]
   CALL R14 2 1
   DUPTABLE R15 K54 [{"Icon"}]
-  LOADK R16 K206 ["ViewportFrame"]
+  LOADK R16 K205 ["ViewportFrame"]
   SETTABLEKS R16 R15 K53 ["Icon"]
   SETTABLE R15 R11 R14
   MOVE R14 R7
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K199 ["Insert/Frame"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K198 ["Insert/Frame"]
   CALL R14 2 1
   DUPTABLE R15 K54 [{"Icon"}]
-  LOADK R16 K198 ["Frame"]
+  LOADK R16 K197 ["Frame"]
   SETTABLEKS R16 R15 K53 ["Icon"]
   SETTABLE R15 R11 R14
   MOVE R14 R7
-  LOADK R15 K104 ["BuilderTools"]
-  LOADK R16 K203 ["Insert/ScrollingFrame"]
+  LOADK R15 K103 ["BuilderTools"]
+  LOADK R16 K202 ["Insert/ScrollingFrame"]
   CALL R14 2 1
   DUPTABLE R15 K54 [{"Icon"}]
-  LOADK R16 K202 ["ScrollingFrame"]
+  LOADK R16 K201 ["ScrollingFrame"]
   SETTABLEKS R16 R15 K53 ["Icon"]
   SETTABLE R15 R11 R14
   NEWTABLE R14 0 3
-  DUPTABLE R15 K121 [{"Id", "Action"}]
-  LOADK R16 K208 ["ImageButton"]
+  DUPTABLE R15 K120 [{"Id", "Action"}]
+  LOADK R16 K207 ["ImageButton"]
   SETTABLEKS R16 R15 K30 ["Id"]
   MOVE R16 R5
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K209 ["Insert/ImageButton"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K208 ["Insert/ImageButton"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K46 ["Action"]
-  DUPTABLE R16 K121 [{"Id", "Action"}]
-  LOADK R17 K210 ["TextButton"]
+  DUPTABLE R16 K120 [{"Id", "Action"}]
+  LOADK R17 K209 ["TextButton"]
   SETTABLEKS R17 R16 K30 ["Id"]
   MOVE R17 R5
-  LOADK R18 K104 ["BuilderTools"]
-  LOADK R19 K211 ["Insert/TextButton"]
+  LOADK R18 K103 ["BuilderTools"]
+  LOADK R19 K210 ["Insert/TextButton"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K46 ["Action"]
-  DUPTABLE R17 K121 [{"Id", "Action"}]
-  LOADK R18 K212 ["TextBox"]
+  DUPTABLE R17 K120 [{"Id", "Action"}]
+  LOADK R18 K211 ["TextBox"]
   SETTABLEKS R18 R17 K30 ["Id"]
   MOVE R18 R5
-  LOADK R19 K104 ["BuilderTools"]
-  LOADK R20 K213 ["Insert/TextBox"]
+  LOADK R19 K103 ["BuilderTools"]
+  LOADK R20 K212 ["Insert/TextBox"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K46 ["Action"]
   SETLIST R14 R15 3 [1]
   MOVE R15 R8
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K214 ["InsertUIInput"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K213 ["InsertUIInput"]
   CALL R15 2 1
-  DUPTABLE R16 K194 [{"Type", "Text", "Values"}]
+  DUPTABLE R16 K193 [{"Type", "Text", "Values"}]
   LOADK R17 K29 ["Enum"]
   SETTABLEKS R17 R16 K26 ["Type"]
-  LOADK R17 K215 ["Setting_Input"]
+  LOADK R17 K214 ["Setting_Input"]
   SETTABLEKS R17 R16 K31 ["Text"]
   SETTABLEKS R14 R16 K27 ["Values"]
   SETTABLE R16 R11 R15
   MOVE R15 R7
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K211 ["Insert/TextButton"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K210 ["Insert/TextButton"]
   CALL R15 2 1
   DUPTABLE R16 K54 [{"Icon"}]
-  LOADK R17 K210 ["TextButton"]
+  LOADK R17 K209 ["TextButton"]
   SETTABLEKS R17 R16 K53 ["Icon"]
   SETTABLE R16 R11 R15
   MOVE R15 R7
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K213 ["Insert/TextBox"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K212 ["Insert/TextBox"]
   CALL R15 2 1
   DUPTABLE R16 K54 [{"Icon"}]
-  LOADK R17 K212 ["TextBox"]
+  LOADK R17 K211 ["TextBox"]
   SETTABLEKS R17 R16 K53 ["Icon"]
   SETTABLE R16 R11 R15
   MOVE R15 R7
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K209 ["Insert/ImageButton"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K208 ["Insert/ImageButton"]
   CALL R15 2 1
   DUPTABLE R16 K54 [{"Icon"}]
-  LOADK R17 K208 ["ImageButton"]
+  LOADK R17 K207 ["ImageButton"]
   SETTABLEKS R17 R16 K53 ["Icon"]
   SETTABLE R16 R11 R15
   MOVE R15 R8
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K216 ["InsertUIAppearance"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K215 ["InsertUIAppearance"]
   CALL R15 2 1
-  DUPTABLE R16 K194 [{"Type", "Text", "Values"}]
+  DUPTABLE R16 K193 [{"Type", "Text", "Values"}]
   LOADK R17 K29 ["Enum"]
   SETTABLEKS R17 R16 K26 ["Type"]
-  LOADK R17 K217 ["Setting_Appearance"]
+  LOADK R17 K216 ["Setting_Appearance"]
   SETTABLEKS R17 R16 K31 ["Text"]
   NEWTABLE R17 0 4
-  DUPTABLE R18 K121 [{"Id", "Action"}]
-  LOADK R19 K218 ["UICorner"]
+  DUPTABLE R18 K120 [{"Id", "Action"}]
+  LOADK R19 K217 ["UICorner"]
   SETTABLEKS R19 R18 K30 ["Id"]
   MOVE R19 R5
-  LOADK R20 K104 ["BuilderTools"]
-  LOADK R21 K219 ["Insert/UICorner"]
+  LOADK R20 K103 ["BuilderTools"]
+  LOADK R21 K218 ["Insert/UICorner"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K46 ["Action"]
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K220 ["UIGradient"]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K219 ["UIGradient"]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K104 ["BuilderTools"]
-  LOADK R22 K221 ["Insert/UIGradient"]
+  LOADK R21 K103 ["BuilderTools"]
+  LOADK R22 K220 ["Insert/UIGradient"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K222 ["UIPadding"]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K221 ["UIPadding"]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K104 ["BuilderTools"]
-  LOADK R23 K223 ["Insert/UIPadding"]
+  LOADK R22 K103 ["BuilderTools"]
+  LOADK R23 K222 ["Insert/UIPadding"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
-  DUPTABLE R21 K121 [{"Id", "Action"}]
-  LOADK R22 K224 ["UIStroke"]
+  DUPTABLE R21 K120 [{"Id", "Action"}]
+  LOADK R22 K223 ["UIStroke"]
   SETTABLEKS R22 R21 K30 ["Id"]
   MOVE R22 R5
-  LOADK R23 K104 ["BuilderTools"]
-  LOADK R24 K225 ["Insert/UIStroke"]
+  LOADK R23 K103 ["BuilderTools"]
+  LOADK R24 K224 ["Insert/UIStroke"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K46 ["Action"]
   SETLIST R17 R18 4 [1]
   SETTABLEKS R17 R16 K27 ["Values"]
   SETTABLE R16 R11 R15
   MOVE R15 R7
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K219 ["Insert/UICorner"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K218 ["Insert/UICorner"]
   CALL R15 2 1
   DUPTABLE R16 K54 [{"Icon"}]
-  LOADK R17 K218 ["UICorner"]
+  LOADK R17 K217 ["UICorner"]
   SETTABLEKS R17 R16 K53 ["Icon"]
   SETTABLE R16 R11 R15
   MOVE R15 R7
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K221 ["Insert/UIGradient"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K220 ["Insert/UIGradient"]
   CALL R15 2 1
   DUPTABLE R16 K54 [{"Icon"}]
-  LOADK R17 K220 ["UIGradient"]
+  LOADK R17 K219 ["UIGradient"]
   SETTABLEKS R17 R16 K53 ["Icon"]
   SETTABLE R16 R11 R15
   MOVE R15 R7
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K223 ["Insert/UIPadding"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K222 ["Insert/UIPadding"]
   CALL R15 2 1
   DUPTABLE R16 K54 [{"Icon"}]
-  LOADK R17 K222 ["UIPadding"]
+  LOADK R17 K221 ["UIPadding"]
   SETTABLEKS R17 R16 K53 ["Icon"]
   SETTABLE R16 R11 R15
   MOVE R15 R7
-  LOADK R16 K104 ["BuilderTools"]
-  LOADK R17 K225 ["Insert/UIStroke"]
+  LOADK R16 K103 ["BuilderTools"]
+  LOADK R17 K224 ["Insert/UIStroke"]
   CALL R15 2 1
   DUPTABLE R16 K54 [{"Icon"}]
-  LOADK R17 K224 ["UIStroke"]
+  LOADK R17 K223 ["UIStroke"]
   SETTABLEKS R17 R16 K53 ["Icon"]
   SETTABLE R16 R11 R15
   NEWTABLE R15 0 5
-  DUPTABLE R16 K121 [{"Id", "Action"}]
-  LOADK R17 K226 ["UIGridLayout"]
+  DUPTABLE R16 K120 [{"Id", "Action"}]
+  LOADK R17 K225 ["UIGridLayout"]
   SETTABLEKS R17 R16 K30 ["Id"]
   MOVE R17 R5
-  LOADK R18 K104 ["BuilderTools"]
-  LOADK R19 K227 ["Insert/UIGridLayout"]
+  LOADK R18 K103 ["BuilderTools"]
+  LOADK R19 K226 ["Insert/UIGridLayout"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K46 ["Action"]
-  DUPTABLE R17 K121 [{"Id", "Action"}]
-  LOADK R18 K228 ["UIListLayout"]
+  DUPTABLE R17 K120 [{"Id", "Action"}]
+  LOADK R18 K227 ["UIListLayout"]
   SETTABLEKS R18 R17 K30 ["Id"]
   MOVE R18 R5
-  LOADK R19 K104 ["BuilderTools"]
-  LOADK R20 K229 ["Insert/UIListLayout"]
+  LOADK R19 K103 ["BuilderTools"]
+  LOADK R20 K228 ["Insert/UIListLayout"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K46 ["Action"]
-  DUPTABLE R18 K121 [{"Id", "Action"}]
-  LOADK R19 K230 ["UIPageLayout"]
+  DUPTABLE R18 K120 [{"Id", "Action"}]
+  LOADK R19 K229 ["UIPageLayout"]
   SETTABLEKS R19 R18 K30 ["Id"]
   MOVE R19 R5
-  LOADK R20 K104 ["BuilderTools"]
-  LOADK R21 K231 ["Insert/UIPageLayout"]
+  LOADK R20 K103 ["BuilderTools"]
+  LOADK R21 K230 ["Insert/UIPageLayout"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K46 ["Action"]
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K232 ["UITableLayout"]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K231 ["UITableLayout"]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K104 ["BuilderTools"]
-  LOADK R22 K233 ["Insert/UITableLayout"]
+  LOADK R21 K103 ["BuilderTools"]
+  LOADK R22 K232 ["Insert/UITableLayout"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K234 ["UIFlexItem"]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K233 ["UIFlexItem"]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K104 ["BuilderTools"]
-  LOADK R23 K235 ["Insert/UIFlexItem"]
+  LOADK R22 K103 ["BuilderTools"]
+  LOADK R23 K234 ["Insert/UIFlexItem"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
   SETLIST R15 R16 5 [1]
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K236 ["InsertUILayout"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K235 ["InsertUILayout"]
   CALL R16 2 1
-  DUPTABLE R17 K194 [{"Type", "Text", "Values"}]
+  DUPTABLE R17 K193 [{"Type", "Text", "Values"}]
   LOADK R18 K29 ["Enum"]
   SETTABLEKS R18 R17 K26 ["Type"]
-  LOADK R18 K237 ["Setting_Layout"]
+  LOADK R18 K236 ["Setting_Layout"]
   SETTABLEKS R18 R17 K31 ["Text"]
   SETTABLEKS R15 R17 K27 ["Values"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K227 ["Insert/UIGridLayout"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K226 ["Insert/UIGridLayout"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K226 ["UIGridLayout"]
+  LOADK R18 K225 ["UIGridLayout"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K229 ["Insert/UIListLayout"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K228 ["Insert/UIListLayout"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K228 ["UIListLayout"]
+  LOADK R18 K227 ["UIListLayout"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K231 ["Insert/UIPageLayout"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K230 ["Insert/UIPageLayout"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K230 ["UIPageLayout"]
+  LOADK R18 K229 ["UIPageLayout"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K233 ["Insert/UITableLayout"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K232 ["Insert/UITableLayout"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K232 ["UITableLayout"]
+  LOADK R18 K231 ["UITableLayout"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K235 ["Insert/UIFlexItem"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K234 ["Insert/UIFlexItem"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K187 ["Placeholder"]
+  LOADK R18 K186 ["Placeholder"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K238 ["InsertUIConstraint"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K237 ["InsertUIConstraint"]
   CALL R16 2 1
-  DUPTABLE R17 K194 [{"Type", "Text", "Values"}]
+  DUPTABLE R17 K193 [{"Type", "Text", "Values"}]
   LOADK R18 K29 ["Enum"]
   SETTABLEKS R18 R17 K26 ["Type"]
-  LOADK R18 K239 ["Setting_UIConstraint"]
+  LOADK R18 K238 ["Setting_UIConstraint"]
   SETTABLEKS R18 R17 K31 ["Text"]
   NEWTABLE R18 0 4
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K240 ["UIAspectRatioConstraint"]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K239 ["UIAspectRatioConstraint"]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K104 ["BuilderTools"]
-  LOADK R22 K241 ["Insert/UIAspectRatioConstraint"]
+  LOADK R21 K103 ["BuilderTools"]
+  LOADK R22 K240 ["Insert/UIAspectRatioConstraint"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K242 ["UIScale"]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K241 ["UIScale"]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K104 ["BuilderTools"]
-  LOADK R23 K243 ["Insert/UIScale"]
+  LOADK R22 K103 ["BuilderTools"]
+  LOADK R23 K242 ["Insert/UIScale"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
-  DUPTABLE R21 K121 [{"Id", "Action"}]
-  LOADK R22 K244 ["UISizeConstraint"]
+  DUPTABLE R21 K120 [{"Id", "Action"}]
+  LOADK R22 K243 ["UISizeConstraint"]
   SETTABLEKS R22 R21 K30 ["Id"]
   MOVE R22 R5
-  LOADK R23 K104 ["BuilderTools"]
-  LOADK R24 K245 ["Insert/UISizeConstraint"]
+  LOADK R23 K103 ["BuilderTools"]
+  LOADK R24 K244 ["Insert/UISizeConstraint"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K46 ["Action"]
-  DUPTABLE R22 K121 [{"Id", "Action"}]
-  LOADK R23 K246 ["UITextSizeConstraint"]
+  DUPTABLE R22 K120 [{"Id", "Action"}]
+  LOADK R23 K245 ["UITextSizeConstraint"]
   SETTABLEKS R23 R22 K30 ["Id"]
   MOVE R23 R5
-  LOADK R24 K104 ["BuilderTools"]
-  LOADK R25 K247 ["Insert/UITextSizeConstraint"]
+  LOADK R24 K103 ["BuilderTools"]
+  LOADK R25 K246 ["Insert/UITextSizeConstraint"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K46 ["Action"]
   SETLIST R18 R19 4 [1]
   SETTABLEKS R18 R17 K27 ["Values"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K241 ["Insert/UIAspectRatioConstraint"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K240 ["Insert/UIAspectRatioConstraint"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K240 ["UIAspectRatioConstraint"]
+  LOADK R18 K239 ["UIAspectRatioConstraint"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K243 ["Insert/UIScale"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K242 ["Insert/UIScale"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K242 ["UIScale"]
+  LOADK R18 K241 ["UIScale"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K245 ["Insert/UISizeConstraint"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K244 ["Insert/UISizeConstraint"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K244 ["UISizeConstraint"]
+  LOADK R18 K243 ["UISizeConstraint"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K247 ["Insert/UITextSizeConstraint"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K246 ["Insert/UITextSizeConstraint"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K246 ["UITextSizeConstraint"]
+  LOADK R18 K245 ["UITextSizeConstraint"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K248 ["AvatarSetup"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R17 K247 ["AvatarSetup"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K249 ["Setup"]
+  LOADK R18 K248 ["Setup"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K250 ["AnimationEditor"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R17 K249 ["AnimationEditor"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K251 ["Animation"]
+  LOADK R18 K250 ["Animation"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K252 ["AccessoryFittingTool"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R17 K251 ["AccessoryFittingTool"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K253 ["Accessory"]
+  LOADK R18 K252 ["Accessory"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K252 ["AccessoryFittingTool"]
-  LOADK R18 K254 ["Create"]
+  LOADK R17 K251 ["AccessoryFittingTool"]
+  LOADK R18 K253 ["Create"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K255 ["Layered"]
+  LOADK R18 K254 ["Layered"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K0 ["script"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R17 K255 ["R15Migrator"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K1 [script]
+  LOADK R18 K0 ["script"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
+  LOADK R17 K1 [script]
+  LOADK R18 K2 ["Ribbon"]
+  CALL R16 2 1
+  DUPTABLE R17 K54 [{"Icon"}]
+  LOADK R18 K2 ["Ribbon"]
+  SETTABLEKS R18 R17 K53 ["Icon"]
+  SETTABLE R17 R11 R16
+  MOVE R16 R7
+  LOADK R17 K1 [script]
   LOADK R18 K3 ["FindFirstAncestor"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K3 ["FindFirstAncestor"]
-  SETTABLEKS R18 R17 K53 ["Icon"]
-  SETTABLE R17 R11 R16
-  MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
   LOADK R18 K4 ["require"]
-  CALL R16 2 1
-  DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K5 [require]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K2 ["Ribbon"]
-  LOADK R18 K6 ["Src"]
+  LOADK R17 K1 [script]
+  LOADK R18 K5 [require]
   CALL R16 2 1
-  DUPTABLE R17 K118 [{"Type", "Text", "Tooltip", "Values"}]
+  DUPTABLE R17 K117 [{"Type", "Text", "Tooltip", "Values"}]
   LOADK R18 K29 ["Enum"]
   SETTABLEKS R18 R17 K26 ["Type"]
-  LOADK R18 K7 ["Util"]
+  LOADK R18 K6 ["Src"]
   SETTABLEKS R18 R17 K31 ["Text"]
-  LOADK R18 K8 ["StudioUri"]
-  SETTABLEKS R18 R17 K73 ["Tooltip"]
+  LOADK R18 K7 ["Util"]
+  SETTABLEKS R18 R17 K72 ["Tooltip"]
   NEWTABLE R18 0 3
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K9 ["Types"]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K8 ["StudioUri"]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K2 ["Ribbon"]
-  LOADK R22 K10 ["SharedFlags"]
+  LOADK R21 K1 [script]
+  LOADK R22 K9 ["Types"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K11 ["getFFlagRibbonControlsRefactor"]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K10 ["SharedFlags"]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K2 ["Ribbon"]
-  LOADK R23 K12 ["error"]
+  LOADK R22 K1 [script]
+  LOADK R23 K11 ["getFFlagRibbonControlsRefactor"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
-  DUPTABLE R21 K121 [{"Id", "Action"}]
-  LOADK R22 K13 [error]
+  DUPTABLE R21 K120 [{"Id", "Action"}]
+  LOADK R22 K12 ["error"]
   SETTABLEKS R22 R21 K30 ["Id"]
   MOVE R22 R5
-  LOADK R23 K2 ["Ribbon"]
-  LOADK R24 K14 ["ControlsModel is deprecated"]
+  LOADK R23 K1 [script]
+  LOADK R24 K13 [error]
   CALL R22 2 1
   SETTABLEKS R22 R21 K46 ["Action"]
   SETLIST R18 R19 3 [1]
   SETTABLEKS R18 R17 K27 ["Values"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
-  LOADK R18 K10 ["SharedFlags"]
-  CALL R16 2 1
-  DUPTABLE R17 K54 [{"Icon"}]
+  LOADK R17 K1 [script]
   LOADK R18 K9 ["Types"]
-  SETTABLEKS R18 R17 K53 ["Icon"]
-  SETTABLE R17 R11 R16
-  MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
-  LOADK R18 K12 ["error"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K11 ["getFFlagRibbonControlsRefactor"]
+  LOADK R18 K8 ["StudioUri"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
+  LOADK R17 K1 [script]
+  LOADK R18 K11 ["getFFlagRibbonControlsRefactor"]
+  CALL R16 2 1
+  DUPTABLE R17 K54 [{"Icon"}]
+  LOADK R18 K10 ["SharedFlags"]
+  SETTABLEKS R18 R17 K53 ["Icon"]
+  SETTABLE R17 R11 R16
+  MOVE R16 R7
+  LOADK R17 K1 [script]
+  LOADK R18 K13 [error]
+  CALL R16 2 1
+  DUPTABLE R17 K54 [{"Icon"}]
+  LOADK R18 K12 ["error"]
+  SETTABLEKS R18 R17 K53 ["Icon"]
+  SETTABLE R17 R11 R16
+  MOVE R16 R8
+  LOADK R17 K1 [script]
   LOADK R18 K14 ["ControlsModel is deprecated"]
   CALL R16 2 1
-  DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K13 [error]
-  SETTABLEKS R18 R17 K53 ["Icon"]
-  SETTABLE R17 R11 R16
-  MOVE R16 R8
-  LOADK R17 K2 ["Ribbon"]
+  DUPTABLE R17 K117 [{"Type", "Text", "Tooltip", "Values"}]
+  LOADK R18 K29 ["Enum"]
+  SETTABLEKS R18 R17 K26 ["Type"]
   LOADK R18 K15 ["getFFlagLuaRibbonAnchorLockModes"]
-  CALL R16 2 1
-  DUPTABLE R17 K118 [{"Type", "Text", "Tooltip", "Values"}]
-  LOADK R18 K29 ["Enum"]
-  SETTABLEKS R18 R17 K26 ["Type"]
-  LOADK R18 K16 ["fromAction"]
   SETTABLEKS R18 R17 K31 ["Text"]
-  LOADK R18 K17 ["fromSetting"]
-  SETTABLEKS R18 R17 K73 ["Tooltip"]
+  LOADK R18 K16 ["fromAction"]
+  SETTABLEKS R18 R17 K72 ["Tooltip"]
   NEWTABLE R18 0 2
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K18 [PROTO_0]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K17 ["fromSetting"]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K2 ["Ribbon"]
-  LOADK R22 K18 [PROTO_0]
+  LOADK R21 K1 [script]
+  LOADK R22 K17 ["fromSetting"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K19 [PROTO_1]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K18 [PROTO_0]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K2 ["Ribbon"]
-  LOADK R23 K19 [PROTO_1]
+  LOADK R22 K1 [script]
+  LOADK R23 K18 [PROTO_0]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
   SETLIST R18 R19 2 [1]
   SETTABLEKS R18 R17 K27 ["Values"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
-  LOADK R18 K18 [PROTO_0]
+  LOADK R17 K1 [script]
+  LOADK R18 K17 ["fromSetting"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K18 [PROTO_0]
+  LOADK R18 K17 ["fromSetting"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
-  LOADK R18 K19 [PROTO_1]
+  LOADK R17 K1 [script]
+  LOADK R18 K18 [PROTO_0]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K19 [PROTO_1]
+  LOADK R18 K18 [PROTO_0]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K2 ["Ribbon"]
-  LOADK R18 K20 ["game"]
+  LOADK R17 K1 [script]
+  LOADK R18 K19 [PROTO_1]
   CALL R16 2 1
-  DUPTABLE R17 K194 [{"Type", "Text", "Values"}]
+  DUPTABLE R17 K193 [{"Type", "Text", "Values"}]
   LOADK R18 K29 ["Enum"]
   SETTABLEKS R18 R17 K26 ["Type"]
-  LOADK R18 K21 [game]
+  LOADK R18 K20 ["game"]
   SETTABLEKS R18 R17 K31 ["Text"]
   NEWTABLE R18 0 2
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K20 ["game"]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K19 [PROTO_1]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K2 ["Ribbon"]
-  LOADK R22 K20 ["game"]
+  LOADK R21 K1 [script]
+  LOADK R22 K19 [PROTO_1]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K22 ["TestingControlsBeta"]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K21 [game]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K2 ["Ribbon"]
-  LOADK R23 K22 ["TestingControlsBeta"]
+  LOADK R22 K1 [script]
+  LOADK R23 K21 [game]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
   SETLIST R18 R19 2 [1]
   SETTABLEKS R18 R17 K27 ["Values"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
-  LOADK R18 K20 ["game"]
+  LOADK R17 K1 [script]
+  LOADK R18 K19 [PROTO_1]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K20 ["game"]
+  LOADK R18 K19 [PROTO_1]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
+  LOADK R17 K1 [script]
+  LOADK R18 K21 [game]
+  CALL R16 2 1
+  DUPTABLE R17 K54 [{"Icon"}]
+  LOADK R18 K21 [game]
+  SETTABLEKS R18 R17 K53 ["Icon"]
+  SETTABLE R17 R11 R16
+  MOVE R16 R7
+  LOADK R17 K1 [script]
   LOADK R18 K22 ["TestingControlsBeta"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
@@ -1642,16 +1608,16 @@ MAIN:
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
-  LOADK R18 K23 ["GetFastFlag"]
+  LOADK R17 K23 ["GetFastFlag"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K23 ["GetFastFlag"]
+  LOADK R18 K24 ["RunTools"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K24 ["RunTools"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R17 K25 ["TestMode"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K25 ["TestMode"]
@@ -1659,7 +1625,7 @@ MAIN:
   SETTABLE R17 R11 R16
   MOVE R16 R7
   LOADK R17 K26 ["Type"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K26 ["Type"]
@@ -1667,7 +1633,7 @@ MAIN:
   SETTABLE R17 R11 R16
   MOVE R16 R7
   LOADK R17 K27 ["Values"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K27 ["Values"]
@@ -1675,22 +1641,22 @@ MAIN:
   SETTABLE R17 R11 R16
   MOVE R16 R7
   LOADK R17 K28 [{"Type", "Values"}]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K28 [{"Type", "Values"}]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K29 ["Enum"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R17 K1 [script]
+  LOADK R18 K29 ["Enum"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K29 ["Enum"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
+  LOADK R17 K1 [script]
   LOADK R18 K30 ["Id"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
@@ -1698,7 +1664,7 @@ MAIN:
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
+  LOADK R17 K1 [script]
   LOADK R18 K31 ["Text"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
@@ -1706,8 +1672,8 @@ MAIN:
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K2 ["Ribbon"]
-  LOADK R18 K32 [{"Id", "Text"}]
+  LOADK R17 K32 [{"Id", "Text"}]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K32 [{"Id", "Text"}]
@@ -1715,7 +1681,7 @@ MAIN:
   SETTABLE R17 R11 R16
   MOVE R16 R7
   LOADK R17 K33 ["Test"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K33 ["Test"]
@@ -1723,737 +1689,729 @@ MAIN:
   SETTABLE R17 R11 R16
   MOVE R16 R7
   LOADK R17 K34 ["Setting_TestingMode_Test"]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R18 K85 ["Toggle"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K34 ["Setting_TestingMode_Test"]
-  SETTABLEKS R18 R17 K53 ["Icon"]
-  SETTABLE R17 R11 R16
-  MOVE R16 R7
-  LOADK R17 K35 ["TestHere"]
-  LOADK R18 K86 ["Toggle"]
-  CALL R16 2 1
-  DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K36 ["Setting_TestingMode_TestHere"]
+  LOADK R18 K35 ["TestHere"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K37 ["Run"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K36 ["Setting_TestingMode_TestHere"]
   CALL R16 2 1
-  DUPTABLE R17 K294 [{"Type", "Tooltip", "Values"}]
+  DUPTABLE R17 K293 [{"Type", "Tooltip", "Values"}]
   LOADK R18 K29 ["Enum"]
   SETTABLEKS R18 R17 K26 ["Type"]
-  LOADK R18 K39 ["TeamTest"]
-  SETTABLEKS R18 R17 K73 ["Tooltip"]
+  LOADK R18 K38 ["Setting_TestingMode_Run"]
+  SETTABLEKS R18 R17 K72 ["Tooltip"]
   NEWTABLE R18 0 2
-  DUPTABLE R19 K296 [{"Id", "Text", "Icon"}]
-  LOADK R20 K41 ["ServerAndClients"]
+  DUPTABLE R19 K295 [{"Id", "Text", "Icon"}]
+  LOADK R20 K40 ["Setting_TestingMode_TeamTest"]
   SETTABLEKS R20 R19 K30 ["Id"]
-  LOADK R20 K41 ["ServerAndClients"]
+  LOADK R20 K40 ["Setting_TestingMode_TeamTest"]
   SETTABLEKS R20 R19 K31 ["Text"]
-  LOADK R20 K41 ["ServerAndClients"]
+  LOADK R20 K40 ["Setting_TestingMode_TeamTest"]
   SETTABLEKS R20 R19 K53 ["Icon"]
-  DUPTABLE R20 K296 [{"Id", "Text", "Icon"}]
-  LOADK R21 K42 ["Setting_TestingMode_ServerAndClients"]
+  DUPTABLE R20 K295 [{"Id", "Text", "Icon"}]
+  LOADK R21 K41 ["ServerAndClients"]
   SETTABLEKS R21 R20 K30 ["Id"]
-  LOADK R21 K42 ["Setting_TestingMode_ServerAndClients"]
+  LOADK R21 K41 ["ServerAndClients"]
   SETTABLEKS R21 R20 K31 ["Text"]
-  LOADK R21 K42 ["Setting_TestingMode_ServerAndClients"]
+  LOADK R21 K41 ["ServerAndClients"]
   SETTABLEKS R21 R20 K53 ["Icon"]
   SETLIST R18 R19 2 [1]
   SETTABLEKS R18 R17 K27 ["Values"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K43 ["DebugPlugin"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K42 ["Setting_TestingMode_ServerAndClients"]
   CALL R16 2 1
-  DUPTABLE R17 K118 [{"Type", "Text", "Tooltip", "Values"}]
+  DUPTABLE R17 K117 [{"Type", "Text", "Tooltip", "Values"}]
   LOADK R18 K29 ["Enum"]
   SETTABLEKS R18 R17 K26 ["Type"]
-  LOADK R18 K44 ["Setting_TestingMode_DebugPlugin"]
+  LOADK R18 K43 ["DebugPlugin"]
   SETTABLEKS R18 R17 K31 ["Text"]
-  LOADK R18 K45 ["RunMode"]
-  SETTABLEKS R18 R17 K73 ["Tooltip"]
+  LOADK R18 K44 ["Setting_TestingMode_DebugPlugin"]
+  SETTABLEKS R18 R17 K72 ["Tooltip"]
   NEWTABLE R18 0 5
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K46 ["Action"]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K45 ["RunMode"]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K104 ["BuilderTools"]
-  LOADK R22 K47 ["Size"]
+  LOADK R21 K103 ["BuilderTools"]
+  LOADK R22 K46 ["Action"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K48 [{"Id", "Action", "Size"}]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K47 ["Size"]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K104 ["BuilderTools"]
-  LOADK R23 K49 ["Play"]
+  LOADK R22 K103 ["BuilderTools"]
+  LOADK R23 K48 [{"Id", "Action", "Size"}]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
-  DUPTABLE R21 K121 [{"Id", "Action"}]
-  LOADK R22 K50 ["Small"]
+  DUPTABLE R21 K120 [{"Id", "Action"}]
+  LOADK R22 K49 ["Play"]
   SETTABLEKS R22 R21 K30 ["Id"]
   MOVE R22 R5
-  LOADK R23 K104 ["BuilderTools"]
-  LOADK R24 K51 ["PlayHere"]
+  LOADK R23 K103 ["BuilderTools"]
+  LOADK R24 K50 ["Small"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K46 ["Action"]
-  DUPTABLE R22 K121 [{"Id", "Action"}]
-  LOADK R23 K52 ["ServerAndClients/1"]
+  DUPTABLE R22 K120 [{"Id", "Action"}]
+  LOADK R23 K51 ["PlayHere"]
   SETTABLEKS R23 R22 K30 ["Id"]
   MOVE R23 R5
-  LOADK R24 K104 ["BuilderTools"]
-  LOADK R25 K53 ["Icon"]
+  LOADK R24 K103 ["BuilderTools"]
+  LOADK R25 K52 ["ServerAndClients/1"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K46 ["Action"]
-  DUPTABLE R23 K121 [{"Id", "Action"}]
-  LOADK R24 K54 [{"Icon"}]
+  DUPTABLE R23 K120 [{"Id", "Action"}]
+  LOADK R24 K53 ["Icon"]
   SETTABLEKS R24 R23 K30 ["Id"]
   MOVE R24 R5
-  LOADK R25 K104 ["BuilderTools"]
-  LOADK R26 K55 ["StartServerAndClient"]
+  LOADK R25 K103 ["BuilderTools"]
+  LOADK R26 K54 [{"Icon"}]
   CALL R24 2 1
   SETTABLEKS R24 R23 K46 ["Action"]
   SETLIST R18 R19 5 [1]
   SETTABLEKS R18 R17 K27 ["Values"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K47 ["Size"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K46 ["Action"]
+  CALL R16 2 1
+  DUPTABLE R17 K54 [{"Icon"}]
+  LOADK R18 K55 ["StartServerAndClient"]
+  SETTABLEKS R18 R17 K53 ["Icon"]
+  SETTABLE R17 R11 R16
+  MOVE R16 R7
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K48 [{"Id", "Action", "Size"}]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K56 ["ForceRefreshAfterBind"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K49 ["Play"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K50 ["Small"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K57 [{"Icon", "ForceRefreshAfterBind"}]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K51 ["PlayHere"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K52 ["ServerAndClients/1"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K58 ["CleanupTeamTest"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K53 ["Icon"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K54 [{"Icon"}]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
   LOADK R18 K59 ["ExitGame"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
-  MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K55 ["StartServerAndClient"]
-  CALL R16 2 1
-  DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K60 ["Pause"]
-  SETTABLEKS R18 R17 K53 ["Icon"]
-  SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K61 ["Resume"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K60 ["Pause"]
   CALL R16 2 1
-  DUPTABLE R17 K194 [{"Type", "Text", "Values"}]
+  DUPTABLE R17 K193 [{"Type", "Text", "Values"}]
   LOADK R18 K29 ["Enum"]
   SETTABLEKS R18 R17 K26 ["Type"]
-  LOADK R18 K62 ["PauseMode"]
+  LOADK R18 K61 ["Resume"]
   SETTABLEKS R18 R17 K31 ["Text"]
   NEWTABLE R18 0 11
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K63 ["PausePhysicsAll"]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K62 ["PauseMode"]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K104 ["BuilderTools"]
-  LOADK R22 K64 ["PausePhysicsCurrent"]
+  LOADK R21 K103 ["BuilderTools"]
+  LOADK R22 K63 ["PausePhysicsAll"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K65 ["ResumeMode"]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K64 ["PausePhysicsCurrent"]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K104 ["BuilderTools"]
-  LOADK R23 K66 ["ResumePhysicsAll"]
+  LOADK R22 K103 ["BuilderTools"]
+  LOADK R23 K65 ["ResumeMode"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
-  DUPTABLE R21 K121 [{"Id", "Action"}]
-  LOADK R22 K67 ["ResumePhysicsCurrent"]
+  DUPTABLE R21 K120 [{"Id", "Action"}]
+  LOADK R22 K66 ["ResumePhysicsAll"]
   SETTABLEKS R22 R21 K30 ["Id"]
   MOVE R22 R5
-  LOADK R23 K104 ["BuilderTools"]
-  LOADK R24 K68 ["StepForwardMode"]
+  LOADK R23 K103 ["BuilderTools"]
+  LOADK R24 K67 ["ResumePhysicsCurrent"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K46 ["Action"]
-  DUPTABLE R22 K121 [{"Id", "Action"}]
-  LOADK R23 K69 ["StepForwardPhysicsAll"]
+  DUPTABLE R22 K120 [{"Id", "Action"}]
+  LOADK R23 K68 ["StepForwardMode"]
   SETTABLEKS R23 R22 K30 ["Id"]
   MOVE R23 R5
-  LOADK R24 K104 ["BuilderTools"]
-  LOADK R25 K70 ["StepForwardPhysicsCurrent"]
+  LOADK R24 K103 ["BuilderTools"]
+  LOADK R25 K69 ["StepForwardPhysicsAll"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K46 ["Action"]
-  DUPTABLE R23 K121 [{"Id", "Action"}]
-  LOADK R24 K71 ["PhysicsStepper"]
+  DUPTABLE R23 K120 [{"Id", "Action"}]
+  LOADK R24 K70 ["StepForwardPhysicsCurrent"]
   SETTABLEKS R24 R23 K30 ["Id"]
   MOVE R24 R5
-  LOADK R25 K104 ["BuilderTools"]
-  LOADK R26 K72 ["AddClients"]
+  LOADK R25 K103 ["BuilderTools"]
+  LOADK R26 K71 ["AddClients"]
   CALL R24 2 1
   SETTABLEKS R24 R23 K46 ["Action"]
-  DUPTABLE R24 K121 [{"Id", "Action"}]
-  LOADK R25 K73 ["Tooltip"]
+  DUPTABLE R24 K120 [{"Id", "Action"}]
+  LOADK R25 K72 ["Tooltip"]
   SETTABLEKS R25 R24 K30 ["Id"]
   MOVE R25 R5
-  LOADK R26 K104 ["BuilderTools"]
-  LOADK R27 K74 [{"Icon", "Text", "Tooltip"}]
+  LOADK R26 K103 ["BuilderTools"]
+  LOADK R27 K73 [{"Icon", "Text", "Tooltip"}]
   CALL R25 2 1
   SETTABLEKS R25 R24 K46 ["Action"]
-  DUPTABLE R25 K121 [{"Id", "Action"}]
-  LOADK R26 K75 ["AddClient"]
+  DUPTABLE R25 K120 [{"Id", "Action"}]
+  LOADK R26 K74 ["AddClient"]
   SETTABLEKS R26 R25 K30 ["Id"]
   MOVE R26 R5
-  LOADK R27 K104 ["BuilderTools"]
-  LOADK R28 K76 ["AddClientsTooltip"]
+  LOADK R27 K103 ["BuilderTools"]
+  LOADK R28 K75 ["AddClientsTooltip"]
   CALL R26 2 1
   SETTABLEKS R26 R25 K46 ["Action"]
-  DUPTABLE R26 K121 [{"Id", "Action"}]
-  LOADK R27 K77 ["LaunchTestMode"]
+  DUPTABLE R26 K120 [{"Id", "Action"}]
+  LOADK R27 K76 ["LaunchTestMode"]
   SETTABLEKS R27 R26 K30 ["Id"]
   MOVE R27 R5
-  LOADK R28 K104 ["BuilderTools"]
-  LOADK R29 K78 ["ExitClient"]
+  LOADK R28 K103 ["BuilderTools"]
+  LOADK R29 K77 ["ExitClient"]
   CALL R27 2 1
   SETTABLEKS R27 R26 K46 ["Action"]
-  DUPTABLE R27 K121 [{"Id", "Action"}]
-  LOADK R28 K79 ["Stop"]
+  DUPTABLE R27 K120 [{"Id", "Action"}]
+  LOADK R28 K78 ["Stop"]
   SETTABLEKS R28 R27 K30 ["Id"]
   MOVE R28 R5
-  LOADK R29 K104 ["BuilderTools"]
-  LOADK R30 K80 ["StopActive"]
+  LOADK R29 K103 ["BuilderTools"]
+  LOADK R30 K79 ["StopActive"]
   CALL R28 2 1
   SETTABLEKS R28 R27 K46 ["Action"]
-  DUPTABLE R28 K121 [{"Id", "Action"}]
-  LOADK R29 K81 ["ToggleDM"]
+  DUPTABLE R28 K120 [{"Id", "Action"}]
+  LOADK R29 K80 ["ToggleDM"]
   SETTABLEKS R29 R28 K30 ["Id"]
   MOVE R29 R5
-  LOADK R30 K104 ["BuilderTools"]
-  LOADK R31 K82 ["ClientServer"]
+  LOADK R30 K103 ["BuilderTools"]
+  LOADK R31 K81 ["ClientServer"]
   CALL R29 2 1
   SETTABLEKS R29 R28 K46 ["Action"]
-  DUPTABLE R29 K121 [{"Id", "Action"}]
-  LOADK R30 K83 ["CleanupServerAndClients"]
+  DUPTABLE R29 K120 [{"Id", "Action"}]
+  LOADK R30 K82 ["CleanupServerAndClients"]
   SETTABLEKS R30 R29 K30 ["Id"]
   MOVE R30 R5
-  LOADK R31 K104 ["BuilderTools"]
-  LOADK R32 K84 ["ExitTestSession"]
+  LOADK R31 K103 ["BuilderTools"]
+  LOADK R32 K83 ["ExitTestSession"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K46 ["Action"]
   SETLIST R18 R19 11 [1]
   SETTABLEKS R18 R17 K27 ["Values"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K64 ["PausePhysicsCurrent"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K63 ["PausePhysicsAll"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K85 ["Assistant"]
+  LOADK R18 K84 ["Assistant"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K66 ["ResumePhysicsAll"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K65 ["ResumeMode"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K86 ["Toggle"]
+  LOADK R18 K85 ["Toggle"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K68 ["StepForwardMode"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K67 ["ResumePhysicsCurrent"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K87 ["AI"]
+  LOADK R18 K86 ["AI"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K70 ["StepForwardPhysicsCurrent"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K69 ["StepForwardPhysicsAll"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K88 ["ShareGame"]
+  LOADK R18 K87 ["ShareGame"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K72 ["AddClients"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K71 ["AddClients"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K89 ["Share"]
+  LOADK R18 K88 ["Share"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K80 ["StopActive"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K79 ["StopActive"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K90 ["ConnectionIndicator"]
+  LOADK R18 K89 ["ConnectionIndicator"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K74 [{"Icon", "Text", "Tooltip"}]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K73 [{"Icon", "Text", "Tooltip"}]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K91 ["Status_Green"]
+  LOADK R18 K90 ["Status_Green"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K76 ["AddClientsTooltip"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K75 ["AddClientsTooltip"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K92 ["Notifications"]
+  LOADK R18 K91 ["Notifications"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K82 ["ClientServer"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K81 ["ClientServer"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K93 ["Notification"]
+  LOADK R18 K92 ["Notification"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K84 ["ExitTestSession"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K83 ["ExitTestSession"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K94 ["UpdateAvailable"]
+  LOADK R18 K93 ["UpdateAvailable"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K78 ["ExitClient"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K77 ["ExitClient"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K95 ["RibbonOverrideText"]
+  LOADK R18 K94 ["RibbonOverrideText"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K96 [{"Icon", "RibbonOverrideText"}]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K95 [{"Icon", "RibbonOverrideText"}]
   CALL R16 2 1
-  DUPTABLE R17 K354 [{"Type", "Text", "Tooltip", "Rows", "Values"}]
+  DUPTABLE R17 K353 [{"Type", "Text", "Tooltip", "Rows", "Values"}]
   LOADK R18 K29 ["Enum"]
   SETTABLEKS R18 R17 K26 ["Type"]
-  LOADK R18 K99 ["LogoutMenu"]
+  LOADK R18 K98 ["LogoutMenu"]
   SETTABLEKS R18 R17 K31 ["Text"]
-  LOADK R18 K100 ["IconSide"]
-  SETTABLEKS R18 R17 K73 ["Tooltip"]
+  LOADK R18 K99 ["IconSide"]
+  SETTABLEKS R18 R17 K72 ["Tooltip"]
   LOADN R18 9
-  SETTABLEKS R18 R17 K353 ["Rows"]
+  SETTABLEKS R18 R17 K352 ["Rows"]
   NEWTABLE R18 0 21
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K101 [{"Icon", "IconSide"}]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K100 [{"Icon", "IconSide"}]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K104 ["BuilderTools"]
-  LOADK R22 K102 ["ArrowDown"]
+  LOADK R21 K103 ["BuilderTools"]
+  LOADK R22 K101 ["ArrowDown"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K103 ["Right"]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K102 ["Right"]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K104 ["BuilderTools"]
-  LOADK R23 K104 ["BuilderTools"]
+  LOADK R22 K103 ["BuilderTools"]
+  LOADK R23 K103 ["BuilderTools"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
-  DUPTABLE R21 K121 [{"Id", "Action"}]
-  LOADK R22 K105 ["Select"]
+  DUPTABLE R21 K120 [{"Id", "Action"}]
+  LOADK R22 K104 ["Select"]
   SETTABLEKS R22 R21 K30 ["Id"]
   MOVE R22 R5
-  LOADK R23 K104 ["BuilderTools"]
-  LOADK R24 K106 ["Move"]
+  LOADK R23 K103 ["BuilderTools"]
+  LOADK R24 K105 ["Move"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K46 ["Action"]
-  DUPTABLE R22 K121 [{"Id", "Action"}]
-  LOADK R23 K107 ["Rotate"]
+  DUPTABLE R22 K120 [{"Id", "Action"}]
+  LOADK R23 K106 ["Rotate"]
   SETTABLEKS R23 R22 K30 ["Id"]
   MOVE R23 R5
-  LOADK R24 K104 ["BuilderTools"]
-  LOADK R25 K108 ["Scale"]
+  LOADK R24 K103 ["BuilderTools"]
+  LOADK R25 K107 ["Scale"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K46 ["Action"]
-  DUPTABLE R23 K121 [{"Id", "Action"}]
-  LOADK R24 K109 ["Transform"]
+  DUPTABLE R23 K120 [{"Id", "Action"}]
+  LOADK R24 K108 ["Transform"]
   SETTABLEKS R24 R23 K30 ["Id"]
   MOVE R24 R5
-  LOADK R25 K104 ["BuilderTools"]
-  LOADK R26 K110 ["SelectColor"]
+  LOADK R25 K103 ["BuilderTools"]
+  LOADK R26 K109 ["SelectColor"]
   CALL R24 2 1
   SETTABLEKS R24 R23 K46 ["Action"]
-  DUPTABLE R24 K121 [{"Id", "Action"}]
-  LOADK R25 K111 ["Color"]
+  DUPTABLE R24 K120 [{"Id", "Action"}]
+  LOADK R25 K110 ["Color"]
   SETTABLEKS R25 R24 K30 ["Id"]
   MOVE R25 R5
-  LOADK R26 K104 ["BuilderTools"]
-  LOADK R27 K112 ["TerrainTools"]
+  LOADK R26 K103 ["BuilderTools"]
+  LOADK R27 K111 ["TerrainTools"]
   CALL R25 2 1
   SETTABLEKS R25 R24 K46 ["Action"]
-  DUPTABLE R25 K121 [{"Id", "Action"}]
-  LOADK R26 K113 ["Terrain"]
+  DUPTABLE R25 K120 [{"Id", "Action"}]
+  LOADK R26 K112 ["Terrain"]
   SETTABLEKS R26 R25 K30 ["Id"]
   MOVE R26 R5
-  LOADK R27 K104 ["BuilderTools"]
-  LOADK R28 K114 ["Character"]
+  LOADK R27 K103 ["BuilderTools"]
+  LOADK R28 K113 ["Character"]
   CALL R26 2 1
   SETTABLEKS R26 R25 K46 ["Action"]
-  DUPTABLE R26 K121 [{"Id", "Action"}]
-  LOADK R27 K115 ["MaterialManager"]
+  DUPTABLE R26 K120 [{"Id", "Action"}]
+  LOADK R27 K114 ["MaterialManager"]
   SETTABLEKS R27 R26 K30 ["Id"]
   MOVE R27 R5
-  LOADK R28 K104 ["BuilderTools"]
-  LOADK R29 K116 ["Material"]
+  LOADK R28 K103 ["BuilderTools"]
+  LOADK R29 K115 ["Material"]
   CALL R27 2 1
   SETTABLEKS R27 R26 K46 ["Action"]
-  DUPTABLE R27 K121 [{"Id", "Action"}]
-  LOADK R28 K117 ["Group"]
+  DUPTABLE R27 K120 [{"Id", "Action"}]
+  LOADK R28 K116 ["Group"]
   SETTABLEKS R28 R27 K30 ["Id"]
   MOVE R28 R5
-  LOADK R29 K104 ["BuilderTools"]
-  LOADK R30 K118 [{"Type", "Text", "Tooltip", "Values"}]
+  LOADK R29 K103 ["BuilderTools"]
+  LOADK R30 K117 [{"Type", "Text", "Tooltip", "Values"}]
   CALL R28 2 1
   SETTABLEKS R28 R27 K46 ["Action"]
-  DUPTABLE R28 K121 [{"Id", "Action"}]
-  LOADK R29 K119 ["Setting_Group"]
+  DUPTABLE R28 K120 [{"Id", "Action"}]
+  LOADK R29 K118 ["Setting_Group"]
   SETTABLEKS R29 R28 K30 ["Id"]
   MOVE R29 R5
-  LOADK R30 K104 ["BuilderTools"]
-  LOADK R31 K120 ["Tooltip_Group"]
+  LOADK R30 K103 ["BuilderTools"]
+  LOADK R31 K119 ["Tooltip_Group"]
   CALL R29 2 1
   SETTABLEKS R29 R28 K46 ["Action"]
-  DUPTABLE R29 K121 [{"Id", "Action"}]
-  LOADK R30 K121 [{"Id", "Action"}]
+  DUPTABLE R29 K120 [{"Id", "Action"}]
+  LOADK R30 K120 [{"Id", "Action"}]
   SETTABLEKS R30 R29 K30 ["Id"]
   MOVE R30 R5
-  LOADK R31 K104 ["BuilderTools"]
-  LOADK R32 K122 ["GroupAsModel"]
+  LOADK R31 K103 ["BuilderTools"]
+  LOADK R32 K121 ["GroupAsModel"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K46 ["Action"]
-  DUPTABLE R30 K121 [{"Id", "Action"}]
-  LOADK R31 K123 ["GroupAsFolder"]
+  DUPTABLE R30 K120 [{"Id", "Action"}]
+  LOADK R31 K122 ["GroupAsFolder"]
   SETTABLEKS R31 R30 K30 ["Id"]
   MOVE R31 R5
-  LOADK R32 K104 ["BuilderTools"]
-  LOADK R33 K124 ["GroupAsAFolder"]
+  LOADK R32 K103 ["BuilderTools"]
+  LOADK R33 K123 ["GroupAsAFolder"]
   CALL R31 2 1
   SETTABLEKS R31 R30 K46 ["Action"]
-  DUPTABLE R31 K121 [{"Id", "Action"}]
-  LOADK R32 K125 ["Anchor"]
+  DUPTABLE R31 K120 [{"Id", "Action"}]
+  LOADK R32 K124 ["Anchor"]
   SETTABLEKS R32 R31 K30 ["Id"]
   MOVE R32 R5
-  LOADK R33 K104 ["BuilderTools"]
-  LOADK R34 K126 ["Lock"]
+  LOADK R33 K103 ["BuilderTools"]
+  LOADK R34 K125 ["Lock"]
   CALL R32 2 1
   SETTABLEKS R32 R31 K46 ["Action"]
-  DUPTABLE R32 K121 [{"Id", "Action"}]
-  LOADK R33 K127 ["AnchorTool"]
+  DUPTABLE R32 K120 [{"Id", "Action"}]
+  LOADK R33 K126 ["AnchorTool"]
   SETTABLEKS R33 R32 K30 ["Id"]
   MOVE R33 R5
-  LOADK R34 K104 ["BuilderTools"]
-  LOADK R35 K128 ["LockTool"]
+  LOADK R34 K103 ["BuilderTools"]
+  LOADK R35 K127 ["LockTool"]
   CALL R33 2 1
   SETTABLEKS R33 R32 K46 ["Action"]
-  DUPTABLE R33 K121 [{"Id", "Action"}]
-  LOADK R34 K129 ["AnchorMode"]
+  DUPTABLE R33 K120 [{"Id", "Action"}]
+  LOADK R34 K128 ["AnchorMode"]
   SETTABLEKS R34 R33 K30 ["Id"]
   MOVE R34 R5
-  LOADK R35 K104 ["BuilderTools"]
-  LOADK R36 K130 [{"Type", "Text", "RibbonOverrideText", "Values"}]
+  LOADK R35 K103 ["BuilderTools"]
+  LOADK R36 K129 [{"Type", "Text", "RibbonOverrideText", "Values"}]
   CALL R34 2 1
   SETTABLEKS R34 R33 K46 ["Action"]
-  DUPTABLE R34 K121 [{"Id", "Action"}]
-  LOADK R35 K131 ["Setting_Anchor"]
+  DUPTABLE R34 K120 [{"Id", "Action"}]
+  LOADK R35 K130 ["Setting_Anchor"]
   SETTABLEKS R35 R34 K30 ["Id"]
   MOVE R35 R5
-  LOADK R36 K104 ["BuilderTools"]
-  LOADK R37 K132 ["AnchorToolRibbonAction"]
+  LOADK R36 K103 ["BuilderTools"]
+  LOADK R37 K131 ["AnchorToolRibbonAction"]
   CALL R35 2 1
   SETTABLEKS R35 R34 K46 ["Action"]
   SETLIST R18 R19 16 [1]
-  DUPTABLE R19 K121 [{"Id", "Action"}]
-  LOADK R20 K133 ["LockMode"]
+  DUPTABLE R19 K120 [{"Id", "Action"}]
+  LOADK R20 K132 ["LockMode"]
   SETTABLEKS R20 R19 K30 ["Id"]
   MOVE R20 R5
-  LOADK R21 K104 ["BuilderTools"]
-  LOADK R22 K134 ["Setting_Lock"]
+  LOADK R21 K103 ["BuilderTools"]
+  LOADK R22 K133 ["Setting_Lock"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K46 ["Action"]
-  DUPTABLE R20 K121 [{"Id", "Action"}]
-  LOADK R21 K135 ["LockToolRibbonAction"]
+  DUPTABLE R20 K120 [{"Id", "Action"}]
+  LOADK R21 K134 ["LockToolRibbonAction"]
   SETTABLEKS R21 R20 K30 ["Id"]
   MOVE R21 R5
-  LOADK R22 K104 ["BuilderTools"]
-  LOADK R23 K136 ["Enabled"]
+  LOADK R22 K103 ["BuilderTools"]
+  LOADK R23 K135 ["Enabled"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K46 ["Action"]
-  DUPTABLE R21 K121 [{"Id", "Action"}]
-  LOADK R22 K137 ["NoBinding"]
+  DUPTABLE R21 K120 [{"Id", "Action"}]
+  LOADK R22 K136 ["NoBinding"]
   SETTABLEKS R22 R21 K30 ["Id"]
   MOVE R22 R5
-  LOADK R23 K104 ["BuilderTools"]
-  LOADK R24 K138 [{"Text", "Icon", "Enabled", "NoBinding"}]
+  LOADK R23 K103 ["BuilderTools"]
+  LOADK R24 K137 [{"Text", "Icon", "Enabled", "NoBinding"}]
   CALL R22 2 1
   SETTABLEKS R22 R21 K46 ["Action"]
-  DUPTABLE R22 K121 [{"Id", "Action"}]
-  LOADK R23 K139 [{"RibbonOverrideText"}]
+  DUPTABLE R22 K120 [{"Id", "Action"}]
+  LOADK R23 K138 [{"RibbonOverrideText"}]
   SETTABLEKS R23 R22 K30 ["Id"]
   MOVE R23 R5
-  LOADK R24 K104 ["BuilderTools"]
-  LOADK R25 K140 [{"RibbonOverrideText", "NoBinding"}]
+  LOADK R24 K103 ["BuilderTools"]
+  LOADK R25 K139 [{"RibbonOverrideText", "NoBinding"}]
   CALL R23 2 1
   SETTABLEKS R23 R22 K46 ["Action"]
-  DUPTABLE R23 K121 [{"Id", "Action"}]
-  LOADK R35 K141 ["EditPivot"]
+  DUPTABLE R23 K120 [{"Id", "Action"}]
+  LOADK R35 K140 ["EditPivot"]
   SETTABLEKS R35 R23 K30 ["Id"]
   MOVE R35 R5
-  LOADK R36 K104 ["BuilderTools"]
-  LOADK R37 K142 ["ResetPivot"]
+  LOADK R36 K103 ["BuilderTools"]
+  LOADK R37 K141 ["ResetPivot"]
   CALL R35 2 1
   SETTABLEKS R35 R23 K46 ["Action"]
   SETLIST R18 R19 5 [17]
   SETTABLEKS R18 R17 K27 ["Values"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K104 ["BuilderTools"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K103 ["BuilderTools"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K143 ["Align"]
+  LOADK R18 K142 ["Align"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K102 ["ArrowDown"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K101 ["ArrowDown"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K144 ["AlignTool"]
+  LOADK R18 K143 ["AlignTool"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K106 ["Move"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K105 ["Move"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K145 ["UnionSelection"]
+  LOADK R18 K144 ["UnionSelection"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K108 ["Scale"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K107 ["Scale"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K146 ["UnionOperation"]
+  LOADK R18 K145 ["UnionOperation"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K110 ["SelectColor"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K109 ["SelectColor"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K147 ["IntersectSelection"]
+  LOADK R18 K146 ["IntersectSelection"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K112 ["TerrainTools"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K111 ["TerrainTools"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K148 ["IntersectOperation"]
+  LOADK R18 K147 ["IntersectOperation"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K114 ["Character"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K113 ["Character"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K149 ["SeparateSelection"]
+  LOADK R18 K148 ["SeparateSelection"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K116 ["Material"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K115 ["Material"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K150 ["SeparateOperation"]
+  LOADK R18 K149 ["SeparateOperation"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K118 [{"Type", "Text", "Tooltip", "Values"}]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K117 [{"Type", "Text", "Tooltip", "Values"}]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K151 ["NegateSelection"]
+  LOADK R18 K150 ["NegateSelection"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K120 ["Tooltip_Group"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K119 ["Tooltip_Group"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K152 ["NegateOperation"]
+  LOADK R18 K151 ["NegateOperation"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K122 ["GroupAsModel"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K121 ["GroupAsModel"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K153 ["Properties"]
+  LOADK R18 K152 ["Properties"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K124 ["GroupAsAFolder"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K123 ["GroupAsAFolder"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K154 ["Explorer"]
+  LOADK R18 K153 ["Explorer"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K126 ["Lock"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K125 ["Lock"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K155 ["Toolbox"]
+  LOADK R18 K154 ["Toolbox"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K128 ["LockTool"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K127 ["LockTool"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K156 ["PlayersMode"]
+  LOADK R18 K155 ["PlayersMode"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K130 [{"Type", "Text", "RibbonOverrideText", "Values"}]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K129 [{"Type", "Text", "RibbonOverrideText", "Values"}]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K157 ["Increment"]
+  LOADK R18 K156 ["Increment"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K132 ["AnchorToolRibbonAction"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K131 ["AnchorToolRibbonAction"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K158 ["Maximum"]
+  LOADK R18 K157 ["Maximum"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K134 ["Setting_Lock"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K133 ["Setting_Lock"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K159 ["Minimum"]
+  LOADK R18 K158 ["Minimum"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K136 ["Enabled"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K135 ["Enabled"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K160 ["Precision"]
+  LOADK R18 K159 ["Precision"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K138 [{"Text", "Icon", "Enabled", "NoBinding"}]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K137 [{"Text", "Icon", "Enabled", "NoBinding"}]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K161 ["IsShort"]
+  LOADK R18 K160 ["IsShort"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K140 [{"RibbonOverrideText", "NoBinding"}]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K139 [{"RibbonOverrideText", "NoBinding"}]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K162 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "Icon", "IsShort"}]
+  LOADK R18 K161 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "Icon", "IsShort"}]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R7
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K142 ["ResetPivot"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K141 ["ResetPivot"]
   CALL R16 2 1
   DUPTABLE R17 K54 [{"Icon"}]
-  LOADK R18 K163 ["Number"]
+  LOADK R18 K162 ["Number"]
   SETTABLEKS R18 R17 K53 ["Icon"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K164 ["Player"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K163 ["Player"]
   CALL R16 2 1
-  DUPTABLE R17 K421 [{"Size"}]
+  DUPTABLE R17 K420 [{"Size"}]
   LOADK R18 K50 ["Small"]
   SETTABLEKS R18 R17 K47 ["Size"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K166 ["AddPlayer"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K165 ["AddPlayer"]
   CALL R16 2 1
-  DUPTABLE R17 K421 [{"Size"}]
+  DUPTABLE R17 K420 [{"Size"}]
   LOADK R18 K50 ["Small"]
   SETTABLEKS R18 R17 K47 ["Size"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K167 ["MoveGridSize"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K166 ["MoveGridSize"]
   CALL R16 2 1
-  DUPTABLE R17 K421 [{"Size"}]
+  DUPTABLE R17 K420 [{"Size"}]
   LOADK R18 K50 ["Small"]
   SETTABLEKS R18 R17 K47 ["Size"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K168 ["FormatStringKey"]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K167 ["FormatStringKey"]
   CALL R16 2 1
-  DUPTABLE R17 K421 [{"Size"}]
+  DUPTABLE R17 K420 [{"Size"}]
   LOADK R18 K50 ["Small"]
   SETTABLEKS R18 R17 K47 ["Size"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K104 ["BuilderTools"]
-  LOADK R18 K169 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "FormatStringKey"}]
+  LOADK R17 K103 ["BuilderTools"]
+  LOADK R18 K168 [{"Type", "Increment", "Maximum", "Minimum", "Precision", "FormatStringKey"}]
   CALL R16 2 1
-  DUPTABLE R17 K421 [{"Size"}]
+  DUPTABLE R17 K420 [{"Size"}]
   LOADK R18 K50 ["Small"]
   SETTABLEKS R18 R17 K47 ["Size"]
   SETTABLE R17 R11 R16
   MOVE R16 R8
-  LOADK R17 K170 [0.2]
-  LOADK R18 K171 ["StudsFormat"]
+  LOADK R17 K169 [0.2]
+  LOADK R18 K170 ["StudsFormat"]
   CALL R16 2 1
-  DUPTABLE R17 K428 [{"Minimum", "Maximum"}]
+  DUPTABLE R17 K427 [{"Minimum", "Maximum"}]
   LOADN R18 0
-  SETTABLEKS R18 R17 K159 ["Minimum"]
+  SETTABLEKS R18 R17 K158 ["Minimum"]
   LOADN R18 1
-  SETTABLEKS R18 R17 K158 ["Maximum"]
+  SETTABLEKS R18 R17 K157 ["Maximum"]
   SETTABLE R17 R11 R16
-  DUPCLOSURE R16 K429 [PROTO_2]
+  DUPCLOSURE R16 K428 [PROTO_2]
   CAPTURE VAL R11
   CAPTURE VAL R1
-  SETTABLEKS R16 R10 K430 ["GetModel"]
+  SETTABLEKS R16 R10 K429 ["GetModel"]
   RETURN R10 1

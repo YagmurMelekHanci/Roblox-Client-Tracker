@@ -21,7 +21,7 @@ PROTO_2:
 
 PROTO_3:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["FixEmulatorStartupSequence"]
+  LOADK R2 K2 ["FixEmulatorStartupSequence2"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 -1
   RETURN R0 -1
@@ -39,7 +39,7 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K5 ["FixEmulatorStartupSequence"]
+  LOADK R2 K5 ["FixEmulatorStartupSequence2"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

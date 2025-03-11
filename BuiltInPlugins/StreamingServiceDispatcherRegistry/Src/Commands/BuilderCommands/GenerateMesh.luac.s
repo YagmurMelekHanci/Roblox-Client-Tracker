@@ -261,134 +261,141 @@ PROTO_6:
   RETURN R1 1
 
 PROTO_7:
-  GETIMPORT R2 K3 [Enum.IntermediateMeshGenerationResult.HighQualityMesh]
+  GETIMPORT R2 K2 [coroutine.status]
+  GETUPVAL R3 0
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K3 ["dead"] [+2]
+  RETURN R0 0
+  GETIMPORT R2 K7 [Enum.IntermediateMeshGenerationResult.HighQualityMesh]
   JUMPIFNOTEQ R0 R2 [+15]
-  GETUPVAL R2 0
-  LOADK R4 K4 ["UpdateMeshGenWidget"]
-  DUPTABLE R5 K7 [{"guid", "state"}]
-  GETUPVAL R6 1
-  SETTABLEKS R6 R5 K5 ["guid"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K8 ["GeneratingTexture"]
-  SETTABLEKS R6 R5 K6 ["state"]
-  NAMECALL R2 R2 K9 ["DisplayContent"]
+  GETUPVAL R2 1
+  LOADK R4 K8 ["UpdateMeshGenWidget"]
+  DUPTABLE R5 K11 [{"guid", "state"}]
+  GETUPVAL R6 2
+  SETTABLEKS R6 R5 K9 ["guid"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K12 ["GeneratingTexture"]
+  SETTABLEKS R6 R5 K10 ["state"]
+  NAMECALL R2 R2 K13 ["DisplayContent"]
   CALL R2 3 0
-  GETUPVAL R3 3
-  MOVE R5 R1
-  NAMECALL R3 R3 K10 ["LoadGeneratedMeshAsync"]
-  CALL R3 2 1
-  GETUPVAL R4 4
-  GETUPVAL R5 1
-  MOVE R6 R3
-  CALL R4 2 0
-  LOADB R5 0
-  FASTCALL1 TYPEOF R3 [+3]
-  MOVE R7 R3
-  GETIMPORT R6 K12 [typeof]
-  CALL R6 1 1
-  JUMPIFNOTEQKS R6 K13 ["Instance"] [+5]
-  LOADK R7 K14 ["MeshPart"]
-  NAMECALL R5 R3 K15 ["IsA"]
-  CALL R5 2 1
-  FASTCALL2K ASSERT R5 K16 [+4]
-  LOADK R6 K16 ["Expected result to be a MeshPart"]
-  GETIMPORT R4 K18 [assert]
-  CALL R4 2 0
-  MOVE R2 R3
-  RETURN R2 1
+  GETUPVAL R2 4
+  MOVE R4 R1
+  NAMECALL R2 R2 K14 ["LoadGeneratedMeshAsync"]
+  CALL R2 2 1
+  GETUPVAL R3 5
+  GETUPVAL R4 2
+  MOVE R5 R2
+  CALL R3 2 0
+  LOADB R4 0
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K16 [typeof]
+  CALL R5 1 1
+  JUMPIFNOTEQKS R5 K17 ["Instance"] [+5]
+  LOADK R6 K18 ["MeshPart"]
+  NAMECALL R4 R2 K19 ["IsA"]
+  CALL R4 2 1
+  FASTCALL2K ASSERT R4 K20 [+4]
+  LOADK R5 K20 ["Expected result to be a MeshPart"]
+  GETIMPORT R3 K22 [assert]
+  CALL R3 2 0
+  RETURN R0 0
 
 PROTO_8:
-  GETUPVAL R2 0
+  GETIMPORT R2 K2 [coroutine.running]
   CALL R2 0 1
-  JUMPIFNOT R2 [+55]
-  GETUPVAL R2 1
-  GETIMPORT R4 K2 [Content.fromAssetId]
-  LOADK R5 K3 [15564792192]
-  CALL R4 1 -1
-  NAMECALL R2 R2 K4 ["CreateEditableMeshAsync"]
-  CALL R2 -1 1
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+55]
   GETUPVAL R3 1
-  GETIMPORT R5 K2 [Content.fromAssetId]
-  LOADK R6 K5 [16745082454]
+  GETIMPORT R5 K5 [Content.fromAssetId]
+  LOADK R6 K6 [15564792192]
   CALL R5 1 -1
-  NAMECALL R3 R3 K6 ["CreateEditableImageAsync"]
+  NAMECALL R3 R3 K7 ["CreateEditableMeshAsync"]
   CALL R3 -1 1
   GETUPVAL R4 1
-  GETIMPORT R6 K8 [Content.fromObject]
-  MOVE R7 R2
+  GETIMPORT R6 K5 [Content.fromAssetId]
+  LOADK R7 K8 [16745082454]
   CALL R6 1 -1
-  NAMECALL R4 R4 K9 ["CreateMeshPartAsync"]
+  NAMECALL R4 R4 K9 ["CreateEditableImageAsync"]
   CALL R4 -1 1
-  GETIMPORT R5 K8 [Content.fromObject]
-  MOVE R6 R3
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K10 ["TextureContent"]
-  GETUPVAL R5 2
-  MOVE R6 R0
+  GETUPVAL R5 1
+  GETIMPORT R7 K11 [Content.fromObject]
+  MOVE R8 R3
+  CALL R7 1 -1
+  NAMECALL R5 R5 K12 ["CreateMeshPartAsync"]
+  CALL R5 -1 1
+  GETIMPORT R6 K11 [Content.fromObject]
   MOVE R7 R4
-  CALL R5 2 0
-  LOADB R6 0
-  FASTCALL1 TYPEOF R4 [+3]
-  MOVE R8 R4
-  GETIMPORT R7 K12 [typeof]
-  CALL R7 1 1
-  JUMPIFNOTEQKS R7 K13 ["Instance"] [+5]
-  LOADK R8 K14 ["MeshPart"]
-  NAMECALL R6 R4 K15 ["IsA"]
-  CALL R6 2 1
-  FASTCALL2K ASSERT R6 K16 [+4]
-  LOADK R7 K16 ["Expected result to be a MeshPart"]
-  GETIMPORT R5 K18 [assert]
-  CALL R5 2 0
-  LOADK R5 K19 ["DEBUG_GENERATION_ID"]
-  MOVE R6 R4
-  RETURN R5 2
-  NEWCLOSURE R2 P0
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K13 ["TextureContent"]
+  GETUPVAL R6 2
+  MOVE R7 R0
+  MOVE R8 R5
+  CALL R6 2 0
+  LOADB R7 0
+  FASTCALL1 TYPEOF R5 [+3]
+  MOVE R9 R5
+  GETIMPORT R8 K15 [typeof]
+  CALL R8 1 1
+  JUMPIFNOTEQKS R8 K16 ["Instance"] [+5]
+  LOADK R9 K17 ["MeshPart"]
+  NAMECALL R7 R5 K18 ["IsA"]
+  CALL R7 2 1
+  FASTCALL2K ASSERT R7 K19 [+4]
+  LOADK R8 K19 ["Expected result to be a MeshPart"]
+  GETIMPORT R6 K21 [assert]
+  CALL R6 2 0
+  LOADK R6 K22 ["DEBUG_GENERATION_ID"]
+  MOVE R7 R5
+  RETURN R6 2
+  NEWCLOSURE R3 P0
   CAPTURE UPVAL U3
   CAPTURE UPVAL U2
   CAPTURE VAL R0
-  DUPTABLE R3 K21 [{"Prompt"}]
-  SETTABLEKS R1 R3 K20 ["Prompt"]
-  GETUPVAL R4 4
-  NAMECALL R4 R4 K22 ["GetUserId"]
-  CALL R4 1 1
-  NEWTABLE R5 0 0
-  GETUPVAL R6 3
-  MOVE R8 R3
+  DUPTABLE R4 K24 [{"Prompt"}]
+  SETTABLEKS R1 R4 K23 ["Prompt"]
+  GETUPVAL R5 4
+  NAMECALL R5 R5 K25 ["GetUserId"]
+  CALL R5 1 1
+  NEWTABLE R6 0 0
+  GETUPVAL R7 3
   MOVE R9 R4
   MOVE R10 R5
-  NEWCLOSURE R11 P1
+  MOVE R11 R6
+  NEWCLOSURE R12 P1
+  CAPTURE VAL R2
   CAPTURE UPVAL U5
   CAPTURE VAL R0
   CAPTURE UPVAL U6
   CAPTURE UPVAL U3
   CAPTURE UPVAL U2
-  NAMECALL R6 R6 K23 ["InternalGenerateMeshAsync"]
-  CALL R6 5 1
-  MOVE R7 R6
-  GETUPVAL R9 3
-  MOVE R11 R6
-  NAMECALL R9 R9 K24 ["LoadGeneratedMeshAsync"]
-  CALL R9 2 1
-  GETUPVAL R10 2
-  MOVE R11 R0
-  MOVE R12 R9
-  CALL R10 2 0
-  LOADB R11 0
-  FASTCALL1 TYPEOF R9 [+3]
-  MOVE R13 R9
-  GETIMPORT R12 K12 [typeof]
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K13 ["Instance"] [+5]
-  LOADK R13 K14 ["MeshPart"]
-  NAMECALL R11 R9 K15 ["IsA"]
-  CALL R11 2 1
-  FASTCALL2K ASSERT R11 K16 [+4]
-  LOADK R12 K16 ["Expected result to be a MeshPart"]
-  GETIMPORT R10 K18 [assert]
-  CALL R10 2 0
-  MOVE R8 R9
-  RETURN R7 2
+  NAMECALL R7 R7 K26 ["InternalGenerateMeshAsync"]
+  CALL R7 5 1
+  MOVE R8 R7
+  GETUPVAL R10 3
+  MOVE R12 R7
+  NAMECALL R10 R10 K27 ["LoadGeneratedMeshAsync"]
+  CALL R10 2 1
+  GETUPVAL R11 2
+  MOVE R12 R0
+  MOVE R13 R10
+  CALL R11 2 0
+  LOADB R12 0
+  FASTCALL1 TYPEOF R10 [+3]
+  MOVE R14 R10
+  GETIMPORT R13 K15 [typeof]
+  CALL R13 1 1
+  JUMPIFNOTEQKS R13 K16 ["Instance"] [+5]
+  LOADK R14 K17 ["MeshPart"]
+  NAMECALL R12 R10 K18 ["IsA"]
+  CALL R12 2 1
+  FASTCALL2K ASSERT R12 K19 [+4]
+  LOADK R13 K19 ["Expected result to be a MeshPart"]
+  GETIMPORT R11 K21 [assert]
+  CALL R11 2 0
+  MOVE R9 R10
+  RETURN R8 2
 
 PROTO_9:
   GETUPVAL R1 0
@@ -451,23 +458,6 @@ PROTO_10:
   RETURN R3 1
 
 PROTO_11:
-  GETUPVAL R1 0
-  GETTABLEKS R3 R0 K0 ["MeshContent"]
-  GETTABLEKS R2 R3 K1 ["Object"]
-  CALL R1 1 1
-  GETUPVAL R2 1
-  GETTABLEKS R4 R0 K2 ["TextureContent"]
-  GETTABLEKS R3 R4 K1 ["Object"]
-  CALL R2 1 1
-  GETUPVAL R3 2
-  CALL R3 0 1
-  JUMPIF R3 [+4]
-  GETUPVAL R3 3
-  NAMECALL R3 R3 K3 ["SendMeshGenPublishedAssetsTelemetry"]
-  CALL R3 1 0
-  RETURN R1 2
-
-PROTO_12:
   GETUPVAL R3 0
   GETIMPORT R5 K2 [Content.fromAssetId]
   MOVE R6 R1
@@ -494,9 +484,9 @@ PROTO_12:
   CALL R4 3 0
   RETURN R3 1
 
-PROTO_13:
+PROTO_12:
   GETTABLEKS R1 R0 K0 ["finalMeshPart"]
-  JUMPIF R1 [+37]
+  JUMPIF R1 [+40]
   GETTABLEKS R2 R0 K1 ["meshId"]
   GETTABLEKS R3 R0 K2 ["textureId"]
   FASTCALL2K ASSERT R2 K3 [+5]
@@ -520,6 +510,8 @@ PROTO_13:
   LOADK R6 K8 ["Failed to create MeshPart"]
   GETIMPORT R4 K5 [assert]
   CALL R4 2 0
+  LOADB R4 1
+  SETTABLEKS R4 R1 K9 ["Anchored"]
   GETUPVAL R4 1
   MOVE R5 R1
   CALL R4 1 0
@@ -531,7 +523,7 @@ PROTO_13:
   CALL R2 2 0
   RETURN R1 1
 
-PROTO_14:
+PROTO_13:
   GETTABLEKS R3 R0 K0 ["meshId"]
   JUMPIFNOT R3 [+2]
   GETTABLEKS R3 R0 K1 ["textureId"]
@@ -546,32 +538,86 @@ PROTO_14:
   LOADK R4 K6 ["EditableMeshPart not found"]
   GETIMPORT R2 K4 [assert]
   CALL R2 2 0
-  GETUPVAL R4 0
-  GETTABLEKS R6 R1 K7 ["MeshContent"]
-  GETTABLEKS R5 R6 K8 ["Object"]
-  CALL R4 1 1
-  GETUPVAL R5 1
-  GETTABLEKS R7 R1 K9 ["TextureContent"]
-  GETTABLEKS R6 R7 K8 ["Object"]
-  CALL R5 1 1
-  GETUPVAL R6 2
-  CALL R6 0 1
-  JUMPIF R6 [+4]
-  GETUPVAL R6 3
-  NAMECALL R6 R6 K10 ["SendMeshGenPublishedAssetsTelemetry"]
-  CALL R6 1 0
-  MOVE R2 R4
-  MOVE R3 R5
-  FASTCALL2K ASSERT R2 K11 [+5]
-  MOVE R5 R2
-  LOADK R6 K11 ["Failed to create mesh asset"]
-  GETIMPORT R4 K4 [assert]
-  CALL R4 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R4 R1 K7 ["MeshContent"]
+  GETTABLEKS R3 R4 K8 ["Object"]
+  CALL R2 1 1
+  FASTCALL2K ASSERT R2 K9 [+5]
+  MOVE R4 R2
+  LOADK R5 K9 ["Failed to create mesh asset"]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R5 R1 K10 ["TextureContent"]
+  GETTABLEKS R4 R5 K8 ["Object"]
+  CALL R3 1 1
+  SETTABLEKS R2 R0 K0 ["meshId"]
+  SETTABLEKS R3 R0 K1 ["textureId"]
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  GETTABLEKS R3 R0 K0 ["meshId"]
+  JUMPIFNOT R3 [+2]
+  GETTABLEKS R3 R0 K1 ["textureId"]
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K2 [+4]
+  LOADK R3 K2 ["Assets already published"]
+  GETIMPORT R1 K4 [assert]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K5 ["editableMeshPart"]
+  FASTCALL2K ASSERT R1 K6 [+5]
+  MOVE R3 R1
+  LOADK R4 K6 ["EditableMeshPart not found"]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R4 R1 K7 ["MeshContent"]
+  GETTABLEKS R3 R4 K8 ["Object"]
+  CALL R2 1 1
+  FASTCALL2K ASSERT R2 K9 [+5]
+  MOVE R4 R2
+  LOADK R5 K9 ["Failed to create mesh asset"]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  GETUPVAL R3 2
+  GETTABLEKS R5 R1 K10 ["TextureContent"]
+  GETTABLEKS R4 R5 K8 ["Object"]
+  CALL R3 1 1
   SETTABLEKS R2 R0 K0 ["meshId"]
   SETTABLEKS R3 R0 K1 ["textureId"]
   RETURN R0 0
 
 PROTO_15:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CALL R1 1 2
+  GETUPVAL R3 2
+  CALL R3 0 1
+  JUMPIF R3 [+17]
+  GETUPVAL R3 3
+  GETTABLEKS R5 R0 K2 ["requestId"]
+  GETTABLEKS R6 R0 K3 ["generationId"]
+  MOVE R7 R1
+  JUMPIF R1 [+2]
+  MOVE R8 R2
+  JUMP [+1]
+  LOADK R8 K4 [""]
+  GETTABLEKS R9 R0 K5 ["meshId"]
+  GETTABLEKS R10 R0 K6 ["textureId"]
+  NAMECALL R3 R3 K7 ["SendMeshGenPublishedAssetsTelemetry"]
+  CALL R3 7 0
+  JUMPIF R1 [+5]
+  GETIMPORT R3 K9 [error]
+  MOVE R4 R2
+  LOADN R5 0
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_16:
   GETTABLEKS R1 R0 K0 ["requestId"]
   GETTABLEKS R2 R0 K1 ["prompt"]
   GETTABLEKS R5 R0 K4 ["insertionCounter"]
@@ -589,7 +635,7 @@ PROTO_15:
   MOVE R7 R4
   CALL R5 2 0
   GETTABLEKS R6 R0 K8 ["finalMeshPart"]
-  JUMPIF R6 [+37]
+  JUMPIF R6 [+40]
   GETTABLEKS R7 R0 K9 ["meshId"]
   GETTABLEKS R8 R0 K10 ["textureId"]
   FASTCALL2K ASSERT R7 K11 [+5]
@@ -613,6 +659,8 @@ PROTO_15:
   LOADK R11 K16 ["Failed to create MeshPart"]
   GETIMPORT R9 K13 [assert]
   CALL R9 2 0
+  LOADB R9 1
+  SETTABLEKS R9 R6 K17 ["Anchored"]
   GETUPVAL R9 2
   MOVE R10 R6
   CALL R9 1 0
@@ -623,84 +671,86 @@ PROTO_15:
   GETIMPORT R7 K13 [assert]
   CALL R7 2 0
   MOVE R5 R6
-  NAMECALL R5 R5 K17 ["Clone"]
+  NAMECALL R5 R5 K18 ["Clone"]
   CALL R5 1 1
-  DUPTABLE R6 K21 [{"instanceId", "properties", "direct_instance"}]
-  NAMECALL R7 R5 K22 ["GetDebugId"]
+  DUPTABLE R6 K22 [{"instanceId", "properties", "direct_instance"}]
+  NAMECALL R7 R5 K23 ["GetDebugId"]
   CALL R7 1 1
-  SETTABLEKS R7 R6 K18 ["instanceId"]
-  DUPTABLE R7 K26 [{"instanceName", "positionOrigin", "position"}]
-  SETTABLEKS R2 R7 K23 ["instanceName"]
-  LOADK R8 K27 ["currentCamera"]
-  SETTABLEKS R8 R7 K24 ["positionOrigin"]
-  DUPTABLE R8 K30 [{"x", "z"}]
+  SETTABLEKS R7 R6 K19 ["instanceId"]
+  DUPTABLE R7 K27 [{"instanceName", "positionOrigin", "position"}]
+  SETTABLEKS R2 R7 K24 ["instanceName"]
+  LOADK R8 K28 ["currentCamera"]
+  SETTABLEKS R8 R7 K25 ["positionOrigin"]
+  DUPTABLE R8 K31 [{"x", "z"}]
   LOADN R9 0
-  SETTABLEKS R9 R8 K28 ["x"]
+  SETTABLEKS R9 R8 K29 ["x"]
   LOADN R9 0
-  SETTABLEKS R9 R8 K29 ["z"]
-  SETTABLEKS R8 R7 K25 ["position"]
-  SETTABLEKS R7 R6 K19 ["properties"]
-  SETTABLEKS R5 R6 K20 ["direct_instance"]
+  SETTABLEKS R9 R8 K30 ["z"]
+  SETTABLEKS R8 R7 K26 ["position"]
+  SETTABLEKS R7 R6 K20 ["properties"]
+  SETTABLEKS R5 R6 K21 ["direct_instance"]
   GETUPVAL R7 3
   MOVE R9 R1
-  LOADK R10 K31 ["SetProperty"]
+  LOADK R10 K32 ["SetProperty"]
   MOVE R11 R6
-  NAMECALL R7 R7 K32 ["ExecuteCommandAsync"]
+  NAMECALL R7 R7 K33 ["ExecuteCommandAsync"]
   CALL R7 4 0
-  GETIMPORT R7 K34 [workspace]
-  SETTABLEKS R7 R5 K35 ["Parent"]
+  GETIMPORT R7 K35 [workspace]
+  SETTABLEKS R7 R5 K36 ["Parent"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K36 ["EndRecordingActions"]
+  GETTABLEKS R7 R8 K37 ["EndRecordingActions"]
   MOVE R8 R1
   MOVE R9 R4
   CALL R7 2 0
   GETUPVAL R8 4
-  GETTABLEKS R7 R8 K37 ["modifyChatWithInstanceLink"]
+  GETTABLEKS R7 R8 K38 ["modifyChatWithInstanceLink"]
   MOVE R8 R1
   MOVE R9 R5
-  LOADK R10 K38 ["added"]
+  LOADK R10 K39 ["added"]
   GETTABLEKS R11 R0 K15 ["generationId"]
   CALL R7 4 0
-  GETUPVAL R7 5
-  CALL R7 0 1
-  JUMPIF R7 [+4]
-  GETUPVAL R7 6
-  NAMECALL R7 R7 K39 ["SendMeshGenMeshInsertedTelemetry"]
-  CALL R7 1 0
-  RETURN R0 0
-
-PROTO_16:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIF R1 [+5]
-  GETUPVAL R1 1
-  MOVE R3 R0
-  NAMECALL R1 R1 K0 ["SendMeshGenResultTelemetry"]
-  CALL R1 2 0
-  GETUPVAL R1 2
-  LOADK R3 K1 ["UpdateMeshGenWidget"]
-  DUPTABLE R4 K4 [{"guid", "state"}]
-  GETUPVAL R5 3
-  SETTABLEKS R5 R4 K2 ["guid"]
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K5 ["Generated"]
-  JUMP [+3]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K6 ["GenerationFailed"]
-  SETTABLEKS R5 R4 K3 ["state"]
-  NAMECALL R1 R1 K7 ["DisplayContent"]
-  CALL R1 3 0
   RETURN R0 0
 
 PROTO_17:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_18:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R1 1 2
+  GETUPVAL R3 1
+  CALL R3 0 1
+  JUMPIF R3 [+13]
+  GETUPVAL R3 2
+  GETTABLEKS R5 R0 K2 ["requestId"]
+  GETTABLEKS R6 R0 K3 ["generationId"]
+  MOVE R7 R1
+  JUMPIF R1 [+2]
+  MOVE R8 R2
+  JUMP [+1]
+  LOADK R8 K4 [""]
+  NAMECALL R3 R3 K5 ["SendMeshGenMeshInsertedTelemetry"]
+  CALL R3 5 0
+  JUMPIF R1 [+5]
+  GETIMPORT R3 K7 [error]
+  MOVE R4 R2
+  LOADN R5 0
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_19:
   GETUPVAL R0 0
   GETUPVAL R1 1
   GETUPVAL R2 2
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_18:
+PROTO_20:
   GETUPVAL R0 0
   LOADK R2 K0 ["UpdateMeshGenWidget"]
   DUPTABLE R3 K3 [{"guid", "state"}]
@@ -717,85 +767,139 @@ PROTO_18:
   CAPTURE UPVAL U1
   CAPTURE UPVAL U4
   CALL R0 1 3
-  JUMPIF R0 [+4]
-  GETUPVAL R3 5
-  LOADB R4 0
-  CALL R3 1 0
-  RETURN R0 0
-  DUPTABLE R3 K12 [{"requestId", "prompt", "guid", "generationId", "editableMeshPart"}]
+  JUMPIF R0 [+43]
+  GETIMPORT R3 K10 [string.find]
+  GETIMPORT R4 K12 [string.lower]
+  MOVE R5 R1
+  CALL R4 1 1
+  LOADK R5 K13 ["moderat"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+15]
+  GETUPVAL R3 0
+  LOADK R5 K0 ["UpdateMeshGenWidget"]
+  DUPTABLE R6 K3 [{"guid", "state"}]
+  GETUPVAL R7 1
+  SETTABLEKS R7 R6 K1 ["guid"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K14 ["GenerationModerated"]
+  SETTABLEKS R7 R6 K2 ["state"]
+  NAMECALL R3 R3 K5 ["DisplayContent"]
+  CALL R3 3 0
+  JUMP [+14]
+  GETUPVAL R3 0
+  LOADK R5 K0 ["UpdateMeshGenWidget"]
+  DUPTABLE R6 K3 [{"guid", "state"}]
+  GETUPVAL R7 1
+  SETTABLEKS R7 R6 K1 ["guid"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K15 ["GenerationFailed"]
+  SETTABLEKS R7 R6 K2 ["state"]
+  NAMECALL R3 R3 K5 ["DisplayContent"]
+  CALL R3 3 0
+  GETIMPORT R3 K17 [error]
+  MOVE R4 R1
+  LOADN R5 0
+  CALL R3 2 0
+  LOADNIL R3
+  SETUPVAL R3 5
+  DUPTABLE R3 K22 [{"requestId", "prompt", "guid", "generationId", "editableMeshPart"}]
   GETUPVAL R5 7
-  GETTABLEKS R4 R5 K8 ["requestId"]
-  SETTABLEKS R4 R3 K8 ["requestId"]
+  GETTABLEKS R4 R5 K18 ["requestId"]
+  SETTABLEKS R4 R3 K18 ["requestId"]
   GETUPVAL R4 4
-  SETTABLEKS R4 R3 K9 ["prompt"]
+  SETTABLEKS R4 R3 K19 ["prompt"]
   GETUPVAL R4 1
   SETTABLEKS R4 R3 K1 ["guid"]
-  SETTABLEKS R1 R3 K10 ["generationId"]
-  SETTABLEKS R2 R3 K11 ["editableMeshPart"]
+  SETTABLEKS R1 R3 K20 ["generationId"]
+  SETTABLEKS R2 R3 K21 ["editableMeshPart"]
   SETUPVAL R3 6
-  GETUPVAL R3 5
-  LOADB R4 1
-  CALL R3 1 0
+  GETUPVAL R3 0
+  LOADK R5 K0 ["UpdateMeshGenWidget"]
+  DUPTABLE R6 K3 [{"guid", "state"}]
+  GETUPVAL R7 1
+  SETTABLEKS R7 R6 K1 ["guid"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K23 ["Generated"]
+  SETTABLEKS R7 R6 K2 ["state"]
+  NAMECALL R3 R3 K5 ["DisplayContent"]
+  CALL R3 3 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_21:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_22:
   GETUPVAL R2 0
   NOT R1 R2
   FASTCALL2K ASSERT R1 K0 [+4]
   LOADK R2 K0 ["Generation already succeeded"]
   GETIMPORT R0 K2 [assert]
   CALL R0 2 0
-  GETUPVAL R0 1
-  CALL R0 0 0
+  GETIMPORT R0 K4 [pcall]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U1
+  CALL R0 1 2
+  GETUPVAL R2 2
+  CALL R2 0 1
+  JUMPIF R2 [+21]
+  GETUPVAL R2 3
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K6 ["requestId"]
+  ORK R4 R5 K5 [""]
+  GETUPVAL R6 0
+  JUMPIFNOT R6 [+4]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["generationId"]
+  JUMP [+1]
+  LOADK R5 K5 [""]
+  MOVE R6 R0
+  JUMPIF R0 [+2]
+  MOVE R7 R1
+  JUMP [+1]
+  LOADK R7 K5 [""]
+  GETUPVAL R8 5
+  NAMECALL R2 R2 K8 ["SendMeshGenCompletedTelemetry"]
+  CALL R2 6 0
+  JUMPIF R0 [+5]
+  GETIMPORT R2 K10 [error]
+  MOVE R3 R1
+  LOADN R4 0
+  CALL R2 2 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_23:
   GETUPVAL R1 0
   FASTCALL2K ASSERT R1 K0 [+4]
-  LOADK R2 K0 ["Generation data not found"]
+  LOADK R2 K0 ["Generation thread not found"]
   GETIMPORT R0 K2 [assert]
   CALL R0 2 0
-  GETUPVAL R0 0
-  GETTABLEKS R3 R0 K3 ["meshId"]
-  JUMPIFNOT R3 [+2]
-  GETTABLEKS R3 R0 K4 ["textureId"]
-  NOT R2 R3
-  FASTCALL2K ASSERT R2 K5 [+4]
-  LOADK R3 K5 ["Assets already published"]
-  GETIMPORT R1 K2 [assert]
-  CALL R1 2 0
-  GETTABLEKS R1 R0 K6 ["editableMeshPart"]
-  FASTCALL2K ASSERT R1 K7 [+5]
-  MOVE R3 R1
-  LOADK R4 K7 ["EditableMeshPart not found"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  GETUPVAL R4 1
-  GETTABLEKS R6 R1 K8 ["MeshContent"]
-  GETTABLEKS R5 R6 K9 ["Object"]
-  CALL R4 1 1
-  GETUPVAL R5 2
-  GETTABLEKS R7 R1 K10 ["TextureContent"]
-  GETTABLEKS R6 R7 K9 ["Object"]
-  CALL R5 1 1
-  GETUPVAL R6 3
-  CALL R6 0 1
-  JUMPIF R6 [+4]
-  GETUPVAL R6 4
-  NAMECALL R6 R6 K11 ["SendMeshGenPublishedAssetsTelemetry"]
-  CALL R6 1 0
-  MOVE R2 R4
-  MOVE R3 R5
-  FASTCALL2K ASSERT R2 K12 [+5]
-  MOVE R5 R2
-  LOADK R6 K12 ["Failed to create mesh asset"]
-  GETIMPORT R4 K2 [assert]
-  CALL R4 2 0
-  SETTABLEKS R2 R0 K3 ["meshId"]
-  SETTABLEKS R3 R0 K4 ["textureId"]
+  GETIMPORT R0 K5 [task.cancel]
+  GETUPVAL R1 0
+  CALL R0 1 0
+  LOADNIL R0
+  SETUPVAL R0 0
+  GETUPVAL R0 1
+  LOADK R2 K6 ["UpdateMeshGenWidget"]
+  DUPTABLE R3 K9 [{"guid", "state"}]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K7 ["guid"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K10 ["GenerationCanceled"]
+  SETTABLEKS R4 R3 K8 ["state"]
+  NAMECALL R0 R0 K11 ["DisplayContent"]
+  CALL R0 3 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_24:
+  GETIMPORT R0 K2 [task.spawn]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_25:
   GETUPVAL R1 0
   FASTCALL2K ASSERT R1 K0 [+4]
   LOADK R2 K0 ["Generation data not found"]
@@ -806,7 +910,18 @@ PROTO_21:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_26:
+  GETUPVAL R1 0
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["Generation data not found"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R0 1
+  GETUPVAL R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_27:
   GETTABLEKS R1 R0 K0 ["arguments"]
   GETTABLEKS R2 R1 K1 ["prompt"]
   FASTCALL1 TYPE R2 [+3]
@@ -839,50 +954,62 @@ PROTO_22:
   CALL R5 3 -1
   CALL R3 -1 0
   GETUPVAL R3 2
-  NAMECALL R3 R3 K14 ["GenerateGUID"]
+  CALL R3 0 1
+  JUMPIF R3 [+4]
+  GETUPVAL R3 3
+  NAMECALL R3 R3 K14 ["SendMeshGenActivatedTelemetry"]
+  CALL R3 1 0
+  GETUPVAL R3 4
+  NAMECALL R3 R3 K15 ["GenerateGUID"]
   CALL R3 1 1
   LOADNIL R4
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CAPTURE VAL R3
-  CAPTURE UPVAL U6
-  NEWCLOSURE R6 P1
+  LOADNIL R5
+  NEWCLOSURE R6 P0
   CAPTURE UPVAL U5
   CAPTURE VAL R3
   CAPTURE UPVAL U6
   CAPTURE UPVAL U7
   CAPTURE VAL R2
-  CAPTURE VAL R5
+  CAPTURE REF R5
   CAPTURE REF R4
   CAPTURE VAL R0
-  GETUPVAL R7 5
-  LOADK R9 K15 ["AddMeshGenWidget"]
-  DUPTABLE R10 K21 [{"guid", "previewCount", "runGeneration", "publishAssets", "insertMeshPart"}]
-  SETTABLEKS R3 R10 K16 ["guid"]
-  LOADN R11 4
-  SETTABLEKS R11 R10 K17 ["previewCount"]
-  NEWCLOSURE R11 P2
+  NEWCLOSURE R7 P1
   CAPTURE REF R4
   CAPTURE VAL R6
-  SETTABLEKS R11 R10 K18 ["runGeneration"]
-  NEWCLOSURE R11 P3
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NEWCLOSURE R8 P2
+  CAPTURE REF R5
+  CAPTURE UPVAL U5
+  CAPTURE VAL R3
+  CAPTURE UPVAL U6
+  GETUPVAL R9 5
+  LOADK R11 K16 ["AddMeshGenWidget"]
+  DUPTABLE R12 K23 [{"guid", "previewCount", "runGeneration", "cancelGeneration", "publishAssets", "insertMeshPart"}]
+  SETTABLEKS R3 R12 K17 ["guid"]
+  LOADN R13 4
+  SETTABLEKS R13 R12 K18 ["previewCount"]
+  NEWCLOSURE R13 P3
+  CAPTURE REF R5
+  CAPTURE VAL R7
+  SETTABLEKS R13 R12 K19 ["runGeneration"]
+  SETTABLEKS R8 R12 K20 ["cancelGeneration"]
+  NEWCLOSURE R13 P4
   CAPTURE REF R4
   CAPTURE UPVAL U8
-  CAPTURE UPVAL U9
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  SETTABLEKS R11 R10 K19 ["publishAssets"]
-  NEWCLOSURE R11 P4
+  SETTABLEKS R13 R12 K21 ["publishAssets"]
+  NEWCLOSURE R13 P5
   CAPTURE REF R4
-  CAPTURE UPVAL U10
-  SETTABLEKS R11 R10 K20 ["insertMeshPart"]
-  NAMECALL R7 R7 K22 ["DisplayContent"]
-  CALL R7 3 0
-  GETIMPORT R7 K25 [task.spawn]
-  MOVE R8 R6
-  CALL R7 1 0
+  CAPTURE UPVAL U9
+  SETTABLEKS R13 R12 K22 ["insertMeshPart"]
+  NAMECALL R9 R9 K24 ["DisplayContent"]
+  CALL R9 3 0
+  GETIMPORT R9 K27 [task.spawn]
+  MOVE R10 R7
+  CALL R9 1 1
+  MOVE R5 R9
   CLOSEUPVALS R4
   RETURN R0 0
 
@@ -944,14 +1071,14 @@ MAIN:
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K6 ["Src"]
   GETTABLEKS R16 R17 K23 ["Flags"]
-  GETTABLEKS R15 R16 K24 ["getFFlagConvAIGenerateMesh"]
+  GETTABLEKS R15 R16 K24 ["getFFlagConvAIMeshGen"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K6 ["Src"]
   GETTABLEKS R17 R18 K23 ["Flags"]
   GETTABLEKS R16 R17 K25 ["getFFlagDebugConvAIBypassGenerationService"]
   CALL R15 1 1
-  DUPTABLE R16 K34 [{"GeneratingMesh", "GeneratingTexture", "GenerationFailed", "Generated", "Publishing", "PublishFailed", "Published", "Inserting"}]
+  DUPTABLE R16 K36 [{"GeneratingMesh", "GeneratingTexture", "GenerationFailed", "GenerationModerated", "GenerationCanceled", "Generated", "Publishing", "PublishFailed", "Published", "Inserting"}]
   LOADN R17 0
   SETTABLEKS R17 R16 K26 ["GeneratingMesh"]
   LOADN R17 1
@@ -959,24 +1086,28 @@ MAIN:
   LOADN R17 2
   SETTABLEKS R17 R16 K28 ["GenerationFailed"]
   LOADN R17 3
-  SETTABLEKS R17 R16 K29 ["Generated"]
+  SETTABLEKS R17 R16 K29 ["GenerationModerated"]
   LOADN R17 4
-  SETTABLEKS R17 R16 K30 ["Publishing"]
+  SETTABLEKS R17 R16 K30 ["GenerationCanceled"]
   LOADN R17 5
-  SETTABLEKS R17 R16 K31 ["PublishFailed"]
+  SETTABLEKS R17 R16 K31 ["Generated"]
   LOADN R17 6
-  SETTABLEKS R17 R16 K32 ["Published"]
+  SETTABLEKS R17 R16 K32 ["Publishing"]
   LOADN R17 7
-  SETTABLEKS R17 R16 K33 ["Inserting"]
+  SETTABLEKS R17 R16 K33 ["PublishFailed"]
+  LOADN R17 8
+  SETTABLEKS R17 R16 K34 ["Published"]
+  LOADN R17 9
+  SETTABLEKS R17 R16 K35 ["Inserting"]
   LOADN R17 0
   MOVE R19 R14
   CALL R19 0 1
-  FASTCALL2K ASSERT R19 K35 [+4]
-  LOADK R20 K35 ["FFlag ConvAIGenerateMesh must be enabled to use this command"]
-  GETIMPORT R18 K37 [assert]
+  FASTCALL2K ASSERT R19 K37 [+4]
+  LOADK R20 K37 ["FFlagConvAIMeshGen must be enabled to use this command"]
+  GETIMPORT R18 K39 [assert]
   CALL R18 2 0
-  DUPCLOSURE R18 K38 [PROTO_0]
-  DUPCLOSURE R19 K39 [PROTO_1]
+  DUPCLOSURE R18 K40 [PROTO_0]
+  DUPCLOSURE R19 K41 [PROTO_1]
   NEWCLOSURE R20 P2
   CAPTURE VAL R5
   CAPTURE REF R17
@@ -985,7 +1116,7 @@ MAIN:
   CAPTURE REF R17
   CAPTURE VAL R20
   CAPTURE VAL R3
-  DUPCLOSURE R22 K40 [PROTO_8]
+  DUPCLOSURE R22 K42 [PROTO_8]
   CAPTURE VAL R15
   CAPTURE VAL R2
   CAPTURE VAL R21
@@ -993,44 +1124,43 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R3
   CAPTURE VAL R16
-  DUPCLOSURE R23 K41 [PROTO_9]
+  DUPCLOSURE R23 K43 [PROTO_9]
   CAPTURE VAL R2
-  DUPCLOSURE R24 K42 [PROTO_10]
+  DUPCLOSURE R24 K44 [PROTO_10]
   CAPTURE VAL R2
-  DUPCLOSURE R25 K43 [PROTO_11]
-  CAPTURE VAL R23
-  CAPTURE VAL R24
-  CAPTURE VAL R15
-  CAPTURE VAL R4
-  DUPCLOSURE R26 K44 [PROTO_12]
+  DUPCLOSURE R25 K45 [PROTO_11]
   CAPTURE VAL R2
-  DUPCLOSURE R27 K45 [PROTO_13]
-  CAPTURE VAL R26
+  DUPCLOSURE R26 K46 [PROTO_12]
+  CAPTURE VAL R25
   CAPTURE VAL R18
-  DUPCLOSURE R28 K46 [PROTO_14]
+  DUPCLOSURE R27 K47 [PROTO_13]
+  CAPTURE VAL R23
+  CAPTURE VAL R24
+  DUPCLOSURE R28 K48 [PROTO_15]
   CAPTURE VAL R23
   CAPTURE VAL R24
   CAPTURE VAL R15
   CAPTURE VAL R4
-  DUPCLOSURE R29 K47 [PROTO_15]
+  DUPCLOSURE R29 K49 [PROTO_16]
   CAPTURE VAL R10
-  CAPTURE VAL R26
+  CAPTURE VAL R25
   CAPTURE VAL R18
   CAPTURE VAL R8
   CAPTURE VAL R13
+  DUPCLOSURE R30 K50 [PROTO_18]
+  CAPTURE VAL R29
   CAPTURE VAL R15
   CAPTURE VAL R4
-  DUPCLOSURE R30 K48 [PROTO_22]
+  DUPCLOSURE R31 K51 [PROTO_27]
   CAPTURE VAL R13
   CAPTURE VAL R11
-  CAPTURE VAL R7
   CAPTURE VAL R15
   CAPTURE VAL R4
+  CAPTURE VAL R7
   CAPTURE VAL R3
   CAPTURE VAL R16
   CAPTURE VAL R22
-  CAPTURE VAL R23
-  CAPTURE VAL R24
-  CAPTURE VAL R29
+  CAPTURE VAL R28
+  CAPTURE VAL R30
   CLOSEUPVALS R17
-  RETURN R30 1
+  RETURN R31 1

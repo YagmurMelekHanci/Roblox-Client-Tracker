@@ -1,9 +1,12 @@
 local CorePackages = game:GetService("CorePackages")
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
-local GetFFlagSongbirdWindowResponsiveSizing =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdWindowResponsiveSizing
+local GetFFlagSongbirdWindowResponsiveSizing = SharedFlags.GetFFlagSongbirdWindowResponsiveSizing
 
 type SpringOptions = ReactOtter.SpringOptions
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
@@ -28,6 +31,7 @@ return {
 	ICON_CELL_WIDTH = 44,
 	DIVIDER_CELL_WIDTH = 5,
 	ICON_SIZE = 36,
+	ICON_NAME_PREFIX = if FFlagTiltIconUnibarFocusNav then "IconHitArea_" else nil,
 	MEDIUM_ICON_SIZE = 28,
 	UNIBAR_END_PADDING = 4,
 	-- Duplicate of TopBarConstants.Padding

@@ -49,23 +49,17 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Thunks"]
-  GETTABLEKS R3 R4 K8 ["Selection"]
-  GETTABLEKS R2 R3 K9 ["SelectKeyframe"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Actions"]
+  GETTABLEKS R2 R3 K8 ["SetSelectedKeyframes"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Actions"]
-  GETTABLEKS R3 R4 K11 ["SetSelectedKeyframes"]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Thunks"]
+  GETTABLEKS R4 R5 K10 ["Selection"]
+  GETTABLEKS R3 R4 K11 ["SelectKeyframeRange"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K7 ["Thunks"]
-  GETTABLEKS R5 R6 K8 ["Selection"]
-  GETTABLEKS R4 R5 K12 ["SelectKeyframeRange"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K13 [PROTO_1]
+  DUPCLOSURE R3 K12 [PROTO_1]
+  CAPTURE VAL R1
   CAPTURE VAL R2
-  CAPTURE VAL R3
-  RETURN R4 1
+  RETURN R3 1

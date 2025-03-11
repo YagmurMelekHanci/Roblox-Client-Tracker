@@ -1,778 +1,769 @@
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AnimationClipEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["Constants"]
-  CALL R1 1 1
-  NEWTABLE R2 1 0
-  NEWTABLE R3 64 0
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  NEWTABLE R0 1 0
+  NEWTABLE R1 64 0
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 98
   LOADN R6 0
-  LOADN R7 98
-  LOADN R8 0
-  LOADN R9 27
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K17 ["ChinRaiserUpperLip"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 80
-  LOADN R8 0
-  LOADN R9 33
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K18 ["ChinRaiser"]
-  DUPTABLE R4 K20 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 20
-  LOADN R8 0
-  LOADN R9 249
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 180
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 50
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  SETTABLEKS R4 R3 K21 ["FlatPucker"]
-  DUPTABLE R4 K20 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 20
-  LOADN R8 0
-  LOADN R9 207
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 180
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 50
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  SETTABLEKS R4 R3 K22 ["Funneler"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 68
-  LOADN R8 0
-  LOADN R9 8
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 231
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K23 ["LowerLipSuck"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 71
-  LOADN R8 0
-  LOADN R9 229
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 90
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K24 ["LipPresser"]
-  DUPTABLE R4 K20 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 93
-  LOADN R8 0
-  LOADN R9 220
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 90
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 35
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  SETTABLEKS R4 R3 K25 ["LipsTogether"]
-  DUPTABLE R4 K27 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 106
-  LOADN R8 0
-  LOADN R9 240
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K12 ["rotation"]
+  LOADN R7 27
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K8 ["ChinRaiserUpperLip"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
   LOADN R5 80
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  LOADK R5 K29 ["Mouth"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K30 ["MouthLeft"]
-  DUPTABLE R4 K27 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
   LOADN R6 0
-  LOADN R7 70
-  LOADN R8 0
-  LOADN R9 240
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 80
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  LOADK R5 K29 ["Mouth"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K31 ["MouthRight"]
-  DUPTABLE R4 K20 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 33
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K9 ["ChinRaiser"]
+  DUPTABLE R2 K11 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 20
   LOADN R6 0
-  LOADN R7 20
-  LOADN R8 0
-  LOADN R9 227
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 180
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 50
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  SETTABLEKS R4 R3 K32 ["Pucker"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 249
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 180
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 50
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  SETTABLEKS R2 R1 K12 ["FlatPucker"]
+  DUPTABLE R2 K11 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 20
   LOADN R6 0
-  LOADN R7 66
-  LOADN R8 0
-  LOADN R9 191
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 36
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K33 ["UpperLipSuck"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 207
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 180
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 50
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  SETTABLEKS R2 R1 K13 ["Funneler"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 68
   LOADN R6 0
-  LOADN R7 175
-  LOADN R8 0
-  LOADN R9 213
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K34 ["LeftCheekPuff"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 8
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 231
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K14 ["LowerLipSuck"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 71
   LOADN R6 0
-  LOADN R7 171
-  LOADN R8 0
-  LOADN R9 232
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K35 ["LeftDimpler"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 229
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 90
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K15 ["LipPresser"]
+  DUPTABLE R2 K11 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 93
   LOADN R6 0
-  LOADN R7 146
-  LOADN R8 0
-  LOADN R9 24
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 55
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K36 ["LeftLipCornerDown"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 220
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 90
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 35
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  SETTABLEKS R2 R1 K16 ["LipsTogether"]
+  DUPTABLE R2 K18 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 106
   LOADN R6 0
-  LOADN R7 120
-  LOADN R8 0
-  LOADN R9 18
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 65
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K37 ["LeftLowerLipDepressor"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 240
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 80
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  LOADK R3 K20 ["Mouth"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K21 ["MouthLeft"]
+  DUPTABLE R2 K18 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 70
   LOADN R6 0
-  LOADN R7 138
-  LOADN R8 0
-  LOADN R9 216
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 206
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K38 ["LeftLipCornerPuller"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 240
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 80
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  LOADK R3 K20 ["Mouth"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K22 ["MouthRight"]
+  DUPTABLE R2 K11 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 20
   LOADN R6 0
-  LOADN R7 155
-  LOADN R8 0
-  LOADN R9 251
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K39 ["LeftLipStretcher"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 227
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 180
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 50
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  SETTABLEKS R2 R1 K23 ["Pucker"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 66
   LOADN R6 0
-  LOADN R7 118
-  LOADN R8 0
-  LOADN R9 204
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 191
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K40 ["LeftUpperLipRaiser"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 191
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 36
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K24 ["UpperLipSuck"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 175
   LOADN R6 0
-  LOADN R7 0
-  LOADN R8 0
-  LOADN R9 213
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 76
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K41 ["RightCheekPuff"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 213
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K25 ["LeftCheekPuff"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 171
   LOADN R6 0
-  LOADN R7 3
-  LOADN R8 0
-  LOADN R9 232
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 180
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K42 ["RightDimpler"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 28
-  LOADN R8 0
-  LOADN R9 24
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 125
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K43 ["RightLipCornerDown"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 53
-  LOADN R8 0
-  LOADN R9 18
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 114
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K44 ["RightLowerLipDepressor"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 36
-  LOADN R8 0
-  LOADN R9 216
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 126
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K45 ["RightLipCornerPuller"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 232
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K26 ["LeftDimpler"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 146
   LOADN R6 0
   LOADN R7 24
-  LOADN R8 0
-  LOADN R9 251
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 76
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K46 ["RightLipStretcher"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 55
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K27 ["LeftLipCornerDown"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 120
+  LOADN R6 0
+  LOADN R7 18
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 65
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K28 ["LeftLowerLipDepressor"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 138
+  LOADN R6 0
+  LOADN R7 216
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 206
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K29 ["LeftLipCornerPuller"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 155
+  LOADN R6 0
+  LOADN R7 251
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K30 ["LeftLipStretcher"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 118
+  LOADN R6 0
+  LOADN R7 204
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 191
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K31 ["LeftUpperLipRaiser"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
   LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 213
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 76
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K32 ["RightCheekPuff"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 3
+  LOADN R6 0
+  LOADN R7 232
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 180
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K33 ["RightDimpler"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 28
+  LOADN R6 0
+  LOADN R7 24
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 125
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K34 ["RightLipCornerDown"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 53
+  LOADN R6 0
+  LOADN R7 18
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 114
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K35 ["RightLowerLipDepressor"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 36
+  LOADN R6 0
+  LOADN R7 216
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 126
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K36 ["RightLipCornerPuller"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 24
+  LOADN R6 0
+  LOADN R7 251
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 76
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K37 ["RightLipStretcher"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 58
+  LOADN R6 0
+  LOADN R7 204
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 146
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K38 ["RightUpperLipRaiser"]
+  DUPTABLE R2 K11 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 118
+  LOADN R6 0
+  LOADN R7 50
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 90
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 40
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  SETTABLEKS R2 R1 K39 ["JawDrop"]
+  DUPTABLE R2 K18 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 64
+  LOADN R6 0
+  LOADN R7 42
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 60
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  LOADK R3 K40 ["Jaw"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K41 ["JawLeft"]
+  DUPTABLE R2 K18 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 80
+  LOADN R6 0
+  LOADN R7 72
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 60
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  LOADK R3 K40 ["Jaw"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K42 ["JawRight"]
+  DUPTABLE R2 K11 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 94
+  LOADN R6 0
+  LOADN R7 100
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 36
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  SETTABLEKS R2 R1 K43 ["Corrugator"]
+  DUPTABLE R2 K11 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 122
+  LOADN R6 0
+  LOADN R7 100
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 100
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 36
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  SETTABLEKS R2 R1 K44 ["LeftBrowLowerer"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 145
   LOADN R6 0
   LOADN R7 58
-  LOADN R8 0
-  LOADN R9 204
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 146
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K47 ["RightUpperLipRaiser"]
-  DUPTABLE R4 K20 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 186
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K45 ["LeftOuterBrowRaiser"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 102
   LOADN R6 0
-  LOADN R7 118
-  LOADN R8 0
-  LOADN R9 50
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 90
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 40
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  SETTABLEKS R4 R3 K48 ["JawDrop"]
-  DUPTABLE R4 K27 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 181
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K46 ["LeftNoseWrinkler"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 105
   LOADN R6 0
-  LOADN R7 64
-  LOADN R8 0
-  LOADN R9 42
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 60
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  LOADK R5 K49 ["Jaw"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K50 ["JawLeft"]
-  DUPTABLE R4 K27 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 58
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K47 ["LeftInnerBrowRaiser"]
+  DUPTABLE R2 K11 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 56
   LOADN R6 0
-  LOADN R7 80
-  LOADN R8 0
-  LOADN R9 72
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 60
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  LOADK R5 K49 ["Jaw"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K51 ["JawRight"]
-  DUPTABLE R4 K20 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 100
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 80
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 36
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  SETTABLEKS R2 R1 K48 ["RightBrowLowerer"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 28
   LOADN R6 0
-  LOADN R7 94
-  LOADN R8 0
-  LOADN R9 100
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 36
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  SETTABLEKS R4 R3 K52 ["Corrugator"]
-  DUPTABLE R4 K20 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  LOADN R7 58
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 146
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K49 ["RightOuterBrowRaiser"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 69
   LOADN R6 0
-  LOADN R7 122
-  LOADN R8 0
-  LOADN R9 100
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 100
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 36
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  SETTABLEKS R4 R3 K53 ["LeftBrowLowerer"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R7 58
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K50 ["RightInnerBrowRaiser"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 75
+  LOADN R6 0
+  LOADN R7 181
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K51 ["RightNoseWrinkler"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 169
+  LOADN R6 0
+  LOADN R7 171
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 141
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K52 ["LeftCheekRaiser"]
+  DUPTABLE R2 K53 [{"currentValue", "defaultValue", "position", "rotation", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 111
+  LOADN R6 0
+  LOADN R7 125
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADK R3 K54 ["LeftEye"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K55 ["LeftEyeUpperLidRaiser"]
+  DUPTABLE R2 K18 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 111
+  LOADN R6 0
+  LOADN R7 143
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 44
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  LOADK R3 K54 ["LeftEye"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K56 ["LeftEyeClosed"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 5
+  LOADN R6 0
+  LOADN R7 171
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 194
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K57 ["RightCheekRaiser"]
+  DUPTABLE R2 K53 [{"currentValue", "defaultValue", "position", "rotation", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 67
+  LOADN R6 0
+  LOADN R7 125
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADK R3 K58 ["RightEye"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K59 ["RightEyeUpperLidRaiser"]
+  DUPTABLE R2 K18 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 67
+  LOADN R6 0
+  LOADN R7 143
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 166
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 44
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  LOADK R3 K58 ["RightEye"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K60 ["RightEyeClosed"]
+  DUPTABLE R2 K18 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 168
+  LOADN R6 0
+  LOADN R7 219
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 90
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 50
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  LOADK R3 K61 ["Tongue"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K62 ["TongueDown"]
+  DUPTABLE R2 K18 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADK R3 K19 [0.5]
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 164
+  LOADN R6 0
+  LOADN R7 219
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 90
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  LOADN R3 50
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  LOADK R3 K61 ["Tongue"]
+  SETTABLEKS R3 R2 K17 ["Tooltip"]
+  SETTABLEKS R2 R1 K63 ["TongueUp"]
+  DUPTABLE R2 K4 [{"currentValue", "defaultValue", "position", "rotation"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 135
+  LOADN R6 0
+  LOADN R7 219
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 180
+  SETTABLEKS R3 R2 K3 ["rotation"]
+  SETTABLEKS R2 R1 K64 ["TongueOut"]
+  DUPTABLE R2 K65 [{"currentValue", "defaultValue", "position", "customWidth"}]
+  GETIMPORT R3 K67 [Vector2.new]
+  LOADN R4 0
   LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K0 ["currentValue"]
+  GETIMPORT R3 K67 [Vector2.new]
+  LOADN R4 0
   LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K1 ["defaultValue"]
+  GETIMPORT R3 K7 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 110
   LOADN R6 0
   LOADN R7 145
-  LOADN R8 0
-  LOADN R9 58
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 186
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K54 ["LeftOuterBrowRaiser"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 102
-  LOADN R8 0
-  LOADN R9 181
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K55 ["LeftNoseWrinkler"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 105
-  LOADN R8 0
-  LOADN R9 58
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K56 ["LeftInnerBrowRaiser"]
-  DUPTABLE R4 K20 [{"currentValue", "defaultValue", "position", "rotation", "customWidth"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 56
-  LOADN R8 0
-  LOADN R9 100
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 80
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 36
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  SETTABLEKS R4 R3 K57 ["RightBrowLowerer"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 28
-  LOADN R8 0
-  LOADN R9 58
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 146
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K58 ["RightOuterBrowRaiser"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 69
-  LOADN R8 0
-  LOADN R9 58
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K59 ["RightInnerBrowRaiser"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 75
-  LOADN R8 0
-  LOADN R9 181
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K60 ["RightNoseWrinkler"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 169
-  LOADN R8 0
-  LOADN R9 171
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 141
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K61 ["LeftCheekRaiser"]
-  DUPTABLE R4 K62 [{"currentValue", "defaultValue", "position", "rotation", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 111
-  LOADN R8 0
-  LOADN R9 125
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADK R5 K63 ["LeftEye"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K64 ["LeftEyeUpperLidRaiser"]
-  DUPTABLE R4 K27 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 111
-  LOADN R8 0
-  LOADN R9 143
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 44
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  LOADK R5 K63 ["LeftEye"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K65 ["LeftEyeClosed"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 5
-  LOADN R8 0
-  LOADN R9 171
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 194
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K66 ["RightCheekRaiser"]
-  DUPTABLE R4 K62 [{"currentValue", "defaultValue", "position", "rotation", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 67
-  LOADN R8 0
-  LOADN R9 125
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADK R5 K67 ["RightEye"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K68 ["RightEyeUpperLidRaiser"]
-  DUPTABLE R4 K27 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 67
-  LOADN R8 0
-  LOADN R9 143
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 166
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 44
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  LOADK R5 K67 ["RightEye"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K69 ["RightEyeClosed"]
-  DUPTABLE R4 K27 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 168
-  LOADN R8 0
-  LOADN R9 219
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 90
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 50
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  LOADK R5 K70 ["Tongue"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K71 ["TongueDown"]
-  DUPTABLE R4 K27 [{"currentValue", "defaultValue", "position", "rotation", "customWidth", "Tooltip"}]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADK R5 K28 [0.5]
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 164
-  LOADN R8 0
-  LOADN R9 219
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 90
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  LOADN R5 50
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  LOADK R5 K70 ["Tongue"]
-  SETTABLEKS R5 R4 K26 ["Tooltip"]
-  SETTABLEKS R4 R3 K72 ["TongueUp"]
-  DUPTABLE R4 K13 [{"currentValue", "defaultValue", "position", "rotation"}]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 135
-  LOADN R8 0
-  LOADN R9 219
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 180
-  SETTABLEKS R5 R4 K12 ["rotation"]
-  SETTABLEKS R4 R3 K73 ["TongueOut"]
-  DUPTABLE R4 K74 [{"currentValue", "defaultValue", "position", "customWidth"}]
-  GETIMPORT R5 K76 [Vector2.new]
-  LOADN R6 0
-  LOADN R7 0
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K9 ["currentValue"]
-  GETIMPORT R5 K76 [Vector2.new]
-  LOADN R6 0
-  LOADN R7 0
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K10 ["defaultValue"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 0
-  LOADN R7 110
-  LOADN R8 0
-  LOADN R9 145
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K11 ["position"]
-  LOADN R5 30
-  SETTABLEKS R5 R4 K19 ["customWidth"]
-  SETTABLEKS R4 R3 K77 ["EyesDragBox"]
-  SETTABLEKS R3 R2 K78 ["FacsControlToFaceSliderInfoMap"]
-  RETURN R2 1
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K2 ["position"]
+  LOADN R3 30
+  SETTABLEKS R3 R2 K10 ["customWidth"]
+  SETTABLEKS R2 R1 K68 ["EyesDragBox"]
+  SETTABLEKS R1 R0 K69 ["FacsControlToFaceSliderInfoMap"]
+  RETURN R0 1

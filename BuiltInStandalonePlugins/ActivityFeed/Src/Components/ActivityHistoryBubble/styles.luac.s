@@ -293,17 +293,20 @@ MAIN:
   SETTABLEKS R36 R35 K70 ["TextYAlignment"]
   CALL R33 2 1
   MOVE R34 R3
-  LOADK R35 K97 [">> #CommitMessage"]
-  DUPTABLE R36 K93 [{"TextColor3", "TextSize", "TextXAlignment", "TextYAlignment"}]
-  LOADK R37 K98 ["$TextSecondary"]
-  SETTABLEKS R37 R36 K52 ["TextColor3"]
-  GETTABLEKS R37 R2 K94 ["normalFontSize"]
-  SETTABLEKS R37 R36 K87 ["TextSize"]
-  GETIMPORT R37 K73 [Enum.TextXAlignment.Left]
-  SETTABLEKS R37 R36 K69 ["TextXAlignment"]
-  GETIMPORT R37 K96 [Enum.TextYAlignment.Top]
-  SETTABLEKS R37 R36 K70 ["TextYAlignment"]
-  CALL R34 2 -1
+  LOADK R35 K97 [">> .AddTopPadding"]
+  NEWTABLE R36 0 0
+  NEWTABLE R37 0 1
+  MOVE R38 R3
+  LOADK R39 K42 ["::UIPadding"]
+  DUPTABLE R40 K98 [{"PaddingTop"}]
+  GETIMPORT R41 K35 [UDim.new]
+  LOADN R42 0
+  LOADN R43 4
+  CALL R41 2 1
+  SETTABLEKS R41 R40 K43 ["PaddingTop"]
+  CALL R38 2 -1
+  SETLIST R37 R38 -1 [1]
+  CALL R34 3 -1
   SETLIST R31 R32 -1 [1]
   CALL R28 3 1
   MOVE R29 R3

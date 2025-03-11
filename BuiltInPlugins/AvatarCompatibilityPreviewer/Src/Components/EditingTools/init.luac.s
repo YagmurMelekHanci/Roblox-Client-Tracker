@@ -147,123 +147,124 @@ PROTO_7:
   CAPTURE VAL R4
   CAPTURE VAL R5
   CAPTURE VAL R1
-  GETUPVAL R10 8
-  GETTABLEKS R12 R0 K27 ["avatar"]
-  GETTABLEKS R11 R12 K28 ["WorldModel"]
-  LOADK R12 K29 ["InitialCageMeshesData_V2"]
-  LOADNIL R13
-  CALL R10 3 2
-  GETUPVAL R12 8
-  GETTABLEKS R14 R0 K27 ["avatar"]
-  GETTABLEKS R13 R14 K28 ["WorldModel"]
-  LOADK R14 K30 ["CageChangeHistory"]
-  LOADNIL R15
-  CALL R12 3 2
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K31 ["createElement"]
+  NEWTABLE R10 0 0
+  GETUPVAL R11 8
+  CALL R11 0 1
+  JUMPIFNOT R11 [+21]
+  MOVE R13 R9
+  LOADK R14 K27 ["attachments"]
+  GETTABLEKS R15 R3 K28 ["AttachmentToolImage"]
+  LOADK R18 K5 ["EditingTools"]
+  LOADK R19 K29 ["AttachmentsTool"]
+  NAMECALL R16 R2 K21 ["getText"]
+  CALL R16 3 1
+  LOADK R19 K5 ["EditingTools"]
+  LOADK R20 K30 ["AttachmentsToolDescription"]
+  NAMECALL R17 R2 K21 ["getText"]
+  CALL R17 3 -1
+  CALL R13 -1 1
+  FASTCALL2 TABLE_INSERT R10 R13 [+4]
+  MOVE R12 R10
+  GETIMPORT R11 K33 [table.insert]
+  CALL R11 2 0
+  GETUPVAL R11 9
+  CALL R11 0 1
+  JUMPIFNOT R11 [+21]
+  MOVE R13 R9
+  LOADK R14 K34 ["cage"]
+  GETTABLEKS R15 R3 K35 ["CageEditingToolImage"]
+  LOADK R18 K5 ["EditingTools"]
+  LOADK R19 K36 ["CageTool"]
+  NAMECALL R16 R2 K21 ["getText"]
+  CALL R16 3 1
+  LOADK R19 K5 ["EditingTools"]
+  LOADK R20 K37 ["CageToolDescription"]
+  NAMECALL R17 R2 K21 ["getText"]
+  CALL R17 3 -1
+  CALL R13 -1 1
+  FASTCALL2 TABLE_INSERT R10 R13 [+4]
+  MOVE R12 R10
+  GETIMPORT R11 K33 [table.insert]
+  CALL R11 2 0
+  LOADB R11 0
+  LENGTH R12 R10
+  LOADN R13 0
+  JUMPIFNOTLT R13 R12 [+112]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K38 ["createElement"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K39 ["Fragment"]
+  NEWTABLE R13 0 0
+  NEWTABLE R14 4 0
+  GETUPVAL R17 10
+  GETTABLEKS R16 R17 K40 ["EDITING_TOOLS_GUI_NAMES"]
+  GETTABLEKS R15 R16 K41 ["EditingToolbar"]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K38 ["createElement"]
+  GETUPVAL R18 11
+  GETTABLEKS R17 R18 K42 ["Toolbar"]
+  DUPTABLE R18 K45 [{"InitialPosition", "VerticalItems"}]
+  LOADK R19 K46 ["Top"]
+  SETTABLEKS R19 R18 K43 ["InitialPosition"]
+  SETTABLEKS R10 R18 K44 ["VerticalItems"]
+  CALL R16 2 1
+  SETTABLE R16 R14 R15
+  LOADB R15 0
+  JUMPIFEQKS R4 K7 ["none"] [+41]
+  JUMPIFNOTEQKS R4 K27 ["attachments"] [+16]
   GETUPVAL R16 4
-  GETTABLEKS R15 R16 K32 ["Fragment"]
-  NEWTABLE R16 0 0
-  NEWTABLE R17 4 0
-  GETUPVAL R20 9
-  GETTABLEKS R19 R20 K33 ["EDITING_TOOLS_GUI_NAMES"]
-  GETTABLEKS R18 R19 K34 ["EditingToolbar"]
-  GETUPVAL R20 4
-  GETTABLEKS R19 R20 K31 ["createElement"]
-  GETUPVAL R21 10
-  GETTABLEKS R20 R21 K35 ["Toolbar"]
-  DUPTABLE R21 K38 [{"InitialPosition", "VerticalItems"}]
-  LOADK R22 K39 ["Top"]
-  SETTABLEKS R22 R21 K36 ["InitialPosition"]
-  NEWTABLE R22 0 2
-  MOVE R23 R9
-  LOADK R24 K40 ["attachments"]
-  GETTABLEKS R25 R3 K41 ["AttachmentToolImage"]
-  LOADK R28 K5 ["EditingTools"]
-  LOADK R29 K42 ["AttachmentsTool"]
-  NAMECALL R26 R2 K21 ["getText"]
-  CALL R26 3 1
-  LOADK R29 K5 ["EditingTools"]
-  LOADK R30 K43 ["AttachmentsToolDescription"]
-  NAMECALL R27 R2 K21 ["getText"]
-  CALL R27 3 -1
-  CALL R23 -1 1
-  MOVE R24 R9
-  LOADK R25 K44 ["cage"]
-  GETTABLEKS R26 R3 K45 ["CageEditingToolImage"]
-  LOADK R29 K5 ["EditingTools"]
-  LOADK R30 K46 ["CageTool"]
-  NAMECALL R27 R2 K21 ["getText"]
-  CALL R27 3 1
-  LOADK R30 K5 ["EditingTools"]
-  LOADK R31 K47 ["CageToolDescription"]
-  NAMECALL R28 R2 K21 ["getText"]
-  CALL R28 3 -1
-  CALL R24 -1 1
-  SETLIST R22 R23 2 [1]
-  SETTABLEKS R22 R21 K37 ["VerticalItems"]
-  CALL R19 2 1
-  SETTABLE R19 R17 R18
-  LOADB R18 0
-  JUMPIFEQKS R4 K7 ["none"] [+49]
-  JUMPIFNOTEQKS R4 K40 ["attachments"] [+16]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K31 ["createElement"]
-  GETUPVAL R19 11
-  DUPTABLE R20 K50 [{"worldModel", "additionalToolbarItems"}]
-  GETTABLEKS R22 R0 K27 ["avatar"]
-  GETTABLEKS R21 R22 K28 ["WorldModel"]
-  SETTABLEKS R21 R20 K48 ["worldModel"]
-  SETTABLEKS R8 R20 K49 ["additionalToolbarItems"]
-  CALL R18 2 1
-  JUMP [+31]
-  GETUPVAL R19 12
-  CALL R19 0 1
-  JUMPIFNOT R19 [+25]
-  JUMPIFNOTEQKS R4 K44 ["cage"] [+24]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K31 ["createElement"]
-  GETUPVAL R19 13
-  DUPTABLE R20 K56 [{"mannequin", "additionalToolbarItems", "initialMeshesData", "setInitialMeshesData", "changeHistory", "setChangeHistory"}]
-  GETTABLEKS R22 R0 K27 ["avatar"]
-  GETTABLEKS R21 R22 K28 ["WorldModel"]
-  SETTABLEKS R21 R20 K51 ["mannequin"]
-  SETTABLEKS R8 R20 K49 ["additionalToolbarItems"]
-  SETTABLEKS R10 R20 K52 ["initialMeshesData"]
-  SETTABLEKS R11 R20 K53 ["setInitialMeshesData"]
-  SETTABLEKS R12 R20 K54 ["changeHistory"]
-  SETTABLEKS R13 R20 K55 ["setChangeHistory"]
-  CALL R18 2 1
+  GETTABLEKS R15 R16 K38 ["createElement"]
+  GETUPVAL R16 12
+  DUPTABLE R17 K49 [{"worldModel", "additionalToolbarItems"}]
+  GETTABLEKS R19 R0 K50 ["avatar"]
+  GETTABLEKS R18 R19 K51 ["WorldModel"]
+  SETTABLEKS R18 R17 K47 ["worldModel"]
+  SETTABLEKS R8 R17 K48 ["additionalToolbarItems"]
+  CALL R15 2 1
+  JUMP [+23]
+  GETUPVAL R16 13
+  CALL R16 0 1
+  JUMPIFNOT R16 [+17]
+  JUMPIFNOTEQKS R4 K34 ["cage"] [+16]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K38 ["createElement"]
+  GETUPVAL R16 14
+  DUPTABLE R17 K53 [{"mannequin", "additionalToolbarItems"}]
+  GETTABLEKS R19 R0 K50 ["avatar"]
+  GETTABLEKS R18 R19 K51 ["WorldModel"]
+  SETTABLEKS R18 R17 K52 ["mannequin"]
+  SETTABLEKS R8 R17 K48 ["additionalToolbarItems"]
+  CALL R15 2 1
   JUMP [+3]
-  GETUPVAL R18 14
-  MOVE R19 R4
-  CALL R18 1 1
-  SETTABLEKS R18 R17 K57 ["Tool"]
-  LOADB R18 0
+  GETUPVAL R15 15
+  MOVE R16 R4
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K54 ["Tool"]
+  LOADB R15 0
   JUMPIFEQKS R4 K7 ["none"] [+15]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K31 ["createElement"]
-  GETUPVAL R19 15
-  DUPTABLE R20 K59 [{"avatar", "includeAccessories"}]
-  GETTABLEKS R21 R0 K27 ["avatar"]
-  SETTABLEKS R21 R20 K27 ["avatar"]
-  GETTABLEKS R21 R7 K23 ["enabled"]
-  SETTABLEKS R21 R20 K58 ["includeAccessories"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K60 ["RepresentEditorStateOnWorldModel"]
-  LOADB R18 0
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K38 ["createElement"]
+  GETUPVAL R16 16
+  DUPTABLE R17 K56 [{"avatar", "includeAccessories"}]
+  GETTABLEKS R18 R0 K50 ["avatar"]
+  SETTABLEKS R18 R17 K50 ["avatar"]
+  GETTABLEKS R18 R7 K23 ["enabled"]
+  SETTABLEKS R18 R17 K55 ["includeAccessories"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K57 ["RepresentEditorStateOnWorldModel"]
+  LOADB R15 0
   JUMPIFEQKS R4 K7 ["none"] [+13]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K31 ["createElement"]
-  GETUPVAL R19 16
-  DUPTABLE R20 K62 [{"dummy"}]
-  GETTABLEKS R22 R0 K27 ["avatar"]
-  GETTABLEKS R21 R22 K28 ["WorldModel"]
-  SETTABLEKS R21 R20 K61 ["dummy"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K63 ["BindFocusOnPVInstance"]
-  CALL R14 3 -1
-  RETURN R14 -1
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K38 ["createElement"]
+  GETUPVAL R16 17
+  DUPTABLE R17 K59 [{"dummy"}]
+  GETTABLEKS R19 R0 K50 ["avatar"]
+  GETTABLEKS R18 R19 K51 ["WorldModel"]
+  SETTABLEKS R18 R17 K58 ["dummy"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K60 ["BindFocusOnPVInstance"]
+  CALL R11 3 1
+  RETURN R11 1
 
 MAIN:
   PREPVARARGS 0
@@ -313,58 +314,64 @@ MAIN:
   GETTABLEKS R10 R11 K19 ["useTogglePluginSetting"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K17 ["Hooks"]
-  GETTABLEKS R11 R12 K20 ["useSerializedState"]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K20 ["AttachmentTool"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K21 ["AttachmentTool"]
+  GETTABLEKS R12 R13 K21 ["CageEditingTool"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETIMPORT R14 K1 [script]
-  GETTABLEKS R13 R14 K22 ["CageEditingTool"]
+  GETTABLEKS R13 R14 K22 ["RepresentEditorStateOnWorldModel"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETIMPORT R15 K1 [script]
-  GETTABLEKS R14 R15 K23 ["RepresentEditorStateOnWorldModel"]
+  GETTABLEKS R14 R15 K23 ["useBindFocusOnPVInstance"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
-  GETIMPORT R16 K1 [script]
-  GETTABLEKS R15 R16 K24 ["useBindFocusOnPVInstance"]
+  GETTABLEKS R17 R0 K10 ["Src"]
+  GETTABLEKS R16 R17 K24 ["Flags"]
+  GETTABLEKS R15 R16 K25 ["getFFlagAvatarPreviewerEditingTools"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K10 ["Src"]
-  GETTABLEKS R17 R18 K25 ["Flags"]
-  GETTABLEKS R16 R17 K26 ["getFFlagAvatarPreviewerEditingTools"]
+  GETTABLEKS R17 R18 K24 ["Flags"]
+  GETTABLEKS R16 R17 K26 ["getFFlagAvatarPreviewerCageEditingTools"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
   GETTABLEKS R19 R0 K10 ["Src"]
-  GETTABLEKS R18 R19 K25 ["Flags"]
-  GETTABLEKS R17 R18 K27 ["getFFlagAvatarPreviewerCageEditingTools"]
+  GETTABLEKS R18 R19 K24 ["Flags"]
+  GETTABLEKS R17 R18 K27 ["getFFlagAvatarPreviewerEnableAttachmentTool"]
   CALL R16 1 1
-  GETTABLEKS R17 R1 K28 ["ContextServices"]
-  GETTABLEKS R18 R17 K29 ["Localization"]
-  GETTABLEKS R19 R17 K30 ["Plugin"]
-  GETTABLEKS R20 R17 K31 ["Stylizer"]
-  DUPCLOSURE R21 K32 [PROTO_0]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K10 ["Src"]
+  GETTABLEKS R19 R20 K24 ["Flags"]
+  GETTABLEKS R18 R19 K28 ["getFFlagAvatarPreviewerEnableCageTool"]
+  CALL R17 1 1
+  GETTABLEKS R18 R1 K29 ["ContextServices"]
+  GETTABLEKS R19 R18 K30 ["Localization"]
+  GETTABLEKS R20 R18 K31 ["Plugin"]
+  GETTABLEKS R21 R18 K32 ["Stylizer"]
+  DUPCLOSURE R22 K33 [PROTO_0]
+  CAPTURE VAL R13
+  DUPCLOSURE R23 K34 [PROTO_7]
   CAPTURE VAL R14
-  DUPCLOSURE R22 K33 [PROTO_7]
-  CAPTURE VAL R15
-  CAPTURE VAL R17
   CAPTURE VAL R18
-  CAPTURE VAL R20
-  CAPTURE VAL R2
   CAPTURE VAL R19
+  CAPTURE VAL R21
+  CAPTURE VAL R2
+  CAPTURE VAL R20
   CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE VAL R10
+  CAPTURE VAL R16
+  CAPTURE VAL R17
   CAPTURE VAL R4
   CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R15
   CAPTURE VAL R11
-  CAPTURE VAL R16
-  CAPTURE VAL R12
   CAPTURE VAL R7
-  CAPTURE VAL R13
-  CAPTURE VAL R21
-  RETURN R22 1
+  CAPTURE VAL R12
+  CAPTURE VAL R22
+  RETURN R23 1

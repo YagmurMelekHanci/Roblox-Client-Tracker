@@ -276,122 +276,115 @@ PROTO_4:
   GETTABLEKS R6 R1 K3 ["PlayState"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K4 ["PLAY_STATE"]
-  GETTABLEKS R7 R8 K6 ["Pause"]
+  GETTABLEKS R7 R8 K6 ["Play"]
   JUMPIFEQ R6 R7 [+2]
   LOADB R5 0 +1
   LOADB R5 1
-  GETTABLEKS R7 R1 K3 ["PlayState"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K4 ["PLAY_STATE"]
-  GETTABLEKS R8 R9 K7 ["Play"]
-  JUMPIFEQ R7 R8 [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  GETTABLEKS R7 R1 K8 ["LayoutOrder"]
-  GETTABLEKS R8 R1 K9 ["SkipBackward"]
-  GETTABLEKS R9 R1 K10 ["SkipForward"]
-  GETTABLEKS R10 R1 K11 ["ToggleLooping"]
-  GETTABLEKS R11 R1 K12 ["GoToFirstFrame"]
-  GETTABLEKS R12 R1 K13 ["GoToLastFrame"]
-  GETTABLEKS R13 R2 K14 ["playbackTheme"]
-  GETUPVAL R15 1
-  GETTABLEKS R14 R15 K15 ["new"]
-  CALL R14 0 1
-  SETTABLEKS R14 R0 K16 ["layoutOrderIterator"]
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K17 ["createElement"]
-  LOADK R15 K18 ["Frame"]
-  DUPTABLE R16 K21 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-  LOADN R17 1
-  SETTABLEKS R17 R16 K19 ["BackgroundTransparency"]
-  SETTABLEKS R7 R16 K8 ["LayoutOrder"]
-  GETIMPORT R17 K23 [UDim2.new]
-  LOADN R18 0
-  GETUPVAL R20 0
-  GETTABLEKS R19 R20 K24 ["CONTROLS_WIDTH"]
-  LOADN R20 0
-  GETUPVAL R22 0
-  GETTABLEKS R21 R22 K25 ["TIMELINE_HEIGHT"]
-  CALL R17 4 1
-  SETTABLEKS R17 R16 K20 ["Size"]
-  DUPTABLE R17 K28 [{"Layout", "GoToFirstFrame", "SkipBackward", "Reverse", "Play", "SkipForward", "GoToLastFrame", "Loop"}]
-  GETUPVAL R19 2
-  GETTABLEKS R18 R19 K17 ["createElement"]
-  LOADK R19 K29 ["UIListLayout"]
-  DUPTABLE R20 K34 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
-  GETIMPORT R21 K37 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R21 R20 K30 ["FillDirection"]
-  GETIMPORT R21 K39 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R21 R20 K31 ["HorizontalAlignment"]
-  GETIMPORT R21 K40 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R21 R20 K32 ["SortOrder"]
-  GETIMPORT R21 K42 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R21 R20 K33 ["VerticalAlignment"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K26 ["Layout"]
-  GETTABLEKS R20 R13 K43 ["goToFirstFrame"]
-  MOVE R21 R11
-  MOVE R22 R13
-  LOADK R23 K12 ["GoToFirstFrame"]
-  NAMECALL R18 R0 K44 ["makeButton"]
-  CALL R18 5 1
-  SETTABLEKS R18 R17 K12 ["GoToFirstFrame"]
-  GETTABLEKS R20 R13 K45 ["skipBackward"]
-  MOVE R21 R8
-  MOVE R22 R13
-  LOADK R23 K9 ["SkipBackward"]
-  NAMECALL R18 R0 K44 ["makeButton"]
-  CALL R18 5 1
-  SETTABLEKS R18 R17 K9 ["SkipBackward"]
-  MOVE R20 R4
-  GETTABLEKS R21 R13 K46 ["pause"]
-  GETTABLEKS R22 R13 K47 ["reverse"]
-  GETUPVAL R25 0
-  GETTABLEKS R24 R25 K4 ["PLAY_STATE"]
-  GETTABLEKS R23 R24 K5 ["Reverse"]
-  MOVE R24 R13
-  LOADK R25 K6 ["Pause"]
-  LOADK R26 K5 ["Reverse"]
-  NAMECALL R18 R0 K48 ["makePlayToggle"]
-  CALL R18 8 1
-  SETTABLEKS R18 R17 K5 ["Reverse"]
-  MOVE R20 R6
-  GETTABLEKS R21 R13 K46 ["pause"]
-  GETTABLEKS R22 R13 K49 ["play"]
-  GETUPVAL R25 0
-  GETTABLEKS R24 R25 K4 ["PLAY_STATE"]
-  GETTABLEKS R23 R24 K7 ["Play"]
-  MOVE R24 R13
-  LOADK R25 K6 ["Pause"]
-  LOADK R26 K7 ["Play"]
-  NAMECALL R18 R0 K48 ["makePlayToggle"]
-  CALL R18 8 1
-  SETTABLEKS R18 R17 K7 ["Play"]
-  GETTABLEKS R20 R13 K50 ["skipForward"]
-  MOVE R21 R9
-  MOVE R22 R13
-  LOADK R23 K10 ["SkipForward"]
-  NAMECALL R18 R0 K44 ["makeButton"]
-  CALL R18 5 1
-  SETTABLEKS R18 R17 K10 ["SkipForward"]
-  GETTABLEKS R20 R13 K51 ["goToLastFrame"]
+  GETTABLEKS R6 R1 K7 ["LayoutOrder"]
+  GETTABLEKS R7 R1 K8 ["SkipBackward"]
+  GETTABLEKS R8 R1 K9 ["SkipForward"]
+  GETTABLEKS R9 R1 K10 ["ToggleLooping"]
+  GETTABLEKS R10 R1 K11 ["GoToFirstFrame"]
+  GETTABLEKS R11 R1 K12 ["GoToLastFrame"]
+  GETTABLEKS R12 R2 K13 ["playbackTheme"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K14 ["new"]
+  CALL R13 0 1
+  SETTABLEKS R13 R0 K15 ["layoutOrderIterator"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K16 ["createElement"]
+  LOADK R14 K17 ["Frame"]
+  DUPTABLE R15 K20 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K18 ["BackgroundTransparency"]
+  SETTABLEKS R6 R15 K7 ["LayoutOrder"]
+  GETIMPORT R16 K22 [UDim2.new]
+  LOADN R17 0
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K23 ["CONTROLS_WIDTH"]
+  LOADN R19 0
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K24 ["TIMELINE_HEIGHT"]
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K19 ["Size"]
+  DUPTABLE R16 K27 [{"Layout", "GoToFirstFrame", "SkipBackward", "Reverse", "Play", "SkipForward", "GoToLastFrame", "Loop"}]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K16 ["createElement"]
+  LOADK R18 K28 ["UIListLayout"]
+  DUPTABLE R19 K33 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
+  GETIMPORT R20 K36 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R20 R19 K29 ["FillDirection"]
+  GETIMPORT R20 K38 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R20 R19 K30 ["HorizontalAlignment"]
+  GETIMPORT R20 K39 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R20 R19 K31 ["SortOrder"]
+  GETIMPORT R20 K41 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R20 R19 K32 ["VerticalAlignment"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K25 ["Layout"]
+  GETTABLEKS R19 R12 K42 ["goToFirstFrame"]
+  MOVE R20 R10
   MOVE R21 R12
-  MOVE R22 R13
-  LOADK R23 K13 ["GoToLastFrame"]
-  NAMECALL R18 R0 K44 ["makeButton"]
-  CALL R18 5 1
-  SETTABLEKS R18 R17 K13 ["GoToLastFrame"]
-  MOVE R20 R3
-  GETTABLEKS R21 R13 K52 ["loop"]
-  GETTABLEKS R22 R13 K52 ["loop"]
-  MOVE R23 R10
-  MOVE R24 R13
-  LOADK R25 K11 ["ToggleLooping"]
-  NAMECALL R18 R0 K53 ["makeToggle"]
-  CALL R18 7 1
-  SETTABLEKS R18 R17 K27 ["Loop"]
-  CALL R14 3 -1
-  RETURN R14 -1
+  LOADK R22 K11 ["GoToFirstFrame"]
+  NAMECALL R17 R0 K43 ["makeButton"]
+  CALL R17 5 1
+  SETTABLEKS R17 R16 K11 ["GoToFirstFrame"]
+  GETTABLEKS R19 R12 K44 ["skipBackward"]
+  MOVE R20 R7
+  MOVE R21 R12
+  LOADK R22 K8 ["SkipBackward"]
+  NAMECALL R17 R0 K43 ["makeButton"]
+  CALL R17 5 1
+  SETTABLEKS R17 R16 K8 ["SkipBackward"]
+  MOVE R19 R4
+  GETTABLEKS R20 R12 K45 ["pause"]
+  GETTABLEKS R21 R12 K46 ["reverse"]
+  GETUPVAL R24 0
+  GETTABLEKS R23 R24 K4 ["PLAY_STATE"]
+  GETTABLEKS R22 R23 K5 ["Reverse"]
+  MOVE R23 R12
+  LOADK R24 K47 ["Pause"]
+  LOADK R25 K5 ["Reverse"]
+  NAMECALL R17 R0 K48 ["makePlayToggle"]
+  CALL R17 8 1
+  SETTABLEKS R17 R16 K5 ["Reverse"]
+  MOVE R19 R5
+  GETTABLEKS R20 R12 K45 ["pause"]
+  GETTABLEKS R21 R12 K49 ["play"]
+  GETUPVAL R24 0
+  GETTABLEKS R23 R24 K4 ["PLAY_STATE"]
+  GETTABLEKS R22 R23 K6 ["Play"]
+  MOVE R23 R12
+  LOADK R24 K47 ["Pause"]
+  LOADK R25 K6 ["Play"]
+  NAMECALL R17 R0 K48 ["makePlayToggle"]
+  CALL R17 8 1
+  SETTABLEKS R17 R16 K6 ["Play"]
+  GETTABLEKS R19 R12 K50 ["skipForward"]
+  MOVE R20 R8
+  MOVE R21 R12
+  LOADK R22 K9 ["SkipForward"]
+  NAMECALL R17 R0 K43 ["makeButton"]
+  CALL R17 5 1
+  SETTABLEKS R17 R16 K9 ["SkipForward"]
+  GETTABLEKS R19 R12 K51 ["goToLastFrame"]
+  MOVE R20 R11
+  MOVE R21 R12
+  LOADK R22 K12 ["GoToLastFrame"]
+  NAMECALL R17 R0 K43 ["makeButton"]
+  CALL R17 5 1
+  SETTABLEKS R17 R16 K12 ["GoToLastFrame"]
+  MOVE R19 R3
+  GETTABLEKS R20 R12 K52 ["loop"]
+  GETTABLEKS R21 R12 K52 ["loop"]
+  MOVE R22 R9
+  MOVE R23 R12
+  LOADK R24 K10 ["ToggleLooping"]
+  NAMECALL R17 R0 K53 ["makeToggle"]
+  CALL R17 7 1
+  SETTABLEKS R17 R16 K26 ["Loop"]
+  CALL R13 3 -1
+  RETURN R13 -1
 
 MAIN:
   PREPVARARGS 0

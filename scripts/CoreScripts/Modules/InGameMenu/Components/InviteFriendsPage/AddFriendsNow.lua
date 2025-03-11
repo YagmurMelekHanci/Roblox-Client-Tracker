@@ -25,6 +25,9 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
+local FFlagUIBloxUseFoundationButton =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseFoundationButton()
+
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 
@@ -43,7 +46,7 @@ function AddFriendsNow:init()
 	self.buttonRef = Roact.createRef()
 
 	self.state = {
-		buttonIsInitialized = false,
+		buttonIsInitialized = if FFlagUIBloxUseFoundationButton then true else false,
 	}
 end
 

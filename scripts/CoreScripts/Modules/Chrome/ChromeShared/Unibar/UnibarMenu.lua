@@ -5,13 +5,14 @@ local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
 local React = require(CorePackages.Packages.React)
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ChromeService = require(Root.Service)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 
-local GetFFlagChromeCentralizedConfiguration =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeCentralizedConfiguration
+local GetFFlagChromeCentralizedConfiguration = SharedFlags.GetFFlagChromeCentralizedConfiguration
+local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 
 local _integrations = if GetFFlagChromeCentralizedConfiguration() then nil else require(Root.Parent.Integrations)
 local SubMenu = require(Root.Unibar.SubMenu)
@@ -178,6 +179,10 @@ function IconDivider(props: IconDividerProps)
 	})
 end
 
+local function getSelectedChild(menuRef: { [any]: any }, integrationId: string?)
+	return menuRef.current:FindFirstChild((Constants.ICON_NAME_PREFIX :: string) .. tostring(integrationId), true)
+end
+
 -- Non-visible helper child component to avoid parent re-renders
 -- Updates animation targets based Chrome status
 function AnimationStateHelper(props)
@@ -192,8 +197,19 @@ function AnimationStateHelper(props)
 				ChromeService:disableFocusNav()
 			end, false, Enum.KeyCode.ButtonB)
 
-			if props.menuFrameRef.current then
-				GuiService:Select(props.menuFrameRef.current)
+			if FFlagTiltIconUnibarFocusNav then
+				if props.menuFrameRef.current then
+					local selectedChild = getSelectedChild(props.menuFrameRef, selectedItem)
+					if selectedChild then
+						GuiService.SelectedCoreObject = selectedChild
+					else
+						GuiService:Select(props.menuFrameRef.current)
+					end
+				end
+			else
+				if props.menuFrameRef.current then
+					GuiService:Select(props.menuFrameRef.current)
+				end
 			end
 		else
 			ContextActionService:UnbindCoreAction("RBXEscapeUnibar")
@@ -224,8 +240,13 @@ function AnimationStateHelper(props)
 					counter += 1
 					task.wait()
 					if props.menuFrameRef.current and selectedItem then
-						local selectChild: any? =
-							props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
+						local selectChild: any?
+						if FFlagTiltIconUnibarFocusNav then
+							selectChild = getSelectedChild(props.menuFrameRef, selectedItem)
+						else
+							selectChild =
+								props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
+						end
 						if selectChild then
 							GuiService.SelectedCoreObject = selectChild
 							return
@@ -236,8 +257,12 @@ function AnimationStateHelper(props)
 			coroutine.resume(updateSelection)
 		else
 			if props.menuFrameRef.current and selectedItem then
-				local selectChild: any? =
-					props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
+				local selectChild: any?
+				if FFlagTiltIconUnibarFocusNav then
+					selectChild = getSelectedChild(props.menuFrameRef, selectedItem)
+				else
+					selectChild = props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
+				end
 				if selectChild then
 					GuiService.SelectedCoreObject = selectChild
 				end
@@ -280,6 +305,18 @@ function IconPositionBinding(
 
 				return UDim2.new(0, Constants.UNIBAR_END_PADDING + closedPos + openDelta * val[1], 0, 0)
 			end) :: any
+end
+
+local function onUnibarSelectionChanged(
+	this: GuiObject,
+	isThisSelected: boolean,
+	oldSelection: GuiObject,
+	newSelection: GuiObject
+)
+	-- update inFocusNav if GuiSelection is outside Unibar
+	if not this:IsAncestorOf(newSelection) then
+		ChromeService:disableFocusNav()
+	end
 end
 
 type UnibarProp = {
@@ -566,10 +603,14 @@ export type UnibarMenuProp = {
 	layoutOrder: number,
 	onAreaChanged: (id: string, position: Vector2, size: Vector2) -> nil,
 	onMinWidthChanged: (width: number) -> (),
+	menuRef: any,
 }
 
 local UnibarMenu = function(props: UnibarMenuProp)
 	local menuFrame = React.useRef(nil)
+	if FFlagTiltIconUnibarFocusNav and props.menuRef then
+		menuFrame = props.menuRef
+	end
 	local menuOutterFrame = React.useRef(nil)
 
 	-- AutomaticSize isn't working for this use-case
@@ -606,9 +647,10 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			LayoutOrder = props.layoutOrder,
 			SelectionGroup = true,
 			SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
-			SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorLeft = if FFlagTiltIconUnibarFocusNav then nil else Enum.SelectionBehavior.Stop,
 			SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
 			ref = menuOutterFrame,
+			[React.Event.SelectionChanged] = if FFlagTiltIconUnibarFocusNav then onUnibarSelectionChanged else nil,
 		}, {
 			React.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,

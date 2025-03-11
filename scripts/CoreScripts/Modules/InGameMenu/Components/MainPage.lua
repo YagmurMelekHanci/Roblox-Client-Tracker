@@ -11,6 +11,9 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagUseFoundationButton = SharedFlags.UIBlox.GetFFlagUIBloxUseFoundationButton
+
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local VideoProtocol = require(CorePackages.Workspace.Packages.VideoProtocol)
 local Roact = InGameMenuDependencies.Roact
@@ -448,7 +451,9 @@ function MainPage:render()
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						Padding = UDim.new(0, 12),
 						SortOrder = Enum.SortOrder.LayoutOrder,
-						VerticalAlignment = Enum.VerticalAlignment.Center,
+						VerticalAlignment = if GetFFlagUseFoundationButton()
+							then Enum.VerticalAlignment.Top
+							else Enum.VerticalAlignment.Center,
 					}),
 					Padding = Roact.createElement("UIPadding", {
 						PaddingTop = UDim.new(0, 24),
@@ -465,7 +470,9 @@ function MainPage:render()
 					}, {
 						Button = Roact.createElement(Button, {
 							buttonType = ButtonType.PrimarySystem,
-							size = UDim2.fromScale(1, 1),
+							size = if GetFFlagUseFoundationButton()
+								then UDim2.new(1, 0, 0, BOTTOM_MENU_ICON_SIZE)
+								else UDim2.fromScale(1, 1),
 							onActivated = self.props.startLeavingGame,
 							text = localized.leaveGame,
 						}),

@@ -22,17 +22,19 @@ PROTO_2:
   CALL R0 0 1
   GETUPVAL R1 0
   SETTABLEKS R1 R0 K0 ["Parent"]
-  GETUPVAL R2 4
-  GETTABLEKS R1 R2 K1 ["insertDerive"]
+  GETUPVAL R1 4
+  SETTABLEKS R0 R1 K1 ["StudioDefaultStyleSheet"]
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K2 ["insertDerive"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["Design"]
+  GETTABLEKS R2 R3 K3 ["Design"]
   MOVE R3 R0
   CALL R1 2 0
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["Design"]
-  GETUPVAL R2 5
-  SETTABLEKS R1 R2 K3 ["StudioInsertWidgetLayerCollectorAutoLinkStyleSheet"]
-  GETIMPORT R1 K7 [Enum.FinishRecordingOperation.Commit]
+  GETTABLEKS R1 R2 K3 ["Design"]
+  GETUPVAL R2 4
+  SETTABLEKS R1 R2 K4 ["StudioInsertWidgetLayerCollectorAutoLinkStyleSheet"]
+  GETIMPORT R1 K8 [Enum.FinishRecordingOperation.Commit]
   RETURN R1 1
 
 PROTO_3:
@@ -425,8 +427,8 @@ MAIN:
   CAPTURE VAL R16
   CAPTURE VAL R2
   CAPTURE VAL R17
-  CAPTURE VAL R18
   CAPTURE VAL R3
+  CAPTURE VAL R18
   CAPTURE VAL R24
   CAPTURE VAL R1
   CAPTURE VAL R26

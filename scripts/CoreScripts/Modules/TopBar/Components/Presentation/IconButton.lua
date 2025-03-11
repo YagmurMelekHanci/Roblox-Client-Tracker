@@ -2,6 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
 
@@ -29,11 +32,9 @@ local isNewTiltIconEnabled = require(CoreGui.RobloxGui.Modules.isNewTiltIconEnab
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local GetFFlagChangeTopbarHeightCalculation =
 	require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
-local GetFFlagChromeUsePreferredTransparency =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
+local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 
-local GetFFlagFixUnibarVirtualCursor =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixUnibarVirtualCursor
+local GetFFlagFixUnibarVirtualCursor = SharedFlags.GetFFlagFixUnibarVirtualCursor
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
@@ -55,6 +56,9 @@ IconButton.validateProps = t.strictInterface({
 	backgroundTransparency = t.optional(t.number),
 	backgroundColor3 = t.optional(t.Color3),
 	backgroundCornerRadius = t.optional(t.UDim),
+	forwardRef = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
+	onSelectionChanged = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then t.optional(t.callback) else nil :: never,
+	nextSelectionRightRef = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
 })
 
 function AnimatedScaleIcon(props)
@@ -144,7 +148,9 @@ function IconButton:renderWithSelectionCursor(getSelectionCursor)
 			SelectionImageObject = if GetFFlagFixUnibarVirtualCursor() and isNewTiltIconEnabled()
 				then getSelectionCursor(CursorKind.SelectedKnob)
 				else nil,
+			NextSelectionRight = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then self.props.nextSelectionRightRef else nil :: never,
 			[Roact.Event.Activated] = self.props.onActivated,
+			[Roact.Event.SelectionChanged] = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then self.props.onSelectionChanged else nil,
 			[Roact.Ref] = self.props.forwardRef,
 		}, {
 

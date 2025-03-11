@@ -702,27 +702,33 @@ PROTO_10:
   RETURN R3 1
 
 PROTO_11:
-  GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["worldModel"]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["FFlagAvatarPreviewerEnableAttachmentTool is not enabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  GETTABLEKS R2 R0 K3 ["worldModel"]
   CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["createElement"]
   GETUPVAL R3 2
-  DUPTABLE R4 K6 [{"name", "worldModel", "points", "generallyEquivalentPointNames", "additionalToolbarItems"}]
-  LOADK R5 K7 ["AttachmentTool"]
-  SETTABLEKS R5 R4 K2 ["name"]
-  GETTABLEKS R5 R0 K0 ["worldModel"]
-  SETTABLEKS R5 R4 K0 ["worldModel"]
-  SETTABLEKS R1 R4 K3 ["points"]
+  GETTABLEKS R2 R3 K4 ["createElement"]
+  GETUPVAL R3 3
+  DUPTABLE R4 K9 [{"name", "worldModel", "points", "generallyEquivalentPointNames", "additionalToolbarItems"}]
+  LOADK R5 K10 ["AttachmentTool"]
+  SETTABLEKS R5 R4 K5 ["name"]
+  GETTABLEKS R5 R0 K3 ["worldModel"]
+  SETTABLEKS R5 R4 K3 ["worldModel"]
+  SETTABLEKS R1 R4 K6 ["points"]
   NEWTABLE R5 0 1
   NEWTABLE R6 0 2
-  LOADK R7 K8 ["HairAttachment"]
-  LOADK R8 K9 ["HatAttachment"]
+  LOADK R7 K11 ["HairAttachment"]
+  LOADK R8 K12 ["HatAttachment"]
   SETLIST R6 R7 2 [1]
   SETLIST R5 R6 1 [1]
-  SETTABLEKS R5 R4 K4 ["generallyEquivalentPointNames"]
-  GETTABLEKS R5 R0 K5 ["additionalToolbarItems"]
-  SETTABLEKS R5 R4 K5 ["additionalToolbarItems"]
+  SETTABLEKS R5 R4 K7 ["generallyEquivalentPointNames"]
+  GETTABLEKS R5 R0 K8 ["additionalToolbarItems"]
+  SETTABLEKS R5 R4 K8 ["additionalToolbarItems"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -791,19 +797,25 @@ MAIN:
   GETIMPORT R12 K5 [require]
   GETTABLEKS R15 R0 K9 ["Src"]
   GETTABLEKS R14 R15 K21 ["Flags"]
-  GETTABLEKS R13 R14 K23 ["getFFlagAvatarPreviewerSkinToneAlphaDetection"]
+  GETTABLEKS R13 R14 K23 ["getFFlagAvatarPreviewerEnableAttachmentTool"]
   CALL R12 1 1
-  DUPCLOSURE R13 K24 [PROTO_10]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K9 ["Src"]
+  GETTABLEKS R15 R16 K21 ["Flags"]
+  GETTABLEKS R14 R15 K24 ["getFFlagAvatarPreviewerSkinToneAlphaDetection"]
+  CALL R13 1 1
+  DUPCLOSURE R14 K25 [PROTO_10]
   CAPTURE VAL R1
-  CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R10
   CAPTURE VAL R7
   CAPTURE VAL R11
   CAPTURE VAL R9
-  DUPCLOSURE R14 K25 [PROTO_11]
-  CAPTURE VAL R13
+  DUPCLOSURE R15 K26 [PROTO_11]
+  CAPTURE VAL R12
+  CAPTURE VAL R14
   CAPTURE VAL R1
   CAPTURE VAL R5
-  RETURN R14 1
+  RETURN R15 1

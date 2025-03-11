@@ -27,133 +27,132 @@ PROTO_2:
   GETTABLEKS R1 R2 K1 ["Stylizer"]
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K2 ["Localization"]
-  GETTABLEKS R3 R1 K3 ["progressScreenTheme"]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R5 R4 K4 ["OnCancelled"]
-  GETTABLEKS R6 R4 K5 ["OnClose"]
-  GETTABLEKS R7 R1 K6 ["dialogTheme"]
-  GETTABLEKS R8 R1 K7 ["progressBarTheme"]
-  LOADN R10 0
-  LOADN R12 1
-  GETTABLEKS R14 R4 K9 ["Progress"]
-  DIVK R13 R14 K8 [100]
-  FASTCALL2 MATH_MIN R12 R13 [+3]
-  GETIMPORT R11 K12 [math.min]
-  CALL R11 2 1
-  FASTCALL2 MATH_MAX R10 R11 [+3]
-  GETIMPORT R9 K14 [math.max]
-  CALL R9 2 1
-  GETTABLEKS R12 R4 K15 ["Status"]
-  NAMECALL R10 R0 K16 ["statusCodeToString"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R4 R3 K3 ["OnCancelled"]
+  GETTABLEKS R5 R3 K4 ["OnClose"]
+  GETTABLEKS R6 R1 K5 ["dialogTheme"]
+  GETTABLEKS R7 R1 K6 ["progressBarTheme"]
+  LOADN R9 0
+  LOADN R11 1
+  GETTABLEKS R13 R3 K8 ["Progress"]
+  DIVK R12 R13 K7 [100]
+  FASTCALL2 MATH_MIN R11 R12 [+3]
+  GETIMPORT R10 K11 [math.min]
   CALL R10 2 1
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K17 ["createElement"]
-  GETUPVAL R12 1
-  DUPTABLE R13 K21 [{"Size", "Buttons", "OnButtonClicked", "OnClose"}]
-  GETIMPORT R14 K24 [UDim2.new]
-  LOADN R15 0
-  LOADN R16 124
-  LOADN R17 0
-  LOADN R18 140
-  CALL R14 4 1
-  SETTABLEKS R14 R13 K18 ["Size"]
-  NEWTABLE R14 0 1
-  DUPTABLE R15 K27 [{"Key", "Text"}]
-  LOADB R16 0
-  SETTABLEKS R16 R15 K25 ["Key"]
-  LOADK R18 K28 ["Dialog"]
-  LOADK R19 K29 ["Cancel"]
-  NAMECALL R16 R2 K30 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["Text"]
-  SETLIST R14 R15 1 [1]
-  SETTABLEKS R14 R13 K19 ["Buttons"]
-  SETTABLEKS R5 R13 K20 ["OnButtonClicked"]
-  SETTABLEKS R6 R13 K5 ["OnClose"]
-  DUPTABLE R14 K34 [{"Layout", "PromptText", "ProgressBarContainer"}]
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K17 ["createElement"]
-  LOADK R16 K35 ["UIListLayout"]
-  DUPTABLE R17 K39 [{"SortOrder", "FillDirection", "Padding"}]
-  GETIMPORT R18 K42 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R18 R17 K36 ["SortOrder"]
-  GETIMPORT R18 K44 [Enum.FillDirection.Vertical]
-  SETTABLEKS R18 R17 K37 ["FillDirection"]
-  GETIMPORT R18 K46 [UDim.new]
-  LOADN R19 0
-  LOADN R20 8
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K38 ["Padding"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K31 ["Layout"]
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K17 ["createElement"]
-  LOADK R16 K47 ["TextLabel"]
-  DUPTABLE R17 K53 [{"Size", "BackgroundTransparency", "TextSize", "TextColor3", "Font", "Text", "TextTruncate", "LayoutOrder"}]
-  GETIMPORT R18 K24 [UDim2.new]
-  LOADN R19 1
-  LOADN R20 0
-  LOADN R21 0
-  GETUPVAL R23 2
-  GETTABLEKS R22 R23 K54 ["TRACK_HEIGHT"]
-  CALL R18 4 1
-  SETTABLEKS R18 R17 K18 ["Size"]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K48 ["BackgroundTransparency"]
-  GETTABLEKS R18 R7 K55 ["textSize"]
-  SETTABLEKS R18 R17 K49 ["TextSize"]
-  GETTABLEKS R18 R7 K56 ["textColor"]
-  SETTABLEKS R18 R17 K50 ["TextColor3"]
-  GETTABLEKS R18 R1 K57 ["font"]
-  SETTABLEKS R18 R17 K51 ["Font"]
-  SETTABLEKS R10 R17 K26 ["Text"]
-  GETIMPORT R18 K59 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R18 R17 K52 ["TextTruncate"]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K41 ["LayoutOrder"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K32 ["PromptText"]
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K17 ["createElement"]
-  LOADK R16 K60 ["Frame"]
-  DUPTABLE R17 K63 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size", "LayoutOrder"}]
-  GETTABLEKS R18 R1 K64 ["BorderColor"]
-  SETTABLEKS R18 R17 K61 ["BackgroundColor3"]
-  LOADN R18 0
-  SETTABLEKS R18 R17 K48 ["BackgroundTransparency"]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K62 ["BorderSizePixel"]
-  GETIMPORT R18 K24 [UDim2.new]
-  LOADN R19 1
-  LOADN R20 0
-  LOADN R21 0
-  GETUPVAL R23 2
-  GETTABLEKS R22 R23 K54 ["TRACK_HEIGHT"]
-  CALL R18 4 1
-  SETTABLEKS R18 R17 K18 ["Size"]
-  LOADN R18 2
-  SETTABLEKS R18 R17 K41 ["LayoutOrder"]
-  DUPTABLE R18 K66 [{"ProgressBar"}]
-  GETUPVAL R20 0
-  GETTABLEKS R19 R20 K17 ["createElement"]
-  LOADK R20 K60 ["Frame"]
-  DUPTABLE R21 K67 [{"BackgroundColor3", "Size"}]
-  GETTABLEKS R22 R8 K68 ["backgroundColor"]
-  SETTABLEKS R22 R21 K61 ["BackgroundColor3"]
-  GETIMPORT R22 K24 [UDim2.new]
-  MOVE R23 R9
-  LOADN R24 0
-  LOADN R25 0
-  GETUPVAL R27 2
-  GETTABLEKS R26 R27 K54 ["TRACK_HEIGHT"]
-  CALL R22 4 1
-  SETTABLEKS R22 R21 K18 ["Size"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K65 ["ProgressBar"]
+  FASTCALL2 MATH_MAX R9 R10 [+3]
+  GETIMPORT R8 K13 [math.max]
+  CALL R8 2 1
+  GETTABLEKS R11 R3 K14 ["Status"]
+  NAMECALL R9 R0 K15 ["statusCodeToString"]
+  CALL R9 2 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K16 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K20 [{"Size", "Buttons", "OnButtonClicked", "OnClose"}]
+  GETIMPORT R13 K23 [UDim2.new]
+  LOADN R14 0
+  LOADN R15 124
+  LOADN R16 0
+  LOADN R17 140
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K17 ["Size"]
+  NEWTABLE R13 0 1
+  DUPTABLE R14 K26 [{"Key", "Text"}]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K24 ["Key"]
+  LOADK R17 K27 ["Dialog"]
+  LOADK R18 K28 ["Cancel"]
+  NAMECALL R15 R2 K29 ["getText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K33 ["ProgressBarContainer"]
-  CALL R11 3 -1
-  RETURN R11 -1
+  SETTABLEKS R15 R14 K25 ["Text"]
+  SETLIST R13 R14 1 [1]
+  SETTABLEKS R13 R12 K18 ["Buttons"]
+  SETTABLEKS R4 R12 K19 ["OnButtonClicked"]
+  SETTABLEKS R5 R12 K4 ["OnClose"]
+  DUPTABLE R13 K33 [{"Layout", "PromptText", "ProgressBarContainer"}]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K16 ["createElement"]
+  LOADK R15 K34 ["UIListLayout"]
+  DUPTABLE R16 K38 [{"SortOrder", "FillDirection", "Padding"}]
+  GETIMPORT R17 K41 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R17 R16 K35 ["SortOrder"]
+  GETIMPORT R17 K43 [Enum.FillDirection.Vertical]
+  SETTABLEKS R17 R16 K36 ["FillDirection"]
+  GETIMPORT R17 K45 [UDim.new]
+  LOADN R18 0
+  LOADN R19 8
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K37 ["Padding"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K30 ["Layout"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K16 ["createElement"]
+  LOADK R15 K46 ["TextLabel"]
+  DUPTABLE R16 K52 [{"Size", "BackgroundTransparency", "TextSize", "TextColor3", "Font", "Text", "TextTruncate", "LayoutOrder"}]
+  GETIMPORT R17 K23 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 0
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K53 ["TRACK_HEIGHT"]
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K17 ["Size"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K47 ["BackgroundTransparency"]
+  GETTABLEKS R17 R6 K54 ["textSize"]
+  SETTABLEKS R17 R16 K48 ["TextSize"]
+  GETTABLEKS R17 R6 K55 ["textColor"]
+  SETTABLEKS R17 R16 K49 ["TextColor3"]
+  GETTABLEKS R17 R1 K56 ["font"]
+  SETTABLEKS R17 R16 K50 ["Font"]
+  SETTABLEKS R9 R16 K25 ["Text"]
+  GETIMPORT R17 K58 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R17 R16 K51 ["TextTruncate"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K40 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K31 ["PromptText"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K16 ["createElement"]
+  LOADK R15 K59 ["Frame"]
+  DUPTABLE R16 K62 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size", "LayoutOrder"}]
+  GETTABLEKS R17 R1 K63 ["BorderColor"]
+  SETTABLEKS R17 R16 K60 ["BackgroundColor3"]
+  LOADN R17 0
+  SETTABLEKS R17 R16 K47 ["BackgroundTransparency"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K61 ["BorderSizePixel"]
+  GETIMPORT R17 K23 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 0
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K53 ["TRACK_HEIGHT"]
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K17 ["Size"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K40 ["LayoutOrder"]
+  DUPTABLE R17 K65 [{"ProgressBar"}]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K16 ["createElement"]
+  LOADK R19 K59 ["Frame"]
+  DUPTABLE R20 K66 [{"BackgroundColor3", "Size"}]
+  GETTABLEKS R21 R7 K67 ["backgroundColor"]
+  SETTABLEKS R21 R20 K60 ["BackgroundColor3"]
+  GETIMPORT R21 K23 [UDim2.new]
+  MOVE R22 R8
+  LOADN R23 0
+  LOADN R24 0
+  GETUPVAL R26 2
+  GETTABLEKS R25 R26 K53 ["TRACK_HEIGHT"]
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K17 ["Size"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K64 ["ProgressBar"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K32 ["ProgressBarContainer"]
+  CALL R10 3 -1
+  RETURN R10 -1
 
 MAIN:
   PREPVARARGS 0

@@ -119,7 +119,7 @@ PROTO_5:
   CALL R8 2 0
   GETUPVAL R9 5
   GETTABLEKS R8 R9 K13 ["fflagAnnotationsAddTagging"]
-  JUMPIFNOT R8 [+81]
+  JUMPIFNOT R8 [+119]
   GETUPVAL R9 5
   GETTABLEKS R8 R9 K14 ["fflagPlaceAnnotationsIxp"]
   JUMPIFNOT R8 [+3]
@@ -153,7 +153,7 @@ PROTO_5:
   GETTABLEKS R16 R17 K16 ["new"]
   CALL R16 0 -1
   SETLIST R9 R10 -1 [1]
-  DUPTABLE R10 K18 [{"Provider"}]
+  DUPTABLE R10 K18 [{"TagDropdownProvider"}]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K19 ["createElement"]
   GETUPVAL R12 15
@@ -161,24 +161,52 @@ PROTO_5:
   GETIMPORT R15 K3 [game]
   GETTABLEKS R14 R15 K20 ["GameId"]
   SETTABLEKS R14 R13 K20 ["GameId"]
-  DUPTABLE R14 K24 [{"AnnotationManager", "StyleLink"}]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K22 ["fflagCOLLAB7436AnnotationHeaderIcons"]
+  JUMPIFNOT R15 [+34]
+  DUPTABLE R14 K24 [{"IconProvider"}]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K19 ["createElement"]
-  GETUPVAL R16 16
+  GETUPVAL R17 16
+  GETTABLEKS R16 R17 K25 ["Provider"]
+  NEWTABLE R17 0 0
+  DUPTABLE R18 K28 [{"AnnotationManager", "StyleLink"}]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K19 ["createElement"]
+  GETUPVAL R20 17
+  CALL R19 1 1
+  SETTABLEKS R19 R18 K26 ["AnnotationManager"]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K19 ["createElement"]
+  LOADK R20 K27 ["StyleLink"]
+  DUPTABLE R21 K30 [{"StyleSheet"}]
+  GETUPVAL R22 18
+  MOVE R23 R1
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K29 ["StyleSheet"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K27 ["StyleLink"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K23 ["IconProvider"]
+  JUMP [+21]
+  DUPTABLE R14 K28 [{"AnnotationManager", "StyleLink"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  GETUPVAL R16 17
   CALL R15 1 1
-  SETTABLEKS R15 R14 K22 ["AnnotationManager"]
+  SETTABLEKS R15 R14 K26 ["AnnotationManager"]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K19 ["createElement"]
-  LOADK R16 K23 ["StyleLink"]
-  DUPTABLE R17 K26 [{"StyleSheet"}]
-  GETUPVAL R18 17
+  LOADK R16 K27 ["StyleLink"]
+  DUPTABLE R17 K30 [{"StyleSheet"}]
+  GETUPVAL R18 18
   MOVE R19 R1
   CALL R18 1 1
-  SETTABLEKS R18 R17 K25 ["StyleSheet"]
+  SETTABLEKS R18 R17 K29 ["StyleSheet"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K23 ["StyleLink"]
+  SETTABLEKS R15 R14 K27 ["StyleLink"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K17 ["Provider"]
+  SETTABLEKS R11 R10 K17 ["TagDropdownProvider"]
   CALL R8 2 -1
   RETURN R8 -1
   GETUPVAL R9 5
@@ -214,22 +242,22 @@ PROTO_5:
   GETTABLEKS R16 R17 K16 ["new"]
   CALL R16 0 -1
   SETLIST R9 R10 -1 [1]
-  DUPTABLE R10 K24 [{"AnnotationManager", "StyleLink"}]
+  DUPTABLE R10 K28 [{"AnnotationManager", "StyleLink"}]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K19 ["createElement"]
-  GETUPVAL R12 16
+  GETUPVAL R12 17
   CALL R11 1 1
-  SETTABLEKS R11 R10 K22 ["AnnotationManager"]
+  SETTABLEKS R11 R10 K26 ["AnnotationManager"]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K19 ["createElement"]
-  LOADK R12 K23 ["StyleLink"]
-  DUPTABLE R13 K26 [{"StyleSheet"}]
-  GETUPVAL R14 17
+  LOADK R12 K27 ["StyleLink"]
+  DUPTABLE R13 K30 [{"StyleSheet"}]
+  GETUPVAL R14 18
   MOVE R15 R1
   CALL R14 1 1
-  SETTABLEKS R14 R13 K25 ["StyleSheet"]
+  SETTABLEKS R14 R13 K29 ["StyleSheet"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K23 ["StyleLink"]
+  SETTABLEKS R11 R10 K27 ["StyleLink"]
   CALL R8 2 -1
   RETURN R8 -1
 
@@ -291,56 +319,62 @@ MAIN:
   GETTABLEKS R18 R19 K27 ["Contexts"]
   GETTABLEKS R17 R18 K30 ["AnnotationsServiceContext"]
   CALL R16 1 1
-  GETIMPORT R18 K5 [require]
-  GETTABLEKS R21 R0 K9 ["Src"]
-  GETTABLEKS R20 R21 K27 ["Contexts"]
-  GETTABLEKS R19 R20 K31 ["TagDropdownContext"]
-  CALL R18 1 1
-  GETTABLEKS R17 R18 K32 ["TagDropdownProvider"]
-  GETIMPORT R18 K5 [require]
-  GETTABLEKS R21 R0 K9 ["Src"]
-  GETTABLEKS R20 R21 K33 ["CoreGuiComponents"]
-  GETTABLEKS R19 R20 K34 ["AnnotationPlacementManager"]
-  CALL R18 1 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K9 ["Src"]
+  GETTABLEKS R19 R20 K27 ["Contexts"]
+  GETTABLEKS R18 R19 K31 ["ClassIconContext"]
+  CALL R17 1 1
   GETIMPORT R19 K5 [require]
   GETTABLEKS R22 R0 K9 ["Src"]
-  GETTABLEKS R21 R22 K35 ["Enums"]
-  GETTABLEKS R20 R21 K36 ["AnnotationEditingMode"]
+  GETTABLEKS R21 R22 K27 ["Contexts"]
+  GETTABLEKS R20 R21 K32 ["TagDropdownContext"]
   CALL R19 1 1
-  GETIMPORT R20 K38 [game]
-  LOADK R22 K39 ["AnnotationsService"]
-  NAMECALL R20 R20 K40 ["GetService"]
-  CALL R20 2 1
-  GETIMPORT R21 K38 [game]
-  LOADK R23 K41 ["UserInputService"]
-  NAMECALL R21 R21 K40 ["GetService"]
+  GETTABLEKS R18 R19 K33 ["TagDropdownProvider"]
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K9 ["Src"]
+  GETTABLEKS R21 R22 K34 ["CoreGuiComponents"]
+  GETTABLEKS R20 R21 K35 ["AnnotationPlacementManager"]
+  CALL R19 1 1
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R23 R0 K9 ["Src"]
+  GETTABLEKS R22 R23 K36 ["Enums"]
+  GETTABLEKS R21 R22 K37 ["AnnotationEditingMode"]
+  CALL R20 1 1
+  GETIMPORT R21 K39 [game]
+  LOADK R23 K40 ["AnnotationsService"]
+  NAMECALL R21 R21 K41 ["GetService"]
   CALL R21 2 1
-  GETTABLEKS R23 R8 K24 ["Localization"]
-  GETTABLEKS R22 R23 K42 ["new"]
-  DUPTABLE R23 K46 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  SETTABLEKS R12 R23 K43 ["stringResourceTable"]
-  SETTABLEKS R13 R23 K44 ["translationResourceTable"]
-  LOADK R24 K2 ["PlaceAnnotations"]
-  SETTABLEKS R24 R23 K45 ["pluginName"]
-  CALL R22 1 1
-  GETTABLEKS R23 R6 K47 ["ANNOTATIONS_ACTION_URI"]
-  DUPCLOSURE R24 K48 [PROTO_5]
+  GETIMPORT R22 K39 [game]
+  LOADK R24 K42 ["UserInputService"]
+  NAMECALL R22 R22 K41 ["GetService"]
+  CALL R22 2 1
+  GETTABLEKS R24 R8 K24 ["Localization"]
+  GETTABLEKS R23 R24 K43 ["new"]
+  DUPTABLE R24 K47 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R12 R24 K44 ["stringResourceTable"]
+  SETTABLEKS R13 R24 K45 ["translationResourceTable"]
+  LOADK R25 K2 ["PlaceAnnotations"]
+  SETTABLEKS R25 R24 K46 ["pluginName"]
+  CALL R23 1 1
+  GETTABLEKS R24 R6 K48 ["ANNOTATIONS_ACTION_URI"]
+  DUPCLOSURE R25 K49 [PROTO_5]
   CAPTURE VAL R1
   CAPTURE VAL R7
+  CAPTURE VAL R22
   CAPTURE VAL R21
   CAPTURE VAL R20
-  CAPTURE VAL R19
   CAPTURE VAL R5
-  CAPTURE VAL R23
+  CAPTURE VAL R24
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  CAPTURE VAL R22
+  CAPTURE VAL R23
   CAPTURE VAL R14
   CAPTURE VAL R15
   CAPTURE VAL R11
   CAPTURE VAL R16
-  CAPTURE VAL R17
   CAPTURE VAL R18
+  CAPTURE VAL R17
+  CAPTURE VAL R19
   CAPTURE VAL R4
-  RETURN R24 1
+  RETURN R25 1

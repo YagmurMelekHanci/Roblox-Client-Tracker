@@ -1,15 +1,23 @@
 PROTO_0:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["_gameInfo"]
-  SETTABLEKS R0 R1 K1 ["Id"]
+  ORK R2 R0 K1 [0]
+  SETTABLEKS R2 R1 K2 ["Id"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["OnGameInfoFetched"]
-  GETIMPORT R3 K5 [table.clone]
+  GETTABLEKS R1 R2 K3 ["OnGameInfoFetched"]
+  GETIMPORT R3 K6 [table.clone]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["_gameInfo"]
   CALL R3 1 -1
-  NAMECALL R1 R1 K6 ["Fire"]
+  NAMECALL R1 R1 K7 ["Fire"]
   CALL R1 -1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_gameInfo"]
+  GETTABLEKS R1 R2 K2 ["Id"]
+  JUMPIFEQKN R1 K1 [0] [+5]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K8 ["refreshUniverseInfo"]
+  CALL R1 1 0
   RETURN R0 0
 
 PROTO_1:
@@ -53,124 +61,105 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  DUPTABLE R4 K17 [{"_isMock", "_networking", "_plugin", "_user", "_gameInfo", "_pluginWidth", "_showSidebar", "_rootPlace", "_stagedPlace", "OnUsernameFetched", "OnGameInfoFetched", "OnSelectionChanged", "OnSidebarToggled", "OnPluginWidthChanged", "OnIsCompactChanged", "OnConfirmRemovePlaceChanged", "OnRenamePlaceIdChanged"}]
+  DUPTABLE R4 K18 [{"_isMock", "_networking", "_localization", "_plugin", "_user", "_gameInfo", "_pluginWidth", "_showSidebar", "_rootPlace", "_stagedPlace", "OnUsernameFetched", "OnGameInfoFetched", "OnSelectionChanged", "OnSidebarToggled", "OnPluginWidthChanged", "OnIsCompactChanged", "OnConfirmRemovePlaceChanged", "OnRenamePlaceIdChanged"}]
   SETTABLEKS R3 R4 K0 ["_isMock"]
   SETTABLEKS R1 R4 K1 ["_networking"]
-  SETTABLEKS R0 R4 K2 ["_plugin"]
-  DUPTABLE R5 K21 [{"Id", "Name", "Scope"}]
+  SETTABLEKS R2 R4 K2 ["_localization"]
+  SETTABLEKS R0 R4 K3 ["_plugin"]
+  DUPTABLE R5 K22 [{"Id", "Name", "Scope"}]
   GETUPVAL R6 0
-  NAMECALL R6 R6 K22 ["GetUserId"]
+  NAMECALL R6 R6 K23 ["GetUserId"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K18 ["Id"]
-  LOADK R8 K23 ["Plugin"]
-  LOADK R9 K24 ["PlaceholderUsername"]
-  NAMECALL R6 R2 K25 ["getText"]
+  SETTABLEKS R6 R5 K19 ["Id"]
+  LOADK R8 K24 ["Plugin"]
+  LOADK R9 K25 ["PlaceholderUsername"]
+  NAMECALL R6 R2 K26 ["getText"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K19 ["Name"]
+  SETTABLEKS R6 R5 K20 ["Name"]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K20 ["Scope"]
-  GETTABLEKS R6 R7 K26 ["User"]
-  SETTABLEKS R6 R5 K20 ["Scope"]
-  SETTABLEKS R5 R4 K3 ["_user"]
-  DUPTABLE R5 K21 [{"Id", "Name", "Scope"}]
-  JUMPIFNOT R3 [+2]
-  LOADN R6 0
-  JUMP [+4]
-  LOADK R8 K27 ["GameId"]
-  NAMECALL R6 R0 K28 ["GetItem"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K18 ["Id"]
-  LOADK R8 K23 ["Plugin"]
-  LOADK R9 K29 ["PlaceholderGameName"]
-  NAMECALL R6 R2 K25 ["getText"]
+  GETTABLEKS R7 R8 K21 ["Scope"]
+  GETTABLEKS R6 R7 K27 ["User"]
+  SETTABLEKS R6 R5 K21 ["Scope"]
+  SETTABLEKS R5 R4 K4 ["_user"]
+  DUPTABLE R5 K22 [{"Id", "Name", "Scope"}]
+  LOADK R9 K29 ["GameId"]
+  NAMECALL R7 R0 K30 ["GetItem"]
+  CALL R7 2 1
+  ORK R6 R7 K28 [0]
+  SETTABLEKS R6 R5 K19 ["Id"]
+  LOADK R8 K24 ["Plugin"]
+  LOADK R9 K31 ["PlaceholderGameName"]
+  NAMECALL R6 R2 K26 ["getText"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K19 ["Name"]
+  SETTABLEKS R6 R5 K20 ["Name"]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K20 ["Scope"]
-  GETTABLEKS R6 R7 K30 ["Universe"]
-  SETTABLEKS R6 R5 K20 ["Scope"]
-  SETTABLEKS R5 R4 K4 ["_gameInfo"]
+  GETTABLEKS R7 R8 K21 ["Scope"]
+  GETTABLEKS R6 R7 K32 ["Universe"]
+  SETTABLEKS R6 R5 K21 ["Scope"]
+  SETTABLEKS R5 R4 K5 ["_gameInfo"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K5 ["_pluginWidth"]
+  SETTABLEKS R5 R4 K6 ["_pluginWidth"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K6 ["_showSidebar"]
+  SETTABLEKS R5 R4 K7 ["_showSidebar"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K7 ["_rootPlace"]
+  SETTABLEKS R5 R4 K8 ["_rootPlace"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K8 ["_stagedPlace"]
+  SETTABLEKS R5 R4 K9 ["_stagedPlace"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K31 ["new"]
+  GETTABLEKS R5 R6 K33 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K9 ["OnUsernameFetched"]
+  SETTABLEKS R5 R4 K10 ["OnUsernameFetched"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K31 ["new"]
+  GETTABLEKS R5 R6 K33 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K10 ["OnGameInfoFetched"]
+  SETTABLEKS R5 R4 K11 ["OnGameInfoFetched"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K31 ["new"]
+  GETTABLEKS R5 R6 K33 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K11 ["OnSelectionChanged"]
+  SETTABLEKS R5 R4 K12 ["OnSelectionChanged"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K31 ["new"]
+  GETTABLEKS R5 R6 K33 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K12 ["OnSidebarToggled"]
+  SETTABLEKS R5 R4 K13 ["OnSidebarToggled"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K31 ["new"]
+  GETTABLEKS R5 R6 K33 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K13 ["OnPluginWidthChanged"]
+  SETTABLEKS R5 R4 K14 ["OnPluginWidthChanged"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K31 ["new"]
+  GETTABLEKS R5 R6 K33 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K14 ["OnIsCompactChanged"]
+  SETTABLEKS R5 R4 K15 ["OnIsCompactChanged"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K31 ["new"]
+  GETTABLEKS R5 R6 K33 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K15 ["OnConfirmRemovePlaceChanged"]
+  SETTABLEKS R5 R4 K16 ["OnConfirmRemovePlaceChanged"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K31 ["new"]
+  GETTABLEKS R5 R6 K33 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K16 ["OnRenamePlaceIdChanged"]
+  SETTABLEKS R5 R4 K17 ["OnRenamePlaceIdChanged"]
   GETUPVAL R7 3
   FASTCALL2 SETMETATABLE R4 R7 [+4]
   MOVE R6 R4
-  GETIMPORT R5 K33 [setmetatable]
+  GETIMPORT R5 K35 [setmetatable]
   CALL R5 2 0
-  JUMPIF R3 [+8]
-  GETTABLEKS R5 R4 K2 ["_plugin"]
-  LOADK R7 K27 ["GameId"]
+  GETTABLEKS R6 R4 K5 ["_gameInfo"]
+  GETTABLEKS R5 R6 K19 ["Id"]
+  JUMPIFEQKN R5 K28 [0] [+4]
+  NAMECALL R5 R4 K36 ["refreshUniverseInfo"]
+  CALL R5 1 0
+  GETTABLEKS R5 R4 K3 ["_plugin"]
+  LOADK R7 K29 ["GameId"]
   NEWCLOSURE R8 P0
   CAPTURE VAL R4
-  NAMECALL R5 R5 K34 ["OnSetItem"]
+  NAMECALL R5 R5 K37 ["OnSetItem"]
   CALL R5 3 0
   GETTABLEKS R5 R4 K1 ["_networking"]
   NEWCLOSURE R7 P1
   CAPTURE UPVAL U4
   CAPTURE VAL R2
   CAPTURE VAL R4
-  NAMECALL R5 R5 K35 ["fetchUsername"]
+  NAMECALL R5 R5 K38 ["fetchUsername"]
   CALL R5 2 0
-  GETTABLEKS R5 R4 K1 ["_networking"]
-  NAMECALL R5 R5 K36 ["fetchGameName"]
-  CALL R5 1 2
-  JUMPIFNOT R5 [+15]
-  GETTABLEKS R7 R4 K4 ["_gameInfo"]
-  SETTABLEKS R6 R7 K19 ["Name"]
-  GETTABLEKS R7 R4 K10 ["OnGameInfoFetched"]
-  GETIMPORT R9 K39 [table.clone]
-  GETTABLEKS R10 R4 K4 ["_gameInfo"]
-  CALL R9 1 -1
-  NAMECALL R7 R7 K40 ["Fire"]
-  CALL R7 -1 0
-  RETURN R4 1
-  GETUPVAL R7 4
-  CALL R7 0 1
-  JUMPIFNOT R7 [+8]
-  GETIMPORT R7 K42 [warn]
-  LOADK R10 K43 ["PluginErrors"]
-  LOADK R11 K44 ["ErrorFetchGameName"]
-  NAMECALL R8 R2 K25 ["getText"]
-  CALL R8 3 -1
-  CALL R7 -1 0
   RETURN R4 1
 
 PROTO_3:
@@ -239,10 +228,78 @@ PROTO_10:
   RETURN R0 0
 
 PROTO_11:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["rootPlaceId"]
+  SETTABLEKS R2 R1 K1 ["_rootPlace"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["_gameInfo"]
+  GETTABLEKS R2 R0 K3 ["name"]
+  SETTABLEKS R2 R1 K4 ["Name"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["OnGameInfoFetched"]
+  GETIMPORT R3 K8 [table.clone]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["_gameInfo"]
+  CALL R3 1 -1
+  NAMECALL R1 R1 K9 ["Fire"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETIMPORT R1 K1 [warn]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_localization"]
+  LOADK R4 K3 ["PluginErrors"]
+  LOADK R5 K4 ["ErrorFetchGameName"]
+  NAMECALL R2 R2 K5 ["getText"]
+  CALL R2 3 -1
+  CALL R1 -1 0
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIFNOT R1 [+4]
+  GETIMPORT R1 K1 [warn]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R1 0
+  LOADN R2 0
+  SETTABLEKS R2 R1 K6 ["_rootPlace"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K7 ["_gameInfo"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_localization"]
+  LOADK R4 K8 ["Plugin"]
+  LOADK R5 K9 ["PlaceholderGameName"]
+  NAMECALL R2 R2 K5 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K10 ["Name"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K11 ["OnGameInfoFetched"]
+  GETIMPORT R3 K14 [table.clone]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["_gameInfo"]
+  CALL R3 1 -1
+  NAMECALL R1 R1 K15 ["Fire"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R1 R0 K0 ["_networking"]
+  GETTABLEKS R4 R0 K1 ["_gameInfo"]
+  GETTABLEKS R3 R4 K2 ["Id"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  NAMECALL R1 R1 K3 ["fetchUniverseInfoAsync"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_14:
   GETTABLEKS R1 R0 K0 ["_showSidebar"]
   RETURN R1 1
 
-PROTO_12:
+PROTO_15:
   GETTABLEKS R2 R0 K0 ["_showSidebar"]
   NOT R1 R2
   SETTABLEKS R1 R0 K0 ["_showSidebar"]
@@ -252,7 +309,7 @@ PROTO_12:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_16:
   SETTABLEKS R1 R0 K0 ["_showSidebar"]
   GETTABLEKS R2 R0 K1 ["OnSidebarToggled"]
   GETTABLEKS R4 R0 K0 ["_showSidebar"]
@@ -260,7 +317,7 @@ PROTO_13:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_17:
   GETTABLEKS R2 R0 K0 ["_pluginWidth"]
   JUMPIFNOT R2 [+8]
   GETTABLEKS R2 R0 K0 ["_pluginWidth"]
@@ -272,11 +329,11 @@ PROTO_14:
   LOADB R1 0
   RETURN R1 1
 
-PROTO_15:
+PROTO_18:
   GETTABLEKS R1 R0 K0 ["_pluginWidth"]
   RETURN R1 1
 
-PROTO_16:
+PROTO_19:
   NAMECALL R2 R0 K0 ["getIsCompact"]
   CALL R2 1 1
   GETTABLEKS R3 R0 K1 ["_pluginWidth"]
@@ -307,15 +364,15 @@ PROTO_16:
   CALL R4 -1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_20:
   SETTABLEKS R1 R0 K0 ["_rootPlace"]
   RETURN R0 0
 
-PROTO_18:
+PROTO_21:
   GETTABLEKS R1 R0 K0 ["_rootPlace"]
   RETURN R1 1
 
-PROTO_19:
+PROTO_22:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["_headerRow"]
   GETIMPORT R1 K3 [Vector2.new]
@@ -328,7 +385,7 @@ PROTO_19:
   SETTABLEKS R1 R0 K5 ["CanvasPosition"]
   RETURN R0 0
 
-PROTO_20:
+PROTO_23:
   NAMECALL R1 R0 K0 ["_unbindScroll"]
   CALL R1 1 0
   GETTABLEKS R1 R0 K1 ["_contentList"]
@@ -342,7 +399,7 @@ PROTO_20:
   SETTABLEKS R1 R0 K5 ["_scrollerConnection"]
   RETURN R0 0
 
-PROTO_21:
+PROTO_24:
   GETTABLEKS R1 R0 K0 ["_scrollerConnection"]
   JUMPIFNOT R1 [+8]
   GETTABLEKS R1 R0 K0 ["_scrollerConnection"]
@@ -352,7 +409,7 @@ PROTO_21:
   SETTABLEKS R1 R0 K0 ["_scrollerConnection"]
   RETURN R0 0
 
-PROTO_22:
+PROTO_25:
   SETTABLEKS R1 R0 K0 ["_contentList"]
   GETTABLEKS R2 R0 K0 ["_contentList"]
   JUMPIFNOT R2 [+7]
@@ -365,7 +422,7 @@ PROTO_22:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_26:
   SETTABLEKS R1 R0 K0 ["_headerRow"]
   GETTABLEKS R2 R0 K1 ["_contentList"]
   JUMPIFNOT R2 [+7]
@@ -378,18 +435,18 @@ PROTO_23:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_27:
   GETTABLEKS R3 R0 K0 ["_rootPlace"]
   JUMPIFEQ R3 R1 [+2]
   LOADB R2 0 +1
   LOADB R2 1
   RETURN R2 1
 
-PROTO_25:
+PROTO_28:
   GETTABLEKS R1 R0 K0 ["_confirmRemovePlace"]
   RETURN R1 1
 
-PROTO_26:
+PROTO_29:
   SETTABLEKS R1 R0 K0 ["_stagedPlace"]
   GETTABLEKS R2 R0 K1 ["OnConfirmRemovePlaceChanged"]
   LOADB R4 1
@@ -397,7 +454,7 @@ PROTO_26:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_30:
   GETTABLEKS R4 R0 K0 ["_stagedPlace"]
   JUMPIFNOTEQKN R4 K1 [0] [+2]
   LOADB R3 0 +1
@@ -420,7 +477,7 @@ PROTO_27:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_31:
   SETTABLEKS R1 R0 K0 ["_stagedPlace"]
   GETTABLEKS R2 R0 K1 ["OnRenamePlaceIdChanged"]
   MOVE R4 R1
@@ -428,7 +485,7 @@ PROTO_28:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_32:
   GETTABLEKS R4 R0 K0 ["_stagedPlace"]
   JUMPIFNOTEQKN R4 K1 [0] [+2]
   LOADB R3 0 +1
@@ -512,40 +569,43 @@ MAIN:
   DUPCLOSURE R10 K39 [PROTO_10]
   CAPTURE VAL R6
   SETTABLEKS R10 R9 K40 ["launchBulkImport"]
-  DUPCLOSURE R10 K41 [PROTO_11]
-  SETTABLEKS R10 R9 K42 ["getShowSidebar"]
-  DUPCLOSURE R10 K43 [PROTO_12]
-  SETTABLEKS R10 R9 K44 ["toggleSidebar"]
-  DUPCLOSURE R10 K45 [PROTO_13]
-  SETTABLEKS R10 R9 K46 ["setShowSidebar"]
-  DUPCLOSURE R10 K47 [PROTO_14]
-  SETTABLEKS R10 R9 K48 ["getIsCompact"]
-  DUPCLOSURE R10 K49 [PROTO_15]
-  SETTABLEKS R10 R9 K50 ["getPluginWidth"]
-  DUPCLOSURE R10 K51 [PROTO_16]
-  SETTABLEKS R10 R9 K52 ["setPluginWidth"]
-  DUPCLOSURE R10 K53 [PROTO_17]
-  SETTABLEKS R10 R9 K54 ["setRootPlace"]
-  DUPCLOSURE R10 K55 [PROTO_18]
-  SETTABLEKS R10 R9 K56 ["getRootPlace"]
-  DUPCLOSURE R10 K57 [PROTO_20]
-  SETTABLEKS R10 R9 K58 ["_bindScroll"]
-  DUPCLOSURE R10 K59 [PROTO_21]
-  SETTABLEKS R10 R9 K60 ["_unbindScroll"]
-  DUPCLOSURE R10 K61 [PROTO_22]
-  SETTABLEKS R10 R9 K62 ["setContentList"]
-  DUPCLOSURE R10 K63 [PROTO_23]
-  SETTABLEKS R10 R9 K64 ["setListHeaderRow"]
-  DUPCLOSURE R10 K65 [PROTO_24]
-  SETTABLEKS R10 R9 K66 ["isRootPlace"]
-  DUPCLOSURE R10 K67 [PROTO_25]
-  SETTABLEKS R10 R9 K68 ["getConfirmRemovePlace"]
-  DUPCLOSURE R10 K69 [PROTO_26]
-  SETTABLEKS R10 R9 K70 ["stageRemovePlace"]
-  DUPCLOSURE R10 K71 [PROTO_27]
-  SETTABLEKS R10 R9 K72 ["resolveRemovePlace"]
-  DUPCLOSURE R10 K73 [PROTO_28]
-  SETTABLEKS R10 R9 K74 ["stagePlaceForRename"]
-  DUPCLOSURE R10 K75 [PROTO_29]
-  SETTABLEKS R10 R9 K76 ["renamePlace"]
+  DUPCLOSURE R10 K41 [PROTO_13]
+  CAPTURE VAL R8
+  SETTABLEKS R10 R9 K42 ["refreshUniverseInfo"]
+  DUPCLOSURE R10 K43 [PROTO_14]
+  SETTABLEKS R10 R9 K44 ["getShowSidebar"]
+  DUPCLOSURE R10 K45 [PROTO_15]
+  SETTABLEKS R10 R9 K46 ["toggleSidebar"]
+  DUPCLOSURE R10 K47 [PROTO_16]
+  SETTABLEKS R10 R9 K48 ["setShowSidebar"]
+  DUPCLOSURE R10 K49 [PROTO_17]
+  SETTABLEKS R10 R9 K50 ["getIsCompact"]
+  DUPCLOSURE R10 K51 [PROTO_18]
+  SETTABLEKS R10 R9 K52 ["getPluginWidth"]
+  DUPCLOSURE R10 K53 [PROTO_19]
+  SETTABLEKS R10 R9 K54 ["setPluginWidth"]
+  DUPCLOSURE R10 K55 [PROTO_20]
+  SETTABLEKS R10 R9 K56 ["setRootPlace"]
+  DUPCLOSURE R10 K57 [PROTO_21]
+  SETTABLEKS R10 R9 K58 ["getRootPlace"]
+  DUPCLOSURE R10 K59 [PROTO_23]
+  SETTABLEKS R10 R9 K60 ["_bindScroll"]
+  DUPCLOSURE R10 K61 [PROTO_24]
+  SETTABLEKS R10 R9 K62 ["_unbindScroll"]
+  DUPCLOSURE R10 K63 [PROTO_25]
+  SETTABLEKS R10 R9 K64 ["setContentList"]
+  DUPCLOSURE R10 K65 [PROTO_26]
+  SETTABLEKS R10 R9 K66 ["setListHeaderRow"]
+  DUPCLOSURE R10 K67 [PROTO_27]
+  SETTABLEKS R10 R9 K68 ["isRootPlace"]
+  DUPCLOSURE R10 K69 [PROTO_28]
+  SETTABLEKS R10 R9 K70 ["getConfirmRemovePlace"]
+  DUPCLOSURE R10 K71 [PROTO_29]
+  SETTABLEKS R10 R9 K72 ["stageRemovePlace"]
+  DUPCLOSURE R10 K73 [PROTO_30]
+  SETTABLEKS R10 R9 K74 ["resolveRemovePlace"]
+  DUPCLOSURE R10 K75 [PROTO_31]
+  SETTABLEKS R10 R9 K76 ["stagePlaceForRename"]
+  DUPCLOSURE R10 K77 [PROTO_32]
+  SETTABLEKS R10 R9 K78 ["renamePlace"]
   RETURN R9 1

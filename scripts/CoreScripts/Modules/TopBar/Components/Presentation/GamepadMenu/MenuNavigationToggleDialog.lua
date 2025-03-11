@@ -8,6 +8,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+
 local useExternalEvent = UIBlox.Core.Hooks.useExternalEvent
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
 local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
@@ -15,7 +17,8 @@ local Topbar = script.Parent.Parent.Parent.Parent
 local Modules = Topbar.Parent
 local Chrome = Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)()
-local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: any
+local GamepadConnector = require(Topbar.Components.GamepadConnector)
+local ChromeService = if not FFlagTiltIconUnibarFocusNav and ChromeEnabled then require(Chrome.Service) else nil :: never
 local useObservableValue = require(Chrome.ChromeShared.Hooks.useObservableValue)
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
@@ -32,6 +35,7 @@ local POST_ICON_FALLBACK_STRING = "to toggle menu navigation"
 
 type Props = {
 	Position: UDim2,
+	GamepadConnector: GamepadConnector.GamepadConnector,
 }
 
 local function MenuNavigationToggleDialog(props: Props)
@@ -94,7 +98,9 @@ local function MenuNavigationToggleDialog(props: Props)
 		return leftTextSize_, rightTextSize_
 	end, { font.FontSize, font.Font, leftText, rightText })
 
-	local topbarFocus = if ChromeEnabled and FFlagConnectGamepadChrome then useObservableValue(ChromeService:inFocusNav()) else nil
+	local topbarFocus = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then useObservableValue(props.GamepadConnector:getSelectedCoreObject()) 
+		elseif ChromeEnabled and FFlagConnectGamepadChrome then useObservableValue(ChromeService:inFocusNav())
+		else nil
 
 	return React.createElement("Frame", {
 		BackgroundColor3 = backgroundUiColor.Color3,
@@ -102,7 +108,9 @@ local function MenuNavigationToggleDialog(props: Props)
 		AutomaticSize = Enum.AutomaticSize.XY,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = props.Position,
-		Visible = if ChromeEnabled and FFlagConnectGamepadChrome then topbarFocus else true,
+		Visible = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then topbarFocus ~= nil 
+			elseif ChromeEnabled and FFlagConnectGamepadChrome then topbarFocus
+			else true,
 	}, {
 		Corner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, cornerRadius),

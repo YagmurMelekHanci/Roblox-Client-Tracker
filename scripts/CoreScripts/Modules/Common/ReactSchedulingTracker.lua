@@ -350,7 +350,7 @@ type ReactSchedulingTracker = typeof(setmetatable(
 	ReactSchedulingTracker
 ))
 
-function ReactSchedulingTracker.new(): ReactSchedulingTracker
+function ReactSchedulingTracker.new(context: string?): ReactSchedulingTracker
 	local self = setmetatable({
 		periodStartMs = 0,
 		reactFrameTimeMs = 0,
@@ -364,6 +364,7 @@ function ReactSchedulingTracker.new(): ReactSchedulingTracker
 			reactDropChangeHistogram = { 0, 0, 0, 0 },
 		},
 		rootsMetrics = {},
+		context = context,
 	}, ReactSchedulingTracker)
 
 	self.schedulerStateMachine = SchedulerStateMachine.new(function(duration)
@@ -457,6 +458,7 @@ function ReactSchedulingTracker:reportRoot(rootTime: RootTaskTime, root: FiberRo
 			{ customFields = {
 				rootName = name,
 				updateType = "PassiveEffects",
+				context = self.context,
 			} },
 			rootTime.PassiveEffectsMs
 		)
@@ -469,9 +471,11 @@ function ReactSchedulingTracker:reportRoot(rootTime: RootTaskTime, root: FiberRo
 		local timeToCompleteMs = getCurrentTimeMs() - rootTime.StartTimeMs
 		TelemetryService:LogStat(
 			RootUpdateStatConfig,
+
 			{ customFields = {
 				rootName = name,
 				updateType = "TimeToComplete",
+				context = self.context,
 			} },
 			timeToCompleteMs
 		)
@@ -485,6 +489,7 @@ function ReactSchedulingTracker:reportRoot(rootTime: RootTaskTime, root: FiberRo
 			{ customFields = {
 				rootName = name,
 				updateType = "RenderAndCommit",
+				context = self.context,
 			} },
 			rootTime.RenderMs + rootTime.CommitMs
 		)
@@ -493,6 +498,7 @@ function ReactSchedulingTracker:reportRoot(rootTime: RootTaskTime, root: FiberRo
 			{ customFields = {
 				rootName = name,
 				updateType = "Commit",
+				context = self.context,
 			} },
 			rootTime.CommitMs
 		)
@@ -583,16 +589,16 @@ function ReactSchedulingTracker:reportPeriod()
 	})
 
 	TelemetryService:LogStat(PeriodStatConfig, {
-		customFields = { stat = "ReactTotalTimePct" },
+		customFields = { stat = "ReactTotalTimePct", context = self.context },
 	}, periodSummary.react_total_time_pct)
 	TelemetryService:LogStat(PeriodStatConfig, {
-		customFields = { stat = "AverageReactAllFrameMs" },
+		customFields = { stat = "AverageReactAllFrameMs", context = self.context },
 	}, periodSummary.average_react_all_frame_ms)
 	TelemetryService:LogStat(PeriodStatConfig, {
-		customFields = { stat = "AverageReactOnlyFrameMs" },
+		customFields = { stat = "AverageReactOnlyFrameMs", context = self.context },
 	}, periodSummary.average_react_only_frame_ms)
 	TelemetryService:LogStat(PeriodStatConfig, {
-		customFields = { stat = "MaxReactFrameMs" },
+		customFields = { stat = "MaxReactFrameMs", context = self.context },
 	}, periodSummary.max_react_frame_ms)
 
 	for i = 1, MAX_BUCKETS do
@@ -602,6 +608,7 @@ function ReactSchedulingTracker:reportPeriod()
 			{ customFields = {
 				category = "AllFrame",
 				bucket = bucket,
+				context = self.context,
 			} },
 			frameMetrics.allFrameHistogram[i]
 		)
@@ -610,6 +617,7 @@ function ReactSchedulingTracker:reportPeriod()
 			{ customFields = {
 				category = "ReactFrame",
 				bucket = bucket,
+				context = self.context,
 			} },
 			frameMetrics.reactFrameHistogram[i]
 		)
@@ -618,6 +626,7 @@ function ReactSchedulingTracker:reportPeriod()
 			{ customFields = {
 				category = "ReactDropChange",
 				bucket = bucket,
+				context = self.context,
 			} },
 			frameMetrics.reactDropChangeHistogram[i]
 		)
@@ -633,6 +642,7 @@ function ReactSchedulingTracker:reportPeriod()
 		root.avg_commit_time_ms = root.commit_total_time_ms / root.update_count
 		root.avg_passive_effects_time_ms = root.passive_effects_total_time_ms / root.passive_effects_count
 		root.avg_time_to_update_ms = root.total_time_to_update_ms / root.update_count
+		root.context = self.context
 
 		TelemetryService:LogEvent(RootSummaryEvent, {
 			standardizedFields = summaryStandardizedFields,
@@ -644,6 +654,7 @@ function ReactSchedulingTracker:reportPeriod()
 			{ customFields = {
 				rootName = root.root_name,
 				stat = "TotalTimePct",
+				context = self.context,
 			} },
 			root.total_time_pct
 		)
@@ -653,6 +664,7 @@ function ReactSchedulingTracker:reportPeriod()
 			{ customFields = {
 				rootName = root.root_name,
 				task = "RenderAndCommit",
+				context = self.context,
 			} },
 			root.update_count
 		)
@@ -661,6 +673,7 @@ function ReactSchedulingTracker:reportPeriod()
 			{ customFields = {
 				rootName = root.root_name,
 				task = "PassiveEffects",
+				context = self.context,
 			} },
 			root.passive_effects_count
 		)
@@ -671,6 +684,7 @@ function ReactSchedulingTracker:reportPeriod()
 				rootName = root.root_name,
 				task = "RenderAndCommit",
 				stat = "AvgMs",
+				context = self.context,
 			} },
 			root.avg_update_time_ms
 		)
@@ -680,6 +694,7 @@ function ReactSchedulingTracker:reportPeriod()
 				rootName = root.root_name,
 				task = "Commit",
 				stat = "AvgMs",
+				context = self.context,
 			} },
 			root.avg_commit_time_ms
 		)
@@ -689,6 +704,7 @@ function ReactSchedulingTracker:reportPeriod()
 				rootName = root.root_name,
 				task = "TimeToUpdateMs",
 				stat = "AvgMs",
+				context = self.context,
 			} },
 			root.avg_time_to_update_ms
 		)
@@ -698,6 +714,7 @@ function ReactSchedulingTracker:reportPeriod()
 				rootName = root.root_name,
 				task = "PassiveEffects",
 				stat = "AvgMs",
+				context = self.context,
 			} },
 			root.avg_passive_effects_time_ms
 		)
@@ -708,6 +725,7 @@ function ReactSchedulingTracker:reportPeriod()
 				rootName = root.root_name,
 				task = "RenderAndCommit",
 				stat = "MaxMs",
+				context = self.context,
 			} },
 			root.max_update_time_ms
 		)
@@ -717,6 +735,7 @@ function ReactSchedulingTracker:reportPeriod()
 				rootName = root.root_name,
 				task = "Commit",
 				stat = "MaxMs",
+				context = self.context,
 			} },
 			root.max_commit_time_ms
 		)
@@ -726,6 +745,7 @@ function ReactSchedulingTracker:reportPeriod()
 				rootName = root.root_name,
 				task = "TimeToUpdateMs",
 				stat = "MaxMs",
+				context = self.context,
 			} },
 			root.max_time_to_update_ms
 		)
@@ -735,6 +755,7 @@ function ReactSchedulingTracker:reportPeriod()
 				rootName = root.root_name,
 				task = "PassiveEffects",
 				stat = "MaxMs",
+				context = self.context,
 			} },
 			root.max_passive_effects_time_ms
 		)

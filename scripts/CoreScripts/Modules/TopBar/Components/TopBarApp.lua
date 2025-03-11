@@ -7,6 +7,7 @@ local VRService = game:GetService("VRService")
 local TextChatService = game:GetService("TextChatService")
 
 local Roact = require(CorePackages.Packages.Roact)
+local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -46,6 +47,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagEnableSceneAnalysisPerformanceTest = SharedFlags.GetFFlagEnableSceneAnalysisPerformanceTest
 local GetFFlagEnableSongbirdPeek = require(Chrome.Flags.GetFFlagEnableSongbirdPeek)
 local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
+local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -74,6 +76,7 @@ local FFlagUnibarMenuIconLayoutFix = require(TopBar.Flags.FFlagUnibarMenuIconLay
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
+local MenuIconContext = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then require(script.Parent.MenuIconContext) else nil :: never
 local GamepadMenu = nil
 local GamepadConnector = nil
 local FFlagAddMenuNavigationToggleDialog = nil
@@ -160,6 +163,11 @@ function TopBarApp:init()
 
 		if FFlagConnectGamepadChrome then
 			self.GamepadConnector = GamepadConnector.new()
+		end
+
+		if FFlagTiltIconUnibarFocusNav then
+			self.unibarMenuRef = React.createRef()
+			self.menuIconRef = Roact.createRef()
 		end
 	end
 
@@ -264,6 +272,8 @@ function TopBarApp:renderWithStyle(style)
 		iconScale = if self.props.menuOpen then 1.25 else 1,
 		layoutOrder = 1,
 		showBadgeOver12 = self.props.showBadgeOver12,
+		menuIconRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav then self.menuIconRef else nil :: never,
+		unibarMenuRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav then self.unibarMenuRef else nil :: never,
 	})
 	if GetFFlagFixUnibarVirtualCursor() then
 		newMenuIcon = Roact.createElement(SelectionCursorProvider, {}, {
@@ -289,11 +299,11 @@ function TopBarApp:renderWithStyle(style)
 					})
 				else Roact.createElement(GamepadMenu) 
 			else nil,
-		MenuNavigationToggleDialog = if FFlagConnectGamepadChrome and FFlagAddMenuNavigationToggleDialog
-			then Roact.createElement(MenuNavigationToggleDialog, {
+		MenuNavigationToggleDialog = if chromeEnabled and FFlagAddMenuNavigationToggleDialog and FFlagConnectGamepadChrome then
+			Roact.createElement(MenuNavigationToggleDialog, {
 				Position = UDim2.fromScale(0.5, 0.1),
-			})
-			else nil,
+				GamepadConnector = if FFlagTiltIconUnibarFocusNav then self.GamepadConnector else nil :: never,
+		}) else nil,
 		GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
 			then Roact.createElement(GamepadNavigationDialog)
 			else nil,
@@ -480,7 +490,20 @@ function TopBarApp:renderWithStyle(style)
 						PaddingLeft = UDim.new(0, screenSideOffset + Constants.Padding + Constants.TopBarHeight + 2),
 					}),
 
-					Unibar = Roact.createElement(Unibar, {
+					Unibar = if FFlagTiltIconUnibarFocusNav then React.createElement(MenuIconContext.Provider, {
+						value = {
+							menuIconRef = self.menuIconRef,
+						}, 
+					}, {
+						React.createElement(Unibar, {
+							layoutOrder = 1,
+							onAreaChanged = self.props.setKeepOutArea,
+							onMinWidthChanged = function(width: number)
+								self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+							end,
+							menuRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav then self.unibarMenuRef else nil :: never,
+						}),
+					}) else Roact.createElement(Unibar, {
 						layoutOrder = 1,
 						onAreaChanged = self.props.setKeepOutArea,
 						onMinWidthChanged = function(width: number)

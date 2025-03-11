@@ -5,6 +5,9 @@ local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 local React = require(CorePackages.Packages.React)
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local UIBloxBadge = UIBlox.App.Indicator.Badge
 
@@ -27,8 +30,8 @@ local Constants = require(Root.Unibar.Constants)
 local ChromeService = require(Root.Service)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Root.Service.Types)
-local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
-local FFlagWindowFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagWindowFixes()
+local FFlagEnableChromeAnalytics = SharedFlags.GetFFlagEnableChromeAnalytics()
+local FFlagWindowFixes = SharedFlags.GetFFlagWindowFixes()
 
 local useObservableValue = require(Root.Hooks.useObservableValue)
 local useNotificationCount = require(Root.Hooks.useNotificationCount)
@@ -38,11 +41,13 @@ local useTimeHysteresis = require(Root.Hooks.useTimeHysteresis)
 
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
 
-local GetFFlagFixUnibarVirtualCursor =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixUnibarVirtualCursor
-local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
-local FFlagReplaceChromeNotificationBadge =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagReplaceChromeNotificationBadge
+local MenuIconContext = if FFlagTiltIconUnibarFocusNav
+	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
+	else nil :: never
+
+local GetFFlagFixUnibarVirtualCursor = SharedFlags.GetFFlagFixUnibarVirtualCursor
+local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
+local FFlagReplaceChromeNotificationBadge = SharedFlags.FFlagReplaceChromeNotificationBadge
 
 local BADGE_OFFSET_X = 20
 local BADGE_OFFSET_Y = 0
@@ -319,9 +324,17 @@ function TooltipButton(props: TooltipButtonProps)
 	local displayTooltip = (isHovered or isTooltipHovered or isTooltipButtonSelected) and not clickLatched
 	logTooltipState(props.integration.id, displayTooltip)
 
+	local menuIconContext = if FFlagTiltIconUnibarFocusNav then React.useContext(MenuIconContext) else nil :: never
+
 	local renderTooltipComponent = React.useCallback(function(triggerPointChanged)
+		local leftMostIconId
+		if FFlagTiltIconUnibarFocusNav then
+			leftMostIconId = ChromeService:menuList():get()[1].id
+		end
+
 		return React.createElement(Interactable, {
-			Name = "IconHitArea_" .. props.integration.id,
+			Name = (if FFlagTiltIconUnibarFocusNav then Constants.ICON_NAME_PREFIX :: string else "IconHitArea_")
+				.. props.integration.id,
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
@@ -340,6 +353,9 @@ function TooltipButton(props: TooltipButtonProps)
 					then Enum.SelectionBehavior.Escape
 					else Enum.SelectionBehavior.Stop
 			end),
+			NextSelectionLeft = if FFlagTiltIconUnibarFocusNav and props.integration.id == leftMostIconId
+				then menuIconContext.menuIconRef
+				else nil :: never,
 
 			[React.Change.AbsolutePosition] = triggerPointChanged,
 			[React.Change.AbsoluteSize] = triggerPointChanged,
@@ -364,6 +380,7 @@ function TooltipButton(props: TooltipButtonProps)
 		props.isCurrentlyOpenSubMenu,
 		displayTooltip,
 		secondaryAction,
+		if FFlagTiltIconUnibarFocusNav then menuIconContext.menuIconRef else nil :: never,
 	})
 
 	-- tooltipRefHandler attached mouse events to the tooltip in order to keep it open while the mouse is over

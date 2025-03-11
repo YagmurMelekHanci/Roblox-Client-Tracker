@@ -1,0 +1,286 @@
+PROTO_0:
+  GETIMPORT R1 K3 [Enum.CreatorType.User]
+  JUMPIFNOTEQ R0 R1 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["DEFAULT_USER_THUMBNAIL"]
+  RETURN R1 1
+  GETIMPORT R3 K6 [Enum.CreatorType.Group]
+  JUMPIFEQ R0 R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  LOADK R4 K7 ["Unrecognized creator type for icons: "]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K9 [tostring]
+  CALL R5 1 1
+  CONCAT R3 R4 R5
+  FASTCALL2 ASSERT R2 R3 [+3]
+  GETIMPORT R1 K11 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K12 ["DEFAULT_GROUP_THUMBNAIL"]
+  RETURN R1 1
+
+PROTO_1:
+  GETIMPORT R2 K3 [Enum.CreatorType.User]
+  JUMPIFNOTEQ R0 R2 [+17]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["constructRBXThumbUrl"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["rbxThumbTypes"]
+  GETTABLEKS R3 R4 K6 ["AvatarHeadShot"]
+  MOVE R4 R1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["rbxThumbSizes"]
+  GETTABLEKS R5 R6 K8 ["AvatarHeadshotImageSize"]
+  CALL R2 3 -1
+  RETURN R2 -1
+  GETIMPORT R4 K10 [Enum.CreatorType.Group]
+  JUMPIFEQ R0 R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  LOADK R5 K11 ["Unrecognized creator type for thumbnail url: "]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K13 [tostring]
+  CALL R6 1 1
+  CONCAT R4 R5 R6
+  FASTCALL2 ASSERT R3 R4 [+3]
+  GETIMPORT R2 K15 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["constructRBXThumbUrl"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["rbxThumbTypes"]
+  GETTABLEKS R3 R4 K16 ["GroupIcon"]
+  MOVE R4 R1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["rbxThumbSizes"]
+  GETTABLEKS R5 R6 K17 ["GroupIconImageSize"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETIMPORT R2 K3 [Enum.AssetFetchStatus.Success]
+  JUMPIFNOTEQ R1 R2 [+4]
+  GETUPVAL R2 0
+  LOADB R3 1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  NEWTABLE R2 0 1
+  GETUPVAL R3 1
+  SETLIST R2 R3 1 [1]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U2
+  NAMECALL R0 R0 K0 ["PreloadAsync"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R4 2
+  GETTABLEKS R5 R0 K2 ["SubjectType"]
+  GETTABLEKS R6 R0 K3 ["Id"]
+  CALL R4 2 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["useEffect"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  NEWTABLE R7 0 0
+  CALL R5 2 0
+  JUMPIFNOT R2 [+2]
+  MOVE R5 R4
+  JUMP [+32]
+  GETTABLEKS R6 R0 K2 ["SubjectType"]
+  GETIMPORT R7 K8 [Enum.CreatorType.User]
+  JUMPIFNOTEQ R6 R7 [+5]
+  GETUPVAL R7 4
+  GETTABLEKS R5 R7 K9 ["DEFAULT_USER_THUMBNAIL"]
+  JUMP [+22]
+  GETIMPORT R9 K11 [Enum.CreatorType.Group]
+  JUMPIFEQ R6 R9 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  LOADK R10 K12 ["Unrecognized creator type for icons: "]
+  FASTCALL1 TOSTRING R6 [+3]
+  MOVE R12 R6
+  GETIMPORT R11 K14 [tostring]
+  CALL R11 1 1
+  CONCAT R9 R10 R11
+  FASTCALL2 ASSERT R8 R9 [+3]
+  GETIMPORT R7 K16 [assert]
+  CALL R7 2 0
+  GETUPVAL R7 4
+  GETTABLEKS R5 R7 K17 ["DEFAULT_GROUP_THUMBNAIL"]
+  JUMP [0]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K18 ["createElement"]
+  LOADK R7 K19 ["Frame"]
+  DUPTABLE R8 K24 [{"Size", "LayoutOrder", "BackgroundTransparency", "BorderSizePixel"}]
+  GETTABLEKS R9 R0 K20 ["Size"]
+  SETTABLEKS R9 R8 K20 ["Size"]
+  GETTABLEKS R10 R0 K21 ["LayoutOrder"]
+  ORK R9 R10 K25 [0]
+  SETTABLEKS R9 R8 K21 ["LayoutOrder"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K22 ["BackgroundTransparency"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K23 ["BorderSizePixel"]
+  DUPTABLE R9 K29 [{"UIListLayout", "Icon", "Labels"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K18 ["createElement"]
+  LOADK R11 K26 ["UIListLayout"]
+  DUPTABLE R12 K33 [{"Padding", "FillDirection", "SortOrder"}]
+  GETUPVAL R13 5
+  SETTABLEKS R13 R12 K30 ["Padding"]
+  GETIMPORT R13 K35 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R13 R12 K31 ["FillDirection"]
+  GETIMPORT R13 K36 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R13 R12 K32 ["SortOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K26 ["UIListLayout"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K18 ["createElement"]
+  GETUPVAL R11 6
+  DUPTABLE R12 K41 [{"Size", "SizeConstraint", "Image", "LayoutOrder", "UseMask", "BackgroundTransparency", "IsLoadedThumbnail"}]
+  GETIMPORT R13 K44 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K20 ["Size"]
+  GETIMPORT R13 K46 [Enum.SizeConstraint.RelativeYY]
+  SETTABLEKS R13 R12 K37 ["SizeConstraint"]
+  SETTABLEKS R5 R12 K38 ["Image"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K21 ["LayoutOrder"]
+  GETTABLEKS R14 R0 K2 ["SubjectType"]
+  GETIMPORT R15 K8 [Enum.CreatorType.User]
+  JUMPIFEQ R14 R15 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  SETTABLEKS R13 R12 K39 ["UseMask"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K22 ["BackgroundTransparency"]
+  SETTABLEKS R2 R12 K40 ["IsLoadedThumbnail"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K27 ["Icon"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K18 ["createElement"]
+  LOADK R11 K19 ["Frame"]
+  DUPTABLE R12 K47 [{"Size", "LayoutOrder", "BackgroundTransparency"}]
+  GETIMPORT R13 K44 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K20 ["Size"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K21 ["LayoutOrder"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K22 ["BackgroundTransparency"]
+  DUPTABLE R13 K49 [{"PrimaryLabel"}]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K18 ["createElement"]
+  LOADK R15 K50 ["TextLabel"]
+  DUPTABLE R16 K58 [{"Size", "Text", "TextYAlignment", "TextXAlignment", "Font", "TextSize", "TextColor3", "TextTruncate", "BackgroundTransparency"}]
+  GETIMPORT R17 K44 [UDim2.fromScale]
+  LOADN R18 1
+  LOADN R19 1
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K20 ["Size"]
+  GETTABLEKS R17 R0 K59 ["DisplayName"]
+  SETTABLEKS R17 R16 K51 ["Text"]
+  GETIMPORT R17 K61 [Enum.TextYAlignment.Center]
+  SETTABLEKS R17 R16 K52 ["TextYAlignment"]
+  GETIMPORT R17 K63 [Enum.TextXAlignment.Left]
+  SETTABLEKS R17 R16 K53 ["TextXAlignment"]
+  GETUPVAL R18 7
+  GETTABLEKS R17 R18 K64 ["FONT"]
+  SETTABLEKS R17 R16 K54 ["Font"]
+  GETUPVAL R18 7
+  GETTABLEKS R17 R18 K65 ["FONT_SIZE_TITLE"]
+  SETTABLEKS R17 R16 K55 ["TextSize"]
+  GETTABLEKS R19 R1 K66 ["assetConfig"]
+  GETTABLEKS R18 R19 K67 ["packagePermissions"]
+  GETTABLEKS R17 R18 K68 ["subTextColor"]
+  SETTABLEKS R17 R16 K56 ["TextColor3"]
+  GETIMPORT R17 K70 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R17 R16 K57 ["TextTruncate"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K22 ["BackgroundTransparency"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K48 ["PrimaryLabel"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K28 ["Labels"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K9 ["Core"]
+  GETTABLEKS R4 R5 K10 ["Util"]
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R4 K11 ["Images"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R4 K12 ["Constants"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R8 R4 K13 ["AssetConfigConstants"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R9 R4 K14 ["Urls"]
+  CALL R8 1 1
+  GETTABLEKS R12 R0 K9 ["Core"]
+  GETTABLEKS R11 R12 K15 ["Components"]
+  GETTABLEKS R10 R11 K16 ["AssetConfiguration"]
+  GETTABLEKS R9 R10 K17 ["Permissions"]
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R11 R9 K18 ["CollaboratorThumbnail"]
+  CALL R10 1 1
+  GETIMPORT R11 K20 [game]
+  LOADK R13 K21 ["ContentProvider"]
+  NAMECALL R11 R11 K22 ["GetService"]
+  CALL R11 2 1
+  GETTABLEKS R12 R3 K23 ["ContextServices"]
+  GETTABLEKS R13 R12 K24 ["Stylizer"]
+  GETIMPORT R14 K27 [UDim.new]
+  LOADN R15 0
+  LOADN R16 16
+  CALL R14 2 1
+  DUPCLOSURE R15 K28 [PROTO_0]
+  CAPTURE VAL R5
+  DUPCLOSURE R16 K29 [PROTO_1]
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  DUPCLOSURE R17 K30 [PROTO_4]
+  CAPTURE VAL R13
+  CAPTURE VAL R2
+  CAPTURE VAL R16
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  CAPTURE VAL R14
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  RETURN R17 1

@@ -81,29 +81,15 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Framework"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Util"]
-  GETTABLEKS R5 R6 K12 ["Constants"]
-  CALL R4 1 1
-  GETTABLEKS R5 R3 K13 ["ContextServices"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K11 ["Util"]
-  GETTABLEKS R7 R8 K14 ["DebugFlags"]
-  CALL R6 1 1
-  GETTABLEKS R7 R1 K15 ["PureComponent"]
-  LOADK R9 K16 ["MainProvider"]
-  NAMECALL R7 R7 K17 ["extend"]
-  CALL R7 2 1
-  DUPCLOSURE R8 K18 [PROTO_0]
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R1 K10 ["PureComponent"]
+  LOADK R6 K11 ["MainProvider"]
+  NAMECALL R4 R4 K12 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K13 [PROTO_0]
   CAPTURE VAL R1
-  CAPTURE VAL R5
-  SETTABLEKS R8 R7 K19 ["render"]
-  RETURN R7 1
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K14 ["render"]
+  RETURN R4 1

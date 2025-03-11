@@ -91,43 +91,35 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["RoactRodux"]
-  CALL R2 1 1
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K9 ["DraggerFramework"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["DraggerFramework"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R2 K9 ["DraggerTools"]
+  GETTABLEKS R4 R5 K10 ["DraggerToolComponent"]
+  CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R3 K10 ["DraggerTools"]
-  GETTABLEKS R5 R6 K11 ["DraggerToolComponent"]
+  GETTABLEKS R6 R2 K11 ["Handles"]
+  GETTABLEKS R5 R6 K12 ["MoveHandles"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R3 K12 ["Handles"]
-  GETTABLEKS R6 R7 K13 ["MoveHandles"]
+  GETTABLEKS R7 R2 K11 ["Handles"]
+  GETTABLEKS R6 R7 K13 ["RotateHandles"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R3 K12 ["Handles"]
-  GETTABLEKS R7 R8 K14 ["RotateHandles"]
+  GETTABLEKS R10 R0 K14 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Util"]
+  GETTABLEKS R8 R9 K16 ["DraggerSchema"]
+  GETTABLEKS R7 R8 K16 ["DraggerSchema"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R3 K12 ["Handles"]
-  GETTABLEKS R8 R9 K15 ["ExtrudeHandles"]
-  CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R12 R0 K16 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Util"]
-  GETTABLEKS R10 R11 K18 ["DraggerSchema"]
-  GETTABLEKS R9 R10 K18 ["DraggerSchema"]
-  CALL R8 1 1
-  GETTABLEKS R9 R1 K19 ["PureComponent"]
-  LOADK R11 K20 ["AnimationClipEditorDragger"]
-  NAMECALL R9 R9 K21 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K22 [PROTO_2]
-  CAPTURE VAL R5
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  CAPTURE VAL R1
+  GETTABLEKS R7 R1 K17 ["PureComponent"]
+  LOADK R9 K18 ["AnimationClipEditorDragger"]
+  NAMECALL R7 R7 K19 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K20 [PROTO_2]
   CAPTURE VAL R4
-  SETTABLEKS R10 R9 K23 ["render"]
-  RETURN R9 1
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R8 R7 K21 ["render"]
+  RETURN R7 1

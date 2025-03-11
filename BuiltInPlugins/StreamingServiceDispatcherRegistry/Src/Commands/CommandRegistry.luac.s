@@ -17,7 +17,7 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Src"]
   GETTABLEKS R5 R6 K7 ["Flags"]
-  GETTABLEKS R4 R5 K10 ["getFFlagConvAIGenerateMesh"]
+  GETTABLEKS R4 R5 K10 ["getFFlagConvAIMeshGen"]
   CALL R3 1 1
   GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K11 ["Commands"]

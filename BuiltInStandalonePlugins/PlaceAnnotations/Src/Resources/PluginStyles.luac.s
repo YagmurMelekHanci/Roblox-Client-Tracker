@@ -251,14 +251,19 @@ MAIN:
   CALL R13 2 1
   MOVE R14 R3
   LOADK R15 K95 [".MoreIcon"]
-  DUPTABLE R16 K97 [{"Image"}]
+  DUPTABLE R16 K97 [{"Image", "Size"}]
   LOADK R17 K98 ["$MoreIcon"]
   SETTABLEKS R17 R16 K96 ["Image"]
+  GETIMPORT R17 K43 [UDim2.fromOffset]
+  LOADN R18 16
+  LOADN R19 16
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K39 ["Size"]
   CALL R14 2 1
   MOVE R15 R3
   LOADK R16 K99 [".CheckboxOnIcon"]
-  DUPTABLE R17 K100 [{"Image", "Size"}]
-  LOADK R18 K101 ["$CheckboxOn"]
+  DUPTABLE R17 K97 [{"Image", "Size"}]
+  LOADK R18 K100 ["$CheckboxOn"]
   SETTABLEKS R18 R17 K96 ["Image"]
   GETIMPORT R18 K43 [UDim2.fromOffset]
   LOADN R19 16
@@ -267,9 +272,9 @@ MAIN:
   SETTABLEKS R18 R17 K39 ["Size"]
   CALL R15 2 1
   MOVE R16 R3
-  LOADK R17 K102 [".CheckboxOffIcon"]
-  DUPTABLE R18 K100 [{"Image", "Size"}]
-  LOADK R19 K103 ["$CheckboxOff"]
+  LOADK R17 K101 [".CheckboxOffIcon"]
+  DUPTABLE R18 K97 [{"Image", "Size"}]
+  LOADK R19 K102 ["$CheckboxOff"]
   SETTABLEKS R19 R18 K96 ["Image"]
   GETIMPORT R19 K43 [UDim2.fromOffset]
   LOADN R20 16
@@ -278,9 +283,9 @@ MAIN:
   SETTABLEKS R19 R18 K39 ["Size"]
   CALL R16 2 1
   MOVE R17 R3
-  LOADK R18 K104 [".ErrorIcon"]
-  DUPTABLE R19 K100 [{"Image", "Size"}]
-  LOADK R20 K105 ["$Error"]
+  LOADK R18 K103 [".ErrorIcon"]
+  DUPTABLE R19 K97 [{"Image", "Size"}]
+  LOADK R20 K104 ["$Error"]
   SETTABLEKS R20 R19 K96 ["Image"]
   GETIMPORT R20 K43 [UDim2.fromOffset]
   LOADN R21 16
@@ -289,9 +294,9 @@ MAIN:
   SETTABLEKS R20 R19 K39 ["Size"]
   CALL R17 2 1
   MOVE R18 R3
-  LOADK R19 K106 [".CloseIcon"]
-  DUPTABLE R20 K100 [{"Image", "Size"}]
-  LOADK R21 K107 ["$Close"]
+  LOADK R19 K105 [".CloseIcon"]
+  DUPTABLE R20 K97 [{"Image", "Size"}]
+  LOADK R21 K106 ["$Close"]
   SETTABLEKS R21 R20 K96 ["Image"]
   GETIMPORT R21 K43 [UDim2.fromOffset]
   LOADN R22 16
@@ -300,9 +305,9 @@ MAIN:
   SETTABLEKS R21 R20 K39 ["Size"]
   CALL R18 2 1
   MOVE R19 R3
-  LOADK R20 K108 [".SettingsIcon"]
-  DUPTABLE R21 K100 [{"Image", "Size"}]
-  LOADK R22 K109 ["$Settings"]
+  LOADK R20 K107 [".SettingsIcon"]
+  DUPTABLE R21 K97 [{"Image", "Size"}]
+  LOADK R22 K108 ["$Settings"]
   SETTABLEKS R22 R21 K96 ["Image"]
   GETIMPORT R22 K43 [UDim2.fromOffset]
   LOADN R23 16
@@ -311,9 +316,9 @@ MAIN:
   SETTABLEKS R22 R21 K39 ["Size"]
   CALL R19 2 1
   MOVE R20 R3
-  LOADK R21 K110 [".AddAnnotationIcon"]
-  DUPTABLE R22 K100 [{"Image", "Size"}]
-  LOADK R23 K111 ["$AddAnnotation"]
+  LOADK R21 K109 [".AddAnnotationIcon"]
+  DUPTABLE R22 K97 [{"Image", "Size"}]
+  LOADK R23 K110 ["$AddAnnotation"]
   SETTABLEKS R23 R22 K96 ["Image"]
   GETIMPORT R23 K43 [UDim2.fromOffset]
   LOADN R24 16
@@ -322,17 +327,17 @@ MAIN:
   SETTABLEKS R23 R22 K39 ["Size"]
   CALL R20 2 -1
   SETLIST R5 R6 -1 [1]
-  DUPTABLE R6 K116 [{"Font", "FontBold", "FontSizeS", "FontSizeM", "FontSizeL"}]
-  GETIMPORT R7 K118 [Enum.Font.SourceSans]
+  DUPTABLE R6 K115 [{"Font", "FontBold", "FontSizeS", "FontSizeM", "FontSizeL"}]
+  GETIMPORT R7 K117 [Enum.Font.SourceSans]
   SETTABLEKS R7 R6 K22 ["Font"]
-  GETIMPORT R7 K120 [Enum.Font.SourceSansBold]
-  SETTABLEKS R7 R6 K112 ["FontBold"]
+  GETIMPORT R7 K119 [Enum.Font.SourceSansBold]
+  SETTABLEKS R7 R6 K111 ["FontBold"]
   LOADN R7 15
-  SETTABLEKS R7 R6 K113 ["FontSizeS"]
+  SETTABLEKS R7 R6 K112 ["FontSizeS"]
   LOADN R7 18
-  SETTABLEKS R7 R6 K114 ["FontSizeM"]
+  SETTABLEKS R7 R6 K113 ["FontSizeM"]
   LOADN R7 20
-  SETTABLEKS R7 R6 K115 ["FontSizeL"]
+  SETTABLEKS R7 R6 K114 ["FontSizeL"]
   MOVE R7 R4
   LOADK R8 K2 ["PlaceAnnotations"]
   MOVE R9 R5

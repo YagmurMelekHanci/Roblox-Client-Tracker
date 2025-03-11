@@ -23,11 +23,11 @@ PROTO_2:
   GETUPVAL R5 2
   GETUPVAL R6 3
   CALL R4 2 1
-  DUPTABLE R5 K13 [{"openInsertObjectMenu", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "triggerFocus", "listenForFocus", "fieldsConfig"}]
+  DUPTABLE R5 K13 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "triggerFocus", "listenForFocus", "fieldsConfig"}]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U2
-  SETTABLEKS R6 R5 K5 ["openInsertObjectMenu"]
+  SETTABLEKS R6 R5 K5 ["openInsertObjectMenuAsync"]
   GETUPVAL R6 5
   SETTABLEKS R6 R5 K6 ["listenForVisibilityChanges"]
   GETUPVAL R6 6
@@ -179,7 +179,7 @@ MAIN:
   GETIMPORT R12 K5 [require]
   GETTABLEKS R15 R0 K8 ["Src"]
   GETTABLEKS R14 R15 K14 ["Guest"]
-  GETTABLEKS R13 R14 K22 ["openInsertObjectMenu"]
+  GETTABLEKS R13 R14 K22 ["openInsertObjectMenuAsync"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R16 R0 K8 ["Src"]
