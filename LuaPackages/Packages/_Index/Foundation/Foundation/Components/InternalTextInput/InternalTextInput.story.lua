@@ -7,11 +7,13 @@ local Icon = require(Foundation.Components.Icon)
 local IconButton = require(Foundation.Components.IconButton)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local IconSize = require(Foundation.Enums.IconSize)
 
 local function Story(props)
 	local controls = props.controls
+	local tokens = useTokens()
 
 	local text, setText = React.useState("")
 	local numReturnPressed, setNumReturnPressed = React.useState(0)
@@ -57,18 +59,14 @@ local function Story(props)
 		}),
 		Output = React.createElement(Text, {
 			Text = text,
-			textStyle = {
-				Color3 = Color3.new(1, 0, 0.5),
-			},
+			textStyle = tokens.Color.System.Alert,
 			LayoutOrder = 2,
 			tag = "auto-xy",
 		}),
 		NumReturnPressed = React.createElement(Text, {
 			LayoutOrder = 3,
 			Text = "Num return pressed: " .. tostring(numReturnPressed),
-			textStyle = {
-				Color3 = Color3.new(0, 0, 0),
-			},
+			textStyle = tokens.Color.Content.Emphasis,
 
 			tag = "auto-xy",
 		}),

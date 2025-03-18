@@ -25,6 +25,7 @@ local validateFullBody = require(root.validation.validateFullBody)
 local validateShoes = require(root.validation.validateShoes)
 
 local validateBundleReadyForUpload = require(root.validation.validateBundleReadyForUpload)
+local validateShoesBundleReadyForUpload = require(root.validation.validateShoesBundleReadyForUpload)
 local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynamicHeadMeshPartFormat)
 
 local UGCValidation = {}
@@ -397,6 +398,7 @@ export type PreprocessDataResult = Types.PreprocessDataResult
 -- The avatar validation response that the callback receives is immutable.
 -- Client only.
 UGCValidation.validateBundleReadyForUpload = validateBundleReadyForUpload
+UGCValidation.validateShoesBundleReadyForUpload = validateShoesBundleReadyForUpload
 
 UGCValidation.util = {
 	-- Utilities for the bundle metadata, which includes information such as what pieces are needed for what bundles.

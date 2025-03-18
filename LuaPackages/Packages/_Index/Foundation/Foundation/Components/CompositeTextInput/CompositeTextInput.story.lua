@@ -5,12 +5,14 @@ local React = require(Packages.React)
 local CompositeTextInput = require(Foundation.Components.CompositeTextInput)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local function Story(props)
 	local controls = props.controls
 
 	local text, setText = React.useState("")
 	local numReturnPressed, setNumReturnPressed = React.useState(0)
+	local tokens = useTokens()
 
 	local function handleChange(newText: string)
 		setText(newText)
@@ -62,9 +64,7 @@ local function Story(props)
 		Output = React.createElement(Text, {
 			LayoutOrder = 2,
 			Text = text,
-			textStyle = {
-				Color3 = Color3.new(1, 0, 0.5),
-			},
+			textStyle = tokens.Color.System.Alert,
 
 			tag = "auto-xy",
 		}),
@@ -72,9 +72,7 @@ local function Story(props)
 		NumReturnPressed = React.createElement(Text, {
 			LayoutOrder = 3,
 			Text = "Num return pressed: " .. tostring(numReturnPressed),
-			textStyle = {
-				Color3 = Color3.new(0, 0, 0),
-			},
+			textStyle = tokens.Color.Content.Emphasis,
 
 			tag = "auto-xy",
 		}),

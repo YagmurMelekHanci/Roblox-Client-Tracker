@@ -8,8 +8,6 @@ local StyleProvider = require(Providers.Style.StyleProvider)
 local CursorProvider = require(Providers.Cursor)
 local OverlayProvider = require(Providers.Overlay)
 
-local Flags = require(Foundation.Utility.Flags)
-
 type StyleProps = StyleProvider.StyleProviderProps
 type Preferences = PreferencesProvider.PreferencesProps
 
@@ -31,7 +29,6 @@ local function FoundationProvider(props: FoundationProviderProps)
 			device = props.device,
 			derives = props.derives,
 			sheetRef = sheetRef,
-			DONOTUSE_colorUpdate = (Flags.FoundationEnableColorUpdate or props.DONOTUSE_colorUpdate) :: boolean?,
 		}, {
 			OverlayProvider = React.createElement(OverlayProvider, { gui = props.overlayGui, sheetRef = sheetRef }, {
 				CursorProvider = React.createElement(CursorProvider, nil, props.children),

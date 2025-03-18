@@ -18,9 +18,6 @@ return {
 	-- active
 	hideHeaderActionBarWhenStickyBarActive = false,
 
-	-- Use RobloxGuiFocusedChanged event to respond to blur and loading of GenericButton
-	useRobloxGuiFocusedChangedEventInGenericButton = false,
-
 	-- In ResponsiveGrid, don't default displayLines to nil. Instead use an empty range
 	responsiveGridDisplayLinesNonNil = false,
 
@@ -119,15 +116,6 @@ return {
 	-- Fix press state for modal bottom sheet
 	fixModalBottomSheetPressState = false,
 
-	-- Fix padding on GenericButton Hover background with standard sizes
-	fixGenericButtonHoverBackgroundPadding = false,
-
-	-- Enable custom hover image support
-	enableGenericButtonHoverImage = false,
-
-	-- Enable ComboButton support in ActionBar
-	enableComboButtonInActionBar = false,
-
 	-- Fix the AppNav related test issues
 	fixAppNavTestIssues = false,
 
@@ -143,9 +131,6 @@ return {
 	-- Enable the workaround to fix the text flickering engine bug
 	enableAppNavTextFlickerFix = false,
 
-	-- Enable ComboButton support in ExperienceActionRow
-	enableComboButtonInExperienceActionRow = false,
-
 	-- Enable better laser pointer mode
 	enableBetterLaserPointerMode = false,
 
@@ -160,4 +145,7 @@ return {
 
 	-- Add the option to pass in callback to MediaGalleryPreview that runs on thumbnail activation
 	addThumbnailCallbackToMediaGalleryPreview = false,
+
+	-- Allow to disable color mapping for the color experiment on SignUp/Login
+	allowDisableColorMapping = false,
 }

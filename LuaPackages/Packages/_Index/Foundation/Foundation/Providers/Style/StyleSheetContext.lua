@@ -5,13 +5,11 @@ local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 
 -- typeof(Cryo.None) is any, it's a known issue
-type ContextValue = StyleSheet | typeof(Cryo.None)
+local context = React.createContext(Cryo.None :: StyleSheet | typeof(Cryo.None))
 
-local context = React.createContext(Cryo.None :: ContextValue)
-
-local function useStyleSheet(): ContextValue
+local function useStyleSheet(): StyleSheet?
 	local value = React.useContext(context)
-	return value
+	return if value == Cryo.None then nil else value
 end
 
 return {

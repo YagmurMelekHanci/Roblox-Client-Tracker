@@ -31,7 +31,6 @@ return React.createElement(Tile.Root, {
     FillDirection = Enum.FillDirection.Vertical,
     Size = UDim2.fromOffset(150, 275),
     spacing = tokens.Gap.Small,
-    backgroundStyle = tokens.Color.Shift.Shift_200,
 }, {
     Tile.Media = React.createElement(Tile.Media, {
         id = 123456,

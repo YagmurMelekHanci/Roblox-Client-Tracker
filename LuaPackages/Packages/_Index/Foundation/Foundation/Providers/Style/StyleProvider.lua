@@ -26,7 +26,6 @@ export type StyleProviderProps = {
 	-- **Deprecated**. Use useStyleSheet hook insteads to derive the Foundation styles.
 	derives: { StyleSheet }?,
 	sheetRef: React.Ref<StyleSheet>?,
-	DONOTUSE_colorUpdate: boolean?,
 	children: React.ReactNode,
 }
 
@@ -67,12 +66,10 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local useVariants = VariantsContext.useVariantsState()
 
 	local tokens: Tokens = React.useMemo(function()
-		return getTokens(props.device, props.theme, styleProviderProps.DONOTUSE_colorUpdate)
-	end, { props.device :: any, props.theme, styleProviderProps.DONOTUSE_colorUpdate })
+		return getTokens(props.device, props.theme)
+	end, { props.device :: any, props.theme })
 
-	local rules = if Flags.FoundationStylingPolyfill
-		then useGeneratedRules(props.theme, props.device, styleProviderProps.DONOTUSE_colorUpdate == true)
-		else nil
+	local rules = if Flags.FoundationStylingPolyfill then useGeneratedRules(props.theme, props.device) else nil
 
 	return React.createElement(TokensContext.Provider, {
 		value = tokens,
@@ -107,7 +104,6 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 						derives = styleProviderProps.derives,
 						sheetRef = styleProviderProps.sheetRef,
 						setStyleSheetRef = if Flags.FoundationStyleSheetContext then setStyleSheetRef else nil,
-						DONOTUSE_colorUpdate = styleProviderProps.DONOTUSE_colorUpdate,
 					}),
 				}
 		),

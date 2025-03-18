@@ -3,57 +3,26 @@ local root = script.Parent.Parent
 
 local Promise = require(root.Parent.Promise)
 
-local ConstantsInterface = require(root.ConstantsInterface)
-
 local BundlesMetadata = require(root.util.BundlesMetadata)
 local Types = require(root.util.Types)
-local getRestrictedUserTable = require(root.util.getRestrictedUserTable)
 local createEditableInstancesForContext = require(root.util.createEditableInstancesForContext)
 local destroyEditableInstances = require(root.util.destroyEditableInstances)
 local createUGCBodyPartFolders = require(root.util.createUGCBodyPartFolders)
 local fixUpPreValidation = require(root.util.fixUpPreValidation)
+
 local validateInternal = require(root.validation.validateInternal)
-local validateFullBody = require(root.validation.validateFullBody)
+local validateShoes = require(root.validation.validateShoes)
+local validateBundleReadyForUpload = require(root.validation.validateBundleReadyForUpload)
 
--- The order in which validation is performed
-local SORTED_ASSET_TYPES = {
-	Enum.AssetType.DynamicHead,
-	Enum.AssetType.Torso,
-	Enum.AssetType.LeftArm,
-	Enum.AssetType.RightArm,
-	Enum.AssetType.LeftLeg,
-	Enum.AssetType.RightLeg,
-	Enum.AssetType.HairAccessory,
-	Enum.AssetType.EyebrowAccessory,
-	Enum.AssetType.EyelashAccessory,
-}
+local FFlagValidateFullShoesBundleStudio = game:DefineFastFlag("ValidateFullShoesBundleStudio", false)
 
-export type AvatarValidationPiece = {
-	assetType: Enum.AssetType,
-	instance: Instance?,
-	settings: BundlesMetadata.AssetTypeSettings,
-	status: "pending" | "finished",
-}
-
-export type AvatarValidationError = {
-	-- Can be nil if this applies to the entire avatar
-	assetType: Enum.AssetType?,
-	error: {
-		type: "message",
-		message: string,
-	} | {
-		type: "notFound",
-	},
-}
-
-export type AvatarValidationResponse = {
-	errors: { AvatarValidationError },
-	pieces: { AvatarValidationPiece },
-}
+type AvatarValidationError = validateBundleReadyForUpload.AvatarValidationError
+type AvatarValidationResponse = validateBundleReadyForUpload.AvatarValidationResponse
+type AvatarValidationPiece = validateBundleReadyForUpload.AvatarValidationPiece
 
 -- Promise is not typed, so we cannot use it as a return value
-local function validateBundleReadyForUpload(
-	avatar: Instance,
+local function validateShoesBundleReadyForUpload(
+	shoes: Instance,
 	allowedBundleTypeSettings: BundlesMetadata.AllowedBundleTypeSettings,
 	bundleType: createUGCBodyPartFolders.BundleType,
 	progressCallback: ((AvatarValidationResponse) -> ())?,
@@ -63,7 +32,7 @@ local function validateBundleReadyForUpload(
 	progressCallback = progressCallback or function() end
 	assert(progressCallback ~= nil, "Luau")
 
-	if not avatar:IsA("Model") then
+	if not shoes:IsA("Model") then
 		local response: AvatarValidationResponse = {
 			errors = {
 				{
@@ -81,16 +50,33 @@ local function validateBundleReadyForUpload(
 		return Promise.resolve(response)
 	end
 
-	avatar = fixUpPreValidation(avatar)
+	local leftShoe = shoes:FindFirstChild("LeftShoeAccessory")
+	local rightShoe = shoes:FindFirstChild("RightShoeAccessory")
 
-	-- Get all the body parts to be validated in the format that the validation code expects.
-	local ugcBodyPartFolders = createUGCBodyPartFolders(
-		avatar :: Model,
-		allowedBundleTypeSettings,
-		bundleType,
-		-- Don't include R15 Fixed and R6 folders
-		false
-	)
+	if not leftShoe or not leftShoe:IsA("Accessory") or not rightShoe or not rightShoe:IsA("Accessory") then
+		local response: AvatarValidationResponse = {
+			errors = {
+				{
+					assetType = nil,
+					error = {
+						type = "message",
+						message = "Shoes must of type 'Accessory' and names must be 'LeftShoeAccessory' and 'RightShoeAccessory'",
+					},
+				},
+			},
+
+			pieces = {},
+		}
+
+		return Promise.resolve(response)
+	end
+
+	local ugcShoes = {
+		[Enum.AssetType.LeftShoeAccessory] = { fixUpPreValidation(leftShoe) },
+		[Enum.AssetType.RightShoeAccessory] = { fixUpPreValidation(rightShoe) },
+	}
+
+	local piecesByAssetType = {}
 
 	local errors: { AvatarValidationError } = {}
 	local pieces: { AvatarValidationPiece } = {}
@@ -102,30 +88,15 @@ local function validateBundleReadyForUpload(
 			continue
 		end
 
-		assert(
-			settings.minimumQuantity == 0 or settings.minimumQuantity == 1,
-			"Invalid minimum quantity, createUGCBodyParts folder is a dictionary and will only ever give one."
-		)
-
-		assert(
-			settings.maximumQuantity == 0 or settings.maximumQuantity == 1,
-			"Invalid maximum quantity, createUGCBodyParts folder is a dictionary and will only ever give one."
-		)
-
-		-- TODO: remove implicit cast from enum to string by using '.Name' or assetTypeName
-		local instances = ugcBodyPartFolders[assetType :: any]
+		local instances = ugcShoes[assetType :: any]
 		local instance = instances and instances[1]
 
-		if settings.minimumQuantity == 0 and instance == nil then
-			continue
-		end
-
-		table.insert(pieces, {
+		piecesByAssetType[assetType :: any] = {
 			assetType = assetType,
 			instance = instance,
 			settings = settings,
 			status = if instance == nil then "finished" else "pending",
-		})
+		} :: AvatarValidationPiece
 
 		if instance == nil then
 			table.insert(errors, {
@@ -137,12 +108,8 @@ local function validateBundleReadyForUpload(
 		end
 	end
 
-	table.sort(pieces, function(a, b)
-		local sortKeyA = table.find(SORTED_ASSET_TYPES, a.assetType) or math.huge
-		local sortKeyB = table.find(SORTED_ASSET_TYPES, b.assetType) or math.huge
-
-		return sortKeyA < sortKeyB
-	end)
+	table.insert(pieces, piecesByAssetType[Enum.AssetType.LeftShoeAccessory])
+	table.insert(pieces, piecesByAssetType[Enum.AssetType.RightShoeAccessory])
 
 	local response: AvatarValidationResponse = {
 		errors = errors,
@@ -157,21 +124,15 @@ local function validateBundleReadyForUpload(
 			return
 		end
 
-		assert(piece.instance ~= nil, "Unfinished piece doesn't have an instnace")
+		assert(piece.instance ~= nil, "Unfinished piece doesn't have an instance")
 
 		local success, problems
 		local instances = { piece.instance }
 		local validationContext = {
 			instances = instances :: { Instance },
 			assetTypeEnum = piece.assetType :: Enum.AssetType,
-			allowUnreviewedAssets = false,
-			restrictedUserIds = getRestrictedUserTable(),
-			isServer = false,
-			isAsync = false,
 			allowEditableInstances = allowEditableInstances,
 			bypassFlags = bypassFlags,
-			validateMeshPartAccessories = false,
-			requireAllFolders = false,
 		} :: Types.ValidationContext
 
 		local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
@@ -213,14 +174,10 @@ local function validateBundleReadyForUpload(
 		progressCallback(response)
 	end)
 		:andThen(function()
-			if bundleType == "Body" then
+			if FFlagValidateFullShoesBundleStudio then
 				local function createFullBodyData(inputPieces: { AvatarValidationPiece }): Types.FullBodyData
 					local results: Types.FullBodyData = {}
 					for _, individualPiece in inputPieces do
-						if not ConstantsInterface.isBodyPart(individualPiece.assetType) then
-							continue
-						end
-
 						table.insert(results, {
 							assetTypeEnum = individualPiece.assetType,
 							allSelectedInstances = if individualPiece.instance
@@ -239,8 +196,6 @@ local function validateBundleReadyForUpload(
 					isServer = false,
 					allowEditableInstances = allowEditableInstances,
 					bypassFlags = bypassFlags,
-					validateMeshPartAccessories = false,
-					requireAllFolders = false,
 				} :: Types.ValidationContext
 
 				local instances = {}
@@ -258,7 +213,7 @@ local function validateBundleReadyForUpload(
 					validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
 					validationContext.editableImages = result.editableImages :: Types.EditableImages
 
-					success, failures = validateFullBody(validationContext)
+					success, failures = validateShoes(validationContext)
 
 					destroyEditableInstances(
 						validationContext.editableMeshes :: Types.EditableMeshes,
@@ -281,12 +236,12 @@ local function validateBundleReadyForUpload(
 						})
 					end
 				end
-				progressCallback(response)
 			end
+			progressCallback(response)
 		end)
 		:andThen(function()
 			return response
 		end)
 end
 
-return validateBundleReadyForUpload
+return validateShoesBundleReadyForUpload

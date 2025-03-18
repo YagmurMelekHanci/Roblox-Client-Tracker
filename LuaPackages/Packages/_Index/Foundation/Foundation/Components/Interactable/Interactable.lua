@@ -42,6 +42,7 @@ local defaultProps = {
 	userInteractionEnabled = true,
 }
 
+--selene: allow(roblox_internal_custom_color)
 local DEFAULT_GRAY = Color3.fromRGB(163, 162, 165)
 
 local function Interactable(interactableProps: InteractableProps, forwardedRef: React.Ref<GuiObject>?)

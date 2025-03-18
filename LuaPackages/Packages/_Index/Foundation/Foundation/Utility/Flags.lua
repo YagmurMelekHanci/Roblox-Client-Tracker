@@ -20,5 +20,6 @@ return {
 	FoundationButtonSubEmphasisInverseStateLayer = SafeFlags.createGetFFlag(
 		"FoundationButtonSubEmphasisInverseStateLayer"
 	)(),
+	FoundationFixXSmallButton = SafeFlags.createGetFFlag("FoundationFixXSmallButton")(),
 	FoundationStyleSheetContext = SafeFlags.createGetFFlag("FoundationStyleSheetContext")(),
 }

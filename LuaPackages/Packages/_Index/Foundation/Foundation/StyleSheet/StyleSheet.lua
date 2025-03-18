@@ -74,7 +74,6 @@ type StyleSheetProps = {
 	-- drop when FoundationStyleSheetContext is removed
 	sheetRef: React.Ref<StyleSheet?>?,
 	setStyleSheetRef: { current: ((StyleSheet?) -> ()) | nil }?,
-	DONOTUSE_colorUpdate: boolean?,
 }
 
 local function StyleSheet(props: StyleSheetProps)
@@ -92,7 +91,7 @@ local function StyleSheet(props: StyleSheetProps)
 		end)
 	end
 
-	local rules = useGeneratedRules(props.theme, props.device, props.DONOTUSE_colorUpdate == true)
+	local rules = useGeneratedRules(props.theme, props.device)
 
 	-- Deprecated: remove as soon as StudioPlugins using this are migrated.
 	-- https://roblox.atlassian.net/browse/STUDIOPLAT-38539

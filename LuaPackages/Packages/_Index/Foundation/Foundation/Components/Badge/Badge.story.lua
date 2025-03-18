@@ -6,7 +6,6 @@ local Dash = require(Packages.Dash)
 
 local Tile = require(Foundation.Components.Tile)
 local MediaType = require(Foundation.Enums.MediaType)
-local Radius = require(Foundation.Enums.Radius)
 local Theme = require(Foundation.Enums.Theme)
 
 local Badge = require(Foundation.Components.Badge)
@@ -16,7 +15,7 @@ local BadgeSize = require(Foundation.Enums.BadgeSize)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local itemTileSize = UDim2.fromOffset(150, 230)
+local itemTileSize = UDim2.fromOffset(150, 240)
 local itemId = 21070012
 
 return {
@@ -47,25 +46,14 @@ return {
 
 				if props.controls.onTile then
 					return React.createElement(Tile.Root, {
-						spacing = tokens.Gap.Small,
-						backgroundStyle = tokens.Color.Shift.Shift_200,
+						isContained = true,
 						FillDirection = Enum.FillDirection.Vertical,
-						-- Add negative size to offset border
-						Size = itemTileSize - UDim2.fromOffset(2, 2),
+						Size = itemTileSize,
 					}, {
-						UIStroke = React.createElement("UIStroke", {
-							Color = tokens.Color.Stroke.Emphasis.Color3,
-							Transparency = tokens.Color.Stroke.Emphasis.Transparency,
-							Thickness = 1,
-						}),
-						UICorner = React.createElement("UICorner", {
-							CornerRadius = UDim.new(0, tokens.Radius.Medium),
-						}),
 						TileMedia = React.createElement(Tile.Media, {
 							id = itemId,
 							type = MediaType.Asset,
 							aspectRatio = 1,
-							radius = Radius.Medium,
 							background = "component_assets/itemBG_"
 								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 						}, {
@@ -89,10 +77,7 @@ return {
 								variant = variant,
 							}),
 						}),
-						TileContent = React.createElement(Tile.Content, {
-							spacing = tokens.Gap.XXSmall,
-							padding = tokens.Gap.Small,
-						}, {
+						TileContent = React.createElement(Tile.Content, {}, {
 							TileHeader = React.createElement(Tile.Header, {
 								title = {
 									text = item.Name,

@@ -95,12 +95,12 @@ local function thumbnailOverlayComponents(props, tokens, mouseEntered, setMouseE
 			UIGradient = React.createElement("UIGradient", {
 				Rotation = 90,
 				Color = ColorSequence.new({
-					ColorSequenceKeypoint.new(0, tokens.Color.Shift.Shift_200.Color3),
-					ColorSequenceKeypoint.new(1, tokens.Color.Shift.Shift_200.Color3),
+					ColorSequenceKeypoint.new(0, tokens.Color.OverMedia.OverMedia_200.Color3),
+					ColorSequenceKeypoint.new(1, tokens.Color.OverMedia.OverMedia_200.Color3),
 				}),
 				Transparency = NumberSequence.new({
 					NumberSequenceKeypoint.new(0, 1),
-					NumberSequenceKeypoint.new(1, tokens.Color.Shift.Shift_200.Transparency),
+					NumberSequenceKeypoint.new(1, tokens.Color.OverMedia.OverMedia_200.Transparency),
 				}),
 			}),
 		}),

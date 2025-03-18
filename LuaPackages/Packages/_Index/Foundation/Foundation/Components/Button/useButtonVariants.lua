@@ -17,6 +17,7 @@ type Stroke = {
 	Transparency: number,
 }
 
+local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
@@ -25,8 +26,6 @@ type Tokens = Tokens.Tokens
 
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
-
-local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
 type ButtonVariantProps = {
 	container: {
@@ -59,11 +58,14 @@ local variants = function(tokens: Tokens)
 		container = {
 			tag = "row gap-xsmall align-y-center align-x-center clip",
 		},
-		icon = {
-			size = IconSize.Medium,
-		},
+		icon = if Flags.FoundationFixXSmallButton
+			then nil
+			else {
+				size = IconSize.Medium,
+			},
 		text = {
-			tag = "size-0-full auto-x text-title-large text-truncate-end shrink",
+			tag = (if Flags.FoundationFixXSmallButton then "" else "text-title-large ")
+				.. "size-0-full auto-x text-truncate-end shrink",
 		},
 	}
 
@@ -73,18 +75,48 @@ local variants = function(tokens: Tokens)
 				tag = "padding-small radius-small",
 				height = tokens.Size.Size_700,
 			},
+			icon = if Flags.FoundationFixXSmallButton
+				then {
+					size = IconSize.Small,
+				}
+				else nil,
+			text = if Flags.FoundationFixXSmallButton
+				then {
+					tag = "text-title-small",
+				}
+				else nil,
 		},
 		[ButtonSize.Small] = {
 			container = {
 				tag = "padding-small radius-medium",
 				height = tokens.Size.Size_900,
 			},
+			icon = if Flags.FoundationFixXSmallButton
+				then {
+					size = IconSize.Medium,
+				}
+				else nil,
+			text = if Flags.FoundationFixXSmallButton
+				then {
+					tag = "text-title-large",
+				}
+				else nil,
 		},
 		[ButtonSize.Medium] = {
 			container = {
 				tag = "padding-medium radius-medium",
 				height = tokens.Size.Size_1200,
 			},
+			icon = if Flags.FoundationFixXSmallButton
+				then {
+					size = IconSize.Medium,
+				}
+				else nil,
+			text = if Flags.FoundationFixXSmallButton
+				then {
+					tag = "text-title-large",
+				}
+				else nil,
 		},
 	}
 

@@ -4,7 +4,6 @@ local TileRoot = SplitTileRoot.Parent
 local App = TileRoot.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local React = require(Packages.React)
 
@@ -53,7 +52,7 @@ local function ExperienceActionRow(props: Props)
 	local text = props.text
 	local icon = props.icon
 
-	if UIBloxConfig.enableComboButtonInExperienceActionRow and props.onOverflowPressed then
+	if props.onOverflowPressed then
 		return React.createElement(ComboButton, {
 			position = UDim2.new(0, horizontalPadding, 1, -verticalPadding - BUTTON_HEIGHT),
 			size = UDim2.new(1, -2 * horizontalPadding, 0, height - 2 * verticalPadding),
