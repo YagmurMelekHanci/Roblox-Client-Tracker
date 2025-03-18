@@ -1,12 +1,15 @@
 local CorePackages = game:GetService("CorePackages")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+local GetFFlagSongbirdWindowResponsiveSizing = SharedFlags.GetFFlagSongbirdWindowResponsiveSizing
+local FFlagReplaceChromeNotificationBadge = SharedFlags.FFlagReplaceChromeNotificationBadge
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
+local TenFootInterface = require(script.Parent.Parent.Parent.Parent.TenFootInterface)
 local UIBlox = require(CorePackages.Packages.UIBlox)
-
-local GetFFlagSongbirdWindowResponsiveSizing = SharedFlags.GetFFlagSongbirdWindowResponsiveSizing
+local GetStyleTokens = require(script.Parent.Parent.Utility.GetStyleTokens)
 
 type SpringOptions = ReactOtter.SpringOptions
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
@@ -23,29 +26,67 @@ local ScreenOrientations = {
 	Sensor = "Sensor",
 }
 
+local StyleTokens = if FFlagAdaptUnibarAndTiltSizing then GetStyleTokens() else nil :: never
+
 local socialSlots = 3
 local toggleSlots = 1
 local nineDotSlots = 1
 
+local function withUIScale(value: number)
+	local scale = if TenFootInterface:IsEnabled() then 1.5 else 1 -- APPEXP-2377: Replace with Scale token
+	return if FFlagAdaptUnibarAndTiltSizing then scale * value else value
+end
+
 return {
-	ICON_CELL_WIDTH = 44,
-	DIVIDER_CELL_WIDTH = 5,
-	ICON_SIZE = 36,
+	ICON_CELL_WIDTH = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_1100 else 44,
+	DIVIDER_CELL_WIDTH = if FFlagAdaptUnibarAndTiltSizing then withUIScale(5) else 5,
+	ICON_SIZE = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_900 else 36,
 	ICON_NAME_PREFIX = if FFlagTiltIconUnibarFocusNav then "IconHitArea_" else nil,
-	MEDIUM_ICON_SIZE = 28,
-	UNIBAR_END_PADDING = 4,
+	ICON_HIGHLIGHT_SIZE = if FFlagAdaptUnibarAndTiltSizing
+		then UDim2.new(0, StyleTokens.Size.Size_900, 0, StyleTokens.Size.Size_900)
+		else UDim2.new(0, 36, 0, 36),
+	ICON_DIVIDER_SIZE = if FFlagAdaptUnibarAndTiltSizing
+		then UDim2.new(0, withUIScale(1), 0, StyleTokens.Size.Size_700)
+		else UDim2.new(0, 1, 0, 28),
+	ICON_DIVIDER_POSITION = if FFlagAdaptUnibarAndTiltSizing
+		then UDim2.new(0, StyleTokens.Size.Size_50, 0.5, 0)
+		else UDim2.new(0, 2, 0.5, 0),
+	ICON_BADGE_OFFSET_X = if FFlagAdaptUnibarAndTiltSizing
+		then if FFlagReplaceChromeNotificationBadge then StyleTokens.Gap.XXLarge else StyleTokens.Gap.XLarge
+		else if FFlagReplaceChromeNotificationBadge then 24 else 20,
+	ICON_BADGE_OFFSET_Y = if FFlagReplaceChromeNotificationBadge
+		then if FFlagAdaptUnibarAndTiltSizing then withUIScale(5) else 5
+		else 0,
+	MEDIUM_ICON_SIZE = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_700 else 28,
+	UNIBAR_END_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XSmall else 4,
+	MENU_SUBMENU_PADDING = if FFlagAdaptUnibarAndTiltSizing then withUIScale(10) else 10,
 	-- Duplicate of TopBarConstants.Padding
-	UNIBAR_LEFT_MARGIN = 8,
+	UNIBAR_LEFT_MARGIN = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
 	-- Duplicate of TopBarConstants.ScreenSideOffset
-	MENU_ICON_SCREEN_SIDE_OFFSET = 16,
-	SUB_MENU_ROW_HEIGHT = 56,
-	SUBMENU_PADDING = 8,
-	CONTAINER_PADDING_TOP_BOTTOM = UDim.new(0, 4),
-	CONTAINER_PADDING_LEFT_RIGHT = UDim.new(0, 2),
-	PIN_ICON_SIZE = UDim2.new(0, 18, 0, 18),
-	PIN_BUTTON_SIZE = 40,
-	PIN_RIGHT_PADDING = 13,
-	NEW_BADGE_SIZE = 66,
+	MENU_ICON_SCREEN_SIDE_OFFSET = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Gap.Large else 16,
+	SUB_MENU_ROW_HEIGHT = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_1400 else 56,
+	SUBMENU_CORNER_RADIUS = if FFlagAdaptUnibarAndTiltSizing then withUIScale(10) else 10,
+	SUBMENU_PADDING_LEFT = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
+	SUBMENU_PADDING_RIGHT = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
+	SUBMENU_ROW_LABEL_FONT = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Typography.TitleLarge else nil,
+	SUBMENU_ROW_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
+	SUBMENU_ROW_CORNER_RADIUS = if FFlagAdaptUnibarAndTiltSizing then withUIScale(10) else 10,
+	SUBMENU_BOTTOM_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XLarge else 20,
+	CONTAINER_PADDING_TOP_BOTTOM = UDim.new(0, if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XSmall else 4),
+	CONTAINER_PADDING_LEFT_RIGHT = UDim.new(
+		0,
+		if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XXSmall else 2
+	),
+	PIN_ICON_SIZE = UDim2.new(
+		0,
+		if FFlagAdaptUnibarAndTiltSizing then withUIScale(18) else 18,
+		0,
+		if FFlagAdaptUnibarAndTiltSizing then withUIScale(18) else 18
+	),
+	PIN_BUTTON_SIZE = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_1000 else 40,
+	PIN_RIGHT_PADDING = if FFlagAdaptUnibarAndTiltSizing then withUIScale(13) else 13,
+	PIN_CORNER_RADIUS = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Radius.Medium else 8,
+	NEW_BADGE_SIZE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(66) else 66,
 	MENU_ANIMATION_SPRING = {
 		dampingRatio = 1.1,
 		frequency = 1 / 0.15, -- @150ms size anim
@@ -57,26 +98,35 @@ return {
 
 	-- WindowHost constants
 	WINDOW_HOST_GUI_NAME = "WindowHost",
-	CLOSE_BUTTON_FRAME = UDim2.fromOffset(44, 44),
-	CLOSE_BUTTON_SIZE = UDim2.fromOffset(22, 22),
+	CLOSE_BUTTON_FRAME = if FFlagAdaptUnibarAndTiltSizing
+		then UDim2.fromOffset(StyleTokens.Size.Size_1100, StyleTokens.Size.Size_1100)
+		else UDim2.fromOffset(44, 44),
+	CLOSE_BUTTON_SIZE = if FFlagAdaptUnibarAndTiltSizing
+		then UDim2.fromOffset(withUIScale(22), withUIScale(22))
+		else UDim2.fromOffset(22, 22),
 	CLOSE_ICON_SIZE = IconSize.Small,
-	CORNER_RADIUS = UDim.new(0, 8),
-	WINDOW_DEFAULT_PADDING = 8,
+	CORNER_RADIUS = UDim.new(0, if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Radius.Medium else 8),
+	WINDOW_DEFAULT_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
+	WINDOW_ICON_SIZE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(42) else 42,
 
 	WINDOW_ACTIVE_SECONDS = 2,
 
 	-- the amount of travel to activate a WindowHost from dragging an icon
 	DRAG_MAGNITUDE_THRESHOLD = 10,
 
-	DEFAULT_HEIGHT_LARGE = 285,
-	DEFAULT_WIDTH_LARGE = 176,
-	DEFAULT_HEIGHT = 130,
-	DEFAULT_WIDTH = 176,
+	DEFAULT_HEIGHT_LARGE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(285) else 285,
+	DEFAULT_WIDTH_LARGE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(176) else 176,
+	DEFAULT_HEIGHT = if FFlagAdaptUnibarAndTiltSizing then withUIScale(130) else 130,
+	DEFAULT_WIDTH = if FFlagAdaptUnibarAndTiltSizing then withUIScale(176) else 176,
 
-	MAX_HEIGHT_PORTRAIT = 285,
-	MAX_WIDTH_PORTRAIT = if GetFFlagSongbirdWindowResponsiveSizing() then 260 else 176,
-	MAX_HEIGHT_LANDSCAPE = 285,
-	MAX_WIDTH_LANDSCAPE = if GetFFlagSongbirdWindowResponsiveSizing() then 260 else 176,
+	MAX_HEIGHT_PORTRAIT = if FFlagAdaptUnibarAndTiltSizing then withUIScale(285) else 285,
+	MAX_WIDTH_PORTRAIT = if FFlagAdaptUnibarAndTiltSizing
+		then if GetFFlagSongbirdWindowResponsiveSizing() then withUIScale(260) else withUIScale(176)
+		else if GetFFlagSongbirdWindowResponsiveSizing() then 260 else 176,
+	MAX_HEIGHT_LANDSCAPE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(285) else 285,
+	MAX_WIDTH_LANDSCAPE = if FFlagAdaptUnibarAndTiltSizing
+		then if GetFFlagSongbirdWindowResponsiveSizing() then withUIScale(260) else withUIScale(176)
+		else if GetFFlagSongbirdWindowResponsiveSizing() then 260 else 176,
 
 	-- Integration Constraints per device type
 	SOCIAL_SLOTS = socialSlots, -- Chat, mic, and self view always present in open standard unibar (when available)

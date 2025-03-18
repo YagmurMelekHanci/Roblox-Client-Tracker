@@ -16,26 +16,31 @@ PROTO_0:
   GETTABLEKS R4 R5 K4 ["resetAnimator"]
   MOVE R5 R2
   CALL R4 1 1
-  GETIMPORT R5 K7 [Instance.new]
-  LOADK R6 K8 ["Animation"]
+  FASTCALL2K ASSERT R4 K5 [+5]
+  MOVE R6 R4
+  LOADK R7 K5 ["Unable to reset the Animator"]
+  GETIMPORT R5 K7 [assert]
+  CALL R5 2 0
+  GETIMPORT R5 K10 [Instance.new]
+  LOADK R6 K11 ["Animation"]
   CALL R5 1 1
   GETUPVAL R6 3
   MOVE R8 R3
-  NAMECALL R6 R6 K9 ["RegisterActiveAnimationClip"]
+  NAMECALL R6 R6 K12 ["RegisterActiveAnimationClip"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K10 ["AnimationId"]
+  SETTABLEKS R6 R5 K13 ["AnimationId"]
   MOVE R8 R5
-  NAMECALL R6 R4 K11 ["LoadAnimation"]
+  NAMECALL R6 R4 K14 ["LoadAnimation"]
   CALL R6 2 1
   LOADN R9 0
   LOADN R10 1
   LOADN R11 0
-  NAMECALL R7 R6 K12 ["Play"]
+  NAMECALL R7 R6 K15 ["Play"]
   CALL R7 4 0
   GETUPVAL R9 4
   MOVE R10 R6
   CALL R9 1 -1
-  NAMECALL R7 R0 K13 ["dispatch"]
+  NAMECALL R7 R0 K16 ["dispatch"]
   CALL R7 -1 0
   RETURN R0 0
 

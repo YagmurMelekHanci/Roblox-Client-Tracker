@@ -18,11 +18,11 @@ PROTO_0:
 PROTO_1:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["state"]
-  GETTABLEKS R4 R5 K1 ["activeTab"]
+  GETTABLEKS R4 R5 K1 ["DEPRECATED_activeTab"]
   JUMPIFNOT R4 [+8]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["state"]
-  GETTABLEKS R4 R5 K1 ["activeTab"]
+  GETTABLEKS R4 R5 K1 ["DEPRECATED_activeTab"]
   GETTABLEKS R3 R4 K2 ["Identifier"]
   JUMP [+1]
   LOADNIL R3
@@ -35,8 +35,8 @@ PROTO_1:
   GETTABLEKS R6 R4 K4 ["Filename"]
   JUMPIFEQ R5 R6 [+16]
   GETUPVAL R5 0
-  DUPTABLE R7 K5 [{"activeTab"}]
-  SETTABLEKS R0 R7 K1 ["activeTab"]
+  DUPTABLE R7 K5 [{"DEPRECATED_activeTab"}]
+  SETTABLEKS R0 R7 K1 ["DEPRECATED_activeTab"]
   NAMECALL R5 R5 K6 ["setState"]
   CALL R5 2 0
   GETIMPORT R5 K9 [task.defer]
@@ -93,14 +93,14 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  DUPTABLE R1 K1 [{"activeTab"}]
+  DUPTABLE R1 K1 [{"DEPRECATED_activeTab"}]
   GETUPVAL R2 0
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K2 ["Layout"]
   GETTABLEKS R3 R4 K3 ["TabLayout"]
-  GETTABLEKS R4 R0 K0 ["activeTab"]
+  GETTABLEKS R4 R0 K0 ["DEPRECATED_activeTab"]
   CALL R2 2 1
-  SETTABLEKS R2 R1 K0 ["activeTab"]
+  SETTABLEKS R2 R1 K0 ["DEPRECATED_activeTab"]
   RETURN R1 1
 
 PROTO_5:
@@ -401,10 +401,10 @@ PROTO_19:
   GETTABLEKS R3 R1 K1 ["EditMode"]
   JUMP [+1]
   LOADB R3 0
-  DUPTABLE R4 K9 [{"expanded", "activeTab", "DEPRECATED_currentTab", "customTools", "scale", "showFloating", "showLabels"}]
+  DUPTABLE R4 K9 [{"expanded", "DEPRECATED_activeTab", "DEPRECATED_currentTab", "customTools", "scale", "showFloating", "showLabels"}]
   SETTABLEKS R3 R4 K2 ["expanded"]
   LOADNIL R5
-  SETTABLEKS R5 R4 K3 ["activeTab"]
+  SETTABLEKS R5 R4 K3 ["DEPRECATED_activeTab"]
   LOADK R5 K10 ["Home"]
   SETTABLEKS R5 R4 K4 ["DEPRECATED_currentTab"]
   NEWTABLE R5 0 0
@@ -510,31 +510,37 @@ PROTO_19:
   SETTABLEKS R4 R0 K41 ["floatingDesign"]
   GETUPVAL R4 8
   CALL R4 0 1
-  JUMPIFNOT R4 [+6]
+  JUMPIFNOT R4 [+9]
+  GETUPVAL R4 9
+  CALL R4 0 1
+  JUMPIF R4 [+6]
   NEWCLOSURE R4 P0
   CAPTURE VAL R0
-  CAPTURE UPVAL U9
-  SETTABLEKS R4 R0 K42 ["onSelectTab"]
+  CAPTURE UPVAL U10
+  SETTABLEKS R4 R0 K42 ["DEPRECATED_onSelectTab2"]
   JUMP [+5]
   NEWCLOSURE R4 P1
   CAPTURE VAL R0
-  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
   SETTABLEKS R4 R0 K43 ["DEPRECATED_onSelectTab"]
   GETUPVAL R4 8
   CALL R4 0 1
-  JUMPIFNOT R4 [+5]
+  JUMPIFNOT R4 [+8]
+  GETUPVAL R4 9
+  CALL R4 0 1
+  JUMPIF R4 [+5]
   NEWCLOSURE R4 P2
   CAPTURE VAL R0
-  CAPTURE UPVAL U10
-  SETTABLEKS R4 R0 K44 ["onRibbonDefinitionLoad"]
-  GETUPVAL R4 11
-  GETUPVAL R7 12
+  CAPTURE UPVAL U11
+  SETTABLEKS R4 R0 K44 ["DEPRECATED_onRibbonDefinitionLoad"]
+  GETUPVAL R4 12
+  GETUPVAL R7 13
   GETTABLEKS R6 R7 K45 ["Src"]
   GETTABLEKS R5 R6 K46 ["Components"]
   CALL R4 1 1
   CALL R4 0 1
   SETTABLEKS R4 R0 K47 ["theme"]
-  GETUPVAL R5 13
+  GETUPVAL R5 14
   GETTABLEKS R4 R5 K29 ["new"]
   GETTABLEKS R5 R1 K0 ["Plugin"]
   NAMECALL R5 R5 K48 ["GetMouse"]
@@ -557,8 +563,8 @@ PROTO_19:
   SETTABLEKS R4 R0 K53 ["compact"]
   NEWCLOSURE R4 P5
   CAPTURE VAL R0
-  CAPTURE UPVAL U14
-  CAPTURE UPVAL U9
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U10
   SETTABLEKS R4 R0 K54 ["onToolChanged"]
   LOADN R4 0
   SETTABLEKS R4 R0 K55 ["width"]
@@ -643,9 +649,9 @@ PROTO_19:
   CAPTURE VAL R0
   CAPTURE VAL R1
   SETTABLEKS R7 R0 K73 ["onClose"]
-  GETUPVAL R7 15
+  GETUPVAL R7 16
   JUMPIF R7 [+7]
-  GETUPVAL R8 16
+  GETUPVAL R8 17
   GETTABLEKS R7 R8 K74 ["createSettings"]
   MOVE R8 R2
   GETTABLEKS R9 R0 K37 ["localization"]
@@ -869,7 +875,7 @@ PROTO_26:
   GETTABLEKS R3 R1 K2 ["Plugin"]
   GETUPVAL R4 0
   CALL R4 0 1
-  JUMPIFNOT R4 [+135]
+  JUMPIFNOT R4 [+145]
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K3 ["provide"]
   NEWTABLE R5 0 7
@@ -895,20 +901,30 @@ PROTO_26:
   GETTABLEKS R7 R8 K13 ["createElement"]
   GETUPVAL R8 6
   DUPTABLE R9 K15 [{"OnDefinitionLoad"}]
-  GETTABLEKS R10 R0 K16 ["onRibbonDefinitionLoad"]
+  GETUPVAL R11 7
+  CALL R11 0 1
+  JUMPIFNOT R11 [+2]
+  LOADNIL R10
+  JUMP [+2]
+  GETTABLEKS R10 R0 K16 ["DEPRECATED_onRibbonDefinitionLoad"]
   SETTABLEKS R10 R9 K14 ["OnDefinitionLoad"]
   DUPTABLE R10 K18 [{"Surface"}]
   GETUPVAL R12 5
   GETTABLEKS R11 R12 K13 ["createElement"]
-  GETUPVAL R12 7
-  DUPTABLE R13 K37 [{"ActiveTabIdentifier", "DEPRECATED_ActiveTab", "CustomTools", "Design", "Expanded", "Floating", "FloatingDesign", "OnResize", "OnSelectTab", "DEPRECATED_OnSelectTab", "OnToggleFloating", "OnToggleLabels", "OnOpen", "OnClose", "ShowLabels", "ShowFloating", "Plugin", "PluginUri", "Scale"}]
-  GETTABLEKS R15 R2 K38 ["activeTab"]
+  GETUPVAL R12 8
+  DUPTABLE R13 K37 [{"DEPRECATED_ActiveTabIdentifier", "DEPRECATED_ActiveTab", "CustomTools", "Design", "Expanded", "Floating", "FloatingDesign", "OnResize", "DEPRECATED_OnSelectTab2", "DEPRECATED_OnSelectTab", "OnToggleFloating", "OnToggleLabels", "OnOpen", "OnClose", "ShowLabels", "ShowFloating", "Plugin", "PluginUri", "Scale"}]
+  GETUPVAL R15 7
+  CALL R15 0 1
+  JUMPIFNOT R15 [+2]
+  LOADNIL R14
+  JUMP [+9]
+  GETTABLEKS R15 R2 K38 ["DEPRECATED_activeTab"]
   JUMPIFNOT R15 [+5]
-  GETTABLEKS R15 R2 K38 ["activeTab"]
+  GETTABLEKS R15 R2 K38 ["DEPRECATED_activeTab"]
   GETTABLEKS R14 R15 K39 ["Identifier"]
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K19 ["ActiveTabIdentifier"]
+  SETTABLEKS R14 R13 K19 ["DEPRECATED_ActiveTabIdentifier"]
   LOADNIL R14
   SETTABLEKS R14 R13 K20 ["DEPRECATED_ActiveTab"]
   GETTABLEKS R14 R2 K40 ["customTools"]
@@ -923,8 +939,8 @@ PROTO_26:
   SETTABLEKS R14 R13 K25 ["FloatingDesign"]
   GETTABLEKS R14 R0 K43 ["onResize"]
   SETTABLEKS R14 R13 K26 ["OnResize"]
-  GETTABLEKS R14 R0 K44 ["onSelectTab"]
-  SETTABLEKS R14 R13 K27 ["OnSelectTab"]
+  GETTABLEKS R14 R0 K44 ["DEPRECATED_onSelectTab2"]
+  SETTABLEKS R14 R13 K27 ["DEPRECATED_OnSelectTab2"]
   LOADNIL R14
   SETTABLEKS R14 R13 K28 ["DEPRECATED_OnSelectTab"]
   GETTABLEKS R14 R0 K45 ["onToggleFloating"]
@@ -973,8 +989,8 @@ PROTO_26:
   DUPTABLE R6 K18 [{"Surface"}]
   GETUPVAL R8 5
   GETTABLEKS R7 R8 K13 ["createElement"]
-  GETUPVAL R8 7
-  DUPTABLE R9 K53 [{"DEPRECATED_ActiveTab", "CustomTools", "Design", "Expanded", "Floating", "FloatingDesign", "OnResize", "OnSelectTab", "DEPRECATED_OnSelectTab", "OnToggleFloating", "OnToggleLabels", "OnOpen", "OnClose", "ShowLabels", "ShowFloating", "Plugin", "PluginUri", "Scale"}]
+  GETUPVAL R8 8
+  DUPTABLE R9 K53 [{"DEPRECATED_ActiveTab", "CustomTools", "Design", "Expanded", "Floating", "FloatingDesign", "OnResize", "DEPRECATED_OnSelectTab2", "DEPRECATED_OnSelectTab", "OnToggleFloating", "OnToggleLabels", "OnOpen", "OnClose", "ShowLabels", "ShowFloating", "Plugin", "PluginUri", "Scale"}]
   GETTABLEKS R10 R2 K54 ["DEPRECATED_currentTab"]
   SETTABLEKS R10 R9 K20 ["DEPRECATED_ActiveTab"]
   GETTABLEKS R10 R2 K40 ["customTools"]
@@ -990,7 +1006,7 @@ PROTO_26:
   GETTABLEKS R10 R0 K43 ["onResize"]
   SETTABLEKS R10 R9 K26 ["OnResize"]
   LOADNIL R10
-  SETTABLEKS R10 R9 K27 ["OnSelectTab"]
+  SETTABLEKS R10 R9 K27 ["DEPRECATED_OnSelectTab2"]
   GETTABLEKS R10 R0 K55 ["DEPRECATED_onSelectTab"]
   SETTABLEKS R10 R9 K28 ["DEPRECATED_OnSelectTab"]
   GETTABLEKS R10 R0 K45 ["onToggleFloating"]
@@ -1125,11 +1141,16 @@ MAIN:
   GETTABLEKS R31 R32 K13 ["SharedFlags"]
   GETTABLEKS R30 R31 K45 ["getFFlagRibbonConfigUniqueControlsIdentifiers"]
   CALL R29 1 1
-  GETTABLEKS R30 R1 K46 ["PureComponent"]
-  LOADK R32 K47 ["MainPlugin"]
-  NAMECALL R30 R30 K48 ["extend"]
-  CALL R30 2 1
-  DUPCLOSURE R31 K49 [PROTO_19]
+  GETIMPORT R30 K5 [require]
+  GETTABLEKS R33 R0 K12 ["Src"]
+  GETTABLEKS R32 R33 K13 ["SharedFlags"]
+  GETTABLEKS R31 R32 K46 ["getFFlagRibbonTabOverflowMenu"]
+  CALL R30 1 1
+  GETTABLEKS R31 R1 K47 ["PureComponent"]
+  LOADK R33 K48 ["MainPlugin"]
+  NAMECALL R31 R31 K49 ["extend"]
+  CALL R31 2 1
+  DUPCLOSURE R32 K50 [PROTO_19]
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R26
@@ -1139,6 +1160,7 @@ MAIN:
   CAPTURE VAL R6
   CAPTURE VAL R13
   CAPTURE VAL R29
+  CAPTURE VAL R30
   CAPTURE VAL R22
   CAPTURE VAL R28
   CAPTURE VAL R10
@@ -1147,13 +1169,13 @@ MAIN:
   CAPTURE VAL R25
   CAPTURE VAL R4
   CAPTURE VAL R20
-  SETTABLEKS R31 R30 K50 ["init"]
-  DUPCLOSURE R31 K51 [PROTO_24]
+  SETTABLEKS R32 R31 K51 ["init"]
+  DUPCLOSURE R32 K52 [PROTO_24]
   CAPTURE VAL R24
-  SETTABLEKS R31 R30 K52 ["didMount"]
-  DUPCLOSURE R31 K53 [PROTO_25]
-  SETTABLEKS R31 R30 K54 ["didUpdate"]
-  DUPCLOSURE R31 K55 [PROTO_26]
+  SETTABLEKS R32 R31 K53 ["didMount"]
+  DUPCLOSURE R32 K54 [PROTO_25]
+  SETTABLEKS R32 R31 K55 ["didUpdate"]
+  DUPCLOSURE R32 K56 [PROTO_26]
   CAPTURE VAL R29
   CAPTURE VAL R12
   CAPTURE VAL R14
@@ -1161,6 +1183,7 @@ MAIN:
   CAPTURE VAL R21
   CAPTURE VAL R1
   CAPTURE VAL R17
+  CAPTURE VAL R30
   CAPTURE VAL R27
-  SETTABLEKS R31 R30 K56 ["render"]
-  RETURN R30 1
+  SETTABLEKS R32 R31 K57 ["render"]
+  RETURN R31 1

@@ -3,18 +3,11 @@ PROTO_0:
   GETTABLEKS R3 R4 K0 ["Renderers"]
   GETTABLEKS R4 R1 K1 ["Type"]
   GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+69]
-  GETIMPORT R2 K3 [print]
-  LOADK R3 K4 ["lololol"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["Renderers"]
-  GETTABLEKS R6 R1 K1 ["Type"]
-  GETTABLE R4 R5 R6
-  CALL R2 2 0
-  LOADK R3 K5 ["%* %*"]
+  JUMPIFNOT R2 [+64]
+  LOADK R3 K2 ["%* %*"]
   GETTABLEKS R5 R1 K1 ["Type"]
   MOVE R6 R0
-  NAMECALL R3 R3 K6 ["format"]
+  NAMECALL R3 R3 K3 ["format"]
   CALL R3 3 1
   MOVE R2 R3
   GETUPVAL R3 1
@@ -22,32 +15,35 @@ PROTO_0:
   GETTABLEKS R5 R6 K0 ["Renderers"]
   GETTABLEKS R6 R1 K1 ["Type"]
   GETTABLE R4 R5 R6
-  DUPTABLE R5 K16 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Select", "WidgetUri", "HideLabels"}]
-  SETTABLEKS R1 R5 K7 ["Item"]
+  DUPTABLE R5 K13 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Renderers", "Select", "WidgetUri", "HideLabels"}]
+  SETTABLEKS R1 R5 K4 ["Item"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K8 ["Items"]
-  SETTABLEKS R6 R5 K8 ["Items"]
+  GETTABLEKS R6 R7 K5 ["Items"]
+  SETTABLEKS R6 R5 K5 ["Items"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K9 ["Activate"]
-  SETTABLEKS R6 R5 K9 ["Activate"]
+  GETTABLEKS R6 R7 K6 ["Activate"]
+  SETTABLEKS R6 R5 K6 ["Activate"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K10 ["OpenMenu"]
-  SETTABLEKS R6 R5 K10 ["OpenMenu"]
+  GETTABLEKS R6 R7 K7 ["OpenMenu"]
+  SETTABLEKS R6 R5 K7 ["OpenMenu"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K11 ["CloseMenus"]
-  SETTABLEKS R6 R5 K11 ["CloseMenus"]
+  GETTABLEKS R6 R7 K8 ["CloseMenus"]
+  SETTABLEKS R6 R5 K8 ["CloseMenus"]
   GETUPVAL R6 2
   CALL R6 0 1
-  SETTABLEKS R6 R5 K12 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K9 ["LayoutOrder"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K13 ["Select"]
-  SETTABLEKS R6 R5 K13 ["Select"]
+  GETTABLEKS R6 R7 K0 ["Renderers"]
+  SETTABLEKS R6 R5 K0 ["Renderers"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K14 ["WidgetUri"]
-  SETTABLEKS R6 R5 K14 ["WidgetUri"]
+  GETTABLEKS R6 R7 K10 ["Select"]
+  SETTABLEKS R6 R5 K10 ["Select"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K15 ["HideLabels"]
-  SETTABLEKS R6 R5 K15 ["HideLabels"]
+  GETTABLEKS R6 R7 K11 ["WidgetUri"]
+  SETTABLEKS R6 R5 K11 ["WidgetUri"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K12 ["HideLabels"]
+  SETTABLEKS R6 R5 K12 ["HideLabels"]
   CALL R3 2 -1
   RETURN R2 -1
   LOADNIL R2
@@ -70,9 +66,6 @@ PROTO_1:
   CALL R4 1 0
   LOADNIL R4
   RETURN R4 1
-  GETIMPORT R4 K8 [print]
-  LOADK R5 K9 ["RENDER ROW CONTROL"]
-  CALL R4 1 0
   GETUPVAL R4 1
   GETTABLEKS R5 R2 K3 ["Children"]
   NEWCLOSURE R6 P0
@@ -81,14 +74,14 @@ PROTO_1:
   CAPTURE VAL R1
   CALL R4 2 1
   GETUPVAL R5 2
-  LOADK R6 K10 ["Frame"]
+  LOADK R6 K7 ["Frame"]
   NEWTABLE R7 2 0
-  GETTABLEKS R8 R0 K11 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K11 ["LayoutOrder"]
+  GETTABLEKS R8 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K8 ["LayoutOrder"]
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K12 ["Tag"]
+  GETTABLEKS R8 R9 K9 ["Tag"]
   GETUPVAL R9 4
-  LOADK R10 K13 ["Role-Surface X-Fit X-Middle"]
+  LOADK R10 K10 ["Role-Surface X-Fit X-Middle"]
   MOVE R11 R3
   CALL R9 2 1
   SETTABLE R9 R7 R8

@@ -4,6 +4,7 @@ local GuiService = game:GetService("GuiService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -20,6 +21,10 @@ local Images = UIBlox.App.ImageSet.Images
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
+
+local Foundation = require(CorePackages.Packages.Foundation)
+local withCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.withCursor else nil :: never
+local ICON_BUTTON_CURSOR = if FFlagAdaptUnibarAndTiltSizing then Foundation.Enums.CursorType.SkinToneCircle else nil :: never
 
 local TopBar = script.Parent.Parent.Parent
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
@@ -108,16 +113,20 @@ function IconButton:init()
 end
 
 function IconButton:render()
-	if GetFFlagFixUnibarVirtualCursor() then
+	if ChromeEnabled and FFlagAdaptUnibarAndTiltSizing then
+		return withCursor(function(getCursor)
+			return self:renderWithCursor(getCursor)
+		end)
+	elseif GetFFlagFixUnibarVirtualCursor() then
 		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
+			return self:renderWithCursor(getSelectionCursor)
 		end)
 	else
-		return self:renderWithSelectionCursor(nil)
+		return self:renderWithCursor(nil)
 	end
 end
 
-function IconButton:renderWithSelectionCursor(getSelectionCursor)
+function IconButton:renderWithCursor(getCursor)
 	local hasBackgroundFrame = not isNewTiltIconEnabled() and self.props.backgroundColor3
 	return withStyle(function(style: any)
 		local overlayTheme = {
@@ -145,9 +154,11 @@ function IconButton:renderWithSelectionCursor(getSelectionCursor)
 			Size = UDim2.fromOffset(BACKGROUND_SIZE, BACKGROUND_SIZE),
 			Image = if not isNewTiltIconEnabled() then "rbxasset://textures/ui/TopBar/iconBase.png" else nil,
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
-			SelectionImageObject = if GetFFlagFixUnibarVirtualCursor() and isNewTiltIconEnabled()
-				then getSelectionCursor(CursorKind.SelectedKnob)
-				else nil,
+			SelectionImageObject = if isNewTiltIconEnabled() then 
+				if FFlagAdaptUnibarAndTiltSizing then getCursor.refCache[ICON_BUTTON_CURSOR]
+				elseif GetFFlagFixUnibarVirtualCursor() then getCursor(CursorKind.SelectedKnob)
+				else nil
+			else nil,
 			NextSelectionRight = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then self.props.nextSelectionRightRef else nil :: never,
 			[Roact.Event.Activated] = self.props.onActivated,
 			[Roact.Event.SelectionChanged] = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then self.props.onSelectionChanged else nil,

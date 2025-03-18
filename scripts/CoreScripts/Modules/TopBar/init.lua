@@ -6,6 +6,10 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local IXPService = game:GetService("IXPService")
 local LocalizationService = game:GetService("LocalizationService")
 
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
@@ -29,10 +33,10 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
-local GetFFlagMountSceneAnalysisProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagMountSceneAnalysisProvider
-local FFlagUIBloxFoundationProvider = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUIBloxFoundationProvider()
+local GetFFlagMountSceneAnalysisProvider = SharedFlags.GetFFlagMountSceneAnalysisProvider
+local FFlagUIBloxFoundationProvider = SharedFlags.GetFFlagUIBloxFoundationProvider()
 
-if ChromeEnabled and not TenFootInterface:IsEnabled() then
+if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing) then
 	-- set this prior to TopBarApp require
 	local guiInsetTopLeft, guiInsetBottomRight = GuiService:GetGuiInset()
 	GuiService:SetGlobalGuiInset(
@@ -61,7 +65,6 @@ local registerSetCores = require(script.registerSetCores)
 local GlobalConfig = require(script.GlobalConfig)
 
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local FFlagGamepadNavigationDialogABTest = require(script.Flags.FFlagGamepadNavigationDialogABTest)
 local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences

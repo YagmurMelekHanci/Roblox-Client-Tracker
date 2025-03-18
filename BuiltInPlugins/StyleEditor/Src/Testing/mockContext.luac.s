@@ -1,4 +1,45 @@
 PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
+  RETURN R0 0
+
+PROTO_4:
+  GETIMPORT R5 K2 [Instance.new]
+  LOADK R6 K3 ["BindableEvent"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K4 ["Event"]
+  DUPTABLE R5 K8 [{"Enabled", "Checked", "Triggered"}]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K5 ["Enabled"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K6 ["Checked"]
+  SETTABLEKS R4 R5 K7 ["Triggered"]
+  DUPTABLE R6 K13 [{"AddMenu", "AddNewAction", "ShowAsync", "Destroy"}]
+  DUPCLOSURE R7 K14 [PROTO_0]
+  SETTABLEKS R7 R6 K9 ["AddMenu"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K10 ["AddNewAction"]
+  DUPCLOSURE R7 K15 [PROTO_2]
+  SETTABLEKS R7 R6 K11 ["ShowAsync"]
+  DUPCLOSURE R7 K16 [PROTO_3]
+  SETTABLEKS R7 R6 K12 ["Destroy"]
+  RETURN R6 1
+
+PROTO_5:
+  DUPCLOSURE R1 K0 [PROTO_4]
+  SETTABLEKS R1 R0 K1 ["CreatePluginMenu"]
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["Instances"]
   GETTABLEKS R1 R2 K1 ["MockPlugin"]
@@ -25,33 +66,35 @@ PROTO_0:
   GETUPVAL R6 5
   GETUPVAL R7 6
   CALL R6 1 1
-  DUPTABLE R7 K11 [{"Plugin", "Localization", "Networking", "Telemetry", "recordChange"}]
-  SETTABLEKS R0 R7 K7 ["Plugin"]
+  DUPCLOSURE R7 K7 [PROTO_4]
+  SETTABLEKS R7 R0 K8 ["CreatePluginMenu"]
+  DUPTABLE R7 K13 [{"Plugin", "Localization", "Networking", "Telemetry", "recordChange"}]
+  SETTABLEKS R0 R7 K9 ["Plugin"]
   SETTABLEKS R3 R7 K5 ["Localization"]
-  SETTABLEKS R1 R7 K8 ["Networking"]
-  SETTABLEKS R2 R7 K9 ["Telemetry"]
-  SETTABLEKS R6 R7 K10 ["recordChange"]
+  SETTABLEKS R1 R7 K10 ["Networking"]
+  SETTABLEKS R2 R7 K11 ["Telemetry"]
+  SETTABLEKS R6 R7 K12 ["recordChange"]
   GETUPVAL R8 7
   MOVE R9 R7
   CALL R8 1 1
-  DUPTABLE R9 K19 [{"_destroyed", "plugin", "localization", "networking", "telemetry", "focus", "store"}]
+  DUPTABLE R9 K21 [{"_destroyed", "plugin", "localization", "networking", "telemetry", "focus", "store"}]
   LOADB R10 0
-  SETTABLEKS R10 R9 K12 ["_destroyed"]
-  SETTABLEKS R0 R9 K13 ["plugin"]
-  SETTABLEKS R3 R9 K14 ["localization"]
-  SETTABLEKS R1 R9 K15 ["networking"]
-  SETTABLEKS R2 R9 K16 ["telemetry"]
-  SETTABLEKS R5 R9 K17 ["focus"]
-  SETTABLEKS R8 R9 K18 ["store"]
+  SETTABLEKS R10 R9 K14 ["_destroyed"]
+  SETTABLEKS R0 R9 K15 ["plugin"]
+  SETTABLEKS R3 R9 K16 ["localization"]
+  SETTABLEKS R1 R9 K17 ["networking"]
+  SETTABLEKS R2 R9 K18 ["telemetry"]
+  SETTABLEKS R5 R9 K19 ["focus"]
+  SETTABLEKS R8 R9 K20 ["store"]
   GETUPVAL R13 8
-  GETTABLEKS R12 R13 K20 ["__index"]
+  GETTABLEKS R12 R13 K22 ["__index"]
   FASTCALL2 SETMETATABLE R9 R12 [+4]
   MOVE R11 R9
-  GETIMPORT R10 K22 [setmetatable]
+  GETIMPORT R10 K24 [setmetatable]
   CALL R10 2 1
   RETURN R10 1
 
-PROTO_1:
+PROTO_7:
   GETTABLEKS R4 R0 K0 ["_destroyed"]
   JUMPIFEQKB R4 FALSE [+2]
   LOADB R3 0 +1
@@ -106,7 +149,7 @@ PROTO_1:
   CALL R3 2 -1
   RETURN R3 -1
 
-PROTO_2:
+PROTO_8:
   GETTABLEKS R3 R0 K0 ["_destroyed"]
   JUMPIFEQKB R3 FALSE [+2]
   LOADB R2 0 +1
@@ -211,7 +254,8 @@ MAIN:
   CALL R16 1 1
   NEWTABLE R17 0 0
   SETTABLEKS R17 R17 K31 ["__index"]
-  DUPCLOSURE R18 K32 [PROTO_0]
+  DUPCLOSURE R18 K32 [PROTO_5]
+  DUPCLOSURE R19 K33 [PROTO_6]
   CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R9
@@ -221,13 +265,13 @@ MAIN:
   CAPTURE VAL R0
   CAPTURE VAL R12
   CAPTURE VAL R17
-  SETTABLEKS R18 R17 K33 ["new"]
-  DUPCLOSURE R18 K34 [PROTO_1]
+  SETTABLEKS R19 R17 K34 ["new"]
+  DUPCLOSURE R19 K35 [PROTO_7]
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R14
   CAPTURE VAL R6
-  SETTABLEKS R18 R17 K35 ["provide"]
-  DUPCLOSURE R18 K36 [PROTO_2]
-  SETTABLEKS R18 R17 K37 ["destroy"]
+  SETTABLEKS R19 R17 K36 ["provide"]
+  DUPCLOSURE R19 K37 [PROTO_8]
+  SETTABLEKS R19 R17 K38 ["destroy"]
   RETURN R17 1

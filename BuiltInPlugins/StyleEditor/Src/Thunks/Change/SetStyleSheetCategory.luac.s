@@ -1,75 +1,43 @@
 PROTO_0:
   GETUPVAL R0 0
-  JUMPIFNOTEQKS R0 K0 ["Designs"] [+15]
-  GETUPVAL R0 1
-  LOADK R2 K1 ["StyleCategory"]
-  LOADNIL R3
-  NAMECALL R0 R0 K2 ["SetAttribute"]
-  CALL R0 3 0
-  GETUPVAL R0 2
-  GETUPVAL R2 3
-  GETUPVAL R3 4
-  CALL R2 1 -1
-  NAMECALL R0 R0 K3 ["dispatch"]
-  CALL R0 -1 0
-  JUMP [+25]
+  JUMPIFNOTEQKS R0 K0 ["Themes"] [+7]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["setAsThemeForAll"]
+  GETUPVAL R1 2
+  CALL R0 1 0
+  JUMP [+14]
   GETUPVAL R0 0
-  JUMPIFNOTEQKS R0 K4 ["Themes"] [+8]
-  GETUPVAL R1 5
-  GETTABLEKS R0 R1 K5 ["setAsTheme"]
-  GETUPVAL R1 4
-  GETUPVAL R2 1
-  CALL R0 2 0
-  JUMP [+15]
-  GETUPVAL R0 0
-  JUMPIFNOTEQKS R0 K6 ["Tokens"] [+8]
-  GETUPVAL R1 5
-  GETTABLEKS R0 R1 K7 ["setAsToken"]
-  GETUPVAL R1 4
-  GETUPVAL R2 1
-  CALL R0 2 0
+  JUMPIFNOTEQKS R0 K2 ["Tokens"] [+7]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["setAsTokenForAll"]
+  GETUPVAL R1 2
+  CALL R0 1 0
   JUMP [+5]
-  GETIMPORT R0 K9 [warn]
-  LOADK R1 K10 ["Unknown StyleSheetCategory:"]
+  GETIMPORT R0 K5 [warn]
+  LOADK R1 K6 ["Unknown StyleSheetCategory:"]
   GETUPVAL R2 0
   CALL R0 2 0
-  GETUPVAL R0 4
-  LOADK R2 K1 ["StyleCategory"]
+  GETUPVAL R0 2
+  LOADK R2 K7 ["StyleCategory"]
   GETUPVAL R3 0
-  NAMECALL R0 R0 K2 ["SetAttribute"]
+  NAMECALL R0 R0 K8 ["SetAttribute"]
   CALL R0 3 0
-  GETIMPORT R0 K14 [Enum.FinishRecordingOperation.Commit]
+  GETIMPORT R0 K12 [Enum.FinishRecordingOperation.Commit]
   RETURN R0 1
 
 PROTO_1:
-  NAMECALL R2 R0 K0 ["getState"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K1 ["Window"]
-  GETTABLEKS R3 R4 K2 ["DesignSheet"]
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  FASTCALL2K ASSERT R5 K3 [+4]
-  LOADK R6 K3 ["expecting valid design sheet"]
-  GETIMPORT R4 K5 [assert]
-  CALL R4 2 0
-  GETTABLEKS R4 R1 K6 ["recordChange"]
-  DUPTABLE R5 K10 [{"Name", "DisplayName", "DoChange"}]
-  LOADK R6 K11 ["StyleEditor/SetStyleSheetCategory"]
-  SETTABLEKS R6 R5 K7 ["Name"]
-  LOADK R6 K12 ["StyleEditor - Set StyleSheet Category"]
-  SETTABLEKS R6 R5 K8 ["DisplayName"]
-  NEWCLOSURE R6 P0
+  GETTABLEKS R2 R1 K0 ["recordChange"]
+  DUPTABLE R3 K4 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R4 K5 ["StyleEditor/SetStyleSheetCategory"]
+  SETTABLEKS R4 R3 K1 ["Name"]
+  LOADK R4 K6 ["StyleEditor - Set StyleSheet Category"]
+  SETTABLEKS R4 R3 K2 ["DisplayName"]
+  NEWCLOSURE R4 P0
   CAPTURE UPVAL U0
-  CAPTURE VAL R3
-  CAPTURE VAL R0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  SETTABLEKS R6 R5 K9 ["DoChange"]
-  CALL R4 1 0
+  SETTABLEKS R4 R3 K3 ["DoChange"]
+  CALL R2 1 0
   RETURN R0 0
 
 PROTO_2:
@@ -77,7 +45,6 @@ PROTO_2:
   CAPTURE VAL R1
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  CAPTURE UPVAL U1
   RETURN R2 1
 
 MAIN:
@@ -87,28 +54,21 @@ MAIN:
   GETTABLEKS R2 R3 K2 ["Parent"]
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R2 R0 K3 ["Src"]
-  GETTABLEKS R1 R2 K4 ["Actions"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R4 R1 K7 ["Window"]
-  GETTABLEKS R3 R4 K8 ["SetDesignSheet"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["DesignHelpers"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Reducers"]
+  GETTABLEKS R3 R4 K9 ["RootReducer"]
   CALL R2 1 1
-  GETIMPORT R3 K6 [require]
-  GETTABLEKS R6 R0 K3 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Util"]
-  GETTABLEKS R4 R5 K10 ["DesignHelpers"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Thunks"]
+  GETTABLEKS R4 R5 K11 ["Types"]
   CALL R3 1 1
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R7 R0 K3 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Reducers"]
-  GETTABLEKS R5 R6 K12 ["RootReducer"]
-  CALL R4 1 1
-  GETIMPORT R5 K6 [require]
-  GETTABLEKS R8 R0 K3 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Thunks"]
-  GETTABLEKS R6 R7 K14 ["Types"]
-  CALL R5 1 1
-  DUPCLOSURE R6 K15 [PROTO_2]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  RETURN R6 1
+  DUPCLOSURE R4 K12 [PROTO_2]
+  CAPTURE VAL R1
+  RETURN R4 1

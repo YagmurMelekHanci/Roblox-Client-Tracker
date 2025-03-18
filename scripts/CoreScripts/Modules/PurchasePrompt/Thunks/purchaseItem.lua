@@ -19,16 +19,19 @@ local RequestType = require(Root.Enums.RequestType)
 local getToolAsset = require(Root.Network.getToolAsset)
 local performPurchase = require(Root.Network.performPurchase)
 local performPurchaseV2 = require(Root.Network.performPurchaseV2)
+local performCreatorStorePurchase = require(Root.Network.performCreatorStorePurchase)
 local Network = require(Root.Services.Network)
 local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
+local isCreatorStoreAssetType = require(Root.Utils.isCreatorStoreAssetType)
 local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
 
 local completePurchase = require(script.Parent.completePurchase)
 
 local FFlagEnableCollectibleCheckToPurchaseItem = require(Root.Parent.Flags.FFlagEnableCollectibleCheckToPurchaseItem)
+local GetFFlagEnableCreatorStorePurchasingCutover = require(Root.Flags.GetFFlagEnableCreatorStorePurchasingCutover)
 
 -- Only tools can be equipped on purchase
 local ASSET_TYPE_TOOL = 19
@@ -123,6 +126,7 @@ local function purchaseItem()
 			salePrice = expectedPrice
 		end
 		local assetTypeId = state.productInfo.assetTypeId
+		local assetType = state.productInfo.assetType
 		local productId = state.productInfo.productId
 		local collectibleItemId = state.productInfo.collectibleItemId
 		local collectibleProductId = state.productInfo.collectibleProductId
@@ -136,8 +140,21 @@ local function purchaseItem()
 			isCollectibleBundle = requestCollectibleItemId and requestCollectibleItemId ~= "" and
 				infoType == Enum.InfoType.Bundle
 		end
+		if GetFFlagEnableCreatorStorePurchasingCutover() and isCreatorStoreAssetType(assetType) then
+			return performCreatorStorePurchase(network, productId, assetType)
+				:andThen(function(result)
+					-- If the purchase was successful, we signal success,
+					-- record analytics, and equip the item if needed
+					store:dispatch(completePurchase())
 
-		if (FFlagEnableCollectibleCheckToPurchaseItem and isCollectibleBundle) or
+					analytics.signalPurchaseSuccess(id, infoType, salePrice, result)
+
+					return Promise.resolve()
+				end)
+				:catch(function(errorReason)
+					store:dispatch(ErrorOccurred(errorReason))
+				end)
+		elseif (FFlagEnableCollectibleCheckToPurchaseItem and isCollectibleBundle) or
 			(requestCollectibleItemInstanceId and requestCollectibleItemInstanceId ~= '') then
 
 			return performPurchaseV2(network, infoType, productId, salePrice, requestId, isRobloxPurchase, requestCollectibleItemId, requestCollectibleProductId, idempotencyKey, purchaseAuthToken, requestCollectibleItemInstanceId)

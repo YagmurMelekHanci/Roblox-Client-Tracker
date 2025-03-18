@@ -39,9 +39,6 @@ local Pages = require(ContactList.Enums.Pages)
 
 local rng = Random.new()
 
-local FFlagEnableIrisUniversalityFixes =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableIrisUniversalityFixes
-
 export type Props = {
 	userId: number | string,
 	userName: string,
@@ -109,12 +106,10 @@ local function FriendListItem(props: Props)
 			setItemBackgroundTheme("BackgroundOnPress")
 		elseif newState == ControlState.Hover then
 			setItemBackgroundTheme("BackgroundOnHover")
-			if FFlagEnableIrisUniversalityFixes then
-				SoundManager:PlaySound(Sounds.Hover.Name, {
-					Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
-					PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
-				}, SoundGroups.Iris)
-			end
+			SoundManager:PlaySound(Sounds.Hover.Name, {
+				Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
+				PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
+			}, SoundGroups.Iris)
 		else
 			setItemBackgroundTheme("BackgroundDefault")
 		end
@@ -187,15 +182,6 @@ local function FriendListItem(props: Props)
 		})
 	end, { presence, style, localized.offlineStatusLabel, localized.onlineStatusLabel, localized.studioStatusLabel })
 
-	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
-		if inputObject and inputObject.UserInputType == Enum.UserInputType.MouseMovement then
-			SoundManager:PlaySound(Sounds.Hover.Name, {
-				Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
-				PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
-			}, SoundGroups.Iris)
-		end
-	end, {})
-
 	local openOrUpdateCFM = React.useCallback(function()
 		analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuOpened, {
 			eventTimestampMs = os.time() * 1000,
@@ -219,7 +205,6 @@ local function FriendListItem(props: Props)
 		onStateChanged = onItemStateChanged,
 		AutoButtonColor = false,
 		[React.Event.Activated] = startCall,
-		[React.Event.InputBegan] = if not FFlagEnableIrisUniversalityFixes then onHovered else nil :: any,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, PADDING.X),

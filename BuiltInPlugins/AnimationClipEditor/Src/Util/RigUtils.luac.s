@@ -546,17 +546,17 @@ PROTO_11:
   GETTABLEKS R1 R2 K0 ["getAnimator"]
   MOVE R2 R0
   CALL R1 1 1
-  NAMECALL R2 R1 K1 ["Destroy"]
-  CALL R2 1 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["getAnimationController"]
-  MOVE R3 R0
-  CALL R2 1 1
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R2 R1 K1 ["Parent"]
+  NAMECALL R3 R1 K2 ["Destroy"]
+  CALL R3 1 0
   GETIMPORT R3 K5 [Instance.new]
   LOADK R4 K6 ["Animator"]
   MOVE R5 R2
   CALL R3 2 -1
   RETURN R3 -1
+  LOADNIL R2
+  RETURN R2 1
 
 MAIN:
   PREPVARARGS 0

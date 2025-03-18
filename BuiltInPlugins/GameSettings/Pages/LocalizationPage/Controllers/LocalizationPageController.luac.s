@@ -160,29 +160,25 @@ PROTO_12:
 
 PROTO_13:
   GETTABLEKS R3 R0 K0 ["__networking"]
-  NEWTABLE R4 0 0
-  GETIMPORT R5 K2 [pairs]
-  MOVE R6 R2
-  CALL R5 1 3
-  FORGPREP_NEXT R5
-  LOADK R12 K3 ["gameinternationalization"]
-  LOADK R14 K4 ["/v1/supported-languages/games/"]
-  MOVE R15 R1
-  LOADK R16 K5 ["/languages/"]
-  MOVE R17 R8
-  LOADK R18 K6 ["/automatic-translation-status"]
-  CONCAT R13 R14 R18
-  DUPTABLE R14 K8 [{"Body"}]
-  SETTABLEKS R9 R14 K7 ["Body"]
-  NAMECALL R10 R3 K9 ["patch"]
-  CALL R10 4 1
-  FASTCALL2 TABLE_INSERT R4 R10 [+5]
-  MOVE R12 R4
-  MOVE R13 R10
-  GETIMPORT R11 K12 [table.insert]
-  CALL R11 2 0
-  FORGLOOP R5 2 [-21]
-  RETURN R4 1
+  GETIMPORT R4 K2 [pairs]
+  MOVE R5 R2
+  CALL R4 1 3
+  FORGPREP_NEXT R4
+  LOADK R11 K3 ["gameinternationalization"]
+  LOADK R13 K4 ["/v1/supported-languages/games/"]
+  MOVE R14 R1
+  LOADK R15 K5 ["/languages/"]
+  MOVE R16 R7
+  LOADK R17 K6 ["/automatic-translation-status"]
+  CONCAT R12 R13 R17
+  DUPTABLE R13 K8 [{"Body"}]
+  SETTABLEKS R8 R13 K7 ["Body"]
+  NAMECALL R9 R3 K9 ["patch"]
+  CALL R9 4 1
+  NAMECALL R10 R9 K10 ["await"]
+  CALL R10 1 0
+  FORGLOOP R4 2 [-17]
+  RETURN R0 0
 
 PROTO_14:
   NAMECALL R1 R0 K0 ["localeSupportedLocalesGET"]
@@ -366,13 +362,7 @@ PROTO_25:
   MOVE R6 R1
   MOVE R7 R2
   NAMECALL R4 R0 K11 ["gameinternationalizationSupportedLanguagesGamesLanguagesAutomaticTranslationStatusPATCH"]
-  CALL R4 3 1
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K12 ["all"]
-  MOVE R6 R4
-  CALL R5 1 1
-  NAMECALL R5 R5 K10 ["await"]
-  CALL R5 1 0
+  CALL R4 3 0
   RETURN R0 0
 
 MAIN:
@@ -442,6 +432,5 @@ MAIN:
   DUPCLOSURE R3 K58 [PROTO_24]
   SETTABLEKS R3 R2 K59 ["getAutoTranslationSetings"]
   DUPCLOSURE R3 K60 [PROTO_25]
-  CAPTURE VAL R1
   SETTABLEKS R3 R2 K61 ["setAutoTranslationSetings"]
   RETURN R2 1

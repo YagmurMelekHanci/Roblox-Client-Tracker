@@ -1,7 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
-local IXPService = game:GetService("IXPService")
 local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -15,7 +14,6 @@ local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicy
 
 local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
-local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local StyleConstants = UIBlox.App.Style.Constants
@@ -41,7 +39,6 @@ local SetMinimized = require(PlayerList.Actions.SetMinimized)
 local SetSubjectToChinaPolicies = require(PlayerList.Actions.SetSubjectToChinaPolicies)
 local SetSettings = require(PlayerList.Actions.SetSettings)
 
-local FFlagRemoveSideBarABTest = require(PlayerList.Flags.FFlagRemoveSideBarABTest)
 local FFlagXboxRemoveLatentVoiceChatPrivilegeCheck =
 	game:DefineFastFlag("XboxRemoveLatentVoiceChatPrivilegeCheck", false)
 
@@ -172,14 +169,6 @@ function PlayerListMaster.new()
 	}, {
 		PlayerListMaster = self.root,
 	})
-
-	if FFlagRemoveSideBarABTest then
-		self.root = Roact.createElement(RoactAppExperiment.Provider, {
-			value = IXPService,
-		}, {
-			RoactAppExperimentProvider = self.root,
-		})
-	end
 
 	self.element = Roact.mount(self.root, CoreGui, "PlayerList")
 

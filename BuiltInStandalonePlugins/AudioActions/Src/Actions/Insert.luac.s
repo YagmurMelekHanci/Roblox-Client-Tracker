@@ -66,67 +66,157 @@ PROTO_3:
   LOADK R3 K0 ["Actions"]
   NAMECALL R1 R0 K1 ["GetPluginComponent"]
   CALL R1 2 1
-  GETUPVAL R2 0
-  CALL R2 0 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["getAudioInstanceDefs"]
-  CALL R2 0 3
-  FORGPREP R2
-  DUPTABLE R7 K10 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts"}]
-  DUPTABLE R8 K15 [{"DataModel", "PluginId", "Category", "ItemId"}]
-  LOADK R9 K16 ["Standalone"]
-  SETTABLEKS R9 R8 K11 ["DataModel"]
-  LOADK R9 K17 ["Audio"]
-  SETTABLEKS R9 R8 K12 ["PluginId"]
-  LOADK R9 K0 ["Actions"]
-  SETTABLEKS R9 R8 K13 ["Category"]
-  LOADK R10 K18 ["Insert/%*"]
-  MOVE R12 R5
-  NAMECALL R10 R10 K19 ["format"]
-  CALL R10 2 1
-  MOVE R9 R10
-  SETTABLEKS R9 R8 K14 ["ItemId"]
-  SETTABLEKS R8 R7 K3 ["Uri"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K4 ["Enabled"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K5 ["Visible"]
-  GETIMPORT R8 K22 [string.gsub]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K23 ["action"]
-  LOADK R10 K24 ["Insert"]
-  CALL R9 1 1
-  LOADK R10 K25 ["%%s"]
-  MOVE R11 R5
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K6 ["Text"]
-  GETIMPORT R8 K22 [string.gsub]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K26 ["tooltip"]
-  LOADK R10 K24 ["Insert"]
-  CALL R9 1 1
-  LOADK R10 K25 ["%%s"]
-  MOVE R11 R5
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K7 ["Tooltip"]
-  SETTABLEKS R5 R7 K8 ["Icon"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K9 ["Shortcuts"]
-  GETUPVAL R9 3
+  LOADK R4 K2 ["Settings"]
+  NAMECALL R2 R0 K1 ["GetPluginComponent"]
+  CALL R2 2 1
+  GETUPVAL R3 0
+  CALL R3 0 0
+  NEWTABLE R3 0 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["getAudioInstanceDefs"]
+  CALL R4 0 3
+  FORGPREP R4
+  DUPTABLE R9 K11 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts"}]
+  DUPTABLE R10 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R11 K17 ["Standalone"]
+  SETTABLEKS R11 R10 K12 ["DataModel"]
+  LOADK R11 K18 ["Audio"]
+  SETTABLEKS R11 R10 K13 ["PluginId"]
+  LOADK R11 K0 ["Actions"]
+  SETTABLEKS R11 R10 K14 ["Category"]
+  LOADK R12 K19 ["Insert/%*"]
+  MOVE R14 R7
+  NAMECALL R12 R12 K20 ["format"]
+  CALL R12 2 1
+  MOVE R11 R12
+  SETTABLEKS R11 R10 K15 ["ItemId"]
+  SETTABLEKS R10 R9 K4 ["Uri"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K5 ["Enabled"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K6 ["Visible"]
+  GETIMPORT R10 K23 [string.gsub]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K24 ["action"]
+  LOADK R12 K25 ["Insert"]
+  CALL R11 1 1
+  LOADK R12 K26 ["%%s"]
   MOVE R13 R7
-  LOADB R14 1
-  NAMECALL R11 R1 K27 ["CreateAsync"]
-  CALL R11 3 1
-  GETTABLEN R10 R11 1
-  NEWCLOSURE R12 P0
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K7 ["Text"]
+  GETIMPORT R10 K23 [string.gsub]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K27 ["tooltip"]
+  LOADK R12 K25 ["Insert"]
+  CALL R11 1 1
+  LOADK R12 K26 ["%%s"]
+  MOVE R13 R7
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K8 ["Tooltip"]
+  SETTABLEKS R7 R9 K9 ["Icon"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K10 ["Shortcuts"]
+  SETTABLE R9 R3 R7
+  GETUPVAL R11 3
+  MOVE R15 R9
+  LOADB R16 1
+  NAMECALL R13 R1 K28 ["CreateAsync"]
+  CALL R13 3 1
+  GETTABLEN R12 R13 1
+  NEWCLOSURE R14 P0
   CAPTURE UPVAL U4
-  CAPTURE VAL R5
-  NAMECALL R10 R10 K28 ["Connect"]
-  CALL R10 2 -1
+  CAPTURE VAL R7
+  NAMECALL R12 R12 K29 ["Connect"]
+  CALL R12 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R8 K31 [table.insert]
-  CALL R8 -1 0
-  FORGLOOP R2 2 [-75]
+  GETIMPORT R10 K32 [table.insert]
+  CALL R10 -1 0
+  FORGLOOP R4 2 [-76]
+  NEWTABLE R4 0 3
+  DUPTABLE R5 K34 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  DUPTABLE R6 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R7 K17 ["Standalone"]
+  SETTABLEKS R7 R6 K12 ["DataModel"]
+  LOADK R7 K18 ["Audio"]
+  SETTABLEKS R7 R6 K13 ["PluginId"]
+  LOADK R7 K2 ["Settings"]
+  SETTABLEKS R7 R6 K14 ["Category"]
+  LOADK R7 K35 ["InsertInOut"]
+  SETTABLEKS R7 R6 K15 ["ItemId"]
+  SETTABLEKS R6 R5 K4 ["Uri"]
+  LOADK R6 K36 ["In/Out"]
+  SETTABLEKS R6 R5 K7 ["Text"]
+  LOADK R6 K36 ["In/Out"]
+  SETTABLEKS R6 R5 K8 ["Tooltip"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K5 ["Enabled"]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K33 ["Value"]
+  DUPTABLE R6 K34 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  DUPTABLE R7 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R8 K17 ["Standalone"]
+  SETTABLEKS R8 R7 K12 ["DataModel"]
+  LOADK R8 K18 ["Audio"]
+  SETTABLEKS R8 R7 K13 ["PluginId"]
+  LOADK R8 K2 ["Settings"]
+  SETTABLEKS R8 R7 K14 ["Category"]
+  LOADK R8 K37 ["InsertSpatial"]
+  SETTABLEKS R8 R7 K15 ["ItemId"]
+  SETTABLEKS R7 R6 K4 ["Uri"]
+  LOADK R7 K38 ["3D"]
+  SETTABLEKS R7 R6 K7 ["Text"]
+  LOADK R7 K38 ["3D"]
+  SETTABLEKS R7 R6 K8 ["Tooltip"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K5 ["Enabled"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K33 ["Value"]
+  DUPTABLE R7 K34 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
+  DUPTABLE R8 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R9 K17 ["Standalone"]
+  SETTABLEKS R9 R8 K12 ["DataModel"]
+  LOADK R9 K18 ["Audio"]
+  SETTABLEKS R9 R8 K13 ["PluginId"]
+  LOADK R9 K2 ["Settings"]
+  SETTABLEKS R9 R8 K14 ["Category"]
+  LOADK R9 K39 ["InsertEffect"]
+  SETTABLEKS R9 R8 K15 ["ItemId"]
+  SETTABLEKS R8 R7 K4 ["Uri"]
+  LOADK R8 K40 ["Effects"]
+  SETTABLEKS R8 R7 K7 ["Text"]
+  LOADK R8 K40 ["Effects"]
+  SETTABLEKS R8 R7 K8 ["Tooltip"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K5 ["Enabled"]
+  LOADN R8 5
+  SETTABLEKS R8 R7 K33 ["Value"]
+  SETLIST R4 R5 3 [1]
+  MOVE R5 R4
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  NEWTABLE R14 0 1
+  GETTABLEKS R15 R9 K4 ["Uri"]
+  SETLIST R14 R15 1 [1]
+  NAMECALL R12 R2 K41 ["GetAsync"]
+  CALL R12 2 1
+  GETTABLEN R11 R12 1
+  JUMPIFNOTEQKNIL R11 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  JUMPIFNOT R10 [+9]
+  NEWTABLE R13 0 1
+  MOVE R14 R9
+  SETLIST R13 R14 1 [1]
+  NAMECALL R11 R2 K42 ["UpdateAsync"]
+  CALL R11 2 0
+  JUMP [+8]
+  NEWTABLE R13 0 1
+  MOVE R14 R9
+  SETLIST R13 R14 1 [1]
+  NAMECALL R11 R2 K28 ["CreateAsync"]
+  CALL R11 2 0
+  FORGLOOP R5 2 [-33]
   RETURN R0 0
 
 PROTO_4:

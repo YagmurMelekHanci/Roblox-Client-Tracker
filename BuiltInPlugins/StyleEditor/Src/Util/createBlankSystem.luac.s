@@ -5,35 +5,32 @@ PROTO_0:
   LOADK R1 K4 ["Design"]
   SETTABLEKS R1 R0 K5 ["Name"]
   GETUPVAL R1 0
-  LOADK R2 K4 ["Design"]
+  LOADK R2 K6 ["StyleSheet"]
   NEWTABLE R3 0 7
   GETUPVAL R4 1
-  LOADK R5 K6 ["Frame"]
+  LOADK R5 K7 ["Frame"]
   CALL R4 1 1
   GETUPVAL R5 1
-  LOADK R6 K7 ["ScrollingFrame"]
+  LOADK R6 K8 ["ScrollingFrame"]
   CALL R5 1 1
   GETUPVAL R6 1
-  LOADK R7 K8 ["TextLabel"]
+  LOADK R7 K9 ["TextLabel"]
   CALL R6 1 1
   GETUPVAL R7 1
-  LOADK R8 K9 ["TextButton"]
+  LOADK R8 K10 ["TextButton"]
   CALL R7 1 1
   GETUPVAL R8 1
-  LOADK R9 K10 ["TextBox"]
+  LOADK R9 K11 ["TextBox"]
   CALL R8 1 1
   GETUPVAL R9 1
-  LOADK R10 K11 ["ImageButton"]
+  LOADK R10 K12 ["ImageButton"]
   CALL R9 1 1
   GETUPVAL R10 1
-  LOADK R11 K12 ["ImageLabel"]
+  LOADK R11 K13 ["ImageLabel"]
   CALL R10 1 -1
   SETLIST R3 R4 -1 [1]
-  DUPTABLE R4 K14 [{"StyleCategory"}]
-  LOADK R5 K15 ["Designs"]
-  SETTABLEKS R5 R4 K13 ["StyleCategory"]
-  CALL R1 3 1
-  SETTABLEKS R0 R1 K16 ["Parent"]
+  CALL R1 2 1
+  SETTABLEKS R0 R1 K14 ["Parent"]
   RETURN R0 1
 
 MAIN:

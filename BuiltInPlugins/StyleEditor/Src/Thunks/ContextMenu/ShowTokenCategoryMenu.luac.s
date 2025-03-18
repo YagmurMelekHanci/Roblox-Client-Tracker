@@ -16,12 +16,12 @@ PROTO_1:
   LOADK R6 K9 ["New"]
   SETTABLEKS R6 R5 K1 ["Id"]
   LOADK R8 K10 ["ContextMenu"]
-  LOADK R9 K9 ["New"]
-  NAMECALL R6 R2 K11 ["getText"]
+  LOADK R9 K11 ["NewTokenStyleSheet"]
+  NAMECALL R6 R2 K12 ["getText"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K5 ["Text"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K12 ["new"]
+  GETTABLEKS R6 R7 K13 ["new"]
   CALL R6 0 1
   SETTABLEKS R6 R5 K6 ["Icon"]
   NEWCLOSURE R6 P0
@@ -31,13 +31,13 @@ PROTO_1:
   SETLIST R4 R5 1 [1]
   SETTABLEKS R4 R3 K2 ["Children"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K13 ["trackClicks"]
+  GETTABLEKS R4 R5 K14 ["trackClicks"]
   MOVE R5 R3
-  GETTABLEKS R6 R1 K14 ["Telemetry"]
+  GETTABLEKS R6 R1 K15 ["Telemetry"]
   CALL R4 2 0
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K15 ["showContextMenu"]
-  GETTABLEKS R5 R1 K16 ["Plugin"]
+  GETTABLEKS R4 R5 K16 ["showContextMenu"]
+  GETTABLEKS R5 R1 K17 ["Plugin"]
   MOVE R6 R3
   CALL R4 2 0
   RETURN R0 0

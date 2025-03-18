@@ -30,6 +30,7 @@ local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignal
 local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
 local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
+local getFFlagExposeChatWindowToggled = SharedFlags.getFFlagExposeChatWindowToggled
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local GetFFlagChatActiveChangedSignal =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChatActiveChangedSignal
@@ -58,6 +59,15 @@ end
 -- the chat button to be hidden when the window is open. Using the signal directly fixes this issue
 if FFlagAlwaysShowChatButtonWhenWindowIsVisible then
 	chatSelectorVisibilitySignal:connect(function(visible)
+		if visible then
+			chatChromeIntegration.availability:pinned()
+		end
+	end)
+end
+
+if getFFlagExposeChatWindowToggled() then
+	local chatWindowToggled = ChatSelector.ChatWindowToggled
+	chatWindowToggled:connect(function(visible)
 		if visible then
 			chatChromeIntegration.availability:pinned()
 		end

@@ -6,6 +6,9 @@ local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local TextChatService = game:GetService("TextChatService")
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
@@ -20,8 +23,8 @@ local Images = UIBlox.App.ImageSet.Images
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 
-local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
-local GetFFlagFixUnibarVirtualCursor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixUnibarVirtualCursor
+local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
+local GetFFlagFixUnibarVirtualCursor = SharedFlags.GetFFlagFixUnibarVirtualCursor
 
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
@@ -41,13 +44,13 @@ local ChromeEnabled = require(Chrome.Enabled)
 local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
 local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
-local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
+local FFlagEnableChromeAnalytics = SharedFlags.GetFFlagEnableChromeAnalytics()
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagEnableSceneAnalysisPerformanceTest = SharedFlags.GetFFlagEnableSceneAnalysisPerformanceTest
 local GetFFlagEnableSongbirdPeek = require(Chrome.Flags.GetFFlagEnableSongbirdPeek)
 local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -97,20 +100,20 @@ local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
 local FFlagControlBetaBadgeWithGuac = game:DefineFastFlag("ControlBetaBadgeWithGuac", false)
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
-local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
+local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagEnablePartyIconInNonChrome =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyIconInNonChrome
+	SharedFlags.GetFFlagEnablePartyIconInNonChrome
 local GetFFlagEnablePartyMicIconInChrome =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
-local GetFFlagPeekUseFixedHeight = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekUseFixedHeight
-local GetFFlagSongbirdMountDebugAudioEmitters = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdMountDebugAudioEmitters
+	SharedFlags.GetFFlagEnablePartyMicIconInChrome
+local GetFFlagPeekUseFixedHeight = SharedFlags.GetFFlagPeekUseFixedHeight
+local GetFFlagSongbirdMountDebugAudioEmitters = SharedFlags.GetFFlagSongbirdMountDebugAudioEmitters
 
 local PartyMicBinder = require(script.Parent.Parent.Parent.Chrome.Integrations.Party.PartyMicBinder)
 
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
+	SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagEnableJoinVoiceOnUnibar =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableJoinVoiceOnUnibar
+	SharedFlags.GetFFlagEnableJoinVoiceOnUnibar
 
 local JoinVoiceBinder
 if game:GetEngineFeature("VoiceChatSupported")
@@ -128,8 +131,6 @@ local UseUpdatedHealthBar = ChromeEnabled()
 
 -- vr bottom bar
 local VRBottomBar = require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
-
-local CLOSE_MENU_ICON_SIZE = if isNewTiltIconEnabled() then (Constants.TopBarHeight - 4) else 30
 
 local function selectMenuOpen(state)
 	return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
@@ -162,7 +163,12 @@ function TopBarApp:init()
 		})
 
 		if FFlagConnectGamepadChrome then
-			self.GamepadConnector = GamepadConnector.new()
+			if FFlagHideTopBarConsole then 
+				-- in flag cleanup, replace `self.GamepadConnector` with just `GamepadConnector`
+				self.GamepadConnector = GamepadConnector
+			else 
+				self.GamepadConnector = GamepadConnector.new()
+			end
 		end
 
 		if FFlagTiltIconUnibarFocusNav then
@@ -353,7 +359,7 @@ function TopBarApp:renderWithStyle(style)
 				BackgroundTransparency = style.Theme.Overlay.Transparency,
 				Position = closeMenuButtonPosition,
 				AnchorPoint = Vector2.new(0, 0.5),
-				Size = UDim2.new(0, CLOSE_MENU_ICON_SIZE, 0, CLOSE_MENU_ICON_SIZE),
+				Size = UDim2.new(0, Constants.LegacyCloseMenuIconSize, 0, Constants.LegacyCloseMenuIconSize),
 				BackgroundColor3 = style.Theme.Overlay.Color,
 				[Roact.Event.Activated] = function()
 					local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
@@ -417,7 +423,7 @@ function TopBarApp:renderWithStyle(style)
 				BackgroundTransparency = 1,
 				Position = closeMenuButtonPosition,
 				AnchorPoint = Vector2.new(0, 0.5),
-				Size = UDim2.new(0, CLOSE_MENU_ICON_SIZE, 0, CLOSE_MENU_ICON_SIZE),
+				Size = UDim2.new(0, Constants.LegacyCloseMenuIconSize, 0, Constants.LegacyCloseMenuIconSize),
 				Image = Images["icons/controls/close-ingame"],
 
 				[Roact.Event.Activated] = function()
@@ -485,9 +491,9 @@ function TopBarApp:renderWithStyle(style)
 						then Roact.createElement(KeepOutAreasHandler)
 						else nil,
 					Padding = Roact.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, 2),
-						PaddingBottom = UDim.new(0, 2),
-						PaddingLeft = UDim.new(0, screenSideOffset + Constants.Padding + Constants.TopBarHeight + 2),
+						PaddingTop = UDim.new(0, Constants.UnibarFrame.PaddingTop),
+						PaddingBottom = UDim.new(0, Constants.UnibarFrame.PaddingBottom),
+						PaddingLeft = UDim.new(0, Constants.UnibarFrame.PaddingLeft),
 					}),
 
 					Unibar = if FFlagTiltIconUnibarFocusNav then React.createElement(MenuIconContext.Provider, {
@@ -519,10 +525,10 @@ function TopBarApp:renderWithStyle(style)
 						Size = UDim2.new(1, 0, 1, 0),
 					}, {
 						Padding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, Constants.Padding),
+							PaddingLeft = UDim.new(0, Constants.TopBarPadding),
 						}),
 						Layout = Roact.createElement("UIListLayout", {
-							Padding = UDim.new(0, Constants.Padding),
+							Padding = UDim.new(0, Constants.TopBarPadding),
 							FillDirection = Enum.FillDirection.Horizontal,
 							HorizontalAlignment = Enum.HorizontalAlignment.Left,
 							VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -590,11 +596,11 @@ function TopBarApp:renderWithStyle(style)
 						then Roact.createElement(KeepOutAreasHandler)
 						else nil,
 					Padding = Roact.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, 2),
-						PaddingBottom = UDim.new(0, 2),
+						PaddingTop = UDim.new(0, Constants.UnibarFrame.PaddingTop),
+						PaddingBottom = UDim.new(0, Constants.UnibarFrame.PaddingBottom),
 					}),
 					Layout = Roact.createElement("UIListLayout", {
-						Padding = UDim.new(0, Constants.Padding),
+						Padding = UDim.new(0, Constants.TopBarPadding),
 						FillDirection = Enum.FillDirection.Horizontal,
 						HorizontalAlignment = Enum.HorizontalAlignment.Right,
 						VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -623,13 +629,13 @@ function TopBarApp:renderWithStyle(style)
 			Visible = isTopBarVisible,
 			Position = topBarFramePosition,
 		}, {
-			LeftFrame = not TenFootInterface:IsEnabled() and Roact.createElement("Frame", {
+			LeftFrame = (chromeEnabled and FFlagAdaptUnibarAndTiltSizing or not TenFootInterface:IsEnabled()) and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0.5, -screenSideOffset, 1, 0),
 				Position = topBarLeftFramePosition,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, Constants.Padding),
+					Padding = UDim.new(0, Constants.TopBarPadding),
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					VerticalAlignment = if FFlagTopBarUseNewBadge
@@ -640,7 +646,7 @@ function TopBarApp:renderWithStyle(style)
 
 				Blank = chromeEnabled and Roact.createElement("Frame", {
 					LayoutOrder = 1,
-					Size = UDim2.new(0, (Constants.TopBarHeight - 4), 0, 1),
+					Size = UDim2.new(0, Constants.UnibarFrame.ExtendedSize, 0, 1),
 					BackgroundTransparency = 1,
 				}),
 
@@ -691,7 +697,7 @@ function TopBarApp:renderWithStyle(style)
 				AnchorPoint = Vector2.new(1, 0),
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, Constants.Padding),
+					Padding = UDim.new(0, Constants.TopBarPadding),
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Right,
 					VerticalAlignment = Enum.VerticalAlignment.Center,

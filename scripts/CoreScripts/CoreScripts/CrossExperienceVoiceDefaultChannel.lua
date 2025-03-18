@@ -21,6 +21,7 @@ local createPersistenceMiddleware = CrossExperience.Middlewares.createPersistenc
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local FFlagPartyVoiceBlockSync = SharedFlags.FFlagPartyVoiceBlockSync
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
 local FFlagCevAnalytics = SharedFlags.FFlagCevAnalytics
@@ -44,6 +45,8 @@ local Analytics = VoiceChatCore.Analytics.new()
 local observeCurrentContextId = CrossExperience.Utils.observeCurrentContextId
 
 local VoiceChatService = game:GetService("VoiceChatService")
+
+type Promise<T> = LuauPolyfill.Promise<T>
 
 type VoiceStatus = CrossExperience.VoiceStatus
 local Constants = CrossExperience.Constants
@@ -239,6 +242,34 @@ local handleUnblockedParticipant = function(params: { userId: number })
 	end
 end
 
+type PermissionResult = {
+	hasMicPermissions: boolean,
+}
+
+local function isAuthorizedPermission(results, permission): boolean
+	if results.missingPermissions then
+		return not Cryo.List.find(results.missingPermissions, permission)
+	end
+	return false
+end
+
+local function requestPermissions(permissions): Promise<PermissionResult>
+	local result: PermissionResult = {
+		hasMicPermissions = false
+	}
+
+	return Promise.new(function(resolve, reject)
+		PermissionsProtocol:requestPermissions(permissions)
+			:andThen(function(results)
+				result.hasMicPermissions = isAuthorizedPermission(results, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+				resolve(result)
+			end)
+			:catch(function()
+				resolve(result)
+			end)
+	end)
+end
+
 local function initializeParticipantBlockListener()
 	cevEventManager:addObserver(
 		CrossExperience.Constants.EVENTS.PARTY_VOICE_BLOCK_PARTICIPANT,
@@ -346,18 +377,20 @@ local function getPlayerUsersIds()
 	return table.concat(playerUserIds, ", ")
 end
 
-local function getPermissions(permissions)
-	local result = {
+local function getPermissions(permissions): Promise<PermissionResult>
+	local result: PermissionResult = {
 		hasMicPermissions = false
 	}
 	
 	return Promise.new(function(resolve, reject)
 		PermissionsProtocol:hasPermissions(permissions)
 			:andThen(function(results)
-				if results.missingPermissions then
-					result.hasMicPermissions = not Cryo.List.find(results.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+				result.hasMicPermissions = isAuthorizedPermission(results, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+				if not result.hasMicPermissions then
+					requestPermissions(permissions):andThen(resolve)
+				else
+					resolve(result)
 				end
-				resolve(result)
 			end)
 			:catch(function()
 				resolve(result)

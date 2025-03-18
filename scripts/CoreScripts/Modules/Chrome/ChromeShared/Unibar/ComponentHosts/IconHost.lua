@@ -7,11 +7,13 @@ local React = require(CorePackages.Packages.React)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local UIBloxBadge = UIBlox.App.Indicator.Badge
 
 local Foundation = require(CorePackages.Packages.Foundation)
+local useCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.useCursor else nil :: never
 local Badge = Foundation.Badge
 local BadgeVariant = Foundation.Enums.BadgeVariant
 local BadgeSize = Foundation.Enums.BadgeSize
@@ -22,8 +24,8 @@ local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local useStyle = UIBlox.Core.Style.useStyle
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
-local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local useSelectionCursor = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.useSelectionCursor
+local CursorKind = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.CursorKind
 
 local Constants = require(Root.Unibar.Constants)
 
@@ -49,14 +51,6 @@ local GetFFlagFixUnibarVirtualCursor = SharedFlags.GetFFlagFixUnibarVirtualCurso
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local FFlagReplaceChromeNotificationBadge = SharedFlags.FFlagReplaceChromeNotificationBadge
 
-local BADGE_OFFSET_X = 20
-local BADGE_OFFSET_Y = 0
-
-if FFlagReplaceChromeNotificationBadge then
-	BADGE_OFFSET_X = 24
-	BADGE_OFFSET_Y = 5
-end
-
 type TooltipState = {
 	displaying: boolean,
 	time: number,
@@ -67,9 +61,10 @@ local GroupTooltipState: { [ChromeTypes.IntegrationId]: TooltipState } = {}
 
 function areTooltipsDisplaying()
 	-- True if another IconHost is displaying tooltip or very recently displayed a tooltip
+	local TOOLTIP_DISPLAY_COOLDOWN = 0.15
 	local now = tick()
 	for _, tooltipState in GroupTooltipState do
-		if tooltipState.displaying or (now - tooltipState.time) < 0.15 then
+		if tooltipState.displaying or (now - tooltipState.time) < TOOLTIP_DISPLAY_COOLDOWN then
 			return true
 		end
 	end
@@ -140,7 +135,7 @@ function NotificationBadge(props: IconHostProps): any?
 		Badge = if notificationCount > 0
 			then if not FFlagReplaceChromeNotificationBadge
 				then React.createElement(UIBloxBadge, {
-					position = UDim2.fromOffset(BADGE_OFFSET_X, BADGE_OFFSET_Y),
+					position = UDim2.fromOffset(Constants.ICON_BADGE_OFFSET_X, Constants.ICON_BADGE_OFFSET_Y),
 					anchorPoint = Vector2.new(0, 0),
 					hasShadow = false,
 					value = notificationCount,
@@ -148,7 +143,7 @@ function NotificationBadge(props: IconHostProps): any?
 				else if notificationBadgeText
 					then React.createElement(Badge, {
 						AnchorPoint = Vector2.new(0, 0),
-						Position = UDim2.new(0, BADGE_OFFSET_X, 0, BADGE_OFFSET_Y),
+						Position = UDim2.new(0, Constants.ICON_BADGE_OFFSET_X, 0, Constants.ICON_BADGE_OFFSET_Y),
 						variant = BadgeVariant.Primary,
 						size = BadgeSize.Small :: any,
 						text = notificationBadgeText,
@@ -184,7 +179,7 @@ end
 function HighlightCircle(props)
 	return React.createElement("Frame", {
 		Name = props.name or "Highlighter",
-		Size = UDim2.new(0, 36, 0, 36),
+		Size = Constants.ICON_HIGHLIGHT_SIZE,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		BackgroundColor3 = props.color.Color,
@@ -332,45 +327,60 @@ function TooltipButton(props: TooltipButtonProps)
 			leftMostIconId = ChromeService:menuList():get()[1].id
 		end
 
-		return React.createElement(Interactable, {
-			Name = (if FFlagTiltIconUnibarFocusNav then Constants.ICON_NAME_PREFIX :: string else "IconHitArea_")
-				.. props.integration.id,
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			onStateChanged = hoverHandler,
-			ref = localBtnRef,
-			SelectionOrder = 100 - props.integration.order,
-			Position = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
-				return UDim2.new(0, 0, 0, if activeSubmenu then 1 else 0)
-			end),
-			SelectionImageObject = useSelectionCursor(CursorKind.SelectedKnob),
-			SelectionGroup = true,
-			SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
-			SelectionBehaviorDown = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
-				-- only allow down nav if secondaryAction or an active open submenu
-				return if (displayTooltip and secondaryAction) or activeSubmenu
-					then Enum.SelectionBehavior.Escape
-					else Enum.SelectionBehavior.Stop
-			end),
-			NextSelectionLeft = if FFlagTiltIconUnibarFocusNav and props.integration.id == leftMostIconId
-				then menuIconContext.menuIconRef
-				else nil :: never,
+		return React.createElement(
+			Interactable,
+			{
+				Name = (if FFlagTiltIconUnibarFocusNav then Constants.ICON_NAME_PREFIX :: string else "IconHitArea_")
+					.. props.integration.id,
+				Size = if FFlagAdaptUnibarAndTiltSizing then Constants.ICON_HIGHLIGHT_SIZE else UDim2.new(1, 0, 1, 0),
+				AnchorPoint = if FFlagAdaptUnibarAndTiltSizing then Vector2.new(0.5, 0.5) else nil,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				onStateChanged = hoverHandler,
+				ref = localBtnRef,
+				SelectionOrder = 100 - props.integration.order,
+				Position = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
+					return if FFlagAdaptUnibarAndTiltSizing
+						then UDim2.new(0.5, 0, 0.5, if activeSubmenu then 1 else 0)
+						else UDim2.new(0, 0, 0, if activeSubmenu then 1 else 0)
+				end),
+				SelectionImageObject = if FFlagAdaptUnibarAndTiltSizing
+					then useCursor(Foundation.Enums.CursorType.SkinToneCircle)
+					else useSelectionCursor(CursorKind.SelectedKnob),
+				SelectionGroup = true,
+				SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
+				SelectionBehaviorDown = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
+					-- only allow down nav if secondaryAction or an active open submenu
+					return if (displayTooltip and secondaryAction) or activeSubmenu
+						then Enum.SelectionBehavior.Escape
+						else Enum.SelectionBehavior.Stop
+				end),
+				NextSelectionLeft = if FFlagTiltIconUnibarFocusNav and props.integration.id == leftMostIconId
+					then menuIconContext.menuIconRef
+					else nil :: never,
 
-			[React.Change.AbsolutePosition] = triggerPointChanged,
-			[React.Change.AbsoluteSize] = triggerPointChanged,
-			[React.Event.InputBegan] = touchBegan,
-			[React.Event.InputEnded] = touchEnded,
-			[React.Event.Activated] = function()
-				setClicked(true, true)
-				props.integration.activated()
-				if connection.current then
-					connection.current:Disconnect()
-					connection.current = nil
-					ChromeService:gesture(props.integration.id, nil)
-				end
-			end,
-		})
+				[React.Change.AbsolutePosition] = triggerPointChanged,
+				[React.Change.AbsoluteSize] = triggerPointChanged,
+				[React.Event.InputBegan] = touchBegan,
+				[React.Event.InputEnded] = touchEnded,
+				[React.Event.Activated] = function()
+					setClicked(true, true)
+					props.integration.activated()
+					if connection.current then
+						connection.current:Disconnect()
+						connection.current = nil
+						ChromeService:gesture(props.integration.id, nil)
+					end
+				end,
+			},
+			if FFlagAdaptUnibarAndTiltSizing
+				then {
+					corner = React.createElement("UICorner", {
+						CornerRadius = UDim.new(1, 0),
+					}),
+				}
+				else nil
+		)
 	end, {
 		hoverHandler :: any,
 		setHovered,

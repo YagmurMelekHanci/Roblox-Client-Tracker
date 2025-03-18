@@ -19,6 +19,7 @@ local USER_OUTFIT = "UserOutfit"
 
 local GetFFlagTranslateDevProducts = require(Root.Flags.GetFFlagTranslateDevProducts)
 local GetFFlagFixBundlePromptThumbnail = require(Root.Flags.GetFFlagFixBundlePromptThumbnail)
+local GetFFlagEnableCreatorStorePurchasingCutover = require(Root.Flags.GetFFlagEnableCreatorStorePurchasingCutover)
 
 local ProductInfoReducer = Rodux.createReducer({}, {
 	[ProductInfoReceived.name] = function(state, action)
@@ -38,6 +39,7 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 			premiumPrice = productInfo.PremiumPriceInRobux,
 			imageUrl = getPreviewImageUrl(productInfo),
 			assetTypeId = productInfo.AssetTypeId,
+			assetType = if GetFFlagEnableCreatorStorePurchasingCutover() then productInfo.AssetType else nil,
 			productId = productInfo.ProductId,
 			productType = productInfo.ProductType,
 			membershipTypeRequired = productInfo.MinimumMembershipLevel,

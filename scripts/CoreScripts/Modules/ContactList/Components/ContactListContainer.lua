@@ -48,8 +48,6 @@ local currentCamera = workspace.CurrentCamera :: Camera
 
 local EnableSocialServiceIrisInvite = game:GetEngineFeature("EnableSocialServiceIrisInvite")
 local EnableSocialServiceCallingRename = game:GetEngineFeature("EnableSocialServiceCallingRename")
-local FFlagEnableIrisUniversalityFixes =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableIrisUniversalityFixes
 
 local SEARCH_BAR_HEIGHT = 36
 local HEADER_HEIGHT = 36
@@ -97,65 +95,26 @@ local function ContactListContainer()
 			local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
 				function(player: any, tag: string)
 					if localPlayer and localPlayer.UserId == player.UserId then
-						local UserInputService = game:GetService("UserInputService")
-						local platformEnum = UserInputService:GetPlatform()
-						if FFlagEnableIrisUniversalityFixes then
-							if not isSpatialMode then
-								dispatch(SetCurrentTag(tag))
-								analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
-									eventTimestampMs = os.time() * 1000,
-									startingPage = currentPage,
-									destinationPage = Pages.CallHistory,
-								})
-								dispatch(SetCurrentPage(Pages.CallHistory))
+						if not isSpatialMode then
+							dispatch(SetCurrentTag(tag))
+							analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+								eventTimestampMs = os.time() * 1000,
+								startingPage = currentPage,
+								destinationPage = Pages.CallHistory,
+							})
+							dispatch(SetCurrentPage(Pages.CallHistory))
 
-								SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-							else
-								dispatch(
-									OpenOrUpdateDialog(
-										RobloxTranslator:FormatByKey("Feature.Call.Error.Label.OhNo"),
-										RobloxTranslator:FormatByKey(
-											"Feature.Call.Error.Description.DeviceNotSupported"
-										),
-										function()
-											SocialService:InvokeIrisInvitePromptClosed(localPlayer)
-										end
-									)
-								)
-							end
+							SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
 						else
-							if
-								not UserInputService.VREnabled
-								and (
-									platformEnum == Enum.Platform.Windows
-									or platformEnum == Enum.Platform.UWP
-									or platformEnum == Enum.Platform.OSX
-									or platformEnum == Enum.Platform.IOS
-									or platformEnum == Enum.Platform.Android
+							dispatch(
+								OpenOrUpdateDialog(
+									RobloxTranslator:FormatByKey("Feature.Call.Error.Label.OhNo"),
+									RobloxTranslator:FormatByKey("Feature.Call.Error.Description.DeviceNotSupported"),
+									function()
+										SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+									end
 								)
-							then
-								dispatch(SetCurrentTag(tag))
-								analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
-									eventTimestampMs = os.time() * 1000,
-									startingPage = currentPage,
-									destinationPage = Pages.CallHistory,
-								})
-								dispatch(SetCurrentPage(Pages.CallHistory))
-
-								SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-							else
-								dispatch(
-									OpenOrUpdateDialog(
-										RobloxTranslator:FormatByKey("Feature.Call.Error.Label.OhNo"),
-										RobloxTranslator:FormatByKey(
-											"Feature.Call.Error.Description.DeviceNotSupported"
-										),
-										function()
-											SocialService:InvokeIrisInvitePromptClosed(localPlayer)
-										end
-									)
-								)
-							end
+							)
 						end
 					end
 				end

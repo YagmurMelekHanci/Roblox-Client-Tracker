@@ -37,7 +37,6 @@ local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
 local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
-local FFlagRemoveKickWhitespaceSub = require(RobloxGui.Modules.Flags.FFlagRemoveKickWhitespaceSub)
 local FFlagCreatorBanLocalization = require(RobloxGui.Modules.Flags.FFlagCreatorBanLocalization)
 local FFlagErrorStringRefactor = game:DefineFastFlag("ErrorStringRefactor", false)
 local FFlagDisableReconnectsForAndroidKicks = game:DefineFastFlag("DisableReconnectsForAndroidKicks", false)
@@ -595,10 +594,6 @@ local function getErrorString_deprecated(errorMsg: string, errorCode, reconnectE
 	end
 
 	if errorCode == Enum.ConnectionError.DisconnectLuaKick then
-		if not FFlagRemoveKickWhitespaceSub() then
-			-- Collapse all whitespace to single spaces, destroying any newlines.
-			errorMsg = errorMsg:gsub("%s+", " ")
-		end
 		-- Limit final message length to a reasonable value
 		errorMsg = errorMsg:sub(1, fintMaxKickMessageLength)
 

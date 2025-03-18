@@ -9,6 +9,7 @@ local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 
 local useExternalEvent = UIBlox.Core.Hooks.useExternalEvent
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
@@ -35,7 +36,7 @@ local POST_ICON_FALLBACK_STRING = "to toggle menu navigation"
 
 type Props = {
 	Position: UDim2,
-	GamepadConnector: GamepadConnector.GamepadConnector,
+	GamepadConnector: any,
 }
 
 local function MenuNavigationToggleDialog(props: Props)
@@ -98,9 +99,20 @@ local function MenuNavigationToggleDialog(props: Props)
 		return leftTextSize_, rightTextSize_
 	end, { font.FontSize, font.Font, leftText, rightText })
 
-	local topbarFocus = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then useObservableValue(props.GamepadConnector:getSelectedCoreObject()) 
-		elseif ChromeEnabled and FFlagConnectGamepadChrome then useObservableValue(ChromeService:inFocusNav())
-		else nil
+	local topbarFocus: GuiObject? | boolean? 
+	if ChromeEnabled then 
+		if FFlagTiltIconUnibarFocusNav then 
+			if FFlagHideTopBarConsole then 
+				topbarFocus = useObservableValue(GamepadConnector:getSelectedCoreObject())
+			else
+				topbarFocus = useObservableValue(props.GamepadConnector:getSelectedCoreObject())
+			end
+		elseif FFlagConnectGamepadChrome then 
+			topbarFocus = useObservableValue(ChromeService:inFocusNav())
+		end
+	else 
+		topbarFocus = nil
+	end
 
 	return React.createElement("Frame", {
 		BackgroundColor3 = backgroundUiColor.Color3,

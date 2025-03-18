@@ -46,12 +46,12 @@ PROTO_4:
   LOADK R7 K10 ["New"]
   SETTABLEKS R7 R6 K2 ["Id"]
   LOADK R9 K11 ["ContextMenu"]
-  LOADK R10 K10 ["New"]
-  NAMECALL R7 R2 K12 ["getText"]
+  LOADK R10 K12 ["NewThemeStyleSheet"]
+  NAMECALL R7 R2 K13 ["getText"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K6 ["Text"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K13 ["new"]
+  GETTABLEKS R7 R8 K14 ["new"]
   CALL R7 0 1
   SETTABLEKS R7 R6 K7 ["Icon"]
   NEWCLOSURE R7 P1
@@ -60,15 +60,15 @@ PROTO_4:
   CAPTURE UPVAL U4
   SETTABLEKS R7 R6 K8 ["OnItemClicked"]
   DUPTABLE R7 K9 [{"Id", "Text", "Icon", "OnItemClicked"}]
-  LOADK R8 K14 ["Delete"]
+  LOADK R8 K15 ["Delete"]
   SETTABLEKS R8 R7 K2 ["Id"]
   LOADK R10 K11 ["ContextMenu"]
-  LOADK R11 K14 ["Delete"]
-  NAMECALL R8 R2 K12 ["getText"]
+  LOADK R11 K15 ["Delete"]
+  NAMECALL R8 R2 K13 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K6 ["Text"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K15 ["delete"]
+  GETTABLEKS R8 R9 K16 ["delete"]
   CALL R8 0 1
   SETTABLEKS R8 R7 K7 ["Icon"]
   NEWCLOSURE R8 P2
@@ -78,16 +78,16 @@ PROTO_4:
   SETTABLEKS R8 R7 K8 ["OnItemClicked"]
   MOVE R8 R3
   DUPTABLE R9 K9 [{"Id", "Text", "Icon", "OnItemClicked"}]
-  LOADK R10 K16 ["ShowInExplorer"]
+  LOADK R10 K17 ["ShowInExplorer"]
   SETTABLEKS R10 R9 K2 ["Id"]
   LOADK R12 K11 ["ContextMenu"]
-  LOADK R13 K16 ["ShowInExplorer"]
-  NAMECALL R10 R2 K12 ["getText"]
+  LOADK R13 K17 ["ShowInExplorer"]
+  NAMECALL R10 R2 K13 ["getText"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K6 ["Text"]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K17 ["getClassIcon"]
-  LOADK R11 K18 ["ReplicatedStorage"]
+  GETTABLEKS R10 R11 K18 ["getClassIcon"]
+  LOADK R11 K19 ["ReplicatedStorage"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K7 ["Icon"]
   NEWCLOSURE R10 P3
@@ -98,13 +98,13 @@ PROTO_4:
   SETLIST R5 R6 4 [1]
   SETTABLEKS R5 R4 K3 ["Children"]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K19 ["trackClicks"]
+  GETTABLEKS R5 R6 K20 ["trackClicks"]
   MOVE R6 R4
-  GETTABLEKS R7 R1 K20 ["Telemetry"]
+  GETTABLEKS R7 R1 K21 ["Telemetry"]
   CALL R5 2 0
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K21 ["showContextMenu"]
-  GETTABLEKS R6 R1 K22 ["Plugin"]
+  GETTABLEKS R5 R6 K22 ["showContextMenu"]
+  GETTABLEKS R6 R1 K23 ["Plugin"]
   MOVE R7 R4
   CALL R5 2 0
   RETURN R0 0

@@ -46,7 +46,6 @@ export type WindowHostProps = {
 }
 
 local RESIZE_DEBOUNCE_TIME = 0.2
-local ICON_SIZE = 42
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
 	frequency = 3,
@@ -57,6 +56,8 @@ local COMPONENT_ZINDEX = {
 	INPUT_SHIELD = 3,
 	INPUT_WRAPPER = 4,
 }
+
+local POSITION_TWEEN_TIME_SECONDS = 0.35
 
 local didOverrideMouse = false
 
@@ -130,8 +131,8 @@ local WindowHost = function(props: WindowHostProps)
 			setDragging(true)
 
 			if connection then
-				setFrameWidth(ReactOtter.instant(ICON_SIZE) :: any)
-				setFrameHeight(ReactOtter.instant(ICON_SIZE) :: any)
+				setFrameWidth(ReactOtter.instant(Constants.WINDOW_ICON_SIZE) :: any)
+				setFrameHeight(ReactOtter.instant(Constants.WINDOW_ICON_SIZE) :: any)
 
 				task.defer(setFrameWidth, ReactOtter.spring(windowSize.X.Offset, MOTOR_OPTIONS))
 				task.defer(setFrameHeight, ReactOtter.spring(windowSize.Y.Offset, MOTOR_OPTIONS))
@@ -369,7 +370,8 @@ local WindowHost = function(props: WindowHostProps)
 			cachePosition(positionTarget)
 			if not instant then
 				updateIsRepositioning(true)
-				local tweenStyle = TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
+				local tweenStyle =
+					TweenInfo.new(POSITION_TWEEN_TIME_SECONDS, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 				positionTween = TweenService:Create(frame, tweenStyle, { Position = positionTarget })
 				assert(positionTween ~= nil)
 				positionTween.Completed:Connect(function(_)

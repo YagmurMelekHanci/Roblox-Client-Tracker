@@ -27,6 +27,7 @@ local VRService = game:GetService("VRService")
 
 local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
 local GetFFlagChatActiveChangedSignal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChatActiveChangedSignal
+local getFFlagExposeChatWindowToggled = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExposeChatWindowToggled
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -140,6 +141,9 @@ do
 
 
 	interface.ChatBarFocusChanged = Util.Signal()
+	if getFFlagExposeChatWindowToggled() then
+		interface.ChatWindowToggled = Util.Signal()
+	end
 	if GetFFlagChatActiveChangedSignal() then
 		interface.ChatActiveChanged = Util.Signal()
 		interface.ChatActiveChanged:connect(function(visible)
@@ -198,6 +202,9 @@ if TenFootInterfaceExpChatExperimentation.getIsEnabled() or (not isConsole) then
 
 		ConnectSignals(useModule, interface, "ChatBarFocusChanged")
 		ConnectSignals(useModule, interface, "VisibilityStateChanged")
+		if getFFlagExposeChatWindowToggled() then
+			ConnectSignals(useModule, interface, "ChatWindowToggled")
+		end
 		if GetFFlagChatActiveChangedSignal() then
 			ConnectSignals(useModule, interface, "ChatActiveChanged")
 		end

@@ -16,7 +16,7 @@ PROTO_1:
   LOADK R6 K9 ["New"]
   SETTABLEKS R6 R5 K1 ["Id"]
   LOADK R8 K10 ["ContextMenu"]
-  LOADK R9 K11 ["NewCategory"]
+  LOADK R9 K11 ["NewThemeFolder"]
   NAMECALL R6 R2 K12 ["getText"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K5 ["Text"]

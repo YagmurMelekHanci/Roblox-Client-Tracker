@@ -7,6 +7,7 @@ local InsertService = game:GetService("InsertService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
+local CreatorStoreService = game:GetService("CreatorStoreService")
 
 local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromptDeps)
 local UrlBuilder = PurchasePromptDeps.UrlBuilder.UrlBuilder
@@ -24,6 +25,7 @@ local GetFFlagEnablePromptPurchaseRequestedV2 = require(Root.Flags.GetFFlagEnabl
 local GetFFlagEnablePromptPurchaseRequestedV2Take2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2Take2)
 local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
 	require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
+local GetFFlagEnableCreatorStorePurchasingCutover = require(Root.Flags.GetFFlagEnableCreatorStorePurchasingCutover)
 local FFlagEnablePreSignedVngShopRedirectUrl =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePreSignedVngShopRedirectUrl
 
@@ -228,6 +230,34 @@ local function performPurchaseV2(
 	end
 
 	error(tostring(result))
+end
+
+local function performCreatorStorePurchase(assetId, assetType)
+	local success, result = pcall(function()
+		return CreatorStoreService:performCreatorStorePurchase(assetId, assetType)
+	end)
+
+	if success then
+		return result
+	end
+
+	--[[ Generic Challenge Responses are HTTP 403 Forbidden responses with a unique
+	response pattern. We explicitly identify the response and return the result.
+	]]
+	--
+	if isGenericChallengeResponse(result) then
+		return result
+	end
+
+	error(tostring(result))
+end
+
+local function getAssetInfo(assetId: number)
+	return CreatorStoreService:getAssetInfoAsync(assetId)
+end
+
+local function getCreatorStoreProductInfo(assetId: number, assetType: string)
+	return CreatorStoreService:getCreatorStoreProductInfoAsync(assetId, assetType)
 end
 
 local function loadAssetForEquip(assetId)
@@ -455,13 +485,20 @@ function Network.new()
 		getPlayerOwns = Promise.promisify(getPlayerOwns),
 		performPurchase = Promise.promisify(performPurchase),
 		performPurchaseV2 = Promise.promisify(performPurchaseV2),
+		performCreatorStorePurchase = if GetFFlagEnableCreatorStorePurchasingCutover()
+			then Promise.promisify(performCreatorStorePurchase)
+			else nil,
 		loadAssetForEquip = Promise.promisify(loadAssetForEquip),
 		getAccountInfo = Promise.promisify(getAccountInfo),
+		getAssetInfo = if GetFFlagEnableCreatorStorePurchasingCutover() then Promise.promisify(getAssetInfo) else nil,
 		getBalanceInfo = Promise.promisify(getBalanceInfo),
 		getBundleDetails = getBundleDetails,
 		getProductPurchasableDetails = getProductPurchasableDetails,
 		getCatalogItemDetails = if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase()
 			then getCatalogItemDetails
+			else nil,
+		getCreatorStoreProductInfo = if GetFFlagEnableCreatorStorePurchasingCutover()
+			then Promise.promisify(getCreatorStoreProductInfo)
 			else nil,
 		getRobuxUpsellProduct = Promise.promisify(getRobuxUpsellProduct),
 		getPremiumProductInfo = Promise.promisify(getPremiumProductInfo),

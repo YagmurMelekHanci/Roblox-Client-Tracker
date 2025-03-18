@@ -1,0 +1,79 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createAndInsertStudioDefaultStyleSheet"]
+  CALL R0 0 0
+  GETIMPORT R0 K4 [Enum.FinishRecordingOperation.Commit]
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R2 R1 K0 ["recordChange"]
+  DUPTABLE R3 K4 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R4 K5 ["StyleEditor/CreateStudioDefaultStyleSheet"]
+  SETTABLEKS R4 R3 K1 ["Name"]
+  LOADK R4 K6 ["StyleEditor - Create Studio Default StyleSheet"]
+  SETTABLEKS R4 R3 K2 ["DisplayName"]
+  DUPCLOSURE R4 K7 [PROTO_0]
+  CAPTURE UPVAL U0
+  SETTABLEKS R4 R3 K3 ["DoChange"]
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K8 ["StudioDefaultStyleSheet"]
+  JUMPIFNOT R2 [+13]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K9 ["createItemId"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["StudioDefaultStyleSheet"]
+  CALL R2 1 1
+  GETUPVAL R5 3
+  MOVE R6 R2
+  CALL R5 1 -1
+  NAMECALL R3 R0 K10 ["dispatch"]
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPCLOSURE R0 K0 [PROTO_1]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StarterGui"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Util"]
+  GETTABLEKS R3 R4 K11 ["DesignHelpers"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K12 ["TreeTableHelpers"]
+  CALL R3 1 1
+  GETTABLEKS R5 R1 K9 ["Src"]
+  GETTABLEKS R4 R5 K13 ["Actions"]
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R7 R4 K14 ["Window"]
+  GETTABLEKS R6 R7 K15 ["SelectItem"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETTABLEKS R9 R1 K9 ["Src"]
+  GETTABLEKS R8 R9 K16 ["Thunks"]
+  GETTABLEKS R7 R8 K17 ["Types"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K18 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  RETURN R7 1

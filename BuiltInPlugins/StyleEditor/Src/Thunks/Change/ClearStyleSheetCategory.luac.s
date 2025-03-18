@@ -16,7 +16,7 @@ PROTO_1:
   JUMPIF R0 [+3]
   GETIMPORT R1 K5 [Enum.FinishRecordingOperation.Cancel]
   RETURN R1 1
-  JUMPIFNOTEQKS R0 K6 ["Themes"] [+21]
+  JUMPIFNOTEQKS R0 K6 ["Themes"] [+28]
   GETUPVAL R1 1
   GETUPVAL R2 0
   NAMECALL R2 R2 K7 ["GetDerives"]
@@ -29,18 +29,23 @@ PROTO_1:
   NAMECALL R2 R2 K9 ["SetDerives"]
   CALL R2 2 0
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K10 ["removeDerive"]
-  GETUPVAL R3 4
-  GETUPVAL R4 0
-  CALL R2 2 0
+  GETTABLEKS R2 R3 K10 ["getUserDesignSheets"]
+  CALL R2 0 3
+  FORGPREP R2
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K11 ["removeDerive"]
+  MOVE R8 R6
+  GETUPVAL R9 0
+  CALL R7 2 0
+  FORGLOOP R2 2 [-7]
   JUMP [+30]
-  JUMPIFNOTEQKS R0 K11 ["Tokens"] [+29]
-  GETUPVAL R1 5
-  NAMECALL R1 R1 K12 ["GetDescendants"]
+  JUMPIFNOTEQKS R0 K12 ["Tokens"] [+29]
+  GETUPVAL R1 4
+  NAMECALL R1 R1 K13 ["GetDescendants"]
   CALL R1 1 3
   FORGPREP R1
-  LOADK R8 K13 ["StyleSheet"]
-  NAMECALL R6 R5 K14 ["IsA"]
+  LOADK R8 K14 ["StyleSheet"]
+  NAMECALL R6 R5 K15 ["IsA"]
   CALL R6 2 1
   JUMPIFNOT R6 [+16]
   LOADK R8 K0 ["StyleCategory"]
@@ -53,7 +58,7 @@ PROTO_1:
   CALL R7 2 1
   JUMPIFNOT R7 [+6]
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K10 ["removeDerive"]
+  GETTABLEKS R7 R8 K11 ["removeDerive"]
   MOVE R8 R5
   GETUPVAL R9 0
   CALL R7 2 0
@@ -61,40 +66,26 @@ PROTO_1:
   GETUPVAL R1 0
   LOADK R3 K0 ["StyleCategory"]
   LOADNIL R4
-  NAMECALL R1 R1 K15 ["SetAttribute"]
+  NAMECALL R1 R1 K16 ["SetAttribute"]
   CALL R1 3 0
-  GETIMPORT R1 K17 [Enum.FinishRecordingOperation.Commit]
+  GETIMPORT R1 K18 [Enum.FinishRecordingOperation.Commit]
   RETURN R1 1
 
 PROTO_2:
-  NAMECALL R2 R0 K0 ["getState"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K1 ["Window"]
-  GETTABLEKS R3 R4 K2 ["DesignSheet"]
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  FASTCALL2K ASSERT R5 K3 [+4]
-  LOADK R6 K3 ["expecting valid design sheet"]
-  GETIMPORT R4 K5 [assert]
-  CALL R4 2 0
-  GETTABLEKS R4 R1 K6 ["recordChange"]
-  DUPTABLE R5 K10 [{"Name", "DisplayName", "DoChange"}]
-  LOADK R6 K11 ["StyleEditor/ClearStyleSheetCategory"]
-  SETTABLEKS R6 R5 K7 ["Name"]
-  LOADK R6 K12 ["StyleEditor - Clear StyleSheet Category"]
-  SETTABLEKS R6 R5 K8 ["DisplayName"]
-  NEWCLOSURE R6 P0
+  GETTABLEKS R2 R1 K0 ["recordChange"]
+  DUPTABLE R3 K4 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R4 K5 ["StyleEditor/ClearStyleSheetCategory"]
+  SETTABLEKS R4 R3 K1 ["Name"]
+  LOADK R4 K6 ["StyleEditor - Clear StyleSheet Category"]
+  SETTABLEKS R4 R3 K2 ["DisplayName"]
+  NEWCLOSURE R4 P0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
-  CAPTURE VAL R3
   CAPTURE UPVAL U4
-  SETTABLEKS R6 R5 K9 ["DoChange"]
-  CALL R4 1 0
+  SETTABLEKS R4 R3 K3 ["DoChange"]
+  CALL R2 1 0
   RETURN R0 0
 
 PROTO_3:

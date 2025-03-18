@@ -9,19 +9,22 @@ local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
 local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
 
 -- Modules
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 
 local Modules = script.Parent.Parent.Parent
 local Chrome = Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: any
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
-local ObservableValue = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then ChromeUtils.ObservableValue else nil
+local ObservableValue = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole) then ChromeUtils.ObservableValue else nil
 local ToastNotificationConstants = require(CorePackages.Workspace.Packages.ToastNotification).ToastNotificationConstants
+local Constants = require(script.Parent.Parent.Constants)
 
 local ToastRoot = nil
 local ToastGui = nil
@@ -47,6 +50,7 @@ type GamepadConnectorImpl = {
 	connectToTopbar: (GamepadConnector) -> (),
 	disconnectFromTopbar: (GamepadConnector) -> (),
 	getSelectedCoreObject: (GamepadConnector) -> ObservableValue<GuiObject?>,
+	getShowTopBar: (GamepadConnector) -> ObservableValue<boolean>,
 	_toggleUnibarMenu: (GamepadConnector) -> (),
 	_toggleTopbar: ActionBind,
 	_focusToastNotification: (GamepadConnector, Enum.UserInputState) -> boolean,
@@ -58,6 +62,8 @@ export type GamepadConnector = typeof(setmetatable(
 		_selectedCoreObject: ObservableValue<GuiObject?>,
 		_topbarFocused: ObservableValue<boolean>,
 		_lastMenuButtonPress: number,
+		_gamepadActive: ObservableValue<boolean>,
+		_showTopBar: ObservableValue<boolean>,
 	},
 	{} :: GamepadConnectorImpl
 ))
@@ -75,6 +81,15 @@ local function createSelectedCoreObject(): ObservableValue<GuiObject?>
 	return selectedCoreObject
 end
 
+local function isInputGamepad(input): boolean 
+	for _, gamepad in Constants.GamepadInputTypes do 
+		if input == gamepad then 
+			return true
+		end
+	end
+	return false
+end
+
 -- Core Module
 local GamepadConnector: GamepadConnectorImpl = {} :: GamepadConnectorImpl
 GamepadConnector.__index = GamepadConnector
@@ -84,7 +99,25 @@ function GamepadConnector.new(): GamepadConnector
 	self._topbarFocused = ChromeService:inFocusNav()
 	self._lastMenuButtonPress = 0
 	-- remove never cast when cleaning up GetFFlagTiltIconUnibarFocusNav
-	self._selectedCoreObject = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then createSelectedCoreObject() else nil :: never
+	self._selectedCoreObject = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole) then createSelectedCoreObject() else nil :: never
+	if ChromeEnabled and FFlagHideTopBarConsole then
+		self._gamepadActive = (ObservableValue::never).new(isInputGamepad(UserInputService:GetLastInputType()))
+		self._showTopBar = (ObservableValue::never).new(true)
+
+		UserInputService.LastInputTypeChanged:Connect(function(lastInputType)
+			self._gamepadActive:set(isInputGamepad(lastInputType))
+		end)
+
+		local shouldShowTopBar = function() 
+			local showTopBar = not self._gamepadActive:get() or self._topbarFocused:get() or self._selectedCoreObject:get() ~= nil
+			self._showTopBar:set(showTopBar)
+		end
+
+		self._selectedCoreObject:connect(shouldShowTopBar)
+		self._topbarFocused:connect(shouldShowTopBar)
+		self._gamepadActive:connect(shouldShowTopBar, true)
+	end
+
 	return setmetatable(self, GamepadConnector)
 end
 
@@ -107,10 +140,14 @@ function GamepadConnector:getSelectedCoreObject(): ObservableValue<GuiObject?>
 	return self._selectedCoreObject
 end
 
+function GamepadConnector:getShowTopBar(): ObservableValue<boolean>
+	return self._showTopBar
+end
+
 -- Internal
 function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum.ContextActionResult
 	if ChromeEnabled and userInputState == Enum.UserInputState.End and not self:_focusToastNotification(userInputState) then
-		if FFlagTiltIconUnibarFocusNav then
+		if FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole then
 			if self:getSelectedCoreObject():get() == nil then
 				ChromeService:enableFocusNav()
 			else
@@ -154,4 +191,9 @@ function GamepadConnector:_bindSelf<T..., R...>(func: (GamepadConnector, T...) -
 	end
 end
 
-return GamepadConnector
+if FFlagHideTopBarConsole then 
+	local instance: GamepadConnector = GamepadConnector.new()
+	return instance
+else
+	return GamepadConnector :: never
+end

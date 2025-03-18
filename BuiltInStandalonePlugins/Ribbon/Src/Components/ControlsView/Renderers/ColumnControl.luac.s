@@ -1,54 +1,51 @@
 PROTO_0:
-  GETIMPORT R2 K1 [print]
-  LOADK R3 K2 ["CHECK CHILD"]
-  GETTABLEKS R4 R1 K3 ["Type"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["Renderers"]
-  CALL R2 3 0
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["Renderers"]
-  GETTABLEKS R4 R1 K3 ["Type"]
+  GETTABLEKS R3 R4 K0 ["Renderers"]
+  GETTABLEKS R4 R1 K1 ["Type"]
   GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+62]
-  LOADK R3 K5 ["%* %*"]
-  GETTABLEKS R5 R1 K3 ["Type"]
+  JUMPIFNOT R2 [+67]
+  LOADK R3 K2 ["%* %*"]
+  GETTABLEKS R5 R1 K1 ["Type"]
   MOVE R6 R0
-  NAMECALL R3 R3 K6 ["format"]
+  NAMECALL R3 R3 K3 ["format"]
   CALL R3 3 1
   MOVE R2 R3
   GETUPVAL R3 1
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["Renderers"]
-  GETTABLEKS R6 R1 K3 ["Type"]
+  GETTABLEKS R5 R6 K0 ["Renderers"]
+  GETTABLEKS R6 R1 K1 ["Type"]
   GETTABLE R4 R5 R6
-  DUPTABLE R5 K17 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Select", "IsColumn", "WidgetUri", "HideLabels"}]
-  SETTABLEKS R1 R5 K7 ["Item"]
+  DUPTABLE R5 K14 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Renderers", "Select", "IsColumn", "WidgetUri", "HideLabels"}]
+  SETTABLEKS R1 R5 K4 ["Item"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K8 ["Items"]
-  SETTABLEKS R6 R5 K8 ["Items"]
+  GETTABLEKS R6 R7 K5 ["Items"]
+  SETTABLEKS R6 R5 K5 ["Items"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K9 ["Activate"]
-  SETTABLEKS R6 R5 K9 ["Activate"]
+  GETTABLEKS R6 R7 K6 ["Activate"]
+  SETTABLEKS R6 R5 K6 ["Activate"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K10 ["OpenMenu"]
-  SETTABLEKS R6 R5 K10 ["OpenMenu"]
+  GETTABLEKS R6 R7 K7 ["OpenMenu"]
+  SETTABLEKS R6 R5 K7 ["OpenMenu"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K11 ["CloseMenus"]
-  SETTABLEKS R6 R5 K11 ["CloseMenus"]
+  GETTABLEKS R6 R7 K8 ["CloseMenus"]
+  SETTABLEKS R6 R5 K8 ["CloseMenus"]
   GETUPVAL R6 2
   CALL R6 0 1
-  SETTABLEKS R6 R5 K12 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K9 ["LayoutOrder"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K13 ["Select"]
-  SETTABLEKS R6 R5 K13 ["Select"]
+  GETTABLEKS R6 R7 K0 ["Renderers"]
+  SETTABLEKS R6 R5 K0 ["Renderers"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K10 ["Select"]
+  SETTABLEKS R6 R5 K10 ["Select"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K14 ["IsColumn"]
+  SETTABLEKS R6 R5 K11 ["IsColumn"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K15 ["WidgetUri"]
-  SETTABLEKS R6 R5 K15 ["WidgetUri"]
+  GETTABLEKS R6 R7 K12 ["WidgetUri"]
+  SETTABLEKS R6 R5 K12 ["WidgetUri"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K16 ["HideLabels"]
-  SETTABLEKS R6 R5 K16 ["HideLabels"]
+  GETTABLEKS R6 R7 K13 ["HideLabels"]
+  SETTABLEKS R6 R5 K13 ["HideLabels"]
   CALL R3 2 -1
   RETURN R2 -1
   LOADNIL R2

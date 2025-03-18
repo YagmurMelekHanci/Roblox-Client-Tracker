@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local FFlagFriendshipNotifsUseSendrEnabledForAll = game:DefineFastFlag("FriendshipNotifsUseSendrEnabledForAll", false)
-local FFlagFriendshipNotifsUseSendrExperiment = game:DefineFastFlag("FriendshipNotifsUseSendrExperiment", false)
+local FFlagFriendshipNotifsUseSendrExperiment = game:DefineFastFlag("FriendshipNotifsUseSendrExperiment_v2", false)
 local layerName = game:DefineFastString("FriendshipNotifsUseSendrLayerName", "Notification.Toast")
 local layerValue = game:DefineFastString("FriendshipNotifsUseSendrLayerValue", "EnableNotificationViaSENDR")
 

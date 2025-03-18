@@ -3,25 +3,47 @@ local Chrome = script:FindFirstAncestor("Chrome")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
+local ChromeShared = script.Parent.Parent.ChromeShared
+local GetStyleTokens = if FFlagAdaptUnibarAndTiltSizing
+	then require(ChromeShared.Utility.GetStyleTokens)
+	else nil :: never
 
 local SelfieViewModule = Chrome.Parent.SelfieView
 local SelfieView = require(SelfieViewModule)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local ChromeService = require(Chrome.Service)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
+local StyleTokens = if FFlagAdaptUnibarAndTiltSizing then GetStyleTokens() else nil :: never
 
-local Constants = require(Chrome.ChromeShared.Unibar.Constants)
+local Constants = require(ChromeShared.Unibar.Constants)
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local GetFFlagUseNewUnibarIcon = require(Chrome.Flags.GetFFlagUseNewUnibarIcon)
-local GetFFlagUsePolishedAnimations = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUsePolishedAnimations
+local GetFFlagUsePolishedAnimations = SharedFlags.GetFFlagUsePolishedAnimations
 
 local UNIBAR_ICON = Images["icons/actions/overflow"]
 local UNIBAR_ICON_SIZE = if GetFFlagUseNewUnibarIcon() then 32 else Constants.ICON_SIZE
+local TOGGLE_MENU_SIZE = if FFlagAdaptUnibarAndTiltSizing
+	then UDim2.new(0, StyleTokens.Size.Size_900, 0, StyleTokens.Size.Size_900)
+	else UDim2.new(0, 36, 0, 36)
+local RED_VOICE_DOT_POSITION = if FFlagAdaptUnibarAndTiltSizing
+	then UDim2.new(1, StyleTokens.Config.UI.Scale * -7, 1, StyleTokens.Config.UI.Scale * -7)
+	else UDim2.new(1, -7, 1, -7)
+local GREEN_VOICE_DOT_POSITION = if FFlagAdaptUnibarAndTiltSizing
+	then if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
+		then UDim2.new(1, StyleTokens.Config.UI.Scale * -7, 1, -StyleTokens.Size.Size_300)
+		else UDim2.new(1, StyleTokens.Config.UI.Scale * -7, 1, -StyleTokens.Size.Size_200)
+	else if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
+		then UDim2.new(1, -7, 1, -12)
+		else UDim2.new(1, -7, 1, -8)
 
 local buttonPressed
 
@@ -35,7 +57,7 @@ function ToggleMenuButton(props)
 	local iconColor = style.Theme.IconEmphasis
 
 	return React.createElement("Frame", {
-		Size = UDim2.new(0, 36, 0, 36),
+		Size = TOGGLE_MENU_SIZE,
 		BorderSizePixel = 0,
 		BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
 		BackgroundTransparency = toggleIconTransition:map(function(value): any
@@ -76,7 +98,13 @@ function ToggleMenuButton(props)
 				then Vector2.new(0.5, 0.5)
 				else Vector2.new(0.5, 0),
 			Size = toggleIconTransition:map(function(value: any): any
-				return UDim2.new(0, 16 * value, 0, 2)
+				local xOffset = 16
+				local yOffset = 2
+				if FFlagAdaptUnibarAndTiltSizing then
+					xOffset = StyleTokens.Size.Size_400
+					yOffset = StyleTokens.Size.Size_50
+				end
+				return UDim2.new(0, xOffset * value, 0, yOffset)
 			end),
 			Visible = not hasCurrentUtility,
 			BorderSizePixel = 0,
@@ -97,7 +125,13 @@ function ToggleMenuButton(props)
 				then Vector2.new(0.5, 0.5)
 				else Vector2.new(0.5, 0),
 			Size = toggleIconTransition:map(function(value: any): any
-				return UDim2.new(0, 16 * value, 0, 2)
+				local xOffset = 16
+				local yOffset = 2
+				if FFlagAdaptUnibarAndTiltSizing then
+					xOffset = StyleTokens.Size.Size_400
+					yOffset = StyleTokens.Size.Size_50
+				end
+				return UDim2.new(0, xOffset * value, 0, yOffset)
 			end),
 			Visible = not hasCurrentUtility,
 			BorderSizePixel = 0,
@@ -119,7 +153,13 @@ function ToggleMenuButton(props)
 			Image = Images["icons/actions/truncationCollapse_small"],
 			Size = toggleIconTransition:map(function(value: any): any
 				value = if GetFFlagUsePolishedAnimations() then 1 - value else value
-				return UDim2.new(0, 16 * value, 0, 16 * value)
+				local xOffset = 16
+				local yOffset = 16
+				if FFlagAdaptUnibarAndTiltSizing then
+					xOffset = StyleTokens.Size.Size_400
+					yOffset = StyleTokens.Size.Size_400
+				end
+				return UDim2.new(0, xOffset * value, 0, yOffset * value)
 			end),
 			Visible = if GetFFlagUsePolishedAnimations()
 				then toggleIconTransition:map(function(_)
@@ -144,7 +184,7 @@ function ToggleMenuButton(props)
 					BackgroundTransparency = 1,
 				}, {
 					React.createElement(RedVoiceDot, {
-						position = UDim2.new(1, -7, 1, -7),
+						position = RED_VOICE_DOT_POSITION,
 					}),
 				}) :: any,
 		React.createElement("Frame", {
@@ -158,9 +198,7 @@ function ToggleMenuButton(props)
 			BackgroundTransparency = 1,
 		}, {
 			SelfieView.useCameraOn() and React.createElement(SelfieView.CameraStatusDot, {
-				Position = if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
-					then UDim2.new(1, -7, 1, -12)
-					else UDim2.new(1, -7, 1, -8),
+				Position = GREEN_VOICE_DOT_POSITION,
 				ZIndex = 2,
 			}),
 		}),

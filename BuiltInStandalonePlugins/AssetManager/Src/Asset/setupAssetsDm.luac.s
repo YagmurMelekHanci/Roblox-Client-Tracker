@@ -63,7 +63,7 @@ PROTO_3:
   CALL R2 3 0
   RETURN R0 0
   GETIMPORT R2 K6 [warn]
-  LOADK R3 K7 ["Failed to add new place"]
+  LOADK R3 K7 ["Failed to remove place"]
   CALL R2 1 0
   RETURN R0 0
 
@@ -123,50 +123,58 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  LOADK R3 K0 ["GameId"]
-  GETIMPORT R5 K2 [game]
-  GETTABLEKS R4 R5 K0 ["GameId"]
-  NAMECALL R1 R0 K3 ["SetItem"]
-  CALL R1 3 0
-  LOADK R3 K4 ["OnInsertItems"]
-  GETUPVAL R4 0
-  NAMECALL R1 R0 K5 ["OnInvoke"]
-  CALL R1 3 0
-  LOADK R3 K6 ["OnOpenBulkImport"]
-  GETUPVAL R4 1
-  NAMECALL R1 R0 K5 ["OnInvoke"]
-  CALL R1 3 0
-  LOADK R3 K7 ["OnOpenPlace"]
-  DUPCLOSURE R4 K8 [PROTO_1]
+  NEWTABLE R1 8 0
+  LOADK R4 K0 ["GameId"]
+  GETIMPORT R6 K2 [game]
+  GETTABLEKS R5 R6 K0 ["GameId"]
+  NAMECALL R2 R0 K3 ["SetItem"]
+  CALL R2 3 0
+  LOADK R4 K4 ["OnInsertItems"]
+  GETUPVAL R5 0
+  NAMECALL R2 R0 K5 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K6 ["OnInsertItemsConnection"]
+  LOADK R4 K7 ["OnOpenBulkImport"]
+  GETUPVAL R5 1
+  NAMECALL R2 R0 K5 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K8 ["OnOpenBulkImportConnection"]
+  LOADK R4 K9 ["OnOpenPlace"]
+  DUPCLOSURE R5 K10 [PROTO_1]
   CAPTURE UPVAL U2
-  NAMECALL R1 R0 K5 ["OnInvoke"]
-  CALL R1 3 0
-  LOADK R3 K9 ["OnAddPlace"]
-  NEWCLOSURE R4 P1
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  NAMECALL R1 R0 K5 ["OnInvoke"]
-  CALL R1 3 0
-  LOADK R3 K10 ["OnRemovePlace"]
-  NEWCLOSURE R4 P2
+  NAMECALL R2 R0 K5 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K11 ["OnOpenPlaceConnection"]
+  LOADK R4 K12 ["OnAddPlace"]
+  NEWCLOSURE R5 P1
   CAPTURE UPVAL U2
   CAPTURE VAL R0
-  NAMECALL R1 R0 K5 ["OnInvoke"]
-  CALL R1 3 0
-  LOADK R3 K11 ["OnRenamePlace"]
-  NEWCLOSURE R4 P3
+  NAMECALL R2 R0 K5 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K13 ["OnAddPlaceConnection"]
+  LOADK R4 K14 ["OnRemovePlace"]
+  NEWCLOSURE R5 P2
   CAPTURE UPVAL U2
   CAPTURE VAL R0
-  NAMECALL R1 R0 K5 ["OnInvoke"]
-  CALL R1 3 0
-  LOADK R3 K12 ["SendAnalyticsEvent"]
-  DUPCLOSURE R4 K13 [PROTO_5]
+  NAMECALL R2 R0 K5 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K15 ["OnRemovePlaceConnection"]
+  LOADK R4 K16 ["OnRenamePlace"]
+  NEWCLOSURE R5 P3
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  NAMECALL R2 R0 K5 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K17 ["OnRenamePlaceConnection"]
+  LOADK R4 K18 ["SendAnalyticsEvent"]
+  DUPCLOSURE R5 K19 [PROTO_5]
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  NAMECALL R1 R0 K5 ["OnInvoke"]
-  CALL R1 3 0
-  RETURN R0 0
+  NAMECALL R2 R0 K5 ["OnInvoke"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K20 ["SendAnalyticsEventConnection"]
+  RETURN R1 1
 
 MAIN:
   PREPVARARGS 0

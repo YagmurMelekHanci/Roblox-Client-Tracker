@@ -23,7 +23,7 @@ PROTO_2:
   GETUPVAL R5 2
   GETUPVAL R6 3
   CALL R4 2 1
-  DUPTABLE R5 K13 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "triggerFocus", "listenForFocus", "fieldsConfig"}]
+  DUPTABLE R5 K13 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "triggerFocusAsync", "listenForFocus", "fieldsConfig"}]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U2
@@ -39,7 +39,7 @@ PROTO_2:
   NEWCLOSURE R6 P1
   CAPTURE UPVAL U9
   CAPTURE UPVAL U2
-  SETTABLEKS R6 R5 K10 ["triggerFocus"]
+  SETTABLEKS R6 R5 K10 ["triggerFocusAsync"]
   GETUPVAL R6 10
   SETTABLEKS R6 R5 K11 ["listenForFocus"]
   DUPTABLE R6 K15 [{"createLiveSyncStatusWatcher"}]
@@ -189,7 +189,7 @@ MAIN:
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K8 ["Src"]
   GETTABLEKS R16 R17 K14 ["Guest"]
-  GETTABLEKS R15 R16 K24 ["triggerFocus"]
+  GETTABLEKS R15 R16 K24 ["triggerFocusAsync"]
   CALL R14 1 1
   DUPCLOSURE R15 K25 [PROTO_4]
   CAPTURE VAL R4

@@ -56,16 +56,27 @@ PROTO_2:
   RETURN R1 1
 
 PROTO_3:
-  LOADB R1 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["None"]
-  JUMPIFEQ R0 R2 [+8]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["InProgress"]
-  JUMPIFNOTEQ R0 R2 [+2]
-  LOADB R1 0 +1
-  LOADB R1 1
-  RETURN R1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["fflagAnnotationsAddTagging"]
+  JUMPIFNOT R3 [+8]
+  JUMPIFNOT R2 [+7]
+  JUMPIFNOT R1 [+6]
+  MOVE R3 R2
+  MOVE R4 R1
+  CALL R3 1 1
+  JUMPIFNOT R3 [+2]
+  LOADB R3 1
+  RETURN R3 1
+  LOADB R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["None"]
+  JUMPIFEQ R0 R4 [+8]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["InProgress"]
+  JUMPIFNOTEQ R0 R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  RETURN R3 1
 
 PROTO_4:
   GETUPVAL R3 0
@@ -109,80 +120,94 @@ PROTO_4:
   RETURN R2 1
 
 PROTO_5:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["ErrorCreating"]
-  JUMPIFNOTEQ R0 R3 [+7]
-  LOADK R5 K1 ["AddAnnotation"]
-  LOADK R6 K2 ["Failed"]
-  NAMECALL R3 R2 K3 ["getText"]
-  CALL R3 3 -1
-  RETURN R3 -1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["ErrorResolving"]
-  JUMPIFNOTEQ R0 R3 [+23]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["ErrorCreating"]
+  JUMPIFNOTEQ R0 R5 [+7]
+  LOADK R7 K1 ["AddAnnotation"]
+  LOADK R8 K2 ["Failed"]
+  NAMECALL R5 R2 K3 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["ErrorResolving"]
+  JUMPIFNOTEQ R0 R5 [+23]
   FASTCALL2K ASSERT R1 K5 [+5]
-  MOVE R4 R1
-  LOADK R5 K5 ["ErrorResolving requires an annotation"]
-  GETIMPORT R3 K7 [assert]
-  CALL R3 2 0
-  GETTABLEKS R3 R1 K8 ["Resolved"]
-  JUMPIFNOT R3 [+6]
-  LOADK R5 K9 ["Error"]
-  LOADK R6 K10 ["Unresolve"]
-  NAMECALL R3 R2 K3 ["getText"]
-  CALL R3 3 -1
-  RETURN R3 -1
-  LOADK R5 K9 ["Error"]
-  LOADK R6 K11 ["Resolve"]
-  NAMECALL R3 R2 K3 ["getText"]
-  CALL R3 3 -1
-  RETURN R3 -1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K12 ["ErrorDeleting"]
-  JUMPIFNOTEQ R0 R3 [+30]
+  MOVE R6 R1
+  LOADK R7 K5 ["ErrorResolving requires an annotation"]
+  GETIMPORT R5 K7 [assert]
+  CALL R5 2 0
+  GETTABLEKS R5 R1 K8 ["Resolved"]
+  JUMPIFNOT R5 [+6]
+  LOADK R7 K9 ["Error"]
+  LOADK R8 K10 ["Unresolve"]
+  NAMECALL R5 R2 K3 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  LOADK R7 K9 ["Error"]
+  LOADK R8 K11 ["Resolve"]
+  NAMECALL R5 R2 K3 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K12 ["ErrorDeleting"]
+  JUMPIFNOTEQ R0 R5 [+30]
   FASTCALL2K ASSERT R1 K13 [+5]
-  MOVE R4 R1
-  LOADK R5 K13 ["ErrorDeleting requires an annotation"]
-  GETIMPORT R3 K7 [assert]
-  CALL R3 2 0
-  GETTABLEKS R3 R1 K14 ["Parent"]
-  JUMPIFNOT R3 [+13]
-  GETTABLEKS R3 R1 K14 ["Parent"]
-  LOADK R5 K15 ["Annotation"]
-  NAMECALL R3 R3 K16 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+6]
-  LOADK R5 K9 ["Error"]
-  LOADK R6 K17 ["DeleteReply"]
-  NAMECALL R3 R2 K3 ["getText"]
-  CALL R3 3 -1
-  RETURN R3 -1
-  LOADK R5 K9 ["Error"]
-  LOADK R6 K18 ["DeleteThread"]
-  NAMECALL R3 R2 K3 ["getText"]
-  CALL R3 3 -1
-  RETURN R3 -1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K19 ["ErrorEditing"]
-  JUMPIFNOTEQ R0 R3 [+7]
-  LOADK R5 K9 ["Error"]
-  LOADK R6 K20 ["Edit"]
-  NAMECALL R3 R2 K3 ["getText"]
-  CALL R3 3 -1
-  RETURN R3 -1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K21 ["ErrorModerated"]
-  JUMPIFNOTEQ R0 R3 [+7]
-  LOADK R5 K9 ["Error"]
-  LOADK R6 K22 ["Moderated"]
-  NAMECALL R3 R2 K3 ["getText"]
-  CALL R3 3 -1
-  RETURN R3 -1
-  LOADK R5 K9 ["Error"]
-  LOADK R6 K23 ["Unknown"]
-  NAMECALL R3 R2 K3 ["getText"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  MOVE R6 R1
+  LOADK R7 K13 ["ErrorDeleting requires an annotation"]
+  GETIMPORT R5 K7 [assert]
+  CALL R5 2 0
+  GETTABLEKS R5 R1 K14 ["Parent"]
+  JUMPIFNOT R5 [+13]
+  GETTABLEKS R5 R1 K14 ["Parent"]
+  LOADK R7 K15 ["Annotation"]
+  NAMECALL R5 R5 K16 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+6]
+  LOADK R7 K9 ["Error"]
+  LOADK R8 K17 ["DeleteReply"]
+  NAMECALL R5 R2 K3 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  LOADK R7 K9 ["Error"]
+  LOADK R8 K18 ["DeleteThread"]
+  NAMECALL R5 R2 K3 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K19 ["ErrorEditing"]
+  JUMPIFNOTEQ R0 R5 [+7]
+  LOADK R7 K9 ["Error"]
+  LOADK R8 K20 ["Edit"]
+  NAMECALL R5 R2 K3 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K21 ["ErrorModerated"]
+  JUMPIFNOTEQ R0 R5 [+7]
+  LOADK R7 K9 ["Error"]
+  LOADK R8 K22 ["Moderated"]
+  NAMECALL R5 R2 K3 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K23 ["fflagAnnotationsAddTagging"]
+  JUMPIFNOT R5 [+12]
+  JUMPIFNOT R4 [+11]
+  JUMPIFNOT R3 [+10]
+  MOVE R5 R4
+  MOVE R6 R3
+  CALL R5 1 1
+  JUMPIFNOT R5 [+6]
+  LOADK R7 K9 ["Error"]
+  LOADK R8 K24 ["AllTaggableUsers"]
+  NAMECALL R5 R2 K3 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  LOADK R7 K9 ["Error"]
+  LOADK R8 K25 ["Unknown"]
+  NAMECALL R5 R2 K3 ["getText"]
+  CALL R5 3 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0
@@ -191,42 +216,49 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Enums"]
-  GETTABLEKS R2 R3 K8 ["AnnotationRequestType"]
+  GETTABLEKS R4 R0 K6 ["Bin"]
+  GETTABLEKS R3 R4 K7 ["Common"]
+  GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Enums"]
-  GETTABLEKS R3 R4 K9 ["AnnotationRequestResult"]
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Enums"]
+  GETTABLEKS R3 R4 K11 ["AnnotationRequestType"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K7 ["Enums"]
-  GETTABLEKS R4 R5 K10 ["UIRequestStatus"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Enums"]
+  GETTABLEKS R4 R5 K12 ["AnnotationRequestResult"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Types"]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Enums"]
+  GETTABLEKS R5 R6 K13 ["UIRequestStatus"]
   CALL R4 1 1
-  DUPCLOSURE R5 K12 [PROTO_0]
-  CAPTURE VAL R1
-  DUPCLOSURE R6 K13 [PROTO_1]
-  DUPCLOSURE R7 K14 [PROTO_2]
-  CAPTURE VAL R1
-  DUPCLOSURE R8 K15 [PROTO_3]
-  CAPTURE VAL R3
-  DUPCLOSURE R9 K16 [PROTO_4]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_0]
   CAPTURE VAL R2
-  CAPTURE VAL R3
+  DUPCLOSURE R7 K16 [PROTO_1]
+  DUPCLOSURE R8 K17 [PROTO_2]
+  CAPTURE VAL R2
+  DUPCLOSURE R9 K18 [PROTO_3]
   CAPTURE VAL R1
-  DUPCLOSURE R10 K17 [PROTO_5]
+  CAPTURE VAL R4
+  DUPCLOSURE R10 K19 [PROTO_4]
   CAPTURE VAL R3
-  DUPTABLE R11 K24 [{"IsErrorStatus", "IsLocalDraft", "HasRequests", "HasReplyRequests", "GetErrorMessage", "GetUIRequestStatus"}]
-  SETTABLEKS R8 R11 K18 ["IsErrorStatus"]
-  SETTABLEKS R5 R11 K19 ["IsLocalDraft"]
-  SETTABLEKS R6 R11 K20 ["HasRequests"]
-  SETTABLEKS R7 R11 K21 ["HasReplyRequests"]
-  SETTABLEKS R10 R11 K22 ["GetErrorMessage"]
-  SETTABLEKS R9 R11 K23 ["GetUIRequestStatus"]
-  RETURN R11 1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  DUPCLOSURE R11 K20 [PROTO_5]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  DUPTABLE R12 K27 [{"IsErrorStatus", "IsLocalDraft", "HasRequests", "HasReplyRequests", "GetErrorMessage", "GetUIRequestStatus"}]
+  SETTABLEKS R9 R12 K21 ["IsErrorStatus"]
+  SETTABLEKS R6 R12 K22 ["IsLocalDraft"]
+  SETTABLEKS R7 R12 K23 ["HasRequests"]
+  SETTABLEKS R8 R12 K24 ["HasReplyRequests"]
+  SETTABLEKS R11 R12 K25 ["GetErrorMessage"]
+  SETTABLEKS R10 R12 K26 ["GetUIRequestStatus"]
+  RETURN R12 1

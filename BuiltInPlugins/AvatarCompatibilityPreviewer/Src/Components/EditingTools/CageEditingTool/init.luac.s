@@ -106,11 +106,11 @@ PROTO_7:
   GETTABLEKS R0 R1 K0 ["setUndoStack"]
   GETUPVAL R2 3
   GETTABLEKS R1 R2 K1 ["mannequin"]
-  DUPTABLE R2 K4 [{"undoStack", "redoStack"}]
+  DUPTABLE R2 K4 [{"past", "future"}]
   GETUPVAL R3 0
-  SETTABLEKS R3 R2 K2 ["undoStack"]
+  SETTABLEKS R3 R2 K2 ["past"]
   GETUPVAL R3 1
-  SETTABLEKS R3 R2 K3 ["redoStack"]
+  SETTABLEKS R3 R2 K3 ["future"]
   CALL R0 2 0
   RETURN R0 0
 

@@ -3,6 +3,10 @@ local Root = script:FindFirstAncestor("ChromeShared")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local LocalStore = require(Root.Service.LocalStore)
@@ -10,14 +14,17 @@ local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
-local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local useSelectionCursor = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.useSelectionCursor
+local CursorKind = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 local Badge = UIBlox.App.Indicator.Badge
 local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local ScrollBarType = UIBlox.App.Container.Enum.ScrollBarType
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
+
+local Foundation = if FFlagAdaptUnibarAndTiltSizing then require(CorePackages.Packages.Foundation) else nil :: never
+local useCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.useCursor else nil :: never
 
 local ChromeService = require(Root.Service)
 local ChromeTypes = require(Root.Service.Types)
@@ -37,23 +44,18 @@ local useChromeMenuItems = require(Root.Hooks.useChromeMenuItems)
 local useObservableValue = require(Root.Hooks.useObservableValue)
 local useTopbarInsetHeight = require(Root.Hooks.useTopbarInsetHeight)
 
-local GetFFlagEnableChromePinIntegrations =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinIntegrations
-local GetFFlagUseNewPinIcon = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseNewPinIcon
-local GetFFlagKeepSubmenuOpenOnPin = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagKeepSubmenuOpenOnPin
-local GetFFlagNewSubmenuTouchTargets =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNewSubmenuTouchTargets
-local GetFFlagFixSubmenuCloseIOS = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSubmenuCloseIOS
-local GetFFlagEnableCaptureBadge = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCaptureBadge
-local GetFIntNumTimesNewBadgeIsDisplayed =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntNumTimesNewBadgeIsDisplayed
-local GetFStringNewFeatureList = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringNewFeatureList
-local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
-local GetFFlagEnableChromePinAnalytics =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinAnalytics
+local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
+local GetFFlagUseNewPinIcon = SharedFlags.GetFFlagUseNewPinIcon
+local GetFFlagKeepSubmenuOpenOnPin = SharedFlags.GetFFlagKeepSubmenuOpenOnPin
+local GetFFlagNewSubmenuTouchTargets = SharedFlags.GetFFlagNewSubmenuTouchTargets
+local GetFFlagFixSubmenuCloseIOS = SharedFlags.GetFFlagFixSubmenuCloseIOS
+local GetFFlagEnableCaptureBadge = SharedFlags.GetFFlagEnableCaptureBadge
+local GetFIntNumTimesNewBadgeIsDisplayed = SharedFlags.GetFIntNumTimesNewBadgeIsDisplayed
+local GetFStringNewFeatureList = SharedFlags.GetFStringNewFeatureList
+local GetFFlagAnimateSubMenu = SharedFlags.GetFFlagAnimateSubMenu
+local GetFFlagEnableChromePinAnalytics = SharedFlags.GetFFlagEnableChromePinAnalytics
 local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
-local GetFFlagChromeUsePreferredTransparency =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
+local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 
 local FFlagFixChromeIntegrationLayoutBug = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
 local FFlagSubmenuV4Layout = game:DefineFastFlag("SubmenuV4Layout2", false)
@@ -62,6 +64,8 @@ local FFlagSubmenuFixInvisibleButtons = game:DefineFastFlag("SubmenuFixInvisible
 local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
 local SCROLL_OFFSET = ROW_HEIGHT * 0.5
+-- remove any casts after FFlagAdaptUnibarAndTiltSizing cleanup
+local CURSOR_TYPE = if FFlagAdaptUnibarAndTiltSizing then Foundation.Enums.CursorType.RoundedSlot else nil :: never
 
 local PINNED_ICON = nil
 local UNPINNED_ICON = nil
@@ -110,7 +114,7 @@ end
 function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	local style = useStyle()
 	local theme = style.Theme
-	local font = style.Font
+	local font = if FFlagAdaptUnibarAndTiltSizing then nil else style.Font
 	local defaultBgColor = {
 		Color = Color3.new(0, 0, 0),
 		Transparency = 1,
@@ -155,17 +159,17 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	local rowFragment = React.createElement(React.Fragment, nil, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingLeft = if FFlagSubmenuV4Layout
-				then UDim.new(0, Constants.SUBMENU_PADDING)
+				then UDim.new(0, Constants.SUBMENU_PADDING_LEFT)
 				elseif GetFFlagEnableChromePinIntegrations() then UDim.new(0, 12)
 				else UDim.new(0, 24),
-			PaddingRight = UDim.new(0, 8),
+			PaddingRight = UDim.new(0, Constants.SUBMENU_PADDING_RIGHT),
 		}),
 
 		UIListLayout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = UDim.new(0, 8),
+			Padding = UDim.new(0, Constants.SUBMENU_ROW_PADDING),
 		}),
 
 		IconHost = React.createElement(
@@ -178,10 +182,17 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 
 		StyledTextLabel = React.createElement(StyledTextLabel, {
 			size = if FFlagSubmenuV4Layout
-				then UDim2.new(1, -Constants.ICON_SIZE - Constants.SUBMENU_PADDING * 2, 1, 0)
+				then UDim2.new(
+					1,
+					if FFlagAdaptUnibarAndTiltSizing
+						then -Constants.ICON_SIZE - Constants.SUBMENU_PADDING_LEFT - Constants.SUBMENU_PADDING_RIGHT
+						else -Constants.ICON_SIZE - Constants.SUBMENU_PADDING_LEFT * 2,
+					1,
+					0
+				)
 				else nil,
 			lineHeight = if FFlagSubmenuV4Layout then 1 else nil,
-			fontStyle = font.Header2,
+			fontStyle = if FFlagAdaptUnibarAndTiltSizing then Constants.SUBMENU_ROW_LABEL_FONT else font.Header2,
 			colorStyle = if GetFFlagAnimateSubMenu() and menuTransition
 				then {
 					Color = theme.TextEmphasis.Color,
@@ -207,14 +218,16 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		BackgroundColor3 = highlightColor:map(function(v)
 			return v.Color
 		end),
-		SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
+		SelectionImageObject = if FFlagAdaptUnibarAndTiltSizing
+			then useCursor(CURSOR_TYPE :: any)
+			else useSelectionCursor(CursorKind.RoundedRectNoInset),
 		AutoButtonColor = if GetFFlagKeepSubmenuOpenOnPin() or useTouchTargets then false else nil,
 		[React.Event.Activated] = if GetFFlagEnableCaptureBadge() then activateTouchTarget else props.activated,
 		LayoutOrder = props.order,
 		onStateChanged = if useTouchTargets then nil else stateChange,
 	}, {
 		UICorner = React.createElement("UICorner", {
-			CornerRadius = UDim.new(0, 10),
+			CornerRadius = UDim.new(0, Constants.SUBMENU_ROW_CORNER_RADIUS),
 		}),
 		ButtonTouchTarget = if useTouchTargets
 			then React.createElement(Interactable, {
@@ -246,7 +259,9 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 					then UDim2.new(1, -Constants.NEW_BADGE_SIZE - Constants.PIN_RIGHT_PADDING, 0.5, 0)
 					else UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING, 0.5, 0),
 				BorderSizePixel = 0,
-				SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
+				SelectionImageObject = if FFlagAdaptUnibarAndTiltSizing
+					then useCursor(CURSOR_TYPE :: any)
+					else useSelectionCursor(CursorKind.RoundedRectNoInset),
 				isDisabled = if GetFFlagKeepSubmenuOpenOnPin() then nil else pinDisabled,
 				Selectable = if GetFFlagKeepSubmenuOpenOnPin() then not pinDisabled else nil,
 				[React.Event.Activated] = function()
@@ -299,7 +314,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 					})
 					else nil,
 				UICorner = React.createElement("UICorner", {
-					CornerRadius = UDim.new(0, 8),
+					CornerRadius = UDim.new(0, Constants.PIN_CORNER_RADIUS),
 				}),
 				UserPinIcon = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
 					then nil
@@ -388,7 +403,7 @@ function SubMenu(props: SubMenuProps)
 		unibarLeftMargin = Constants.UNIBAR_LEFT_MARGIN
 	else
 		topbarInsetHeight = TopBarConstants.TopBarHeight
-		unibarLeftMargin = TopBarConstants.Padding
+		unibarLeftMargin = TopBarConstants.TopBarPadding
 	end
 
 	React.useEffect(function()
@@ -446,7 +461,7 @@ function SubMenu(props: SubMenuProps)
 		}),
 		-- extra padding to account for broken AutomaticSize + Padding
 		BottomPadding = React.createElement("Frame", {
-			Size = UDim2.new(0, 0, 0, 20),
+			Size = UDim2.new(0, 0, 0, Constants.SUBMENU_BOTTOM_PADDING),
 			BackgroundTransparency = 1,
 			LayoutOrder = 10000,
 		}),
@@ -475,7 +490,7 @@ function SubMenu(props: SubMenuProps)
 		ref = menuRef,
 	}, {
 		UICorner = React.createElement("UICorner", {
-			CornerRadius = UDim.new(0, 10),
+			CornerRadius = UDim.new(0, Constants.SUBMENU_CORNER_RADIUS),
 		}),
 		ScrollingFrame = React.createElement(VerticalScrollView, {
 			size = UDim2.new(1, 0, 1, 0),

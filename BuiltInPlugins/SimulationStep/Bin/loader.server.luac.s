@@ -231,98 +231,86 @@ MAIN:
   NAMECALL R12 R12 K41 ["CreateToolbar"]
   CALL R12 2 1
   JUMPIFNOT R2 [+2]
-  LOADK R13 K42 ["RibbonResumeSmall"]
+  LOADK R13 K42 [""]
   JUMP [+1]
-  LOADK R13 K43 ["Resume"]
+  LOADK R13 K43 ["rbxlocaltheme://Resume"]
   JUMPIFNOT R2 [+2]
-  LOADK R14 K44 ["RibbonPauseSmall"]
+  LOADK R14 K42 [""]
   JUMP [+1]
-  LOADK R14 K45 ["Pause"]
+  LOADK R14 K44 ["rbxlocaltheme://Pause"]
   JUMPIFNOT R2 [+2]
-  LOADK R15 K46 ["RibbonStepForwardSmall"]
+  LOADK R15 K42 [""]
   JUMP [+1]
-  LOADK R15 K47 ["Fwd"]
-  LOADK R18 K48 ["ResumeAll"]
-  LOADK R19 K49 [""]
-  LOADK R21 K50 ["rbxlocaltheme://"]
-  MOVE R22 R13
-  CONCAT R20 R21 R22
-  NAMECALL R16 R12 K51 ["CreateButton"]
+  LOADK R15 K45 ["rbxlocaltheme://Fwd"]
+  LOADK R18 K46 ["ResumeAll"]
+  LOADK R19 K42 [""]
+  MOVE R20 R13
+  NAMECALL R16 R12 K47 ["CreateButton"]
   CALL R16 4 1
   MOVE R3 R16
   LOADB R16 1
-  SETTABLEKS R16 R3 K52 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R16 R3 K53 ["Click"]
+  SETTABLEKS R16 R3 K48 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R3 K49 ["Click"]
   GETTABLEKS R18 R9 K36 ["resumeAll"]
   NAMECALL R16 R16 K21 ["Connect"]
   CALL R16 2 0
-  LOADK R18 K43 ["Resume"]
-  LOADK R19 K49 [""]
-  LOADK R21 K50 ["rbxlocaltheme://"]
-  MOVE R22 R13
-  CONCAT R20 R21 R22
-  NAMECALL R16 R12 K51 ["CreateButton"]
+  LOADK R18 K50 ["Resume"]
+  LOADK R19 K42 [""]
+  MOVE R20 R13
+  NAMECALL R16 R12 K47 ["CreateButton"]
   CALL R16 4 1
   MOVE R4 R16
   LOADB R16 1
-  SETTABLEKS R16 R4 K52 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R16 R4 K53 ["Click"]
+  SETTABLEKS R16 R4 K48 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R4 K49 ["Click"]
   GETTABLEKS R18 R9 K26 ["onResume"]
   NAMECALL R16 R16 K21 ["Connect"]
   CALL R16 2 0
-  LOADK R18 K54 ["PauseAll"]
-  LOADK R19 K49 [""]
-  LOADK R21 K50 ["rbxlocaltheme://"]
-  MOVE R22 R14
-  CONCAT R20 R21 R22
-  NAMECALL R16 R12 K51 ["CreateButton"]
+  LOADK R18 K51 ["PauseAll"]
+  LOADK R19 K42 [""]
+  MOVE R20 R14
+  NAMECALL R16 R12 K47 ["CreateButton"]
   CALL R16 4 1
   MOVE R5 R16
   LOADB R16 1
-  SETTABLEKS R16 R5 K52 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R16 R5 K53 ["Click"]
+  SETTABLEKS R16 R5 K48 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R5 K49 ["Click"]
   GETTABLEKS R18 R9 K34 ["pauseAll"]
   NAMECALL R16 R16 K21 ["Connect"]
   CALL R16 2 0
-  LOADK R18 K45 ["Pause"]
-  LOADK R19 K49 [""]
-  LOADK R21 K50 ["rbxlocaltheme://"]
-  MOVE R22 R14
-  CONCAT R20 R21 R22
-  NAMECALL R16 R12 K51 ["CreateButton"]
+  LOADK R18 K52 ["Pause"]
+  LOADK R19 K42 [""]
+  MOVE R20 R14
+  NAMECALL R16 R12 K47 ["CreateButton"]
   CALL R16 4 1
   MOVE R6 R16
   LOADB R16 1
-  SETTABLEKS R16 R6 K52 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R16 R6 K53 ["Click"]
+  SETTABLEKS R16 R6 K48 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R6 K49 ["Click"]
   GETTABLEKS R18 R9 K24 ["onPause"]
   NAMECALL R16 R16 K21 ["Connect"]
   CALL R16 2 0
-  LOADK R18 K55 ["StepForwardAll"]
-  LOADK R19 K49 [""]
-  LOADK R21 K50 ["rbxlocaltheme://"]
-  MOVE R22 R15
-  CONCAT R20 R21 R22
-  NAMECALL R16 R12 K51 ["CreateButton"]
+  LOADK R18 K53 ["StepForwardAll"]
+  LOADK R19 K42 [""]
+  MOVE R20 R15
+  NAMECALL R16 R12 K47 ["CreateButton"]
   CALL R16 4 1
   MOVE R7 R16
   LOADB R16 1
-  SETTABLEKS R16 R7 K52 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R16 R7 K53 ["Click"]
+  SETTABLEKS R16 R7 K48 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R7 K49 ["Click"]
   GETTABLEKS R18 R9 K38 ["stepForwardAll"]
   NAMECALL R16 R16 K21 ["Connect"]
   CALL R16 2 0
-  LOADK R18 K56 ["StepForward"]
-  LOADK R19 K49 [""]
-  LOADK R21 K50 ["rbxlocaltheme://"]
-  MOVE R22 R15
-  CONCAT R20 R21 R22
-  NAMECALL R16 R12 K51 ["CreateButton"]
+  LOADK R18 K54 ["StepForward"]
+  LOADK R19 K42 [""]
+  MOVE R20 R15
+  NAMECALL R16 R12 K47 ["CreateButton"]
   CALL R16 4 1
   MOVE R8 R16
   LOADB R16 1
-  SETTABLEKS R16 R8 K52 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R16 R8 K53 ["Click"]
+  SETTABLEKS R16 R8 K48 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R16 R8 K49 ["Click"]
   GETTABLEKS R18 R9 K28 ["onStepForward"]
   NAMECALL R16 R16 K21 ["Connect"]
   CALL R16 2 0

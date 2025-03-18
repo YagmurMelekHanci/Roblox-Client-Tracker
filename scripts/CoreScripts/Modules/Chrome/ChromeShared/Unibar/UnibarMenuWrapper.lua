@@ -15,29 +15,49 @@ local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
+local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 
-local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
+local SelectionCursorProvider = if FFlagAdaptUnibarAndTiltSizing
+	then nil
+	else UIBlox.App.SelectionImage.SelectionCursorProvider
 
 local function UnibarMenuWrapper(props: UnibarMenu.UnibarMenuProp)
 	return React.createElement(ReactUtils.ContextStack, {
 		providers = if GetFFlagRemoveChromeRobloxGuiReferences()
-			then {
-				React.createElement(SelectionCursorProvider),
-				React.createElement(RoactAppPolicy.Provider, {
-					policy = {
-						AppFeaturePolicies,
-					},
-				}),
-			}
-			else {
-				React.createElement(VoiceStateContext.Provider),
-				React.createElement(SelectionCursorProvider),
-				React.createElement(RoactAppPolicy.Provider, {
-					policy = {
-						AppFeaturePolicies,
-					},
-				}),
-			},
+			then if FFlagAdaptUnibarAndTiltSizing
+				then {
+					React.createElement(RoactAppPolicy.Provider, {
+						policy = {
+							AppFeaturePolicies,
+						},
+					}),
+				}
+				else {
+					React.createElement(SelectionCursorProvider),
+					React.createElement(RoactAppPolicy.Provider, {
+						policy = {
+							AppFeaturePolicies,
+						},
+					}),
+				}
+			else if FFlagAdaptUnibarAndTiltSizing
+				then {
+					React.createElement(VoiceStateContext.Provider),
+					React.createElement(RoactAppPolicy.Provider, {
+						policy = {
+							AppFeaturePolicies,
+						},
+					}),
+				}
+				else {
+					React.createElement(VoiceStateContext.Provider),
+					React.createElement(SelectionCursorProvider),
+					React.createElement(RoactAppPolicy.Provider, {
+						policy = {
+							AppFeaturePolicies,
+						},
+					}),
+				},
 	}, {
 		UnibarMenu = React.createElement(UnibarMenu, props),
 	})

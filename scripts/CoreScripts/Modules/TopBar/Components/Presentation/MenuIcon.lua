@@ -39,6 +39,7 @@ local GetFFlagChangeTopbarHeightCalculation =
 local FFlagEnableChromeBackwardsSignalAPI =
 	require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
+local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -46,6 +47,7 @@ local Constants = require(Components.Parent.Constants)
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
 local SetKeepOutArea = require(Actions.SetKeepOutArea)
 local menuIconHoveredSignal = require(script.Parent.menuIconHoveredSignal)
+local GamepadConnector = require(script.Parent.Parent.GamepadConnector)
 
 local InGameMenu
 if isNewInGameMenuEnabled() then
@@ -64,7 +66,6 @@ if GetFFlagChangeTopbarHeightCalculation() then
 end
 
 local tooltipEnabled = ChromeEnabled()
-local ICON_SIZE = 24
 local DEFAULT_DELAY_TIME = if tooltipEnabled then 0.65 else 0.4
 local MENU_TOOLTIP_LABEL = "CoreScripts.TopBar.RobloxMenu"
 local MENU_TOOLTIP_FALLBACK = "Roblox Menu"
@@ -173,7 +174,7 @@ function MenuIcon:init()
 		end
 	end
 
-	if ChromeEnabled and FFlagTiltIconUnibarFocusNav then
+	if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then
 		self.onMenuIconSelectionChanged = function(MenuIcon: GuiObject, isMenuIconSelected: boolean, oldSelection: GuiObject, newSelection: GuiObject)
 			local UNFOCUS_TILT = "Unfocus_Tilt"
 			local function unfocusTilt(actionName, userInputState, input): Enum.ContextActionResult
@@ -196,6 +197,16 @@ function MenuIcon:init()
 			end
 		end
 	end
+
+	if ChromeEnabled and FFlagHideTopBarConsole then 
+		local showTopBarSignal = GamepadConnector:getShowTopBar()
+
+		self.showIcon, self.setShowIcon = Roact.createBinding(showTopBarSignal:get())
+
+		showTopBarSignal:connect(function() 
+			self.setShowIcon(showTopBarSignal:get())
+		end)
+	end
 end
 
 function MenuIcon:render()
@@ -211,7 +222,7 @@ function MenuIcon:render()
 		icon = if isNewTiltIconEnabled()
 			then UIBloxImages["icons/logo/block"]
 			else "rbxasset://textures/ui/TopBar/coloredlogo.png",
-		iconSize = ICON_SIZE * (self.props.iconScale or 1),
+		iconSize = Constants.MENU_ICON_SIZE * (self.props.iconScale or 1),
 		useIconScaleAnimation = isNewTiltIconEnabled(),
 		onActivated = self.menuIconActivated,
 		onHover = self.menuIconOnHover,
@@ -267,7 +278,7 @@ function MenuIcon:render()
 					icon = if isNewTiltIconEnabled()
 						then UIBloxImages["icons/logo/block"]
 						else "rbxasset://textures/ui/TopBar/coloredlogo.png",
-					iconSize = ICON_SIZE * (self.props.iconScale or 1),
+					iconSize = Constants.MENU_ICON_SIZE * (self.props.iconScale or 1),
 					useIconScaleAnimation = isNewTiltIconEnabled(),
 					onActivated = self.menuIconActivated,
 					onHover = self.menuIconOnHover,
@@ -280,7 +291,9 @@ function MenuIcon:render()
 			end
 
 			return Roact.createElement("Frame", {
-				Visible = visible,
+				Visible = if ChromeEnabled() and FFlagHideTopBarConsole then self.showIcon:map(function(showIcon)
+					return visible and showIcon
+				end) else visible,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
 				LayoutOrder = self.props.layoutOrder,
@@ -301,7 +314,9 @@ function MenuIcon:render()
 		end)
 	else
 		return Roact.createElement("Frame", {
-			Visible = visible,
+			Visible = if ChromeEnabled() and FFlagHideTopBarConsole then self.showIcon:map(function(showIcon) 
+				return visible and showIcon
+			end) else visible,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
 			LayoutOrder = self.props.layoutOrder,

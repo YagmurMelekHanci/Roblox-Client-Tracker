@@ -49,6 +49,7 @@ local GetFFlagChromeUsePreferredTransparency =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
 local GetFFlagDisableSongbirdForVRConsole =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableSongbirdForVRConsole
+local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 
 local FFlagReshufflePartyIconsInUnibar = game:DefineFastFlag("ReshufflePartyIconsInUnibar", false)
 local FFlagFixUnibarResizing = game:DefineFastFlag("FixUnibarResizing", false)
@@ -57,6 +58,9 @@ local FFlagFixUnibarResizing = game:DefineFastFlag("FixUnibarResizing", false)
 local PartyConstants = require(Root.Parent.Integrations.Party.Constants)
 local isConnectUnibarEnabled = require(Root.Parent.Integrations.Connect.isConnectUnibarEnabled)
 local isConnectDropdownEnabled = require(Root.Parent.Integrations.Connect.isConnectDropdownEnabled)
+local GamepadConnector = if FFlagHideTopBarConsole
+	then require(Root.Parent.Parent.TopBar.Components.GamepadConnector)
+	else nil
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -164,9 +168,9 @@ function IconDivider(props: IconDividerProps)
 		BackgroundTransparency = 1,
 	}, {
 		DividerBar = React.createElement("Frame", {
-			Position = UDim2.new(0, 2, 0.5, 0),
+			Position = Constants.ICON_DIVIDER_POSITION,
 			AnchorPoint = Vector2.new(0, 0.5),
-			Size = UDim2.new(0, 1, 0, 28),
+			Size = Constants.ICON_DIVIDER_SIZE,
 			BorderSizePixel = 0,
 			BackgroundColor3 = style.Theme.Divider.Color,
 			BackgroundTransparency = if GetFFlagUsePolishedAnimations() and props.toggleTransition
@@ -193,8 +197,15 @@ function AnimationStateHelper(props)
 
 	React.useEffect(function()
 		if inFocusNav then
-			ContextActionService:BindCoreAction("RBXEscapeUnibar", function()
-				ChromeService:disableFocusNav()
+			ContextActionService:BindCoreAction("RBXEscapeUnibar", function(actionName, userInputState, input)
+				if FFlagHideTopBarConsole then
+					if userInputState == Enum.UserInputState.End then
+						ChromeService:disableFocusNav()
+						GuiService.SelectedCoreObject = nil
+					end
+				else
+					ChromeService:disableFocusNav()
+				end
 			end, false, Enum.KeyCode.ButtonB)
 
 			if FFlagTiltIconUnibarFocusNav then
@@ -623,6 +634,14 @@ local UnibarMenu = function(props: UnibarMenuProp)
 
 	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
 
+	local showUnibar, setShowUnibar
+	local showTopBarSignal
+
+	if FFlagHideTopBarConsole and GamepadConnector then
+		showUnibar, setShowUnibar = React.useBinding(true)
+		showTopBarSignal = GamepadConnector:getShowTopBar()
+	end
+
 	React.useEffect(function()
 		local conn
 		if menuFrame and menuFrame.current then
@@ -630,6 +649,12 @@ local UnibarMenu = function(props: UnibarMenuProp)
 		end
 
 		updateSize()
+
+		if FFlagHideTopBarConsole then
+			showTopBarSignal:connect(function()
+				setShowUnibar(showTopBarSignal:get())
+			end)
+		end
 
 		return function()
 			if conn then
@@ -651,6 +676,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
 			ref = menuOutterFrame,
 			[React.Event.SelectionChanged] = if FFlagTiltIconUnibarFocusNav then onUnibarSelectionChanged else nil,
+			Visible = if FFlagHideTopBarConsole then showUnibar else nil,
 		}, {
 			React.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
@@ -658,7 +684,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 					then Enum.HorizontalAlignment.Left
 					else Enum.HorizontalAlignment.Right,
 				VerticalAlignment = Enum.VerticalAlignment.Top,
-				Padding = UDim.new(0, 10),
+				Padding = UDim.new(0, Constants.MENU_SUBMENU_PADDING),
 			}) :: any,
 			React.createElement(Unibar, {
 				menuFrameRef = menuFrame,

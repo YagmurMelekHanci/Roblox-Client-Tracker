@@ -61,19 +61,11 @@ PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["updateHierarchy"]
   GETUPVAL R1 1
-  LOADK R2 K1 ["PropertyChanged"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_5:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["updateHierarchy"]
-  GETUPVAL R1 1
   LOADK R2 K1 ["AttributeChanged"]
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_5:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["connectedProperties"]
   JUMPIFNOT R1 [+1]
@@ -101,50 +93,39 @@ PROTO_6:
   CALL R8 2 1
   SETTABLE R8 R2 R7
   FORGLOOP R3 2 [-20]
-  LOADK R5 K5 ["StyleRule"]
+  LOADK R5 K5 ["StyleSheet"]
   NAMECALL R3 R0 K6 ["IsA"]
   CALL R3 2 1
-  JUMPIFNOT R3 [+10]
-  GETTABLEKS R3 R0 K7 ["StyleRulePropertyChanged"]
+  JUMPIFNOT R3 [+12]
+  LOADK R5 K7 ["StyleCategory"]
+  NAMECALL R3 R0 K8 ["GetAttributeChangedSignal"]
+  CALL R3 2 1
   NEWCLOSURE R5 P2
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   NAMECALL R3 R3 K4 ["Connect"]
   CALL R3 2 1
-  SETTABLEKS R3 R2 K7 ["StyleRulePropertyChanged"]
-  LOADK R5 K8 ["StyleSheet"]
-  NAMECALL R3 R0 K6 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+12]
-  LOADK R5 K9 ["StyleCategory"]
-  NAMECALL R3 R0 K10 ["GetAttributeChangedSignal"]
-  CALL R3 2 1
-  NEWCLOSURE R5 P3
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  NAMECALL R3 R3 K4 ["Connect"]
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K11 ["StyleSheetCategoryChanged"]
+  SETTABLEKS R3 R2 K9 ["StyleSheetCategoryChanged"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K12 ["connections"]
+  GETTABLEKS R4 R5 K10 ["connections"]
   GETTABLE R3 R4 R0
   JUMPIFNOT R3 [+12]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K12 ["connections"]
+  GETTABLEKS R3 R4 K10 ["connections"]
   GETUPVAL R4 1
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K12 ["connections"]
+  GETTABLEKS R6 R7 K10 ["connections"]
   GETTABLE R5 R6 R0
   MOVE R6 R2
   CALL R4 2 1
   SETTABLE R4 R3 R0
   RETURN R0 0
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K12 ["connections"]
+  GETTABLEKS R3 R4 K10 ["connections"]
   SETTABLE R2 R3 R0
   RETURN R0 0
 
-PROTO_7:
+PROTO_6:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["addInstanceConnections"]
   MOVE R2 R0
@@ -157,7 +138,7 @@ PROTO_7:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_7:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["removeInstanceConnections"]
   MOVE R2 R0
@@ -170,7 +151,7 @@ PROTO_8:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_8:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["removeInstanceConnections"]
   GETUPVAL R1 1
@@ -182,7 +163,7 @@ PROTO_9:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_9:
   JUMPIF R0 [+1]
   RETURN R0 0
   GETUPVAL R2 0
@@ -232,7 +213,7 @@ PROTO_10:
   FORGLOOP R2 2 [-12]
   RETURN R0 0
 
-PROTO_11:
+PROTO_10:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["connections"]
   JUMPIF R0 [+1]
@@ -257,7 +238,7 @@ PROTO_11:
   FORGLOOP R0 2 [-16]
   RETURN R0 0
 
-PROTO_12:
+PROTO_11:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["removeAllConnections"]
   CALL R0 0 0
@@ -270,7 +251,7 @@ PROTO_12:
   SETTABLEKS R1 R0 K3 ["updateHierarchy"]
   RETURN R0 0
 
-PROTO_13:
+PROTO_12:
   DUPTABLE R4 K4 [{"connections", "updateHierarchy", "connectedProperties", "instanceTypes"}]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R4 K0 ["connections"]
@@ -332,7 +313,7 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R2 R1 K7 ["join"]
   NEWTABLE R3 1 0
-  DUPCLOSURE R4 K8 [PROTO_13]
+  DUPCLOSURE R4 K8 [PROTO_12]
   CAPTURE VAL R2
   CAPTURE VAL R1
   CAPTURE VAL R3

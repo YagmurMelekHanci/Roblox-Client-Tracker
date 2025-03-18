@@ -170,76 +170,75 @@ PROTO_5:
   GETTABLEKS R17 R18 K10 ["Tag"]
   GETTABLE R16 R0 R17
   LOADK R17 K11 ["Component-WidgetBody"]
-  LOADK R18 K12 ["X-Transparent"]
-  CALL R15 3 1
+  CALL R15 2 1
   SETTABLE R15 R13 R14
-  GETTABLEKS R14 R0 K13 ["LayoutOrder"]
-  SETTABLEKS R14 R13 K13 ["LayoutOrder"]
-  DUPTABLE R14 K16 [{"ResultsLine", "ResultsTree"}]
+  GETTABLEKS R14 R0 K12 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K12 ["LayoutOrder"]
+  DUPTABLE R14 K15 [{"ResultsLine", "ResultsTree"}]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K8 ["createElement"]
   LOADK R16 K9 ["Frame"]
   NEWTABLE R17 2 0
   GETUPVAL R19 1
   GETTABLEKS R18 R19 K10 ["Tag"]
-  LOADK R19 K14 ["ResultsLine"]
+  LOADK R19 K13 ["ResultsLine"]
   SETTABLE R19 R17 R18
   GETUPVAL R18 4
-  NAMECALL R18 R18 K17 ["getNextOrder"]
+  NAMECALL R18 R18 K16 ["getNextOrder"]
   CALL R18 1 1
-  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
-  DUPTABLE R18 K19 [{"ResultsText"}]
+  SETTABLEKS R18 R17 K12 ["LayoutOrder"]
+  DUPTABLE R18 K18 [{"ResultsText"}]
   GETUPVAL R20 1
   GETTABLEKS R19 R20 K8 ["createElement"]
-  LOADK R20 K20 ["TextLabel"]
+  LOADK R20 K19 ["TextLabel"]
   NEWTABLE R21 4 0
   GETUPVAL R23 1
   GETTABLEKS R22 R23 K10 ["Tag"]
-  LOADK R23 K21 ["ResultsText X-Transparent"]
+  LOADK R23 K17 ["ResultsText"]
   SETTABLE R23 R21 R22
   GETUPVAL R22 4
-  NAMECALL R22 R22 K17 ["getNextOrder"]
+  NAMECALL R22 R22 K16 ["getNextOrder"]
   CALL R22 1 1
-  SETTABLEKS R22 R21 K13 ["LayoutOrder"]
-  GETTABLEKS R23 R0 K22 ["FindResults"]
+  SETTABLEKS R22 R21 K12 ["LayoutOrder"]
+  GETTABLEKS R23 R0 K20 ["FindResults"]
   JUMPIFNOT R23 [+41]
-  GETTABLEKS R24 R0 K22 ["FindResults"]
-  GETTABLEKS R23 R24 K23 ["NumAllResults"]
+  GETTABLEKS R24 R0 K20 ["FindResults"]
+  GETTABLEKS R23 R24 K21 ["NumAllResults"]
   JUMPIFNOT R23 [+36]
-  GETTABLEKS R24 R0 K22 ["FindResults"]
-  GETTABLEKS R23 R24 K23 ["NumAllResults"]
+  GETTABLEKS R24 R0 K20 ["FindResults"]
+  GETTABLEKS R23 R24 K21 ["NumAllResults"]
   LOADN R24 0
   JUMPIFNOTLT R24 R23 [+30]
-  LOADK R24 K24 ["WidgetBody"]
-  LOADK R25 K18 ["ResultsText"]
-  DUPTABLE R26 K27 [{"numResults", "numResultFiles"}]
-  LOADK R28 K28 ["%*"]
-  GETTABLEKS R31 R0 K22 ["FindResults"]
-  GETTABLEKS R30 R31 K23 ["NumAllResults"]
-  NAMECALL R28 R28 K29 ["format"]
+  LOADK R24 K22 ["WidgetBody"]
+  LOADK R25 K17 ["ResultsText"]
+  DUPTABLE R26 K25 [{"numResults", "numResultFiles"}]
+  LOADK R28 K26 ["%*"]
+  GETTABLEKS R31 R0 K20 ["FindResults"]
+  GETTABLEKS R30 R31 K21 ["NumAllResults"]
+  NAMECALL R28 R28 K27 ["format"]
   CALL R28 2 1
   MOVE R27 R28
-  SETTABLEKS R27 R26 K25 ["numResults"]
-  LOADK R28 K28 ["%*"]
-  GETTABLEKS R31 R0 K22 ["FindResults"]
-  GETTABLEKS R30 R31 K30 ["NumAllScripts"]
-  NAMECALL R28 R28 K29 ["format"]
+  SETTABLEKS R27 R26 K23 ["numResults"]
+  LOADK R28 K26 ["%*"]
+  GETTABLEKS R31 R0 K20 ["FindResults"]
+  GETTABLEKS R30 R31 K28 ["NumAllScripts"]
+  NAMECALL R28 R28 K27 ["format"]
   CALL R28 2 1
   MOVE R27 R28
-  SETTABLEKS R27 R26 K26 ["numResultFiles"]
-  NAMECALL R22 R1 K31 ["getText"]
+  SETTABLEKS R27 R26 K24 ["numResultFiles"]
+  NAMECALL R22 R1 K29 ["getText"]
   CALL R22 4 1
   JUMP [+1]
-  LOADK R22 K32 [""]
-  SETTABLEKS R22 R21 K33 ["Text"]
+  LOADK R22 K30 [""]
+  SETTABLEKS R22 R21 K31 ["Text"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K18 ["ResultsText"]
+  SETTABLEKS R19 R18 K17 ["ResultsText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K14 ["ResultsLine"]
-  GETTABLEKS R16 R0 K22 ["FindResults"]
+  SETTABLEKS R15 R14 K13 ["ResultsLine"]
+  GETTABLEKS R16 R0 K20 ["FindResults"]
   JUMPIFNOT R16 [+46]
-  GETTABLEKS R17 R0 K22 ["FindResults"]
-  GETTABLEKS R16 R17 K34 ["Results"]
+  GETTABLEKS R17 R0 K20 ["FindResults"]
+  GETTABLEKS R16 R17 K32 ["Results"]
   JUMPIFNOT R16 [+41]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K8 ["createElement"]
@@ -247,28 +246,28 @@ PROTO_5:
   NEWTABLE R17 16 0
   GETUPVAL R19 1
   GETTABLEKS R18 R19 K10 ["Tag"]
-  LOADK R19 K35 ["ResultsTree X-Fill"]
+  LOADK R19 K33 ["ResultsTree X-Fill"]
   SETTABLE R19 R17 R18
   GETUPVAL R18 4
-  NAMECALL R18 R18 K17 ["getNextOrder"]
+  NAMECALL R18 R18 K16 ["getNextOrder"]
   CALL R18 1 1
-  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
-  SETTABLEKS R9 R17 K36 ["GetChildren"]
+  SETTABLEKS R18 R17 K12 ["LayoutOrder"]
+  SETTABLEKS R9 R17 K34 ["GetChildren"]
   SETTABLEKS R3 R17 K3 ["Expansion"]
-  SETTABLEKS R5 R17 K37 ["Selection"]
-  GETTABLEKS R19 R0 K22 ["FindResults"]
-  GETTABLEKS R18 R19 K34 ["Results"]
-  SETTABLEKS R18 R17 K38 ["RootItems"]
+  SETTABLEKS R5 R17 K35 ["Selection"]
+  GETTABLEKS R19 R0 K20 ["FindResults"]
+  GETTABLEKS R18 R19 K32 ["Results"]
+  SETTABLEKS R18 R17 K36 ["RootItems"]
   SETTABLEKS R2 R17 K1 ["GetItemId"]
   GETUPVAL R18 6
-  SETTABLEKS R18 R17 K39 ["RowComponent"]
-  SETTABLEKS R10 R17 K40 ["GetRowProps"]
+  SETTABLEKS R18 R17 K37 ["RowComponent"]
+  SETTABLEKS R10 R17 K38 ["GetRowProps"]
   LOADN R18 28
-  SETTABLEKS R18 R17 K41 ["RowHeight"]
+  SETTABLEKS R18 R17 K39 ["RowHeight"]
   CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
-  SETTABLEKS R15 R14 K15 ["ResultsTree"]
+  SETTABLEKS R15 R14 K14 ["ResultsTree"]
   CALL R11 3 -1
   RETURN R11 -1
 

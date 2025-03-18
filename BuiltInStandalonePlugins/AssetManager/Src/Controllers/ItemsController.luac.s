@@ -716,23 +716,26 @@ PROTO_21:
   NEWCLOSURE R9 P13
   CAPTURE VAL R5
   NAMECALL R6 R6 K88 ["OnInvoke"]
-  CALL R6 3 0
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K89 ["_addPlaceSucceededConnection"]
   GETTABLEKS R6 R5 K1 ["_pluginController"]
   NAMECALL R6 R6 K86 ["getPlugin"]
   CALL R6 1 1
-  LOADK R8 K89 ["OnRemovePlaceFromGameSucceeded"]
+  LOADK R8 K90 ["OnRemovePlaceFromGameSucceeded"]
   NEWCLOSURE R9 P14
   CAPTURE VAL R5
   NAMECALL R6 R6 K88 ["OnInvoke"]
-  CALL R6 3 0
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K91 ["_removePlaceSucceededConnection"]
   GETTABLEKS R6 R5 K1 ["_pluginController"]
   NAMECALL R6 R6 K86 ["getPlugin"]
   CALL R6 1 1
-  LOADK R8 K90 ["OnRenamePlaceSucceeded"]
+  LOADK R8 K92 ["OnRenamePlaceSucceeded"]
   NEWCLOSURE R9 P15
   CAPTURE VAL R5
   NAMECALL R6 R6 K88 ["OnInvoke"]
-  CALL R6 3 0
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K93 ["_renamePlaceSucceededConnection"]
   RETURN R5 1
 
 PROTO_22:
@@ -781,20 +784,46 @@ PROTO_24:
   CALL R1 1 0
   LOADNIL R1
   SETTABLEKS R1 R0 K6 ["_searchShowOptionsConnection"]
+  GETTABLEKS R1 R0 K7 ["_searchClosedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K7 ["_visibleProperties"]
+  SETTABLEKS R1 R0 K7 ["_searchClosedConnection"]
+  GETTABLEKS R1 R0 K8 ["_addPlaceSucceededConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K8 ["_addPlaceSucceededConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K8 ["_columnWidths"]
+  SETTABLEKS R1 R0 K8 ["_addPlaceSucceededConnection"]
+  GETTABLEKS R1 R0 K9 ["_removePlaceSucceededConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K9 ["_removePlaceSucceededConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K9 ["_items"]
+  SETTABLEKS R1 R0 K9 ["_removePlaceSucceededConnection"]
+  GETTABLEKS R1 R0 K10 ["_renamePlaceSucceededConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K10 ["_renamePlaceSucceededConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K10 ["_creators"]
+  SETTABLEKS R1 R0 K10 ["_renamePlaceSucceededConnection"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K11 ["_filters"]
+  SETTABLEKS R1 R0 K11 ["_visibleProperties"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K12 ["_sorts"]
+  SETTABLEKS R1 R0 K12 ["_columnWidths"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K13 ["_selection"]
+  SETTABLEKS R1 R0 K13 ["_items"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K14 ["_creators"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K15 ["_filters"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K16 ["_sorts"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K17 ["_selection"]
   RETURN R0 0
 
 PROTO_25:

@@ -398,13 +398,18 @@ PROTO_9:
   FASTCALL1 TYPEOF R3 [+2]
   GETIMPORT R2 K3 [typeof]
   CALL R2 1 1
-  JUMPIFNOTEQKS R2 K1 ["Instance"] [+15]
+  JUMPIFNOTEQKS R2 K1 ["Instance"] [+22]
   GETTABLEKS R2 R1 K4 ["dispatch"]
   GETUPVAL R3 1
   GETTABLEKS R4 R0 K1 ["Instance"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K5 ["menuActions"]
-  GETTABLEKS R5 R6 K6 ["rename"]
+  GETUPVAL R5 2
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["menuActions"]
+  GETTABLEKS R6 R7 K6 ["rename"]
+  NEWTABLE R7 0 1
+  MOVE R8 R0
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
   LOADB R6 0
   CALL R3 3 -1
   CALL R2 -1 0
@@ -848,6 +853,49 @@ PROTO_26:
   RETURN R0 0
 
 PROTO_27:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["rebuildTableState"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["state"]
+  GETTABLEKS R2 R3 K2 ["rootInstance"]
+  MOVE R3 R0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_28:
+  GETUPVAL R0 0
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
+  NAMECALL R0 R0 K0 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_29:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["StyleRulePropertyChanged"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  NAMECALL R2 R2 K1 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K2 ["styleRuleChangedConnection"]
+  RETURN R0 0
+
+PROTO_30:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["styleRuleChangedConnection"]
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["styleRuleChangedConnection"]
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["styleRuleChangedConnection"]
+  RETURN R0 0
+
+PROTO_31:
   DUPTABLE R1 K2 [{"rootInstance", "table"}]
   LOADNIL R2
   SETTABLEKS R2 R1 K0 ["rootInstance"]
@@ -913,6 +961,7 @@ PROTO_27:
   NEWCLOSURE R2 P7
   CAPTURE VAL R0
   CAPTURE UPVAL U11
+  CAPTURE UPVAL U6
   SETTABLEKS R2 R0 K19 ["showContextMenu"]
   NEWCLOSURE R2 P8
   CAPTURE VAL R0
@@ -982,54 +1031,93 @@ PROTO_27:
   CAPTURE VAL R0
   CAPTURE UPVAL U2
   SETTABLEKS R2 R0 K34 ["onPropertyPressed"]
+  NEWCLOSURE R2 P21
+  CAPTURE VAL R0
+  CAPTURE UPVAL U22
+  SETTABLEKS R2 R0 K35 ["createStyleRuleConnection"]
+  NEWCLOSURE R2 P22
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K36 ["removeStyleRuleConnection"]
   RETURN R0 0
 
-PROTO_28:
+PROTO_32:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["buildItems"]
+  MOVE R3 R0
+  CALL R2 1 1
+  NEWTABLE R3 0 0
+  NEWTABLE R4 0 0
+  GETTABLEKS R5 R1 K1 ["rootInstance"]
+  JUMPIFNOTEQ R0 R5 [+15]
+  GETUPVAL R5 1
+  GETTABLEKS R7 R1 K2 ["table"]
+  GETTABLEKS R6 R7 K3 ["Expansion"]
+  CALL R5 1 1
+  MOVE R4 R5
+  GETUPVAL R5 1
+  GETTABLEKS R7 R1 K2 ["table"]
+  GETTABLEKS R6 R7 K4 ["Selection"]
+  CALL R5 1 1
+  MOVE R3 R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["expandNewRows"]
+  MOVE R6 R2
+  MOVE R7 R4
+  CALL R5 2 0
+  GETUPVAL R5 2
+  MOVE R6 R1
+  DUPTABLE R7 K6 [{"rootInstance", "table"}]
+  SETTABLEKS R0 R7 K1 ["rootInstance"]
+  GETUPVAL R8 2
+  GETTABLEKS R9 R1 K2 ["table"]
+  DUPTABLE R10 K8 [{"Expansion", "Selection", "Items"}]
+  SETTABLEKS R4 R10 K3 ["Expansion"]
+  SETTABLEKS R3 R10 K4 ["Selection"]
+  SETTABLEKS R2 R10 K7 ["Items"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K2 ["table"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_33:
+  GETTABLEKS R1 R0 K0 ["createStyleRuleConnection"]
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["RootInstance"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_34:
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["RootInstance"]
+  GETTABLEKS R4 R1 K1 ["RootInstance"]
+  JUMPIFEQ R3 R4 [+8]
+  GETTABLEKS R4 R0 K2 ["removeStyleRuleConnection"]
+  CALL R4 0 0
+  GETTABLEKS R4 R0 K3 ["createStyleRuleConnection"]
+  MOVE R5 R3
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_35:
+  GETTABLEKS R1 R0 K0 ["removeStyleRuleConnection"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_36:
   GETTABLEKS R2 R0 K0 ["RootInstance"]
   GETTABLEKS R3 R1 K1 ["rootInstance"]
   JUMPIFNOTEQ R2 R3 [+4]
   GETTABLEKS R3 R0 K2 ["IsDirty"]
-  JUMPIFNOT R3 [+53]
+  JUMPIFNOT R3 [+7]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["buildItems"]
+  GETTABLEKS R3 R4 K3 ["rebuildTableState"]
   MOVE R4 R2
-  CALL R3 1 1
-  NEWTABLE R4 0 0
-  NEWTABLE R5 0 0
-  GETTABLEKS R6 R1 K1 ["rootInstance"]
-  JUMPIFNOTEQ R2 R6 [+15]
-  GETUPVAL R6 1
-  GETTABLEKS R8 R1 K4 ["table"]
-  GETTABLEKS R7 R8 K5 ["Expansion"]
-  CALL R6 1 1
-  MOVE R5 R6
-  GETUPVAL R6 1
-  GETTABLEKS R8 R1 K4 ["table"]
-  GETTABLEKS R7 R8 K6 ["Selection"]
-  CALL R6 1 1
-  MOVE R4 R6
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["expandNewRows"]
-  MOVE R7 R3
-  MOVE R8 R5
-  CALL R6 2 0
-  GETUPVAL R6 2
-  MOVE R7 R1
-  DUPTABLE R8 K8 [{"rootInstance", "table"}]
-  SETTABLEKS R2 R8 K1 ["rootInstance"]
-  GETUPVAL R9 2
-  GETTABLEKS R10 R1 K4 ["table"]
-  DUPTABLE R11 K10 [{"Expansion", "Selection", "Items"}]
-  SETTABLEKS R5 R11 K5 ["Expansion"]
-  SETTABLEKS R4 R11 K6 ["Selection"]
-  SETTABLEKS R3 R11 K9 ["Items"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K4 ["table"]
-  CALL R6 2 -1
-  RETURN R6 -1
+  MOVE R5 R1
+  CALL R3 2 -1
+  RETURN R3 -1
   RETURN R1 1
 
-PROTO_29:
+PROTO_37:
   GETTABLEKS R1 R0 K0 ["state"]
   GETUPVAL R2 0
   DUPTABLE R3 K21 [{"Columns", "ClampSize", "Expansion", "FullSpanEmphasis", "GetChildren", "GetItemId", "LayoutOrder", "OnCellAction", "OnCellEdited", "OnCellDoubleClick", "OnSizeChange", "Renderers", "RightClick", "RootItems", "RowHeight", "Selection", "Scroll", "ScrollProps", "ShowHeader", "UseScale"}]
@@ -1090,7 +1178,7 @@ PROTO_29:
   CALL R3 2 -1
   RETURN R3 -1
 
-PROTO_30:
+PROTO_38:
   DUPTABLE R1 K3 [{"IsDirty", "ClipboardInstance", "ClipboardProperty"}]
   GETTABLEKS R3 R0 K4 ["Window"]
   GETTABLEKS R2 R3 K0 ["IsDirty"]
@@ -1257,7 +1345,7 @@ MAIN:
   LOADK R42 K58 ["SelectorPropertyTable"]
   NAMECALL R40 R40 K59 ["extend"]
   CALL R40 2 1
-  DUPCLOSURE R41 K60 [PROTO_27]
+  NEWCLOSURE R41 P0
   CAPTURE VAL R5
   CAPTURE VAL R38
   CAPTURE VAL R39
@@ -1280,34 +1368,45 @@ MAIN:
   CAPTURE VAL R17
   CAPTURE VAL R35
   CAPTURE VAL R18
-  SETTABLEKS R41 R40 K61 ["init"]
-  DUPCLOSURE R41 K62 [PROTO_28]
+  CAPTURE REF R40
+  SETTABLEKS R41 R40 K60 ["init"]
+  DUPCLOSURE R41 K61 [PROTO_32]
   CAPTURE VAL R38
   CAPTURE VAL R5
   CAPTURE VAL R6
-  SETTABLEKS R41 R40 K63 ["getDerivedStateFromProps"]
-  DUPCLOSURE R41 K64 [PROTO_29]
+  SETTABLEKS R41 R40 K62 ["rebuildTableState"]
+  DUPCLOSURE R41 K63 [PROTO_33]
+  SETTABLEKS R41 R40 K64 ["didMount"]
+  DUPCLOSURE R41 K65 [PROTO_34]
+  SETTABLEKS R41 R40 K66 ["didUpdate"]
+  DUPCLOSURE R41 K67 [PROTO_35]
+  SETTABLEKS R41 R40 K68 ["willUnmount"]
+  NEWCLOSURE R41 P5
+  CAPTURE REF R40
+  SETTABLEKS R41 R40 K69 ["getDerivedStateFromProps"]
+  DUPCLOSURE R41 K70 [PROTO_37]
   CAPTURE VAL R6
   CAPTURE VAL R38
   CAPTURE VAL R33
   CAPTURE VAL R2
   CAPTURE VAL R10
-  SETTABLEKS R41 R40 K65 ["render"]
+  SETTABLEKS R41 R40 K71 ["render"]
   MOVE R41 R12
-  DUPTABLE R42 K68 [{"Plugin", "Localization", "Telemetry"}]
-  GETTABLEKS R43 R11 K66 ["Plugin"]
-  SETTABLEKS R43 R42 K66 ["Plugin"]
-  GETTABLEKS R43 R11 K67 ["Localization"]
-  SETTABLEKS R43 R42 K67 ["Localization"]
+  DUPTABLE R42 K74 [{"Plugin", "Localization", "Telemetry"}]
+  GETTABLEKS R43 R11 K72 ["Plugin"]
+  SETTABLEKS R43 R42 K72 ["Plugin"]
+  GETTABLEKS R43 R11 K73 ["Localization"]
+  SETTABLEKS R43 R42 K73 ["Localization"]
   SETTABLEKS R37 R42 K53 ["Telemetry"]
   CALL R41 1 1
   MOVE R42 R40
   CALL R41 1 1
   MOVE R40 R41
-  GETTABLEKS R41 R3 K69 ["connect"]
-  DUPCLOSURE R42 K70 [PROTO_30]
+  GETTABLEKS R41 R3 K75 ["connect"]
+  DUPCLOSURE R42 K76 [PROTO_38]
   MOVE R43 R26
   CALL R41 2 1
   MOVE R42 R40
   CALL R41 1 -1
+  CLOSEUPVALS R40
   RETURN R41 -1

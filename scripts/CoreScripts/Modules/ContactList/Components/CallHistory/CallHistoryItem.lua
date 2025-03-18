@@ -38,9 +38,6 @@ local Pages = require(ContactList.Enums.Pages)
 
 local useStartCallCallback = require(ContactList.Hooks.useStartCallCallback)
 
-local FFlagEnableIrisUniversalityFixes =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableIrisUniversalityFixes
-
 local PADDING_IN_BETWEEN = 12
 local PROFILE_SIZE = 68
 local DETAIL_CONTEXT_HEIGHT = 16
@@ -184,12 +181,10 @@ local function CallHistoryItem(props: Props)
 			setItemBackgroundTheme("BackgroundOnPress")
 		elseif newState == ControlState.Hover then
 			setItemBackgroundTheme("BackgroundOnHover")
-			if FFlagEnableIrisUniversalityFixes then
-				SoundManager:PlaySound(Sounds.Hover.Name, {
-					Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
-					PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
-				}, SoundGroups.Iris)
-			end
+			SoundManager:PlaySound(Sounds.Hover.Name, {
+				Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
+				PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
+			}, SoundGroups.Iris)
 		else
 			setItemBackgroundTheme("BackgroundDefault")
 		end
@@ -212,15 +207,6 @@ local function CallHistoryItem(props: Props)
 		page = currentPage,
 	}
 	local startCall = useStartCallCallback(tag, otherParticipantId, combinedName, props.dismissCallback, analyticsInfo)
-
-	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
-		if inputObject and inputObject.UserInputType == Enum.UserInputType.MouseMovement then
-			SoundManager:PlaySound(Sounds.Hover.Name, {
-				Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
-				PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
-			}, SoundGroups.Iris)
-		end
-	end, {})
 
 	local openOrUpdateCFM = React.useCallback(function()
 		analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuOpened, {
@@ -249,7 +235,6 @@ local function CallHistoryItem(props: Props)
 		onStateChanged = onItemStateChanged,
 		AutoButtonColor = false,
 		[React.Event.Activated] = startCall,
-		[React.Event.InputBegan] = if not FFlagEnableIrisUniversalityFixes then onHovered else nil :: any,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, PADDING.X),
