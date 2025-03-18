@@ -1,7 +1,7 @@
 struct SAParams
 {
     float overlay;
-    float unused1;
+    float tintMask;
     float amplitude;
-    float unused3;
+    float unused;
 };

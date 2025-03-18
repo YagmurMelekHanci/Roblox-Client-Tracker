@@ -1,4 +1,6 @@
 Key,Context,Source,en-us
+Studio.App.TeamCreate.AnnotationCalloutDescription,Description of the new comments/annotations feature.,"Collaboration just got easier! Drop comments right in the viewport to share ideas, give feedback, and keep everyone on the same page—right where it matters.","Collaboration just got easier! Drop comments right in the viewport to share ideas, give feedback, and keep everyone on the same page—right where it matters."
+Studio.App.TeamCreate.AnnotationsCalloutTitle,Title of the callout introducing the 'Comments' feature.,Introducing Comments!,Introducing Comments!
 Studio.App.TeamCreate.ConfirmDisable,,Are you sure you want to turn Team Create off?,Are you sure you want to turn Team Create off?
 Studio.App.TeamCreate.ConfirmLossyDisable,,"Turning off team create may result in loss of work.
 Are you sure ?","Turning off team create may result in loss of work.

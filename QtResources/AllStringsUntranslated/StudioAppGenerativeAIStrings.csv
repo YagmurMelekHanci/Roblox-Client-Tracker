@@ -14,6 +14,7 @@ Studio.App.GenerativeAI.BetaWelcome,,"How can I help you today? If you need idea
 
  I'm still learning, so I may not be able to help with everything. You can always ask, though."
 Studio.App.GenerativeAI.ClearAllMessages,,Clear All Messages,Clear All Messages
+Studio.App.GenerativeAI.ClickToSwapAssetVariation,Generic instructive text to show in the Assistant when telling the user to click to choose one of many different assets to swap between.,Click on any variation to swap the asset.,Click on any variation to swap the asset.
 Studio.App.GenerativeAI.ClickToSwapVariation,,Click on any variation to swap the model.,Click on any variation to swap the model.
 Studio.App.GenerativeAI.Continue,,Continue,Continue
 Studio.App.GenerativeAI.CopiedToClipboard,,Copied to clipboard,Copied to clipboard

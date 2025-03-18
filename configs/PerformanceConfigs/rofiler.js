@@ -1,7 +1,25 @@
 //////////////////////////////////////////////////////////////////////////////////////////
-// This script is being embedded into MicroProfile captures
+// This script is being embedded into MicroProfiler captures
 
-document.title = "MicroProfile Capture";
+if (globalThis.g_cliMode) {
+    globalThis.window = globalThis;
+    globalThis.document = {
+        childNodes: [],
+        getElementById: function(x) { return {}; },
+        createElement: function(x) { return {}; },
+    };
+    globalThis.navigator = {
+        platform: "",
+    };
+    if (!window.location) {
+        window.location = {
+            hash: "",
+            pathname: "",
+        };
+    }
+}
+
+document.title = "MicroProfiler Capture";
 
 var S = {};
 var g_Loader = {};
@@ -79,6 +97,8 @@ a:hover, a:active{
 
 .highlighted-background {
     background-color: #707070;
+    border-left: 1px solid #474747;
+    border-right: 1px solid #474747;
 }
 .highlighted-text {
     font-weight: bold;
@@ -298,11 +318,7 @@ Esc: Exit &amp; Clear filter
         <li><a>---</a></li>
     </ul>
 </li>
-<li id="ilPlugins" style="display: none;"><a class="highlighted-background">X-Ray</a>
-    <ul id='PluginMenu'>
-    </ul>
-</li>
-<li id="ilHighlight"><a>Highlight</a>
+<li id="ilHighlight"><a class="highlighted-background">Highlight</a>
     <ul id="HighlightSubMenu">
         <li><a href="javascript:void(0)" onclick="SwitchHighlight('None');">None</a></li>
         <li><a href="javascript:void(0)" onclick="SwitchHighlight('Render');">Render</a></li>
@@ -311,6 +327,10 @@ Esc: Exit &amp; Clear filter
         <li><a href="javascript:void(0)" onclick="SwitchHighlight('Sound');">Sound</a></li>
         <li><a href="javascript:void(0)" onclick="SwitchHighlight('Network');">Network</a></li>
         <li><a href="javascript:void(0)" onclick="SwitchHighlight('Script');">Script</a></li>
+    </ul>
+</li>
+<li id="ilPlugins" style="display: none;"><a class="highlighted-background">X-Ray</a>
+    <ul id='PluginMenu'>
     </ul>
 </li>
 <li id="ilExport"><a class="highlighted-background">Export</a>
@@ -470,7 +490,6 @@ function InitDataVars() {
     window.ThreadNames = undefined;
     window.ThreadIds = undefined;
     window.ThreadGpu = undefined;
-    window.ThreadClobbered = undefined;
     window.ThreadClobbered = undefined;
     window.ThreadBufferSizes = undefined;
     window.ThreadGroupTimeArray = undefined;
@@ -826,7 +845,6 @@ function OverflowAllowance(threadIdx, frame) {
 }
 
 function InitFrameInfo() {
-
     AggregateInfo.EmptyFrames = Array(Frames.length);
     emptyFrames = 0;
     for (var i = 0; i < Frames.length; i++) {
@@ -1459,55 +1477,51 @@ function ExportSummaryJSON() {
     resultingJson["platform_info"] = String(PlatformInfo);
 
     const downloadContent = JSON.stringify(resultingJson);
-
-    var url = window.location.pathname;
-    var filename = url.substring(url.lastIndexOf('/') + 1);
-    filename = filename.substring(0, filename.lastIndexOf('.')) + '_summary.json';
-    var link = document.createElement('a');
-    link.setAttribute('download', filename);
-    link.setAttribute('href', 'data:text/json' + ';charset=utf-8,' + encodeURIComponent(downloadContent));
-    link.click();
+    SaveExportResult(downloadContent);
+    OpenNewExportTab("summary.json", "", true);
 }
 
 
 function ExportMarkersCSV(returnAsText) {
-    var tab_text = 'frames,' + AggregateInfo.Frames + '\nname,group,average,max,callaverage\n';
+    var parts = Array();
+    
+    parts.push('frames,' + AggregateInfo.Frames + '\nname,group,average,max,callaverage\n');
     for (timerid in TimerInfo) {
         var timer = TimerInfo[timerid];
-        tab_text = tab_text + timer.name + ',' + GroupInfo[timer.group].name + ',' + timer.average + ',' + timer.max + ',' + timer.callaverage + '\n';
+        parts.push(timer.name + ',' + GroupInfo[timer.group].name + ',' + timer.average + ',' + timer.max + ',' + timer.callaverage + '\n');
     }
-    tab_text = tab_text + '\n\ngroup,average,max,total\n';
+    parts.push('\n\ngroup,average,max,total\n');
     for (groupid in GroupInfo) {
         var group = GroupInfo[groupid];
-        tab_text = tab_text + group.name + ',' + group.average + ',' + group.max + ',' + group.total + '\n';
+        parts.push(group.name + ',' + group.average + ',' + group.max + ',' + group.total + '\n');
     }
-    tab_text = tab_text + '\n\ngroup,thread,average,total\n';
+    parts.push('\n\ngroup,thread,average,total\n');
     for (groupid in GroupInfo) {
         for (var i = 0; i < ThreadNames.length; ++i) {
             var PerThreadTimerTotal = ThreadGroupTimeArray[i][groupid];
             if (PerThreadTimerTotal > 0.01) {
                 var ave = PerThreadTimerTotal / AggregateInfo.Frames;
-                tab_text = tab_text + GroupInfo[groupid].name + ',' + ThreadNames[i] + ',' + ave + ',' + PerThreadTimerTotal + '\n';
+                parts.push(GroupInfo[groupid].name + ',' + ThreadNames[i] + ',' + ave + ',' + PerThreadTimerTotal + '\n');
             }
         }
     }
-    tab_text = tab_text + '\n\n\nframetimecpu\n';
+    parts.push('\n\n\nframetimecpu\n');
     for (var i = 0; i < Frames.length; ++i) {
         var ms = Frames[i].frameend - Frames[i].framestart;
-        tab_text = tab_text + ms + ',';
+        parts.push(ms + ',');
     }
-    tab_text = tab_text + '\n\n\nframetimegpu\n';
+    parts.push('\n\n\nframetimegpu\n');
     for (var i = 0; i < Frames.length; ++i) {
         var ms = Frames[i].frameendgpu - Frames[i].framestartgpu;
-        tab_text = tab_text + ms + ',';
+        parts.push(ms + ',');
     }
-    tab_text = tab_text + '\n\n\n\n\n\n';
+    parts.push('\n\n\n\n\n\n');
     for (var i = 0; i < Frames.length; ++i) {
         var fr = Frames[i];
-        tab_text = tab_text + '\nFrame,Frame Begin Time CPU (ms),Frame End Time CPU (ms),Frame Begin Time GPU (ms),Frame End Time GPU (ms)\n' + i + ',';
-        tab_text = tab_text + fr.framestart + ',' + fr.frameend + ',' + fr.framestartgpu + ',' + fr.frameendgpu + '\n\n';
+        parts.push('\nFrame,Frame Begin Time CPU (ms),Frame End Time CPU (ms),Frame Begin Time GPU (ms),Frame End Time GPU (ms)\n' + i + ',');
+        parts.push(fr.framestart + ',' + fr.frameend + ',' + fr.framestartgpu + ',' + fr.frameendgpu + '\n\n');
         if (fr.incomplete) {
-            tab_text = tab_text + 'INCOMPLETE\n';
+            parts.push('INCOMPLETE\n');
             continue;
         }
         var nNumLogs = Frames[0].ts.length;
@@ -1521,7 +1535,7 @@ function ExportMarkersCSV(returnAsText) {
                 continue;
             var ThreadName = ThreadNames[nLog];
             var isGPU = ThreadGpu[nLog];
-            tab_text = tab_text + 'Thread Name:,' + ThreadName + '\nGroup Name,Marker Name,Begin,End,Labels\n';
+            parts.push('Thread Name:,' + ThreadName + '\nGroup Name,Marker Name,Begin,End,Labels\n');
             var callStack = Array();
             var out = Array();
             for (var j = 0; j < numEntries; ++j) {
@@ -1567,23 +1581,19 @@ function ExportMarkersCSV(returnAsText) {
                 var label = outRow.label;
                 if (label == undefined)
                     label = ' ';
-                tab_text = tab_text + GroupInfo[timer.group].name + ',' + outRow.name + ',' + outRow.beginTime + ',' + outRow.endTime + ',' + label + '\n';
+                parts.push(GroupInfo[timer.group].name + ',' + outRow.name + ',' + outRow.beginTime + ',' + outRow.endTime + ',' + label + '\n');
             }
-            tab_text = tab_text + '\n';
+            parts.push('\n');
         }
     }
 
+    var tab_text = parts.join("");
     if (returnAsText) {
         return tab_text;
     }
 
-    var url = window.location.pathname;
-    var filename = url.substring(url.lastIndexOf('/') + 1);
-    filename = filename.substring(0, filename.lastIndexOf('.')) + '.csv';
-    var link = document.createElement('a');
-    link.setAttribute('download', filename);
-    link.setAttribute('href', 'data:text/csv' + ';charset=utf-8,' + encodeURIComponent(tab_text));
-    link.click();
+    SaveExportResult(tab_text);
+    OpenNewExportTab(".csv", "", true);
 }
 
 function ShowHelp(Show, Forever) {
@@ -3532,13 +3542,8 @@ function ExportCountersCSV() {
         }
     }
 
-    var url = window.location.pathname;
-    var filename = url.substring(url.lastIndexOf('/') + 1);
-    filename = filename.substring(0, filename.lastIndexOf('.')) + '_counters.csv';
-    var link = document.createElement('a');
-    link.setAttribute('download', filename);
-    link.setAttribute('href', 'data:text/csv' + ';charset=utf-8,' + encodeURIComponent(text.csv));
-    link.click();
+    SaveExportResult(text.csv);
+    OpenNewExportTab("counters.csv", "", true);
 }
 function DrawCounterView() {
     ProfileEnter("DrawCounterView");
@@ -3720,10 +3725,6 @@ function DrawCounterView() {
     DrawHeaderSplitSingle('Name', CounterNameWidth);
     DrawHeaderSplitSingleRight('Value', CounterValueWidth + (FontWidth + 1));
     DrawHeaderSplitSingle('Limit', CounterLimitWidth + CounterWidth + 3 * (FontWidth + 1));
-
-
-
-
 
     var CounterNameWidthNew = CounterNameWidthTemp * (FontWidth + 1);
     var CounterValueWidthNew = CounterValueWidthTemp * (FontWidth + 1);
@@ -4002,39 +4003,46 @@ function DrawConnectedScopeLines(context, ids, a) {
             context.lineTo(X0 + W0 + arrowWidth, Y0 - arrowBridgeHeight + arrowHeight);
             context.lineTo(X0 + W0, Y0 - arrowBridgeHeight);
         }
-        context.moveTo(X0 + W0, Y0 - arrowBridgeHeight);
 
         // Bridge
         context.lineTo(X1, Y0 - arrowBridgeHeight);
-        context.lineTo(X1, Y1 - arrowBridgeHeight);
 
         // Finish
-        context.lineTo(X1, Y1 - arrowBridgeHeight);
-        context.lineTo(X1, Y1);
-        if (drawArrows) {        
-            context.moveTo(X1, Y1 - arrowHeight);
-            context.lineTo(X1 - arrowWidth, Y1 - arrowHeight);
+        if (Y1 >= Y0) {
             context.lineTo(X1, Y1);
+            if (drawArrows) {
+                context.moveTo(X1, Y1 - arrowHeight);
+                context.lineTo(X1 - arrowWidth, Y1 - arrowHeight);
+                context.lineTo(X1, Y1);
+            }
+        } else {
+            context.lineTo(X1, Y1 + BoxHeight);
+            if (drawArrows) {
+                context.moveTo(X1, Y1 + BoxHeight + arrowHeight);
+                context.lineTo(X1 - arrowWidth, Y1 + BoxHeight + arrowHeight);
+                context.lineTo(X1, Y1 + BoxHeight);
+            }
         }
-        context.moveTo(X1, Y1);
         
         context.stroke();
     } 
 }
 
+function CompareHoverScopes(s1, s2) {
+    if (!!s1 != !!s2)
+        return false;
+    if (!s1 && !s2)
+        return true;
+    if (s1 && s2 && s1.globIndex == s2.globIndex && s1.nLog == s2.nLog)
+        return true;
+    return false;
+}
 
 function DrawDetailedView(context, MinWidth, bDrawEnabled) {
-    if (g_Loader.hoverScope != g_Loader.prevHoverScope) {
-        bDrawEnabled = true;
-    }
-    
+    var needToHighlightScope = g_Loader.needToHighlightScope;
     if (bDrawEnabled) {
         DrawDetailedBackground(context);
     }
-
-    var needToHighlightScope = g_Loader.lockScope ? g_Loader.lockScope : g_Loader.hoverScope;
-    g_Loader.prevHoverScope = g_Loader.hoverScope;
-    g_Loader.hoverScope = null;
 
     function ReplaceTopLevelName(name) {
         const replacements = new Map([
@@ -4086,7 +4094,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
     var fTimeEnd = fDetailedOffset + fDetailedRange;
 
     var FirstFrame = 0;
-    var fLastFrameTimeEnd = 0;
+    var fLastFrameTimeEnd = fTimeEnd;
     for (var i = 0; i < Frames.length; i++) {
         if (Frames[i].frameend < fDetailedOffset) {
             FirstFrame = i;
@@ -4227,16 +4235,19 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                             if (StackPos < window.MaxStackDepthToVisualize && W > MinWidth && (onScreen || needToHighlightScope)) {
                                 const isMaxDepth = (StackPos == window.MaxStackDepthToVisualize - 1);
 
+                                let addToBatch = onScreen;
+                                let batchIndex = index;
                                 if (bDrawEnabled || index == nHoverToken) {
-                                    let batchIndex = index;
-
                                     if (needToHighlightScope && xtrastart.jobInfo && needToHighlightScope.jobInfo.instanceId == xtrastart.jobInfo.instanceId) {
+                                        addToBatch = true;
                                         selectedScopeInstanceCount++;
                                         batchIndex = TimerInfo.length + index;
                                         BatchesTime[batchIndex].push(timestart);
                                         BatchesTime[batchIndex].push(timeend);
                                     }
-    
+                                }
+
+                                if ((bDrawEnabled || index == nHoverToken) && addToBatch) {
                                     BatchesHighlighted[batchIndex].push(highlightedAttr);
 
                                     Batches[batchIndex].push(X);
@@ -4287,7 +4298,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                             // Dark scope = bright text and vise versa
                                             txtidx = txNorm.isDark ? 0 : 1;
                                         }
-                                        
+
                                         var noTime = false;
                                         if (StackPos == 0) {
                                             var repl = ReplaceTopLevelName(Name);
@@ -4303,14 +4314,14 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
 
                                         if (BarTextLen < Name.length)
                                             Name = Name.substr(0, BarTextLen);
-                                        
+
                                         var YPos = Y + BoxHeight - FontAscent;
                                         BatchesTxt[txtidx].push(Name);
                                         BatchesTxtPos[txtidx].push(XText + 2);
 
                                         BatchesTxtPos[txtidx].push(YPos);
                                         DebugDrawTextCount++;
-                                        
+
                                         if (!noTime && BarTextLen - Name.length > TimeTextLen) {
                                             BatchesTxt[txtidx].push(TimeText);
                                             BatchesTxtPos[txtidx].push(XText + WText - 2 - TimeTextLen * FontWidth);
@@ -4341,7 +4352,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                         RangeGpuNext.Begin = -1;
                                         RangeGpuNext.End = -1;
                                     }
-                                    
+
                                     if (xtrastart && xtrastart.jobInfo) {
                                         g_Loader.hoverScope = {
                                             nLog: nLog,
@@ -4357,7 +4368,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                                     SetHoverToken(index, glob, nLog);
                                 }
                             }
-                            
+
                             var endTime = needToHighlightScope ? fLastFrameTimeEnd : fTimeEnd;
                             if (StackPos == 0 && time > endTime)
                                 break;
@@ -4412,6 +4423,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
             }
         }
 
+        var hasHoverColors = false;
         {
             var hasSelectedScopeInstances = selectedScopeInstanceCount > 0;
             var hasSeveralSelectedScopeInstances = selectedScopeInstanceCount > 1;
@@ -4430,6 +4442,21 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 if (!bDrawEnabled && isTransparentScope)
                     continue;
 
+                var setHoverColor = false;
+                if (hasSelectedScopeInstances) {
+                    if (!hasSeveralSelectedScopeInstances && isSelectedScope && needToHighlightScope && g_Loader.hoverScope &&
+                        needToHighlightScope.jobInfo.instanceId == g_Loader.hoverScope.jobInfo.instanceId) {
+                        setHoverColor = true;
+                        hasHoverColors = true;
+                    }
+                } else if (timerIndex == nHoverToken && !isTransparentScope) {
+                    setHoverColor = true;
+                    hasHoverColors = true;
+                }
+                if (!bDrawEnabled && !setHoverColor)
+                    continue;
+
+                var origColor = setHoverColor ? nHoverColor : TimerInfo[timerIndex].color;
                 var a = Batches[i];
                 if (a.length) {
                     if (hasSeveralSelectedScopeInstances && isSelectedScope) {
@@ -4437,7 +4464,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                         var ids = sortedScopes.ids;
                         DrawConnectedScopeLines(context, ids, a);
                     }
-                    
+
                     if (!DisableMerge) {
                         for (var j = 0; j < a.length; j += 3) {
                             var X = a[j];
@@ -4464,6 +4491,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                             }
                         }
                     }
+
                     var off = 0.7;
                     var off2 = 2 * off;
                     var outlineColor = TimerInfo[timerIndex].colordark;
@@ -4493,16 +4521,6 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                         }
                     }
 
-                    var origColor = TimerInfo[timerIndex].color;
-                    if (hasSelectedScopeInstances) {
-                        if (!hasSeveralSelectedScopeInstances && isSelectedScope && needToHighlightScope && g_Loader.hoverScope &&
-                            needToHighlightScope.jobInfo.instanceId == g_Loader.hoverScope.jobInfo.instanceId) {
-                            origColor = nHoverColor;
-                        }
-                    } else if (timerIndex == nHoverToken && !isTransparentScope) {
-                        origColor = nHoverColor;
-                    }
-                    
                     context.fillStyle = origColor;
                     for (var j = 0; j < a.length; j += 3) {
                         var X = a[j];
@@ -4576,7 +4594,10 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 } // if (Batches[i].length)
             }
         }
-        
+
+        if (!bDrawEnabled && !hasHoverColors)
+            return;
+
         for (var i = 0; i < BatchesTxt.length; ++i) {
             var isTransparent = (i >= 2);
             if (!bDrawEnabled && isTransparent)
@@ -4737,6 +4758,13 @@ function DrawDetailed(Animation) {
         Invalidate = 1;
     }
     nHoverTokenDrawn = nHoverToken;
+
+    if (!CompareHoverScopes(g_Loader.hoverScope, g_Loader.prevHoverScope)) {
+        Invalidate = 1;
+    }
+    g_Loader.needToHighlightScope = g_Loader.lockScope ? g_Loader.lockScope : g_Loader.hoverScope;
+    g_Loader.prevHoverScope = g_Loader.hoverScope;
+    g_Loader.hoverScope = null;
 
     if (Invalidate == 0) //when panning, only draw bars that are a certain width to keep decent framerate
     {
@@ -5492,9 +5520,14 @@ function MouseDrag(Source, Event) {
     
     const MouseButtonRight = 3;
     if (MapMouseButton(Event) == MouseButtonRight) {
-        g_Loader.lockScope = g_Loader.hoverScope;
-        if (g_Loader.lockScope != null)
+        if (g_Loader.hoverScope && g_Loader.hoverScope.jobInfo &&
+            g_Loader.hoverScope.jobInfo.isFirstEnter && g_Loader.hoverScope.jobInfo.isLastEnter) {
             return;
+        } else {
+            g_Loader.lockScope = g_Loader.hoverScope;
+            if (g_Loader.lockScope != null)
+                return;
+        }
     }
     
     var LocalRect = Event.target.getBoundingClientRect();
@@ -6419,16 +6452,20 @@ function PreprocessMeta() {
     }
 }
 
-function Preprocess() {
-    var ProfileModeOld = ProfileMode;
-    ProfileMode = 1;
-    ProfileModeClear();
-    ProfileEnter("Preprocess");
+function PreprocessMinimal() {
     PreprocessTimerSubstitutions(
         timer => timer.name.startsWith("$"),
         (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label,
     );
     PreprocessCalculateAllTimers();
+}
+
+function Preprocess() {
+    var ProfileModeOld = ProfileMode;
+    ProfileMode = 1;
+    ProfileModeClear();
+    ProfileEnter("Preprocess");
+    PreprocessMinimal();
     PreprocessFindFirstFrames();
     PreprocessGlobalArray();
     PreprocessLods();
@@ -6453,17 +6490,29 @@ function ExecStatement(js) {
 
 async function UnzipData(compressedData, prefix, postfix, hasSize, method) {
     var compressedDataNoHeader = hasSize ? compressedData.slice(2 * 4) : compressedData;
-    const compressedStream = new ReadableStream({
-        start(controller) {
-            controller.enqueue(compressedDataNoHeader);
-            controller.close();
-        }
-    });
 
-    const decompressionStream = new DecompressionStream(method);
-    const readableStream = compressedStream.pipeThrough(decompressionStream);
+    let compressedStream;
+    let decompressionStream;
+    let readableStream;
+    let encoder;
 
-    let encoder = new TextEncoder();
+    try {
+        compressedStream = new ReadableStream({
+            start(controller) {
+                controller.enqueue(compressedDataNoHeader);
+                controller.close();
+            }
+        });
+        decompressionStream = new DecompressionStream(method);
+        readableStream = compressedStream.pipeThrough(decompressionStream);
+        encoder = new TextEncoder();
+    } catch (error) {
+        g_Loader.isBrowserUnsupported = true;
+        g_Loader.isBrowserUnzipError = true;
+        console.error("Error preparing data decompression:", error);
+        throw new Error("Browser does not support the required features");
+    }
+
     var prefixData = (prefix.length > 0) ? encoder.encode(prefix) : new Uint8Array;
     var postfixData = (postfix.length > 0) ? encoder.encode(postfix) : new Uint8Array;
 
@@ -6623,7 +6672,7 @@ function ComposeOrigFilename() {
     return res;
 }
 
-function GetExportFilename(shortName) {
+function GetExportFilename(shortName, customExt) {
     var filename = "";
     var pathname = window.location.pathname;
     if (pathname.endsWith('.htm') || pathname.endsWith('.html')) {
@@ -6633,20 +6682,61 @@ function GetExportFilename(shortName) {
         filename = ComposeOrigFilename();
     }
     if (shortName != "") {
+        var noPostfix = shortName.startsWith('.');
         var dotIndex = filename.lastIndexOf('.');
         var baseName = filename.substring(0, dotIndex);
         var extension = filename.substring(dotIndex);
-        filename = baseName + '_' + shortName + extension;
+        filename =
+            baseName + (noPostfix ? '' : '_') +
+            shortName + (customExt ? '' : extension);
     }
     return filename;
 }
 
+function GetContentTypeByFilename(filename) {
+    const types = new Map([
+        ['.html', 'text/html'],
+        ['.json', 'application/json'],
+        ['.csv', 'text/csv'],
+        ['.txt', 'text/plain'],
+    ]);
+    
+    var name = filename.toLowerCase();
+    var dotIndex = name.lastIndexOf('.');
+    var ext = (dotIndex < 0) ? "" : name.substring(dotIndex);
+   
+    if (types.has(ext))
+        return types.get(ext);
+    
+    return "";
+}
+
+function ExportCliMode(shortName, fullName) {
+    var contentType = GetContentTypeByFilename(fullName ? fullName : shortName);
+    var customExt = (contentType != "");
+    var filename = fullName ? fullName : GetExportFilename(shortName, customExt);
+    if (cpp) {
+        cpp.ExportResult(g_Loader.toolsData.exportResult, filename);
+    }
+    g_Loader.toolsData.exportResult = null;
+    return;
+}
+
 function OpenNewExportTab(shortName, fullName, forceDownload) {
+    if (globalThis.g_cliMode) {
+        ExportCliMode(shortName, fullName);
+        return;
+    }
+
     var tabOpened = false;
 
+    var contentType = GetContentTypeByFilename(fullName ? fullName : shortName);
+    var customExt = (contentType != "");
+    contentType = customExt ? contentType : 'text/html';
+    
     var pageBlob = new Blob(
         [g_Loader.toolsData.exportResult],
-        { type: 'text/html' }
+        { type: contentType }
     );
     var pageObj = URL.createObjectURL(pageBlob);
 
@@ -6661,7 +6751,7 @@ function OpenNewExportTab(shortName, fullName, forceDownload) {
     }
 
     if (!tabOpened) {
-        var filename = fullName ? fullName : GetExportFilename(shortName);
+        var filename = fullName ? fullName : GetExportFilename(shortName, customExt);
         var link = document.createElement('a');
         link.setAttribute('download', filename);
         link.href = pageObj;
@@ -6978,7 +7068,14 @@ function ParseRawWorker(exporterFuncName, rawFileStructs) {
         var localId = 0;
         var fileStructId = 0;
         g_Loader.worker.isReady = false;
-        g_Loader.worker.instance = new Worker(g_Loader.worker.urlObj);
+        try {
+            g_Loader.worker.instance = new Worker(g_Loader.worker.urlObj);
+        } catch (error) {
+            g_Loader.isBrowserUnsupported = true;
+            g_Loader.isBrowserWorkerError = true;
+            console.error("Error creating a worker for data loading:", error);
+            throw new Error("Browser does not support the required features");
+        }
         g_Loader.worker.instance.onmessage = async function (event) {
             if (event.data == "") {
                 if (g_Loader.worker.isReady && g_Loader.worker.hasAllData) {
@@ -7072,12 +7169,23 @@ function HaltPage() {
             dotsDiv.innerHTML = "<span style='font-size: 1.2rem;'>Error loading viewer.</span><br>" +
                 "See browser's developer console for details.";
         }
+    } if (g_Loader.isBrowserUnsupported) {
+        let msg = "<span style='font-size: 1.2rem;'>Browser failed to load the profiling data.</span><br>";
+        if (g_Loader.isBrowserUnzipError) {
+            msg += "Preparation for data decompression was unsuccessful.";
+        } else if (g_Loader.isBrowserWorkerError) {
+            msg += "Creation of worker for data loading was unsuccessful.";
+        }
+        msg += " The browser may not support the required features for opening this dump.";
+        dotsDiv.innerHTML = msg;
     } else {
         dotsDiv.innerHTML = "<span style='font-size: 1.2rem;'>No profiling data found.</span><br>" +
             "If this page was saved using a web browser, please retry saving it by clicking the " +
             "top menu button \u21e9 (Save to file) in the Microprofiler's web UI.<br>" +
             "This option ensures the original file name and internal data remain intact.<br>" +
-            "Alternatively, you can try 'Webpage, HTML Only' mode when saving.";
+            "Alternatively, you can try 'Webpage, HTML Only' mode when saving.<br>" +
+            "Also, it is recommended to open dump files in a browser, as document reader apps and " +
+            "previewers may skip some of the saved data.";
     }
 }
 
@@ -7696,9 +7804,7 @@ function CalcPercentiles(txEntries, mode) {
         return a - b;
     });
     // Filter out duplicates
-    var uniqueSorted = values.filter(function (value, index, self) {
-        return self.indexOf(value) === index;
-    });
+    var uniqueSorted = [...new Set(values)];
 
     var res = Array(100 + 1);
     for (var i = 0; i <= 100; i++) {
@@ -8928,7 +9034,28 @@ function InitMain() {
     ProcessUrlArgs();
 }
 
-if (!window.g_Reload) {
+function CliInitMinimal() {
+    g_Loader.toolsData = {};
+    InitDataVars();
+    InitDataImpl();
+    InitViewerVars();
+    InitPluginVars();
+    InitGroups();
+    InitFrameInfo();
+    PreprocessMinimal();
+}
+
+function CliInitPlugins(bPrepare) {
+    ScanEvents();
+    InitPluginStates();
+    if (bPrepare) {
+        PrepareEvents();
+    }
+}
+
+if (globalThis.g_cliMode) {
+    CliInitMinimal();
+} else if (!window.g_Reload) {
     InitCssHtml();
     InitDataVars();
     InitData().then(() => {

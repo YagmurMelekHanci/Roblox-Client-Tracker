@@ -281,8 +281,11 @@ Class AnimationTrack : Instance [NotCreatable]
 	Function AnimationTrack:AdjustSpeed(speed: number? = 1) -> () [CustomLuaState]
 	Function AnimationTrack:AdjustWeight(weight: number? = 1, fadeTime: number? = 0.100000001) -> () [CustomLuaState]
 	Function AnimationTrack:GetMarkerReachedSignal(name: string) -> RBXScriptSignal
+	Function AnimationTrack:GetTargetInstance(name: string) -> Instance?
+	Function AnimationTrack:GetTargetNames() -> { any }
 	Function AnimationTrack:GetTimeOfKeyframe(keyframeName: string) -> number
 	Function AnimationTrack:Play(fadeTime: number? = 0.100000001, weight: number? = 1, speed: number? = 1) -> () [CustomLuaState]
+	Function AnimationTrack:SetTargetInstance(name: string, target: Instance) -> ()
 	Function AnimationTrack:Stop(fadeTime: number? = 0.100000001) -> () [CustomLuaState]
 	Event AnimationTrack.DidLoop()
 	Event AnimationTrack.Ended()
@@ -342,10 +345,11 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function AnnotationsService:CreateAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:DEPRECATED_EditAnnotation(uniqueId: string, contents: string) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:DEPRECATED_LoadAnnotationReplies(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:DeleteAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:EditAnnotation(uniqueId: string, contents: string, taggedUsers: string) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:GetAnnotationThreads() -> { Instance } {RobloxScriptSecurity}
-	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation, reverseOrder: boolean, loadAll: boolean) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:LoadResolvedAnnotations(count: number) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:ResolveAnnotation(annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationAdded(requestId: string, annotation: Annotation, channelId: string) {RobloxScriptSecurity}
@@ -353,7 +357,8 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Event AnnotationsService.AnnotationEdited(requestId: string, uniqueId: string, contents: string, taggedUsers: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationResolved(requestId: string, annotation: Annotation, resolved: boolean) {RobloxScriptSecurity}
 	Event AnnotationsService.DEPRECATED_AnnotationEdited(requestId: string, uniqueId: string, contents: string) {RobloxScriptSecurity}
-	Event AnnotationsService.ServerLoadAnnotationReplies(annotation: Annotation) {RobloxSecurity}
+	Event AnnotationsService.DEPRECATED_ServerLoadAnnotationReplies(annotation: Annotation) {RobloxSecurity}
+	Event AnnotationsService.ServerLoadAnnotationReplies(annotation: Annotation, reverseOrder: boolean, loadAll: boolean) {RobloxSecurity}
 	Event AnnotationsService.ServerLoadResolvedAnnotations(count: number) {RobloxSecurity}
 Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppLifecycleObserverService:GetCurrentState() -> Enum.AppLifecycleManagerState {RobloxScriptSecurity}
@@ -725,7 +730,7 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.SearchKeyword: string
 	Property AudioSearchParams.Tag: string
 	Property AudioSearchParams.Title: string
-Class AudioTextToSpeech : Instance
+Class AudioTextToSpeech : Instance [NotBrowsable]
 	Property AudioTextToSpeech.IsLoaded: boolean [ReadOnly]
 	Property AudioTextToSpeech.Pitch: number
 	Property AudioTextToSpeech.Speed: number
@@ -748,21 +753,17 @@ Class AudioTextToSpeech : Instance
 	Event AudioTextToSpeech.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Property AuroraScriptService.BufferSize: number {✏️PluginSecurity} [Deprecated]
-	Property AuroraScriptService.LocalFrameId: number {✏️RobloxSecurity} [NotReplicated] [Deprecated]
-	Property AuroraScriptService.RemoteFrameId: number {✏️RobloxSecurity} [Deprecated]
+	Function AuroraScriptService:GetLocalFrameId() -> number [Deprecated] {🧬Safe}
 	Function AuroraScriptService:GetProperty(instance: Instance, name: string) -> any [Deprecated] {🧬Safe}
 	Function AuroraScriptService:GetTime() -> number [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SetProperty(instance: Instance, name: string, value: any) -> () [Deprecated] {🧬Safe}
 Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
-	Property AuroraService.RollbackEnabled: boolean [Deprecated]
 	Function AuroraService:GetDesyncedInstances() -> { any } [Deprecated]
 	Function AuroraService:GetRemoteWorldStepId() -> number [Deprecated]
 	Function AuroraService:GetServerView(target: Instance) -> Instance? [Deprecated]
 	Function AuroraService:GetWorldStepId() -> number [Deprecated]
 	Function AuroraService:IsDesynced(target: Instance) -> boolean [Deprecated]
-	Function AuroraService:NetDesync(target: Instance) -> () [Deprecated]
-	Function AuroraService:NetSync(target: Instance) -> () [Deprecated]
 	Function AuroraService:SetIncomingReplicationLag(seconds: number) -> () [Deprecated]
 	Function AuroraService:SetPropertyIsInput(target: Instance, propertyName: string, isInput: boolean) -> () [Deprecated]
 	Function AuroraService:StartPrediction(target: Instance) -> () [Deprecated]
@@ -2193,6 +2194,7 @@ Class Hole : Feature [Deprecated]
 Class MotorFeature : Feature [Deprecated]
 Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
 	Event FeatureRestrictionManager.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
+	Event FeatureRestrictionManager.UpdateExperienceChatTimeout(startTime: number, duration: number) {RobloxSecurity} [Hidden]
 Class File : Instance [NotCreatable] [NotReplicated]
 	Property File.Size: number {PluginSecurity} [Hidden] [ReadOnly]
 	Function File:GetBinaryContents() -> string {PluginSecurity}
@@ -2402,6 +2404,8 @@ Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
 	Property GuiButton.MouseButton2ClickConnectionCount: number [Hidden] [NotScriptable]
 	Property GuiButton.MouseButton2DownConnectionCount: number [Hidden] [NotScriptable]
 	Property GuiButton.MouseButton2UpConnectionCount: number [Hidden] [NotScriptable]
+	Property GuiButton.HoverHapticEffect: HapticEffect?
+	Property GuiButton.PressHapticEffect: HapticEffect?
 	Property GuiButton.Selected: boolean
 	Event GuiButton.Activated(inputObject: InputObject, clickCount: number)
 	Event GuiButton.MouseButton1Click()
@@ -2523,9 +2527,11 @@ Class ScrollingFrame : GuiObject
 	Property ScrollingFrame.ScrollBarImageColor3: Color3
 	Property ScrollingFrame.ScrollBarImageTransparency: number
 	Property ScrollingFrame.ScrollBarThickness: number
+	Property ScrollingFrame.ScrollRate: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property ScrollingFrame.ScrollVelocity: Vector2 {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property ScrollingFrame.ScrollingDirection: Enum.ScrollingDirection
 	Property ScrollingFrame.ScrollingEnabled: boolean
+	Property ScrollingFrame.SmoothScroll: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property ScrollingFrame.TopImage: string
 	Property ScrollingFrame.VerticalScrollBarInset: Enum.ScrollBarInset
 	Property ScrollingFrame.VerticalScrollBarPosition: Enum.VerticalScrollBarPosition
@@ -2936,7 +2942,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.UiMessageChanged(msgType: Enum.UiMessageType, newUiMessage: string) {RobloxScriptSecurity}
 	Callback GuiService.SendCoreUiNotification(title: string, text: string) -> () {RobloxScriptSecurity}
 Class GuidRegistryService : Instance [NotCreatable] [Service]
-Class HapticEffect : Instance
+Class HapticEffect : Instance [NotBrowsable]
 	Property HapticEffect.Looped: boolean
 	Property HapticEffect.Position: Vector3
 	Property HapticEffect.Radius: number
@@ -3339,7 +3345,10 @@ Class InputAction : Instance [NotBrowsable]
 	Event InputAction.StateChanged(value: any)
 Class InputBinding : Instance [NotBrowsable]
 	Property InputBinding.KeyCode: Enum.KeyCode
+	Property InputBinding.PressedThreshold: number
+	Property InputBinding.ReleasedThreshold: number
 	Property InputBinding.UIButton: GuiButton?
+	Property InputBinding.Scale: number
 Class InputContext : Instance [NotBrowsable]
 	Property InputContext.Enabled: boolean
 	Property InputContext.Priority: number
@@ -4812,7 +4821,7 @@ Class PlayerDataRecord : Instance [NotCreatable] [NotReplicated]
 	Function PlayerDataRecord:GetPlayer() -> Player
 	Function PlayerDataRecord:GetValue(key: string) -> any
 	Function PlayerDataRecord:GetValueChangedSignal(key: string) -> RBXScriptSignal
-	Function PlayerDataRecord:Release() -> ()
+	Function PlayerDataRecord:ReleaseAsync() -> () [Yields]
 	Function PlayerDataRecord:RemoveValue(key: string) -> ()
 	Function PlayerDataRecord:RequestFlushAsync() -> () [Yields]
 	Function PlayerDataRecord:SetValue(key: string, value: any) -> ()
@@ -5624,6 +5633,7 @@ Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:CanSendCallInviteAsync(player: Instance) -> boolean [Yields]
 	Function SocialService:CanSendGameInviteAsync(player: Instance, recipientId: number? = 0) -> boolean [Yields]
+	Function SocialService:GetPlayersByPartyId(partyId: string) -> { Instance }
 	Function SocialService:HideSelfView() -> ()
 	Function SocialService:InvokeGameInvitePromptClosed(player: Instance, recipientIds: { any }) -> () {RobloxScriptSecurity}
 	Function SocialService:InvokeIrisInvite(player: Instance, tag: string, irisParticipants: { any }) -> () {RobloxScriptSecurity}
@@ -5635,6 +5645,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.GameInvitePromptClosed(player: Instance, recipientIds: { any })
 	Event SocialService.IrisInviteInitiated(message: string) {RobloxSecurity} [Hidden]
 	Event SocialService.PhoneBookPromptClosed(player: Instance)
+	Event SocialService.PlayerPartyDataChanged(partyId: string) {RobloxScriptSecurity}
 	Event SocialService.PromptInviteRequested(player: Instance, experienceInviteOptions: Instance) {RobloxScriptSecurity}
 	Event SocialService.PromptIrisInviteRequested(player: Instance, tag: string) {RobloxScriptSecurity}
 	Event SocialService.SelfViewHidden() {RobloxScriptSecurity}
@@ -7294,6 +7305,15 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.VoiceChatSubscriptionInitialBatchEmpty(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatplayerMuteStatusChangedEvent(userId: number, muted: boolean, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceSetupFailed(voiceControlPath: Enum.VoiceControlPath, serializedFailure: string, sessionId: string) {RobloxSecurity} [Hidden]
+Class WebSocketClient : Instance [NotCreatable] [NotReplicated]
+	Property WebSocketClient.ConnectionState: Enum.WebSocketState [ReadOnly]
+	Function WebSocketClient:Close() -> ()
+	Function WebSocketClient:Send(data: string) -> ()
+	Event WebSocketClient.Closed()
+	Event WebSocketClient.MessageReceived(data: string)
+	Event WebSocketClient.Opened()
+Class WebSocketService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function WebSocketService:CreateClient(uri: string) -> WebSocketClient
 Class WebViewService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function WebViewService:CloseWindow() -> () {RobloxScriptSecurity}
 	Function WebViewService:IsAvailable() -> boolean {RobloxScriptSecurity} [Yields]
@@ -7414,6 +7434,7 @@ Enum AlignType
 Enum AlphaMode
 	EnumItem AlphaMode.Overlay : 0
 	EnumItem AlphaMode.Transparency : 1
+	EnumItem AlphaMode.TintMask : 2 [NotBrowsable]
 Enum AnalyticsCustomFieldKeys
 	EnumItem AnalyticsCustomFieldKeys.CustomField01 : 0
 	EnumItem AnalyticsCustomFieldKeys.CustomField02 : 1
@@ -7817,10 +7838,6 @@ Enum CameraType
 	EnumItem CameraType.Custom : 5
 	EnumItem CameraType.Scriptable : 6
 	EnumItem CameraType.Orbital : 7
-Enum CaptureUIHideMode
-	EnumItem CaptureUIHideMode.All : 0
-	EnumItem CaptureUIHideMode.None : 1
-	EnumItem CaptureUIHideMode.Core : 2
 Enum CatalogCategoryFilter
 	EnumItem CatalogCategoryFilter.None : 1
 	EnumItem CatalogCategoryFilter.Featured : 2
@@ -9389,7 +9406,8 @@ Enum PlayerChatType
 Enum PlayerDataErrorState
 	EnumItem PlayerDataErrorState.LoadFailed : 0
 	EnumItem PlayerDataErrorState.FlushFailed : 1
-	EnumItem PlayerDataErrorState.None : 2
+	EnumItem PlayerDataErrorState.ReleaseFailed : 2
+	EnumItem PlayerDataErrorState.None : 3
 Enum PlayerDataLoadFailureBehavior
 	EnumItem PlayerDataLoadFailureBehavior.Failure : 0
 	EnumItem PlayerDataLoadFailureBehavior.FallbackToDefault : 1
@@ -9802,6 +9820,15 @@ Enum StartCorner
 	EnumItem StartCorner.TopRight : 1
 	EnumItem StartCorner.BottomLeft : 2
 	EnumItem StartCorner.BottomRight : 3
+Enum StateObjectFieldType
+	EnumItem StateObjectFieldType.Boolean : 0
+	EnumItem StateObjectFieldType.CFrame : 1
+	EnumItem StateObjectFieldType.Float : 2
+	EnumItem StateObjectFieldType.Instance : 3
+	EnumItem StateObjectFieldType.Random : 4
+	EnumItem StateObjectFieldType.Vector2 : 5
+	EnumItem StateObjectFieldType.Vector3 : 6
+	EnumItem StateObjectFieldType.INVALID : 7
 Enum Status [Deprecated]
 	EnumItem Status.Poison : 0 [Deprecated] [Deprecated]
 	EnumItem Status.Confusion : 1 [Deprecated] [Deprecated]
@@ -10281,6 +10308,10 @@ Enum TriStateBoolean
 Enum TweenStatus
 	EnumItem TweenStatus.Canceled : 0
 	EnumItem TweenStatus.Completed : 1
+Enum UICaptureMode
+	EnumItem UICaptureMode.All : 0
+	EnumItem UICaptureMode.None : 1
+	EnumItem UICaptureMode.PlayerGui : 2
 Enum UIDragDetectorBoundingBehavior
 	EnumItem UIDragDetectorBoundingBehavior.Automatic : 0
 	EnumItem UIDragDetectorBoundingBehavior.EntireObject : 1
@@ -10483,6 +10514,11 @@ Enum WaterForce
 	EnumItem WaterForce.Medium : 2
 	EnumItem WaterForce.Strong : 3
 	EnumItem WaterForce.Max : 4
+Enum WebSocketState
+	EnumItem WebSocketState.Connecting : 0
+	EnumItem WebSocketState.Open : 1
+	EnumItem WebSocketState.Closing : 2
+	EnumItem WebSocketState.Closed : 3
 Enum WeldConstraintPreserve
 	EnumItem WeldConstraintPreserve.All : 0
 	EnumItem WeldConstraintPreserve.None : 1

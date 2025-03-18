@@ -31,6 +31,8 @@ Studio.App.BetaFeatures.AnimationEditorTitle,,Animation Editor Beta,Animation Ed
 Studio.App.BetaFeatures.AssetImporterDescription,,"Enable the new smart, unified Avatar and Mesh Importer","Enable the new smart, unified Avatar and Mesh Importer"
 Studio.App.BetaFeatures.AssetImporterTitle,,New Mesh Importer,New Mesh Importer
 Studio.App.BetaFeatures.AssetManagerDescription,,"Manage your assets in a brand new widget, with new features. This replaces the Game Explorer.","Manage your assets in a brand new widget, with new features. This replaces the Game Explorer."
+Studio.App.BetaFeatures.AssetManagerRevampedDescription,Description for the Revamped Asset Manager beta.,"Use the revamped Asset Manager to browse, search, and work with assets.","Use the revamped Asset Manager to browse, search, and work with assets."
+Studio.App.BetaFeatures.AssetManagerRevampedTitle,Title for the Revamped Asset Manager beta,Revamped Asset Manager,Revamped Asset Manager
 Studio.App.BetaFeatures.AssetManagerTitle,,Asset Manager,Asset Manager
 Studio.App.BetaFeatures.AssetManageritle,,Asset Manager,Asset Manager
 Studio.App.BetaFeatures.AssistantLabDescription,,"Preview next-generation Assistant features, including new UI and advanced AI models. Opt-in anytime and switch back to default Assistant features as needed.","Preview next-generation Assistant features, including new UI and advanced AI models. Opt-in anytime and switch back to default Assistant features as needed."
@@ -152,6 +154,8 @@ Studio.App.BetaFeatures.GamepadEmulatorDescription,,Enabling this feature allows
 Studio.App.BetaFeatures.GamepadEmulatorTitle,,Gamepad Emulator,Gamepad Emulator
 Studio.App.BetaFeatures.GrassLengthCustomizationDescription,,Enables customization of terrain grass length in Studio.,Enables customization of terrain grass length in Studio.
 Studio.App.BetaFeatures.GrassLengthCustomizationTitle,,Grass Length Customization,Grass Length Customization
+Studio.App.BetaFeatures.HapticEffectDescription,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.
+Studio.App.BetaFeatures.HapticEffectTitle,Haptic Effects,Haptic Effects,Haptic Effects
 Studio.App.BetaFeatures.IkControlDescription,,"Enables IK Controls, which allow you to create realistic procedural animations using IK (Inverse Kinematics)","Enables IK Controls, which allow you to create realistic procedural animations using IK (Inverse Kinematics)"
 Studio.App.BetaFeatures.IkControlJointLimitDescription,,IKControl will now respect physics constraints and limits that match the positions of the animated joints.,IKControl will now respect physics constraints and limits that match the positions of the animated joints.
 Studio.App.BetaFeatures.IkControlJointLimitTitle,,IKControl Joint Constraint Support,IKControl Joint Constraint Support

@@ -311,7 +311,6 @@ boost::_bi::bind_t<class StudioResourceId,class StudioResourceId (__cdecl*)(clas
 boost::_bi::bind_t<int,class boost::_mfi::mf0<int,class RBX::Soundscape::SoundService>,class boost::_bi::list1<class boost::_bi::value<class RBX::Soundscape::SoundService * __ptr64> > >
 boost::_bi::bind_t<struct boost::_bi::unspecified,class std::function<void __cdecl(class RBX::DataModel * __ptr64,enum RBX::HttpRequestResult)>,class boost::_bi::list2<struct boost::arg<1>,class boost::_bi::value<enum RBX::HttpRequestResult> > >
 boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RBX::Studio::RecordToggleVerb>,class boost::_bi::list1<class boost::_bi::value<class RBX::Studio::RecordToggleVerb * __ptr64> > >
-boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RBX::TestService>,class boost::_bi::list1<class boost::_bi::value<class RBX::TestService * __ptr64> > >
 boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RobloxIDEDoc>,class boost::_bi::list1<class boost::_bi::value<class RobloxIDEDoc * __ptr64> > >
 boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RobloxViewStudio>,class boost::_bi::list1<class boost::_bi::value<class RobloxViewStudio * __ptr64> > >
 boost::_bi::bind_t<void,class boost::_mfi::mf2<void,class RBX::MockMarketplaceApiClient,class std::string,class std::function<void __cdecl(bool)> >,class boost::_bi::list3<class boost::_bi::value<class RBX::MockMarketplaceApiClient * __ptr64>,struct boost::arg<1>,class boost::_bi::value<class std::function<void __cdecl(bool)> > > >
@@ -1378,6 +1377,7 @@ Luau::CodeGen::SharedCodeGenContext
 Luau::CodeGen::UnwindBuilder
 Luau::CodeGen::UnwindBuilderWin
 Luau::CompileError
+Luau::IFragmentAutocompleteReporter
 Luau::InternalCompilerError
 Luau::LintComparisonPrecedence
 Luau::LintDeprecatedApi
@@ -2341,6 +2341,7 @@ RBX::AsyncHttpCache<struct RBX::LuaWebService::CachedLuaWebServiceInfo>
 RBX::AsyncHttpCache<struct RBX::LuaWebService::CachedRawLuaWebServiceInfo>
 RBX::AsyncHttpQueue
 RBX::AsyncPlayerCallbackQueueHandler<class std::shared_ptr<class std::unordered_map<class std::string,class RBX::Reflection::Variant,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const > >
+RBX::AsyncVideoStream
 RBX::Atmosphere
 RBX::AtmosphereProp
 RBX::AtmosphereSensor
@@ -3519,6 +3520,8 @@ RBX::Creatable::Deleter<class RBX::VisualizationModeService>
 RBX::Creatable::Deleter<class RBX::VoiceChatInternal>
 RBX::Creatable::Deleter<class RBX::VoiceChatService>
 RBX::Creatable::Deleter<class RBX::VRService>
+RBX::Creatable::Deleter<class RBX::WebSocketClient>
+RBX::Creatable::Deleter<class RBX::WebSocketService>
 RBX::Creatable::Deleter<class RBX::WebViewService>
 RBX::Creatable::Deleter<class RBX::Weld>
 RBX::Creatable::Deleter<class RBX::WeldConstraintTool>
@@ -4098,6 +4101,7 @@ RBX::Creator<class RBX::VisualizationModeService>
 RBX::Creator<class RBX::VoiceChatInternal>
 RBX::Creator<class RBX::VoiceChatService>
 RBX::Creator<class RBX::VRService>
+RBX::Creator<class RBX::WebSocketService>
 RBX::Creator<class RBX::WebViewService>
 RBX::Creator<class RBX::Weld>
 RBX::Creator<class RBX::Wire>
@@ -4224,6 +4228,7 @@ RBX::DefaultPlatformFriends
 RBX::DeleteBase
 RBX::DEPRECATED_FillTool
 RBX::DEPRECATED_LockTool
+RBX::DEPRECATED_ManagedWorldJointInstance
 RBX::DEPRECATED_ModelTool
 RBX::DEPRECATEDAnalyticsReporter
 RBX::DeprecatedSystemNotifier
@@ -4449,6 +4454,7 @@ RBX::Described<class RBX::UIGridStyleLayout,class RBX::UILayout>
 RBX::Described<class RBX::UILayout,class RBX::UIComponent>
 RBX::Described<class RBX::UserStorageService,class RBX::LocalStorageService>
 RBX::Described<class RBX::ValueBase,class RBX::Instance>
+RBX::Described<class RBX::WebSocketClient,class RBX::Instance>
 RBX::Described<class RBX::Workspace,class RBX::WorldRoot>
 RBX::Described<class RBX::WorldRoot,class RBX::ModelInstance>
 RBX::Described<class Theme,class RBX::Instance>
@@ -4999,6 +5005,7 @@ RBX::DescribedCreatable<class RBX::VisualizationModeService,class RBX::ServiceIn
 RBX::DescribedCreatable<class RBX::VoiceChatInternal,class RBX::ServiceInstance>
 RBX::DescribedCreatable<class RBX::VoiceChatService,class RBX::ServiceInstance>
 RBX::DescribedCreatable<class RBX::VRService,class RBX::ServiceInstance>
+RBX::DescribedCreatable<class RBX::WebSocketService,class RBX::ServiceInstance>
 RBX::DescribedCreatable<class RBX::WebViewService,class RBX::ServiceInstance>
 RBX::DescribedCreatable<class RBX::Weld,class RBX::JointInstance>
 RBX::DescribedCreatable<class RBX::Wire,class RBX::Instance>
@@ -5897,6 +5904,7 @@ RBX::LSP::LanguageClientBase
 RBX::LSP::LSPClientRouter
 RBX::LSP::LSPFileSyncService
 RBX::LSP::LSPFileSyncServiceProp
+RBX::LSP::LSPFragmentAcReporter
 RBX::LSP::LSPLiveScriptingDMReceiver
 RBX::LSP::LSPServerHost
 RBX::LSP::LSPService
@@ -5951,7 +5959,6 @@ RBX::LuaSourceContainerProp
 RBX::LuaStatsItem
 RBX::LuaWebService
 RBX::LuaWebServiceProp
-RBX::ManagedWorldJointInstance
 RBX::ManualGlue
 RBX::ManualGlueProp
 RBX::ManualJointHelper
@@ -6474,6 +6481,7 @@ RBX::PlatformProp
 RBX::Player
 RBX::PlayerConfigurer
 RBX::PlayerData
+RBX::PlayerDataJob
 RBX::PlayerDataProp
 RBX::PlayerDataRecord
 RBX::PlayerDataRecordConfig
@@ -6659,8 +6667,11 @@ RBX::Reflection::BoundFuncDesc<class RBX::AnimationStreamTrack,class std::shared
 RBX::Reflection::BoundFuncDesc<class RBX::AnimationStreamTrack,void __cdecl(bool),1>
 RBX::Reflection::BoundFuncDesc<class RBX::AnimationStreamTrack,void __cdecl(float),1>
 RBX::Reflection::BoundFuncDesc<class RBX::AnimationStreamTrack,void __cdecl(float,float),2>
+RBX::Reflection::BoundFuncDesc<class RBX::AnimationTrack,class std::shared_ptr<class RBX::Instance> __cdecl(class std::string const & __ptr64),1>
+RBX::Reflection::BoundFuncDesc<class RBX::AnimationTrack,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const > __cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::AnimationTrack,double __cdecl(class std::string),1>
 RBX::Reflection::BoundFuncDesc<class RBX::AnimationTrack,struct RBX::Lua::EventInstance __cdecl(class std::string const & __ptr64),1>
+RBX::Reflection::BoundFuncDesc<class RBX::AnimationTrack,void __cdecl(class std::string const & __ptr64,class std::shared_ptr<class RBX::Instance>),2>
 RBX::Reflection::BoundFuncDesc<class RBX::AnimationTrack,void __cdecl(float),1>
 RBX::Reflection::BoundFuncDesc<class RBX::AnimationTrack,void __cdecl(float,float),2>
 RBX::Reflection::BoundFuncDesc<class RBX::AnimationTrack,void __cdecl(float,float,float),3>
@@ -6679,6 +6690,7 @@ RBX::Reflection::BoundFuncDesc<class RBX::Annotation,class std::string __cdecl(v
 RBX::Reflection::BoundFuncDesc<class RBX::AnnotationsService,class std::shared_ptr<class std::vector<class std::shared_ptr<class RBX::Annotation>,class std::allocator<class std::shared_ptr<class RBX::Annotation> > > const > __cdecl(void)const __ptr64,0>
 RBX::Reflection::BoundFuncDesc<class RBX::AnnotationsService,void __cdecl(class std::shared_ptr<class RBX::Annotation> const & __ptr64),1>
 RBX::Reflection::BoundFuncDesc<class RBX::AnnotationsService,void __cdecl(class std::shared_ptr<class RBX::Annotation> const & __ptr64,bool),2>
+RBX::Reflection::BoundFuncDesc<class RBX::AnnotationsService,void __cdecl(class std::shared_ptr<class RBX::Annotation> const & __ptr64,bool,bool),3>
 RBX::Reflection::BoundFuncDesc<class RBX::AnnotationsService,void __cdecl(class std::string const & __ptr64,class std::string const & __ptr64),2>
 RBX::Reflection::BoundFuncDesc<class RBX::AnnotationsService,void __cdecl(class std::string const & __ptr64,class std::string const & __ptr64,class std::string const & __ptr64),3>
 RBX::Reflection::BoundFuncDesc<class RBX::AnnotationsService,void __cdecl(int),1>
@@ -6712,6 +6724,7 @@ RBX::Reflection::BoundFuncDesc<class RBX::AudioFocusService,int __cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::AudioFocusService,void __cdecl(int),1>
 RBX::Reflection::BoundFuncDesc<class RBX::AuroraScriptService,class RBX::Reflection::Variant __cdecl(class std::shared_ptr<class RBX::Instance>,class RBX::StringView),2>
 RBX::Reflection::BoundFuncDesc<class RBX::AuroraScriptService,double __cdecl(void),0>
+RBX::Reflection::BoundFuncDesc<class RBX::AuroraScriptService,int __cdecl(void)const __ptr64,0>
 RBX::Reflection::BoundFuncDesc<class RBX::AuroraScriptService,void __cdecl(class std::shared_ptr<class RBX::Instance>,class RBX::StringView,class RBX::Reflection::Variant),3>
 RBX::Reflection::BoundFuncDesc<class RBX::AuroraScriptService,void __cdecl(class std::shared_ptr<class RBX::Instance>,class RBX::StringView,class RBX::StringView,class std::shared_ptr<struct RBX::Reflection::Tuple const >),4>
 RBX::Reflection::BoundFuncDesc<class RBX::AuroraService,bool __cdecl(class std::shared_ptr<class RBX::Instance>),1>
@@ -7408,7 +7421,6 @@ RBX::Reflection::BoundFuncDesc<class RBX::PlayerDataRecord,class std::shared_ptr
 RBX::Reflection::BoundFuncDesc<class RBX::PlayerDataRecord,struct RBX::Lua::EventInstance __cdecl(class std::string const & __ptr64),1>
 RBX::Reflection::BoundFuncDesc<class RBX::PlayerDataRecord,void __cdecl(class std::string const & __ptr64),1>
 RBX::Reflection::BoundFuncDesc<class RBX::PlayerDataRecord,void __cdecl(class std::string const & __ptr64,class RBX::Reflection::Variant const & __ptr64),2>
-RBX::Reflection::BoundFuncDesc<class RBX::PlayerDataRecord,void __cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::PlayerDataRecordConfig,class RBX::Reflection::Variant __cdecl(class std::string const & __ptr64),1>
 RBX::Reflection::BoundFuncDesc<class RBX::PlayerDataRecordConfig,void __cdecl(class std::string const & __ptr64,class RBX::Reflection::Variant const & __ptr64),2>
 RBX::Reflection::BoundFuncDesc<class RBX::PlayerDataService,class std::shared_ptr<class RBX::PlayerDataRecordConfig> __cdecl(class std::string const & __ptr64),1>
@@ -7591,6 +7603,7 @@ RBX::Reflection::BoundFuncDesc<class RBX::ShorelineUpgraderService,void __cdecl(
 RBX::Reflection::BoundFuncDesc<class RBX::SkateboardPlatform,void __cdecl(class RBX::Vector3),1>
 RBX::Reflection::BoundFuncDesc<class RBX::Smoke,void __cdecl(int),1>
 RBX::Reflection::BoundFuncDesc<class RBX::SmoothVoxelsUpgraderService,void __cdecl(void),0>
+RBX::Reflection::BoundFuncDesc<class RBX::SocialService,class std::shared_ptr<class std::vector<class std::shared_ptr<class RBX::Player>,class std::allocator<class std::shared_ptr<class RBX::Player> > > const > __cdecl(class std::string),1>
 RBX::Reflection::BoundFuncDesc<class RBX::SocialService,void __cdecl(class std::shared_ptr<class RBX::Instance>),1>
 RBX::Reflection::BoundFuncDesc<class RBX::SocialService,void __cdecl(class std::shared_ptr<class RBX::Instance>,class std::shared_ptr<class RBX::Instance>),2>
 RBX::Reflection::BoundFuncDesc<class RBX::SocialService,void __cdecl(class std::shared_ptr<class RBX::Instance>,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const >),2>
@@ -8002,6 +8015,9 @@ RBX::Reflection::BoundFuncDesc<class RBX::VRService,enum RBX::Enums::VRTouchpadM
 RBX::Reflection::BoundFuncDesc<class RBX::VRService,void __cdecl(class RBX::CoordinateFrame,enum RBX::Enums::UserCFrameEnum::UserCFrame),2>
 RBX::Reflection::BoundFuncDesc<class RBX::VRService,void __cdecl(enum RBX::Enums::VRTouchpadEnum::VRTouchpad,enum RBX::Enums::VRTouchpadModeEnum::VRTouchpadMode),2>
 RBX::Reflection::BoundFuncDesc<class RBX::VRService,void __cdecl(void),0>
+RBX::Reflection::BoundFuncDesc<class RBX::WebSocketClient,void __cdecl(class std::string const & __ptr64),1>
+RBX::Reflection::BoundFuncDesc<class RBX::WebSocketClient,void __cdecl(void),0>
+RBX::Reflection::BoundFuncDesc<class RBX::WebSocketService,class std::shared_ptr<class RBX::WebSocketClient> __cdecl(class std::string const & __ptr64),1>
 RBX::Reflection::BoundFuncDesc<class RBX::WebViewService,void __cdecl(class std::string,class std::optional<class std::string >,class std::optional<bool>,class std::optional<class std::string >,class std::optional<class std::string >,class std::optional<bool>),6>
 RBX::Reflection::BoundFuncDesc<class RBX::WebViewService,void __cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::Wire,void __cdecl(void),0>
@@ -8557,7 +8573,6 @@ RBX::Reflection::EnumDesc<enum RBX::Enums::CameraModeEnum::CameraMode>
 RBX::Reflection::EnumDesc<enum RBX::Enums::CameraPanModeEnum::CameraPanMode>
 RBX::Reflection::EnumDesc<enum RBX::Enums::CameraSpeedAdjustBinding>
 RBX::Reflection::EnumDesc<enum RBX::Enums::CameraTypeEnum::CameraType>
-RBX::Reflection::EnumDesc<enum RBX::Enums::CaptureUIHideMode>
 RBX::Reflection::EnumDesc<enum RBX::Enums::CenterDialogTypeEnum::CenterDialogType>
 RBX::Reflection::EnumDesc<enum RBX::Enums::CharacterControlMode>
 RBX::Reflection::EnumDesc<enum RBX::Enums::ChatCallbackTypeEnum::ChatCallbackType>
@@ -8724,6 +8739,7 @@ RBX::Reflection::EnumDesc<enum RBX::Enums::TouchMovementModeEnum::TouchMovementM
 RBX::Reflection::EnumDesc<enum RBX::Enums::TriStateBoolean>
 RBX::Reflection::EnumDesc<enum RBX::Enums::TweenStatus>
 RBX::Reflection::EnumDesc<enum RBX::Enums::Type>
+RBX::Reflection::EnumDesc<enum RBX::Enums::UICaptureMode>
 RBX::Reflection::EnumDesc<enum RBX::Enums::UIDragSpeedAxisMapping>
 RBX::Reflection::EnumDesc<enum RBX::Enums::UIFlexAlignment>
 RBX::Reflection::EnumDesc<enum RBX::Enums::UIFlexMode>
@@ -8745,6 +8761,7 @@ RBX::Reflection::EnumDesc<enum RBX::Enums::VRSafetyBubbleMode>
 RBX::Reflection::EnumDesc<enum RBX::Enums::VRScaling>
 RBX::Reflection::EnumDesc<enum RBX::Enums::VRTouchpadEnum::VRTouchpad>
 RBX::Reflection::EnumDesc<enum RBX::Enums::VRTouchpadModeEnum::VRTouchpadMode>
+RBX::Reflection::EnumDesc<enum RBX::Enums::WebSocketState>
 RBX::Reflection::EnumDesc<enum RBX::Enums::WhisperChatPrivacyMode>
 RBX::Reflection::EnumDesc<enum RBX::Enums::ZIndexBehaviorEnum::ZIndexBehavior>
 RBX::Reflection::EnumDesc<enum RBX::ESolverConvergenceMetricType>
@@ -8856,6 +8873,7 @@ RBX::Reflection::EnumDesc<enum RBX::Soundscape::ListenerType>
 RBX::Reflection::EnumDesc<enum RBX::Soundscape::ReverbType>
 RBX::Reflection::EnumDesc<enum RBX::Soundscape::RollOffMode>
 RBX::Reflection::EnumDesc<enum RBX::Soundscape::VolumetricMode>
+RBX::Reflection::EnumDesc<enum RBX::StateObjectFieldType>
 RBX::Reflection::EnumDesc<enum RBX::Stats::TextureQueryType>
 RBX::Reflection::EnumDesc<enum RBX::Studio::BreakpointRemoveReason>
 RBX::Reflection::EnumDesc<enum RBX::Studio::DebuggerEndReason>
@@ -9216,6 +9234,7 @@ RBX::Reflection::EnumPropDescriptor<class RBX::VRService,enum RBX::Enums::VRCont
 RBX::Reflection::EnumPropDescriptor<class RBX::VRService,enum RBX::Enums::VRLaserPointerMode>
 RBX::Reflection::EnumPropDescriptor<class RBX::VRService,enum RBX::Enums::VRScaling>
 RBX::Reflection::EnumPropDescriptor<class RBX::VRService,enum RBX::VRSessionState>
+RBX::Reflection::EnumPropDescriptor<class RBX::WebSocketClient,enum RBX::Enums::WebSocketState>
 RBX::Reflection::EnumPropDescriptor<class RBX::Workspace,enum RBX::Enums::AnimatorRetargetingMode>
 RBX::Reflection::EnumPropDescriptor<class RBX::Workspace,enum RBX::Enums::AvatarUnificationMode>
 RBX::Reflection::EnumPropDescriptor<class RBX::Workspace,enum RBX::Enums::ClientAnimatorThrottlingMode>
@@ -9284,6 +9303,7 @@ RBX::Reflection::EventDesc<class RBX::Animator,void __cdecl(float,float,enum RBX
 RBX::Reflection::EventDesc<class RBX::Annotation,void __cdecl(class std::string,enum RBX::AnnotationRequestType),class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType)>,class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType)> RBX::Annotation::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::Annotation,void __cdecl(class std::string,enum RBX::AnnotationRequestType,enum RBX::AnnotationRequestResult),class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType,enum RBX::AnnotationRequestResult)>,class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType,enum RBX::AnnotationRequestResult)> RBX::Annotation::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::AnnotationsService,void __cdecl(class std::shared_ptr<class RBX::Annotation>),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>)> RBX::AnnotationsService::* __ptr64>
+RBX::Reflection::EventDesc<class RBX::AnnotationsService,void __cdecl(class std::shared_ptr<class RBX::Annotation>,bool,bool),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>,bool,bool)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>,bool,bool)> RBX::AnnotationsService::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::AnnotationsService,void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>),class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>)>,class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>)> RBX::AnnotationsService::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::AnnotationsService,void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,bool),class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,bool)>,class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,bool)> RBX::AnnotationsService::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::AnnotationsService,void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,class std::string),class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,class std::string)>,class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,class std::string)> RBX::AnnotationsService::* __ptr64>
@@ -9411,6 +9431,7 @@ RBX::Reflection::EventDesc<class RBX::ExperienceStateCaptureService,void __cdecl
 RBX::Reflection::EventDesc<class RBX::Explosion,void __cdecl(class std::shared_ptr<class RBX::BasePart>,float),class rbx::signal<void __cdecl(class std::shared_ptr<class RBX::BasePart>,float)>,class rbx::signal<void __cdecl(class std::shared_ptr<class RBX::BasePart>,float)> RBX::Explosion::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::FaceAnimatorService,void __cdecl(enum RBX::TrackerError),class rbx::signal<void __cdecl(enum RBX::TrackerError)>,class rbx::signal<void __cdecl(enum RBX::TrackerError)> RBX::FaceAnimatorService::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::FaceAnimatorService,void __cdecl(enum RBX::TrackerPromptEvent),class rbx::signal<void __cdecl(enum RBX::TrackerPromptEvent)>,class rbx::signal<void __cdecl(enum RBX::TrackerPromptEvent)> RBX::FaceAnimatorService::* __ptr64>
+RBX::Reflection::EventDesc<class RBX::FeatureRestrictionManager,void __cdecl(__int64,__int64),class rbx::remote_signal<void __cdecl(__int64,__int64)>,class rbx::remote_signal<void __cdecl(__int64,__int64)> RBX::FeatureRestrictionManager::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::FeatureRestrictionManager,void __cdecl(bool,__int64),class rbx::remote_signal<void __cdecl(bool,__int64)>,class rbx::remote_signal<void __cdecl(bool,__int64)> RBX::FeatureRestrictionManager::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::FlagStand,void __cdecl(class std::shared_ptr<class RBX::Instance>),class rbx::signal<void __cdecl(class std::shared_ptr<class RBX::Instance>)>,class rbx::signal<void __cdecl(class std::shared_ptr<class RBX::Instance>)> RBX::FlagStand::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::FriendService,void __cdecl(__int64,__int64,enum RBX::FriendService_FriendEventType),class rbx::remote_signal<void __cdecl(__int64,__int64,enum RBX::FriendService_FriendEventType)>,class rbx::remote_signal<void __cdecl(__int64,__int64,enum RBX::FriendService_FriendEventType)> RBX::FriendService::* __ptr64>
@@ -9838,6 +9859,8 @@ RBX::Reflection::EventDesc<class RBX::VRService,void __cdecl(class std::shared_p
 RBX::Reflection::EventDesc<class RBX::VRService,void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,bool),class rbx::signal<void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,bool)>,class rbx::signal<void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,bool)> RBX::VRService::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::VRService,void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,class RBX::CoordinateFrame),class rbx::signal<void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,class RBX::CoordinateFrame)>,class rbx::signal<void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,class RBX::CoordinateFrame)> RBX::VRService::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::VRService,void __cdecl(enum RBX::Enums::VRTouchpadEnum::VRTouchpad,enum RBX::Enums::VRTouchpadModeEnum::VRTouchpadMode),class rbx::signal<void __cdecl(enum RBX::Enums::VRTouchpadEnum::VRTouchpad,enum RBX::Enums::VRTouchpadModeEnum::VRTouchpadMode)>,class rbx::signal<void __cdecl(enum RBX::Enums::VRTouchpadEnum::VRTouchpad,enum RBX::Enums::VRTouchpadModeEnum::VRTouchpadMode)> RBX::VRService::* __ptr64>
+RBX::Reflection::EventDesc<class RBX::WebSocketClient,void __cdecl(class std::string),class rbx::signal<void __cdecl(class std::string)>,class rbx::signal<void __cdecl(class std::string)> RBX::WebSocketClient::* __ptr64>
+RBX::Reflection::EventDesc<class RBX::WebSocketClient,void __cdecl(void),class rbx::signal<void __cdecl(void)>,class rbx::signal<void __cdecl(void)> RBX::WebSocketClient::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::WebViewService,void __cdecl(class std::string),class rbx::signal<void __cdecl(class std::string)>,class rbx::signal<void __cdecl(class std::string)> RBX::WebViewService::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::WebViewService,void __cdecl(void),class rbx::signal<void __cdecl(void)>,class rbx::signal<void __cdecl(void)> RBX::WebViewService::* __ptr64>
 RBX::Reflection::EventDesc<class RBX::Workspace,void __cdecl(class std::shared_ptr<class RBX::Player>),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Player>)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Player>)> RBX::Workspace::* __ptr64>
@@ -9878,6 +9901,7 @@ RBX::Reflection::EventDescBase<class RBX::Animator,void __cdecl(float,float,enum
 RBX::Reflection::EventDescBase<class RBX::Annotation,void __cdecl(class std::string,enum RBX::AnnotationRequestType),class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType)>,class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType)> RBX::Annotation::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::Annotation,void __cdecl(class std::string,enum RBX::AnnotationRequestType,enum RBX::AnnotationRequestResult),class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType,enum RBX::AnnotationRequestResult)>,class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType,enum RBX::AnnotationRequestResult)> RBX::Annotation::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::AnnotationsService,void __cdecl(class std::shared_ptr<class RBX::Annotation>),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>)> RBX::AnnotationsService::* __ptr64>
+RBX::Reflection::EventDescBase<class RBX::AnnotationsService,void __cdecl(class std::shared_ptr<class RBX::Annotation>,bool,bool),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>,bool,bool)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>,bool,bool)> RBX::AnnotationsService::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::AnnotationsService,void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>),class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>)>,class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>)> RBX::AnnotationsService::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::AnnotationsService,void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,bool),class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,bool)>,class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,bool)> RBX::AnnotationsService::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::AnnotationsService,void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,class std::string),class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,class std::string)>,class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,class std::string)> RBX::AnnotationsService::* __ptr64>
@@ -10005,6 +10029,7 @@ RBX::Reflection::EventDescBase<class RBX::ExperienceStateCaptureService,void __c
 RBX::Reflection::EventDescBase<class RBX::Explosion,void __cdecl(class std::shared_ptr<class RBX::BasePart>,float),class rbx::signal<void __cdecl(class std::shared_ptr<class RBX::BasePart>,float)>,class rbx::signal<void __cdecl(class std::shared_ptr<class RBX::BasePart>,float)> RBX::Explosion::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::FaceAnimatorService,void __cdecl(enum RBX::TrackerError),class rbx::signal<void __cdecl(enum RBX::TrackerError)>,class rbx::signal<void __cdecl(enum RBX::TrackerError)> RBX::FaceAnimatorService::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::FaceAnimatorService,void __cdecl(enum RBX::TrackerPromptEvent),class rbx::signal<void __cdecl(enum RBX::TrackerPromptEvent)>,class rbx::signal<void __cdecl(enum RBX::TrackerPromptEvent)> RBX::FaceAnimatorService::* __ptr64>
+RBX::Reflection::EventDescBase<class RBX::FeatureRestrictionManager,void __cdecl(__int64,__int64),class rbx::remote_signal<void __cdecl(__int64,__int64)>,class rbx::remote_signal<void __cdecl(__int64,__int64)> RBX::FeatureRestrictionManager::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::FeatureRestrictionManager,void __cdecl(bool,__int64),class rbx::remote_signal<void __cdecl(bool,__int64)>,class rbx::remote_signal<void __cdecl(bool,__int64)> RBX::FeatureRestrictionManager::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::FlagStand,void __cdecl(class std::shared_ptr<class RBX::Instance>),class rbx::signal<void __cdecl(class std::shared_ptr<class RBX::Instance>)>,class rbx::signal<void __cdecl(class std::shared_ptr<class RBX::Instance>)> RBX::FlagStand::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::FriendService,void __cdecl(__int64,__int64,enum RBX::FriendService_FriendEventType),class rbx::remote_signal<void __cdecl(__int64,__int64,enum RBX::FriendService_FriendEventType)>,class rbx::remote_signal<void __cdecl(__int64,__int64,enum RBX::FriendService_FriendEventType)> RBX::FriendService::* __ptr64>
@@ -10432,6 +10457,8 @@ RBX::Reflection::EventDescBase<class RBX::VRService,void __cdecl(class std::shar
 RBX::Reflection::EventDescBase<class RBX::VRService,void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,bool),class rbx::signal<void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,bool)>,class rbx::signal<void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,bool)> RBX::VRService::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::VRService,void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,class RBX::CoordinateFrame),class rbx::signal<void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,class RBX::CoordinateFrame)>,class rbx::signal<void __cdecl(enum RBX::Enums::UserCFrameEnum::UserCFrame,class RBX::CoordinateFrame)> RBX::VRService::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::VRService,void __cdecl(enum RBX::Enums::VRTouchpadEnum::VRTouchpad,enum RBX::Enums::VRTouchpadModeEnum::VRTouchpadMode),class rbx::signal<void __cdecl(enum RBX::Enums::VRTouchpadEnum::VRTouchpad,enum RBX::Enums::VRTouchpadModeEnum::VRTouchpadMode)>,class rbx::signal<void __cdecl(enum RBX::Enums::VRTouchpadEnum::VRTouchpad,enum RBX::Enums::VRTouchpadModeEnum::VRTouchpadMode)> RBX::VRService::* __ptr64>
+RBX::Reflection::EventDescBase<class RBX::WebSocketClient,void __cdecl(class std::string),class rbx::signal<void __cdecl(class std::string)>,class rbx::signal<void __cdecl(class std::string)> RBX::WebSocketClient::* __ptr64>
+RBX::Reflection::EventDescBase<class RBX::WebSocketClient,void __cdecl(void),class rbx::signal<void __cdecl(void)>,class rbx::signal<void __cdecl(void)> RBX::WebSocketClient::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::WebViewService,void __cdecl(class std::string),class rbx::signal<void __cdecl(class std::string)>,class rbx::signal<void __cdecl(class std::string)> RBX::WebViewService::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::WebViewService,void __cdecl(void),class rbx::signal<void __cdecl(void)>,class rbx::signal<void __cdecl(void)> RBX::WebViewService::* __ptr64>
 RBX::Reflection::EventDescBase<class RBX::Workspace,void __cdecl(class std::shared_ptr<class RBX::Player>),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Player>)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Player>)> RBX::Workspace::* __ptr64>
@@ -10651,8 +10678,6 @@ RBX::Reflection::PropDescriptor<class RBX::AuroraScript,int>
 RBX::Reflection::PropDescriptor<class RBX::AuroraScript,int>::GetSetImpl<int (__cdecl RBX::AuroraScriptProp::*)(void)const __ptr64,void (__cdecl RBX::AuroraScriptProp::*)(int) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::AuroraScriptService,int>
 RBX::Reflection::PropDescriptor<class RBX::AuroraScriptService,int>::GetSetImpl<int (__cdecl RBX::AuroraScriptServiceProp::*)(void)const __ptr64,void (__cdecl RBX::AuroraScriptServiceProp::*)(int) __ptr64>
-RBX::Reflection::PropDescriptor<class RBX::AuroraService,bool>
-RBX::Reflection::PropDescriptor<class RBX::AuroraService,bool>::GetSetImpl<bool (__cdecl RBX::AuroraServiceProp::*)(void)const __ptr64,void (__cdecl RBX::AuroraServiceProp::*)(bool) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::AvatarChatService,bool>
 RBX::Reflection::PropDescriptor<class RBX::AvatarChatService,bool>::GetImpl<bool (__cdecl RBX::AvatarChatServiceProp::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::AvatarChatService,int>
@@ -11404,6 +11429,7 @@ RBX::Reflection::PropDescriptor<class RBX::GuiBase3d,float>::GetSetImpl<float (_
 RBX::Reflection::PropDescriptor<class RBX::GuiButton,bool>
 RBX::Reflection::PropDescriptor<class RBX::GuiButton,bool>::GetSetImpl<bool (__cdecl RBX::GuiButtonProp::*)(void)const __ptr64,void (__cdecl RBX::GuiButtonProp::*)(bool) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::GuiButton,bool>::StyleGetSetImpl<bool (__cdecl RBX::GuiButtonProp::*)(void)const __ptr64,bool (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,bool)>
+RBX::Reflection::PropDescriptor<class RBX::GuiButton,class RBX::HapticEffect * __ptr64>::GetSetImpl<class RBX::HapticEffect * __ptr64 (__cdecl RBX::GuiButtonProp::*)(void)const __ptr64,void (__cdecl RBX::GuiButtonProp::*)(class RBX::HapticEffect * __ptr64) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::GuiButton,enum RBX::Enums::ButtonStyle>::GetSetImpl<enum RBX::Enums::ButtonStyle (__cdecl RBX::GuiButtonProp::*)(void)const __ptr64,void (__cdecl RBX::GuiButtonProp::*)(enum RBX::Enums::ButtonStyle) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::GuiButton,enum RBX::Enums::ButtonStyle>::StyleGetSetImpl<enum RBX::Enums::ButtonStyle (__cdecl RBX::GuiButtonProp::*)(void)const __ptr64,enum RBX::Enums::ButtonStyle (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,enum RBX::Enums::ButtonStyle)>
 RBX::Reflection::PropDescriptor<class RBX::GuiButton,int>
@@ -11512,6 +11538,7 @@ RBX::Reflection::PropDescriptor<class RBX::GuiTextButton,enum RBX::Enums::TextYA
 RBX::Reflection::PropDescriptor<class RBX::GuiTextButton,enum RBX::Text::Font>::GetSetImpl<enum RBX::Text::Font (__cdecl RBX::TextButtonProp::*)(void)const __ptr64,void (__cdecl RBX::TextButtonProp::*)(enum RBX::Text::Font) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::GuiTextButton,enum RBX::Text::Font>::StyleGetImpl<enum RBX::Text::Font (__cdecl RBX::TextButtonProp::*)(void)const __ptr64,enum RBX::Text::Font (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64)>
 RBX::Reflection::PropDescriptor<class RBX::GuiTextButton,enum RBX::Text::TextDirection>::GetSetImpl<enum RBX::Text::TextDirection (__cdecl RBX::TextButtonProp::*)(void)const __ptr64,void (__cdecl RBX::TextButtonProp::*)(enum RBX::Text::TextDirection) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::GuiTextButton,enum RBX::Text::TextDirection>::StyleGetSetImpl<enum RBX::Text::TextDirection (__cdecl RBX::TextButtonProp::*)(void)const __ptr64,enum RBX::Text::TextDirection (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,enum RBX::Text::TextDirection)>
 RBX::Reflection::PropDescriptor<class RBX::GuiTextButton,float>
 RBX::Reflection::PropDescriptor<class RBX::GuiTextButton,float>::GetSetImpl<float (__cdecl RBX::TextButtonProp::*)(void)const __ptr64,void (__cdecl RBX::TextButtonProp::*)(float) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::GuiTextButton,float>::StyleGetSetImpl<float (__cdecl RBX::TextButtonProp::*)(void)const __ptr64,float (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,float)>
@@ -11651,6 +11678,8 @@ RBX::Reflection::PropDescriptor<class RBX::InputAction,bool>::GetSetImpl<bool (_
 RBX::Reflection::PropDescriptor<class RBX::InputAction,enum RBX::Enums::InputActionType>::GetSetImpl<enum RBX::Enums::InputActionType (__cdecl RBX::InputActionProp::*)(void)const __ptr64,void (__cdecl RBX::InputActionProp::*)(enum RBX::Enums::InputActionType) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::InputBinding,class RBX::GuiButton * __ptr64>::GetSetImpl<class RBX::GuiButton * __ptr64 (__cdecl RBX::InputBindingProp::*)(void)const __ptr64,void (__cdecl RBX::InputBindingProp::*)(class RBX::GuiButton * __ptr64) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::InputBinding,enum RBX::KeyCode>::GetSetImpl<enum RBX::KeyCode (__cdecl RBX::InputBindingProp::*)(void)const __ptr64,void (__cdecl RBX::InputBindingProp::*)(enum RBX::KeyCode) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::InputBinding,float>
+RBX::Reflection::PropDescriptor<class RBX::InputBinding,float>::GetSetImpl<float (__cdecl RBX::InputBindingProp::*)(void)const __ptr64,void (__cdecl RBX::InputBindingProp::*)(float) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::InputContext,bool>
 RBX::Reflection::PropDescriptor<class RBX::InputContext,bool>::GetSetImpl<bool (__cdecl RBX::InputContextProp::*)(void)const __ptr64,void (__cdecl RBX::InputContextProp::*)(bool) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::InputContext,int>
@@ -12702,6 +12731,7 @@ RBX::Reflection::PropDescriptor<class RBX::TextBox,enum RBX::Enums::TextYAlignme
 RBX::Reflection::PropDescriptor<class RBX::TextBox,enum RBX::Text::Font>::GetSetImpl<enum RBX::Text::Font (__cdecl RBX::TextBoxProp::*)(void)const __ptr64,void (__cdecl RBX::TextBoxProp::*)(enum RBX::Text::Font) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,enum RBX::Text::Font>::StyleGetImpl<enum RBX::Text::Font (__cdecl RBX::TextBoxProp::*)(void)const __ptr64,enum RBX::Text::Font (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64)>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,enum RBX::Text::TextDirection>::GetSetImpl<enum RBX::Text::TextDirection (__cdecl RBX::TextBoxProp::*)(void)const __ptr64,void (__cdecl RBX::TextBoxProp::*)(enum RBX::Text::TextDirection) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::TextBox,enum RBX::Text::TextDirection>::StyleGetSetImpl<enum RBX::Text::TextDirection (__cdecl RBX::TextBoxProp::*)(void)const __ptr64,enum RBX::Text::TextDirection (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,enum RBX::Text::TextDirection)>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,float>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,float>::GetSetImpl<float (__cdecl RBX::TextBoxProp::*)(void)const __ptr64,void (__cdecl RBX::TextBoxProp::*)(float) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextBox,float>::StyleGetSetImpl<float (__cdecl RBX::TextBoxProp::*)(void)const __ptr64,float (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,float)>
@@ -12762,6 +12792,7 @@ RBX::Reflection::PropDescriptor<class RBX::TextLabel,enum RBX::Enums::TextYAlign
 RBX::Reflection::PropDescriptor<class RBX::TextLabel,enum RBX::Text::Font>::GetSetImpl<enum RBX::Text::Font (__cdecl RBX::TextLabelProp::*)(void)const __ptr64,void (__cdecl RBX::TextLabelProp::*)(enum RBX::Text::Font) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextLabel,enum RBX::Text::Font>::StyleGetImpl<enum RBX::Text::Font (__cdecl RBX::TextLabelProp::*)(void)const __ptr64,enum RBX::Text::Font (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64)>
 RBX::Reflection::PropDescriptor<class RBX::TextLabel,enum RBX::Text::TextDirection>::GetSetImpl<enum RBX::Text::TextDirection (__cdecl RBX::TextLabelProp::*)(void)const __ptr64,void (__cdecl RBX::TextLabelProp::*)(enum RBX::Text::TextDirection) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::TextLabel,enum RBX::Text::TextDirection>::StyleGetSetImpl<enum RBX::Text::TextDirection (__cdecl RBX::TextLabelProp::*)(void)const __ptr64,enum RBX::Text::TextDirection (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,enum RBX::Text::TextDirection)>
 RBX::Reflection::PropDescriptor<class RBX::TextLabel,float>
 RBX::Reflection::PropDescriptor<class RBX::TextLabel,float>::GetSetImpl<float (__cdecl RBX::TextLabelProp::*)(void)const __ptr64,void (__cdecl RBX::TextLabelProp::*)(float) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::TextLabel,float>::StyleGetSetImpl<float (__cdecl RBX::TextLabelProp::*)(void)const __ptr64,float (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,float)>
@@ -12864,11 +12895,14 @@ RBX::Reflection::PropDescriptor<class RBX::UIGradient,float>::GetSetImpl<float (
 RBX::Reflection::PropDescriptor<class RBX::UIGradient,float>::StyleGetSetImpl<float (__cdecl RBX::UIGradientProp::*)(void)const __ptr64,float (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,float)>
 RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,class RBX::UDim2>
 RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,class RBX::UDim2>::GetSetImpl<class RBX::UDim2 (__cdecl RBX::UIGridLayoutProp::*)(void)const __ptr64,void (__cdecl RBX::UIGridLayoutProp::*)(class RBX::UDim2) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,class RBX::UDim2>::StyleGetSetImpl<class RBX::UDim2 (__cdecl RBX::UIGridLayoutProp::*)(void)const __ptr64,class RBX::UDim2 (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,class RBX::UDim2)>
 RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,class RBX::Vector2>
 RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,class RBX::Vector2>::GetImpl<class RBX::Vector2 (__cdecl RBX::UIGridLayoutProp::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,enum RBX::Enums::StartCornerEnum::StartCorner>::GetSetImpl<enum RBX::Enums::StartCornerEnum::StartCorner (__cdecl RBX::UIGridLayoutProp::*)(void)const __ptr64,void (__cdecl RBX::UIGridLayoutProp::*)(enum RBX::Enums::StartCornerEnum::StartCorner) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,enum RBX::Enums::StartCornerEnum::StartCorner>::StyleGetSetImpl<enum RBX::Enums::StartCornerEnum::StartCorner (__cdecl RBX::UIGridLayoutProp::*)(void)const __ptr64,enum RBX::Enums::StartCornerEnum::StartCorner (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,enum RBX::Enums::StartCornerEnum::StartCorner)>
 RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,int>
 RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,int>::GetSetImpl<int (__cdecl RBX::UIGridLayoutProp::*)(void)const __ptr64,void (__cdecl RBX::UIGridLayoutProp::*)(int) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::UIGridLayout,int>::StyleGetSetImpl<int (__cdecl RBX::UIGridLayoutProp::*)(void)const __ptr64,int (__cdecl*)(struct RBX::Reflection::StyledProperties const * __ptr64),void (__cdecl*)(struct RBX::Reflection::StyledProperties * __ptr64,int)>
 RBX::Reflection::PropDescriptor<class RBX::UIGridStyleLayout,class RBX::Vector2>
 RBX::Reflection::PropDescriptor<class RBX::UIGridStyleLayout,class RBX::Vector2>::GetImpl<class RBX::Vector2 (__cdecl RBX::UIGridStyleLayoutProp::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::UIGridStyleLayout,enum RBX::Enums::FillDirectionEnum::FillDirection>::GetSetImpl<enum RBX::Enums::FillDirectionEnum::FillDirection (__cdecl RBX::UIGridStyleLayoutProp::*)(void)const __ptr64,void (__cdecl RBX::UIGridStyleLayoutProp::*)(enum RBX::Enums::FillDirectionEnum::FillDirection) __ptr64>
@@ -13048,6 +13082,7 @@ RBX::Reflection::PropDescriptor<class RBX::VRService,enum RBX::VRSessionState>::
 RBX::Reflection::PropDescriptor<class RBX::VRService,float>
 RBX::Reflection::PropDescriptor<class RBX::VRService,float>::GetImpl<float (__cdecl RBX::VRServiceProp::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::VRService,float>::GetSetImpl<float (__cdecl RBX::VRServiceProp::*)(void)const __ptr64,void (__cdecl RBX::VRServiceProp::*)(float) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::WebSocketClient,enum RBX::Enums::WebSocketState>::GetImpl<enum RBX::Enums::WebSocketState (__cdecl RBX::WebSocketClientProp::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Wire,bool>
 RBX::Reflection::PropDescriptor<class RBX::Wire,bool>::GetImpl<bool (__cdecl RBX::WireProp::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Wire,class RBX::Instance * __ptr64>::GetSetImpl<class RBX::Instance * __ptr64 (__cdecl RBX::WireProp::*)(void)const __ptr64,void (__cdecl RBX::WireProp::*)(class RBX::Instance * __ptr64) __ptr64>
@@ -13179,6 +13214,7 @@ RBX::Reflection::RefPropDescriptor<class RBX::DragDetector,class RBX::Instance>
 RBX::Reflection::RefPropDescriptor<class RBX::FileSyncItem,class RBX::Instance>
 RBX::Reflection::RefPropDescriptor<class RBX::FloorWire,class RBX::BasePart>
 RBX::Reflection::RefPropDescriptor<class RBX::GuiBase2d,class RBX::LocalizationTable>
+RBX::Reflection::RefPropDescriptor<class RBX::GuiButton,class RBX::HapticEffect>
 RBX::Reflection::RefPropDescriptor<class RBX::GuiObject,class RBX::GuiObject>
 RBX::Reflection::RefPropDescriptor<class RBX::GuiService,class RBX::Folder>
 RBX::Reflection::RefPropDescriptor<class RBX::GuiService,class RBX::GuiObject>
@@ -13267,6 +13303,7 @@ RBX::Reflection::RemoteEventDesc<class RBX::Animator,void __cdecl(float,float,en
 RBX::Reflection::RemoteEventDesc<class RBX::Annotation,void __cdecl(class std::string,enum RBX::AnnotationRequestType),class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType)>,class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType)> RBX::Annotation::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::Annotation,void __cdecl(class std::string,enum RBX::AnnotationRequestType,enum RBX::AnnotationRequestResult),class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType,enum RBX::AnnotationRequestResult)>,class rbx::remote_signal<void __cdecl(class std::string,enum RBX::AnnotationRequestType,enum RBX::AnnotationRequestResult)> RBX::Annotation::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::AnnotationsService,void __cdecl(class std::shared_ptr<class RBX::Annotation>),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>)> RBX::AnnotationsService::* __ptr64>
+RBX::Reflection::RemoteEventDesc<class RBX::AnnotationsService,void __cdecl(class std::shared_ptr<class RBX::Annotation>,bool,bool),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>,bool,bool)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Annotation>,bool,bool)> RBX::AnnotationsService::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::AnnotationsService,void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>),class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>)>,class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>)> RBX::AnnotationsService::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::AnnotationsService,void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,bool),class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,bool)>,class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,bool)> RBX::AnnotationsService::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::AnnotationsService,void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,class std::string),class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,class std::string)>,class rbx::remote_signal<void __cdecl(class std::string,class std::shared_ptr<class RBX::Annotation>,class std::string)> RBX::AnnotationsService::* __ptr64>
@@ -13314,6 +13351,7 @@ RBX::Reflection::RemoteEventDesc<class RBX::DragDetector,void __cdecl(class std:
 RBX::Reflection::RemoteEventDesc<class RBX::DragDetector,void __cdecl(class std::shared_ptr<class RBX::Player>,class RBX::Ray,class RBX::CoordinateFrame,class RBX::CoordinateFrame,class std::shared_ptr<class RBX::BasePart>,class RBX::OptionalCoordinateFrame,bool),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Player>,class RBX::Ray,class RBX::CoordinateFrame,class RBX::CoordinateFrame,class std::shared_ptr<class RBX::BasePart>,class RBX::OptionalCoordinateFrame,bool)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Player>,class RBX::Ray,class RBX::CoordinateFrame,class RBX::CoordinateFrame,class std::shared_ptr<class RBX::BasePart>,class RBX::OptionalCoordinateFrame,bool)> RBX::DragDetector::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::DragDetector,void __cdecl(class std::shared_ptr<class RBX::Player>,class RBX::Ray,class RBX::CoordinateFrame,class RBX::OptionalCoordinateFrame,bool),class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Player>,class RBX::Ray,class RBX::CoordinateFrame,class RBX::OptionalCoordinateFrame,bool)>,class rbx::remote_signal<void __cdecl(class std::shared_ptr<class RBX::Player>,class RBX::Ray,class RBX::CoordinateFrame,class RBX::OptionalCoordinateFrame,bool)> RBX::DragDetector::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::ExperienceAuthService,void __cdecl(class std::string,enum RBX::Enums::ScopeCheckResultEnum::ScopeCheckResult,class std::string,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const >,class std::shared_ptr<class std::unordered_map<class std::string,class RBX::Reflection::Variant,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const >),class rbx::remote_signal<void __cdecl(class std::string,enum RBX::Enums::ScopeCheckResultEnum::ScopeCheckResult,class std::string,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const >,class std::shared_ptr<class std::unordered_map<class std::string,class RBX::Reflection::Variant,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const >)>,class rbx::remote_signal<void __cdecl(class std::string,enum RBX::Enums::ScopeCheckResultEnum::ScopeCheckResult,class std::string,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const >,class std::shared_ptr<class std::unordered_map<class std::string,class RBX::Reflection::Variant,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const >)> RBX::ExperienceAuthService::* __ptr64>
+RBX::Reflection::RemoteEventDesc<class RBX::FeatureRestrictionManager,void __cdecl(__int64,__int64),class rbx::remote_signal<void __cdecl(__int64,__int64)>,class rbx::remote_signal<void __cdecl(__int64,__int64)> RBX::FeatureRestrictionManager::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::FeatureRestrictionManager,void __cdecl(bool,__int64),class rbx::remote_signal<void __cdecl(bool,__int64)>,class rbx::remote_signal<void __cdecl(bool,__int64)> RBX::FeatureRestrictionManager::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::FriendService,void __cdecl(__int64,__int64,enum RBX::FriendService_FriendEventType),class rbx::remote_signal<void __cdecl(__int64,__int64,enum RBX::FriendService_FriendEventType)>,class rbx::remote_signal<void __cdecl(__int64,__int64,enum RBX::FriendService_FriendEventType)> RBX::FriendService::* __ptr64>
 RBX::Reflection::RemoteEventDesc<class RBX::FriendService,void __cdecl(__int64,__int64,enum RBX::FriendService_FriendStatus),class rbx::remote_signal<void __cdecl(__int64,__int64,enum RBX::FriendService_FriendStatus)>,class rbx::remote_signal<void __cdecl(__int64,__int64,enum RBX::FriendService_FriendStatus)> RBX::FriendService::* __ptr64>
@@ -13637,6 +13675,7 @@ RBX::Reflection::TypedPropertyDescriptor<class RBX::Folder * __ptr64>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<class RBX::GuiBase2d * __ptr64>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<class RBX::GuiButton * __ptr64>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<class RBX::GuiObject * __ptr64>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<class RBX::HapticEffect * __ptr64>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<class RBX::Hole * __ptr64>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<class RBX::Humanoid * __ptr64>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<class RBX::Instance * __ptr64>::GetSet
@@ -13879,6 +13918,7 @@ RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::SizeConstraint>::Style
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::SortOrderEnum::SortOrder>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::SortOrderEnum::SortOrder>::StyleGetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::StartCornerEnum::StartCorner>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::StartCornerEnum::StartCorner>::StyleGetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::StreamingIntegrityMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::StreamingPauseMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::StreamOutBehavior>::GetSet
@@ -13918,6 +13958,7 @@ RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::VRControllerModelMode>
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::VRLaserPointerMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::VRSafetyBubbleMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::VRScaling>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::WebSocketState>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Enums::ZIndexBehaviorEnum::ZIndexBehavior>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::ESolverConvergenceMetricType>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::ESolverConvergenceVisualizationMode>::GetSet
@@ -13991,6 +14032,7 @@ RBX::Reflection::TypedPropertyDescriptor<enum RBX::Text::Font>::StyleGetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Text::LineJoinMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Text::LineJoinMode>::StyleGetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Text::TextDirection>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::Text::TextDirection>::StyleGetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::TextChatMessageStatus>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::TextureMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::TexturePackAlphaMode>::GetSet
@@ -14148,6 +14190,7 @@ RBX::RESTRICTED_IStudioServiceHost
 RBX::RESTRICTED_LegacyStudioBridge
 RBX::RESTRICTED_StudioService
 RBX::Retargeting::R15ToR15Retargeter
+RBX::Retargeting::R15ToR6Retargeter
 RBX::Retargeting::R6ToR15Retargeter
 RBX::Retargeting::Retargeter
 RBX::Retargeting::RobustRetargeter
@@ -14369,6 +14412,7 @@ RBX::ScriptEditor::HolePunchedLineEdit
 RBX::ScriptEditor::HoverTipScrollContainer
 RBX::ScriptEditor::HoverTipView
 RBX::ScriptEditor::IDisplayedDocument
+RBX::ScriptEditor::IExperimentationProvider
 RBX::ScriptEditor::IHostAppServices
 RBX::ScriptEditor::ILearnedWeightProvider
 RBX::ScriptEditor::IScriptingContext
@@ -15042,6 +15086,7 @@ RBX::Studio::ConversationalAIFeature
 RBX::Studio::ConversationalAIInputTextEdit
 RBX::Studio::ConversationalAIInstanceTracker
 RBX::Studio::ConversationalAIIxpListener
+RBX::Studio::ConversationalAILayerRegister
 RBX::Studio::ConversationalAIModel
 RBX::Studio::ConversationalAIPlaceSessionListener
 RBX::Studio::ConversationalAISettings
@@ -15054,6 +15099,9 @@ RBX::Studio::CoreScriptDebuggingManagerHelperProp
 RBX::Studio::CoverWidget
 RBX::Studio::CrashHandler::InstanceCounter
 RBX::Studio::CreatePluginVerb
+RBX::Studio::CreatorLayerFetcher
+RBX::Studio::CreatorLayerRegister
+RBX::Studio::CreatorLayerRegisterImpl
 RBX::Studio::CrossDMScriptChangeListener
 RBX::Studio::CrossDMScriptChangeListenerProp
 RBX::Studio::CutVerb
@@ -15116,6 +15164,7 @@ RBX::Studio::detail::BaseContext<class RBX::Studio::ScriptEditorContext>
 RBX::Studio::detail::BaseContext<class RBX::Studio::SelectionContext>
 RBX::Studio::detail::BaseContext<class RBX::Studio::TeamCreateContext>
 RBX::Studio::detail::BaseContext<class RBX::Studio::TeamTestContext>
+RBX::Studio::detail::BaseContext<class RBX::Studio::UserSettingsContext>
 RBX::Studio::detail::ContextCallback<class RBX::Studio::IContext>
 RBX::Studio::detail::ContextExpressionBindingWrapper::ContextExpressionBinding<class RBX::Studio::ContextExpression<bool>,class std::function<void __cdecl(bool)> >
 RBX::Studio::detail::ContextExpressionBindingWrapper::ContextExpressionBinding<class RBX::Studio::ContextExpression<class RBX::Studio::ActionIconSpec>,class std::function<void __cdecl(class RBX::Studio::ActionIconSpec)> >
@@ -15239,6 +15288,7 @@ RBX::Studio::IInputHook
 RBX::Studio::IInsertObjectDataModelController
 RBX::Studio::IInsertObjectSettings
 RBX::Studio::IInteractionTelemetry
+RBX::Studio::ILayerRegister
 RBX::Studio::ILifecycleManager
 RBX::Studio::ILoginController
 RBX::Studio::ILoginPageManager
@@ -15279,7 +15329,6 @@ RBX::Studio::IPlaceSessionStateTelemetry
 RBX::Studio::IPlaceSessionTaskRegister
 RBX::Studio::IPluginManagementApi
 RBX::Studio::IPluginOTAController
-RBX::Studio::IPluginOTAControllerManager
 RBX::Studio::IPluginOTADependencies
 RBX::Studio::IPluginOTAManager
 RBX::Studio::IPluginWidgetsVisibility
@@ -15389,6 +15438,7 @@ RBX::Studio::MouseTrackerProxy
 RBX::Studio::MoveDownSelectionVerb
 RBX::Studio::MoveUpBrickVerb
 RBX::Studio::MoveUpSelectionVerb
+RBX::Studio::MultiSessionTracker
 RBX::Studio::NativeWatcher
 RBX::Studio::NativeWatcherBase
 RBX::Studio::NegateSelectionVerb
@@ -15439,6 +15489,7 @@ RBX::Studio::PlatformInfoStudioInternalDev
 RBX::Studio::PlayClientContext
 RBX::Studio::PlayServerContext
 RBX::Studio::PlayTestContext
+RBX::Studio::PlayTestContextClientServerListener
 RBX::Studio::PlayTestContextProvider
 RBX::Studio::PlayTestModesController
 RBX::Studio::PlayTestModeSettingContext
@@ -15466,7 +15517,6 @@ RBX::Studio::PluginManagementServiceProp
 RBX::Studio::PluginManagementUserListener
 RBX::Studio::PluginOTAArbiter
 RBX::Studio::PluginOTAController
-RBX::Studio::PluginOTAControllerManager
 RBX::Studio::PluginOTADependencies
 RBX::Studio::PluginOTAJob
 RBX::Studio::PluginOTAManager
@@ -15552,6 +15602,7 @@ RBX::Studio::ScriptEditorBridgeProxy
 RBX::Studio::ScriptEditorContext
 RBX::Studio::ScriptEditorContextMenuHandler
 RBX::Studio::ScriptEditorContextProviderBridge
+RBX::Studio::ScriptEditorUserScopedExperimentProvider
 RBX::Studio::ScriptingTelemetryModelListener
 RBX::Studio::ScriptVersionTracker
 RBX::Studio::SecretsController
@@ -15759,6 +15810,7 @@ RBX::Studio::UserInputEventBlocker
 RBX::Studio::UserMouseButtonAndKeyPressTracker
 RBX::Studio::UserPreferenceDataModelTaskRegister
 RBX::Studio::UserSettingsContext
+RBX::Studio::UserSettingsContextProvider
 RBX::Studio::ViewClearColorSetter
 RBX::Studio::VREmulator
 RBX::Studio::VRStatusService
@@ -16234,7 +16286,11 @@ RBX::VRService
 RBX::VRServiceProp
 RBX::WebLoginController
 RBX::WebSocket
+RBX::WebSocketClient
+RBX::WebSocketClientProp
 RBX::WebSocketCurl
+RBX::WebSocketService
+RBX::WebSocketServiceProp
 RBX::WebViewProtocolCore
 RBX::WebViewService
 RBX::WebViewServiceProp
@@ -16625,7 +16681,6 @@ SingletonTemplate<class MDIManagerHost>
 SingletonTemplate<class ParallelOperationsNamespace::ThreadPool>
 SingletonTemplate<class PluginLoadingController>
 SingletonTemplate<class RBX::ScriptEditor::ScriptingManager>
-SingletonTemplate<class RBX::Studio::PluginOTAControllerManager>
 SingletonTemplate<class RestartController>
 SingletonTemplate<class StudioHttpRequestAbstraction>
 SingletonTemplate<class StudioSettingsWrapper>
@@ -16989,6 +17044,7 @@ std::_Ebco_base<class RSL::Detail::Allocator<class RBX::AssetImport::UploadMeshD
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::AsyncBackoffDelayMap<class RBX::ContentId> >,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::AsyncHttpQueue>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::AsyncPlayerCallbackQueueHandler<class std::shared_ptr<class std::unordered_map<class std::string,class RBX::Reflection::Variant,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const > > >,0>
+std::_Ebco_base<class RSL::Detail::Allocator<class RBX::AsyncVideoStream>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::AudioMetadata>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::AudioMetadataManager>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::AuroraScriptMessageQueue>,0>
@@ -17040,6 +17096,7 @@ std::_Ebco_base<class RSL::Detail::Allocator<class RBX::DataModelPatchProvider>,
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::DataModelSnapshotJob>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::DataStore::CachedRecord>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::DataStore2::CachedRecordV2>,0>
+std::_Ebco_base<class RSL::Detail::Allocator<class RBX::DataStoreMetricsRecorder>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::DateHandler>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::DatetimeHandler>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::DCD::Task>,0>
@@ -17203,6 +17260,7 @@ std::_Ebco_base<class RSL::Detail::Allocator<class RBX::PerformanceControlUtil>,
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::PhysicalDragResponder>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::PhysicsAnalytics>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::PhysicsStepJob>,0>
+std::_Ebco_base<class RSL::Detail::Allocator<class RBX::PlayerDataMetricsRecorder>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::PluginDrag>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::PolicyServiceAnalyticsStatReporter>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::PreloadAsyncRequest>,0>
@@ -17388,6 +17446,7 @@ std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Soundscape::SoundObject>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Soundscape::SoundOcclusionManager::InternalOcclusionQuery>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Soundscape::SplitterAudioNode>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Soundscape::VoicePlaybackAudioNode>,0>
+std::_Ebco_base<class RSL::Detail::Allocator<class RBX::StateObjectSchema>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::StreamingMessageHandler>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::StreamTransactionMessageSender>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::StreamTransactionMessageTransport>,0>
@@ -17494,8 +17553,6 @@ std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Studio::MaterialsMessage
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Studio::MeshGenMessageContent>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Studio::MessageQueue>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Studio::MessageSenderGroup::Impl>,0>
-std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Studio::PluginOTAController>,0>
-std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Studio::PluginOTADependencies>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Studio::PluginOTADownloader>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Studio::PluginOTAJob>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Studio::RenderJob>,0>
@@ -17867,7 +17924,6 @@ std::_Ebco_base<class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureSt
 std::_Ebco_base<class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::ConvAiPlatformOrchestrationServiceApi::PackageDiffResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >,0>
 std::_Ebco_base<class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::ConvaiSearchApi::SearchResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >,0>
 std::_Ebco_base<class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::CreatePlaceOperationResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >,0>
-std::_Ebco_base<class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::CreatorExperimentsServiceApi::ExperimentConfigModel,struct RBX::OpenApi::HttpErrorInfo> > >,0>
 std::_Ebco_base<class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::EventSubscriptionApi::SubscribeResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >,0>
 std::_Ebco_base<class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::GroupsApi::ApiArrayResponseGroupResponseV2Model,struct RBX::OpenApi::HttpErrorInfo> > >,0>
 std::_Ebco_base<class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::InventoryApi::UserOwnsAssetResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >,0>
@@ -18080,6 +18136,7 @@ std::_Func_base<class RBX::Reflection::Variant,unsigned int,class RBX::Reflectio
 std::_Func_base<class RBX::Reflection::Variant>
 std::_Func_base<class RBX::Studio::ActionIconSpec,class RBX::Studio::detail::IContextFetcher const & __ptr64,class RBX::Runtime::Lock const & __ptr64>
 std::_Func_base<class RBX::Studio::ActionIconSpec,class RBX::Studio::PlayClientContext const * __ptr64,class RBX::Studio::PlayServerContext const * __ptr64>
+std::_Func_base<class RBX::Studio::ActionIconSpec,class RBX::Studio::TeamCreateContext const * __ptr64,class RBX::Studio::ChildProcessContext const * __ptr64,class RBX::Studio::PlayTestModeSettingContext const * __ptr64>
 std::_Func_base<class RBX::Studio::ActionIconSpec,class RBX::Studio::TeamCreateContext const * __ptr64,class RBX::Studio::ChildProcessContext const * __ptr64>
 std::_Func_base<class RBX::Studio::ActionIconSpec>
 std::_Func_base<class RBX::Studio::ExplorerTreeWidgetItem * __ptr64,class RBX::Studio::ExplorerTreeWidget * __ptr64,class RBX::Studio::ExplorerTreeWidgetItem * __ptr64>
@@ -18130,7 +18187,9 @@ std::_Func_base<class std::string,class RBX::Instance * __ptr64>
 std::_Func_base<class std::string,class RBX::Studio::detail::IContextFetcher const & __ptr64,class RBX::Runtime::Lock const & __ptr64>
 std::_Func_base<class std::string,class RBX::Studio::PlayClientContext const * __ptr64,class RBX::Studio::PlayServerContext const * __ptr64>
 std::_Func_base<class std::string,class RBX::Studio::SelectionContext const * __ptr64>
+std::_Func_base<class std::string,class RBX::Studio::TeamCreateContext const * __ptr64,class RBX::Studio::ChildProcessContext const * __ptr64,class RBX::Studio::PlayTestModeSettingContext const * __ptr64>
 std::_Func_base<class std::string,class RBX::Studio::TeamCreateContext const * __ptr64,class RBX::Studio::ChildProcessContext const * __ptr64>
+std::_Func_base<class std::string,class RBX::Studio::TeamTestContext const * __ptr64,class RBX::Studio::ChildProcessContext const * __ptr64>
 std::_Func_base<class std::string,class std::map<class std::string,struct CmdArgDescriptor,struct std::less<class std::string >,class std::allocator<struct std::pair<class std::string const ,struct CmdArgDescriptor> > > const & __ptr64,int>
 std::_Func_base<class std::string,class std::string const & __ptr64>
 std::_Func_base<class std::string,class std::string,struct CmdArgDescriptor>
@@ -18162,7 +18221,6 @@ std::_Func_base<class std::unique_ptr<class MRUStoreLoginListener,struct std::de
 std::_Func_base<class std::unique_ptr<class PhysicsSettingsHandler,struct std::default_delete<class PhysicsSettingsHandler> >,class RBX::Studio::AssetDataModelProvider * __ptr64>
 std::_Func_base<class std::unique_ptr<class PlaceVersionHistoryController,struct std::default_delete<class PlaceVersionHistoryController> >,class RBX::Studio::IAssetDataModelManager * __ptr64,class IStudioPluginApiHost * __ptr64>
 std::_Func_base<class std::unique_ptr<class PluginChangeWatcher,struct std::default_delete<class PluginChangeWatcher> >,class RBX::Studio::IRunnableChangedPluginsSource * __ptr64>
-std::_Func_base<class std::unique_ptr<class PluginFileController,struct std::default_delete<class PluginFileController> > >
 std::_Func_base<class std::unique_ptr<class PluginFileController,struct std::default_delete<class PluginFileController> >,class RBX::Studio::IPluginOTAManager * __ptr64>
 std::_Func_base<class std::unique_ptr<class PluginLoadingControllerApplicationScopeNotifier,struct std::default_delete<class PluginLoadingControllerApplicationScopeNotifier> >,class RBX::Studio::ScopeManager * __ptr64>
 std::_Func_base<class std::unique_ptr<class PropertiesWidget::PropertiesTelemetry,struct std::default_delete<class PropertiesWidget::PropertiesTelemetry> > >
@@ -18206,9 +18264,12 @@ std::_Func_base<class std::unique_ptr<class RBX::Studio::CommandToolBarProvider,
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ConstraintInsertionController,struct std::default_delete<class RBX::Studio::ConstraintInsertionController> >,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::IActionManager * __ptr64,class IRobloxIDEDoc * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ConversationalAIErrorListener,struct std::default_delete<class RBX::Studio::ConversationalAIErrorListener> >,class RBX::Studio::IAssetDataModelManager * __ptr64,class RBX::Studio::IAssistantOutputConnection * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ConversationalAIFeature,struct std::default_delete<class RBX::Studio::ConversationalAIFeature> >,class RBX::Studio::IConversationalAIService * __ptr64,class RBX::Studio::ConversationalAIModel * __ptr64,class RBX::Studio::IScriptDiffAndCommit * __ptr64,class RBX::Studio::IFeatureActivityTracker * __ptr64>
+std::_Func_base<class std::unique_ptr<class RBX::Studio::ConversationalAILayerRegister,struct std::default_delete<class RBX::Studio::ConversationalAILayerRegister> >,class RBX::Studio::CreatorLayerRegister * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ConversationalAIModel,struct std::default_delete<class RBX::Studio::ConversationalAIModel> >,class RBX::Studio::IConversationalAIService * __ptr64,class IRobloxMainWindow * __ptr64,class RBX::Studio::MarkdownRenderer * __ptr64,class RBX::Studio::IConversationalAIExperimentation * __ptr64,class SystemOutputModel * __ptr64,class RBX::Studio::IUserContext * __ptr64,class RBX::Studio::IActionManager * __ptr64,class RBX::Studio::IAssistantOutputConnection * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ConversationalAIModel,struct std::default_delete<class RBX::Studio::ConversationalAIModel> >,class RBX::Studio::IConversationalAIService * __ptr64,class IRobloxMainWindow * __ptr64,class RBX::Studio::MarkdownRenderer * __ptr64,class RBX::Studio::IConversationalAIExperimentation * __ptr64,class SystemOutputModel * __ptr64,class RBX::Studio::IUserContext * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ConversationalAIPlaceSessionListener,struct std::default_delete<class RBX::Studio::ConversationalAIPlaceSessionListener> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
+std::_Func_base<class std::unique_ptr<class RBX::Studio::CreatorLayerFetcher,struct std::default_delete<class RBX::Studio::CreatorLayerFetcher> >,class RBX::Studio::CreatorLayerRegister * __ptr64,class RBX::Studio::IUserContext * __ptr64>
+std::_Func_base<class std::unique_ptr<class RBX::Studio::CreatorLayerRegister,struct std::default_delete<class RBX::Studio::CreatorLayerRegister> > >
 std::_Func_base<class std::unique_ptr<class RBX::Studio::DataModelActionStateController,struct std::default_delete<class RBX::Studio::DataModelActionStateController> >,class RBX::Studio::IAssetDataModelManager * __ptr64,class RBX::Studio::IActionManager * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::DataModelAutoSaver,struct std::default_delete<class RBX::Studio::DataModelAutoSaver> >,class RBX::Studio::IMainWindow * __ptr64,class IRobloxIDEDoc * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::DataModelLocalFileSaver * __ptr64,class RBX::Studio::IPlaceSessionContext * __ptr64,class RBX::Studio::IPlaceManager * __ptr64,class RBX::Studio::RunServiceMonitor * __ptr64,class RBX::Studio::UserMouseButtonAndKeyPressTracker * __ptr64,class RBX::Studio::DataModelAutoSaverTelemetry * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::DataModelAutoSaverTelemetry,struct std::default_delete<class RBX::Studio::DataModelAutoSaverTelemetry> >,class RBX::Studio::AssetDataModelProvider * __ptr64>
@@ -18333,6 +18394,7 @@ std::_Func_base<class std::unique_ptr<class RBX::Studio::MarkdownRenderer,struct
 std::_Func_base<class std::unique_ptr<class RBX::Studio::MarketPlaceServiceRegister,struct std::default_delete<class RBX::Studio::MarketPlaceServiceRegister> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ModelingServiceRegister,struct std::default_delete<class RBX::Studio::ModelingServiceRegister> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ModerationAutoSaverListener,struct std::default_delete<class RBX::Studio::ModerationAutoSaverListener> >,class RBX::Studio::IModerationController * __ptr64,class RBX::Studio::DataModelLocalSaveBridger * __ptr64>
+std::_Func_base<class std::unique_ptr<class RBX::Studio::MultiSessionTracker,struct std::default_delete<class RBX::Studio::MultiSessionTracker> >,class RBX::Studio::ScopeManager * __ptr64,class RBX::Studio::IAppContext * __ptr64,class RBX::Studio::INotificationService * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::NewUserExperiment,struct std::default_delete<class RBX::Studio::NewUserExperiment> >,class RBX::Studio::IUserContext * __ptr64,class RBX::Studio::IConversationalAIExperimentation * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::NonBuiltinPluginDisabler,struct std::default_delete<class RBX::Studio::NonBuiltinPluginDisabler> >,class RBX::Studio::IAppContext * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ObjectBrowserManager,struct std::default_delete<class RBX::Studio::ObjectBrowserManager> >,class RBX::Studio::ILoginController * __ptr64,class RBX::Studio::IPlaceManager * __ptr64,class IRobloxMainWindow * __ptr64>
@@ -18348,9 +18410,10 @@ std::_Func_base<class std::unique_ptr<class RBX::Studio::PlaceCloseAction,struct
 std::_Func_base<class std::unique_ptr<class RBX::Studio::PlaceContextProvider,struct std::default_delete<class RBX::Studio::PlaceContextProvider> >,class RBX::Studio::IPlaceManager * __ptr64,class RBX::Studio::IContextController * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::PlaceHeartbeats,struct std::default_delete<class RBX::Studio::PlaceHeartbeats> >,class RBX::Studio::UserHeartbeats * __ptr64,class RBX::Studio::IPlaceSessionContext * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::PlacePublishServiceListener,struct std::default_delete<class RBX::Studio::PlacePublishServiceListener> >,class RBX::Studio::IPlaceManager * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64>
+std::_Func_base<class std::unique_ptr<class RBX::Studio::PlayTestContextClientServerListener,struct std::default_delete<class RBX::Studio::PlayTestContextClientServerListener> >,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::PlayTestContextProvider * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::PlayTestContextProvider,struct std::default_delete<class RBX::Studio::PlayTestContextProvider> >,class RBX::Studio::IPlaceSessionContext * __ptr64,class RBX::Studio::RunServiceMonitor * __ptr64,class RBX::Studio::IContextController * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::PlayTestContextProvider,struct std::default_delete<class RBX::Studio::PlayTestContextProvider> >,class RBX::Studio::RunServiceMonitor * __ptr64,class RBX::Studio::IContextController * __ptr64>
-std::_Func_base<class std::unique_ptr<class RBX::Studio::PlayTestModesController,struct std::default_delete<class RBX::Studio::PlayTestModesController> >,class RBX::Studio::ISettingsBridge * __ptr64,class RBX::Studio::IActionManager * __ptr64>
+std::_Func_base<class std::unique_ptr<class RBX::Studio::PlayTestModesController,struct std::default_delete<class RBX::Studio::PlayTestModesController> >,class RBX::Studio::ISettingsBridge * __ptr64,class RBX::Studio::IActionManager * __ptr64,class RBX::Studio::IAppContext * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::PlayTestModeSettingContextProvider,struct std::default_delete<class RBX::Studio::PlayTestModeSettingContextProvider> >,class RBX::Studio::IContextController * __ptr64,class RBX::Studio::PlayTestModesController * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::PlayTestSessionGuidSetter,struct std::default_delete<class RBX::Studio::PlayTestSessionGuidSetter> >,class RBX::Studio::IAppContext * __ptr64,class RBX::Studio::IAssetDataModelManager * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::PluginCapabilities::BuiltInCapabilitiesLoader,struct std::default_delete<class RBX::Studio::PluginCapabilities::BuiltInCapabilitiesLoader> >,class IPluginLoaderCache * __ptr64>
@@ -18389,6 +18452,7 @@ std::_Func_base<class std::unique_ptr<class RBX::Studio::SandBoxedSignalRControl
 std::_Func_base<class std::unique_ptr<class RBX::Studio::SavingAttribute,struct std::default_delete<class RBX::Studio::SavingAttribute> >,class RBX::Studio::LongProcessAttribute * __ptr64,class RBX::Studio::DataModelLocalSaveBridger * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ScriptCloneTracker,struct std::default_delete<class RBX::Studio::ScriptCloneTracker> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ScriptEditorContextProviderBridge,struct std::default_delete<class RBX::Studio::ScriptEditorContextProviderBridge> >,class RBX::ScriptEditor::ScriptEditorContextProvider * __ptr64>
+std::_Func_base<class std::unique_ptr<class RBX::Studio::ScriptEditorUserScopedExperimentProvider,struct std::default_delete<class RBX::Studio::ScriptEditorUserScopedExperimentProvider> >,class RBX::Studio::CreatorLayerRegister * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ScriptingTelemetryModelListener,struct std::default_delete<class RBX::Studio::ScriptingTelemetryModelListener> >,class RBX::Studio::IScriptingProductivityTelemetry * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ScriptVersionTracker,struct std::default_delete<class RBX::Studio::ScriptVersionTracker> >,class RBX::Studio::IAssetDataModelManager * __ptr64,class RBX::Studio::IPlaceSessionContext * __ptr64,class PlaceVersionHistoryController * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::SecretsController,struct std::default_delete<class RBX::Studio::SecretsController> >,class RBX::Studio::IUserContext * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64>
@@ -18441,6 +18505,8 @@ std::_Func_base<class std::unique_ptr<class RBX::Studio::UserHeartbeats,struct s
 std::_Func_base<class std::unique_ptr<class RBX::Studio::UserIndependentPluginsHelper,struct std::default_delete<class RBX::Studio::UserIndependentPluginsHelper> > >
 std::_Func_base<class std::unique_ptr<class RBX::Studio::UserMouseButtonAndKeyPressTracker,struct std::default_delete<class RBX::Studio::UserMouseButtonAndKeyPressTracker> > >
 std::_Func_base<class std::unique_ptr<class RBX::Studio::UserPreferenceDataModelTaskRegister,struct std::default_delete<class RBX::Studio::UserPreferenceDataModelTaskRegister> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
+std::_Func_base<class std::unique_ptr<class RBX::Studio::UserSettingsContextProvider,struct std::default_delete<class RBX::Studio::UserSettingsContextProvider> >,class RBX::Studio::IContextController * __ptr64,class IRobloxMainWindow * __ptr64>
+std::_Func_base<class std::unique_ptr<class RBX::Studio::UserSettingsContextProvider,struct std::default_delete<class RBX::Studio::UserSettingsContextProvider> >,class RBX::Studio::IContextController * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::ViewClearColorSetter,struct std::default_delete<class RBX::Studio::ViewClearColorSetter> >,class RBX::Studio::IGraphicsEngineProvider * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::VREmulator,struct std::default_delete<class RBX::Studio::VREmulator> >,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::EmulatorKeyTracker * __ptr64,class RBX::Studio::GamepadEmulator * __ptr64,class StudioDeviceEmulator * __ptr64>
 std::_Func_base<class std::unique_ptr<class RBX::Studio::WindowManager,struct std::default_delete<class RBX::Studio::WindowManager> >,class RBX::Studio::IGraphicsEngineProvider * __ptr64>
@@ -18461,6 +18527,7 @@ std::_Func_base<class std::unique_ptr<class webrtc::AudioNetworkAdaptor,struct s
 std::_Func_base<class std::unique_ptr<class webrtc::StreamStatisticianImplInterface,struct std::default_delete<class webrtc::StreamStatisticianImplInterface> >,unsigned int,class webrtc::Clock * __ptr64,int>
 std::_Func_base<class std::unique_ptr<struct RBX::Geom::SolidMeshDelta,struct std::default_delete<struct RBX::Geom::SolidMeshDelta> >,class RBX::Geom::SolidMesh & __ptr64>
 std::_Func_base<class std::unique_ptr<struct RBX::Studio::AutoSaveDialog,struct std::default_delete<struct RBX::Studio::AutoSaveDialog> >,class RBX::Studio::IPlaceManager * __ptr64>
+std::_Func_base<class std::unique_ptr<struct RBX::Studio::ScriptEditorExperimentRegister,struct std::default_delete<struct RBX::Studio::ScriptEditorExperimentRegister> >,class RBX::Studio::CreatorLayerRegister * __ptr64>
 std::_Func_base<class std::unordered_map<class std::string,float,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,float> > > >
 std::_Func_base<class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > > >
 std::_Func_base<class std::vector<struct glm::vec<3,int,0>,class std::allocator<struct glm::vec<3,int,0> > >,int>
@@ -18478,6 +18545,7 @@ std::_Func_base<double,int>
 std::_Func_base<double>
 std::_Func_base<enum cricket::IceRole>
 std::_Func_base<enum cricket::IceTransportState>
+std::_Func_base<enum RBX::Mesh::EdgeIndex,class RBX::Mesh::EditableMeshData const & __ptr64,enum RBX::Mesh::EdgeIndex>
 std::_Func_base<enum RBX::RVideo::RVError,class RBX::VideoStream * __ptr64>
 std::_Func_base<enum RBX::StudioGameStateType>
 std::_Func_base<enum RBX::worker_thread::work_result>
@@ -19105,7 +19173,6 @@ std::_Func_impl_no_alloc<class boost::_bi::bind_t<class StudioResourceId,class S
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<int,class boost::_mfi::mf0<int,class RBX::Soundscape::SoundService>,class boost::_bi::list1<class boost::_bi::value<class RBX::Soundscape::SoundService * __ptr64> > >,int>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<struct boost::_bi::unspecified,class std::function<void __cdecl(class RBX::DataModel * __ptr64,enum RBX::HttpRequestResult)>,class boost::_bi::list2<struct boost::arg<1>,class boost::_bi::value<enum RBX::HttpRequestResult> > >,void,class RBX::DataModel * __ptr64>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RBX::Studio::RecordToggleVerb>,class boost::_bi::list1<class boost::_bi::value<class RBX::Studio::RecordToggleVerb * __ptr64> > >,void>
-std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RBX::TestService>,class boost::_bi::list1<class boost::_bi::value<class RBX::TestService * __ptr64> > >,void,class RBX::DataModel * __ptr64>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RobloxIDEDoc>,class boost::_bi::list1<class boost::_bi::value<class RobloxIDEDoc * __ptr64> > >,void,class RBX::VerbContainer * __ptr64>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf0<void,class RobloxViewStudio>,class boost::_bi::list1<class boost::_bi::value<class RobloxViewStudio * __ptr64> > >,void>
 std::_Func_impl_no_alloc<class boost::_bi::bind_t<void,class boost::_mfi::mf2<void,class RBX::MockMarketplaceApiClient,class std::string,class std::function<void __cdecl(bool)> >,class boost::_bi::list3<class boost::_bi::value<class RBX::MockMarketplaceApiClient * __ptr64>,struct boost::arg<1>,class boost::_bi::value<class std::function<void __cdecl(bool)> > > >,void,class std::string >
@@ -19378,7 +19445,6 @@ std::_Func_impl_no_alloc<class std::unique_ptr<class PhysicsSettingsHandler,stru
 std::_Func_impl_no_alloc<class std::unique_ptr<class PlaceVersionHistoryController,struct std::default_delete<class PlaceVersionHistoryController> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64,class IStudioPluginApiHost * __ptr64),class std::unique_ptr<class PlaceVersionHistoryController,struct std::default_delete<class PlaceVersionHistoryController> >,class RBX::Studio::IAssetDataModelManager * __ptr64,class IStudioPluginApiHost * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class PluginChangeWatcher,struct std::default_delete<class PluginChangeWatcher> > (__cdecl*)(class RBX::Studio::IRunnableChangedPluginsSource * __ptr64),class std::unique_ptr<class PluginChangeWatcher,struct std::default_delete<class PluginChangeWatcher> >,class RBX::Studio::IRunnableChangedPluginsSource * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class PluginFileController,struct std::default_delete<class PluginFileController> > (__cdecl*)(class RBX::Studio::IPluginOTAManager * __ptr64),class std::unique_ptr<class PluginFileController,struct std::default_delete<class PluginFileController> >,class RBX::Studio::IPluginOTAManager * __ptr64>
-std::_Func_impl_no_alloc<class std::unique_ptr<class PluginFileController,struct std::default_delete<class PluginFileController> > (__cdecl*)(void),class std::unique_ptr<class PluginFileController,struct std::default_delete<class PluginFileController> > >
 std::_Func_impl_no_alloc<class std::unique_ptr<class PluginLoadingControllerApplicationScopeNotifier,struct std::default_delete<class PluginLoadingControllerApplicationScopeNotifier> > (__cdecl*)(class RBX::Studio::ScopeManager * __ptr64),class std::unique_ptr<class PluginLoadingControllerApplicationScopeNotifier,struct std::default_delete<class PluginLoadingControllerApplicationScopeNotifier> >,class RBX::Studio::ScopeManager * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class PropertiesWidget::PropertiesTelemetry,struct std::default_delete<class PropertiesWidget::PropertiesTelemetry> > (__cdecl*)(void),class std::unique_ptr<class PropertiesWidget::PropertiesTelemetry,struct std::default_delete<class PropertiesWidget::PropertiesTelemetry> > >
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::FindReplace::FindReplaceDataModelSearcher,struct std::default_delete<class RBX::FindReplace::FindReplaceDataModelSearcher> > (__cdecl*)(class RBX::FindReplace::FindReplaceTasker * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::IAssetDataModelManager * __ptr64),class std::unique_ptr<class RBX::FindReplace::FindReplaceDataModelSearcher,struct std::default_delete<class RBX::FindReplace::FindReplaceDataModelSearcher> >,class RBX::FindReplace::FindReplaceTasker * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::IAssetDataModelManager * __ptr64>
@@ -19420,9 +19486,12 @@ std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::CommandToolBar
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ConstraintInsertionController,struct std::default_delete<class RBX::Studio::ConstraintInsertionController> > (__cdecl*)(class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::IActionManager * __ptr64,class IRobloxIDEDoc * __ptr64),class std::unique_ptr<class RBX::Studio::ConstraintInsertionController,struct std::default_delete<class RBX::Studio::ConstraintInsertionController> >,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::IActionManager * __ptr64,class IRobloxIDEDoc * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ConversationalAIErrorListener,struct std::default_delete<class RBX::Studio::ConversationalAIErrorListener> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64,class RBX::Studio::IAssistantOutputConnection * __ptr64),class std::unique_ptr<class RBX::Studio::ConversationalAIErrorListener,struct std::default_delete<class RBX::Studio::ConversationalAIErrorListener> >,class RBX::Studio::IAssetDataModelManager * __ptr64,class RBX::Studio::IAssistantOutputConnection * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ConversationalAIFeature,struct std::default_delete<class RBX::Studio::ConversationalAIFeature> > (__cdecl*)(class RBX::Studio::IConversationalAIService * __ptr64,class RBX::Studio::ConversationalAIModel * __ptr64,class RBX::Studio::IScriptDiffAndCommit * __ptr64,class RBX::Studio::IFeatureActivityTracker * __ptr64),class std::unique_ptr<class RBX::Studio::ConversationalAIFeature,struct std::default_delete<class RBX::Studio::ConversationalAIFeature> >,class RBX::Studio::IConversationalAIService * __ptr64,class RBX::Studio::ConversationalAIModel * __ptr64,class RBX::Studio::IScriptDiffAndCommit * __ptr64,class RBX::Studio::IFeatureActivityTracker * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ConversationalAILayerRegister,struct std::default_delete<class RBX::Studio::ConversationalAILayerRegister> > (__cdecl*)(class RBX::Studio::CreatorLayerRegister * __ptr64),class std::unique_ptr<class RBX::Studio::ConversationalAILayerRegister,struct std::default_delete<class RBX::Studio::ConversationalAILayerRegister> >,class RBX::Studio::CreatorLayerRegister * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ConversationalAIModel,struct std::default_delete<class RBX::Studio::ConversationalAIModel> > (__cdecl*)(class RBX::Studio::IConversationalAIService * __ptr64,class IRobloxMainWindow * __ptr64,class RBX::Studio::MarkdownRenderer * __ptr64,class RBX::Studio::IConversationalAIExperimentation * __ptr64,class SystemOutputModel * __ptr64,class RBX::Studio::IUserContext * __ptr64),class std::unique_ptr<class RBX::Studio::ConversationalAIModel,struct std::default_delete<class RBX::Studio::ConversationalAIModel> >,class RBX::Studio::IConversationalAIService * __ptr64,class IRobloxMainWindow * __ptr64,class RBX::Studio::MarkdownRenderer * __ptr64,class RBX::Studio::IConversationalAIExperimentation * __ptr64,class SystemOutputModel * __ptr64,class RBX::Studio::IUserContext * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ConversationalAIModel,struct std::default_delete<class RBX::Studio::ConversationalAIModel> > (__cdecl*)(class RBX::Studio::IConversationalAIService * __ptr64,class IRobloxMainWindow * __ptr64,class RBX::Studio::MarkdownRenderer * __ptr64,class RBX::Studio::IConversationalAIExperimentation * __ptr64,class SystemOutputModel * __ptr64,class RBX::Studio::IUserContext * __ptr64,class RBX::Studio::IActionManager * __ptr64,class RBX::Studio::IAssistantOutputConnection * __ptr64),class std::unique_ptr<class RBX::Studio::ConversationalAIModel,struct std::default_delete<class RBX::Studio::ConversationalAIModel> >,class RBX::Studio::IConversationalAIService * __ptr64,class IRobloxMainWindow * __ptr64,class RBX::Studio::MarkdownRenderer * __ptr64,class RBX::Studio::IConversationalAIExperimentation * __ptr64,class SystemOutputModel * __ptr64,class RBX::Studio::IUserContext * __ptr64,class RBX::Studio::IActionManager * __ptr64,class RBX::Studio::IAssistantOutputConnection * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ConversationalAIPlaceSessionListener,struct std::default_delete<class RBX::Studio::ConversationalAIPlaceSessionListener> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64),class std::unique_ptr<class RBX::Studio::ConversationalAIPlaceSessionListener,struct std::default_delete<class RBX::Studio::ConversationalAIPlaceSessionListener> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::CreatorLayerFetcher,struct std::default_delete<class RBX::Studio::CreatorLayerFetcher> > (__cdecl*)(class RBX::Studio::CreatorLayerRegister * __ptr64,class RBX::Studio::IUserContext * __ptr64),class std::unique_ptr<class RBX::Studio::CreatorLayerFetcher,struct std::default_delete<class RBX::Studio::CreatorLayerFetcher> >,class RBX::Studio::CreatorLayerRegister * __ptr64,class RBX::Studio::IUserContext * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::CreatorLayerRegister,struct std::default_delete<class RBX::Studio::CreatorLayerRegister> > (__cdecl*)(void),class std::unique_ptr<class RBX::Studio::CreatorLayerRegister,struct std::default_delete<class RBX::Studio::CreatorLayerRegister> > >
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::DataModelActionStateController,struct std::default_delete<class RBX::Studio::DataModelActionStateController> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64,class RBX::Studio::IActionManager * __ptr64),class std::unique_ptr<class RBX::Studio::DataModelActionStateController,struct std::default_delete<class RBX::Studio::DataModelActionStateController> >,class RBX::Studio::IAssetDataModelManager * __ptr64,class RBX::Studio::IActionManager * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::DataModelAutoSaver,struct std::default_delete<class RBX::Studio::DataModelAutoSaver> > (__cdecl*)(class RBX::Studio::IMainWindow * __ptr64,class IRobloxIDEDoc * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::DataModelLocalFileSaver * __ptr64,class RBX::Studio::IPlaceSessionContext * __ptr64,class RBX::Studio::IPlaceManager * __ptr64,class RBX::Studio::RunServiceMonitor * __ptr64,class RBX::Studio::UserMouseButtonAndKeyPressTracker * __ptr64,class RBX::Studio::DataModelAutoSaverTelemetry * __ptr64),class std::unique_ptr<class RBX::Studio::DataModelAutoSaver,struct std::default_delete<class RBX::Studio::DataModelAutoSaver> >,class RBX::Studio::IMainWindow * __ptr64,class IRobloxIDEDoc * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::DataModelLocalFileSaver * __ptr64,class RBX::Studio::IPlaceSessionContext * __ptr64,class RBX::Studio::IPlaceManager * __ptr64,class RBX::Studio::RunServiceMonitor * __ptr64,class RBX::Studio::UserMouseButtonAndKeyPressTracker * __ptr64,class RBX::Studio::DataModelAutoSaverTelemetry * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::DataModelAutoSaverTelemetry,struct std::default_delete<class RBX::Studio::DataModelAutoSaverTelemetry> > (__cdecl*)(class RBX::Studio::AssetDataModelProvider * __ptr64),class std::unique_ptr<class RBX::Studio::DataModelAutoSaverTelemetry,struct std::default_delete<class RBX::Studio::DataModelAutoSaverTelemetry> >,class RBX::Studio::AssetDataModelProvider * __ptr64>
@@ -19546,6 +19615,7 @@ std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::MarkdownRender
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::MarketPlaceServiceRegister,struct std::default_delete<class RBX::Studio::MarketPlaceServiceRegister> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64),class std::unique_ptr<class RBX::Studio::MarketPlaceServiceRegister,struct std::default_delete<class RBX::Studio::MarketPlaceServiceRegister> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ModelingServiceRegister,struct std::default_delete<class RBX::Studio::ModelingServiceRegister> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64),class std::unique_ptr<class RBX::Studio::ModelingServiceRegister,struct std::default_delete<class RBX::Studio::ModelingServiceRegister> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ModerationAutoSaverListener,struct std::default_delete<class RBX::Studio::ModerationAutoSaverListener> > (__cdecl*)(class RBX::Studio::IModerationController * __ptr64,class RBX::Studio::DataModelLocalSaveBridger * __ptr64),class std::unique_ptr<class RBX::Studio::ModerationAutoSaverListener,struct std::default_delete<class RBX::Studio::ModerationAutoSaverListener> >,class RBX::Studio::IModerationController * __ptr64,class RBX::Studio::DataModelLocalSaveBridger * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::MultiSessionTracker,struct std::default_delete<class RBX::Studio::MultiSessionTracker> > (__cdecl*)(class RBX::Studio::ScopeManager * __ptr64,class RBX::Studio::IAppContext * __ptr64,class RBX::Studio::INotificationService * __ptr64),class std::unique_ptr<class RBX::Studio::MultiSessionTracker,struct std::default_delete<class RBX::Studio::MultiSessionTracker> >,class RBX::Studio::ScopeManager * __ptr64,class RBX::Studio::IAppContext * __ptr64,class RBX::Studio::INotificationService * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::NewUserExperiment,struct std::default_delete<class RBX::Studio::NewUserExperiment> > (__cdecl*)(class RBX::Studio::IUserContext * __ptr64,class RBX::Studio::IConversationalAIExperimentation * __ptr64),class std::unique_ptr<class RBX::Studio::NewUserExperiment,struct std::default_delete<class RBX::Studio::NewUserExperiment> >,class RBX::Studio::IUserContext * __ptr64,class RBX::Studio::IConversationalAIExperimentation * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::NonBuiltinPluginDisabler,struct std::default_delete<class RBX::Studio::NonBuiltinPluginDisabler> > (__cdecl*)(class RBX::Studio::IAppContext * __ptr64),class std::unique_ptr<class RBX::Studio::NonBuiltinPluginDisabler,struct std::default_delete<class RBX::Studio::NonBuiltinPluginDisabler> >,class RBX::Studio::IAppContext * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ObjectBrowserManager,struct std::default_delete<class RBX::Studio::ObjectBrowserManager> > (__cdecl*)(class RBX::Studio::ILoginController * __ptr64,class RBX::Studio::IPlaceManager * __ptr64,class IRobloxMainWindow * __ptr64),class std::unique_ptr<class RBX::Studio::ObjectBrowserManager,struct std::default_delete<class RBX::Studio::ObjectBrowserManager> >,class RBX::Studio::ILoginController * __ptr64,class RBX::Studio::IPlaceManager * __ptr64,class IRobloxMainWindow * __ptr64>
@@ -19561,9 +19631,10 @@ std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlaceCloseActi
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlaceContextProvider,struct std::default_delete<class RBX::Studio::PlaceContextProvider> > (__cdecl*)(class RBX::Studio::IPlaceManager * __ptr64,class RBX::Studio::IContextController * __ptr64),class std::unique_ptr<class RBX::Studio::PlaceContextProvider,struct std::default_delete<class RBX::Studio::PlaceContextProvider> >,class RBX::Studio::IPlaceManager * __ptr64,class RBX::Studio::IContextController * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlaceHeartbeats,struct std::default_delete<class RBX::Studio::PlaceHeartbeats> > (__cdecl*)(class RBX::Studio::UserHeartbeats * __ptr64,class RBX::Studio::IPlaceSessionContext * __ptr64),class std::unique_ptr<class RBX::Studio::PlaceHeartbeats,struct std::default_delete<class RBX::Studio::PlaceHeartbeats> >,class RBX::Studio::UserHeartbeats * __ptr64,class RBX::Studio::IPlaceSessionContext * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlacePublishServiceListener,struct std::default_delete<class RBX::Studio::PlacePublishServiceListener> > (__cdecl*)(class RBX::Studio::IPlaceManager * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64),class std::unique_ptr<class RBX::Studio::PlacePublishServiceListener,struct std::default_delete<class RBX::Studio::PlacePublishServiceListener> >,class RBX::Studio::IPlaceManager * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlayTestContextClientServerListener,struct std::default_delete<class RBX::Studio::PlayTestContextClientServerListener> > (__cdecl*)(class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::PlayTestContextProvider * __ptr64),class std::unique_ptr<class RBX::Studio::PlayTestContextClientServerListener,struct std::default_delete<class RBX::Studio::PlayTestContextClientServerListener> >,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::PlayTestContextProvider * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlayTestContextProvider,struct std::default_delete<class RBX::Studio::PlayTestContextProvider> > (__cdecl*)(class RBX::Studio::IPlaceSessionContext * __ptr64,class RBX::Studio::RunServiceMonitor * __ptr64,class RBX::Studio::IContextController * __ptr64),class std::unique_ptr<class RBX::Studio::PlayTestContextProvider,struct std::default_delete<class RBX::Studio::PlayTestContextProvider> >,class RBX::Studio::IPlaceSessionContext * __ptr64,class RBX::Studio::RunServiceMonitor * __ptr64,class RBX::Studio::IContextController * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlayTestContextProvider,struct std::default_delete<class RBX::Studio::PlayTestContextProvider> > (__cdecl*)(class RBX::Studio::RunServiceMonitor * __ptr64,class RBX::Studio::IContextController * __ptr64),class std::unique_ptr<class RBX::Studio::PlayTestContextProvider,struct std::default_delete<class RBX::Studio::PlayTestContextProvider> >,class RBX::Studio::RunServiceMonitor * __ptr64,class RBX::Studio::IContextController * __ptr64>
-std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlayTestModesController,struct std::default_delete<class RBX::Studio::PlayTestModesController> > (__cdecl*)(class RBX::Studio::ISettingsBridge * __ptr64,class RBX::Studio::IActionManager * __ptr64),class std::unique_ptr<class RBX::Studio::PlayTestModesController,struct std::default_delete<class RBX::Studio::PlayTestModesController> >,class RBX::Studio::ISettingsBridge * __ptr64,class RBX::Studio::IActionManager * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlayTestModesController,struct std::default_delete<class RBX::Studio::PlayTestModesController> > (__cdecl*)(class RBX::Studio::ISettingsBridge * __ptr64,class RBX::Studio::IActionManager * __ptr64,class RBX::Studio::IAppContext * __ptr64),class std::unique_ptr<class RBX::Studio::PlayTestModesController,struct std::default_delete<class RBX::Studio::PlayTestModesController> >,class RBX::Studio::ISettingsBridge * __ptr64,class RBX::Studio::IActionManager * __ptr64,class RBX::Studio::IAppContext * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlayTestModeSettingContextProvider,struct std::default_delete<class RBX::Studio::PlayTestModeSettingContextProvider> > (__cdecl*)(class RBX::Studio::IContextController * __ptr64,class RBX::Studio::PlayTestModesController * __ptr64),class std::unique_ptr<class RBX::Studio::PlayTestModeSettingContextProvider,struct std::default_delete<class RBX::Studio::PlayTestModeSettingContextProvider> >,class RBX::Studio::IContextController * __ptr64,class RBX::Studio::PlayTestModesController * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PlayTestSessionGuidSetter,struct std::default_delete<class RBX::Studio::PlayTestSessionGuidSetter> > (__cdecl*)(class RBX::Studio::IAppContext * __ptr64,class RBX::Studio::IAssetDataModelManager * __ptr64),class std::unique_ptr<class RBX::Studio::PlayTestSessionGuidSetter,struct std::default_delete<class RBX::Studio::PlayTestSessionGuidSetter> >,class RBX::Studio::IAppContext * __ptr64,class RBX::Studio::IAssetDataModelManager * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::PluginCapabilities::BuiltInCapabilitiesLoader,struct std::default_delete<class RBX::Studio::PluginCapabilities::BuiltInCapabilitiesLoader> > (__cdecl*)(class IPluginLoaderCache * __ptr64),class std::unique_ptr<class RBX::Studio::PluginCapabilities::BuiltInCapabilitiesLoader,struct std::default_delete<class RBX::Studio::PluginCapabilities::BuiltInCapabilitiesLoader> >,class IPluginLoaderCache * __ptr64>
@@ -19602,6 +19673,7 @@ std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::SandBoxedSigna
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::SavingAttribute,struct std::default_delete<class RBX::Studio::SavingAttribute> > (__cdecl*)(class RBX::Studio::LongProcessAttribute * __ptr64,class RBX::Studio::DataModelLocalSaveBridger * __ptr64),class std::unique_ptr<class RBX::Studio::SavingAttribute,struct std::default_delete<class RBX::Studio::SavingAttribute> >,class RBX::Studio::LongProcessAttribute * __ptr64,class RBX::Studio::DataModelLocalSaveBridger * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ScriptCloneTracker,struct std::default_delete<class RBX::Studio::ScriptCloneTracker> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64),class std::unique_ptr<class RBX::Studio::ScriptCloneTracker,struct std::default_delete<class RBX::Studio::ScriptCloneTracker> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ScriptEditorContextProviderBridge,struct std::default_delete<class RBX::Studio::ScriptEditorContextProviderBridge> > (__cdecl*)(class RBX::ScriptEditor::ScriptEditorContextProvider * __ptr64),class std::unique_ptr<class RBX::Studio::ScriptEditorContextProviderBridge,struct std::default_delete<class RBX::Studio::ScriptEditorContextProviderBridge> >,class RBX::ScriptEditor::ScriptEditorContextProvider * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ScriptEditorUserScopedExperimentProvider,struct std::default_delete<class RBX::Studio::ScriptEditorUserScopedExperimentProvider> > (__cdecl*)(class RBX::Studio::CreatorLayerRegister * __ptr64),class std::unique_ptr<class RBX::Studio::ScriptEditorUserScopedExperimentProvider,struct std::default_delete<class RBX::Studio::ScriptEditorUserScopedExperimentProvider> >,class RBX::Studio::CreatorLayerRegister * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ScriptingTelemetryModelListener,struct std::default_delete<class RBX::Studio::ScriptingTelemetryModelListener> > (__cdecl*)(class RBX::Studio::IScriptingProductivityTelemetry * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64),class std::unique_ptr<class RBX::Studio::ScriptingTelemetryModelListener,struct std::default_delete<class RBX::Studio::ScriptingTelemetryModelListener> >,class RBX::Studio::IScriptingProductivityTelemetry * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ScriptVersionTracker,struct std::default_delete<class RBX::Studio::ScriptVersionTracker> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64,class RBX::Studio::IPlaceSessionContext * __ptr64,class PlaceVersionHistoryController * __ptr64),class std::unique_ptr<class RBX::Studio::ScriptVersionTracker,struct std::default_delete<class RBX::Studio::ScriptVersionTracker> >,class RBX::Studio::IAssetDataModelManager * __ptr64,class RBX::Studio::IPlaceSessionContext * __ptr64,class PlaceVersionHistoryController * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::SecretsController,struct std::default_delete<class RBX::Studio::SecretsController> > (__cdecl*)(class RBX::Studio::IUserContext * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64),class std::unique_ptr<class RBX::Studio::SecretsController,struct std::default_delete<class RBX::Studio::SecretsController> >,class RBX::Studio::IUserContext * __ptr64,class RBX::Studio::AssetDataModelProvider * __ptr64>
@@ -19654,6 +19726,8 @@ std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::UserHeartbeats
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::UserIndependentPluginsHelper,struct std::default_delete<class RBX::Studio::UserIndependentPluginsHelper> > (__cdecl*)(void),class std::unique_ptr<class RBX::Studio::UserIndependentPluginsHelper,struct std::default_delete<class RBX::Studio::UserIndependentPluginsHelper> > >
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::UserMouseButtonAndKeyPressTracker,struct std::default_delete<class RBX::Studio::UserMouseButtonAndKeyPressTracker> > (__cdecl*)(void),class std::unique_ptr<class RBX::Studio::UserMouseButtonAndKeyPressTracker,struct std::default_delete<class RBX::Studio::UserMouseButtonAndKeyPressTracker> > >
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::UserPreferenceDataModelTaskRegister,struct std::default_delete<class RBX::Studio::UserPreferenceDataModelTaskRegister> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64),class std::unique_ptr<class RBX::Studio::UserPreferenceDataModelTaskRegister,struct std::default_delete<class RBX::Studio::UserPreferenceDataModelTaskRegister> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::UserSettingsContextProvider,struct std::default_delete<class RBX::Studio::UserSettingsContextProvider> > (__cdecl*)(class RBX::Studio::IContextController * __ptr64),class std::unique_ptr<class RBX::Studio::UserSettingsContextProvider,struct std::default_delete<class RBX::Studio::UserSettingsContextProvider> >,class RBX::Studio::IContextController * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::UserSettingsContextProvider,struct std::default_delete<class RBX::Studio::UserSettingsContextProvider> > (__cdecl*)(class RBX::Studio::IContextController * __ptr64,class IRobloxMainWindow * __ptr64),class std::unique_ptr<class RBX::Studio::UserSettingsContextProvider,struct std::default_delete<class RBX::Studio::UserSettingsContextProvider> >,class RBX::Studio::IContextController * __ptr64,class IRobloxMainWindow * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::ViewClearColorSetter,struct std::default_delete<class RBX::Studio::ViewClearColorSetter> > (__cdecl*)(class RBX::Studio::IGraphicsEngineProvider * __ptr64),class std::unique_ptr<class RBX::Studio::ViewClearColorSetter,struct std::default_delete<class RBX::Studio::ViewClearColorSetter> >,class RBX::Studio::IGraphicsEngineProvider * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::VREmulator,struct std::default_delete<class RBX::Studio::VREmulator> > (__cdecl*)(class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::EmulatorKeyTracker * __ptr64,class RBX::Studio::GamepadEmulator * __ptr64,class StudioDeviceEmulator * __ptr64),class std::unique_ptr<class RBX::Studio::VREmulator,struct std::default_delete<class RBX::Studio::VREmulator> >,class RBX::Studio::AssetDataModelProvider * __ptr64,class RBX::Studio::EmulatorKeyTracker * __ptr64,class RBX::Studio::GamepadEmulator * __ptr64,class StudioDeviceEmulator * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class RBX::Studio::WindowManager,struct std::default_delete<class RBX::Studio::WindowManager> > (__cdecl*)(class RBX::Studio::IGraphicsEngineProvider * __ptr64),class std::unique_ptr<class RBX::Studio::WindowManager,struct std::default_delete<class RBX::Studio::WindowManager> >,class RBX::Studio::IGraphicsEngineProvider * __ptr64>
@@ -19671,8 +19745,10 @@ std::_Func_impl_no_alloc<class std::unique_ptr<class UserActivityInfo,struct std
 std::_Func_impl_no_alloc<class std::unique_ptr<class UserActivityTracker,struct std::default_delete<class UserActivityTracker> > (__cdecl*)(class IRobloxMainWindow * __ptr64,class RBX::Studio::INotificationService * __ptr64,class UserActivityInfo * __ptr64,class IHardwareSleepListener * __ptr64,class RBX::Studio::ApplicationNotRespondingDetector * __ptr64),class std::unique_ptr<class UserActivityTracker,struct std::default_delete<class UserActivityTracker> >,class IRobloxMainWindow * __ptr64,class RBX::Studio::INotificationService * __ptr64,class UserActivityInfo * __ptr64,class IHardwareSleepListener * __ptr64,class RBX::Studio::ApplicationNotRespondingDetector * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<class VersionHistoryController,struct std::default_delete<class VersionHistoryController> > (__cdecl*)(class RBX::Studio::IAssetDataModelManager * __ptr64),class std::unique_ptr<class VersionHistoryController,struct std::default_delete<class VersionHistoryController> >,class RBX::Studio::IAssetDataModelManager * __ptr64>
 std::_Func_impl_no_alloc<class std::unique_ptr<struct RBX::Studio::AutoSaveDialog,struct std::default_delete<struct RBX::Studio::AutoSaveDialog> > (__cdecl*)(class RBX::Studio::IPlaceManager * __ptr64),class std::unique_ptr<struct RBX::Studio::AutoSaveDialog,struct std::default_delete<struct RBX::Studio::AutoSaveDialog> >,class RBX::Studio::IPlaceManager * __ptr64>
+std::_Func_impl_no_alloc<class std::unique_ptr<struct RBX::Studio::ScriptEditorExperimentRegister,struct std::default_delete<struct RBX::Studio::ScriptEditorExperimentRegister> > (__cdecl*)(class RBX::Studio::CreatorLayerRegister * __ptr64),class std::unique_ptr<struct RBX::Studio::ScriptEditorExperimentRegister,struct std::default_delete<struct RBX::Studio::ScriptEditorExperimentRegister> >,class RBX::Studio::CreatorLayerRegister * __ptr64>
 std::_Func_impl_no_alloc<class std::unordered_map<class std::string,float,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,float> > > (__cdecl*)(void),class std::unordered_map<class std::string,float,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,float> > > >
 std::_Func_impl_no_alloc<class std::vector<struct RBX::LSP::DocumentSymbol,class std::allocator<struct RBX::LSP::DocumentSymbol> > (__cdecl*)(struct RBX::LSP::LuauModules const & __ptr64),class std::vector<struct RBX::LSP::DocumentSymbol,class std::allocator<struct RBX::LSP::DocumentSymbol> >,struct RBX::LSP::LuauModules const & __ptr64>
+std::_Func_impl_no_alloc<enum RBX::Mesh::EdgeIndex (__cdecl*)(class RBX::Mesh::EditableMeshData const & __ptr64,enum RBX::Mesh::EdgeIndex),enum RBX::Mesh::EdgeIndex,class RBX::Mesh::EditableMeshData const & __ptr64,enum RBX::Mesh::EdgeIndex>
 std::_Func_impl_no_alloc<enum RBX::RVideo::RVError (__cdecl RBX::VideoStream::*)(void) __ptr64,enum RBX::RVideo::RVError,class RBX::VideoStream * __ptr64>
 std::_Func_impl_no_alloc<struct `anonymous namespace'::IsScriptSyncFeatureFlagEnabledSingleSelect,bool>
 std::_Func_impl_no_alloc<struct Luau::TypeFunctionReductionResult<struct Luau::Type const * __ptr64> (__cdecl*)(struct Luau::Type const * __ptr64,class std::vector<struct Luau::Type const * __ptr64,class std::allocator<struct Luau::Type const * __ptr64> > const & __ptr64,class std::vector<struct Luau::TypePackVar const * __ptr64,class std::allocator<struct Luau::TypePackVar const * __ptr64> > const & __ptr64,struct Luau::NotNull<struct Luau::TypeFunctionContext>),struct Luau::TypeFunctionReductionResult<struct Luau::Type const * __ptr64>,struct Luau::Type const * __ptr64,class std::vector<struct Luau::Type const * __ptr64,class std::allocator<struct Luau::Type const * __ptr64> > const & __ptr64,class std::vector<struct Luau::TypePackVar const * __ptr64,class std::allocator<struct Luau::TypePackVar const * __ptr64> > const & __ptr64,struct Luau::NotNull<struct Luau::TypeFunctionContext> >
@@ -19879,6 +19955,7 @@ std::_Ref_count_obj_alloc3<class RBX::AssetImport::UploadMeshDataRequest,class R
 std::_Ref_count_obj_alloc3<class RBX::AsyncBackoffDelayMap<class RBX::ContentId>,class RSL::Detail::Allocator<class RBX::AsyncBackoffDelayMap<class RBX::ContentId> > >
 std::_Ref_count_obj_alloc3<class RBX::AsyncHttpQueue,class RSL::Detail::Allocator<class RBX::AsyncHttpQueue> >
 std::_Ref_count_obj_alloc3<class RBX::AsyncPlayerCallbackQueueHandler<class std::shared_ptr<class std::unordered_map<class std::string,class RBX::Reflection::Variant,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const > >,class RSL::Detail::Allocator<class RBX::AsyncPlayerCallbackQueueHandler<class std::shared_ptr<class std::unordered_map<class std::string,class RBX::Reflection::Variant,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const > > > >
+std::_Ref_count_obj_alloc3<class RBX::AsyncVideoStream,class RSL::Detail::Allocator<class RBX::AsyncVideoStream> >
 std::_Ref_count_obj_alloc3<class RBX::AudioMetadata,class RSL::Detail::Allocator<class RBX::AudioMetadata> >
 std::_Ref_count_obj_alloc3<class RBX::AudioMetadataManager,class RSL::Detail::Allocator<class RBX::AudioMetadataManager> >
 std::_Ref_count_obj_alloc3<class RBX::AuroraScriptMessageQueue,class RSL::Detail::Allocator<class RBX::AuroraScriptMessageQueue> >
@@ -19930,6 +20007,7 @@ std::_Ref_count_obj_alloc3<class RBX::DataModelPatchProvider,class RSL::Detail::
 std::_Ref_count_obj_alloc3<class RBX::DataModelSnapshotJob,class RSL::Detail::Allocator<class RBX::DataModelSnapshotJob> >
 std::_Ref_count_obj_alloc3<class RBX::DataStore::CachedRecord,class RSL::Detail::Allocator<class RBX::DataStore::CachedRecord> >
 std::_Ref_count_obj_alloc3<class RBX::DataStore2::CachedRecordV2,class RSL::Detail::Allocator<class RBX::DataStore2::CachedRecordV2> >
+std::_Ref_count_obj_alloc3<class RBX::DataStoreMetricsRecorder,class RSL::Detail::Allocator<class RBX::DataStoreMetricsRecorder> >
 std::_Ref_count_obj_alloc3<class RBX::DateHandler,class RSL::Detail::Allocator<class RBX::DateHandler> >
 std::_Ref_count_obj_alloc3<class RBX::DatetimeHandler,class RSL::Detail::Allocator<class RBX::DatetimeHandler> >
 std::_Ref_count_obj_alloc3<class RBX::DCD::Task,class RSL::Detail::Allocator<class RBX::DCD::Task> >
@@ -20093,6 +20171,7 @@ std::_Ref_count_obj_alloc3<class RBX::PerformanceControlUtil,class RSL::Detail::
 std::_Ref_count_obj_alloc3<class RBX::PhysicalDragResponder,class RSL::Detail::Allocator<class RBX::PhysicalDragResponder> >
 std::_Ref_count_obj_alloc3<class RBX::PhysicsAnalytics,class RSL::Detail::Allocator<class RBX::PhysicsAnalytics> >
 std::_Ref_count_obj_alloc3<class RBX::PhysicsStepJob,class RSL::Detail::Allocator<class RBX::PhysicsStepJob> >
+std::_Ref_count_obj_alloc3<class RBX::PlayerDataMetricsRecorder,class RSL::Detail::Allocator<class RBX::PlayerDataMetricsRecorder> >
 std::_Ref_count_obj_alloc3<class RBX::PluginDrag,class RSL::Detail::Allocator<class RBX::PluginDrag> >
 std::_Ref_count_obj_alloc3<class RBX::PolicyServiceAnalyticsStatReporter,class RSL::Detail::Allocator<class RBX::PolicyServiceAnalyticsStatReporter> >
 std::_Ref_count_obj_alloc3<class RBX::PreloadAsyncRequest,class RSL::Detail::Allocator<class RBX::PreloadAsyncRequest> >
@@ -20279,6 +20358,7 @@ std::_Ref_count_obj_alloc3<class RBX::Soundscape::SoundObject,class RSL::Detail:
 std::_Ref_count_obj_alloc3<class RBX::Soundscape::SoundOcclusionManager::InternalOcclusionQuery,class RSL::Detail::Allocator<class RBX::Soundscape::SoundOcclusionManager::InternalOcclusionQuery> >
 std::_Ref_count_obj_alloc3<class RBX::Soundscape::SplitterAudioNode,class RSL::Detail::Allocator<class RBX::Soundscape::SplitterAudioNode> >
 std::_Ref_count_obj_alloc3<class RBX::Soundscape::VoicePlaybackAudioNode,class RSL::Detail::Allocator<class RBX::Soundscape::VoicePlaybackAudioNode> >
+std::_Ref_count_obj_alloc3<class RBX::StateObjectSchema,class RSL::Detail::Allocator<class RBX::StateObjectSchema> >
 std::_Ref_count_obj_alloc3<class RBX::StreamingMessageHandler,class RSL::Detail::Allocator<class RBX::StreamingMessageHandler> >
 std::_Ref_count_obj_alloc3<class RBX::StreamTransactionMessageSender,class RSL::Detail::Allocator<class RBX::StreamTransactionMessageSender> >
 std::_Ref_count_obj_alloc3<class RBX::StreamTransactionMessageTransport,class RSL::Detail::Allocator<class RBX::StreamTransactionMessageTransport> >
@@ -20385,8 +20465,6 @@ std::_Ref_count_obj_alloc3<class RBX::Studio::MaterialsMessageContent,class RSL:
 std::_Ref_count_obj_alloc3<class RBX::Studio::MeshGenMessageContent,class RSL::Detail::Allocator<class RBX::Studio::MeshGenMessageContent> >
 std::_Ref_count_obj_alloc3<class RBX::Studio::MessageQueue,class RSL::Detail::Allocator<class RBX::Studio::MessageQueue> >
 std::_Ref_count_obj_alloc3<class RBX::Studio::MessageSenderGroup::Impl,class RSL::Detail::Allocator<class RBX::Studio::MessageSenderGroup::Impl> >
-std::_Ref_count_obj_alloc3<class RBX::Studio::PluginOTAController,class RSL::Detail::Allocator<class RBX::Studio::PluginOTAController> >
-std::_Ref_count_obj_alloc3<class RBX::Studio::PluginOTADependencies,class RSL::Detail::Allocator<class RBX::Studio::PluginOTADependencies> >
 std::_Ref_count_obj_alloc3<class RBX::Studio::PluginOTADownloader,class RSL::Detail::Allocator<class RBX::Studio::PluginOTADownloader> >
 std::_Ref_count_obj_alloc3<class RBX::Studio::PluginOTAJob,class RSL::Detail::Allocator<class RBX::Studio::PluginOTAJob> >
 std::_Ref_count_obj_alloc3<class RBX::Studio::RenderJob,class RSL::Detail::Allocator<class RBX::Studio::RenderJob> >
@@ -20758,7 +20836,6 @@ std::_Ref_count_obj_alloc3<struct RBX::Tasks::detail::FutureState<class RBX::Tas
 std::_Ref_count_obj_alloc3<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::ConvAiPlatformOrchestrationServiceApi::PackageDiffResponseModel,struct RBX::OpenApi::HttpErrorInfo> >,class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::ConvAiPlatformOrchestrationServiceApi::PackageDiffResponseModel,struct RBX::OpenApi::HttpErrorInfo> > > >
 std::_Ref_count_obj_alloc3<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::ConvaiSearchApi::SearchResponseModel,struct RBX::OpenApi::HttpErrorInfo> >,class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::ConvaiSearchApi::SearchResponseModel,struct RBX::OpenApi::HttpErrorInfo> > > >
 std::_Ref_count_obj_alloc3<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::CreatePlaceOperationResponseModel,struct RBX::OpenApi::HttpErrorInfo> >,class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::CreatePlaceOperationResponseModel,struct RBX::OpenApi::HttpErrorInfo> > > >
-std::_Ref_count_obj_alloc3<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::CreatorExperimentsServiceApi::ExperimentConfigModel,struct RBX::OpenApi::HttpErrorInfo> >,class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::CreatorExperimentsServiceApi::ExperimentConfigModel,struct RBX::OpenApi::HttpErrorInfo> > > >
 std::_Ref_count_obj_alloc3<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::EventSubscriptionApi::SubscribeResponseModel,struct RBX::OpenApi::HttpErrorInfo> >,class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::EventSubscriptionApi::SubscribeResponseModel,struct RBX::OpenApi::HttpErrorInfo> > > >
 std::_Ref_count_obj_alloc3<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::GroupsApi::ApiArrayResponseGroupResponseV2Model,struct RBX::OpenApi::HttpErrorInfo> >,class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::GroupsApi::ApiArrayResponseGroupResponseV2Model,struct RBX::OpenApi::HttpErrorInfo> > > >
 std::_Ref_count_obj_alloc3<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::InventoryApi::UserOwnsAssetResponseModel,struct RBX::OpenApi::HttpErrorInfo> >,class RSL::Detail::Allocator<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::InventoryApi::UserOwnsAssetResponseModel,struct RBX::OpenApi::HttpErrorInfo> > > >
@@ -21047,11 +21124,13 @@ std::_Ref_count_obj2<class RBX::AssetReaderImpl>
 std::_Ref_count_obj2<class RBX::AsyncBackoffDelayMap<class RBX::ContentId> >
 std::_Ref_count_obj2<class RBX::AsyncHttpQueue>
 std::_Ref_count_obj2<class RBX::AsyncPlayerCallbackQueueHandler<class std::shared_ptr<class std::unordered_map<class std::string,class RBX::Reflection::Variant,struct std::hash<class std::string >,struct std::equal_to<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const > > >
+std::_Ref_count_obj2<class RBX::AsyncVideoStream>
 std::_Ref_count_obj2<class RBX::AudioMetadata>
 std::_Ref_count_obj2<class RBX::AudioMetadataManager>
 std::_Ref_count_obj2<class RBX::AuroraScriptMessage>
 std::_Ref_count_obj2<class RBX::AuroraScriptMessageQueue>
 std::_Ref_count_obj2<class RBX::AuroraScriptObject>
+std::_Ref_count_obj2<class RBX::AuroraStateTable>
 std::_Ref_count_obj2<class RBX::AvatarCreationServiceJob>
 std::_Ref_count_obj2<class RBX::AvatarGenerationJob2D>
 std::_Ref_count_obj2<class RBX::AvatarGenerationJob3D>
@@ -21113,6 +21192,7 @@ std::_Ref_count_obj2<class RBX::DataModelPatchProvider>
 std::_Ref_count_obj2<class RBX::DataModelSnapshotJob>
 std::_Ref_count_obj2<class RBX::DataStore::CachedRecord>
 std::_Ref_count_obj2<class RBX::DataStore2::CachedRecordV2>
+std::_Ref_count_obj2<class RBX::DataStoreMetricsRecorder>
 std::_Ref_count_obj2<class RBX::DateHandler>
 std::_Ref_count_obj2<class RBX::DatetimeHandler>
 std::_Ref_count_obj2<class RBX::DCD::Task>
@@ -21300,6 +21380,8 @@ std::_Ref_count_obj2<class RBX::PhysicalDragResponder>
 std::_Ref_count_obj2<class RBX::PhysicsAnalytics>
 std::_Ref_count_obj2<class RBX::PhysicsStepJob>
 std::_Ref_count_obj2<class RBX::PlatformNativeAdsProtocol>
+std::_Ref_count_obj2<class RBX::PlayerDataJob>
+std::_Ref_count_obj2<class RBX::PlayerDataMetricsRecorder>
 std::_Ref_count_obj2<class RBX::PluginDrag>
 std::_Ref_count_obj2<class RBX::PolicyServiceAnalyticsStatReporter>
 std::_Ref_count_obj2<class RBX::PreloadAsyncRequest>
@@ -21509,6 +21591,8 @@ std::_Ref_count_obj2<class RBX::Soundscape::SoundOcclusionManager::InternalOcclu
 std::_Ref_count_obj2<class RBX::Soundscape::SplitterAudioNode>
 std::_Ref_count_obj2<class RBX::Soundscape::VoicePlaybackAudioNode>
 std::_Ref_count_obj2<class RBX::SoundTelemetry>
+std::_Ref_count_obj2<class RBX::StateObjectSchema>
+std::_Ref_count_obj2<class RBX::Strand>
 std::_Ref_count_obj2<class RBX::StreamingMessageHandler>
 std::_Ref_count_obj2<class RBX::StreamTransactionMessageSender>
 std::_Ref_count_obj2<class RBX::StreamTransactionMessageTransport>
@@ -21968,6 +22052,7 @@ std::_Ref_count_obj2<struct RBX::RCU::Domain::Impl>
 std::_Ref_count_obj2<struct RBX::ReadOnlySharedBufferImpl<void (__cdecl*)(void * __ptr64,unsigned __int64)> >
 std::_Ref_count_obj2<struct RBX::Reflection::Tuple const >
 std::_Ref_count_obj2<struct RBX::Reflection::Tuple>
+std::_Ref_count_obj2<struct RBX::RequireSuggester>
 std::_Ref_count_obj2<struct RBX::RVideo::PlaylistSelectorFactoryCaller>
 std::_Ref_count_obj2<struct RBX::RVideo::RvPlaylist>
 std::_Ref_count_obj2<struct RBX::ScriptEditor::`anonymous namespace'::DialogResult>
@@ -22095,7 +22180,6 @@ std::_Ref_count_obj2<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Re
 std::_Ref_count_obj2<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::ConvAiPlatformOrchestrationServiceApi::PackageDiffResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >
 std::_Ref_count_obj2<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::ConvaiSearchApi::SearchResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >
 std::_Ref_count_obj2<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::CreatePlaceOperationResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >
-std::_Ref_count_obj2<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::CreatorExperimentsServiceApi::ExperimentConfigModel,struct RBX::OpenApi::HttpErrorInfo> > >
 std::_Ref_count_obj2<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::EventSubscriptionApi::SubscribeResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >
 std::_Ref_count_obj2<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::GroupsApi::ApiArrayResponseGroupResponseV2Model,struct RBX::OpenApi::HttpErrorInfo> > >
 std::_Ref_count_obj2<struct RBX::Tasks::detail::FutureState<class RBX::Tasks::Result<class RBX::OpenApi::InventoryApi::UserOwnsAssetResponseModel,struct RBX::OpenApi::HttpErrorInfo> > >
@@ -23718,6 +23802,10 @@ std::_Ref_count_resource_alloc<class RBX::VoiceChatService * __ptr64,class RBX::
 std::_Ref_count_resource_alloc<class RBX::VoiceChatService * __ptr64,struct RBX::detail::ArenaDeleter,class RSL::Detail::Allocator<class RBX::VoiceChatService> >
 std::_Ref_count_resource_alloc<class RBX::VRService * __ptr64,class RBX::Creatable::Deleter<class RBX::VRService>,class RSL::Detail::Allocator<class RBX::VRService> >
 std::_Ref_count_resource_alloc<class RBX::VRService * __ptr64,struct RBX::detail::ArenaDeleter,class RSL::Detail::Allocator<class RBX::VRService> >
+std::_Ref_count_resource_alloc<class RBX::WebSocketClient * __ptr64,class RBX::Creatable::Deleter<class RBX::WebSocketClient>,class RSL::Detail::Allocator<class RBX::WebSocketClient> >
+std::_Ref_count_resource_alloc<class RBX::WebSocketClient * __ptr64,struct RBX::detail::ArenaDeleter,class RSL::Detail::Allocator<class RBX::WebSocketClient> >
+std::_Ref_count_resource_alloc<class RBX::WebSocketService * __ptr64,class RBX::Creatable::Deleter<class RBX::WebSocketService>,class RSL::Detail::Allocator<class RBX::WebSocketService> >
+std::_Ref_count_resource_alloc<class RBX::WebSocketService * __ptr64,struct RBX::detail::ArenaDeleter,class RSL::Detail::Allocator<class RBX::WebSocketService> >
 std::_Ref_count_resource_alloc<class RBX::WebViewService * __ptr64,class RBX::Creatable::Deleter<class RBX::WebViewService>,class RSL::Detail::Allocator<class RBX::WebViewService> >
 std::_Ref_count_resource_alloc<class RBX::WebViewService * __ptr64,struct RBX::detail::ArenaDeleter,class RSL::Detail::Allocator<class RBX::WebViewService> >
 std::_Ref_count_resource_alloc<class RBX::Weld * __ptr64,class RBX::Creatable::Deleter<class RBX::Weld>,class RSL::Detail::Allocator<class RBX::Weld> >
@@ -24575,6 +24663,8 @@ std::_Ref_count_resource<class RBX::VoiceChatInternal * __ptr64,class RBX::Creat
 std::_Ref_count_resource<class RBX::VoiceChatService * __ptr64,class RBX::Creatable::Deleter<class RBX::VoiceChatService> >
 std::_Ref_count_resource<class RBX::Voxel2::Cell * __ptr64,void (__cdecl*)(class RBX::Voxel2::Cell * __ptr64)>
 std::_Ref_count_resource<class RBX::VRService * __ptr64,class RBX::Creatable::Deleter<class RBX::VRService> >
+std::_Ref_count_resource<class RBX::WebSocketClient * __ptr64,class RBX::Creatable::Deleter<class RBX::WebSocketClient> >
+std::_Ref_count_resource<class RBX::WebSocketService * __ptr64,class RBX::Creatable::Deleter<class RBX::WebSocketService> >
 std::_Ref_count_resource<class RBX::WebViewService * __ptr64,class RBX::Creatable::Deleter<class RBX::WebViewService> >
 std::_Ref_count_resource<class RBX::Weld * __ptr64,class RBX::Creatable::Deleter<class RBX::Weld> >
 std::_Ref_count_resource<class RBX::WeldConstraintTool * __ptr64,class RBX::Creatable::Deleter<class RBX::WeldConstraintTool> >
@@ -24850,7 +24940,6 @@ std::_Ref_count<class RBX::StandardEventIngest>
 std::_Ref_count<class RBX::Studio::DebuggerInitializer>
 std::_Ref_count<class RBX::Studio::ExportSelectionForUploadVerbHelper>
 std::_Ref_count<class RBX::Studio::PluginOTAArbiter>
-std::_Ref_count<class RBX::Studio::PluginOTAControllerManager>
 std::_Ref_count<class RBX::Studio::SignalREventSubscriber>
 std::_Ref_count<class RBX::TimeCurve>
 std::_Ref_count<class RBX::ToastNotificationsProtocolCore>

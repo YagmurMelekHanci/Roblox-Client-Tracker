@@ -136,7 +136,8 @@
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" modernIcon="Stop" width="32" height="32"/>
       </Group>
       <Group name="Settings" text="Studio.App.RobloxRibbonMainWindow.Settings" modernIcon="GameSettings" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32">
-        <addaction name="luaGameSettingsAction" text="Studio.App.RobloxRibbonMainWindow.GameSettings" iscommonslot="true" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" modernIcon="GameSettings" width="32" height="32"/>
+        <addaction fflag="!StudioGameSettingsAndDownloadCopyGrayedInScriptEditor" name="luaGameSettingsAction" text="Studio.App.RobloxRibbonMainWindow.GameSettings" iscommonslot="true" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" modernIcon="GameSettings" width="32" height="32"/>
+        <addaction fflag="StudioGameSettingsAndDownloadCopyGrayedInScriptEditor" name="gameSettingsAction" iscommonslot="true" style="textundericon" width="32" height="32"/>
       </Group>
       <Group name="Team Test" text="Studio.App.RobloxRibbonMainWindow.TeamTest" modernIcon="TeamTest" icon=":/RibbonBar/images/RibbonIcons/Test/Team-Test.png" width="32" height="32">
         <addaction name="startTeamTestAction" iscommonslot="true" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.TeamTest"  tooltip="Studio.App.RobloxRibbonMainWindow.StartATeamTest" icon=":/RibbonBar/images/RibbonIcons/Test/Team-Test.png" modernIcon="TeamTest" width="32" height="32" />
@@ -217,7 +218,7 @@
           <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
-        <MenuPopupButton fflag="LuaRibbonAnchorLockModes3" name="lockToolAction" style="textbesideicon" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock">
+        <MenuPopupButton fflag="LuaRibbonAnchorLockModes3" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.LockTool" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.LockModeTooltip">
           <addaction name="lockToolAction" modernIcon="Lock" />
           <addaction name="unlockAllAction" modernIcon="Unlock" />
         </MenuPopupButton>
@@ -469,6 +470,7 @@
         <addaction fflag="COLLAB4260ActivityFeed" name="toggleStudioActivityFeedAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip" modernIcon="ActivityHistory" ischeckable="true" />
         <addaction name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool"/>
+        <addaction fflag="PlaceAnnotationsPublicRelease" name="toggleStudioAnnotationsAction" style="textbesideicon" />
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions" modernIcon="ViewSelector" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32">
         <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Studio.App.RBXMainWindow.ViewSelectorTooltip" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" modernIcon="ViewSelector" width="32" height="32"/>

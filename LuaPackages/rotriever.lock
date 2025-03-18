@@ -91,7 +91,7 @@ dependencies = [
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.15.0 registry",
+    "Foundation Foundation 1.16.0 registry",
     "FoundationImages FoundationImages 1.18.0 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
@@ -138,7 +138,7 @@ dependencies = [
     "RoduxContacts RoduxContacts 0.9.1 registry",
     "RoduxDevtools RoduxDevtools 1.0.0-rc.1 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",
-    "RoduxGames RoduxGames 1.4.1 registry",
+    "RoduxGames RoduxGames 1.4.2 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
@@ -147,8 +147,8 @@ dependencies = [
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.3.0 registry",
-    "UGCValidation UGCValidation 1.15.1 registry",
-    "UIBlox UIBlox 0.2.65 registry",
+    "UGCValidation UGCValidation 1.16.0 registry",
+    "UIBlox UIBlox 0.2.69 registry",
     "UrlBuilder UrlBuilder 1.2.9 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
@@ -292,7 +292,7 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.15.0"
+version = "1.16.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -376,7 +376,7 @@ dependencies = [
     "Roact RoactCompat 17.1.17 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.65 registry",
+    "UIBlox UIBlox 0.2.69 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -935,7 +935,7 @@ dependencies = [
     "RoduxCall RoduxCall 1.18.0 registry",
     "RoduxContacts RoduxContacts 0.8.4 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",
-    "RoduxGames RoduxGames 1.4.1 registry",
+    "RoduxGames RoduxGames 1.4.2 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxShareLinks RoduxShareLinks 1.5.1 registry",
@@ -1525,7 +1525,7 @@ dependencies = [
 
 [[package]]
 name = "RoduxGames"
-version = "1.4.1"
+version = "1.4.2"
 source = "registry"
 dependencies = [
     "Dash Dash 0.1.9 registry",
@@ -1657,7 +1657,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.65 registry",
+    "UIBlox UIBlox 0.2.69 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1745,7 +1745,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.15.1"
+version = "1.16.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1754,12 +1754,12 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.65"
+version = "0.2.69"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.15.0 registry",
+    "Foundation Foundation 1.16.0 registry",
     "FoundationImages FoundationImages 1.18.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
