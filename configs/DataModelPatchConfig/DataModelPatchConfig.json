@@ -1,9 +1,9 @@
 {
   "AppStorageResetId": "0",
   "AssetId": "115043838414809",
-  "AssetVersion": "371",
+  "AssetVersion": "476",
   "IsForcedUpdate": false,
   "LocalAssetURI": "rbxasset://models/DataModelPatch/DataModelPatch.rbxm",
-  "LocalAssetHash": "bd7b413d9d59ace1986c5a1066ff4bd9",
-  "MaxAppVersion": "665"
+  "LocalAssetHash": "d74dfce3eaf77d8b6783eea2ba903dc4",
+  "MaxAppVersion": "666"
 }

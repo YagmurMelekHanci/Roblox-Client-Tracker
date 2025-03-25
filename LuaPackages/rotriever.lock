@@ -91,8 +91,8 @@ dependencies = [
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.16.0 registry",
-    "FoundationImages FoundationImages 1.18.0 registry",
+    "Foundation Foundation 1.18.0 registry",
+    "FoundationImages FoundationImages 1.20.0 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
@@ -103,14 +103,14 @@ dependencies = [
     "JestGlobals JestGlobals 2.4.1 registry",
     "JestGlobals3 JestGlobals 3.8.1 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1.6.6 registry",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1.6.7 registry",
     "LuauPolyfill LuauPolyfill 0.4.2 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Merge Merge 0.3.1 registry",
     "NetworkingFriends NetworkingFriends 2.12.1 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
-    "Otter Otter 1.2.1 registry",
+    "Otter Otter 1.3.2 registry",
     "PolicyProvider LuaRoactPolicyProvider 0.1.2 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "QRCode QRCode 0.1.0 registry",
@@ -118,10 +118,10 @@ dependencies = [
     "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.1.17 registry",
     "ReactFocusNavigation ReactFocusNavigation 1.3.1 registry",
     "ReactIs ReactIs 17.1.17 registry",
-    "ReactOtter ReactOtter 1.2.1 registry",
+    "ReactOtter ReactOtter 1.3.2 registry",
     "ReactReconciler ReactReconciler 17.1.17 registry",
     "ReactRoblox ReactRoblox 17.1.17 registry",
-    "ReactSceneUnderstanding ReactSceneUnderstanding 0.11.0 registry",
+    "ReactSceneUnderstanding ReactSceneUnderstanding 0.12.0 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.2.3 registry",
     "ReactTestingUtils ReactTestingUtils 1.3.1 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
@@ -148,7 +148,7 @@ dependencies = [
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.3.0 registry",
     "UGCValidation UGCValidation 1.16.0 registry",
-    "UIBlox UIBlox 0.2.69 registry",
+    "UIBlox UIBlox 0.2.72 registry",
     "UrlBuilder UrlBuilder 1.2.9 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
@@ -292,18 +292,19 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.16.0"
+version = "1.18.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Dash Dash 1.1.0 registry",
-    "FoundationImages FoundationImages 1.18.0 registry",
+    "FoundationImages FoundationImages 1.20.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
-    "Otter Otter 1.2.1 registry",
+    "Motion Motion 0.0.7 registry",
+    "Otter Otter 1.3.2 registry",
     "RbxDesignFoundations RbxDesignFoundations 2.0.144 registry",
     "React React 17.1.17 registry",
     "ReactIs ReactIs 17.1.17 registry",
-    "ReactOtter ReactOtter 1.2.1 registry",
+    "ReactOtter ReactOtter 1.3.2 registry",
     "ReactRoblox ReactRoblox 17.1.17 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
     "Roact RoactCompat 17.1.17 registry",
@@ -314,7 +315,7 @@ dependencies = [
 
 [[package]]
 name = "FoundationImages"
-version = "1.18.0"
+version = "1.20.0"
 source = "registry"
 
 [[package]]
@@ -376,7 +377,7 @@ dependencies = [
     "Roact RoactCompat 17.1.17 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.69 registry",
+    "UIBlox UIBlox 0.2.72 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -908,7 +909,7 @@ dependencies = [
 
 [[package]]
 name = "LuaSocialLibrariesDeps"
-version = "1.6.6"
+version = "1.6.7"
 source = "registry"
 dependencies = [
     "CollisionMatchers CollisionMatchers2D 1.1.0 registry",
@@ -986,6 +987,17 @@ dependencies = [
     "GraphQL GraphQL 15.6.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Utils Utils 0.3.1 registry",
+]
+
+[[package]]
+name = "Motion"
+version = "0.0.7"
+source = "registry"
+dependencies = [
+    "React React 17.1.17 registry",
+    "ReactOtter ReactOtter 1.3.2 registry",
+    "RoactCompat RoactCompat 17.1.17 registry",
+    "tutils tutils 0.1.2 registry",
 ]
 
 [[package]]
@@ -1102,7 +1114,7 @@ source = "registry"
 
 [[package]]
 name = "Otter"
-version = "1.2.1"
+version = "1.3.2"
 source = "registry"
 dependencies = [
     "Collections Collections 1.2.3 registry",
@@ -1243,11 +1255,11 @@ dependencies = ["Shared Shared 17.1.17 registry"]
 
 [[package]]
 name = "ReactOtter"
-version = "1.2.1"
+version = "1.3.2"
 source = "registry"
 dependencies = [
     "Dash Dash 0.1.9 registry",
-    "Otter Otter 1.2.1 registry",
+    "Otter Otter 1.3.2 registry",
     "React React 17.1.17 registry",
 ]
 
@@ -1278,14 +1290,14 @@ dependencies = [
 
 [[package]]
 name = "ReactSceneUnderstanding"
-version = "0.11.0"
+version = "0.12.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "React React 17.1.17 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
-    "SceneUnderstanding SceneUnderstanding 0.11.0 registry",
+    "SceneUnderstanding SceneUnderstanding 0.12.0 registry",
 ]
 
 [[package]]
@@ -1604,7 +1616,7 @@ source = "registry"
 
 [[package]]
 name = "SceneUnderstanding"
-version = "0.11.0"
+version = "0.12.0"
 source = "registry"
 
 [[package]]
@@ -1657,7 +1669,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.69 registry",
+    "UIBlox UIBlox 0.2.72 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1754,13 +1766,13 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.69"
+version = "0.2.72"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.16.0 registry",
-    "FoundationImages FoundationImages 1.18.0 registry",
+    "Foundation Foundation 1.18.0 registry",
+    "FoundationImages FoundationImages 1.20.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Lumberyak lumberyak 0.1.1 registry",
@@ -1769,7 +1781,7 @@ dependencies = [
     "RbxDesignFoundations RbxDesignFoundations 1.1.107 registry",
     "RbxDesignFoundationsV2 RbxDesignFoundations 2.0.144 registry",
     "React React 17.1.17 registry",
-    "ReactOtter ReactOtter 1.2.1 registry",
+    "ReactOtter ReactOtter 1.3.2 registry",
     "ReactRoblox ReactRoblox 17.1.17 registry",
     "ReactUtils ReactUtils 1.3.1 registry",
     "Roact RoactCompat 17.1.17 registry",
@@ -1836,7 +1848,7 @@ version = "1.4.3"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Otter Otter 1.2.1 registry",
+    "Otter Otter 1.3.2 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "React React 17.1.17 registry",
 ]

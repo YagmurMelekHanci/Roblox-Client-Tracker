@@ -531,8 +531,8 @@
         <addaction name="createImageButtonAction" style="textundericon" iscommonslot="true" tooltip="Studio.App.RobloxRibbonMainWindow.AGUIButtonContainingAnImage" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageButton.png" modernIcon="ImageButton"  width="32" height="32"/>
         <addaction name="createImageLabelAction" style="textundericon" iscommonslot="true" tooltip="Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageLabel.png" modernIcon="ImageLabel"  width="32" height="32"/>
       </Group>
-      <Group fflag="StyleEditorUITab" name="Style Editor" text="Studio.App.RBXMainWindow.StyleEditor">
-        <addaction fflag="StyleEditorUITab" name="toggleStyleEditorDockAction" type="plugin" style="textundericon" height="32" width="32"/>
+      <Group fflag="StyleEditorUITab2" name="Style Editor" text="Studio.App.RBXMainWindow.StyleEditor">
+        <addaction fflag="StyleEditorUITab2" name="toggleStyleEditorDockAction" type="plugin" style="textundericon" height="32" width="32"/>
       </Group>
     </TabPage>
     <!--
