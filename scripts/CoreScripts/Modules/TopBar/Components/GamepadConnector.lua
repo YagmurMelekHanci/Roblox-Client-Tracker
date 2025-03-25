@@ -16,6 +16,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
+local FFlagIgnoreDevGamepadBindingsMenuOpen = SharedFlags.FFlagIgnoreDevGamepadBindingsMenuOpen
 
 local Modules = script.Parent.Parent.Parent
 local Chrome = Modules.Chrome
@@ -70,6 +71,7 @@ export type GamepadConnector = typeof(setmetatable(
 
 -- Constants
 local FOCUS_GAMEPAD_TO_TOPBAR: ContextActionName = "FocusGamepadToTopbar"
+local TOPBAR_MENU: ContextActionName = "TopbarMenu"
 
 -- Helper functions
 local function createSelectedCoreObject(): ObservableValue<GuiObject?>
@@ -77,6 +79,15 @@ local function createSelectedCoreObject(): ObservableValue<GuiObject?>
 	GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() 
 		selectedCoreObject:set(GuiService.SelectedCoreObject)
 	end)
+	if FFlagIgnoreDevGamepadBindingsMenuOpen then
+		-- override any developer bindings when active
+		selectedCoreObject:connect(function(instance: Instance)
+			if not instance then
+				ChromeService:disableFocusNav()
+				GuiService:SetMenuIsOpen(false, TOPBAR_MENU)
+			end
+		end)
+	end
 
 	return selectedCoreObject
 end
@@ -150,7 +161,13 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 		if FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole then
 			if self:getSelectedCoreObject():get() == nil then
 				ChromeService:enableFocusNav()
+				if FFlagIgnoreDevGamepadBindingsMenuOpen then
+					GuiService:SetMenuIsOpen(true, TOPBAR_MENU)
+				end
 			else
+				if FFlagIgnoreDevGamepadBindingsMenuOpen then
+					ChromeService:disableFocusNav()
+				end
 				GuiService.SelectedCoreObject = nil
 			end
 		else

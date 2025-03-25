@@ -7,7 +7,6 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local GetFFlagEnableSoundSessionTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundSessionTelemetry)
 local GetFIntSoundSessionTelemetryThrottle = require(CoreGuiModules.Flags.GetFIntSoundSessionTelemetryThrottle)
-local GetFFlagFixSoundSessionTelemetryNotRemovingSounds = require(CoreGuiModules.Flags.GetFFlagFixSoundSessionTelemetryNotRemovingSounds)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
@@ -132,7 +131,7 @@ local function unhookSoundEvents(sound: Sound)
 			connection:Disconnect()
 		end
 	end
-  if GetFFlagEnableSoundSessionTelemetry() and GetFFlagFixSoundSessionTelemetryNotRemovingSounds() then
+  if GetFFlagEnableSoundSessionTelemetry() then
     playingSounds:removeSound(sound.SoundId, sound:GetDebugId(10))
   end
 	trackedSounds[sound] = nil

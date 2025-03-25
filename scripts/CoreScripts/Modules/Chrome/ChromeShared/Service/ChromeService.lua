@@ -7,6 +7,7 @@ local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local reverse = LuauPolyfill.Array.reverse
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
@@ -1227,7 +1228,7 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 
 			local success, err = pcall(function()
 				integrationActivated(self._integrations[componentId])
-				if FFlagConnectGamepadChrome then
+				if not FFlagConsoleChatOnExpControls and FFlagConnectGamepadChrome then
 					self:disableFocusNav()
 				end
 			end)

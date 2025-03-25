@@ -1,0 +1,72 @@
+PROTO_0:
+  GETIMPORT R1 K1 [require]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["Packages"]
+  GETTABLEKS R3 R4 K3 ["Dev"]
+  GETTABLEKS R2 R3 K4 ["JestGlobals"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K5 ["jest"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  DUPTABLE R5 K8 [{"generateTempUrlInContentProvider", "ImageImportedSignal"}]
+  GETTABLEKS R6 R2 K9 ["fn"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K6 ["generateTempUrlInContentProvider"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K10 ["new"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K7 ["ImageImportedSignal"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["StartPageManager"]
+  CALL R0 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModerationDialog"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["TestLoader"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K10 ["assign"]
+  GETTABLEKS R6 R2 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["Signal"]
+  DUPCLOSURE R6 K13 [PROTO_0]
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  LOADNIL R7
+  DUPTABLE R8 K16 [{"StartPageManager", "mock"}]
+  GETTABLEKS R10 R3 K17 ["isCli"]
+  CALL R10 0 1
+  JUMPIFNOT R10 [+3]
+  NEWTABLE R9 0 0
+  JUMP [+6]
+  GETIMPORT R9 K19 [game]
+  LOADK R11 K20 ["StartPageService"]
+  NAMECALL R9 R9 K21 ["GetService"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K14 ["StartPageManager"]
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R6
+  CAPTURE REF R7
+  SETTABLEKS R9 R8 K15 ["mock"]
+  MOVE R7 R8
+  CLOSEUPVALS R7
+  RETURN R7 1

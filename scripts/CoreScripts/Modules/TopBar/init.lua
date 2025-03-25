@@ -33,7 +33,6 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
-local GetFFlagMountSceneAnalysisProvider = SharedFlags.GetFFlagMountSceneAnalysisProvider
 local FFlagUIBloxFoundationProvider = SharedFlags.GetFFlagUIBloxFoundationProvider()
 
 if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing) then
@@ -67,7 +66,6 @@ local GlobalConfig = require(script.GlobalConfig)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local FFlagGamepadNavigationDialogABTest = require(script.Flags.FFlagGamepadNavigationDialogABTest)
-local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
 
 -- Cross Experience Voice
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
@@ -188,16 +186,11 @@ function TopBar.new()
 		),
 	})
 
-	if GetFFlagMountSceneAnalysisProvider() then
-		self.root = Roact.createElement(ReactSceneUnderstanding.SceneAnalysisProvider, nil, self.root)
-	end
+	self.root = Roact.createElement(ReactSceneUnderstanding.SceneAnalysisProvider, nil, self.root)
 
 	self.root = Roact.createElement(Songbird.ReportAudioPopupContext.Provider, nil, self.root)
+	self.root = Roact.createElement(VoiceStateContext.Provider, nil, self.root)
 
-	if GetFFlagRemoveChromeRobloxGuiReferences() then
-		self.root = Roact.createElement(VoiceStateContext.Provider, nil, self.root)
-	end
-	
 	-- Root should be a Folder so that style provider stylesheet elements can be portaled properly; otherwise, they will attach to CoreGui
 	if FFlagUIBloxFoundationProvider then
 		self.root = Roact.createElement("Folder", {

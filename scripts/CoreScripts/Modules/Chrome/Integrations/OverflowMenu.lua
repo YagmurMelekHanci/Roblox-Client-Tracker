@@ -65,7 +65,6 @@ local GetFFlagShouldShowSimpleMusicFtuxTooltip = require(Chrome.Flags.GetFFlagSh
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
-local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
 
 local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 	game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false)
@@ -120,15 +119,9 @@ local leaderboard = ChromeService:register({
 			if PlayerListMaster:GetSetVisible() then
 				PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
 			else
-				if GetFFlagRemoveChromeRobloxGuiReferences() then
-					ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
-						PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
-					end)
-				else
-					ChromeUtils.dismissRobloxMenuAndRun(function()
-						PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
-					end)
-				end
+				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+					PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+				end)
 			end
 		end
 	end,
@@ -159,15 +152,9 @@ local emotes = ChromeService:register({
 		if EmotesMenuMaster:isOpen() then
 			EmotesMenuMaster:close()
 		else
-			if GetFFlagRemoveChromeRobloxGuiReferences() then
-				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
-					EmotesMenuMaster:open()
-				end)
-			else
-				ChromeUtils.dismissRobloxMenuAndRun(function()
-					EmotesMenuMaster:open()
-				end)
-			end
+			ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+				EmotesMenuMaster:open()
+			end)
 		end
 	end,
 	isActivated = if GetFFlagAddChromeActivatedEvents()
@@ -220,15 +207,9 @@ local backpack = ChromeService:register({
 		if BackpackModule.IsOpen then
 			BackpackModule:OpenClose()
 		else
-			if GetFFlagRemoveChromeRobloxGuiReferences() then
-				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
-					BackpackModule:OpenClose()
-				end)
-			else
-				ChromeUtils.dismissRobloxMenuAndRun(function()
-					BackpackModule:OpenClose()
-				end)
-			end
+			ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+				BackpackModule:OpenClose()
+			end)
 		end
 	end,
 	isActivated = if GetFFlagAddChromeActivatedEvents()

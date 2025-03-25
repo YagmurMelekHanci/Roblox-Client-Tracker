@@ -10,33 +10,38 @@ PROTO_2:
   LOADN R2 2
   CALL R0 2 1
   GETUPVAL R1 0
-  DUPTABLE R2 K6 [{"TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-  GETIMPORT R3 K2 [Vector2.new]
-  LOADN R4 0
+  DUPTABLE R2 K5 [{"AttachmentInfo", "Text"}]
+  DUPTABLE R3 K9 [{"TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+  GETIMPORT R4 K2 [Vector2.new]
   LOADN R5 0
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["TargetAnchorPoint"]
-  GETIMPORT R3 K2 [Vector2.new]
-  LOADN R4 0
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K6 ["TargetAnchorPoint"]
+  GETIMPORT R4 K2 [Vector2.new]
   LOADN R5 0
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K4 ["SubjectAnchorPoint"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K7 ["AbsolutePosition"]
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K7 ["SubjectAnchorPoint"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K8 ["AbsoluteSize"]
-  ADD R4 R5 R6
-  ADD R3 R4 R0
-  SETTABLEKS R3 R2 K5 ["Offset"]
+  GETTABLEKS R6 R7 K10 ["AbsolutePosition"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K11 ["AbsoluteSize"]
+  ADD R5 R6 R7
+  ADD R4 R5 R0
+  SETTABLEKS R4 R3 K8 ["Offset"]
+  SETTABLEKS R3 R2 K3 ["AttachmentInfo"]
+  GETUPVAL R3 2
+  SETTABLEKS R3 R2 K4 ["Text"]
   CALL R1 1 0
   RETURN R0 0
 
 PROTO_3:
-  GETIMPORT R1 K2 [task.spawn]
-  NEWCLOSURE R2 P0
+  GETIMPORT R2 K2 [task.spawn]
+  NEWCLOSURE R3 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  CALL R1 1 0
+  CAPTURE VAL R1
+  CALL R2 1 0
   RETURN R0 0
 
 PROTO_4:

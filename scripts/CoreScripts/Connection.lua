@@ -35,7 +35,6 @@ local LEAVE_GAME_FRAME_WAITS = 2
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
-local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
 local FFlagCreatorBanLocalization = require(RobloxGui.Modules.Flags.FFlagCreatorBanLocalization)
 local FFlagErrorStringRefactor = game:DefineFastFlag("ErrorStringRefactor", false)
@@ -94,10 +93,7 @@ end
 local errorPrompt
 local graceTimeout = -1
 local screenWidth = RobloxGui.AbsoluteSize.X
-local screenHeight
-if FFlagErrorPromptResizesHeight() then
-	screenHeight = RobloxGui.AbsoluteSize.Y
-end
+local screenHeight = RobloxGui.AbsoluteSize.Y
 
 local ConnectionPromptState = {
 	NONE = 1, -- General Error Message
@@ -409,11 +405,7 @@ local function onEnter(newState)
 		}
 		errorPrompt = ErrorPrompt.new("Default", extraConfiguration)
 		errorPrompt:setParent(promptOverlay)
-		if FFlagErrorPromptResizesHeight() then
-			errorPrompt:resizeWidthAndHeight(screenWidth, screenHeight)
-		else
-			errorPrompt:resizeWidth(screenWidth)
-		end
+		errorPrompt:resizeWidthAndHeight(screenWidth, screenHeight)
 	end
 	if updateFullScreenEffect[newState] then
 		updateFullScreenEffect[newState]()
@@ -736,18 +728,11 @@ local function onScreenSizeChanged()
 		return
 	end
 	local newWidth = RobloxGui.AbsoluteSize.X
-	if FFlagErrorPromptResizesHeight() then
-		local newHeight = RobloxGui.AbsoluteSize.Y
-		if screenWidth ~= newWidth or screenHeight ~= newHeight then
-			screenWidth = newWidth
-			screenHeight = newHeight
-			errorPrompt:resizeWidthAndHeight(screenWidth, screenHeight)
-		end
-	else
-		if screenWidth ~= newWidth then
-			screenWidth = newWidth
-			errorPrompt:resizeWidth(screenWidth)
-		end
+	local newHeight = RobloxGui.AbsoluteSize.Y
+	if screenWidth ~= newWidth or screenHeight ~= newHeight then
+		screenWidth = newWidth
+		screenHeight = newHeight
+		errorPrompt:resizeWidthAndHeight(screenWidth, screenHeight)
 	end
 end
 

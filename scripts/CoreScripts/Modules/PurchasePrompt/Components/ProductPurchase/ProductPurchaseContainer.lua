@@ -732,6 +732,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(hideWindow())
 		end,
 		completeRequest = function()
+			if FFlagAddCursorProviderToPurchasePromptApp then
+				GuiService.SelectedCoreObject = nil
+			end
 			dispatch(completeRequest())
 		end,
 		onAnalyticEvent = function(name, data)

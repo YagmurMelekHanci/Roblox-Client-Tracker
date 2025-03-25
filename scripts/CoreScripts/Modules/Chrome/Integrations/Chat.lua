@@ -8,18 +8,22 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Chat = game:GetService("Chat")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 
 local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
 local MappedSignal = ChromeUtils.MappedSignal
+local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local GameSettings = UserSettings().GameSettings
 local GuiService = game:GetService("GuiService")
 
-local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+
+local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
@@ -28,7 +32,6 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignalRaceCondition
 local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
-local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
 local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
 local getFFlagExposeChatWindowToggled = SharedFlags.getFFlagExposeChatWindowToggled
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
@@ -38,6 +41,13 @@ local FFlagShowChatButtonWhenChatForceOpened = game:DefineFastFlag("ShowChatButt
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
 local FFlagAlwaysShowChatButtonWhenWindowIsVisible =
 	game:DefineFastFlag("AlwaysShowChatButtonWhenWindowIsVisibleV2", false)
+
+local SocialExperiments
+local TenFootInterfaceExpChatExperimentation
+if FFlagConsoleChatOnExpControls then
+	SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
+	TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
+end
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -113,6 +123,11 @@ local dismissCallback = function(menuWasOpen)
 			ChatSelector:ToggleVisibility()
 		end
 	end
+	if FFlagConsoleChatOnExpControls and TenFootInterfaceExpChatExperimentation.getIsEnabled() then
+		if UserInputService.GamepadEnabled and ChatSelector:GetVisibility() then
+			ChatSelector:FocusChatBar()
+		end
+	end
 end
 
 chatChromeIntegration = ChromeService:register({
@@ -126,15 +141,9 @@ chatChromeIntegration = ChromeService:register({
 				ChatSelector:ToggleVisibility()
 			end
 		else
-			if GetFFlagRemoveChromeRobloxGuiReferences() then
-				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function(menuWasOpen)
-					dismissCallback(menuWasOpen)
-				end)
-			else
-				ChromeUtils.dismissRobloxMenuAndRun(function(menuWasOpen)
-					dismissCallback(menuWasOpen)
-				end)
-			end
+			ChromeIntegrationUtils.dismissRobloxMenuAndRun(function(menuWasOpen)
+				dismissCallback(menuWasOpen)
+			end)
 		end
 	end,
 	isActivated = if GetFFlagAddChromeActivatedEvents()
@@ -234,6 +243,29 @@ coroutine.wrap(function()
 		ChatSelector:SetVisible(willEnableChat)
 	end
 end)()
+
+if FFlagConsoleChatOnExpControls then
+	-- APPEXP-2427: Remove once legacy chat is fully deprecated
+	local function UnavailableNotOnTCSConsole()
+		if not GuiService:IsTenFootInterface() then
+			return
+		end
+
+		local chatIsAvailable = chatChromeIntegration.availability:get() ~= AvailabilitySignalState.Unavailable
+
+		if TextChatService.ChatVersion ~= Enum.ChatVersion.TextChatService and chatIsAvailable then
+			chatChromeIntegration.availability:unavailable()
+		end
+	end
+
+	if game:IsLoaded() then
+		UnavailableNotOnTCSConsole()
+	else
+		game.Loaded:Connect(function()
+			UnavailableNotOnTCSConsole()
+		end)
+	end
+end
 
 -- dev test code
 function _simulateChat()

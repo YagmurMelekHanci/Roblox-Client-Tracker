@@ -459,23 +459,25 @@ PROTO_12:
   CALL R5 2 1
   MOVE R3 R5
   DUPTABLE R5 K8 [{"Name", "Id", "Children"}]
-  DUPTABLE R6 K14 [{"Actions", "ExpandByDefault", "FullSpan", "Value", "LeftIcon"}]
+  DUPTABLE R6 K15 [{"Actions", "ExpandByDefault", "FullSpan", "Value", "AlwaysShowActions", "LeftIcon"}]
   GETUPVAL R8 4
-  GETTABLEKS R7 R8 K15 ["FullSpanMoreAction"]
+  GETTABLEKS R7 R8 K16 ["CategoryPlusButtonAction"]
   SETTABLEKS R7 R6 K9 ["Actions"]
   LOADB R7 1
   SETTABLEKS R7 R6 K10 ["ExpandByDefault"]
   LOADB R7 1
   SETTABLEKS R7 R6 K11 ["FullSpan"]
   SETTABLEKS R1 R6 K12 ["Value"]
-  DUPTABLE R7 K18 [{"Image", "Size"}]
-  SETTABLEKS R4 R7 K16 ["Image"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K13 ["AlwaysShowActions"]
+  DUPTABLE R7 K19 [{"Image", "Size"}]
+  SETTABLEKS R4 R7 K17 ["Image"]
   GETUPVAL R8 12
-  SETTABLEKS R8 R7 K17 ["Size"]
-  SETTABLEKS R7 R6 K13 ["LeftIcon"]
+  SETTABLEKS R8 R7 K18 ["Size"]
+  SETTABLEKS R7 R6 K14 ["LeftIcon"]
   SETTABLEKS R6 R5 K5 ["Name"]
   GETUPVAL R7 6
-  GETTABLEKS R6 R7 K19 ["createItemId"]
+  GETTABLEKS R6 R7 K20 ["createItemId"]
   MOVE R7 R1
   CALL R6 1 1
   SETTABLEKS R6 R5 K6 ["Id"]

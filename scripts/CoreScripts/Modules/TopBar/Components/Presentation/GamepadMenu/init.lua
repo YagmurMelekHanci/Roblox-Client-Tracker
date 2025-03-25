@@ -91,6 +91,9 @@ local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfac
 local FFlagSaveChatVisibilityUserSettings = game:DefineFastFlag("SaveChatVisibilityUserSettings", false)
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 
+local getFFlagCheckForTCSMigration = SharedFlags.getFFlagCheckForTCSMigration
+local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
+
 local ToastRoot
 local ToastGui
 local Toast
@@ -408,6 +411,11 @@ function GamepadMenu.shouldShowChatMenuOption(chatVersion, chatEnabled)
 
 	-- Passing in chat version through props was primarily added for unit tests, if it's nil grab the right version
 	chatVersion = chatVersion or TextChatService.ChatVersion
+
+	--Check to see if the place is automigrated to TCS (initial chatVersion may still be showing LegacyChat and won't be reliable)
+	if getFFlagCheckForTCSMigration() and getFFlagExpChatAlwaysRunTCS() then
+		return chatEnabled
+	end
 
 	-- We will currently only show the chat option for TCS, don't show it for legacy chat until other checks are added
 	return chatEnabled and chatVersion == Enum.ChatVersion.TextChatService

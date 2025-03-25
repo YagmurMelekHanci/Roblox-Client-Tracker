@@ -1,78 +1,98 @@
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceAnnotations"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Bin"]
+  GETTABLEKS R3 R4 K7 ["Common"]
+  GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Styling"]
-  GETTABLEKS R2 R3 K8 ["createStyleRule"]
-  MOVE R3 R2
-  LOADK R4 K9 [".Component-Dropdown"]
-  NEWTABLE R5 0 0
-  NEWTABLE R6 0 3
-  MOVE R7 R2
-  LOADK R8 K10 ["::UIPadding"]
-  DUPTABLE R9 K13 [{"PaddingTop", "PaddingBottom"}]
-  GETIMPORT R10 K16 [UDim.new]
-  LOADN R11 0
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K11 ["Styling"]
+  GETTABLEKS R3 R4 K12 ["createStyleRule"]
+  MOVE R4 R3
+  LOADK R5 K13 [".Component-Dropdown"]
+  NEWTABLE R6 0 0
+  NEWTABLE R7 0 4
+  MOVE R8 R3
+  LOADK R9 K14 ["::UIPadding"]
+  DUPTABLE R10 K17 [{"PaddingTop", "PaddingBottom"}]
+  GETIMPORT R11 K20 [UDim.new]
   LOADN R12 0
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K11 ["PaddingTop"]
-  GETIMPORT R10 K16 [UDim.new]
-  LOADN R11 0
-  LOADN R12 0
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K12 ["PaddingBottom"]
-  CALL R7 2 1
-  MOVE R8 R2
-  LOADK R9 K17 ["::UICorner"]
-  DUPTABLE R10 K19 [{"CornerRadius"}]
-  GETIMPORT R11 K16 [UDim.new]
-  LOADN R12 0
-  LOADN R13 8
+  LOADN R13 0
   CALL R11 2 1
-  SETTABLEKS R11 R10 K18 ["CornerRadius"]
+  SETTABLEKS R11 R10 K15 ["PaddingTop"]
+  GETIMPORT R11 K20 [UDim.new]
+  LOADN R12 0
+  LOADN R13 0
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K16 ["PaddingBottom"]
   CALL R8 2 1
-  MOVE R9 R2
-  LOADK R10 K20 ["> .Component-DropdownItem"]
-  NEWTABLE R11 0 0
-  NEWTABLE R12 0 2
-  MOVE R13 R2
-  LOADK R14 K21 ["::UIListLayout"]
-  DUPTABLE R15 K26 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R16 K29 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R16 R15 K22 ["FillDirection"]
-  GETIMPORT R16 K31 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R16 R15 K23 ["HorizontalAlignment"]
-  GETIMPORT R16 K33 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R16 R15 K24 ["VerticalAlignment"]
-  GETIMPORT R16 K35 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R16 R15 K25 ["SortOrder"]
-  CALL R13 2 1
-  MOVE R14 R2
-  LOADK R15 K36 ["> #TextLabel"]
-  DUPTABLE R16 K38 [{"BackgroundTransparency"}]
-  LOADN R17 1
-  SETTABLEKS R17 R16 K37 ["BackgroundTransparency"]
-  NEWTABLE R17 0 1
-  MOVE R18 R2
-  LOADK R19 K10 ["::UIPadding"]
-  DUPTABLE R20 K40 [{"PaddingLeft"}]
-  GETIMPORT R21 K16 [UDim.new]
-  LOADN R22 0
-  LOADN R23 10
-  CALL R21 2 1
-  SETTABLEKS R21 R20 K39 ["PaddingLeft"]
-  CALL R18 2 -1
-  SETLIST R17 R18 -1 [1]
-  CALL R14 3 -1
-  SETLIST R12 R13 -1 [1]
-  CALL R9 3 -1
-  SETLIST R6 R7 -1 [1]
-  CALL R3 3 -1
-  RETURN R3 -1
+  MOVE R9 R3
+  LOADK R10 K21 ["::UICorner"]
+  DUPTABLE R11 K23 [{"CornerRadius"}]
+  GETIMPORT R12 K20 [UDim.new]
+  LOADN R13 0
+  LOADN R14 8
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K22 ["CornerRadius"]
+  CALL R9 2 1
+  MOVE R10 R3
+  LOADK R11 K24 ["> .Component-DropdownItem"]
+  NEWTABLE R12 0 0
+  NEWTABLE R13 0 2
+  MOVE R14 R3
+  LOADK R15 K25 ["::UIListLayout"]
+  DUPTABLE R16 K30 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R17 K33 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R17 R16 K26 ["FillDirection"]
+  GETIMPORT R17 K35 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R17 R16 K27 ["HorizontalAlignment"]
+  GETIMPORT R17 K37 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R17 R16 K28 ["VerticalAlignment"]
+  GETIMPORT R17 K39 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R17 R16 K29 ["SortOrder"]
+  CALL R14 2 1
+  MOVE R15 R3
+  LOADK R16 K40 ["> #TextLabel"]
+  DUPTABLE R17 K42 [{"BackgroundTransparency"}]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K41 ["BackgroundTransparency"]
+  NEWTABLE R18 0 1
+  MOVE R19 R3
+  LOADK R20 K14 ["::UIPadding"]
+  DUPTABLE R21 K44 [{"PaddingLeft"}]
+  GETIMPORT R22 K20 [UDim.new]
+  LOADN R23 0
+  LOADN R24 10
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K43 ["PaddingLeft"]
+  CALL R19 2 -1
+  SETLIST R18 R19 -1 [1]
+  CALL R15 3 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 1
+  MOVE R11 R3
+  LOADK R12 K45 ["> .Hover"]
+  DUPTABLE R13 K47 [{"BackgroundColor3", "BackgroundTransparency"}]
+  GETTABLEKS R15 R1 K48 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R15 [+2]
+  LOADK R14 K49 ["$SemanticColorActionSecondaryFill"]
+  JUMP [+1]
+  LOADK R14 K50 ["$SecondaryHoverBackground"]
+  SETTABLEKS R14 R13 K46 ["BackgroundColor3"]
+  GETTABLEKS R15 R1 K48 ["fflagAnnotationsModernColors"]
+  JUMPIFNOT R15 [+2]
+  LOADK R14 K51 ["$SemanticColorActionSecondaryFillHoverTransparency"]
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K41 ["BackgroundTransparency"]
+  CALL R11 2 -1
+  SETLIST R7 R8 -1 [1]
+  CALL R4 3 -1
+  RETURN R4 -1

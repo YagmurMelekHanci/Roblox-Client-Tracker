@@ -8,12 +8,15 @@
 local AppStorageService = game:GetService("AppStorageService")
 local CorePackages = game:GetService("CorePackages")
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagUnibarMenuOpenSelectionIXP = SharedFlags.FFlagUnibarMenuOpenSelectionIXP
+
 local InGameMenu = script.Parent.InGameMenu
 
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
 
-local GetFStringLuaAppExperienceMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLuaAppExperienceMenuLayer
+local GetFStringLuaAppExperienceMenuLayer = SharedFlags.GetFStringLuaAppExperienceMenuLayer
 local GetFStringLuaAppConsoleExperienceMenuLayer = require(script.Parent.Flags.GetFStringLuaAppConsoleExperienceMenuLayer)
 
 local GetFFlagDisableChromeV3Baseline = require(script.Parent.Flags.GetFFlagDisableChromeV3Baseline)()
@@ -25,7 +28,7 @@ local GetFFlagDisableChromeV3DockedMic = require(script.Parent.Flags.GetFFlagDis
 local GetFFlagDisableChromeV4Baseline = require(script.Parent.Flags.GetFFlagDisableChromeV4Baseline)()
 local GetFFlagDisableChromeV4ClosedSelfView = require(script.Parent.Flags.GetFFlagDisableChromeV4ClosedSelfView)()
 
-local GetFFlagSetupSongbirdWindowExperimentFeb2025 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSetupSongbirdWindowExperimentFeb2025
+local GetFFlagSetupSongbirdWindowExperimentFeb2025 = SharedFlags.GetFFlagSetupSongbirdWindowExperimentFeb2025
 
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
@@ -62,6 +65,11 @@ local MENU_VERSION_CHROME_V4_ENUM = {
 	CLOSED_SELF_VIEW = "v10.2",
 }
 
+local ENUM_UNIBAR_MENU_OPEN_FOCUS = {
+	HAMBURGER = "hamburger",
+	SUBMENU = "submenu",
+}
+
 local validVersion = {
 	[DEFAULT_MENU_VERSION] = true,
 	[MENU_VERSION_V2] = false,
@@ -70,6 +78,8 @@ local validVersion = {
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD] = true,
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_UNIBAR] = true,
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK] = true,
+	[ENUM_UNIBAR_MENU_OPEN_FOCUS.HAMBURGER] = FFlagUnibarMenuOpenSelectionIXP,
+	[ENUM_UNIBAR_MENU_OPEN_FOCUS.SUBMENU] = FFlagUnibarMenuOpenSelectionIXP,
 
 	-- Invalidate Unibar test variants if the respective disable flag is turned on
 	[MENU_VERSION_CHROME_V3_ENUM.BASELINE] = not GetFFlagDisableChromeV3Baseline,
@@ -239,6 +249,14 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 		end
 	end
 
+	if FFlagUnibarMenuOpenSelectionIXP then
+		for _, variant in ENUM_UNIBAR_MENU_OPEN_FOCUS do
+			if self:getVersion() == variant then
+				return true
+			end
+		end
+	end
+
 	return false
 end
 
@@ -269,6 +287,14 @@ end
 function ExperienceMenuABTestManager:shouldShowSongbirdPeek()
 	local version = self:getVersion()
 	return version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD or version == MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK
+end
+
+function ExperienceMenuABTestManager:showConsoleExpControlsMenuOpenHamburger()
+	return self:getVersion() == ENUM_UNIBAR_MENU_OPEN_FOCUS.HAMBURGER
+end
+
+function ExperienceMenuABTestManager:showConsoleExpControlsMenuOpenSubmenu()
+	return self:getVersion() == ENUM_UNIBAR_MENU_OPEN_FOCUS.SUBMENU
 end
 
 -- this is called on the assumption that IXP layers are initialized

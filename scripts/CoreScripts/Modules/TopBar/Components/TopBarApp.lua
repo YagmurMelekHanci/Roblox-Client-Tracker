@@ -46,7 +46,6 @@ local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 local FFlagEnableChromeAnalytics = SharedFlags.GetFFlagEnableChromeAnalytics()
 
-local GetFFlagEnableSceneAnalysisPerformanceTest = SharedFlags.GetFFlagEnableSceneAnalysisPerformanceTest
 local GetFFlagEnableSongbirdPeek = require(Chrome.Flags.GetFFlagEnableSongbirdPeek)
 local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
@@ -106,7 +105,6 @@ local GetFFlagEnablePartyIconInNonChrome =
 local GetFFlagEnablePartyMicIconInChrome =
 	SharedFlags.GetFFlagEnablePartyMicIconInChrome
 local GetFFlagPeekUseFixedHeight = SharedFlags.GetFFlagPeekUseFixedHeight
-local GetFFlagSongbirdMountDebugAudioEmitters = SharedFlags.GetFFlagSongbirdMountDebugAudioEmitters
 
 local PartyMicBinder = require(script.Parent.Parent.Parent.Chrome.Integrations.Party.PartyMicBinder)
 
@@ -163,10 +161,10 @@ function TopBarApp:init()
 		})
 
 		if FFlagConnectGamepadChrome then
-			if FFlagHideTopBarConsole then 
+			if FFlagHideTopBarConsole then
 				-- in flag cleanup, replace `self.GamepadConnector` with just `GamepadConnector`
 				self.GamepadConnector = GamepadConnector
-			else 
+			else
 				self.GamepadConnector = GamepadConnector.new()
 			end
 		end
@@ -215,7 +213,7 @@ function TopBarApp:willUnmount()
 			self.orderAlignmentConnection:disconnect()
 			self.orderAlignmentConnection = nil
 		end
-		
+
 		if FFlagConnectGamepadChrome then
 			self.GamepadConnector:disconnectFromTopbar()
 		end
@@ -298,12 +296,12 @@ function TopBarApp:renderWithStyle(style)
 		end,
 	}, {
 		Connection = Roact.createElement(Connection),
-		GamepadMenu = if not FFlagConnectGamepadChrome then 
+		GamepadMenu = if not FFlagConnectGamepadChrome then
 				if TenFootInterfaceExpChatExperimentation.getIsEnabled()
 					then Roact.createElement(GamepadMenu, {
 						chatVersion = self.state.chatVersion,
 					})
-				else Roact.createElement(GamepadMenu) 
+				else Roact.createElement(GamepadMenu)
 			else nil,
 		MenuNavigationToggleDialog = if chromeEnabled and FFlagAddMenuNavigationToggleDialog and FFlagConnectGamepadChrome then
 			Roact.createElement(MenuNavigationToggleDialog, {
@@ -433,13 +431,7 @@ function TopBarApp:renderWithStyle(style)
 			}) or nil,
 		}),
 
-		SongbirdPerformanceExperiment = if GetFFlagEnableSceneAnalysisPerformanceTest()
-			then Roact.createElement(Songbird.PerformanceExperiment)
-			else nil,
-
-		SongbirdDebugAudio = if GetFFlagSongbirdMountDebugAudioEmitters()
-			then Roact.createElement(Songbird.DebugAudioEmitters)
-			else nil,
+		SongbirdDebugAudio =  Roact.createElement(Songbird.DebugAudioEmitters),
 
 		PeekFrame = ChromeEnabled() and GetFFlagEnableSongbirdPeek() and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -499,7 +491,7 @@ function TopBarApp:renderWithStyle(style)
 					Unibar = if FFlagTiltIconUnibarFocusNav then React.createElement(MenuIconContext.Provider, {
 						value = {
 							menuIconRef = self.menuIconRef,
-						}, 
+						},
 					}, {
 						React.createElement(Unibar, {
 							layoutOrder = 1,

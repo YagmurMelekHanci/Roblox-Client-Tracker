@@ -13,8 +13,6 @@ local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
-local GetFFlagSongbirdWindowResponsiveSizing =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdWindowResponsiveSizing
 local GetFFlagSongbirdUseLatestIcons =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdUseLatestIcons
 
@@ -50,26 +48,18 @@ return ChromeService:register({
 			end
 		end,
 		Window = function()
-			if GetFFlagSongbirdWindowResponsiveSizing() then
-				return React.createElement(Foundation.View, {
-					tag = "auto-xy",
-					onAbsoluteSizeChanged = function(rbx: GuiObject)
-						windowSize:requestSize(rbx.AbsoluteSize.X, rbx.AbsoluteSize.Y)
-					end,
-				}, {
-					ChromeWindowWrapper = React.createElement(Songbird.ChromeWindowWrapper, {
-						onClose = function()
-							ChromeService:toggleWindow("music_entrypoint")
-						end,
-					}),
-				})
-			else
-				return React.createElement(Songbird.ChromeWindowWrapper, {
+			return React.createElement(Foundation.View, {
+				tag = "auto-xy",
+				onAbsoluteSizeChanged = function(rbx: GuiObject)
+					windowSize:requestSize(rbx.AbsoluteSize.X, rbx.AbsoluteSize.Y)
+				end,
+			}, {
+				ChromeWindowWrapper = React.createElement(Songbird.ChromeWindowWrapper, {
 					onClose = function()
 						ChromeService:toggleWindow("music_entrypoint")
 					end,
-				}) :: never
-			end
+				}),
+			})
 		end,
 	},
 })

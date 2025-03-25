@@ -3,7 +3,7 @@ PROTO_0:
   GETTABLEKS R3 R4 K0 ["Renderers"]
   GETTABLEKS R4 R1 K1 ["Type"]
   GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+64]
+  JUMPIFNOT R2 [+78]
   LOADK R3 K2 ["%* %*"]
   GETTABLEKS R5 R1 K1 ["Type"]
   MOVE R6 R0
@@ -15,7 +15,7 @@ PROTO_0:
   GETTABLEKS R5 R6 K0 ["Renderers"]
   GETTABLEKS R6 R1 K1 ["Type"]
   GETTABLE R4 R5 R6
-  DUPTABLE R5 K13 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Renderers", "Select", "WidgetUri", "HideLabels"}]
+  DUPTABLE R5 K15 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "MenuView", "LayoutOrder", "Renderers", "Select", "ShowContextMenu", "WidgetUri", "HideLabels"}]
   SETTABLEKS R1 R5 K4 ["Item"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["Items"]
@@ -29,21 +29,31 @@ PROTO_0:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K8 ["CloseMenus"]
   SETTABLEKS R6 R5 K8 ["CloseMenus"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["MenuView"]
+  SETTABLEKS R6 R5 K9 ["MenuView"]
   GETUPVAL R6 2
   CALL R6 0 1
-  SETTABLEKS R6 R5 K9 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K10 ["LayoutOrder"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K0 ["Renderers"]
   SETTABLEKS R6 R5 K0 ["Renderers"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K10 ["Select"]
-  SETTABLEKS R6 R5 K10 ["Select"]
+  GETTABLEKS R6 R7 K11 ["Select"]
+  SETTABLEKS R6 R5 K11 ["Select"]
+  GETUPVAL R7 3
+  JUMPIFNOT R7 [+4]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K11 ["WidgetUri"]
-  SETTABLEKS R6 R5 K11 ["WidgetUri"]
+  GETTABLEKS R6 R7 K12 ["ShowContextMenu"]
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K12 ["ShowContextMenu"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K12 ["HideLabels"]
-  SETTABLEKS R6 R5 K12 ["HideLabels"]
+  GETTABLEKS R6 R7 K13 ["WidgetUri"]
+  SETTABLEKS R6 R5 K13 ["WidgetUri"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K14 ["HideLabels"]
+  SETTABLEKS R6 R5 K14 ["HideLabels"]
   CALL R3 2 -1
   RETURN R2 -1
   LOADNIL R2
@@ -72,15 +82,16 @@ PROTO_1:
   CAPTURE VAL R0
   CAPTURE UPVAL U2
   CAPTURE VAL R1
+  CAPTURE UPVAL U3
   CALL R4 2 1
   GETUPVAL R5 2
   LOADK R6 K7 ["Frame"]
   NEWTABLE R7 2 0
   GETTABLEKS R8 R0 K8 ["LayoutOrder"]
   SETTABLEKS R8 R7 K8 ["LayoutOrder"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K9 ["Tag"]
   GETUPVAL R9 4
+  GETTABLEKS R8 R9 K9 ["Tag"]
+  GETUPVAL R9 5
   LOADK R10 K10 ["Role-Surface X-Fit X-Middle"]
   MOVE R11 R3
   CALL R9 2 1
@@ -101,32 +112,39 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["createElement"]
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Dash"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["SharedFlags"]
+  GETTABLEKS R4 R5 K11 ["getFFlagRibbonTabsMenu"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K10 ["collect"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Packages"]
-  GETTABLEKS R6 R7 K11 ["Framework"]
-  CALL R5 1 1
-  GETTABLEKS R7 R5 K12 ["Util"]
-  GETTABLEKS R6 R7 K13 ["counter"]
-  GETTABLEKS R8 R5 K14 ["Styling"]
-  GETTABLEKS R7 R8 K15 ["joinTags"]
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R12 R0 K16 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Components"]
-  GETTABLEKS R10 R11 K18 ["ControlsView"]
-  GETTABLEKS R9 R10 K19 ["ControlProps"]
-  CALL R8 1 1
+  CALL R3 0 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Dash"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K13 ["collect"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K14 ["Framework"]
+  CALL R6 1 1
+  GETTABLEKS R8 R6 K15 ["Util"]
+  GETTABLEKS R7 R8 K16 ["counter"]
+  GETTABLEKS R9 R6 K17 ["Styling"]
+  GETTABLEKS R8 R9 K18 ["joinTags"]
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K16 ["Src"]
-  GETTABLEKS R10 R11 K20 ["Types"]
+  GETTABLEKS R13 R0 K9 ["Src"]
+  GETTABLEKS R12 R13 K19 ["Components"]
+  GETTABLEKS R11 R12 K20 ["ControlsView"]
+  GETTABLEKS R10 R11 K21 ["ControlProps"]
   CALL R9 1 1
-  DUPCLOSURE R10 K21 [PROTO_1]
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  CAPTURE VAL R1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K22 ["Types"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K23 [PROTO_1]
   CAPTURE VAL R7
-  RETURN R10 1
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  RETURN R11 1

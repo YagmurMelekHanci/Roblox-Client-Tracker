@@ -1,4 +1,30 @@
 PROTO_0:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+33]
+  GETTABLEKS R1 R0 K0 ["Violation"]
+  JUMPIFNOT R1 [+30]
+  GETTABLEKS R2 R0 K0 ["Violation"]
+  GETTABLEKS R1 R2 K1 ["Evidence"]
+  JUMPIFNOT R1 [+25]
+  GETTABLEKS R3 R0 K0 ["Violation"]
+  GETTABLEKS R2 R3 K1 ["Evidence"]
+  GETTABLEKS R1 R2 K2 ["Elements"]
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [ipairs]
+  GETTABLEKS R5 R0 K0 ["Violation"]
+  GETTABLEKS R4 R5 K1 ["Evidence"]
+  GETTABLEKS R2 R4 K2 ["Elements"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  GETTABLEKS R6 R5 K5 ["Url"]
+  JUMPIFNOT R6 [+3]
+  GETTABLEKS R6 R5 K5 ["Url"]
+  RETURN R6 1
+  FORGLOOP R1 2 [inext] [-7]
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_1:
   GETUPVAL R3 0
   NAMECALL R3 R3 K0 ["GetSessionId"]
   CALL R3 1 1
@@ -22,7 +48,7 @@ PROTO_0:
   CALL R6 4 0
   RETURN R0 0
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["log"]
   GETUPVAL R1 1
@@ -43,7 +69,7 @@ PROTO_1:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["log"]
   GETUPVAL R1 1
@@ -64,7 +90,7 @@ PROTO_2:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["log"]
   GETUPVAL R1 1
@@ -85,56 +111,60 @@ PROTO_3:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_4:
-  GETTABLEKS R2 R0 K0 ["InterventionId"]
-  JUMPIFEQKNIL R2 [+3]
-  LOADB R1 1
+PROTO_5:
+  GETGLOBAL R1 K0 ["getEvidenceUrlFromViolation"]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETTABLEKS R3 R0 K1 ["InterventionId"]
+  JUMPIFEQKNIL R3 [+3]
+  LOADB R2 1
   JUMP [+1]
-  LOADB R1 0
-  JUMPIFNOT R1 [+14]
+  LOADB R2 0
+  JUMPIFNOT R2 [+14]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["state"]
+  GETTABLEKS R3 R4 K3 ["showDialog"]
+  JUMPIF R3 [+8]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["state"]
-  GETTABLEKS R2 R3 K2 ["showDialog"]
-  JUMPIF R2 [+8]
+  GETTABLEKS R3 R4 K4 ["log"]
+  GETUPVAL R4 1
+  GETTABLEKS R5 R0 K5 ["PunishmentType"]
+  LOADK R6 K6 ["ShowDialog"]
+  CALL R3 3 0
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["log"]
-  GETUPVAL R3 1
-  GETTABLEKS R4 R0 K4 ["PunishmentType"]
-  LOADK R5 K5 ["ShowDialog"]
-  CALL R2 3 0
-  GETUPVAL R2 0
-  DUPTABLE R4 K11 [{"showDialog", "messageToUser", "reason", "reviewDateTime", "type", "bannedDateTime"}]
-  SETTABLEKS R1 R4 K2 ["showDialog"]
-  GETTABLEKS R5 R0 K12 ["MessageToUser"]
-  SETTABLEKS R5 R4 K6 ["messageToUser"]
-  GETTABLEKS R6 R0 K13 ["BadUtterances"]
-  JUMPIFEQKNIL R6 [+22]
-  GETTABLEKS R7 R0 K13 ["BadUtterances"]
-  GETTABLEN R6 R7 1
-  JUMPIFEQKNIL R6 [+17]
-  DUPTABLE R5 K16 [{"abuseType", "utteranceText"}]
-  GETTABLEKS R8 R0 K13 ["BadUtterances"]
+  DUPTABLE R5 K12 [{"showDialog", "messageToUser", "reason", "reviewDateTime", "type", "bannedDateTime"}]
+  SETTABLEKS R2 R5 K3 ["showDialog"]
+  GETTABLEKS R6 R0 K13 ["MessageToUser"]
+  SETTABLEKS R6 R5 K7 ["messageToUser"]
+  GETTABLEKS R7 R0 K14 ["BadUtterances"]
+  JUMPIFEQKNIL R7 [+24]
+  GETTABLEKS R8 R0 K14 ["BadUtterances"]
   GETTABLEN R7 R8 1
-  GETTABLEKS R6 R7 K17 ["AbuseType"]
-  SETTABLEKS R6 R5 K14 ["abuseType"]
-  GETTABLEKS R8 R0 K13 ["BadUtterances"]
-  GETTABLEN R7 R8 1
-  GETTABLEKS R6 R7 K18 ["UtteranceText"]
-  SETTABLEKS R6 R5 K15 ["utteranceText"]
+  JUMPIFEQKNIL R7 [+19]
+  DUPTABLE R6 K18 [{"abuseType", "utteranceText", "url"}]
+  GETTABLEKS R9 R0 K14 ["BadUtterances"]
+  GETTABLEN R8 R9 1
+  GETTABLEKS R7 R8 K19 ["AbuseType"]
+  SETTABLEKS R7 R6 K15 ["abuseType"]
+  GETTABLEKS R9 R0 K14 ["BadUtterances"]
+  GETTABLEN R8 R9 1
+  GETTABLEKS R7 R8 K20 ["UtteranceText"]
+  SETTABLEKS R7 R6 K16 ["utteranceText"]
+  SETTABLEKS R1 R6 K17 ["url"]
   JUMP [+1]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K7 ["reason"]
-  GETTABLEKS R5 R0 K19 ["BeginDate"]
-  SETTABLEKS R5 R4 K8 ["reviewDateTime"]
-  GETTABLEKS R5 R0 K4 ["PunishmentType"]
-  SETTABLEKS R5 R4 K9 ["type"]
-  GETTABLEKS R5 R0 K20 ["EndDate"]
-  SETTABLEKS R5 R4 K10 ["bannedDateTime"]
-  NAMECALL R2 R2 K21 ["setState"]
-  CALL R2 2 0
+  LOADNIL R6
+  SETTABLEKS R6 R5 K8 ["reason"]
+  GETTABLEKS R6 R0 K21 ["BeginDate"]
+  SETTABLEKS R6 R5 K9 ["reviewDateTime"]
+  GETTABLEKS R6 R0 K5 ["PunishmentType"]
+  SETTABLEKS R6 R5 K10 ["type"]
+  GETTABLEKS R6 R0 K22 ["EndDate"]
+  SETTABLEKS R6 R5 K11 ["bannedDateTime"]
+  NAMECALL R3 R3 K23 ["setState"]
+  CALL R3 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R0 0
   DUPTABLE R2 K2 [{"showDialog", "showQuitDialog"}]
   LOADB R3 0
@@ -145,7 +175,7 @@ PROTO_5:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R0 0
   DUPTABLE R2 K2 [{"showQuitDialog", "showDialog"}]
   LOADB R3 0
@@ -156,7 +186,7 @@ PROTO_6:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R1 0
   DUPTABLE R3 K1 [{"showDialog"}]
   SETTABLEKS R0 R3 K0 ["showDialog"]
@@ -164,11 +194,11 @@ PROTO_7:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   NEWTABLE R0 0 0
   RETURN R0 1
 
-PROTO_9:
+PROTO_10:
   GETTABLEKS R2 R1 K0 ["Plugin"]
   LOADK R4 K1 ["ModerationController"]
   NAMECALL R2 R2 K2 ["GetPluginComponent"]
@@ -198,97 +228,101 @@ PROTO_9:
   CAPTURE VAL R0
   CAPTURE UPVAL U3
   SETTABLEKS R3 R0 K10 ["closeStudioInstance"]
-  DUPTABLE R3 K18 [{"showDialog", "messageToUser", "reason", "reviewDateTime", "type", "bannedDateTime", "showQuitDialog"}]
-  GETTABLEKS R5 R2 K19 ["InterventionId"]
-  JUMPIFEQKNIL R5 [+3]
-  LOADB R4 1
+  GETGLOBAL R3 K11 ["getEvidenceUrlFromViolation"]
+  MOVE R4 R2
+  CALL R3 1 1
+  DUPTABLE R4 K19 [{"showDialog", "messageToUser", "reason", "reviewDateTime", "type", "bannedDateTime", "showQuitDialog"}]
+  GETTABLEKS R6 R2 K20 ["InterventionId"]
+  JUMPIFEQKNIL R6 [+3]
+  LOADB R5 1
   JUMP [+1]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K11 ["showDialog"]
-  GETTABLEKS R4 R2 K20 ["MessageToUser"]
-  SETTABLEKS R4 R3 K12 ["messageToUser"]
-  GETTABLEKS R5 R2 K21 ["BadUtterances"]
-  JUMPIFEQKNIL R5 [+22]
-  GETTABLEKS R6 R2 K21 ["BadUtterances"]
-  GETTABLEN R5 R6 1
-  JUMPIFEQKNIL R5 [+17]
-  DUPTABLE R4 K24 [{"abuseType", "utteranceText"}]
-  GETTABLEKS R7 R2 K21 ["BadUtterances"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K12 ["showDialog"]
+  GETTABLEKS R5 R2 K21 ["MessageToUser"]
+  SETTABLEKS R5 R4 K13 ["messageToUser"]
+  GETTABLEKS R6 R2 K22 ["BadUtterances"]
+  JUMPIFEQKNIL R6 [+24]
+  GETTABLEKS R7 R2 K22 ["BadUtterances"]
   GETTABLEN R6 R7 1
-  GETTABLEKS R5 R6 K25 ["AbuseType"]
-  SETTABLEKS R5 R4 K22 ["abuseType"]
-  GETTABLEKS R7 R2 K21 ["BadUtterances"]
-  GETTABLEN R6 R7 1
-  GETTABLEKS R5 R6 K26 ["UtteranceText"]
-  SETTABLEKS R5 R4 K23 ["utteranceText"]
+  JUMPIFEQKNIL R6 [+19]
+  DUPTABLE R5 K26 [{"abuseType", "utteranceText", "url"}]
+  GETTABLEKS R8 R2 K22 ["BadUtterances"]
+  GETTABLEN R7 R8 1
+  GETTABLEKS R6 R7 K27 ["AbuseType"]
+  SETTABLEKS R6 R5 K23 ["abuseType"]
+  GETTABLEKS R8 R2 K22 ["BadUtterances"]
+  GETTABLEN R7 R8 1
+  GETTABLEKS R6 R7 K28 ["UtteranceText"]
+  SETTABLEKS R6 R5 K24 ["utteranceText"]
+  SETTABLEKS R3 R5 K25 ["url"]
   JUMP [+1]
-  LOADNIL R4
-  SETTABLEKS R4 R3 K13 ["reason"]
-  GETTABLEKS R4 R2 K27 ["BeginDate"]
-  SETTABLEKS R4 R3 K14 ["reviewDateTime"]
-  GETTABLEKS R4 R2 K28 ["PunishmentType"]
-  SETTABLEKS R4 R3 K15 ["type"]
-  GETTABLEKS R4 R2 K29 ["EndDate"]
-  SETTABLEKS R4 R3 K16 ["bannedDateTime"]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K17 ["showQuitDialog"]
-  SETTABLEKS R3 R0 K30 ["state"]
-  GETTABLEKS R4 R0 K30 ["state"]
-  GETTABLEKS R3 R4 K11 ["showDialog"]
-  JUMPIFNOT R3 [+9]
-  GETTABLEKS R3 R0 K7 ["log"]
-  GETUPVAL R4 3
-  GETTABLEKS R6 R0 K30 ["state"]
-  GETTABLEKS R5 R6 K15 ["type"]
-  LOADK R6 K31 ["ShowDialog"]
-  CALL R3 3 0
-  GETTABLEKS R4 R0 K3 ["moderationController"]
-  GETTABLEKS R3 R4 K32 ["ShowModerationDialog"]
-  NEWCLOSURE R5 P4
+  LOADNIL R5
+  SETTABLEKS R5 R4 K14 ["reason"]
+  GETTABLEKS R5 R2 K29 ["BeginDate"]
+  SETTABLEKS R5 R4 K15 ["reviewDateTime"]
+  GETTABLEKS R5 R2 K30 ["PunishmentType"]
+  SETTABLEKS R5 R4 K16 ["type"]
+  GETTABLEKS R5 R2 K31 ["EndDate"]
+  SETTABLEKS R5 R4 K17 ["bannedDateTime"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K18 ["showQuitDialog"]
+  SETTABLEKS R4 R0 K32 ["state"]
+  GETTABLEKS R5 R0 K32 ["state"]
+  GETTABLEKS R4 R5 K12 ["showDialog"]
+  JUMPIFNOT R4 [+9]
+  GETTABLEKS R4 R0 K7 ["log"]
+  GETUPVAL R5 3
+  GETTABLEKS R7 R0 K32 ["state"]
+  GETTABLEKS R6 R7 K16 ["type"]
+  LOADK R7 K33 ["ShowDialog"]
+  CALL R4 3 0
+  GETTABLEKS R5 R0 K3 ["moderationController"]
+  GETTABLEKS R4 R5 K34 ["ShowModerationDialog"]
+  NEWCLOSURE R6 P4
   CAPTURE VAL R0
   CAPTURE UPVAL U3
-  NAMECALL R3 R3 K33 ["Connect"]
-  CALL R3 2 1
-  SETTABLEKS R3 R0 K34 ["showModerationDialogConnection"]
-  NEWCLOSURE R3 P5
+  NAMECALL R4 R4 K35 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K36 ["showModerationDialogConnection"]
+  NEWCLOSURE R4 P5
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K35 ["OpenQuitDialog"]
-  NEWCLOSURE R3 P6
+  SETTABLEKS R4 R0 K37 ["OpenQuitDialog"]
+  NEWCLOSURE R4 P6
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K36 ["OpenModerationDialog"]
-  NEWCLOSURE R3 P7
+  SETTABLEKS R4 R0 K38 ["OpenModerationDialog"]
+  NEWCLOSURE R4 P7
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K37 ["onRestore"]
-  GETUPVAL R5 4
-  GETTABLEKS R4 R5 K38 ["Localization"]
-  GETTABLEKS R3 R4 K5 ["new"]
-  DUPTABLE R4 K42 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  GETUPVAL R5 5
-  SETTABLEKS R5 R4 K39 ["stringResourceTable"]
-  GETUPVAL R5 6
-  SETTABLEKS R5 R4 K40 ["translationResourceTable"]
-  LOADK R5 K43 ["ModerationDialog"]
-  SETTABLEKS R5 R4 K41 ["pluginName"]
-  CALL R3 1 1
-  SETTABLEKS R3 R0 K44 ["localization"]
-  GETUPVAL R5 4
-  GETTABLEKS R4 R5 K45 ["Analytics"]
-  GETTABLEKS R3 R4 K5 ["new"]
-  DUPCLOSURE R4 K46 [PROTO_8]
-  NEWTABLE R5 0 0
-  CALL R3 2 1
-  SETTABLEKS R3 R0 K47 ["analytics"]
-  GETUPVAL R4 7
-  GETTABLEKS R3 R4 K5 ["new"]
-  CALL R3 0 1
-  SETTABLEKS R3 R0 K48 ["DEPRECATED_stylizer"]
-  GETUPVAL R3 8
-  GETTABLEKS R4 R1 K0 ["Plugin"]
-  CALL R3 1 1
-  SETTABLEKS R3 R0 K49 ["design"]
+  SETTABLEKS R4 R0 K39 ["onRestore"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K40 ["Localization"]
+  GETTABLEKS R4 R5 K5 ["new"]
+  DUPTABLE R5 K44 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R6 5
+  SETTABLEKS R6 R5 K41 ["stringResourceTable"]
+  GETUPVAL R6 6
+  SETTABLEKS R6 R5 K42 ["translationResourceTable"]
+  LOADK R6 K45 ["ModerationDialog"]
+  SETTABLEKS R6 R5 K43 ["pluginName"]
+  CALL R4 1 1
+  SETTABLEKS R4 R0 K46 ["localization"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K47 ["Analytics"]
+  GETTABLEKS R4 R5 K5 ["new"]
+  DUPCLOSURE R5 K48 [PROTO_9]
+  NEWTABLE R6 0 0
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K49 ["analytics"]
+  GETUPVAL R5 7
+  GETTABLEKS R4 R5 K5 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R0 K50 ["DEPRECATED_stylizer"]
+  GETUPVAL R4 8
+  GETTABLEKS R5 R1 K0 ["Plugin"]
+  CALL R4 1 1
+  SETTABLEKS R4 R0 K51 ["design"]
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
@@ -430,7 +464,16 @@ MAIN:
   LOADK R21 K38 ["RbxAnalyticsService"]
   NAMECALL R19 R19 K37 ["GetService"]
   CALL R19 2 1
-  DUPCLOSURE R20 K39 [PROTO_9]
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R23 R0 K18 ["Src"]
+  GETTABLEKS R22 R23 K39 ["SharedFlags"]
+  GETTABLEKS R21 R22 K40 ["getFFlagModerationDialogImage"]
+  CALL R20 1 1
+  CALL R20 0 1
+  DUPCLOSURE R21 K41 [PROTO_0]
+  CAPTURE VAL R20
+  SETGLOBAL R21 K42 ["getEvidenceUrlFromViolation"]
+  DUPCLOSURE R21 K43 [PROTO_10]
   CAPTURE VAL R11
   CAPTURE VAL R19
   CAPTURE VAL R18
@@ -440,8 +483,8 @@ MAIN:
   CAPTURE VAL R10
   CAPTURE VAL R7
   CAPTURE VAL R8
-  SETTABLEKS R20 R17 K40 ["init"]
-  DUPCLOSURE R20 K41 [PROTO_10]
+  SETTABLEKS R21 R17 K44 ["init"]
+  DUPCLOSURE R21 K45 [PROTO_11]
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R5
@@ -449,5 +492,5 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R15
   CAPTURE VAL R16
-  SETTABLEKS R20 R17 K42 ["render"]
+  SETTABLEKS R21 R17 K46 ["render"]
   RETURN R17 1

@@ -145,20 +145,23 @@ PROTO_6:
   CALL R8 2 1
   SETTABLEKS R8 R7 K12 ["Separator1"]
   GETTABLEKS R8 R0 K13 ["Reason"]
-  JUMPIFNOT R8 [+26]
+  JUMPIFNOT R8 [+32]
   GETUPVAL R9 2
   GETTABLEKS R8 R9 K4 ["createElement"]
   GETUPVAL R9 8
-  DUPTABLE R10 K45 [{"Reason", "OffensiveItem", "LayoutOrder"}]
+  DUPTABLE R10 K46 [{"Reason", "OffensiveItem", "Url", "LayoutOrder"}]
   GETUPVAL R11 9
   MOVE R12 R1
   GETTABLEKS R14 R0 K13 ["Reason"]
-  GETTABLEKS R13 R14 K46 ["abuseType"]
+  GETTABLEKS R13 R14 K47 ["abuseType"]
   CALL R11 2 1
   SETTABLEKS R11 R10 K13 ["Reason"]
   GETTABLEKS R12 R0 K13 ["Reason"]
-  GETTABLEKS R11 R12 K47 ["utteranceText"]
+  GETTABLEKS R11 R12 K48 ["utteranceText"]
   SETTABLEKS R11 R10 K44 ["OffensiveItem"]
+  GETTABLEKS R12 R0 K13 ["Reason"]
+  GETTABLEKS R11 R12 K49 ["url"]
+  SETTABLEKS R11 R10 K45 ["Url"]
   NAMECALL R11 R2 K6 ["getNextOrder"]
   CALL R11 1 1
   SETTABLEKS R11 R10 K7 ["LayoutOrder"]
@@ -181,18 +184,18 @@ PROTO_6:
   SETTABLEKS R8 R7 K14 ["Separator2"]
   NAMECALL R9 R2 K6 ["getNextOrder"]
   CALL R9 1 1
-  LOADK R12 K48 ["AccountDisabled"]
+  LOADK R12 K50 ["AccountDisabled"]
   LOADK R13 K15 ["Guidelines"]
   NAMECALL R10 R1 K23 ["getText"]
   CALL R10 3 1
   NEWTABLE R11 1 0
   DUPTABLE R12 K26 [{"LinkText", "LinkCallback"}]
   LOADK R15 K27 ["Links"]
-  LOADK R16 K49 ["GuidelinesLink"]
+  LOADK R16 K51 ["GuidelinesLink"]
   NAMECALL R13 R1 K23 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K24 ["LinkText"]
-  DUPCLOSURE R13 K50 [PROTO_2]
+  DUPCLOSURE R13 K52 [PROTO_2]
   CAPTURE UPVAL U3
   CAPTURE UPVAL U10
   SETTABLEKS R13 R12 K25 ["LinkCallback"]
@@ -218,14 +221,14 @@ PROTO_6:
   MOVE R8 R12
   SETTABLEKS R8 R7 K15 ["Guidelines"]
   LOADB R8 0
-  GETTABLEKS R9 R0 K51 ["Type"]
-  JUMPIFEQKS R9 K52 ["Warn"] [+16]
+  GETTABLEKS R9 R0 K53 ["Type"]
+  JUMPIFEQKS R9 K54 ["Warn"] [+16]
   GETUPVAL R9 2
   GETTABLEKS R8 R9 K4 ["createElement"]
   GETUPVAL R9 11
-  DUPTABLE R10 K54 [{"BannedDateTime", "LayoutOrder"}]
-  GETTABLEKS R11 R0 K53 ["BannedDateTime"]
-  SETTABLEKS R11 R10 K53 ["BannedDateTime"]
+  DUPTABLE R10 K56 [{"BannedDateTime", "LayoutOrder"}]
+  GETTABLEKS R11 R0 K55 ["BannedDateTime"]
+  SETTABLEKS R11 R10 K55 ["BannedDateTime"]
   NAMECALL R11 R2 K6 ["getNextOrder"]
   CALL R11 1 1
   SETTABLEKS R11 R10 K7 ["LayoutOrder"]
@@ -233,8 +236,8 @@ PROTO_6:
   SETTABLEKS R8 R7 K16 ["ReactivateDateNote"]
   NAMECALL R9 R2 K6 ["getNextOrder"]
   CALL R9 1 1
-  LOADK R12 K48 ["AccountDisabled"]
-  LOADK R13 K55 ["Appeal"]
+  LOADK R12 K50 ["AccountDisabled"]
+  LOADK R13 K57 ["Appeal"]
   NAMECALL R10 R1 K23 ["getText"]
   CALL R10 3 1
   NEWTABLE R11 1 0
@@ -244,7 +247,7 @@ PROTO_6:
   NAMECALL R13 R1 K23 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K24 ["LinkText"]
-  DUPCLOSURE R13 K56 [PROTO_3]
+  DUPCLOSURE R13 K58 [PROTO_3]
   CAPTURE UPVAL U12
   CAPTURE UPVAL U3
   SETTABLEKS R13 R12 K25 ["LinkCallback"]
@@ -270,12 +273,12 @@ PROTO_6:
   MOVE R8 R12
   SETTABLEKS R8 R7 K17 ["AppealPortal"]
   LOADB R8 0
-  GETTABLEKS R9 R0 K51 ["Type"]
-  JUMPIFNOTEQKS R9 K52 ["Warn"] [+55]
+  GETTABLEKS R9 R0 K53 ["Type"]
+  JUMPIFNOTEQKS R9 K54 ["Warn"] [+55]
   NAMECALL R9 R2 K6 ["getNextOrder"]
   CALL R9 1 1
-  LOADK R12 K57 ["Agreement"]
-  LOADK R13 K58 ["TermsOfUse"]
+  LOADK R12 K59 ["Agreement"]
+  LOADK R13 K60 ["TermsOfUse"]
   NAMECALL R10 R1 K23 ["getText"]
   CALL R10 3 1
   NEWTABLE R11 1 0
@@ -285,7 +288,7 @@ PROTO_6:
   NAMECALL R13 R1 K23 ["getText"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K24 ["LinkText"]
-  DUPCLOSURE R13 K59 [PROTO_4]
+  DUPCLOSURE R13 K61 [PROTO_4]
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   SETTABLEKS R13 R12 K25 ["LinkCallback"]
@@ -311,8 +314,8 @@ PROTO_6:
   MOVE R8 R12
   SETTABLEKS R8 R7 K18 ["ToUAgreement"]
   LOADB R8 0
-  GETTABLEKS R9 R0 K51 ["Type"]
-  JUMPIFNOTEQKS R9 K52 ["Warn"] [+33]
+  GETTABLEKS R9 R0 K53 ["Type"]
+  JUMPIFNOTEQKS R9 K54 ["Warn"] [+33]
   GETUPVAL R9 2
   GETTABLEKS R8 R9 K4 ["createElement"]
   GETUPVAL R9 13
@@ -320,16 +323,16 @@ PROTO_6:
   NAMECALL R11 R2 K6 ["getNextOrder"]
   CALL R11 1 1
   SETTABLEKS R11 R10 K7 ["LayoutOrder"]
-  LOADK R13 K57 ["Agreement"]
-  LOADK R14 K60 ["IAgree"]
+  LOADK R13 K59 ["Agreement"]
+  LOADK R14 K62 ["IAgree"]
   NAMECALL R11 R1 K23 ["getText"]
   CALL R11 3 1
   SETTABLEKS R11 R10 K36 ["Text"]
-  GETTABLEKS R11 R0 K61 ["Checked"]
-  SETTABLEKS R11 R10 K61 ["Checked"]
+  GETTABLEKS R11 R0 K63 ["Checked"]
+  SETTABLEKS R11 R10 K63 ["Checked"]
   NEWCLOSURE R11 P4
   CAPTURE VAL R0
-  SETTABLEKS R11 R10 K62 ["OnChecked"]
+  SETTABLEKS R11 R10 K64 ["OnChecked"]
   GETUPVAL R12 2
   GETTABLEKS R11 R12 K8 ["Tag"]
   LOADK R12 K39 ["X-FitY"]

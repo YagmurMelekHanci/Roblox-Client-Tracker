@@ -9,6 +9,10 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 
+local ChromeFlags = script.Parent.Parent.Parent.Parent.Flags
+local FFlagUnibarMenuOpenHamburger = require(ChromeFlags.FFlagUnibarMenuOpenHamburger)
+local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
+
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local UIBloxBadge = UIBlox.App.Indicator.Badge
 
@@ -338,7 +342,9 @@ function TooltipButton(props: TooltipButtonProps)
 				BorderSizePixel = 0,
 				onStateChanged = hoverHandler,
 				ref = localBtnRef,
-				SelectionOrder = 100 - props.integration.order,
+				SelectionOrder = if FFlagUnibarMenuOpenHamburger or FFlagUnibarMenuOpenSubmenu
+					then props.integration.order
+					else 100 - props.integration.order,
 				Position = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
 					return if FFlagAdaptUnibarAndTiltSizing
 						then UDim2.new(0.5, 0, 0.5, if activeSubmenu then 1 else 0)

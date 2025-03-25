@@ -23,10 +23,25 @@ PROTO_2:
   MOVE R4 R2
   DUPCLOSURE R5 K5 [PROTO_1]
   CALL R3 2 1
+  FASTCALL2K TABLE_INSERT R3 K6 [+5]
+  MOVE R5 R3
+  LOADK R6 K6 ["rbxasset://fonts/families/Arimo.json"]
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
+  FASTCALL2K TABLE_INSERT R3 K10 [+5]
+  MOVE R5 R3
+  LOADK R6 K10 ["rbxasset://fonts/families/BuilderSans.json"]
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
+  FASTCALL2K TABLE_INSERT R3 K11 [+5]
+  MOVE R5 R3
+  LOADK R6 K11 ["rbxasset://fonts/families/Montserrat.json"]
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 2 0
   GETUPVAL R6 2
   MOVE R7 R3
   CALL R6 1 -1
-  NAMECALL R4 R0 K6 ["dispatch"]
+  NAMECALL R4 R0 K12 ["dispatch"]
   CALL R4 -1 0
   RETURN R0 0
 

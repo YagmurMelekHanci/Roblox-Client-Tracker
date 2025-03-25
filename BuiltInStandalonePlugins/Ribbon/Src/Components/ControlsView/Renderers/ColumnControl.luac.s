@@ -3,7 +3,7 @@ PROTO_0:
   GETTABLEKS R3 R4 K0 ["Renderers"]
   GETTABLEKS R4 R1 K1 ["Type"]
   GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+67]
+  JUMPIFNOT R2 [+81]
   LOADK R3 K2 ["%* %*"]
   GETTABLEKS R5 R1 K1 ["Type"]
   MOVE R6 R0
@@ -15,7 +15,7 @@ PROTO_0:
   GETTABLEKS R5 R6 K0 ["Renderers"]
   GETTABLEKS R6 R1 K1 ["Type"]
   GETTABLE R4 R5 R6
-  DUPTABLE R5 K14 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Renderers", "Select", "IsColumn", "WidgetUri", "HideLabels"}]
+  DUPTABLE R5 K16 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "MenuView", "Renderers", "Select", "ShowContextMenu", "IsColumn", "WidgetUri", "HideLabels"}]
   SETTABLEKS R1 R5 K4 ["Item"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["Items"]
@@ -33,19 +33,29 @@ PROTO_0:
   CALL R6 0 1
   SETTABLEKS R6 R5 K9 ["LayoutOrder"]
   GETUPVAL R7 0
+  GETTABLEKS R6 R7 K10 ["MenuView"]
+  SETTABLEKS R6 R5 K10 ["MenuView"]
+  GETUPVAL R7 0
   GETTABLEKS R6 R7 K0 ["Renderers"]
   SETTABLEKS R6 R5 K0 ["Renderers"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K10 ["Select"]
-  SETTABLEKS R6 R5 K10 ["Select"]
+  GETTABLEKS R6 R7 K11 ["Select"]
+  SETTABLEKS R6 R5 K11 ["Select"]
+  GETUPVAL R7 3
+  JUMPIFNOT R7 [+4]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K12 ["ShowContextMenu"]
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K12 ["ShowContextMenu"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K11 ["IsColumn"]
+  SETTABLEKS R6 R5 K13 ["IsColumn"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K12 ["WidgetUri"]
-  SETTABLEKS R6 R5 K12 ["WidgetUri"]
+  GETTABLEKS R6 R7 K14 ["WidgetUri"]
+  SETTABLEKS R6 R5 K14 ["WidgetUri"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K13 ["HideLabels"]
-  SETTABLEKS R6 R5 K13 ["HideLabels"]
+  GETTABLEKS R6 R7 K15 ["HideLabels"]
+  SETTABLEKS R6 R5 K15 ["HideLabels"]
   CALL R3 2 -1
   RETURN R2 -1
   LOADNIL R2
@@ -74,15 +84,16 @@ PROTO_1:
   CAPTURE VAL R0
   CAPTURE UPVAL U2
   CAPTURE VAL R1
+  CAPTURE UPVAL U3
   CALL R4 2 1
   GETUPVAL R5 2
   LOADK R6 K7 ["Frame"]
   NEWTABLE R7 2 0
   GETTABLEKS R8 R0 K8 ["LayoutOrder"]
   SETTABLEKS R8 R7 K8 ["LayoutOrder"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K9 ["Tag"]
   GETUPVAL R9 4
+  GETTABLEKS R8 R9 K9 ["Tag"]
+  GETUPVAL R9 5
   LOADK R10 K10 ["Role-Surface X-Fit"]
   MOVE R11 R3
   CALL R9 2 1
@@ -116,19 +127,26 @@ MAIN:
   GETTABLEKS R7 R5 K14 ["Styling"]
   GETTABLEKS R8 R7 K15 ["joinTags"]
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R13 R0 K16 ["Src"]
-  GETTABLEKS R12 R13 K17 ["Components"]
-  GETTABLEKS R11 R12 K18 ["ControlsView"]
-  GETTABLEKS R10 R11 K19 ["ControlProps"]
-  CALL R9 1 1
-  GETIMPORT R10 K5 [require]
   GETTABLEKS R12 R0 K16 ["Src"]
-  GETTABLEKS R11 R12 K20 ["Types"]
+  GETTABLEKS R11 R12 K17 ["SharedFlags"]
+  GETTABLEKS R10 R11 K18 ["getFFlagRibbonTabsMenu"]
+  CALL R9 1 1
+  CALL R9 0 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R14 R0 K16 ["Src"]
+  GETTABLEKS R13 R14 K19 ["Components"]
+  GETTABLEKS R12 R13 K20 ["ControlsView"]
+  GETTABLEKS R11 R12 K21 ["ControlProps"]
   CALL R10 1 1
-  DUPCLOSURE R11 K21 [PROTO_1]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K16 ["Src"]
+  GETTABLEKS R12 R13 K22 ["Types"]
+  CALL R11 1 1
+  DUPCLOSURE R12 K23 [PROTO_1]
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R2
+  CAPTURE VAL R9
   CAPTURE VAL R1
   CAPTURE VAL R8
-  RETURN R11 1
+  RETURN R12 1

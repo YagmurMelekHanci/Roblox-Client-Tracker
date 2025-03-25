@@ -81,6 +81,224 @@ PROTO_6:
   CLOSEUPVALS R2
   RETURN R3 -1
 
+PROTO_7:
+  DUPTABLE R0 K5 [{"isBundlesControllerEnabled", "isBundlesCreationEnabled", "isBundlesPublishingEnabled", "isGroupBundlesUploadEnabled", "allowedBundleTypeSettings"}]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["isBundlesControllerEnabled"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K1 ["isBundlesCreationEnabled"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K2 ["isBundlesPublishingEnabled"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K3 ["isGroupBundlesUploadEnabled"]
+  DUPTABLE R1 K9 [{"Body", "DynamicHead", "Shoes"}]
+  DUPTABLE R2 K13 [{"allowedAssetTypeSettings", "marketplaceFeePercentage", "allowedPriceRange"}]
+  DUPTABLE R3 K22 [{"DynamicHead", "LeftArm", "LeftLeg", "RightArm", "RightLeg", "Torso", "EyebrowAccessory", "EyelashAccessory", "HairAccessory"}]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K7 ["DynamicHead"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K14 ["LeftArm"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K15 ["LeftLeg"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K16 ["RightArm"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K17 ["RightLeg"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K18 ["Torso"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K19 ["EyebrowAccessory"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K20 ["EyelashAccessory"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K21 ["HairAccessory"]
+  SETTABLEKS R3 R2 K10 ["allowedAssetTypeSettings"]
+  LOADN R3 30
+  SETTABLEKS R3 R2 K11 ["marketplaceFeePercentage"]
+  DUPTABLE R3 K31 [{"minimumPrice", "maximumPrice"}]
+  LOADN R4 175
+  SETTABLEKS R4 R3 K29 ["minimumPrice"]
+  LOADN R4 16
+  SETTABLEKS R4 R3 K30 ["maximumPrice"]
+  SETTABLEKS R3 R2 K12 ["allowedPriceRange"]
+  SETTABLEKS R2 R1 K6 ["Body"]
+  DUPTABLE R2 K13 [{"allowedAssetTypeSettings", "marketplaceFeePercentage", "allowedPriceRange"}]
+  DUPTABLE R3 K32 [{"DynamicHead", "EyebrowAccessory", "EyelashAccessory"}]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K7 ["DynamicHead"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K19 ["EyebrowAccessory"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K20 ["EyelashAccessory"]
+  SETTABLEKS R3 R2 K10 ["allowedAssetTypeSettings"]
+  LOADN R3 30
+  SETTABLEKS R3 R2 K11 ["marketplaceFeePercentage"]
+  DUPTABLE R3 K31 [{"minimumPrice", "maximumPrice"}]
+  LOADN R4 75
+  SETTABLEKS R4 R3 K29 ["minimumPrice"]
+  LOADN R4 16
+  SETTABLEKS R4 R3 K30 ["maximumPrice"]
+  SETTABLEKS R3 R2 K12 ["allowedPriceRange"]
+  SETTABLEKS R2 R1 K7 ["DynamicHead"]
+  DUPTABLE R2 K13 [{"allowedAssetTypeSettings", "marketplaceFeePercentage", "allowedPriceRange"}]
+  DUPTABLE R3 K35 [{"LeftShoeAccessory", "RightShoeAccessory"}]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K33 ["LeftShoeAccessory"]
+  DUPTABLE R4 K27 [{"minimumQuantity", "maximumQuantity", "isEligibleForUpload", "allowedFileExtensions"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K23 ["minimumQuantity"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K24 ["maximumQuantity"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["isEligibleForUpload"]
+  NEWTABLE R5 0 1
+  LOADK R6 K28 [".rbxm"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K26 ["allowedFileExtensions"]
+  SETTABLEKS R4 R3 K34 ["RightShoeAccessory"]
+  SETTABLEKS R3 R2 K10 ["allowedAssetTypeSettings"]
+  LOADN R3 30
+  SETTABLEKS R3 R2 K11 ["marketplaceFeePercentage"]
+  DUPTABLE R3 K31 [{"minimumPrice", "maximumPrice"}]
+  LOADN R4 75
+  SETTABLEKS R4 R3 K29 ["minimumPrice"]
+  LOADN R4 16
+  SETTABLEKS R4 R3 K30 ["maximumPrice"]
+  SETTABLEKS R3 R2 K12 ["allowedPriceRange"]
+  SETTABLEKS R2 R1 K8 ["Shoes"]
+  SETTABLEKS R1 R0 K4 ["allowedBundleTypeSettings"]
+  RETURN R0 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -101,4 +319,6 @@ MAIN:
   DUPCLOSURE R5 K14 [PROTO_6]
   CAPTURE VAL R3
   SETTABLEKS R5 R4 K15 ["pollAssertionUntil"]
+  DUPCLOSURE R5 K16 [PROTO_7]
+  SETTABLEKS R5 R4 K17 ["getMockBundlesMetadata"]
   RETURN R4 1

@@ -15,8 +15,6 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 
-local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
-
 local function leaveGame()
 	GuiService.SelectedCoreObject = nil
 	game:Shutdown()
@@ -133,28 +131,18 @@ prompt:updateButtons(buttonList)
 prompt:setErrorTitle("Warning", "InGame.CommonUI.Title.Warning")
 
 local screenWidth = RobloxGui.AbsoluteSize.X
-local screenHeight
-if FFlagErrorPromptResizesHeight() then
-	screenHeight = RobloxGui.AbsoluteSize.Y
-end
+local screenHeight = RobloxGui.AbsoluteSize.Y
 
 local function onScreenSizeChanged()
 	if not prompt then
 		return
 	end
 	local newWidth = RobloxGui.AbsoluteSize.X
-	if FFlagErrorPromptResizesHeight() then
-		local newHeight = RobloxGui.AbsoluteSize.Y
-		if screenWidth ~= newWidth or screenHeight ~= newHeight then
-			screenWidth = newWidth
-			screenHeight = newHeight
-			prompt:resizeWidthAndHeight(screenWidth, screenHeight)
-		end
-	else
-		if screenWidth ~= newWidth then
-			screenWidth = newWidth
-			prompt:resizeWidth(screenWidth)
-		end
+	local newHeight = RobloxGui.AbsoluteSize.Y
+	if screenWidth ~= newWidth or screenHeight ~= newHeight then
+		screenWidth = newWidth
+		screenHeight = newHeight
+		prompt:resizeWidthAndHeight(screenWidth, screenHeight)
 	end
 end
 

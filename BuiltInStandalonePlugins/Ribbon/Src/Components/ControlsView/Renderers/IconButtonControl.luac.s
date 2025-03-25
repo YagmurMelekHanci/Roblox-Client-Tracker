@@ -75,60 +75,66 @@ PROTO_2:
   RETURN R5 1
   GETUPVAL R5 3
   GETUPVAL R6 4
-  DUPTABLE R7 K25 [{"OnSelect", "Disabled", "Selected", "Uri", "Icon", "IconOnly", "Shortcuts", "Tooltip", "LayoutOrder", "Text", "Size", "Visible"}]
+  DUPTABLE R7 K26 [{"OnSelect", "Disabled", "Selected", "ShowContextMenu", "Uri", "Icon", "IconOnly", "Shortcuts", "Tooltip", "LayoutOrder", "Text", "Size", "Visible"}]
   NEWCLOSURE R8 P1
   CAPTURE VAL R0
   CAPTURE REF R3
   SETTABLEKS R8 R7 K13 ["OnSelect"]
-  GETTABLEKS R9 R3 K26 ["Enabled"]
+  GETTABLEKS R9 R3 K27 ["Enabled"]
   NOT R8 R9
   SETTABLEKS R8 R7 K14 ["Disabled"]
-  GETTABLEKS R8 R3 K27 ["Checked"]
+  GETTABLEKS R8 R3 K28 ["Checked"]
   SETTABLEKS R8 R7 K15 ["Selected"]
-  GETTABLEKS R9 R0 K28 ["WidgetUri"]
+  GETUPVAL R9 5
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R8 R0 K16 ["ShowContextMenu"]
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K16 ["ShowContextMenu"]
+  GETTABLEKS R9 R0 K29 ["WidgetUri"]
   JUMPIFNOT R9 [+12]
   GETTABLEKS R9 R2 K11 ["Id"]
   JUMPIFNOT R9 [+9]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K29 ["child"]
-  GETTABLEKS R9 R0 K28 ["WidgetUri"]
+  GETTABLEKS R8 R9 K30 ["child"]
+  GETTABLEKS R9 R0 K29 ["WidgetUri"]
   GETTABLEKS R10 R2 K11 ["Id"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
-  SETTABLEKS R8 R7 K16 ["Uri"]
+  SETTABLEKS R8 R7 K17 ["Uri"]
   MOVE R8 R4
   JUMPIF R8 [+5]
-  GETTABLEKS R8 R2 K17 ["Icon"]
+  GETTABLEKS R8 R2 K18 ["Icon"]
   JUMPIF R8 [+2]
-  GETTABLEKS R8 R3 K17 ["Icon"]
-  SETTABLEKS R8 R7 K17 ["Icon"]
-  GETTABLEKS R8 R0 K30 ["HideLabels"]
+  GETTABLEKS R8 R3 K18 ["Icon"]
+  SETTABLEKS R8 R7 K18 ["Icon"]
+  GETTABLEKS R8 R0 K31 ["HideLabels"]
   JUMPIF R8 [+2]
-  GETTABLEKS R8 R2 K18 ["IconOnly"]
-  SETTABLEKS R8 R7 K18 ["IconOnly"]
-  GETTABLEKS R8 R3 K19 ["Shortcuts"]
-  SETTABLEKS R8 R7 K19 ["Shortcuts"]
-  GETUPVAL R8 5
+  GETTABLEKS R8 R2 K19 ["IconOnly"]
+  SETTABLEKS R8 R7 K19 ["IconOnly"]
+  GETTABLEKS R8 R3 K20 ["Shortcuts"]
+  SETTABLEKS R8 R7 K20 ["Shortcuts"]
+  GETUPVAL R8 6
   MOVE R9 R1
-  LOADK R10 K20 ["Tooltip"]
+  LOADK R10 K21 ["Tooltip"]
   MOVE R11 R2
   MOVE R12 R3
   CALL R8 4 1
-  SETTABLEKS R8 R7 K20 ["Tooltip"]
-  GETTABLEKS R8 R0 K21 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K21 ["LayoutOrder"]
-  GETUPVAL R8 5
+  SETTABLEKS R8 R7 K21 ["Tooltip"]
+  GETTABLEKS R8 R0 K22 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K22 ["LayoutOrder"]
+  GETUPVAL R8 6
   MOVE R9 R1
-  LOADK R10 K22 ["Text"]
+  LOADK R10 K23 ["Text"]
   MOVE R11 R2
   MOVE R12 R3
   CALL R8 4 1
-  SETTABLEKS R8 R7 K22 ["Text"]
-  GETTABLEKS R8 R2 K23 ["Size"]
-  SETTABLEKS R8 R7 K23 ["Size"]
-  GETTABLEKS R8 R3 K24 ["Visible"]
-  SETTABLEKS R8 R7 K24 ["Visible"]
+  SETTABLEKS R8 R7 K23 ["Text"]
+  GETTABLEKS R8 R2 K24 ["Size"]
+  SETTABLEKS R8 R7 K24 ["Size"]
+  GETTABLEKS R8 R3 K25 ["Visible"]
+  SETTABLEKS R8 R7 K25 ["Visible"]
   CALL R5 2 -1
   CLOSEUPVALS R3
   RETURN R5 -1
@@ -166,26 +172,33 @@ MAIN:
   GETTABLEKS R8 R9 K17 ["getLocalizedField"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Packages"]
-  GETTABLEKS R9 R10 K18 ["Framework"]
+  GETTABLEKS R11 R0 K11 ["Src"]
+  GETTABLEKS R10 R11 K18 ["SharedFlags"]
+  GETTABLEKS R9 R10 K19 ["getFFlagRibbonTabsMenu"]
   CALL R8 1 1
-  GETTABLEKS R9 R8 K19 ["ContextServices"]
-  GETTABLEKS R10 R9 K20 ["Localization"]
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R15 R0 K11 ["Src"]
-  GETTABLEKS R14 R15 K14 ["Components"]
-  GETTABLEKS R13 R14 K16 ["ControlsView"]
-  GETTABLEKS R12 R13 K21 ["ControlProps"]
-  CALL R11 1 1
+  CALL R8 0 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Packages"]
+  GETTABLEKS R10 R11 K20 ["Framework"]
+  CALL R9 1 1
+  GETTABLEKS R10 R9 K21 ["ContextServices"]
+  GETTABLEKS R11 R10 K22 ["Localization"]
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R14 R0 K11 ["Src"]
-  GETTABLEKS R13 R14 K22 ["Types"]
+  GETTABLEKS R16 R0 K11 ["Src"]
+  GETTABLEKS R15 R16 K14 ["Components"]
+  GETTABLEKS R14 R15 K16 ["ControlsView"]
+  GETTABLEKS R13 R14 K23 ["ControlProps"]
   CALL R12 1 1
-  DUPCLOSURE R13 K23 [PROTO_2]
-  CAPTURE VAL R10
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R15 R0 K11 ["Src"]
+  GETTABLEKS R14 R15 K24 ["Types"]
+  CALL R13 1 1
+  DUPCLOSURE R14 K25 [PROTO_2]
+  CAPTURE VAL R11
   CAPTURE VAL R4
   CAPTURE VAL R5
   CAPTURE VAL R2
   CAPTURE VAL R6
+  CAPTURE VAL R8
   CAPTURE VAL R7
-  RETURN R13 1
+  RETURN R14 1

@@ -6,7 +6,7 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["AnnotationsFocusTextBox"]
+  LOADK R2 K4 ["AnnotationsFocusTextBox1"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
@@ -31,12 +31,12 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K10 ["AnnotationsAddTagging8"]
+  LOADK R2 K10 ["AnnotationsAddTagging9"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K11 ["AnnotationsAddTaggingFiltering2"]
+  LOADK R2 K11 ["AnnotationsAddTaggingFiltering3"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
@@ -60,112 +60,122 @@ MAIN:
   LOADN R3 0
   NAMECALL R0 R0 K8 ["DefineFastInt"]
   CALL R0 3 0
-  DUPTABLE R0 K36 [{"fflagCOLLAB6176PlaceAnnotations", "fflagAnnotationsModernColors", "fflagAnnotationsEditOperation", "fflagAnnotationsMaxTextLength", "fflagPlaceAnnotationsHotkey", "fflagAnnotationsFocusTextBox", "fflagAnnotationsSubmitOnEnter", "fflagAnnotationsWidgetRestoreFix", "fflagPlaceAnnotationsPublicRelease", "fflagAnnotationsUseNewAnnotationIcons", "fflagAnnotationsAddTagging", "fflagAnnotationsAddTaggingFiltering", "fflagAnnotationsSyncTagging", "fflagAnnotationsHandleNonTC", "fflagPlaceAnnotationsIxp", "fflagCOLLAB7436AnnotationHeaderIcons", "fflagAnnotationsReleaseCallout", "fintAnnotationsPointerMaxSize", "fintAnnotationsPointerMinSize", "fflagCOLLAB7954AnnotationsLoadRecentReplies"}]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K16 ["AnnotationsAddTaggingKeyConnects"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  DUPTABLE R0 K38 [{"fflagCOLLAB6176PlaceAnnotations", "fflagAnnotationsModernColors", "fflagAnnotationsEditOperation", "fflagAnnotationsMaxTextLength", "fflagPlaceAnnotationsHotkey", "fflagAnnotationsFocusTextBox", "fflagAnnotationsSubmitOnEnter", "fflagAnnotationsWidgetRestoreFix", "fflagPlaceAnnotationsPublicRelease", "fflagAnnotationsUseNewAnnotationIcons", "fflagAnnotationsAddTagging", "fflagAnnotationsAddTaggingFiltering", "fflagAnnotationsSyncTagging", "fflagAnnotationsHandleNonTC", "fflagPlaceAnnotationsIxp", "fflagCOLLAB7436AnnotationHeaderIcons", "fflagAnnotationsReleaseCallout", "fintAnnotationsPointerMaxSize", "fintAnnotationsPointerMinSize", "fflagCOLLAB7954AnnotationsLoadRecentReplies", "fflagAnnotationsAddTaggingKeyConnects"}]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K37 ["COLLAB6176PlaceAnnotations"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K39 ["COLLAB6176PlaceAnnotations"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
   JUMPIFNOT R1 [+6]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K39 ["COLLAB6176PlaceAnnotationsStudio"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K41 ["COLLAB6176PlaceAnnotationsStudio"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K16 ["fflagCOLLAB6176PlaceAnnotations"]
+  SETTABLEKS R1 R0 K17 ["fflagCOLLAB6176PlaceAnnotations"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K2 ["AnnotationsModernColors"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K17 ["fflagAnnotationsModernColors"]
+  SETTABLEKS R1 R0 K18 ["fflagAnnotationsModernColors"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K40 ["AnnotationsEditOperation"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K42 ["AnnotationsEditOperation"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K18 ["fflagAnnotationsEditOperation"]
+  SETTABLEKS R1 R0 K19 ["fflagAnnotationsEditOperation"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K7 ["AnnotationsMaxTextLength"]
-  NAMECALL R1 R1 K41 ["GetFastInt"]
+  NAMECALL R1 R1 K43 ["GetFastInt"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K19 ["fflagAnnotationsMaxTextLength"]
+  SETTABLEKS R1 R0 K20 ["fflagAnnotationsMaxTextLength"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K42 ["PlaceAnnotationsHotkey"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K44 ["PlaceAnnotationsHotkey"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K20 ["fflagPlaceAnnotationsHotkey"]
+  SETTABLEKS R1 R0 K21 ["fflagPlaceAnnotationsHotkey"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["AnnotationsFocusTextBox"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K4 ["AnnotationsFocusTextBox1"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K21 ["fflagAnnotationsFocusTextBox"]
+  SETTABLEKS R1 R0 K22 ["fflagAnnotationsFocusTextBox"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K5 ["AnnotationsSubmitOnEnter"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K22 ["fflagAnnotationsSubmitOnEnter"]
+  SETTABLEKS R1 R0 K23 ["fflagAnnotationsSubmitOnEnter"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K6 ["AnnotationsWidgetRestoreFix"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K23 ["fflagAnnotationsWidgetRestoreFix"]
+  SETTABLEKS R1 R0 K24 ["fflagAnnotationsWidgetRestoreFix"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K43 ["PlaceAnnotationsPublicRelease"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K45 ["PlaceAnnotationsPublicRelease"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K24 ["fflagPlaceAnnotationsPublicRelease"]
+  SETTABLEKS R1 R0 K25 ["fflagPlaceAnnotationsPublicRelease"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K9 ["AnnotationsUseNewAnnotationIcons"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K25 ["fflagAnnotationsUseNewAnnotationIcons"]
+  SETTABLEKS R1 R0 K26 ["fflagAnnotationsUseNewAnnotationIcons"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K10 ["AnnotationsAddTagging8"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K10 ["AnnotationsAddTagging9"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K26 ["fflagAnnotationsAddTagging"]
+  SETTABLEKS R1 R0 K27 ["fflagAnnotationsAddTagging"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K11 ["AnnotationsAddTaggingFiltering2"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K11 ["AnnotationsAddTaggingFiltering3"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K27 ["fflagAnnotationsAddTaggingFiltering"]
+  SETTABLEKS R1 R0 K28 ["fflagAnnotationsAddTaggingFiltering"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K44 ["AnnotationsSyncTagging"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K46 ["AnnotationsSyncTagging"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K28 ["fflagAnnotationsSyncTagging"]
+  SETTABLEKS R1 R0 K29 ["fflagAnnotationsSyncTagging"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K12 ["AnnotationsHandleNonTC"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K29 ["fflagAnnotationsHandleNonTC"]
+  SETTABLEKS R1 R0 K30 ["fflagAnnotationsHandleNonTC"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K45 ["PlaceAnnotationsIxp"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K47 ["PlaceAnnotationsIxp"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K30 ["fflagPlaceAnnotationsIxp"]
+  SETTABLEKS R1 R0 K31 ["fflagPlaceAnnotationsIxp"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K13 ["COLLAB7436AnnotationHeaderIcons"]
   LOADB R4 0
   NAMECALL R1 R1 K3 ["DefineFastFlag"]
   CALL R1 3 1
-  SETTABLEKS R1 R0 K31 ["fflagCOLLAB7436AnnotationHeaderIcons"]
+  SETTABLEKS R1 R0 K32 ["fflagCOLLAB7436AnnotationHeaderIcons"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K46 ["AnnotationsReleaseCallout"]
+  LOADK R3 K48 ["AnnotationsReleaseCallout"]
   LOADB R4 0
   NAMECALL R1 R1 K3 ["DefineFastFlag"]
   CALL R1 3 1
-  SETTABLEKS R1 R0 K32 ["fflagAnnotationsReleaseCallout"]
+  SETTABLEKS R1 R0 K33 ["fflagAnnotationsReleaseCallout"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K14 ["AnnotationsPointerMaxSize"]
-  NAMECALL R1 R1 K41 ["GetFastInt"]
+  NAMECALL R1 R1 K43 ["GetFastInt"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K33 ["fintAnnotationsPointerMaxSize"]
+  SETTABLEKS R1 R0 K34 ["fintAnnotationsPointerMaxSize"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K15 ["AnnotationsPointerMinSize"]
-  NAMECALL R1 R1 K41 ["GetFastInt"]
+  NAMECALL R1 R1 K43 ["GetFastInt"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K34 ["fintAnnotationsPointerMinSize"]
+  SETTABLEKS R1 R0 K35 ["fintAnnotationsPointerMinSize"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K47 ["COLLAB7954AnnotationsLoadRecentReplies"]
-  NAMECALL R1 R1 K38 ["GetFastFlag"]
+  LOADK R3 K49 ["COLLAB7954AnnotationsLoadRecentReplies"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K35 ["fflagCOLLAB7954AnnotationsLoadRecentReplies"]
+  SETTABLEKS R1 R0 K36 ["fflagCOLLAB7954AnnotationsLoadRecentReplies"]
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K16 ["AnnotationsAddTaggingKeyConnects"]
+  NAMECALL R1 R1 K40 ["GetFastFlag"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K37 ["fflagAnnotationsAddTaggingKeyConnects"]
   RETURN R0 1

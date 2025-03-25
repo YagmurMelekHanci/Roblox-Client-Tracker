@@ -113,6 +113,7 @@ local GetFFlagPackagifySettingsShowSignal = require(CorePackages.Workspace.Packa
 local FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false)
 local FFlagCenterIGMConsoleBottomButtons = game:DefineFastFlag("CenterIGMConsoleBottomButtons", false)
 local FFlagDelayEscCoreActionIEMOpen = game:DefineFastFlag("DelayEscCoreActionIEMOpen", false)
+local GetFFlagRemovePermissionsButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagRemovePermissionsButtons)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -167,7 +168,7 @@ local connectedServerVersion = nil
 local connectedServerChannel = nil
 
 local SettingsFullScreenTitleBar = require(RobloxGui.Modules.Settings.Components.SettingsFullScreenTitleBar)
-local PermissionsButtons = require(RobloxGui.Modules.Settings.Components.PermissionsButtons)
+local PermissionsButtons = if GetFFlagRemovePermissionsButtons() then nil else require(RobloxGui.Modules.Settings.Components.PermissionsButtons)
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
@@ -1063,6 +1064,10 @@ local function CreateSettingsHub()
 	local setVisibilityInternal = nil
 
 	local function createPermissionsButtons(shouldFillScreen)
+		if GetFFlagRemovePermissionsButtons() then
+			return
+		end
+
 		return Roact.createElement(PermissionsButtons, {
 			isTenFootInterface = isTenFootInterface,
 			isPortrait = utility:IsPortrait(),
@@ -1587,7 +1592,7 @@ local function CreateSettingsHub()
 
 		end
 
-		if FFlagAvatarChatCoreScriptSupport then
+		if not GetFFlagRemovePermissionsButtons() and FFlagAvatarChatCoreScriptSupport then
 			-- Create the settings buttons for audio/camera permissions.
 			if Theme.UIBloxThemeEnabled then
 				this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.Shield, "PermissionsButtons")
@@ -2345,7 +2350,7 @@ local function CreateSettingsHub()
 				this.HubBar.Size = UDim2.new(0, 800, 0, 60)
 				this.MenuAspectRatio.Parent = menuAspectRatioParent
 
-				if FFlagAvatarChatCoreScriptSupport then
+				if not GetFFlagRemovePermissionsButtons() and FFlagAvatarChatCoreScriptSupport then
 					-- Reconfigure these buttons to take a new parent to be next to
 					-- the close button.
 					if this.permissionsButtonsRoot then

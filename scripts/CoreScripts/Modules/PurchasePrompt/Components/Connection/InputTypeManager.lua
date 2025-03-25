@@ -17,6 +17,8 @@ local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
+local FFlagFilterPurchasePromptInputDispatch = game:DefineFastFlag("FilterPurchasePromptInputDispatch", false)
+
 local CURSOR_OVERRIDE_KEY = "PurchasePromptOverrideKey"
 
 local gamepadInputs = {
@@ -39,6 +41,11 @@ function InputTypeManager:init()
 			newEnabledStatus = false
 		end
 
+		if FFlagFilterPurchasePromptInputDispatch then
+			if newEnabledStatus == self.props.gamepadEnabled then
+				return
+			end
+		end
 		setGamepadEnabled(newEnabledStatus)
 	end
 

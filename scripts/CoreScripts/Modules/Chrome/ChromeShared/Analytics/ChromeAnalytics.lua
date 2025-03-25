@@ -3,8 +3,6 @@ local Root = script:FindFirstAncestor("ChromeShared")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
@@ -12,13 +10,6 @@ local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 local PlayerGui = (Players.LocalPlayer :: Player):FindFirstChildOfClass("PlayerGui")
 
 local Cryo = require(CorePackages.Packages.Cryo)
-
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagRemoveChromeRobloxGuiReferences = SharedFlags.GetFFlagRemoveChromeRobloxGuiReferences
-local PerfUtils
-if not GetFFlagRemoveChromeRobloxGuiReferences() then
-	PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
-end
 
 local ChromeService = require(Root.Service)
 local Constants = require(Root.Unibar.Constants)
@@ -116,7 +107,6 @@ local function getDynamicEventProps()
 	local props = {
 		screen_orientation = screenOrientation,
 		last_input_device = lastUsedInputType,
-		fps = if not GetFFlagRemoveChromeRobloxGuiReferences() then PerfUtils.getFps() else nil,
 	}
 
 	return props

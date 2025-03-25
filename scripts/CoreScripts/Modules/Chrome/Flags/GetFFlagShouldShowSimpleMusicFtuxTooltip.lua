@@ -1,5 +1,5 @@
-game:DefineFastFlag("ShouldShowSimpleMusicFtuxTooltip", false)
+game:DefineFastFlag("ShouldShowSimpleMusicFtuxTooltip2", false)
 
 return function()
-	return game:GetFastFlag("ShouldShowSimpleMusicFtuxTooltip")
+	return game:GetFastFlag("ShouldShowSimpleMusicFtuxTooltip2")
 end

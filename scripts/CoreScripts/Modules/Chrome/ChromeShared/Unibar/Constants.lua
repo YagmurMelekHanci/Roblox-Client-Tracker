@@ -3,7 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
-local GetFFlagSongbirdWindowResponsiveSizing = SharedFlags.GetFFlagSongbirdWindowResponsiveSizing
 local FFlagReplaceChromeNotificationBadge = SharedFlags.FFlagReplaceChromeNotificationBadge
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
@@ -120,13 +119,9 @@ return {
 	DEFAULT_WIDTH = if FFlagAdaptUnibarAndTiltSizing then withUIScale(176) else 176,
 
 	MAX_HEIGHT_PORTRAIT = if FFlagAdaptUnibarAndTiltSizing then withUIScale(285) else 285,
-	MAX_WIDTH_PORTRAIT = if FFlagAdaptUnibarAndTiltSizing
-		then if GetFFlagSongbirdWindowResponsiveSizing() then withUIScale(260) else withUIScale(176)
-		else if GetFFlagSongbirdWindowResponsiveSizing() then 260 else 176,
+	MAX_WIDTH_PORTRAIT = if FFlagAdaptUnibarAndTiltSizing then withUIScale(260) else 260,
 	MAX_HEIGHT_LANDSCAPE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(285) else 285,
-	MAX_WIDTH_LANDSCAPE = if FFlagAdaptUnibarAndTiltSizing
-		then if GetFFlagSongbirdWindowResponsiveSizing() then withUIScale(260) else withUIScale(176)
-		else if GetFFlagSongbirdWindowResponsiveSizing() then 260 else 176,
+	MAX_WIDTH_LANDSCAPE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(260) else 260,
 
 	-- Integration Constraints per device type
 	SOCIAL_SLOTS = socialSlots, -- Chat, mic, and self view always present in open standard unibar (when available)

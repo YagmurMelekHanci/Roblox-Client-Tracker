@@ -6,13 +6,29 @@ local ContextActionService = game:GetService("ContextActionService")
 local React = require(CorePackages.Packages.React)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
+local GetFFlagEnableSaveUserPins = SharedFlags.GetFFlagEnableSaveUserPins
+local GetFFlagEnableChromePinAnalytics = SharedFlags.GetFFlagEnableChromePinAnalytics
+local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
+local GetFFlagEnablePartyMicIconInChrome = SharedFlags.GetFFlagEnablePartyMicIconInChrome
+local GetFFlagUsePolishedAnimations = SharedFlags.GetFFlagUsePolishedAnimations
+local GetFFlagAnimateSubMenu = SharedFlags.GetFFlagAnimateSubMenu
+local GetFIntIconSelectionTimeout = SharedFlags.GetFIntIconSelectionTimeout
+local GetFFlagChromeCentralizedConfiguration = SharedFlags.GetFFlagChromeCentralizedConfiguration
+local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+-- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
+local GetFFlagEnableJoinVoiceOnUnibar = SharedFlags.GetFFlagEnableJoinVoiceOnUnibar
+local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
+local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
+local GetFFlagEnableSongbirdInChrome = require(Root.Parent.Flags.GetFFlagEnableSongbirdInChrome)
+
+local ChromeFlags = script.Parent.Parent.Parent.Flags
+local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
+
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ChromeService = require(Root.Service)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
-
-local GetFFlagChromeCentralizedConfiguration = SharedFlags.GetFFlagChromeCentralizedConfiguration
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 
 local _integrations = if GetFFlagChromeCentralizedConfiguration() then nil else require(Root.Parent.Integrations)
 local SubMenu = require(Root.Unibar.SubMenu)
@@ -28,28 +44,6 @@ local ContainerHost = require(Root.Unibar.ComponentHosts.ContainerHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-
-local GetFFlagDebugEnableUnibarDummyIntegrations =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugEnableUnibarDummyIntegrations
-local GetFFlagEnableSaveUserPins = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSaveUserPins
-local GetFFlagEnableChromePinAnalytics =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinAnalytics
-local GetFFlagEnableChromePinIntegrations =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinIntegrations
-local GetFFlagEnablePartyMicIconInChrome =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePartyMicIconInChrome
-local GetFFlagUsePolishedAnimations = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUsePolishedAnimations
-local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
-local GetFIntIconSelectionTimeout = require(CorePackages.Workspace.Packages.SharedFlags).GetFIntIconSelectionTimeout
--- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
-local GetFFlagEnableSongbirdInChrome = require(Root.Parent.Flags.GetFFlagEnableSongbirdInChrome)
-local GetFFlagEnableJoinVoiceOnUnibar =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableJoinVoiceOnUnibar
-local GetFFlagChromeUsePreferredTransparency =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeUsePreferredTransparency
-local GetFFlagDisableSongbirdForVRConsole =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableSongbirdForVRConsole
-local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 
 local FFlagReshufflePartyIconsInUnibar = game:DefineFastFlag("ReshufflePartyIconsInUnibar", false)
 local FFlagFixUnibarResizing = game:DefineFastFlag("FixUnibarResizing", false)
@@ -137,9 +131,7 @@ if not GetFFlagChromeCentralizedConfiguration() then
 
 		-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
 		-- selene: allow(denylist_filter)
-		local isNotVROrConsole = GetFFlagDisableSongbirdForVRConsole()
-			and not isSpatial()
-			and not GuiService:IsTenFootInterface()
+		local isNotVROrConsole = not isSpatial() and not GuiService:IsTenFootInterface()
 		if GetFFlagEnableSongbirdInChrome() and isNotVROrConsole then
 			table.insert(nineDot, 4, "music_entrypoint")
 		end
@@ -214,7 +206,11 @@ function AnimationStateHelper(props)
 					if selectedChild then
 						GuiService.SelectedCoreObject = selectedChild
 					else
-						GuiService:Select(props.menuFrameRef.current)
+						if FFlagUnibarMenuOpenSubmenu then
+							ChromeService:toggleSubMenu("nine_dot")
+						else
+							GuiService:Select(props.menuFrameRef.current)
+						end
 					end
 				end
 			else
@@ -236,6 +232,9 @@ function AnimationStateHelper(props)
 
 	React.useEffect(function()
 		if currentSubmenu == "nine_dot" then
+			if FFlagUnibarMenuOpenSubmenu and inFocusNav then
+				GuiService:Select(props.subMenuHostRef.current)
+			end
 			props.setToggleSubmenuTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING) :: any)
 		else
 			props.setToggleSubmenuTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING) :: any)
@@ -332,6 +331,7 @@ end
 
 type UnibarProp = {
 	menuFrameRef: any,
+	subMenuHostRef: any,
 	onAreaChanged: (id: string, position: Vector2, size: Vector2) -> nil,
 	onMinWidthChanged: (width: number) -> (),
 }
@@ -586,6 +586,7 @@ function Unibar(props: UnibarProp)
 				setToggleWidthTransition = setToggleWidthTransition,
 				setToggleSubmenuTransition = setToggleSubmenuTransition,
 				menuFrameRef = props.menuFrameRef,
+				subMenuHostRef = if FFlagUnibarMenuOpenSubmenu then props.subMenuHostRef else nil,
 			}),
 			-- Background
 			React.createElement("Frame", {
@@ -623,6 +624,11 @@ local UnibarMenu = function(props: UnibarMenuProp)
 		menuFrame = props.menuRef
 	end
 	local menuOutterFrame = React.useRef(nil)
+	local subMenuHostRef
+	if FFlagUnibarMenuOpenSubmenu then
+		-- APPEXP-2400: Not ideal to use this if we want to support multiple submenus -- improve
+		subMenuHostRef = React.useRef(nil)
+	end
 
 	-- AutomaticSize isn't working for this use-case
 	-- Update size manually
@@ -638,7 +644,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 	local showTopBarSignal
 
 	if FFlagHideTopBarConsole and GamepadConnector then
-		showUnibar, setShowUnibar = React.useBinding(true)
+		showUnibar, setShowUnibar = React.useBinding(GamepadConnector:getShowTopBar():get())
 		showTopBarSignal = GamepadConnector:getShowTopBar()
 	end
 
@@ -688,10 +694,11 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			}) :: any,
 			React.createElement(Unibar, {
 				menuFrameRef = menuFrame,
+				subMenuHostRef = if FFlagUnibarMenuOpenSubmenu then subMenuHostRef else nil,
 				onAreaChanged = props.onAreaChanged,
 				onMinWidthChanged = props.onMinWidthChanged,
 			}) :: any,
-			React.createElement(SubMenu) :: any,
+			React.createElement(SubMenu, { subMenuHostRef = subMenuHostRef }) :: any,
 			React.createElement(WindowManager) :: React.React_Element<any>,
 		}),
 	}

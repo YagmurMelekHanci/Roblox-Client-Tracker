@@ -2,51 +2,53 @@ PROTO_0:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   LOADK R2 K1 ["Frame"]
-  NEWTABLE R3 1 0
+  NEWTABLE R3 2 0
+  GETTABLEKS R4 R0 K2 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K2 ["LayoutOrder"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["Tag"]
+  GETTABLEKS R4 R5 K3 ["Tag"]
   GETUPVAL R5 1
-  LOADK R6 K3 ["Component-RibbonToggle Role-Surface X-Fit"]
-  GETTABLEKS R8 R0 K4 ["Enabled"]
+  LOADK R6 K4 ["Component-RibbonToggle Role-Surface X-Fit"]
+  GETTABLEKS R8 R0 K5 ["Enabled"]
   JUMPIF R8 [+2]
-  LOADK R7 K5 ["State-Disabled"]
+  LOADK R7 K6 ["State-Disabled"]
   JUMP [+1]
   LOADNIL R7
   CALL R5 2 1
   SETTABLE R5 R3 R4
-  DUPTABLE R4 K8 [{"Label", "Toggle"}]
+  DUPTABLE R4 K9 [{"Label", "Toggle"}]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K9 ["TextLabel"]
+  LOADK R6 K10 ["TextLabel"]
   NEWTABLE R7 2 0
-  GETTABLEKS R8 R0 K10 ["Text"]
-  SETTABLEKS R8 R7 K10 ["Text"]
+  GETTABLEKS R8 R0 K11 ["Text"]
+  SETTABLEKS R8 R7 K11 ["Text"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K2 ["Tag"]
-  LOADK R9 K11 ["X-Fit"]
+  GETTABLEKS R8 R9 K3 ["Tag"]
+  LOADK R9 K12 ["X-Fit"]
   SETTABLE R9 R7 R8
   CALL R5 2 1
-  SETTABLEKS R5 R4 K6 ["Label"]
+  SETTABLEKS R5 R4 K7 ["Label"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
   GETUPVAL R6 2
   DUPTABLE R7 K18 [{"Uri", "AnchorPoint", "Enabled", "OnClick", "LayoutOrder", "Position", "Selected"}]
-  GETTABLEKS R8 R0 K12 ["Uri"]
-  SETTABLEKS R8 R7 K12 ["Uri"]
-  GETTABLEKS R8 R0 K13 ["AnchorPoint"]
-  SETTABLEKS R8 R7 K13 ["AnchorPoint"]
-  GETTABLEKS R8 R0 K4 ["Enabled"]
-  SETTABLEKS R8 R7 K4 ["Enabled"]
-  GETTABLEKS R8 R0 K14 ["OnClick"]
-  SETTABLEKS R8 R7 K14 ["OnClick"]
+  GETTABLEKS R8 R0 K13 ["Uri"]
+  SETTABLEKS R8 R7 K13 ["Uri"]
+  GETTABLEKS R8 R0 K14 ["AnchorPoint"]
+  SETTABLEKS R8 R7 K14 ["AnchorPoint"]
+  GETTABLEKS R8 R0 K5 ["Enabled"]
+  SETTABLEKS R8 R7 K5 ["Enabled"]
+  GETTABLEKS R8 R0 K15 ["OnClick"]
+  SETTABLEKS R8 R7 K15 ["OnClick"]
   LOADN R8 1
-  SETTABLEKS R8 R7 K15 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K2 ["LayoutOrder"]
   GETTABLEKS R8 R0 K16 ["Position"]
   SETTABLEKS R8 R7 K16 ["Position"]
   GETTABLEKS R8 R0 K17 ["Selected"]
   SETTABLEKS R8 R7 K17 ["Selected"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K7 ["Toggle"]
+  SETTABLEKS R5 R4 K8 ["Toggle"]
   CALL R1 3 -1
   RETURN R1 -1
 

@@ -340,17 +340,15 @@ local function CallHistoryItem(props: Props)
 			}),
 		}),
 
-		CallIcon = if game:GetEngineFeature("EnableSocialServiceIrisInvite")
-			then React.createElement(ImageSetLabel, {
-				Position = UDim2.new(1, -PADDING.X - 4, 0.5, -PADDING.Y / 2),
-				Size = UDim2.fromOffset(CALL_IMAGE_SIZE, CALL_IMAGE_SIZE),
-				AnchorPoint = Vector2.new(1, 0.5),
-				BackgroundTransparency = 1,
-				Image = "rbxassetid://15239343417", -- TODO(IRIS-659): Replace with UIBLOX icon
-				ImageColor3 = theme.ContextualPrimaryDefault.Color,
-				ImageTransparency = theme.ContextualPrimaryDefault.Transparency,
-			})
-			else nil,
+		CallIcon = React.createElement(ImageSetLabel, {
+			Position = UDim2.new(1, -PADDING.X - 4, 0.5, -PADDING.Y / 2),
+			Size = UDim2.fromOffset(CALL_IMAGE_SIZE, CALL_IMAGE_SIZE),
+			AnchorPoint = Vector2.new(1, 0.5),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://15239343417", -- TODO(IRIS-659): Replace with UIBLOX icon
+			ImageColor3 = theme.ContextualPrimaryDefault.Color,
+			ImageTransparency = theme.ContextualPrimaryDefault.Transparency,
+		}),
 
 		Divider = props.showDivider and React.createElement("Frame", {
 			Position = UDim2.new(0, 0, 1, -1),

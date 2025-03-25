@@ -1,37 +1,91 @@
 PROTO_0:
-  GETUPVAL R1 0
-  LOADK R2 K0 ["Frame"]
-  NEWTABLE R3 2 0
-  GETTABLEKS R4 R0 K1 ["LayoutOrder"]
-  SETTABLEKS R4 R3 K1 ["LayoutOrder"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["Tag"]
-  GETUPVAL R5 2
-  LOADK R6 K3 ["Role-Surface X-Fit"]
-  GETTABLEKS R8 R0 K4 ["IsColumn"]
-  JUMPIFNOT R8 [+2]
-  LOADK R7 K5 ["Role-DividerH"]
-  JUMP [+1]
-  LOADK R7 K6 ["Role-DividerV"]
-  GETTABLEKS R9 R0 K7 ["HideLabels"]
-  JUMPIFNOT R9 [+2]
-  LOADK R8 K8 ["Medium RibbonButton-Divider"]
-  JUMP [+9]
-  GETTABLEKS R10 R0 K9 ["Item"]
-  GETTABLEKS R9 R10 K10 ["Size"]
-  JUMPIFNOTEQKS R9 K11 ["Large"] [+3]
-  LOADK R8 K12 ["Large RibbonButton-Divider"]
-  JUMP [+1]
-  LOADK R8 K13 ["Small"]
-  CALL R5 3 1
-  SETTABLE R5 R3 R4
-  DUPTABLE R4 K15 [{"Divider"}]
+  GETTABLEKS R2 R1 K0 ["UserInputType"]
+  GETIMPORT R3 K3 [Enum.UserInputType.MouseButton2]
+  JUMPIFEQ R2 R3 [+2]
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["ShowContextMenu"]
+  MOVE R3 R1
   GETUPVAL R5 0
-  LOADK R6 K0 ["Frame"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K14 ["Divider"]
-  CALL R1 3 -1
-  RETURN R1 -1
+  GETTABLEKS R4 R5 K5 ["LayoutOrder"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  LOADNIL R1
+  GETUPVAL R2 0
+  JUMPIFNOT R2 [+15]
+  GETTABLEKS R3 R0 K0 ["Item"]
+  GETTABLEKS R2 R3 K1 ["Size"]
+  JUMPIFNOTEQKS R2 K2 ["Large"] [+8]
+  GETTABLEKS R2 R0 K3 ["HideLabels"]
+  JUMPIFNOT R2 [+2]
+  LOADK R1 K4 ["Medium RibbonButton-Divider"]
+  JUMP [+18]
+  LOADK R1 K5 ["Large RibbonButton-Divider"]
+  JUMP [+16]
+  LOADK R1 K6 ["Small"]
+  JUMP [+14]
+  GETTABLEKS R2 R0 K3 ["HideLabels"]
+  JUMPIFNOT R2 [+2]
+  LOADK R1 K4 ["Medium RibbonButton-Divider"]
+  JUMP [+9]
+  GETTABLEKS R3 R0 K0 ["Item"]
+  GETTABLEKS R2 R3 K1 ["Size"]
+  JUMPIFNOTEQKS R2 K2 ["Large"] [+3]
+  LOADK R1 K5 ["Large RibbonButton-Divider"]
+  JUMP [+1]
+  LOADK R1 K6 ["Small"]
+  GETUPVAL R2 1
+  GETUPVAL R4 0
+  JUMPIFNOT R4 [+2]
+  LOADK R3 K7 ["TextButton"]
+  JUMP [+1]
+  LOADK R3 K8 ["Frame"]
+  NEWTABLE R4 8 0
+  GETUPVAL R6 0
+  JUMPIFNOT R6 [+2]
+  LOADB R5 1
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K9 ["Active"]
+  GETTABLEKS R5 R0 K10 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K10 ["LayoutOrder"]
+  GETUPVAL R6 0
+  JUMPIFNOT R6 [+2]
+  LOADK R5 K11 [""]
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K12 ["Text"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K13 ["Tag"]
+  GETUPVAL R6 3
+  LOADK R7 K14 ["Role-Surface X-Fit"]
+  GETTABLEKS R9 R0 K15 ["IsColumn"]
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K16 ["Role-DividerH"]
+  JUMP [+1]
+  LOADK R8 K17 ["Role-DividerV"]
+  MOVE R9 R1
+  CALL R6 3 1
+  SETTABLE R6 R4 R5
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K18 ["Event"]
+  GETTABLEKS R5 R6 K19 ["InputBegan"]
+  GETUPVAL R7 0
+  JUMPIFNOT R7 [+3]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLE R6 R4 R5
+  DUPTABLE R5 K21 [{"Divider"}]
+  GETUPVAL R6 1
+  LOADK R7 K8 ["Frame"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K20 ["Divider"]
+  CALL R2 3 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
@@ -45,23 +99,30 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["createElement"]
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K10 ["Components"]
-  GETTABLEKS R5 R6 K11 ["ControlsView"]
-  GETTABLEKS R4 R5 K12 ["ControlProps"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Types"]
+  GETTABLEKS R5 R6 K10 ["SharedFlags"]
+  GETTABLEKS R4 R5 K11 ["getFFlagRibbonTabsMenu"]
+  CALL R3 1 1
+  CALL R3 0 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["ControlsView"]
+  GETTABLEKS R5 R6 K14 ["ControlProps"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Packages"]
-  GETTABLEKS R6 R7 K14 ["Framework"]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K15 ["Types"]
   CALL R5 1 1
-  GETTABLEKS R6 R5 K15 ["Styling"]
-  GETTABLEKS R7 R6 K16 ["joinTags"]
-  DUPCLOSURE R8 K17 [PROTO_0]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K16 ["Framework"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K17 ["Styling"]
+  GETTABLEKS R8 R7 K18 ["joinTags"]
+  DUPCLOSURE R9 K19 [PROTO_1]
+  CAPTURE VAL R3
   CAPTURE VAL R2
   CAPTURE VAL R1
-  CAPTURE VAL R7
-  RETURN R8 1
+  CAPTURE VAL R8
+  RETURN R9 1

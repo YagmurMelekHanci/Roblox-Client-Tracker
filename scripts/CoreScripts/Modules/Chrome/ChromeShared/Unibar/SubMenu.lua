@@ -5,10 +5,29 @@ local GuiService = game:GetService("GuiService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
+local GetFFlagUseNewPinIcon = SharedFlags.GetFFlagUseNewPinIcon
+local GetFFlagKeepSubmenuOpenOnPin = SharedFlags.GetFFlagKeepSubmenuOpenOnPin
+local GetFFlagNewSubmenuTouchTargets = SharedFlags.GetFFlagNewSubmenuTouchTargets
+local GetFFlagFixSubmenuCloseIOS = SharedFlags.GetFFlagFixSubmenuCloseIOS
+local GetFFlagEnableCaptureBadge = SharedFlags.GetFFlagEnableCaptureBadge
+local GetFIntNumTimesNewBadgeIsDisplayed = SharedFlags.GetFIntNumTimesNewBadgeIsDisplayed
+local GetFStringNewFeatureList = SharedFlags.GetFStringNewFeatureList
+local GetFFlagAnimateSubMenu = SharedFlags.GetFFlagAnimateSubMenu
+local GetFFlagEnableChromePinAnalytics = SharedFlags.GetFFlagEnableChromePinAnalytics
+local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagFocusNavOutOfSubmenu = SharedFlags.FFlagFocusNavOutOfSubmenu
+
+local ChromeFlags = script.Parent.Parent.Parent.Flags
+local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
 
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local GamepadUtils = if FFlagFocusNavOutOfSubmenu
+	then require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
+	else nil :: never
 local LocalStore = require(Root.Service.LocalStore)
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
@@ -36,6 +55,9 @@ local TopBarConstants
 if not FFlagRemoveSubMenuTopBarConstants then
 	TopBarConstants = require(Root.Parent.Parent.TopBar.Constants)
 end
+local MenuIconContext = if FFlagFocusNavOutOfSubmenu
+	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
+	else nil :: never
 local SubMenuContext = require(Root.Unibar.SubMenuContext)
 
 local UserInputService = game:GetService("UserInputService")
@@ -43,19 +65,7 @@ local UserInputService = game:GetService("UserInputService")
 local useChromeMenuItems = require(Root.Hooks.useChromeMenuItems)
 local useObservableValue = require(Root.Hooks.useObservableValue)
 local useTopbarInsetHeight = require(Root.Hooks.useTopbarInsetHeight)
-
-local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
-local GetFFlagUseNewPinIcon = SharedFlags.GetFFlagUseNewPinIcon
-local GetFFlagKeepSubmenuOpenOnPin = SharedFlags.GetFFlagKeepSubmenuOpenOnPin
-local GetFFlagNewSubmenuTouchTargets = SharedFlags.GetFFlagNewSubmenuTouchTargets
-local GetFFlagFixSubmenuCloseIOS = SharedFlags.GetFFlagFixSubmenuCloseIOS
-local GetFFlagEnableCaptureBadge = SharedFlags.GetFFlagEnableCaptureBadge
-local GetFIntNumTimesNewBadgeIsDisplayed = SharedFlags.GetFIntNumTimesNewBadgeIsDisplayed
-local GetFStringNewFeatureList = SharedFlags.GetFStringNewFeatureList
-local GetFFlagAnimateSubMenu = SharedFlags.GetFFlagAnimateSubMenu
-local GetFFlagEnableChromePinAnalytics = SharedFlags.GetFFlagEnableChromePinAnalytics
 local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
-local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 
 local FFlagFixChromeIntegrationLayoutBug = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
 local FFlagSubmenuV4Layout = game:DefineFastFlag("SubmenuV4Layout2", false)
@@ -121,6 +131,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	}
 
 	local menuTransition = React.useContext(SubMenuContext)
+	local menuIconContext = if FFlagFocusNavOutOfSubmenu then React.useContext(MenuIconContext) else nil :: never
 
 	local useTouchTargets = GetFFlagNewSubmenuTouchTargets()
 	local currenlyPinned = if GetFFlagEnableChromePinIntegrations() then ChromeService:isUserPinned(props.id) else nil
@@ -151,10 +162,16 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		end
 	end)
 
-	local activateTouchTarget = React.useCallback(function()
-		ClearBadge(props.id)
+	local onMenuRowActivated = React.useCallback(function()
+		if GetFFlagEnableCaptureBadge() then
+			ClearBadge(props.id)
+		end
 		props.activated()
-	end)
+		if FFlagConsoleChatOnExpControls then
+			ChromeService:disableFocusNav()
+			GuiService.SelectedCoreObject = nil
+		end
+	end, { props.id })
 
 	local rowFragment = React.createElement(React.Fragment, nil, {
 		UIPadding = React.createElement("UIPadding", {
@@ -222,9 +239,10 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			then useCursor(CURSOR_TYPE :: any)
 			else useSelectionCursor(CursorKind.RoundedRectNoInset),
 		AutoButtonColor = if GetFFlagKeepSubmenuOpenOnPin() or useTouchTargets then false else nil,
-		[React.Event.Activated] = if GetFFlagEnableCaptureBadge() then activateTouchTarget else props.activated,
+		[React.Event.Activated] = onMenuRowActivated,
 		LayoutOrder = props.order,
 		onStateChanged = if useTouchTargets then nil else stateChange,
+		NextSelectionLeft = if FFlagFocusNavOutOfSubmenu then menuIconContext.menuIconRef else nil,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, Constants.SUBMENU_ROW_CORNER_RADIUS),
@@ -234,7 +252,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 				Size = UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING * 2, 0, ROW_HEIGHT),
 				BackgroundTransparency = 1,
 				AutoButtonColor = false,
-				[React.Event.Activated] = if GetFFlagEnableCaptureBadge() then activateTouchTarget else props.activated,
+				[React.Event.Activated] = onMenuRowActivated,
 				Selectable = false,
 				onStateChanged = stateChange,
 			})
@@ -407,24 +425,57 @@ function SubMenu(props: SubMenuProps)
 	end
 
 	React.useEffect(function()
-		-- A manual Left, Right exit out of the sub-menu, back into Unibar
+		local function moveLeft()
+			local selectedWithinMenu = menuRef.current and menuRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
+			if selectedWithinMenu then
+				ChromeService:setSelectedByOffset(-1)
+			end
+		end
+
+		local function moveRight()
+			local selectedWithinMenu = menuRef.current and menuRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
+			if selectedWithinMenu then
+				ChromeService:setSelectedByOffset(1)
+			end
+		end
+
+		local connInputChanged
+		if FFlagFocusNavOutOfSubmenu then
+			-- A manual Left, Right exit out of the sub-menu, back into Unibar
+			-- Need two events since thumbstick and DPad trigger on different events
+			connInputChanged = UserInputService.InputChanged:Connect(function(input)
+				local gamepadState = UserInputService:GetGamepadState(Enum.UserInputType.Gamepad1)
+				for _, input in gamepadState do
+					local key = input.KeyCode
+					if key == Enum.KeyCode.Thumbstick1 then
+						local thumbstickVector = GamepadUtils.normalizeStickByDeadzone(input.Position)
+						local SENSITIVITY = 0.5
+						local LEFT_SENSITIVITY = -SENSITIVITY
+						local RIGHT_SENSITIVITY = SENSITIVITY
+						local dx = thumbstickVector.X
+						if dx < LEFT_SENSITIVITY then
+							moveLeft()
+						elseif dx > RIGHT_SENSITIVITY then
+							moveRight()
+						end
+					end
+				end
+			end)
+		end
+
 		local conn = UserInputService.InputBegan:Connect(function(input)
 			local key = input.KeyCode
 			if key == Enum.KeyCode.Left or key == Enum.KeyCode.DPadLeft then
-				local selectedWithinMenu = menuRef.current
-					and menuRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
-				if selectedWithinMenu then
-					ChromeService:setSelectedByOffset(-1)
-				end
+				moveLeft()
 			elseif key == Enum.KeyCode.Right or key == Enum.KeyCode.DPadRight then
-				local selectedWithinMenu = menuRef.current
-					and menuRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
-				if selectedWithinMenu then
-					ChromeService:setSelectedByOffset(1)
-				end
+				moveRight()
 			end
 		end)
+
 		return function()
+			if FFlagFocusNavOutOfSubmenu then
+				connInputChanged:Disconnect()
+			end
 			conn:Disconnect()
 		end
 	end, {})
@@ -501,7 +552,9 @@ function SubMenu(props: SubMenuProps)
 	})
 end
 
-export type SubMenuHostProps = {}
+export type SubMenuHostProps = {
+	subMenuHostRef: any,
+}
 
 return function(props: SubMenuHostProps) -- SubMenuHost
 	local children: Table = {}
@@ -623,6 +676,7 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 			Size = UDim2.new(0, 0, 1, 0),
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
+			ref = if FFlagUnibarMenuOpenSubmenu then props.subMenuHostRef else nil,
 		},
 		if GetFFlagAnimateSubMenu()
 			then React.createElement(SubMenuContext.Provider, { value = menuTransition }, children)

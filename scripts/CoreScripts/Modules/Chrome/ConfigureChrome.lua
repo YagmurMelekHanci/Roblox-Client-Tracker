@@ -27,8 +27,6 @@ local GetFFlagEnablePartyMicIconInChrome =
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFFlagEnableJoinVoiceOnUnibar =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableJoinVoiceOnUnibar
-local GetFFlagDisableSongbirdForVRConsole =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableSongbirdForVRConsole
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -94,9 +92,7 @@ local function configureUnibar()
 
 	-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
 	-- selene: allow(denylist_filter)
-	local isNotVROrConsole = GetFFlagDisableSongbirdForVRConsole()
-		and not isSpatial()
-		and not GuiService:IsTenFootInterface()
+	local isNotVROrConsole = not isSpatial() and not GuiService:IsTenFootInterface()
 	if GetFFlagEnableSongbirdInChrome() and isNotVROrConsole then
 		table.insert(nineDot, 4, "music_entrypoint")
 	end
