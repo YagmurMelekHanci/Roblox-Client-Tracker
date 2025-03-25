@@ -15,8 +15,10 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+
 local Types = require(Foundation.Components.Types)
 type ColorStyle = Types.ColorStyle
+type StateChangedCallback = Types.StateChangedCallback
 
 local SHAPE_TO_ASPECT_RATIO: { [MediaShape]: number } = {
 	[MediaShape.Circle] = 1,
@@ -29,8 +31,13 @@ type TileMediaProps = {
 	id: number?,
 	type: MediaType?,
 	shape: MediaShape?,
-	background: (string | ColorStyle)?,
-	children: React.ReactElement<any, string>?,
+	style: ColorStyle?,
+	background: {
+		image: string?,
+		style: ColorStyle?,
+	}?,
+	onStateChanged: StateChangedCallback?,
+	children: React.ReactNode?,
 	LayoutOrder: number?,
 }
 
@@ -39,21 +46,26 @@ local defaultProps = {
 	LayoutOrder = 1,
 }
 
+local function renderGradient(fillDirection: Enum.FillDirection, top: boolean)
+	local gradient = React.createElement("UIGradient", {
+		Rotation = if fillDirection == Enum.FillDirection.Vertical then 90 else 0,
+		Transparency = NumberSequence.new({
+			NumberSequenceKeypoint.new(0, if top then 0 else 1),
+			NumberSequenceKeypoint.new(0.5, 0),
+			NumberSequenceKeypoint.new(1, if top then 1 else 0),
+		}),
+	})
+	return gradient
+end
+
 local function TileMedia(tileMediaProps: TileMediaProps)
 	local props = withDefaults(tileMediaProps, defaultProps)
 
 	local tileLayout = useTileLayout()
 	local tokens = useTokens()
 
-	local backgroundStyle: ColorStyle? = nil
-	local backgroundImage: string? = nil
-	if typeof(props.background) == "string" then
-		-- String
-		backgroundImage = props.background
-	elseif props.background ~= nil then
-		-- Color
-		backgroundStyle = props.background
-	end
+	local backgroundStyle: ColorStyle? = if props.background then props.background.style :: any else nil
+	local backgroundImage: string? = if props.background then props.background.image else nil
 
 	local image = React.useMemo(function()
 		if props.id == nil or props.type == nil then
@@ -67,17 +79,14 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 		then UDim.new(0, tokens.Radius.Circle)
 		else UDim.new(0, tokens.Radius.Medium)
 
-	local transparencyGradient = React.createElement("UIGradient", {
-		Rotation = if tileLayout.fillDirection == Enum.FillDirection.Vertical then 90 else 0,
-		Transparency = NumberSequence.new({
-			NumberSequenceKeypoint.new(0, 1),
-			NumberSequenceKeypoint.new(0.5, 0),
-			NumberSequenceKeypoint.new(1, 0),
-		}),
-	})
+	local hasMiddleCorners = tileLayout.isContained and cornerRadius
+	local topGradient = if hasMiddleCorners then renderGradient(tileLayout.fillDirection, true) else nil
+	local bottomGradient = if hasMiddleCorners then renderGradient(tileLayout.fillDirection, false) else nil
 
 	return React.createElement(if backgroundImage then Image else View, {
 		Image = backgroundImage,
+		imageStyle = if backgroundImage then backgroundStyle else nil,
+		backgroundStyle = if backgroundImage then nil else backgroundStyle,
 		Size = if tileLayout.fillDirection == Enum.FillDirection.Vertical
 			then UDim2.fromScale(1, 0)
 			else UDim2.fromScale(0, 1),
@@ -92,29 +101,38 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 				else Enum.DominantAxis.Height,
 		},
 		cornerRadius = cornerRadius,
+		onStateChanged = props.onStateChanged,
 	}, {
-		-- If the tile has a background and no padding around the media, we only round the top two corners.
-		MiddleCorners = if tileLayout.isContained and cornerRadius
+		-- If the tile is contained, we only round the top two corners.
+		-- This is achieved by duplicating the background and images, and only
+		-- showing half of each (rounding all four on the first set, and none on the second)
+		TransparencyGradient = topGradient,
+		MiddleCorners = if hasMiddleCorners
 			then React.createElement(Image, {
 				Image = backgroundImage,
+				imageStyle = if backgroundImage then backgroundStyle else nil,
+				backgroundStyle = if backgroundImage then nil else backgroundStyle,
 				ZIndex = 0,
 				tag = "size-full",
 			}, {
-				TransparencyGradient = transparencyGradient,
+				TransparencyGradient = bottomGradient,
 				Image = React.createElement(Image, {
 					Image = image,
-					backgroundStyle = backgroundStyle,
+					imageStyle = props.style,
 					tag = "size-full",
 				}, {
-					TransparencyGradient = transparencyGradient,
+					TransparencyGradient = bottomGradient,
 				}),
 			})
 			else nil,
 		Image = React.createElement(Image, {
 			Image = image,
 			cornerRadius = cornerRadius,
-			backgroundStyle = backgroundStyle,
-			tag = "size-full",
+			imageStyle = props.style,
+			tag = {
+				["size-full"] = true,
+				["padding-medium"] = props.children ~= nil,
+			},
 		}, props.children),
 	})
 end

@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Flags = require(Foundation.Utility.Flags)
 
-local ButtonSize = require(Foundation.Enums.ButtonSize)
-type ButtonSize = ButtonSize.ButtonSize
+local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
@@ -24,14 +24,12 @@ type VariantProps = composeStyleVariant.VariantProps
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
-local IconSize = require(Foundation.Enums.IconSize)
-type IconSize = IconSize.IconSize
-
 type ButtonVariantProps = {
 	container: {
 		tag: string,
 		height: number,
 		stroke: Stroke,
+		radius: number,
 		style: ColorStyleValue,
 		stateLayer: StateLayer?,
 	},
@@ -42,7 +40,7 @@ type ButtonVariantProps = {
 		tag: string,
 	},
 	icon: {
-		size: IconSize,
+		size: UDim2,
 	},
 }
 
@@ -56,63 +54,83 @@ end
 local variants = function(tokens: Tokens)
 	local common = {
 		container = {
-			tag = "row gap-xsmall align-y-center align-x-center clip",
+			tag = "row align-y-center align-x-center clip",
 		},
-		icon = if Flags.FoundationFixXSmallButton
+		icon = if Flags.FoundationEnableNewButtonSizes
 			then nil
 			else {
-				size = IconSize.Medium,
+				size = UDim2.fromOffset(tokens.Size.Size_900, tokens.Size.Size_900),
 			},
 		text = {
-			tag = (if Flags.FoundationFixXSmallButton then "" else "text-title-large ")
+			tag = (if Flags.FoundationEnableNewButtonSizes then "" else "text-title-large ")
 				.. "size-0-full auto-x text-truncate-end shrink",
 		},
 	}
 
-	local sizes: { [ButtonSize]: VariantProps } = {
-		[ButtonSize.XSmall] = {
+	local sizes: { [InputSize]: VariantProps } = {
+		[InputSize.XSmall] = {
 			container = {
-				tag = "padding-small radius-small",
-				height = tokens.Size.Size_700,
+				tag = "gap-xsmall padding-small",
+				radius = tokens.Radius.Small,
+				height = if Flags.FoundationEnableNewButtonSizes then tokens.Size.Size_600 else tokens.Size.Size_700,
 			},
-			icon = if Flags.FoundationFixXSmallButton
+			icon = if Flags.FoundationEnableNewButtonSizes
 				then {
-					size = IconSize.Small,
+					size = UDim2.fromOffset(tokens.Size.Size_300, tokens.Size.Size_300),
 				}
 				else nil,
-			text = if Flags.FoundationFixXSmallButton
+			text = if Flags.FoundationEnableNewButtonSizes
 				then {
 					tag = "text-title-small",
 				}
 				else nil,
 		},
-		[ButtonSize.Small] = {
+		[InputSize.Small] = {
 			container = {
-				tag = "padding-small radius-medium",
-				height = tokens.Size.Size_900,
+				tag = "gap-xsmall padding-small",
+				radius = tokens.Radius.Medium,
+				height = if Flags.FoundationEnableNewButtonSizes then tokens.Size.Size_800 else tokens.Size.Size_900,
 			},
-			icon = if Flags.FoundationFixXSmallButton
+			icon = if Flags.FoundationEnableNewButtonSizes
 				then {
-					size = IconSize.Medium,
+					size = UDim2.fromOffset(tokens.Size.Size_400, tokens.Size.Size_400),
 				}
 				else nil,
-			text = if Flags.FoundationFixXSmallButton
+			text = if Flags.FoundationEnableNewButtonSizes
 				then {
-					tag = "text-title-large",
+					tag = "text-title-small",
 				}
 				else nil,
 		},
-		[ButtonSize.Medium] = {
+		[InputSize.Medium] = {
 			container = {
-				tag = "padding-medium radius-medium",
-				height = tokens.Size.Size_1200,
+				tag = "gap-small padding-small",
+				radius = tokens.Radius.Medium,
+				height = if Flags.FoundationEnableNewButtonSizes then tokens.Size.Size_1000 else tokens.Size.Size_1200,
 			},
-			icon = if Flags.FoundationFixXSmallButton
+			icon = if Flags.FoundationEnableNewButtonSizes
 				then {
-					size = IconSize.Medium,
+					size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500),
 				}
 				else nil,
-			text = if Flags.FoundationFixXSmallButton
+			text = if Flags.FoundationEnableNewButtonSizes
+				then {
+					tag = "text-title-medium",
+				}
+				else nil,
+		},
+		[InputSize.Large] = {
+			container = {
+				tag = "gap-small padding-medium",
+				radius = tokens.Radius.Medium,
+				height = tokens.Size.Size_1200,
+			},
+			icon = if Flags.FoundationEnableNewButtonSizes
+				then {
+					size = UDim2.fromOffset(tokens.Size.Size_600, tokens.Size.Size_600),
+				}
+				else nil,
+			text = if Flags.FoundationEnableNewButtonSizes
 				then {
 					tag = "text-title-large",
 				}
@@ -195,7 +213,7 @@ local variants = function(tokens: Tokens)
 	return { common = common, sizes = sizes, types = types }
 end
 
-return function(tokens: Tokens, size: ButtonSize, variant: ButtonVariant): ButtonVariantProps
+return function(tokens: Tokens, size: InputSize, variant: ButtonVariant): ButtonVariantProps
 	local variants = VariantsContext.useVariants("Button", variants, tokens)
 	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant])
 end

@@ -5,8 +5,8 @@ local Dash = require(Packages.Dash)
 
 local View = require(Foundation.Components.View)
 local Button = require(Foundation.Components.Button)
-local ButtonSize = require(Foundation.Enums.ButtonSize)
-type ButtonSize = ButtonSize.ButtonSize
+local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 type FillBehavior = FillBehavior.FillBehavior
@@ -22,7 +22,8 @@ return {
 				local controls = props.controls
 				Flags.FoundationDisableCanvasGroupsInButton = controls.disableCanvasGroupsInButton
 				Flags.FoundationButtonSubEmphasisInverseStateLayer = controls.buttonSubEmphasisInverseStateLayer
-				Flags.FoundationFixXSmallButton = controls.fixXSmallButton
+				Flags.FoundationButtonEnableLoadingState = controls.enableLoadingState
+				Flags.FoundationEnableNewButtonSizes = controls.enableNewButtonSizes
 
 				return React.createElement(
 					View,
@@ -30,12 +31,13 @@ return {
 						tag = "row gap-medium auto-y size-full-0 align-y-center",
 					},
 					Dash.map(
-						{ ButtonSize.Medium, ButtonSize.Small, ButtonSize.XSmall } :: { ButtonSize },
+						{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
 						function(size)
 							return React.createElement(Button, {
 								icon = if controls.icon == "" then nil else props.controls.icon,
 								text = controls.text,
 								variant = variant,
+								isLoading = controls.isLoading,
 								onActivated = function()
 									print(`{variant}Button activated`)
 								end,
@@ -54,13 +56,14 @@ return {
 	end),
 	controls = {
 		icon = {
-			"icons/common/search",
+			"icons/placeholder/placeholderOn",
 			"icons/common/robux",
 			"icons/common/play",
 			"",
 		},
-		text = "Click me!",
+		text = "Lorem ipsum",
 		isDisabled = false,
+		isLoading = false,
 		fillBehavior = {
 			React.None,
 			FillBehavior.Fit,
@@ -69,6 +72,7 @@ return {
 		inputDelay = 0,
 		disableCanvasGroupsInButton = Flags.FoundationDisableCanvasGroupsInButton,
 		buttonSubEmphasisInverseStateLayer = Flags.FoundationButtonSubEmphasisInverseStateLayer,
-		fixXSmallButton = Flags.FoundationFixXSmallButton,
+		enableLoadingState = Flags.FoundationButtonEnableLoadingState,
+		enableNewButtonSizes = Flags.FoundationEnableNewButtonSizes,
 	},
 }

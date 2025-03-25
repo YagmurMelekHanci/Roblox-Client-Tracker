@@ -22,7 +22,7 @@ local MediaType = Foundation.Enums.MediaType
 local MediaShape = Foundation.Enums.MediaShape
 
 local Button = Foundation.Button
-local ButtonSize = Foundation.Enums.ButtonSize
+local InputSize = Foundation.Enums.InputSize
 local ButtonVariant = Foundation.Enums.ButtonVariant
 ...
 local tokens = useTokens()
@@ -63,7 +63,7 @@ return React.createElement(Tile.Root, {
         }, {
             Button = React.createElement(Button, {
                 text = "Purchase",
-                size = ButtonSize.Small,
+                size = InputSize.Small,
                 variant = ButtonVariant.Emphasis,
                 fillBehavior = FillBehavior.Fill,
             }),

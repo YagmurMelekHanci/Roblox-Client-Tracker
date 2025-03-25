@@ -242,8 +242,8 @@ local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 				LayoutOrder = props.layoutOrder,
 				icon = FoundationButtonUtils.findIcon(props.icon),
 				text = props.text,
-				-- UIBLOX-1667: Follow up with a proper isLoading state from Foundation
-				isDisabled = props.isDisabled or props.userInteractionEnabled == false or props.isLoading,
+				isLoading = props.isLoading,
+				isDisabled = props.isDisabled or props.userInteractionEnabled == false,
 				inputDelay = if props.isDelayedInput and props.enableInputDelayed
 					then props.delayInputSeconds or 3
 					else nil,

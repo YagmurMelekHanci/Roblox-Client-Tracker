@@ -56,7 +56,7 @@ local defaultProps = {
 	isDisabled = false,
 }
 
-local defaultTags = "gui-object-defaults"
+local DEFAULT_TAGS = "gui-object-defaults"
 
 local function ImageValue(value): string?
 	if ReactIs.isBinding(value) then
@@ -73,7 +73,7 @@ end
 
 local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 	local defaultPropsWithStyles = if Flags.FoundationStylingPolyfill
-		then useStyledDefaults("Image", imageProps.tag, defaultTags, defaultProps)
+		then useStyledDefaults("Image", imageProps.tag, DEFAULT_TAGS, defaultProps)
 		else nil
 	local props = withDefaults(
 		imageProps,
@@ -157,6 +157,15 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 		scaleType = Enum.ScaleType.Slice
 	end
 
+	local defaultTags = DEFAULT_TAGS
+	if Flags.FoundationMigrateStylingV2 then
+		local transparency = if props.backgroundStyle ~= nil
+			then indexBindable(props.backgroundStyle, "Transparency") :: any
+			else nil
+		if transparency == 0 then
+			defaultTags ..= " x-default-transparency"
+		end
+	end
 	local tagsWithDefaults = useDefaultTags(props.tag, defaultTags)
 	local tag = useStyleTags(tagsWithDefaults)
 

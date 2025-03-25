@@ -8,6 +8,7 @@ local useCameraState = require(Root.useCameraState)
 local sortByAudibleVolume = require(Root.audio.sortByAudibleVolume)
 local useAudioSources = require(Root.audio.useAudioSources)
 local useTimedLoop = require(Root.useTimedLoop)
+local getFFlagFixAudibleSoundDetectionPerformance = require(Root.flags.getFFlagFixAudibleSoundDetectionPerformance)
 
 local AUTO_REFRESH_SECONDS = 1
 
@@ -49,6 +50,21 @@ local function useAudibleSounds(): { AudioPlayer | Sound }
 		sceneAnalysis.setAudibleSounds(sortByAudibleVolume(audioSources))
 	end, { audioSources, sceneAnalysis.setAudibleSounds } :: { unknown })
 
+	--[[
+		In the past we called updateAudibleSounds each time certain properties
+		of Sound and Audio instances changed. The goal was to make
+		useAudibleSounds as snappy as possible, but this resulted in significant
+		FPS drops in production experiences. So instead we simply rely on
+		polling.
+
+		Read more here:
+		https://roblox.atlassian.net/wiki/spaces/MUS/pages/3375399016/What+s+Playing+Experiment+Deallocation+and+Investigation
+
+		It would be entirely feasible to listen for property changes again and
+		throttle state updates to get the best of both worlds, but there's
+		currently no pressing business need to have immediate updates, so
+		polling is just fine
+	]]
 	useTimedLoop(AUTO_REFRESH_SECONDS, function()
 		updateAudibleSounds()
 	end)
@@ -59,28 +75,33 @@ local function useAudibleSounds(): { AudioPlayer | Sound }
 		end
 	end, { #sceneAnalysis.audibleSounds, #audioSources, updateAudibleSounds } :: { unknown })
 
-	useEffect(function()
-		local connections: { RBXScriptConnection } = {}
+	if not getFFlagFixAudibleSoundDetectionPerformance() then
+		useEffect(function()
+			local connections: { RBXScriptConnection } = {}
 
-		for _, audioSource in audioSources do
-			local watchedProperties
-			if audioSource:IsA("Sound") then
-				watchedProperties = ALLOWED_SOUND_PROPERTIES
-			elseif audioSource:IsA("AudioPlayer") then
-				watchedProperties = ALLOWED_AUDIO_PLAYER_PROPERTIES
+			for _, audioSource in audioSources do
+				local watchedProperties
+				if audioSource:IsA("Sound") then
+					watchedProperties = ALLOWED_SOUND_PROPERTIES
+				elseif audioSource:IsA("AudioPlayer") then
+					watchedProperties = ALLOWED_AUDIO_PLAYER_PROPERTIES
+				end
+
+				for _, property in watchedProperties do
+					table.insert(
+						connections,
+						audioSource:GetPropertyChangedSignal(property):Connect(updateAudibleSounds)
+					)
+				end
 			end
 
-			for _, property in watchedProperties do
-				table.insert(connections, audioSource:GetPropertyChangedSignal(property):Connect(updateAudibleSounds))
+			return function()
+				for _, connection in connections do
+					connection:Disconnect()
+				end
 			end
-		end
-
-		return function()
-			for _, connection in connections do
-				connection:Disconnect()
-			end
-		end
-	end, { audioSources } :: { unknown })
+		end, { audioSources } :: { unknown })
+	end
 
 	useEffect(function()
 		if cameraState ~= prevCameraState and cameraState == enums.CameraState.Idle then

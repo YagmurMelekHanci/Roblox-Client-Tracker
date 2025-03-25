@@ -182,7 +182,6 @@ local function AppStyleProvider(props: Props)
 			theme = FOUNDATION_THEME_MAP[themeName:lower()],
 			device = style.deviceType,
 			preferences = style.settings,
-			DONOTUSE_colorUpdate = UIBloxConfig.useFoundationColors,
 		}, styleProvider)
 	else
 		return styleProvider

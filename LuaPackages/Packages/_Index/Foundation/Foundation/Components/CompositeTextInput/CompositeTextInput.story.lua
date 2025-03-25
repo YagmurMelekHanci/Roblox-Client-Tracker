@@ -1,10 +1,13 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
+local Dash = require(Packages.Dash)
 
-local CompositeTextInput = require(Foundation.Components.CompositeTextInput)
+local InputSize = require(Foundation.Enums.InputSize)
+
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
+local CompositeTextInput = require(Foundation.Components.CompositeTextInput)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local function Story(props)
@@ -43,6 +46,7 @@ local function Story(props)
 			hasError = controls.hasError,
 			isDisabled = controls.isDisabled,
 			isRequired = controls.isRequired,
+			size = controls.size,
 			onChanged = handleChange,
 			onFocusGained = onFocusGained,
 			onReturnPressed = onReturnPressed,
@@ -86,6 +90,7 @@ return {
 		hasError = false,
 		isDisabled = false,
 		isRequired = { React.None, false, true },
+		size = Dash.values(InputSize),
 		label = "Input Label",
 		hint = "Helper text goes here",
 		placeholder = "Placeholder text",

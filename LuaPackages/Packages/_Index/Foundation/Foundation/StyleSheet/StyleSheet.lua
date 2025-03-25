@@ -15,6 +15,7 @@ type StyleRule = generateRules.StyleRule
 
 export type StyleRuleNoTag = {
 	modifier: string?,
+	priority: number?,
 	properties: { [string]: any },
 	pseudo: string?,
 	children: { StyleRule }?,
@@ -28,20 +29,32 @@ local function insertRule(ruleNodes: { React.ReactNode }, rule: StyleRuleNoTag, 
 	local pseudo = if rule.pseudo ~= nil then " ::" .. rule.pseudo else ""
 	local selector = tagSelector .. modifier .. pseudo
 
-	table.insert(
-		ruleNodes,
-		if tag == "gui-object-defaults"
-				or tag == "text-defaults"
-				or tag == "text-size-defaults"
-				or tag == "text-color-defaults"
-			then 1
-			else #ruleNodes + 1,
-		React.createElement(StyleRule, {
-			key = selector, -- Improves readability and improves performance during reconciliaton
-			Selector = selector,
-			properties = properties,
-		})
-	)
+	if Flags.FoundationMigrateStylingV2 then
+		table.insert(
+			ruleNodes,
+			React.createElement(StyleRule, {
+				key = selector, -- Improves readability and improves performance during reconciliaton
+				Priority = rule.priority,
+				Selector = selector,
+				properties = properties,
+			})
+		)
+	else
+		table.insert(
+			ruleNodes,
+			if tag == "gui-object-defaults"
+					or tag == "text-defaults"
+					or tag == "text-size-defaults"
+					or tag == "text-color-defaults"
+				then 1
+				else #ruleNodes + 1,
+			React.createElement(StyleRule, {
+				key = selector, -- Improves readability and improves performance during reconciliaton
+				Selector = selector,
+				properties = properties,
+			})
+		)
+	end
 end
 
 local function createRules(rules: { [string]: StyleRuleNoTag }, tags: { [string]: boolean }): React.ReactNode

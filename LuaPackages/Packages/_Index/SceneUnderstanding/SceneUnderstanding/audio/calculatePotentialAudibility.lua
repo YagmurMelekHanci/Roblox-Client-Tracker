@@ -89,6 +89,14 @@ local function getOutputsOf(node: AudioGraphNode): { AudioGraphNode }
 	return outs
 end
 
+local function getAudibilityMultiplierFor(emitter: AudioEmitter): number
+	local total = 0
+	for _, listener in emitter:GetInteractingListeners() do
+		total += listener:GetAudibilityFor(emitter)
+	end
+	return total
+end
+
 local function getAudibilityOf(node: AudioGraphNode, seen: { [AudioGraphNode]: boolean }?): number
 	local seenHere = if seen then seen else {}
 	if seenHere[node] then
@@ -99,22 +107,16 @@ local function getAudibilityOf(node: AudioGraphNode, seen: { [AudioGraphNode]: b
 	local multiplier = 1
 	if node:IsA("AudioPlayer") or node:IsA("AudioFader") then
 		multiplier = node.Volume
+	elseif node:IsA("AudioEmitter") then
+		multiplier = getAudibilityMultiplierFor(node)
 	elseif node:IsA("AudioDeviceOutput") then
 		return 1
 	end
 
 	local total = 0
-	if node:IsA("AudioEmitter") then
-		for _, listener in node:GetInteractingListeners() do
-			-- TODO - MUS-1720: replace 1.0 with node:GetAudibilityFor(listener) once API is available
-			total += 1.0 * getAudibilityOf(listener, seenHere)
-		end
-	else
-		for _, output in getOutputsOf(node) do
-			total += multiplier * getAudibilityOf(output, seenHere)
-		end
+	for _, output in getOutputsOf(node) do
+		total += multiplier * getAudibilityOf(output, seenHere)
 	end
-
 	return total
 end
 

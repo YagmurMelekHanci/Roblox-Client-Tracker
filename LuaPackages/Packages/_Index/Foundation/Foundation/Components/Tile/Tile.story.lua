@@ -25,14 +25,14 @@ local Theme = require(Foundation.Enums.Theme)
 local Icon = require(Foundation.Components.Icon)
 local Image = require(Foundation.Components.Image)
 local IconSize = require(Foundation.Enums.IconSize)
-local IconButton = require(Foundation.Components.IconButton)
 
 local Button = require(Foundation.Components.Button)
-local ButtonSize = require(Foundation.Enums.ButtonSize)
+local InputSize = require(Foundation.Enums.InputSize)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
+local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local ObjectViewport = require(script.Parent.ObjectViewport)
@@ -40,7 +40,6 @@ local ObjectViewport = require(script.Parent.ObjectViewport)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 type FillBehavior = FillBehavior.FillBehavior
 
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
@@ -52,7 +51,7 @@ local PLACE_TO_UNIVERSE = {
 }
 
 local playerTileSize = UDim2.fromOffset(150, 225)
-local itemTileSize = UDim2.fromOffset(150, 230)
+local itemTileSize = UDim2.fromOffset(150, 240)
 local experienceTileSize = UDim2.fromOffset(150, 250)
 local wideTileSize = UDim2.fromOffset(300, 280)
 
@@ -62,70 +61,9 @@ local buttons = {
 		onActivated = function()
 			print("Button Pressed")
 		end,
-		isSecondary = true,
+		variant = ButtonVariant.SubEmphasis,
 	},
 }
-
-local function thumbnailOverlayComponents(props, tokens, mouseEntered, setMouseEntered)
-	local outerButtonPadding = tokens.Padding.Small :: number
-	local iconSize = IconSize.Medium
-	local buttonHeight = tokens.Semantic.Icon.Size[iconSize] :: number -- TODO(tokens): Use non-semantic
-
-	local onInputStateChanged = React.useCallback(function(newState: ControlState)
-		setMouseEntered(newState == ControlState.Hover)
-	end, { setMouseEntered })
-
-	return React.createElement(Image, {
-		onStateChanged = onInputStateChanged,
-		Image = "component_assets/vignette_246",
-		imageStyle = {
-			Color3 = tokens.Color.ActionSubEmphasis.Foreground.Color3,
-			Transparency = mouseEntered and 0.6 or 1,
-		},
-		stateLayer = { affordance = StateLayerAffordance.None },
-		tag = "size-full radius-medium",
-	}, {
-		ButtonBackgroundGradient = not Cryo.isEmpty(buttons) and React.createElement(View, {
-			backgroundStyle = {
-				Transparency = 0,
-			},
-			Size = UDim2.new(1, 0, 0, buttonHeight + outerButtonPadding * 2),
-			tag = "radius-medium anchor-bottom-left position-bottom-left",
-		}, {
-			UIGradient = React.createElement("UIGradient", {
-				Rotation = 90,
-				Color = ColorSequence.new({
-					ColorSequenceKeypoint.new(0, tokens.Color.OverMedia.OverMedia_200.Color3),
-					ColorSequenceKeypoint.new(1, tokens.Color.OverMedia.OverMedia_200.Color3),
-				}),
-				Transparency = NumberSequence.new({
-					NumberSequenceKeypoint.new(0, 1),
-					NumberSequenceKeypoint.new(1, tokens.Color.OverMedia.OverMedia_200.Transparency),
-				}),
-			}),
-		}),
-		ButtonContainer = React.createElement(View, {
-			ZIndex = 2,
-			tag = "padding-small size-full",
-		}, {
-			PlayerTileButtons = React.createElement(
-				View,
-				{
-					ZIndex = 2,
-					tag = "auto-y size-full-0 row gap-small align-x-right anchor-bottom-right position-bottom-right",
-				},
-				Cryo.List.map(buttons, function(button)
-					return React.createElement(IconButton, {
-						onActivated = button.onActivated,
-						isDisabled = button.isDisabled,
-						size = iconSize :: IconSize.IconSize,
-						icon = button.icon,
-					})
-				end)
-			),
-		}),
-	})
-end
 
 local function getPlayerCount(tokens)
 	return React.createElement(Text, {
@@ -137,6 +75,19 @@ local function getPlayerCount(tokens)
 		Size = UDim2.fromScale(1, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 	})
+end
+
+local function getColorValues(color: Color3)
+	return { R = color.R, G = color.G, B = color.B }
+end
+
+local SPRING_OPTIONS = { frequency = 4 }
+local function createColorSpring(color: Color3)
+	return {
+		R = ReactOtter.spring(color.R, SPRING_OPTIONS),
+		G = ReactOtter.spring(color.G, SPRING_OPTIONS),
+		B = ReactOtter.spring(color.B, SPRING_OPTIONS),
+	}
 end
 
 return {
@@ -158,7 +109,9 @@ return {
 						id = props.controls.itemId,
 						type = MediaType.Asset,
 						shape = props.controls.shape,
-						background = tokens.Color.Shift.Shift_200,
+						background = {
+							style = tokens.Color.Shift.Shift_200,
+						},
 					}),
 					TileContent = React.createElement(Tile.Content, {}, {
 						TileHeader = React.createElement(Tile.Header, {
@@ -187,6 +140,8 @@ return {
 			name = "Fun Tile",
 			story = function(props)
 				local tokens = useTokens()
+				local itemBG =
+					`component_assets/itemBG_{if tokens.Config.ColorMode.Name == Theme.Dark then "dark" else "light"}`
 
 				local item, setItem = React.useState({} :: { Name: string?, PriceText: string? })
 				local model, setModel = React.useState(nil :: Model?)
@@ -224,8 +179,9 @@ return {
 				}, {
 					TileMedia = React.createElement(Tile.Media, {
 						shape = MediaShape.Square,
-						background = "component_assets/itemBG_"
-							.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
+						background = {
+							image = itemBG,
+						},
 					}, {
 						if model
 							then React.createElement(ObjectViewport, {
@@ -286,7 +242,7 @@ return {
 				-- Update the animated value whenever isHoveringWide changes
 				React.useEffect(function()
 					local target = if isHoveringWide then tokens.Size.Size_200 else 0
-					setGoal(ReactOtter.spring(target, { frequency = 4 }))
+					setGoal(ReactOtter.ease(target, { duration = 0.3, easingStyle = { 0.2, 0.0, 0.0, 1.0 } }))
 				end, { isHoveringWide })
 
 				return React.createElement(View, {
@@ -304,8 +260,6 @@ return {
 							id = if isHovering then placeId else universeId,
 							type = if isHovering then MediaType.Asset else MediaType.GameIcon,
 							shape = if isHovering then MediaShape.Landscape else MediaShape.Square,
-							background = "component_assets/avatarBG_"
-								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 						}),
 						TileContent = React.createElement(Tile.Content, {}, {
 							TileHeader = React.createElement(Tile.Header, {
@@ -324,7 +278,7 @@ return {
 							}, {
 								Button = React.createElement(Button, {
 									text = "Play",
-									size = ButtonSize.Small,
+									size = InputSize.Medium,
 									variant = ButtonVariant.Emphasis,
 									fillBehavior = FillBehavior.Fill,
 									onActivated = function()
@@ -340,7 +294,7 @@ return {
 					}, {
 						WideTile = React.createElement(Tile.Root, {
 							onStateChanged = onWideTileStateChanged,
-							isContained = isHoveringWide,
+							isContained = false,
 							FillDirection = Enum.FillDirection.Vertical,
 							Size = sizeOffsetBinding:map(function(offset: number)
 								return wideTileSize + UDim2.fromOffset(offset * 2, offset * 2)
@@ -352,8 +306,6 @@ return {
 								id = universeId,
 								type = MediaType.GameIcon,
 								shape = MediaShape.Landscape,
-								background = "component_assets/avatarBG_"
-									.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 							}),
 							TileContent = React.createElement(Tile.Content, {}, {
 								TileHeader = React.createElement(Tile.Header, {
@@ -370,7 +322,7 @@ return {
 								}, {
 									Button = React.createElement(Button, {
 										text = "Play",
-										size = ButtonSize.Small,
+										size = InputSize.Medium,
 										variant = ButtonVariant.Emphasis,
 										fillBehavior = FillBehavior.Fill,
 										onActivated = function()
@@ -396,8 +348,6 @@ return {
 								id = universeId,
 								type = MediaType.GameIcon,
 								shape = MediaShape.Landscape,
-								background = "component_assets/avatarBG_"
-									.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 							}),
 							TileContent = React.createElement(Tile.Content, {
 								spacing = tokens.Gap.Small,
@@ -414,7 +364,7 @@ return {
 								TileActions = React.createElement(Tile.Actions, {}, {
 									Button = React.createElement(Button, {
 										text = "Play",
-										size = ButtonSize.Small,
+										size = InputSize.Medium,
 										variant = ButtonVariant.Emphasis,
 										fillBehavior = FillBehavior.Fill,
 										onActivated = function()
@@ -432,6 +382,8 @@ return {
 			name = "Item Tile",
 			story = function(props)
 				local tokens = useTokens()
+				local itemBG =
+					`component_assets/itemBG_{if tokens.Config.ColorMode.Name == Theme.Dark then "dark" else "light"}`
 
 				local item, setItem = React.useState({} :: { Name: string?, PriceText: string? })
 				local itemId = props.controls.itemId
@@ -462,8 +414,9 @@ return {
 						id = itemId,
 						type = MediaType.Asset,
 						shape = MediaShape.Square,
-						background = "component_assets/itemBG_"
-							.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
+						background = {
+							image = itemBG,
+						},
 					}),
 					TileContent = React.createElement(Tile.Content, {}, {
 						TileHeader = React.createElement(Tile.Header, {
@@ -488,6 +441,8 @@ return {
 			name = "Player Tile",
 			story = function(props)
 				local tokens = useTokens()
+				local avatarBG =
+					`component_assets/avatarBG_{if tokens.Config.ColorMode.Name == Theme.Dark then "dark" else "light"}`
 
 				local relevancyInfo = {
 					text = "Hueblox",
@@ -505,6 +460,16 @@ return {
 				local user, setUser = React.useState({} :: { DisplayName: string?, Username: string? })
 				-- local model, setModel = React.useState(nil :: Model?)
 				local mouseEntered, setMouseEntered = React.useState(false)
+				local onStateChanged = React.useCallback(function(newState: ControlState)
+					setMouseEntered(newState == ControlState.Hover)
+				end, { setMouseEntered })
+
+				local backgroundColor = tokens.Color.Extended.White.White_100.Color3
+				local hoverColor = tokens.Color.Shift.Shift_300.Color3
+				local backgroundColorValues, setGoal = ReactOtter.useAnimatedBinding(getColorValues(backgroundColor))
+				React.useEffect(function()
+					setGoal(if mouseEntered then createColorSpring(hoverColor) else createColorSpring(backgroundColor))
+				end, { mouseEntered })
 
 				local userId = if Players.LocalPlayer
 					then Players.LocalPlayer.UserId
@@ -529,15 +494,39 @@ return {
 					PlayerTile = React.createElement(Tile.Root, {
 						FillDirection = Enum.FillDirection.Vertical,
 						Size = playerTileSize,
+						isContained = true,
 					}, {
 						TileMedia = React.createElement(Tile.Media, {
 							id = userId,
 							type = MediaType.Avatar,
 							shape = MediaShape.Square,
-							background = "component_assets/avatarBG_"
-								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
+							background = {
+								image = avatarBG,
+								style = backgroundColorValues:map(function(values)
+									return {
+										-- selene: allow(roblox_internal_custom_color)
+										Color3 = Color3.new(values.R, values.G, values.B),
+									} :: Types.ColorStyleValue
+								end),
+							},
+							onStateChanged = onStateChanged,
 						}, {
-							thumbnailOverlayComponents(props, tokens, mouseEntered, setMouseEntered),
+							PlayerTileButtons = React.createElement(
+								View,
+								{
+									ZIndex = 2,
+									tag = "auto-y size-full-0 row gap-small align-x-right align-y-bottom anchor-bottom-right position-bottom-right",
+								},
+								Cryo.List.map(buttons, function(button)
+									return React.createElement(Button, {
+										onActivated = button.onActivated,
+										isDisabled = button.isDisabled,
+										variant = button.variant :: ButtonVariant.ButtonVariant,
+										size = InputSize.Medium :: InputSize.InputSize,
+										icon = button.icon,
+									})
+								end)
+							),
 						}),
 						TileContent = React.createElement(Tile.Content, {
 							spacing = tokens.Gap.XSmall,
@@ -580,25 +569,14 @@ return {
 							id = userId,
 							type = MediaType.AvatarHeadShot,
 							shape = MediaShape.Circle,
-							background = "component_assets/avatarBG_"
-								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
+							background = {
+								image = avatarBG,
+							},
 						}, {
 							-- Could be icon but it's a custom size
 							React.createElement(Image, {
+								tag = "position-bottom-right anchor-center-center size-700-700 bg-system-success stroke-emphasis radius-circle",
 								Image = "icons/placeholder/placeholderOff",
-								backgroundStyle = tokens.Color.System.Success,
-								Size = UDim2.fromOffset(28, 28),
-								Position = UDim2.fromScale(1, 1),
-								AnchorPoint = Vector2.new(1, 1),
-							}, {
-								UICorner = React.createElement("UICorner", {
-									CornerRadius = UDim.new(0, tokens.Radius.Circle),
-								}),
-							}),
-							UIStroke = React.createElement("UIStroke", {
-								Color = tokens.Color.Stroke.Emphasis.Color3,
-								Transparency = tokens.Color.Stroke.Emphasis.Transparency,
-								Thickness = 2,
 							}),
 						}),
 						TileContent = React.createElement(Tile.Content, {
@@ -651,8 +629,6 @@ return {
 							id = props.controls.placeId,
 							type = MediaType.Asset,
 							shape = MediaShape.Square,
-							background = "component_assets/avatarBG_"
-								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
 							LayoutOrder = 2,
 						}),
 					}),

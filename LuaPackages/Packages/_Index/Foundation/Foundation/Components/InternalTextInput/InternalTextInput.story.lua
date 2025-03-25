@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
+local Dash = require(Packages.Dash)
 
-local InternalTextInput = require(Foundation.Components.InternalTextInput)
 local Icon = require(Foundation.Components.Icon)
 local IconButton = require(Foundation.Components.IconButton)
 local View = require(Foundation.Components.View)
@@ -10,6 +10,9 @@ local Text = require(Foundation.Components.Text)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local IconSize = require(Foundation.Enums.IconSize)
+local InputSize = require(Foundation.Enums.InputSize)
+
+local InternalTextInput = require(Foundation.Components.InternalTextInput)
 
 local function Story(props)
 	local controls = props.controls
@@ -38,6 +41,7 @@ local function Story(props)
 	}, {
 		InternalTextInput = React.createElement(InternalTextInput, {
 			text = text,
+			size = controls.size,
 			hasError = controls.hasError,
 			isDisabled = controls.isDisabled,
 			onChanged = handleChange,
@@ -79,6 +83,7 @@ return {
 	controls = {
 		hasError = false,
 		isDisabled = false,
+		size = Dash.values(InputSize),
 		placeholder = "Placeholder text",
 		leadingComponentIcon = {
 			"icons/placeholder/placeholderOn_small",

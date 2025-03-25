@@ -24,7 +24,7 @@ type TileProps = {
 	onStateChanged: StateChangedCallback?,
 	FillDirection: Enum.FillDirection?,
 	Size: Bindable<UDim2>,
-	children: React.ReactElement<any, string>?,
+	children: React.ReactNode?,
 } & Types.CommonProps
 
 local defaultProps = {

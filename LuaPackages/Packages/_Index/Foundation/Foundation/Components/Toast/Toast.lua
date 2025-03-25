@@ -19,7 +19,7 @@ local useScaledValue = require(Foundation.Utility.useScaledValue)
 local Flags = require(Foundation.Utility.Flags)
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
-local ButtonSize = require(Foundation.Enums.ButtonSize)
+local InputSize = require(Foundation.Enums.InputSize)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 
 type ButtonVariant = ButtonVariant.ButtonVariant
@@ -69,8 +69,8 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 				end
 
 				local buttonProps = Cryo.Dictionary.union(withDefaults(action, defaultButtonProps), {
-					LayoutOrder = if Flags.FoundationToastButtonsFillRightToLeft then #actions - i else i,
-					size = ButtonSize.Small,
+					LayoutOrder = #actions - i,
+					size = if Flags.FoundationEnableNewButtonSizes then InputSize.Medium else InputSize.Small,
 					fillBehavior = FillBehavior.Fill,
 				})
 				buttons["ToastButton" .. i] = React.createElement(Button, buttonProps)
@@ -87,9 +87,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			Size = if Flags.FoundationAddWidthToToast
-				then UDim2.new(width, UDim.new())
-				else UDim2.new(0, tokens.Size.Size_1000 * 9, 0, 0),
+			Size = UDim2.new(width, UDim.new()),
 			Position = UDim2.new(0.5, 0, 0.1, 0),
 			selection = {
 				-- We do not currently have an action associated with the toast itself, nor do we support it on consoles,

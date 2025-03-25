@@ -6,7 +6,7 @@ local Core = UIBlox.Core
 
 local Foundation = require(Packages.Foundation)
 local ButtonVariant = Foundation.Enums.ButtonVariant
-local ButtonSize = Foundation.Enums.ButtonSize
+local InputSize = Foundation.Enums.InputSize
 
 local ButtonType = require(ButtonRoot.Enum.ButtonType)
 local StandardButtonSize = require(Core.Button.Enum.StandardButtonSize)
@@ -21,9 +21,9 @@ local buttonMapping = {
 }
 
 local sizeMapping = {
-	[StandardButtonSize.Regular] = ButtonSize.Medium,
-	[StandardButtonSize.Small] = ButtonSize.Small,
-	[StandardButtonSize.XSmall] = ButtonSize.XSmall,
+	[StandardButtonSize.Regular] = InputSize.Large,
+	[StandardButtonSize.Small] = InputSize.Small,
+	[StandardButtonSize.XSmall] = InputSize.XSmall,
 }
 
 local function findIcon(searchData)
@@ -41,12 +41,14 @@ local function getSizeMapping(standardSize, size: UDim2?, tokens: typeof(Foundat
 	if standardSize then
 		return sizeMapping[standardSize]
 	elseif size then
-		if size.Y.Offset >= tokens.Size.Size_1000 then
-			return ButtonSize.Medium
+		if size.Y.Offset >= tokens.Size.Size_1200 then
+			return InputSize.Large
+		elseif size.Y.Offset >= tokens.Size.Size_1000 then
+			return InputSize.Medium
 		elseif size.Y.Offset >= tokens.Size.Size_800 then
-			return ButtonSize.Small
+			return InputSize.Small
 		else
-			return ButtonSize.XSmall
+			return InputSize.XSmall
 		end
 	end
 	return nil

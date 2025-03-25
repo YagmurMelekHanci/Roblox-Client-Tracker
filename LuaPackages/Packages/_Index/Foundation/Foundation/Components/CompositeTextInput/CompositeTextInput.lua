@@ -9,15 +9,20 @@ local InputField = require(Components.InputField)
 local Icon = require(Components.Icon)
 local View = require(Components.View)
 local IconButton = require(Components.IconButton)
-local IconSize = require(Foundation.Enums.IconSize)
 local Types = require(Foundation.Components.Types)
 
+local useTextInputVariants = require(Foundation.Components.TextInput.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
+local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
+
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize
+
+local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
@@ -29,6 +34,8 @@ type TextInputProps = {
 	text: string,
 	-- Type of text input. Only available for use in descendants of `CoreGui`.
 	textInputType: Enum.TextInputType?,
+	-- Size of the text input
+	size: InputSize?,
 	-- Whether the input is in an error state
 	hasError: boolean?,
 	-- Whether the input is disabled
@@ -59,6 +66,7 @@ type TextInputProps = {
 } & Types.CommonProps
 
 local defaultProps = {
+	size = InputSize.Large,
 	width = UDim.new(0, 400),
 }
 
@@ -66,6 +74,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 	local props = withDefaults(TextInputProps, defaultProps)
 
 	local tokens = useTokens()
+	local variantProps = useTextInputVariants(tokens, props.size :: InputSize)
 
 	return React.createElement(
 		InputField,
@@ -73,7 +82,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 			width = props.width,
 			ref = ref,
 			label = props.label,
-			size = InputLabelSize.Small,
+			size = getInputTextSize(props.size, false),
 			isRequired = props.isRequired,
 			hint = props.hint,
 			textBoxRef = props.textBoxRef,
@@ -84,6 +93,8 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					isDisabled = props.isDisabled,
 					text = props.text,
 					textInputType = props.textInputType,
+					size = props.size,
+					padding = variantProps.innerContainer.padding,
 					onChanged = props.onChanged,
 					onFocus = props.onFocusGained,
 					onReturnPressed = props.onReturnPressed,
@@ -91,35 +102,34 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					leadingElement = if props.iconLeading
 						then React.createElement(
 							View,
-							{ tag = "size-0-full auto-x padding-x-medium row align-y-center" },
+							{ tag = "size-0-full auto-x row align-y-center" },
 							React.createElement(Icon, {
 								name = props.iconLeading,
-								style = tokens.Color.Content.Muted,
-								size = IconSize.Small,
+								style = variantProps.icon.style,
+								size = variantProps.icon.size,
 							})
 						)
 						else nil,
 					trailingElement = if props.iconTrailing
 						then React.createElement(
 							View,
-							{ tag = "size-0-full auto-x padding-x-medium row align-y-center" },
+							{ tag = "size-0-full auto-x row align-y-center" },
 							if type(props.iconTrailing) == "table" and props.iconTrailing.onActivated
 								then React.createElement(IconButton, {
 									onActivated = props.iconTrailing.onActivated,
 									isDisabled = props.isDisabled,
-									size = IconSize.Small,
+									size = variantProps.icon.size,
 									icon = props.iconTrailing.name,
 								})
 								else React.createElement(Icon, {
 									name = if type(props.iconTrailing) == "table"
 										then props.iconTrailing.name
 										else props.iconTrailing,
-									style = tokens.Color.Content.Muted,
-									size = IconSize.Small,
+									style = variantProps.icon.style,
+									size = variantProps.icon.size,
 								})
 						)
 						else nil,
-					tag = "padding-x-xsmall",
 				})
 			end,
 		})

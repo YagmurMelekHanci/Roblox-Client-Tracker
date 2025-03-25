@@ -1,15 +1,18 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
+local Dash = require(Packages.Dash)
 
-local TextInput = require(Foundation.Components.TextInput)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Button = require(Foundation.Components.Button)
+
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
-type ButtonVariant = ButtonVariant.ButtonVariant
+local InputSize = require(Foundation.Enums.InputSize)
+
+local TextInput = require(Foundation.Components.TextInput)
 
 local function Story(props)
 	local controls = props.controls
@@ -59,6 +62,7 @@ local function Story(props)
 			onFocusGained = onFocusGained,
 			onReturnPressed = onReturnPressed,
 			label = controls.input,
+			size = controls.size,
 			hint = if controls.hint == "" then nil else controls.hint,
 			placeholder = controls.placeholder,
 			iconLeading = if controls.iconLeading == React.None then nil else controls.iconLeading,
@@ -111,6 +115,7 @@ return {
 			Enum.TextInputType.Password,
 			Enum.TextInputType.Number,
 		},
+		size = Dash.values(InputSize),
 		input = "Input Label",
 		hint = "Helper text goes here",
 		placeholder = "Placeholder text",

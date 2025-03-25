@@ -54,20 +54,16 @@ return {
 							id = itemId,
 							type = MediaType.Asset,
 							aspectRatio = 1,
-							background = "component_assets/itemBG_"
-								.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
+							background = {
+								image = "component_assets/itemBG_"
+									.. if tokens.Config.Theme.Name == Theme.Dark then "dark" else "light",
+							},
 						}, {
 							UIListLayout = React.createElement("UIListLayout", {
 								FillDirection = Enum.FillDirection.Vertical,
 								HorizontalAlignment = Enum.HorizontalAlignment.Left,
 								VerticalAlignment = Enum.VerticalAlignment.Bottom,
 								SortOrder = Enum.SortOrder.LayoutOrder,
-							}),
-							UIPadding = React.createElement("UIPadding", {
-								PaddingTop = UDim.new(0, tokens.Padding.XSmall),
-								PaddingBottom = UDim.new(0, tokens.Padding.XSmall),
-								PaddingLeft = UDim.new(0, tokens.Padding.XSmall),
-								PaddingRight = UDim.new(0, tokens.Padding.XSmall),
 							}),
 							Badge = React.createElement(Badge, {
 								text = props.controls.text,

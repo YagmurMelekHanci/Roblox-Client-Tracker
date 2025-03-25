@@ -3,7 +3,7 @@ local lazyRequire = require(LuaSocialLibrariesDeps.LazyRequire).lazyRequire
 
 local FFlagLuaAppLazyRequireSocialLibsDeps = game:DefineFastFlag("LuaAppLazyRequireSocialLibsDeps", false)
 local FFlagRemoveFriendsRoduxAndNetworking = game:DefineFastFlag("RemoveFriendsRoduxAndNetworking", false)
-local FFlagRemoveShareLinksRoduxAndNetworking = game:DefineFastFlag("RemoveShareLinksRoduxAndNetworking", false)
+local FFlagRemoveShareLinksRoduxAndNetworking = game:DefineFastFlag("RemoveShareLinksRoduxAndNetworking_v2", false)
 
 return if FFlagLuaAppLazyRequireSocialLibsDeps
 	then {

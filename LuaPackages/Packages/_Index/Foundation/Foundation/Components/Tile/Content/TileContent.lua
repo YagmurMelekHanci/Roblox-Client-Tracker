@@ -5,10 +5,11 @@ local React = require(Packages.React)
 
 local useTileLayout = require(Foundation.Components.Tile.useTileLayout)
 local withDefaults = require(Foundation.Utility.withDefaults)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local View = require(Foundation.Components.View)
 
 type TileContentProps = {
-	children: React.ReactElement<any, string>?,
+	children: React.ReactNode?,
 	LayoutOrder: number?,
 }
 
@@ -18,22 +19,16 @@ local defaultProps = {
 
 local function TileContent(tileContentProps: TileContentProps)
 	local props = withDefaults(tileContentProps, defaultProps)
+
+	local tokens = useTokens()
 	local tileLayout = useTileLayout()
 
 	return React.createElement(View, {
-		tag = {
-			["gap-small size-full"] = true,
-			["padding-small"] = tileLayout.isContained,
-		},
+		tag = "size-full col gap-small align-y-top",
 		flexItem = {
 			FlexMode = Enum.UIFlexMode.Shrink,
 		},
-		layout = {
-			FillDirection = Enum.FillDirection.Vertical,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-			VerticalFlex = Enum.UIFlexAlignment.None,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		},
+		padding = if tileLayout.isContained then tokens.Padding.Small else nil,
 		LayoutOrder = props.LayoutOrder,
 	}, props.children)
 end

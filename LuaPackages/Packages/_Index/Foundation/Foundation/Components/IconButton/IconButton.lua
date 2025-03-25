@@ -17,12 +17,14 @@ local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useIconSize = require(Foundation.Utility.useIconSize)
+local useIconButtonPadding = require(script.Parent.useIconButtonPadding)
 
 local Icon = require(Foundation.Components.Icon)
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 
 local ICON_SIZE_TO_RADIUS: { [IconSize]: Radius } = {
+	[IconSize.XSmall] = Radius.Small,
 	[IconSize.Small] = Radius.Small,
 	[IconSize.Medium] = Radius.Medium,
 	[IconSize.Large] = Radius.Large,
@@ -30,14 +32,6 @@ local ICON_SIZE_TO_RADIUS: { [IconSize]: Radius } = {
 	[IconSize.XLarge] = Radius.Large,
 	-- No XXlarge, map to large
 	[IconSize.XXLarge] = Radius.Large,
-}
-
-local ICON_SIZE_TO_PADDING_KEY: { [IconSize]: string } = {
-	[IconSize.Small] = "Size_50",
-	[IconSize.Medium] = "Size_100",
-	[IconSize.Large] = "Size_150",
-	[IconSize.XLarge] = "Size_200",
-	[IconSize.XXLarge] = "Size_250",
 }
 
 type IconButtonProps = {
@@ -59,8 +53,8 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	local radiusEnum = ICON_SIZE_TO_RADIUS[props.size]
 	local radius = tokens.Radius[radiusEnum]
 
-	local paddingKey = ICON_SIZE_TO_PADDING_KEY[props.size]
-	local padding = UDim.new(0, tokens.Size[paddingKey])
+	local paddingOffset = useIconButtonPadding(props.size)
+	local padding = UDim.new(0, paddingOffset)
 
 	local size = useIconSize(props.size)
 

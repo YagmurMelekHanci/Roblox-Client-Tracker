@@ -9,19 +9,26 @@ local InputLabel = require(Components.InputLabel)
 local HintText = require(Components.HintText)
 local Icon = require(Components.Icon)
 local IconButton = require(Components.IconButton)
-local IconSize = require(Foundation.Enums.IconSize)
 local View = require(Components.View)
 local Types = require(Foundation.Components.Types)
 
+local useIconButtonPadding = require(Foundation.Components.IconButton.useIconButtonPadding)
+local useTextInputVariants = require(script.Parent.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 local useCursor = require(Foundation.Providers.Cursor.useCursor)
+local useIconSize = require(Foundation.Utility.useIconSize)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local isCoreGui = require(Foundation.Utility.isCoreGui)
 
+local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
+
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize
+
+local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local ControlState = require(Foundation.Enums.ControlState)
@@ -34,6 +41,8 @@ type TextInputProps = {
 	text: string,
 	-- Type of text input. Only available for use in descendants of `CoreGui`.
 	textInputType: Enum.TextInputType?,
+	-- Size of the text input
+	size: InputSize?,
 	-- Whether the input is in an error state
 	hasError: boolean?,
 	-- Whether the input is disabled
@@ -64,22 +73,24 @@ type TextInputProps = {
 } & Types.CommonProps
 
 local defaultProps = {
+	size = InputSize.Large,
 	width = UDim.new(0, 400),
 }
 
 -- Is replaced with CompositeTextInput under FoundationCompositeTextInput FF
-local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObject>?)
-	local props = withDefaults(TextInputProps, defaultProps)
+local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObject>?)
+	local props = withDefaults(textInputProps, defaultProps)
 
 	local tokens = useTokens()
+	local variantProps = useTextInputVariants(tokens, props.size)
+	local iconSize = useIconSize(variantProps.icon.size)
+	local iconButtonPadding = useIconButtonPadding(variantProps.icon.size)
 
 	local textBox = React.useRef(nil)
 	local hover, setHover = React.useState(false)
 	local focus, setFocus = React.useState(false)
 
 	local selectionBorderThickness = tokens.Stroke.Thick
-	local iconSize = tokens.Semantic.Icon.Size.Small -- TODO(tokens): Replace with a non-semantic token
-
 	local outerBorderThickness = tokens.Stroke.Standard
 	local outerBorderOffset = math.ceil(outerBorderThickness) * 2
 	local innerBorderThickness = tokens.Stroke.Thick
@@ -88,15 +99,19 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 	local textBoxWidthOffset = React.useMemo(function()
 		local offset = 0
 		if props.iconLeading then
-			offset -= iconSize
-			offset -= tokens.Gap.Large
+			offset -= iconSize.X.Offset
+			offset -= variantProps.innerContainer.gap
 		end
 		if props.iconTrailing then
-			offset -= iconSize
-			offset -= tokens.Gap.Large
+			offset -= iconSize.X.Offset
+			offset -= variantProps.innerContainer.gap
+
+			if typeof(props.iconTrailing) == "table" and props.iconTrailing.onActivated then
+				offset -= iconButtonPadding * 2
+			end
 		end
 		return offset
-	end, { props.iconLeading :: any, props.iconTrailing, tokens })
+	end, { props.iconLeading :: any, props.iconTrailing, variantProps.innerContainer.gap, iconButtonPadding })
 
 	local onTextChange = React.useCallback(function(rbx: TextBox?)
 		if rbx == nil then
@@ -142,14 +157,10 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 		setHover(newState == ControlState.Hover)
 	end, {})
 
-	local textBoxTag = if Flags.FoundationStylingPolyfill
-		then nil
-		else useStyleTags(
-			"gui-object-defaults clip text-align-x-left text-align-y-center text-body-large content-emphasis"
-		)
+	local textBoxTag = if Flags.FoundationStylingPolyfill then nil else useStyleTags(variantProps.textBox.tag)
 
 	local inputCursor = useCursor({
-		radius = UDim.new(0, tokens.Radius.Medium),
+		radius = UDim.new(0, variantProps.innerContainer.radius),
 		offset = selectionBorderThickness,
 		borderWidth = selectionBorderThickness,
 	})
@@ -157,8 +168,8 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 	local iconTrailing = if props.iconTrailing
 		then React.createElement(Icon, {
 			name = if type(props.iconTrailing) == "table" then props.iconTrailing.name else props.iconTrailing,
-			style = tokens.Color.Content.Muted,
-			size = IconSize.Small,
+			style = variantProps.icon.style,
+			size = variantProps.icon.size,
 			LayoutOrder = 3,
 		})
 		else nil
@@ -182,7 +193,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 			InputLabel = if #props.label > 0
 				then React.createElement(InputLabel, {
 					Text = props.label,
-					size = InputLabelSize.Small,
+					size = getInputTextSize(props.size, false),
 					isRequired = props.isRequired,
 					onActivated = focusTextBox,
 					onHover = function(hovering)
@@ -196,7 +207,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 				LayoutOrder = 2,
 				GroupTransparency = if props.isDisabled then 0.32 else nil, -- TODO(tokens): replace opacity with token
 
-				tag = "size-full-1200",
+				tag = variantProps.canvas.tag,
 			}, {
 				Input = React.createElement(View, {
 					Size = UDim2.new(1, -outerBorderOffset, 1, -outerBorderOffset),
@@ -219,12 +230,12 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					onStateChanged = onInputStateChanged,
 					-- TODO: Update to border affordance
 					stateLayer = { affordance = StateLayerAffordance.None },
-					tag = "radius-medium bg-shift-100",
+					tag = variantProps.outerContainer.tag,
 				}, {
 					BorderFrame = React.createElement(View, {
 						Size = UDim2.new(1, -innerBorderOffset, 1, -innerBorderOffset),
 						Position = UDim2.new(0, innerBorderOffset / 2, 0, innerBorderOffset / 2),
-						cornerRadius = UDim.new(0, tokens.Radius.Medium - innerBorderOffset / 2),
+						cornerRadius = UDim.new(0, variantProps.innerContainer.radius - innerBorderOffset / 2),
 						stroke = if not props.isDisabled and (hover or focus)
 							then {
 								Color = tokens.Color.Stroke.Emphasis.Color3,
@@ -232,14 +243,14 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 								Thickness = innerBorderThickness,
 							}
 							else nil,
-
-						tag = "row gap-large align-y-center padding-x-medium",
+						padding = variantProps.innerContainer.padding,
+						tag = variantProps.innerContainer.tag,
 					}, {
 						IconLeading = if props.iconLeading
 							then React.createElement(Icon, {
 								name = props.iconLeading,
-								style = tokens.Color.Content.Muted,
-								size = IconSize.Small,
+								style = variantProps.icon.style,
+								size = variantProps.icon.size,
 								LayoutOrder = 1,
 							})
 							else nil,
@@ -261,8 +272,8 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 							ClipsDescendants = true,
 							TextXAlignment = Enum.TextXAlignment.Left,
 							TextYAlignment = Enum.TextYAlignment.Center,
-							Font = tokens.Typography.BodyLarge.Font,
-							TextSize = tokens.Typography.BodyLarge.FontSize,
+							Font = variantProps.textBox.Font,
+							TextSize = variantProps.textBox.FontSize,
 							TextColor3 = tokens.Color.Content.Emphasis.Color3,
 							TextTransparency = tokens.Color.Content.Emphasis.Transparency,
 							-- END: Remove when Flags.FoundationStylingPolyfill is removed
@@ -279,7 +290,7 @@ local function TextInput(TextInputProps: TextInputProps, ref: React.Ref<GuiObjec
 							then React.createElement(IconButton, {
 								onActivated = props.iconTrailing.onActivated,
 								isDisabled = props.isDisabled,
-								size = IconSize.Small,
+								size = variantProps.icon.size,
 								icon = props.iconTrailing.name,
 								LayoutOrder = 3,
 							})

@@ -10,16 +10,15 @@ return {
 	FoundationInteractableUseGuiState = SafeFlags.createGetFFlag("FoundationInteractableUseGuiState")(),
 	FoundationStylingPolyfill = SafeFlags.createGetFFlag("FoundationStylingPolyfill")(),
 	FoundationDisableCanvasGroupsInButton = SafeFlags.createGetFFlag("FoundationDisableCanvasGroupsInButton")(),
-	FoundationEnableColorUpdate = SafeFlags.createGetFFlag("FoundationEnableColorUpdate")(),
 	FoundationCompositeTextInput = SafeFlags.createGetFFlag("FoundationCompositeTextInput3")(),
 	FoundationBadgeSimplifySizing = SafeFlags.createGetFFlag("FoundationBadgeSimplifySizing")(),
 	FoundationFixSupportImageBinding = SafeFlags.createGetFFlag("FoundationFixSupportImageBinding")(),
 	FoundationDisableBadgeTruncation = SafeFlags.createGetFFlag("FoundationDisableBadgeTruncation")(),
-	FoundationAddWidthToToast = SafeFlags.createGetFFlag("FoundationAddWidthToToast")(),
-	FoundationToastButtonsFillRightToLeft = SafeFlags.createGetFFlag("FoundationToastButtonsFillRightToLeft")(),
 	FoundationButtonSubEmphasisInverseStateLayer = SafeFlags.createGetFFlag(
 		"FoundationButtonSubEmphasisInverseStateLayer"
 	)(),
-	FoundationFixXSmallButton = SafeFlags.createGetFFlag("FoundationFixXSmallButton")(),
+	FoundationButtonEnableLoadingState = SafeFlags.createGetFFlag("FoundationButtonEnableLoadingState")(),
+	FoundationEnableNewButtonSizes = SafeFlags.createGetFFlag("FoundationEnableNewButtonSizes")(),
 	FoundationStyleSheetContext = SafeFlags.createGetFFlag("FoundationStyleSheetContext")(),
+	FoundationMigrateStylingV2 = SafeFlags.createGetFFlag("FoundationMigrateStylingV2")(),
 }
