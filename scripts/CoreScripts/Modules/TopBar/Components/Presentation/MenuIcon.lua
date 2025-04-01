@@ -40,6 +40,9 @@ local FFlagEnableChromeBackwardsSignalAPI =
 	require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWhileHidden
+
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -178,7 +181,8 @@ function MenuIcon:init()
 		self.onMenuIconSelectionChanged = function(MenuIcon: GuiObject, isMenuIconSelected: boolean, oldSelection: GuiObject, newSelection: GuiObject)
 			local UNFOCUS_TILT = "Unfocus_Tilt"
 			local function unfocusTilt(actionName, userInputState, input): Enum.ContextActionResult
-				if userInputState == Enum.UserInputState.End then
+				if not FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.End 
+				    or FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.Begin then
 					GuiService.SelectedCoreObject = nil
 					return Enum.ContextActionResult.Sink
 				end
@@ -203,10 +207,31 @@ function MenuIcon:init()
 
 		self.showIcon, self.setShowIcon = Roact.createBinding(showTopBarSignal:get())
 
+		if FFlagReduceTopBarInsetsWhileHidden then 
+			self.priorAbsolutePosition = Vector2.zero
+			self.priorAbsoluteSize = Vector2.zero
+		end
+
 		showTopBarSignal:connect(function() 
-			self.setShowIcon(showTopBarSignal:get())
+			local showTopBar = showTopBarSignal:get()
+			self.setShowIcon(showTopBar)
+
+			if FFlagReduceTopBarInsetsWhileHidden then 
+				if showTopBar then 
+					self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, self.priorAbsolutePosition, self.priorAbsoluteSize)
+				else
+					self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, Vector2.zero, Vector2.zero)
+				end
+			end
 		end)
 	end
+
+	if ChromeEnabled() and FFlagEnableChromeShortcutBar then 
+		ChromeService:onTriggerMenuIcon():connect(function() 
+			GuiService.SelectedCoreObject = self.props.menuIconRef:getValue()
+		end)
+	end
+
 end
 
 function MenuIcon:render()
@@ -214,7 +239,16 @@ function MenuIcon:render()
 
 	local onAreaChanged = function(rbx)
 		if rbx then
-			self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+			if FFlagReduceTopBarInsetsWhileHidden then
+				self.priorAbsolutePosition = rbx.AbsolutePosition
+				self.priorAbsoluteSize = rbx.AbsoluteSize
+				if GamepadConnector:getShowTopBar():get() then 
+					self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+				end 
+			else 
+				self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+			end
+
 		end
 	end
 

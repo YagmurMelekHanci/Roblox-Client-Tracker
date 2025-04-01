@@ -224,64 +224,60 @@ PROTO_9:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AudioEqualizerEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  DUPTABLE R1 K11 [{"OnStartAnalyzing", "OnSpectrumChanged", "IsAnalyzing", "InstanceContainer", "Frame", "Analyzer", "Wire"}]
-  LOADK R2 K4 ["OnStartAnalyzing"]
-  SETTABLEKS R2 R1 K4 ["OnStartAnalyzing"]
-  LOADK R2 K5 ["OnSpectrumChanged"]
-  SETTABLEKS R2 R1 K5 ["OnSpectrumChanged"]
-  LOADK R2 K6 ["IsAnalyzing"]
-  SETTABLEKS R2 R1 K6 ["IsAnalyzing"]
-  LOADK R2 K12 ["AudioEqualizerEditor_Container"]
-  SETTABLEKS R2 R1 K7 ["InstanceContainer"]
-  LOADK R2 K8 ["Frame"]
-  SETTABLEKS R2 R1 K8 ["Frame"]
-  LOADK R2 K13 ["AudioAnalyzer"]
-  SETTABLEKS R2 R1 K9 ["Analyzer"]
-  LOADK R2 K10 ["Wire"]
-  SETTABLEKS R2 R1 K10 ["Wire"]
-  NEWTABLE R2 8 0
+  DUPTABLE R0 K7 [{"OnStartAnalyzing", "OnSpectrumChanged", "IsAnalyzing", "InstanceContainer", "Frame", "Analyzer", "Wire"}]
+  LOADK R1 K0 ["OnStartAnalyzing"]
+  SETTABLEKS R1 R0 K0 ["OnStartAnalyzing"]
+  LOADK R1 K1 ["OnSpectrumChanged"]
+  SETTABLEKS R1 R0 K1 ["OnSpectrumChanged"]
+  LOADK R1 K2 ["IsAnalyzing"]
+  SETTABLEKS R1 R0 K2 ["IsAnalyzing"]
+  LOADK R1 K8 ["AudioEqualizerEditor_Container"]
+  SETTABLEKS R1 R0 K3 ["InstanceContainer"]
+  LOADK R1 K4 ["Frame"]
+  SETTABLEKS R1 R0 K4 ["Frame"]
+  LOADK R1 K9 ["AudioAnalyzer"]
+  SETTABLEKS R1 R0 K5 ["Analyzer"]
+  LOADK R1 K6 ["Wire"]
+  SETTABLEKS R1 R0 K6 ["Wire"]
+  NEWTABLE R1 8 0
+  LOADNIL R2
+  NEWCLOSURE R3 P0
+  CAPTURE REF R2
+  SETTABLEKS R3 R1 K10 ["setPlugin"]
   LOADNIL R3
-  NEWCLOSURE R4 P0
+  NEWCLOSURE R4 P1
   CAPTURE REF R3
-  SETTABLEKS R4 R2 K14 ["setPlugin"]
+  SETTABLEKS R4 R1 K11 ["disconnectStartAnalyzing"]
   LOADNIL R4
-  NEWCLOSURE R5 P1
+  NEWCLOSURE R5 P2
   CAPTURE REF R4
-  SETTABLEKS R5 R2 K15 ["disconnectStartAnalyzing"]
+  SETTABLEKS R5 R1 K12 ["disconnectRunService"]
+  NEWCLOSURE R5 P3
+  CAPTURE REF R2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE REF R3
+  CAPTURE REF R4
+  SETTABLEKS R5 R1 K13 ["createInstances"]
+  NEWCLOSURE R5 P4
+  CAPTURE REF R2
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R5 R1 K14 ["destroyInstances"]
   LOADNIL R5
-  NEWCLOSURE R6 P2
+  NEWCLOSURE R6 P5
   CAPTURE REF R5
-  SETTABLEKS R6 R2 K16 ["disconnectRunService"]
-  NEWCLOSURE R6 P3
-  CAPTURE REF R3
+  SETTABLEKS R6 R1 K15 ["disconnectSpectrumChanged"]
+  NEWCLOSURE R6 P6
+  CAPTURE REF R2
+  CAPTURE VAL R0
   CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE REF R4
   CAPTURE REF R5
-  SETTABLEKS R6 R2 K17 ["createInstances"]
-  NEWCLOSURE R6 P4
-  CAPTURE REF R3
-  CAPTURE VAL R2
+  SETTABLEKS R6 R1 K16 ["startAnalyzing"]
+  NEWCLOSURE R6 P7
+  CAPTURE REF R2
   CAPTURE VAL R1
-  SETTABLEKS R6 R2 K18 ["destroyInstances"]
-  LOADNIL R6
-  NEWCLOSURE R7 P5
-  CAPTURE REF R6
-  SETTABLEKS R7 R2 K19 ["disconnectSpectrumChanged"]
-  NEWCLOSURE R7 P6
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE REF R6
-  SETTABLEKS R7 R2 K20 ["startAnalyzing"]
-  NEWCLOSURE R7 P7
-  CAPTURE REF R3
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  SETTABLEKS R7 R2 K21 ["stopAnalyzing"]
-  CLOSEUPVALS R3
-  RETURN R2 1
+  CAPTURE VAL R0
+  SETTABLEKS R6 R1 K17 ["stopAnalyzing"]
+  CLOSEUPVALS R2
+  RETURN R1 1

@@ -30,11 +30,7 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AudioEqualizerEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  NEWTABLE R1 1 0
-  DUPCLOSURE R2 K4 [PROTO_0]
-  SETTABLEKS R2 R1 K5 ["makeControlPoint"]
-  RETURN R1 1
+  NEWTABLE R0 1 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["makeControlPoint"]
+  RETURN R0 1

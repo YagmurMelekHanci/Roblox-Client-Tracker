@@ -185,43 +185,13 @@ PROTO_11:
   RETURN R0 0
 
 PROTO_12:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["setVisibility"]
-  GETUPVAL R1 1
-  GETUPVAL R2 2
-  CALL R0 2 0
-  GETUPVAL R0 3
-  GETUPVAL R2 2
+  GETUPVAL R0 0
+  GETUPVAL R2 1
   NOT R1 R2
   CALL R0 1 0
   RETURN R0 0
 
 PROTO_13:
-  GETUPVAL R0 0
-  LOADB R2 1
-  NAMECALL R0 R0 K0 ["Activate"]
-  CALL R0 2 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K1 ["beginAddAnnotation"]
-  GETUPVAL R1 0
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_14:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NOT R1 R2
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_15:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NOT R1 R2
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_16:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["setVisibility"]
   GETUPVAL R1 1
@@ -233,7 +203,7 @@ PROTO_16:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_14:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["loadResolvedAnnotations"]
   GETUPVAL R1 1
@@ -241,7 +211,7 @@ PROTO_17:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_15:
   GETUPVAL R0 0
   LOADB R2 1
   NAMECALL R0 R0 K0 ["Activate"]
@@ -252,7 +222,7 @@ PROTO_18:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_16:
   GETUPVAL R0 0
   LOADB R2 1
   NAMECALL R0 R0 K0 ["Activate"]
@@ -263,7 +233,7 @@ PROTO_19:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_17:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
@@ -391,223 +361,66 @@ PROTO_20:
   DUPTABLE R23 K25 [{"Header", "AnnotationList", "EmptyState"}]
   LENGTH R25 R3
   LOADN R26 0
-  JUMPIFNOTLT R26 R25 [+523]
+  JUMPIFNOTLT R26 R25 [+307]
   GETUPVAL R25 2
   GETTABLEKS R24 R25 K11 ["createElement"]
   LOADK R25 K19 ["Frame"]
   DUPTABLE R26 K26 [{"LayoutOrder"}]
   LOADN R27 0
   SETTABLEKS R27 R26 K12 ["LayoutOrder"]
-  DUPTABLE R27 K30 [{"AddButton", "SettingsWrapper", "ButtonGroup"}]
-  GETUPVAL R30 6
-  GETTABLEKS R29 R30 K31 ["fflagAnnotationsUseNewAnnotationIcons"]
-  JUMPIFNOT R29 [+2]
-  LOADNIL R28
-  JUMP [+28]
-  GETUPVAL R29 2
-  GETTABLEKS R28 R29 K11 ["createElement"]
-  LOADK R29 K32 ["TextButton"]
-  NEWTABLE R30 2 0
-  LOADK R32 K33 ["+ %*"]
-  LOADK R36 K34 ["AddAnnotation"]
-  LOADK R37 K35 ["Button"]
-  NAMECALL R34 R2 K36 ["getText"]
-  CALL R34 3 1
-  NAMECALL R32 R32 K37 ["format"]
-  CALL R32 2 1
-  MOVE R31 R32
-  SETTABLEKS R31 R30 K38 ["Text"]
-  GETUPVAL R33 2
-  GETTABLEKS R32 R33 K39 ["Event"]
-  GETTABLEKS R31 R32 K40 ["Activated"]
-  NEWCLOSURE R32 P2
-  CAPTURE VAL R1
-  CAPTURE UPVAL U10
-  SETTABLE R32 R30 R31
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K27 ["AddButton"]
-  GETUPVAL R30 6
-  GETTABLEKS R29 R30 K31 ["fflagAnnotationsUseNewAnnotationIcons"]
-  JUMPIFNOT R29 [+2]
-  LOADNIL R28
-  JUMP [+166]
-  GETUPVAL R29 2
-  GETTABLEKS R28 R29 K11 ["createElement"]
-  LOADK R29 K19 ["Frame"]
-  NEWTABLE R30 0 0
-  DUPTABLE R31 K42 [{"Settings"}]
-  GETUPVAL R33 2
-  GETTABLEKS R32 R33 K11 ["createElement"]
-  GETUPVAL R33 11
-  NEWTABLE R34 4 0
-  GETIMPORT R35 K46 [Enum.AutomaticSize.XY]
-  SETTABLEKS R35 R34 K44 ["AutomaticSize"]
-  DUPTABLE R35 K49 [{"ShowResolved", "HideAnnotations"}]
-  GETUPVAL R37 2
-  GETTABLEKS R36 R37 K11 ["createElement"]
-  LOADK R37 K32 ["TextButton"]
-  NEWTABLE R38 4 0
-  LOADK R39 K50 [""]
-  SETTABLEKS R39 R38 K38 ["Text"]
-  GETUPVAL R41 2
-  GETTABLEKS R40 R41 K39 ["Event"]
-  GETTABLEKS R39 R40 K40 ["Activated"]
-  NEWCLOSURE R40 P3
-  CAPTURE VAL R6
-  CAPTURE VAL R5
-  SETTABLE R40 R38 R39
-  GETUPVAL R40 2
-  GETTABLEKS R39 R40 K20 ["Tag"]
-  LOADK R40 K51 ["Component-DropdownItem X-RowS X-Middle"]
-  SETTABLE R40 R38 R39
-  DUPTABLE R39 K53 [{"Checkbox", "Text"}]
-  GETUPVAL R41 2
-  GETTABLEKS R40 R41 K11 ["createElement"]
-  LOADK R41 K54 ["ImageLabel"]
-  NEWTABLE R42 2 0
-  LOADN R43 1
-  SETTABLEKS R43 R42 K55 ["BackgroundTransparency"]
-  GETUPVAL R44 2
-  GETTABLEKS R43 R44 K20 ["Tag"]
-  JUMPIFNOT R5 [+2]
-  LOADK R44 K56 ["CheckboxOnIcon"]
-  JUMP [+1]
-  LOADK R44 K57 ["CheckboxOffIcon"]
-  SETTABLE R44 R42 R43
-  CALL R40 2 1
-  SETTABLEKS R40 R39 K52 ["Checkbox"]
-  GETUPVAL R41 2
-  GETTABLEKS R40 R41 K11 ["createElement"]
-  LOADK R41 K58 ["TextLabel"]
-  DUPTABLE R42 K59 [{"Text", "BackgroundTransparency"}]
-  LOADK R45 K60 ["Dropdown"]
-  LOADK R46 K47 ["ShowResolved"]
-  NAMECALL R43 R2 K36 ["getText"]
-  CALL R43 3 1
-  SETTABLEKS R43 R42 K38 ["Text"]
-  LOADN R43 1
-  SETTABLEKS R43 R42 K55 ["BackgroundTransparency"]
-  CALL R40 2 1
-  SETTABLEKS R40 R39 K38 ["Text"]
-  CALL R36 3 1
-  SETTABLEKS R36 R35 K47 ["ShowResolved"]
-  GETUPVAL R37 2
-  GETTABLEKS R36 R37 K11 ["createElement"]
-  LOADK R37 K32 ["TextButton"]
-  NEWTABLE R38 4 0
-  LOADK R39 K50 [""]
-  SETTABLEKS R39 R38 K38 ["Text"]
-  GETUPVAL R41 2
-  GETTABLEKS R40 R41 K39 ["Event"]
-  GETTABLEKS R39 R40 K40 ["Activated"]
-  NEWCLOSURE R40 P4
-  CAPTURE UPVAL U10
-  CAPTURE VAL R1
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  SETTABLE R40 R38 R39
-  GETUPVAL R40 2
-  GETTABLEKS R39 R40 K20 ["Tag"]
-  LOADK R40 K51 ["Component-DropdownItem X-RowS X-Middle"]
-  SETTABLE R40 R38 R39
-  DUPTABLE R39 K53 [{"Checkbox", "Text"}]
-  GETUPVAL R41 2
-  GETTABLEKS R40 R41 K11 ["createElement"]
-  LOADK R41 K54 ["ImageLabel"]
-  NEWTABLE R42 2 0
-  LOADN R43 1
-  SETTABLEKS R43 R42 K55 ["BackgroundTransparency"]
-  GETUPVAL R44 2
-  GETTABLEKS R43 R44 K20 ["Tag"]
-  JUMPIFNOT R9 [+2]
-  LOADK R44 K56 ["CheckboxOnIcon"]
-  JUMP [+1]
-  LOADK R44 K57 ["CheckboxOffIcon"]
-  SETTABLE R44 R42 R43
-  CALL R40 2 1
-  SETTABLEKS R40 R39 K52 ["Checkbox"]
-  GETUPVAL R41 2
-  GETTABLEKS R40 R41 K11 ["createElement"]
-  LOADK R41 K58 ["TextLabel"]
-  DUPTABLE R42 K59 [{"Text", "BackgroundTransparency"}]
-  LOADK R45 K60 ["Dropdown"]
-  LOADK R46 K61 ["HideInWorkspace"]
-  NAMECALL R43 R2 K36 ["getText"]
-  CALL R43 3 1
-  SETTABLEKS R43 R42 K38 ["Text"]
-  LOADN R43 1
-  SETTABLEKS R43 R42 K55 ["BackgroundTransparency"]
-  CALL R40 2 1
-  SETTABLEKS R40 R39 K38 ["Text"]
-  CALL R36 3 1
-  SETTABLEKS R36 R35 K48 ["HideAnnotations"]
-  SETTABLEKS R35 R34 K62 ["DropdownItems"]
-  LOADK R35 K63 ["SettingsIcon"]
-  SETTABLEKS R35 R34 K64 ["ImageTag"]
-  GETUPVAL R36 2
-  GETTABLEKS R35 R36 K20 ["Tag"]
-  LOADK R36 K60 ["Dropdown"]
-  SETTABLE R36 R34 R35
-  NEWTABLE R35 0 0
-  CALL R32 3 1
-  SETTABLEKS R32 R31 K41 ["Settings"]
-  CALL R28 3 1
-  SETTABLEKS R28 R27 K28 ["SettingsWrapper"]
-  GETUPVAL R30 6
-  GETTABLEKS R29 R30 K31 ["fflagAnnotationsUseNewAnnotationIcons"]
-  JUMPIFNOT R29 [+294]
+  DUPTABLE R27 K28 [{"ButtonGroup"}]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K11 ["createElement"]
   LOADK R29 K19 ["Frame"]
   DUPTABLE R30 K26 [{"LayoutOrder"}]
   LOADN R31 0
   SETTABLEKS R31 R30 K12 ["LayoutOrder"]
-  DUPTABLE R31 K65 [{"AddButton", "SettingsWrapper"}]
+  DUPTABLE R31 K31 [{"AddButton", "SettingsWrapper"}]
   GETUPVAL R33 2
   GETTABLEKS R32 R33 K11 ["createElement"]
-  LOADK R33 K66 ["ImageButton"]
+  LOADK R33 K32 ["ImageButton"]
   NEWTABLE R34 2 0
   GETUPVAL R36 2
   GETTABLEKS R35 R36 K20 ["Tag"]
-  LOADK R36 K67 ["AddAnnotationIcon"]
+  LOADK R36 K33 ["AddAnnotationIcon"]
   SETTABLE R36 R34 R35
   GETUPVAL R37 2
-  GETTABLEKS R36 R37 K39 ["Event"]
-  GETTABLEKS R35 R36 K40 ["Activated"]
-  NEWCLOSURE R36 P5
+  GETTABLEKS R36 R37 K34 ["Event"]
+  GETTABLEKS R35 R36 K35 ["Activated"]
+  NEWCLOSURE R36 P2
   CAPTURE VAL R1
   CAPTURE UPVAL U10
   SETTABLE R36 R34 R35
   CALL R32 2 1
-  SETTABLEKS R32 R31 K27 ["AddButton"]
+  SETTABLEKS R32 R31 K29 ["AddButton"]
   GETUPVAL R33 2
   GETTABLEKS R32 R33 K11 ["createElement"]
   LOADK R33 K19 ["Frame"]
   NEWTABLE R34 0 0
-  DUPTABLE R35 K42 [{"Settings"}]
+  DUPTABLE R35 K37 [{"Settings"}]
   GETUPVAL R37 2
   GETTABLEKS R36 R37 K11 ["createElement"]
   GETUPVAL R37 11
   NEWTABLE R38 4 0
-  GETIMPORT R39 K46 [Enum.AutomaticSize.XY]
-  SETTABLEKS R39 R38 K44 ["AutomaticSize"]
-  DUPTABLE R39 K69 [{"ShowResolved", "ShowTagged", "HideAnnotations"}]
+  GETIMPORT R39 K41 [Enum.AutomaticSize.XY]
+  SETTABLEKS R39 R38 K39 ["AutomaticSize"]
+  DUPTABLE R39 K45 [{"ShowResolved", "ShowTagged", "HideAnnotations"}]
   GETUPVAL R41 2
   GETTABLEKS R40 R41 K11 ["createElement"]
-  LOADK R41 K32 ["TextButton"]
+  LOADK R41 K46 ["TextButton"]
   NEWTABLE R42 4 0
-  LOADK R43 K50 [""]
-  SETTABLEKS R43 R42 K38 ["Text"]
+  LOADK R43 K47 [""]
+  SETTABLEKS R43 R42 K48 ["Text"]
   GETUPVAL R45 2
-  GETTABLEKS R44 R45 K39 ["Event"]
-  GETTABLEKS R43 R44 K40 ["Activated"]
-  NEWCLOSURE R44 P6
+  GETTABLEKS R44 R45 K34 ["Event"]
+  GETTABLEKS R43 R44 K35 ["Activated"]
+  NEWCLOSURE R44 P3
   CAPTURE VAL R6
   CAPTURE VAL R5
   SETTABLE R44 R42 R43
   GETUPVAL R44 2
   GETTABLEKS R43 R44 K20 ["Tag"]
-  LOADK R44 K51 ["Component-DropdownItem X-RowS X-Middle"]
+  LOADK R44 K49 ["Component-DropdownItem X-RowS X-Middle"]
   SETTABLE R44 R42 R43
   GETUPVAL R45 6
   GETTABLEKS R44 R45 K8 ["fflagAnnotationsAddTaggingFiltering"]
@@ -616,102 +429,102 @@ PROTO_20:
   JUMP [+1]
   LOADNIL R43
   SETTABLEKS R43 R42 K12 ["LayoutOrder"]
-  DUPTABLE R43 K53 [{"Checkbox", "Text"}]
+  DUPTABLE R43 K51 [{"Checkbox", "Text"}]
   GETUPVAL R45 2
   GETTABLEKS R44 R45 K11 ["createElement"]
-  LOADK R45 K54 ["ImageLabel"]
+  LOADK R45 K52 ["ImageLabel"]
   NEWTABLE R46 2 0
   LOADN R47 1
-  SETTABLEKS R47 R46 K55 ["BackgroundTransparency"]
+  SETTABLEKS R47 R46 K53 ["BackgroundTransparency"]
   GETUPVAL R48 2
   GETTABLEKS R47 R48 K20 ["Tag"]
   JUMPIFNOT R5 [+2]
-  LOADK R48 K56 ["CheckboxOnIcon"]
+  LOADK R48 K54 ["CheckboxOnIcon"]
   JUMP [+1]
-  LOADK R48 K57 ["CheckboxOffIcon"]
+  LOADK R48 K55 ["CheckboxOffIcon"]
   SETTABLE R48 R46 R47
   CALL R44 2 1
-  SETTABLEKS R44 R43 K52 ["Checkbox"]
+  SETTABLEKS R44 R43 K50 ["Checkbox"]
   GETUPVAL R45 2
   GETTABLEKS R44 R45 K11 ["createElement"]
-  LOADK R45 K58 ["TextLabel"]
-  DUPTABLE R46 K59 [{"Text", "BackgroundTransparency"}]
-  LOADK R49 K60 ["Dropdown"]
-  LOADK R50 K47 ["ShowResolved"]
-  NAMECALL R47 R2 K36 ["getText"]
+  LOADK R45 K56 ["TextLabel"]
+  DUPTABLE R46 K57 [{"Text", "BackgroundTransparency"}]
+  LOADK R49 K58 ["Dropdown"]
+  LOADK R50 K42 ["ShowResolved"]
+  NAMECALL R47 R2 K59 ["getText"]
   CALL R47 3 1
-  SETTABLEKS R47 R46 K38 ["Text"]
+  SETTABLEKS R47 R46 K48 ["Text"]
   LOADN R47 1
-  SETTABLEKS R47 R46 K55 ["BackgroundTransparency"]
+  SETTABLEKS R47 R46 K53 ["BackgroundTransparency"]
   CALL R44 2 1
-  SETTABLEKS R44 R43 K38 ["Text"]
+  SETTABLEKS R44 R43 K48 ["Text"]
   CALL R40 3 1
-  SETTABLEKS R40 R39 K47 ["ShowResolved"]
+  SETTABLEKS R40 R39 K42 ["ShowResolved"]
   GETUPVAL R42 6
   GETTABLEKS R41 R42 K8 ["fflagAnnotationsAddTaggingFiltering"]
   JUMPIFNOT R41 [+67]
   GETUPVAL R41 2
   GETTABLEKS R40 R41 K11 ["createElement"]
-  LOADK R41 K32 ["TextButton"]
+  LOADK R41 K46 ["TextButton"]
   NEWTABLE R42 4 0
-  LOADK R43 K50 [""]
-  SETTABLEKS R43 R42 K38 ["Text"]
+  LOADK R43 K47 [""]
+  SETTABLEKS R43 R42 K48 ["Text"]
   GETUPVAL R45 2
-  GETTABLEKS R44 R45 K39 ["Event"]
-  GETTABLEKS R43 R44 K40 ["Activated"]
-  NEWCLOSURE R44 P7
+  GETTABLEKS R44 R45 K34 ["Event"]
+  GETTABLEKS R43 R44 K35 ["Activated"]
+  NEWCLOSURE R44 P4
   CAPTURE VAL R8
   CAPTURE VAL R7
   SETTABLE R44 R42 R43
   GETUPVAL R44 2
   GETTABLEKS R43 R44 K20 ["Tag"]
-  LOADK R44 K51 ["Component-DropdownItem X-RowS X-Middle"]
+  LOADK R44 K49 ["Component-DropdownItem X-RowS X-Middle"]
   SETTABLE R44 R42 R43
   LOADN R43 2
   SETTABLEKS R43 R42 K12 ["LayoutOrder"]
-  DUPTABLE R43 K53 [{"Checkbox", "Text"}]
+  DUPTABLE R43 K51 [{"Checkbox", "Text"}]
   GETUPVAL R45 2
   GETTABLEKS R44 R45 K11 ["createElement"]
-  LOADK R45 K54 ["ImageLabel"]
+  LOADK R45 K52 ["ImageLabel"]
   NEWTABLE R46 2 0
   LOADN R47 1
-  SETTABLEKS R47 R46 K55 ["BackgroundTransparency"]
+  SETTABLEKS R47 R46 K53 ["BackgroundTransparency"]
   GETUPVAL R48 2
   GETTABLEKS R47 R48 K20 ["Tag"]
   JUMPIFNOT R7 [+2]
-  LOADK R48 K56 ["CheckboxOnIcon"]
+  LOADK R48 K54 ["CheckboxOnIcon"]
   JUMP [+1]
-  LOADK R48 K57 ["CheckboxOffIcon"]
+  LOADK R48 K55 ["CheckboxOffIcon"]
   SETTABLE R48 R46 R47
   CALL R44 2 1
-  SETTABLEKS R44 R43 K52 ["Checkbox"]
+  SETTABLEKS R44 R43 K50 ["Checkbox"]
   GETUPVAL R45 2
   GETTABLEKS R44 R45 K11 ["createElement"]
-  LOADK R45 K58 ["TextLabel"]
-  DUPTABLE R46 K59 [{"Text", "BackgroundTransparency"}]
-  LOADK R49 K60 ["Dropdown"]
-  LOADK R50 K68 ["ShowTagged"]
-  NAMECALL R47 R2 K36 ["getText"]
+  LOADK R45 K56 ["TextLabel"]
+  DUPTABLE R46 K57 [{"Text", "BackgroundTransparency"}]
+  LOADK R49 K58 ["Dropdown"]
+  LOADK R50 K43 ["ShowTagged"]
+  NAMECALL R47 R2 K59 ["getText"]
   CALL R47 3 1
-  SETTABLEKS R47 R46 K38 ["Text"]
+  SETTABLEKS R47 R46 K48 ["Text"]
   LOADN R47 1
-  SETTABLEKS R47 R46 K55 ["BackgroundTransparency"]
+  SETTABLEKS R47 R46 K53 ["BackgroundTransparency"]
   CALL R44 2 1
-  SETTABLEKS R44 R43 K38 ["Text"]
+  SETTABLEKS R44 R43 K48 ["Text"]
   CALL R40 3 1
   JUMP [+1]
   LOADNIL R40
-  SETTABLEKS R40 R39 K68 ["ShowTagged"]
+  SETTABLEKS R40 R39 K43 ["ShowTagged"]
   GETUPVAL R41 2
   GETTABLEKS R40 R41 K11 ["createElement"]
-  LOADK R41 K32 ["TextButton"]
+  LOADK R41 K46 ["TextButton"]
   NEWTABLE R42 4 0
-  LOADK R43 K50 [""]
-  SETTABLEKS R43 R42 K38 ["Text"]
+  LOADK R43 K47 [""]
+  SETTABLEKS R43 R42 K48 ["Text"]
   GETUPVAL R45 2
-  GETTABLEKS R44 R45 K39 ["Event"]
-  GETTABLEKS R43 R44 K40 ["Activated"]
-  NEWCLOSURE R44 P8
+  GETTABLEKS R44 R45 K34 ["Event"]
+  GETTABLEKS R43 R44 K35 ["Activated"]
+  NEWCLOSURE R44 P5
   CAPTURE UPVAL U10
   CAPTURE VAL R1
   CAPTURE VAL R9
@@ -719,7 +532,7 @@ PROTO_20:
   SETTABLE R44 R42 R43
   GETUPVAL R44 2
   GETTABLEKS R43 R44 K20 ["Tag"]
-  LOADK R44 K51 ["Component-DropdownItem X-RowS X-Middle"]
+  LOADK R44 K49 ["Component-DropdownItem X-RowS X-Middle"]
   SETTABLE R44 R42 R43
   GETUPVAL R45 6
   GETTABLEKS R44 R45 K8 ["fflagAnnotationsAddTaggingFiltering"]
@@ -728,53 +541,51 @@ PROTO_20:
   JUMP [+1]
   LOADNIL R43
   SETTABLEKS R43 R42 K12 ["LayoutOrder"]
-  DUPTABLE R43 K53 [{"Checkbox", "Text"}]
+  DUPTABLE R43 K51 [{"Checkbox", "Text"}]
   GETUPVAL R45 2
   GETTABLEKS R44 R45 K11 ["createElement"]
-  LOADK R45 K54 ["ImageLabel"]
+  LOADK R45 K52 ["ImageLabel"]
   NEWTABLE R46 2 0
   LOADN R47 1
-  SETTABLEKS R47 R46 K55 ["BackgroundTransparency"]
+  SETTABLEKS R47 R46 K53 ["BackgroundTransparency"]
   GETUPVAL R48 2
   GETTABLEKS R47 R48 K20 ["Tag"]
   JUMPIFNOT R9 [+2]
-  LOADK R48 K56 ["CheckboxOnIcon"]
+  LOADK R48 K54 ["CheckboxOnIcon"]
   JUMP [+1]
-  LOADK R48 K57 ["CheckboxOffIcon"]
+  LOADK R48 K55 ["CheckboxOffIcon"]
   SETTABLE R48 R46 R47
   CALL R44 2 1
-  SETTABLEKS R44 R43 K52 ["Checkbox"]
+  SETTABLEKS R44 R43 K50 ["Checkbox"]
   GETUPVAL R45 2
   GETTABLEKS R44 R45 K11 ["createElement"]
-  LOADK R45 K58 ["TextLabel"]
-  DUPTABLE R46 K59 [{"Text", "BackgroundTransparency"}]
-  LOADK R49 K60 ["Dropdown"]
-  LOADK R50 K61 ["HideInWorkspace"]
-  NAMECALL R47 R2 K36 ["getText"]
+  LOADK R45 K56 ["TextLabel"]
+  DUPTABLE R46 K57 [{"Text", "BackgroundTransparency"}]
+  LOADK R49 K58 ["Dropdown"]
+  LOADK R50 K60 ["HideInWorkspace"]
+  NAMECALL R47 R2 K59 ["getText"]
   CALL R47 3 1
-  SETTABLEKS R47 R46 K38 ["Text"]
+  SETTABLEKS R47 R46 K48 ["Text"]
   LOADN R47 1
-  SETTABLEKS R47 R46 K55 ["BackgroundTransparency"]
+  SETTABLEKS R47 R46 K53 ["BackgroundTransparency"]
   CALL R44 2 1
-  SETTABLEKS R44 R43 K38 ["Text"]
+  SETTABLEKS R44 R43 K48 ["Text"]
   CALL R40 3 1
-  SETTABLEKS R40 R39 K48 ["HideAnnotations"]
-  SETTABLEKS R39 R38 K62 ["DropdownItems"]
-  LOADK R39 K63 ["SettingsIcon"]
-  SETTABLEKS R39 R38 K64 ["ImageTag"]
+  SETTABLEKS R40 R39 K44 ["HideAnnotations"]
+  SETTABLEKS R39 R38 K61 ["DropdownItems"]
+  LOADK R39 K62 ["SettingsIcon"]
+  SETTABLEKS R39 R38 K63 ["ImageTag"]
   GETUPVAL R40 2
   GETTABLEKS R39 R40 K20 ["Tag"]
-  LOADK R40 K60 ["Dropdown"]
+  LOADK R40 K58 ["Dropdown"]
   SETTABLE R40 R38 R39
   NEWTABLE R39 0 0
   CALL R36 3 1
-  SETTABLEKS R36 R35 K41 ["Settings"]
+  SETTABLEKS R36 R35 K36 ["Settings"]
   CALL R32 3 1
-  SETTABLEKS R32 R31 K28 ["SettingsWrapper"]
+  SETTABLEKS R32 R31 K30 ["SettingsWrapper"]
   CALL R28 3 1
-  JUMP [+1]
-  LOADNIL R28
-  SETTABLEKS R28 R27 K29 ["ButtonGroup"]
+  SETTABLEKS R28 R27 K27 ["ButtonGroup"]
   CALL R24 3 1
   JUMP [+1]
   LOADNIL R24
@@ -786,41 +597,41 @@ PROTO_20:
   DUPTABLE R26 K26 [{"LayoutOrder"}]
   LOADN R27 2
   SETTABLEKS R27 R26 K12 ["LayoutOrder"]
-  DUPTABLE R27 K71 [{"AnnotationScrollingFrame"}]
+  DUPTABLE R27 K65 [{"AnnotationScrollingFrame"}]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K11 ["createElement"]
   GETUPVAL R29 12
-  DUPTABLE R30 K73 [{"OnScrollToBottom"}]
+  DUPTABLE R30 K67 [{"OnScrollToBottom"}]
   JUMPIFNOT R5 [+4]
-  NEWCLOSURE R31 P9
+  NEWCLOSURE R31 P6
   CAPTURE UPVAL U10
   CAPTURE VAL R1
   JUMP [+1]
   LOADNIL R31
-  SETTABLEKS R31 R30 K72 ["OnScrollToBottom"]
+  SETTABLEKS R31 R30 K66 ["OnScrollToBottom"]
   NEWTABLE R31 1 1
   GETUPVAL R34 2
   GETTABLEKS R33 R34 K11 ["createElement"]
   LOADK R34 K19 ["Frame"]
   DUPTABLE R35 K26 [{"LayoutOrder"}]
   LENGTH R37 R17
-  ADDK R36 R37 K74 [1]
+  ADDK R36 R37 K68 [1]
   SETTABLEKS R36 R35 K12 ["LayoutOrder"]
   CALL R33 2 1
-  SETTABLEKS R33 R31 K75 ["BottomPadding"]
+  SETTABLEKS R33 R31 K69 ["BottomPadding"]
   FASTCALL1 TABLE_UNPACK R17 [+3]
   MOVE R33 R17
-  GETIMPORT R32 K77 [table.unpack]
+  GETIMPORT R32 K71 [table.unpack]
   CALL R32 1 -1
   SETLIST R31 R32 -1 [1]
   CALL R28 3 1
-  SETTABLEKS R28 R27 K70 ["AnnotationScrollingFrame"]
+  SETTABLEKS R28 R27 K64 ["AnnotationScrollingFrame"]
   CALL R24 3 1
   JUMP [+1]
   LOADNIL R24
   SETTABLEKS R24 R23 K23 ["AnnotationList"]
   LENGTH R25 R17
-  JUMPIFNOTEQKN R25 K18 [0] [+293]
+  JUMPIFNOTEQKN R25 K18 [0] [+207]
   GETUPVAL R25 2
   GETTABLEKS R24 R25 K11 ["createElement"]
   LOADK R25 K19 ["Frame"]
@@ -830,30 +641,30 @@ PROTO_20:
   GETUPVAL R28 2
   GETTABLEKS R27 R28 K20 ["Tag"]
   GETUPVAL R28 13
-  LOADK R29 K78 ["X-ColumnM X-Transparent X-Middle X-Center"]
+  LOADK R29 K72 ["X-ColumnM X-Transparent X-Middle X-Center"]
   LENGTH R31 R3
   JUMPIFEQKN R31 K18 [0] [+3]
-  LOADK R30 K79 ["HeaderOffset"]
+  LOADK R30 K73 ["HeaderOffset"]
   JUMP [+1]
   LOADNIL R30
   CALL R28 2 1
   SETTABLE R28 R26 R27
-  DUPTABLE R27 K86 [{"AnnotationIcon", "NoCommentsYet", "ToBegin", "ToAdd", "TopPadding", "AddButton", "EmptyStateButton"}]
+  DUPTABLE R27 K78 [{"AnnotationIcon", "NoCommentsYet", "ToAdd", "AddButton", "EmptyStateButton"}]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K11 ["createElement"]
-  LOADK R29 K54 ["ImageLabel"]
+  LOADK R29 K52 ["ImageLabel"]
   NEWTABLE R30 2 0
   LOADN R31 0
   SETTABLEKS R31 R30 K12 ["LayoutOrder"]
   GETUPVAL R32 2
   GETTABLEKS R31 R32 K20 ["Tag"]
-  LOADK R32 K87 ["X-Transparent"]
+  LOADK R32 K79 ["X-Transparent"]
   SETTABLE R32 R30 R31
   CALL R28 2 1
-  SETTABLEKS R28 R27 K80 ["AnnotationIcon"]
+  SETTABLEKS R28 R27 K74 ["AnnotationIcon"]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K11 ["createElement"]
-  LOADK R29 K58 ["TextLabel"]
+  LOADK R29 K56 ["TextLabel"]
   NEWTABLE R30 4 0
   LOADN R31 1
   SETTABLEKS R31 R30 K12 ["LayoutOrder"]
@@ -861,189 +672,122 @@ PROTO_20:
   GETTABLEKS R32 R33 K8 ["fflagAnnotationsAddTaggingFiltering"]
   JUMPIFNOT R32 [+27]
   JUMPIFNOT R14 [+6]
-  LOADK R33 K88 ["Plugin"]
-  LOADK R34 K89 ["NoResolvedAnnotations"]
-  NAMECALL R31 R2 K36 ["getText"]
+  LOADK R33 K80 ["Plugin"]
+  LOADK R34 K81 ["NoResolvedAnnotations"]
+  NAMECALL R31 R2 K59 ["getText"]
   CALL R31 3 1
   JUMP [+32]
   JUMPIFNOT R15 [+6]
-  LOADK R33 K88 ["Plugin"]
-  LOADK R34 K90 ["NoCommentsForUser"]
-  NAMECALL R31 R2 K36 ["getText"]
+  LOADK R33 K80 ["Plugin"]
+  LOADK R34 K82 ["NoCommentsForUser"]
+  NAMECALL R31 R2 K59 ["getText"]
   CALL R31 3 1
   JUMP [+25]
   JUMPIFNOT R16 [+6]
-  LOADK R33 K88 ["Plugin"]
-  LOADK R34 K91 ["NoMatching"]
-  NAMECALL R31 R2 K36 ["getText"]
+  LOADK R33 K80 ["Plugin"]
+  LOADK R34 K83 ["NoMatching"]
+  NAMECALL R31 R2 K59 ["getText"]
   CALL R31 3 1
   JUMP [+18]
-  LOADK R33 K88 ["Plugin"]
-  LOADK R34 K92 ["NoAnnotations"]
-  NAMECALL R31 R2 K36 ["getText"]
+  LOADK R33 K80 ["Plugin"]
+  LOADK R34 K84 ["NoAnnotations"]
+  NAMECALL R31 R2 K59 ["getText"]
   CALL R31 3 1
   JUMP [+12]
   JUMPIF R5 [+6]
-  LOADK R33 K88 ["Plugin"]
-  LOADK R34 K92 ["NoAnnotations"]
-  NAMECALL R31 R2 K36 ["getText"]
+  LOADK R33 K80 ["Plugin"]
+  LOADK R34 K84 ["NoAnnotations"]
+  NAMECALL R31 R2 K59 ["getText"]
   CALL R31 3 1
   JUMP [+5]
-  LOADK R33 K88 ["Plugin"]
-  LOADK R34 K89 ["NoResolvedAnnotations"]
-  NAMECALL R31 R2 K36 ["getText"]
+  LOADK R33 K80 ["Plugin"]
+  LOADK R34 K81 ["NoResolvedAnnotations"]
+  NAMECALL R31 R2 K59 ["getText"]
   CALL R31 3 1
-  SETTABLEKS R31 R30 K38 ["Text"]
+  SETTABLEKS R31 R30 K48 ["Text"]
   GETUPVAL R32 2
   GETTABLEKS R31 R32 K20 ["Tag"]
-  LOADK R32 K87 ["X-Transparent"]
+  LOADK R32 K79 ["X-Transparent"]
   SETTABLE R32 R30 R31
   CALL R28 2 1
-  SETTABLEKS R28 R27 K81 ["NoCommentsYet"]
-  GETUPVAL R30 6
-  GETTABLEKS R29 R30 K31 ["fflagAnnotationsUseNewAnnotationIcons"]
-  JUMPIFNOT R29 [+2]
-  LOADNIL R28
-  JUMP [+25]
-  JUMPIF R5 [+23]
-  GETUPVAL R29 2
-  GETTABLEKS R28 R29 K11 ["createElement"]
-  LOADK R29 K58 ["TextLabel"]
-  NEWTABLE R30 4 0
-  LOADN R31 2
-  SETTABLEKS R31 R30 K12 ["LayoutOrder"]
-  LOADK R33 K88 ["Plugin"]
-  LOADK R34 K82 ["ToBegin"]
-  NAMECALL R31 R2 K36 ["getText"]
-  CALL R31 3 1
-  SETTABLEKS R31 R30 K38 ["Text"]
-  GETUPVAL R32 2
-  GETTABLEKS R31 R32 K20 ["Tag"]
-  LOADK R32 K87 ["X-Transparent"]
-  SETTABLE R32 R30 R31
-  CALL R28 2 1
-  JUMP [+1]
-  LOADNIL R28
-  SETTABLEKS R28 R27 K82 ["ToBegin"]
-  GETUPVAL R30 6
-  GETTABLEKS R29 R30 K31 ["fflagAnnotationsUseNewAnnotationIcons"]
-  JUMPIFNOT R29 [+32]
+  SETTABLEKS R28 R27 K75 ["NoCommentsYet"]
   GETUPVAL R30 6
   GETTABLEKS R29 R30 K8 ["fflagAnnotationsAddTaggingFiltering"]
   JUMPIFNOT R29 [+26]
   JUMPIF R13 [+23]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K11 ["createElement"]
-  LOADK R29 K58 ["TextLabel"]
+  LOADK R29 K56 ["TextLabel"]
   NEWTABLE R30 4 0
   LOADN R31 2
   SETTABLEKS R31 R30 K12 ["LayoutOrder"]
-  LOADK R33 K88 ["Plugin"]
-  LOADK R34 K83 ["ToAdd"]
-  NAMECALL R31 R2 K36 ["getText"]
+  LOADK R33 K80 ["Plugin"]
+  LOADK R34 K76 ["ToAdd"]
+  NAMECALL R31 R2 K59 ["getText"]
   CALL R31 3 1
-  SETTABLEKS R31 R30 K38 ["Text"]
+  SETTABLEKS R31 R30 K48 ["Text"]
   GETUPVAL R32 2
   GETTABLEKS R31 R32 K20 ["Tag"]
-  LOADK R32 K87 ["X-Transparent"]
+  LOADK R32 K79 ["X-Transparent"]
   SETTABLE R32 R30 R31
   CALL R28 2 1
-  JUMP [+5]
-  LOADNIL R28
   JUMP [+3]
   LOADNIL R28
   JUMP [+1]
   LOADNIL R28
-  SETTABLEKS R28 R27 K83 ["ToAdd"]
+  SETTABLEKS R28 R27 K76 ["ToAdd"]
   GETUPVAL R30 6
   GETTABLEKS R29 R30 K8 ["fflagAnnotationsAddTaggingFiltering"]
-  JUMPIFNOT R29 [+10]
+  JUMPIFNOT R29 [+30]
+  JUMPIF R13 [+27]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K11 ["createElement"]
-  LOADK R29 K19 ["Frame"]
-  DUPTABLE R30 K26 [{"LayoutOrder"}]
-  LOADN R31 3
-  SETTABLEKS R31 R30 K12 ["LayoutOrder"]
-  CALL R28 2 1
-  JUMP [+1]
-  LOADNIL R28
-  SETTABLEKS R28 R27 K84 ["TopPadding"]
-  GETUPVAL R30 6
-  GETTABLEKS R29 R30 K8 ["fflagAnnotationsAddTaggingFiltering"]
-  JUMPIFNOT R29 [+45]
-  JUMPIF R13 [+42]
-  GETUPVAL R29 2
-  GETTABLEKS R28 R29 K11 ["createElement"]
-  LOADK R29 K32 ["TextButton"]
+  LOADK R29 K46 ["TextButton"]
   NEWTABLE R30 4 0
   LOADN R31 4
   SETTABLEKS R31 R30 K12 ["LayoutOrder"]
-  GETUPVAL R33 6
-  GETTABLEKS R32 R33 K31 ["fflagAnnotationsUseNewAnnotationIcons"]
-  JUMPIFNOT R32 [+6]
-  LOADK R33 K34 ["AddAnnotation"]
-  LOADK R34 K93 ["AddComment"]
-  NAMECALL R31 R2 K36 ["getText"]
+  LOADK R33 K85 ["AddAnnotation"]
+  LOADK R34 K86 ["AddComment"]
+  NAMECALL R31 R2 K59 ["getText"]
   CALL R31 3 1
-  JUMP [+10]
-  LOADK R32 K33 ["+ %*"]
-  LOADK R36 K34 ["AddAnnotation"]
-  LOADK R37 K35 ["Button"]
-  NAMECALL R34 R2 K36 ["getText"]
-  CALL R34 3 1
-  NAMECALL R32 R32 K37 ["format"]
-  CALL R32 2 1
-  MOVE R31 R32
-  SETTABLEKS R31 R30 K38 ["Text"]
+  SETTABLEKS R31 R30 K48 ["Text"]
   GETUPVAL R33 2
-  GETTABLEKS R32 R33 K39 ["Event"]
-  GETTABLEKS R31 R32 K40 ["Activated"]
-  NEWCLOSURE R32 P10
+  GETTABLEKS R32 R33 K34 ["Event"]
+  GETTABLEKS R31 R32 K35 ["Activated"]
+  NEWCLOSURE R32 P7
   CAPTURE VAL R1
   CAPTURE UPVAL U10
   SETTABLE R32 R30 R31
   CALL R28 2 1
-  JUMP [+46]
+  JUMP [+31]
   LOADNIL R28
-  JUMP [+44]
-  JUMPIF R5 [+42]
+  JUMP [+29]
+  JUMPIF R5 [+27]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K11 ["createElement"]
-  LOADK R29 K32 ["TextButton"]
+  LOADK R29 K46 ["TextButton"]
   NEWTABLE R30 4 0
   LOADN R31 3
   SETTABLEKS R31 R30 K12 ["LayoutOrder"]
-  GETUPVAL R33 6
-  GETTABLEKS R32 R33 K31 ["fflagAnnotationsUseNewAnnotationIcons"]
-  JUMPIFNOT R32 [+6]
-  LOADK R33 K34 ["AddAnnotation"]
-  LOADK R34 K93 ["AddComment"]
-  NAMECALL R31 R2 K36 ["getText"]
+  LOADK R33 K85 ["AddAnnotation"]
+  LOADK R34 K86 ["AddComment"]
+  NAMECALL R31 R2 K59 ["getText"]
   CALL R31 3 1
-  JUMP [+10]
-  LOADK R32 K33 ["+ %*"]
-  LOADK R36 K34 ["AddAnnotation"]
-  LOADK R37 K35 ["Button"]
-  NAMECALL R34 R2 K36 ["getText"]
-  CALL R34 3 1
-  NAMECALL R32 R32 K37 ["format"]
-  CALL R32 2 1
-  MOVE R31 R32
-  SETTABLEKS R31 R30 K38 ["Text"]
+  SETTABLEKS R31 R30 K48 ["Text"]
   GETUPVAL R33 2
-  GETTABLEKS R32 R33 K39 ["Event"]
-  GETTABLEKS R31 R32 K40 ["Activated"]
-  NEWCLOSURE R32 P11
+  GETTABLEKS R32 R33 K34 ["Event"]
+  GETTABLEKS R31 R32 K35 ["Activated"]
+  NEWCLOSURE R32 P8
   CAPTURE VAL R1
   CAPTURE UPVAL U10
   SETTABLE R32 R30 R31
   CALL R28 2 1
   JUMP [+1]
   LOADNIL R28
-  SETTABLEKS R28 R27 K27 ["AddButton"]
+  SETTABLEKS R28 R27 K29 ["AddButton"]
   MOVE R28 R18
   CALL R28 0 1
-  SETTABLEKS R28 R27 K85 ["EmptyStateButton"]
+  SETTABLEKS R28 R27 K77 ["EmptyStateButton"]
   CALL R24 3 1
   JUMP [+1]
   LOADNIL R24
@@ -1121,7 +865,7 @@ MAIN:
   CALL R16 2 1
   DUPCLOSURE R17 K34 [PROTO_1]
   CAPTURE VAL R3
-  DUPCLOSURE R18 K35 [PROTO_20]
+  DUPCLOSURE R18 K35 [PROTO_17]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R1

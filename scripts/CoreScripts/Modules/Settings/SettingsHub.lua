@@ -203,6 +203,8 @@ local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat
 local SettingsShowSignal = if GetFFlagPackagifySettingsShowSignal() then require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal else nil
 local SettingsUtility = if GetFFlagPackagifySettingsShowSignal() then require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsUtility else nil
 
+local FFlagEnableChromeShortcutBar = require(SharedFlags).FFlagEnableChromeShortcutBar
+
 local SPRING_PARAMS = {}
 if GetFFlagVoiceRecordingIndicatorsEnabled() then
 	SPRING_PARAMS = {
@@ -2048,12 +2050,12 @@ local function CreateSettingsHub()
 			if Theme.UseIconButtons then
 				addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, buttonX,
 					"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-					leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
+					leaveGameFunc, {Enum.KeyCode.L, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonX else nil}
 				)
 			else
 				addBottomBarButtonOld("LeaveGame", leaveGameText, buttonX,
 					"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-					leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}, leaveGameFunc
+					leaveGameFunc, {Enum.KeyCode.L, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonX else nil}, leaveGameFunc
 				)
 			end
 		end
@@ -2072,12 +2074,12 @@ local function CreateSettingsHub()
 		if Theme.UseIconButtons then
 			addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", RESET_TEXT, buttonY,
 				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
-				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
+				resetCharFunc, {Enum.KeyCode.R, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonY else nil}
 			)
 		else
 			addBottomBarButtonOld("ResetCharacter", RESET_TEXT, buttonY,
 				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
-				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}, resetCharFunc
+				resetCharFunc, {Enum.KeyCode.R, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonY else nil}, resetCharFunc
 			)
 		end
 
@@ -2090,7 +2092,7 @@ local function CreateSettingsHub()
 		end
 		addBottomBarButtonOld("Resume", resumeGameText, buttonB,
 			"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
-			resumeButtonFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}, resumeHotkeyFunc
+			resumeButtonFunc, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart} else {}, resumeHotkeyFunc
 		)
 
 		if Theme.UIBloxThemeEnabled or isSubjectToDesktopPolicies() then
@@ -3347,6 +3349,12 @@ local function CreateSettingsHub()
 				setBottomBarBindings()
 			end
 
+			if ChromeEnabled and FFlagEnableChromeShortcutBar then
+				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+				local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
+				ChromeService:setShortcutBar(ChromeConstants.TILTMENU_SHORTCUTBAR_ID)
+			end
+
 			this.TabConnection = UserInputService.InputBegan:connect(switchTabFromKeyboard)
 
 			setOverrideMouseIconBehavior()
@@ -3388,6 +3396,13 @@ local function CreateSettingsHub()
 			this.CurrentPageSignal:fire("")
 
 			local forceNoAnimationIfWeWillShowConnect = if GetFFlagEnableAppChatInExperience() then (FFlagAppChatReappearIfClosedByTiltMenu and connectWasVisible) else false
+
+
+			if ChromeEnabled and FFlagEnableChromeShortcutBar then 
+				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+				local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
+				ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+			end
 
 			if GetFFlagEnableAppChatInExperience() and connectWasVisible then
 				connectWasVisible = false
@@ -3478,6 +3493,13 @@ local function CreateSettingsHub()
 
 					handleShieldClose()
 				else
+					if FFlagEnableChromeShortcutBar then
+						if ChromeEnabled and FFlagEnableChromeShortcutBar then 
+							local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+							local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
+							ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+						end
+					end
 					this.Shield:TweenPosition(
 						SETTINGS_SHIELD_INACTIVE_POSITION,
 						Enum.EasingDirection.In,
@@ -3485,7 +3507,7 @@ local function CreateSettingsHub()
 						movementTime,
 						true,
 						function()
-							this.Shield.Visible = this.Visible
+							this.Shield.Visible = this.Visible 
 							handleShieldClose()
 						end
 					)
@@ -3541,7 +3563,9 @@ local function CreateSettingsHub()
 			ContextActionService:UnbindCoreAction("RbxSettingsScrollHotkey")
 			removeBottomBarBindings(0.4)
 
-			GuiService.SelectedCoreObject = nil
+			if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then 
+				GuiService.SelectedCoreObject = nil
+			end
 
 			this.GameSettingsPage:CloseSettingsPage()
 
@@ -3633,6 +3657,10 @@ local function CreateSettingsHub()
 				this:SetVisibility(false)
 
 				this.Pages.CurrentPage:Hide(0, 0, nil, nil, this.PageViewInnerFrame)
+			elseif ChromeEnabled and FFlagEnableChromeShortcutBar then 
+				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+				local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
+				ChromeService:setShortcutBar(ChromeConstants.TILTMENU_SHORTCUTBAR_ID)
 			end
 		else
 			this.MenuStack = {}

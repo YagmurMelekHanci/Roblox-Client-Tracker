@@ -67,62 +67,62 @@ PROTO_1:
   GETTABLEKS R8 R9 K5 ["Actions"]
   GETTABLE R3 R8 R7
   JUMPIF R3 [+14]
-  GETIMPORT R8 K7 [warn]
-  LOADK R10 K8 ["Missing Action %* for Toggle with id %*"]
+  GETTABLEKS R8 R0 K6 ["Warn"]
+  LOADK R10 K7 ["Missing Action %* for Toggle with id %*"]
   MOVE R12 R7
-  GETTABLEKS R13 R2 K9 ["Id"]
-  NAMECALL R10 R10 K10 ["format"]
+  GETTABLEKS R13 R2 K8 ["Id"]
+  NAMECALL R10 R10 K9 ["format"]
   CALL R10 3 1
   MOVE R9 R10
   CALL R8 1 0
   LOADNIL R8
   CLOSEUPVALS R3
   RETURN R8 1
-  GETTABLEKS R5 R3 K11 ["Enabled"]
-  GETTABLEKS R6 R3 K12 ["Checked"]
+  GETTABLEKS R5 R3 K10 ["Enabled"]
+  GETTABLEKS R6 R3 K11 ["Checked"]
   JUMP [+67]
-  GETTABLEKS R7 R2 K13 ["Setting"]
+  GETTABLEKS R7 R2 K12 ["Setting"]
   JUMPIFNOT R7 [+51]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K3 ["toString"]
-  GETTABLEKS R8 R2 K13 ["Setting"]
+  GETTABLEKS R8 R2 K12 ["Setting"]
   CALL R7 1 1
   GETTABLEKS R9 R0 K4 ["Items"]
-  GETTABLEKS R8 R9 K14 ["Settings"]
+  GETTABLEKS R8 R9 K13 ["Settings"]
   GETTABLE R4 R8 R7
   JUMPIF R4 [+14]
-  GETIMPORT R8 K7 [warn]
-  LOADK R10 K15 ["Missing Setting %* for Toggle with id %*"]
+  GETTABLEKS R8 R0 K6 ["Warn"]
+  LOADK R10 K14 ["Missing Setting %* for Toggle with id %*"]
   MOVE R12 R7
-  GETTABLEKS R13 R2 K9 ["Id"]
-  NAMECALL R10 R10 K10 ["format"]
+  GETTABLEKS R13 R2 K8 ["Id"]
+  NAMECALL R10 R10 K9 ["format"]
   CALL R10 3 1
   MOVE R9 R10
   CALL R8 1 0
   LOADNIL R8
   CLOSEUPVALS R3
   RETURN R8 1
-  GETTABLEKS R5 R4 K11 ["Enabled"]
+  GETTABLEKS R5 R4 K10 ["Enabled"]
   GETUPVAL R8 2
   JUMPIFNOT R8 [+18]
-  GETTABLEKS R9 R4 K16 ["Value"]
+  GETTABLEKS R9 R4 K15 ["Value"]
   FASTCALL1 TYPEOF R9 [+2]
-  GETIMPORT R8 K18 [typeof]
+  GETIMPORT R8 K17 [typeof]
   CALL R8 1 1
-  JUMPIFNOTEQKS R8 K19 ["boolean"] [+4]
-  GETTABLEKS R6 R4 K16 ["Value"]
+  JUMPIFNOTEQKS R8 K18 ["boolean"] [+4]
+  GETTABLEKS R6 R4 K15 ["Value"]
   JUMP [+23]
-  GETTABLEKS R8 R4 K16 ["Value"]
-  JUMPIFEQKN R8 K20 [1] [+2]
+  GETTABLEKS R8 R4 K15 ["Value"]
+  JUMPIFEQKN R8 K19 [1] [+2]
   LOADB R6 0 +1
   LOADB R6 1
   JUMP [+16]
-  GETTABLEKS R6 R4 K16 ["Value"]
+  GETTABLEKS R6 R4 K15 ["Value"]
   JUMP [+13]
-  GETIMPORT R7 K7 [warn]
-  LOADK R9 K21 ["Missing Action or Setting field for Toggle with id %*"]
-  GETTABLEKS R11 R2 K9 ["Id"]
-  NAMECALL R9 R9 K10 ["format"]
+  GETTABLEKS R7 R0 K6 ["Warn"]
+  LOADK R9 K20 ["Missing Action or Setting field for Toggle with id %*"]
+  GETTABLEKS R11 R2 K8 ["Id"]
+  NAMECALL R9 R9 K9 ["format"]
   CALL R9 2 1
   MOVE R8 R9
   CALL R7 1 0
@@ -131,50 +131,50 @@ PROTO_1:
   RETURN R7 1
   GETUPVAL R8 2
   JUMPIFNOT R8 [+15]
-  GETTABLEKS R8 R2 K22 ["ActionOnToggle"]
+  GETTABLEKS R8 R2 K21 ["ActionOnToggle"]
   JUMPIFNOT R8 [+12]
   GETTABLEKS R9 R0 K4 ["Items"]
   GETTABLEKS R8 R9 K5 ["Actions"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K3 ["toString"]
-  GETTABLEKS R10 R2 K22 ["ActionOnToggle"]
+  GETTABLEKS R10 R2 K21 ["ActionOnToggle"]
   CALL R9 1 1
   GETTABLE R7 R8 R9
   JUMP [+1]
   LOADNIL R7
   GETUPVAL R8 3
   GETUPVAL R9 4
-  DUPTABLE R10 K28 [{"Uri", "LayoutOrder", "Enabled", "Selected", "OnClick", "Text"}]
-  GETTABLEKS R12 R0 K29 ["WidgetUri"]
+  DUPTABLE R10 K27 [{"Uri", "LayoutOrder", "Enabled", "Selected", "OnClick", "Text"}]
+  GETTABLEKS R12 R0 K28 ["WidgetUri"]
   JUMPIFNOT R12 [+12]
-  GETTABLEKS R12 R2 K9 ["Id"]
+  GETTABLEKS R12 R2 K8 ["Id"]
   JUMPIFNOT R12 [+9]
   GETUPVAL R12 1
-  GETTABLEKS R11 R12 K30 ["child"]
-  GETTABLEKS R12 R0 K29 ["WidgetUri"]
-  GETTABLEKS R13 R2 K9 ["Id"]
+  GETTABLEKS R11 R12 K29 ["child"]
+  GETTABLEKS R12 R0 K28 ["WidgetUri"]
+  GETTABLEKS R13 R2 K8 ["Id"]
   CALL R11 2 1
   JUMP [+1]
   LOADNIL R11
-  SETTABLEKS R11 R10 K23 ["Uri"]
-  GETTABLEKS R11 R0 K24 ["LayoutOrder"]
-  SETTABLEKS R11 R10 K24 ["LayoutOrder"]
-  SETTABLEKS R5 R10 K11 ["Enabled"]
-  SETTABLEKS R6 R10 K25 ["Selected"]
+  SETTABLEKS R11 R10 K22 ["Uri"]
+  GETTABLEKS R11 R0 K23 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K23 ["LayoutOrder"]
+  SETTABLEKS R5 R10 K10 ["Enabled"]
+  SETTABLEKS R6 R10 K24 ["Selected"]
   NEWCLOSURE R11 P0
   CAPTURE REF R3
   CAPTURE VAL R0
   CAPTURE REF R4
   CAPTURE UPVAL U2
   CAPTURE VAL R7
-  SETTABLEKS R11 R10 K26 ["OnClick"]
+  SETTABLEKS R11 R10 K25 ["OnClick"]
   GETUPVAL R11 5
   MOVE R12 R1
-  LOADK R13 K27 ["Text"]
+  LOADK R13 K26 ["Text"]
   MOVE R14 R2
   OR R15 R3 R4
   CALL R11 4 1
-  SETTABLEKS R11 R10 K27 ["Text"]
+  SETTABLEKS R11 R10 K26 ["Text"]
   CALL R8 2 -1
   CLOSEUPVALS R3
   RETURN R8 -1

@@ -24,28 +24,16 @@ local AvailabilitySignal = utils.AvailabilitySignal
 local Types = require(Root.Service.Types)
 local Constants = require(Root.Unibar.Constants)
 local PeekService = require(Root.Service.PeekService)
-
-local GetFFlagRefactorChromeAssert = SharedFlags.GetFFlagRefactorChromeAssert
-local ChromeEnabled
-if not GetFFlagRefactorChromeAssert() then
-	ChromeEnabled = require(Root.Parent.Enabled)
-end
+local ShortcutService = require(Root.Service.ShortcutService)
 
 local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
-local GetFFlagEnableSaveUserPins = SharedFlags.GetFFlagEnableSaveUserPins
--- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
-local GetFFlagEnableUserPinPortraitFix = SharedFlags.GetFFlagEnableUserPinPortraitFix
-local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
 local GetFFlagChromePeekArchitecture = SharedFlags.GetFFlagChromePeekArchitecture
 local GetFFlagChromeTrackWindowStatus = require(Root.Parent.Flags.GetFFlagChromeTrackWindowStatus)
 local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
-local GetFFlagChromeDefaultWindowStartingPosition = SharedFlags.GetFFlagChromeDefaultWindowStartingPosition
 local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
-
-local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
-local CHROME_PINNED_KEY = "ChromePinned"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
 local CHROME_WINDOW_STATE_KEY = "ChromeWindowStatus"
 
@@ -76,6 +64,8 @@ export type ObservableInFocusNav = utils.ObservableValue<boolean>
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
 export type ObservablePeekList = utils.ObservableValue<Types.PeekList>
 export type ObservablePeekId = utils.ObservableValue<Types.PeekId?>
+
+export type ObservableShortcutBar = utils.ObservableValue<Types.ShortcutBarId?>
 
 export type ObservableDragConnection = utils.ObservableValue<{ current: RBXScriptConnection? }?>
 type DragConnectionObjectType = any
@@ -171,6 +161,21 @@ export type ChromeService = {
 	_peekId: ObservablePeekId,
 	_peekService: PeekService.PeekService,
 
+	registerShortcut: (ChromeService, shortcutProps: Types.ShortcutRegisterProps) -> (),
+	activateShortcut: (ChromeService, shortcutId: Types.ShortcutId) -> (),
+	configureShortcutBar: (ChromeService, shortcutBarId: Types.ShortcutBarId, config: Types.ShortcutBarProps) -> (),
+	setShortcutBar: (ChromeService, shortcutBarId: Types.ShortcutBarId?) -> (),
+	getCurrentShortcutBar: (ChromeService) -> ObservableShortcutBar,
+	getShortcutsFromBar: (ChromeService, shortcutBarId: Types.ShortcutBarId?) -> Types.ShortcutBarItems,
+	getCurrentShortcuts: (ChromeService) -> Types.ShortcutBarItems,
+	onShortcutBarChanged: (ChromeService) -> SignalLib.Signal,
+
+	_currentShortcutBar: ObservableShortcutBar,
+	_shortcutService: ShortcutService.ShortcutService,
+
+	selectMenuIcon: (ChromeService) -> (),
+	onTriggerMenuIcon: (ChromeService) -> SignalLib.Signal,
+
 	onIntegrationRegistered: (ChromeService) -> SignalLib.Signal,
 	onIntegrationActivated: (ChromeService) -> SignalLib.Signal,
 	onIntegrationStatusChanged: (ChromeService) -> SignalLib.Signal,
@@ -213,6 +218,8 @@ export type ChromeService = {
 	_onIntegrationStatusChanged: SignalLib.Signal,
 	_onIntegrationHovered: SignalLib.Signal,
 
+	_triggerMenuIcon: SignalLib.Signal,
+
 	_localization: any,
 	_localizedLabelKeys: {
 		[Types.IntegrationId]: { label: string?, secondaryActionLabel: string? },
@@ -241,6 +248,7 @@ function ChromeService.new(): ChromeService
 	local localeId = LocalizationService.RobloxLocaleId
 	local self = {}
 	self._peekService = if GetFFlagChromePeekArchitecture() then PeekService.new() else nil :: never
+	self._shortcutService = if FFlagEnableChromeShortcutBar then ShortcutService.new() else nil :: never
 
 	self._layout = utils.ObservableValue.new(createUnibarLayoutInfo(Vector2.zero, Vector2.zero))
 	self._menuAbsolutePosition = Vector2.zero
@@ -265,10 +273,11 @@ function ChromeService.new(): ChromeService
 	self._totalNotifications = NotifySignal.new(true)
 	self._mostRecentlyUsedFullRecord = {}
 	self._mostRecentlyUsed = {}
-	self._userPins = if GetFFlagEnableSaveUserPins() then getUserPinStartingState() else {}
-	self._mostRecentlyUsedAndPinnedLimit = if GetFFlagEnableUserPinPortraitFix() then -1 else 1
+	self._userPins = {}
+	self._mostRecentlyUsedAndPinnedLimit = -1
 	self._localization = Localization.new(localeId)
 	self._localizedLabelKeys = {}
+	self._currentShortcutBar = ObservableValue.new(nil)
 
 	self._notificationIndicator = ObservableValue.new(nil)
 	self._orderAlignment = ObservableValue.new(Enum.HorizontalAlignment.Left)
@@ -277,20 +286,11 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationActivated = Signal.new()
 	self._onIntegrationStatusChanged = Signal.new()
 	self._onIntegrationHovered = Signal.new()
+	self._triggerMenuIcon = Signal.new()
 
 	self._inFocusNav = ObservableValue.new(false)
 
 	local service = (setmetatable(self, ChromeService) :: any) :: ChromeService
-
-	if not GetFFlagRefactorChromeAssert() then
-		if GetFFlagFixChromeReferences() then
-			--[[ If you're hitting this assert, try the following:
-				local Chrome = RobloxGui.Modules.Chrome
-				local ChromeEnabled = require(Chrome.Enabled)
-				local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil ]]
-			assert(ChromeEnabled(), "ChromeService should not be initialized when Chrome is not enabled")
-		end
-	end
 
 	-- todo: Consider moving this outside of ChromeService to reduce dependency on Roblox instances
 	ViewportUtil.viewport:connect(function(viewportInfo: ViewportUtil.ViewportInfo)
@@ -313,6 +313,12 @@ function ChromeService.new(): ChromeService
 
 		self._peekService.onPeekHidden:connect(function()
 			service._peekId:set(nil)
+		end)
+	end
+
+	if FFlagEnableChromeShortcutBar then
+		self._shortcutService.onShortcutBarChanged:connect(function(shortcutBarId: Types.ShortcutBarId)
+			service._currentShortcutBar:set(shortcutBarId)
 		end)
 	end
 
@@ -392,20 +398,6 @@ function ChromeService:rebuildMostRecentlyUsed()
 	self:updateNotificationTotals()
 end
 
-function getUserPinStartingState()
-	if GetFFlagEnableSaveUserPins() then
-		local defaultPins = {}
-		for defaultPin in DEFAULT_PINS:gmatch("([^,]+),?") do
-			table.insert(defaultPins, defaultPin)
-		end
-
-		local pinnedComponents = LocalStore.loadForLocalPlayer(CHROME_PINNED_KEY) or defaultPins
-		return pinnedComponents
-	end
-
-	return nil
-end
-
 function ChromeService:rebuildUserPins()
 	if GetFFlagEnableChromePinIntegrations() and self._mostRecentlyUsedAndPinnedLimit < #self._userPins then
 		local newUserPins = {}
@@ -419,9 +411,6 @@ function ChromeService:rebuildUserPins()
 		)
 
 		self._userPins = newUserPins
-		if GetFFlagEnableSaveUserPins() then
-			LocalStore.storeForLocalPlayer(CHROME_PINNED_KEY, self._userPins)
-		end
 
 		self:updateMenuList()
 		self:updateNotificationTotals()
@@ -474,6 +463,10 @@ end
 function ChromeService:enableFocusNav()
 	if not self._inFocusNav:get() then
 		self._inFocusNav:set(true)
+	end
+
+	if FFlagEnableChromeShortcutBar then
+		self:setShortcutBar(Constants.UNIBAR_SHORTCUTBAR_ID)
 	end
 end
 
@@ -637,28 +630,16 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 		self._onIntegrationStatusChanged:fire(component.id, self._integrationsStatus[component.id])
 	end
 
-	if GetFFlagChromeDefaultWindowStartingPosition() then
-		if GetFFlagChromeTrackWindowPosition() then
-			local windowPos = UDim2.fromOffset(Constants.MENU_ICON_SCREEN_SIDE_OFFSET, Constants.WINDOW_DEFAULT_PADDING)
-			if component.startingWindowPosition then
-				if component.persistWindowState then
-					windowPos = self:getWindowPositionFromStore(component.id) or component.startingWindowPosition
-				else
-					windowPos = component.startingWindowPosition
-				end
-			end
-			self._windowPositions[component.id] = windowPos
-		end
-	else
-		if GetFFlagChromeTrackWindowPosition() and component.startingWindowPosition then
-			local windowPos
+	if GetFFlagChromeTrackWindowPosition() then
+		local windowPos = UDim2.fromOffset(Constants.MENU_ICON_SCREEN_SIDE_OFFSET, Constants.WINDOW_DEFAULT_PADDING)
+		if component.startingWindowPosition then
 			if component.persistWindowState then
 				windowPos = self:getWindowPositionFromStore(component.id) or component.startingWindowPosition
 			else
 				windowPos = component.startingWindowPosition
 			end
-			self._windowPositions[component.id] = windowPos
 		end
+		self._windowPositions[component.id] = windowPos
 	end
 
 	-- Add a containerWidthSlots signal for integrations with containers if missing
@@ -1068,6 +1049,53 @@ if GetFFlagChromePeekArchitecture() then
 	end
 end
 
+if FFlagEnableChromeShortcutBar then
+	function ChromeService:registerShortcut(shortcutProps: Types.ShortcutRegisterProps)
+		self._shortcutService:registerShortcut(shortcutProps)
+	end
+
+	function ChromeService:activateShortcut(shortcutId: Types.ShortcutId)
+		local shortcut = self._shortcutService:getShortcut(shortcutId)
+		if shortcut.integration and not shortcut.activated then
+			self:activate(shortcut.integration)
+		else
+			self._shortcutService:activateShortcut(shortcutId)
+		end
+	end
+
+	function ChromeService:configureShortcutBar(shortcutBarId: Types.ShortcutBarId, config: Types.ShortcutBarProps)
+		self._shortcutService:configureShortcutBar(shortcutBarId, config)
+	end
+
+	function ChromeService:setShortcutBar(shortcutBarId: Types.ShortcutBarId?)
+		self._shortcutService:setShortcutBar(shortcutBarId)
+	end
+
+	function ChromeService:getCurrentShortcutBar()
+		return self._currentShortcutBar
+	end
+
+	function ChromeService:getShortcutsFromBar(shortcutBarId: Types.ShortcutBarId?)
+		return self._shortcutService:getShortcutsFromBar(shortcutBarId, self._integrations)
+	end
+
+	function ChromeService:getCurrentShortcuts()
+		return self:getShortcutsFromBar(self._currentShortcutBar:get())
+	end
+
+	function ChromeService:onShortcutBarChanged()
+		return self._shortcutService.onShortcutBarChanged
+	end
+
+	function ChromeService:selectMenuIcon()
+		self._triggerMenuIcon:fire()
+	end
+
+	function ChromeService:onTriggerMenuIcon()
+		return self._triggerMenuIcon
+	end
+end
+
 function ChromeService:getCurrentUtility()
 	return self._currentCompactUtility
 end
@@ -1147,10 +1175,6 @@ function ChromeService:removeUserPin(componentId: Types.IntegrationId)
 		table.remove(self._userPins, idx)
 	end
 
-	if GetFFlagEnableSaveUserPins() then
-		LocalStore.storeForLocalPlayer(CHROME_PINNED_KEY, self._userPins)
-	end
-
 	self:updateMenuList()
 	self:updateNotificationTotals()
 end
@@ -1162,11 +1186,6 @@ function ChromeService:setUserPin(componentId: Types.IntegrationId, force: boole
 		and GetFFlagEnableChromePinIntegrations()
 	then
 		table.insert(self._userPins, componentId)
-
-		-- Storing user pins in local store is unbound, but the max number of pins displayed is limited
-		if GetFFlagEnableSaveUserPins() then
-			LocalStore.storeForLocalPlayer(CHROME_PINNED_KEY, self._userPins)
-		end
 
 		self:removeRecentlyUsed(componentId)
 	end

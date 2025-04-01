@@ -223,16 +223,10 @@ PROTO_9:
 PROTO_10:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Success"]
-  JUMPIFNOTEQ R2 R3 [+13]
+  JUMPIFNOTEQ R2 R3 [+5]
   GETUPVAL R3 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K1 ["AnnotationsVisible"]
-  SETTABLEKS R4 R3 K2 ["Enabled"]
-  GETUPVAL R3 1
-  LOADK R5 K3 ["IsDraft"]
-  LOADNIL R6
-  NAMECALL R3 R3 K4 ["SetAttribute"]
-  CALL R3 3 0
+  NAMECALL R3 R3 K1 ["Destroy"]
+  CALL R3 1 0
   RETURN R0 0
 
 PROTO_11:
@@ -306,45 +300,46 @@ PROTO_12:
   LOADK R6 K30 ["IsDraft"]
   NAMECALL R4 R0 K31 ["GetAttribute"]
   CALL R4 2 1
-  JUMPIFNOT R4 [+18]
+  JUMPIFNOT R4 [+20]
+  LOADK R4 K32 ["Draft"]
+  SETTABLEKS R4 R3 K17 ["Name"]
   LOADB R4 1
-  SETTABLEKS R4 R3 K32 ["Enabled"]
+  SETTABLEKS R4 R3 K33 ["Enabled"]
   LOADK R6 K30 ["IsDraft"]
   LOADB R7 1
-  NAMECALL R4 R3 K33 ["SetAttribute"]
+  NAMECALL R4 R3 K34 ["SetAttribute"]
   CALL R4 3 0
-  GETTABLEKS R4 R0 K34 ["RequestCompleted"]
+  GETTABLEKS R4 R0 K35 ["RequestCompleted"]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U1
   CAPTURE VAL R3
-  CAPTURE UPVAL U2
-  NAMECALL R4 R4 K35 ["Once"]
+  NAMECALL R4 R4 K36 ["Once"]
   CALL R4 2 0
   JUMP [+5]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K36 ["AnnotationsVisible"]
-  SETTABLEKS R4 R3 K32 ["Enabled"]
-  GETTABLEKS R4 R0 K37 ["Destroying"]
+  GETTABLEKS R4 R5 K37 ["AnnotationsVisible"]
+  SETTABLEKS R4 R3 K33 ["Enabled"]
+  GETTABLEKS R4 R0 K38 ["Destroying"]
   NEWCLOSURE R6 P1
   CAPTURE VAL R3
-  NAMECALL R4 R4 K38 ["Connect"]
+  NAMECALL R4 R4 K39 ["Connect"]
   CALL R4 2 0
   GETIMPORT R4 K15 [Instance.new]
-  LOADK R5 K39 ["ImageButton"]
+  LOADK R5 K40 ["ImageButton"]
   MOVE R6 R3
   CALL R4 2 1
-  LOADK R5 K40 ["Indicator"]
+  LOADK R5 K41 ["Indicator"]
   SETTABLEKS R5 R4 K17 ["Name"]
   JUMPIFNOT R2 [+2]
-  LOADK R5 K41 ["rbxasset://textures/PlaceAnnotations/AnnotationSingle.png"]
+  LOADK R5 K42 ["rbxasset://textures/PlaceAnnotations/AnnotationSingle.png"]
   JUMP [+1]
-  LOADK R5 K42 ["rbxasset://textures/PlaceAnnotations/AnnotationMulti.png"]
-  SETTABLEKS R5 R4 K43 ["Image"]
+  LOADK R5 K43 ["rbxasset://textures/PlaceAnnotations/AnnotationMulti.png"]
+  SETTABLEKS R5 R4 K44 ["Image"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K44 ["BorderSizePixel"]
+  SETTABLEKS R5 R4 K45 ["BorderSizePixel"]
   LOADN R5 1
-  SETTABLEKS R5 R4 K45 ["BackgroundTransparency"]
-  GETIMPORT R5 K47 [UDim2.fromScale]
+  SETTABLEKS R5 R4 K46 ["BackgroundTransparency"]
+  GETIMPORT R5 K48 [UDim2.fromScale]
   LOADN R6 1
   LOADN R7 1
   CALL R5 2 1
@@ -353,14 +348,14 @@ PROTO_12:
   LOADN R6 0
   LOADN R7 1
   CALL R5 2 1
-  SETTABLEKS R5 R4 K48 ["AnchorPoint"]
-  GETIMPORT R5 K47 [UDim2.fromScale]
+  SETTABLEKS R5 R4 K49 ["AnchorPoint"]
+  GETIMPORT R5 K48 [UDim2.fromScale]
   LOADN R6 0
   LOADN R7 1
   CALL R5 2 1
-  SETTABLEKS R5 R4 K49 ["Position"]
+  SETTABLEKS R5 R4 K50 ["Position"]
   GETIMPORT R5 K15 [Instance.new]
-  LOADK R6 K50 ["UISizeConstraint"]
+  LOADK R6 K51 ["UISizeConstraint"]
   MOVE R7 R4
   CALL R5 2 1
   JUMPIFNOT R2 [+15]
@@ -368,51 +363,51 @@ PROTO_12:
   GETUPVAL R7 3
   GETUPVAL R8 3
   CALL R6 2 1
-  SETTABLEKS R6 R5 K51 ["MaxSize"]
+  SETTABLEKS R6 R5 K52 ["MaxSize"]
   GETIMPORT R6 K25 [Vector2.new]
   GETUPVAL R7 0
   GETUPVAL R8 0
   CALL R6 2 1
-  SETTABLEKS R6 R5 K52 ["MinSize"]
+  SETTABLEKS R6 R5 K53 ["MinSize"]
   JUMP [+16]
   GETIMPORT R6 K25 [Vector2.new]
   GETUPVAL R8 3
   MULK R7 R8 K22 [1.5]
   GETUPVAL R8 3
   CALL R6 2 1
-  SETTABLEKS R6 R5 K51 ["MaxSize"]
+  SETTABLEKS R6 R5 K52 ["MaxSize"]
   GETIMPORT R6 K25 [Vector2.new]
   GETUPVAL R8 0
   MULK R7 R8 K22 [1.5]
   GETUPVAL R8 0
   CALL R6 2 1
-  SETTABLEKS R6 R5 K52 ["MinSize"]
+  SETTABLEKS R6 R5 K53 ["MinSize"]
   GETIMPORT R6 K15 [Instance.new]
-  LOADK R7 K53 ["ImageLabel"]
+  LOADK R7 K54 ["ImageLabel"]
   MOVE R8 R4
   CALL R6 2 1
-  LOADK R7 K54 ["Highlight"]
+  LOADK R7 K55 ["Highlight"]
   SETTABLEKS R7 R6 K17 ["Name"]
   JUMPIFNOT R2 [+2]
-  LOADK R7 K55 ["rbxasset://textures/PlaceAnnotations/AnnotationSingleHighlight.png"]
+  LOADK R7 K56 ["rbxasset://textures/PlaceAnnotations/AnnotationSingleHighlight.png"]
   JUMP [+1]
-  LOADK R7 K56 ["rbxasset://textures/PlaceAnnotations/AnnotationMultiHighlight.png"]
-  SETTABLEKS R7 R6 K43 ["Image"]
+  LOADK R7 K57 ["rbxasset://textures/PlaceAnnotations/AnnotationMultiHighlight.png"]
+  SETTABLEKS R7 R6 K44 ["Image"]
   LOADN R7 0
-  SETTABLEKS R7 R6 K44 ["BorderSizePixel"]
+  SETTABLEKS R7 R6 K45 ["BorderSizePixel"]
   LOADN R7 1
-  SETTABLEKS R7 R6 K45 ["BackgroundTransparency"]
-  GETIMPORT R7 K47 [UDim2.fromScale]
+  SETTABLEKS R7 R6 K46 ["BackgroundTransparency"]
+  GETIMPORT R7 K48 [UDim2.fromScale]
   LOADN R8 1
   LOADN R9 1
   CALL R7 2 1
   SETTABLEKS R7 R6 K23 ["Size"]
-  GETIMPORT R7 K59 [Color3.fromHex]
-  LOADK R8 K60 ["#2BB1FF"]
+  GETIMPORT R7 K60 [Color3.fromHex]
+  LOADK R8 K61 ["#2BB1FF"]
   CALL R7 1 1
-  SETTABLEKS R7 R6 K61 ["ImageColor3"]
+  SETTABLEKS R7 R6 K62 ["ImageColor3"]
   LOADB R7 0
-  SETTABLEKS R7 R6 K62 ["Visible"]
+  SETTABLEKS R7 R6 K63 ["Visible"]
   GETUPVAL R7 4
   MOVE R8 R0
   CALL R7 1 1

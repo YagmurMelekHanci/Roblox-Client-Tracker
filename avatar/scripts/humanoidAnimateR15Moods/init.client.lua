@@ -373,24 +373,23 @@ local function setRunSpeed(speed)
 
 	local walkAnimationWeight = smallButNotZero
 	local runAnimationWeight = smallButNotZero
-	local walkAnimationTimewarp = runSpeed/normalizedWalkSpeed
-	local runAnimationTimerwarp = runSpeed/normalizedRunSpeed
+	local timeWarp = 1
 
 	if runSpeed <= normalizedWalkSpeed then
 		walkAnimationWeight = 1
+		timeWarp = runSpeed/normalizedWalkSpeed
 	elseif runSpeed < normalizedRunSpeed then
 		local fadeInRun = (runSpeed - normalizedWalkSpeed)/(normalizedRunSpeed - normalizedWalkSpeed)
 		walkAnimationWeight = 1 - fadeInRun
 		runAnimationWeight  = fadeInRun
-		walkAnimationTimewarp = 1
-		runAnimationTimerwarp = 1
 	else
+		timeWarp = runSpeed/normalizedRunSpeed
 		runAnimationWeight = 1
 	end
 	currentAnimTrack:AdjustWeight(walkAnimationWeight)
 	runAnimTrack:AdjustWeight(runAnimationWeight)
-	currentAnimTrack:AdjustSpeed(walkAnimationTimewarp)
-	runAnimTrack:AdjustSpeed(runAnimationTimerwarp)
+	currentAnimTrack:AdjustSpeed(timeWarp)
+	runAnimTrack:AdjustSpeed(timeWarp)
 end
 
 function setAnimationSpeed(speed)

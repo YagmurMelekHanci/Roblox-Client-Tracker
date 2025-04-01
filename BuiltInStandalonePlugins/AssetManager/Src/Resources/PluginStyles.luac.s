@@ -12,7 +12,7 @@ MAIN:
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
   GETTABLEKS R4 R1 K8 ["Styling"]
   GETTABLEKS R3 R4 K10 ["createStyleSheet"]
-  NEWTABLE R4 0 3
+  NEWTABLE R4 0 5
   MOVE R5 R2
   LOADK R6 K11 ["ImageLabel"]
   NEWTABLE R7 0 0
@@ -228,33 +228,57 @@ MAIN:
   LOADN R14 42
   CALL R10 4 1
   SETTABLEKS R10 R9 K64 ["Size"]
-  CALL R7 2 -1
+  CALL R7 2 1
+  MOVE R8 R2
+  LOADK R9 K96 [".FillMinusDragX"]
+  DUPTABLE R10 K85 [{"Size"}]
+  GETIMPORT R11 K95 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 251
+  LOADN R14 1
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K64 ["Size"]
+  CALL R8 2 1
+  MOVE R9 R2
+  LOADK R10 K97 [".FitYPlusDragX"]
+  DUPTABLE R11 K99 [{"Size", "AutomaticSize"}]
+  GETIMPORT R12 K95 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 5
+  LOADN R15 0
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K64 ["Size"]
+  GETIMPORT R12 K101 [Enum.AutomaticSize.Y]
+  SETTABLEKS R12 R11 K98 ["AutomaticSize"]
+  CALL R9 2 -1
   SETLIST R4 R5 -1 [1]
-  DUPTABLE R5 K101 [{"HeaderButtonSize", "PaddingSmall", "Padding", "SearchFilterSize", "IconDisabled"}]
+  DUPTABLE R5 K107 [{"HeaderButtonSize", "PaddingSmall", "Padding", "SearchFilterSize", "IconDisabled"}]
   GETIMPORT R6 K75 [UDim2.fromOffset]
   LOADN R7 26
   LOADN R8 26
   CALL R6 2 1
-  SETTABLEKS R6 R5 K96 ["HeaderButtonSize"]
+  SETTABLEKS R6 R5 K102 ["HeaderButtonSize"]
   GETIMPORT R6 K82 [UDim.new]
   LOADN R7 0
   LOADN R8 5
   CALL R6 2 1
-  SETTABLEKS R6 R5 K97 ["PaddingSmall"]
+  SETTABLEKS R6 R5 K103 ["PaddingSmall"]
   GETIMPORT R6 K82 [UDim.new]
   LOADN R7 0
   LOADN R8 10
   CALL R6 2 1
-  SETTABLEKS R6 R5 K98 ["Padding"]
+  SETTABLEKS R6 R5 K104 ["Padding"]
   GETIMPORT R6 K95 [UDim2.new]
   LOADN R7 1
   LOADN R8 5
   LOADN R9 0
   LOADN R10 30
   CALL R6 4 1
-  SETTABLEKS R6 R5 K99 ["SearchFilterSize"]
-  LOADK R6 K102 [0.62]
-  SETTABLEKS R6 R5 K100 ["IconDisabled"]
+  SETTABLEKS R6 R5 K105 ["SearchFilterSize"]
+  LOADK R6 K108 [0.62]
+  SETTABLEKS R6 R5 K106 ["IconDisabled"]
   MOVE R6 R3
   LOADK R7 K2 ["AssetManager"]
   MOVE R8 R4

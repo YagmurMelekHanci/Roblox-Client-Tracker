@@ -348,7 +348,7 @@ MAIN:
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K31 ["Src"]
   GETTABLEKS R12 R13 K46 ["Mocks"]
-  GETTABLEKS R11 R12 K47 ["MockStreamingService"]
+  GETTABLEKS R11 R12 K47 ["MockChangeHistoryService"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K31 ["Src"]
@@ -360,74 +360,75 @@ MAIN:
   GETTABLEKS R14 R15 K46 ["Mocks"]
   GETTABLEKS R13 R14 K49 ["MockMaterialGenerationService"]
   CALL R12 1 1
-  NEWTABLE R14 0 0
-  FASTCALL2 SETMETATABLE R14 R7 [+4]
-  MOVE R15 R7
-  GETIMPORT R13 K51 [setmetatable]
-  CALL R13 2 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K31 ["Src"]
+  GETTABLEKS R15 R16 K46 ["Mocks"]
+  GETTABLEKS R14 R15 K50 ["MockStreamingService"]
+  CALL R13 1 1
   NEWTABLE R15 0 0
   FASTCALL2 SETMETATABLE R15 R7 [+4]
   MOVE R16 R7
-  GETIMPORT R14 K51 [setmetatable]
+  GETIMPORT R14 K52 [setmetatable]
   CALL R14 2 1
   NEWTABLE R16 0 0
   FASTCALL2 SETMETATABLE R16 R7 [+4]
   MOVE R17 R7
-  GETIMPORT R15 K51 [setmetatable]
+  GETIMPORT R15 K52 [setmetatable]
   CALL R15 2 1
   NEWTABLE R17 0 0
   FASTCALL2 SETMETATABLE R17 R7 [+4]
   MOVE R18 R7
-  GETIMPORT R16 K51 [setmetatable]
+  GETIMPORT R16 K52 [setmetatable]
   CALL R16 2 1
   NEWTABLE R18 0 0
   FASTCALL2 SETMETATABLE R18 R7 [+4]
   MOVE R19 R7
-  GETIMPORT R17 K51 [setmetatable]
+  GETIMPORT R17 K52 [setmetatable]
   CALL R17 2 1
   NEWTABLE R19 0 0
   FASTCALL2 SETMETATABLE R19 R7 [+4]
   MOVE R20 R7
-  GETIMPORT R18 K51 [setmetatable]
+  GETIMPORT R18 K52 [setmetatable]
   CALL R18 2 1
-  GETIMPORT R19 K5 [require]
-  GETTABLEKS R22 R0 K31 ["Src"]
-  GETTABLEKS R21 R22 K46 ["Mocks"]
-  GETTABLEKS R20 R21 K52 ["MockChangeHistoryService"]
-  CALL R19 1 1
+  NEWTABLE R20 0 0
+  FASTCALL2 SETMETATABLE R20 R7 [+4]
+  MOVE R21 R7
+  GETIMPORT R19 K52 [setmetatable]
+  CALL R19 2 1
   NEWTABLE R21 0 0
   FASTCALL2 SETMETATABLE R21 R7 [+4]
   MOVE R22 R7
-  GETIMPORT R20 K51 [setmetatable]
+  GETIMPORT R20 K52 [setmetatable]
   CALL R20 2 1
   GETTABLEKS R21 R2 K13 ["Globals"]
   NEWTABLE R23 0 0
   FASTCALL2 SETMETATABLE R23 R7 [+4]
   MOVE R24 R7
-  GETIMPORT R22 K51 [setmetatable]
+  GETIMPORT R22 K52 [setmetatable]
   CALL R22 2 1
   SETTABLEKS R22 R21 K10 ["game"]
   DUPTABLE R21 K54 [{"UpdateSourceAsync"}]
   DUPCLOSURE R22 K55 [PROTO_16]
   SETTABLEKS R22 R21 K53 ["UpdateSourceAsync"]
   DUPTABLE R22 K70 [{"StreamingService", "ChatbotUIService", "MarketplaceService", "ConversationalAIAcceptanceService", "MaterialGenerationService", "MemStorageService", "StudioAssetService", "ScriptEditorService", "PublishService", "RunService", "ChangeHistoryService", "InsertService", "GenerationService", "AssetService"}]
-  GETTABLEKS R23 R10 K19 ["new"]
-  CALL R23 0 1
+  GETTABLEKS R23 R13 K19 ["new"]
+  MOVE R24 R2
+  CALL R23 1 1
   SETTABLEKS R23 R22 K56 ["StreamingService"]
   GETTABLEKS R23 R11 K19 ["new"]
   CALL R23 0 1
   SETTABLEKS R23 R22 K57 ["ChatbotUIService"]
-  SETTABLEKS R13 R22 K58 ["MarketplaceService"]
-  SETTABLEKS R15 R22 K59 ["ConversationalAIAcceptanceService"]
+  SETTABLEKS R14 R22 K58 ["MarketplaceService"]
+  SETTABLEKS R16 R22 K59 ["ConversationalAIAcceptanceService"]
   GETTABLEKS R23 R12 K19 ["new"]
   CALL R23 0 1
   SETTABLEKS R23 R22 K60 ["MaterialGenerationService"]
-  SETTABLEKS R14 R22 K61 ["MemStorageService"]
-  SETTABLEKS R16 R22 K62 ["StudioAssetService"]
+  SETTABLEKS R15 R22 K61 ["MemStorageService"]
+  SETTABLEKS R17 R22 K62 ["StudioAssetService"]
   SETTABLEKS R21 R22 K63 ["ScriptEditorService"]
-  SETTABLEKS R17 R22 K64 ["PublishService"]
-  SETTABLEKS R18 R22 K65 ["RunService"]
-  GETTABLEKS R23 R19 K19 ["new"]
+  SETTABLEKS R18 R22 K64 ["PublishService"]
+  SETTABLEKS R19 R22 K65 ["RunService"]
+  GETTABLEKS R23 R10 K19 ["new"]
   CALL R23 0 1
   SETTABLEKS R23 R22 K66 ["ChangeHistoryService"]
   GETTABLEKS R23 R8 K19 ["new"]
@@ -474,7 +475,7 @@ MAIN:
   NEWTABLE R25 0 0
   FASTCALL2 SETMETATABLE R25 R7 [+4]
   MOVE R26 R7
-  GETIMPORT R24 K51 [setmetatable]
+  GETIMPORT R24 K52 [setmetatable]
   CALL R24 2 1
   SETTABLEKS R24 R23 K74 ["MaterialGenerator"]
   DUPCLOSURE R24 K76 [PROTO_20]

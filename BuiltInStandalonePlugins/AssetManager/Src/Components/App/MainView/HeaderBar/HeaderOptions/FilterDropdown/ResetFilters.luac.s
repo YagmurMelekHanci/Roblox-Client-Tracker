@@ -61,7 +61,7 @@ PROTO_2:
   SETTABLE R11 R9 R10
   GETUPVAL R11 4
   GETTABLEKS R10 R11 K18 ["Tag"]
-  LOADK R11 K19 ["FlyoutItem Main"]
+  LOADK R11 K19 ["FlyoutItem Secondary"]
   SETTABLE R11 R9 R10
   DUPTABLE R10 K22 [{"Separator", "Contents"}]
   GETUPVAL R12 4

@@ -99,7 +99,7 @@ MAIN:
   GETIMPORT R10 K18 [plugin]
   GETTABLEKS R9 R10 K19 ["Unloading"]
   MOVE R11 R8
-  NAMECALL R9 R9 K20 ["connect"]
+  NAMECALL R9 R9 K20 ["Connect"]
   CALL R9 2 0
   MOVE R9 R7
   CALL R9 0 0

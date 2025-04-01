@@ -95,6 +95,12 @@ return {
 	UNIBAR_KEEP_OUT_AREA_ID = "unibar",
 	SELFIE_VIEW_ID = "selfie_view",
 
+	UNIBAR_SHORTCUTBAR_ID = "unibarShortcuts",
+	TILTMENU_SHORTCUTBAR_ID = "tiltMenuShortcuts",
+	TILTMENU_DIALOG_SHORTCUTBAR_ID = "tiltMenuDialogShortcuts",
+
+	SHORTCUTBAR_DISPLAYORDER = 100,
+
 	-- WindowHost constants
 	WINDOW_HOST_GUI_NAME = "WindowHost",
 	CLOSE_BUTTON_FRAME = if FFlagAdaptUnibarAndTiltSizing

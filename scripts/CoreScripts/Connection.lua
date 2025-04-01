@@ -38,7 +38,6 @@ local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagC
 
 local FFlagCreatorBanLocalization = require(RobloxGui.Modules.Flags.FFlagCreatorBanLocalization)
 local FFlagErrorStringRefactor = game:DefineFastFlag("ErrorStringRefactor", false)
-local FFlagDisableReconnectsForAndroidKicks = game:DefineFastFlag("DisableReconnectsForAndroidKicks", false)
 
 local FFlagAllowDisconnectGuiForOkUnknown = require(RobloxGui.Modules.Flags.FFlagAllowDisconnectGuiForOkUnknown)
 
@@ -250,17 +249,14 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.PlacelaunchRestricted] = true,
 	[Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized] = true,
 	[Enum.ConnectionError.PlacelaunchCreatorBan] = true,
+	[Enum.ConnectionError.AndroidAnticheatKick] = true,
+	[Enum.ConnectionError.AndroidEmulatorKick] = true,
 }
 -- When removing engine feature CoreGuiOverflowDetection, move this into the above list.
 if coreGuiOverflowDetection then
 	-- Older versions of the engine don't have this variant, using subscript
 	-- syntax instead avoids a possible type error.
 	reconnectDisabledList[Enum.ConnectionError["DisconnectClientFailure"]] = true
-end
-
-if FFlagDisableReconnectsForAndroidKicks then
-	reconnectDisabledList[Enum.ConnectionError['AndroidAnticheatKick']] = true
-	reconnectDisabledList[Enum.ConnectionError['AndroidEmulatorKick']] = true
 end
 
 local ButtonList = {

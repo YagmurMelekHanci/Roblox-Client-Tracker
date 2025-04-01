@@ -67,7 +67,7 @@ PROTO_2:
   JUMPIF R3 [+1]
   RETURN R0 0
   GETTABLEKS R4 R1 K4 ["PreviewInstance"]
-  JUMPIFNOT R4 [+20]
+  JUMPIFNOT R4 [+28]
   GETTABLEKS R4 R1 K4 ["PreviewInstance"]
   SETTABLEKS R3 R4 K5 ["Parent"]
   GETIMPORT R4 K8 [Instance.new]
@@ -80,10 +80,15 @@ PROTO_2:
   NAMECALL R5 R5 K12 ["FindFirstAncestorWhichIsA"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K11 ["StyleSheet"]
-  GETTABLEKS R4 R2 K13 ["overrideSize"]
+  GETTABLEKS R5 R1 K13 ["OnPreviewInstanceChanged"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R5 R1 K13 ["OnPreviewInstanceChanged"]
+  GETTABLEKS R6 R1 K4 ["PreviewInstance"]
+  CALL R5 1 0
+  GETTABLEKS R4 R2 K14 ["overrideSize"]
   JUMPIFNOTEQKNIL R4 [+5]
-  LOADK R6 K14 ["Size"]
-  NAMECALL R4 R3 K15 ["ResetPropertyToDefault"]
+  LOADK R6 K15 ["Size"]
+  NAMECALL R4 R3 K16 ["ResetPropertyToDefault"]
   CALL R4 2 0
   RETURN R0 0
 

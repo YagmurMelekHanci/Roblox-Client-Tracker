@@ -70,7 +70,7 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R6
   GETIMPORT R9 K21 [game]
-  LOADK R11 K22 ["TestingControlsBeta"]
+  LOADK R11 K22 ["TestingControlsOptOut"]
   NAMECALL R9 R9 K23 ["GetFastFlag"]
   CALL R9 2 1
   GETIMPORT R10 K5 [require]
@@ -123,6 +123,7 @@ MAIN:
   SETLIST R15 R16 6 [1]
   SETTABLEKS R15 R14 K28 ["Values"]
   SETTABLE R14 R12 R13
+  JUMPIF R9 [+89]
   MOVE R13 R8
   LOADK R14 K25 ["RunTools"]
   LOADK R15 K46 ["RunMode"]
@@ -184,7 +185,6 @@ MAIN:
   SETLIST R15 R16 5 [1]
   SETTABLEKS R15 R14 K28 ["Values"]
   SETTABLE R14 R12 R13
-  JUMPIF R9 [+9]
   MOVE R13 R7
   LOADK R14 K25 ["RunTools"]
   LOADK R15 K42 ["ServerAndClients"]
@@ -1598,7 +1598,7 @@ MAIN:
   SETTABLEKS R19 R18 K54 ["Icon"]
   SETTABLE R18 R12 R17
   MOVE R17 R7
-  LOADK R18 K22 ["TestingControlsBeta"]
+  LOADK R18 K22 ["TestingControlsOptOut"]
   LOADK R19 K84 ["Toggle"]
   CALL R17 2 1
   DUPTABLE R18 K55 [{"Icon"}]

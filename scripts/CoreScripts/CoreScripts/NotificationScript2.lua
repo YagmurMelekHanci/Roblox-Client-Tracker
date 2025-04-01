@@ -44,6 +44,7 @@ local GetFFlagClientToastNotificationsRedirect =
 local GetFFlagFriendshipNotifsUseSendr = require(RobloxGui.Modules.Flags.GetFFlagFriendshipNotifsUseSendr)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
+local FFlagFixOnBadgeAwardedError = game:DefineFastFlag("FixOnBadgeAwardedError", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -967,6 +968,11 @@ local function onBadgeAwarded(userId, creatorId, badgeId)
 			return
 		end -- could not get info from network
 
+		if FFlagFixOnBadgeAwardedError then
+			if creatorName == nil then
+				creatorName = ""
+			end
+		end
 		local badgeAwardText = RobloxTranslator:FormatByKey(
 			"NotificationScript2.onBadgeAwardedDetail",
 			{ RBX_NAME = LocalPlayer.Name, CREATOR_NAME = creatorName, BADGE_NAME = badgeInfo.DisplayName }

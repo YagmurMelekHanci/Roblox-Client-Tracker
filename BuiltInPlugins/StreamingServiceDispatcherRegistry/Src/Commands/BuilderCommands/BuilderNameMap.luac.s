@@ -333,10 +333,10 @@ MAIN:
   LOADK R3 K10 ["ChangeHistoryService"]
   CALL R2 1 1
   GETTABLEKS R3 R1 K9 ["GetService"]
-  LOADK R4 K11 ["StreamingService"]
+  LOADK R4 K11 ["ConversationalAIAcceptanceService"]
   CALL R3 1 1
   GETTABLEKS R4 R1 K9 ["GetService"]
-  LOADK R5 K12 ["ConversationalAIAcceptanceService"]
+  LOADK R5 K12 ["StreamingService"]
   CALL R4 1 1
   DUPTABLE R5 K26 [{"assetCacheMap", "g2g", "guid2instance", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata", "activeDraftGuids", "draftModeModels", "cachedAssetAttributionInfo", "recordingActionNumber", "requestToRecordName"}]
   NEWTABLE R6 0 0
@@ -368,7 +368,7 @@ MAIN:
   NEWTABLE R6 0 0
   NEWTABLE R7 0 0
   DUPCLOSURE R8 K27 [PROTO_0]
-  CAPTURE VAL R3
+  CAPTURE VAL R4
   CAPTURE VAL R6
   SETTABLEKS R8 R5 K28 ["get"]
   DUPCLOSURE R8 K29 [PROTO_1]
@@ -386,7 +386,7 @@ MAIN:
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE REF R8
-  CAPTURE VAL R4
+  CAPTURE VAL R3
   SETTABLEKS R10 R5 K32 ["EndRecordingActions"]
   DUPCLOSURE R10 K33 [PROTO_4]
   CAPTURE VAL R5

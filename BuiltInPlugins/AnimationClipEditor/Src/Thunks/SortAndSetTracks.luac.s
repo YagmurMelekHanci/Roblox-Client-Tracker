@@ -161,7 +161,7 @@ PROTO_6:
   MOVE R5 R8
   JUMP [+27]
   GETTABLEKS R6 R2 K9 ["ClassName"]
-  JUMPIFNOTEQKS R6 K17 ["Model"] [+6]
+  JUMPIFNOTEQKS R6 K17 ["Model"] [+24]
   LOADK R8 K18 ["Humanoid"]
   NAMECALL R6 R2 K19 ["FindFirstChildOfClass"]
   CALL R6 2 1

@@ -31,7 +31,6 @@ local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConfli
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignalRaceCondition
-local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
 local getFFlagExposeChatWindowToggled = SharedFlags.getFFlagExposeChatWindowToggled
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
@@ -146,11 +145,9 @@ chatChromeIntegration = ChromeService:register({
 			end)
 		end
 	end,
-	isActivated = if GetFFlagAddChromeActivatedEvents()
-		then function()
-			return chatVisibilitySignal:get()
-		end
-		else nil,
+	isActivated = function()
+		return chatVisibilitySignal:get()
+	end,
 	components = {
 		Icon = function(props)
 			if getFFlagExpChatGetLabelAndIconFromUtil() then

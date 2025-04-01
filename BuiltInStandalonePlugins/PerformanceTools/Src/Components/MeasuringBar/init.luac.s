@@ -1,0 +1,466 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K0 ["FlipColors"]
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R2 R0 K0 ["FlipColors"]
+  JUMP [+1]
+  LOADB R2 0
+  LOADK R3 K1 [0.5]
+  JUMPIFNOTLT R3 R1 [+16]
+  JUMPIFNOTEQKN R1 K2 [1] [+10]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["Green"]
+  RETURN R3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["Red"]
+  RETURN R3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["Yellow"]
+  RETURN R3 1
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["Red"]
+  RETURN R3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["Green"]
+  RETURN R3 1
+
+PROTO_1:
+  GETIMPORT R1 K2 [Color3.new]
+  GETTABLEKS R3 R0 K4 ["R"]
+  MULK R2 R3 K3 [0.4]
+  GETTABLEKS R4 R0 K5 ["G"]
+  MULK R3 R4 K3 [0.4]
+  GETTABLEKS R5 R0 K6 ["B"]
+  MULK R4 R5 K3 [0.4]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["FillAmount"]
+  GETTABLEKS R4 R1 K0 ["FillAmount"]
+  JUMPIFLT R4 R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_3:
+  LOADNIL R1
+  LOADNIL R2
+  GETTABLEKS R3 R0 K0 ["StackedBars"]
+  JUMPIFEQKNIL R3 [+135]
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R0 K0 ["StackedBars"]
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  FASTCALL2 TABLE_INSERT R3 R8 [+5]
+  MOVE R10 R3
+  MOVE R11 R8
+  GETIMPORT R9 K3 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R4 2 [-8]
+  GETIMPORT R4 K5 [table.sort]
+  MOVE R5 R3
+  DUPCLOSURE R6 K6 [PROTO_2]
+  CALL R4 2 0
+  LENGTH R4 R3
+  LOADN R5 0
+  JUMPIFNOTLT R5 R4 [+18]
+  GETTABLEN R5 R3 1
+  GETTABLEKS R4 R5 K7 ["Color"]
+  GETIMPORT R5 K10 [Color3.new]
+  GETTABLEKS R7 R4 K12 ["R"]
+  MULK R6 R7 K11 [0.4]
+  GETTABLEKS R8 R4 K13 ["G"]
+  MULK R7 R8 K11 [0.4]
+  GETTABLEKS R9 R4 K14 ["B"]
+  MULK R8 R9 K11 [0.4]
+  CALL R5 3 1
+  MOVE R1 R5
+  JUMP [+7]
+  GETIMPORT R4 K10 [Color3.new]
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  CALL R4 3 1
+  MOVE R1 R4
+  NEWTABLE R4 0 0
+  LOADN R5 0
+  MOVE R6 R3
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  MOVE R12 R4
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K15 ["createElement"]
+  LOADK R14 K16 ["Frame"]
+  DUPTABLE R15 K23 [{"Position", "Size", "BackgroundColor3", "BorderSizePixel", "BackgroundTransparency", "LayoutOrder"}]
+  GETIMPORT R16 K25 [UDim2.new]
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 0
+  LOADN R20 0
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K17 ["Position"]
+  GETIMPORT R16 K25 [UDim2.new]
+  GETTABLEKS R17 R10 K26 ["FillAmount"]
+  LOADN R18 0
+  LOADN R19 1
+  LOADN R20 0
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K18 ["Size"]
+  GETTABLEKS R16 R10 K7 ["Color"]
+  SETTABLEKS R16 R15 K19 ["BackgroundColor3"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K20 ["BorderSizePixel"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K21 ["BackgroundTransparency"]
+  SETTABLEKS R5 R15 K22 ["LayoutOrder"]
+  CALL R13 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R11 K3 [table.insert]
+  CALL R11 -1 0
+  ADDK R5 R5 K27 [1]
+  FORGLOOP R6 2 [-44]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K15 ["createElement"]
+  LOADK R7 K16 ["Frame"]
+  DUPTABLE R8 K28 [{"Position", "Size", "BorderSizePixel", "BackgroundTransparency"}]
+  GETIMPORT R9 K25 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 0
+  LOADN R12 0
+  LOADN R13 0
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K17 ["Position"]
+  GETIMPORT R9 K25 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 0
+  LOADN R12 1
+  LOADN R13 0
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K18 ["Size"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K20 ["BorderSizePixel"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K21 ["BackgroundTransparency"]
+  MOVE R9 R4
+  CALL R6 3 1
+  MOVE R2 R6
+  JUMP [+90]
+  GETTABLEKS R5 R0 K26 ["FillAmount"]
+  ORK R4 R5 K29 [0]
+  LOADN R5 0
+  LOADN R6 1
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R3 K32 [math.clamp]
+  CALL R3 3 1
+  GETTABLEKS R6 R0 K33 ["FlipColors"]
+  JUMPIFNOT R6 [+3]
+  GETTABLEKS R5 R0 K33 ["FlipColors"]
+  JUMP [+1]
+  LOADB R5 0
+  LOADK R6 K34 [0.5]
+  JUMPIFNOTLT R6 R3 [+16]
+  JUMPIFNOTEQKN R3 K27 [1] [+10]
+  JUMPIFNOT R5 [+4]
+  GETUPVAL R6 1
+  GETTABLEKS R4 R6 K35 ["Green"]
+  JUMP [+17]
+  GETUPVAL R6 1
+  GETTABLEKS R4 R6 K36 ["Red"]
+  JUMP [+13]
+  GETUPVAL R6 1
+  GETTABLEKS R4 R6 K37 ["Yellow"]
+  JUMP [+9]
+  JUMPIFNOT R5 [+4]
+  GETUPVAL R6 1
+  GETTABLEKS R4 R6 K36 ["Red"]
+  JUMP [+4]
+  GETUPVAL R6 1
+  GETTABLEKS R4 R6 K35 ["Green"]
+  JUMP [0]
+  GETIMPORT R5 K10 [Color3.new]
+  GETTABLEKS R7 R4 K12 ["R"]
+  MULK R6 R7 K11 [0.4]
+  GETTABLEKS R8 R4 K13 ["G"]
+  MULK R7 R8 K11 [0.4]
+  GETTABLEKS R9 R4 K14 ["B"]
+  MULK R8 R9 K11 [0.4]
+  CALL R5 3 1
+  MOVE R1 R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K15 ["createElement"]
+  LOADK R6 K16 ["Frame"]
+  DUPTABLE R7 K38 [{"Position", "Size", "BorderSizePixel", "BackgroundTransparency", "BackgroundColor3"}]
+  GETIMPORT R8 K25 [UDim2.new]
+  LOADN R9 0
+  LOADN R10 0
+  LOADN R11 0
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K17 ["Position"]
+  GETIMPORT R8 K25 [UDim2.new]
+  MOVE R9 R3
+  LOADN R10 0
+  LOADN R11 1
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K18 ["Size"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K20 ["BorderSizePixel"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K21 ["BackgroundTransparency"]
+  ORK R8 R4 K39 []
+  SETTABLEKS R8 R7 K19 ["BackgroundColor3"]
+  CALL R5 2 1
+  MOVE R2 R5
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R0 K40 ["PipCount"]
+  JUMPIFEQKNIL R4 [+56]
+  LOADN R6 1
+  GETTABLEKS R4 R0 K40 ["PipCount"]
+  LOADN R5 1
+  FORNPREP R4
+  MOVE R8 R3
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K15 ["createElement"]
+  LOADK R10 K16 ["Frame"]
+  DUPTABLE R11 K23 [{"Position", "Size", "BackgroundColor3", "BorderSizePixel", "BackgroundTransparency", "LayoutOrder"}]
+  GETIMPORT R12 K25 [UDim2.new]
+  MULK R14 R6 K27 [1]
+  GETTABLEKS R15 R0 K40 ["PipCount"]
+  DIV R13 R14 R15
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K17 ["Position"]
+  GETIMPORT R12 K25 [UDim2.new]
+  LOADN R13 0
+  LOADN R14 1
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K18 ["Size"]
+  GETIMPORT R12 K10 [Color3.new]
+  LOADN R13 0
+  LOADN R14 0
+  LOADN R15 0
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K19 ["BackgroundColor3"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K20 ["BorderSizePixel"]
+  LOADK R12 K34 [0.5]
+  SETTABLEKS R12 R11 K21 ["BackgroundTransparency"]
+  LOADN R12 4
+  SETTABLEKS R12 R11 K22 ["LayoutOrder"]
+  CALL R9 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R7 K3 [table.insert]
+  CALL R7 -1 0
+  FORNLOOP R4
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K15 ["createElement"]
+  LOADK R5 K16 ["Frame"]
+  NEWTABLE R6 8 0
+  GETIMPORT R7 K44 [Enum.AutomaticSize.Y]
+  SETTABLEKS R7 R6 K42 ["AutomaticSize"]
+  GETIMPORT R7 K46 [UDim2.fromScale]
+  LOADN R8 1
+  LOADN R9 0
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K18 ["Size"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K21 ["BackgroundTransparency"]
+  GETTABLEKS R7 R0 K22 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K22 ["LayoutOrder"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K47 ["Tag"]
+  LOADK R8 K48 ["Component-MeasuringBar"]
+  SETTABLE R8 R6 R7
+  DUPTABLE R7 K52 [{"Layout", "MainLabel", "BarContainer"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K15 ["createElement"]
+  LOADK R9 K53 ["UIListLayout"]
+  DUPTABLE R10 K59 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R11 K61 [UDim.new]
+  LOADN R12 0
+  LOADN R13 10
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K54 ["Padding"]
+  GETIMPORT R11 K63 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K55 ["FillDirection"]
+  GETIMPORT R11 K65 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R11 R10 K56 ["HorizontalAlignment"]
+  GETIMPORT R11 K67 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R11 R10 K57 ["VerticalAlignment"]
+  GETIMPORT R11 K68 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R11 R10 K58 ["SortOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K49 ["Layout"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K15 ["createElement"]
+  LOADK R9 K69 ["TextLabel"]
+  DUPTABLE R10 K75 [{"Text", "BackgroundTransparency", "TextSize", "Font", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
+  GETTABLEKS R11 R0 K76 ["MainText"]
+  SETTABLEKS R11 R10 K70 ["Text"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K21 ["BackgroundTransparency"]
+  LOADN R11 16
+  SETTABLEKS R11 R10 K71 ["TextSize"]
+  GETIMPORT R11 K78 [Enum.Font.SourceSans]
+  SETTABLEKS R11 R10 K72 ["Font"]
+  GETIMPORT R11 K79 [Enum.TextXAlignment.Left]
+  SETTABLEKS R11 R10 K73 ["TextXAlignment"]
+  GETIMPORT R11 K81 [Enum.TextYAlignment.Center]
+  SETTABLEKS R11 R10 K74 ["TextYAlignment"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K22 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K50 ["MainLabel"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K15 ["createElement"]
+  LOADK R9 K16 ["Frame"]
+  NEWTABLE R10 8 0
+  GETIMPORT R11 K44 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K42 ["AutomaticSize"]
+  GETIMPORT R11 K46 [UDim2.fromScale]
+  LOADN R12 1
+  LOADN R13 0
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K18 ["Size"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K21 ["BackgroundTransparency"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K22 ["LayoutOrder"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K47 ["Tag"]
+  LOADK R12 K48 ["Component-MeasuringBar"]
+  SETTABLE R12 R10 R11
+  NEWTABLE R11 4 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K15 ["createElement"]
+  LOADK R14 K53 ["UIListLayout"]
+  DUPTABLE R15 K82 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R16 K84 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R16 R15 K55 ["FillDirection"]
+  GETIMPORT R16 K65 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R16 R15 K56 ["HorizontalAlignment"]
+  GETIMPORT R16 K85 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R16 R15 K57 ["VerticalAlignment"]
+  GETIMPORT R16 K68 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R16 R15 K58 ["SortOrder"]
+  CALL R13 2 1
+  SETTABLEKS R13 R11 K49 ["Layout"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K15 ["createElement"]
+  LOADK R14 K16 ["Frame"]
+  DUPTABLE R15 K86 [{"Size", "BackgroundColor3", "BackgroundTransparency", "LayoutOrder", "BorderSizePixel"}]
+  GETIMPORT R16 K25 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 176
+  LOADN R19 0
+  LOADN R20 10
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K18 ["Size"]
+  SETTABLEKS R1 R15 K19 ["BackgroundColor3"]
+  LOADK R16 K87 [0.2]
+  SETTABLEKS R16 R15 K21 ["BackgroundTransparency"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K22 ["LayoutOrder"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K20 ["BorderSizePixel"]
+  DUPTABLE R16 K90 [{"FillObject", "Pips"}]
+  SETTABLEKS R2 R16 K88 ["FillObject"]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K15 ["createElement"]
+  LOADK R18 K16 ["Frame"]
+  DUPTABLE R19 K91 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R20 K25 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 0
+  LOADN R23 1
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K18 ["Size"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K21 ["BackgroundTransparency"]
+  MOVE R20 R3
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K89 ["Pips"]
+  CALL R13 3 1
+  SETTABLEKS R13 R11 K92 ["LabelBackground"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K15 ["createElement"]
+  LOADK R13 K16 ["Frame"]
+  DUPTABLE R14 K93 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K21 ["BackgroundTransparency"]
+  GETIMPORT R15 K25 [UDim2.new]
+  LOADN R16 0
+  LOADN R17 6
+  LOADN R18 0
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K18 ["Size"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K22 ["LayoutOrder"]
+  CALL R12 2 1
+  SETLIST R11 R12 1 [1]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K15 ["createElement"]
+  LOADK R14 K69 ["TextLabel"]
+  DUPTABLE R15 K75 [{"Text", "BackgroundTransparency", "TextSize", "Font", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
+  GETTABLEKS R16 R0 K70 ["Text"]
+  SETTABLEKS R16 R15 K70 ["Text"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K21 ["BackgroundTransparency"]
+  LOADN R16 16
+  SETTABLEKS R16 R15 K71 ["TextSize"]
+  GETIMPORT R16 K78 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K72 ["Font"]
+  GETIMPORT R16 K79 [Enum.TextXAlignment.Left]
+  SETTABLEKS R16 R15 K73 ["TextXAlignment"]
+  GETIMPORT R16 K81 [Enum.TextYAlignment.Center]
+  SETTABLEKS R16 R15 K74 ["TextYAlignment"]
+  LOADN R16 3
+  SETTABLEKS R16 R15 K22 ["LayoutOrder"]
+  CALL R13 2 1
+  SETTABLEKS R13 R11 K94 ["Label"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K51 ["BarContainer"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PerformanceTools"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K10 [Color3.fromHex]
+  LOADK R4 K11 ["#7DEAA7"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K12 ["Green"]
+  GETIMPORT R3 K10 [Color3.fromHex]
+  LOADK R4 K13 ["#F5C64F"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K14 ["Yellow"]
+  GETIMPORT R3 K10 [Color3.fromHex]
+  LOADK R4 K15 ["#E73A1E"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K16 ["Red"]
+  DUPCLOSURE R3 K17 [PROTO_0]
+  CAPTURE VAL R2
+  DUPCLOSURE R4 K18 [PROTO_1]
+  DUPCLOSURE R5 K19 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R5 1

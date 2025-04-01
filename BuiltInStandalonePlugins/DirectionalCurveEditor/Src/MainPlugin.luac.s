@@ -63,21 +63,21 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["Plugin"]
-  GETTABLEKS R1 R2 K1 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R0 R1 K2 ["FocusedDataModelSession"]
-  JUMPIFNOT R0 [+14]
-  GETTABLEKS R1 R0 K3 ["CurrentDataModelTypeAboutToChange"]
-  NEWCLOSURE R3 P0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Plugin"]
+  GETTABLEKS R0 R1 K1 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R1 R0 K2 ["FocusedDataModelSession"]
+  JUMPIFNOT R1 [+14]
+  GETTABLEKS R2 R1 K3 ["CurrentDataModelTypeAboutToChange"]
+  NEWCLOSURE R4 P0
   CAPTURE UPVAL U1
-  NAMECALL R1 R1 K4 ["Connect"]
-  CALL R1 2 1
-  GETUPVAL R2 1
-  DUPTABLE R4 K6 [{"closeDMConnection"}]
-  SETTABLEKS R1 R4 K5 ["closeDMConnection"]
-  NAMECALL R2 R2 K7 ["setState"]
-  CALL R2 2 0
+  NAMECALL R2 R2 K4 ["Connect"]
+  CALL R2 2 1
+  GETUPVAL R3 1
+  DUPTABLE R5 K6 [{"closeDMConnection"}]
+  SETTABLEKS R2 R5 K5 ["closeDMConnection"]
+  NAMECALL R3 R3 K7 ["setState"]
+  CALL R3 2 0
   RETURN R0 0
 
 PROTO_5:

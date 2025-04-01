@@ -25,8 +25,6 @@ local GetFFlagDisableConsentModalForExistingUsers =
 	require(script.Parent.Flags.GetFFlagDisableConsentModalForExistingUsers)
 local GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses =
 	require(script.Parent.Flags.GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses)
-local GetFFlagEnableConnectDisconnectPersistenceForReconnects =
-	require(script.Parent.Flags.GetFFlagEnableConnectDisconnectPersistenceForReconnects)
 
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
@@ -1438,8 +1436,9 @@ end
 
 function VoiceChatServiceManager:InitialJoinFailedPrompt()
 	log:debug("JoinByGroupIdToken returns false")
-
-	self:showPrompt(VoiceChatPromptType.Retry)
+	if not GetFFlagVoiceChatClientRewriteMasterLua then
+		self:showPrompt(VoiceChatPromptType.Retry)
+	end
 end
 
 function VoiceChatServiceManager:ShowVoiceToxicityFeedbackToast()
@@ -1631,9 +1630,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		self:RejoinPreviousChannel()
 		self:showPrompt(VoiceChatPromptType.JoinVoice)
 		self:ShowVoiceUI()
-		if GetFFlagEnableConnectDisconnectPersistenceForReconnects() then
-			self:SetVoiceConnectCookieValue(true)
-		end
+		self:SetVoiceConnectCookieValue(true)
 	elseif GetFFlagNonVoiceFTUX() and self.isShowingFTUX then
 		-- New M3 user that is exiting FTUX
 		self:HideFTUX(AppStorageService)

@@ -1908,12 +1908,13 @@ PROTO_36:
   CALL R2 6 0
   GETTABLEKS R2 R1 K14 ["ReleaseEditor"]
   GETTABLEKS R3 R1 K3 ["Analytics"]
-  CALL R2 1 0
+  GETTABLEKS R4 R1 K15 ["Localization"]
+  CALL R2 2 0
   GETTABLEKS R2 R1 K3 ["Analytics"]
-  LOADK R4 K15 ["onEditorClosed"]
+  LOADK R4 K16 ["onEditorClosed"]
   GETIMPORT R6 K8 [os.time]
   CALL R6 0 1
-  GETTABLEKS R7 R0 K16 ["openedTimestamp"]
+  GETTABLEKS R7 R0 K17 ["openedTimestamp"]
   SUB R5 R6 R7
   NAMECALL R2 R2 K13 ["report"]
   CALL R2 3 0
@@ -2152,11 +2153,12 @@ PROTO_50:
   RETURN R0 0
 
 PROTO_51:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
   RETURN R0 0
 
 PROTO_52:

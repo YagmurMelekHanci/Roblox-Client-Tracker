@@ -92,7 +92,7 @@ PROTO_6:
   SETTABLEKS R9 R8 K13 ["LayoutOrder"]
   GETUPVAL R10 4
   GETTABLEKS R9 R10 K14 ["Tag"]
-  LOADK R10 K15 ["ScopeOptions X-Fill"]
+  LOADK R10 K15 ["ScopeOptions"]
   SETTABLE R10 R8 R9
   DUPTABLE R9 K18 [{"Contents", "Toolbar"}]
   GETUPVAL R11 4

@@ -19,85 +19,89 @@ MAIN:
   NEWTABLE R6 0 3
   MOVE R7 R2
   LOADK R8 K12 [">> TextButton"]
-  DUPTABLE R9 K19 [{"Size", "AutomaticSize", "BorderSizePixel", "TextColor3", "TextSize", "Font"}]
-  GETIMPORT R10 K22 [UDim2.fromOffset]
+  DUPTABLE R9 K18 [{"Size", "AutomaticSize", "BorderSizePixel", "TextSize", "Font"}]
+  GETIMPORT R10 K21 [UDim2.fromOffset]
   LOADN R11 72
   LOADN R12 36
   CALL R10 2 1
   SETTABLEKS R10 R9 K13 ["Size"]
-  GETIMPORT R10 K25 [Enum.AutomaticSize.X]
+  GETIMPORT R10 K24 [Enum.AutomaticSize.X]
   SETTABLEKS R10 R9 K14 ["AutomaticSize"]
   LOADN R10 0
   SETTABLEKS R10 R9 K15 ["BorderSizePixel"]
-  LOADK R10 K26 ["$TextPrimary"]
-  SETTABLEKS R10 R9 K16 ["TextColor3"]
-  LOADK R10 K27 ["$FontSizeM"]
-  SETTABLEKS R10 R9 K17 ["TextSize"]
-  LOADK R10 K28 ["$FontBold"]
-  SETTABLEKS R10 R9 K18 ["Font"]
+  LOADK R10 K25 ["$FontSizeM"]
+  SETTABLEKS R10 R9 K16 ["TextSize"]
+  LOADK R10 K26 ["$FontBold"]
+  SETTABLEKS R10 R9 K17 ["Font"]
   NEWTABLE R10 0 1
   MOVE R11 R2
-  LOADK R12 K29 ["::UICorner"]
-  DUPTABLE R13 K31 [{"CornerRadius"}]
-  GETIMPORT R14 K34 [UDim.new]
+  LOADK R12 K27 ["::UICorner"]
+  DUPTABLE R13 K29 [{"CornerRadius"}]
+  GETIMPORT R14 K32 [UDim.new]
   LOADN R15 0
   LOADN R16 8
   CALL R14 2 1
-  SETTABLEKS R14 R13 K30 ["CornerRadius"]
+  SETTABLEKS R14 R13 K28 ["CornerRadius"]
   CALL R11 2 -1
   SETLIST R10 R11 -1 [1]
   CALL R7 3 1
   MOVE R8 R2
-  LOADK R9 K35 ["> #SubmitButton"]
-  DUPTABLE R10 K37 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADK R9 K33 ["> #SubmitButton"]
+  DUPTABLE R10 K36 [{"TextColor3", "BackgroundTransparency", "BackgroundColor3"}]
+  LOADK R11 K37 ["$SemanticColorContentStaticLight"]
+  SETTABLEKS R11 R10 K34 ["TextColor3"]
   LOADN R11 0
   SETTABLEKS R11 R10 K10 ["BackgroundTransparency"]
   LOADK R11 K38 ["$PrimaryMain"]
-  SETTABLEKS R11 R10 K36 ["BackgroundColor3"]
+  SETTABLEKS R11 R10 K35 ["BackgroundColor3"]
   NEWTABLE R11 0 3
   MOVE R12 R2
   LOADK R13 K39 [".Disabled"]
   DUPTABLE R14 K40 [{"BackgroundColor3", "TextColor3"}]
   LOADK R15 K41 ["$SecondaryMain"]
-  SETTABLEKS R15 R14 K36 ["BackgroundColor3"]
+  SETTABLEKS R15 R14 K35 ["BackgroundColor3"]
   LOADK R15 K42 ["$TextSecondary"]
-  SETTABLEKS R15 R14 K16 ["TextColor3"]
+  SETTABLEKS R15 R14 K34 ["TextColor3"]
   CALL R12 2 1
   MOVE R13 R2
   LOADK R14 K43 [":hover"]
   DUPTABLE R15 K44 [{"BackgroundColor3"}]
   LOADK R16 K45 ["$PrimaryHoverBackground"]
-  SETTABLEKS R16 R15 K36 ["BackgroundColor3"]
+  SETTABLEKS R16 R15 K35 ["BackgroundColor3"]
   CALL R13 2 1
   MOVE R14 R2
   LOADK R15 K46 [":pressed"]
   DUPTABLE R16 K44 [{"BackgroundColor3"}]
-  LOADK R17 K47 ["$ActionSelected"]
-  SETTABLEKS R17 R16 K36 ["BackgroundColor3"]
+  GETIMPORT R17 K49 [Color3.fromHex]
+  LOADK R18 K50 ["#005D92"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K35 ["BackgroundColor3"]
   CALL R14 2 -1
   SETLIST R11 R12 -1 [1]
   CALL R8 3 1
   MOVE R9 R2
-  LOADK R10 K48 ["> #CancelButton"]
-  DUPTABLE R11 K11 [{"BackgroundTransparency"}]
+  LOADK R10 K51 ["> #CancelButton"]
+  DUPTABLE R11 K52 [{"TextColor3", "BackgroundTransparency"}]
+  LOADK R12 K53 ["$TextPrimary"]
+  SETTABLEKS R12 R11 K34 ["TextColor3"]
   LOADN R12 1
   SETTABLEKS R12 R11 K10 ["BackgroundTransparency"]
   NEWTABLE R12 0 2
   MOVE R13 R2
   LOADK R14 K43 [":hover"]
-  DUPTABLE R15 K37 [{"BackgroundTransparency", "BackgroundColor3"}]
+  DUPTABLE R15 K54 [{"BackgroundTransparency", "BackgroundColor3"}]
   LOADN R16 0
   SETTABLEKS R16 R15 K10 ["BackgroundTransparency"]
-  LOADK R16 K49 ["$SecondaryHoverBackground"]
-  SETTABLEKS R16 R15 K36 ["BackgroundColor3"]
+  LOADK R16 K55 ["$SecondaryHoverBackground"]
+  SETTABLEKS R16 R15 K35 ["BackgroundColor3"]
   CALL R13 2 1
   MOVE R14 R2
   LOADK R15 K46 [":pressed"]
-  DUPTABLE R16 K37 [{"BackgroundTransparency", "BackgroundColor3"}]
+  DUPTABLE R16 K54 [{"BackgroundTransparency", "BackgroundColor3"}]
   LOADN R17 0
   SETTABLEKS R17 R16 K10 ["BackgroundTransparency"]
   LOADK R17 K41 ["$SecondaryMain"]
-  SETTABLEKS R17 R16 K36 ["BackgroundColor3"]
+  SETTABLEKS R17 R16 K35 ["BackgroundColor3"]
   CALL R14 2 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 -1

@@ -10,8 +10,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui.RobloxGui
 local properties = require(VirtualCursorFolder.Properties)
 
-local getFFlagDirectionalAnalogStick = require(VirtualCursorFolder.getFFlagDirectionalAnalogStick)
-local FFlagDirectionalAnalogStick = getFFlagDirectionalAnalogStick()
+local getFFlagPointAndClickCursor = require(VirtualCursorFolder.getFFlagPointAndClickCursor)
+local FFlagPointAndClickCursor = getFFlagPointAndClickCursor()
 
 local Interface = {}
 
@@ -78,7 +78,7 @@ local function getOrCreateVirtualCursorContainer()
 		cursorIndicator.Visible = false
 		cursorIndicator.BackgroundTransparency = 1
 
-		if FFlagDirectionalAnalogStick then
+		if FFlagPointAndClickCursor then
 		    cursorIndicator.Transparency = 1
 		end
 
@@ -93,7 +93,7 @@ local function getOrCreateVirtualCursorContainer()
 end
 
 local function tweenCursorOpacity(visible)
-    assert(FFlagDirectionalAnalogStick, "tweenCursorOpacity should only be called when FFlagDirectionalAnalogStick is true")
+    assert(FFlagPointAndClickCursor, "tweenCursorOpacity should only be called when FFlagPointAndClickCursor is true")
 
 	if activeOpacityTweenCompletedConnection then
 		activeOpacityTweenCompletedConnection:Disconnect()
@@ -112,7 +112,7 @@ local function tweenCursorOpacity(visible)
 end
 
 local function tweenCursorPosition(position)
-    assert(FFlagDirectionalAnalogStick, "tweenCursorPosition should only be called when FFlagDirectionalAnalogStick is true")
+    assert(FFlagPointAndClickCursor, "tweenCursorPosition should only be called when FFlagPointAndClickCursor is true")
 
 	local positionTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0)
 	activePreviewPositionTween =
@@ -141,13 +141,13 @@ function Interface:SetCursorPosition(position)
 end
 
 function Interface:TweenCursorPosition(position)
-	assert(FFlagDirectionalAnalogStick, "TweenCursorPosition should only be called when FFlagDirectionalAnalogStick is true")
+	assert(FFlagPointAndClickCursor, "TweenCursorPosition should only be called when FFlagPointAndClickCursor is true")
 
 	tweenCursorPosition(position)
 end
 
 function Interface:TweenCursorOpacity(visible)
-    assert(FFlagDirectionalAnalogStick, "TweenCursorPosition should only be called when FFlagDirectionalAnalogStick is true")
+    assert(FFlagPointAndClickCursor, "TweenCursorPosition should only be called when FFlagPointAndClickCursor is true")
 
 	tweenCursorOpacity(visible)
 end
@@ -176,7 +176,7 @@ function Interface:EnableUI(defaultPosition)
 	setCursorPosition(defaultPosition)
 	cursorIndicator.Visible = showInterface
 
-    if FFlagDirectionalAnalogStick then
+    if FFlagPointAndClickCursor then
 	    Interface:TweenCursorOpacity(true)
     end
 end
@@ -184,7 +184,7 @@ end
 function Interface:DisableUI()
 	setCursorHighlight(false)
 
-    if FFlagDirectionalAnalogStick then
+    if FFlagPointAndClickCursor then
 	    Interface:TweenCursorOpacity(false)
 	else
 		getOrCreateVirtualCursorContainer().Enabled = false

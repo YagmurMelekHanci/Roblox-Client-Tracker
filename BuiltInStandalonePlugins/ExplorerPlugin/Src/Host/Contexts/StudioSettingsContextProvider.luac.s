@@ -43,12 +43,48 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K0 ["GetShowPlusButtonOnHoverAsync"]
+  CALL R1 1 -1
+  CALL R0 -1 0
   RETURN R0 0
 
 PROTO_3:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
   RETURN R0 0
 
 PROTO_4:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIF R0 [+4]
+  GETUPVAL R0 1
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+  GETIMPORT R0 K2 [task.spawn]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R0 1 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K3 ["ShowPlusButtonOnHoverChanged"]
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K4 ["Connect"]
+  CALL R0 2 1
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  RETURN R1 1
+
+PROTO_5:
+  RETURN R0 0
+
+PROTO_6:
+  RETURN R0 0
+
+PROTO_7:
   LOADK R3 K0 ["ExplorerPluginSearchHistory"]
   MOVE R4 R0
   CONCAT R2 R3 R4
@@ -72,7 +108,7 @@ PROTO_4:
   NEWTABLE R1 0 0
   RETURN R1 1
 
-PROTO_5:
+PROTO_8:
   GETUPVAL R2 0
   LOADK R4 K0 ["ExplorerPluginSearchHistory"]
   MOVE R5 R0
@@ -81,44 +117,13 @@ PROTO_5:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_6:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["GetSelectOnInsertionAsync"]
-  CALL R0 1 -1
-  RETURN R0 -1
-
-PROTO_7:
-  GETIMPORT R0 K1 [pcall]
-  NEWCLOSURE R1 P0
-  CAPTURE UPVAL U0
-  CALL R0 1 2
-  JUMPIFNOT R0 [+1]
-  RETURN R1 1
-  LOADB R2 0
-  RETURN R2 1
-
-PROTO_8:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["SetSelectOnInsertionAsync"]
-  CALL R0 2 0
-  RETURN R0 0
-
 PROTO_9:
-  GETIMPORT R1 K2 [task.spawn]
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_10:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["GetIncrementNamesAsync"]
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_11:
+PROTO_10:
   GETUPVAL R0 0
   CALL R0 0 1
   JUMPIF R0 [+2]
@@ -133,14 +138,14 @@ PROTO_11:
   LOADB R2 0
   RETURN R2 1
 
-PROTO_12:
+PROTO_11:
   GETUPVAL R0 0
   GETUPVAL R2 1
   NAMECALL R0 R0 K0 ["SetIncrementNamesAsync"]
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_12:
   GETUPVAL R1 0
   CALL R1 0 1
   JUMPIF R1 [+1]
@@ -152,7 +157,7 @@ PROTO_13:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_13:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["current"]
   GETTABLEKS R1 R2 K0 ["ExplorerPluginExpandHierarchy"]
@@ -174,43 +179,14 @@ PROTO_14:
   MOVE R1 R0
   RETURN R1 1
 
-PROTO_15:
+PROTO_14:
   GETUPVAL R1 0
   LOADK R2 K0 ["ExplorerPluginExpandHierarchy"]
   MOVE R3 R0
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_16:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["current"]
-  GETTABLEKS R1 R2 K0 ["ExplorerPluginShowSelectionHierarchyHighlights"]
-  JUMPIFEQKNIL R1 [+4]
-  GETTABLEKS R0 R1 K2 ["value"]
-  JUMP [+14]
-  GETUPVAL R2 1
-  LOADK R4 K0 ["ExplorerPluginShowSelectionHierarchyHighlights"]
-  NAMECALL R2 R2 K3 ["GetSetting"]
-  CALL R2 2 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["current"]
-  DUPTABLE R4 K4 [{"value"}]
-  SETTABLEKS R2 R4 K2 ["value"]
-  SETTABLEKS R4 R3 K0 ["ExplorerPluginShowSelectionHierarchyHighlights"]
-  MOVE R0 R2
-  LOADB R1 1
-  JUMPIFEQKNIL R0 [+2]
-  MOVE R1 R0
-  RETURN R1 1
-
-PROTO_17:
-  GETUPVAL R1 0
-  LOADK R2 K0 ["ExplorerPluginShowSelectionHierarchyHighlights"]
-  MOVE R3 R0
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_18:
+PROTO_15:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["ContextServices"]
   GETTABLEKS R1 R2 K1 ["Plugin"]
@@ -225,62 +201,63 @@ PROTO_18:
   GETTABLEKS R3 R4 K6 ["useRef"]
   NEWTABLE R4 0 0
   CALL R3 1 1
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  NEWCLOSURE R5 P1
-  CAPTURE VAL R3
-  CAPTURE VAL R1
   GETUPVAL R6 2
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K7 ["Components"]
-  GETTABLEKS R8 R9 K8 ["Contexts"]
-  GETTABLEKS R7 R8 K9 ["SettingsContextProvider"]
-  DUPTABLE R8 K23 [{"rememberedFields", "addField", "removeField", "getSearchHistory", "saveSearchHistory", "getSelectOnInsertionAsync", "setSelectOnInsertion", "getIncrementNamesAsync", "setIncrementNames", "getExpandHierarchy", "setExpandHierarchy", "getShowSelectionHierarchyHighlights", "setShowSelectionHierarchyHighlights"}]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K10 ["rememberedFields"]
-  DUPCLOSURE R9 K24 [PROTO_2]
-  SETTABLEKS R9 R8 K11 ["addField"]
-  DUPCLOSURE R9 K25 [PROTO_3]
-  SETTABLEKS R9 R8 K12 ["removeField"]
-  NEWCLOSURE R9 P4
+  GETTABLEKS R5 R6 K7 ["Observable"]
+  GETTABLEKS R4 R5 K8 ["useState"]
+  LOADB R5 0
+  CALL R4 1 2
+  NEWCLOSURE R6 P0
   CAPTURE VAL R3
   CAPTURE VAL R1
-  SETTABLEKS R9 R8 K13 ["getSearchHistory"]
-  NEWCLOSURE R9 P5
-  CAPTURE VAL R5
-  SETTABLEKS R9 R8 K14 ["saveSearchHistory"]
-  NEWCLOSURE R9 P6
-  CAPTURE VAL R2
-  SETTABLEKS R9 R8 K15 ["getSelectOnInsertionAsync"]
-  NEWCLOSURE R9 P7
-  CAPTURE VAL R2
-  SETTABLEKS R9 R8 K16 ["setSelectOnInsertion"]
-  NEWCLOSURE R9 P8
-  CAPTURE UPVAL U4
-  CAPTURE VAL R2
-  SETTABLEKS R9 R8 K17 ["getIncrementNamesAsync"]
-  NEWCLOSURE R9 P9
-  CAPTURE UPVAL U4
-  CAPTURE VAL R2
-  SETTABLEKS R9 R8 K18 ["setIncrementNames"]
-  NEWCLOSURE R9 P10
+  NEWCLOSURE R7 P1
   CAPTURE VAL R3
   CAPTURE VAL R1
-  SETTABLEKS R9 R8 K19 ["getExpandHierarchy"]
-  NEWCLOSURE R9 P11
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K9 ["useEffect"]
+  NEWCLOSURE R9 P2
+  CAPTURE UPVAL U3
   CAPTURE VAL R5
-  SETTABLEKS R9 R8 K20 ["setExpandHierarchy"]
-  NEWCLOSURE R9 P12
+  CAPTURE VAL R2
+  NEWTABLE R10 0 0
+  CALL R8 2 0
+  GETUPVAL R8 4
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K10 ["Components"]
+  GETTABLEKS R10 R11 K11 ["Contexts"]
+  GETTABLEKS R9 R10 K12 ["SettingsContextProvider"]
+  DUPTABLE R10 K23 [{"rememberedFields", "addField", "removeField", "getSearchHistory", "saveSearchHistory", "getIncrementNamesAsync", "setIncrementNames", "getExpandHierarchy", "setExpandHierarchy", "showPlusButtonOnHoverObservable"}]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K13 ["rememberedFields"]
+  DUPCLOSURE R11 K24 [PROTO_5]
+  SETTABLEKS R11 R10 K14 ["addField"]
+  DUPCLOSURE R11 K25 [PROTO_6]
+  SETTABLEKS R11 R10 K15 ["removeField"]
+  NEWCLOSURE R11 P5
   CAPTURE VAL R3
   CAPTURE VAL R1
-  SETTABLEKS R9 R8 K21 ["getShowSelectionHierarchyHighlights"]
-  NEWCLOSURE R9 P13
-  CAPTURE VAL R5
-  SETTABLEKS R9 R8 K22 ["setShowSelectionHierarchyHighlights"]
-  GETTABLEKS R9 R0 K26 ["children"]
-  CALL R6 3 -1
-  RETURN R6 -1
+  SETTABLEKS R11 R10 K16 ["getSearchHistory"]
+  NEWCLOSURE R11 P6
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K17 ["saveSearchHistory"]
+  NEWCLOSURE R11 P7
+  CAPTURE UPVAL U5
+  CAPTURE VAL R2
+  SETTABLEKS R11 R10 K18 ["getIncrementNamesAsync"]
+  NEWCLOSURE R11 P8
+  CAPTURE UPVAL U5
+  CAPTURE VAL R2
+  SETTABLEKS R11 R10 K19 ["setIncrementNames"]
+  NEWCLOSURE R11 P9
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  SETTABLEKS R11 R10 K20 ["getExpandHierarchy"]
+  NEWCLOSURE R11 P10
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K21 ["setExpandHierarchy"]
+  SETTABLEKS R4 R10 K22 ["showPlusButtonOnHoverObservable"]
+  GETTABLEKS R11 R0 K26 ["children"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0
@@ -303,13 +280,19 @@ MAIN:
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K10 ["Src"]
   GETTABLEKS R6 R7 K11 ["Flags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagExplorerIncrementNames"]
+  GETTABLEKS R5 R6 K12 ["getFFlagExplorerExposePlusButtonSetting"]
   CALL R4 1 1
-  GETTABLEKS R5 R3 K13 ["createElement"]
-  DUPCLOSURE R6 K14 [PROTO_18]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Flags"]
+  GETTABLEKS R6 R7 K13 ["getFFlagExplorerIncrementNames"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K14 ["createElement"]
+  DUPCLOSURE R7 K15 [PROTO_15]
   CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R5
   CAPTURE VAL R1
   CAPTURE VAL R4
-  RETURN R6 1
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  RETURN R7 1

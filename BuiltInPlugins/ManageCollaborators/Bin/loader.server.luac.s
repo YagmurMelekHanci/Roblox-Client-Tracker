@@ -24,49 +24,50 @@ MAIN:
   JUMPIFNOT R2 [+1]
   RETURN R0 0
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K14 ["PluginLoader"]
-  GETTABLEKS R3 R4 K15 ["PluginLoaderBuilder"]
+  GETTABLEKS R4 R0 K14 ["Packages"]
+  GETTABLEKS R3 R4 K15 ["PluginLoader"]
   CALL R2 1 1
-  GETTABLEKS R6 R0 K10 ["Src"]
-  GETTABLEKS R5 R6 K16 ["Resources"]
-  GETTABLEKS R4 R5 K17 ["Localization"]
-  GETTABLEKS R3 R4 K18 ["SourceStrings"]
+  GETTABLEKS R3 R2 K16 ["PluginLoaderBuilder"]
   GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K16 ["Resources"]
-  GETTABLEKS R5 R6 K17 ["Localization"]
-  GETTABLEKS R4 R5 K19 ["LocalizedStrings"]
-  DUPTABLE R5 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-  GETIMPORT R6 K31 [plugin]
-  SETTABLEKS R6 R5 K20 ["plugin"]
-  LOADK R6 K32 ["ManageCollaborators"]
-  SETTABLEKS R6 R5 K21 ["pluginName"]
-  SETTABLEKS R4 R5 K22 ["translationResourceTable"]
-  SETTABLEKS R3 R5 K23 ["fallbackResourceTable"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K24 ["overrideLocaleId"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K25 ["localizationNamespace"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K26 ["noToolbar"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K27 ["getToolbarName"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K28 ["buttonInfo"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K29 ["dockWidgetInfo"]
-  GETTABLEKS R6 R2 K33 ["build"]
-  MOVE R7 R5
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K34 ["pluginLoader"]
-  NAMECALL R7 R7 K35 ["waitForUserInteraction"]
-  CALL R7 1 0
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R10 K7 [script]
-  GETTABLEKS R9 R10 K8 ["Parent"]
-  GETTABLEKS R8 R9 K36 ["main"]
+  GETTABLEKS R6 R7 K17 ["Resources"]
+  GETTABLEKS R5 R6 K18 ["Localization"]
+  GETTABLEKS R4 R5 K19 ["SourceStrings"]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K17 ["Resources"]
+  GETTABLEKS R6 R7 K18 ["Localization"]
+  GETTABLEKS R5 R6 K20 ["LocalizedStrings"]
+  DUPTABLE R6 K31 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
+  GETIMPORT R7 K32 [plugin]
+  SETTABLEKS R7 R6 K21 ["plugin"]
+  LOADK R7 K33 ["ManageCollaborators"]
+  SETTABLEKS R7 R6 K22 ["pluginName"]
+  SETTABLEKS R5 R6 K23 ["translationResourceTable"]
+  SETTABLEKS R4 R6 K24 ["fallbackResourceTable"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K25 ["overrideLocaleId"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K26 ["localizationNamespace"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K27 ["noToolbar"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K28 ["getToolbarName"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K29 ["buttonInfo"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K30 ["dockWidgetInfo"]
+  GETTABLEKS R7 R3 K34 ["build"]
+  MOVE R8 R6
   CALL R7 1 1
-  MOVE R8 R7
-  GETIMPORT R9 K31 [plugin]
-  MOVE R10 R6
-  CALL R8 2 0
+  GETTABLEKS R8 R7 K35 ["pluginLoader"]
+  NAMECALL R8 R8 K36 ["waitForUserInteraction"]
+  CALL R8 1 0
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R11 K7 [script]
+  GETTABLEKS R10 R11 K8 ["Parent"]
+  GETTABLEKS R9 R10 K37 ["main"]
+  CALL R8 1 1
+  MOVE R9 R8
+  GETIMPORT R10 K32 [plugin]
+  MOVE R11 R7
+  CALL R9 2 0
   RETURN R0 0

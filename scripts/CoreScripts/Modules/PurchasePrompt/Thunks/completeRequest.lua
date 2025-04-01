@@ -18,19 +18,10 @@ local Analytics = require(Root.Services.Analytics)
 local PublicBindables = require(Root.Services.PublicBindables)
 local Thunk = require(Root.Thunk)
 
-local FFlagHideAvatarIECPromptOnUpsellSuccess = require(RobloxGui.Modules.PublishAssetPrompt.FFlagHideAvatarIECPromptOnUpsellSuccess)
-
-local requiredServices
-if FFlagHideAvatarIECPromptOnUpsellSuccess then
-	requiredServices = {
-		Analytics,
-		PublicBindables
-	}
-else
-	requiredServices = {
-		Analytics
-	}
-end
+local requiredServices = {
+	Analytics,
+	PublicBindables
+}
 
 local function completeRequest()
 	return Thunk.new(script.Name, requiredServices, function(store, services)
@@ -84,15 +75,13 @@ local function completeRequest()
 			MarketplaceService:SignalPromptSubscriptionPurchaseFinished(id, didPurchase or purchaseError == PurchaseError.AlreadySubscribed)
 		end
 
-		if FFlagHideAvatarIECPromptOnUpsellSuccess then
-			local publicBindables = services[PublicBindables]
-			local windowStateChangedBindable = publicBindables.getWindowStateChangedBindable()
-			if windowStateChangedBindable then
-				windowStateChangedBindable:Fire({
-					isShown = false,
-					hasCompletedPurchase = didPurchase,
-				})
-			end
+		local publicBindables = services[PublicBindables]
+		local windowStateChangedBindable = publicBindables.getWindowStateChangedBindable()
+		if windowStateChangedBindable then
+			windowStateChangedBindable:Fire({
+				isShown = false,
+				hasCompletedPurchase = didPurchase,
+			})
 		end
 
 		return store:dispatch(CompleteRequest())

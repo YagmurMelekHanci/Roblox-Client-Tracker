@@ -27,9 +27,9 @@ MAIN:
   SETLIST R10 R11 -1 [1]
   CALL R7 3 1
   MOVE R8 R2
-  LOADK R9 K19 [">> .FilterSection"]
+  LOADK R9 K19 [">> .ScopeSelector"]
   NEWTABLE R10 0 0
-  NEWTABLE R11 0 1
+  NEWTABLE R11 0 2
   MOVE R12 R2
   LOADK R13 K20 ["::UIPadding"]
   DUPTABLE R14 K25 [{"PaddingLeft", "PaddingRight", "PaddingBottom", "PaddingTop"}]
@@ -45,57 +45,82 @@ MAIN:
   SETTABLEKS R15 R14 K22 ["PaddingRight"]
   GETIMPORT R15 K28 [UDim.new]
   LOADN R16 0
-  LOADN R17 10
+  LOADN R17 15
   CALL R15 2 1
   SETTABLEKS R15 R14 K23 ["PaddingBottom"]
   GETIMPORT R15 K28 [UDim.new]
   LOADN R16 0
-  LOADN R17 5
+  LOADN R17 10
   CALL R15 2 1
   SETTABLEKS R15 R14 K24 ["PaddingTop"]
-  CALL R12 2 -1
+  CALL R12 2 1
+  MOVE R13 R2
+  LOADK R14 K29 [">> .AnchorMiddleRightOffset"]
+  DUPTABLE R15 K32 [{"AnchorPoint", "Position"}]
+  GETIMPORT R16 K34 [Vector2.new]
+  LOADN R17 1
+  LOADK R18 K35 [0.5]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K30 ["AnchorPoint"]
+  GETIMPORT R16 K37 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 251
+  LOADK R19 K35 [0.5]
+  LOADN R20 0
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K31 ["Position"]
+  CALL R13 2 -1
   SETLIST R11 R12 -1 [1]
   CALL R8 3 1
   MOVE R9 R2
-  LOADK R10 K29 [">> .SourceSection"]
+  LOADK R10 K38 [">> .AssetTypeSection"]
   NEWTABLE R11 0 0
-  NEWTABLE R12 0 2
+  NEWTABLE R12 0 3
   MOVE R13 R2
-  LOADK R14 K12 ["::UIFlexItem"]
-  DUPTABLE R15 K14 [{"FlexMode"}]
-  GETIMPORT R16 K18 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R16 R15 K13 ["FlexMode"]
+  LOADK R14 K20 ["::UIPadding"]
+  DUPTABLE R15 K39 [{"PaddingLeft"}]
+  GETIMPORT R16 K28 [UDim.new]
+  LOADN R17 0
+  LOADN R18 10
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K21 ["PaddingLeft"]
   CALL R13 2 1
   MOVE R14 R2
-  LOADK R15 K30 [">> .RadioList"]
-  NEWTABLE R16 0 0
-  NEWTABLE R17 0 2
-  MOVE R18 R2
-  LOADK R19 K12 ["::UIFlexItem"]
-  DUPTABLE R20 K14 [{"FlexMode"}]
-  GETIMPORT R21 K18 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R21 R20 K13 ["FlexMode"]
-  CALL R18 2 1
+  LOADK R15 K12 ["::UIFlexItem"]
+  DUPTABLE R16 K14 [{"FlexMode"}]
+  GETIMPORT R17 K18 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R17 R16 K13 ["FlexMode"]
+  CALL R14 2 1
+  MOVE R15 R2
+  LOADK R16 K40 [">> .RadioList"]
+  NEWTABLE R17 0 0
+  NEWTABLE R18 0 2
   MOVE R19 R2
-  LOADK R20 K20 ["::UIPadding"]
-  DUPTABLE R21 K31 [{"PaddingBottom"}]
-  LOADK R22 K32 ["$PaddingSmall"]
-  SETTABLEKS R22 R21 K23 ["PaddingBottom"]
-  CALL R19 2 -1
-  SETLIST R17 R18 -1 [1]
-  CALL R14 3 -1
+  LOADK R20 K12 ["::UIFlexItem"]
+  DUPTABLE R21 K14 [{"FlexMode"}]
+  GETIMPORT R22 K18 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R22 R21 K13 ["FlexMode"]
+  CALL R19 2 1
+  MOVE R20 R2
+  LOADK R21 K20 ["::UIPadding"]
+  DUPTABLE R22 K41 [{"PaddingBottom"}]
+  LOADK R23 K42 ["$PaddingSmall"]
+  SETTABLEKS R23 R22 K23 ["PaddingBottom"]
+  CALL R20 2 -1
+  SETLIST R18 R19 -1 [1]
+  CALL R15 3 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 1
   MOVE R10 R2
-  LOADK R11 K33 [">> .SearchOptionHeading"]
-  DUPTABLE R12 K35 [{"Size"}]
+  LOADK R11 K43 [">> .SearchOptionHeading"]
+  DUPTABLE R12 K45 [{"Size"}]
   GETIMPORT R13 K37 [UDim2.new]
   LOADN R14 1
   LOADN R15 0
   LOADN R16 0
   LOADN R17 30
   CALL R13 4 1
-  SETTABLEKS R13 R12 K34 ["Size"]
+  SETTABLEKS R13 R12 K44 ["Size"]
   CALL R10 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1

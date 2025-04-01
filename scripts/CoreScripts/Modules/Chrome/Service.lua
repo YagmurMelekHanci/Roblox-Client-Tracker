@@ -5,9 +5,8 @@ local CorePackages = game:GetService("CorePackages")
 local ChromeEnabled = require(Chrome.Enabled)
 
 local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
-local GetFFlagRefactorChromeAssert = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRefactorChromeAssert
 
-if GetFFlagRefactorChromeAssert() and GetFFlagFixChromeReferences() then
+if GetFFlagFixChromeReferences() then
 	--[[ If you're hitting this assert, try the following:
         local Chrome = RobloxGui.Modules.Chrome
         local ChromeEnabled = require(Chrome.Enabled)

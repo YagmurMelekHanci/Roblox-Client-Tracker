@@ -16,6 +16,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagToastNotificationsGamepadSupport = SharedFlags.GetFFlagToastNotificationsGamepadSupport
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagIgnoreDevGamepadBindingsMenuOpen = SharedFlags.FFlagIgnoreDevGamepadBindingsMenuOpen
 
 local Modules = script.Parent.Parent.Parent
@@ -26,6 +27,7 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local ObservableValue = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole) then ChromeUtils.ObservableValue else nil
 local ToastNotificationConstants = require(CorePackages.Workspace.Packages.ToastNotification).ToastNotificationConstants
 local Constants = require(script.Parent.Parent.Constants)
+local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 
 local ToastRoot = nil
 local ToastGui = nil
@@ -52,6 +54,7 @@ type GamepadConnectorImpl = {
 	disconnectFromTopbar: (GamepadConnector) -> (),
 	getSelectedCoreObject: (GamepadConnector) -> ObservableValue<GuiObject?>,
 	getShowTopBar: (GamepadConnector) -> ObservableValue<boolean>,
+	getGamepadActive: (GamepadConnector) -> ObservableValue<boolean>,
 	_toggleUnibarMenu: (GamepadConnector) -> (),
 	_toggleTopbar: ActionBind,
 	_focusToastNotification: (GamepadConnector, Enum.UserInputState) -> boolean,
@@ -64,6 +67,7 @@ export type GamepadConnector = typeof(setmetatable(
 		_topbarFocused: ObservableValue<boolean>,
 		_lastMenuButtonPress: number,
 		_gamepadActive: ObservableValue<boolean>,
+		_tiltMenuOpen: ObservableValue<boolean>,
 		_showTopBar: ObservableValue<boolean>,
 	},
 	{} :: GamepadConnectorImpl
@@ -113,19 +117,33 @@ function GamepadConnector.new(): GamepadConnector
 	self._selectedCoreObject = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole) then createSelectedCoreObject() else nil :: never
 	if ChromeEnabled and FFlagHideTopBarConsole then
 		self._gamepadActive = (ObservableValue::never).new(isInputGamepad(UserInputService:GetLastInputType()))
+		self._tiltMenuOpen = if FFlagEnableChromeShortcutBar then (ObservableValue::never).new(false) else nil :: never
 		self._showTopBar = (ObservableValue::never).new(true)
 
 		UserInputService.LastInputTypeChanged:Connect(function(lastInputType)
 			self._gamepadActive:set(isInputGamepad(lastInputType))
 		end)
 
+		if FFlagEnableChromeShortcutBar then 
+			SettingsShowSignal:connect(function(isOpen)
+				self._tiltMenuOpen:set(isOpen)
+			end)
+		end
+
 		local shouldShowTopBar = function() 
-			local showTopBar = not self._gamepadActive:get() or self._topbarFocused:get() or self._selectedCoreObject:get() ~= nil
+			local showTopBar = 
+				not self._gamepadActive:get() 
+				or self._topbarFocused:get() 
+				or self._selectedCoreObject:get() ~= nil
+				or (FFlagEnableChromeShortcutBar and self._tiltMenuOpen:get())
 			self._showTopBar:set(showTopBar)
 		end
 
 		self._selectedCoreObject:connect(shouldShowTopBar)
 		self._topbarFocused:connect(shouldShowTopBar)
+		if FFlagEnableChromeShortcutBar then 
+			self._tiltMenuOpen:connect(shouldShowTopBar)
+		end
 		self._gamepadActive:connect(shouldShowTopBar, true)
 	end
 
@@ -134,6 +152,9 @@ end
 
 function GamepadConnector:connectToTopbar()
 	if ChromeEnabled then
+		if FFlagEnableChromeShortcutBar then 
+			self:disconnectFromTopbar()
+		end
 		ContextActionService:BindCoreAction(
 			FOCUS_GAMEPAD_TO_TOPBAR,
 			self:_bindSelf(self._toggleTopbar),
@@ -155,9 +176,15 @@ function GamepadConnector:getShowTopBar(): ObservableValue<boolean>
 	return self._showTopBar
 end
 
+function GamepadConnector:getGamepadActive(): ObservableValue<boolean>
+	return self._gamepadActive
+end
+
 -- Internal
 function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum.ContextActionResult
-	if ChromeEnabled and userInputState == Enum.UserInputState.End and not self:_focusToastNotification(userInputState) then
+	if ChromeEnabled and not self:_focusToastNotification(userInputState) and 
+		(not FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.End 
+		  or FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.Begin) then
 		if FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole then
 			if self:getSelectedCoreObject():get() == nil then
 				ChromeService:enableFocusNav()

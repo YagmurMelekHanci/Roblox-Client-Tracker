@@ -375,7 +375,7 @@ PROTO_14:
   GETTABLEKS R0 R1 K11 ["_searchController"]
   NAMECALL R0 R0 K12 ["getSearchOptions"]
   CALL R0 1 1
-  GETTABLEKS R2 R0 K13 ["Source"]
+  GETTABLEKS R2 R0 K13 ["ScopeInfo"]
   GETTABLEKS R1 R2 K14 ["Scope"]
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K14 ["Scope"]
@@ -406,7 +406,7 @@ PROTO_14:
   CALL R1 1 0
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["_networking"]
-  GETTABLEKS R3 R0 K13 ["Source"]
+  GETTABLEKS R3 R0 K13 ["ScopeInfo"]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K22 ["_fetchAssetsCallback"]
   GETUPVAL R6 0
@@ -414,7 +414,7 @@ PROTO_14:
   NAMECALL R1 R1 K24 ["fetchAssetsAsync"]
   CALL R1 4 0
   RETURN R0 0
-  DUPTABLE R1 K27 [{"SearchTerm", "AssetType", "ScopeInfo"}]
+  DUPTABLE R1 K26 [{"SearchTerm", "AssetType", "ScopeInfo"}]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K11 ["_searchController"]
   NAMECALL R2 R2 K18 ["getSearchTerm"]
@@ -422,8 +422,8 @@ PROTO_14:
   SETTABLEKS R2 R1 K25 ["SearchTerm"]
   GETTABLEKS R2 R0 K20 ["AssetType"]
   SETTABLEKS R2 R1 K20 ["AssetType"]
-  GETTABLEKS R2 R0 K13 ["Source"]
-  SETTABLEKS R2 R1 K26 ["ScopeInfo"]
+  GETTABLEKS R2 R0 K13 ["ScopeInfo"]
+  SETTABLEKS R2 R1 K13 ["ScopeInfo"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K2 ["_networking"]
   MOVE R4 R1
@@ -431,7 +431,7 @@ PROTO_14:
   GETTABLEKS R5 R6 K22 ["_fetchAssetsCallback"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K23 ["_fetchAssetsErrorCallback"]
-  NAMECALL R2 R2 K28 ["searchAssetsAsync"]
+  NAMECALL R2 R2 K27 ["searchAssetsAsync"]
   CALL R2 4 0
   RETURN R0 0
 
@@ -1170,20 +1170,20 @@ PROTO_44:
   SETTABLEKS R4 R3 K9 ["SearchTerm"]
   GETTABLEKS R4 R2 K10 ["AssetType"]
   SETTABLEKS R4 R3 K10 ["AssetType"]
-  GETTABLEKS R4 R2 K14 ["Source"]
+  GETTABLEKS R4 R2 K11 ["ScopeInfo"]
   SETTABLEKS R4 R3 K11 ["ScopeInfo"]
   GETTABLEKS R4 R0 K0 ["_networking"]
   MOVE R6 R3
-  GETTABLEKS R7 R0 K15 ["_fetchAssetsCallback"]
-  GETTABLEKS R8 R0 K16 ["_fetchAssetsErrorCallback"]
-  NAMECALL R4 R4 K17 ["searchAssetsAsync"]
+  GETTABLEKS R7 R0 K14 ["_fetchAssetsCallback"]
+  GETTABLEKS R8 R0 K15 ["_fetchAssetsErrorCallback"]
+  NAMECALL R4 R4 K16 ["searchAssetsAsync"]
   CALL R4 4 0
   RETURN R0 0
   GETTABLEKS R2 R0 K0 ["_networking"]
-  GETTABLEKS R4 R0 K18 ["_scope"]
-  GETTABLEKS R5 R0 K15 ["_fetchAssetsCallback"]
-  GETTABLEKS R6 R0 K16 ["_fetchAssetsErrorCallback"]
-  NAMECALL R2 R2 K19 ["fetchAssetsAsync"]
+  GETTABLEKS R4 R0 K17 ["_scope"]
+  GETTABLEKS R5 R0 K14 ["_fetchAssetsCallback"]
+  GETTABLEKS R6 R0 K15 ["_fetchAssetsErrorCallback"]
+  NAMECALL R2 R2 K18 ["fetchAssetsAsync"]
   CALL R2 4 0
   RETURN R0 0
 

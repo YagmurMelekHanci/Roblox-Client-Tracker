@@ -107,24 +107,24 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Utils"]
   GETTABLEKS R2 R3 K8 ["CliAdapter"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["GetService"]
-  LOADK R3 K10 ["StudioAssetService"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K9 ["GetService"]
-  LOADK R4 K11 ["PublishService"]
+  GETTABLEKS R3 R1 K10 ["GetService"]
+  LOADK R4 K11 ["StudioAssetService"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K9 ["GetService"]
-  LOADK R5 K12 ["StudioService"]
+  GETTABLEKS R4 R1 K10 ["GetService"]
+  LOADK R5 K12 ["PublishService"]
   CALL R4 1 1
-  GETTABLEKS R5 R1 K9 ["GetService"]
-  LOADK R6 K13 ["RunService"]
+  GETTABLEKS R5 R1 K10 ["GetService"]
+  LOADK R6 K13 ["StudioService"]
   CALL R5 1 1
-  GETTABLEKS R6 R1 K9 ["GetService"]
-  LOADK R7 K14 ["Selection"]
+  GETTABLEKS R6 R1 K10 ["GetService"]
+  LOADK R7 K14 ["RunService"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Types"]
+  GETTABLEKS R7 R1 K10 ["GetService"]
+  LOADK R8 K15 ["Selection"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K6 ["Src"]
@@ -137,11 +137,11 @@ MAIN:
   GETTABLEKS R10 R11 K18 ["getFFlagRunCommandsInCodeAssist"]
   CALL R9 1 1
   DUPCLOSURE R10 K19 [PROTO_3]
-  CAPTURE VAL R5
-  CAPTURE VAL R8
-  CAPTURE VAL R4
-  CAPTURE VAL R9
   CAPTURE VAL R6
-  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R7
   CAPTURE VAL R3
+  CAPTURE VAL R4
   RETURN R10 1

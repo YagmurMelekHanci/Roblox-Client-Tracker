@@ -47,8 +47,6 @@ local ChromeService = if GetFFlagFixChromeReferences()
 	then if ChromeEnabled() then require(Chrome.Service) else nil
 	else require(script.Parent.Parent.Parent.Chrome.Service)
 
-local GetFFlagSelfieViewUseNewErrorBody =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewUseNewErrorBody
 local FFlagSelfieViewReducedCornerWidth = game:DefineFastFlag("SelfieViewReducedCornerWidth", true)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -79,15 +77,13 @@ local function Window(props: WindowProps): React.ReactNode
 	local theme = style.Theme
 	local font = style.Font
 
-	local showUpdatedCameraPath = if GetFFlagSelfieViewUseNewErrorBody()
-		then useAppPolicy(function(appPolicy)
-			return appPolicy.getShowUpdatedCameraPath()
-		end)
-		else false
+	local showUpdatedCameraPath = useAppPolicy(function(appPolicy)
+		return appPolicy.getShowUpdatedCameraPath()
+	end)
 
 	local localized = useLocalization({
 		robloxPermissionErrorHeader = "CoreScripts.TopBar.RobloxPermissionErrorHeader",
-		robloxPermissionErrorBody = if GetFFlagSelfieViewUseNewErrorBody() and showUpdatedCameraPath
+		robloxPermissionErrorBody = if showUpdatedCameraPath
 			then "CoreScripts.TopBar.RobloxPermissionErrorBodyTwo"
 			else "CoreScripts.TopBar.RobloxPermissionErrorBody",
 		dynamicAvatarMissingErrorHeader = "CoreScripts.TopBar.DynamicAvatarMissingErrorHeader",

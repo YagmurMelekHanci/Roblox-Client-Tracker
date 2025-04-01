@@ -16,7 +16,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
-local Types = require(Chrome.ChromeShared.Service.Types)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
@@ -42,15 +41,12 @@ local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperi
 
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local useCurrentSong = Songbird.useCurrentSong
-local getFFlagSongbirdUnverifiedMusicState = Songbird.getFFlagSongbirdUnverifiedMusicState
 
 local GetFFlagUnpinUnavailable = require(Chrome.Flags.GetFFlagUnpinUnavailable)
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
 local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
-local GetFFlagFixCapturesAvailability = require(Chrome.Flags.GetFFlagFixCapturesAvailability)
-local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
@@ -81,29 +77,6 @@ local shouldShowMusicTooltip = FFlagEnableUnibarFtuxTooltips
 local SELFIE_ID = Constants.SELFIE_VIEW_ID
 local ICON_SIZE = Constants.ICON_SIZE
 
-function checkCoreGui(
-	integration: { availability: ChromeUtils.AvailabilitySignal, id: Types.IntegrationId },
-	coreGui,
-	callback: (boolean) -> ()?
-)
-	ChromeUtils.setCoreGuiAvailability(integration, coreGui, function(available)
-		if not available then
-			ChromeService:removeUserPin(integration.id)
-		end
-
-		if callback then
-			callback(available)
-			return
-		end
-
-		if available then
-			integration.availability:available()
-		else
-			integration.availability:unavailable()
-		end
-	end)
-end
-
 local leaderboardVisibility = MappedSignal.new(PlayerListMaster:GetSetVisibleChangedEvent().Event, function()
 	return PlayerListMaster:GetSetVisible()
 end)
@@ -125,22 +98,16 @@ local leaderboard = ChromeService:register({
 			end
 		end
 	end,
-	isActivated = if GetFFlagAddChromeActivatedEvents()
-		then function()
-			return leaderboardVisibility:get()
-		end
-		else nil,
+	isActivated = function()
+		return leaderboardVisibility:get()
+	end,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/controls/leaderboardOff", "icons/controls/leaderboardOn", leaderboardVisibility)
 		end,
 	},
 })
-if not GetFFlagFixCapturesAvailability() and GetFFlagUnpinUnavailable() then
-	checkCoreGui(leaderboard, Enum.CoreGuiType.PlayerList)
-else
-	ChromeUtils.setCoreGuiAvailability(leaderboard, Enum.CoreGuiType.PlayerList)
-end
+ChromeUtils.setCoreGuiAvailability(leaderboard, Enum.CoreGuiType.PlayerList)
 
 local emotesVisibility = MappedSignal.new(EmotesMenuMaster.EmotesMenuToggled.Event, function()
 	return EmotesMenuMaster:isOpen()
@@ -157,11 +124,9 @@ local emotes = ChromeService:register({
 			end)
 		end
 	end,
-	isActivated = if GetFFlagAddChromeActivatedEvents()
-		then function()
-			return emotesVisibility:get()
-		end
-		else nil,
+	isActivated = function()
+		return emotesVisibility:get()
+	end,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/controls/emoteOff", "icons/controls/emoteOn", emotesVisibility)
@@ -180,17 +145,10 @@ function updateEmoteAvailability()
 	end
 end
 
-if not GetFFlagFixCapturesAvailability() and GetFFlagUnpinUnavailable() then
-	checkCoreGui(emotes, Enum.CoreGuiType.EmotesMenu, function(available)
-		coreGuiEmoteAvailable = available
-		updateEmoteAvailability()
-	end)
-else
-	ChromeUtils.setCoreGuiAvailability(emotes, Enum.CoreGuiType.EmotesMenu, function(available)
-		coreGuiEmoteAvailable = available
-		updateEmoteAvailability()
-	end)
-end
+ChromeUtils.setCoreGuiAvailability(emotes, Enum.CoreGuiType.EmotesMenu, function(available)
+	coreGuiEmoteAvailable = available
+	updateEmoteAvailability()
+end)
 
 EmotesMenuMaster.MenuVisibilityChanged.Event:Connect(function()
 	emoteMounted = EmotesMenuMaster.MenuIsVisible
@@ -212,65 +170,49 @@ local backpack = ChromeService:register({
 			end)
 		end
 	end,
-	isActivated = if GetFFlagAddChromeActivatedEvents()
-		then function()
-			return backpackVisibility:get()
-		end
-		else nil,
+	isActivated = function()
+		return backpackVisibility:get()
+	end,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/menu/inventoryOff", "icons/menu/inventory", backpackVisibility)
 		end,
 	},
 })
-if not GetFFlagFixCapturesAvailability() and GetFFlagUnpinUnavailable() then
-	checkCoreGui(backpack, Enum.CoreGuiType.Backpack)
-else
-	ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
-end
+ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
 
-local respawnPageOpen, respawnPageOpenSignal, mappedRespawnPageOpenSignal
-if GetFFlagAddChromeActivatedEvents() then
-	respawnPageOpen = false
-	respawnPageOpenSignal = Signal.new()
-	mappedRespawnPageOpenSignal = MappedSignal.new(respawnPageOpenSignal, function()
-		return respawnPageOpen
-	end)
+local respawnPageOpen = false
+local respawnPageOpenSignal = Signal.new()
+local mappedRespawnPageOpenSignal = MappedSignal.new(respawnPageOpenSignal, function()
+	return respawnPageOpen
+end)
 
-	task.defer(function()
-		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-		SettingsHub.CurrentPageSignal:connect(function(pageName)
-			respawnPageOpen = pageName == SettingsHub.Instance.ResetCharacterPage.Page.Name
-			respawnPageOpenSignal:fire()
-		end)
+task.defer(function()
+	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+	SettingsHub.CurrentPageSignal:connect(function(pageName)
+		respawnPageOpen = pageName == SettingsHub.Instance.ResetCharacterPage.Page.Name
+		respawnPageOpenSignal:fire()
 	end)
-end
+end)
 
 local respawn = ChromeService:register({
 	id = "respawn",
 	label = "CoreScripts.InGameMenu.QuickActions.Respawn",
 	activated = function(self)
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-		if GetFFlagAddChromeActivatedEvents() then
-			if SettingsHub:GetVisibility() then
-				if respawnPageOpen then
-					SettingsHub:SetVisibility(false)
-				else
-					SettingsHub:SwitchToPage(SettingsHub.Instance.ResetCharacterPage, true)
-				end
+		if SettingsHub:GetVisibility() then
+			if respawnPageOpen then
+				SettingsHub:SetVisibility(false)
 			else
-				SettingsHub:SetVisibility(true, false, SettingsHub.Instance.ResetCharacterPage)
+				SettingsHub:SwitchToPage(SettingsHub.Instance.ResetCharacterPage, true)
 			end
 		else
 			SettingsHub:SetVisibility(true, false, SettingsHub.Instance.ResetCharacterPage)
-			SettingsHub:SwitchToPage(SettingsHub.Instance.ResetCharacterPage)
 		end
 	end,
-	isActivated = if GetFFlagAddChromeActivatedEvents()
-		then function()
-			return mappedRespawnPageOpenSignal:get()
-		end
-		else nil,
+	isActivated = function()
+		return mappedRespawnPageOpenSignal:get()
+	end,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/actions/respawn")
@@ -322,11 +264,7 @@ function HamburgerButton(props)
 	then
 		local song = useCurrentSong()
 		songMeetsCriteria = useMemo(function()
-			if getFFlagSongbirdUnverifiedMusicState() then
-				return if song then song.meetsCriteria else false
-			else
-				return if song and song.metadata then song.metadata.RecordingCode ~= "" else false
-			end
+			return if song then song.meetsCriteria else false
 		end, { song })
 	end
 

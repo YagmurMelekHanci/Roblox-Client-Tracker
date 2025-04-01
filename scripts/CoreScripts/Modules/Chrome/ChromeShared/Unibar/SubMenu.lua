@@ -14,7 +14,6 @@ local GetFFlagEnableCaptureBadge = SharedFlags.GetFFlagEnableCaptureBadge
 local GetFIntNumTimesNewBadgeIsDisplayed = SharedFlags.GetFIntNumTimesNewBadgeIsDisplayed
 local GetFStringNewFeatureList = SharedFlags.GetFStringNewFeatureList
 local GetFFlagAnimateSubMenu = SharedFlags.GetFFlagAnimateSubMenu
-local GetFFlagEnableChromePinAnalytics = SharedFlags.GetFFlagEnableChromePinAnalytics
 local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
@@ -50,11 +49,6 @@ local ChromeTypes = require(Root.Service.Types)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local ViewportUtil = require(Root.Service.ViewportUtil)
 local Constants = require(Root.Unibar.Constants)
-local FFlagRemoveSubMenuTopBarConstants = game:DefineFastFlag("RemoveSubMenuTopBarConstants", false)
-local TopBarConstants
-if not FFlagRemoveSubMenuTopBarConstants then
-	TopBarConstants = require(Root.Parent.Parent.TopBar.Constants)
-end
 local MenuIconContext = if FFlagFocusNavOutOfSubmenu
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
@@ -66,9 +60,9 @@ local useChromeMenuItems = require(Root.Hooks.useChromeMenuItems)
 local useObservableValue = require(Root.Hooks.useObservableValue)
 local useTopbarInsetHeight = require(Root.Hooks.useTopbarInsetHeight)
 local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 
 local FFlagFixChromeIntegrationLayoutBug = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
-local FFlagSubmenuV4Layout = game:DefineFastFlag("SubmenuV4Layout2", false)
 local FFlagSubmenuFixInvisibleButtons = game:DefineFastFlag("SubmenuFixInvisibleButtons", false)
 
 local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
@@ -167,7 +161,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			ClearBadge(props.id)
 		end
 		props.activated()
-		if FFlagConsoleChatOnExpControls then
+		if FFlagConsoleChatOnExpControls or FFlagEnableChromeShortcutBar then
 			ChromeService:disableFocusNav()
 			GuiService.SelectedCoreObject = nil
 		end
@@ -175,10 +169,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 
 	local rowFragment = React.createElement(React.Fragment, nil, {
 		UIPadding = React.createElement("UIPadding", {
-			PaddingLeft = if FFlagSubmenuV4Layout
-				then UDim.new(0, Constants.SUBMENU_PADDING_LEFT)
-				elseif GetFFlagEnableChromePinIntegrations() then UDim.new(0, 12)
-				else UDim.new(0, 24),
+			PaddingLeft = UDim.new(0, Constants.SUBMENU_PADDING_LEFT),
 			PaddingRight = UDim.new(0, Constants.SUBMENU_PADDING_RIGHT),
 		}),
 
@@ -198,17 +189,15 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		),
 
 		StyledTextLabel = React.createElement(StyledTextLabel, {
-			size = if FFlagSubmenuV4Layout
-				then UDim2.new(
-					1,
-					if FFlagAdaptUnibarAndTiltSizing
-						then -Constants.ICON_SIZE - Constants.SUBMENU_PADDING_LEFT - Constants.SUBMENU_PADDING_RIGHT
-						else -Constants.ICON_SIZE - Constants.SUBMENU_PADDING_LEFT * 2,
-					1,
-					0
-				)
-				else nil,
-			lineHeight = if FFlagSubmenuV4Layout then 1 else nil,
+			size = UDim2.new(
+				1,
+				if FFlagAdaptUnibarAndTiltSizing
+					then -Constants.ICON_SIZE - Constants.SUBMENU_PADDING_LEFT - Constants.SUBMENU_PADDING_RIGHT
+					else -Constants.ICON_SIZE - Constants.SUBMENU_PADDING_LEFT * 2,
+				1,
+				0
+			),
+			lineHeight = 1,
 			fontStyle = if FFlagAdaptUnibarAndTiltSizing then Constants.SUBMENU_ROW_LABEL_FONT else font.Header2,
 			colorStyle = if GetFFlagAnimateSubMenu() and menuTransition
 				then {
@@ -376,14 +365,10 @@ function pinActivated(componentId: string)
 
 	if ChromeService:isUserPinned(componentId) then
 		ChromeService:removeUserPin(componentId)
-		if GetFFlagEnableChromePinAnalytics() then
-			ChromeAnalytics.default:setPin(componentId, false, ChromeService:userPins())
-		end
+		ChromeAnalytics.default:setPin(componentId, false, ChromeService:userPins())
 	else
 		ChromeService:setUserPin(componentId)
-		if GetFFlagEnableChromePinAnalytics() then
-			ChromeAnalytics.default:setPin(componentId, true, ChromeService:userPins())
-		end
+		ChromeAnalytics.default:setPin(componentId, true, ChromeService:userPins())
 	end
 end
 
@@ -414,15 +399,8 @@ function SubMenu(props: SubMenuProps)
 	local theme = style.Theme
 	local menuRef = React.useRef(nil)
 	local screenSize = useObservableValue(ViewportUtil.screenSize) :: Vector2
-	local topbarInsetHeight
-	local unibarLeftMargin
-	if FFlagRemoveSubMenuTopBarConstants then
-		topbarInsetHeight = useTopbarInsetHeight()
-		unibarLeftMargin = Constants.UNIBAR_LEFT_MARGIN
-	else
-		topbarInsetHeight = TopBarConstants.TopBarHeight
-		unibarLeftMargin = TopBarConstants.TopBarPadding
-	end
+	local topbarInsetHeight = useTopbarInsetHeight()
+	local unibarLeftMargin = Constants.UNIBAR_LEFT_MARGIN
 
 	React.useEffect(function()
 		local function moveLeft()

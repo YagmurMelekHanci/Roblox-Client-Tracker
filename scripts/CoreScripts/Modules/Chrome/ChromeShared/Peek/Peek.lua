@@ -24,40 +24,12 @@ local useEffect = React.useEffect
 local useRef = React.useRef
 local useCallback = React.useCallback
 
--- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
-local GetFFlagEnableSongbirdPeek = require(Root.Parent.Flags.GetFFlagEnableSongbirdPeek)
-local GetFFlagChromeCentralizedConfiguration =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeCentralizedConfiguration
-
 local GetFFlagDecoupleChromePeekFromCoreScripts =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDecoupleChromePeekFromCoreScripts
 
 local useStyle = UIBlox.Core.Style.useStyle
 local ControlState = Foundation.Enums.ControlState
 local StateLayerAffordance = Foundation.Enums.StateLayerAffordance
-
-if not GetFFlagChromeCentralizedConfiguration() then
-	function configurePeek()
-		if GetFFlagEnableSongbirdPeek() then
-			ChromeService:configurePeek("music_peek", {
-				integrations = {
-					"music_icon",
-					"peek_track_details",
-					"peek_close",
-				},
-			})
-			ChromeService:configurePeek("music_peek_portrait", {
-				integrations = {
-					"music_icon",
-					"peek_track_details",
-					"peek_close",
-				},
-			})
-		end
-	end
-
-	configurePeek()
-end
 
 local SPRING_CONFIG: ReactOtter.SpringOptions = {
 	damping = 20,

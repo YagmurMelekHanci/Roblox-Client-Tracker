@@ -20,7 +20,6 @@ local ExternalSettings = require(Root.Services.ExternalSettings)
 local PublicBindables = require(Root.Services.PublicBindables)
 local Thunk = require(Root.Thunk)
 local initiateAvatarCreationFeePurchaseThunk = require(Root.Thunks.initiateAvatarCreationFeePurchase)
-local FFlagHideAvatarIECPromptOnUpsellSuccess = require(RobloxGui.Modules.PublishAssetPrompt.FFlagHideAvatarIECPromptOnUpsellSuccess)
 
 local WindowState = require(Root.Enums.WindowState)
 local PromptState = require(Root.Enums.PromptState)
@@ -42,12 +41,9 @@ local function createStore()
 	local platformInterface = PlatformInterface.new()
 	local externalSettings = ExternalSettings.new()
 
-	local publicBindables
-	if FFlagHideAvatarIECPromptOnUpsellSuccess then
-		publicBindables = PublicBindables.new({
-			windowStateChangedBindable = windowStateChangedBindable
-		})
-	end
+	local publicBindables = PublicBindables.new({
+		windowStateChangedBindable = windowStateChangedBindable
+	})
 
 	store = Rodux.Store.new(Reducer, {}, {
 		Thunk.middleware({
@@ -56,7 +52,7 @@ local function createStore()
 			[Analytics] = analytics,
 			[PlatformInterface] = platformInterface,
 			[ExternalSettings] = externalSettings,
-			[PublicBindables] = if FFlagHideAvatarIECPromptOnUpsellSuccess then publicBindables else nil,
+			[PublicBindables] = publicBindables,
 		}),
 	})
 

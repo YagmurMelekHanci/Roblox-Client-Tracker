@@ -35,8 +35,6 @@ local GetFFlagSelfieViewMoreFixMigration =
 local FIntChromeWindowLayoutOrder = game:DefineFastInt("ChromeWindowLayoutOrder", 2)
 local FFlagWindowDragDetection = game:DefineFastFlag("WindowDragDetection", false)
 local FIntWindowMinDragDistance = game:DefineFastInt("WindowMinDragDistance", 25)
-local GetFFlagChromeDefaultWindowStartingPosition =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeDefaultWindowStartingPosition
 
 local useWindowSize = require(Root.Hooks.useWindowSize)
 
@@ -83,12 +81,10 @@ local WindowHost = function(props: WindowHostProps)
 	local frameWidth, setFrameWidth = ReactOtter.useAnimatedBinding(windowSize.X.Offset)
 	local frameHeight, setFrameHeight = ReactOtter.useAnimatedBinding(windowSize.Y.Offset)
 
-	local calculateAnchorPoint = if GetFFlagChromeDefaultWindowStartingPosition()
-		then React.useCallback(function()
-			return Vector2.new(frameWidth:getValue(), frameHeight:getValue())
-				* (props.integration.integration.windowAnchorPoint or Vector2.zero)
-		end, { frameWidth, frameHeight, props.integration } :: { unknown })
-		else nil :: never
+	local calculateAnchorPoint = React.useCallback(function()
+		return Vector2.new(frameWidth:getValue(), frameHeight:getValue())
+			* (props.integration.integration.windowAnchorPoint or Vector2.zero)
+	end, { frameWidth, frameHeight, props.integration } :: { unknown })
 
 	React.useEffect(function()
 		if frameWidth:getValue() == 0 then
@@ -215,10 +211,7 @@ local WindowHost = function(props: WindowHostProps)
 		local frameParent = windowRef.current:FindFirstAncestorWhichIsA("ScreenGui") :: ScreenGui
 		local parentScreenSize = frameParent.AbsoluteSize
 
-		local anchorPosition = if GetFFlagChromeDefaultWindowStartingPosition()
-			then calculateAnchorPoint()
-			else Vector2.new(frameWidth:getValue(), frameHeight:getValue())
-				* (props.integration.integration.windowAnchorPoint or Vector2.new(0.5, 0.5))
+		local anchorPosition = calculateAnchorPoint()
 
 		-- Input Objects are reused across different connections
 		-- therefore cache the value of the start position
@@ -301,10 +294,7 @@ local WindowHost = function(props: WindowHostProps)
 		local xPosition = frame.Position.X.Offset
 		local yPosition = frame.Position.Y.Offset
 
-		local anchorPosition = if GetFFlagChromeDefaultWindowStartingPosition()
-			then calculateAnchorPoint()
-			else Vector2.new(frameWidth:getValue(), frameHeight:getValue())
-				* (props.integration.integration.windowAnchorPoint or Vector2.new(0.5, 0.5))
+		local anchorPosition = calculateAnchorPoint()
 
 		local parentScreenSize = frameParent.AbsoluteSize
 
@@ -341,10 +331,7 @@ local WindowHost = function(props: WindowHostProps)
 
 			local frameParent = windowRef.current.Parent :: ScreenGui
 
-			local anchorPosition = if GetFFlagChromeDefaultWindowStartingPosition()
-				then calculateAnchorPoint()
-				else Vector2.new(frameWidth:getValue(), frameHeight:getValue())
-					* (props.integration.integration.windowAnchorPoint or Vector2.new(0.5, 0.5))
+			local anchorPosition = calculateAnchorPoint()
 
 			local parentScreenSize = frameParent.AbsoluteSize
 
@@ -438,7 +425,7 @@ local WindowHost = function(props: WindowHostProps)
 				BorderSizePixel = 0,
 				AnchorPoint = if props.integration.integration.windowAnchorPoint
 					then props.integration.integration.windowAnchorPoint
-					else if GetFFlagChromeDefaultWindowStartingPosition() then nil else Vector2.new(0.5, 0.5),
+					else nil,
 				BackgroundTransparency = 1,
 			}, {
 				WindowWrapper = React.createElement("Frame", {

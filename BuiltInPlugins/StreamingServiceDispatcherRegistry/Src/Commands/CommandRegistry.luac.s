@@ -7,12 +7,12 @@ MAIN:
   GETIMPORT R1 K5 [require]
   GETTABLEKS R4 R0 K6 ["Src"]
   GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["getFFlagConvAIAddSavePlaceCommand"]
+  GETTABLEKS R2 R3 K8 ["getFFlagConvAIAddCommandSearchInsertAsset"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K7 ["Flags"]
-  GETTABLEKS R3 R4 K9 ["getFFlagConvAIAddCommandSearchInsertAsset"]
+  GETTABLEKS R3 R4 K9 ["getFFlagConvAIAddSavePlaceCommand"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Src"]
@@ -213,7 +213,7 @@ MAIN:
   LOADB R28 0
   SETTABLEKS R28 R27 K35 ["IsPublic"]
   SETTABLEKS R27 R26 K29 ["RunCode"]
-  MOVE R28 R1
+  MOVE R28 R2
   CALL R28 0 1
   JUMPIFNOT R28 [+14]
   DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]
@@ -228,7 +228,7 @@ MAIN:
   JUMP [+1]
   LOADNIL R27
   SETTABLEKS R27 R26 K30 ["SavePlace"]
-  MOVE R28 R2
+  MOVE R28 R1
   CALL R28 0 1
   JUMPIFNOT R28 [+14]
   DUPTABLE R27 K36 [{"Command", "IsSequential", "IsPublic"}]

@@ -7,7 +7,7 @@ PROTO_0:
 PROTO_1:
   GETUPVAL R3 0
   FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["This function should only be called when FFlagTestingControlsBeta is true"]
+  LOADK R4 K0 ["This function should only be called when FFlagTestingControlsOptOut is true"]
   GETIMPORT R2 K2 [assert]
   CALL R2 2 0
   LOADK R4 K3 ["Settings"]
@@ -31,7 +31,7 @@ PROTO_1:
 PROTO_2:
   GETUPVAL R3 0
   FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["This function should only be called when FFlagTestingControlsBeta is true"]
+  LOADK R4 K0 ["This function should only be called when FFlagTestingControlsOptOut is true"]
   GETIMPORT R2 K2 [assert]
   CALL R2 2 0
   GETUPVAL R4 1
@@ -69,7 +69,7 @@ PROTO_2:
 PROTO_3:
   GETUPVAL R3 0
   FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["This function should only be called when FFlagTestingControlsBeta is true"]
+  LOADK R4 K0 ["This function should only be called when FFlagTestingControlsOptOut is true"]
   GETIMPORT R2 K2 [assert]
   CALL R2 2 0
   GETUPVAL R3 1
@@ -92,7 +92,7 @@ PROTO_3:
 PROTO_4:
   GETUPVAL R2 0
   FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["This function should only be called when FFlagTestingControlsBeta is true"]
+  LOADK R3 K0 ["This function should only be called when FFlagTestingControlsOptOut is true"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
   LOADK R3 K3 ["Settings"]
@@ -129,7 +129,7 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Src"]
   GETTABLEKS R5 R6 K10 ["SharedFlags"]
-  GETTABLEKS R4 R5 K11 ["getFFlagTestingControlsBeta"]
+  GETTABLEKS R4 R5 K11 ["getFFlagTestingControlsOptOut"]
   CALL R3 1 1
   CALL R3 0 1
   GETIMPORT R4 K5 [require]

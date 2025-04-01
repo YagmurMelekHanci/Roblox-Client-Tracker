@@ -51,7 +51,6 @@ local MenuIconContext = if FFlagTiltIconUnibarFocusNav
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
 
-local GetFFlagFixUnibarVirtualCursor = SharedFlags.GetFFlagFixUnibarVirtualCursor
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local FFlagReplaceChromeNotificationBadge = SharedFlags.FFlagReplaceChromeNotificationBadge
 
@@ -236,8 +235,7 @@ function TooltipButton(props: TooltipButtonProps)
 	local clickLatched, setClicked = useTimeHysteresis(0, 1.0)
 	local hoverHandler = React.useCallback(function(oldState, newState)
 		if
-			GetFFlagFixUnibarVirtualCursor()
-			and newState == ControlState.Selected
+			newState == ControlState.Selected
 			and (oldState == ControlState.Default or oldState == ControlState.Hover)
 		then
 			ChromeService:setSelected(props.integration.id)

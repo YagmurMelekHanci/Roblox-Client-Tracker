@@ -12,56 +12,56 @@ PROTO_1:
   GETTABLEKS R1 R0 K0 ["Item"]
   GETTABLEKS R2 R1 K1 ["Setting"]
   JUMPIF R2 [+12]
-  GETIMPORT R2 K3 [warn]
-  LOADK R4 K4 ["Missing Setting field for SegmentedButton with id %*"]
-  GETTABLEKS R6 R1 K5 ["Id"]
-  NAMECALL R4 R4 K6 ["format"]
+  GETTABLEKS R2 R0 K2 ["Warn"]
+  LOADK R4 K3 ["Missing Setting field for SegmentedButton with id %*"]
+  GETTABLEKS R6 R1 K4 ["Id"]
+  NAMECALL R4 R4 K5 ["format"]
   CALL R4 2 1
   MOVE R3 R4
   CALL R2 1 0
   LOADNIL R2
   RETURN R2 1
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K7 ["toString"]
+  GETTABLEKS R2 R3 K6 ["toString"]
   GETTABLEKS R3 R1 K1 ["Setting"]
   CALL R2 1 1
-  GETTABLEKS R5 R0 K8 ["Items"]
-  GETTABLEKS R4 R5 K9 ["Settings"]
+  GETTABLEKS R5 R0 K7 ["Items"]
+  GETTABLEKS R4 R5 K8 ["Settings"]
   GETTABLE R3 R4 R2
   JUMPIF R3 [+13]
-  GETIMPORT R4 K3 [warn]
-  LOADK R6 K10 ["Missing Setting %* for SegmentedButton with id %*"]
+  GETTABLEKS R4 R0 K2 ["Warn"]
+  LOADK R6 K9 ["Missing Setting %* for SegmentedButton with id %*"]
   MOVE R8 R2
-  GETTABLEKS R9 R1 K5 ["Id"]
-  NAMECALL R6 R6 K6 ["format"]
+  GETTABLEKS R9 R1 K4 ["Id"]
+  NAMECALL R6 R6 K5 ["format"]
   CALL R6 3 1
   MOVE R5 R6
   CALL R4 1 0
   LOADNIL R4
   RETURN R4 1
-  GETTABLEKS R4 R3 K11 ["Values"]
+  GETTABLEKS R4 R3 K10 ["Values"]
   JUMPIF R4 [+13]
-  GETIMPORT R4 K3 [warn]
-  LOADK R6 K12 ["Setting %* has no Values field to display for SegmentedButton with id %*"]
+  GETTABLEKS R4 R0 K2 ["Warn"]
+  LOADK R6 K11 ["Setting %* has no Values field to display for SegmentedButton with id %*"]
   MOVE R8 R2
-  GETTABLEKS R9 R1 K5 ["Id"]
-  NAMECALL R6 R6 K6 ["format"]
+  GETTABLEKS R9 R1 K4 ["Id"]
+  NAMECALL R6 R6 K5 ["format"]
   CALL R6 3 1
   MOVE R5 R6
   CALL R4 1 0
   LOADNIL R4
   RETURN R4 1
-  GETTABLEKS R5 R3 K13 ["Value"]
+  GETTABLEKS R5 R3 K12 ["Value"]
   FASTCALL1 TYPEOF R5 [+2]
-  GETIMPORT R4 K15 [typeof]
+  GETIMPORT R4 K14 [typeof]
   CALL R4 1 1
-  JUMPIFEQKS R4 K16 ["number"] [+16]
-  GETIMPORT R4 K3 [warn]
-  LOADK R6 K17 ["Setting %* has an invalid value %* for SegmentedButton with id %*"]
+  JUMPIFEQKS R4 K15 ["number"] [+16]
+  GETTABLEKS R4 R0 K2 ["Warn"]
+  LOADK R6 K16 ["Setting %* has an invalid value %* for SegmentedButton with id %*"]
   MOVE R8 R2
-  GETTABLEKS R9 R3 K13 ["Value"]
-  GETTABLEKS R10 R1 K5 ["Id"]
-  NAMECALL R6 R6 K6 ["format"]
+  GETTABLEKS R9 R3 K12 ["Value"]
+  GETTABLEKS R10 R1 K4 ["Id"]
+  NAMECALL R6 R6 K5 ["format"]
   CALL R6 4 1
   MOVE R5 R6
   CALL R4 1 0
@@ -69,30 +69,30 @@ PROTO_1:
   RETURN R4 1
   GETUPVAL R4 1
   GETUPVAL R5 2
-  DUPTABLE R6 K22 [{"Uri", "LayoutOrder", "SelectedIndex", "Items", "OnItemActivated"}]
-  GETTABLEKS R8 R0 K23 ["WidgetUri"]
+  DUPTABLE R6 K21 [{"Uri", "LayoutOrder", "SelectedIndex", "Items", "OnItemActivated"}]
+  GETTABLEKS R8 R0 K22 ["WidgetUri"]
   JUMPIFNOT R8 [+12]
-  GETTABLEKS R8 R1 K5 ["Id"]
+  GETTABLEKS R8 R1 K4 ["Id"]
   JUMPIFNOT R8 [+9]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K24 ["child"]
-  GETTABLEKS R8 R0 K23 ["WidgetUri"]
-  GETTABLEKS R9 R1 K5 ["Id"]
+  GETTABLEKS R7 R8 K23 ["child"]
+  GETTABLEKS R8 R0 K22 ["WidgetUri"]
+  GETTABLEKS R9 R1 K4 ["Id"]
   CALL R7 2 1
   JUMP [+1]
   LOADNIL R7
-  SETTABLEKS R7 R6 K18 ["Uri"]
-  GETTABLEKS R7 R0 K19 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K19 ["LayoutOrder"]
-  GETTABLEKS R8 R3 K13 ["Value"]
-  ADDK R7 R8 K25 [1]
-  SETTABLEKS R7 R6 K20 ["SelectedIndex"]
-  GETTABLEKS R7 R3 K11 ["Values"]
-  SETTABLEKS R7 R6 K8 ["Items"]
+  SETTABLEKS R7 R6 K17 ["Uri"]
+  GETTABLEKS R7 R0 K18 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K18 ["LayoutOrder"]
+  GETTABLEKS R8 R3 K12 ["Value"]
+  ADDK R7 R8 K24 [1]
+  SETTABLEKS R7 R6 K19 ["SelectedIndex"]
+  GETTABLEKS R7 R3 K10 ["Values"]
+  SETTABLEKS R7 R6 K7 ["Items"]
   NEWCLOSURE R7 P0
   CAPTURE VAL R0
   CAPTURE VAL R3
-  SETTABLEKS R7 R6 K21 ["OnItemActivated"]
+  SETTABLEKS R7 R6 K20 ["OnItemActivated"]
   CALL R4 2 -1
   RETURN R4 -1
 

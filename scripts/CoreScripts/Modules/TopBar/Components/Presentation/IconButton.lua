@@ -39,8 +39,6 @@ local GetFFlagChangeTopbarHeightCalculation =
 	require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
 local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 
-local GetFFlagFixUnibarVirtualCursor = SharedFlags.GetFFlagFixUnibarVirtualCursor
-
 local IconButton = Roact.PureComponent:extend("IconButton")
 
 local BACKGROUND_SIZE = if isNewTiltIconEnabled() then (Constants.TopBarHeight - 4) else 32
@@ -117,12 +115,10 @@ function IconButton:render()
 		return withCursor(function(getCursor)
 			return self:renderWithCursor(getCursor)
 		end)
-	elseif GetFFlagFixUnibarVirtualCursor() then
+	else
 		return withSelectionCursorProvider(function(getSelectionCursor)
 			return self:renderWithCursor(getSelectionCursor)
 		end)
-	else
-		return self:renderWithCursor(nil)
 	end
 end
 
@@ -156,8 +152,7 @@ function IconButton:renderWithCursor(getCursor)
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			SelectionImageObject = if isNewTiltIconEnabled() then 
 				if FFlagAdaptUnibarAndTiltSizing then getCursor.refCache[ICON_BUTTON_CURSOR]
-				elseif GetFFlagFixUnibarVirtualCursor() then getCursor(CursorKind.SelectedKnob)
-				else nil
+				else getCursor(CursorKind.SelectedKnob)
 			else nil,
 			NextSelectionRight = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then self.props.nextSelectionRightRef else nil :: never,
 			[Roact.Event.Activated] = self.props.onActivated,

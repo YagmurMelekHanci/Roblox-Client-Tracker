@@ -1,0 +1,60 @@
+PROTO_0:
+  LOADK R4 K0 ["ManageTabs"]
+  DUPTABLE R5 K7 [{"Id", "MinSize", "Resizable", "ToolDialog", "Size", "Name"}]
+  LOADK R6 K0 ["ManageTabs"]
+  SETTABLEKS R6 R5 K1 ["Id"]
+  GETUPVAL R6 0
+  SETTABLEKS R6 R5 K2 ["MinSize"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K3 ["Resizable"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K4 ["ToolDialog"]
+  GETUPVAL R6 0
+  SETTABLEKS R6 R5 K5 ["Size"]
+  LOADK R6 K0 ["ManageTabs"]
+  SETTABLEKS R6 R5 K6 ["Name"]
+  NAMECALL R2 R1 K8 ["CreateQWidgetPluginGui"]
+  CALL R2 3 1
+  GETTABLEKS R3 R2 K9 ["ClassName"]
+  JUMPIFNOTEQKS R3 K10 ["PluginGui"] [+3]
+  SETTABLEKS R0 R2 K11 ["Title"]
+  GETIMPORT R3 K15 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R3 R2 K13 ["ZIndexBehavior"]
+  NAMECALL R3 R1 K16 ["GetUri"]
+  CALL R3 1 1
+  GETUPVAL R4 1
+  MOVE R5 R3
+  DUPTABLE R6 K19 [{"Category", "ItemId"}]
+  LOADK R7 K20 ["Panels"]
+  SETTABLEKS R7 R6 K17 ["Category"]
+  LOADK R7 K0 ["ManageTabs"]
+  SETTABLEKS R7 R6 K18 ["ItemId"]
+  CALL R4 2 1
+  LOADK R7 K20 ["Panels"]
+  NAMECALL R5 R1 K21 ["GetPluginComponent"]
+  CALL R5 2 1
+  MOVE R8 R4
+  GETUPVAL R9 0
+  NAMECALL R6 R5 K22 ["SetSizeAsync"]
+  CALL R6 3 0
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["join"]
+  GETIMPORT R3 K11 [Vector2.new]
+  LOADN R4 240
+  LOADN R5 144
+  CALL R3 2 1
+  DUPCLOSURE R4 K12 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R4 1

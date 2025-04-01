@@ -145,7 +145,7 @@ MAIN:
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K6 ["Src"]
   GETTABLEKS R6 R7 K12 ["SharedFlags"]
-  GETTABLEKS R5 R6 K13 ["getFFlagTestingControlsBeta"]
+  GETTABLEKS R5 R6 K13 ["getFFlagTestingControlsOptOut"]
   CALL R4 1 1
   CALL R4 0 1
   DUPTABLE R5 K20 [{"initAssetDm", "requestAssetCollaborators", "openManageCollaborators", "toggleSocialPresenceWidget", "connectOnUpdateCollaborators", "connectOnDmChange"}]

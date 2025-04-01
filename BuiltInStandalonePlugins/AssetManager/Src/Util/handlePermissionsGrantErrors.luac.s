@@ -1,6 +1,6 @@
 PROTO_0:
   LENGTH R3 R1
-  JUMPIFNOTEQKN R3 K0 [0] [+13]
+  JUMPIFNOTEQKN R3 K0 [0] [+14]
   GETIMPORT R3 K2 [warn]
   LOADK R4 K3 ["Failed to insert assets. The asset owner must grant permissions to the asset(s)."]
   CALL R3 1 0
@@ -11,6 +11,7 @@ PROTO_0:
   LOADNIL R8
   SETTABLE R8 R0 R7
   FORGLOOP R3 2 [-3]
+  RETURN R0 0
   LOADK R3 K4 [""]
   MOVE R4 R1
   LOADNIL R5

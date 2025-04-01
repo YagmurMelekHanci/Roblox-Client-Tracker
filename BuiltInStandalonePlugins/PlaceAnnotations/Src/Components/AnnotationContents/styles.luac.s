@@ -231,11 +231,7 @@ MAIN:
   MOVE R16 R2
   LOADK R17 K89 [">> TextBox"]
   DUPTABLE R18 K90 [{"TextSize"}]
-  GETTABLEKS R20 R3 K91 ["fflagAnnotationsEditOperation"]
-  JUMPIFNOT R20 [+2]
   LOADN R19 16
-  JUMP [+1]
-  LOADNIL R19
   SETTABLEKS R19 R18 K49 ["TextSize"]
   CALL R16 2 -1
   SETLIST R13 R14 -1 [1]

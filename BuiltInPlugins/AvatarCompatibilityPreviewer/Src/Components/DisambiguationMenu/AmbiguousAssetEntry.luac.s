@@ -18,13 +18,47 @@ PROTO_1:
   RETURN R2 1
 
 PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["collectArray"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["AmbiguousAsset"]
+  GETTABLEKS R1 R2 K2 ["instances"]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U2
+  CALL R0 2 1
+  GETIMPORT R1 K5 [table.sort]
+  MOVE R2 R0
+  DUPCLOSURE R3 K6 [PROTO_1]
+  CALL R1 2 0
+  RETURN R0 1
+
+PROTO_3:
+  DUPTABLE R1 K2 [{"Id", "Label"}]
+  SETTABLEKS R0 R1 K0 ["Id"]
+  GETUPVAL R2 0
+  LOADK R4 K3 ["AssetPalettes"]
+  GETTABLEKS R5 R0 K4 ["Key"]
+  NAMECALL R2 R2 K5 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K1 ["Label"]
+  RETURN R1 1
+
+PROTO_4:
+  GETTABLEKS R3 R0 K0 ["Label"]
+  GETTABLEKS R4 R1 K0 ["Label"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_5:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["SetAssignedPalette"]
   GETTABLEKS R2 R0 K1 ["Id"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_6:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
@@ -32,66 +66,85 @@ PROTO_3:
   LOADK R4 K1 ["DisambiguationMenu"]
   NAMECALL R2 R2 K0 ["use"]
   CALL R2 2 1
+  LOADNIL R3
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K2 ["collectArray"]
-  GETTABLEKS R5 R0 K3 ["AmbiguousAsset"]
-  GETTABLEKS R4 R5 K4 ["instances"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+19]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K2 ["useMemo"]
   NEWCLOSURE R5 P0
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
   CAPTURE VAL R1
-  CALL R3 2 1
-  GETIMPORT R4 K7 [table.sort]
+  NEWTABLE R6 0 2
+  MOVE R7 R1
+  GETTABLEKS R9 R0 K3 ["AmbiguousAsset"]
+  GETTABLEKS R8 R9 K4 ["instances"]
+  SETLIST R6 R7 2 [1]
+  CALL R4 2 1
+  MOVE R3 R4
+  JUMP [+16]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K5 ["collectArray"]
+  GETTABLEKS R6 R0 K3 ["AmbiguousAsset"]
+  GETTABLEKS R5 R6 K4 ["instances"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R1
+  CALL R4 2 1
+  MOVE R3 R4
+  GETIMPORT R4 K8 [table.sort]
   MOVE R5 R3
-  DUPCLOSURE R6 K8 [PROTO_1]
+  DUPCLOSURE R6 K9 [PROTO_4]
   CALL R4 2 0
   GETUPVAL R5 3
-  GETTABLEKS R4 R5 K9 ["createElement"]
-  GETUPVAL R5 4
-  DUPTABLE R6 K13 [{"Name", "Instance", "LayoutOrder"}]
+  GETTABLEKS R4 R5 K10 ["createElement"]
+  GETUPVAL R5 5
+  DUPTABLE R6 K14 [{"Name", "Instance", "LayoutOrder"}]
   GETTABLEKS R9 R0 K3 ["AmbiguousAsset"]
-  GETTABLEKS R8 R9 K14 ["worldModel"]
-  GETTABLEKS R7 R8 K10 ["Name"]
-  SETTABLEKS R7 R6 K10 ["Name"]
+  GETTABLEKS R8 R9 K15 ["worldModel"]
+  GETTABLEKS R7 R8 K11 ["Name"]
+  SETTABLEKS R7 R6 K11 ["Name"]
   GETTABLEKS R8 R0 K3 ["AmbiguousAsset"]
-  GETTABLEKS R7 R8 K14 ["worldModel"]
-  SETTABLEKS R7 R6 K11 ["Instance"]
-  GETTABLEKS R7 R0 K12 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K12 ["LayoutOrder"]
-  DUPTABLE R7 K16 [{"Dropdown"}]
+  GETTABLEKS R7 R8 K15 ["worldModel"]
+  SETTABLEKS R7 R6 K12 ["Instance"]
+  GETTABLEKS R7 R0 K13 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K13 ["LayoutOrder"]
+  DUPTABLE R7 K17 [{"Dropdown"}]
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K9 ["createElement"]
-  GETUPVAL R9 5
-  DUPTABLE R10 K19 [{"AutomaticSize", "Size"}]
-  GETIMPORT R11 K22 [Enum.AutomaticSize.Y]
-  SETTABLEKS R11 R10 K17 ["AutomaticSize"]
-  GETIMPORT R11 K25 [UDim2.new]
+  GETTABLEKS R8 R9 K10 ["createElement"]
+  GETUPVAL R9 6
+  DUPTABLE R10 K20 [{"AutomaticSize", "Size"}]
+  GETIMPORT R11 K23 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K18 ["AutomaticSize"]
+  GETIMPORT R11 K26 [UDim2.new]
   LOADN R12 0
-  GETTABLEKS R13 R2 K26 ["DropdownWidth"]
+  GETTABLEKS R13 R2 K27 ["DropdownWidth"]
   LOADN R14 0
   LOADN R15 0
   CALL R11 4 1
-  SETTABLEKS R11 R10 K18 ["Size"]
-  DUPTABLE R11 K28 [{"DropdownMenu"}]
+  SETTABLEKS R11 R10 K19 ["Size"]
+  DUPTABLE R11 K29 [{"DropdownMenu"}]
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K9 ["createElement"]
-  GETUPVAL R13 6
-  DUPTABLE R14 K34 [{"PlaceholderText", "Width", "SelectedId", "OnItemActivated", "Items"}]
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  GETUPVAL R13 7
+  DUPTABLE R14 K35 [{"PlaceholderText", "Width", "SelectedId", "OnItemActivated", "Items"}]
   LOADK R17 K1 ["DisambiguationMenu"]
-  LOADK R18 K35 ["DropdownPlaceholder"]
-  NAMECALL R15 R1 K36 ["getText"]
+  LOADK R18 K36 ["DropdownPlaceholder"]
+  NAMECALL R15 R1 K37 ["getText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K29 ["PlaceholderText"]
-  GETTABLEKS R15 R2 K26 ["DropdownWidth"]
-  SETTABLEKS R15 R14 K30 ["Width"]
-  GETTABLEKS R15 R0 K37 ["AssignedPalette"]
-  SETTABLEKS R15 R14 K31 ["SelectedId"]
-  NEWCLOSURE R15 P2
+  SETTABLEKS R15 R14 K30 ["PlaceholderText"]
+  GETTABLEKS R15 R2 K27 ["DropdownWidth"]
+  SETTABLEKS R15 R14 K31 ["Width"]
+  GETTABLEKS R15 R0 K38 ["AssignedPalette"]
+  SETTABLEKS R15 R14 K32 ["SelectedId"]
+  NEWCLOSURE R15 P3
   CAPTURE VAL R0
-  SETTABLEKS R15 R14 K32 ["OnItemActivated"]
-  SETTABLEKS R3 R14 K33 ["Items"]
+  SETTABLEKS R15 R14 K33 ["OnItemActivated"]
+  SETTABLEKS R3 R14 K34 ["Items"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K27 ["DropdownMenu"]
+  SETTABLEKS R12 R11 K28 ["DropdownMenu"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K15 ["Dropdown"]
+  SETTABLEKS R8 R7 K16 ["Dropdown"]
   CALL R4 3 -1
   RETURN R4 -1
 
@@ -121,26 +174,32 @@ MAIN:
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Resources"]
-  GETTABLEKS R6 R7 K15 ["Theme"]
+  GETTABLEKS R7 R8 K14 ["Flags"]
+  GETTABLEKS R6 R7 K15 ["getFFlagFixLayeredClothingAssignment"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K16 ["Types"]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K16 ["Resources"]
+  GETTABLEKS R7 R8 K17 ["Theme"]
   CALL R6 1 1
-  GETTABLEKS R7 R2 K17 ["UI"]
-  GETTABLEKS R8 R7 K18 ["Pane"]
-  GETTABLEKS R9 R7 K19 ["SelectInput"]
-  GETTABLEKS R11 R2 K20 ["ContextServices"]
-  GETTABLEKS R10 R11 K21 ["Localization"]
-  GETTABLEKS R12 R2 K20 ["ContextServices"]
-  GETTABLEKS R11 R12 K22 ["Stylizer"]
-  DUPCLOSURE R12 K23 [PROTO_3]
-  CAPTURE VAL R10
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K18 ["Types"]
+  CALL R7 1 1
+  GETTABLEKS R8 R2 K19 ["UI"]
+  GETTABLEKS R9 R8 K20 ["Pane"]
+  GETTABLEKS R10 R8 K21 ["SelectInput"]
+  GETTABLEKS R12 R2 K22 ["ContextServices"]
+  GETTABLEKS R11 R12 K23 ["Localization"]
+  GETTABLEKS R13 R2 K22 ["ContextServices"]
+  GETTABLEKS R12 R13 K24 ["Stylizer"]
+  DUPCLOSURE R13 K25 [PROTO_6]
   CAPTURE VAL R11
-  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R5
   CAPTURE VAL R3
+  CAPTURE VAL R1
   CAPTURE VAL R4
-  CAPTURE VAL R8
   CAPTURE VAL R9
-  RETURN R12 1
+  CAPTURE VAL R10
+  RETURN R13 1

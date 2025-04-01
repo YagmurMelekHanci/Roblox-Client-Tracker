@@ -13,9 +13,6 @@ local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
-local GetFFlagSongbirdUseLatestIcons =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSongbirdUseLatestIcons
-
 local MUSIC_WINDOW_MAX_SIZE = PeekConstants.MUSIC_WINDOW_MAX_SIZE
 
 local windowSize = WindowSizeSignal.new(MUSIC_WINDOW_MAX_SIZE.X, MUSIC_WINDOW_MAX_SIZE.Y)
@@ -34,18 +31,12 @@ return ChromeService:register({
 	activated = function()
 		ChromeService:toggleWindow("music_entrypoint")
 	end,
-	isActivated = if GetFFlagSongbirdUseLatestIcons()
-		then function()
-			return mappedMusicOpenSignal:get()
-		end
-		else nil,
+	isActivated = function()
+		return mappedMusicOpenSignal:get()
+	end,
 	components = {
 		Icon = function(props)
-			if GetFFlagSongbirdUseLatestIcons() then
-				return CommonIcon("icons/common/music", "icons/common/musicFilled_medium", mappedMusicOpenSignal)
-			else
-				return CommonIcon("icons/common/music")
-			end
+			return CommonIcon("icons/common/music", "icons/common/musicFilled_medium", mappedMusicOpenSignal)
 		end,
 		Window = function()
 			return React.createElement(Foundation.View, {

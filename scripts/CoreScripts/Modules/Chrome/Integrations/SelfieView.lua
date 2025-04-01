@@ -21,14 +21,11 @@ local TopBarConstants = require(TopBar.Constants)
 local SelfieViewModule = Chrome.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
 local FFlagSelfViewFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewFixes()
-local GetFFlagDisableSelfViewDefaultOpen = require(Chrome.Flags.GetFFlagDisableSelfViewDefaultOpen)
 local GetFFlagChromeSupportSocialService = require(Chrome.Flags.GetFFlagChromeSupportSocialService)
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
-local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
 local GetFFlagChromeTrackWindowPosition = require(Chrome.Flags.GetFFlagChromeTrackWindowPosition)
 local GetFFlagChromeTrackWindowStatus = require(Chrome.Flags.GetFFlagChromeTrackWindowStatus)
-local GetFFlagChromeDefaultWindowStartingPosition =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeDefaultWindowStartingPosition
+local FFlagDisableCameraOnCoreGuiDisabled = game:DefineFastFlag("DisableCameraOnCoreGuiDisabled", false)
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -67,19 +64,15 @@ local selfieViewChromeIntegration = ChromeService:register({
 	-- Relevant ticket: https://roblox.atlassian.net/browse/APPEXP-817
 	-- hotkeyCodes = { Enum.KeyCode.LeftControl, Enum.KeyCode.LeftAlt, Enum.KeyCode.T },
 	windowSize = windowSize,
-	startingWindowPosition = if GetFFlagChromeDefaultWindowStartingPosition() then nil else startingWindowPosition,
-	windowDefaultOpen = not GetFFlagDisableSelfViewDefaultOpen(),
-	windowAnchorPoint = if GetFFlagChromeDefaultWindowStartingPosition() then nil else Vector2.new(0, 0),
+	windowDefaultOpen = false,
 	initialAvailability = AvailabilitySignalState.Unavailable,
 	persistWindowState = GetFFlagChromeTrackWindowPosition() or GetFFlagChromeTrackWindowStatus() or nil,
 	activated = function()
 		ChromeService:toggleWindow(ID)
 	end,
-	isActivated = if GetFFlagAddChromeActivatedEvents()
-		then function()
-			return mappedSelfieWindowOpenSignal:get()
-		end
-		else nil,
+	isActivated = function()
+		return mappedSelfieWindowOpenSignal:get()
+	end,
 	draggable = true,
 	cachePosition = true,
 	components = {
@@ -121,6 +114,10 @@ end, true)
 local updateAvailability = function(): ()
 	local coreGuiEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 	if not GetFFlagChromeSelfViewIgnoreCoreGui() and not coreGuiEnabled then
+		-- If CoreGuiType disabled while camera is on, turn it off
+		if FFlagDisableCameraOnCoreGuiDisabled and FaceChatUtils.isCameraOn() then
+			FaceChatUtils.toggleVideoAnimation()
+		end
 		selfieViewChromeIntegration.availability:unavailable()
 		return
 	end

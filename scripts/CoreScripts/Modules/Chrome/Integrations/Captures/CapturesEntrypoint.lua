@@ -10,9 +10,6 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local MappedSignal = ChromeUtils.MappedSignal
 
-local GetFFlagFixCapturesAvailability = require(Chrome.Flags.GetFFlagFixCapturesAvailability)
-local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
-
 local initialAvailability = ChromeService.AvailabilitySignal.Available
 if StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Captures) then
 	initialAvailability = ChromeService.AvailabilitySignal.Available
@@ -31,11 +28,9 @@ local capturesEntrypointIntegration = ChromeService:register({
 	activated = function(self)
 		CapturesApp.onToggleActivationFromChrome()
 	end,
-	isActivated = if GetFFlagAddChromeActivatedEvents()
-		then function()
-			return isActive:get()
-		end
-		else nil,
+	isActivated = function()
+		return isActive:get()
+	end,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/controls/cameraOff", "icons/controls/cameraOn", isActive)
@@ -43,26 +38,7 @@ local capturesEntrypointIntegration = ChromeService:register({
 	},
 })
 
-if GetFFlagFixCapturesAvailability() then
-	ChromeUtils.setCoreGuiAvailability(capturesEntrypointIntegration, Enum.CoreGuiType.Captures)
-else
-	StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, _enabled)
-		if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.Captures then
-			local integration: any = capturesEntrypointIntegration
-			if integration == nil then
-				return
-			end
-			ChromeUtils.setCoreGuiAvailability(integration, coreGuiType, function(enabled)
-				local capturesEntryPointAvailabilitySignal: any = integration.availability
-				if enabled then
-					capturesEntryPointAvailabilitySignal:available()
-				else
-					capturesEntryPointAvailabilitySignal:unavailable()
-				end
-			end)
-		end
-	end)
-end
+ChromeUtils.setCoreGuiAvailability(capturesEntrypointIntegration, Enum.CoreGuiType.Captures)
 
 -- function _toggleCaptures()
 -- 	while true do

@@ -72,7 +72,7 @@ MAIN:
   GETIMPORT R6 K5 [require]
   GETTABLEKS R9 R0 K8 ["Src"]
   GETTABLEKS R8 R9 K14 ["SharedFlags"]
-  GETTABLEKS R7 R8 K16 ["getFFlagTestingControlsBeta"]
+  GETTABLEKS R7 R8 K16 ["getFFlagTestingControlsOptOut"]
   CALL R6 1 1
   GETTABLEKS R7 R1 K17 ["useContext"]
   DUPCLOSURE R8 K18 [PROTO_0]

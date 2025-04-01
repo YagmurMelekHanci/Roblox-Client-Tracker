@@ -24,7 +24,7 @@ PROTO_1:
 PROTO_2:
   GETUPVAL R2 0
   FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["useCurrentTestMode should only be used when FFlagTestingControlsBeta is true"]
+  LOADK R3 K0 ["useCurrentTestMode should only be used when FFlagTestingControlsOptOut is true"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
   GETUPVAL R1 1
@@ -61,7 +61,7 @@ MAIN:
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K10 ["Src"]
   GETTABLEKS R7 R8 K13 ["SharedFlags"]
-  GETTABLEKS R6 R7 K14 ["getFFlagTestingControlsBeta"]
+  GETTABLEKS R6 R7 K14 ["getFFlagTestingControlsOptOut"]
   CALL R5 1 1
   CALL R5 0 1
   DUPCLOSURE R6 K15 [PROTO_2]

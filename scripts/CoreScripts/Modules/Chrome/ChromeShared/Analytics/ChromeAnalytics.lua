@@ -14,8 +14,6 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local ChromeService = require(Root.Service)
 local Constants = require(Root.Unibar.Constants)
 local Types = require(Root.Service.Types)
-local FFlagEnableChromePinAnalytics =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinAnalytics()
 local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
 local FFlagEnabledChromeIntegrationIsActivated = game:DefineFastFlag("EnabledChromeIntegrationIsActivated", false)
 local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
@@ -251,14 +249,13 @@ function ChromeAnalytics.new(): ChromeAnalytics
 end
 
 function ChromeAnalytics:setPin(integrationId: string, enabled: boolean, userPins: Types.IntegrationIdList)
-	if FFlagEnableChromePinAnalytics then
-		local eventType = if enabled then Constants.ANALYTICS.PIN_ADDED else Constants.ANALYTICS.PIN_REMOVED
-		self._sendEvent(eventType, {
-			integration_id = integrationId,
-			source = getInteractionSource(integrationId),
-			user_pins = table.concat(userPins, ","),
-		})
-	end
+	local eventType = if enabled then Constants.ANALYTICS.PIN_ADDED else Constants.ANALYTICS.PIN_REMOVED
+	self._sendEvent(eventType, {
+		integration_id = integrationId,
+		source = getInteractionSource(integrationId),
+		user_pins = table.concat(userPins, ","),
+	})
+
 	return nil
 end
 

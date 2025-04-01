@@ -56,7 +56,34 @@ PROTO_0:
   CALL R3 2 1
   MOVE R2 R3
   RETURN R2 1
-  LOADK R2 K14 [""]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K14 ["User"]
+  JUMPIFNOTEQ R0 R2 [+8]
+  LOADK R3 K15 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/User.png"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K16 ["Group"]
+  JUMPIFNOTEQ R0 R2 [+8]
+  LOADK R3 K17 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/Group.png"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K18 ["Universe"]
+  JUMPIFNOTEQ R0 R2 [+8]
+  LOADK R3 K5 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  LOADK R2 K19 [""]
   RETURN R2 1
 
 MAIN:
@@ -78,7 +105,7 @@ MAIN:
   NEWTABLE R4 2 0
   MOVE R5 R2
   LOADK R6 K11 ["AvailableImages"]
-  DUPTABLE R7 K18 [{"Checkmark", "Placeholder", "SortIcon", "SidebarCollapseIcon", "SidebarExpandIcon", "DefaultThumbnail"}]
+  DUPTABLE R7 K20 [{"Checkmark", "Placeholder", "SortIcon", "SidebarCollapseIcon", "SidebarExpandIcon", "DefaultThumbnail", "User", "Group"}]
   LOADN R8 1
   SETTABLEKS R8 R7 K12 ["Checkmark"]
   LOADN R8 2
@@ -91,10 +118,14 @@ MAIN:
   SETTABLEKS R8 R7 K16 ["SidebarExpandIcon"]
   LOADN R8 6
   SETTABLEKS R8 R7 K17 ["DefaultThumbnail"]
+  LOADN R8 7
+  SETTABLEKS R8 R7 K18 ["User"]
+  LOADN R8 8
+  SETTABLEKS R8 R7 K19 ["Group"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K11 ["AvailableImages"]
-  DUPCLOSURE R6 K19 [PROTO_0]
+  DUPCLOSURE R6 K21 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R5
-  SETTABLEKS R6 R4 K20 ["getImageHelper"]
+  SETTABLEKS R6 R4 K22 ["getImageHelper"]
   RETURN R4 1

@@ -16,28 +16,28 @@ PROTO_1:
   GETTABLEKS R2 R0 K1 ["Item"]
   GETTABLEKS R3 R2 K2 ["Setting"]
   JUMPIF R3 [+12]
-  GETIMPORT R3 K4 [warn]
-  LOADK R5 K5 ["Missing Setting field for RadioButton with id %*"]
-  GETTABLEKS R7 R2 K6 ["Id"]
-  NAMECALL R5 R5 K7 ["format"]
+  GETTABLEKS R3 R0 K3 ["Warn"]
+  LOADK R5 K4 ["Missing Setting field for RadioButton with id %*"]
+  GETTABLEKS R7 R2 K5 ["Id"]
+  NAMECALL R5 R5 K6 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   CALL R3 1 0
   LOADNIL R3
   RETURN R3 1
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K8 ["toString"]
+  GETTABLEKS R3 R4 K7 ["toString"]
   GETTABLEKS R4 R2 K2 ["Setting"]
   CALL R3 1 1
-  GETTABLEKS R6 R0 K9 ["Items"]
-  GETTABLEKS R5 R6 K10 ["Settings"]
+  GETTABLEKS R6 R0 K8 ["Items"]
+  GETTABLEKS R5 R6 K9 ["Settings"]
   GETTABLE R4 R5 R3
   JUMPIF R4 [+13]
-  GETIMPORT R5 K4 [warn]
-  LOADK R7 K11 ["Missing Setting %* for RadioButton with id %*"]
+  GETTABLEKS R5 R0 K3 ["Warn"]
+  LOADK R7 K10 ["Missing Setting %* for RadioButton with id %*"]
   MOVE R9 R3
-  GETTABLEKS R10 R2 K6 ["Id"]
-  NAMECALL R7 R7 K7 ["format"]
+  GETTABLEKS R10 R2 K5 ["Id"]
+  NAMECALL R7 R7 K6 ["format"]
   CALL R7 3 1
   MOVE R6 R7
   CALL R5 1 0
@@ -45,45 +45,45 @@ PROTO_1:
   RETURN R5 1
   GETUPVAL R5 2
   GETUPVAL R6 3
-  DUPTABLE R7 K19 [{"Uri", "Checked", "Disabled", "LayoutOrder", "OnClick", "Size", "Text"}]
-  GETTABLEKS R9 R0 K20 ["WidgetUri"]
+  DUPTABLE R7 K18 [{"Uri", "Checked", "Disabled", "LayoutOrder", "OnClick", "Size", "Text"}]
+  GETTABLEKS R9 R0 K19 ["WidgetUri"]
   JUMPIFNOT R9 [+12]
-  GETTABLEKS R9 R2 K6 ["Id"]
+  GETTABLEKS R9 R2 K5 ["Id"]
   JUMPIFNOT R9 [+9]
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K21 ["child"]
-  GETTABLEKS R9 R0 K20 ["WidgetUri"]
-  GETTABLEKS R10 R2 K6 ["Id"]
+  GETTABLEKS R8 R9 K20 ["child"]
+  GETTABLEKS R9 R0 K19 ["WidgetUri"]
+  GETTABLEKS R10 R2 K5 ["Id"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
-  SETTABLEKS R8 R7 K12 ["Uri"]
-  GETTABLEKS R9 R4 K22 ["Value"]
-  GETTABLEKS R10 R2 K23 ["SettingValue"]
+  SETTABLEKS R8 R7 K11 ["Uri"]
+  GETTABLEKS R9 R4 K21 ["Value"]
+  GETTABLEKS R10 R2 K22 ["SettingValue"]
   JUMPIFEQ R9 R10 [+2]
   LOADB R8 0 +1
   LOADB R8 1
-  SETTABLEKS R8 R7 K13 ["Checked"]
-  GETTABLEKS R9 R4 K24 ["Enabled"]
+  SETTABLEKS R8 R7 K12 ["Checked"]
+  GETTABLEKS R9 R4 K23 ["Enabled"]
   NOT R8 R9
-  SETTABLEKS R8 R7 K14 ["Disabled"]
-  GETTABLEKS R8 R0 K15 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K15 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K13 ["Disabled"]
+  GETTABLEKS R8 R0 K14 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K14 ["LayoutOrder"]
   NEWCLOSURE R8 P0
   CAPTURE VAL R0
   CAPTURE VAL R4
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K16 ["OnClick"]
-  GETTABLEKS R9 R2 K17 ["Size"]
-  ORK R8 R9 K25 ["Large"]
-  SETTABLEKS R8 R7 K17 ["Size"]
+  SETTABLEKS R8 R7 K15 ["OnClick"]
+  GETTABLEKS R9 R2 K16 ["Size"]
+  ORK R8 R9 K24 ["Large"]
+  SETTABLEKS R8 R7 K16 ["Size"]
   GETUPVAL R8 4
   MOVE R9 R1
-  LOADK R10 K18 ["Text"]
+  LOADK R10 K17 ["Text"]
   MOVE R11 R2
   MOVE R12 R4
   CALL R8 4 1
-  SETTABLEKS R8 R7 K18 ["Text"]
+  SETTABLEKS R8 R7 K17 ["Text"]
   CALL R5 2 -1
   RETURN R5 -1
 

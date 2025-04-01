@@ -14,7 +14,7 @@ PROTO_0:
   SETTABLE R5 R3 R4
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K9 ["Tag"]
-  LOADK R5 K10 ["SequencePreviewButton X-Corner X-Stroke"]
+  LOADK R5 K10 ["SequencePreviewButton X-Corner Stroke-Border"]
   SETTABLE R5 R3 R4
   DUPTABLE R4 K12 [{"Gradient"}]
   GETUPVAL R6 0

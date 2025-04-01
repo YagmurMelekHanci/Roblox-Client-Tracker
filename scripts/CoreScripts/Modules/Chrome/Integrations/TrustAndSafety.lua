@@ -12,8 +12,6 @@ local Signal = SignalLib.Signal
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
-local GetFFlagAddChromeActivatedEvents = require(Chrome.Flags.GetFFlagAddChromeActivatedEvents)
-
 -- This is an indirect way of setting up the mapped signal for the icon state
 -- We need to ensure we don't require SettingsHub before TopBar has finished
 -- This is due to ordering of SetGlobalGuiInset defined in TopBar
@@ -48,11 +46,9 @@ return ChromeService:register({
 			SettingsHub:SetVisibility(true, false, SettingsHub.Instance.ReportAbusePage)
 		end
 	end,
-	isActivated = if GetFFlagAddChromeActivatedEvents()
-		then function()
-			return mappedReportPageOpenSignal:get()
-		end
-		else nil,
+	isActivated = function()
+		return mappedReportPageOpenSignal:get()
+	end,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/menu/safety_off", "icons/menu/safety_on", mappedReportPageOpenSignal)

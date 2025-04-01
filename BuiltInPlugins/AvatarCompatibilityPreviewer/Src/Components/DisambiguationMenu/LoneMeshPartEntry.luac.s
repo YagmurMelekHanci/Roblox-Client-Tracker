@@ -7,6 +7,48 @@ PROTO_0:
   RETURN R2 1
 
 PROTO_1:
+  GETUPVAL R0 0
+  CALL R0 0 2
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R7 1
+  LOADK R9 K0 ["AssetType"]
+  GETTABLEKS R10 R6 K1 ["Label"]
+  NAMECALL R7 R7 K2 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K1 ["Label"]
+  FORGLOOP R2 2 [-10]
+  GETIMPORT R2 K5 [table.sort]
+  MOVE R3 R0
+  DUPCLOSURE R4 K6 [PROTO_0]
+  CALL R2 2 0
+  LOADN R4 1
+  DUPTABLE R5 K8 [{"Id", "Label"}]
+  LOADK R6 K9 ["Ignore"]
+  SETTABLEKS R6 R5 K7 ["Id"]
+  GETUPVAL R6 1
+  LOADK R8 K10 ["DisambiguationMenu"]
+  LOADK R9 K9 ["Ignore"]
+  NAMECALL R6 R6 K2 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K1 ["Label"]
+  FASTCALL3 TABLE_INSERT R0 R4 R5
+  MOVE R3 R0
+  GETIMPORT R2 K12 [table.insert]
+  CALL R2 3 0
+  RETURN R0 2
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["Label"]
+  GETTABLEKS R4 R1 K0 ["Label"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_3:
   GETUPVAL R1 0
   LOADK R3 K0 ["DisambiguationMenu"]
   MOVE R4 R0
@@ -24,7 +66,7 @@ PROTO_1:
   CALL R1 4 -1
   RETURN R1 -1
 
-PROTO_2:
+PROTO_4:
   DUPTABLE R1 K2 [{"Id", "Label"}]
   GETTABLEKS R2 R0 K3 ["attachmentName"]
   SETTABLEKS R2 R1 K0 ["Id"]
@@ -36,7 +78,7 @@ PROTO_2:
   SETTABLEKS R2 R1 K1 ["Label"]
   RETURN R1 1
 
-PROTO_3:
+PROTO_5:
   GETIMPORT R1 K2 [table.clone]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K3 ["Assignment"]
@@ -49,7 +91,7 @@ PROTO_3:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_6:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["SetAssignment"]
   DUPTABLE R2 K4 [{"meshPart", "assetType", "attachmentName"}]
@@ -79,7 +121,7 @@ PROTO_4:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_7:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
@@ -97,203 +139,223 @@ PROTO_5:
   JUMPIFNOTEQKNIL R5 [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  GETUPVAL R5 3
-  CALL R5 0 2
+  LOADNIL R5
+  LOADNIL R6
+  GETUPVAL R7 3
+  CALL R7 0 1
+  JUMPIFNOT R7 [+15]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K6 ["useMemo"]
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U5
+  CAPTURE VAL R1
+  NEWTABLE R9 0 1
+  MOVE R10 R1
+  SETLIST R9 R10 1 [1]
+  CALL R7 2 2
+  MOVE R5 R7
+  MOVE R6 R8
+  JUMP [+41]
+  GETUPVAL R7 5
+  CALL R7 0 2
+  MOVE R5 R7
+  MOVE R6 R8
   MOVE R7 R5
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
-  LOADK R14 K6 ["AssetType"]
-  GETTABLEKS R15 R11 K7 ["Label"]
-  NAMECALL R12 R1 K8 ["getText"]
+  LOADK R14 K7 ["AssetType"]
+  GETTABLEKS R15 R11 K8 ["Label"]
+  NAMECALL R12 R1 K9 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K7 ["Label"]
+  SETTABLEKS R12 R11 K8 ["Label"]
   FORGLOOP R7 2 [-9]
-  GETIMPORT R7 K11 [table.sort]
+  GETIMPORT R7 K12 [table.sort]
   MOVE R8 R5
-  DUPCLOSURE R9 K12 [PROTO_0]
+  DUPCLOSURE R9 K13 [PROTO_2]
   CALL R7 2 0
   LOADN R9 1
-  DUPTABLE R10 K14 [{"Id", "Label"}]
-  LOADK R11 K15 ["Ignore"]
-  SETTABLEKS R11 R10 K13 ["Id"]
+  DUPTABLE R10 K15 [{"Id", "Label"}]
+  LOADK R11 K16 ["Ignore"]
+  SETTABLEKS R11 R10 K14 ["Id"]
   LOADK R13 K1 ["DisambiguationMenu"]
-  LOADK R14 K15 ["Ignore"]
-  NAMECALL R11 R1 K8 ["getText"]
+  LOADK R14 K16 ["Ignore"]
+  NAMECALL R11 R1 K9 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K7 ["Label"]
+  SETTABLEKS R11 R10 K8 ["Label"]
   FASTCALL3 TABLE_INSERT R5 R9 R10
   MOVE R8 R5
-  GETIMPORT R7 K17 [table.insert]
+  GETIMPORT R7 K18 [table.insert]
   CALL R7 3 0
   LOADNIL R7
-  GETTABLEKS R8 R0 K18 ["Assignment"]
+  GETTABLEKS R8 R0 K19 ["Assignment"]
   JUMPIFEQKNIL R8 [+73]
-  GETTABLEKS R9 R0 K18 ["Assignment"]
-  GETTABLEKS R8 R9 K19 ["assetType"]
+  GETTABLEKS R9 R0 K19 ["Assignment"]
+  GETTABLEKS R8 R9 K20 ["assetType"]
   JUMPIFEQKNIL R8 [+67]
-  NEWCLOSURE R8 P1
+  NEWCLOSURE R8 P2
   CAPTURE VAL R1
   CAPTURE VAL R0
   JUMPIFNOT R4 [+31]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K20 ["util"]
-  GETTABLEKS R9 R10 K21 ["isLayeredClothingAllowed"]
-  GETTABLEKS R11 R0 K18 ["Assignment"]
-  GETTABLEKS R10 R11 K19 ["assetType"]
+  GETUPVAL R11 6
+  GETTABLEKS R10 R11 K21 ["util"]
+  GETTABLEKS R9 R10 K22 ["isLayeredClothingAllowed"]
+  GETTABLEKS R11 R0 K19 ["Assignment"]
+  GETTABLEKS R10 R11 K20 ["assetType"]
   CALL R9 1 1
   JUMPIF R9 [+20]
   LOADK R11 K1 ["DisambiguationMenu"]
-  LOADK R12 K22 ["LoneMeshPartBadMarketplaceLayeredClothing"]
-  DUPTABLE R13 K24 [{"name"}]
-  LOADK R16 K6 ["AssetType"]
-  GETTABLEKS R19 R0 K18 ["Assignment"]
-  GETTABLEKS R18 R19 K19 ["assetType"]
-  GETTABLEKS R17 R18 K25 ["Name"]
-  NAMECALL R14 R1 K8 ["getText"]
+  LOADK R12 K23 ["LoneMeshPartBadMarketplaceLayeredClothing"]
+  DUPTABLE R13 K25 [{"name"}]
+  LOADK R16 K7 ["AssetType"]
+  GETTABLEKS R19 R0 K19 ["Assignment"]
+  GETTABLEKS R18 R19 K20 ["assetType"]
+  GETTABLEKS R17 R18 K26 ["Name"]
+  NAMECALL R14 R1 K9 ["getText"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K23 ["name"]
-  NAMECALL R9 R1 K8 ["getText"]
+  SETTABLEKS R14 R13 K24 ["name"]
+  NAMECALL R9 R1 K9 ["getText"]
   CALL R9 4 1
   MOVE R7 R9
   JUMP [+31]
   JUMPIF R4 [+30]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K20 ["util"]
-  GETTABLEKS R9 R10 K26 ["isRigidAccessoryAllowed"]
-  GETTABLEKS R11 R0 K18 ["Assignment"]
-  GETTABLEKS R10 R11 K19 ["assetType"]
+  GETUPVAL R11 6
+  GETTABLEKS R10 R11 K21 ["util"]
+  GETTABLEKS R9 R10 K27 ["isRigidAccessoryAllowed"]
+  GETTABLEKS R11 R0 K19 ["Assignment"]
+  GETTABLEKS R10 R11 K20 ["assetType"]
   CALL R9 1 1
   JUMPIF R9 [+19]
   LOADK R11 K1 ["DisambiguationMenu"]
-  LOADK R12 K27 ["LoneMeshPartBadMarketplaceRigidAccessories"]
-  DUPTABLE R13 K24 [{"name"}]
-  LOADK R16 K6 ["AssetType"]
-  GETTABLEKS R19 R0 K18 ["Assignment"]
-  GETTABLEKS R18 R19 K19 ["assetType"]
-  GETTABLEKS R17 R18 K25 ["Name"]
-  NAMECALL R14 R1 K8 ["getText"]
+  LOADK R12 K28 ["LoneMeshPartBadMarketplaceRigidAccessories"]
+  DUPTABLE R13 K25 [{"name"}]
+  LOADK R16 K7 ["AssetType"]
+  GETTABLEKS R19 R0 K19 ["Assignment"]
+  GETTABLEKS R18 R19 K20 ["assetType"]
+  GETTABLEKS R17 R18 K26 ["Name"]
+  NAMECALL R14 R1 K9 ["getText"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K23 ["name"]
-  NAMECALL R9 R1 K8 ["getText"]
+  SETTABLEKS R14 R13 K24 ["name"]
+  NAMECALL R9 R1 K9 ["getText"]
   CALL R9 4 1
   MOVE R7 R9
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K28 ["createElement"]
-  GETUPVAL R9 6
-  DUPTABLE R10 K33 [{"Instance", "Name", "Subtitle", "WarningText", "LayoutOrder"}]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K29 ["createElement"]
+  GETUPVAL R9 7
+  DUPTABLE R10 K34 [{"Instance", "Name", "Subtitle", "WarningText", "LayoutOrder"}]
   GETTABLEKS R11 R0 K3 ["MeshPart"]
-  SETTABLEKS R11 R10 K29 ["Instance"]
+  SETTABLEKS R11 R10 K30 ["Instance"]
   GETTABLEKS R12 R0 K3 ["MeshPart"]
-  GETTABLEKS R11 R12 K25 ["Name"]
-  SETTABLEKS R11 R10 K25 ["Name"]
+  GETTABLEKS R11 R12 K26 ["Name"]
+  SETTABLEKS R11 R10 K26 ["Name"]
   JUMPIFNOT R4 [+6]
   LOADK R13 K1 ["DisambiguationMenu"]
-  LOADK R14 K34 ["LayeredClothing"]
-  NAMECALL R11 R1 K8 ["getText"]
+  LOADK R14 K35 ["LayeredClothing"]
+  NAMECALL R11 R1 K9 ["getText"]
   CALL R11 3 1
   JUMP [+5]
   LOADK R13 K1 ["DisambiguationMenu"]
-  LOADK R14 K35 ["RigidAccessory"]
-  NAMECALL R11 R1 K8 ["getText"]
+  LOADK R14 K36 ["RigidAccessory"]
+  NAMECALL R11 R1 K9 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K30 ["Subtitle"]
-  SETTABLEKS R7 R10 K31 ["WarningText"]
-  GETTABLEKS R11 R0 K32 ["LayoutOrder"]
-  SETTABLEKS R11 R10 K32 ["LayoutOrder"]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K28 ["createElement"]
-  GETUPVAL R12 7
-  DUPTABLE R13 K39 [{"AutomaticSize", "Layout", "Spacing"}]
-  GETIMPORT R14 K42 [Enum.AutomaticSize.XY]
-  SETTABLEKS R14 R13 K36 ["AutomaticSize"]
-  GETIMPORT R14 K45 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R14 R13 K37 ["Layout"]
-  GETTABLEKS R14 R2 K46 ["HorizontalSpacing"]
-  SETTABLEKS R14 R13 K38 ["Spacing"]
-  DUPTABLE R14 K49 [{"AttachmentDropdown", "AssetTypeDropdown"}]
-  GETTABLEKS R15 R0 K18 ["Assignment"]
+  SETTABLEKS R11 R10 K31 ["Subtitle"]
+  SETTABLEKS R7 R10 K32 ["WarningText"]
+  GETTABLEKS R11 R0 K33 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K33 ["LayoutOrder"]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K29 ["createElement"]
+  GETUPVAL R12 8
+  DUPTABLE R13 K40 [{"AutomaticSize", "Layout", "Spacing"}]
+  GETIMPORT R14 K43 [Enum.AutomaticSize.XY]
+  SETTABLEKS R14 R13 K37 ["AutomaticSize"]
+  GETIMPORT R14 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R14 R13 K38 ["Layout"]
+  GETTABLEKS R14 R2 K47 ["HorizontalSpacing"]
+  SETTABLEKS R14 R13 K39 ["Spacing"]
+  DUPTABLE R14 K50 [{"AttachmentDropdown", "AssetTypeDropdown"}]
+  GETTABLEKS R15 R0 K19 ["Assignment"]
   JUMPIFNOT R15 [+57]
   LOADB R15 0
-  GETTABLEKS R17 R0 K18 ["Assignment"]
-  GETTABLEKS R16 R17 K19 ["assetType"]
+  GETTABLEKS R17 R0 K19 ["Assignment"]
+  GETTABLEKS R16 R17 K20 ["assetType"]
   JUMPIFEQKNIL R16 [+51]
   LOADB R15 0
-  GETTABLEKS R19 R0 K18 ["Assignment"]
-  GETTABLEKS R18 R19 K19 ["assetType"]
+  GETTABLEKS R19 R0 K19 ["Assignment"]
+  GETTABLEKS R18 R19 K20 ["assetType"]
   GETTABLE R17 R6 R18
   LENGTH R16 R17
   LOADN R17 1
   JUMPIFNOTLT R17 R16 [+41]
   NOT R15 R4
   JUMPIFNOT R15 [+38]
-  GETUPVAL R16 5
-  GETTABLEKS R15 R16 K28 ["createElement"]
-  GETUPVAL R16 8
-  DUPTABLE R17 K54 [{"LayoutOrder", "Width", "SelectedId", "Items", "OnItemActivated"}]
-  NAMECALL R18 R3 K55 ["getNextOrder"]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K29 ["createElement"]
+  GETUPVAL R16 9
+  DUPTABLE R17 K55 [{"LayoutOrder", "Width", "SelectedId", "Items", "OnItemActivated"}]
+  NAMECALL R18 R3 K56 ["getNextOrder"]
   CALL R18 1 1
-  SETTABLEKS R18 R17 K32 ["LayoutOrder"]
-  GETTABLEKS R18 R2 K56 ["AttachmentDropdownWidth"]
-  SETTABLEKS R18 R17 K50 ["Width"]
-  GETTABLEKS R19 R0 K18 ["Assignment"]
-  GETTABLEKS R18 R19 K57 ["attachmentName"]
-  SETTABLEKS R18 R17 K51 ["SelectedId"]
-  GETUPVAL R19 9
-  GETTABLEKS R18 R19 K58 ["map"]
-  GETTABLEKS R21 R0 K18 ["Assignment"]
-  GETTABLEKS R20 R21 K19 ["assetType"]
+  SETTABLEKS R18 R17 K33 ["LayoutOrder"]
+  GETTABLEKS R18 R2 K57 ["AttachmentDropdownWidth"]
+  SETTABLEKS R18 R17 K51 ["Width"]
+  GETTABLEKS R19 R0 K19 ["Assignment"]
+  GETTABLEKS R18 R19 K58 ["attachmentName"]
+  SETTABLEKS R18 R17 K52 ["SelectedId"]
+  GETUPVAL R19 10
+  GETTABLEKS R18 R19 K59 ["map"]
+  GETTABLEKS R21 R0 K19 ["Assignment"]
+  GETTABLEKS R20 R21 K20 ["assetType"]
   GETTABLE R19 R6 R20
-  NEWCLOSURE R20 P2
+  NEWCLOSURE R20 P3
   CAPTURE VAL R1
   CALL R18 2 1
-  SETTABLEKS R18 R17 K52 ["Items"]
-  NEWCLOSURE R18 P3
-  CAPTURE VAL R0
-  SETTABLEKS R18 R17 K53 ["OnItemActivated"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K47 ["AttachmentDropdown"]
-  GETUPVAL R16 5
-  GETTABLEKS R15 R16 K28 ["createElement"]
-  GETUPVAL R16 8
-  DUPTABLE R17 K60 [{"LayoutOrder", "PlaceholderText", "Width", "SelectedId", "Items", "OnItemActivated"}]
-  NAMECALL R18 R3 K55 ["getNextOrder"]
-  CALL R18 1 1
-  SETTABLEKS R18 R17 K32 ["LayoutOrder"]
-  LOADK R20 K1 ["DisambiguationMenu"]
-  LOADK R21 K61 ["AssetTypeDropdownPlaceholder"]
-  NAMECALL R18 R1 K8 ["getText"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K59 ["PlaceholderText"]
-  GETTABLEKS R18 R2 K62 ["DropdownWidth"]
-  SETTABLEKS R18 R17 K50 ["Width"]
-  GETTABLEKS R19 R0 K18 ["Assignment"]
-  JUMPIFEQKNIL R19 [+9]
-  GETTABLEKS R20 R0 K18 ["Assignment"]
-  GETTABLEKS R19 R20 K19 ["assetType"]
-  JUMPIFNOTEQKNIL R19 [+3]
-  LOADK R18 K15 ["Ignore"]
-  JUMP [+18]
-  GETTABLEKS R19 R0 K18 ["Assignment"]
-  JUMPIFEQKNIL R19 [+14]
-  GETTABLEKS R20 R0 K18 ["Assignment"]
-  GETTABLEKS R19 R20 K19 ["assetType"]
-  JUMPIFEQKNIL R19 [+8]
-  GETTABLEKS R20 R0 K18 ["Assignment"]
-  GETTABLEKS R19 R20 K19 ["assetType"]
-  GETTABLEKS R18 R19 K25 ["Name"]
-  JUMP [+1]
-  LOADNIL R18
-  SETTABLEKS R18 R17 K51 ["SelectedId"]
-  SETTABLEKS R5 R17 K52 ["Items"]
+  SETTABLEKS R18 R17 K53 ["Items"]
   NEWCLOSURE R18 P4
   CAPTURE VAL R0
-  CAPTURE VAL R6
-  SETTABLEKS R18 R17 K53 ["OnItemActivated"]
+  SETTABLEKS R18 R17 K54 ["OnItemActivated"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K48 ["AssetTypeDropdown"]
+  SETTABLEKS R15 R14 K48 ["AttachmentDropdown"]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K29 ["createElement"]
+  GETUPVAL R16 9
+  DUPTABLE R17 K61 [{"LayoutOrder", "PlaceholderText", "Width", "SelectedId", "Items", "OnItemActivated"}]
+  NAMECALL R18 R3 K56 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K33 ["LayoutOrder"]
+  LOADK R20 K1 ["DisambiguationMenu"]
+  LOADK R21 K62 ["AssetTypeDropdownPlaceholder"]
+  NAMECALL R18 R1 K9 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K60 ["PlaceholderText"]
+  GETTABLEKS R18 R2 K63 ["DropdownWidth"]
+  SETTABLEKS R18 R17 K51 ["Width"]
+  GETTABLEKS R19 R0 K19 ["Assignment"]
+  JUMPIFEQKNIL R19 [+9]
+  GETTABLEKS R20 R0 K19 ["Assignment"]
+  GETTABLEKS R19 R20 K20 ["assetType"]
+  JUMPIFNOTEQKNIL R19 [+3]
+  LOADK R18 K16 ["Ignore"]
+  JUMP [+18]
+  GETTABLEKS R19 R0 K19 ["Assignment"]
+  JUMPIFEQKNIL R19 [+14]
+  GETTABLEKS R20 R0 K19 ["Assignment"]
+  GETTABLEKS R19 R20 K20 ["assetType"]
+  JUMPIFEQKNIL R19 [+8]
+  GETTABLEKS R20 R0 K19 ["Assignment"]
+  GETTABLEKS R19 R20 K20 ["assetType"]
+  GETTABLEKS R18 R19 K26 ["Name"]
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K52 ["SelectedId"]
+  SETTABLEKS R5 R17 K53 ["Items"]
+  NEWCLOSURE R18 P5
+  CAPTURE VAL R0
+  CAPTURE REF R6
+  SETTABLEKS R18 R17 K54 ["OnItemActivated"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K49 ["AssetTypeDropdown"]
   CALL R11 3 -1
   CALL R8 -1 -1
+  CLOSEUPVALS R6
   RETURN R8 -1
 
 MAIN:
@@ -307,56 +369,62 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Dash"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Components"]
+  GETTABLEKS R4 R5 K10 ["DisambiguationMenu"]
+  GETTABLEKS R3 R4 K11 ["DisambiguationMenuEntry"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["React"]
+  GETTABLEKS R4 R5 K12 ["Framework"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["UGCValidation"]
+  GETTABLEKS R5 R6 K13 ["React"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K12 ["Components"]
-  GETTABLEKS R7 R8 K13 ["DisambiguationMenu"]
-  GETTABLEKS R6 R7 K14 ["DisambiguationMenuEntry"]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Resources"]
+  GETTABLEKS R6 R7 K15 ["Theme"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R10 R0 K11 ["Src"]
-  GETTABLEKS R9 R10 K12 ["Components"]
-  GETTABLEKS R8 R9 K13 ["DisambiguationMenu"]
-  GETTABLEKS R7 R8 K15 ["getChoosableAssetTypes"]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K16 ["Types"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K11 ["Src"]
-  GETTABLEKS R9 R10 K16 ["Resources"]
-  GETTABLEKS R8 R9 K17 ["Theme"]
+  GETTABLEKS R9 R0 K6 ["Packages"]
+  GETTABLEKS R8 R9 K17 ["UGCValidation"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K11 ["Src"]
-  GETTABLEKS R9 R10 K18 ["Types"]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K9 ["Components"]
+  GETTABLEKS R10 R11 K10 ["DisambiguationMenu"]
+  GETTABLEKS R9 R10 K18 ["getChoosableAssetTypes"]
   CALL R8 1 1
-  GETTABLEKS R9 R2 K19 ["UI"]
-  GETTABLEKS R10 R9 K20 ["Pane"]
-  GETTABLEKS R11 R9 K21 ["SelectInput"]
-  GETTABLEKS R13 R2 K22 ["Util"]
-  GETTABLEKS R12 R13 K23 ["LayoutOrderIterator"]
-  GETTABLEKS R14 R2 K24 ["ContextServices"]
-  GETTABLEKS R13 R14 K25 ["Localization"]
-  GETTABLEKS R15 R2 K24 ["ContextServices"]
-  GETTABLEKS R14 R15 K26 ["Stylizer"]
-  DUPCLOSURE R15 K27 [PROTO_5]
-  CAPTURE VAL R13
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K19 ["Flags"]
+  GETTABLEKS R10 R11 K20 ["getFFlagFixLayeredClothingAssignment"]
+  CALL R9 1 1
+  GETTABLEKS R10 R3 K21 ["UI"]
+  GETTABLEKS R11 R10 K22 ["Pane"]
+  GETTABLEKS R12 R10 K23 ["SelectInput"]
+  GETTABLEKS R14 R3 K24 ["Util"]
+  GETTABLEKS R13 R14 K25 ["LayoutOrderIterator"]
+  GETTABLEKS R15 R3 K26 ["ContextServices"]
+  GETTABLEKS R14 R15 K27 ["Localization"]
+  GETTABLEKS R16 R3 K26 ["ContextServices"]
+  GETTABLEKS R15 R16 K28 ["Stylizer"]
+  DUPCLOSURE R16 K29 [PROTO_7]
   CAPTURE VAL R14
-  CAPTURE VAL R12
-  CAPTURE VAL R6
+  CAPTURE VAL R15
+  CAPTURE VAL R13
+  CAPTURE VAL R9
   CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R2
   CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R1
-  RETURN R15 1
+  RETURN R16 1

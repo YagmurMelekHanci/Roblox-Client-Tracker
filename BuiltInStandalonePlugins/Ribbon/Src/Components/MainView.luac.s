@@ -886,7 +886,7 @@ MAIN:
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K19 ["Src"]
   GETTABLEKS R13 R14 K20 ["SharedFlags"]
-  GETTABLEKS R12 R13 K22 ["getFFlagTestingControlsBeta"]
+  GETTABLEKS R12 R13 K22 ["getFFlagTestingControlsOptOut"]
   CALL R11 1 1
   CALL R11 0 1
   GETIMPORT R12 K5 [require]

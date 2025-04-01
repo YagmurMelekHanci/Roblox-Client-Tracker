@@ -23,6 +23,30 @@ export type PeekConfig = {
 	integrations: IntegrationIdList,
 	lifetime: PeekLifetimeConfig?,
 }
+
+export type ShortcutId = string
+export type ShortcutIdList = { [number]: ShortcutId }
+export type ShortcutProps = {
+	id: ShortcutId,
+	keyCode: Enum.KeyCode,
+	icon: string?,
+	label: string?,
+	integration: IntegrationId?,
+	actionName: string?,
+	activated: (() -> Enum.ContextActionResult?)?,
+}
+export type ShortcutRegisterProps = {
+	id: ShortcutId,
+	keyCode: Enum.KeyCode,
+	label: string?,
+	integration: IntegrationId?,
+	actionName: string?,
+	activated: (() -> Enum.ContextActionResult?)?,
+}
+export type ShortcutBarId = string
+export type ShortcutBarProps = ShortcutIdList
+export type ShortcutBarList = { [ShortcutBarId]: ShortcutBarProps }
+
 export type SecondaryAction = {
 	label: string,
 	activated: (IntegrationComponentProps) -> (),
@@ -89,5 +113,7 @@ export type IntegrationList = { [IntegrationId]: IntegrationProps }
 export type MenuList = { [number]: IntegrationComponentProps }
 export type WindowList = { [number]: IntegrationComponentProps }
 export type PeekList = { IntegrationComponentProps }
+export type ShortcutList = { [ShortcutId]: ShortcutProps }
+export type ShortcutBarItems = { [number]: ShortcutProps }
 
 return nil

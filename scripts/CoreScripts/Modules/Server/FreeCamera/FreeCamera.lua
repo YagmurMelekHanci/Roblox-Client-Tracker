@@ -36,6 +36,14 @@ Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 	end
 end)
 
+local FFlagUserExitFreecamBreaksWithShiftlock
+do
+    local success, result = pcall(function()
+        return UserSettings():IsUserFeatureEnabled("UserExitFreecamBreaksWithShiftlock")
+    end)
+    FFlagUserExitFreecamBreaksWithShiftlock = success and result
+end
+
 local FFlagUserShowGuiHideToggles
 do
     local success, result = pcall(function()
@@ -364,8 +372,10 @@ local PlayerState = {} do
 		mouseIconEnabled = UserInputService.MouseIconEnabled
 		UserInputService.MouseIconEnabled = false
 
-		if CheckMouseLockAvailability() then
+		if FFlagUserExitFreecamBreaksWithShiftlock and CheckMouseLockAvailability() then
 			mouseBehavior = Enum.MouseBehavior.Default
+		else
+			mouseBehavior = UserInputService.MouseBehavior
 		end
 		UserInputService.MouseBehavior = Enum.MouseBehavior.Default
 	end

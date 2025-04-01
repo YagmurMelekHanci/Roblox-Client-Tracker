@@ -15,56 +15,56 @@ PROTO_1:
   GETTABLEKS R2 R0 K1 ["Item"]
   GETTABLEKS R3 R2 K2 ["Setting"]
   JUMPIF R3 [+12]
-  GETIMPORT R3 K4 [warn]
-  LOADK R5 K5 ["Missing Setting field for Slider with id %*"]
-  GETTABLEKS R7 R2 K6 ["Id"]
-  NAMECALL R5 R5 K7 ["format"]
+  GETTABLEKS R3 R0 K3 ["Warn"]
+  LOADK R5 K4 ["Missing Setting field for Slider with id %*"]
+  GETTABLEKS R7 R2 K5 ["Id"]
+  NAMECALL R5 R5 K6 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   CALL R3 1 0
   LOADNIL R3
   RETURN R3 1
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K8 ["toString"]
+  GETTABLEKS R3 R4 K7 ["toString"]
   GETTABLEKS R4 R2 K2 ["Setting"]
   CALL R3 1 1
-  GETTABLEKS R6 R0 K9 ["Items"]
-  GETTABLEKS R5 R6 K10 ["Settings"]
+  GETTABLEKS R6 R0 K8 ["Items"]
+  GETTABLEKS R5 R6 K9 ["Settings"]
   GETTABLE R4 R5 R3
   JUMPIF R4 [+13]
-  GETIMPORT R5 K4 [warn]
-  LOADK R7 K11 ["Missing Setting %* for Slider with id %*"]
+  GETTABLEKS R5 R0 K3 ["Warn"]
+  LOADK R7 K10 ["Missing Setting %* for Slider with id %*"]
   MOVE R9 R3
-  GETTABLEKS R10 R2 K6 ["Id"]
-  NAMECALL R7 R7 K7 ["format"]
+  GETTABLEKS R10 R2 K5 ["Id"]
+  NAMECALL R7 R7 K6 ["format"]
   CALL R7 3 1
   MOVE R6 R7
   CALL R5 1 0
   LOADNIL R5
   RETURN R5 1
-  GETTABLEKS R6 R4 K12 ["Value"]
+  GETTABLEKS R6 R4 K11 ["Value"]
   FASTCALL1 TYPEOF R6 [+2]
-  GETIMPORT R5 K14 [typeof]
+  GETIMPORT R5 K13 [typeof]
   CALL R5 1 1
-  JUMPIFEQKS R5 K15 ["number"] [+16]
-  GETIMPORT R5 K4 [warn]
-  LOADK R7 K16 ["Setting %* has an invalid value %* for Slider with id %*"]
+  JUMPIFEQKS R5 K14 ["number"] [+16]
+  GETTABLEKS R5 R0 K3 ["Warn"]
+  LOADK R7 K15 ["Setting %* has an invalid value %* for Slider with id %*"]
   MOVE R9 R3
-  GETTABLEKS R10 R4 K12 ["Value"]
-  GETTABLEKS R11 R2 K6 ["Id"]
-  NAMECALL R7 R7 K7 ["format"]
+  GETTABLEKS R10 R4 K11 ["Value"]
+  GETTABLEKS R11 R2 K5 ["Id"]
+  NAMECALL R7 R7 K6 ["format"]
   CALL R7 4 1
   MOVE R6 R7
   CALL R5 1 0
   LOADNIL R5
   RETURN R5 1
-  GETTABLEKS R5 R4 K17 ["Range"]
+  GETTABLEKS R5 R4 K16 ["Range"]
   JUMPIF R5 [+13]
-  GETIMPORT R6 K4 [warn]
-  LOADK R8 K18 ["Setting %* has an invalid Range field for Slider with id %*"]
+  GETTABLEKS R6 R0 K3 ["Warn"]
+  LOADK R8 K17 ["Setting %* has an invalid Range field for Slider with id %*"]
   MOVE R10 R3
-  GETTABLEKS R11 R2 K6 ["Id"]
-  NAMECALL R8 R8 K7 ["format"]
+  GETTABLEKS R11 R2 K5 ["Id"]
+  NAMECALL R8 R8 K6 ["format"]
   CALL R8 3 1
   MOVE R7 R8
   CALL R6 1 0
@@ -73,49 +73,49 @@ PROTO_1:
   GETUPVAL R6 2
   GETUPVAL R7 3
   NEWTABLE R8 16 0
-  GETTABLEKS R10 R0 K19 ["WidgetUri"]
+  GETTABLEKS R10 R0 K18 ["WidgetUri"]
   JUMPIFNOT R10 [+12]
-  GETTABLEKS R10 R2 K6 ["Id"]
+  GETTABLEKS R10 R2 K5 ["Id"]
   JUMPIFNOT R10 [+9]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K20 ["child"]
-  GETTABLEKS R10 R0 K19 ["WidgetUri"]
-  GETTABLEKS R11 R2 K6 ["Id"]
+  GETTABLEKS R9 R10 K19 ["child"]
+  GETTABLEKS R10 R0 K18 ["WidgetUri"]
+  GETTABLEKS R11 R2 K5 ["Id"]
   CALL R9 2 1
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K21 ["Uri"]
-  GETTABLEKS R10 R4 K22 ["Enabled"]
+  SETTABLEKS R9 R8 K20 ["Uri"]
+  GETTABLEKS R10 R4 K21 ["Enabled"]
   NOT R9 R10
-  SETTABLEKS R9 R8 K23 ["Disabled"]
-  GETTABLEKS R9 R5 K24 ["Increment"]
-  SETTABLEKS R9 R8 K24 ["Increment"]
-  GETTABLEKS R9 R0 K25 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K25 ["LayoutOrder"]
-  GETTABLEKS R10 R5 K27 ["Minimum"]
-  ORK R9 R10 K26 [0]
-  SETTABLEKS R9 R8 K27 ["Minimum"]
-  GETTABLEKS R10 R5 K29 ["Maximum"]
-  ORK R9 R10 K28 [∞]
-  SETTABLEKS R9 R8 K29 ["Maximum"]
-  GETTABLEKS R9 R5 K30 ["Precision"]
-  SETTABLEKS R9 R8 K30 ["Precision"]
-  GETTABLEKS R9 R4 K12 ["Value"]
-  SETTABLEKS R9 R8 K12 ["Value"]
+  SETTABLEKS R9 R8 K22 ["Disabled"]
+  GETTABLEKS R9 R5 K23 ["Increment"]
+  SETTABLEKS R9 R8 K23 ["Increment"]
+  GETTABLEKS R9 R0 K24 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K24 ["LayoutOrder"]
+  GETTABLEKS R10 R5 K26 ["Minimum"]
+  ORK R9 R10 K25 [0]
+  SETTABLEKS R9 R8 K26 ["Minimum"]
+  GETTABLEKS R10 R5 K28 ["Maximum"]
+  ORK R9 R10 K27 [∞]
+  SETTABLEKS R9 R8 K28 ["Maximum"]
+  GETTABLEKS R9 R5 K29 ["Precision"]
+  SETTABLEKS R9 R8 K29 ["Precision"]
+  GETTABLEKS R9 R4 K11 ["Value"]
+  SETTABLEKS R9 R8 K11 ["Value"]
   NEWCLOSURE R9 P0
   CAPTURE VAL R0
   CAPTURE VAL R2
-  SETTABLEKS R9 R8 K31 ["OnValueChanged"]
+  SETTABLEKS R9 R8 K30 ["OnValueChanged"]
   GETUPVAL R9 4
   MOVE R10 R1
-  LOADK R11 K32 ["Text"]
+  LOADK R11 K31 ["Text"]
   MOVE R12 R2
   MOVE R13 R4
   CALL R9 4 1
-  SETTABLEKS R9 R8 K32 ["Text"]
+  SETTABLEKS R9 R8 K31 ["Text"]
   GETUPVAL R10 5
-  GETTABLEKS R9 R10 K33 ["Tag"]
-  LOADK R10 K34 [""]
+  GETTABLEKS R9 R10 K32 ["Tag"]
+  LOADK R10 K33 [""]
   SETTABLE R10 R8 R9
   CALL R6 2 -1
   RETURN R6 -1

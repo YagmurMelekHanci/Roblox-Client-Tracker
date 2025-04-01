@@ -3,7 +3,7 @@ PROTO_0:
   GETTABLEKS R3 R4 K0 ["Renderers"]
   GETTABLEKS R4 R1 K1 ["Type"]
   GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+81]
+  JUMPIFNOT R2 [+86]
   LOADK R3 K2 ["%* %*"]
   GETTABLEKS R5 R1 K1 ["Type"]
   MOVE R6 R0
@@ -15,7 +15,7 @@ PROTO_0:
   GETTABLEKS R5 R6 K0 ["Renderers"]
   GETTABLEKS R6 R1 K1 ["Type"]
   GETTABLE R4 R5 R6
-  DUPTABLE R5 K16 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "MenuView", "Renderers", "Select", "ShowContextMenu", "IsColumn", "WidgetUri", "HideLabels"}]
+  DUPTABLE R5 K17 [{"Item", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "MenuView", "Renderers", "Select", "ShowContextMenu", "IsColumn", "WidgetUri", "HideLabels", "Warn"}]
   SETTABLEKS R1 R5 K4 ["Item"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["Items"]
@@ -56,6 +56,9 @@ PROTO_0:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K15 ["HideLabels"]
   SETTABLEKS R6 R5 K15 ["HideLabels"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K16 ["Warn"]
+  SETTABLEKS R6 R5 K16 ["Warn"]
   CALL R3 2 -1
   RETURN R2 -1
   LOADNIL R2
@@ -73,8 +76,8 @@ PROTO_1:
   LOADK R3 K2 ["X-ColumnSpace50"]
   GETTABLEKS R4 R2 K3 ["Children"]
   JUMPIF R4 [+6]
-  GETIMPORT R4 K5 [warn]
-  LOADK R5 K6 ["Missing Children field for Column"]
+  GETTABLEKS R4 R0 K4 ["Warn"]
+  LOADK R5 K5 ["Missing Children field for Column"]
   CALL R4 1 0
   LOADNIL R4
   RETURN R4 1
@@ -87,14 +90,14 @@ PROTO_1:
   CAPTURE UPVAL U3
   CALL R4 2 1
   GETUPVAL R5 2
-  LOADK R6 K7 ["Frame"]
+  LOADK R6 K6 ["Frame"]
   NEWTABLE R7 2 0
-  GETTABLEKS R8 R0 K8 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K8 ["LayoutOrder"]
+  GETTABLEKS R8 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K7 ["LayoutOrder"]
   GETUPVAL R9 4
-  GETTABLEKS R8 R9 K9 ["Tag"]
+  GETTABLEKS R8 R9 K8 ["Tag"]
   GETUPVAL R9 5
-  LOADK R10 K10 ["Role-Surface X-Fit"]
+  LOADK R10 K9 ["Role-Surface X-Fit"]
   MOVE R11 R3
   CALL R9 2 1
   SETTABLE R9 R7 R8

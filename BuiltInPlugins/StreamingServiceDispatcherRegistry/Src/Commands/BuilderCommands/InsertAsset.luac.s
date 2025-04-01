@@ -131,46 +131,46 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Utils"]
-  GETTABLEKS R2 R3 K8 ["CliAdapter"]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Commands"]
+  GETTABLEKS R3 R4 K8 ["BuilderCommands"]
+  GETTABLEKS R2 R3 K9 ["BuilderNameMap"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["GetService"]
-  LOADK R3 K10 ["StreamingService"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Utils"]
+  GETTABLEKS R3 R4 K11 ["CliAdapter"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K9 ["GetService"]
-  LOADK R4 K11 ["ConversationalAIAcceptanceService"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K12 ["Types"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K7 ["Utils"]
-  GETTABLEKS R5 R6 K7 ["Utils"]
+  GETTABLEKS R6 R7 K10 ["Utils"]
+  GETTABLEKS R5 R6 K10 ["Utils"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Types"]
+  GETTABLEKS R5 R2 K13 ["GetService"]
+  LOADK R6 K14 ["StreamingService"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K13 ["Commands"]
-  GETTABLEKS R8 R9 K14 ["BuilderCommands"]
-  GETTABLEKS R7 R8 K15 ["BuilderNameMap"]
+  GETTABLEKS R6 R2 K13 ["GetService"]
+  LOADK R7 K15 ["ConversationalAIAcceptanceService"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K6 ["Src"]
   GETTABLEKS R9 R10 K16 ["Flags"]
-  GETTABLEKS R8 R9 K17 ["getFFlagConvAIFixOnlyInsertFirstVariation"]
+  GETTABLEKS R8 R9 K17 ["getFFlagConvAIAddCommandSearchInsertAsset"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K6 ["Src"]
   GETTABLEKS R10 R11 K16 ["Flags"]
-  GETTABLEKS R9 R10 K18 ["getFFlagConvAIAddCommandSearchInsertAsset"]
+  GETTABLEKS R9 R10 K18 ["getFFlagConvAIFixOnlyInsertFirstVariation"]
   CALL R8 1 1
   DUPCLOSURE R9 K19 [PROTO_0]
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R4
+  CAPTURE VAL R1
   CAPTURE VAL R8
-  CAPTURE VAL R2
-  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R6
   RETURN R9 1

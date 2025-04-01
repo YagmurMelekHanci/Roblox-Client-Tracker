@@ -13,7 +13,7 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K10 ["Src"]
   GETTABLEKS R5 R6 K11 ["SharedFlags"]
-  GETTABLEKS R4 R5 K12 ["getFFlagTestingControlsBeta"]
+  GETTABLEKS R4 R5 K12 ["getFFlagTestingControlsOptOut"]
   CALL R3 1 1
   CALL R3 0 1
   MOVE R4 R2

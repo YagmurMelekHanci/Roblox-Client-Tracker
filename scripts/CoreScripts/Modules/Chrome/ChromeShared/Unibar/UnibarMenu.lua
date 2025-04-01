@@ -7,10 +7,7 @@ local React = require(CorePackages.Packages.React)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
-local GetFFlagEnableSaveUserPins = SharedFlags.GetFFlagEnableSaveUserPins
-local GetFFlagEnableChromePinAnalytics = SharedFlags.GetFFlagEnableChromePinAnalytics
 local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
-local GetFFlagEnablePartyMicIconInChrome = SharedFlags.GetFFlagEnablePartyMicIconInChrome
 local GetFFlagUsePolishedAnimations = SharedFlags.GetFFlagUsePolishedAnimations
 local GetFFlagAnimateSubMenu = SharedFlags.GetFFlagAnimateSubMenu
 local GetFIntIconSelectionTimeout = SharedFlags.GetFIntIconSelectionTimeout
@@ -33,6 +30,7 @@ local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local _integrations = if GetFFlagChromeCentralizedConfiguration() then nil else require(Root.Parent.Integrations)
 local SubMenu = require(Root.Unibar.SubMenu)
 local WindowManager = require(Root.Unibar.WindowManager)
+local ShortcutBar = require(Root.Shortcuts.ShortcutBar)
 local Constants = require(Root.Unibar.Constants)
 
 local useChromeMenuItems = require(Root.Hooks.useChromeMenuItems)
@@ -44,9 +42,8 @@ local ContainerHost = require(Root.Unibar.ComponentHosts.ContainerHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-
-local FFlagReshufflePartyIconsInUnibar = game:DefineFastFlag("ReshufflePartyIconsInUnibar", false)
-local FFlagFixUnibarResizing = game:DefineFastFlag("FixUnibarResizing", false)
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWhileHidden
 
 -- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
 local PartyConstants = require(Root.Parent.Integrations.Party.Constants)
@@ -65,9 +62,6 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		-- Integration availability signals will ultimately filter items out so no need for granular filtering here.
 		-- ie. Voice Mute integration will only be shown is voice is enabled/active
 		local nineDot = { "leaderboard", "emotes", "backpack" }
-		local partyMenu = if GetFFlagEnablePartyMicIconInChrome() and not FFlagReshufflePartyIconsInUnibar
-			then { PartyConstants.TOGGLE_MIC_INTEGRATION_ID }
-			else {}
 
 		-- append to end of nine-dot
 		table.insert(nineDot, "respawn")
@@ -80,13 +74,8 @@ if not GetFFlagChromeCentralizedConfiguration() then
 
 		-- insert trust and safety into pin, prioritize over leaderboard
 		if GetFFlagEnableChromePinIntegrations() and not ChromeService:isUserPinned("trust_and_safety") then
-			if not GetFFlagEnableSaveUserPins() then
-				ChromeService:setUserPin("trust_and_safety", true)
-
-				if GetFFlagEnableChromePinAnalytics() then
-					ChromeAnalytics.default:setPin("trust_and_safety", true, ChromeService:userPins())
-				end
-			end
+			ChromeService:setUserPin("trust_and_safety", true)
+			ChromeAnalytics.default:setPin("trust_and_safety", true, ChromeService:userPins())
 		end
 
 		local v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
@@ -102,29 +91,15 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		end
 
 		if isConnectUnibarEnabled() then
-			-- TODO: this integration will replace logic related to `partyMenu`
-			if FFlagReshufflePartyIconsInUnibar then
-				table.insert(v4Ordering, 1, "connect_unibar")
-			else
-				local experienceChatIndex = table.find(v4Ordering, "chat")
-				if experienceChatIndex then
-					-- insert Connect(a.k.a AppChat) after ExperienceChat, so it appears in front of ExpChat
-					table.insert(v4Ordering, experienceChatIndex + 1, "connect_unibar")
-				end
-			end
+			table.insert(v4Ordering, 1, "connect_unibar")
 		end
 
-		if FFlagReshufflePartyIconsInUnibar then
-			local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
-			if toggleMicIndex then
-				table.insert(v4Ordering, toggleMicIndex + 1, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
-			end
+		local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
+		if toggleMicIndex then
+			table.insert(v4Ordering, toggleMicIndex + 1, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
 		end
 
-		ChromeService:configureMenu({
-			partyMenu,
-			v4Ordering,
-		})
+		ChromeService:configureMenu({ v4Ordering })
 
 		table.insert(nineDot, 2, "camera_entrypoint")
 		table.insert(nineDot, 2, "selfie_view")
@@ -140,6 +115,11 @@ if not GetFFlagChromeCentralizedConfiguration() then
 	end
 
 	configureUnibar()
+
+	if FFlagEnableChromeShortcutBar then
+		-- initialize shortcuts
+		require(script.Parent.Parent.Shortcuts.ConfigureShortcuts)()
+	end
 end
 
 export type IconDividerProps = {
@@ -189,16 +169,18 @@ function AnimationStateHelper(props)
 
 	React.useEffect(function()
 		if inFocusNav then
-			ContextActionService:BindCoreAction("RBXEscapeUnibar", function(actionName, userInputState, input)
-				if FFlagHideTopBarConsole then
-					if userInputState == Enum.UserInputState.End then
+			if not FFlagEnableChromeShortcutBar then
+				ContextActionService:BindCoreAction("RBXEscapeUnibar", function(actionName, userInputState, input)
+					if FFlagHideTopBarConsole then
+						if userInputState == Enum.UserInputState.End then
+							ChromeService:disableFocusNav()
+							GuiService.SelectedCoreObject = nil
+						end
+					else
 						ChromeService:disableFocusNav()
-						GuiService.SelectedCoreObject = nil
 					end
-				else
-					ChromeService:disableFocusNav()
-				end
-			end, false, Enum.KeyCode.ButtonB)
+				end, false, Enum.KeyCode.ButtonB)
+			end
 
 			if FFlagTiltIconUnibarFocusNav then
 				if props.menuFrameRef.current then
@@ -278,7 +260,7 @@ function AnimationStateHelper(props)
 				end
 			end
 		end
-	end, { selectedItem })
+	end, { selectedItem, if FFlagEnableChromeShortcutBar then currentSubmenu else nil })
 
 	return nil
 end
@@ -345,6 +327,8 @@ function Unibar(props: UnibarProp)
 	local priorOpenPositions = React.useRef({})
 	local priorAbsolutePosition = React.useRef(Vector2.zero)
 
+	local priorAbsoluteSize = React.useRef(Vector2.zero)
+
 	local updatePositions = false
 	local priorPositions = priorOpenPositions.current or {}
 
@@ -356,10 +340,7 @@ function Unibar(props: UnibarProp)
 	local toggleIconTransition, setToggleIconTransition = ReactOtter.useAnimatedBinding(1)
 	local toggleWidthTransition, setToggleWidthTransition = ReactOtter.useAnimatedBinding(1)
 	local unibarWidth, setUnibarWidth = ReactOtter.useAnimatedBinding(0)
-	local lastUnibarGoal
-	if FFlagFixUnibarResizing then
-		lastUnibarGoal = React.useRef(0)
-	end
+	local lastUnibarGoal = React.useRef(0)
 	local iconReflow, setIconReflow = ReactOtter.useAnimatedBinding(1)
 	local flipLerp = React.useRef(false)
 	local positionUpdateCount = React.useRef(0)
@@ -377,16 +358,27 @@ function Unibar(props: UnibarProp)
 
 	local onAreaChanged = React.useCallback(function(rbx)
 		local absolutePosition = Vector2.zero
+		local absoluteSize = Vector2.zero
 		if rbx then
 			absolutePosition = rbx.AbsolutePosition
+			absoluteSize = rbx.AbsoluteSize
 			if absolutePosition ~= priorAbsolutePosition.current then
 				priorAbsolutePosition.current = absolutePosition
 				ChromeService:setMenuAbsolutePosition(absolutePosition)
 			end
+			if FFlagReduceTopBarInsetsWhileHidden and absoluteSize ~= priorAbsoluteSize.current then
+				priorAbsoluteSize.current = absoluteSize
+			end
 		end
 
-		if rbx and props.onAreaChanged then
-			props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, absolutePosition, rbx.AbsoluteSize)
+		if FFlagReduceTopBarInsetsWhileHidden and GamepadConnector then
+			if rbx and props.onAreaChanged and GamepadConnector:getShowTopBar():get() then
+				props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, absolutePosition, absoluteSize)
+			end
+		else
+			if rbx and props.onAreaChanged then
+				props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, absolutePosition, rbx.AbsoluteSize)
+			end
 		end
 	end, {})
 
@@ -528,23 +520,14 @@ function Unibar(props: UnibarProp)
 	expandSize = Constants.UNIBAR_END_PADDING * 2 + xOffset
 
 	React.useEffect(function()
-		local lastUnibarWidth
-		if FFlagFixUnibarResizing then
-			lastUnibarWidth = lastUnibarGoal.current
-		else
-			lastUnibarWidth = unibarWidth:getValue()
-		end
+		local lastUnibarWidth = lastUnibarGoal.current
 
 		if unibarWidth:getValue() == 0 then
 			setUnibarWidth(ReactOtter.instant(expandSize) :: any)
-			if FFlagFixUnibarResizing then
-				lastUnibarGoal.current = expandSize
-			end
+			lastUnibarGoal.current = expandSize
 		elseif lastUnibarWidth ~= expandSize then
 			setUnibarWidth(ReactOtter.spring(expandSize, Constants.MENU_ANIMATION_SPRING))
-			if FFlagFixUnibarResizing then
-				lastUnibarGoal.current = expandSize
-			end
+			lastUnibarGoal.current = expandSize
 		end
 		ChromeService:setMenuAbsoluteSize(Vector2.new(expandSize, Constants.ICON_CELL_WIDTH))
 	end, { expandSize })
@@ -565,6 +548,24 @@ function Unibar(props: UnibarProp)
 			flipLerp.current = false
 		end
 	end, { positionUpdateCount.current :: any, flipLerp })
+
+	React.useEffect(function()
+		if FFlagReduceTopBarInsetsWhileHidden and GamepadConnector then
+			local showTopBarSignal = GamepadConnector:getShowTopBar()
+			showTopBarSignal:connect(function()
+				if showTopBarSignal:get() then
+					props.onAreaChanged(
+						Constants.UNIBAR_KEEP_OUT_AREA_ID,
+						priorAbsolutePosition.current,
+						priorAbsoluteSize.current
+					)
+				else
+					props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero)
+				end
+			end)
+			props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero)
+		end
+	end, {})
 
 	local style = useStyle()
 
@@ -699,6 +700,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 				onMinWidthChanged = props.onMinWidthChanged,
 			}) :: any,
 			React.createElement(SubMenu, { subMenuHostRef = subMenuHostRef }) :: any,
+			if FFlagEnableChromeShortcutBar then React.createElement(ShortcutBar) else nil,
 			React.createElement(WindowManager) :: React.React_Element<any>,
 		}),
 	}
