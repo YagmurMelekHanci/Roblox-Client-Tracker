@@ -1,3 +1,4 @@
+-- moving this file to LuaApps, please replicate any changes in the LuaApps file as well
 local MediaGallery = script.Parent
 local Container = MediaGallery.Parent
 local App = Container.Parent
@@ -33,4 +34,6 @@ function calcMediaGallerySizesFromHeight(containerHeight: number, numberOfThumbn
 	)
 end
 
-return calcMediaGallerySizesFromHeight
+return (
+	if UIBloxConfig.moveMediaGalleryToLuaApps then nil else calcMediaGallerySizesFromHeight
+) :: typeof(calcMediaGallerySizesFromHeight)

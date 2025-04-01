@@ -153,7 +153,9 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 			component = engineComponent,
 			onActivated = props.onActivated,
 			onStateChanged = props.onStateChanged,
-			stateLayer = if props.onStateChanged then props.stateLayer else { affordance = StateLayerAffordance.None },
+			stateLayer = if Flags.FoundationTextStateLayer
+				then props.stateLayer
+				else if props.onStateChanged then props.stateLayer else { affordance = StateLayerAffordance.None },
 			isDisabled = props.isDisabled,
 		})
 		else engineComponentProps

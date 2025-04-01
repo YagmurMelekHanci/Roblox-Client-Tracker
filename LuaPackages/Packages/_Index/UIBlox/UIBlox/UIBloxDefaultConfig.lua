@@ -146,6 +146,9 @@ return {
 	-- Add the option to pass in callback to MediaGalleryPreview that runs on thumbnail activation
 	addThumbnailCallbackToMediaGalleryPreview = false,
 
+	-- Remove Media Gallery files moved to LuaApps
+	moveMediaGalleryToLuaApps = false,
+
 	-- Allow to disable color mapping for the color experiment on SignUp/Login
 	allowDisableColorMapping = false,
 }

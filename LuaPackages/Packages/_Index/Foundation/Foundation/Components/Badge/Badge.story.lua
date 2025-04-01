@@ -14,6 +14,7 @@ type BadgeVariant = BadgeVariant.BadgeVariant
 local BadgeSize = require(Foundation.Enums.BadgeSize)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local Flags = require(Foundation.Utility.Flags)
 
 local itemTileSize = UDim2.fromOffset(150, 240)
 local itemId = 21070012
@@ -24,6 +25,7 @@ return {
 		return {
 			name = variant,
 			story = function(props): React.Node
+				Flags.FoundationDisableBadgeTruncation = props.controls.disableBadgeTruncation
 				local tokens = useTokens()
 
 				local item, setItem = React.useState({} :: { Name: string?, PriceText: string? })
@@ -113,5 +115,6 @@ return {
 		size = Dash.values(BadgeSize),
 		isDisabled = false,
 		onTile = false,
+		disableBadgeTruncation = Flags.FoundationDisableBadgeTruncation,
 	},
 }

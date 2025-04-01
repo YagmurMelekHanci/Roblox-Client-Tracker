@@ -1,3 +1,4 @@
+-- moving this file to LuaApps, please replicate any changes in the LuaApps file as well
 local MediaGallery = script.Parent
 local Container = MediaGallery.Parent
 local App = Container.Parent
@@ -41,4 +42,6 @@ function calcMediaGallerySizesFromWidth(containerWidth: number, numberOfThumbnai
 	}
 end
 
-return calcMediaGallerySizesFromWidth
+return (
+	if UIBloxConfig.moveMediaGalleryToLuaApps then nil else calcMediaGallerySizesFromWidth
+) :: typeof(calcMediaGallerySizesFromWidth)

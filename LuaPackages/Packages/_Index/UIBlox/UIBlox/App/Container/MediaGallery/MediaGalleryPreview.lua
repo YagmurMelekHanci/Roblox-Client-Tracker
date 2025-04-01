@@ -1,3 +1,4 @@
+-- moving this file to LuaApps, please replicate any changes in the LuaApps file as well
 local RunService = game:GetService("RunService")
 
 local MediaGallery = script.Parent
@@ -586,4 +587,4 @@ function MediaGalleryPreview:scrollToNewIndex()
 	self.scrolling = true
 end
 
-return MediaGalleryPreview
+return if UIBloxConfig.moveMediaGalleryToLuaApps then nil else MediaGalleryPreview

@@ -69,11 +69,12 @@ Average component consists of 6 files
 - `Component.story.lua`
 - `Component.tests.lua`
 
-To simplify setup of the new component there is an [init_component.py](scripts/init_component.py) that will create 
-the files described above with the basic working component setup. You will need the **component name** and the **category** the components is in.
-e.g. to create a backbone for the AvatarGroup component you will run
+To simplify setup of the new component there is an [init_component.py](scripts/init_component.py) script that will create 
+the files described above with the basic working component setup. The script requires two parameters: **component name**: `string`, the name of the component, and **category**: `"Display", "Inputs", "Layout", "Media", "Actions"`, the category the components is in as it will be shown in the docs site.
+
+e.g. to create boilerplate for an `AvatarGroup` component you would run:
 ```shell
-python scrips/init_component.py AvatarGroup --category Media
+python scripts/init_component.py AvatarGroup --category Media
 ```
 
 ## Running Tests
