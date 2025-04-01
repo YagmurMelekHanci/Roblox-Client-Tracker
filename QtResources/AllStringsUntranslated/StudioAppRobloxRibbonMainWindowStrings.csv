@@ -346,6 +346,7 @@ Studio.App.RobloxRibbonMainWindow.Spring,,Spring,Spring
 Studio.App.RobloxRibbonMainWindow.Start,,Start,Start
 Studio.App.RobloxRibbonMainWindow.StartATeamTest,,Start a Team Test,Start a Team Test
 Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers,,Start server and players,Start server and players
+Studio.App.RobloxRibbonMainWindow.Streaming,Menu label for streaming debugging stats,Streaming,Streaming
 Studio.App.RobloxRibbonMainWindow.Studs,,Studs,Studs
 Studio.App.RobloxRibbonMainWindow.Summary,,Summary,Summary
 Studio.App.RobloxRibbonMainWindow.SurfaceLight,Name of the action to insert a surface light into the workspace,SurfaceLight,SurfaceLight

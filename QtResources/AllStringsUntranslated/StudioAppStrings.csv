@@ -681,6 +681,7 @@ Studio.App.ScriptSetting.KeepTheseChanges,,You've made script changes while play
 Studio.App.ScriptTextEditor.FilterText,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function
 Studio.App.ScriptingHostAppServices.NoSuggestionReceivedServerError1,,No code suggestion received. Server Error code: %1.,No code suggestion received. Server Error code: %1.
 Studio.App.ScriptingHostAppServices.ResponseChatFiltered,,No code suggestion received. Response was caught by the text filter.,No code suggestion received. Response was caught by the text filter.
+Studio.App.ScriptingHostAppServices.TooManyRequests,"Too many requests, please try again later.","Too many requests, please try again later.","Too many requests, please try again later."
 Studio.App.ScriptingHostAppServices.UsageExceeded,,Daily AI Code completion usage exceeded. Please try again tomorrow.,Daily AI Code completion usage exceeded. Please try again tomorrow.
 Studio.App.ScriptsInBatchDialog.FailedToLoadDataErrorMessage,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.
 Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,Script,Script

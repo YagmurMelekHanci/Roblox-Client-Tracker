@@ -51,15 +51,28 @@ Class EditableMesh : Object [NotCreatable]
 	Function EditableMesh:GetFaceUVs(faceId: number) -> { any } [CustomLuaState]
 	Function EditableMesh:GetFaceVertices(faceId: number) -> { any } [CustomLuaState]
 	Function EditableMesh:GetFaces() -> { any } [CustomLuaState]
-	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any }
+	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any } [Deprecated]
+	Function EditableMesh:GetFacesWithColor(colorId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFacesWithNormal(normalId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetFacesWithUV(uvId: number) -> { any } [CustomLuaState]
 	Function EditableMesh:GetNormal(normalId: number) -> Vector3?
 	Function EditableMesh:GetNormals() -> { any } [CustomLuaState]
 	Function EditableMesh:GetPosition(vertexId: number) -> Vector3
 	Function EditableMesh:GetSize() -> Vector3
 	Function EditableMesh:GetUV(uvId: number) -> Vector2?
 	Function EditableMesh:GetUVs() -> { any } [CustomLuaState]
+	Function EditableMesh:GetVertexColors(vertexId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetVertexFaceColor(vertexId: number, faceId: number) -> number
+	Function EditableMesh:GetVertexFaceNormal(vertexId: number, faceId: number) -> number
+	Function EditableMesh:GetVertexFaceUV(vertexId: number, faceId: number) -> number
+	Function EditableMesh:GetVertexFaces(vertexId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetVertexNormals(vertexId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetVertexUVs(vertexId: number) -> { any } [CustomLuaState]
 	Function EditableMesh:GetVertices() -> { any }
-	Function EditableMesh:GetVerticesWithAttribute(id: number) -> { any }
+	Function EditableMesh:GetVerticesWithAttribute(id: number) -> { any } [Deprecated]
+	Function EditableMesh:GetVerticesWithColor(colorId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetVerticesWithNormal(normalId: number) -> { any } [CustomLuaState]
+	Function EditableMesh:GetVerticesWithUV(uvId: number) -> { any } [CustomLuaState]
 	Function EditableMesh:IdDebugString(id: number) -> string
 	Function EditableMesh:MergeVertices(mergeTolerance: number) -> { [string]: any }
 	Function EditableMesh:RaycastLocal(origin: Vector3, direction: Vector3) -> ...any
@@ -75,6 +88,9 @@ Class EditableMesh : Object [NotCreatable]
 	Function EditableMesh:SetNormal(normalId: number, normal: Vector3) -> ()
 	Function EditableMesh:SetPosition(vertexId: number, p: Vector3) -> ()
 	Function EditableMesh:SetUV(uvId: number, uv: Vector2) -> ()
+	Function EditableMesh:SetVertexFaceColor(vertexId: number, faceId: number, colorId: number) -> ()
+	Function EditableMesh:SetVertexFaceNormal(vertexId: number, faceId: number, normalId: number) -> ()
+	Function EditableMesh:SetVertexFaceUV(vertexId: number, faceId: number, uvId: number) -> ()
 	Function EditableMesh:Triangulate() -> ()
 Class Instance : Object [NotCreatable] [NotBrowsable]
 	Property Instance.Archivable: boolean
@@ -516,13 +532,13 @@ Class AudioAnalyzer : Instance
 	Function AudioAnalyzer:GetOutputPins() -> { any }
 	Function AudioAnalyzer:GetSpectrum() -> { any } [CustomLuaState]
 	Event AudioAnalyzer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
-Class AudioChannelMixer : Instance [NotBrowsable]
+Class AudioChannelMixer : Instance
 	Property AudioChannelMixer.Layout: Enum.AudioChannelLayout
 	Function AudioChannelMixer:GetConnectedWires(pin: string) -> { Instance }
 	Function AudioChannelMixer:GetInputPins() -> { any }
 	Function AudioChannelMixer:GetOutputPins() -> { any }
 	Event AudioChannelMixer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
-Class AudioChannelSplitter : Instance [NotBrowsable]
+Class AudioChannelSplitter : Instance
 	Property AudioChannelSplitter.Layout: Enum.AudioChannelLayout
 	Function AudioChannelSplitter:GetConnectedWires(pin: string) -> { Instance }
 	Function AudioChannelSplitter:GetInputPins() -> { any }
@@ -1170,7 +1186,7 @@ Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BrowserService.JavaScriptCallback(content: string) {RobloxScriptSecurity}
 Class BugReporterService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function BugReporterService:IsAvailable() -> boolean {RobloxScriptSecurity} [Yields]
-	Event BugReporterService.BugReportRequested(message: string) {RobloxScriptSecurity}
+	Event BugReporterService.BugReportRequested(trigger: string) {RobloxScriptSecurity}
 Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function BulkImportService:LaunchBulkImport(assetTypeToImport: number) -> () {RobloxScriptSecurity}
 	Function BulkImportService:ShowBulkImportView() -> () {RobloxScriptSecurity}
@@ -1186,41 +1202,6 @@ Class CalloutService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CalloutService:AttachCallout(definitionId: string, locationId: string, target: Instance) -> () {RobloxScriptSecurity}
 	Function CalloutService:DefineCallout(definitionId: string, title: string, description: string, learnMoreURL: string) -> () {RobloxScriptSecurity}
 	Function CalloutService:DetachCalloutsByDefinitionId(definitionId: string) -> () {RobloxScriptSecurity}
-Class Camera : Instance [NotReplicated]
-	Property Camera.CameraSubject: Instance?
-	Property Camera.CameraType: Enum.CameraType
-	Property Camera.DiagonalFieldOfView: number [NotReplicated]
-	Property Camera.FieldOfView: number
-	Property Camera.FieldOfViewMode: Enum.FieldOfViewMode
-	Property Camera.MaxAxisFieldOfView: number [NotReplicated]
-	Property Camera.CFrame: CFrame
-	Property Camera.CoordinateFrame: CFrame [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property Camera.Focus: CFrame
-	Property Camera.HeadLocked: boolean
-	Property Camera.HeadScale: number
-	Property Camera.NearPlaneZ: number [ReadOnly]
-	Property Camera.VRTiltAndRollEnabled: boolean
-	Property Camera.ViewportSize: Vector2 [ReadOnly]
-	Function Camera:GetLargestCutoffDistance(ignoreList: { Instance }) -> number [Deprecated]
-	Function Camera:GetPanSpeed() -> number [Deprecated]
-	Function Camera:GetPartsObscuringTarget(castPoints: { any }, ignoreList: { Instance }) -> { Instance }
-	Function Camera:GetRenderCFrame() -> CFrame
-	Function Camera:GetRoll() -> number
-	Function Camera:GetTiltSpeed() -> number [Deprecated]
-	Function Camera:Interpolate(endPos: CFrame, endFocus: CFrame, duration: number) -> () [Deprecated]
-	Function Camera:PanUnits(units: number) -> () [Deprecated]
-	Function Camera:ScreenPointToRay(x: number, y: number, depth: number? = 0) -> Ray {🧬Safe}
-	Function Camera:SetCameraPanMode(mode: Enum.CameraPanMode? = "Classic") -> () [Deprecated]
-	Function Camera:SetImageServerView(modelCoord: CFrame) -> () {RobloxScriptSecurity}
-	Function Camera:SetRoll(rollAngle: number) -> ()
-	Function Camera:TiltUnits(units: number) -> boolean [Deprecated]
-	Function Camera:ViewportPointToRay(x: number, y: number, depth: number? = 0) -> Ray {🧬Safe}
-	Function Camera:WorldToScreenPoint(worldPoint: Vector3) -> ...any {🧬Safe}
-	Function Camera:WorldToViewportPoint(worldPoint: Vector3) -> ...any {🧬Safe}
-	Function Camera:Zoom(distance: number) -> boolean {RobloxScriptSecurity}
-	Function Camera:ZoomToExtents(boundingBoxCFrame: CFrame, boundingBoxSize: Vector3) -> ()
-	Event Camera.FirstPersonTransition(entering: boolean) {LocalUserSecurity}
-	Event Camera.InterpolationFinished()
 Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:CaptureScreenshot(onCaptureReady: (...any) -> ...any) -> ()
 	Function CaptureService:CreatePostAsync(pathArr: { any }, caption: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -3321,6 +3302,7 @@ Class IKControl : Instance
 	Function IKControl:GetNodeWorldCFrame(index: number) -> CFrame
 	Function IKControl:GetRawFinalTarget() -> CFrame
 	Function IKControl:GetSmoothedFinalTarget() -> CFrame
+	Function IKControl:Solve() -> () {RobloxScriptSecurity}
 Class ILegacyStudioBridge : Instance [NotCreatable] [Service]
 Class LegacyStudioBridge : ILegacyStudioBridge [NotCreatable] [Service] [NotReplicated]
 Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3356,8 +3338,13 @@ Class InputBinding : Instance [NotBrowsable]
 	Property InputBinding.KeyCode: Enum.KeyCode
 	Property InputBinding.PressedThreshold: number
 	Property InputBinding.ReleasedThreshold: number
-	Property InputBinding.UIButton: GuiButton?
 	Property InputBinding.Scale: number
+	Property InputBinding.UIButton: GuiButton?
+	Property InputBinding.Vector2Scale: Vector2
+	Property InputBinding.Down: Enum.KeyCode
+	Property InputBinding.Left: Enum.KeyCode
+	Property InputBinding.Right: Enum.KeyCode
+	Property InputBinding.Up: Enum.KeyCode
 Class InputContext : Instance [NotBrowsable]
 	Property InputContext.Enabled: boolean
 	Property InputContext.Priority: number
@@ -3647,6 +3634,9 @@ Class AuroraScript : LuaSourceContainer [Deprecated]
 	Property AuroraScript.RunInParallel: boolean {PluginSecurity} [Deprecated]
 	Property AuroraScript.Source: string {PluginSecurity} [Deprecated]
 	Property AuroraScript.Tag: string {✏️PluginSecurity} [Deprecated]
+	Function AuroraScript:AddTo(instance: Instance) -> () [Deprecated]
+	Function AuroraScript:IsOnInstance(instance: Instance) -> boolean [Deprecated]
+	Function AuroraScript:RemoveFrom(instance: Instance) -> () [Deprecated]
 	Event AuroraScript.LODUpdate(frameId: number, instance: Instance, lodLevel: number) {RobloxSecurity} [Hidden] [Deprecated]
 	Event AuroraScript.SynchronizeState(frameId: number, instance: Instance, state: { [string]: any }, ingressHeaders: string, ingressArgs: { any }, egressHeaders: string, egressArgs: { any }) {RobloxSecurity} [Hidden] [Deprecated]
 Class BaseScript : LuaSourceContainer [NotCreatable]
@@ -4308,6 +4298,41 @@ Class VehicleSeat : BasePart
 	Function VehicleSeat:Sit(humanoid: Instance) -> ()
 	Event VehicleSeat.RemoteCreateSeatWeld(humanoid: Instance) [Hidden]
 	Event VehicleSeat.RemoteDestroySeatWeld() [Hidden]
+Class Camera : PVInstance [NotReplicated]
+	Property Camera.CameraSubject: Instance?
+	Property Camera.CameraType: Enum.CameraType
+	Property Camera.DiagonalFieldOfView: number [NotReplicated]
+	Property Camera.FieldOfView: number
+	Property Camera.FieldOfViewMode: Enum.FieldOfViewMode
+	Property Camera.MaxAxisFieldOfView: number [NotReplicated]
+	Property Camera.CFrame: CFrame
+	Property Camera.CoordinateFrame: CFrame [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
+	Property Camera.Focus: CFrame
+	Property Camera.HeadLocked: boolean
+	Property Camera.HeadScale: number
+	Property Camera.NearPlaneZ: number [ReadOnly]
+	Property Camera.VRTiltAndRollEnabled: boolean
+	Property Camera.ViewportSize: Vector2 [ReadOnly]
+	Function Camera:GetLargestCutoffDistance(ignoreList: { Instance }) -> number [Deprecated]
+	Function Camera:GetPanSpeed() -> number [Deprecated]
+	Function Camera:GetPartsObscuringTarget(castPoints: { any }, ignoreList: { Instance }) -> { Instance }
+	Function Camera:GetRenderCFrame() -> CFrame
+	Function Camera:GetRoll() -> number
+	Function Camera:GetTiltSpeed() -> number [Deprecated]
+	Function Camera:Interpolate(endPos: CFrame, endFocus: CFrame, duration: number) -> () [Deprecated]
+	Function Camera:PanUnits(units: number) -> () [Deprecated]
+	Function Camera:ScreenPointToRay(x: number, y: number, depth: number? = 0) -> Ray {🧬Safe}
+	Function Camera:SetCameraPanMode(mode: Enum.CameraPanMode? = "Classic") -> () [Deprecated]
+	Function Camera:SetImageServerView(modelCoord: CFrame) -> () {RobloxScriptSecurity}
+	Function Camera:SetRoll(rollAngle: number) -> ()
+	Function Camera:TiltUnits(units: number) -> boolean [Deprecated]
+	Function Camera:ViewportPointToRay(x: number, y: number, depth: number? = 0) -> Ray {🧬Safe}
+	Function Camera:WorldToScreenPoint(worldPoint: Vector3) -> ...any {🧬Safe}
+	Function Camera:WorldToViewportPoint(worldPoint: Vector3) -> ...any {🧬Safe}
+	Function Camera:Zoom(distance: number) -> boolean {RobloxScriptSecurity}
+	Function Camera:ZoomToExtents(boundingBoxCFrame: CFrame, boundingBoxSize: Vector3) -> ()
+	Event Camera.FirstPersonTransition(entering: boolean) {LocalUserSecurity}
+	Event Camera.InterpolationFinished()
 Class Model : PVInstance
 	Property Model.LevelOfDetail: Enum.ModelLevelOfDetail {PluginSecurity}
 	Property Model.ModelStreamingMode: Enum.ModelStreamingMode
@@ -4396,7 +4421,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function WorldRoot:IsRegion3EmptyWithIgnoreList(region: Region3, ignoreDescendentsTable: { Instance }) -> boolean [Deprecated]
 	Function WorldRoot:Raycast(origin: Vector3, direction: Vector3, raycastParams: RaycastParams?) -> RaycastResult? {🧬Safe}
 	Function WorldRoot:RaycastCachedTerrain(id: string, origin: Vector3, direction: Vector3, ignoreWater: boolean) -> RaycastResult? {RobloxScriptSecurity}
-	Function WorldRoot:SetInsertPoint(point: Vector3, ignoreGrid: boolean? = false) -> () {RobloxScriptSecurity}
+	Function WorldRoot:SetInsertPoint(point: Vector3) -> () {RobloxScriptSecurity}
 	Function WorldRoot:Shapecast(part: BasePart, direction: Vector3, params: RaycastParams?) -> RaycastResult?
 	Function WorldRoot:Spherecast(position: Vector3, radius: number, direction: Vector3, params: RaycastParams?) -> RaycastResult? {🧬Safe}
 	Function WorldRoot:StepPhysics(dt: number, parts: { Instance }?) -> () {PluginSecurity}
@@ -7268,6 +7293,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Event VoiceChatInternal.StateChanged(old: Enum.VoiceChatState, new: Enum.VoiceChatState) [Deprecated]
 	Event VoiceChatInternal.TempSetMicMutedToggleMic() {RobloxScriptSecurity}
 Class VoiceChatService : Instance [NotCreatable] [Service]
+	Property VoiceChatService.DefaultDistanceAttenuation: Enum.VoiceChatDistanceAttenuationType {PluginSecurity}
 	Property VoiceChatService.EnableDefaultVoice: boolean {PluginSecurity}
 	Property VoiceChatService.UseAudioApi: Enum.AudioApiRollout {PluginSecurity}
 	Property VoiceChatService.UseNewAudioApi: boolean {RobloxScriptSecurity} [Hidden]
@@ -7296,7 +7322,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.PublishingHandshakeCompleted(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishingHandshakeInitiated(handshakeOffer: string, muteState: Enum.MuteState, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ReJoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string, clientIp: string, clientPort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RuppInitialToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RuppPeriodicToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number, sourceIpAddress: string, sourcePort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscribeStateChange(muteState: Enum.MuteState, userIds: string, sessionId: string) {RobloxSecurity} [Hidden]
@@ -7446,7 +7472,7 @@ Enum AlignType
 Enum AlphaMode
 	EnumItem AlphaMode.Overlay : 0
 	EnumItem AlphaMode.Transparency : 1
-	EnumItem AlphaMode.TintMask : 2 [NotBrowsable]
+	EnumItem AlphaMode.TintMask : 2
 Enum AnalyticsCustomFieldKeys
 	EnumItem AnalyticsCustomFieldKeys.CustomField01 : 0
 	EnumItem AnalyticsCustomFieldKeys.CustomField02 : 1
@@ -10500,6 +10526,9 @@ Enum VirtualInputMode
 	EnumItem VirtualInputMode.None : 0
 	EnumItem VirtualInputMode.Recording : 1
 	EnumItem VirtualInputMode.Playing : 2
+Enum VoiceChatDistanceAttenuationType
+	EnumItem VoiceChatDistanceAttenuationType.Inverse : 0
+	EnumItem VoiceChatDistanceAttenuationType.Legacy : 1
 Enum VoiceChatState
 	EnumItem VoiceChatState.Idle : 0
 	EnumItem VoiceChatState.Joining : 1

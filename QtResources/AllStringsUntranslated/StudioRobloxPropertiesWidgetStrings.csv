@@ -38,6 +38,7 @@ Studio.RobloxPropertiesWidget.Category.CharacterJumpSettings,,Character Jump Set
 Studio.RobloxPropertiesWidget.Category.Clothes,,Clothes,Clothes
 Studio.RobloxPropertiesWidget.Category.Collision,,Collision,Collision
 Studio.RobloxPropertiesWidget.Category.Compliance,,Compliance,Compliance
+Studio.RobloxPropertiesWidget.Category.CompositeDirections,A collection of directional keys e.g. Up/Down/Left/Right that come together to make up one input. The most common examples are WASD and the arrow keys on keyboards.,Composite Directions,Composite Directions
 Studio.RobloxPropertiesWidget.Category.Configuration,,Configuration,Configuration
 Studio.RobloxPropertiesWidget.Category.Connections,,Connections,Connections
 Studio.RobloxPropertiesWidget.Category.Control,,Control,Control

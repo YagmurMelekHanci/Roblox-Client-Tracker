@@ -88,6 +88,7 @@ Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor,Sele
 Studio.App.ScriptingCmd.SENDEXPLAINCODEPROMPT,,Explain Code,Explain Code
 Studio.App.ScriptingCmd.SENDEXPLAINCODEPROMPT.ChatInput,,Explain this code.,Explain this code.
 Studio.App.ScriptingCmd.SENDEXPLAINCODEPROMPTTooltip,,Ask our AI Assistant to explain your selected code,Ask our AI Assistant to explain your selected code
+Studio.App.ScriptingCmd.SENDEXPLAINCODEPROMPTUPDATED,Used for the explain code action in studio,Explain,Explain
 Studio.App.ScriptingCmd.SHOWFINDREPLACEWINDOW,,Show Find / Replace All window,Show Find / Replace All window
 Studio.App.ScriptingCmd.SPLITSELECTIONSINTOLINES,,Add Cursor to Selected Line Ends and Selection End,Add Cursor to Selected Line Ends and Selection End
 Studio.App.ScriptingCmd.SPLITSELECTIONSINTOLINESTooltip,,Place cursors at the the end of each line in a multi-line selection and at the end of the selection.,Place cursors at the the end of each line in a multi-line selection and at the end of the selection.
