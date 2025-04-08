@@ -152,11 +152,9 @@ local variants = function(tokens: Tokens)
 			container = {
 				style = tokens.Color.ActionSubEmphasis.Background,
 				stroke = toStroke(tokens.Color.ActionSubEmphasis.Border),
-				stateLayer = if Flags.FoundationButtonSubEmphasisInverseStateLayer
-					then {
-						mode = StateLayerMode.Inverse,
-					}
-					else nil,
+				stateLayer = {
+					mode = StateLayerMode.Inverse,
+				},
 			},
 			content = {
 				style = tokens.Color.ActionSubEmphasis.Foreground,

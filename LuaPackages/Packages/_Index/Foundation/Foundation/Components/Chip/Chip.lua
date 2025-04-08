@@ -9,6 +9,7 @@ local Types = require(Foundation.Components.Types)
 local Icon = require(Foundation.Components.Icon)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
+local Flags = require(Foundation.Utility.Flags)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
@@ -16,6 +17,7 @@ local IconSize = require(Foundation.Enums.IconSize)
 local IconPosition = require(Foundation.Enums.IconPosition)
 type IconPosition = IconPosition.IconPosition
 
+local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
@@ -72,6 +74,11 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 			},
 			onActivated = props.onActivated,
 			isDisabled = props.isDisabled,
+			stateLayer = if Flags.FoundationFixChipEmphasisHoverState and props.isChecked
+				then {
+					mode = StateLayerMode.Inverse,
+				}
+				else nil,
 			tag = {
 				["row gap-xsmall size-0-700 padding-medium auto-x align-y-center align-x-center clip radius-circle"] = true,
 				["bg-action-sub-emphasis"] = props.isChecked,

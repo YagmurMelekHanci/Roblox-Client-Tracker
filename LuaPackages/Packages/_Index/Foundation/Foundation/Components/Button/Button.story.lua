@@ -20,8 +20,6 @@ return {
 			name = variant,
 			story = function(props)
 				local controls = props.controls
-				Flags.FoundationDisableCanvasGroupsInButton = controls.disableCanvasGroupsInButton
-				Flags.FoundationButtonSubEmphasisInverseStateLayer = controls.buttonSubEmphasisInverseStateLayer
 				Flags.FoundationButtonEnableLoadingState = controls.enableLoadingState
 				Flags.FoundationEnableNewButtonSizes = controls.enableNewButtonSizes
 
@@ -70,8 +68,6 @@ return {
 			FillBehavior.Fill,
 		} :: { FillBehavior },
 		inputDelay = 0,
-		disableCanvasGroupsInButton = Flags.FoundationDisableCanvasGroupsInButton,
-		buttonSubEmphasisInverseStateLayer = Flags.FoundationButtonSubEmphasisInverseStateLayer,
 		enableLoadingState = Flags.FoundationButtonEnableLoadingState,
 		enableNewButtonSizes = Flags.FoundationEnableNewButtonSizes,
 	},

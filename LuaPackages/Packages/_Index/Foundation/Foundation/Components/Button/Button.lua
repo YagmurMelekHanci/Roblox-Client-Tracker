@@ -186,13 +186,6 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 		View,
 		withCommonProps(props, {
 			AutomaticSize = if props.width.Scale == 0 then Enum.AutomaticSize.X else nil,
-			GroupTransparency = if not Flags.FoundationDisableCanvasGroupsInButton
-					and props.isDisabled
-					and not isDelaying
-				then (if Flags.FoundationButtonEnableLoadingState
-					then disabledValues.transparency
-					else DISABLED_TRANSPARENCY)
-				else nil,
 			cornerRadius = UDim.new(0, variantProps.container.radius),
 			backgroundStyle = if Flags.FoundationButtonEnableLoadingState and variantProps.container.style
 				then getTransparencyFromBinding(variantProps.container.style.Transparency, disabledValues.transparency):map(
@@ -203,11 +196,11 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 						}
 					end
 				)
-				elseif Flags.FoundationDisableCanvasGroupsInButton and variantProps.container.style then {
+				elseif variantProps.container.style then {
 					Color3 = variantProps.container.style.Color3,
 					Transparency = getTransparency(variantProps.container.style.Transparency, props.isDisabled),
 				}
-				else variantProps.container.style,
+				else nil,
 			flexItem = if props.fillBehavior
 				then {
 					FlexMode = if props.fillBehavior == FillBehavior.Fill
@@ -253,12 +246,10 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 				then React.createElement(Image, {
 					Image = props.icon,
 					Size = variantProps.icon.size,
-					imageStyle = if Flags.FoundationDisableCanvasGroupsInButton
-						then {
-							Color3 = variantProps.content.style.Color3,
-							Transparency = getTransparency(variantProps.content.style.Transparency, props.isDisabled),
-						}
-						else variantProps.content.style,
+					imageStyle = {
+						Color3 = variantProps.content.style.Color3,
+						Transparency = getTransparency(variantProps.content.style.Transparency, props.isDisabled),
+					},
 					LayoutOrder = 1,
 				})
 				else nil,
@@ -318,11 +309,10 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 										else textTransparency + disabledTransparency,
 								}
 							end)
-						elseif Flags.FoundationDisableCanvasGroupsInButton then {
+						else {
 							Color3 = variantProps.content.style.Color3,
 							Transparency = getTransparency(variantProps.content.style.Transparency, props.isDisabled),
-						}
-						else variantProps.content.style,
+						},
 					LayoutOrder = 2,
 				})
 				else nil,

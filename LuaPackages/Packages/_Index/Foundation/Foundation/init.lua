@@ -1,5 +1,4 @@
 local strict = require(script.Utility.strict)
-local Flags = require(script.Utility.Flags)
 
 local Types = require(script.Components.Types)
 local Tokens = require(script.Providers.Style.Tokens)
@@ -15,8 +14,6 @@ export type ColorStyle = Types.ColorStyle
 export type ColorStyleValue = Types.ColorStyleValue
 export type FontStyle = Types.FontStyle
 export type Tokens = Tokens.Tokens
-
-local TextInput = require(script.Components.TextInput)
 
 local Foundation = strict({
 	-- Components
@@ -37,9 +34,7 @@ local Foundation = strict({
 	Skeleton = require(script.Components.Skeleton),
 	Toggle = require(script.Components.Toggle),
 	Text = require(script.Components.Text),
-	TextInput = (if Flags.FoundationCompositeTextInput
-		then require(script.Components.CompositeTextInput)
-		else TextInput) :: typeof(TextInput),
+	TextInput = require(script.Components.TextInput),
 	NumberInput = require(script.Components.NumberInput),
 	Toast = require(script.Components.Toast),
 	View = require(script.Components.View),

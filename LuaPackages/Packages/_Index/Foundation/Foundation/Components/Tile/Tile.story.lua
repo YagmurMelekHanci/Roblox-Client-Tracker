@@ -465,7 +465,7 @@ return {
 				end, { setMouseEntered })
 
 				local backgroundColor = tokens.Color.Extended.White.White_100.Color3
-				local hoverColor = tokens.Color.Shift.Shift_300.Color3
+				local hoverColor = tokens.Color.Extended.Gray.Gray_400.Color3
 				local backgroundColorValues, setGoal = ReactOtter.useAnimatedBinding(getColorValues(backgroundColor))
 				React.useEffect(function()
 					setGoal(if mouseEntered then createColorSpring(hoverColor) else createColorSpring(backgroundColor))
