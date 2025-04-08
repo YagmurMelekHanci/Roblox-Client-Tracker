@@ -1713,6 +1713,10 @@ function VoiceChatServiceManager:IsSeamlessVoice()
 	end
 end
 
+function VoiceChatServiceManager:HasSeamlessVoiceFeature(featureName)
+	return self.coreVoiceManager:HasSeamlessVoiceFeature(featureName)
+end
+
 function VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(addVoiceSessionId: boolean)
 	local sessionId = ""
 	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
@@ -1914,7 +1918,9 @@ function VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid
 	else
 		SoundService:SetOutputDevice(deviceName, deviceGuid)
 		log:info("[OutputDeviceSelection] Setting SS Speaker Device To {} {}", deviceName, deviceGuid)
-		setVCSOutput(deviceName, if FFlagFixOutputDeviceChange then self.service else nil)
+		if not GetFFlagVoiceChatClientRewriteMasterLua() then
+			setVCSOutput(deviceName, if FFlagFixOutputDeviceChange then self.service else nil)
+		end
 	end
 end
 

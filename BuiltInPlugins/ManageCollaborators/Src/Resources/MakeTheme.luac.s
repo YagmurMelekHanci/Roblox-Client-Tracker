@@ -486,30 +486,34 @@ MAIN:
   LOADK R24 K182 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
   SETTABLEKS R24 R23 K179 ["loadFailureImage"]
   SETTABLEKS R23 R22 K190 ["subjectThumbnail"]
-  DUPTABLE R23 K193 [{"button", "padding", "width"}]
-  DUPTABLE R24 K195 [{"height"}]
+  DUPTABLE R23 K191 [{"Image"}]
+  LOADK R24 K192 ["rbxasset://textures/ManageCollaborators/OrgRoleIcon_mask.png"]
+  SETTABLEKS R24 R23 K152 ["Image"]
+  SETTABLEKS R23 R22 K193 ["orgRoleThumbnail"]
+  DUPTABLE R23 K196 [{"button", "padding", "width"}]
+  DUPTABLE R24 K198 [{"height"}]
   LOADN R25 50
-  SETTABLEKS R25 R24 K194 ["height"]
-  SETTABLEKS R24 R23 K191 ["button"]
+  SETTABLEKS R25 R24 K197 ["height"]
+  SETTABLEKS R24 R23 K194 ["button"]
   LOADN R24 10
   SETTABLEKS R24 R23 K86 ["padding"]
   JUMPIFNOT R21 [+2]
   LOADN R24 8
   JUMP [+1]
   LOADN R24 195
-  SETTABLEKS R24 R23 K192 ["width"]
-  SETTABLEKS R23 R22 K196 ["selectInput"]
-  DUPTABLE R23 K200 [{"yPadding", "xPadding", "yPaddingNonOwner"}]
+  SETTABLEKS R24 R23 K195 ["width"]
+  SETTABLEKS R23 R22 K199 ["selectInput"]
+  DUPTABLE R23 K203 [{"yPadding", "xPadding", "yPaddingNonOwner"}]
   LOADN R24 47
-  SETTABLEKS R24 R23 K197 ["yPadding"]
+  SETTABLEKS R24 R23 K200 ["yPadding"]
   LOADN R24 25
-  SETTABLEKS R24 R23 K198 ["xPadding"]
+  SETTABLEKS R24 R23 K201 ["xPadding"]
   LOADN R24 35
-  SETTABLEKS R24 R23 K199 ["yPaddingNonOwner"]
-  SETTABLEKS R23 R22 K201 ["scrollingFrame"]
-  DUPTABLE R23 K205 [{"boxHeight", "textStyle", "InnerTextPosition"}]
+  SETTABLEKS R24 R23 K202 ["yPaddingNonOwner"]
+  SETTABLEKS R23 R22 K204 ["scrollingFrame"]
+  DUPTABLE R23 K208 [{"boxHeight", "textStyle", "InnerTextPosition"}]
   LOADN R24 45
-  SETTABLEKS R24 R23 K202 ["boxHeight"]
+  SETTABLEKS R24 R23 K205 ["boxHeight"]
   DUPTABLE R24 K81 [{"Font", "TextSize", "TextColor3"}]
   GETIMPORT R25 K83 [Enum.Font.SourceSans]
   SETTABLEKS R25 R24 K79 ["Font"]
@@ -517,109 +521,127 @@ MAIN:
   SETTABLEKS R25 R24 K52 ["TextSize"]
   GETTABLEKS R25 R18 K48 ["TitlebarText"]
   SETTABLEKS R25 R24 K80 ["TextColor3"]
-  SETTABLEKS R24 R23 K203 ["textStyle"]
+  SETTABLEKS R24 R23 K206 ["textStyle"]
   GETIMPORT R24 K99 [UDim2.new]
   LOADN R25 0
   LOADN R26 67
   LOADK R27 K100 [0.5]
   LOADN R28 0
   CALL R24 4 1
-  SETTABLEKS R24 R23 K204 ["InnerTextPosition"]
-  SETTABLEKS R23 R22 K206 ["saveMessage"]
-  DUPTABLE R23 K209 [{"height", "gradientSize", "gradientTransparency", "border"}]
+  SETTABLEKS R24 R23 K207 ["InnerTextPosition"]
+  SETTABLEKS R23 R22 K209 ["saveMessage"]
+  DUPTABLE R23 K212 [{"height", "gradientSize", "gradientTransparency", "border"}]
   LOADN R24 65
-  SETTABLEKS R24 R23 K194 ["height"]
+  SETTABLEKS R24 R23 K197 ["height"]
   LOADN R24 3
-  SETTABLEKS R24 R23 K207 ["gradientSize"]
-  LOADK R24 K210 [0.9]
-  SETTABLEKS R24 R23 K208 ["gradientTransparency"]
-  GETTABLEKS R24 R18 K211 ["FooterBorder"]
+  SETTABLEKS R24 R23 K210 ["gradientSize"]
+  LOADK R24 K213 [0.9]
+  SETTABLEKS R24 R23 K211 ["gradientTransparency"]
+  GETTABLEKS R24 R18 K214 ["FooterBorder"]
   SETTABLEKS R24 R23 K127 ["border"]
-  SETTABLEKS R23 R22 K212 ["footer"]
-  DUPTABLE R23 K222 [{"FadeTransparency", "groupCollaboratorItem", "deleteButton", "permissionEditor", "collaboratorName", "ownerLabel", "iconContainerSize", "nonRolesetFrame", "rolesetFrame"}]
-  LOADK R24 K223 [0.75]
-  SETTABLEKS R24 R23 K213 ["FadeTransparency"]
-  DUPTABLE R24 K229 [{"ExpandTextSize", "size", "collaboratorItemOffset", "expandablePaneSize", "headerComponent"}]
+  SETTABLEKS R23 R22 K215 ["footer"]
+  DUPTABLE R23 K226 [{"FadeTransparency", "groupCollaboratorItem", "deleteButton", "permissionEditor", "collaboratorName", "collaboratorSubText", "ownerLabel", "iconContainerSize", "nonRolesetFrame", "rolesetFrame"}]
+  LOADK R24 K227 [0.75]
+  SETTABLEKS R24 R23 K216 ["FadeTransparency"]
+  DUPTABLE R24 K233 [{"ExpandTextSize", "size", "collaboratorItemOffset", "expandablePaneSize", "headerComponent"}]
   LOADN R25 14
-  SETTABLEKS R25 R24 K224 ["ExpandTextSize"]
+  SETTABLEKS R25 R24 K228 ["ExpandTextSize"]
   GETIMPORT R25 K99 [UDim2.new]
   LOADN R26 0
   LOADN R27 153
   LOADN R28 0
   LOADN R29 60
   CALL R25 4 1
-  SETTABLEKS R25 R24 K225 ["size"]
+  SETTABLEKS R25 R24 K229 ["size"]
   LOADN R25 16
-  SETTABLEKS R25 R24 K226 ["collaboratorItemOffset"]
+  SETTABLEKS R25 R24 K230 ["collaboratorItemOffset"]
   GETIMPORT R25 K99 [UDim2.new]
   LOADN R26 1
   LOADN R27 0
   LOADN R28 0
   LOADN R29 34
   CALL R25 4 1
-  SETTABLEKS R25 R24 K227 ["expandablePaneSize"]
-  DUPTABLE R25 K232 [{"size", "arrowLabel", "textLabel"}]
+  SETTABLEKS R25 R24 K231 ["expandablePaneSize"]
+  DUPTABLE R25 K236 [{"size", "arrowLabel", "textLabel"}]
   GETIMPORT R26 K99 [UDim2.new]
   LOADN R27 0
   LOADN R28 96
   LOADN R29 0
   LOADN R30 34
   CALL R26 4 1
-  SETTABLEKS R26 R25 K225 ["size"]
-  DUPTABLE R26 K234 [{"position", "size"}]
+  SETTABLEKS R26 R25 K229 ["size"]
+  DUPTABLE R26 K238 [{"position", "size"}]
   GETIMPORT R27 K99 [UDim2.new]
   LOADN R28 0
   LOADN R29 42
   LOADK R30 K100 [0.5]
   LOADN R31 0
   CALL R27 4 1
-  SETTABLEKS R27 R26 K233 ["position"]
+  SETTABLEKS R27 R26 K237 ["position"]
   GETIMPORT R27 K99 [UDim2.new]
   LOADN R28 0
   LOADN R29 17
   LOADN R30 0
   LOADN R31 17
   CALL R27 4 1
-  SETTABLEKS R27 R26 K225 ["size"]
-  SETTABLEKS R26 R25 K230 ["arrowLabel"]
-  DUPTABLE R26 K235 [{"position"}]
+  SETTABLEKS R27 R26 K229 ["size"]
+  SETTABLEKS R26 R25 K234 ["arrowLabel"]
+  DUPTABLE R26 K239 [{"position"}]
   GETIMPORT R27 K99 [UDim2.new]
   LOADN R28 0
   LOADN R29 60
   LOADK R30 K100 [0.5]
   LOADN R31 0
   CALL R27 4 1
-  SETTABLEKS R27 R26 K233 ["position"]
-  SETTABLEKS R26 R25 K231 ["textLabel"]
-  SETTABLEKS R25 R24 K228 ["headerComponent"]
-  SETTABLEKS R24 R23 K214 ["groupCollaboratorItem"]
-  DUPTABLE R24 K237 [{"size", "xOffset", "hovered"}]
+  SETTABLEKS R27 R26 K237 ["position"]
+  SETTABLEKS R26 R25 K235 ["textLabel"]
+  SETTABLEKS R25 R24 K232 ["headerComponent"]
+  SETTABLEKS R24 R23 K217 ["groupCollaboratorItem"]
+  DUPTABLE R24 K241 [{"size", "xOffset", "hovered"}]
   LOADN R25 32
-  SETTABLEKS R25 R24 K225 ["size"]
+  SETTABLEKS R25 R24 K229 ["size"]
   LOADN R25 6
-  SETTABLEKS R25 R24 K236 ["xOffset"]
+  SETTABLEKS R25 R24 K240 ["xOffset"]
   GETTABLEKS R25 R18 K173 ["Dropdown"]
   SETTABLEKS R25 R24 K165 ["hovered"]
-  SETTABLEKS R24 R23 K215 ["deleteButton"]
-  DUPTABLE R24 K240 [{"heightOffset", "yOffset"}]
+  SETTABLEKS R24 R23 K218 ["deleteButton"]
+  DUPTABLE R24 K244 [{"heightOffset", "yOffset"}]
   LOADN R25 54
-  SETTABLEKS R25 R24 K238 ["heightOffset"]
+  SETTABLEKS R25 R24 K242 ["heightOffset"]
   LOADN R25 11
-  SETTABLEKS R25 R24 K239 ["yOffset"]
-  SETTABLEKS R24 R23 K216 ["permissionEditor"]
-  DUPTABLE R24 K243 [{"withIcon", "withoutIcon"}]
-  DUPTABLE R25 K244 [{"size", "xOffset"}]
+  SETTABLEKS R25 R24 K243 ["yOffset"]
+  SETTABLEKS R24 R23 K219 ["permissionEditor"]
+  DUPTABLE R24 K249 [{"withIcon", "withoutIcon", "withSubtext", "withoutSubtext"}]
+  DUPTABLE R25 K251 [{"withSubText", "size", "xOffset"}]
+  DUPTABLE R26 K252 [{"size"}]
+  GETIMPORT R27 K99 [UDim2.new]
+  LOADN R28 1
+  LOADN R29 248
+  LOADN R30 0
+  LOADN R31 30
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K229 ["size"]
+  SETTABLEKS R26 R25 K250 ["withSubText"]
   GETIMPORT R26 K99 [UDim2.new]
   LOADN R27 1
   LOADN R28 248
   LOADN R29 0
   LOADN R30 54
   CALL R26 4 1
-  SETTABLEKS R26 R25 K225 ["size"]
+  SETTABLEKS R26 R25 K229 ["size"]
   LOADN R26 72
-  SETTABLEKS R26 R25 K236 ["xOffset"]
-  SETTABLEKS R25 R24 K241 ["withIcon"]
-  NEWTABLE R25 1 1
+  SETTABLEKS R26 R25 K240 ["xOffset"]
+  SETTABLEKS R25 R24 K245 ["withIcon"]
+  NEWTABLE R25 2 1
+  DUPTABLE R27 K252 [{"size"}]
+  GETIMPORT R28 K99 [UDim2.new]
+  LOADN R29 1
+  LOADN R30 248
+  LOADN R31 0
+  LOADN R32 30
+  CALL R28 4 1
+  SETTABLEKS R28 R27 K229 ["size"]
+  SETTABLEKS R27 R25 K250 ["withSubText"]
   GETIMPORT R26 K99 [UDim2.new]
   LOADN R27 1
   LOADN R28 130
@@ -628,72 +650,106 @@ MAIN:
   CALL R26 4 1
   SETLIST R25 R26 1 [1]
   LOADN R27 50
-  SETTABLEKS R27 R25 K236 ["xOffset"]
-  SETTABLEKS R25 R24 K242 ["withoutIcon"]
-  SETTABLEKS R24 R23 K217 ["collaboratorName"]
-  DUPTABLE R24 K247 [{"withIconSize", "withoutIconSize", "position"}]
+  SETTABLEKS R27 R25 K240 ["xOffset"]
+  SETTABLEKS R25 R24 K246 ["withoutIcon"]
+  DUPTABLE R25 K253 [{"yOffset"}]
+  LOADN R26 246
+  SETTABLEKS R26 R25 K243 ["yOffset"]
+  SETTABLEKS R25 R24 K247 ["withSubtext"]
+  DUPTABLE R25 K253 [{"yOffset"}]
+  LOADN R26 0
+  SETTABLEKS R26 R25 K243 ["yOffset"]
+  SETTABLEKS R25 R24 K248 ["withoutSubtext"]
+  SETTABLEKS R24 R23 K220 ["collaboratorName"]
+  DUPTABLE R24 K254 [{"withIcon", "withoutIcon", "yOffset"}]
+  DUPTABLE R25 K255 [{"size", "xOffset"}]
+  GETIMPORT R26 K99 [UDim2.new]
+  LOADN R27 1
+  LOADN R28 248
+  LOADN R29 0
+  LOADN R30 24
+  CALL R26 4 1
+  SETTABLEKS R26 R25 K229 ["size"]
+  LOADN R26 72
+  SETTABLEKS R26 R25 K240 ["xOffset"]
+  SETTABLEKS R25 R24 K245 ["withIcon"]
+  NEWTABLE R25 1 1
+  GETIMPORT R26 K99 [UDim2.new]
+  LOADN R27 1
+  LOADN R28 130
+  LOADN R29 0
+  LOADN R30 24
+  CALL R26 4 1
+  SETLIST R25 R26 1 [1]
+  LOADN R27 50
+  SETTABLEKS R27 R25 K240 ["xOffset"]
+  SETTABLEKS R25 R24 K246 ["withoutIcon"]
+  LOADN R25 10
+  SETTABLEKS R25 R24 K243 ["yOffset"]
+  SETTABLEKS R24 R23 K221 ["collaboratorSubText"]
+  DUPTABLE R24 K258 [{"withIconSize", "withoutIconSize", "position"}]
   GETIMPORT R25 K99 [UDim2.new]
   LOADN R26 1
   LOADN R27 248
   LOADN R28 0
   LOADN R29 54
   CALL R25 4 1
-  SETTABLEKS R25 R24 K245 ["withIconSize"]
+  SETTABLEKS R25 R24 K256 ["withIconSize"]
   GETIMPORT R25 K99 [UDim2.new]
   LOADN R26 1
   LOADN R27 130
   LOADN R28 0
   LOADN R29 54
   CALL R25 4 1
-  SETTABLEKS R25 R24 K246 ["withoutIconSize"]
+  SETTABLEKS R25 R24 K257 ["withoutIconSize"]
   GETIMPORT R25 K99 [UDim2.new]
   LOADN R26 1
   LOADN R27 249
   LOADK R28 K100 [0.5]
   LOADN R29 0
   CALL R25 4 1
-  SETTABLEKS R25 R24 K233 ["position"]
-  SETTABLEKS R24 R23 K218 ["ownerLabel"]
+  SETTABLEKS R25 R24 K237 ["position"]
+  SETTABLEKS R24 R23 K222 ["ownerLabel"]
   LOADN R24 40
-  SETTABLEKS R24 R23 K219 ["iconContainerSize"]
-  DUPTABLE R24 K249 [{"width", "height", "position", "anchorPoint"}]
+  SETTABLEKS R24 R23 K223 ["iconContainerSize"]
+  DUPTABLE R24 K260 [{"width", "height", "position", "anchorPoint"}]
   LOADN R25 153
-  SETTABLEKS R25 R24 K192 ["width"]
+  SETTABLEKS R25 R24 K195 ["width"]
   LOADN R25 74
-  SETTABLEKS R25 R24 K194 ["height"]
+  SETTABLEKS R25 R24 K197 ["height"]
   LOADNIL R25
-  SETTABLEKS R25 R24 K233 ["position"]
+  SETTABLEKS R25 R24 K237 ["position"]
   LOADNIL R25
-  SETTABLEKS R25 R24 K248 ["anchorPoint"]
-  SETTABLEKS R24 R23 K220 ["nonRolesetFrame"]
-  DUPTABLE R24 K251 [{"width", "height", "position", "anchorPont"}]
+  SETTABLEKS R25 R24 K259 ["anchorPoint"]
+  SETTABLEKS R24 R23 K224 ["nonRolesetFrame"]
+  DUPTABLE R24 K262 [{"width", "height", "position", "anchorPont"}]
   LOADN R25 96
-  SETTABLEKS R25 R24 K192 ["width"]
+  SETTABLEKS R25 R24 K195 ["width"]
   LOADN R25 54
-  SETTABLEKS R25 R24 K194 ["height"]
+  SETTABLEKS R25 R24 K197 ["height"]
   GETIMPORT R25 K99 [UDim2.new]
-  LOADK R26 K252 [1.5]
+  LOADK R26 K7 ["Style"]
   LOADN R27 200
   LOADN R28 0
   LOADN R29 20
   CALL R25 4 1
-  SETTABLEKS R25 R24 K233 ["position"]
+  SETTABLEKS R25 R24 K237 ["position"]
   GETIMPORT R25 K71 [Vector2.new]
   LOADN R26 1
   LOADN R27 0
   CALL R25 2 1
-  SETTABLEKS R25 R24 K250 ["anchorPont"]
-  SETTABLEKS R24 R23 K221 ["rolesetFrame"]
-  SETTABLEKS R23 R22 K253 ["collaboratorItem"]
-  GETTABLEKS R23 R18 K254 ["CloseWidget"]
-  SETTABLEKS R23 R22 K255 ["deleteIcon"]
-  DUPTABLE R23 K258 [{"right", "down"}]
-  GETTABLEKS R24 R18 K259 ["RightArrow"]
-  SETTABLEKS R24 R23 K256 ["right"]
-  GETTABLEKS R24 R18 K260 ["DownArrow"]
-  SETTABLEKS R24 R23 K257 ["down"]
-  SETTABLEKS R23 R22 K261 ["arrows"]
-  DUPCLOSURE R23 K262 [PROTO_0]
+  SETTABLEKS R25 R24 K261 ["anchorPont"]
+  SETTABLEKS R24 R23 K225 ["rolesetFrame"]
+  SETTABLEKS R23 R22 K264 ["collaboratorItem"]
+  GETTABLEKS R23 R18 K265 ["CloseWidget"]
+  SETTABLEKS R23 R22 K266 ["deleteIcon"]
+  DUPTABLE R23 K269 [{"right", "down"}]
+  GETTABLEKS R24 R18 K270 ["RightArrow"]
+  SETTABLEKS R24 R23 K267 ["right"]
+  GETTABLEKS R24 R18 K271 ["DownArrow"]
+  SETTABLEKS R24 R23 K268 ["down"]
+  SETTABLEKS R23 R22 K272 ["arrows"]
+  DUPCLOSURE R23 K273 [PROTO_0]
   CAPTURE VAL R20
   CAPTURE VAL R16
   CAPTURE VAL R18

@@ -113,110 +113,105 @@ PROTO_6:
   CAPTURE UPVAL U3
   SETTABLEKS R19 R18 K17 ["selectTabAndTool"]
   SETTABLEKS R18 R17 K13 ["ToolController"]
-  DUPTABLE R18 K25 [{"ChangeHistoryService", "CoreGui", "Selection", "ShorelineUpgraderService", "SmoothVoxelsUpgraderService", "Terrain"}]
-  GETIMPORT R19 K27 [game]
+  DUPTABLE R18 K24 [{"ChangeHistoryService", "CoreGui", "Selection", "SmoothVoxelsUpgraderService", "Terrain"}]
+  GETIMPORT R19 K26 [game]
   LOADK R21 K19 ["ChangeHistoryService"]
-  NAMECALL R19 R19 K28 ["GetService"]
+  NAMECALL R19 R19 K27 ["GetService"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K19 ["ChangeHistoryService"]
-  GETIMPORT R19 K27 [game]
+  GETIMPORT R19 K26 [game]
   LOADK R21 K20 ["CoreGui"]
-  NAMECALL R19 R19 K28 ["GetService"]
+  NAMECALL R19 R19 K27 ["GetService"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K20 ["CoreGui"]
-  GETIMPORT R19 K27 [game]
+  GETIMPORT R19 K26 [game]
   LOADK R21 K21 ["Selection"]
-  NAMECALL R19 R19 K28 ["GetService"]
+  NAMECALL R19 R19 K27 ["GetService"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K21 ["Selection"]
-  GETIMPORT R19 K27 [game]
-  LOADK R21 K22 ["ShorelineUpgraderService"]
-  NAMECALL R19 R19 K28 ["GetService"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K22 ["ShorelineUpgraderService"]
   GETUPVAL R20 4
   CALL R20 0 1
   JUMPIFNOT R20 [+7]
-  GETIMPORT R19 K27 [game]
-  LOADK R21 K23 ["SmoothVoxelsUpgraderService"]
-  NAMECALL R19 R19 K28 ["GetService"]
+  GETIMPORT R19 K26 [game]
+  LOADK R21 K22 ["SmoothVoxelsUpgraderService"]
+  NAMECALL R19 R19 K27 ["GetService"]
   CALL R19 2 1
   JUMP [+1]
   LOADNIL R19
-  SETTABLEKS R19 R18 K23 ["SmoothVoxelsUpgraderService"]
-  GETIMPORT R19 K27 [game]
-  LOADK R21 K29 ["Workspace"]
-  NAMECALL R19 R19 K28 ["GetService"]
+  SETTABLEKS R19 R18 K22 ["SmoothVoxelsUpgraderService"]
+  GETIMPORT R19 K26 [game]
+  LOADK R21 K28 ["Workspace"]
+  NAMECALL R19 R19 K27 ["GetService"]
   CALL R19 2 1
-  LOADK R21 K24 ["Terrain"]
-  NAMECALL R19 R19 K30 ["FindFirstChildOfClass"]
+  LOADK R21 K23 ["Terrain"]
+  NAMECALL R19 R19 K29 ["FindFirstChildOfClass"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K24 ["Terrain"]
-  NAMECALL R15 R14 K31 ["init"]
+  SETTABLEKS R19 R18 K23 ["Terrain"]
+  NAMECALL R15 R14 K30 ["init"]
   CALL R15 3 0
-  NAMECALL R15 R14 K32 ["getCategory"]
+  NAMECALL R15 R14 K31 ["getCategory"]
   CALL R15 1 1
   GETUPVAL R17 5
-  GETTABLEKS R16 R17 K33 ["None"]
+  GETTABLEKS R16 R17 K32 ["None"]
   JUMPIFNOTEQ R15 R16 [+12]
-  GETTABLEKS R16 R6 K34 ["_emptyTool"]
+  GETTABLEKS R16 R6 K33 ["_emptyTool"]
   JUMPIFNOT R16 [+5]
-  LOADK R17 K35 ["Cannot have more than one empty tool."]
+  LOADK R17 K34 ["Cannot have more than one empty tool."]
   FASTCALL1 ASSERT R17 [+2]
-  GETIMPORT R16 K37 [assert]
+  GETIMPORT R16 K36 [assert]
   CALL R16 1 0
-  SETTABLEKS R14 R6 K34 ["_emptyTool"]
+  SETTABLEKS R14 R6 K33 ["_emptyTool"]
   JUMP [+53]
   GETTABLE R16 R7 R15
   JUMPIF R16 [+30]
   LENGTH R17 R8
-  ADDK R16 R17 K38 [1]
-  DUPTABLE R19 K44 [{"Key", "Label", "ToolIndex", "ToolRegistry", "Toolbar"}]
-  SETTABLEKS R16 R19 K39 ["Key"]
-  LOADK R22 K45 ["Tabs"]
+  ADDK R16 R17 K37 [1]
+  DUPTABLE R19 K43 [{"Key", "Label", "ToolIndex", "ToolRegistry", "Toolbar"}]
+  SETTABLEKS R16 R19 K38 ["Key"]
+  LOADK R22 K44 ["Tabs"]
   MOVE R23 R15
-  NAMECALL R20 R3 K46 ["getText"]
+  NAMECALL R20 R3 K45 ["getText"]
   CALL R20 3 1
-  SETTABLEKS R20 R19 K40 ["Label"]
+  SETTABLEKS R20 R19 K39 ["Label"]
   LOADN R20 1
-  SETTABLEKS R20 R19 K41 ["ToolIndex"]
+  SETTABLEKS R20 R19 K40 ["ToolIndex"]
   NEWTABLE R20 0 0
-  SETTABLEKS R20 R19 K42 ["ToolRegistry"]
+  SETTABLEKS R20 R19 K41 ["ToolRegistry"]
   NEWTABLE R20 0 0
-  SETTABLEKS R20 R19 K43 ["Toolbar"]
+  SETTABLEKS R20 R19 K42 ["Toolbar"]
   FASTCALL2 TABLE_INSERT R8 R19 [+4]
   MOVE R18 R8
-  GETIMPORT R17 K49 [table.insert]
+  GETIMPORT R17 K48 [table.insert]
   CALL R17 2 0
   SETTABLE R16 R7 R15
   GETTABLE R19 R7 R15
   GETTABLE R18 R8 R19
-  GETTABLEKS R17 R18 K42 ["ToolRegistry"]
+  GETTABLEKS R17 R18 K41 ["ToolRegistry"]
   FASTCALL2 TABLE_INSERT R17 R14 [+4]
   MOVE R18 R14
-  GETIMPORT R16 K49 [table.insert]
+  GETIMPORT R16 K48 [table.insert]
   CALL R16 2 0
   GETTABLE R19 R7 R15
   GETTABLE R18 R8 R19
-  GETTABLEKS R17 R18 K43 ["Toolbar"]
-  NAMECALL R18 R14 K50 ["getTile"]
+  GETTABLEKS R17 R18 K42 ["Toolbar"]
+  NAMECALL R18 R14 K49 ["getTile"]
   CALL R18 1 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R16 K49 [table.insert]
+  GETIMPORT R16 K48 [table.insert]
   CALL R16 -1 0
-  FORGLOOP R9 2 [-165]
-  SETTABLEKS R7 R6 K51 ["_tabRegistry"]
-  SETTABLEKS R8 R6 K52 ["_tabs"]
+  FORGLOOP R9 2 [-157]
+  SETTABLEKS R7 R6 K50 ["_tabRegistry"]
+  SETTABLEKS R8 R6 K51 ["_tabs"]
   LOADN R9 1
-  SETTABLEKS R9 R6 K53 ["_tabIndex"]
+  SETTABLEKS R9 R6 K52 ["_tabIndex"]
   LOADB R9 1
-  SETTABLEKS R9 R6 K54 ["_useEmptyTool"]
-  GETTABLEKS R9 R0 K55 ["Activation"]
+  SETTABLEKS R9 R6 K53 ["_useEmptyTool"]
+  GETTABLEKS R9 R0 K54 ["Activation"]
   NEWCLOSURE R11 P3
   CAPTURE VAL R6
-  NAMECALL R9 R9 K56 ["Connect"]
+  NAMECALL R9 R9 K55 ["Connect"]
   CALL R9 2 1
-  SETTABLEKS R9 R6 K57 ["_focusedConnection"]
+  SETTABLEKS R9 R6 K56 ["_focusedConnection"]
   RETURN R6 1
 
 PROTO_7:

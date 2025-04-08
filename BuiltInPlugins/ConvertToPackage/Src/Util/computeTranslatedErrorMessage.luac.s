@@ -1,0 +1,153 @@
+PROTO_0:
+  NEWTABLE R1 0 0
+  JUMPIFNOT R0 [+21]
+  GETIMPORT R2 K2 [string.gmatch]
+  MOVE R3 R0
+  LOADK R4 K3 ["([^,]+)"]
+  CALL R2 2 3
+  FORGPREP R2
+  FASTCALL1 TONUMBER R5 [+3]
+  MOVE R8 R5
+  GETIMPORT R7 K5 [tonumber]
+  CALL R7 1 1
+  JUMPIFNOT R7 [+7]
+  FASTCALL2 TABLE_INSERT R1 R5 [+5]
+  MOVE R8 R1
+  MOVE R9 R5
+  GETIMPORT R7 K8 [table.insert]
+  CALL R7 2 0
+  FORGLOOP R2 1 [-14]
+  RETURN R1 1
+
+PROTO_1:
+  LENGTH R2 R0
+  GETUPVAL R3 0
+  JUMPIFNOTLE R2 R3 [+7]
+  GETIMPORT R3 K2 [table.concat]
+  MOVE R4 R0
+  LOADK R5 K3 [", "]
+  CALL R3 2 -1
+  RETURN R3 -1
+  LOADK R5 K4 ["AssetConfigUpload"]
+  LOADK R6 K5 ["AdditionalDependentAssetIds"]
+  DUPTABLE R7 K7 [{"assetIdsCount"}]
+  GETUPVAL R10 0
+  SUB R9 R2 R10
+  FASTCALL1 TOSTRING R9 [+2]
+  GETIMPORT R8 K9 [tostring]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K6 ["assetIdsCount"]
+  NAMECALL R3 R1 K10 ["getText"]
+  CALL R3 4 1
+  NEWTABLE R4 0 0
+  LOADN R7 1
+  GETUPVAL R5 0
+  LOADN R6 1
+  FORNPREP R5
+  GETTABLE R10 R0 R7
+  FASTCALL2 TABLE_INSERT R4 R10 [+4]
+  MOVE R9 R4
+  GETIMPORT R8 K12 [table.insert]
+  CALL R8 2 0
+  FORNLOOP R5
+  GETIMPORT R9 K2 [table.concat]
+  MOVE R10 R4
+  LOADK R11 K3 [", "]
+  CALL R9 2 1
+  MOVE R6 R9
+  LOADK R7 K13 [" "]
+  MOVE R8 R3
+  CONCAT R5 R6 R8
+  RETURN R5 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["JSONDecode"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETIMPORT R2 K1 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R2 1 2
+  JUMPIFNOT R2 [+7]
+  FASTCALL1 TYPEOF R3 [+3]
+  MOVE R5 R3
+  GETIMPORT R4 K3 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K4 ["table"] [+7]
+  LOADK R6 K5 ["AssetUploadResult"]
+  LOADK R7 K6 ["SubmissionFailed"]
+  NAMECALL R4 R1 K7 ["getText"]
+  CALL R4 3 -1
+  RETURN R4 -1
+  GETTABLEKS R5 R3 K9 ["reason"]
+  ORK R4 R5 K8 ["Unknown"]
+  GETTABLEKS R5 R3 K10 ["simpleErrorMessage"]
+  JUMPIF R5 [+5]
+  LOADK R7 K5 ["AssetUploadResult"]
+  LOADK R8 K6 ["SubmissionFailed"]
+  NAMECALL R5 R1 K7 ["getText"]
+  CALL R5 3 1
+  GETTABLEKS R8 R3 K11 ["metadata"]
+  FASTCALL1 TYPE R8 [+2]
+  GETIMPORT R7 K13 [type]
+  CALL R7 1 1
+  JUMPIFNOTEQKS R7 K4 ["table"] [+4]
+  GETTABLEKS R6 R3 K11 ["metadata"]
+  JUMP [+2]
+  NEWTABLE R6 0 0
+  GETTABLEKS R7 R6 K14 ["DependencyAssetRestricted"]
+  JUMPIFNOT R7 [+16]
+  GETUPVAL R8 1
+  MOVE R9 R7
+  CALL R8 1 1
+  GETUPVAL R9 2
+  MOVE R10 R8
+  MOVE R11 R1
+  CALL R9 2 1
+  LOADK R12 K15 ["AssetConfigUpload"]
+  MOVE R13 R4
+  DUPTABLE R14 K17 [{"assetIds"}]
+  SETTABLEKS R9 R14 K16 ["assetIds"]
+  NAMECALL R10 R1 K7 ["getText"]
+  CALL R10 4 -1
+  RETURN R10 -1
+  JUMPIFNOTEQKS R4 K18 ["DependenciesLimitExceeded"] [+17]
+  LOADK R10 K15 ["AssetConfigUpload"]
+  MOVE R11 R4
+  DUPTABLE R12 K20 [{"countLimit"}]
+  GETTABLEKS R15 R6 K19 ["countLimit"]
+  ORK R14 R15 K21 [""]
+  FASTCALL1 TOSTRING R14 [+2]
+  GETIMPORT R13 K23 [tostring]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K19 ["countLimit"]
+  NAMECALL R8 R1 K7 ["getText"]
+  CALL R8 4 -1
+  RETURN R8 -1
+  RETURN R5 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["ModelPublishFailAssetIdCountLimit"]
+  NAMECALL R1 R1 K5 ["GetFastInt"]
+  CALL R1 2 1
+  DUPCLOSURE R2 K6 [PROTO_0]
+  DUPCLOSURE R3 K7 [PROTO_1]
+  CAPTURE VAL R1
+  DUPCLOSURE R4 K8 [PROTO_3]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETGLOBAL R4 K9 ["computeTranslatedErrorMessage"]
+  GETGLOBAL R4 K9 ["computeTranslatedErrorMessage"]
+  RETURN R4 1

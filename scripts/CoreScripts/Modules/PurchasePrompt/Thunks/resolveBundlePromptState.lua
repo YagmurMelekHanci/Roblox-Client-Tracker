@@ -228,7 +228,8 @@ local function resolveBundlePromptState(
 									product.providerId,
 									product.id,
 									product.robuxAmount,
-									product.robuxAmountBeforeBonus
+									product.robuxAmountBeforeBonus,
+									product.price
 								)
 							)
 						end,

@@ -1,0 +1,34 @@
+PROTO_0:
+  JUMPIFNOTEQKS R0 K0 ["Approved"] [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["ModerationStatus"]
+  GETTABLEKS R1 R2 K0 ["Approved"]
+  RETURN R1 1
+  JUMPIFNOTEQKS R0 K2 ["Pending"] [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["ModerationStatus"]
+  GETTABLEKS R1 R2 K2 ["Pending"]
+  RETURN R1 1
+  JUMPIFNOTEQKS R0 K3 ["Rejected"] [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["ModerationStatus"]
+  GETTABLEKS R1 R2 K3 ["Rejected"]
+  RETURN R1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["ModerationStatus"]
+  GETTABLEKS R1 R2 K4 ["Placeholder"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetManager"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K8 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

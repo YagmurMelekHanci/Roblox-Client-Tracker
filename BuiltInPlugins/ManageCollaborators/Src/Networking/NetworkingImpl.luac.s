@@ -213,64 +213,74 @@ PROTO_6:
   RETURN R4 -1
 
 PROTO_7:
-  GETTABLEKS R2 R1 K0 ["Body"]
-  JUMPIFEQKNIL R2 [+62]
-  LOADNIL R2
-  LOADB R3 1
-  GETTABLEKS R4 R1 K1 ["Headers"]
-  FASTCALL1 TYPEOF R4 [+3]
-  MOVE R6 R4
-  GETIMPORT R5 K3 [typeof]
-  CALL R5 1 1
-  JUMPIFNOTEQKS R5 K4 ["table"] [+11]
-  GETTABLEKS R5 R4 K5 ["Content-Type"]
-  JUMPIFNOT R5 [+7]
-  GETIMPORT R6 K8 [string.find]
+  GETTABLEKS R2 R1 K0 ["expectEmptyResponse"]
+  LOADNIL R3
+  SETTABLEKS R3 R1 K0 ["expectEmptyResponse"]
+  GETTABLEKS R3 R1 K1 ["Body"]
+  JUMPIFEQKNIL R3 [+62]
+  LOADNIL R3
+  LOADB R4 1
+  GETTABLEKS R5 R1 K2 ["Headers"]
+  FASTCALL1 TYPEOF R5 [+3]
   MOVE R7 R5
-  LOADK R8 K9 ["multipart/form"]
+  GETIMPORT R6 K4 [typeof]
+  CALL R6 1 1
+  JUMPIFNOTEQKS R6 K5 ["table"] [+11]
+  GETTABLEKS R6 R5 K6 ["Content-Type"]
+  JUMPIFNOT R6 [+7]
+  GETIMPORT R7 K9 [string.find]
+  MOVE R8 R6
+  LOADK R9 K10 ["multipart/form"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+1]
+  LOADB R4 0
+  JUMPIFNOT R4 [+7]
+  GETUPVAL R6 0
+  GETTABLEKS R8 R1 K1 ["Body"]
+  NAMECALL R6 R6 K11 ["JSONEncode"]
   CALL R6 2 1
-  JUMPIFNOT R6 [+1]
-  LOADB R3 0
-  JUMPIFNOT R3 [+7]
-  GETUPVAL R5 0
-  GETTABLEKS R7 R1 K0 ["Body"]
-  NAMECALL R5 R5 K10 ["JSONEncode"]
-  CALL R5 2 1
-  JUMPIF R5 [+2]
-  GETTABLEKS R5 R1 K0 ["Body"]
-  MOVE R2 R5
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K11 ["Dictionary"]
-  GETTABLEKS R5 R6 K12 ["join"]
-  MOVE R6 R1
-  DUPTABLE R7 K13 [{"Body", "Headers"}]
-  SETTABLEKS R2 R7 K0 ["Body"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["Dictionary"]
-  GETTABLEKS R8 R9 K12 ["join"]
-  NEWTABLE R9 1 0
-  LOADK R10 K14 ["application/json"]
-  SETTABLEKS R10 R9 K5 ["Content-Type"]
-  GETTABLEKS R10 R1 K1 ["Headers"]
-  JUMPIF R10 [+2]
-  NEWTABLE R10 0 0
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K1 ["Headers"]
-  CALL R5 2 1
-  MOVE R1 R5
-  GETTABLEKS R2 R0 K15 ["__baseImpl"]
-  MOVE R4 R1
-  NAMECALL R2 R2 K16 ["request"]
-  CALL R2 2 1
-  GETTABLEKS R3 R0 K15 ["__baseImpl"]
-  GETTABLEKS R5 R0 K15 ["__baseImpl"]
-  MOVE R7 R2
-  GETTABLEKS R8 R0 K17 ["__retryAmount"]
-  NAMECALL R5 R5 K18 ["handleRetry"]
-  CALL R5 3 -1
-  NAMECALL R3 R3 K19 ["parseJson"]
-  CALL R3 -1 -1
-  RETURN R3 -1
+  JUMPIF R6 [+2]
+  GETTABLEKS R6 R1 K1 ["Body"]
+  MOVE R3 R6
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K12 ["Dictionary"]
+  GETTABLEKS R6 R7 K13 ["join"]
+  MOVE R7 R1
+  DUPTABLE R8 K14 [{"Body", "Headers"}]
+  SETTABLEKS R3 R8 K1 ["Body"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K12 ["Dictionary"]
+  GETTABLEKS R9 R10 K13 ["join"]
+  NEWTABLE R10 1 0
+  LOADK R11 K15 ["application/json"]
+  SETTABLEKS R11 R10 K6 ["Content-Type"]
+  GETTABLEKS R11 R1 K2 ["Headers"]
+  JUMPIF R11 [+2]
+  NEWTABLE R11 0 0
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K2 ["Headers"]
+  CALL R6 2 1
+  MOVE R1 R6
+  GETTABLEKS R3 R0 K16 ["__baseImpl"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K17 ["request"]
+  CALL R3 2 1
+  JUMPIFNOT R2 [+9]
+  GETTABLEKS R4 R0 K16 ["__baseImpl"]
+  MOVE R6 R3
+  GETTABLEKS R7 R0 K18 ["__retryAmount"]
+  NAMECALL R4 R4 K19 ["handleRetry"]
+  CALL R4 3 -1
+  RETURN R4 -1
+  GETTABLEKS R4 R0 K16 ["__baseImpl"]
+  GETTABLEKS R6 R0 K16 ["__baseImpl"]
+  MOVE R8 R3
+  GETTABLEKS R9 R0 K18 ["__retryAmount"]
+  NAMECALL R6 R6 K19 ["handleRetry"]
+  CALL R6 3 -1
+  NAMECALL R4 R4 K20 ["parseJson"]
+  CALL R4 -1 -1
+  RETURN R4 -1
 
 PROTO_8:
   GETUPVAL R3 0

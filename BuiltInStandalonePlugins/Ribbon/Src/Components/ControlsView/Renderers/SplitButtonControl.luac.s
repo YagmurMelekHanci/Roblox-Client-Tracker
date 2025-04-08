@@ -251,7 +251,7 @@ PROTO_2:
   LOADB R15 1
   GETUPVAL R16 4
   GETUPVAL R17 5
-  DUPTABLE R18 K38 [{"OnSelect", "OnSelectArrow", "Disabled", "EnabledChildren", "Uri", "Icon", "IconOnly", "LayoutOrder", "Selected", "Size", "Shortcuts", "Text", "Tooltip", "Visible"}]
+  DUPTABLE R18 K40 [{"OnSelect", "OnSelectArrow", "Disabled", "EnabledChildren", "Uri", "Icon", "IconOnly", "LayoutOrder", "Selected", "Size", "Shortcuts", "Text", "Tooltip", "Visible", "ShowContextMenu", "ControlIndex"}]
   NEWCLOSURE R19 P0
   CAPTURE REF R3
   CAPTURE VAL R0
@@ -269,20 +269,20 @@ PROTO_2:
   NOT R19 R13
   SETTABLEKS R19 R18 K28 ["Disabled"]
   SETTABLEKS R14 R18 K29 ["EnabledChildren"]
-  GETTABLEKS R20 R0 K39 ["WidgetUri"]
+  GETTABLEKS R20 R0 K41 ["WidgetUri"]
   JUMPIFNOT R20 [+12]
   GETTABLEKS R20 R2 K8 ["Id"]
   JUMPIFNOT R20 [+9]
   GETUPVAL R20 1
-  GETTABLEKS R19 R20 K40 ["child"]
-  GETTABLEKS R20 R0 K39 ["WidgetUri"]
+  GETTABLEKS R19 R20 K42 ["child"]
+  GETTABLEKS R20 R0 K41 ["WidgetUri"]
   GETTABLEKS R21 R2 K8 ["Id"]
   CALL R19 2 1
   JUMP [+1]
   LOADNIL R19
   SETTABLEKS R19 R18 K30 ["Uri"]
   SETTABLEKS R11 R18 K19 ["Icon"]
-  GETTABLEKS R19 R0 K41 ["HideLabels"]
+  GETTABLEKS R19 R0 K43 ["HideLabels"]
   JUMPIF R19 [+2]
   GETTABLEKS R19 R2 K31 ["IconOnly"]
   SETTABLEKS R19 R18 K31 ["IconOnly"]
@@ -319,6 +319,18 @@ PROTO_2:
   CALL R19 6 1
   SETTABLEKS R19 R18 K37 ["Tooltip"]
   SETTABLEKS R15 R18 K25 ["Visible"]
+  GETUPVAL R20 8
+  JUMPIFNOT R20 [+3]
+  GETTABLEKS R19 R0 K38 ["ShowContextMenu"]
+  JUMP [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K38 ["ShowContextMenu"]
+  GETUPVAL R20 9
+  JUMPIFNOT R20 [+3]
+  GETTABLEKS R19 R0 K39 ["ControlIndex"]
+  JUMP [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K39 ["ControlIndex"]
   CALL R16 2 -1
   CLOSEUPVALS R3
   RETURN R16 -1
@@ -363,35 +375,49 @@ MAIN:
   CALL R7 1 1
   CALL R7 0 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Packages"]
-  GETTABLEKS R9 R10 K19 ["Framework"]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K17 ["SharedFlags"]
+  GETTABLEKS R9 R10 K19 ["getFFlagRibbonTabsMenu"]
   CALL R8 1 1
-  GETTABLEKS R9 R8 K20 ["ContextServices"]
-  GETTABLEKS R10 R9 K21 ["Localization"]
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R15 R0 K9 ["Src"]
-  GETTABLEKS R14 R15 K12 ["Components"]
-  GETTABLEKS R13 R14 K14 ["ControlsView"]
-  GETTABLEKS R12 R13 K22 ["ControlProps"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R14 R0 K9 ["Src"]
-  GETTABLEKS R13 R14 K23 ["Types"]
-  CALL R12 1 1
-  DUPTABLE R13 K27 [{"Enabled", "Icon", "Visible"}]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K24 ["Enabled"]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K25 ["Icon"]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K26 ["Visible"]
-  DUPCLOSURE R14 K28 [PROTO_2]
-  CAPTURE VAL R10
+  CALL R8 0 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K17 ["SharedFlags"]
+  GETTABLEKS R10 R11 K20 ["getFFlagUseIndexForMovingControls"]
+  CALL R9 1 1
+  CALL R9 0 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Packages"]
+  GETTABLEKS R11 R12 K21 ["Framework"]
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K22 ["ContextServices"]
+  GETTABLEKS R12 R11 K23 ["Localization"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R17 R0 K9 ["Src"]
+  GETTABLEKS R16 R17 K12 ["Components"]
+  GETTABLEKS R15 R16 K14 ["ControlsView"]
+  GETTABLEKS R14 R15 K24 ["ControlProps"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R16 R0 K9 ["Src"]
+  GETTABLEKS R15 R16 K25 ["Types"]
+  CALL R14 1 1
+  DUPTABLE R15 K29 [{"Enabled", "Icon", "Visible"}]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K26 ["Enabled"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K27 ["Icon"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K28 ["Visible"]
+  DUPCLOSURE R16 K30 [PROTO_2]
+  CAPTURE VAL R12
   CAPTURE VAL R3
-  CAPTURE VAL R13
+  CAPTURE VAL R15
   CAPTURE VAL R7
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R6
   CAPTURE VAL R5
-  RETURN R14 1
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  RETURN R16 1

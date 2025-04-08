@@ -104,7 +104,8 @@ local function retryAfterUpsell(retriesRemaining)
 												product.providerId,
 												product.id,
 												product.robuxAmount,
-												product.robuxAmountBeforeBonus
+												product.robuxAmountBeforeBonus,
+												product.price
 											)
 										)
 										store:dispatch(sendCounter(Counter.UpsellModalShownAgain))

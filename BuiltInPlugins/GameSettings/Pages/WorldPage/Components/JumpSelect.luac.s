@@ -299,8 +299,7 @@ MAIN:
   GETTABLEKS R12 R0 K13 ["Util"]
   GETTABLEKS R11 R12 K15 ["formatNumberForEngine"]
   CALL R10 1 1
-  GETTABLEKS R12 R1 K5 ["Packages"]
-  GETTABLEKS R11 R12 K16 ["RoactStudioWidgets"]
+  GETTABLEKS R11 R1 K16 ["RoactStudioWidgets"]
   GETIMPORT R12 K4 [require]
   GETTABLEKS R13 R11 K17 ["RadioButtonSet"]
   CALL R12 1 1

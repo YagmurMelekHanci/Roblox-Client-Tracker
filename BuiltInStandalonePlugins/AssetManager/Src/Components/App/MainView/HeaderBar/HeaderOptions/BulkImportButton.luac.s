@@ -47,7 +47,7 @@ PROTO_1:
   SETTABLEKS R6 R9 K5 ["Tooltip"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K12 ["Tag"]
-  LOADK R12 K13 ["ImportIcon %*"]
+  LOADK R12 K13 ["icon-import %*"]
   MOVE R14 R5
   NAMECALL R12 R12 K14 ["format"]
   CALL R12 2 1

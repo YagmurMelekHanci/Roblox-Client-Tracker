@@ -18,6 +18,8 @@ local GetFFlagEnableJoinVoiceOnUnibar = SharedFlags.GetFFlagEnableJoinVoiceOnUni
 local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 local GetFFlagEnableSongbirdInChrome = require(Root.Parent.Flags.GetFFlagEnableSongbirdInChrome)
+local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
+local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 
 local ChromeFlags = script.Parent.Parent.Parent.Flags
 local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
@@ -224,6 +226,10 @@ function AnimationStateHelper(props)
 	end, { currentSubmenu })
 
 	React.useEffect(function()
+		if FFlagSubmenuFocusNavFixes and currentSubmenu == selectedItem then
+			return
+		end
+
 		if GetFFlagUsePolishedAnimations() then
 			local updateSelection = coroutine.create(function()
 				local counter = 0
@@ -504,6 +510,9 @@ function Unibar(props: UnibarProp)
 					visible = pinned or visibleBinding :: any,
 					toggleTransition = toggleSubmenuTransition,
 					integration = item,
+					disableBadgeNumber = if GetFFlagSimpleChatUnreadMessageCount() and item.id == "chat"
+						then true
+						else false,
 				}) :: any
 				xOffset += Constants.ICON_CELL_WIDTH
 				if pinned then

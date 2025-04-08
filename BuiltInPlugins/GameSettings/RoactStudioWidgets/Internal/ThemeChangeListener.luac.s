@@ -1,0 +1,58 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["render"]
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_1:
+  NEWTABLE R3 0 0
+  NAMECALL R1 R0 K0 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  NEWTABLE R3 0 0
+  NAMECALL R1 R0 K0 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R3 K1 [settings]
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K2 ["Studio"]
+  GETTABLEKS R1 R2 K3 ["ThemeChanged"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K4 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K5 ["externalThemeChangedConnection"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["externalThemeChangedConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["externalThemeChangedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["RequireRoact"]
+  CALL R0 1 1
+  GETTABLEKS R1 R0 K6 ["Component"]
+  LOADK R3 K7 ["ThemeChangeListener"]
+  NAMECALL R1 R1 K8 ["extend"]
+  CALL R1 2 1
+  DUPCLOSURE R2 K9 [PROTO_0]
+  SETTABLEKS R2 R1 K10 ["render"]
+  DUPCLOSURE R2 K11 [PROTO_1]
+  DUPCLOSURE R3 K12 [PROTO_3]
+  SETTABLEKS R3 R1 K13 ["didMount"]
+  DUPCLOSURE R3 K14 [PROTO_4]
+  SETTABLEKS R3 R1 K15 ["willUnmount"]
+  RETURN R1 1

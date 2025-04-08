@@ -186,7 +186,7 @@ PROTO_4:
   SETTABLEKS R19 R18 K36 ["LayoutOrder"]
   GETUPVAL R20 7
   GETTABLEKS R19 R20 K37 ["Tag"]
-  LOADK R20 K43 ["SearchOptionsContents X-Top X-Column"]
+  LOADK R20 K43 ["X-Top X-Column fill"]
   SETTABLE R20 R18 R19
   DUPTABLE R19 K49 [{"SourceHeader", "ScopeSelector", "Separator", "AssetTypeHeader", "AssetTypes"}]
   GETUPVAL R21 7
@@ -203,7 +203,7 @@ PROTO_4:
   SETTABLEKS R23 R22 K12 ["Text"]
   GETUPVAL R24 7
   GETTABLEKS R23 R24 K37 ["Tag"]
-  LOADK R24 K51 ["SearchOptionHeading Left Bold X-Pad"]
+  LOADK R24 K51 ["X-FitY Left Bold X-Pad"]
   SETTABLE R24 R22 R23
   CALL R20 2 1
   SETTABLEKS R20 R19 K44 ["SourceHeader"]
@@ -253,7 +253,7 @@ PROTO_4:
   SETTABLEKS R23 R22 K12 ["Text"]
   GETUPVAL R24 7
   GETTABLEKS R23 R24 K37 ["Tag"]
-  LOADK R24 K51 ["SearchOptionHeading Left Bold X-Pad"]
+  LOADK R24 K51 ["X-FitY Left Bold X-Pad"]
   SETTABLE R24 R22 R23
   CALL R20 2 1
   SETTABLEKS R20 R19 K47 ["AssetTypeHeader"]
@@ -266,7 +266,7 @@ PROTO_4:
   SETTABLEKS R23 R22 K36 ["LayoutOrder"]
   GETUPVAL R24 7
   GETTABLEKS R23 R24 K37 ["Tag"]
-  LOADK R24 K56 ["AssetTypeSection X-ColumnM X-Center"]
+  LOADK R24 K56 ["X-ColumnM X-Center am-padding-left-medium fill"]
   SETTABLE R24 R22 R23
   DUPTABLE R23 K58 [{"RadioButtonListContainer"}]
   GETUPVAL R25 7
@@ -279,7 +279,7 @@ PROTO_4:
   SETTABLEKS R9 R26 K59 ["CanvasSize"]
   GETUPVAL R28 7
   GETTABLEKS R27 R28 K37 ["Tag"]
-  LOADK R28 K60 ["RadioList"]
+  LOADK R28 K60 ["am-padding-bottom-small fill"]
   SETTABLE R28 R26 R27
   NEWTABLE R27 0 1
   GETUPVAL R29 7

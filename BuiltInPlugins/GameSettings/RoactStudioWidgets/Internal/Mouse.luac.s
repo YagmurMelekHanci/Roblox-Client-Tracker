@@ -1,0 +1,25 @@
+PROTO_0:
+  JUMPIFNOT R0 [+8]
+  JUMPIFNOT R1 [+4]
+  LOADK R3 K0 ["rbxasset://SystemCursors/"]
+  MOVE R4 R1
+  CONCAT R2 R3 R4
+  JUMPIF R2 [+1]
+  LOADK R2 K1 ["rbxasset://SystemCursors/PointingHand"]
+  SETTABLEKS R2 R0 K2 ["Icon"]
+  RETURN R0 0
+
+PROTO_1:
+  JUMPIFNOT R0 [+3]
+  LOADK R1 K0 ["rbxasset://SystemCursors/Arrow"]
+  SETTABLEKS R1 R0 K1 ["Icon"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 2 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["onEnter"]
+  DUPCLOSURE R1 K2 [PROTO_1]
+  SETTABLEKS R1 R0 K3 ["onLeave"]
+  RETURN R0 1

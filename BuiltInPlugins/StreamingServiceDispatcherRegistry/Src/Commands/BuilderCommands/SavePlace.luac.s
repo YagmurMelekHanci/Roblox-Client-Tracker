@@ -42,17 +42,19 @@ MAIN:
   GETTABLEKS R3 R1 K10 ["GetService"]
   LOADK R4 K11 ["StreamingService"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Flags"]
-  GETTABLEKS R5 R6 K13 ["getFFlagConvAIAddSavePlaceCommand"]
-  CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K6 ["Src"]
   GETTABLEKS R7 R8 K12 ["Flags"]
-  GETTABLEKS R6 R7 K14 ["getFFlagConvAIUpdateSavePlaceTelemetry"]
+  GETTABLEKS R6 R7 K13 ["FFlagConvAIAddSavePlaceCommand"]
   CALL R5 1 1
-  DUPCLOSURE R6 K15 [PROTO_0]
+  GETTABLEKS R4 R5 K14 ["Get"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Flags"]
+  GETTABLEKS R7 R8 K15 ["FFlagConvAIUpdateSavePlaceTelemetry"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K14 ["Get"]
+  DUPCLOSURE R6 K16 [PROTO_0]
   CAPTURE VAL R4
   CAPTURE VAL R5
   CAPTURE VAL R3

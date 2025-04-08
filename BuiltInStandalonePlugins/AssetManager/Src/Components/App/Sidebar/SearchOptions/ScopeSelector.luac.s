@@ -317,7 +317,7 @@ PROTO_9:
   NEWTABLE R29 1 0
   GETUPVAL R31 5
   GETTABLEKS R30 R31 K12 ["Tag"]
-  LOADK R31 K24 ["ArrowIcon AnchorMiddleRightOffset"]
+  LOADK R31 K24 ["ArrowIcon anchor-center-right am-position-center-right-xoffset-small"]
   SETTABLE R31 R29 R30
   CALL R27 2 1
   SETTABLEKS R27 R26 K15 ["CaretIcon"]

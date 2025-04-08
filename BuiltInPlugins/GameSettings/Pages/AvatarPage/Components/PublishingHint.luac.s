@@ -162,8 +162,7 @@ MAIN:
   CALL R5 1 1
   GETTABLEKS R4 R5 K12 ["ContextServices"]
   GETTABLEKS R5 R4 K13 ["withContext"]
-  GETTABLEKS R7 R2 K9 ["Packages"]
-  GETTABLEKS R6 R7 K14 ["RoactStudioWidgets"]
+  GETTABLEKS R6 R2 K14 ["RoactStudioWidgets"]
   GETIMPORT R7 K8 [require]
   GETTABLEKS R9 R1 K15 ["Util"]
   GETTABLEKS R8 R9 K16 ["StateInterfaceTheme"]

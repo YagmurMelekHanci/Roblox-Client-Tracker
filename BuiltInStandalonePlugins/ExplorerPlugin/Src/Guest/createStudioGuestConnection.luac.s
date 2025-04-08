@@ -133,6 +133,67 @@ PROTO_4:
 
 PROTO_5:
   GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["There was an error starting the Explorer: %*"]
+  GETIMPORT R5 K5 [debug.traceback]
+  MOVE R6 R0
+  CALL R5 1 1
+  NAMECALL R3 R3 K6 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K12 [{"eventName", "description", "backends", "throttlingPercentage", "lastUpdated"}]
+  LOADK R4 K13 ["LuaExplorerItemStartedConnectError"]
+  SETTABLEKS R4 R3 K7 ["eventName"]
+  LOADK R4 K14 ["Fired when something errors in connect()"]
+  SETTABLEKS R4 R3 K8 ["description"]
+  NEWTABLE R4 0 1
+  LOADK R5 K15 ["Points"]
+  SETLIST R4 R5 1 [1]
+  SETTABLEKS R4 R3 K9 ["backends"]
+  GETIMPORT R4 K17 [game]
+  LOADK R6 K18 ["LuaExplorerItemStartedConnectErrorThrottlingHundredthsPercent"]
+  LOADN R7 16
+  NAMECALL R4 R4 K19 ["DefineFastInt"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K10 ["throttlingPercentage"]
+  NEWTABLE R4 0 3
+  LOADN R5 25
+  LOADN R6 4
+  LOADN R7 2
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K11 ["lastUpdated"]
+  DUPTABLE R4 K22 [{"customFields", "standardizedFields"}]
+  DUPTABLE R5 K25 [{"dataModel", "problem"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K26 ["HostDataModelType"]
+  GETTABLEKS R6 R7 K27 ["Name"]
+  SETTABLEKS R6 R5 K23 ["dataModel"]
+  SETTABLEKS R0 R5 K24 ["problem"]
+  SETTABLEKS R5 R4 K20 ["customFields"]
+  NEWTABLE R5 0 6
+  LOADK R6 K28 ["addPlaceId"]
+  LOADK R7 K29 ["addUniverseId"]
+  LOADK R8 K30 ["addPlaceInstanceId"]
+  LOADK R9 K31 ["addSessionId"]
+  LOADK R10 K32 ["addOSInfo"]
+  LOADK R11 K33 ["addSessionInfo"]
+  SETLIST R5 R6 6 [1]
+  SETTABLEKS R5 R4 K21 ["standardizedFields"]
+  NAMECALL R1 R1 K34 ["LogEvent"]
+  CALL R1 3 0
+  GETUPVAL R1 2
+  NAMECALL R1 R1 K35 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["Disconnect"]
   CALL R0 1 0
   GETUPVAL R0 1
@@ -142,7 +203,7 @@ PROTO_5:
   CALL R0 0 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_8:
   GETTABLEKS R2 R0 K0 ["HostDataModelType"]
   GETTABLEKS R1 R2 K1 ["Name"]
   GETUPVAL R4 0
@@ -173,13 +234,13 @@ PROTO_6:
   GETTABLEKS R10 R11 K4 ["fromHost"]
   GETTABLEKS R9 R10 K5 ["starting"]
   MOVE R10 R4
-  NAMECALL R7 R0 K6 ["OnInvoke"]
+  NAMECALL R7 R0 K6 ["OnInvokeSuspendOverride"]
   CALL R7 3 1
   GETUPVAL R12 2
   GETTABLEKS R11 R12 K4 ["fromHost"]
   GETTABLEKS R10 R11 K7 ["message"]
   MOVE R11 R5
-  NAMECALL R8 R0 K6 ["OnInvoke"]
+  NAMECALL R8 R0 K6 ["OnInvokeSuspendOverride"]
   CALL R8 3 1
   GETUPVAL R9 3
   GETUPVAL R13 2
@@ -187,10 +248,16 @@ PROTO_6:
   GETTABLEKS R11 R12 K8 ["itemStarted"]
   NAMECALL R9 R9 K9 ["HasItem"]
   CALL R9 2 1
-  JUMPIFNOT R9 [+2]
-  MOVE R9 R4
-  CALL R9 0 0
-  NEWCLOSURE R9 P3
+  JUMPIFNOT R9 [+9]
+  GETIMPORT R9 K11 [xpcall]
+  NEWCLOSURE R10 P3
+  CAPTURE VAL R4
+  NEWCLOSURE R11 P4
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE VAL R8
+  CALL R9 2 0
+  NEWCLOSURE R9 P5
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R6
@@ -204,26 +271,31 @@ MAIN:
   LOADK R2 K2 ["MemStorageService"]
   NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["ExplorerPlugin"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["TelemetryService"]
+  NAMECALL R1 R1 K3 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R1 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["Explorer"]
-  CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R1 K12 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Util"]
-  GETTABLEKS R4 R5 K14 ["StudioProtocolConstants"]
+  GETIMPORT R2 K6 [script]
+  LOADK R4 K7 ["ExplorerPlugin"]
+  NAMECALL R2 R2 K8 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R5 R2 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Explorer"]
   CALL R3 1 1
-  GETTABLEKS R5 R2 K13 ["Util"]
-  GETTABLEKS R4 R5 K15 ["createDebugLogger"]
-  LOADK R5 K16 ["createStudioGuestConnection"]
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R7 R2 K13 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Util"]
+  GETTABLEKS R5 R6 K15 ["StudioProtocolConstants"]
   CALL R4 1 1
-  DUPCLOSURE R5 K17 [PROTO_6]
-  CAPTURE VAL R2
-  CAPTURE VAL R4
+  GETTABLEKS R6 R3 K14 ["Util"]
+  GETTABLEKS R5 R6 K16 ["createDebugLogger"]
+  LOADK R6 K17 ["createStudioGuestConnection"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K18 [PROTO_8]
   CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R4
   CAPTURE VAL R0
-  RETURN R5 1
+  CAPTURE VAL R1
+  RETURN R6 1

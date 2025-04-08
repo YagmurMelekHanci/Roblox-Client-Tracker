@@ -308,20 +308,29 @@ PROTO_18:
   RETURN R0 0
 
 PROTO_19:
+  GETTABLEKS R5 R0 K0 ["_impl"]
+  GETTABLEKS R4 R5 K1 ["fetchAssetInfoAsync"]
+  MOVE R5 R1
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_20:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["grantUniverseUseAssetsPermissions"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_20:
+PROTO_21:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["getThumbnailUriForScope"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_21:
+PROTO_22:
   GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["getThumbnailForScopeAsync"]
   MOVE R4 R1
@@ -329,7 +338,7 @@ PROTO_21:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_23:
   GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["getThumbnailForItem"]
   MOVE R4 R1
@@ -337,7 +346,7 @@ PROTO_22:
   CALL R3 2 -1
   RETURN R3 -1
 
-PROTO_23:
+PROTO_24:
   GETTABLEKS R5 R0 K0 ["_impl"]
   GETTABLEKS R4 R5 K1 ["getThumbnailForItemAsync"]
   MOVE R5 R1
@@ -346,7 +355,7 @@ PROTO_23:
   CALL R4 3 -1
   RETURN R4 -1
 
-PROTO_24:
+PROTO_25:
   GETTABLEKS R5 R0 K0 ["_impl"]
   GETTABLEKS R4 R5 K1 ["fetchPluginInfoAsync"]
   MOVE R5 R1
@@ -412,15 +421,17 @@ MAIN:
   CAPTURE VAL R4
   SETTABLEKS R11 R10 K36 ["searchAssetsAsync"]
   DUPCLOSURE R11 K37 [PROTO_19]
-  SETTABLEKS R11 R10 K38 ["grantUniverseUseAssetsPermissions"]
+  SETTABLEKS R11 R10 K38 ["fetchAssetInfoAsync"]
   DUPCLOSURE R11 K39 [PROTO_20]
-  SETTABLEKS R11 R10 K40 ["getThumbnailUriForScope"]
+  SETTABLEKS R11 R10 K40 ["grantUniverseUseAssetsPermissions"]
   DUPCLOSURE R11 K41 [PROTO_21]
-  SETTABLEKS R11 R10 K42 ["getThumbnailForScopeAsync"]
+  SETTABLEKS R11 R10 K42 ["getThumbnailUriForScope"]
   DUPCLOSURE R11 K43 [PROTO_22]
-  SETTABLEKS R11 R10 K44 ["getThumbnailForItem"]
+  SETTABLEKS R11 R10 K44 ["getThumbnailForScopeAsync"]
   DUPCLOSURE R11 K45 [PROTO_23]
-  SETTABLEKS R11 R10 K46 ["getThumbnailForItemAsync"]
+  SETTABLEKS R11 R10 K46 ["getThumbnailForItem"]
   DUPCLOSURE R11 K47 [PROTO_24]
-  SETTABLEKS R11 R10 K48 ["fetchPluginInfoAsync"]
+  SETTABLEKS R11 R10 K48 ["getThumbnailForItemAsync"]
+  DUPCLOSURE R11 K49 [PROTO_25]
+  SETTABLEKS R11 R10 K50 ["fetchPluginInfoAsync"]
   RETURN R10 1

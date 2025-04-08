@@ -69,6 +69,7 @@ local FFlagOverrideInExperienceMenuReorderFirstVariant =
 local FFlagCameraToggleInitBugFix = game:DefineFastFlag("CameraToggleInitBugFix", false)
 local FFlagMicroprofileGameSettingsFix = game:DefineFastFlag("MicroprofileGameSettingsFix", false)
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
+local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
 
 local CrossExpVoiceIXPManager = require(CorePackages.Workspace.Packages.CrossExperienceVoice).IXPManager.default
 
@@ -3180,7 +3181,9 @@ local function Initialize()
 	local function checkVoiceChatOptions()
 		if VoiceChatServiceManager:VoiceChatAvailable() then
 			this.VoiceChatOptionsEnabled = true
-			syncSoundOutputs()
+			if not GetFFlagVoiceChatClientRewriteMasterLua() then
+				syncSoundOutputs()
+			end
 		end
 	end
 

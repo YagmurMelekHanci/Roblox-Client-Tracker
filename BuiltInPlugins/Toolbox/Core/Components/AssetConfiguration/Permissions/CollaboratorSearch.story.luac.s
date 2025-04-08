@@ -1,0 +1,164 @@
+PROTO_0:
+  NEWTABLE R2 0 0
+  LOADN R5 1
+  MOVE R3 R0
+  LOADN R4 1
+  FORNPREP R3
+  DUPTABLE R8 K2 [{"Type", "Id"}]
+  NAMECALL R10 R1 K3 ["NextNumber"]
+  CALL R10 1 1
+  LOADK R11 K4 [0.5]
+  JUMPIFNOTLT R11 R10 [+4]
+  GETIMPORT R9 K8 [Enum.CreatorType.Group]
+  JUMP [+2]
+  GETIMPORT R9 K10 [Enum.CreatorType.User]
+  SETTABLEKS R9 R8 K0 ["Type"]
+  LOADK R11 K11 [111111]
+  LOADK R12 K12 [999999]
+  NAMECALL R9 R1 K13 ["NextInteger"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K1 ["Id"]
+  FASTCALL2 TABLE_INSERT R2 R8 [+4]
+  MOVE R7 R2
+  GETIMPORT R6 K16 [table.insert]
+  CALL R6 2 0
+  FORNLOOP R3
+  RETURN R2 1
+
+PROTO_1:
+  GETIMPORT R1 K1 [print]
+  LOADK R2 K2 ["Selected: "]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["SubjectNameKey"]
+  GETTABLE R3 R0 R4
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R4 K4 [table.find]
+  GETUPVAL R5 0
+  MOVE R6 R0
+  CALL R4 2 1
+  ORK R3 R4 K1 [0]
+  MODK R2 R3 K0 [4]
+  JUMPIFNOTEQKN R2 K1 [0] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_3:
+  GETIMPORT R1 K2 [Random.new]
+  LOADN R2 1
+  CALL R1 1 1
+  GETUPVAL R2 0
+  GETTABLEKS R4 R0 K3 ["controls"]
+  GETTABLEKS R3 R4 K4 ["PossibleCollaboratorCount"]
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["createElement"]
+  GETUPVAL R4 2
+  NEWTABLE R5 0 0
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  GETUPVAL R7 3
+  NEWTABLE R8 0 0
+  NEWTABLE R9 0 1
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  LOADK R11 K6 ["Frame"]
+  DUPTABLE R12 K9 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R13 K12 [UDim2.fromOffset]
+  LOADN R14 44
+  LOADN R15 44
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K7 ["Size"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K8 ["BackgroundTransparency"]
+  NEWTABLE R13 0 1
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K5 ["createElement"]
+  GETUPVAL R15 4
+  DUPTABLE R16 K18 [{"Size", "Collaborators", "CollaboratorSelected", "Filter", "Enabled", "ListItemSize"}]
+  GETIMPORT R17 K19 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 0
+  LOADN R21 80
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K7 ["Size"]
+  SETTABLEKS R2 R16 K13 ["Collaborators"]
+  DUPCLOSURE R17 K20 [PROTO_1]
+  CAPTURE UPVAL U5
+  SETTABLEKS R17 R16 K14 ["CollaboratorSelected"]
+  NEWCLOSURE R17 P1
+  CAPTURE VAL R2
+  SETTABLEKS R17 R16 K15 ["Filter"]
+  GETTABLEKS R18 R0 K3 ["controls"]
+  GETTABLEKS R17 R18 K16 ["Enabled"]
+  SETTABLEKS R17 R16 K16 ["Enabled"]
+  GETIMPORT R17 K22 [Vector2.new]
+  LOADN R18 44
+  LOADN R19 60
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K17 ["ListItemSize"]
+  CALL R14 2 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R6 3 -1
+  CALL R3 -1 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Stories"]
+  GETTABLEKS R4 R5 K9 ["ToolboxStoryWrapper"]
+  CALL R3 1 1
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K10 ["Parent"]
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R4 K11 ["CollaboratorSearch"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R4 K12 ["PermissionsConstants"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R8 R4 K13 ["CollaboratorInfo"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R9 R4 K14 ["CollaboratorInfoContextMock"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K15 [PROTO_0]
+  DUPTABLE R10 K19 [{"summary", "controls", "story"}]
+  LOADK R11 K20 ["This component searches through a list of potential collaborators and displays results in a dropdown."]
+  SETTABLEKS R11 R10 K16 ["summary"]
+  DUPTABLE R11 K23 [{"PossibleCollaboratorCount", "Enabled"}]
+  NEWTABLE R12 0 4
+  LOADN R13 10
+  LOADN R14 0
+  LOADN R15 25
+  LOADN R16 100
+  SETLIST R12 R13 4 [1]
+  SETTABLEKS R12 R11 K21 ["PossibleCollaboratorCount"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K22 ["Enabled"]
+  SETTABLEKS R11 R10 K17 ["controls"]
+  DUPCLOSURE R11 K24 [PROTO_3]
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K18 ["story"]
+  RETURN R10 1

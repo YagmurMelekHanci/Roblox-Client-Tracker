@@ -1,0 +1,222 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["SetGranularPermissions"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["Id"]
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R1 K2 ["AvailableActions"]
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  DUPTABLE R11 K6 [{"Key", "Display", "Description"}]
+  SETTABLEKS R8 R11 K3 ["Key"]
+  LOADK R14 K7 ["Permissions"]
+  LOADK R16 K8 ["%*.Label"]
+  MOVE R18 R8
+  NAMECALL R16 R16 K9 ["format"]
+  CALL R16 2 1
+  MOVE R15 R16
+  NAMECALL R12 R2 K10 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K4 ["Display"]
+  LOADK R14 K7 ["Permissions"]
+  LOADK R16 K11 ["%*.Subtext"]
+  MOVE R18 R8
+  NAMECALL R16 R16 K9 ["format"]
+  CALL R16 2 1
+  MOVE R15 R16
+  NAMECALL R12 R2 K10 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K5 ["Description"]
+  FASTCALL2 TABLE_INSERT R3 R11 [+4]
+  MOVE R10 R3
+  GETIMPORT R9 K14 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R4 2 [-34]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K15 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K27 [{"LayoutOrder", "Name", "Icon", "Writable", "Loading", "HideSeparator", "Removable", "SubText", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged"}]
+  GETTABLEKS R7 R1 K16 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K16 ["LayoutOrder"]
+  GETTABLEKS R7 R1 K28 ["RoleName"]
+  SETTABLEKS R7 R6 K17 ["Name"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K15 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K32 [{"Id", "Color", "Size"}]
+  GETTABLEKS R10 R1 K29 ["Id"]
+  SETTABLEKS R10 R9 K29 ["Id"]
+  GETTABLEKS R10 R1 K30 ["Color"]
+  SETTABLEKS R10 R9 K30 ["Color"]
+  GETIMPORT R10 K35 [UDim2.fromScale]
+  LOADN R11 1
+  LOADN R12 1
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K31 ["Size"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K18 ["Icon"]
+  GETTABLEKS R7 R1 K19 ["Writable"]
+  SETTABLEKS R7 R6 K19 ["Writable"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K20 ["Loading"]
+  GETTABLEKS R7 R1 K21 ["HideSeparator"]
+  SETTABLEKS R7 R6 K21 ["HideSeparator"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K22 ["Removable"]
+  GETTABLEKS R7 R1 K36 ["OrgName"]
+  SETTABLEKS R7 R6 K23 ["SubText"]
+  GETTABLEKS R7 R1 K37 ["SelectedAction"]
+  SETTABLEKS R7 R6 K24 ["CurrentPermission"]
+  SETTABLEKS R3 R6 K25 ["AvailablePermissions"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K26 ["OnPermissionChanged"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_2:
+  DUPTABLE R2 K5 [{"RoleName", "OrgName", "SelectedAction", "AvailableActions", "Color"}]
+  GETUPVAL R3 0
+  MOVE R4 R0
+  GETTABLEKS R5 R1 K6 ["Id"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K0 ["RoleName"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  GETTABLEKS R5 R1 K6 ["Id"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K1 ["OrgName"]
+  GETUPVAL R3 2
+  MOVE R4 R0
+  GETTABLEKS R5 R1 K6 ["Id"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K2 ["SelectedAction"]
+  GETUPVAL R3 3
+  MOVE R4 R0
+  GETTABLEKS R5 R1 K6 ["Id"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K3 ["AvailableActions"]
+  GETUPVAL R3 4
+  MOVE R4 R0
+  GETTABLEKS R5 R1 K6 ["Id"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K4 ["Color"]
+  RETURN R2 1
+
+PROTO_3:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETVARARGS R2 -1
+  CALL R1 -1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R1 K1 [{"SetGranularPermissions"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetGranularPermissions"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K8 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["CollaboratorItem"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K12 ["Components"]
+  GETTABLEKS R8 R9 K14 ["Thumbnails"]
+  GETTABLEKS R7 R8 K15 ["OrgRoleThumbnail"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Selectors"]
+  GETTABLEKS R8 R9 K17 ["GetGranularCollaboratorName"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K11 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Selectors"]
+  GETTABLEKS R9 R10 K18 ["GetGranularCollaboratorColor"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K11 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Selectors"]
+  GETTABLEKS R10 R11 K19 ["GetGranularCollaboratorDescription"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R13 R0 K11 ["Src"]
+  GETTABLEKS R12 R13 K16 ["Selectors"]
+  GETTABLEKS R11 R12 K20 ["GetGranularSelectedPermission"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K11 ["Src"]
+  GETTABLEKS R13 R14 K16 ["Selectors"]
+  GETTABLEKS R12 R13 K21 ["GetGranularAvailablePermissions"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K11 ["Src"]
+  GETTABLEKS R14 R15 K22 ["Thunks"]
+  GETTABLEKS R13 R14 K23 ["SetGranularPermissions"]
+  CALL R12 1 1
+  GETTABLEKS R13 R1 K24 ["PureComponent"]
+  LOADK R15 K25 ["GranularCollaboratorItem"]
+  NAMECALL R13 R13 K26 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K27 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  SETTABLEKS R14 R13 K28 ["render"]
+  MOVE R14 R4
+  DUPTABLE R15 K30 [{"Localization"}]
+  GETTABLEKS R16 R3 K29 ["Localization"]
+  SETTABLEKS R16 R15 K29 ["Localization"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  GETTABLEKS R14 R2 K31 ["connect"]
+  DUPCLOSURE R15 K32 [PROTO_2]
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  DUPCLOSURE R16 K33 [PROTO_4]
+  CAPTURE VAL R12
+  CALL R14 2 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  RETURN R13 1

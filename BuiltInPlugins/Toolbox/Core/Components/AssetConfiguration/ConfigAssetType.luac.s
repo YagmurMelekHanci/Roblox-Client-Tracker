@@ -2568,7 +2568,7 @@ MAIN:
   NAMECALL R48 R48 K50 ["DefineFastFlag"]
   CALL R48 3 1
   GETIMPORT R49 K5 [game]
-  LOADK R51 K69 ["ToolboxRemoveRestrictedAssetWarning"]
+  LOADK R51 K69 ["ToolboxRemoveRestrictedAssetWarning2"]
   NAMECALL R49 R49 K54 ["GetFastFlag"]
   CALL R49 2 1
   GETTABLEKS R50 R5 K70 ["PureComponent"]

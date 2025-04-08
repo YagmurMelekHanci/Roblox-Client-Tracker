@@ -299,32 +299,36 @@ PROTO_6:
   GETTABLEKS R18 R19 K32 ["Event"]
   GETTABLEKS R17 R18 K44 ["MouseButton2Click"]
   GETUPVAL R19 2
-  JUMPIFNOT R19 [+2]
+  JUMPIFNOT R19 [+7]
+  GETTABLEKS R19 R0 K45 ["IsPlusButton"]
+  JUMPIF R19 [+2]
   MOVE R18 R13
+  JUMP [+3]
+  LOADNIL R18
   JUMP [+1]
   LOADNIL R18
   SETTABLE R18 R16 R17
   GETUPVAL R18 12
   GETTABLEKS R17 R18 K34 ["Tag"]
   GETUPVAL R18 13
-  LOADK R19 K45 ["Component-RibbonTab X-CornerM X-Fit X-PadTab"]
-  GETTABLEKS R21 R0 K46 ["Enabled"]
+  LOADK R19 K46 ["Component-RibbonTab X-CornerM X-Fit X-PadTab"]
+  GETTABLEKS R21 R0 K47 ["Enabled"]
   JUMPIFNOTEQKB R21 FALSE [+3]
-  LOADK R20 K47 ["State-Disabled"]
+  LOADK R20 K48 ["State-Disabled"]
   JUMP [+6]
-  GETTABLEKS R21 R0 K48 ["Selected"]
+  GETTABLEKS R21 R0 K49 ["Selected"]
   JUMPIFNOT R21 [+2]
-  LOADK R20 K49 ["State-Selected"]
+  LOADK R20 K50 ["State-Selected"]
   JUMP [+1]
-  LOADK R20 K50 ["State-Default"]
+  LOADK R20 K51 ["State-Default"]
   GETUPVAL R22 14
   CALL R22 0 1
   JUMPIFNOT R22 [+10]
-  LOADK R22 K51 ["data-testid=%*"]
+  LOADK R22 K52 ["data-testid=%*"]
   GETUPVAL R24 15
   GETTABLEKS R25 R0 K8 ["Uri"]
   CALL R24 1 1
-  NAMECALL R22 R22 K52 ["format"]
+  NAMECALL R22 R22 K53 ["format"]
   CALL R22 2 1
   MOVE R21 R22
   JUMP [+1]

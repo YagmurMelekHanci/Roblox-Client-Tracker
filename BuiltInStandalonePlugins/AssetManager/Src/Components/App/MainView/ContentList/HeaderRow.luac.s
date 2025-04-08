@@ -5,10 +5,10 @@ PROTO_0:
   GETTABLEKS R2 R0 K1 ["IsAscending"]
   JUMPIFNOT R2 [+3]
   LOADK R2 K2 ["Bold"]
-  LOADK R3 K3 ["Ascending"]
+  LOADK R3 K3 ["icon-arrow-up"]
   RETURN R2 2
   LOADK R2 K2 ["Bold"]
-  LOADK R3 K4 ["Descending"]
+  LOADK R3 K4 ["icon-arrow-down"]
   RETURN R2 2
   LOADK R2 K5 [""]
   LOADK R3 K5 [""]
@@ -41,10 +41,10 @@ PROTO_3:
   GETTABLEKS R13 R12 K1 ["IsAscending"]
   JUMPIFNOT R13 [+3]
   LOADK R10 K2 ["Bold"]
-  LOADK R11 K3 ["Ascending"]
+  LOADK R11 K3 ["icon-arrow-up"]
   JUMP [+5]
   LOADK R10 K2 ["Bold"]
-  LOADK R11 K4 ["Descending"]
+  LOADK R11 K4 ["icon-arrow-down"]
   JUMP [+2]
   LOADK R10 K5 [""]
   LOADK R11 K5 [""]
@@ -218,7 +218,7 @@ PROTO_7:
   SETTABLEKS R4 R12 K14 ["ref"]
   GETUPVAL R14 9
   GETTABLEKS R13 R14 K15 ["Tag"]
-  LOADK R14 K16 ["HeaderRow"]
+  LOADK R14 K16 ["HeaderRow am-size-full-headerrow"]
   SETTABLE R14 R12 R13
   DUPTABLE R13 K19 [{"Contents", "Filler"}]
   GETUPVAL R15 9
@@ -240,7 +240,7 @@ PROTO_7:
   SETTABLEKS R17 R16 K26 ["OnSizesChange"]
   GETUPVAL R18 9
   GETTABLEKS R17 R18 K15 ["Tag"]
-  LOADK R18 K27 ["HeaderRowContents Contrast"]
+  LOADK R18 K27 ["am-size-fit-headerrow Contrast"]
   SETTABLE R18 R16 R17
   MOVE R17 R8
   CALL R14 3 1
@@ -253,7 +253,7 @@ PROTO_7:
   SETTABLEKS R17 R16 K20 ["LayoutOrder"]
   GETUPVAL R18 9
   GETTABLEKS R17 R18 K15 ["Tag"]
-  LOADK R18 K18 ["Filler"]
+  LOADK R18 K28 ["am-size-scrollbar-full"]
   SETTABLE R18 R16 R17
   CALL R14 2 1
   SETTABLEKS R14 R13 K18 ["Filler"]
@@ -308,9 +308,9 @@ MAIN:
   GETTABLEKS R17 R18 K25 ["Types"]
   CALL R16 1 1
   GETIMPORT R17 K5 [require]
-  GETIMPORT R20 K1 [script]
-  GETTABLEKS R19 R20 K26 ["Parent"]
-  GETTABLEKS R18 R19 K27 ["styles"]
+  GETTABLEKS R20 R0 K16 ["Src"]
+  GETTABLEKS R19 R20 K26 ["Resources"]
+  GETTABLEKS R18 R19 K27 ["PluginStyles"]
   CALL R17 1 1
   DUPCLOSURE R18 K28 [PROTO_0]
   DUPCLOSURE R19 K29 [PROTO_3]

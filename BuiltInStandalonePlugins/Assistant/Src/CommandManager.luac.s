@@ -1,0 +1,137 @@
+PROTO_0:
+  NEWTABLE R1 0 0
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K1 [setmetatable]
+  CALL R0 2 1
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["streamingServiceListener"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["GetService"]
+  LOADK R3 K1 ["StreamingService"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+26]
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  MOVE R10 R6
+  GETTABLEKS R11 R7 K2 ["Command"]
+  GETTABLEKS R12 R7 K3 ["IsSequential"]
+  GETTABLEKS R13 R7 K4 ["IsPublic"]
+  NAMECALL R8 R2 K5 ["RegisterCommandInternal"]
+  CALL R8 5 0
+  FORGLOOP R3 2 [-11]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R0 K7 ["streamingServiceListener"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["register"]
+  CALL R3 0 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["GetService"]
+  LOADK R4 K9 ["ChatbotUIService"]
+  CALL R3 1 1
+  LOADK R6 K10 ["PluginConnected"]
+  NEWTABLE R7 0 0
+  NAMECALL R4 R3 K11 ["DisplayContent"]
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["GetService"]
+  LOADK R3 K1 ["StreamingService"]
+  CALL R2 1 1
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  MOVE R10 R6
+  NAMECALL R8 R2 K2 ["UnregisterCommand"]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-5]
+  GETTABLEKS R3 R0 K3 ["streamingServiceListener"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R3 R0 K3 ["streamingServiceListener"]
+  NAMECALL R3 R3 K4 ["destroy"]
+  CALL R3 1 0
+  LOADNIL R3
+  SETTABLEKS R3 R0 K3 ["streamingServiceListener"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K4 ["destroy"]
+  CALL R3 0 0
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K4 ["destroy"]
+  CALL R3 0 0
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K5 ["unregister"]
+  CALL R3 0 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Assistant"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["CommandSrc"]
+  GETTABLEKS R4 R5 K8 ["Commands"]
+  GETTABLEKS R3 R4 K9 ["BuilderCommands"]
+  GETTABLEKS R2 R3 K10 ["BuilderNameMap"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Util"]
+  GETTABLEKS R3 R4 K12 ["CliAdapter"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K7 ["CommandSrc"]
+  GETTABLEKS R5 R6 K8 ["Commands"]
+  GETTABLEKS R4 R5 K13 ["CommandRegistry"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K7 ["CommandSrc"]
+  GETTABLEKS R6 R7 K14 ["ContextCollectors"]
+  GETTABLEKS R5 R6 K15 ["DefaultContextCollector"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K7 ["CommandSrc"]
+  GETTABLEKS R7 R8 K16 ["Listeners"]
+  GETTABLEKS R6 R7 K17 ["StreamingServiceListener"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K7 ["CommandSrc"]
+  GETTABLEKS R7 R8 K18 ["Utils"]
+  CALL R6 1 1
+  NEWTABLE R7 4 0
+  SETTABLEKS R7 R7 K19 ["__index"]
+  DUPCLOSURE R8 K20 [PROTO_0]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R7 K21 ["new"]
+  DUPCLOSURE R8 K22 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  SETTABLEKS R8 R7 K23 ["init"]
+  DUPCLOSURE R8 K24 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  SETTABLEKS R8 R7 K25 ["destroy"]
+  RETURN R7 1

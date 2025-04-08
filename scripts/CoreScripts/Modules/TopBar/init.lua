@@ -34,6 +34,7 @@ local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
 local FFlagUIBloxFoundationProvider = SharedFlags.GetFFlagUIBloxFoundationProvider()
+local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 
 if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing) then
 	-- set this prior to TopBarApp require
@@ -200,10 +201,12 @@ function TopBar.new()
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 
 	-- add binding
-	local TextChatService = game:GetService("TextChatService")
-	TextChatService.MessageReceived:Connect(function()
-		self.store:dispatch(UpdateUnreadMessagesBadge(1))
-	end)
+	if not GetFFlagSimpleChatUnreadMessageCount() then
+		local TextChatService = game:GetService("TextChatService")
+		TextChatService.MessageReceived:Connect(function()
+			self.store:dispatch(UpdateUnreadMessagesBadge(1))
+		end)
+	end
 
 	if FFlagGamepadNavigationDialogABTest then
 		local UserInputService = game:GetService("UserInputService")

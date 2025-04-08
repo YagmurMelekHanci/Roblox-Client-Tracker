@@ -1,0 +1,194 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Enabled"]
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K2 ["onEnter"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K3 ["Mouse"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Enabled"]
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K2 ["onLeave"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K3 ["Mouse"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["IsOn"]
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K2 ["OnClickedOff"]
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K3 ["OnClickedOn"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  LOADK R1 K1 ["ImageButton"]
+  NEWTABLE R2 8 0
+  LOADN R3 1
+  SETTABLEKS R3 R2 K2 ["BackgroundTransparency"]
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K3 ["Image"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["props"]
+  GETTABLEKS R3 R4 K5 ["Position"]
+  SETTABLEKS R3 R2 K5 ["Position"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["props"]
+  GETTABLEKS R3 R4 K6 ["Size"]
+  JUMPIF R3 [+7]
+  GETIMPORT R3 K9 [UDim2.new]
+  LOADN R4 0
+  LOADN R5 40
+  LOADN R6 0
+  LOADN R7 24
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K6 ["Size"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["props"]
+  GETTABLEKS R4 R5 K11 ["LayoutOrder"]
+  ORK R3 R4 K10 [1]
+  SETTABLEKS R3 R2 K11 ["LayoutOrder"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K12 ["Event"]
+  GETTABLEKS R3 R4 K13 ["MouseEnter"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  SETTABLE R4 R2 R3
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K12 ["Event"]
+  GETTABLEKS R3 R4 K14 ["MouseLeave"]
+  NEWCLOSURE R4 P1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  SETTABLE R4 R2 R3
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K12 ["Event"]
+  GETTABLEKS R3 R4 K15 ["MouseButton1Click"]
+  NEWCLOSURE R4 P2
+  CAPTURE UPVAL U2
+  SETTABLE R4 R2 R3
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_4:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 3
+  DUPTABLE R4 K2 [{"render"}]
+  SETTABLEKS R1 R4 K1 ["render"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["DarkStyle"]
+  JUMPIFEQKNIL R0 [+5]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["DarkStyle"]
+  RETURN R0 1
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["isDarkerTheme"]
+  CALL R0 0 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["DarkStyle"]
+  JUMPIFEQKNIL R2 [+4]
+  GETTABLEKS R1 R0 K0 ["DarkStyle"]
+  JUMP [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["isDarkerTheme"]
+  CALL R1 0 1
+  JUMP [0]
+  GETTABLEKS R3 R0 K2 ["props"]
+  GETTABLEKS R2 R3 K3 ["Enabled"]
+  JUMPIFNOT R2 [+15]
+  GETTABLEKS R3 R0 K2 ["props"]
+  GETTABLEKS R2 R3 K4 ["IsOn"]
+  JUMPIFNOT R2 [+5]
+  JUMPIFNOT R1 [+2]
+  LOADK R2 K5 ["rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"]
+  RETURN R2 1
+  LOADK R2 K6 ["rbxasset://textures/RoactStudioWidgets/toggle_on_light.png"]
+  RETURN R2 1
+  JUMPIFNOT R1 [+2]
+  LOADK R2 K7 ["rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"]
+  RETURN R2 1
+  LOADK R2 K8 ["rbxasset://textures/RoactStudioWidgets/toggle_off_light.png"]
+  RETURN R2 1
+  JUMPIFNOT R1 [+2]
+  LOADK R2 K9 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"]
+  RETURN R2 1
+  LOADK R2 K10 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["Internal"]
+  GETTABLEKS R1 R2 K6 ["RequireRoact"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K5 ["Internal"]
+  GETTABLEKS R2 R3 K7 ["Mouse"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K5 ["Internal"]
+  GETTABLEKS R3 R4 K8 ["ThemeChangeListener"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K5 ["Internal"]
+  GETTABLEKS R4 R5 K9 ["Theme"]
+  CALL R3 1 1
+  LOADNIL R4
+  GETTABLEKS R5 R0 K10 ["PureComponent"]
+  LOADK R7 K11 ["ToggleButton"]
+  NAMECALL R5 R5 K12 ["extend"]
+  CALL R5 2 1
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  CAPTURE REF R4
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K13 ["render"]
+  DUPCLOSURE R4 K14 [PROTO_6]
+  CAPTURE VAL R3
+  CLOSEUPVALS R4
+  RETURN R5 1

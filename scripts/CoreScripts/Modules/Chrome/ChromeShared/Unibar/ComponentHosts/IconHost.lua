@@ -38,12 +38,14 @@ local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Root.Service.Types)
 local FFlagEnableChromeAnalytics = SharedFlags.GetFFlagEnableChromeAnalytics()
 local FFlagWindowFixes = SharedFlags.GetFFlagWindowFixes()
+local FFlagHamburgerCursorFix = SharedFlags.FFlagHamburgerCursorFix
 
 local useObservableValue = require(Root.Hooks.useObservableValue)
 local useNotificationCount = require(Root.Hooks.useNotificationCount)
 local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
 local useMappedObservableValueBinding = require(Root.Hooks.useMappedObservableValueBinding)
 local useTimeHysteresis = require(Root.Hooks.useTimeHysteresis)
+local useTokens = Foundation.Hooks.useTokens
 
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
 
@@ -53,6 +55,7 @@ local MenuIconContext = if FFlagTiltIconUnibarFocusNav
 
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local FFlagReplaceChromeNotificationBadge = SharedFlags.FFlagReplaceChromeNotificationBadge
+local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 
 type TooltipState = {
 	displaying: boolean,
@@ -90,6 +93,7 @@ export type IconHostProps = {
 	position: React.Binding<UDim2> | UDim2 | nil,
 	visible: React.Binding<boolean> | boolean | nil,
 	disableButtonBehaviors: boolean?,
+	disableBadgeNumber: boolean?,
 }
 
 function NotificationBadge(props: IconHostProps): any?
@@ -123,9 +127,16 @@ function NotificationBadge(props: IconHostProps): any?
 		end
 	end
 
+	local tokens
+	if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber then
+		tokens = useTokens()
+	end
+
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
-		Size = UDim2.fromScale(1, 1),
+		Size = if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber
+			then UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
+			else UDim2.fromScale(1, 1),
 		Visible = props.toggleTransition and props.toggleTransition:map(function(value)
 			if hideNotificationCountWhileOpen then
 				return value < 0.5
@@ -143,8 +154,22 @@ function NotificationBadge(props: IconHostProps): any?
 					hasShadow = false,
 					value = notificationCount,
 				})
-				else if notificationBadgeText
-					then React.createElement(Badge, {
+				else if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber
+					then React.createElement(Foundation.View, {
+						Position = UDim2.new(1, 0, 0.2, 0),
+						backgroundStyle = {
+							Color3 = tokens.Color.System.Contrast.Color3,
+							Transparency = 0,
+						},
+						stroke = {
+							Color = tokens.Color.Surface.Surface_0.Color3,
+							Transparency = 0,
+							Thickness = tokens.Stroke.Thicker,
+						},
+						tag = "anchor-top-right radius-circle size-200 stroke-thicker",
+						ZIndex = 2,
+					})
+					elseif notificationBadgeText then React.createElement(Badge, {
 						AnchorPoint = Vector2.new(0, 0),
 						Position = UDim2.new(0, Constants.ICON_BADGE_OFFSET_X, 0, Constants.ICON_BADGE_OFFSET_Y),
 						variant = BadgeVariant.Primary,
@@ -345,8 +370,8 @@ function TooltipButton(props: TooltipButtonProps)
 					else 100 - props.integration.order,
 				Position = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
 					return if FFlagAdaptUnibarAndTiltSizing
-						then UDim2.new(0.5, 0, 0.5, if activeSubmenu then 1 else 0)
-						else UDim2.new(0, 0, 0, if activeSubmenu then 1 else 0)
+						then UDim2.new(0.5, 0, 0.5, if not FFlagHamburgerCursorFix and activeSubmenu then 1 else 0)
+						else UDim2.new(0, 0, 0, if not FFlagHamburgerCursorFix and activeSubmenu then 1 else 0)
 				end),
 				SelectionImageObject = if FFlagAdaptUnibarAndTiltSizing
 					then useCursor(Foundation.Enums.CursorType.SkinToneCircle)

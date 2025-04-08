@@ -156,17 +156,19 @@ MAIN:
   GETTABLEKS R6 R2 K13 ["GetService"]
   LOADK R7 K15 ["ConversationalAIAcceptanceService"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K16 ["Flags"]
-  GETTABLEKS R8 R9 K17 ["getFFlagConvAIAddCommandSearchInsertAsset"]
-  CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K6 ["Src"]
   GETTABLEKS R10 R11 K16 ["Flags"]
-  GETTABLEKS R9 R10 K18 ["getFFlagConvAIFixOnlyInsertFirstVariation"]
+  GETTABLEKS R9 R10 K17 ["FFlagConvAIAddCommandSearchInsertAsset"]
   CALL R8 1 1
-  DUPCLOSURE R9 K19 [PROTO_0]
+  GETTABLEKS R7 R8 K18 ["Get"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Flags"]
+  GETTABLEKS R10 R11 K19 ["FFlagConvAIFixOnlyInsertFirstVariation"]
+  CALL R9 1 1
+  GETTABLEKS R8 R9 K18 ["Get"]
+  DUPCLOSURE R9 K20 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R8
   CAPTURE VAL R4

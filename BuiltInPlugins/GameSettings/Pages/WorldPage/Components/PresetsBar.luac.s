@@ -128,8 +128,7 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R2 K8 ["ContextServices"]
   GETTABLEKS R4 R3 K9 ["withContext"]
-  GETTABLEKS R6 R0 K5 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["RoactStudioWidgets"]
+  GETTABLEKS R5 R0 K10 ["RoactStudioWidgets"]
   GETIMPORT R6 K4 [require]
   GETTABLEKS R7 R5 K11 ["ButtonBar"]
   CALL R6 1 1

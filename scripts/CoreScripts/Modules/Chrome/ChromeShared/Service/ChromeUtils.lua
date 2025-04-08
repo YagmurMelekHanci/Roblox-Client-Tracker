@@ -6,6 +6,7 @@ local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
 local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignalRaceCondition
+local FFlagChromeUsePolicies = SharedFlags.FFlagChromeUsePolicies
 
 local AvailabilitySignalState = {
 	Unavailable = 0,
@@ -23,6 +24,8 @@ export type AvailabilitySignal = {
 	loading: (AvailabilitySignal) -> (),
 	unavailable: (AvailabilitySignal) -> (),
 	pinned: (AvailabilitySignal) -> (),
+	forceUnavailable: (AvailabilitySignal) -> (),
+	unforceUnavailable: (AvailabilitySignal) -> (),
 }
 
 local AvailabilitySignal = {}
@@ -31,6 +34,7 @@ AvailabilitySignal.__index = AvailabilitySignal
 function AvailabilitySignal.new(initialAvailability: number): AvailabilitySignal
 	local self = {
 		_state = (initialAvailability or AvailabilitySignalState.Unavailable) :: number,
+		_forceUnavailable = if FFlagChromeUsePolicies then false else nil :: never,
 		_changeSignal = Signal.new(),
 	}
 	return (setmetatable(self, AvailabilitySignal) :: any) :: AvailabilitySignal
@@ -43,12 +47,18 @@ end
 function AvailabilitySignal:set(newState: number)
 	if self._state ~= newState then
 		self._state = newState
-		self._changeSignal:fire(newState :: any?)
+		if not (FFlagChromeUsePolicies and self._forceUnavailable) then
+			self._changeSignal:fire(newState :: any?)
+		end
 	end
 end
 
 function AvailabilitySignal:get(): number
-	return self._state
+	if FFlagChromeUsePolicies and self._forceUnavailable then
+		return AvailabilitySignalState.Unavailable
+	else
+		return self._state
+	end
 end
 
 function AvailabilitySignal:available()
@@ -67,6 +77,26 @@ function AvailabilitySignal:pinned()
 	self:set(AvailabilitySignalState.Pinned)
 end
 
+function AvailabilitySignal:forceUnavailable()
+	if FFlagChromeUsePolicies and not self._forceUnavailable then
+		self._forceUnavailable = true
+
+		if self._state ~= AvailabilitySignalState.Unavailable then
+			self._changeSignal:fire(AvailabilitySignalState.Unavailable)
+		end
+	end
+end
+
+function AvailabilitySignal:unforceUnavailable()
+	if FFlagChromeUsePolicies and self._forceUnavailable then
+		self._forceUnavailable = false
+
+		if self._state ~= AvailabilitySignalState.Unavailable then
+			self._changeSignal:fire(self._state)
+		end
+	end
+end
+
 export type NotifyData = { [string]: any? }
 
 export type NotifySignal = {
@@ -78,6 +108,7 @@ export type NotifySignal = {
 	fireCount: (NotifySignal, number) -> (),
 	setExcludeFromTotalCounts: (NotifySignal, boolean) -> (),
 	excludeFromTotalCounts: (NotifySignal) -> boolean,
+	isEmpty: (NotifySignal) -> boolean,
 }
 
 local NotifySignal = {}
@@ -121,6 +152,10 @@ function NotifySignal:fireCount(count: number)
 		self._value = notification
 		self._changeSignal:fire(self._value :: any?)
 	end
+end
+
+function NotifySignal:isEmpty()
+	return self._value and self._value.type == "empty"
 end
 
 -- Generic Observable Value

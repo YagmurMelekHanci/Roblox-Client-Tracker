@@ -1,0 +1,38 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+10]
+  GETUPVAL R1 1
+  LOADK R3 K0 ["AssetsUploaded"]
+  GETUPVAL R4 2
+  MOVE R6 R0
+  NAMECALL R4 R4 K1 ["JSONEncode"]
+  CALL R4 2 -1
+  NAMECALL R1 R1 K2 ["Fire"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["MemStorageService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K6 [script]
+  LOADK R4 K7 ["AssetImporter"]
+  NAMECALL R2 R2 K8 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R6 R2 K11 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Flags"]
+  GETTABLEKS R4 R5 K13 ["getFFlagAssetImportShareUploadResults"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K14 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  RETURN R4 1

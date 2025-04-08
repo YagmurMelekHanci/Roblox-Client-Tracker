@@ -64,8 +64,7 @@ MAIN:
   GETTABLEKS R3 R0 K5 ["Packages"]
   GETTABLEKS R2 R3 K6 ["Roact"]
   CALL R1 1 1
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["RoactStudioWidgets"]
+  GETTABLEKS R2 R0 K7 ["RoactStudioWidgets"]
   GETIMPORT R3 K4 [require]
   GETTABLEKS R4 R2 K8 ["RadioButtonSet"]
   CALL R3 1 1

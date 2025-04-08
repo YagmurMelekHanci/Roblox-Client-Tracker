@@ -114,6 +114,9 @@ local FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPadding
 local FFlagCenterIGMConsoleBottomButtons = game:DefineFastFlag("CenterIGMConsoleBottomButtons", false)
 local FFlagDelayEscCoreActionIEMOpen = game:DefineFastFlag("DelayEscCoreActionIEMOpen", false)
 local GetFFlagRemovePermissionsButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagRemovePermissionsButtons)
+local FFlagUpdateTiltMenuButtonIcons = require(SharedFlags).FFlagUpdateTiltMenuButtonIcons
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -756,9 +759,19 @@ local function CreateSettingsHub()
 		buttonImageAppend = "@2x"
 	end
 
-	local buttonB = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB" .. buttonImageAppend .. ".png"
-	local buttonX = "rbxasset://textures/ui/Controls/DesignSystem/ButtonX" .. buttonImageAppend .. ".png"
-	local buttonY = "rbxasset://textures/ui/Controls/DesignSystem/ButtonY" .. buttonImageAppend .. ".png"
+	local buttonB, buttonX, buttonY
+
+	if FFlagUpdateTiltMenuButtonIcons then 
+		buttonB = UserInputService:GetImageForKeyCode(Enum.KeyCode.ButtonB)
+		buttonX = UserInputService:GetImageForKeyCode(Enum.KeyCode.ButtonX)
+		buttonY = UserInputService:GetImageForKeyCode(Enum.KeyCode.ButtonY)
+	else
+		buttonB = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB" .. buttonImageAppend .. ".png"
+		buttonX = "rbxasset://textures/ui/Controls/DesignSystem/ButtonX" .. buttonImageAppend .. ".png"
+		buttonY = "rbxasset://textures/ui/Controls/DesignSystem/ButtonY" .. buttonImageAppend .. ".png"
+	end
+
+	local buttonStart = UserInputService:GetImageForKeyCode(Enum.KeyCode.ButtonStart)
 
 	local function appendMicButton()
 
@@ -2090,7 +2103,7 @@ local function CreateSettingsHub()
 		local resumeHotkeyFunc = function()
 			resumeFunc(Constants.AnalyticsResumeGamepadSource)
 		end
-		addBottomBarButtonOld("Resume", resumeGameText, buttonB,
+		addBottomBarButtonOld("Resume", resumeGameText, if FFlagUpdateTiltMenuButtonIcons then buttonStart else buttonB,
 			"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
 			resumeButtonFunc, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart} else {}, resumeHotkeyFunc
 		)
@@ -3331,6 +3344,15 @@ local function CreateSettingsHub()
 			end
 
 			local noOpFunc = function() end
+			if isInExperienceUIVREnabled and VRService.VREnabled then
+				local UserGui = require(RobloxGui.Modules.VR.UserGui)
+				local handleOpenVRMenuIfNeeded = UserGui:getOpenVRMenuHandler()
+				noOpFunc = function(actionName, inputState, inputObject)
+					if UserGui:isInputNeededForOpenVRMenu(inputObject) then
+						handleOpenVRMenuIfNeeded(actionName, inputState, inputObject)
+					end
+				end
+			end
 			ContextActionService:BindCoreAction("RbxSettingsHubStopCharacter", noOpFunc, false,
 				Enum.PlayerActions.CharacterForward,
 				Enum.PlayerActions.CharacterBackward,

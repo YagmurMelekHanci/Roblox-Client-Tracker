@@ -118,7 +118,7 @@ PROTO_7:
   SETTABLEKS R14 R13 K2 ["LayoutOrder"]
   GETUPVAL R15 4
   GETTABLEKS R14 R15 K3 ["Tag"]
-  LOADK R15 K4 ["FilterDropdown"]
+  LOADK R15 K4 ["am-size-headerbutton"]
   SETTABLE R15 R13 R14
   DUPTABLE R14 K7 [{"Menu", "Button"}]
   GETUPVAL R16 4
@@ -148,7 +148,7 @@ PROTO_7:
   SETTABLEKS R18 R17 K18 ["Tooltip"]
   GETUPVAL R19 4
   GETTABLEKS R18 R19 K3 ["Tag"]
-  LOADK R20 K19 ["FilterIcon %*"]
+  LOADK R20 K19 ["icon-filter %*"]
   JUMPIFNOT R9 [+2]
   LOADK R22 K20 ["Active"]
   JUMP [+1]

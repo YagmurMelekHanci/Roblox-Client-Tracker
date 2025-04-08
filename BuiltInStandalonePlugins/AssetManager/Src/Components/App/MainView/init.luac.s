@@ -203,7 +203,7 @@ PROTO_3:
   SETTABLEKS R17 R16 K4 ["LayoutOrder"]
   GETUPVAL R18 8
   GETTABLEKS R17 R18 K5 ["Tag"]
-  LOADK R18 K16 ["ProgressBar"]
+  LOADK R18 K16 ["am-size-full-scrollbar"]
   SETTABLE R18 R16 R17
   DUPTABLE R17 K18 [{"LoadingBar"}]
   GETUPVAL R19 8

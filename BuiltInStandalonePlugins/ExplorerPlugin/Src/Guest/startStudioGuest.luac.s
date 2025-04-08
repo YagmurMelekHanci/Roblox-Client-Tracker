@@ -66,6 +66,74 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["Error when unloading: %*"]
+  GETIMPORT R5 K5 [debug.traceback]
+  MOVE R6 R0
+  CALL R5 1 1
+  NAMECALL R3 R3 K6 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K12 [{"eventName", "description", "backends", "throttlingPercentage", "lastUpdated"}]
+  LOADK R4 K13 ["LuaExplorerUnloadingError"]
+  SETTABLEKS R4 R3 K7 ["eventName"]
+  LOADK R4 K14 ["Fired when something errors in plugin.Unloading"]
+  SETTABLEKS R4 R3 K8 ["description"]
+  NEWTABLE R4 0 1
+  LOADK R5 K15 ["Points"]
+  SETLIST R4 R5 1 [1]
+  SETTABLEKS R4 R3 K9 ["backends"]
+  GETIMPORT R4 K17 [game]
+  LOADK R6 K18 ["LuaExplorerUnloadingErrorThrottlingHundredthsPercent"]
+  LOADN R7 16
+  NAMECALL R4 R4 K19 ["DefineFastInt"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K10 ["throttlingPercentage"]
+  NEWTABLE R4 0 3
+  LOADN R5 25
+  LOADN R6 4
+  LOADN R7 2
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K11 ["lastUpdated"]
+  DUPTABLE R4 K22 [{"customFields", "standardizedFields"}]
+  DUPTABLE R5 K25 [{"dataModel", "problem"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K26 ["HostDataModelType"]
+  GETTABLEKS R6 R7 K27 ["Name"]
+  SETTABLEKS R6 R5 K23 ["dataModel"]
+  SETTABLEKS R0 R5 K24 ["problem"]
+  SETTABLEKS R5 R4 K20 ["customFields"]
+  NEWTABLE R5 0 6
+  LOADK R6 K28 ["addPlaceId"]
+  LOADK R7 K29 ["addUniverseId"]
+  LOADK R8 K30 ["addPlaceInstanceId"]
+  LOADK R9 K31 ["addSessionId"]
+  LOADK R10 K32 ["addOSInfo"]
+  LOADK R11 K33 ["addSessionInfo"]
+  SETLIST R5 R6 6 [1]
+  SETTABLEKS R5 R4 K21 ["standardizedFields"]
+  NAMECALL R1 R1 K34 ["LogEvent"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R0 K1 [xpcall]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
@@ -110,100 +178,107 @@ PROTO_4:
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R1
+  CAPTURE UPVAL U14
+  CAPTURE VAL R0
   NAMECALL R9 R9 K7 ["Connect"]
   CALL R9 2 0
   RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["ExplorerPlugin"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["TelemetryService"]
+  NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Explorer"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["SharedFeatures"]
-  GETTABLEKS R3 R4 K10 ["StudioSelectAll"]
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["ExplorerPlugin"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Explorer"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["SharedFeatures"]
-  GETTABLEKS R4 R5 K11 ["StudioWindowInput"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R1 K12 ["Src"]
+  GETTABLEKS R5 R6 K13 ["SharedFeatures"]
+  GETTABLEKS R4 R5 K14 ["StudioSelectAll"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K9 ["SharedFeatures"]
-  GETTABLEKS R6 R7 K12 ["ContextMenu"]
-  GETTABLEKS R5 R6 K13 ["createContextMenuActionWatcher"]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R7 R1 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["SharedFeatures"]
+  GETTABLEKS R5 R6 K15 ["StudioWindowInput"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Guest"]
-  GETTABLEKS R6 R7 K15 ["createLiveSyncStatusWatcher"]
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R9 R1 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["SharedFeatures"]
+  GETTABLEKS R7 R8 K16 ["ContextMenu"]
+  GETTABLEKS R6 R7 K17 ["createContextMenuActionWatcher"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Guest"]
-  GETTABLEKS R7 R8 K16 ["createStudioGuestConnection"]
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R9 R1 K12 ["Src"]
+  GETTABLEKS R8 R9 K18 ["Guest"]
+  GETTABLEKS R7 R8 K19 ["createLiveSyncStatusWatcher"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R11 R0 K8 ["Src"]
-  GETTABLEKS R10 R11 K9 ["SharedFeatures"]
-  GETTABLEKS R9 R10 K12 ["ContextMenu"]
-  GETTABLEKS R8 R9 K17 ["createStudioGuestContextMenuActions"]
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R10 R1 K12 ["Src"]
+  GETTABLEKS R9 R10 K18 ["Guest"]
+  GETTABLEKS R8 R9 K20 ["createStudioGuestConnection"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K8 ["Src"]
-  GETTABLEKS R10 R11 K14 ["Guest"]
-  GETTABLEKS R9 R10 K18 ["createStudioInstancePicker"]
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R12 R1 K12 ["Src"]
+  GETTABLEKS R11 R12 K13 ["SharedFeatures"]
+  GETTABLEKS R10 R11 K16 ["ContextMenu"]
+  GETTABLEKS R9 R10 K21 ["createStudioGuestContextMenuActions"]
   CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K8 ["Src"]
-  GETTABLEKS R11 R12 K14 ["Guest"]
-  GETTABLEKS R10 R11 K19 ["isServiceVisible"]
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R12 R1 K12 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Guest"]
+  GETTABLEKS R10 R11 K22 ["createStudioInstancePicker"]
   CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K14 ["Guest"]
-  GETTABLEKS R11 R12 K20 ["listenForFocus"]
+  GETIMPORT R10 K9 [require]
+  GETTABLEKS R13 R1 K12 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Guest"]
+  GETTABLEKS R11 R12 K23 ["isServiceVisible"]
   CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K8 ["Src"]
-  GETTABLEKS R13 R14 K14 ["Guest"]
-  GETTABLEKS R12 R13 K21 ["listenForVisibilityChanges"]
+  GETIMPORT R11 K9 [require]
+  GETTABLEKS R14 R1 K12 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Guest"]
+  GETTABLEKS R12 R13 K24 ["listenForFocus"]
   CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K8 ["Src"]
-  GETTABLEKS R14 R15 K14 ["Guest"]
-  GETTABLEKS R13 R14 K22 ["openInsertObjectMenuAsync"]
+  GETIMPORT R12 K9 [require]
+  GETTABLEKS R15 R1 K12 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Guest"]
+  GETTABLEKS R13 R14 K25 ["listenForVisibilityChanges"]
   CALL R12 1 1
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K8 ["Src"]
-  GETTABLEKS R15 R16 K14 ["Guest"]
-  GETTABLEKS R14 R15 K23 ["openScript"]
+  GETIMPORT R13 K9 [require]
+  GETTABLEKS R16 R1 K12 ["Src"]
+  GETTABLEKS R15 R16 K18 ["Guest"]
+  GETTABLEKS R14 R15 K26 ["openInsertObjectMenuAsync"]
   CALL R13 1 1
-  GETIMPORT R14 K5 [require]
-  GETTABLEKS R17 R0 K8 ["Src"]
-  GETTABLEKS R16 R17 K14 ["Guest"]
-  GETTABLEKS R15 R16 K24 ["triggerFocusAsync"]
+  GETIMPORT R14 K9 [require]
+  GETTABLEKS R17 R1 K12 ["Src"]
+  GETTABLEKS R16 R17 K18 ["Guest"]
+  GETTABLEKS R15 R16 K27 ["openScript"]
   CALL R14 1 1
-  DUPCLOSURE R15 K25 [PROTO_4]
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R6
-  CAPTURE VAL R8
-  CAPTURE VAL R1
-  CAPTURE VAL R7
-  CAPTURE VAL R12
-  CAPTURE VAL R11
-  CAPTURE VAL R9
-  CAPTURE VAL R13
-  CAPTURE VAL R14
-  CAPTURE VAL R10
+  GETIMPORT R15 K9 [require]
+  GETTABLEKS R18 R1 K12 ["Src"]
+  GETTABLEKS R17 R18 K18 ["Guest"]
+  GETTABLEKS R16 R17 K28 ["triggerFocusAsync"]
+  CALL R15 1 1
+  DUPCLOSURE R16 K29 [PROTO_6]
   CAPTURE VAL R5
-  RETURN R15 1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R11
+  CAPTURE VAL R6
+  CAPTURE VAL R0
+  RETURN R16 1

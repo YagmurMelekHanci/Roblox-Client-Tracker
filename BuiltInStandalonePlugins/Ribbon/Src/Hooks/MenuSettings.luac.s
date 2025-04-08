@@ -8,7 +8,11 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["ReactRoblox"]
   CALL R1 1 1
-  DUPTABLE R2 K9 [{"menus"}]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K8 ["menus"]
-  RETURN R2 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
+  CALL R2 1 1
+  DUPTABLE R3 K11 [{"menus"}]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K10 ["menus"]
+  RETURN R3 1

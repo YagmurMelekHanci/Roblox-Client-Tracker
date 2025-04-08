@@ -646,8 +646,7 @@ MAIN:
   CALL R6 1 1
   GETTABLEKS R7 R6 K17 ["Util"]
   GETTABLEKS R8 R7 K18 ["Promise"]
-  GETTABLEKS R10 R3 K13 ["Packages"]
-  GETTABLEKS R9 R10 K19 ["RoactStudioWidgets"]
+  GETTABLEKS R9 R3 K19 ["RoactStudioWidgets"]
   GETIMPORT R10 K12 [require]
   GETTABLEKS R11 R9 K20 ["Hyperlink"]
   CALL R10 1 1

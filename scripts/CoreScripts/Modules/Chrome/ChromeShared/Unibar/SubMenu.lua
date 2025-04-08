@@ -18,6 +18,7 @@ local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePref
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagFocusNavOutOfSubmenu = SharedFlags.FFlagFocusNavOutOfSubmenu
+local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 
 local ChromeFlags = script.Parent.Parent.Parent.Flags
 local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
@@ -232,6 +233,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		LayoutOrder = props.order,
 		onStateChanged = if useTouchTargets then nil else stateChange,
 		NextSelectionLeft = if FFlagFocusNavOutOfSubmenu then menuIconContext.menuIconRef else nil,
+		SelectionBehaviorDown = if FFlagSubmenuFocusNavFixes then Enum.SelectionBehavior.Stop else nil,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, Constants.SUBMENU_ROW_CORNER_RADIUS),
@@ -517,6 +519,7 @@ function SubMenu(props: SubMenuProps)
 			else preferredTransparency,
 		AutomaticSize = Enum.AutomaticSize.Y,
 		ref = menuRef,
+		SelectionGroup = if FFlagSubmenuFocusNavFixes then true else nil,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, Constants.SUBMENU_CORNER_RADIUS),

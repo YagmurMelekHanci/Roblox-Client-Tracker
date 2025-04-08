@@ -51,6 +51,7 @@ type Props = {
 	itemName: string,
 	itemRobuxCost: number,
 	iapRobuxAmount: number,
+	iapCostStr: string?,
 	beforeRobuxBalance: number,
 
 	isTestPurchase: boolean,
@@ -285,6 +286,7 @@ function RobuxUpsellOverlay:render()
 		itemProductId = if GetFFlagEnableEventMetadataInUpsell then props.itemProductId else nil,
 		itemName = props.itemName,
 		itemRobuxCost = props.itemRobuxCost,
+		iapCostStr = props.iapCostStr,
 		iapRobuxAmount = props.iapRobuxAmount,
 		beforeRobuxBalance = props.beforeRobuxBalance,
 

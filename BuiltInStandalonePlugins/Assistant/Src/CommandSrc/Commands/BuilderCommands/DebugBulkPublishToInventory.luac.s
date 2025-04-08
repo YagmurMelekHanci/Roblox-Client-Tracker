@@ -1,0 +1,150 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["HasInternalPermission"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  NEWTABLE R2 0 1
+  GETUPVAL R3 1
+  SETLIST R2 R3 1 [1]
+  NAMECALL R0 R0 K0 ["SerializeInstances"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  DUPTABLE R0 K9 [{"AdditionalParameters", "AssetType", "AssetName", "AssetId", "ContentType", "CreatorId", "CreatorType", "Description", "Token"}]
+  DUPTABLE R1 K11 [{"PublishAsPackage"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K10 ["PublishAsPackage"]
+  SETTABLEKS R1 R0 K0 ["AdditionalParameters"]
+  GETIMPORT R2 K14 [Enum.AssetType.Model]
+  GETTABLEKS R1 R2 K15 ["Name"]
+  SETTABLEKS R1 R0 K1 ["AssetType"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K15 ["Name"]
+  SETTABLEKS R1 R0 K2 ["AssetName"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K3 ["AssetId"]
+  LOADK R1 K16 ["model/x-rbxm"]
+  SETTABLEKS R1 R0 K4 ["ContentType"]
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K17 ["GetUserId"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K5 ["CreatorId"]
+  GETIMPORT R1 K20 [Enum.AssetCreatorType.User]
+  SETTABLEKS R1 R0 K6 ["CreatorType"]
+  LOADK R1 K21 [""]
+  SETTABLEKS R1 R0 K7 ["Description"]
+  LOADK R1 K21 [""]
+  SETTABLEKS R1 R0 K8 ["Token"]
+  GETUPVAL R1 2
+  GETUPVAL R3 3
+  MOVE R4 R0
+  NAMECALL R1 R1 K22 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["IsStudio"]
+  CALL R1 1 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIF R1 [+8]
+  GETIMPORT R1 K2 [pcall]
+  DUPCLOSURE R2 K3 [PROTO_0]
+  CAPTURE UPVAL U2
+  CALL R1 1 2
+  AND R3 R1 R2
+  JUMPIF R3 [+1]
+  RETURN R0 0
+  GETUPVAL R1 3
+  CALL R1 0 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 4
+  NAMECALL R1 R1 K4 ["Get"]
+  CALL R1 1 3
+  FORGPREP R1
+  GETIMPORT R6 K2 [pcall]
+  NEWCLOSURE R7 P1
+  CAPTURE UPVAL U5
+  CAPTURE VAL R5
+  CALL R6 1 2
+  JUMPIFNOT R6 [+15]
+  JUMPIFNOT R7 [+14]
+  GETIMPORT R8 K2 [pcall]
+  NEWCLOSURE R9 P2
+  CAPTURE VAL R5
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U6
+  CAPTURE VAL R7
+  CALL R8 1 2
+  JUMPIF R8 [+10]
+  GETIMPORT R10 K6 [warn]
+  MOVE R11 R9
+  CALL R10 1 0
+  JUMP [+5]
+  GETIMPORT R8 K6 [warn]
+  MOVE R9 R6
+  MOVE R10 R7
+  CALL R8 2 0
+  FORGLOOP R1 2 [-28]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Assistant"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["CliAdapter"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K9 ["CommandSrc"]
+  GETTABLEKS R3 R4 K10 ["Types"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K11 ["GetService"]
+  LOADK R4 K12 ["StudioAssetService"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K11 ["GetService"]
+  LOADK R5 K13 ["PublishService"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K11 ["GetService"]
+  LOADK R6 K14 ["StudioService"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K11 ["GetService"]
+  LOADK R7 K15 ["RunService"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K11 ["GetService"]
+  LOADK R8 K16 ["Selection"]
+  CALL R7 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Flags"]
+  GETTABLEKS R10 R11 K18 ["FFlagCLI88299"]
+  CALL R9 1 1
+  GETTABLEKS R8 R9 K19 ["Get"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K6 ["Src"]
+  GETTABLEKS R12 R13 K17 ["Flags"]
+  GETTABLEKS R11 R12 K20 ["FFlagRunCommandsInCodeAssist"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K19 ["Get"]
+  DUPCLOSURE R10 K21 [PROTO_3]
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R10 1

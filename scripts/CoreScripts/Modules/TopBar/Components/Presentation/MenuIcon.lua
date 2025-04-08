@@ -42,6 +42,7 @@ local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWhileHidden
+local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 
 
 local Components = script.Parent.Parent
@@ -195,7 +196,7 @@ function MenuIcon:init()
 			else
 				ContextActionService:UnbindCoreAction(UNFOCUS_TILT)
 				-- update inFocusNav if GuiSelection enters Unibar
-				if newSelection and string.find(newSelection.Name, UnibarConstants.ICON_NAME_PREFIX :: string) then
+				if not (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled) and newSelection and string.find(newSelection.Name, UnibarConstants.ICON_NAME_PREFIX :: string) then
 					ChromeService:enableFocusNav()
 				end
 			end

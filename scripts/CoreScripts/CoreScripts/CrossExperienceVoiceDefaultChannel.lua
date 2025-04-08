@@ -35,6 +35,8 @@ local FFlagEnableCrossExpVoiceDebug = game:DefineFastFlag("EnableCrossExpVoiceDe
 local GetFFlagEnableLuaVoiceChatAnalytics = require(VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
+local FFlagLogPartyVoiceReconnect = game:DefineFastFlag("LogPartyVoiceReconnect", false)
+local FFlagPartyVoiceReportJoinFailed = game:DefineFastFlag("PartyVoiceReportJoinFailed", false)
 
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
@@ -53,10 +55,12 @@ local Constants = CrossExperience.Constants
 local VOICE_STATUS = Constants.VOICE_STATUS
 
 local FFlagFixPartyVoiceGetPermissions = SharedFlags.GetFFlagFixPartyVoiceGetPermissions()
+local FFlagEnableCoreVoiceManagerPassErrorInReject = SharedFlags.FFlagEnableCoreVoiceManagerPassErrorInReject
 
 if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	CoreVoiceManager:setOptions({
 		allowSeamlessVoice = false,
+		passInitErrorInPromiseReject = true,
 	})
 end
 
@@ -460,7 +464,11 @@ local function setupListeners()
 	end)
 
 	CoreVoiceManager:subscribe("OnRetryRequested", function()
-		notifyVoiceStatusChange(Constants.VOICE_STATUS.VOICE_CONNECTING, "Retry requested")
+		if FFlagLogPartyVoiceReconnect then
+			notifyVoiceStatusChange(Constants.VOICE_STATUS.VOICE_RECONNECTING, "Retry requested")
+		else
+			notifyVoiceStatusChange(Constants.VOICE_STATUS.VOICE_CONNECTING, "Retry requested")
+		end
 	end)
 
 	CoreVoiceManager:subscribe("OnStateChanged", function(oldState, newState)
@@ -503,6 +511,10 @@ local function setupListeners()
 
 	CoreVoiceManager:subscribe("OnReportJoinFailed", function(result)
 		log:error("CEV OnReportJoinFailed " .. result)
+
+		if FFlagPartyVoiceReportJoinFailed then
+			notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_JOIN, result)
+		end
 	end)
 end
 
@@ -600,7 +612,15 @@ function initializeVoice()
 			-- a unresolved promise error. Don't report an event since the manager
 			-- will handle that.
 			log:info("CoreVoiceManager did not initialize {}", err)
-			notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, err)
+			if FFlagEnableCoreVoiceManagerPassErrorInReject then
+				local detail = "INIT_ERROR_UNKNOWN"
+				if err and err.code then
+					detail = err.code
+				end
+				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, detail)
+			else
+				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, err)
+			end
 		end)
 end
 

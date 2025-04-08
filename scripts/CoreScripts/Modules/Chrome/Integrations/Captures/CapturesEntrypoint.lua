@@ -1,14 +1,18 @@
 local Chrome = script:FindFirstAncestor("Chrome")
 
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local CapturesApp = require(RobloxGui.Modules.Captures.CapturesApp)
+local CapturesPolicy = require(CorePackages.Workspace.Packages.CapturesInExperience).CapturesPolicy
 local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local MappedSignal = ChromeUtils.MappedSignal
+local FFlagChromeCapturesUsePolicy = SharedFlags.FFlagChromeCapturesUsePolicy
 
 local initialAvailability = ChromeService.AvailabilitySignal.Available
 if StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Captures) then
@@ -39,6 +43,17 @@ local capturesEntrypointIntegration = ChromeService:register({
 })
 
 ChromeUtils.setCoreGuiAvailability(capturesEntrypointIntegration, Enum.CoreGuiType.Captures)
+
+if FFlagChromeCapturesUsePolicy then
+	local policy = CapturesPolicy.PolicyImplementation.read()
+	local eligibleForCapturesFeature = if policy
+		then CapturesPolicy.Mapper(policy).eligibleForCapturesFeature()
+		else false
+
+	if not eligibleForCapturesFeature then
+		capturesEntrypointIntegration.availability:forceUnavailable()
+	end
+end
 
 -- function _toggleCaptures()
 -- 	while true do

@@ -13,6 +13,7 @@ local UserInputService = game:GetService("UserInputService")
 local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
+local FocusSelectExpChat = require(Chrome.ChromeShared.Utility.FocusSelectExpChat)
 local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
 local MappedSignal = ChromeUtils.MappedSignal
 local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
@@ -36,6 +37,9 @@ local getFFlagExposeChatWindowToggled = SharedFlags.getFFlagExposeChatWindowTogg
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local GetFFlagChatActiveChangedSignal =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChatActiveChangedSignal
+local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
+local GetFFlagDisableLegacyChatSimpleUnreadMessageCount = SharedFlags.GetFFlagDisableLegacyChatSimpleUnreadMessageCount
+
 local FFlagShowChatButtonWhenChatForceOpened = game:DefineFastFlag("ShowChatButtonWhenChatForceOpened", false)
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
 local FFlagAlwaysShowChatButtonWhenWindowIsVisible =
@@ -100,9 +104,15 @@ end, function(visibility)
 	end
 
 	chatVisibility = isVisible :: boolean
-	if isVisible and unreadMessages and chatChromeIntegration.notification then
-		unreadMessages = 0
-		chatChromeIntegration.notification:clear()
+	if GetFFlagSimpleChatUnreadMessageCount() then
+		if isVisible and chatChromeIntegration.notification then
+			chatChromeIntegration.notification:clear()
+		end
+	else
+		if isVisible and unreadMessages and chatChromeIntegration.notification then
+			unreadMessages = 0
+			chatChromeIntegration.notification:clear()
+		end
 	end
 end)
 
@@ -123,9 +133,7 @@ local dismissCallback = function(menuWasOpen)
 		end
 	end
 	if FFlagConsoleChatOnExpControls and TenFootInterfaceExpChatExperimentation.getIsEnabled() then
-		if UserInputService.GamepadEnabled and ChatSelector:GetVisibility() then
-			ChatSelector:FocusChatBar()
-		end
+		FocusSelectExpChat(chatChromeIntegration.id)
 	end
 end
 
@@ -148,6 +156,20 @@ chatChromeIntegration = ChromeService:register({
 	isActivated = function()
 		return chatVisibilitySignal:get()
 	end,
+	selected = if FFlagConsoleChatOnExpControls
+		then function(self)
+			local chatSelectConn
+			chatSelectConn = UserInputService.InputEnded:Connect(function(input: InputObject)
+				local key = input.KeyCode
+				if key == Enum.KeyCode.DPadDown then
+					FocusSelectExpChat(chatChromeIntegration.id)
+				end
+				if chatSelectConn and ChromeService:selectedItem():get() ~= self.id then
+					chatSelectConn:Disconnect()
+				end
+			end)
+		end
+		else nil,
 	components = {
 		Icon = function(props)
 			if getFFlagExpChatGetLabelAndIconFromUtil() then
@@ -167,22 +189,39 @@ chatChromeIntegration = ChromeService:register({
 	},
 })
 
-chatChromeIntegration.notification:fireCount(unreadMessages)
-TextChatService.MessageReceived:Connect(function()
-	if not chatVisibility then
-		unreadMessages += 1
-		chatChromeIntegration.notification:fireCount(unreadMessages)
-	end
-end)
+if GetFFlagSimpleChatUnreadMessageCount() then
+	-- TextChatService
+	TextChatService.MessageReceived:Connect(function()
+		if not chatVisibility and chatChromeIntegration.notification:isEmpty() then
+			chatChromeIntegration.notification:fireCount(1)
+		end
+	end)
 
-local lastMessagesChangedValue = 0
-ChatSelector.MessagesChanged:connect(function(messages: number)
-	if not chatVisibility then
-		unreadMessages += messages - lastMessagesChangedValue
-		chatChromeIntegration.notification:fireCount(unreadMessages)
+	-- Legacy Chat
+	if not GetFFlagDisableLegacyChatSimpleUnreadMessageCount() then
+		ChatSelector.MessagesChanged:connect(function(messages: number)
+			if not chatVisibility and chatChromeIntegration.notification:isEmpty() then
+				chatChromeIntegration.notification:fireCount(1)
+			end
+		end)
 	end
-	lastMessagesChangedValue = messages
-end)
+else
+	TextChatService.MessageReceived:Connect(function()
+		if not chatVisibility then
+			unreadMessages += 1
+			chatChromeIntegration.notification:fireCount(unreadMessages)
+		end
+	end)
+
+	local lastMessagesChangedValue = 0
+	ChatSelector.MessagesChanged:connect(function(messages: number)
+		if not chatVisibility then
+			unreadMessages += messages - lastMessagesChangedValue
+			chatChromeIntegration.notification:fireCount(unreadMessages)
+		end
+		lastMessagesChangedValue = messages
+	end)
+end
 
 if GetFFlagChatActiveChangedSignal() then
 	ChatSelector.ChatActiveChanged:connect(function(visible: boolean)

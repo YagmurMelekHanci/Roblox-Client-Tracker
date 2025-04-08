@@ -15,8 +15,10 @@ PROTO_0:
   SETTABLEKS R6 R5 K6 ["Name"]
   NAMECALL R2 R1 K8 ["CreateQWidgetPluginGui"]
   CALL R2 3 1
-  GETTABLEKS R3 R2 K9 ["ClassName"]
-  JUMPIFNOTEQKS R3 K10 ["PluginGui"] [+3]
+  LOADK R5 K9 ["PluginGui"]
+  NAMECALL R3 R2 K10 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+2]
   SETTABLEKS R0 R2 K11 ["Title"]
   GETIMPORT R3 K15 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R3 R2 K13 ["ZIndexBehavior"]

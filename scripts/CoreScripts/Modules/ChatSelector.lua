@@ -25,9 +25,11 @@ local BubbleChatEnabled = Players.BubbleChat
 
 local VRService = game:GetService("VRService")
 
-local getFFlagAppChatCoreUIConflictFix = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagAppChatCoreUIConflictFix
-local GetFFlagChatActiveChangedSignal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChatActiveChangedSignal
-local getFFlagExposeChatWindowToggled = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExposeChatWindowToggled
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local getFFlagAppChatCoreUIConflictFix = SharedFlags.getFFlagAppChatCoreUIConflictFix
+local GetFFlagChatActiveChangedSignal = SharedFlags.GetFFlagChatActiveChangedSignal
+local getFFlagExposeChatWindowToggled = SharedFlags.getFFlagExposeChatWindowToggled
+local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
@@ -58,6 +60,14 @@ do
 	function interface:FocusChatBar()
 		if (useModule) then
 			useModule:FocusChatBar()
+		end
+	end
+
+	function interface:FocusSelectChatBar(onSelectionLost: ()->()?, keybinds: {Enum.KeyCode}?)
+		if (useModule) then
+			if FFlagConsoleChatOnExpControls and TenFootInterfaceExpChatExperimentation.getIsEnabled() then
+				useModule:FocusSelectChatBar(onSelectionLost, keybinds)
+			end
 		end
 	end
 

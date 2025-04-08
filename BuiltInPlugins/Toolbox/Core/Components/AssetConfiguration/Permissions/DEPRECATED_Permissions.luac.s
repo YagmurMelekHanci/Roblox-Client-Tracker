@@ -410,7 +410,7 @@ MAIN:
   GETTABLEKS R12 R10 K20 ["DEPRECATED_PackageOwnerWidget"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R13 R10 K21 ["CollaboratorSearchWidget"]
+  GETTABLEKS R13 R10 K21 ["DEPRECATED_CollaboratorSearchWidget"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R14 R10 K22 ["DEPRECATED_CollaboratorsWidget"]

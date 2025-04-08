@@ -1,0 +1,94 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useToggleState"]
+  LOADB R2 0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  LOADK R3 K1 ["ImageButton"]
+  NEWTABLE R4 8 0
+  GETTABLEKS R5 R0 K2 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K3 ["Event"]
+  GETTABLEKS R5 R6 K4 ["MouseButton1Up"]
+  GETTABLEKS R6 R0 K5 ["onClick"]
+  SETTABLE R6 R4 R5
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K3 ["Event"]
+  GETTABLEKS R5 R6 K6 ["MouseEnter"]
+  GETTABLEKS R6 R1 K7 ["enable"]
+  SETTABLE R6 R4 R5
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K3 ["Event"]
+  GETTABLEKS R5 R6 K8 ["MouseLeave"]
+  GETTABLEKS R6 R1 K9 ["disable"]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R6 R1 K10 ["enabled"]
+  JUMPIFNOT R6 [+4]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K11 ["hoveredTransparency"]
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K12 ["BackgroundTransparency"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K13 ["Tag"]
+  LOADK R6 K14 ["FindReplaceAll-BG-Input FindReplaceAll-ToggleButton"]
+  SETTABLE R6 R4 R5
+  DUPTABLE R5 K16 [{"Icon"}]
+  GETUPVAL R6 1
+  LOADK R7 K17 ["ImageLabel"]
+  NEWTABLE R8 2 0
+  GETTABLEKS R10 R0 K10 ["enabled"]
+  JUMPIF R10 [+4]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K18 ["disabledTransparency"]
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K19 ["ImageTransparency"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K13 ["Tag"]
+  GETUPVAL R10 4
+  LOADK R11 K20 ["X-AnchorCenter"]
+  LOADK R12 K21 ["FindReplaceAll-Icon"]
+  LOADK R13 K22 ["FindReplaceAll-Content-Standard"]
+  GETTABLEKS R14 R0 K23 ["tags"]
+  CALL R10 4 1
+  SETTABLE R10 R8 R9
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K15 ["Icon"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["ReactUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Resources"]
+  GETTABLEKS R5 R6 K12 ["StyleConstants"]
+  CALL R4 1 1
+  GETTABLEKS R6 R1 K13 ["Styling"]
+  GETTABLEKS R5 R6 K14 ["joinTags"]
+  GETTABLEKS R6 R2 K15 ["createElement"]
+  DUPCLOSURE R7 K16 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  RETURN R7 1

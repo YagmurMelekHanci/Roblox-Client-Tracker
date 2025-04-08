@@ -20,16 +20,20 @@ local TopBarConstants = require(TopBar.Constants)
 
 local SelfieViewModule = Chrome.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
-local FFlagSelfViewFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewFixes()
 local GetFFlagChromeSupportSocialService = require(Chrome.Flags.GetFFlagChromeSupportSocialService)
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
 local GetFFlagChromeTrackWindowPosition = require(Chrome.Flags.GetFFlagChromeTrackWindowPosition)
 local GetFFlagChromeTrackWindowStatus = require(Chrome.Flags.GetFFlagChromeTrackWindowStatus)
 local FFlagDisableCameraOnCoreGuiDisabled = game:DefineFastFlag("DisableCameraOnCoreGuiDisabled", false)
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagChromeSelfieViewUsePolicy = SharedFlags.FFlagChromeSelfieViewUsePolicy
+local FFlagSelfViewFixes = SharedFlags.GetFFlagSelfViewFixes()
+
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
 local SizingUtils = require(SelfieViewModule.Utils.SizingUtils)
+local SelfieViewPolicy = require(SelfieViewModule.Utils.SelfieViewPolicy)
 local AvailabilitySignalState = require(Chrome.ChromeShared.Service.ChromeUtils).AvailabilitySignalState
 local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
 
@@ -143,6 +147,17 @@ local reportSettings = function()
 	local permissions: FaceChatUtils.Permissions = FaceChatUtils.getPermissions()
 	Analytics:reportExperienceSettings(true, permissions.placeCamEnabled, permissions.placeMicEnabled)
 	Analytics:reportUserAccountSettings(permissions.userCamEnabled, permissions.userMicEnabled)
+end
+
+if FFlagChromeSelfieViewUsePolicy then
+	local policy = SelfieViewPolicy.PolicyImplementation.read()
+	local eligibleForSelfieViewFeature = if policy
+		then SelfieViewPolicy.Mapper(policy).eligibleForSelfieViewFeature()
+		else false
+
+	if not eligibleForSelfieViewFeature then
+		selfieViewChromeIntegration.availability:forceUnavailable()
+	end
 end
 
 if GetFFlagSelfieViewEnabled() and game:GetEngineFeature("VideoCaptureService") then

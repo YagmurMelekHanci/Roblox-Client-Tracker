@@ -1,3 +1,4 @@
+-- DEPRECATED: Use the packgified UIManager in vr-spatial-ui module instead.
 local VRService = game:GetService("VRService")
 local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")

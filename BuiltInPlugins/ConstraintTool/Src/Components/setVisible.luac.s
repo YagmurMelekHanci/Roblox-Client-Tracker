@@ -1,0 +1,25 @@
+PROTO_0:
+  GETUPVAL R2 0
+  JUMPIFNOT R2 [+17]
+  JUMPIFNOTEQKS R1 K0 ["RopeConstraint"] [+5]
+  LOADB R2 1
+  SETTABLEKS R2 R0 K1 ["Visible"]
+  RETURN R0 0
+  JUMPIFNOTEQKS R1 K2 ["RodConstraint"] [+5]
+  LOADB R2 1
+  SETTABLEKS R2 R0 K1 ["Visible"]
+  RETURN R0 0
+  JUMPIFNOTEQKS R1 K3 ["SpringConstraint"] [+4]
+  LOADB R2 1
+  SETTABLEKS R2 R0 K1 ["Visible"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["SimDefaultRopeRodSpringVisible"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

@@ -103,6 +103,7 @@ function RobuxUpsellContainer:createElement()
 				props.expectedPrice
 			),
 			iapRobuxAmount = props.nativeUpsell.robuxPurchaseAmount or 0,
+			iapCostStr = props.nativeUpsell.price,
 			beforeRobuxBalance = props.accountInfo.balance,
 
 			isTestPurchase = props.isTestPurchase,

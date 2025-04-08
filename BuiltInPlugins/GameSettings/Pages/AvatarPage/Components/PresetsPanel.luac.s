@@ -364,8 +364,7 @@ MAIN:
   GETTABLEKS R5 R1 K5 ["Packages"]
   GETTABLEKS R4 R5 K7 ["RoactRodux"]
   CALL R3 1 1
-  GETTABLEKS R5 R1 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["RoactStudioWidgets"]
+  GETTABLEKS R4 R1 K8 ["RoactStudioWidgets"]
   GETIMPORT R6 K4 [require]
   GETTABLEKS R8 R1 K5 ["Packages"]
   GETTABLEKS R7 R8 K9 ["Framework"]

@@ -10,6 +10,7 @@ local CoreGui = game:GetService("CoreGui")
 local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
+local GamepadService = game:GetService("GamepadService")
 
 -- Modules
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
@@ -18,6 +19,8 @@ local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagIgnoreDevGamepadBindingsMenuOpen = SharedFlags.FFlagIgnoreDevGamepadBindingsMenuOpen
+local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 
 local Modules = script.Parent.Parent.Parent
 local Chrome = Modules.Chrome
@@ -55,6 +58,7 @@ type GamepadConnectorImpl = {
 	getSelectedCoreObject: (GamepadConnector) -> ObservableValue<GuiObject?>,
 	getShowTopBar: (GamepadConnector) -> ObservableValue<boolean>,
 	getGamepadActive: (GamepadConnector) -> ObservableValue<boolean>,
+	setTopbarActive: (boolean) -> (),
 	_toggleUnibarMenu: (GamepadConnector) -> (),
 	_toggleTopbar: ActionBind,
 	_focusToastNotification: (GamepadConnector, Enum.UserInputState) -> boolean,
@@ -83,7 +87,7 @@ local function createSelectedCoreObject(): ObservableValue<GuiObject?>
 	GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() 
 		selectedCoreObject:set(GuiService.SelectedCoreObject)
 	end)
-	if FFlagIgnoreDevGamepadBindingsMenuOpen then
+	if not FFlagConsoleChatOnExpControls and FFlagIgnoreDevGamepadBindingsMenuOpen then
 		-- override any developer bindings when active
 		selectedCoreObject:connect(function(instance: Instance)
 			if not instance then
@@ -136,6 +140,7 @@ function GamepadConnector.new(): GamepadConnector
 				or self._topbarFocused:get() 
 				or self._selectedCoreObject:get() ~= nil
 				or (FFlagEnableChromeShortcutBar and self._tiltMenuOpen:get())
+				or (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled)
 			self._showTopBar:set(showTopBar)
 		end
 
@@ -143,6 +148,9 @@ function GamepadConnector.new(): GamepadConnector
 		self._topbarFocused:connect(shouldShowTopBar)
 		if FFlagEnableChromeShortcutBar then 
 			self._tiltMenuOpen:connect(shouldShowTopBar)
+		end
+		if FFlagShowUnibarOnVirtualCursor then
+			GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(shouldShowTopBar)
 		end
 		self._gamepadActive:connect(shouldShowTopBar, true)
 	end
@@ -161,11 +169,23 @@ function GamepadConnector:connectToTopbar()
 			false,
 			Enum.KeyCode.ButtonStart
 		)
+		if FFlagConsoleChatOnExpControls and FFlagIgnoreDevGamepadBindingsMenuOpen then
+			-- override any developer bindings when active
+			self:getSelectedCoreObject():connect(function(instance: Instance)
+				if not instance then
+					ChromeService:disableFocusNav()
+					self.setTopbarActive(false)
+				end
+			end)
+		end
 	end
 end
 
 function GamepadConnector:disconnectFromTopbar()
-	ContextActionService:UnbindAction(FOCUS_GAMEPAD_TO_TOPBAR)
+	if FFlagConsoleChatOnExpControls then
+		self.setTopbarActive(false)
+	end
+	ContextActionService:UnbindCoreAction(FOCUS_GAMEPAD_TO_TOPBAR)
 end
 
 function GamepadConnector:getSelectedCoreObject(): ObservableValue<GuiObject?>
@@ -180,6 +200,10 @@ function GamepadConnector:getGamepadActive(): ObservableValue<boolean>
 	return self._gamepadActive
 end
 
+function GamepadConnector.setTopbarActive(active: boolean)
+	GuiService:SetMenuIsOpen(active, TOPBAR_MENU)
+end
+
 -- Internal
 function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum.ContextActionResult
 	if ChromeEnabled and not self:_focusToastNotification(userInputState) and 
@@ -189,7 +213,7 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 			if self:getSelectedCoreObject():get() == nil then
 				ChromeService:enableFocusNav()
 				if FFlagIgnoreDevGamepadBindingsMenuOpen then
-					GuiService:SetMenuIsOpen(true, TOPBAR_MENU)
+					self.setTopbarActive(true)
 				end
 			else
 				if FFlagIgnoreDevGamepadBindingsMenuOpen then

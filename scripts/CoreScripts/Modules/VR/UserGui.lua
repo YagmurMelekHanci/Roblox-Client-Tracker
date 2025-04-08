@@ -22,11 +22,22 @@ local VRAppConstants = VRModule.VRConstants
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
-local UIManagerFolder = CoreGuiModules:WaitForChild("UIManager")
-local PanelType = require(UIManagerFolder.Constants).PanelType
-local UIManager = require(UIManagerFolder.UIManager)
-local Constants = require(UIManagerFolder.Constants)
-
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local FFlagEnableUIManagerPackgify = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUIManagerPackgify
+local PanelType
+local UIManager
+if FFlagEnableUIManagerPackgify then
+	local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+	PanelType = VrSpatialUi.Constants.PanelType
+	UIManager = VrSpatialUi.UIManager
+else
+	local UIManagerFolder = CoreGuiModules:WaitForChild("UIManager")
+	local Constants = require(UIManagerFolder.Constants)
+	PanelType = Constants.PanelType
+	UIManager = require(UIManagerFolder.UIManager)
+end
+local MENU_LONG_PRESS_DURATION_IN_SECOND = 1
 -- this var moves the gui and bottom bar together
 local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
 local scaleGuiDistance = GetFIntVRScaleGuiDistance() * 0.01
@@ -78,8 +89,8 @@ if IsSpatialRobloxGuiEnabled then
 	config = {}
 	local panelCreationProps = {
 		panelType = PanelType.RobloxGui,
-	} :: Constants.PanelCreationProps
-	config.uiManagerPanelPart = (UIManager.getInstance():createUI(panelCreationProps) :: Constants.CompatPanel).panelObject :: Part
+	}
+	config.uiManagerPanelPart = (UIManager.getInstance():createUI(panelCreationProps)).panelObject :: Part
 	plPanel:SetType(Panel3D.Type.UIManagerManaged, config)
 else
 	plPanel = Panel3D.Get(VRAppConstants.PositionLockedPanelName)
@@ -181,8 +192,9 @@ GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(onGuiSelectedO
 GuiService:GetPropertyChangedSignal("SelectedObject"):Connect(onGuiSelectedObjectChanged)
 
 local InGameMenu = require(RobloxGui.Modules.InGameMenu)
-local function handleAction(actionName, inputState, inputObject)
-	if actionName == "OpenVRMenu" and inputState == Enum.UserInputState.Begin then
+
+local function onVRMenuClicked(actionName)
+	if actionName == "OpenVRMenu" then
 		if not VRHub.ShowTopBar then
 			VRHub:SetShowTopBar(true)
 
@@ -195,7 +207,7 @@ local function handleAction(actionName, inputState, inputObject)
 		end
 	end
 
-	if actionName == "OpenIGMenu" and inputState == Enum.UserInputState.Begin then
+	if actionName == "OpenIGMenu" then
 		if not VRHub.ShowTopBar then
 			VRHub:SetShowTopBar(true)
 		end
@@ -206,8 +218,65 @@ local function handleAction(actionName, inputState, inputObject)
 	end
 end
 
-if FFlagFixVRActionBinding then
-	ContextActionService:BindCoreAction("OpenVRMenu", handleAction, false, Enum.KeyCode.ButtonSelect)
+local function handleAction(actionName, inputState, inputObject)
+	if inputState == Enum.UserInputState.Begin then
+		onVRMenuClicked(actionName)
+	end
+end
+
+if isInExperienceUIVREnabled then
+	local InputHandlers = require(CorePackages.Packages.InputHandlers)
+	local isPressed = false
+	local isLongPressed = false
+
+	function UserGuiModule:isInputNeededForOpenVRMenu(inputObject)
+		return inputObject.KeyCode == Enum.KeyCode.ButtonSelect
+	end
+
+	function UserGuiModule:getOpenVRMenuHandler()
+		local handleInputCallback = InputHandlers.handleInput({
+			onPress = function()
+				isPressed = true
+				isLongPressed = false
+			end,
+			hold = {
+				durationSeconds = MENU_LONG_PRESS_DURATION_IN_SECOND,
+				onComplete = function()
+					isLongPressed = true
+					UIManager.getInstance():resetDragAndDrop()
+				end,
+				allowReleaseAfterHold = true,
+			},
+			onRelease = function()
+				if not isLongPressed then
+					onVRMenuClicked("OpenVRMenu")
+				end
+				isPressed = false
+				isLongPressed = false
+			end,
+		})
+		return function(actionName, inputState, inputObject)
+			local event = {
+				eventData = {
+					UserInputState = inputState,
+				},
+			}
+			handleInputCallback(event)
+		end
+	end
+end
+
+if FFlagFixVRActionBinding or isInExperienceUIVREnabled then
+	if isInExperienceUIVREnabled then
+		ContextActionService:BindCoreAction(
+			"OpenVRMenu",
+			UserGuiModule:getOpenVRMenuHandler(),
+			false,
+			Enum.KeyCode.ButtonSelect
+		)
+	else
+		ContextActionService:BindCoreAction("OpenVRMenu", handleAction, false, Enum.KeyCode.ButtonSelect)
+	end
 else
 	ContextActionService:BindAction("OpenVRMenu", handleAction, false, Enum.KeyCode.ButtonSelect)
 end

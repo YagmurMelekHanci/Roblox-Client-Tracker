@@ -154,7 +154,7 @@ PROTO_7:
   SETTABLEKS R20 R19 K17 ["Tooltip"]
   GETUPVAL R21 8
   GETTABLEKS R20 R21 K5 ["Tag"]
-  LOADK R21 K20 ["RefreshIcon"]
+  LOADK R21 K20 ["icon-refresh"]
   SETTABLE R21 R19 R20
   CALL R17 2 1
   JUMP [+1]
@@ -174,7 +174,7 @@ PROTO_7:
   SETTABLEKS R20 R19 K4 ["LayoutOrder"]
   GETUPVAL R21 8
   GETTABLEKS R20 R21 K5 ["Tag"]
-  LOADK R21 K23 ["HoverableButton X-Corner X-Middle X-Center"]
+  LOADK R21 K23 ["am-size-headerbutton am-hover X-Corner X-Middle X-Center"]
   SETTABLE R21 R19 R20
   DUPTABLE R20 K25 [{"GridSortButton"}]
   GETTABLEKS R22 R11 K21 ["ViewType"]
@@ -211,7 +211,7 @@ PROTO_7:
   GETIMPORT R24 K39 [Enum.TextTruncate.AtEnd]
   SETTABLEKS R24 R23 K37 ["TextTruncate"]
   GETUPVAL R24 17
-  LOADK R26 K40 ["FilterIconSize"]
+  LOADK R26 K40 ["AmrIconSize"]
   NAMECALL R24 R24 K41 ["GetAttribute"]
   CALL R24 2 1
   SETTABLEKS R24 R23 K42 ["Size"]
@@ -250,7 +250,7 @@ PROTO_7:
   SETTABLEKS R20 R19 K4 ["LayoutOrder"]
   GETUPVAL R21 8
   GETTABLEKS R20 R21 K5 ["Tag"]
-  LOADK R21 K23 ["HoverableButton X-Corner X-Middle X-Center"]
+  LOADK R21 K23 ["am-size-headerbutton am-hover X-Corner X-Middle X-Center"]
   SETTABLE R21 R19 R20
   DUPTABLE R20 K46 [{"ViewTypeSelector"}]
   GETUPVAL R22 8
@@ -394,23 +394,24 @@ MAIN:
   CALL R21 1 1
   GETTABLEKS R22 R21 K33 ["AssetInfoField"]
   GETIMPORT R23 K5 [require]
-  GETIMPORT R25 K1 [script]
-  GETTABLEKS R24 R25 K34 ["styles"]
+  GETTABLEKS R26 R0 K16 ["Src"]
+  GETTABLEKS R25 R26 K34 ["Resources"]
+  GETTABLEKS R24 R25 K35 ["PluginStyles"]
   CALL R23 1 1
   GETIMPORT R24 K5 [require]
   GETTABLEKS R27 R0 K16 ["Src"]
-  GETTABLEKS R26 R27 K35 ["Util"]
-  GETTABLEKS R25 R26 K36 ["Images"]
+  GETTABLEKS R26 R27 K36 ["Util"]
+  GETTABLEKS R25 R26 K37 ["Images"]
   CALL R24 1 1
-  GETTABLEKS R26 R2 K35 ["Util"]
-  GETTABLEKS R25 R26 K37 ["LayoutOrderIterator"]
+  GETTABLEKS R26 R2 K36 ["Util"]
+  GETTABLEKS R25 R26 K38 ["LayoutOrderIterator"]
   NEWTABLE R26 0 4
-  GETTABLEKS R27 R22 K38 ["DisplayName"]
-  GETTABLEKS R28 R22 K39 ["Created"]
-  GETTABLEKS R29 R22 K40 ["Modified"]
-  GETTABLEKS R30 R22 K41 ["AssetType"]
+  GETTABLEKS R27 R22 K39 ["DisplayName"]
+  GETTABLEKS R28 R22 K40 ["Created"]
+  GETTABLEKS R29 R22 K41 ["Modified"]
+  GETTABLEKS R30 R22 K42 ["AssetType"]
   SETLIST R26 R27 4 [1]
-  DUPCLOSURE R27 K42 [PROTO_7]
+  DUPCLOSURE R27 K43 [PROTO_7]
   CAPTURE VAL R25
   CAPTURE VAL R4
   CAPTURE VAL R15

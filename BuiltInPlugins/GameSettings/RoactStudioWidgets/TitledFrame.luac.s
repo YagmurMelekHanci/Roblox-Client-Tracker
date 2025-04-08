@@ -1,0 +1,162 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 1
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Frame"]
+  DUPTABLE R3 K6 [{"BackgroundTransparency", "BorderSizePixel", "Size", "LayoutOrder"}]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K2 ["BackgroundTransparency"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K3 ["BorderSizePixel"]
+  GETIMPORT R4 K9 [UDim2.new]
+  LOADN R5 1
+  LOADN R6 0
+  LOADN R7 0
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["MaxHeight"]
+  ORK R8 R9 K10 [100]
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K4 ["Size"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["LayoutOrder"]
+  ORK R4 R5 K12 [1]
+  SETTABLEKS R4 R3 K5 ["LayoutOrder"]
+  DUPTABLE R4 K15 [{"Title", "Content"}]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K16 ["TextLabel"]
+  DUPTABLE R7 K23 [{"BackgroundTransparency", "BorderSizePixel", "Size", "TextColor3", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "Text"}]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K2 ["BackgroundTransparency"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K3 ["BorderSizePixel"]
+  GETIMPORT R8 K9 [UDim2.new]
+  LOADN R9 0
+  LOADN R10 180
+  LOADN R11 1
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K4 ["Size"]
+  GETTABLEKS R8 R0 K24 ["TextColor"]
+  SETTABLEKS R8 R7 K17 ["TextColor3"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K18 ["Font"]
+  JUMPIFEQKNIL R9 [+5]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K18 ["Font"]
+  JUMPIF R8 [+2]
+  GETIMPORT R8 K27 [Enum.Font.SourceSans]
+  SETTABLEKS R8 R7 K18 ["Font"]
+  LOADN R8 22
+  SETTABLEKS R8 R7 K19 ["TextSize"]
+  GETIMPORT R8 K29 [Enum.TextXAlignment.Left]
+  SETTABLEKS R8 R7 K20 ["TextXAlignment"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K30 ["TitleTextYAlignment"]
+  JUMPIFNOTEQKNIL R9 [+4]
+  GETIMPORT R8 K32 [Enum.TextYAlignment.Top]
+  JUMPIF R8 [+3]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K30 ["TitleTextYAlignment"]
+  SETTABLEKS R8 R7 K21 ["TextYAlignment"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K13 ["Title"]
+  SETTABLEKS R8 R7 K22 ["Text"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K13 ["Title"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K1 ["Frame"]
+  DUPTABLE R7 K35 [{"BackgroundTransparency", "BorderSizePixel", "Size", "AnchorPoint", "Position"}]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K2 ["BackgroundTransparency"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K3 ["BorderSizePixel"]
+  GETIMPORT R8 K9 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 76
+  LOADN R11 1
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K4 ["Size"]
+  GETIMPORT R8 K37 [Vector2.new]
+  LOADN R9 1
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K33 ["AnchorPoint"]
+  GETIMPORT R8 K9 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADN R11 0
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K34 ["Position"]
+  GETUPVAL R9 1
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K38 ["Children"]
+  GETTABLE R8 R9 R10
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K14 ["Content"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K2 [{"render"}]
+  SETTABLEKS R1 R4 K1 ["render"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"TextColor"}]
+  GETTABLEKS R3 R0 K2 ["Style"]
+  JUMPIFNOT R3 [+10]
+  GETTABLEKS R4 R0 K2 ["Style"]
+  GETTABLEKS R3 R4 K0 ["TextColor"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R0 K2 ["Style"]
+  GETTABLEKS R2 R3 K0 ["TextColor"]
+  JUMPIF R2 [+4]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["getTitleTextColor"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K0 ["TextColor"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["Internal"]
+  GETTABLEKS R1 R2 K6 ["RequireRoact"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K5 ["Internal"]
+  GETTABLEKS R2 R3 K7 ["ThemeChangeListener"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K5 ["Internal"]
+  GETTABLEKS R3 R4 K8 ["Theme"]
+  CALL R2 1 1
+  LOADNIL R3
+  NEWCLOSURE R4 P0
+  CAPTURE REF R3
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  DUPCLOSURE R3 K9 [PROTO_2]
+  CAPTURE VAL R2
+  CLOSEUPVALS R3
+  RETURN R4 1

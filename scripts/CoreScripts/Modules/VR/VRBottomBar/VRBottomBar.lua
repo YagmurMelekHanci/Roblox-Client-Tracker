@@ -35,12 +35,25 @@ local VRUtil = require(CorePackages.Workspace.Packages.VrCommon).VRUtil
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
-local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-local UIManagerFolder = CoreGuiModules:WaitForChild("UIManager")
-local PanelType = require(UIManagerFolder.Constants).PanelType
-local registerRoactPanel = require(UIManagerFolder.registerRoactPanel)
-local UIManager = require(UIManagerFolder.UIManager)
-local UIManagerConstants = require(UIManagerFolder.Constants)
+local FFlagEnableUIManagerPackgify = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUIManagerPackgify
+local PanelType
+local registerRoactPanel
+local UIManager
+local UIManagerConstants
+if FFlagEnableUIManagerPackgify then
+	local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+	UIManagerConstants = VrSpatialUi.Constants
+	PanelType = UIManagerConstants.PanelType
+	registerRoactPanel = VrSpatialUi.registerRoactPanel
+	UIManager = VrSpatialUi.UIManager
+else
+	local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+	local UIManagerFolder = CoreGuiModules:WaitForChild("UIManager")
+	PanelType = require(UIManagerFolder.Constants).PanelType
+	registerRoactPanel = require(UIManagerFolder.registerRoactPanel)
+	UIManager = require(UIManagerFolder.UIManager)
+	UIManagerConstants = require(UIManagerFolder.Constants)
+end
 
 -- accessors
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)

@@ -30,9 +30,13 @@ local getMenuItemSizings = require(root.Utility.getMenuItemSizings)
 local analyticsReducer = require(root.Reducers.analyticsReducer)
 local createCleanup = require(root.Components.createCleanup)
 
+local View = Foundation.View
+
 local DSAReportingPackage = require(CorePackages.Workspace.Packages.DsaIllegalContentReporting)
 local isShowEUDSAIllegalContentReportingLink = DSAReportingPackage.isShowEUDSAIllegalContentReportingLink
 local DSAReportLink = DSAReportingPackage.DSAReportLink
+local isShowUKOSAIllegalContentReportingLink = DSAReportingPackage.isShowUKOSAIllegalContentReportingLink
+local OSAReportLink = DSAReportingPackage.OSAReportLink
 local StyleProviderWithDefaultTheme = Style.StyleProviderWithDefaultTheme
 
 local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
@@ -379,6 +383,14 @@ local AbuseReportMenuNew = function(props: Props)
 											Size = UDim2.new(1, 0, 0, 0),
 										}, {
 											DSALink = React.createElement(DSAReportLink),
+										})
+										else nil,
+									OSALinkFrame = if isShowUKOSAIllegalContentReportingLink()
+										then React.createElement(View, {
+											tag = "size-full-0 auto-y",
+											LayoutOrder = 2,
+										}, {
+											OSALink = React.createElement(OSAReportLink),
 										})
 										else nil,
 								})

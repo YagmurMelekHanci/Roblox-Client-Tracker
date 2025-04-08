@@ -54,7 +54,7 @@ PROTO_0:
   GETIMPORT R4 K29 [Enum.SortOrder.LayoutOrder]
   SETTABLEKS R4 R3 K26 ["SortOrder"]
   GETUPVAL R4 1
-  LOADK R5 K30 ["DefaultStyleSheet"]
+  LOADK R5 K30 ["RootStyleSheet"]
   NEWTABLE R6 0 14
   GETUPVAL R7 2
   LOADK R8 K31 ["Frame"]

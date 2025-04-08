@@ -68,6 +68,7 @@ local MENU_VERSION_CHROME_V4_ENUM = {
 local ENUM_UNIBAR_MENU_OPEN_FOCUS = {
 	HAMBURGER = "hamburger",
 	SUBMENU = "submenu",
+	NOT_AVAILABLE = "not_available",
 }
 
 local validVersion = {
@@ -80,6 +81,7 @@ local validVersion = {
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK] = true,
 	[ENUM_UNIBAR_MENU_OPEN_FOCUS.HAMBURGER] = FFlagUnibarMenuOpenSelectionIXP,
 	[ENUM_UNIBAR_MENU_OPEN_FOCUS.SUBMENU] = FFlagUnibarMenuOpenSelectionIXP,
+	[ENUM_UNIBAR_MENU_OPEN_FOCUS.NOT_AVAILABLE] = FFlagUnibarMenuOpenSelectionIXP,
 
 	-- Invalidate Unibar test variants if the respective disable flag is turned on
 	[MENU_VERSION_CHROME_V3_ENUM.BASELINE] = not GetFFlagDisableChromeV3Baseline,
@@ -250,10 +252,8 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 	end
 
 	if FFlagUnibarMenuOpenSelectionIXP then
-		for _, variant in ENUM_UNIBAR_MENU_OPEN_FOCUS do
-			if self:getVersion() == variant then
-				return true
-			end
+		if self:getVersion() == ENUM_UNIBAR_MENU_OPEN_FOCUS.HAMBURGER or self:getVersion() == ENUM_UNIBAR_MENU_OPEN_FOCUS.SUBMENU then
+			return true
 		end
 	end
 

@@ -153,7 +153,13 @@ MAIN:
   DUPTABLE R5 K23 [{"Name", "Controls"}]
   LOADK R6 K58 ["My favorite!!!"]
   SETTABLEKS R6 R5 K21 ["Name"]
-  NEWTABLE R6 0 0
+  NEWTABLE R6 0 1
+  DUPTABLE R7 K27 [{"Id", "Type"}]
+  LOADK R8 K28 ["Separator1"]
+  SETTABLEKS R8 R7 K25 ["Id"]
+  LOADK R8 K29 ["Separator"]
+  SETTABLEKS R8 R7 K26 ["Type"]
+  SETLIST R6 R7 1 [1]
   SETTABLEKS R6 R5 K22 ["Controls"]
   SETTABLEKS R5 R4 K48 ["Custom_MyFavoriteTab"]
   SETTABLEKS R4 R3 K9 ["TabControls"]

@@ -4,11 +4,23 @@ local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui.RobloxGui
-local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-local UIManagerFolder = CoreGuiModules:WaitForChild("UIManager")
-local Constants = require(UIManagerFolder.Constants)
-local PanelType = Constants.PanelType
-local UIManager = require(UIManagerFolder.UIManager)
+local FFlagEnableUIManagerPackgify = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUIManagerPackgify
+local PanelType
+local UIManager
+local SpatialUIType
+if FFlagEnableUIManagerPackgify then
+	local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+	PanelType = VrSpatialUi.Constants.PanelType
+	UIManager = VrSpatialUi.UIManager
+	SpatialUIType = VrSpatialUi.Constants.SpatialUIType
+else
+	local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+	local UIManagerFolder = CoreGuiModules:WaitForChild("UIManager")
+	local Constants = require(UIManagerFolder.Constants)
+	PanelType = Constants.PanelType
+	UIManager = require(UIManagerFolder.UIManager)
+	SpatialUIType = Constants.SpatialUIType
+end
 
 if game:DefineFastFlag("DebugExpChat", false) then
 	local ExpChatDebug = require(CorePackages.Workspace.Packages.ExpChatDebug)
@@ -82,7 +94,7 @@ if ChromeEnabled then
 end
 
 local screenGui
-local spatialUIStruct : Constants.CompatPanel?
+local spatialUIStruct
 if IsSpatialRobloxGuiEnabled then
 	local panelProps = {
 		panelType = PanelType.Chat,
@@ -91,9 +103,9 @@ if IsSpatialRobloxGuiEnabled then
 			ResetOnSpawn = false,
 			DisplayOrder = -1, -- Set DisplayOrder to -1 to rest behind the SettingsHub
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-		} :: Constants.ScreenGuiProps,
-	} :: Constants.PanelCreationProps
-	local uiCreationResult = UIManager.getInstance():createUI(panelProps) :: Constants.CompatPanel
+		},
+	}
+	local uiCreationResult = UIManager.getInstance():createUI(panelProps)
 	screenGui = uiCreationResult.panelObject
 	spatialUIStruct = uiCreationResult
 else
@@ -152,5 +164,5 @@ ExperienceChat.mountClientApp({
 	translator = RobloxTranslator :: any,
 	gameTranslator = GameTranslator :: any,
 	parent = screenGui,
-	isSpatialUIEnabled = (spatialUIStruct and spatialUIStruct.type == Constants.SpatialUIType.SpatialUI),
+	isSpatialUIEnabled = (spatialUIStruct and spatialUIStruct.type == SpatialUIType.SpatialUI),
 })

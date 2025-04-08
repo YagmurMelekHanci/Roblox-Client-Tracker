@@ -32,6 +32,7 @@ local GetFFlagChromeTrackWindowStatus = require(Root.Parent.Flags.GetFFlagChrome
 local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
 local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -448,6 +449,9 @@ function ChromeService:toggleSubMenu(subMenuId: Types.IntegrationId)
 		self._currentSubMenu:set(nil :: string?)
 	else
 		-- otherwise open the menu
+		if FFlagSubmenuFocusNavFixes and not self._selectedItem:get() then
+			self._selectedItem:set(subMenuId)
+		end
 		self._currentSubMenu:set(subMenuId)
 	end
 end
@@ -657,6 +661,14 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 
 	local populatedComponent = component :: Types.IntegrationProps
 	self._integrations[component.id] = populatedComponent
+
+	if FFlagConsoleChatOnExpControls and component.selected then
+		conns[#conns + 1] = self:selectedItem():connect(function(id)
+			if populatedComponent.id == id then
+				component.selected(populatedComponent)
+			end
+		end)
+	end
 
 	return populatedComponent
 end

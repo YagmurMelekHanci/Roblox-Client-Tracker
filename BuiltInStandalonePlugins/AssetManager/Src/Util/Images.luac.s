@@ -66,16 +66,43 @@ PROTO_0:
   MOVE R2 R3
   RETURN R2 1
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K16 ["Group"]
+  GETTABLEKS R2 R3 K16 ["UserLarge"]
   JUMPIFNOTEQ R0 R2 [+8]
-  LOADK R3 K17 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/Group.png"]
+  LOADK R3 K15 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/User.png"]
   MOVE R5 R1
   NAMECALL R3 R3 K3 ["format"]
   CALL R3 2 1
   MOVE R2 R3
   RETURN R2 1
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K18 ["Universe"]
+  GETTABLEKS R2 R3 K17 ["Group"]
+  JUMPIFNOTEQ R0 R2 [+8]
+  LOADK R3 K18 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/Group.png"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K19 ["GroupLarge"]
+  JUMPIFNOTEQ R0 R2 [+8]
+  LOADK R3 K18 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Standard/Group.png"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K20 ["SearchIcon"]
+  JUMPIFNOTEQ R0 R2 [+8]
+  LOADK R3 K21 ["rbxasset://studio_svg_textures/Lua/DeveloperFramework/%*/Standard/Search.png"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K22 ["Universe"]
   JUMPIFNOTEQ R0 R2 [+8]
   LOADK R3 K5 ["rbxasset://studio_svg_textures/Shared/Placeholder/%*/Standard/Placeholder.png"]
   MOVE R5 R1
@@ -83,7 +110,7 @@ PROTO_0:
   CALL R3 2 1
   MOVE R2 R3
   RETURN R2 1
-  LOADK R2 K19 [""]
+  LOADK R2 K23 [""]
   RETURN R2 1
 
 MAIN:
@@ -105,7 +132,7 @@ MAIN:
   NEWTABLE R4 2 0
   MOVE R5 R2
   LOADK R6 K11 ["AvailableImages"]
-  DUPTABLE R7 K20 [{"Checkmark", "Placeholder", "SortIcon", "SidebarCollapseIcon", "SidebarExpandIcon", "DefaultThumbnail", "User", "Group"}]
+  DUPTABLE R7 K24 [{"Checkmark", "Placeholder", "SortIcon", "SidebarCollapseIcon", "SidebarExpandIcon", "DefaultThumbnail", "User", "UserLarge", "Group", "GroupLarge", "SearchIcon", "Universe"}]
   LOADN R8 1
   SETTABLEKS R8 R7 K12 ["Checkmark"]
   LOADN R8 2
@@ -121,11 +148,19 @@ MAIN:
   LOADN R8 7
   SETTABLEKS R8 R7 K18 ["User"]
   LOADN R8 8
-  SETTABLEKS R8 R7 K19 ["Group"]
+  SETTABLEKS R8 R7 K19 ["UserLarge"]
+  LOADN R8 9
+  SETTABLEKS R8 R7 K20 ["Group"]
+  LOADN R8 10
+  SETTABLEKS R8 R7 K21 ["GroupLarge"]
+  LOADN R8 11
+  SETTABLEKS R8 R7 K22 ["SearchIcon"]
+  LOADN R8 12
+  SETTABLEKS R8 R7 K23 ["Universe"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K11 ["AvailableImages"]
-  DUPCLOSURE R6 K21 [PROTO_0]
+  DUPCLOSURE R6 K25 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R5
-  SETTABLEKS R6 R4 K22 ["getImageHelper"]
+  SETTABLEKS R6 R4 K26 ["getImageHelper"]
   RETURN R4 1
