@@ -414,23 +414,6 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetImportService:StartSessionWithPath(filePath: string) -> AssetImportSession {RobloxScriptSecurity}
 	Function AssetImportService:StartSessionWithPathAsync(filePath: string) -> AssetImportSession {RobloxScriptSecurity} [Yields]
 	Function AssetImportService:StartSessionWithPrompt() -> AssetImportSession {RobloxScriptSecurity} [Yields]
-Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
-	Function AssetImportSession:ApplyPreset(preset: { [string]: any }) -> () {RobloxScriptSecurity}
-	Function AssetImportSession:Cancel() -> () {RobloxScriptSecurity}
-	Function AssetImportSession:CreatePresetFromData(importData: Instance) -> { [string]: any } {RobloxScriptSecurity}
-	Function AssetImportSession:GetFilename() -> string {RobloxScriptSecurity}
-	Function AssetImportSession:GetImportTree() -> Instance? {RobloxScriptSecurity}
-	Function AssetImportSession:GetRigVisualization(importDataInstance: Instance) -> Instance? {RobloxScriptSecurity}
-	Function AssetImportSession:GetStatuses() -> { [string]: any } {RobloxScriptSecurity}
-	Function AssetImportSession:HasAnimation() -> boolean {RobloxScriptSecurity}
-	Function AssetImportSession:IsAvatar() -> boolean {RobloxScriptSecurity}
-	Function AssetImportSession:IsGltf() -> boolean {RobloxScriptSecurity}
-	Function AssetImportSession:IsR15() -> boolean {RobloxScriptSecurity}
-	Function AssetImportSession:Reset() -> () {RobloxScriptSecurity}
-	Function AssetImportSession:Upload() -> () {RobloxScriptSecurity}
-	Function AssetImportSession:usesCustomRestPoseLua() -> boolean {RobloxScriptSecurity}
-	Event AssetImportSession.UploadComplete(results: { [string]: any })
-	Event AssetImportSession.UploadProgress(progressRatio: number)
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetManagerService:AddNewPlace() -> number {RobloxScriptSecurity} [Yields]
 	Function AssetManagerService:CreateAlias(assetType: number, assetId: number, aliasName: string) -> () {RobloxScriptSecurity} [Yields]
@@ -2588,6 +2571,8 @@ Class VideoDisplay : GuiObject [NotBrowsable]
 	Property VideoDisplay.VideoRectSize: Vector2
 	Property VideoDisplay.VideoTransparency: number
 	Function VideoDisplay:GetConnectedWires(pin: string) -> { Instance }
+	Function VideoDisplay:GetInputPins() -> { any }
+	Function VideoDisplay:GetOutputPins() -> { any }
 	Event VideoDisplay.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class VideoFrame : GuiObject
 	Property VideoFrame.IsLoaded: boolean [ReadOnly]
@@ -3320,6 +3305,24 @@ Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function IXPService:RegisterUserLayers(userLayers: any) -> () {LocalUserSecurity}
 	Event IXPService.OnBrowserTrackerLayerLoadingStatusChanged(status: Enum.IXPLoadingStatus) {LocalUserSecurity}
 	Event IXPService.OnUserLayerLoadingStatusChanged(status: Enum.IXPLoadingStatus) {LocalUserSecurity}
+Class ImportSession : Instance [NotCreatable] [NotReplicated]
+	Function ImportSession:Cancel() -> () {RobloxScriptSecurity}
+	Function ImportSession:GetFilename() -> string {RobloxScriptSecurity}
+	Function ImportSession:GetStatuses() -> { [string]: any } {RobloxScriptSecurity}
+	Function ImportSession:Upload() -> () {RobloxScriptSecurity}
+	Event ImportSession.UploadComplete(results: { [string]: any })
+	Event ImportSession.UploadProgress(progressRatio: number)
+Class AssetImportSession : ImportSession [NotCreatable] [NotReplicated]
+	Function AssetImportSession:ApplyPreset(preset: { [string]: any }) -> () {RobloxScriptSecurity}
+	Function AssetImportSession:CreatePresetFromData(importData: Instance) -> { [string]: any } {RobloxScriptSecurity}
+	Function AssetImportSession:GetImportTree() -> Instance? {RobloxScriptSecurity}
+	Function AssetImportSession:GetRigVisualization(importDataInstance: Instance) -> Instance? {RobloxScriptSecurity}
+	Function AssetImportSession:HasAnimation() -> boolean {RobloxScriptSecurity}
+	Function AssetImportSession:IsAvatar() -> boolean {RobloxScriptSecurity}
+	Function AssetImportSession:IsGltf() -> boolean {RobloxScriptSecurity}
+	Function AssetImportSession:IsR15() -> boolean {RobloxScriptSecurity}
+	Function AssetImportSession:Reset() -> () {RobloxScriptSecurity}
+	Function AssetImportSession:usesCustomRestPoseLua() -> boolean {RobloxScriptSecurity}
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
 	Property IncrementalPatchBuilder.AddPathsToBundle: boolean
 	Property IncrementalPatchBuilder.BuildDebouncePeriod: number
@@ -4192,7 +4195,6 @@ Class Terrain : BasePart [NotCreatable]
 	Property Terrain.SmoothGrid: BinaryString [Hidden] [NotReplicated] [NotScriptable]
 	Function Terrain:AutowedgeCell(x: number, y: number, z: number) -> boolean [Deprecated]
 	Function Terrain:AutowedgeCells(region: Region3int16) -> () [Deprecated]
-	Function Terrain:CanShorelinesBeUpgraded() -> boolean {RobloxScriptSecurity}
 	Function Terrain:CanSmoothVoxelsBeUpgraded() -> boolean {RobloxScriptSecurity}
 	Function Terrain:CellCenterToWorld(x: number, y: number, z: number) -> Vector3
 	Function Terrain:CellCornerToWorld(x: number, y: number, z: number) -> Vector3
@@ -4274,7 +4276,7 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.PhysicsData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.SerializedCSGTree: SharedString [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.SerializedOperationGraph: SharedString [Hidden] [NotReplicated] [NotScriptable]
-	Property PartOperation.SolidMeshData: NetAssetRef [Hidden] [NotScriptable]
+	Property PartOperation.SolidMeshHolder: NetAssetRef [Hidden] [NotScriptable]
 	Property PartOperation.TriangleCount: number [ReadOnly]
 	Property PartOperation.UsePartColor: boolean
 	Function PartOperation:SubstituteGeometry(source: Instance) -> ()
@@ -5236,6 +5238,7 @@ Class ReflectionMetadataProperties : Instance
 Class ReflectionMetadataYieldFunctions : Instance
 Class ReflectionService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ReflectionService:GetPropertyNames(name: string) -> { any } {RobloxScriptSecurity}
+	Function ReflectionService:GetStyledPropertyNames(name: string) -> { any } {RobloxScriptSecurity}
 Class RemoteCursorService : Instance [NotCreatable] [Service]
 	Event RemoteCursorService.BroadcastRemoteCursorPositions(script: string, remoteCursorPosition: string) {RobloxSecurity} [Hidden]
 	Event RemoteCursorService.RequestAllRemoteCursorPositionForScript(script: string) {RobloxSecurity} [Hidden]
@@ -5520,6 +5523,9 @@ Class FluidForceSensor : SensorBase
 	Property FluidForceSensor.Force: Vector3 [ReadOnly]
 	Property FluidForceSensor.Torque: Vector3 [ReadOnly]
 	Function FluidForceSensor:EvaluateAsync(linearVelocity: Vector3, angularVelocity: Vector3, cframe: CFrame) -> ...any [Yields]
+Class SerializationService : Instance [NotCreatable] [Service]
+	Function SerializationService:DeserializeInstancesAsync(buffer: buffer) -> { Instance } [Yields]
+	Function SerializationService:SerializeInstancesAsync(inputInstances: { Instance }) -> buffer [Yields]
 Class ServerScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property ServerScriptService.LoadStringEnabled: boolean [NotReplicated] [NotScriptable]
 Class ServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5632,10 +5638,6 @@ Class SessionService : Instance [NotCreatable] [Service]
 Class SharedTableRegistry : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SharedTableRegistry:GetSharedTable(name: string) -> SharedTable {🧬Safe}
 	Function SharedTableRegistry:SetSharedTable(name: string, st: SharedTable?) -> () {🧬Safe}
-Class ShorelineUpgraderService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function ShorelineUpgraderService:Cancel() -> () {RobloxScriptSecurity}
-	Function ShorelineUpgraderService:Start() -> () {RobloxScriptSecurity}
-	Event ShorelineUpgraderService.Status(progressRatio: number) {RobloxScriptSecurity}
 Class Sky : Instance
 	Property Sky.CelestialBodiesShown: boolean
 	Property Sky.MoonAngularSize: number
@@ -6014,6 +6016,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.DraggerTiltRotateDuration: number {RobloxScriptSecurity}
 	Property Studio.LoadAllBuiltinPluginsInRunModes: boolean {RobloxScriptSecurity}
 	Property Studio.LoadUserPluginsInRunModes: boolean {RobloxScriptSecurity}
+	Property Studio.ActionOnAutoResumeSync: Enum.ActionOnAutoResumeSync {RobloxScriptSecurity}
 	Property Studio.ActionOnStopSync: Enum.ActionOnStopSync
 	Property Studio.AutoResumeSyncOnPlaceOpen: boolean {RobloxSecurity}
 	Property Studio.DefaultScriptFileDir: QDir
@@ -6313,9 +6316,13 @@ Class SurfaceAppearance : Instance
 	Property SurfaceAppearance.AlphaMode: Enum.AlphaMode {PluginSecurity}
 	Property SurfaceAppearance.Color: Color3
 	Property SurfaceAppearance.ColorMap: string {PluginSecurity}
+	Property SurfaceAppearance.ColorMapContent: Content {✏️PluginSecurity} [Hidden]
 	Property SurfaceAppearance.MetalnessMap: string {PluginSecurity}
+	Property SurfaceAppearance.MetalnessMapContent: Content {✏️PluginSecurity} [Hidden]
 	Property SurfaceAppearance.NormalMap: string {PluginSecurity}
+	Property SurfaceAppearance.NormalMapContent: Content {✏️PluginSecurity} [Hidden]
 	Property SurfaceAppearance.RoughnessMap: string {PluginSecurity}
+	Property SurfaceAppearance.RoughnessMapContent: Content {✏️PluginSecurity} [Hidden]
 	Property SurfaceAppearance.TexturePack: string {RobloxSecurity}
 Class TaskScheduler : Instance [NotCreatable] [Service] [NotReplicated]
 	Property TaskScheduler.ThreadPoolConfig: Enum.ThreadPoolConfig
@@ -6756,6 +6763,8 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(editableMesh: EditableMesh) -> ...any {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshCageUVCoincident(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshCageUVTriangleArea(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshFacialBounds(editableMesh: EditableMesh, boundsScale: number, partSize: Vector3) -> boolean {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshFacialExpressiveness(editableMesh: EditableMesh, minDelta: number, partSize: Vector3) -> number {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshFullBodyCageDeletion(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshMisMatchUV(innerCage: EditableMesh, outerCage: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshOverlappingVertices(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
@@ -7187,22 +7196,28 @@ Class VideoDeviceInput : Instance [NotReplicated]
 	Property VideoDeviceInput.IsReady: boolean [ReadOnly]
 Class VideoPlayer : Instance [NotBrowsable]
 	Property VideoPlayer.Asset: string
-	Property VideoPlayer.AutoLoad: boolean
-	Property VideoPlayer.IsReady: boolean [ReadOnly]
+	Property VideoPlayer.IsLoaded: boolean [ReadOnly]
 	Property VideoPlayer.Resolution: Vector2 [ReadOnly]
-	Property VideoPlayer.Thumbnail: string
 	Property VideoPlayer.TimeLength: number [ReadOnly]
-	Property VideoPlayer.IsPlaying: boolean {✏️RobloxSecurity}
+	Property VideoPlayer.AutoLoadInStudio: boolean {✏️RobloxScriptSecurity} [NotReplicated] [NotScriptable]
+	Property VideoPlayer.AutoPlayInStudio: boolean {✏️RobloxScriptSecurity} [NotReplicated] [NotScriptable]
+	Property VideoPlayer.IsPlaying: boolean [ReadOnly]
 	Property VideoPlayer.Looping: boolean
 	Property VideoPlayer.PlaybackSpeed: number
 	Property VideoPlayer.TimePosition: number
 	Property VideoPlayer.Volume: number
 	Function VideoPlayer:GetConnectedWires(pin: string) -> { Instance }
+	Function VideoPlayer:GetInputPins() -> { any }
+	Function VideoPlayer:GetOutputPins() -> { any }
+	Function VideoPlayer:LoadAsync() -> Enum.AssetFetchStatus [Yields]
+	Function VideoPlayer:Pause() -> ()
 	Function VideoPlayer:Play() -> ()
 	Function VideoPlayer:SetStudioPreview(isPreview: boolean) -> () {RobloxScriptSecurity}
-	Function VideoPlayer:Stop() -> ()
+	Function VideoPlayer:Unload() -> ()
 	Event VideoPlayer.DidEnd()
 	Event VideoPlayer.DidLoop()
+	Event VideoPlayer.PlayFailed(error: Enum.AssetFetchStatus)
+	Event VideoPlayer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class VideoService : Instance [NotCreatable] [Service]
 Class VirtualInputManager : Instance [Service]
 	Property VirtualInputManager.AdditionalLuaState: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -7343,6 +7358,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.VoiceChatSubscriptionInitialBatchEmpty(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatplayerMuteStatusChangedEvent(userId: number, muted: boolean, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceSetupFailed(voiceControlPath: Enum.VoiceControlPath, serializedFailure: string, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.VoiceUdmuxVip(sessionId: string, udmuxVipAddress: string) {RobloxSecurity} [Hidden]
 Class WebSocketClient : Instance [NotCreatable] [NotReplicated]
 	Property WebSocketClient.ConnectionState: Enum.WebSocketState [ReadOnly]
 	Function WebSocketClient:Close() -> ()
@@ -7400,6 +7416,10 @@ Enum AccessoryType
 	EnumItem AccessoryType.DressSkirt : 17
 	EnumItem AccessoryType.Eyebrow : 18
 	EnumItem AccessoryType.Eyelash : 19
+Enum ActionOnAutoResumeSync
+	EnumItem ActionOnAutoResumeSync.DontResume : 0
+	EnumItem ActionOnAutoResumeSync.KeepStudio : 1
+	EnumItem ActionOnAutoResumeSync.KeepLocal : 2
 Enum ActionOnStopSync
 	EnumItem ActionOnStopSync.AlwaysAsk : 0
 	EnumItem ActionOnStopSync.KeepLocalFiles : 1
@@ -10352,7 +10372,6 @@ Enum TweenStatus
 Enum UICaptureMode
 	EnumItem UICaptureMode.All : 0
 	EnumItem UICaptureMode.None : 1
-	EnumItem UICaptureMode.PlayerGui : 2
 Enum UIDragDetectorBoundingBehavior
 	EnumItem UIDragDetectorBoundingBehavior.Automatic : 0
 	EnumItem UIDragDetectorBoundingBehavior.EntireObject : 1

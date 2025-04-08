@@ -2110,6 +2110,10 @@ function CalculateTimers(GroupInfo, TimerInfo, nFrame) {
 // For all timers matching the predicate, substitute it for a timer given by the NewTimerNameFunc function
 // NewTimerNameFunc: group name, timer name, timer label -> new timer name
 function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc) {
+    function LogNonCli(...args) {
+        if (!globalThis.g_cliMode)
+            console.log(...args);
+    }
     ProfileEnter('PreprocessTimerSubstitutions');
     const nTimersWhenStarted = TimerInfo.length;
     const newTimers = {};
@@ -2160,16 +2164,16 @@ function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc) {
     for (const [id, nSubs] of Object.entries(subsPerID)) {
         const timer = TimerInfo[id];
         if (nSubs > 0) {
-            console.log(`Substitutions made for ${timer.name}: ${nSubs}`);
+            LogNonCli(`Substitutions made for ${timer.name}: ${nSubs}`);
             GroupInfo[timer.group].numtimers += nSubs;
         }
     }
     const nTimersWhenFinished = TimerInfo.length;
     const nTimersAdded = nTimersWhenFinished - nTimersWhenStarted;
     if (nTimersAdded > 0) {
-        console.log(`Total timer count increased from ${nTimersWhenStarted} to ${nTimersWhenFinished} (+${nTimersAdded})`);
+        LogNonCli(`Total timer count increased from ${nTimersWhenStarted} to ${nTimersWhenFinished} (+${nTimersAdded})`);
     } else {
-        console.log(`No substitutions were made. Total timer count is still ${nTimersWhenStarted} (+0)`);
+        LogNonCli(`No substitutions were made. Total timer count is still ${nTimersWhenStarted} (+0)`);
     }
     ProfileLeave();
 }

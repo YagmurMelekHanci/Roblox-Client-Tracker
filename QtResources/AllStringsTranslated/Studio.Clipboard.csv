@@ -1,0 +1,9 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.Clipboard.Copy,,,Copy,Copy,,,,Copier,,Copia,,,,,,,,,,,
+Studio.Clipboard.Paste,,,Paste,Paste,,,,Coller,,Incolla,,,,,,,,,,,
+Studio.Clipboard.PasteInto,,,Paste Into,Paste Into,,,,Coller dans,,Incolla in,,,,,,,,,,,
+Studio.Clipboard.PasteAtOriginalLocation,,,Paste At Original Location,Paste At Original Location,,,,Coller dans l'emplacement d'origine,,Incolla nella Posizione Originale,,,,,,,,,,,
+Studio.Clipboard.PasteIntoAtOriginalLocation,,,Paste Into At Original Location,Paste Into At Original Location,,,,Coller dans l'emplacement original,,Incolla nella Posizione Originale,,,,,,,,,,,
+Studio.Clipboard.PasteIntoSelected,,,Paste Into Selected,Paste Into Selected,,,,Coller dans sélection,,Incolla in selezionato,,,,,,,,,,,
+Studio.Clipboard.PasteIntoSelectedAtOriginalLocation,,,Paste Into Selected At Original Location,Paste Into Selected At Original Location,,,,Coller dans la sélection à l'emplacement d'origine,,Incolla in Selezionato alla Posizione Originale,,,,,,,,,,,
+Studio.Clipboard.PasteTooltip,,,Paste item in clipboard,Paste item in clipboard,,,,Coller l'élément dans le presse-papiers,,Incolla oggetto negli appunti,,,,,,,,,,,

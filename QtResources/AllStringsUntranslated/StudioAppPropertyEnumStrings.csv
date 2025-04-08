@@ -19,6 +19,7 @@ Studio.App.PropertyEnum.Direct3D9,,Direct3D9,Direct3D9
 Studio.App.PropertyEnum.Disabled,,Disabled,Disabled
 Studio.App.PropertyEnum.DistanceBased,,DistanceBased,DistanceBased
 Studio.App.PropertyEnum.DontReport,,Don't Report,Don't Report
+Studio.App.PropertyEnum.DontResume,Option for sync behavior if files in the Filesystem and Studio differ: we will not resume sync,Do not resume,Do not resume
 Studio.App.PropertyEnum.Enabled,,Enabled,Enabled
 Studio.App.PropertyEnum.English,DO NOT TRANSLATE THIS.  No matter the system language we want to offer language choice in that language.,English,English
 Studio.App.PropertyEnum.Extra1,An additional Script Editor Syntax Highlighting Text Color Preset,Extra 1,Extra 1
@@ -33,7 +34,9 @@ Studio.App.PropertyEnum.Hybrid,,Hybrid,Hybrid
 Studio.App.PropertyEnum.Insert,Insert text,Insert,Insert
 Studio.App.PropertyEnum.InsertOnEnterReplaceOnTab,"When accepting autocomplete suggestions, insert text with Enter key and replace text with Tab key","Insert On Enter, Replace On Tab","Insert On Enter, Replace On Tab"
 Studio.App.PropertyEnum.IterationBased,,Iteration Based,Iteration Based
+Studio.App.PropertyEnum.KeepLocal,Option for resuming FileSync behavior when files differ: keep the filesystem (local) version,Always keep local version,Always keep local version
 Studio.App.PropertyEnum.KeepLocalFiles,,Keep local files,Keep local files
+Studio.App.PropertyEnum.KeepStudio,Option for resuming FileSync behavior when files differ: keep the Studio version,Always keep Studio version,Always keep Studio version
 Studio.App.PropertyEnum.Korean,DO NOT TRANSLATE THIS.  No matter the system language we want to offer language choice in that language.,한국어,한국어
 Studio.App.PropertyEnum.Level00,,Level 00,Level 00
 Studio.App.PropertyEnum.Level01,,Level 01,Level 01

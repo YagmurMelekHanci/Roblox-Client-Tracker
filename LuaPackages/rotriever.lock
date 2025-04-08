@@ -91,7 +91,7 @@ dependencies = [
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.19.0 registry",
+    "Foundation Foundation 1.20.0 registry",
     "FoundationImages FoundationImages 1.20.0 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
@@ -144,6 +144,8 @@ dependencies = [
     "RoduxUsers RoduxUsers 1.6.0 registry",
     "Scheduler Scheduler 17.1.19 registry",
     "Signal Signal 1.0.0 registry",
+    "Signals Signals 0.2.0 registry",
+    "SignalsReact SignalsReact 0.2.0 registry",
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.3.0 registry",
@@ -292,7 +294,7 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.19.0"
+version = "1.20.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1650,6 +1652,20 @@ version = "1.0.0"
 source = "registry"
 
 [[package]]
+name = "Signals"
+version = "0.2.0"
+source = "registry"
+
+[[package]]
+name = "SignalsReact"
+version = "0.2.0"
+source = "registry"
+dependencies = [
+    "React React 17.1.19 registry",
+    "Signals Signals 0.2.0 registry",
+]
+
+[[package]]
 name = "SocialLibraries"
 version = "4.0.2"
 source = "registry"
@@ -1771,7 +1787,7 @@ source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.19.0 registry",
+    "Foundation Foundation 1.20.0 registry",
     "FoundationImages FoundationImages 1.20.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",

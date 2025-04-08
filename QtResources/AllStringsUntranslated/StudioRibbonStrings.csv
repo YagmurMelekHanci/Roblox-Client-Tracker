@@ -19,6 +19,8 @@ Studio.Ribbon.Plugin.DeleteTab.Text,"The text of the dialog which displays when 
 Studio.Ribbon.Plugin.DeleteTab.Title,"The title of the dialog which displays when you try to delete one tab in the Manage Tabs dialog, opened from Studio Ribbon",Delete Tab,Delete Tab
 Studio.Ribbon.Plugin.DeleteTool,The name of the action to remove the currently selected tool in a Ribbon custom tab,Remove tool,Remove tool
 Studio.Ribbon.Plugin.DockUndockRibbon,,Dock/Undock ribbon,Dock/Undock ribbon
+Studio.Ribbon.Plugin.DraggerSettingsModesHeader,"In the Studio ribbon dropdown for dragger modes, the header above settings like Collisions and Join Surfaces",Dragger modes,Dragger modes
+Studio.Ribbon.Plugin.DraggerSettingsSnapHeader,"In the Studio ribbon dropdown for dragger settings, the header of the section above settings like ""Snap to Parts""",Snap,Snap
 Studio.Ribbon.Plugin.Filter.AllCreators,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Creators,All Creators
 Studio.Ribbon.Plugin.Filter.AllPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Plugins,All Plugins
 Studio.Ribbon.Plugin.Filter.CloudPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Cloud Plugins,Cloud Plugins

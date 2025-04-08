@@ -21,6 +21,7 @@ Studio.RobloxPropertiesWidget.Category.Asset,,Asset,Asset
 Studio.RobloxPropertiesWidget.Category.Attachments,,Attachments,Attachments
 Studio.RobloxPropertiesWidget.Category.Attributes,,Attributes,Attributes
 Studio.RobloxPropertiesWidget.Category.Audio,,Audio,Audio
+Studio.RobloxPropertiesWidget.Category.AutoPlayInEditMode,Controls to play video assets while in Studio edit mode,AutoPlayInEditMode,AutoPlayInEditMode
 Studio.RobloxPropertiesWidget.Category.AutoRecovery,,Auto-Recovery,Auto-Recovery
 Studio.RobloxPropertiesWidget.Category.Axes,,Axes,Axes
 Studio.RobloxPropertiesWidget.Category.Balance,,Balance,Balance

@@ -163,14 +163,7 @@
         <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
         <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
       </Group>
-      <Group fflag="!DraggerSnapToParts" name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
-        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
-        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
-        <addseparator visible="false"/>
-        <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
-        <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
-      </Group>
-      <Group fflag="DraggerSnapToParts" name="Snapping" text="Studio.App.RobloxRibbonMainWindow.Snapping" controlsCentering="true">
+      <Group name="Snapping" text="Studio.App.RobloxRibbonMainWindow.Snapping" controlsCentering="true">
         <addhgroup>
           <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
           <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
@@ -316,14 +309,7 @@
         <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
         <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
       </Group>
-      <Group fflag="!DraggerSnapToParts" name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
-        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
-        <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
-        <addseparator visible="false"/>
-        <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
-        <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
-      </Group>
-      <Group fflag="DraggerSnapToParts" name="Snapping" text="Studio.App.RobloxRibbonMainWindow.Snapping" controlsCentering="true">
+      <Group name="Snapping" text="Studio.App.RobloxRibbonMainWindow.Snapping" controlsCentering="true">
         <addhgroup>
           <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
           <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
