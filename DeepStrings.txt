@@ -23128,7 +23128,6 @@ EnableWriteRequestingThreadHistory
 EnableZstdDictionaryForClientSettings
 EnableZstdForClientSettings
 ENAENEENIE
-EnC3iyFcwmw
 Encaminhar
 Encipherment
 ENCODE_FAILED
@@ -26102,7 +26101,6 @@ FramesEncoded
 FrameShadow
 FrameShape
 FramesInFlight
-FrameSlackForJitter
 FrameSpikeCount
 FramesSent
 FramesSinceLastPacketProduced
@@ -53227,6 +53225,7 @@ Studio.App.BetaFeatures.EditableImageMeshDescription
 Studio.App.BetaFeatures.EditableImageMeshTitle
 Studio.App.BetaFeatures.EnableCSGV3Description
 Studio.App.BetaFeatures.EnableCSGV3Title
+Studio.App.BetaFeatures.EnableLuauT
 Studio.App.BetaFeatures.EnableLuauTypeCheckingDescription
 Studio.App.BetaFeatures.EnableLuauTypeCheckingTitle
 Studio.App.BetaFeatures.EnableNewLuaVMDescription
@@ -53555,6 +53554,7 @@ Studio.App.BulkAudioImportErrors.TooManyRequests
 Studio.App.BulkAudioImportErrors.UnableToPurchase
 Studio.App.BulkAudioImportErrors.UploadLimitReached
 Studio.App.BulkAudioImportErrors.UploadUnavailable
+Studio.App.BulkAudioImportRateLimiti
 Studio.App.BulkAudioImportRateLimiting.NoCapacity
 Studio.App.BulkAudioImportRateLimiting.UploadsDefault2
 Studio.App.BulkAudioImportRateLimiting.UploadsLeft4
