@@ -1,5 +1,6 @@
 Key,Context,Source,en-us
 Studio.App.GenerativeAI.AgreeAndContinue,,Agree and Continue,Agree and Continue
+Studio.App.GenerativeAI.AskAssistant,Ask Assistant will open the assistant window,Ask Assistant,Ask Assistant
 Studio.App.GenerativeAI.BetaWelcome,,"How can I help you today? If you need ideas:
 - <b>Answering questions:</b> ""Can you explain..."" 
 - <b>Build simple scenes:</b> ""Create a..."" 

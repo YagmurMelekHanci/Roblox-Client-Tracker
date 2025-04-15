@@ -364,7 +364,7 @@ Class Annotation : Instance
 	Function Annotation:GetRequests() -> { [string]: any } {RobloxScriptSecurity}
 	Function Annotation:GetStringUniqueId() -> string {RobloxScriptSecurity}
 	Function Annotation:IsThreadParent() -> boolean {RobloxScriptSecurity}
-	Event Annotation.RequestCompleted(requestId: string, requestType: Enum.AnnotationRequestType, result: Enum.AnnotationRequestResult) {RobloxScriptSecurity}
+	Event Annotation.RequestCompleted(requestId: string, requestType: Enum.AnnotationRequestType, result: Enum.AnnotationRequestStatus) {RobloxScriptSecurity}
 	Event Annotation.RequestInitiated(requestId: string, requestType: Enum.AnnotationRequestType) {RobloxScriptSecurity}
 Class WorkspaceAnnotation : Annotation
 	Property WorkspaceAnnotation.Adornee: PVInstance? {RobloxScriptSecurity} [Hidden]
@@ -376,6 +376,8 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Property AnnotationsService.Hovered: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property AnnotationsService.Mode: Enum.AnnotationEditingMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property AnnotationsService.annotationsLoadingStatus: Enum.AnnotationRequestStatus {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property AnnotationsService.resolvedLoadingStatus: Enum.AnnotationRequestStatus {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function AnnotationsService:CreateAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:DEPRECATED_EditAnnotation(uniqueId: string, contents: string) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:DEPRECATED_LoadAnnotationReplies(annotation: Annotation) -> () {RobloxScriptSecurity}
@@ -468,6 +470,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreateMeshPartAsync(meshContent: Content, options: { [string]: any }? = nil) -> MeshPart [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
+	Function AssetService:CreateSurfaceAppearance(content: { [string]: any }) -> SurfaceAppearance
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
 	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } [Yields]
 	Function AssetService:GetAudioMetadataAsync(idList: { any }) -> { any } [Yields]
@@ -976,7 +979,6 @@ Class RootImportData : BaseImportData [NotCreatable] [NotReplicated]
 	Property RootImportData.RigType: Enum.RigType
 	Property RootImportData.RigVisualization: boolean
 	Property RootImportData.ScaleUnit: Enum.MeshScaleUnit
-	Property RootImportData.UseSceneOriginAsCFrame: boolean
 	Property RootImportData.UseSceneOriginAsPivot: boolean
 	Property RootImportData.UsesCages: boolean
 	Property RootImportData.ValidateUgcBody: boolean
@@ -2167,6 +2169,9 @@ Class Texture : Decal
 	Property Texture.OffsetStudsV: number
 	Property Texture.StudsPerTileU: number
 	Property Texture.StudsPerTileV: number
+Class FacialAgeEstimationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function FacialAgeEstimationService:InquiryAsync(inquiryId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function FacialAgeEstimationService:IsAvailable() -> boolean {RobloxScriptSecurity}
 Class FacialAnimationRecordingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property FacialAnimationRecordingService.BiometricDataConsent: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function FacialAnimationRecordingService:CheckOrRequestCameraPermission() -> string {RobloxScriptSecurity} [Yields]
@@ -3592,6 +3597,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LocalizationService:StartTextScraper() -> () {RobloxScriptSecurity}
 	Function LocalizationService:StopTextScraper() -> () {RobloxScriptSecurity}
 	Event LocalizationService.AutoTranslateWillRun() {RobloxScriptSecurity}
+	Event LocalizationService.DynamicTranslationServerToClientResponse(entries: ...any) {RobloxSecurity} [Hidden]
 	Event LocalizationService.TextScraperClientMessageWithPlayerSignal(version: number, player: Instance, message: ...any) {RobloxSecurity} [Hidden]
 Class LocalizationTable : Instance
 	Property LocalizationTable.Contents: string [Hidden] [NotScriptable]
@@ -3662,10 +3668,9 @@ Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property LuaSourceContainer.ScriptGuid: string [Hidden] [NotScriptable]
 	Property LuaSourceContainer.isPlayerScript: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 Class AuroraScript : LuaSourceContainer [Deprecated]
-	Property AuroraScript.DumpMispredictions: boolean {PluginSecurity} [Deprecated]
+	Property AuroraScript.EnableCulling: boolean {PluginSecurity} [Deprecated]
 	Property AuroraScript.EnableLOD: boolean {PluginSecurity} [Deprecated]
-	Property AuroraScript.LODDistanceFactor: number {PluginSecurity} [Deprecated]
-	Property AuroraScript.LODFrequencyFactor: number {PluginSecurity} [Deprecated]
+	Property AuroraScript.LODCriticality: number {PluginSecurity} [Deprecated]
 	Property AuroraScript.Priority: number {PluginSecurity} [Deprecated]
 	Property AuroraScript.RunInParallel: boolean {PluginSecurity} [Deprecated]
 	Property AuroraScript.Source: string {PluginSecurity} [Deprecated]
@@ -4313,6 +4318,7 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.CSGPropertyData: CSGPropertyData {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.ChildData: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.ChildData2: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property PartOperation.ComponentIndex: number {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.DCDPropertyData: CSGPropertyData {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.FormFactor: Enum.FormFactor {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.InitialSize: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
@@ -4798,7 +4804,7 @@ Class Player : Instance
 	Property Player.MembershipType: Enum.MembershipType [ReadOnly]
 	Property Player.MembershipTypeReplicate: Enum.MembershipType [Hidden] [NotScriptable]
 	Property Player.OsPlatform: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property Player.PartyId: string {✏️WritePlayerSecurity} [Hidden] [NotReplicated]
+	Property Player.PartyId: string {✏️RobloxSecurity} [Hidden] [NotReplicated]
 	Property Player.PlatformName: string {RobloxScriptSecurity} [Hidden]
 	Property Player.RawJoinData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Player.ReplicationFocus: Instance?
@@ -5616,6 +5622,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Property DataModel.JobId: string [ReadOnly]
 	Property DataModel.CreatorId: number [ReadOnly]
 	Property DataModel.CreatorType: Enum.CreatorType [ReadOnly]
+	Property DataModel.Environment: string {RobloxScriptSecurity} [ReadOnly]
 	Property DataModel.ForceR15: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 	Property DataModel.GameAvatarType: Enum.GameAvatarType {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property DataModel.GameId: number [ReadOnly]
@@ -5740,6 +5747,7 @@ Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:CanSendCallInviteAsync(player: Instance) -> boolean [Yields]
 	Function SocialService:CanSendGameInviteAsync(player: Instance, recipientId: number? = 0) -> boolean [Yields]
+	Function SocialService:GetPartyAsync(partyId: string) -> { any } [Yields]
 	Function SocialService:GetPlayersByPartyId(partyId: string) -> { Instance }
 	Function SocialService:HideSelfView() -> ()
 	Function SocialService:InvokeGameInvitePromptClosed(player: Instance, recipientIds: { any }) -> () {RobloxScriptSecurity}
@@ -5748,12 +5756,12 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:PromptGameInvite(player: Instance, experienceInviteOptions: Instance? = nil) -> ()
 	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> ()
 	Function SocialService:ShowSelfView(selfViewPosition: Enum.SelfViewPosition? = "LastPosition") -> ()
-	Function SocialService:UpdatePlayerPartyData(partyId: string) -> () {RobloxScriptSecurity}
+	Function SocialService:UpdatePlayerPartyData(partyId: string, isPartyDisabled: boolean? = false) -> () {RobloxScriptSecurity}
 	Event SocialService.CallInviteStateChanged(player: Instance, inviteState: Enum.InviteState)
 	Event SocialService.GameInvitePromptClosed(player: Instance, recipientIds: { any })
 	Event SocialService.IrisInviteInitiated(message: string) {RobloxSecurity} [Hidden]
 	Event SocialService.PhoneBookPromptClosed(player: Instance)
-	Event SocialService.PlayerPartyDataChanged(partyId: string) {RobloxScriptSecurity}
+	Event SocialService.PlayerPartyDataChanged(partyId: string, isPartyDisabled: boolean) {RobloxScriptSecurity}
 	Event SocialService.PromptInviteRequested(player: Instance, experienceInviteOptions: Instance) {RobloxScriptSecurity}
 	Event SocialService.PromptIrisInviteRequested(player: Instance, tag: string) {RobloxScriptSecurity}
 	Event SocialService.SelfViewHidden() {RobloxScriptSecurity}
@@ -6139,6 +6147,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.EnableCodeAssist: boolean {RobloxScriptSecurity}
 	Property Studio.EnableIndentationRulers: boolean {RobloxScriptSecurity}
 	Property Studio.EnableOnTypeAutocomplete: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property Studio.EnableSelectionTooltips: boolean {RobloxScriptSecurity}
 	Property Studio.Font: QFont
 	Property Studio.Format On Paste: boolean
 	Property Studio.Format On Type: boolean
@@ -6397,6 +6406,11 @@ Class SurfaceAppearance : Instance
 	Property SurfaceAppearance.RoughnessMap: string {PluginSecurity}
 	Property SurfaceAppearance.RoughnessMapContent: Content {✏️PluginSecurity} [Hidden]
 	Property SurfaceAppearance.TexturePack: string {RobloxSecurity}
+Class SystemThemeService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function SystemThemeService:getSystemThemeAsync() -> Enum.SystemThemeValue {RobloxScriptSecurity} [Yields]
+	Function SystemThemeService:isSystemThemeAvailable() -> boolean {RobloxScriptSecurity}
+	Function SystemThemeService:setTheme(theme: Enum.SystemThemeValue) -> () {RobloxScriptSecurity}
+	Event SystemThemeService.OnLuaThemeUpdated(theme: Enum.SystemThemeValue) {RobloxScriptSecurity}
 Class TaskScheduler : Instance [NotCreatable] [Service] [NotReplicated]
 	Property TaskScheduler.ThreadPoolConfig: Enum.ThreadPoolConfig
 	Property TaskScheduler.SchedulerDutyCycle: number [ReadOnly]
@@ -7645,11 +7659,12 @@ Enum AnnotationEditingMode
 	EnumItem AnnotationEditingMode.None : 0
 	EnumItem AnnotationEditingMode.PlacingNew : 1
 	EnumItem AnnotationEditingMode.WritingNew : 2
-Enum AnnotationRequestResult
-	EnumItem AnnotationRequestResult.Success : 0
-	EnumItem AnnotationRequestResult.ErrorInternalFailure : 1
-	EnumItem AnnotationRequestResult.ErrorNotFound : 2
-	EnumItem AnnotationRequestResult.ErrorModerated : 3
+Enum AnnotationRequestStatus
+	EnumItem AnnotationRequestStatus.Success : 0
+	EnumItem AnnotationRequestStatus.Loading : 1
+	EnumItem AnnotationRequestStatus.ErrorInternalFailure : 2
+	EnumItem AnnotationRequestStatus.ErrorNotFound : 3
+	EnumItem AnnotationRequestStatus.ErrorModerated : 4
 Enum AnnotationRequestType
 	EnumItem AnnotationRequestType.Unknown : 0
 	EnumItem AnnotationRequestType.Create : 1
@@ -8487,6 +8502,10 @@ Enum FACSDataLod
 	EnumItem FACSDataLod.LOD0 : 0
 	EnumItem FACSDataLod.LOD1 : 1
 	EnumItem FACSDataLod.LODCount : 2
+Enum FacialAgeEstimationResultType
+	EnumItem FacialAgeEstimationResultType.Complete : 0
+	EnumItem FacialAgeEstimationResultType.Cancel : 1
+	EnumItem FacialAgeEstimationResultType.Error : 2
 Enum FacialAnimationStreamingState
 	EnumItem FacialAnimationStreamingState.None : 0
 	EnumItem FacialAnimationStreamingState.Audio : 1
@@ -10246,6 +10265,12 @@ Enum SwipeDirection
 	EnumItem SwipeDirection.Up : 2
 	EnumItem SwipeDirection.Down : 3
 	EnumItem SwipeDirection.None : 4
+Enum SystemThemeValue
+	EnumItem SystemThemeValue.error : 0
+	EnumItem SystemThemeValue.light : 1
+	EnumItem SystemThemeValue.dark : 2
+	EnumItem SystemThemeValue.systemLight : 3
+	EnumItem SystemThemeValue.systemDark : 4
 Enum TableMajorAxis
 	EnumItem TableMajorAxis.RowMajor : 0
 	EnumItem TableMajorAxis.ColumnMajor : 1

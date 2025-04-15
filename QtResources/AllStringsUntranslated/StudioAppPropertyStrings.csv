@@ -109,6 +109,7 @@ Studio.App.Property.DraggerSummonMarginFactor,,Summon Snap Margin Multiplier,Sum
 Studio.App.Property.DraggerTiltRotateDuration,,Tilt/Rotate Animation Duration,Tilt/Rotate Animation Duration
 Studio.App.Property.EagerBulkExecution,,Eager Bulk Execution,Eager Bulk Execution
 Studio.App.Property.EditQualityLevel,,Editor Quality Level,Editor Quality Level
+Studio.App.Property.EnableAssistantSelectionTooltips,Setting for enabling the assistant actions when text is selected,Enable Assistant Selection Tooltips,Enable Assistant Selection Tooltips
 Studio.App.Property.EnableAutocomplete,,Enable Autocomplete,Enable Autocomplete
 Studio.App.Property.EnableAutocompleteDocView,,Enable Autocomplete Documentation,Enable Autocomplete Documentation
 Studio.App.Property.EnableCodeAssist,Enables code assist feature.,Enable Code-Assist,Enable Code-Assist

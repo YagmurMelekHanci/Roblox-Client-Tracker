@@ -1,0 +1,26 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,hi-in,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.SystemMenu.Title.Performance,,,Performance,Performance,,Leistung,Rendimiento,Performance,,Performa,Prestazioni,,성능,,,,,Performans,Hiệu Năng,性能,性能,效能
+Studio.SystemMenu.Title.NetworkSummary,,,Network Summary,Network Summary,,Netzwerkzusammenfassung,Resumen de red,Résumé réseau,,Ringkasan Jaringan,Sommario rete,,네트워크 요약,,,,,Ağ Özeti,Tóm Tắt Mạng,网络摘要,网络摘要,網路摘要
+Studio.SystemMenu.Title.Plugins,,,Plugins,Plugins,,Plug-ins,Plugins,Plugins,,Plugin,Plug-in,,플러그인,,,,,Eklentiler,Plugin,插件,插件,外掛程式
+Studio.SystemMenu.Title.StudioSettings,,,Studio Settings,Studio Settings,,Studio-Einstellungen,Configuración de Studio,Paramètres Studio,,Pengaturan Studio,Impostazioni Studio,,스튜디오 설정,,,,,Studio Ayarları,Cài Đặt Studio,Studio 设置,Studio 设置,Studio 設定
+Studio.SystemMenu.Title.Recent,,,Recent,Recent,,Zuletzt verwendet,Reciente,Récent,,Terakhir Dibuka,Recenti,,최근,,,,,Yeni,Gần Đây,近期,近期,近期
+Studio.SystemMenu.Title.OpenFromRoblox,,,Open from Roblox,Open from Roblox,,Aus Roblox öffnen,Abrir de Roblox,Ouvrir depuis Roblox,,Buka dari Roblox,Apri da Roblox,,Roblox에서 열기,,,,,Roblox'tan aç,Mở từ Roblox,从 Roblox 打开,从 Roblox 打开,從 Roblox 開啟
+Studio.SystemMenu.Title.OpenFromFile,,,Open from File,Open from File,,Aus Datei öffnen,Abrir de un archivo,Ouvrir depuis un fichier,,Buka dari File,Apri da file,,파일에서 열기,,,,,Dosyadan aç,Mở từ Tệp,从文件打开,从文件打开,從檔案開啟
+Studio.SystemMenu.Title.ExportAsObj,,,Export as .obj,Export as .obj,,Als .obj exportieren,Exportar como .obj,Exporter en .obj,,Ekspor sebagai .obj,Esporta come .obj,,.obj로 내보내기,,,,,.obj olarak dışa aktar,Xuất dưới dạng .obj,导出至 .obj,导出至 .obj,匯出為 .obj
+Studio.SystemMenu.Title.DownloadACopy,,,Download a Copy,Download a Copy,,Kopie herunterladen,Descargar una copia,Télécharger une copie,,Download Salinan,Scarica una copia,,사본 다운로드,,,,,Kopyasını indir,Tải Xuống Bản Sao,下载副本,下载副本,下載複本
+Studio.SystemMenu.Title.StartStudioTour,,,Start Studio Tour,Start Studio Tour,,Studio-Tour starten,Iniciar Tour de Studio,Commencer le Studio Tour,,Mulai Tur Studio,Inizia il tour di Studio,,,,,,,Studio turuna başla,Bắt Đầu Chuyến Tham Quan Studio,开始 Studio 导览,开始 Studio 导览,啟動 Studio 導覽
+Studio.SystemMenu.Title.CustomizeShortcuts,,,Customize Shortcuts,Customize Shortcuts,,Tastenkombinationen anpassen,Personalizar atajos,Personnaliser raccourcis,,Kustomisasi Shortcut,Personalizza scorciatoie,,,,,,,Kısayolları özelleştir,Tùy Chỉnh Lối Tắt,自定义快捷键,自定义快捷键,自訂捷徑
+Studio.SystemMenu.Title.PublishToRobloxAs,,,Publish to Roblox As,Publish to Roblox As,,Auf Roblox veröffentlichen als,Publicar en Roblox como,Publier sur Roblox comme,,Publikasikan ke Roblox Sebagai,Pubblica su Roblox come,,,,,,,Roblox'ta farklı yayınla,Đăng Lên Roblox Dưới Dạng,发布至 Roblox 为,发布至 Roblox 为,發佈至 Roblox 為
+Studio.SystemMenu.Title.SaveToRobloxAs,,,Save to Roblox As,Save to Roblox As,,Auf Roblox speichern als,Guardar en Roblox como,Sauvegarder sur Roblox,,Simpan ke Roblox Sebagai,Salva su Roblox come,,,,,,,Roblox'a farklı kaydet,Lưu Vào Roblox Dưới Dạng,保存至 Roblox 为,保存至 Roblox 为,儲存至 Roblox 為
+Studio.SystemMenu.Title.SaveToFileAs,,,Save to File As,Save to File As,,In Datei speichern als,Guardar en un archivo como,Sauvegarder dans le fichier sous,,Simpan ke File Sebagai,Salva su file come,,,,,,,Dosyaya farklı kaydet,Lưu Vào Tệp Dưới Dạng,文件另存为,文件另存为,另存新檔
+Studio.SystemMenu.Title.PublishAsPlugin,,,Publish as Plugin,Publish as Plugin,,Als Plugin veröffentlichen,Publicar como plugin,,,Publikasikan sebagai Plugin,Pubblica come plugin,,,,,,,Eklenti olarak yayınla,Đăng Dưới Dạng Plugin,发布为插件,发布为插件,發布為外掛程式
+Studio.SystemMenu.Title.SaveAsLocalPlugin,,,Save as Local Plugin,Save as Local Plugin,,Als lokales Plugin speichern,Guardar como plugin local,,,Simpan sebagai Plugin Lokal,Salva come plugin locale,,,,,,,Yerel eklenti olarak kaydet,Lưu Dưới Dạng Plugin Cục bộ,另存为本地插件,另存为本地插件,儲存為本機外掛程式
+Studio.SystemMenu.Title.DeveloperInspector,,,Developer Inspector,Developer Inspector,,,,,,,Developer Inspector,,,,,,,,,开发者检查器,开发者检查器,
+Studio.SystemMenu.Title.DeveloperStorybook,,,Developer Storybook,Developer Storybook,,,,,,,Developer Storybook,,,,,,,,,开发者 Storybook,开发者 Storybook,
+Studio.SystemMenu.Title.UI,,,UI,UI,,,,,,,UI,,,,,,,,,UI,UI,
+Studio.SystemMenu.Title.Script,,,Script,Script,,,,Scripts,,,,,,,,,,,,,,
+Studio.SystemMenu.Title.Localization,,,Localization,Localization,,,,Localisation,,,,,,,,,,,,,,
+Studio.SystemMenu.Title.Avatar,,,Avatar,Avatar,,,,Avatar,,,,,,,,,,,,,,
+Studio.SystemMenu.Title.LocalizationTool,,,Localization Tool,Localization Tool,,,,,,,,,,,,,,,,,,
+Studio.SystemMenu.Title.Window,,,Window,Window,,,,,,,,,,,,,,,,,,
+Studio.SystemMenu.Title.3D,,,3D,3D,,,,,,,,,,,,,,,,,,

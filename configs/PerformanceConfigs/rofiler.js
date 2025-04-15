@@ -9297,7 +9297,11 @@ function CliInitMinimal() {
     InitViewerVars();
     InitPluginVars();
     InitGroups();
+    if (globalThis.g_cliSkipInitLevel >= 2)
+        return;
     InitFrameInfo();
+    if (globalThis.g_cliSkipInitLevel >= 1)
+        return;
     PreprocessMinimal();
 }
 

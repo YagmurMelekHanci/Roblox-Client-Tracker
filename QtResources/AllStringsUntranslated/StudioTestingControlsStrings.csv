@@ -2,6 +2,7 @@ Key,Context,Source,en-us
 Studio.TestingControls.Title.AddClients,Add clients to the current playtesting session,Add Clients,Add Clients
 Studio.TestingControls.Title.Client,Toggle for the client DM (data model) view,Client,Client
 Studio.TestingControls.Title.ClientServerToggleDM,Toggle between client and server view,Client/Server,Client/Server
+Studio.TestingControls.Title.DebugPlugin,Enable real-time debugging and reloading of plugins,Debug Plugin,Debug Plugin
 Studio.TestingControls.Title.EndSession,Close server and all client windows or End Team Test session for all collaborators,End Session,End Session
 Studio.TestingControls.Title.Exit,Exit client window in either a team test session or a server and clients session,Exit,Exit
 Studio.TestingControls.Title.ExitServerAndClients,Exit client window in a Server and Clients testing session,Exit Server & Client,Exit Server & Client
@@ -33,6 +34,7 @@ Studio.TestingControls.Title.Test,"Start playtesting simulation with a player at
 Studio.TestingControls.Title.TestHere,Start the simulation at the camera's current position,Test Here,Test Here
 Studio.TestingControls.Tooltip.AddClients,Add clients to the current server and clients playtesting session,Add clients to the current session,Add clients to the current session
 Studio.TestingControls.Tooltip.ClientServerDM,Toggle between client DM and server DM view in a simulation,Toggle between client and server view,Toggle between client and server view
+Studio.TestingControls.Tooltip.DebugPlugin,Enable real-time debugging and reloading of plugins when using the Debug Plugin testing mode,Enable real-time debugging and reloading of plugins,Enable real-time debugging and reloading of plugins
 Studio.TestingControls.Tooltip.EndSessionServerClients,End server and clients playtesting session by closing server and all client windows,Close server and all client windows,Close server and all client windows
 Studio.TestingControls.Tooltip.EndSessionTeamTest,End Team Test session for all collaborators in the server,End Team Test session for all collaborators,End Team Test session for all collaborators
 Studio.TestingControls.Tooltip.Exit,Exit client window in either a team test session or a server and clients session,Exit client window,Exit client window
