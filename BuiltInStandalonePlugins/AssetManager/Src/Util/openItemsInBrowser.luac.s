@@ -20,41 +20,43 @@ PROTO_1:
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K1 ["AssetType"]
   GETTABLEKS R8 R9 K2 ["Place"]
-  JUMPIFNOTEQ R7 R8 [+39]
-  NAMECALL R10 R1 K3 ["getScope"]
-  CALL R10 1 1
-  GETTABLEKS R9 R10 K4 ["Scope"]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K4 ["Scope"]
-  GETTABLEKS R10 R11 K5 ["Universe"]
-  JUMPIFEQ R9 R10 [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  FASTCALL2K ASSERT R8 K6 [+4]
-  LOADK R9 K6 ["Not browsing universe for this place"]
-  GETIMPORT R7 K8 [assert]
-  CALL R7 2 0
-  GETUPVAL R7 1
-  NAMECALL R11 R1 K3 ["getScope"]
-  CALL R11 1 1
-  GETTABLEKS R10 R11 K9 ["Id"]
-  LOADK R11 K10 ["%*%*/places/%*/configure"]
-  LOADK R13 K11 ["https://create.roblox.com/dashboard/creations/experiences/"]
-  MOVE R14 R10
-  MOVE R15 R6
-  NAMECALL R11 R11 K12 ["format"]
-  CALL R11 4 1
-  MOVE R9 R11
-  NAMECALL R7 R7 K13 ["openLink"]
-  CALL R7 2 0
+  JUMPIFNOTEQ R7 R8 [+42]
+  NAMECALL R7 R1 K3 ["getScope"]
+  CALL R7 1 1
+  LOADB R9 1
+  GETTABLEKS R10 R7 K4 ["Scope"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K5 ["ProjectPlaces"]
+  JUMPIFEQ R10 R11 [+10]
+  GETTABLEKS R10 R7 K4 ["Scope"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K6 ["Universe"]
+  JUMPIFEQ R10 R11 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  FASTCALL2K ASSERT R9 K7 [+4]
+  LOADK R10 K7 ["Not browsing universe for this place"]
+  GETIMPORT R8 K9 [assert]
+  CALL R8 2 0
+  GETUPVAL R8 2
+  GETTABLEKS R11 R7 K10 ["Id"]
+  LOADK R12 K11 ["%*%*/places/%*/configure"]
+  LOADK R14 K12 ["https://create.roblox.com/dashboard/creations/experiences/"]
+  MOVE R15 R11
+  MOVE R16 R6
+  NAMECALL R12 R12 K13 ["format"]
+  CALL R12 4 1
+  MOVE R10 R12
+  NAMECALL R8 R8 K14 ["openLink"]
+  CALL R8 2 0
   JUMP [+7]
-  GETUPVAL R7 2
-  GETUPVAL R9 3
+  GETUPVAL R7 3
+  GETUPVAL R9 4
   MOVE R10 R6
   CALL R9 1 -1
-  NAMECALL R7 R7 K14 ["OpenBrowserWindow"]
+  NAMECALL R7 R7 K15 ["OpenBrowserWindow"]
   CALL R7 -1 0
-  FORGLOOP R2 2 [-59]
+  FORGLOOP R2 2 [-62]
   RETURN R0 0
 
 MAIN:
@@ -67,26 +69,28 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Src"]
   GETTABLEKS R2 R3 K7 ["Types"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Util"]
-  GETTABLEKS R3 R4 K9 ["createAssetUrl"]
-  CALL R2 1 1
+  GETTABLEKS R2 R1 K8 ["Scope"]
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Util"]
-  GETTABLEKS R4 R5 K10 ["Services"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K10 ["createAssetUrl"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K11 ["GetService"]
-  LOADK R5 K12 ["GuiService"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Util"]
+  GETTABLEKS R5 R6 K11 ["Services"]
   CALL R4 1 1
-  GETTABLEKS R5 R3 K11 ["GetService"]
-  LOADK R6 K13 ["StartPageService"]
+  GETTABLEKS R5 R4 K12 ["GetService"]
+  LOADK R6 K13 ["GuiService"]
   CALL R5 1 1
-  DUPCLOSURE R6 K14 [PROTO_0]
-  DUPCLOSURE R7 K15 [PROTO_1]
+  GETTABLEKS R6 R4 K12 ["GetService"]
+  LOADK R7 K14 ["StartPageService"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K15 [PROTO_0]
+  DUPCLOSURE R8 K16 [PROTO_1]
   CAPTURE VAL R1
-  CAPTURE VAL R5
-  CAPTURE VAL R4
   CAPTURE VAL R2
-  RETURN R7 1
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  RETURN R8 1

@@ -344,7 +344,8 @@ PROTO_12:
   LENGTH R5 R6
   GETUPVAL R6 2
   GETUPVAL R7 3
-  CALL R1 6 1
+  GETUPVAL R8 4
+  CALL R1 7 1
   JUMPIF R1 [+1]
   RETURN R0 0
   GETUPVAL R3 0
@@ -584,19 +585,25 @@ PROTO_18:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K1 ["Scope"]
   GETTABLEKS R5 R6 K2 ["Universe"]
+  JUMPIFEQ R4 R5 [+17]
+  GETTABLEKS R5 R0 K0 ["ScopeInfo"]
+  GETTABLEKS R4 R5 K1 ["Scope"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["Scope"]
+  GETTABLEKS R5 R6 K3 ["ProjectPlaces"]
   JUMPIFEQ R4 R5 [+6]
-  GETTABLEKS R4 R0 K3 ["Resolve"]
+  GETTABLEKS R4 R0 K4 ["Resolve"]
   LOADB R5 0
   CALL R4 1 0
   RETURN R0 0
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["CreateFetchPlacesRequest"]
+  GETTABLEKS R4 R5 K5 ["CreateFetchPlacesRequest"]
   GETTABLEKS R6 R0 K0 ["ScopeInfo"]
-  GETTABLEKS R5 R6 K5 ["Id"]
-  LOADK R6 K6 [""]
+  GETTABLEKS R5 R6 K6 ["Id"]
+  LOADK R6 K7 [""]
   LOADN R7 100
   CALL R4 3 1
-  NAMECALL R4 R4 K7 ["makeRequest"]
+  NAMECALL R4 R4 K8 ["makeRequest"]
   CALL R4 1 1
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U2
@@ -607,7 +614,7 @@ PROTO_18:
   NEWCLOSURE R7 P1
   CAPTURE VAL R3
   CAPTURE VAL R0
-  NAMECALL R4 R4 K8 ["andThen"]
+  NAMECALL R4 R4 K9 ["andThen"]
   CALL R4 3 0
   RETURN R0 0
 
@@ -621,7 +628,7 @@ PROTO_19:
   JUMPIFNOTEQ R5 R6 [+5]
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K3 ["CreateFetchAssetsForUserRequest"]
-  JUMP [+46]
+  JUMP [+65]
   GETTABLEKS R6 R0 K0 ["ScopeInfo"]
   GETTABLEKS R5 R6 K1 ["Scope"]
   GETUPVAL R8 0
@@ -630,29 +637,40 @@ PROTO_19:
   JUMPIFNOTEQ R5 R6 [+5]
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K5 ["CreateFetchAssetsForGroupRequest"]
-  JUMP [+31]
+  JUMP [+50]
   GETTABLEKS R6 R0 K0 ["ScopeInfo"]
   GETTABLEKS R5 R6 K1 ["Scope"]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K1 ["Scope"]
   GETTABLEKS R6 R7 K6 ["Universe"]
+  JUMPIFEQ R5 R6 [+12]
+  GETTABLEKS R6 R0 K0 ["ScopeInfo"]
+  GETTABLEKS R5 R6 K1 ["Scope"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["Scope"]
+  GETTABLEKS R6 R7 K7 ["ProjectShared"]
   JUMPIFNOTEQ R5 R6 [+5]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K7 ["CreateFetchAssetsForUniverseRequest"]
-  JUMP [+16]
-  GETUPVAL R5 2
-  CALL R5 0 1
-  JUMPIFNOT R5 [+12]
-  GETIMPORT R5 K9 [warn]
-  LOADK R7 K10 ["ExplorerRow: Unsupported Scope type for fetchAssetsAsync %*"]
-  GETTABLEKS R10 R0 K0 ["ScopeInfo"]
-  GETTABLEKS R9 R10 K1 ["Scope"]
-  NAMECALL R7 R7 K11 ["format"]
-  CALL R7 2 1
-  MOVE R6 R7
+  GETTABLEKS R4 R5 K8 ["CreateFetchAssetsForUniverseRequest"]
+  JUMP [+24]
+  GETTABLEKS R6 R0 K0 ["ScopeInfo"]
+  GETTABLEKS R5 R6 K1 ["Scope"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["Scope"]
+  GETTABLEKS R6 R7 K9 ["ProjectPlaces"]
+  JUMPIFNOTEQ R5 R6 [+6]
+  GETTABLEKS R5 R0 K10 ["Resolve"]
+  LOADB R6 0
   CALL R5 1 0
   RETURN R0 0
-  GETUPVAL R6 3
+  MOVE R5 R3
+  LOADK R6 K11 ["Unsupported scope type"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K10 ["Resolve"]
+  LOADB R6 0
+  CALL R5 1 0
+  RETURN R0 0
+  GETUPVAL R6 2
   GETTABLEKS R5 R6 K12 ["_fetchAssetsImplAsync"]
   MOVE R6 R0
   MOVE R7 R1
@@ -898,8 +916,18 @@ PROTO_26:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Scope"]
   GETTABLEKS R2 R3 K7 ["Universe"]
+  JUMPIFEQ R1 R2 [+19]
+  GETTABLEKS R1 R0 K0 ["Scope"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Scope"]
+  GETTABLEKS R2 R3 K8 ["ProjectPlaces"]
+  JUMPIFEQ R1 R2 [+10]
+  GETTABLEKS R1 R0 K0 ["Scope"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Scope"]
+  GETTABLEKS R2 R3 K9 ["ProjectShared"]
   JUMPIFNOTEQ R1 R2 [+9]
-  LOADK R2 K8 ["rbxthumb://type=GameIcon&id=%*&w=150&h=150"]
+  LOADK R2 K10 ["rbxthumb://type=GameIcon&id=%*&w=150&h=150"]
   GETTABLEKS R4 R0 K3 ["Id"]
   NAMECALL R2 R2 K4 ["format"]
   CALL R2 2 1
@@ -908,11 +936,11 @@ PROTO_26:
   GETUPVAL R1 1
   CALL R1 0 1
   JUMPIFNOT R1 [+6]
-  GETIMPORT R1 K10 [warn]
-  LOADK R2 K11 ["ExplorerRow: Unsupported Scope type for image icon"]
+  GETIMPORT R1 K12 [warn]
+  LOADK R2 K13 ["ExplorerRow: Unsupported Scope type for image icon"]
   GETTABLEKS R3 R0 K0 ["Scope"]
   CALL R1 2 0
-  LOADK R1 K12 [""]
+  LOADK R1 K14 [""]
   RETURN R1 1
 
 PROTO_27:
@@ -1461,7 +1489,6 @@ MAIN:
   DUPCLOSURE R19 K52 [PROTO_19]
   CAPTURE VAL R1
   CAPTURE VAL R3
-  CAPTURE VAL R14
   CAPTURE VAL R16
   SETTABLEKS R19 R16 K53 ["fetchAssetsAsync"]
   DUPCLOSURE R19 K54 [PROTO_22]

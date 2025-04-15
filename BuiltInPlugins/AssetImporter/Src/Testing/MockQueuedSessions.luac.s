@@ -6,7 +6,7 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["DataTypes"]
+  GETTABLEKS R3 R4 K7 ["Types"]
   GETTABLEKS R2 R3 K8 ["QueuedSession"]
   CALL R1 1 1
   DUPTABLE R2 K22 [{"Empty", "Cube", "Sphere", "Octahedron", "Dodecahedron", "Rhombicosidodecahedron", "RigAsset", "EnvironmentalAsset", "InvalidAsset", "EnabledInvalidAsset", "HasImportDataError", "DisabledImportDataError", "UploadedAsset"}]

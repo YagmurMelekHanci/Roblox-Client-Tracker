@@ -17,7 +17,7 @@ MAIN:
   GETTABLEKS R3 R4 K12 ["createStyleRule"]
   GETTABLEKS R5 R1 K11 ["Styling"]
   GETTABLEKS R4 R5 K13 ["createStyleSheet"]
-  NEWTABLE R5 0 29
+  NEWTABLE R5 0 30
   MOVE R6 R3
   LOADK R7 K14 ["ImageButton"]
   DUPTABLE R8 K16 [{"Size"}]
@@ -360,65 +360,71 @@ MAIN:
   SETTABLEKS R19 R18 K140 ["Font"]
   CALL R16 2 1
   MOVE R17 R3
-  LOADK R18 K145 ["#MainWidget"]
-  DUPTABLE R19 K147 [{"BorderSizePixel", "BackgroundColor3"}]
-  LOADN R20 0
-  SETTABLEKS R20 R19 K146 ["BorderSizePixel"]
-  LOADK R20 K148 ["$BackgroundDefault"]
-  SETTABLEKS R20 R19 K42 ["BackgroundColor3"]
+  LOADK R18 K145 ["TextButton"]
+  DUPTABLE R19 K144 [{"Font"}]
+  GETTABLEKS R20 R2 K142 ["defaultFont"]
+  SETTABLEKS R20 R19 K140 ["Font"]
   CALL R17 2 1
   MOVE R18 R3
-  LOADK R19 K149 [".Component-Wrapper"]
-  DUPTABLE R20 K150 [{"BackgroundTransparency"}]
-  LOADN R21 1
-  SETTABLEKS R21 R20 K43 ["BackgroundTransparency"]
-  NEWTABLE R21 0 3
-  MOVE R22 R3
-  LOADK R23 K151 [":: UIListLayout"]
-  DUPTABLE R24 K154 [{"FillDirection", "VerticalFlex", "SortOrder", "ItemLineAlignment"}]
-  GETIMPORT R25 K93 [Enum.FillDirection.Vertical]
-  SETTABLEKS R25 R24 K88 ["FillDirection"]
-  GETIMPORT R25 K157 [Enum.UIFlexAlignment.None]
-  SETTABLEKS R25 R24 K152 ["VerticalFlex"]
-  GETIMPORT R25 K95 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R25 R24 K90 ["SortOrder"]
-  GETIMPORT R25 K159 [Enum.ItemLineAlignment.Start]
-  SETTABLEKS R25 R24 K153 ["ItemLineAlignment"]
-  CALL R22 2 1
+  LOADK R19 K146 ["#MainWidget"]
+  DUPTABLE R20 K148 [{"BorderSizePixel", "BackgroundColor3"}]
+  LOADN R21 0
+  SETTABLEKS R21 R20 K147 ["BorderSizePixel"]
+  LOADK R21 K149 ["$BackgroundDefault"]
+  SETTABLEKS R21 R20 K42 ["BackgroundColor3"]
+  CALL R18 2 1
+  MOVE R19 R3
+  LOADK R20 K150 [".Component-Wrapper"]
+  DUPTABLE R21 K151 [{"BackgroundTransparency"}]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K43 ["BackgroundTransparency"]
+  NEWTABLE R22 0 3
   MOVE R23 R3
-  LOADK R24 K160 [".Component-WidgetHeader"]
-  DUPTABLE R25 K150 [{"BackgroundTransparency"}]
-  LOADN R26 1
-  SETTABLEKS R26 R25 K43 ["BackgroundTransparency"]
-  NEWTABLE R26 0 1
-  MOVE R27 R3
-  LOADK R28 K161 [":: UIFlexItem"]
-  DUPTABLE R29 K64 [{"FlexMode"}]
-  GETIMPORT R30 K162 [Enum.UIFlexMode.None]
-  SETTABLEKS R30 R29 K63 ["FlexMode"]
-  CALL R27 2 -1
-  SETLIST R26 R27 -1 [1]
-  CALL R23 3 1
+  LOADK R24 K152 [":: UIListLayout"]
+  DUPTABLE R25 K155 [{"FillDirection", "VerticalFlex", "SortOrder", "ItemLineAlignment"}]
+  GETIMPORT R26 K93 [Enum.FillDirection.Vertical]
+  SETTABLEKS R26 R25 K88 ["FillDirection"]
+  GETIMPORT R26 K158 [Enum.UIFlexAlignment.None]
+  SETTABLEKS R26 R25 K153 ["VerticalFlex"]
+  GETIMPORT R26 K95 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R26 R25 K90 ["SortOrder"]
+  GETIMPORT R26 K160 [Enum.ItemLineAlignment.Start]
+  SETTABLEKS R26 R25 K154 ["ItemLineAlignment"]
+  CALL R23 2 1
   MOVE R24 R3
-  LOADK R25 K163 [".Component-WidgetBody"]
-  DUPTABLE R26 K150 [{"BackgroundTransparency"}]
+  LOADK R25 K161 [".Component-WidgetHeader"]
+  DUPTABLE R26 K151 [{"BackgroundTransparency"}]
   LOADN R27 1
   SETTABLEKS R27 R26 K43 ["BackgroundTransparency"]
   NEWTABLE R27 0 1
   MOVE R28 R3
-  LOADK R29 K161 [":: UIFlexItem"]
+  LOADK R29 K162 [":: UIFlexItem"]
   DUPTABLE R30 K64 [{"FlexMode"}]
-  GETIMPORT R31 K78 [Enum.UIFlexMode.Fill]
+  GETIMPORT R31 K163 [Enum.UIFlexMode.None]
   SETTABLEKS R31 R30 K63 ["FlexMode"]
   CALL R28 2 -1
   SETLIST R27 R28 -1 [1]
-  CALL R24 3 -1
-  SETLIST R21 R22 -1 [1]
-  CALL R18 3 -1
+  CALL R24 3 1
+  MOVE R25 R3
+  LOADK R26 K164 [".Component-WidgetBody"]
+  DUPTABLE R27 K151 [{"BackgroundTransparency"}]
+  LOADN R28 1
+  SETTABLEKS R28 R27 K43 ["BackgroundTransparency"]
+  NEWTABLE R28 0 1
+  MOVE R29 R3
+  LOADK R30 K162 [":: UIFlexItem"]
+  DUPTABLE R31 K64 [{"FlexMode"}]
+  GETIMPORT R32 K78 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R32 R31 K63 ["FlexMode"]
+  CALL R29 2 -1
+  SETLIST R28 R29 -1 [1]
+  CALL R25 3 -1
+  SETLIST R22 R23 -1 [1]
+  CALL R19 3 -1
   SETLIST R5 R6 -1 [17]
   NEWTABLE R6 0 0
   MOVE R7 R4
-  LOADK R8 K164 ["FindReplaceAllPlugin"]
+  LOADK R8 K165 ["FindReplaceAllPlugin"]
   MOVE R9 R5
   MOVE R10 R6
   CALL R7 3 -1

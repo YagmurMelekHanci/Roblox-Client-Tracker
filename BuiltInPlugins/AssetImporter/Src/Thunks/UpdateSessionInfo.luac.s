@@ -138,7 +138,7 @@ MAIN:
   CALL R4 1 1
   GETIMPORT R5 K7 [require]
   GETTABLEKS R8 R0 K4 ["Src"]
-  GETTABLEKS R7 R8 K11 ["DataTypes"]
+  GETTABLEKS R7 R8 K11 ["Types"]
   GETTABLEKS R6 R7 K12 ["QueuedSession"]
   CALL R5 1 1
   GETIMPORT R6 K7 [require]

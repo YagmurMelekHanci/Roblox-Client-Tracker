@@ -75,30 +75,25 @@ MAIN:
   LOADK R2 K2 ["Toolbox"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["EnableUGCBundleUnknownMeshPartFiltering"]
-  NAMECALL R1 R1 K7 ["GetFastFlag"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R5 R0 K10 ["Core"]
-  GETTABLEKS R4 R5 K11 ["Util"]
-  GETTABLEKS R3 R4 K12 ["AssetConfigConstants"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Core"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["AssetConfigConstants"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Core"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K9 ["AssetConfigUtil"]
   CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R0 K10 ["Core"]
-  GETTABLEKS R5 R6 K11 ["Util"]
-  GETTABLEKS R4 R5 K13 ["AssetConfigUtil"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Core"]
+  GETTABLEKS R5 R6 K10 ["Flags"]
+  GETTABLEKS R4 R5 K11 ["getFFlagEnableUploadingShoes"]
   CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K10 ["Core"]
-  GETTABLEKS R6 R7 K14 ["Flags"]
-  GETTABLEKS R5 R6 K15 ["getFFlagEnableUploadingShoes"]
-  CALL R4 1 1
-  NEWTABLE R5 1 0
-  JUMPIFNOT R1 [+6]
-  DUPCLOSURE R6 K16 [PROTO_0]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
+  NEWTABLE R4 1 0
+  DUPCLOSURE R5 K12 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLEKS R6 R5 K17 ["removeAllUGCBUndleUnknownMeshParts"]
-  RETURN R5 1
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K13 ["removeAllUGCBUndleUnknownMeshParts"]
+  RETURN R4 1

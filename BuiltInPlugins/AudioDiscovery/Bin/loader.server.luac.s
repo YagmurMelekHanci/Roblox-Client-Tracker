@@ -66,82 +66,83 @@ MAIN:
   JUMPIFNOT R3 [+1]
   RETURN R0 0
   GETIMPORT R3 K1 [require]
-  GETTABLEKS R5 R1 K15 ["PluginLoader"]
-  GETTABLEKS R4 R5 K16 ["PluginLoaderBuilder"]
+  GETTABLEKS R5 R1 K15 ["Packages"]
+  GETTABLEKS R4 R5 K16 ["PluginLoader"]
   CALL R3 1 1
-  GETTABLEKS R7 R1 K11 ["Src"]
-  GETTABLEKS R6 R7 K17 ["Resources"]
-  GETTABLEKS R5 R6 K18 ["Localization"]
-  GETTABLEKS R4 R5 K19 ["SourceStrings"]
+  GETTABLEKS R4 R3 K17 ["PluginLoaderBuilder"]
   GETTABLEKS R8 R1 K11 ["Src"]
-  GETTABLEKS R7 R8 K17 ["Resources"]
-  GETTABLEKS R6 R7 K18 ["Localization"]
-  GETTABLEKS R5 R6 K20 ["LocalizedStrings"]
-  DUPTABLE R6 K25 [{"getName", "getDescription", "icon", "enabled"}]
-  DUPCLOSURE R7 K26 [PROTO_0]
-  SETTABLEKS R7 R6 K21 ["getName"]
-  DUPCLOSURE R7 K27 [PROTO_1]
-  SETTABLEKS R7 R6 K22 ["getDescription"]
-  LOADK R7 K28 ["rbxlocaltheme://ViewSounds"]
-  SETTABLEKS R7 R6 K23 ["icon"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K24 ["enabled"]
-  DUPTABLE R7 K35 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
-  GETIMPORT R8 K36 [plugin]
-  SETTABLEKS R8 R7 K29 ["plugin"]
-  LOADK R8 K37 ["AudioDiscovery"]
-  SETTABLEKS R8 R7 K30 ["pluginName"]
-  SETTABLEKS R5 R7 K31 ["translationResourceTable"]
-  SETTABLEKS R4 R7 K32 ["fallbackResourceTable"]
-  DUPCLOSURE R8 K38 [PROTO_2]
-  SETTABLEKS R8 R7 K33 ["getToolbarName"]
-  SETTABLEKS R6 R7 K34 ["buttonInfo"]
-  GETIMPORT R8 K7 [game]
-  LOADK R10 K39 ["RunService"]
-  NAMECALL R8 R8 K40 ["GetService"]
-  CALL R8 2 1
-  NAMECALL R9 R8 K41 ["IsEdit"]
-  CALL R9 1 1
-  JUMPIFNOT R9 [+55]
-  LOADB R9 1
-  SETTABLEKS R9 R6 K24 ["enabled"]
-  DUPTABLE R9 K46 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R10 K37 ["AudioDiscovery"]
-  SETTABLEKS R10 R9 K42 ["id"]
-  GETIMPORT R10 K49 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R11 K53 [Enum.InitialDockState.Bottom]
-  LOADB R12 0
-  LOADB R13 0
-  LOADN R14 128
-  LOADN R15 224
-  LOADN R16 250
-  LOADN R17 200
-  CALL R10 7 1
-  SETTABLEKS R10 R9 K43 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R10 K54 [PROTO_3]
-  SETTABLEKS R10 R9 K44 ["getDockTitle"]
-  GETIMPORT R10 K57 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R10 R9 K45 ["zIndexBehavior"]
-  SETTABLEKS R9 R7 K58 ["dockWidgetInfo"]
-  GETTABLEKS R9 R3 K59 ["build"]
-  MOVE R10 R7
-  CALL R9 1 1
-  GETTABLEKS R10 R9 K60 ["pluginLoader"]
-  NAMECALL R10 R10 K61 ["waitForUserInteraction"]
+  GETTABLEKS R7 R8 K18 ["Resources"]
+  GETTABLEKS R6 R7 K19 ["Localization"]
+  GETTABLEKS R5 R6 K20 ["SourceStrings"]
+  GETTABLEKS R9 R1 K11 ["Src"]
+  GETTABLEKS R8 R9 K18 ["Resources"]
+  GETTABLEKS R7 R8 K19 ["Localization"]
+  GETTABLEKS R6 R7 K21 ["LocalizedStrings"]
+  DUPTABLE R7 K26 [{"getName", "getDescription", "icon", "enabled"}]
+  DUPCLOSURE R8 K27 [PROTO_0]
+  SETTABLEKS R8 R7 K22 ["getName"]
+  DUPCLOSURE R8 K28 [PROTO_1]
+  SETTABLEKS R8 R7 K23 ["getDescription"]
+  LOADK R8 K29 ["rbxlocaltheme://ViewSounds"]
+  SETTABLEKS R8 R7 K24 ["icon"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K25 ["enabled"]
+  DUPTABLE R8 K36 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
+  GETIMPORT R9 K37 [plugin]
+  SETTABLEKS R9 R8 K30 ["plugin"]
+  LOADK R9 K38 ["AudioDiscovery"]
+  SETTABLEKS R9 R8 K31 ["pluginName"]
+  SETTABLEKS R6 R8 K32 ["translationResourceTable"]
+  SETTABLEKS R5 R8 K33 ["fallbackResourceTable"]
+  DUPCLOSURE R9 K39 [PROTO_2]
+  SETTABLEKS R9 R8 K34 ["getToolbarName"]
+  SETTABLEKS R7 R8 K35 ["buttonInfo"]
+  GETIMPORT R9 K7 [game]
+  LOADK R11 K40 ["RunService"]
+  NAMECALL R9 R9 K41 ["GetService"]
+  CALL R9 2 1
+  NAMECALL R10 R9 K42 ["IsEdit"]
   CALL R10 1 1
-  JUMPIF R10 [+1]
-  RETURN R0 0
-  GETIMPORT R11 K1 [require]
-  GETIMPORT R14 K3 [script]
-  GETTABLEKS R13 R14 K4 ["Parent"]
-  GETTABLEKS R12 R13 K62 ["main"]
+  JUMPIFNOT R10 [+55]
+  LOADB R10 1
+  SETTABLEKS R10 R7 K25 ["enabled"]
+  DUPTABLE R10 K47 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+  LOADK R11 K38 ["AudioDiscovery"]
+  SETTABLEKS R11 R10 K43 ["id"]
+  GETIMPORT R11 K50 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R12 K54 [Enum.InitialDockState.Bottom]
+  LOADB R13 0
+  LOADB R14 0
+  LOADN R15 128
+  LOADN R16 224
+  LOADN R17 250
+  LOADN R18 200
+  CALL R11 7 1
+  SETTABLEKS R11 R10 K44 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R11 K55 [PROTO_3]
+  SETTABLEKS R11 R10 K45 ["getDockTitle"]
+  GETIMPORT R11 K58 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K46 ["zIndexBehavior"]
+  SETTABLEKS R10 R8 K59 ["dockWidgetInfo"]
+  GETTABLEKS R10 R4 K60 ["build"]
+  MOVE R11 R8
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K61 ["pluginLoader"]
+  NAMECALL R11 R11 K62 ["waitForUserInteraction"]
   CALL R11 1 1
-  MOVE R12 R11
-  GETIMPORT R13 K36 [plugin]
-  MOVE R14 R9
-  CALL R12 2 0
+  JUMPIF R11 [+1]
   RETURN R0 0
-  GETTABLEKS R9 R3 K59 ["build"]
-  MOVE R10 R7
-  CALL R9 1 0
+  GETIMPORT R12 K1 [require]
+  GETIMPORT R15 K3 [script]
+  GETTABLEKS R14 R15 K4 ["Parent"]
+  GETTABLEKS R13 R14 K63 ["main"]
+  CALL R12 1 1
+  MOVE R13 R12
+  GETIMPORT R14 K37 [plugin]
+  MOVE R15 R10
+  CALL R13 2 0
+  RETURN R0 0
+  GETTABLEKS R10 R4 K60 ["build"]
+  MOVE R11 R8
+  CALL R10 1 0
   RETURN R0 0

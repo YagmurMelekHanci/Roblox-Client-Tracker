@@ -394,7 +394,7 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K8 ["Src"]
   GETTABLEKS R5 R6 K9 ["Enums"]
-  GETTABLEKS R4 R5 K11 ["AnnotationRequestResult"]
+  GETTABLEKS R4 R5 K11 ["AnnotationRequestStatus"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K8 ["Src"]

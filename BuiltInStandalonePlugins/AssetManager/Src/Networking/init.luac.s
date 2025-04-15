@@ -1,31 +1,76 @@
 PROTO_0:
-  DUPTABLE R1 K6 [{"_isMock", "_impl", "nextPageToken", "nextPlacesPageToken", "OnFetchFinished", "OnFetchProgressChanged"}]
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_updateProgressInfo"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADNIL R2
+  LOADB R3 0
+  NAMECALL R0 R0 K0 ["_updateProgressInfo"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K9 [{"_isMock", "_impl", "nextPageToken", "nextPlacesPageToken", "_fetchProgressInfo", "_connections", "OnFetchFinished", "OnFetchProgressChanged", "OnFetchProgressInfoChanged"}]
   SETTABLEKS R0 R1 K0 ["_isMock"]
   JUMPIFNOT R0 [+2]
   GETUPVAL R2 0
   JUMP [+1]
   GETUPVAL R2 1
   SETTABLEKS R2 R1 K1 ["_impl"]
-  LOADK R2 K7 [""]
+  LOADK R2 K10 [""]
   SETTABLEKS R2 R1 K2 ["nextPageToken"]
-  LOADK R2 K7 [""]
+  LOADK R2 K10 [""]
   SETTABLEKS R2 R1 K3 ["nextPlacesPageToken"]
+  DUPTABLE R2 K13 [{"FetchProgress", "IsLoading"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K11 ["FetchProgress"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K12 ["IsLoading"]
+  SETTABLEKS R2 R1 K4 ["_fetchProgressInfo"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K5 ["_connections"]
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K8 ["new"]
+  GETTABLEKS R2 R3 K14 ["new"]
   CALL R2 0 1
-  SETTABLEKS R2 R1 K4 ["OnFetchFinished"]
+  SETTABLEKS R2 R1 K6 ["OnFetchFinished"]
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K8 ["new"]
+  GETTABLEKS R2 R3 K14 ["new"]
   CALL R2 0 1
-  SETTABLEKS R2 R1 K5 ["OnFetchProgressChanged"]
+  SETTABLEKS R2 R1 K7 ["OnFetchProgressChanged"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K14 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K8 ["OnFetchProgressInfoChanged"]
   GETUPVAL R4 3
   FASTCALL2 SETMETATABLE R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K10 [setmetatable]
+  GETIMPORT R2 K16 [setmetatable]
   CALL R2 2 0
+  GETTABLEKS R3 R1 K5 ["_connections"]
+  GETTABLEKS R4 R1 K7 ["OnFetchProgressChanged"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  NAMECALL R4 R4 K17 ["Connect"]
+  CALL R4 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R2 K20 [table.insert]
+  CALL R2 -1 0
+  GETTABLEKS R3 R1 K5 ["_connections"]
+  GETTABLEKS R4 R1 K6 ["OnFetchFinished"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R1
+  NAMECALL R4 R4 K17 ["Connect"]
+  CALL R4 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R2 K20 [table.insert]
+  CALL R2 -1 0
   RETURN R1 1
 
-PROTO_1:
+PROTO_3:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["new"]
   LOADB R1 1
@@ -35,23 +80,67 @@ PROTO_1:
   SETTABLEKS R1 R0 K2 ["resume"]
   RETURN R0 1
 
-PROTO_2:
-  RETURN R0 0
-
-PROTO_3:
-  GETTABLEKS R2 R0 K0 ["_impl"]
-  GETTABLEKS R1 R2 K1 ["setupNewFetchSession"]
-  CALL R1 0 0
-  RETURN R0 0
-
 PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["_connections"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_connections"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R3 R0 K0 ["_fetchProgressInfo"]
+  JUMPIFEQKNIL R1 [+3]
+  MOVE R4 R1
+  JUMP [+2]
+  GETTABLEKS R4 R3 K1 ["FetchProgress"]
+  SETTABLEKS R4 R3 K1 ["FetchProgress"]
+  JUMPIFEQKNIL R2 [+3]
+  MOVE R4 R2
+  JUMP [+2]
+  GETTABLEKS R4 R3 K2 ["IsLoading"]
+  SETTABLEKS R4 R3 K2 ["IsLoading"]
+  GETTABLEKS R4 R0 K3 ["OnFetchProgressInfoChanged"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["copy"]
+  MOVE R7 R3
+  CALL R6 1 -1
+  NAMECALL R4 R4 K5 ["Fire"]
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["_fetchProgressInfo"]
+  RETURN R1 1
+
+PROTO_7:
+  LOADN R3 0
+  LOADB R4 1
+  NAMECALL R1 R0 K0 ["_updateProgressInfo"]
+  CALL R1 3 0
+  GETTABLEKS R2 R0 K1 ["_impl"]
+  GETTABLEKS R1 R2 K2 ["setupNewFetchSession"]
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_8:
+  LOADN R3 0
+  LOADB R4 0
+  NAMECALL R1 R0 K0 ["_updateProgressInfo"]
+  CALL R1 3 0
+  GETTABLEKS R2 R0 K1 ["_impl"]
+  GETTABLEKS R1 R2 K2 ["setupNewFetchSession"]
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_9:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["fetchUsername"]
   MOVE R3 R1
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_10:
   GETTABLEKS R5 R0 K0 ["_impl"]
   GETTABLEKS R4 R5 K1 ["fetchUniverseInfoAsync"]
   MOVE R5 R1
@@ -60,7 +149,7 @@ PROTO_5:
   CALL R4 3 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_11:
   GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["fetchGroupsAsync"]
   MOVE R4 R1
@@ -68,7 +157,7 @@ PROTO_6:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_12:
   JUMPIFNOT R3 [+4]
   GETUPVAL R4 0
   SETTABLEKS R3 R4 K0 ["nextPageToken"]
@@ -82,7 +171,7 @@ PROTO_7:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_13:
   DUPTABLE R2 K6 [{"ScopeInfo", "PageToken", "PlacesPageToken", "MaxPageSize", "FetchSessionId", "Resolve"}]
   GETUPVAL R3 0
   SETTABLEKS R3 R2 K0 ["ScopeInfo"]
@@ -111,7 +200,7 @@ PROTO_8:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_14:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["new"]
   NEWCLOSURE R1 P0
@@ -123,7 +212,7 @@ PROTO_9:
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_10:
+PROTO_15:
   JUMPIFNOT R3 [+4]
   GETUPVAL R4 0
   SETTABLEKS R3 R4 K0 ["nextPlacesPageToken"]
@@ -138,7 +227,7 @@ PROTO_10:
   CALL R4 3 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_16:
   DUPTABLE R2 K6 [{"ScopeInfo", "PageToken", "PlacesPageToken", "MaxPageSize", "FetchSessionId", "Resolve"}]
   GETUPVAL R3 0
   SETTABLEKS R3 R2 K0 ["ScopeInfo"]
@@ -166,7 +255,7 @@ PROTO_11:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_17:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["new"]
   NEWCLOSURE R1 P0
@@ -178,7 +267,7 @@ PROTO_12:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_18:
   GETTABLEN R1 R0 1
   JUMPIF R1 [+2]
   GETTABLEN R1 R0 2
@@ -190,10 +279,9 @@ PROTO_13:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_14:
-  GETTABLEKS R5 R0 K0 ["_impl"]
-  GETTABLEKS R4 R5 K1 ["setupNewFetchSession"]
-  CALL R4 0 1
+PROTO_19:
+  NAMECALL R4 R0 K0 ["_setupNewFetchSession"]
+  CALL R4 1 1
   NEWCLOSURE R5 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R1
@@ -209,10 +297,10 @@ PROTO_14:
   CAPTURE VAL R2
   CAPTURE VAL R3
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K2 ["all"]
+  GETTABLEKS R7 R8 K1 ["all"]
   NEWTABLE R8 0 2
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K3 ["new"]
+  GETTABLEKS R9 R10 K2 ["new"]
   NEWCLOSURE R10 P2
   CAPTURE VAL R1
   CAPTURE VAL R0
@@ -226,11 +314,11 @@ PROTO_14:
   CALL R7 1 1
   NEWCLOSURE R9 P3
   CAPTURE VAL R0
-  NAMECALL R7 R7 K4 ["andThen"]
+  NAMECALL R7 R7 K3 ["andThen"]
   CALL R7 2 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_20:
   JUMPIFNOT R2 [+4]
   GETUPVAL R3 0
   SETTABLEKS R2 R3 K0 ["nextPageToken"]
@@ -244,7 +332,7 @@ PROTO_15:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_21:
   DUPTABLE R2 K8 [{"SearchTerm", "AssetType", "ScopeInfo", "PageToken", "PlacesPageToken", "MaxPageSize", "FetchSessionId", "Resolve"}]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["SearchTerm"]
@@ -279,7 +367,7 @@ PROTO_16:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_22:
   JUMPIFNOT R0 [+1]
   RETURN R0 0
   GETUPVAL R2 0
@@ -288,12 +376,11 @@ PROTO_17:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_18:
-  GETTABLEKS R5 R0 K0 ["_impl"]
-  GETTABLEKS R4 R5 K1 ["setupNewFetchSession"]
-  CALL R4 0 1
+PROTO_23:
+  NAMECALL R4 R0 K0 ["_setupNewFetchSession"]
+  CALL R4 1 1
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["new"]
+  GETTABLEKS R5 R6 K1 ["new"]
   NEWCLOSURE R6 P0
   CAPTURE VAL R1
   CAPTURE VAL R0
@@ -303,11 +390,11 @@ PROTO_18:
   CALL R5 1 1
   NEWCLOSURE R7 P1
   CAPTURE VAL R0
-  NAMECALL R5 R5 K3 ["andThen"]
+  NAMECALL R5 R5 K2 ["andThen"]
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_24:
   GETTABLEKS R5 R0 K0 ["_impl"]
   GETTABLEKS R4 R5 K1 ["fetchAssetInfoAsync"]
   MOVE R5 R1
@@ -316,21 +403,21 @@ PROTO_19:
   CALL R4 3 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_25:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["grantUniverseUseAssetsPermissions"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_21:
+PROTO_26:
   GETTABLEKS R3 R0 K0 ["_impl"]
   GETTABLEKS R2 R3 K1 ["getThumbnailUriForScope"]
   MOVE R3 R1
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_22:
+PROTO_27:
   GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["getThumbnailForScopeAsync"]
   MOVE R4 R1
@@ -338,7 +425,7 @@ PROTO_22:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_28:
   GETTABLEKS R4 R0 K0 ["_impl"]
   GETTABLEKS R3 R4 K1 ["getThumbnailForItem"]
   MOVE R4 R1
@@ -346,7 +433,7 @@ PROTO_23:
   CALL R3 2 -1
   RETURN R3 -1
 
-PROTO_24:
+PROTO_29:
   GETTABLEKS R5 R0 K0 ["_impl"]
   GETTABLEKS R4 R5 K1 ["getThumbnailForItemAsync"]
   MOVE R5 R1
@@ -355,7 +442,7 @@ PROTO_24:
   CALL R4 3 -1
   RETURN R4 -1
 
-PROTO_25:
+PROTO_30:
   GETTABLEKS R5 R0 K0 ["_impl"]
   GETTABLEKS R4 R5 K1 ["fetchPluginInfoAsync"]
   MOVE R5 R1
@@ -376,62 +463,81 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["ContextServices"]
   GETTABLEKS R3 R2 K9 ["ContextItem"]
-  GETTABLEKS R5 R1 K10 ["Util"]
-  GETTABLEKS R4 R5 K11 ["Promise"]
-  GETTABLEKS R5 R1 K10 ["Util"]
-  GETTABLEKS R6 R5 K12 ["Signal"]
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K13 ["NetworkingImpl"]
-  CALL R7 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Promise"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K11 ["Dash"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K12 ["Util"]
+  GETTABLEKS R7 R6 K13 ["Signal"]
   GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K14 ["NetworkingMock"]
+  GETTABLEKS R11 R0 K14 ["Src"]
+  GETTABLEKS R10 R11 K12 ["Util"]
+  GETTABLEKS R9 R10 K15 ["cleanConnections"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K15 ["Src"]
-  GETTABLEKS R10 R11 K16 ["Types"]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K16 ["NetworkingImpl"]
   CALL R9 1 1
-  LOADK R12 K17 ["Networking"]
-  NAMECALL R10 R3 K18 ["extend"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K19 [PROTO_0]
-  CAPTURE VAL R8
+  GETIMPORT R10 K5 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K17 ["NetworkingMock"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K14 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Types"]
+  CALL R11 1 1
+  LOADK R14 K19 ["Networking"]
+  NAMECALL R12 R3 K20 ["extend"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K21 [PROTO_2]
+  CAPTURE VAL R10
+  CAPTURE VAL R9
   CAPTURE VAL R7
-  CAPTURE VAL R6
-  CAPTURE VAL R10
-  SETTABLEKS R11 R10 K20 ["new"]
-  DUPCLOSURE R11 K21 [PROTO_1]
-  CAPTURE VAL R10
-  SETTABLEKS R11 R10 K22 ["mock"]
-  DUPCLOSURE R11 K23 [PROTO_2]
-  SETTABLEKS R11 R10 K24 ["destroy"]
-  DUPCLOSURE R11 K25 [PROTO_3]
-  SETTABLEKS R11 R10 K26 ["makeFetchRequestsStale"]
-  DUPCLOSURE R11 K27 [PROTO_4]
-  SETTABLEKS R11 R10 K28 ["fetchUsername"]
-  DUPCLOSURE R11 K29 [PROTO_5]
-  SETTABLEKS R11 R10 K30 ["fetchUniverseInfoAsync"]
-  DUPCLOSURE R11 K31 [PROTO_6]
-  SETTABLEKS R11 R10 K32 ["fetchGroupsAsync"]
-  DUPCLOSURE R11 K33 [PROTO_14]
+  CAPTURE VAL R12
+  SETTABLEKS R13 R12 K22 ["new"]
+  DUPCLOSURE R13 K23 [PROTO_3]
+  CAPTURE VAL R12
+  SETTABLEKS R13 R12 K24 ["mock"]
+  DUPCLOSURE R13 K25 [PROTO_4]
+  CAPTURE VAL R8
+  SETTABLEKS R13 R12 K26 ["destroy"]
+  DUPCLOSURE R13 K27 [PROTO_5]
+  CAPTURE VAL R5
+  SETTABLEKS R13 R12 K28 ["_updateProgressInfo"]
+  DUPCLOSURE R13 K29 [PROTO_6]
+  SETTABLEKS R13 R12 K30 ["getProgressInfo"]
+  DUPCLOSURE R13 K31 [PROTO_7]
+  SETTABLEKS R13 R12 K32 ["_setupNewFetchSession"]
+  DUPCLOSURE R13 K33 [PROTO_8]
+  SETTABLEKS R13 R12 K34 ["makeFetchRequestsStale"]
+  DUPCLOSURE R13 K35 [PROTO_9]
+  SETTABLEKS R13 R12 K36 ["fetchUsername"]
+  DUPCLOSURE R13 K37 [PROTO_10]
+  SETTABLEKS R13 R12 K38 ["fetchUniverseInfoAsync"]
+  DUPCLOSURE R13 K39 [PROTO_11]
+  SETTABLEKS R13 R12 K40 ["fetchGroupsAsync"]
+  DUPCLOSURE R13 K41 [PROTO_19]
   CAPTURE VAL R4
-  SETTABLEKS R11 R10 K34 ["fetchAssetsAsync"]
-  DUPCLOSURE R11 K35 [PROTO_18]
+  SETTABLEKS R13 R12 K42 ["fetchAssetsAsync"]
+  DUPCLOSURE R13 K43 [PROTO_23]
   CAPTURE VAL R4
-  SETTABLEKS R11 R10 K36 ["searchAssetsAsync"]
-  DUPCLOSURE R11 K37 [PROTO_19]
-  SETTABLEKS R11 R10 K38 ["fetchAssetInfoAsync"]
-  DUPCLOSURE R11 K39 [PROTO_20]
-  SETTABLEKS R11 R10 K40 ["grantUniverseUseAssetsPermissions"]
-  DUPCLOSURE R11 K41 [PROTO_21]
-  SETTABLEKS R11 R10 K42 ["getThumbnailUriForScope"]
-  DUPCLOSURE R11 K43 [PROTO_22]
-  SETTABLEKS R11 R10 K44 ["getThumbnailForScopeAsync"]
-  DUPCLOSURE R11 K45 [PROTO_23]
-  SETTABLEKS R11 R10 K46 ["getThumbnailForItem"]
-  DUPCLOSURE R11 K47 [PROTO_24]
-  SETTABLEKS R11 R10 K48 ["getThumbnailForItemAsync"]
-  DUPCLOSURE R11 K49 [PROTO_25]
-  SETTABLEKS R11 R10 K50 ["fetchPluginInfoAsync"]
-  RETURN R10 1
+  SETTABLEKS R13 R12 K44 ["searchAssetsAsync"]
+  DUPCLOSURE R13 K45 [PROTO_24]
+  SETTABLEKS R13 R12 K46 ["fetchAssetInfoAsync"]
+  DUPCLOSURE R13 K47 [PROTO_25]
+  SETTABLEKS R13 R12 K48 ["grantUniverseUseAssetsPermissions"]
+  DUPCLOSURE R13 K49 [PROTO_26]
+  SETTABLEKS R13 R12 K50 ["getThumbnailUriForScope"]
+  DUPCLOSURE R13 K51 [PROTO_27]
+  SETTABLEKS R13 R12 K52 ["getThumbnailForScopeAsync"]
+  DUPCLOSURE R13 K53 [PROTO_28]
+  SETTABLEKS R13 R12 K54 ["getThumbnailForItem"]
+  DUPCLOSURE R13 K55 [PROTO_29]
+  SETTABLEKS R13 R12 K56 ["getThumbnailForItemAsync"]
+  DUPCLOSURE R13 K57 [PROTO_30]
+  SETTABLEKS R13 R12 K58 ["fetchPluginInfoAsync"]
+  RETURN R12 1

@@ -16,9 +16,9 @@ MAIN:
   CALL R3 2 1
   NEWTABLE R4 64 0
   JUMPIF R3 [+2]
-  LOADK R5 K14 ["rbxasset://studio_svg_textures/Lua/PlaceAnnotations/Light/Standard/AddAnnotation.png"]
+  LOADK R5 K14 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Light/Standard/AddAnnotation.png"]
   JUMP [+1]
-  LOADK R5 K15 ["rbxasset://studio_svg_textures/Lua/PlaceAnnotations/Light/Standard/AddAnnotationThick.png"]
+  LOADK R5 K15 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/RibbonAddAnnotationSmall.png"]
   SETTABLEKS R5 R4 K16 ["AddAnnotation"]
   LOADK R5 K17 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Light/Large/AnnotationsLarge.png"]
   SETTABLEKS R5 R4 K18 ["AnnotationLarge"]

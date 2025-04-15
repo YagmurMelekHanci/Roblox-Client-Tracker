@@ -1,45 +1,47 @@
 MAIN:
   PREPVARARGS 0
   NEWTABLE R0 8 0
+  LOADK R1 K0 ["FindReplaceAll"]
+  SETTABLEKS R1 R0 K1 ["PLUGIN_NAME"]
   LOADN R1 10
-  SETTABLEKS R1 R0 K0 ["MAX_SEARCH_HISTORY_QUERIES"]
+  SETTABLEKS R1 R0 K2 ["MAX_SEARCH_HISTORY_QUERIES"]
   LOADN R1 255
-  SETTABLEKS R1 R0 K1 ["MAX_SEARCH_HISTORY_LENGTH"]
+  SETTABLEKS R1 R0 K3 ["MAX_SEARCH_HISTORY_LENGTH"]
   LOADN R1 32
-  SETTABLEKS R1 R0 K2 ["MAX_RESULTS"]
-  DUPTABLE R1 K15 [{"FindText", "ReplaceText", "MatchCase", "MatchWholeWord", "MatchRegExPattern", "FindResults", "ReplaceResults", "CurrentSelectedResult", "IsSearching", "IsReplacing", "IsReplaced", "IsReplaceAll"}]
-  LOADK R2 K16 [""]
-  SETTABLEKS R2 R1 K3 ["FindText"]
-  LOADK R2 K16 [""]
-  SETTABLEKS R2 R1 K4 ["ReplaceText"]
+  SETTABLEKS R1 R0 K4 ["MAX_RESULTS"]
+  DUPTABLE R1 K17 [{"FindText", "ReplaceText", "MatchCase", "MatchWholeWord", "MatchRegExPattern", "FindResults", "ReplaceResults", "CurrentSelectedResult", "IsSearching", "IsReplacing", "IsReplaced", "IsReplaceAll"}]
+  LOADK R2 K18 [""]
+  SETTABLEKS R2 R1 K5 ["FindText"]
+  LOADK R2 K18 [""]
+  SETTABLEKS R2 R1 K6 ["ReplaceText"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K5 ["MatchCase"]
+  SETTABLEKS R2 R1 K7 ["MatchCase"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K6 ["MatchWholeWord"]
+  SETTABLEKS R2 R1 K8 ["MatchWholeWord"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K7 ["MatchRegExPattern"]
+  SETTABLEKS R2 R1 K9 ["MatchRegExPattern"]
   NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K8 ["FindResults"]
+  SETTABLEKS R2 R1 K10 ["FindResults"]
   NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K9 ["ReplaceResults"]
+  SETTABLEKS R2 R1 K11 ["ReplaceResults"]
   LOADNIL R2
-  SETTABLEKS R2 R1 K10 ["CurrentSelectedResult"]
+  SETTABLEKS R2 R1 K12 ["CurrentSelectedResult"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K11 ["IsSearching"]
+  SETTABLEKS R2 R1 K13 ["IsSearching"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K12 ["IsReplacing"]
+  SETTABLEKS R2 R1 K14 ["IsReplacing"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K13 ["IsReplaced"]
+  SETTABLEKS R2 R1 K15 ["IsReplaced"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K14 ["IsReplaceAll"]
-  SETTABLEKS R1 R0 K17 ["DEFAULT_FIND_REPLACE_STATE"]
+  SETTABLEKS R2 R1 K16 ["IsReplaceAll"]
+  SETTABLEKS R1 R0 K19 ["DEFAULT_FIND_REPLACE_STATE"]
   NEWTABLE R1 0 4
-  LOADK R2 K18 ["ScriptIcon"]
-  LOADK R3 K19 ["LocalScriptIcon"]
-  LOADK R4 K20 ["ModuleScriptIcon"]
-  LOADK R5 K21 ["AuroraScriptIcon"]
+  LOADK R2 K20 ["ScriptIcon"]
+  LOADK R3 K21 ["LocalScriptIcon"]
+  LOADK R4 K22 ["ModuleScriptIcon"]
+  LOADK R5 K23 ["AuroraScriptIcon"]
   SETLIST R1 R2 4 [1]
-  SETTABLEKS R1 R0 K22 ["ScriptIconNames"]
+  SETTABLEKS R1 R0 K24 ["ScriptIconNames"]
   LOADN R1 100
-  SETTABLEKS R1 R0 K23 ["INCREMENTAL_TEXT_SEARCH_DELAY_MS"]
+  SETTABLEKS R1 R0 K25 ["INCREMENTAL_TEXT_SEARCH_DELAY_MS"]
   RETURN R0 1

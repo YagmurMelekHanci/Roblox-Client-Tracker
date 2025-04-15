@@ -11,42 +11,31 @@ PROTO_1:
   MOVE R9 R6
   NAMECALL R7 R0 K1 ["FindFirstChild"]
   CALL R7 2 1
-  GETUPVAL R8 1
-  CALL R8 0 1
-  JUMPIFNOT R8 [+3]
-  JUMPIFEQKNIL R7 [+45]
-  JUMP [+10]
-  JUMPIFNOTEQKNIL R7 [+2]
-  LOADB R9 0 +1
-  LOADB R9 1
-  FASTCALL2K ASSERT R9 K2 [+4]
-  LOADK R10 K2 ["Avatar must have all limbs"]
-  GETIMPORT R8 K4 [assert]
-  CALL R8 2 0
-  LOADK R10 K5 ["AvatarPartScaleType"]
+  JUMPIFEQKNIL R7 [+34]
+  LOADK R10 K2 ["AvatarPartScaleType"]
   NAMECALL R8 R7 K1 ["FindFirstChild"]
   CALL R8 2 1
   JUMPIFEQKNIL R8 [+28]
-  LOADK R11 K6 ["StringValue"]
-  NAMECALL R9 R8 K7 ["IsA"]
+  LOADK R11 K3 ["StringValue"]
+  NAMECALL R9 R8 K4 ["IsA"]
   CALL R9 2 1
   JUMPIFNOT R9 [+22]
   LOADB R10 0
   JUMPIFEQKNIL R8 [+5]
-  LOADK R12 K6 ["StringValue"]
-  NAMECALL R10 R8 K7 ["IsA"]
+  LOADK R12 K3 ["StringValue"]
+  NAMECALL R10 R8 K4 ["IsA"]
   CALL R10 2 1
   GETUPVAL R12 0
-  GETTABLEKS R11 R12 K8 ["LUAU_ANALYZE_ERROR"]
+  GETTABLEKS R11 R12 K5 ["LUAU_ANALYZE_ERROR"]
   FASTCALL2 ASSERT R10 R11 [+3]
-  GETIMPORT R9 K4 [assert]
+  GETIMPORT R9 K7 [assert]
   CALL R9 2 0
   FASTCALL2 TABLE_INSERT R1 R8 [+5]
   MOVE R10 R1
   MOVE R11 R8
-  GETIMPORT R9 K11 [table.insert]
+  GETIMPORT R9 K10 [table.insert]
   CALL R9 2 0
-  FORGLOOP R2 2 [-54]
+  FORGLOOP R2 2 [-40]
   RETURN R1 1
 
 PROTO_2:
@@ -96,84 +85,73 @@ PROTO_4:
   MOVE R9 R6
   NAMECALL R7 R0 K1 ["FindFirstChild"]
   CALL R7 2 1
+  JUMPIFEQKNIL R7 [+56]
   GETUPVAL R8 1
   CALL R8 0 1
-  JUMPIFNOT R8 [+3]
-  JUMPIFEQKNIL R7 [+67]
-  JUMP [+10]
-  JUMPIFNOTEQKNIL R7 [+2]
-  LOADB R9 0 +1
-  LOADB R9 1
-  FASTCALL2K ASSERT R9 K2 [+4]
-  LOADK R10 K2 ["Avatar must have all limbs"]
-  GETIMPORT R8 K4 [assert]
-  CALL R8 2 0
-  GETUPVAL R8 2
-  CALL R8 0 1
   JUMPIFNOT R8 [+12]
-  LOADK R10 K5 ["BasePart"]
-  NAMECALL R8 R7 K6 ["IsA"]
+  LOADK R10 K2 ["BasePart"]
+  NAMECALL R8 R7 K3 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+47]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K7 ["setAvatarPartScaleType"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K4 ["setAvatarPartScaleType"]
   MOVE R9 R7
   MOVE R10 R1
   CALL R8 2 0
   JUMP [+40]
-  LOADK R10 K8 ["AvatarPartScaleType"]
+  LOADK R10 K5 ["AvatarPartScaleType"]
   NAMECALL R8 R7 K1 ["FindFirstChild"]
   CALL R8 2 1
   JUMPIFNOTEQKNIL R8 [+13]
-  GETIMPORT R9 K11 [Instance.new]
-  LOADK R10 K12 ["StringValue"]
+  GETIMPORT R9 K8 [Instance.new]
+  LOADK R10 K9 ["StringValue"]
   CALL R9 1 1
-  LOADK R10 K8 ["AvatarPartScaleType"]
-  SETTABLEKS R10 R9 K13 ["Name"]
-  SETTABLEKS R1 R9 K14 ["Value"]
-  SETTABLEKS R7 R9 K15 ["Parent"]
+  LOADK R10 K5 ["AvatarPartScaleType"]
+  SETTABLEKS R10 R9 K10 ["Name"]
+  SETTABLEKS R1 R9 K11 ["Value"]
+  SETTABLEKS R7 R9 K12 ["Parent"]
   JUMP [+22]
-  LOADK R11 K12 ["StringValue"]
-  NAMECALL R9 R8 K6 ["IsA"]
+  LOADK R11 K9 ["StringValue"]
+  NAMECALL R9 R8 K3 ["IsA"]
   CALL R9 2 1
   JUMPIFNOT R9 [+17]
   LOADB R10 0
   JUMPIFEQKNIL R8 [+5]
-  LOADK R12 K12 ["StringValue"]
-  NAMECALL R10 R8 K6 ["IsA"]
+  LOADK R12 K9 ["StringValue"]
+  NAMECALL R10 R8 K3 ["IsA"]
   CALL R10 2 1
   GETUPVAL R12 0
-  GETTABLEKS R11 R12 K16 ["LUAU_ANALYZE_ERROR"]
+  GETTABLEKS R11 R12 K13 ["LUAU_ANALYZE_ERROR"]
   FASTCALL2 ASSERT R10 R11 [+3]
-  GETIMPORT R9 K4 [assert]
+  GETIMPORT R9 K15 [assert]
   CALL R9 2 0
-  SETTABLEKS R1 R8 K14 ["Value"]
-  FORGLOOP R2 2 [-76]
-  GETUPVAL R2 2
+  SETTABLEKS R1 R8 K11 ["Value"]
+  FORGLOOP R2 2 [-62]
+  GETUPVAL R2 1
   CALL R2 0 1
   JUMPIFNOT R2 [+35]
-  NAMECALL R2 R0 K17 ["GetChildren"]
+  NAMECALL R2 R0 K16 ["GetChildren"]
   CALL R2 1 3
   FORGPREP R2
-  LOADK R9 K18 ["Accessory"]
-  NAMECALL R7 R6 K6 ["IsA"]
+  LOADK R9 K17 ["Accessory"]
+  NAMECALL R7 R6 K3 ["IsA"]
   CALL R7 2 1
   JUMPIFNOT R7 [+24]
-  LOADK R9 K19 ["Handle"]
+  LOADK R9 K18 ["Handle"]
   NAMECALL R7 R6 K1 ["FindFirstChild"]
   CALL R7 2 1
   JUMPIFEQKNIL R7 [+19]
-  LOADK R10 K5 ["BasePart"]
-  NAMECALL R8 R7 K6 ["IsA"]
+  LOADK R10 K2 ["BasePart"]
+  NAMECALL R8 R7 K3 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+13]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K20 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
-  NAMECALL R8 R7 K21 ["GetAttribute"]
+  GETTABLEKS R10 R11 K19 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+  NAMECALL R8 R7 K20 ["GetAttribute"]
   CALL R8 2 1
   JUMPIFNOT R8 [+6]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K7 ["setAvatarPartScaleType"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K4 ["setAvatarPartScaleType"]
   MOVE R9 R7
   MOVE R10 R1
   CALL R8 2 0
@@ -203,56 +181,49 @@ MAIN:
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K6 ["Src"]
   GETTABLEKS R6 R7 K11 ["Flags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagAvatarPreviewerSafeCharaterEncoding"]
+  GETTABLEKS R5 R6 K12 ["getFFlagFixLayeredClothingAssignment"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Flags"]
-  GETTABLEKS R6 R7 K13 ["getFFlagFixLayeredClothingAssignment"]
-  CALL R5 1 1
-  NEWTABLE R6 8 0
-  DUPCLOSURE R7 K14 [PROTO_0]
-  DUPTABLE R8 K18 [{"Classic", "ProportionsSlender", "ProportionsNormal"}]
-  DUPTABLE R10 K22 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K19 ["BodyTypeScale"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K20 ["BodyProportionScale"]
-  LOADK R11 K23 [5.25]
-  SETTABLEKS R11 R10 K21 ["GuessMaxHeight"]
-  MOVE R9 R10
-  SETTABLEKS R9 R8 K15 ["Classic"]
-  DUPTABLE R10 K22 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K19 ["BodyTypeScale"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K20 ["BodyProportionScale"]
-  LOADK R11 K24 [5.625]
-  SETTABLEKS R11 R10 K21 ["GuessMaxHeight"]
-  MOVE R9 R10
-  SETTABLEKS R9 R8 K16 ["ProportionsSlender"]
-  DUPTABLE R10 K22 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K19 ["BodyTypeScale"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K20 ["BodyProportionScale"]
-  LOADK R11 K25 [∞]
-  SETTABLEKS R11 R10 K21 ["GuessMaxHeight"]
-  MOVE R9 R10
-  SETTABLEKS R9 R8 K17 ["ProportionsNormal"]
-  SETTABLEKS R8 R6 K26 ["types"]
-  DUPCLOSURE R8 K27 [PROTO_1]
+  NEWTABLE R5 8 0
+  DUPCLOSURE R6 K13 [PROTO_0]
+  DUPTABLE R7 K17 [{"Classic", "ProportionsSlender", "ProportionsNormal"}]
+  DUPTABLE R9 K21 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K18 ["BodyTypeScale"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K19 ["BodyProportionScale"]
+  LOADK R10 K22 [5.25]
+  SETTABLEKS R10 R9 K20 ["GuessMaxHeight"]
+  MOVE R8 R9
+  SETTABLEKS R8 R7 K14 ["Classic"]
+  DUPTABLE R9 K21 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K18 ["BodyTypeScale"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K19 ["BodyProportionScale"]
+  LOADK R10 K23 [5.625]
+  SETTABLEKS R10 R9 K20 ["GuessMaxHeight"]
+  MOVE R8 R9
+  SETTABLEKS R8 R7 K15 ["ProportionsSlender"]
+  DUPTABLE R9 K21 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K18 ["BodyTypeScale"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K19 ["BodyProportionScale"]
+  LOADK R10 K24 [∞]
+  SETTABLEKS R10 R9 K20 ["GuessMaxHeight"]
+  MOVE R8 R9
+  SETTABLEKS R8 R7 K16 ["ProportionsNormal"]
+  SETTABLEKS R7 R5 K25 ["types"]
+  DUPCLOSURE R7 K26 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R7 R5 K27 ["allAvatarPartScaleTypeValueObjects"]
+  DUPCLOSURE R7 K28 [PROTO_2]
+  SETTABLEKS R7 R5 K29 ["computeAvatarPartScaleType"]
+  DUPCLOSURE R7 K30 [PROTO_3]
+  SETTABLEKS R7 R5 K31 ["getAvatarPartScaleType"]
+  DUPCLOSURE R7 K32 [PROTO_4]
   CAPTURE VAL R1
   CAPTURE VAL R4
-  SETTABLEKS R8 R6 K28 ["allAvatarPartScaleTypeValueObjects"]
-  DUPCLOSURE R8 K29 [PROTO_2]
-  SETTABLEKS R8 R6 K30 ["computeAvatarPartScaleType"]
-  DUPCLOSURE R8 K31 [PROTO_3]
-  SETTABLEKS R8 R6 K32 ["getAvatarPartScaleType"]
-  DUPCLOSURE R8 K33 [PROTO_4]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R5
   CAPTURE VAL R2
-  SETTABLEKS R8 R6 K34 ["setAvatarPartScaleTypeValueObjects"]
-  RETURN R6 1
+  SETTABLEKS R7 R5 K33 ["setAvatarPartScaleTypeValueObjects"]
+  RETURN R5 1

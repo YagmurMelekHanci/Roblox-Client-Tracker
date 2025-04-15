@@ -56,11 +56,7 @@ PROTO_2:
   LOADNIL R1
   SETTABLEKS R1 R0 K1 ["_user"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K2 ["OnUsernameFetched"]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K3 ["OnSelectionChanged"]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K4 ["OnInputChanged"]
+  SETTABLEKS R1 R0 K2 ["OnInputChanged"]
   RETURN R0 0
 
 PROTO_3:

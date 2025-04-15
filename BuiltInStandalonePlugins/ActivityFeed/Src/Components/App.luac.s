@@ -41,20 +41,11 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+8]
-  GETUPVAL R1 1
+  GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["plugin"]
   LOADK R2 K1 ["publishgame"]
   NAMECALL R0 R0 K2 ["Invoke"]
   CALL R0 2 0
-  RETURN R0 0
-  GETUPVAL R0 2
-  LOADB R2 0
-  LOADB R3 0
-  GETIMPORT R4 K6 [Enum.StudioCloseMode.None]
-  NAMECALL R0 R0 K7 ["ShowSaveOrPublishPlaceToRoblox"]
-  CALL R0 4 0
   RETURN R0 0
 
 PROTO_4:
@@ -139,90 +130,80 @@ PROTO_10:
   LOADK R7 K4 ["GuiService"]
   NAMECALL R5 R5 K5 ["GetService"]
   CALL R5 2 1
-  GETIMPORT R6 K3 [game]
-  LOADK R8 K6 ["StudioPublishService"]
-  NAMECALL R6 R6 K5 ["GetService"]
-  CALL R6 2 1
-  DUPTABLE R7 K17 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "useCollaborators", "DEPRECATED_usePlaceAndUniverseId", "usePlaceAndUniverseId", "useConnectToDataModelSessionEffect", "DEPRECATED_openBrowserLink", "openLink", "contextType", "getActivityHistoryManager"}]
-  GETUPVAL R8 2
-  SETTABLEKS R8 R7 K7 ["activityHistoryClient"]
-  NEWCLOSURE R8 P1
-  CAPTURE UPVAL U3
+  DUPTABLE R6 K15 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "useCollaborators", "usePlaceAndUniverseId", "useConnectToDataModelSessionEffect", "DEPRECATED_openBrowserLink", "openLink", "contextType", "getActivityHistoryManager"}]
+  GETUPVAL R7 2
+  SETTABLEKS R7 R6 K6 ["activityHistoryClient"]
+  NEWCLOSURE R7 P1
   CAPTURE VAL R0
-  CAPTURE VAL R6
-  SETTABLEKS R8 R7 K8 ["showSaveOrPublishPlaceToRobloxFn"]
-  GETUPVAL R8 4
-  SETTABLEKS R8 R7 K9 ["useCollaborators"]
-  GETUPVAL R8 0
-  SETTABLEKS R8 R7 K10 ["DEPRECATED_usePlaceAndUniverseId"]
-  NEWCLOSURE R8 P2
+  SETTABLEKS R7 R6 K7 ["showSaveOrPublishPlaceToRobloxFn"]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K8 ["useCollaborators"]
+  NEWCLOSURE R7 P2
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  SETTABLEKS R8 R7 K11 ["usePlaceAndUniverseId"]
-  SETTABLEKS R4 R7 K12 ["useConnectToDataModelSessionEffect"]
-  NEWCLOSURE R8 P3
+  SETTABLEKS R7 R6 K9 ["usePlaceAndUniverseId"]
+  SETTABLEKS R4 R6 K10 ["useConnectToDataModelSessionEffect"]
+  NEWCLOSURE R7 P3
   CAPTURE VAL R5
-  SETTABLEKS R8 R7 K13 ["DEPRECATED_openBrowserLink"]
-  NEWCLOSURE R8 P4
+  SETTABLEKS R7 R6 K11 ["DEPRECATED_openBrowserLink"]
+  NEWCLOSURE R7 P4
   CAPTURE VAL R0
-  SETTABLEKS R8 R7 K14 ["openLink"]
-  LOADK R8 K18 ["real context"]
-  SETTABLEKS R8 R7 K15 ["contextType"]
-  NEWCLOSURE R8 P5
+  SETTABLEKS R7 R6 K12 ["openLink"]
+  LOADK R7 K16 ["real context"]
+  SETTABLEKS R7 R6 K13 ["contextType"]
+  NEWCLOSURE R7 P5
   CAPTURE VAL R0
-  SETTABLEKS R8 R7 K16 ["getActivityHistoryManager"]
+  SETTABLEKS R7 R6 K14 ["getActivityHistoryManager"]
+  GETUPVAL R7 4
+  JUMPIFNOT R7 [+51]
+  NEWCLOSURE R7 P6
+  CAPTURE VAL R0
   GETUPVAL R8 5
-  JUMPIFNOT R8 [+51]
-  NEWCLOSURE R8 P6
+  DUPTABLE R9 K23 [{"Intent", "Heading", "Body", "ActionPrimary", "Modal", "OnClosed"}]
+  LOADK R10 K24 ["Warning"]
+  SETTABLEKS R10 R9 K17 ["Intent"]
+  GETTABLEKS R10 R0 K25 ["errorHeader"]
+  SETTABLEKS R10 R9 K18 ["Heading"]
+  GETTABLEKS R10 R0 K26 ["errorMsg"]
+  SETTABLEKS R10 R9 K19 ["Body"]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K27 ["Dictionary"]
+  GETTABLEKS R10 R11 K28 ["join"]
+  GETUPVAL R12 7
+  GETTABLEKS R11 R12 K29 ["OK"]
+  DUPTABLE R12 K31 [{"OnActivated"}]
+  SETTABLEKS R7 R12 K30 ["OnActivated"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K20 ["ActionPrimary"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K21 ["Modal"]
+  SETTABLEKS R7 R9 K22 ["OnClosed"]
+  CALL R8 1 1
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K32 ["useEffect"]
+  NEWCLOSURE R10 P7
   CAPTURE VAL R0
-  GETUPVAL R9 6
-  DUPTABLE R10 K25 [{"Intent", "Heading", "Body", "ActionPrimary", "Modal", "OnClosed"}]
-  LOADK R11 K26 ["Warning"]
-  SETTABLEKS R11 R10 K19 ["Intent"]
-  GETTABLEKS R11 R0 K27 ["errorHeader"]
-  SETTABLEKS R11 R10 K20 ["Heading"]
-  GETTABLEKS R11 R0 K28 ["errorMsg"]
-  SETTABLEKS R11 R10 K21 ["Body"]
-  GETUPVAL R13 7
-  GETTABLEKS R12 R13 K29 ["Dictionary"]
-  GETTABLEKS R11 R12 K30 ["join"]
-  GETUPVAL R13 8
-  GETTABLEKS R12 R13 K31 ["OK"]
-  DUPTABLE R13 K33 [{"OnActivated"}]
-  SETTABLEKS R8 R13 K32 ["OnActivated"]
+  CAPTURE VAL R8
+  NEWTABLE R11 0 3
+  MOVE R12 R8
+  GETTABLEKS R13 R0 K26 ["errorMsg"]
+  GETTABLEKS R14 R0 K25 ["errorHeader"]
+  SETLIST R11 R12 3 [1]
+  CALL R9 2 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K33 ["createElement"]
+  GETUPVAL R8 8
+  MOVE R9 R6
+  DUPTABLE R10 K35 [{"ActivityHistoryMain"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K33 ["createElement"]
+  GETUPVAL R12 9
+  DUPTABLE R13 K37 [{"isPublishedGame"}]
+  SETTABLEKS R3 R13 K36 ["isPublishedGame"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K22 ["ActionPrimary"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K23 ["Modal"]
-  SETTABLEKS R8 R10 K24 ["OnClosed"]
-  CALL R9 1 1
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K34 ["useEffect"]
-  NEWCLOSURE R11 P7
-  CAPTURE VAL R0
-  CAPTURE VAL R9
-  NEWTABLE R12 0 3
-  MOVE R13 R9
-  GETTABLEKS R14 R0 K28 ["errorMsg"]
-  GETTABLEKS R15 R0 K27 ["errorHeader"]
-  SETLIST R12 R13 3 [1]
-  CALL R10 2 0
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K35 ["createElement"]
-  GETUPVAL R9 9
-  MOVE R10 R7
-  DUPTABLE R11 K37 [{"ActivityHistoryMain"}]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K35 ["createElement"]
-  GETUPVAL R13 10
-  DUPTABLE R14 K39 [{"plugin", "isPublishedGame"}]
-  GETTABLEKS R15 R0 K0 ["plugin"]
-  SETTABLEKS R15 R14 K0 ["plugin"]
-  SETTABLEKS R3 R14 K38 ["isPublishedGame"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K36 ["ActivityHistoryMain"]
-  CALL R8 3 -1
-  RETURN R8 -1
+  SETTABLEKS R11 R10 K34 ["ActivityHistoryMain"]
+  CALL R7 3 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0
@@ -278,28 +259,23 @@ MAIN:
   GETTABLEKS R11 R12 K20 ["Cryo"]
   CALL R10 1 1
   GETIMPORT R11 K22 [game]
-  LOADK R13 K23 ["COLLAB6856FixAHPublish"]
+  LOADK R13 K23 ["AHAddPackageAndScriptEvents"]
   NAMECALL R11 R11 K24 ["GetFastFlag"]
   CALL R11 2 1
-  GETIMPORT R12 K22 [game]
-  LOADK R14 K25 ["AHAddPackageAndScriptEvents"]
-  NAMECALL R12 R12 K24 ["GetFastFlag"]
-  CALL R12 2 1
-  GETTABLEKS R15 R9 K26 ["UI"]
-  GETTABLEKS R14 R15 K16 ["Hooks"]
-  GETTABLEKS R13 R14 K27 ["useDialog"]
-  GETTABLEKS R15 R9 K28 ["Util"]
-  GETTABLEKS R14 R15 K29 ["DialogAction"]
-  DUPCLOSURE R15 K30 [PROTO_10]
+  GETTABLEKS R14 R9 K25 ["UI"]
+  GETTABLEKS R13 R14 K16 ["Hooks"]
+  GETTABLEKS R12 R13 K26 ["useDialog"]
+  GETTABLEKS R14 R9 K27 ["Util"]
+  GETTABLEKS R13 R14 K28 ["DialogAction"]
+  DUPCLOSURE R14 K29 [PROTO_10]
   CAPTURE VAL R8
   CAPTURE VAL R1
   CAPTURE VAL R2
-  CAPTURE VAL R11
   CAPTURE VAL R7
+  CAPTURE VAL R11
   CAPTURE VAL R12
-  CAPTURE VAL R13
   CAPTURE VAL R10
-  CAPTURE VAL R14
+  CAPTURE VAL R13
   CAPTURE VAL R4
   CAPTURE VAL R5
-  RETURN R15 1
+  RETURN R14 1

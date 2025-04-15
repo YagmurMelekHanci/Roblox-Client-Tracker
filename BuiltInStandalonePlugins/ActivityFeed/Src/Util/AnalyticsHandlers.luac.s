@@ -38,27 +38,14 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETIMPORT R5 K1 [game]
-  LOADK R7 K2 ["ActivityHistoryFeatureTelemetry"]
-  NAMECALL R5 R5 K3 ["GetFastFlag"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+15]
   GETUPVAL R5 0
-  DUPTABLE R6 K9 [{"analyticsEventType", "eventtype", "deeplinktype", "placeId", "universeId"}]
-  LOADK R7 K10 ["deeplink"]
-  SETTABLEKS R7 R6 K4 ["analyticsEventType"]
-  SETTABLEKS R1 R6 K5 ["eventtype"]
-  SETTABLEKS R2 R6 K6 ["deeplinktype"]
-  SETTABLEKS R3 R6 K7 ["placeId"]
-  SETTABLEKS R4 R6 K8 ["universeId"]
-  CALL R5 1 0
-  RETURN R0 0
-  GETUPVAL R5 0
-  DUPTABLE R6 K11 [{"analyticsEventType", "eventtype", "deeplinktype"}]
-  LOADK R7 K10 ["deeplink"]
-  SETTABLEKS R7 R6 K4 ["analyticsEventType"]
-  SETTABLEKS R1 R6 K5 ["eventtype"]
-  SETTABLEKS R2 R6 K6 ["deeplinktype"]
+  DUPTABLE R6 K5 [{"analyticsEventType", "eventtype", "deeplinktype", "placeId", "universeId"}]
+  LOADK R7 K6 ["deeplink"]
+  SETTABLEKS R7 R6 K0 ["analyticsEventType"]
+  SETTABLEKS R1 R6 K1 ["eventtype"]
+  SETTABLEKS R2 R6 K2 ["deeplinktype"]
+  SETTABLEKS R3 R6 K3 ["placeId"]
+  SETTABLEKS R4 R6 K4 ["universeId"]
   CALL R5 1 0
   RETURN R0 0
 

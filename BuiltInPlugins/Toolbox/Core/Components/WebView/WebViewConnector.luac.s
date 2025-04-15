@@ -21,40 +21,76 @@ PROTO_2:
   RETURN R1 1
 
 PROTO_3:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["state"]
-  GETTABLEKS R1 R2 K1 ["didInitCheckPass"]
+  JUMPIFNOTEQKS R0 K0 ["beforeInteractive"] [+13]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["onWebViewTimingEvent"]
+  GETIMPORT R3 K4 [DateTime.now]
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K5 ["UnixTimestampMillis"]
+  LOADNIL R3
+  LOADNIL R4
+  CALL R1 3 0
+  JUMP [+13]
+  JUMPIFNOTEQKS R0 K6 ["afterInteractive"] [+12]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["onWebViewTimingEvent"]
+  LOADNIL R2
+  GETIMPORT R4 K4 [DateTime.now]
+  CALL R4 0 1
+  GETTABLEKS R3 R4 K5 ["UnixTimestampMillis"]
+  LOADNIL R4
+  CALL R1 3 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K7 ["state"]
+  GETTABLEKS R1 R2 K8 ["didInitCheckPass"]
   JUMPIF R1 [+14]
-  GETUPVAL R1 1
+  GETUPVAL R1 2
   MOVE R3 R0
-  NAMECALL R1 R1 K2 ["find"]
+  NAMECALL R1 R1 K9 ["find"]
   CALL R1 2 1
   JUMPIFNOT R1 [+8]
-  GETUPVAL R1 0
-  DUPTABLE R3 K3 [{"didInitCheckPass"}]
+  GETUPVAL R1 1
+  DUPTABLE R3 K10 [{"didInitCheckPass"}]
   LOADB R4 1
-  SETTABLEKS R4 R3 K1 ["didInitCheckPass"]
-  NAMECALL R1 R1 K4 ["setState"]
+  SETTABLEKS R4 R3 K8 ["didInitCheckPass"]
+  NAMECALL R1 R1 K11 ["setState"]
   CALL R1 2 0
   RETURN R0 0
 
 PROTO_4:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["isMounted"]
-  JUMPIFNOT R0 [+15]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K1 ["_toolboxManagerComponent"]
-  DUPTABLE R2 K4 [{"Url", "OffsetHeight"}]
-  GETUPVAL R3 1
-  SETTABLEKS R3 R2 K2 ["Url"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K5 ["TAB_WIDGET_HEIGHT"]
-  SETTABLEKS R3 R2 K3 ["OffsetHeight"]
-  NAMECALL R0 R0 K6 ["InitializeWebBrowserWidgetAsync"]
-  CALL R0 2 0
+  GETTABLEKS R0 R1 K0 ["onWebViewTimingEvent"]
+  LOADNIL R1
+  LOADNIL R2
+  GETIMPORT R4 K3 [DateTime.now]
+  CALL R4 0 1
+  GETTABLEKS R3 R4 K4 ["UnixTimestampMillis"]
+  CALL R0 3 0
   RETURN R0 0
 
 PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["isMounted"]
+  JUMPIFNOT R1 [+22]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["onRetryWebViewInit"]
+  GETUPVAL R2 2
+  MOVE R3 R0
+  GETUPVAL R4 3
+  CALL R1 3 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["_toolboxManagerComponent"]
+  DUPTABLE R3 K5 [{"Url", "OffsetHeight"}]
+  GETUPVAL R4 4
+  SETTABLEKS R4 R3 K3 ["Url"]
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K6 ["TAB_WIDGET_HEIGHT"]
+  SETTABLEKS R4 R3 K4 ["OffsetHeight"]
+  NAMECALL R1 R1 K7 ["InitializeWebBrowserWidgetAsync"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["state"]
   GETTABLEKS R1 R2 K1 ["didInitCheckPass"]
@@ -74,39 +110,38 @@ PROTO_5:
   MOVE R2 R0
   LOADK R3 K7 ["WEBVIEW_INVALID_CHILD"]
   CALL R1 2 1
-  JUMPIFNOT R1 [+31]
+  JUMPIFNOT R1 [+29]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K8 ["_initRetryCount"]
   GETUPVAL R2 1
-  JUMPIFNOTLT R1 R2 [+33]
+  JUMPIFNOTLT R1 R2 [+24]
   GETUPVAL R1 0
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K8 ["_initRetryCount"]
   ADDK R2 R3 K9 [1]
   SETTABLEKS R2 R1 K8 ["_initRetryCount"]
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K10 ["onRetryWebViewInit"]
-  MOVE R2 R0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K8 ["_initRetryCount"]
-  GETUPVAL R4 1
-  CALL R1 3 0
-  GETIMPORT R1 K13 [task.delay]
-  GETUPVAL R2 3
-  NEWCLOSURE R3 P0
+  NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U3
   CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CALL R1 2 0
+  GETIMPORT R2 K12 [task.delay]
+  GETUPVAL R3 5
+  MOVE R4 R1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["_initRetryCount"]
+  CALL R2 3 0
   RETURN R0 0
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K14 ["props"]
-  GETTABLEKS R1 R2 K15 ["HandleFailedInitCheck"]
+  GETTABLEKS R2 R3 K13 ["props"]
+  GETTABLEKS R1 R2 K14 ["HandleFailedInitCheck"]
   MOVE R2 R0
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Plugin"]
   JUMPIF R2 [+5]
@@ -138,54 +173,64 @@ PROTO_6:
   CALL R3 1 1
   GETTABLEKS R6 R0 K6 ["_toolboxManagerComponent"]
   GETTABLEKS R5 R6 K15 ["WebBrowserWidgetLoadProgressEvent"]
-  JUMPIFNOT R5 [+11]
+  JUMPIFNOT R5 [+12]
   GETTABLEKS R5 R0 K6 ["_toolboxManagerComponent"]
   GETTABLEKS R4 R5 K15 ["WebBrowserWidgetLoadProgressEvent"]
   NEWCLOSURE R6 P0
-  CAPTURE VAL R0
   CAPTURE UPVAL U2
-  NAMECALL R4 R4 K16 ["connect"]
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  NAMECALL R4 R4 K16 ["Connect"]
   CALL R4 2 1
   JUMP [+1]
   LOADNIL R4
   SETTABLEKS R4 R0 K17 ["_webBrowserLoadProgressConnection"]
   GETTABLEKS R5 R0 K6 ["_toolboxManagerComponent"]
-  GETTABLEKS R4 R5 K18 ["WebBrowserWidgetErrorEvent"]
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CAPTURE VAL R3
-  CAPTURE UPVAL U6
-  NAMECALL R4 R4 K16 ["connect"]
+  GETTABLEKS R4 R5 K18 ["WebBrowserWidgetLoadedEvent"]
+  DUPCLOSURE R6 K19 [PROTO_4]
+  CAPTURE UPVAL U2
+  NAMECALL R4 R4 K16 ["Connect"]
   CALL R4 2 1
-  SETTABLEKS R4 R0 K19 ["_webBrowserErrorConnection"]
+  SETTABLEKS R4 R0 K20 ["_webBrowserLoadedConnection"]
+  GETTABLEKS R5 R0 K6 ["_toolboxManagerComponent"]
+  GETTABLEKS R4 R5 K21 ["WebBrowserWidgetErrorEvent"]
+  NEWCLOSURE R6 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U2
+  CAPTURE VAL R3
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  NAMECALL R4 R4 K16 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K22 ["_webBrowserErrorConnection"]
   GETTABLEKS R4 R0 K6 ["_toolboxManagerComponent"]
-  DUPTABLE R6 K22 [{"Url", "OffsetHeight"}]
-  SETTABLEKS R3 R6 K20 ["Url"]
-  GETUPVAL R8 6
-  GETTABLEKS R7 R8 K23 ["TAB_WIDGET_HEIGHT"]
-  SETTABLEKS R7 R6 K21 ["OffsetHeight"]
-  NAMECALL R4 R4 K24 ["InitializeWebBrowserWidgetAsync"]
+  DUPTABLE R6 K25 [{"Url", "OffsetHeight"}]
+  SETTABLEKS R3 R6 K23 ["Url"]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K26 ["TAB_WIDGET_HEIGHT"]
+  SETTABLEKS R7 R6 K24 ["OffsetHeight"]
+  NAMECALL R4 R4 K27 ["InitializeWebBrowserWidgetAsync"]
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_7:
-  GETGLOBAL R0 K0 ["getStudioThemeName"]
+PROTO_8:
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["getStudioThemeName"]
-  CALL R1 0 -1
-  CALL R0 -1 1
-  GETUPVAL R1 1
-  LOADK R3 K1 ["internal:changeTheme"]
-  DUPTABLE R4 K3 [{"theme"}]
-  SETTABLEKS R0 R4 K2 ["theme"]
-  NAMECALL R1 R1 K4 ["call"]
-  CALL R1 3 0
+  GETTABLEKS R1 R2 K0 ["getTabKeyForCategoryName"]
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["categoryName"]
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["MARKETPLACE_KEY"]
+  JUMPIFEQ R1 R2 [+9]
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETTABLEKS R2 R3 K4 ["ChangeMarketplaceTab"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["MARKETPLACE_KEY"]
+  CALL R2 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   NEWTABLE R1 0 0
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["state"]
@@ -204,7 +249,7 @@ PROTO_8:
   SETTABLEKS R1 R2 K2 ["capabilities"]
   RETURN R2 1
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["state"]
   GETTABLEKS R0 R1 K1 ["didInitCheckPass"]
@@ -215,7 +260,7 @@ PROTO_9:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   GETTABLEKS R2 R0 K1 ["analyticsEventName"]
   ORK R1 R2 K0 [""]
   GETTABLEKS R2 R0 K2 ["analyticsEventData"]
@@ -228,7 +273,7 @@ PROTO_10:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
   GETTABLEKS R2 R0 K1 ["analyticsEventName"]
   ORK R1 R2 K0 [""]
   GETTABLEKS R2 R0 K2 ["analyticsEventData"]
@@ -238,28 +283,33 @@ PROTO_11:
   GETTABLEKS R3 R4 K3 ["getWebViewTrackingAttributes"]
   MOVE R4 R2
   CALL R3 1 1
-  GETGLOBAL R4 K4 ["shouldUseDeferredAnalytics"]
+  JUMPIFNOTEQKS R1 K4 ["MarketplaceAssetImpression"] [+6]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["logFirstStoreAssetImpression"]
+  LOADB R5 1
+  CALL R4 1 0
+  GETGLOBAL R4 K6 ["shouldUseDeferredAnalytics"]
   MOVE R5 R1
   CALL R4 1 1
   JUMPIFNOT R4 [+9]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K5 ["sendEventDeferred"]
+  GETTABLEKS R4 R5 K7 ["sendEventDeferred"]
   GETUPVAL R5 2
-  LOADK R6 K6 ["marketplace"]
+  LOADK R6 K8 ["marketplace"]
   MOVE R7 R1
   MOVE R8 R3
   CALL R4 4 0
   RETURN R0 0
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K7 ["sendEventImmediately"]
+  GETTABLEKS R4 R5 K9 ["sendEventImmediately"]
   GETUPVAL R5 2
-  LOADK R6 K6 ["marketplace"]
+  LOADK R6 K8 ["marketplace"]
   MOVE R7 R1
   MOVE R8 R3
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R0 0
   JUMPIFNOT R0 [+21]
   GETUPVAL R0 1
@@ -279,7 +329,7 @@ PROTO_12:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETIMPORT R1 K1 [pcall]
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U0
@@ -288,7 +338,7 @@ PROTO_13:
   CALL R1 1 2
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETUPVAL R0 0
   JUMPIFNOT R0 [+8]
   GETUPVAL R0 0
@@ -299,7 +349,7 @@ PROTO_14:
   SETUPVAL R0 1
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   LOADB R1 0
   GETIMPORT R2 K1 [pcall]
   NEWCLOSURE R3 P0
@@ -312,7 +362,7 @@ PROTO_15:
   CLOSEUPVALS R1
   RETURN R4 1
 
-PROTO_16:
+PROTO_17:
   GETTABLEKS R2 R0 K0 ["responseBody"]
   GETTABLEKS R1 R2 K1 ["data"]
   GETTABLEN R3 R1 1
@@ -337,7 +387,7 @@ PROTO_16:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_18:
   DUPTABLE R1 K2 [{"Asset", "Creator"}]
   DUPTABLE R2 K7 [{"Id", "Name", "TypeId", "AssetSubTypes"}]
   GETTABLEKS R3 R0 K8 ["assetId"]
@@ -411,158 +461,251 @@ PROTO_17:
   CLOSEUPVALS R4
   RETURN R7 1
 
-PROTO_18:
+PROTO_19:
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["categoryName"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["getTabKeyForCategoryName"]
-  MOVE R3 R1
-  CALL R2 1 1
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K3 ["MARKETPLACE_KEY"]
-  JUMPIFEQ R2 R3 [+10]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["props"]
-  GETTABLEKS R3 R4 K4 ["ChangeMarketplaceTab"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K3 ["MARKETPLACE_KEY"]
-  CALL R3 1 0
-  GETIMPORT R5 K7 [Enum.AssetType]
-  GETTABLE R4 R5 R0
-  GETTABLEKS R3 R4 K8 ["Value"]
-  GETUPVAL R4 2
-  LOADK R6 K9 ["tabChange"]
-  DUPTABLE R7 K11 [{"categoryType"}]
-  SETTABLEKS R3 R7 K10 ["categoryType"]
-  NAMECALL R4 R4 K12 ["call"]
-  CALL R4 3 0
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K13 ["openedExternallyByAssetType"]
-  MOVE R5 R0
-  CALL R4 1 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["didInitCheckPass"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K2 ["changeToStoreTab"]
+  CALL R1 1 0
+  GETUPVAL R1 1
+  LOADK R3 K3 ["performSearch"]
+  DUPTABLE R4 K6 [{"assetTypeId", "keyword"}]
+  GETIMPORT R6 K10 [Enum.AssetType.Model]
+  GETTABLEKS R5 R6 K11 ["Value"]
+  SETTABLEKS R5 R4 K4 ["assetTypeId"]
+  SETTABLEKS R0 R4 K5 ["keyword"]
+  NAMECALL R1 R1 K12 ["call"]
+  CALL R1 3 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_20:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K1 ["didInitCheckPass"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K2 ["changeToStoreTab"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  LOADK R2 K3 ["tabChange"]
+  DUPTABLE R3 K5 [{"assetTypeId"}]
+  GETIMPORT R5 K9 [Enum.AssetType.Plugin]
+  GETTABLEKS R4 R5 K10 ["Value"]
+  SETTABLEKS R4 R3 K4 ["assetTypeId"]
+  NAMECALL R0 R0 K11 ["call"]
+  CALL R0 3 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K12 ["openedFromPluginManagement"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_21:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["didInitCheckPass"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K2 ["changeToStoreTab"]
+  CALL R1 1 0
+  GETIMPORT R3 K5 [Enum.AssetType]
+  GETTABLE R2 R3 R0
+  GETTABLEKS R1 R2 K6 ["Value"]
+  GETUPVAL R2 1
+  LOADK R4 K7 ["tabChange"]
+  DUPTABLE R5 K9 [{"assetTypeId"}]
+  SETTABLEKS R1 R5 K8 ["assetTypeId"]
+  NAMECALL R2 R2 K10 ["call"]
+  CALL R2 3 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K11 ["openedExternallyByAssetType"]
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K1 ["didInitCheckPass"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETGLOBAL R0 K2 ["getStudioThemeName"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["getStudioThemeName"]
+  CALL R1 0 -1
+  CALL R0 -1 1
+  GETUPVAL R1 2
+  LOADK R3 K3 ["internal:changeTheme"]
+  DUPTABLE R4 K5 [{"theme"}]
+  SETTABLEKS R0 R4 K4 ["theme"]
+  NAMECALL R1 R1 K6 ["call"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_23:
   GETTABLEKS R1 R0 K0 ["props"]
   LOADB R2 1
   SETTABLEKS R2 R0 K1 ["isMounted"]
-  GETTABLEKS R2 R1 K2 ["WebViewMessageBusContext"]
+  GETTABLEKS R2 R1 K2 ["WebViewManagerContext"]
   NAMECALL R2 R2 K3 ["get"]
   CALL R2 1 1
   NAMECALL R3 R2 K4 ["loadWebview"]
   CALL R3 1 0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K5 ["getStudioThemeChangedSignal"]
-  CALL R3 0 1
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R2
-  NAMECALL R3 R3 K6 ["Connect"]
-  CALL R3 2 0
-  GETTABLEKS R3 R1 K7 ["categoryName"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K8 ["getTabKeyForCategoryName"]
+  GETTABLEKS R3 R1 K5 ["categoryName"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["getTabKeyForCategoryName"]
   MOVE R5 R3
   CALL R4 1 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K9 ["MARKETPLACE_KEY"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["MARKETPLACE_KEY"]
   JUMPIFNOTEQ R4 R5 [+10]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K10 ["setEventTarget"]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K11 ["ANALYTICS_TARGET"]
-  GETTABLEKS R6 R7 K12 ["Webview"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["setEventTarget"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K9 ["ANALYTICS_TARGET"]
+  GETTABLEKS R6 R7 K10 ["Webview"]
   CALL R5 1 0
-  GETTABLEKS R5 R0 K13 ["_toolboxManagerComponent"]
+  GETTABLEKS R5 R0 K11 ["_toolboxManagerComponent"]
   JUMPIFNOTEQKNIL R5 [+4]
-  NAMECALL R5 R0 K14 ["setUpToolboxManagerComponent"]
+  NAMECALL R5 R0 K12 ["setUpToolboxManagerComponent"]
   CALL R5 1 0
-  GETTABLEKS R5 R0 K15 ["_initHandshakeListener"]
+  GETTABLEKS R5 R0 K13 ["_initHandshakeListener"]
   JUMPIFNOTEQKNIL R5 [+16]
-  LOADK R7 K16 ["internal:init"]
-  NEWCLOSURE R8 P1
+  LOADK R7 K14 ["internal:init"]
+  NEWCLOSURE R8 P0
   CAPTURE VAL R0
-  NAMECALL R5 R2 K17 ["setListener"]
+  NAMECALL R5 R2 K15 ["setListener"]
   CALL R5 3 1
-  SETTABLEKS R5 R0 K15 ["_initHandshakeListener"]
-  GETIMPORT R5 K20 [task.delay]
-  GETUPVAL R6 4
-  NEWCLOSURE R7 P2
+  SETTABLEKS R5 R0 K13 ["_initHandshakeListener"]
+  GETIMPORT R5 K18 [task.delay]
+  GETUPVAL R6 3
+  NEWCLOSURE R7 P1
   CAPTURE VAL R0
   CAPTURE VAL R1
   CALL R5 2 0
-  GETTABLEKS R5 R0 K21 ["_sendAnalyticsCounterEventListener"]
+  GETTABLEKS R5 R0 K19 ["_sendAnalyticsCounterEventListener"]
   JUMPIFNOTEQKNIL R5 [+9]
-  LOADK R7 K22 ["sendAnalyticsCounterEvent"]
-  DUPCLOSURE R8 K23 [PROTO_10]
-  CAPTURE UPVAL U5
-  NAMECALL R5 R2 K17 ["setListener"]
+  LOADK R7 K20 ["sendAnalyticsCounterEvent"]
+  DUPCLOSURE R8 K21 [PROTO_11]
+  CAPTURE UPVAL U4
+  NAMECALL R5 R2 K15 ["setListener"]
   CALL R5 3 1
-  SETTABLEKS R5 R0 K21 ["_sendAnalyticsCounterEventListener"]
-  GETTABLEKS R5 R0 K24 ["_sendAnalyticsEventListener"]
+  SETTABLEKS R5 R0 K19 ["_sendAnalyticsCounterEventListener"]
+  GETTABLEKS R5 R0 K22 ["_sendAnalyticsEventListener"]
   JUMPIFNOTEQKNIL R5 [+11]
-  LOADK R7 K25 ["sendAnalyticsEvent"]
-  DUPCLOSURE R8 K26 [PROTO_11]
-  CAPTURE UPVAL U2
+  LOADK R7 K23 ["sendAnalyticsEvent"]
+  DUPCLOSURE R8 K24 [PROTO_12]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  NAMECALL R5 R2 K17 ["setListener"]
+  NAMECALL R5 R2 K15 ["setListener"]
   CALL R5 3 1
-  SETTABLEKS R5 R0 K24 ["_sendAnalyticsEventListener"]
-  GETTABLEKS R5 R0 K27 ["_addToInventoryListener"]
+  SETTABLEKS R5 R0 K22 ["_sendAnalyticsEventListener"]
+  GETTABLEKS R5 R0 K25 ["_addToInventoryListener"]
   JUMPIFNOTEQKNIL R5 [+10]
-  LOADK R7 K28 ["addToInventory"]
-  DUPCLOSURE R8 K29 [PROTO_13]
+  LOADK R7 K26 ["addToInventory"]
+  DUPCLOSURE R8 K27 [PROTO_14]
+  CAPTURE UPVAL U6
   CAPTURE UPVAL U7
-  CAPTURE UPVAL U8
-  NAMECALL R5 R2 K17 ["setListener"]
+  NAMECALL R5 R2 K15 ["setListener"]
   CALL R5 3 1
-  SETTABLEKS R5 R0 K27 ["_addToInventoryListener"]
-  GETTABLEKS R5 R0 K30 ["_getPluginInfoListener"]
+  SETTABLEKS R5 R0 K25 ["_addToInventoryListener"]
+  GETTABLEKS R5 R0 K28 ["_getPluginInfoListener"]
   JUMPIFNOTEQKNIL R5 [+9]
-  LOADK R7 K31 ["getPluginInfo"]
-  DUPCLOSURE R8 K32 [PROTO_15]
-  CAPTURE UPVAL U9
-  NAMECALL R5 R2 K17 ["setListener"]
+  LOADK R7 K29 ["getPluginInfo"]
+  DUPCLOSURE R8 K30 [PROTO_16]
+  CAPTURE UPVAL U8
+  NAMECALL R5 R2 K15 ["setListener"]
   CALL R5 3 1
-  SETTABLEKS R5 R0 K30 ["_getPluginInfoListener"]
-  GETTABLEKS R5 R0 K33 ["_insertAssetListener"]
+  SETTABLEKS R5 R0 K28 ["_getPluginInfoListener"]
+  GETTABLEKS R5 R0 K31 ["_insertAssetListener"]
   JUMPIFNOTEQKNIL R5 [+11]
-  LOADK R7 K34 ["insertAsset"]
-  NEWCLOSURE R8 P7
+  LOADK R7 K32 ["insertAsset"]
+  NEWCLOSURE R8 P6
   CAPTURE VAL R1
-  CAPTURE UPVAL U9
+  CAPTURE UPVAL U8
   CAPTURE VAL R0
-  NAMECALL R5 R2 K17 ["setListener"]
+  NAMECALL R5 R2 K15 ["setListener"]
   CALL R5 3 1
-  SETTABLEKS R5 R0 K33 ["_insertAssetListener"]
-  GETTABLEKS R5 R0 K35 ["_tabChangeConnection"]
-  JUMPIFNOTEQKNIL R5 [+30]
-  GETTABLEKS R7 R0 K0 ["props"]
-  GETTABLEKS R6 R7 K36 ["PluginLoaderContext"]
-  JUMPIFNOT R6 [+21]
+  SETTABLEKS R5 R0 K31 ["_insertAssetListener"]
+  GETTABLEKS R5 R0 K33 ["_performSearchConnection"]
+  JUMPIFNOTEQKNIL R5 [+26]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K34 ["PluginLoaderContext"]
+  JUMPIFNOT R5 [+20]
   GETTABLEKS R8 R0 K0 ["props"]
-  GETTABLEKS R7 R8 K36 ["PluginLoaderContext"]
-  GETTABLEKS R6 R7 K37 ["signals"]
-  LOADK R8 K38 ["MemStorageService."]
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K39 ["OPEN_MARKETPLACE_VIEW_FOR_ASSET_TYPE"]
+  GETTABLEKS R7 R8 K34 ["PluginLoaderContext"]
+  GETTABLEKS R6 R7 K35 ["signals"]
+  LOADK R8 K36 ["MemStorageService."]
+  GETUPVAL R10 9
+  GETTABLEKS R9 R10 K37 ["SHOW_TOOLBOX_OPEN_MODELS_AND_SEARCH_EVENT"]
+  CONCAT R7 R8 R9
+  GETTABLE R5 R6 R7
+  NEWCLOSURE R7 P7
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NAMECALL R5 R5 K38 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K33 ["_performSearchConnection"]
+  GETTABLEKS R5 R0 K39 ["_showPluginsTabConnection"]
+  JUMPIFNOTEQKNIL R5 [+27]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K34 ["PluginLoaderContext"]
+  JUMPIFNOT R5 [+21]
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K34 ["PluginLoaderContext"]
+  GETTABLEKS R6 R7 K35 ["signals"]
+  LOADK R8 K36 ["MemStorageService."]
+  GETUPVAL R10 9
+  GETTABLEKS R9 R10 K40 ["SHOW_TOOLBOX_PLUGINS_EVENT"]
   CONCAT R7 R8 R9
   GETTABLE R5 R6 R7
   NEWCLOSURE R7 P8
   CAPTURE VAL R0
-  CAPTURE UPVAL U1
   CAPTURE VAL R2
-  CAPTURE UPVAL U2
-  NAMECALL R5 R5 K6 ["Connect"]
+  CAPTURE UPVAL U1
+  NAMECALL R5 R5 K38 ["Connect"]
   CALL R5 2 1
-  JUMPIF R5 [+1]
-  LOADNIL R5
-  SETTABLEKS R5 R0 K35 ["_tabChangeConnection"]
+  SETTABLEKS R5 R0 K39 ["_showPluginsTabConnection"]
+  GETTABLEKS R5 R0 K41 ["_tabChangeConnection"]
+  JUMPIFNOTEQKNIL R5 [+27]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K34 ["PluginLoaderContext"]
+  JUMPIFNOT R5 [+21]
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K34 ["PluginLoaderContext"]
+  GETTABLEKS R6 R7 K35 ["signals"]
+  LOADK R8 K36 ["MemStorageService."]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K42 ["OPEN_MARKETPLACE_VIEW_FOR_ASSET_TYPE"]
+  CONCAT R7 R8 R9
+  GETTABLE R5 R6 R7
+  NEWCLOSURE R7 P9
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U1
+  NAMECALL R5 R5 K38 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K41 ["_tabChangeConnection"]
+  GETTABLEKS R5 R0 K43 ["_themeChangedConnection"]
+  JUMPIFNOTEQKNIL R5 [+14]
+  GETUPVAL R6 10
+  GETTABLEKS R5 R6 K44 ["getStudioThemeChangedSignal"]
+  CALL R5 0 1
+  NEWCLOSURE R7 P10
+  CAPTURE VAL R0
+  CAPTURE UPVAL U10
+  CAPTURE VAL R2
+  NAMECALL R5 R5 K38 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K43 ["_themeChangedConnection"]
   RETURN R0 0
 
-PROTO_20:
+PROTO_24:
   GETUPVAL R1 0
   LOADK R3 K0 ["openItemDetails"]
   DUPTABLE R4 K2 [{"assetId"}]
@@ -572,7 +715,7 @@ PROTO_20:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_25:
   GETTABLEKS R3 R2 K0 ["didInitCheckPass"]
   GETTABLEKS R5 R0 K1 ["state"]
   GETTABLEKS R4 R5 K0 ["didInitCheckPass"]
@@ -582,7 +725,7 @@ PROTO_21:
   GETTABLEKS R5 R6 K3 ["HandlePassedInitAndLoadingCheck"]
   CALL R5 0 0
   GETTABLEKS R6 R0 K2 ["props"]
-  GETTABLEKS R5 R6 K4 ["WebViewMessageBusContext"]
+  GETTABLEKS R5 R6 K4 ["WebViewManagerContext"]
   NAMECALL R5 R5 K5 ["get"]
   CALL R5 1 1
   GETTABLEKS R8 R0 K2 ["props"]
@@ -616,29 +759,64 @@ PROTO_21:
   CALL R8 5 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_26:
   GETTABLEKS R1 R0 K0 ["_webBrowserLoadProgressConnection"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K0 ["_webBrowserLoadProgressConnection"]
-  NAMECALL R1 R1 K1 ["disconnect"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
   CALL R1 1 0
   LOADNIL R1
   SETTABLEKS R1 R0 K0 ["_webBrowserLoadProgressConnection"]
   GETTABLEKS R1 R0 K2 ["_webBrowserErrorConnection"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K2 ["_webBrowserErrorConnection"]
-  NAMECALL R1 R1 K1 ["disconnect"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
   CALL R1 1 0
   LOADNIL R1
   SETTABLEKS R1 R0 K2 ["_webBrowserErrorConnection"]
+  GETTABLEKS R1 R0 K3 ["_webBrowserLoadedConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K3 ["_webBrowserLoadedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["_webBrowserLoadedConnection"]
+  GETTABLEKS R1 R0 K4 ["_performSearchConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K4 ["_performSearchConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["_performSearchConnection"]
+  GETTABLEKS R1 R0 K5 ["_showPluginsTabConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K5 ["_showPluginsTabConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["_showPluginsTabConnection"]
+  GETTABLEKS R1 R0 K6 ["_tabChangeConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K6 ["_tabChangeConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K6 ["_tabChangeConnection"]
+  GETTABLEKS R1 R0 K7 ["_themeChangedConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K7 ["_themeChangedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K7 ["_themeChangedConnection"]
   RETURN R0 0
 
-PROTO_23:
+PROTO_27:
   GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R2 R3 K1 ["WebViewMessageBusContext"]
+  GETTABLEKS R2 R3 K1 ["WebViewManagerContext"]
   JUMPIFNOT R2 [+8]
   GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["WebViewMessageBusContext"]
+  GETTABLEKS R1 R2 K1 ["WebViewManagerContext"]
   NAMECALL R1 R1 K2 ["get"]
   CALL R1 1 1
   JUMP [+1]
@@ -694,7 +872,7 @@ PROTO_23:
   SETTABLEKS R2 R0 K14 ["_addToInventoryListener"]
   RETURN R0 0
 
-PROTO_24:
+PROTO_28:
   NAMECALL R1 R0 K0 ["disconnectAllSignals"]
   CALL R1 1 0
   NAMECALL R1 R0 K1 ["removeAllListeners"]
@@ -705,7 +883,7 @@ PROTO_24:
   SETTABLEKS R1 R0 K3 ["isMounted"]
   RETURN R0 0
 
-PROTO_25:
+PROTO_29:
   GETTABLEKS R1 R0 K0 ["props"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["createElement"]
@@ -714,7 +892,7 @@ PROTO_25:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_26:
+PROTO_30:
   MOVE R2 R0
   JUMPIF R2 [+2]
   NEWTABLE R2 0 0
@@ -731,7 +909,7 @@ PROTO_26:
   SETTABLEKS R4 R3 K1 ["categoryName"]
   RETURN R3 1
 
-PROTO_27:
+PROTO_31:
   GETUPVAL R5 0
   GETUPVAL R6 1
   MOVE R7 R0
@@ -743,7 +921,7 @@ PROTO_27:
   CALL R5 -1 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_32:
   DUPTABLE R1 K1 [{"getAssetPreviewDataForStartup"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
@@ -751,7 +929,7 @@ PROTO_28:
   SETTABLEKS R2 R1 K0 ["getAssetPreviewDataForStartup"]
   RETURN R1 1
 
-PROTO_29:
+PROTO_33:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["createElement"]
   GETUPVAL R3 1
@@ -768,192 +946,193 @@ MAIN:
   CALL R0 2 1
   GETTABLEKS R1 R0 K4 ["Packages"]
   GETIMPORT R2 K6 [require]
-  GETTABLEKS R3 R1 K7 ["Roact"]
+  GETTABLEKS R3 R1 K7 ["Framework"]
   CALL R2 1 1
   GETIMPORT R3 K6 [require]
-  GETTABLEKS R4 R1 K8 ["RoactRodux"]
+  GETTABLEKS R4 R1 K8 ["Roact"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R1 K9 ["Framework"]
+  GETTABLEKS R5 R1 K9 ["RoactRodux"]
   CALL R4 1 1
-  GETTABLEKS R6 R0 K10 ["Core"]
-  GETTABLEKS R5 R6 K11 ["Util"]
-  GETIMPORT R6 K6 [require]
-  GETTABLEKS R8 R5 K12 ["Analytics"]
-  GETTABLEKS R7 R8 K12 ["Analytics"]
-  CALL R6 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R0 K10 ["SharedPluginConstants"]
+  CALL R5 1 1
+  GETTABLEKS R7 R0 K11 ["Core"]
+  GETTABLEKS R6 R7 K12 ["Util"]
   GETIMPORT R7 K6 [require]
-  GETTABLEKS R9 R5 K12 ["Analytics"]
-  GETTABLEKS R8 R9 K13 ["AssetAnalyticsContextItem"]
+  GETTABLEKS R9 R6 K13 ["Analytics"]
+  GETTABLEKS R8 R9 K13 ["Analytics"]
   CALL R7 1 1
   GETIMPORT R8 K6 [require]
-  GETTABLEKS R10 R5 K12 ["Analytics"]
-  GETTABLEKS R9 R10 K14 ["Senders"]
+  GETTABLEKS R10 R6 K13 ["Analytics"]
+  GETTABLEKS R9 R10 K14 ["AssetAnalyticsContextItem"]
   CALL R8 1 1
   GETIMPORT R9 K6 [require]
-  GETTABLEKS R10 R5 K15 ["Constants"]
+  GETTABLEKS R11 R6 K13 ["Analytics"]
+  GETTABLEKS R10 R11 K15 ["Senders"]
   CALL R9 1 1
   GETIMPORT R10 K6 [require]
-  GETTABLEKS R11 R5 K16 ["DebugFlags"]
+  GETTABLEKS R11 R6 K16 ["Constants"]
   CALL R10 1 1
   GETIMPORT R11 K6 [require]
-  GETTABLEKS R12 R5 K17 ["getStartupAssetId"]
+  GETTABLEKS R12 R6 K17 ["getStartupAssetId"]
   CALL R11 1 1
   GETIMPORT R12 K6 [require]
-  GETTABLEKS R13 R5 K18 ["SettingUtil"]
+  GETTABLEKS R13 R6 K18 ["SettingUtil"]
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
-  GETTABLEKS R14 R5 K19 ["ToolboxUtilities"]
+  GETTABLEKS R14 R6 K19 ["Urls"]
   CALL R13 1 1
-  GETIMPORT R14 K6 [require]
-  GETTABLEKS R15 R5 K20 ["Urls"]
-  CALL R14 1 1
-  GETTABLEKS R16 R0 K10 ["Core"]
-  GETTABLEKS R15 R16 K21 ["Types"]
-  GETIMPORT R16 K6 [require]
-  GETTABLEKS R17 R15 K22 ["Category"]
-  CALL R16 1 1
-  GETTABLEKS R17 R4 K23 ["ContextServices"]
-  GETTABLEKS R18 R17 K24 ["withContext"]
+  GETTABLEKS R15 R0 K11 ["Core"]
+  GETTABLEKS R14 R15 K20 ["Types"]
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R16 R14 K21 ["Category"]
+  CALL R15 1 1
+  GETTABLEKS R16 R2 K22 ["ContextServices"]
+  GETTABLEKS R17 R16 K23 ["withContext"]
+  GETIMPORT R18 K6 [require]
+  GETTABLEKS R21 R0 K11 ["Core"]
+  GETTABLEKS R20 R21 K22 ["ContextServices"]
+  GETTABLEKS R19 R20 K24 ["NetworkContext"]
+  CALL R18 1 1
   GETIMPORT R19 K6 [require]
-  GETTABLEKS R22 R0 K10 ["Core"]
-  GETTABLEKS R21 R22 K23 ["ContextServices"]
-  GETTABLEKS R20 R21 K25 ["NetworkContext"]
+  GETTABLEKS R22 R0 K11 ["Core"]
+  GETTABLEKS R21 R22 K25 ["Components"]
+  GETTABLEKS R20 R21 K26 ["AssetLogicWrapper"]
   CALL R19 1 1
   GETIMPORT R20 K6 [require]
-  GETTABLEKS R23 R0 K10 ["Core"]
-  GETTABLEKS R22 R23 K26 ["Components"]
-  GETTABLEKS R21 R22 K27 ["AssetLogicWrapper"]
+  GETTABLEKS R24 R0 K11 ["Core"]
+  GETTABLEKS R23 R24 K25 ["Components"]
+  GETTABLEKS R22 R23 K27 ["WebView"]
+  GETTABLEKS R21 R22 K28 ["WebViewManagerContext"]
   CALL R20 1 1
   GETIMPORT R21 K6 [require]
-  GETTABLEKS R25 R0 K10 ["Core"]
-  GETTABLEKS R24 R25 K26 ["Components"]
-  GETTABLEKS R23 R24 K28 ["WebView"]
-  GETTABLEKS R22 R23 K29 ["WebViewMessageBusContext"]
+  GETTABLEKS R25 R0 K11 ["Core"]
+  GETTABLEKS R24 R25 K25 ["Components"]
+  GETTABLEKS R23 R24 K27 ["WebView"]
+  GETTABLEKS R22 R23 K29 ["WebViewTypes"]
   CALL R21 1 1
   GETIMPORT R22 K6 [require]
-  GETTABLEKS R26 R0 K10 ["Core"]
-  GETTABLEKS R25 R26 K26 ["Components"]
-  GETTABLEKS R24 R25 K28 ["WebView"]
-  GETTABLEKS R23 R24 K30 ["WebViewTypes"]
+  GETTABLEKS R25 R0 K11 ["Core"]
+  GETTABLEKS R24 R25 K30 ["Thunks"]
+  GETTABLEKS R23 R24 K31 ["GetAssetPreviewDataForStartup"]
   CALL R22 1 1
   GETIMPORT R23 K6 [require]
-  GETTABLEKS R26 R0 K10 ["Core"]
-  GETTABLEKS R25 R26 K31 ["Thunks"]
-  GETTABLEKS R24 R25 K32 ["GetAssetPreviewDataForStartup"]
+  GETTABLEKS R26 R0 K11 ["Core"]
+  GETTABLEKS R25 R26 K12 ["Util"]
+  GETTABLEKS R24 R25 K32 ["Services"]
   CALL R23 1 1
-  GETIMPORT R24 K6 [require]
-  GETTABLEKS R27 R0 K10 ["Core"]
-  GETTABLEKS R26 R27 K11 ["Util"]
-  GETTABLEKS R25 R26 K33 ["Services"]
+  GETTABLEKS R24 R23 K33 ["GetService"]
+  LOADK R25 K34 ["MemStorageService"]
   CALL R24 1 1
-  GETTABLEKS R25 R24 K34 ["GetService"]
-  LOADK R26 K35 ["MemStorageService"]
+  GETTABLEKS R25 R23 K33 ["GetService"]
+  LOADK R26 K35 ["StudioService"]
   CALL R25 1 1
-  GETTABLEKS R26 R24 K34 ["GetService"]
-  LOADK R27 K36 ["StudioService"]
-  CALL R26 1 1
-  GETIMPORT R27 K38 [game]
-  LOADK R29 K39 ["HttpService"]
-  NAMECALL R27 R27 K34 ["GetService"]
-  CALL R27 2 1
-  GETTABLEKS R29 R9 K40 ["ANALYTICS_TARGET"]
-  GETTABLEKS R28 R29 K41 ["Webview"]
-  GETTABLEKS R29 R2 K42 ["PureComponent"]
-  LOADK R31 K43 ["WebViewConnector"]
-  NAMECALL R29 R29 K44 ["extend"]
-  CALL R29 2 1
-  GETIMPORT R30 K38 [game]
-  LOADK R32 K45 ["ToolboxWVInitTimeout"]
-  LOADN R33 10
-  NAMECALL R30 R30 K46 ["DefineFastInt"]
+  GETIMPORT R26 K37 [game]
+  LOADK R28 K38 ["HttpService"]
+  NAMECALL R26 R26 K33 ["GetService"]
+  CALL R26 2 1
+  GETTABLEKS R28 R10 K39 ["ANALYTICS_TARGET"]
+  GETTABLEKS R27 R28 K40 ["Webview"]
+  GETTABLEKS R28 R3 K41 ["PureComponent"]
+  LOADK R30 K42 ["WebViewConnector"]
+  NAMECALL R28 R28 K43 ["extend"]
+  CALL R28 2 1
+  GETIMPORT R29 K37 [game]
+  LOADK R31 K44 ["ToolboxWVInitTimeout"]
+  LOADN R32 10
+  NAMECALL R29 R29 K45 ["DefineFastInt"]
+  CALL R29 3 1
+  GETIMPORT R30 K37 [game]
+  LOADK R32 K46 ["ToolboxWVInitRetryTotalCount"]
+  LOADN R33 3
+  NAMECALL R30 R30 K45 ["DefineFastInt"]
   CALL R30 3 1
-  GETIMPORT R31 K38 [game]
-  LOADK R33 K47 ["ToolboxWVInitRetryTotalCount"]
-  LOADN R34 3
-  NAMECALL R31 R31 K46 ["DefineFastInt"]
+  GETIMPORT R31 K37 [game]
+  LOADK R33 K47 ["ToolboxWVInitRetryDelaySeconds"]
+  LOADN R34 1
+  NAMECALL R31 R31 K45 ["DefineFastInt"]
   CALL R31 3 1
-  GETIMPORT R32 K38 [game]
-  LOADK R34 K48 ["ToolboxWVInitRetryDelaySeconds"]
-  LOADN R35 1
-  NAMECALL R32 R32 K46 ["DefineFastInt"]
-  CALL R32 3 1
-  GETIMPORT R33 K38 [game]
-  LOADK R35 K49 ["CreatorStoreWVUrl"]
-  NAMECALL R33 R33 K50 ["GetFastString"]
-  CALL R33 2 1
-  GETIMPORT R34 K38 [game]
-  LOADK R36 K51 ["ToolboxLoadProgressInitEvents"]
-  LOADK R37 K52 ["beforeInteractive"]
-  NAMECALL R34 R34 K53 ["DefineFastString"]
-  CALL R34 3 1
-  DUPCLOSURE R35 K54 [PROTO_0]
-  SETTABLEKS R35 R29 K55 ["init"]
-  DUPCLOSURE R35 K56 [PROTO_1]
-  SETGLOBAL R35 K57 ["shouldUseDeferredAnalytics"]
-  DUPCLOSURE R35 K58 [PROTO_2]
-  SETGLOBAL R35 K59 ["getStudioThemeName"]
-  DUPCLOSURE R35 K60 [PROTO_6]
-  CAPTURE VAL R33
-  CAPTURE VAL R14
-  CAPTURE VAL R34
-  CAPTURE VAL R31
-  CAPTURE VAL R6
+  GETIMPORT R32 K37 [game]
+  LOADK R34 K48 ["CreatorStoreWVUrl"]
+  NAMECALL R32 R32 K49 ["GetFastString"]
+  CALL R32 2 1
+  GETIMPORT R33 K37 [game]
+  LOADK R35 K50 ["ToolboxLoadProgressInitEvents"]
+  LOADK R36 K51 ["afterInteractive"]
+  NAMECALL R33 R33 K52 ["DefineFastString"]
+  CALL R33 3 1
+  DUPCLOSURE R34 K53 [PROTO_0]
+  SETTABLEKS R34 R28 K54 ["init"]
+  DUPCLOSURE R34 K55 [PROTO_1]
+  SETGLOBAL R34 K56 ["shouldUseDeferredAnalytics"]
+  DUPCLOSURE R34 K57 [PROTO_2]
+  SETGLOBAL R34 K58 ["getStudioThemeName"]
+  DUPCLOSURE R34 K59 [PROTO_7]
   CAPTURE VAL R32
-  CAPTURE VAL R9
-  SETTABLEKS R35 R29 K61 ["setUpToolboxManagerComponent"]
-  DUPCLOSURE R35 K62 [PROTO_19]
-  CAPTURE VAL R12
-  CAPTURE VAL R16
-  CAPTURE VAL R6
-  CAPTURE VAL R9
+  CAPTURE VAL R13
+  CAPTURE VAL R7
+  CAPTURE VAL R33
   CAPTURE VAL R30
-  CAPTURE VAL R8
-  CAPTURE VAL R28
-  CAPTURE VAL R25
+  CAPTURE VAL R10
+  CAPTURE VAL R31
+  SETTABLEKS R34 R28 K60 ["setUpToolboxManagerComponent"]
+  DUPCLOSURE R34 K61 [PROTO_8]
+  CAPTURE VAL R15
+  SETTABLEKS R34 R28 K62 ["changeToStoreTab"]
+  DUPCLOSURE R34 K63 [PROTO_23]
+  CAPTURE VAL R15
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R29
+  CAPTURE VAL R9
   CAPTURE VAL R27
+  CAPTURE VAL R24
   CAPTURE VAL R26
-  SETTABLEKS R35 R29 K63 ["didMount"]
-  DUPCLOSURE R35 K64 [PROTO_21]
+  CAPTURE VAL R25
+  CAPTURE VAL R5
+  CAPTURE VAL R12
+  SETTABLEKS R34 R28 K64 ["didMount"]
+  DUPCLOSURE R34 K65 [PROTO_25]
   CAPTURE VAL R11
-  SETTABLEKS R35 R29 K65 ["didUpdate"]
-  DUPCLOSURE R35 K66 [PROTO_22]
-  SETTABLEKS R35 R29 K67 ["disconnectAllSignals"]
-  DUPCLOSURE R35 K68 [PROTO_23]
-  SETTABLEKS R35 R29 K69 ["removeAllListeners"]
-  DUPCLOSURE R35 K70 [PROTO_24]
-  SETTABLEKS R35 R29 K71 ["willUnmount"]
-  DUPCLOSURE R35 K72 [PROTO_25]
-  CAPTURE VAL R2
-  SETTABLEKS R35 R29 K73 ["render"]
-  MOVE R35 R18
-  DUPTABLE R36 K77 [{"AssetAnalytics", "Localization", "Network", "WebViewMessageBusContext"}]
-  SETTABLEKS R7 R36 K74 ["AssetAnalytics"]
-  GETTABLEKS R37 R17 K75 ["Localization"]
-  SETTABLEKS R37 R36 K75 ["Localization"]
-  SETTABLEKS R19 R36 K76 ["Network"]
-  SETTABLEKS R21 R36 K29 ["WebViewMessageBusContext"]
-  CALL R35 1 1
-  MOVE R36 R29
-  CALL R35 1 1
-  MOVE R29 R35
-  DUPCLOSURE R35 K78 [PROTO_26]
-  CAPTURE VAL R16
-  DUPCLOSURE R36 K79 [PROTO_28]
-  CAPTURE VAL R23
-  GETTABLEKS R37 R3 K80 ["connect"]
+  SETTABLEKS R34 R28 K66 ["didUpdate"]
+  DUPCLOSURE R34 K67 [PROTO_26]
+  SETTABLEKS R34 R28 K68 ["disconnectAllSignals"]
+  DUPCLOSURE R34 K69 [PROTO_27]
+  SETTABLEKS R34 R28 K70 ["removeAllListeners"]
+  DUPCLOSURE R34 K71 [PROTO_28]
+  SETTABLEKS R34 R28 K72 ["willUnmount"]
+  DUPCLOSURE R34 K73 [PROTO_29]
+  CAPTURE VAL R3
+  SETTABLEKS R34 R28 K74 ["render"]
+  MOVE R34 R17
+  DUPTABLE R35 K78 [{"AssetAnalytics", "Localization", "Network", "WebViewManagerContext"}]
+  SETTABLEKS R8 R35 K75 ["AssetAnalytics"]
+  GETTABLEKS R36 R16 K76 ["Localization"]
+  SETTABLEKS R36 R35 K76 ["Localization"]
+  SETTABLEKS R18 R35 K77 ["Network"]
+  SETTABLEKS R20 R35 K28 ["WebViewManagerContext"]
+  CALL R34 1 1
+  MOVE R35 R28
+  CALL R34 1 1
+  MOVE R28 R34
+  DUPCLOSURE R34 K79 [PROTO_30]
+  CAPTURE VAL R15
+  DUPCLOSURE R35 K80 [PROTO_32]
+  CAPTURE VAL R22
+  GETTABLEKS R36 R4 K81 ["connect"]
+  MOVE R37 R34
   MOVE R38 R35
-  MOVE R39 R36
-  CALL R37 2 1
-  MOVE R38 R29
-  CALL R37 1 1
-  MOVE R29 R37
-  NEWCLOSURE R37 P12
-  CAPTURE VAL R2
-  CAPTURE REF R29
-  SETGLOBAL R37 K81 ["TypedComponent"]
-  MOVE R37 R20
-  GETGLOBAL R38 K81 ["TypedComponent"]
-  CALL R37 1 -1
-  CLOSEUPVALS R29
-  RETURN R37 -1
+  CALL R36 2 1
+  MOVE R37 R28
+  CALL R36 1 1
+  MOVE R28 R36
+  NEWCLOSURE R36 P13
+  CAPTURE VAL R3
+  CAPTURE REF R28
+  SETGLOBAL R36 K82 ["TypedComponent"]
+  MOVE R36 R19
+  GETGLOBAL R37 K82 ["TypedComponent"]
+  CALL R36 1 -1
+  CLOSEUPVALS R28
+  RETURN R36 -1

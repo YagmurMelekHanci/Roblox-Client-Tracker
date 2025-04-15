@@ -1,0 +1,24 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 4 0
+  DUPTABLE R1 K2 [{"Image", "Scene"}]
+  LOADK R2 K3 ["ImageImportSession"]
+  SETTABLEKS R2 R1 K0 ["Image"]
+  LOADK R2 K4 ["AssetImportSession"]
+  SETTABLEKS R2 R1 K1 ["Scene"]
+  SETTABLEKS R1 R0 K5 ["SessionType"]
+  DUPTABLE R2 K9 [{"ModerationError", "AssetDependencyError", "ImageResolutionError"}]
+  LOADK R3 K10 ["Asset name and description is fully moderated."]
+  SETTABLEKS R3 R2 K6 ["ModerationError"]
+  LOADK R3 K11 ["DependenciesLimitExceeded"]
+  SETTABLEKS R3 R2 K7 ["AssetDependencyError"]
+  LOADK R3 K12 ["Image resolution is too high."]
+  SETTABLEKS R3 R2 K8 ["ImageResolutionError"]
+  SETTABLEKS R2 R0 K13 ["ErrorCode"]
+  DUPTABLE R3 K16 [{"Error", "Warning"}]
+  LOADK R4 K14 ["Error"]
+  SETTABLEKS R4 R3 K14 ["Error"]
+  LOADK R4 K15 ["Warning"]
+  SETTABLEKS R4 R3 K15 ["Warning"]
+  SETTABLEKS R3 R0 K17 ["StatusLevel"]
+  RETURN R0 1

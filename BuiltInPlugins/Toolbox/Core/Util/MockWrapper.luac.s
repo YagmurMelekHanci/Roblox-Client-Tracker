@@ -87,9 +87,9 @@ PROTO_1:
   GETTABLEKS R14 R15 K3 ["new"]
   MOVE R15 R2
   CALL R14 1 1
-  GETTABLEKS R16 R0 K23 ["WebViewMessageBusContext"]
+  GETTABLEKS R16 R0 K23 ["WebViewManagerContext"]
   JUMPIFNOT R16 [+3]
-  GETTABLEKS R15 R0 K23 ["WebViewMessageBusContext"]
+  GETTABLEKS R15 R0 K23 ["WebViewManagerContext"]
   JUMP [+17]
   GETUPVAL R16 14
   GETTABLEKS R15 R16 K3 ["new"]
@@ -307,7 +307,7 @@ MAIN:
   GETTABLEKS R28 R0 K11 ["Core"]
   GETTABLEKS R27 R28 K22 ["Components"]
   GETTABLEKS R26 R27 K34 ["WebView"]
-  GETTABLEKS R25 R26 K35 ["WebViewMessageBusContext"]
+  GETTABLEKS R25 R26 K35 ["WebViewManagerContext"]
   CALL R24 1 1
   GETIMPORT R25 K5 [require]
   GETTABLEKS R27 R0 K36 ["TestUtils"]

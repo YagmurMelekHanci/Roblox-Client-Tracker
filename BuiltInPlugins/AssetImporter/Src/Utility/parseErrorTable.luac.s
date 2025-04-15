@@ -35,48 +35,55 @@ PROTO_1:
   CALL R5 3 1
   MOVE R4 R5
   GETTABLEKS R5 R3 K12 ["reason"]
-  JUMPIFNOTEQKS R5 K13 ["DependenciesLimitExceeded"] [+10]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K13 ["ErrorCode"]
+  GETTABLEKS R6 R7 K14 ["AssetDependencyError"]
+  JUMPIFNOTEQ R5 R6 [+10]
   GETUPVAL R5 1
   MOVE R6 R1
   LOADK R7 K5 ["HttpError"]
-  LOADK R8 K13 ["DependenciesLimitExceeded"]
-  GETTABLEKS R9 R3 K14 ["metadata"]
+  LOADK R8 K15 ["DependenciesLimitExceeded"]
+  GETTABLEKS R9 R3 K16 ["metadata"]
   CALL R5 4 1
   MOVE R4 R5
-  JUMP [+37]
-  GETIMPORT R5 K17 [string.find]
-  GETTABLEKS R6 R3 K18 ["simpleErrorMessage"]
-  LOADK R7 K19 ["Asset name and description is fully moderated."]
+  JUMP [+45]
+  GETIMPORT R5 K19 [string.find]
+  GETTABLEKS R6 R3 K20 ["simpleErrorMessage"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K13 ["ErrorCode"]
+  GETTABLEKS R7 R8 K21 ["ModerationError"]
   CALL R5 2 1
   JUMPIFNOT R5 [+7]
   GETUPVAL R5 1
   MOVE R6 R1
   LOADK R7 K5 ["HttpError"]
-  LOADK R8 K20 ["UploadResultBadIdParse"]
+  LOADK R8 K22 ["UploadResultBadIdParse"]
   CALL R5 3 1
   MOVE R4 R5
-  JUMP [+23]
-  GETIMPORT R5 K17 [string.find]
-  GETTABLEKS R6 R3 K18 ["simpleErrorMessage"]
-  LOADK R7 K21 ["Image resolution is too high."]
+  JUMP [+27]
+  GETIMPORT R5 K19 [string.find]
+  GETTABLEKS R6 R3 K20 ["simpleErrorMessage"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K13 ["ErrorCode"]
+  GETTABLEKS R7 R8 K23 ["ImageResolutionError"]
   CALL R5 2 1
   JUMPIFNOT R5 [+16]
-  DUPTABLE R5 K23 [{"pixelLimit"}]
-  GETIMPORT R6 K25 [string.match]
-  GETTABLEKS R7 R3 K18 ["simpleErrorMessage"]
-  LOADK R8 K26 ["(%d+)%s+pixels"]
+  DUPTABLE R5 K25 [{"pixelLimit"}]
+  GETIMPORT R6 K27 [string.match]
+  GETTABLEKS R7 R3 K20 ["simpleErrorMessage"]
+  LOADK R8 K28 ["(%d+)%s+pixels"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K22 ["pixelLimit"]
+  SETTABLEKS R6 R5 K24 ["pixelLimit"]
   GETUPVAL R6 1
   MOVE R7 R1
   LOADK R8 K5 ["HttpError"]
-  LOADK R9 K27 ["ImageResolution"]
+  LOADK R9 K29 ["ImageResolution"]
   MOVE R10 R5
   CALL R6 4 1
   MOVE R4 R6
   JUMPIFNOT R4 [+1]
   RETURN R4 1
-  GETTABLEKS R5 R3 K18 ["simpleErrorMessage"]
+  GETTABLEKS R5 R3 K20 ["simpleErrorMessage"]
   RETURN R5 1
 
 MAIN:
@@ -101,6 +108,7 @@ MAIN:
   DUPCLOSURE R4 K14 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R3
+  CAPTURE VAL R2
   SETGLOBAL R4 K15 ["parseErrorMessage"]
   GETGLOBAL R4 K15 ["parseErrorMessage"]
   RETURN R4 1

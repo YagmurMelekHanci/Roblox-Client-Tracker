@@ -17,7 +17,7 @@ PROTO_0:
   JUMP [+18]
   NAMECALL R8 R6 K7 ["Destroy"]
   CALL R8 1 0
-  JUMP [+36]
+  JUMP [+45]
   JUMP [+13]
   GETUPVAL R8 0
   LOADNIL R9
@@ -32,23 +32,31 @@ PROTO_0:
   FORGLOOP R8 2 [-8]
   GETUPVAL R8 1
   CALL R8 0 1
+  JUMPIFNOT R8 [+6]
+  LOADK R10 K8 ["BodyColors"]
+  NAMECALL R8 R6 K2 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+1]
+  LOADB R7 1
+  GETUPVAL R8 2
+  CALL R8 0 1
   JUMPIFNOT R8 [+10]
-  LOADK R10 K8 ["LocalScript"]
+  LOADK R10 K9 ["LocalScript"]
   NAMECALL R8 R6 K2 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+5]
   GETTABLEKS R8 R6 K6 ["Name"]
-  JUMPIFNOTEQKS R8 K9 ["Animate"] [+2]
+  JUMPIFNOTEQKS R8 K10 ["Animate"] [+2]
   LOADB R7 1
   JUMPIFNOT R7 [+5]
-  GETUPVAL R8 2
+  GETUPVAL R8 3
   MOVE R9 R6
   MOVE R10 R1
   CALL R8 2 0
   JUMP [+3]
   NAMECALL R8 R6 K7 ["Destroy"]
   CALL R8 1 0
-  FORGLOOP R2 2 [-59]
+  FORGLOOP R2 2 [-68]
   RETURN R0 0
 
 MAIN:
@@ -62,26 +70,32 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Flags"]
   GETTABLEKS R2 R3 K8 ["getFFlagAvatarPreviewerUseAnyModel"]
   CALL R1 1 1
-  NEWTABLE R2 0 8
-  LOADK R3 K9 ["Attachment"]
-  LOADK R4 K10 ["BasePart"]
-  LOADK R5 K11 ["BaseWrap"]
-  LOADK R6 K12 ["DataModelMesh"]
-  LOADK R7 K13 ["FaceControls"]
-  LOADK R8 K14 ["Humanoid"]
-  LOADK R9 K15 ["SurfaceAppearance"]
-  LOADK R10 K16 ["ValueBase"]
-  SETLIST R2 R3 8 [1]
-  MOVE R3 R1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+7]
-  FASTCALL2K TABLE_INSERT R2 K17 [+5]
-  MOVE R4 R2
-  LOADK R5 K17 ["Animation"]
-  GETIMPORT R3 K20 [table.insert]
-  CALL R3 2 0
-  DUPCLOSURE R3 K21 [PROTO_0]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["getFFlagIncludeBodyColorsInAutoSetup"]
+  CALL R2 1 1
+  NEWTABLE R3 0 8
+  LOADK R4 K10 ["Attachment"]
+  LOADK R5 K11 ["BasePart"]
+  LOADK R6 K12 ["BaseWrap"]
+  LOADK R7 K13 ["DataModelMesh"]
+  LOADK R8 K14 ["FaceControls"]
+  LOADK R9 K15 ["Humanoid"]
+  LOADK R10 K16 ["SurfaceAppearance"]
+  LOADK R11 K17 ["ValueBase"]
+  SETLIST R3 R4 8 [1]
+  MOVE R4 R1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+7]
+  FASTCALL2K TABLE_INSERT R3 K18 [+5]
+  MOVE R5 R3
+  LOADK R6 K18 ["Animation"]
+  GETIMPORT R4 K21 [table.insert]
+  CALL R4 2 0
+  DUPCLOSURE R4 K22 [PROTO_0]
+  CAPTURE VAL R3
   CAPTURE VAL R2
   CAPTURE VAL R1
-  CAPTURE VAL R3
-  RETURN R3 1
+  CAPTURE VAL R4
+  RETURN R4 1

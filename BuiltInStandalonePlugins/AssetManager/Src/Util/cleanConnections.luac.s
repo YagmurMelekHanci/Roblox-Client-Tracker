@@ -1,0 +1,22 @@
+PROTO_0:
+  LENGTH R3 R0
+  LOADN R1 1
+  LOADN R2 255
+  FORNPREP R1
+  GETTABLE R4 R0 R3
+  GETTABLEKS R6 R4 K0 ["Disconnect"]
+  FASTCALL2K ASSERT R6 K1 [+4]
+  LOADK R7 K1 ["Connection is not valid, it does not have a Disconnect method"]
+  GETIMPORT R5 K3 [assert]
+  CALL R5 2 0
+  NAMECALL R5 R4 K0 ["Disconnect"]
+  CALL R5 1 0
+  LOADNIL R5
+  SETTABLE R5 R0 R3
+  FORNLOOP R1
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

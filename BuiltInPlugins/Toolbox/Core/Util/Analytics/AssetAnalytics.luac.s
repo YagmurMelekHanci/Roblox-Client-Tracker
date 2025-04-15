@@ -272,79 +272,91 @@ PROTO_8:
   RETURN R8 1
 
 PROTO_9:
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["isAssetTrackable"]
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+13]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["logFirstLuaAssetImpression"]
+  CALL R5 0 0
+  GETTABLEKS R5 R2 K1 ["toolboxTab"]
+  JUMPIFNOTEQKS R5 K2 ["Marketplace"] [+6]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["logFirstStoreAssetImpression"]
+  LOADB R6 0
+  CALL R5 1 0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["isAssetTrackable"]
   MOVE R6 R1
   MOVE R7 R2
   CALL R5 2 1
   JUMPIF R5 [+1]
   RETURN R0 0
-  GETTABLEKS R6 R1 K1 ["Asset"]
-  GETTABLEKS R5 R6 K2 ["Id"]
-  GETTABLEKS R6 R2 K3 ["searchId"]
-  GETTABLEKS R8 R0 K4 ["_searches"]
+  GETTABLEKS R6 R1 K5 ["Asset"]
+  GETTABLEKS R5 R6 K6 ["Id"]
+  GETTABLEKS R6 R2 K7 ["searchId"]
+  GETTABLEKS R8 R0 K8 ["_searches"]
   GETTABLE R7 R8 R6
   JUMPIF R7 [+8]
-  GETTABLEKS R7 R0 K4 ["_searches"]
-  DUPTABLE R8 K6 [{"impressions"}]
+  GETTABLEKS R7 R0 K8 ["_searches"]
+  DUPTABLE R8 K10 [{"impressions"}]
   NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K5 ["impressions"]
+  SETTABLEKS R9 R8 K9 ["impressions"]
   SETTABLE R8 R7 R6
-  GETTABLEKS R8 R0 K4 ["_searches"]
+  GETTABLEKS R8 R0 K8 ["_searches"]
   GETTABLE R7 R8 R6
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K7 ["getTrackingAttributes"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K11 ["getTrackingAttributes"]
   MOVE R9 R1
   MOVE R10 R2
   CALL R8 2 1
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K8 ["join"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["join"]
   MOVE R10 R8
-  DUPTABLE R11 K10 [{"layoutMode"}]
-  SETTABLEKS R4 R11 K9 ["layoutMode"]
+  DUPTABLE R11 K14 [{"layoutMode"}]
+  SETTABLEKS R4 R11 K13 ["layoutMode"]
   CALL R9 2 1
   MOVE R8 R9
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K8 ["join"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["join"]
   MOVE R10 R8
   MOVE R11 R3
   JUMPIF R11 [+2]
   NEWTABLE R11 0 0
   CALL R9 2 1
   MOVE R8 R9
-  GETUPVAL R9 2
+  GETUPVAL R9 4
   CALL R9 0 1
   JUMPIFNOT R9 [+14]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K8 ["join"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["join"]
   MOVE R10 R8
-  DUPTABLE R11 K12 [{"timestampMs"}]
-  GETIMPORT R13 K15 [DateTime.now]
+  DUPTABLE R11 K16 [{"timestampMs"}]
+  GETIMPORT R13 K19 [DateTime.now]
   CALL R13 0 1
-  GETTABLEKS R12 R13 K16 ["UnixTimestampMillis"]
-  SETTABLEKS R12 R11 K11 ["timestampMs"]
+  GETTABLEKS R12 R13 K20 ["UnixTimestampMillis"]
+  SETTABLEKS R12 R11 K15 ["timestampMs"]
   CALL R9 2 1
   MOVE R8 R9
-  GETTABLEKS R10 R7 K5 ["impressions"]
+  GETTABLEKS R10 R7 K9 ["impressions"]
   GETTABLE R9 R10 R5
   JUMPIF R9 [+24]
-  GETTABLEKS R10 R0 K17 ["senders"]
-  GETTABLEKS R9 R10 K18 ["sendEventDeferred"]
-  GETUPVAL R11 3
+  GETTABLEKS R10 R0 K21 ["senders"]
+  GETTABLEKS R9 R10 K22 ["sendEventDeferred"]
+  GETUPVAL R11 0
   CALL R11 0 1
   JUMPIFNOT R11 [+4]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K19 ["eventTarget"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K23 ["eventTarget"]
   JUMP [+1]
-  LOADK R10 K20 ["studio"]
-  LOADK R11 K21 ["Marketplace"]
-  LOADK R12 K22 ["MarketplaceAssetImpression"]
+  LOADK R10 K24 ["studio"]
+  LOADK R11 K2 ["Marketplace"]
+  LOADK R12 K25 ["MarketplaceAssetImpression"]
   MOVE R13 R8
   CALL R9 4 0
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K23 ["incrementAssetImpressionCounter"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K26 ["incrementAssetImpressionCounter"]
   CALL R9 0 0
-  GETTABLEKS R9 R7 K5 ["impressions"]
+  GETTABLEKS R9 R7 K9 ["impressions"]
   LOADB R10 1
   SETTABLE R10 R9 R5
   RETURN R0 0
@@ -778,11 +790,11 @@ MAIN:
   CAPTURE VAL R9
   SETTABLEKS R17 R16 K45 ["getTrackingAttributes"]
   DUPCLOSURE R17 K46 [PROTO_9]
+  CAPTURE VAL R12
+  CAPTURE VAL R9
   CAPTURE VAL R16
   CAPTURE VAL R4
   CAPTURE VAL R15
-  CAPTURE VAL R12
-  CAPTURE VAL R9
   SETTABLEKS R17 R16 K47 ["logImpression"]
   DUPCLOSURE R17 K48 [PROTO_10]
   CAPTURE VAL R16

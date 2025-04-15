@@ -11,18 +11,18 @@ MAIN:
   NAMECALL R0 R0 K6 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K7 ["ChannelOnlyOverrideABTest"]
-  LOADB R3 0
-  NAMECALL R0 R0 K6 ["DefineFastFlag"]
+  LOADK R2 K7 ["ChannelStoreWVOverrideABTestPercent"]
+  LOADN R3 0
+  NAMECALL R0 R0 K8 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K8 ["CreatorStoreWVEnableABTest"]
+  LOADK R2 K9 ["CreatorStoreWVEnableABTest"]
   LOADB R3 0
   NAMECALL R0 R0 K6 ["DefineFastFlag"]
   CALL R0 3 0
-  DUPTABLE R0 K10 [{"testMatch"}]
+  DUPTABLE R0 K11 [{"testMatch"}]
   NEWTABLE R1 0 1
-  LOADK R2 K11 ["**/*.spec"]
+  LOADK R2 K12 ["**/*.spec"]
   SETLIST R1 R2 1 [1]
-  SETTABLEKS R1 R0 K9 ["testMatch"]
+  SETTABLEKS R1 R0 K10 ["testMatch"]
   RETURN R0 1

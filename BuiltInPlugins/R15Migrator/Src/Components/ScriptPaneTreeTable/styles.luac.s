@@ -10,119 +10,68 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
-  GETTABLEKS R3 R1 K10 ["SharedFlags"]
-  GETTABLEKS R4 R3 K11 ["getFFlagDevFrameworkTreeTableCellPadding"]
-  CALL R4 0 1
-  GETTABLEKS R5 R3 K12 ["getFFlagDevFrameworkFixTreeTableHoverScroll"]
-  MOVE R6 R2
-  LOADK R7 K13 [".Component-TreeTable"]
-  NEWTABLE R8 0 0
-  NEWTABLE R9 0 1
-  MOVE R10 R2
-  LOADK R11 K14 [">> .Component-CellComponent"]
-  NEWTABLE R12 0 0
-  NEWTABLE R13 0 2
-  MOVE R14 R2
-  LOADK R15 K15 ["> .Left ::UIPadding"]
-  JUMPIFNOT R4 [+30]
-  DUPTABLE R16 K20 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R17 K23 [UDim.new]
-  LOADN R18 0
-  LOADN R19 1
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K16 ["PaddingTop"]
-  GETIMPORT R17 K23 [UDim.new]
-  LOADN R18 0
-  LOADN R19 1
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K17 ["PaddingBottom"]
-  GETIMPORT R17 K23 [UDim.new]
-  LOADN R18 0
-  LOADN R19 5
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K18 ["PaddingLeft"]
-  GETIMPORT R17 K23 [UDim.new]
-  LOADN R18 0
-  LOADN R19 5
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K19 ["PaddingRight"]
-  JUMP [+16]
-  DUPTABLE R16 K25 [{"Padding"}]
-  DUPTABLE R17 K30 [{"Top", "Bottom", "Left", "Right"}]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K26 ["Top"]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K27 ["Bottom"]
-  LOADN R18 5
-  SETTABLEKS R18 R17 K28 ["Left"]
-  LOADN R18 5
-  SETTABLEKS R18 R17 K29 ["Right"]
-  SETTABLEKS R17 R16 K24 ["Padding"]
+  MOVE R3 R2
+  LOADK R4 K10 [".Component-TreeTable"]
+  NEWTABLE R5 0 0
+  NEWTABLE R6 0 1
+  MOVE R7 R2
+  LOADK R8 K11 [">> .Component-CellComponent"]
+  NEWTABLE R9 0 0
+  NEWTABLE R10 0 2
+  MOVE R11 R2
+  LOADK R12 K12 ["> .Left ::UIPadding"]
+  DUPTABLE R13 K17 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R14 K20 [UDim.new]
+  LOADN R15 0
+  LOADN R16 1
   CALL R14 2 1
-  MOVE R15 R2
-  LOADK R16 K31 [">> .Arrow"]
-  MOVE R18 R5
-  CALL R18 0 1
-  JUMPIFNOT R18 [+15]
-  DUPTABLE R17 K35 [{"BackgroundTransparency", "Image", "Size"}]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K32 ["BackgroundTransparency"]
-  LOADK R18 K36 ["$ArrowRightImage"]
-  SETTABLEKS R18 R17 K33 ["Image"]
-  GETIMPORT R18 K39 [UDim2.fromOffset]
-  LOADN R19 16
-  LOADN R20 16
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K34 ["Size"]
-  JUMP [+31]
-  DUPTABLE R17 K43 [{"BackgroundTransparency", "Image", "ImageColor3", "ImageRectSize", "ImageRectOffset", "Size"}]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K32 ["BackgroundTransparency"]
-  LOADK R18 K44 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
-  SETTABLEKS R18 R17 K33 ["Image"]
-  LOADK R18 K45 ["$TextPrimary"]
-  SETTABLEKS R18 R17 K40 ["ImageColor3"]
-  GETIMPORT R18 K47 [Vector2.new]
-  LOADN R19 12
-  LOADN R20 12
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K41 ["ImageRectSize"]
-  GETIMPORT R18 K47 [Vector2.new]
-  LOADN R19 12
-  LOADN R20 0
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K42 ["ImageRectOffset"]
-  GETIMPORT R18 K39 [UDim2.fromOffset]
-  LOADN R19 12
-  LOADN R20 12
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K34 ["Size"]
-  NEWTABLE R18 0 1
-  JUMPIFNOT R4 [+8]
-  MOVE R19 R2
-  LOADK R20 K48 [".Invisible"]
-  DUPTABLE R21 K50 [{"ImageTransparency"}]
-  LOADN R22 1
-  SETTABLEKS R22 R21 K49 ["ImageTransparency"]
-  CALL R19 2 1
-  JUMP [+1]
-  LOADNIL R19
-  SETLIST R18 R19 1 [1]
-  CALL R15 3 -1
-  SETLIST R13 R14 -1 [1]
-  CALL R10 3 -1
-  SETLIST R9 R10 -1 [1]
-  DUPTABLE R10 K54 [{"ArrowSize", "CellPadding", "Indent"}]
-  MOVE R12 R5
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  LOADN R11 16
-  JUMP [+1]
-  LOADN R11 12
-  SETTABLEKS R11 R10 K51 ["ArrowSize"]
-  LOADN R11 5
-  SETTABLEKS R11 R10 K52 ["CellPadding"]
-  LOADN R11 20
-  SETTABLEKS R11 R10 K53 ["Indent"]
-  CALL R6 4 -1
-  RETURN R6 -1
+  SETTABLEKS R14 R13 K13 ["PaddingTop"]
+  GETIMPORT R14 K20 [UDim.new]
+  LOADN R15 0
+  LOADN R16 1
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K14 ["PaddingBottom"]
+  GETIMPORT R14 K20 [UDim.new]
+  LOADN R15 0
+  LOADN R16 5
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K15 ["PaddingLeft"]
+  GETIMPORT R14 K20 [UDim.new]
+  LOADN R15 0
+  LOADN R16 5
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K16 ["PaddingRight"]
+  CALL R11 2 1
+  MOVE R12 R2
+  LOADK R13 K21 [">> .Arrow"]
+  DUPTABLE R14 K25 [{"BackgroundTransparency", "Image", "Size"}]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K22 ["BackgroundTransparency"]
+  LOADK R15 K26 ["$ArrowRightImage"]
+  SETTABLEKS R15 R14 K23 ["Image"]
+  GETIMPORT R15 K29 [UDim2.fromOffset]
+  LOADN R16 16
+  LOADN R17 16
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K24 ["Size"]
+  NEWTABLE R15 0 1
+  MOVE R16 R2
+  LOADK R17 K30 [".Invisible"]
+  DUPTABLE R18 K32 [{"ImageTransparency"}]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K31 ["ImageTransparency"]
+  CALL R16 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 -1
+  SETLIST R10 R11 -1 [1]
+  CALL R7 3 -1
+  SETLIST R6 R7 -1 [1]
+  DUPTABLE R7 K36 [{"ArrowSize", "CellPadding", "Indent"}]
+  LOADN R8 16
+  SETTABLEKS R8 R7 K33 ["ArrowSize"]
+  LOADN R8 5
+  SETTABLEKS R8 R7 K34 ["CellPadding"]
+  LOADN R8 20
+  SETTABLEKS R8 R7 K35 ["Indent"]
+  CALL R3 4 -1
+  RETURN R3 -1

@@ -379,9 +379,6 @@ PROTO_12:
   CAPTURE VAL R3
   NEWTABLE R12 0 0
   CALL R10 2 1
-  GETUPVAL R12 6
-  CALL R12 0 1
-  JUMPIFNOT R12 [+16]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K7 ["useCallback"]
   NEWCLOSURE R12 P2
@@ -394,9 +391,7 @@ PROTO_12:
   MOVE R14 R10
   SETLIST R13 R14 1 [1]
   CALL R11 2 1
-  JUMP [+1]
-  LOADNIL R11
-  GETUPVAL R12 7
+  GETUPVAL R12 6
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K8 ["util"]
   GETTABLEKS R13 R14 K9 ["canUploadBundlesAsync"]
@@ -420,7 +415,7 @@ PROTO_12:
   SETTABLEKS R13 R14 K19 ["requestCanUploadBundles"]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K21 ["createElement"]
-  GETUPVAL R17 8
+  GETUPVAL R17 7
   GETTABLEKS R16 R17 K22 ["Provider"]
   DUPTABLE R17 K24 [{"value"}]
   SETTABLEKS R14 R17 K23 ["value"]
@@ -468,64 +463,58 @@ MAIN:
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K10 ["Src"]
   GETTABLEKS R10 R11 K16 ["Flags"]
-  GETTABLEKS R9 R10 K17 ["getFFlagAvatarPreviewerRerunValidation"]
+  GETTABLEKS R9 R10 K17 ["getFFlagAvatarPreviewerUseAnyModel"]
   CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K10 ["Src"]
-  GETTABLEKS R11 R12 K16 ["Flags"]
-  GETTABLEKS R10 R11 K18 ["getFFlagAvatarPreviewerUseAnyModel"]
-  CALL R9 1 1
-  GETTABLEKS R11 R1 K19 ["ContextServices"]
-  GETTABLEKS R10 R11 K20 ["Analytics"]
-  DUPTABLE R11 K31 [{"DEPRECATED_cachedResponses", "cachedResponses", "validateBundle", "revalidateBundle", "findCachedValidationResponse", "calculateScaleToValidateBoundsAsync", "preprocessDataAsync", "isPreprocessDataCached", "canUploadBundles", "requestCanUploadBundles"}]
-  NEWTABLE R12 0 0
-  SETTABLEKS R12 R11 K21 ["DEPRECATED_cachedResponses"]
-  NEWTABLE R12 0 0
-  SETTABLEKS R12 R11 K22 ["cachedResponses"]
-  MOVE R12 R5
-  LOADK R13 K23 ["validateBundle"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K23 ["validateBundle"]
-  MOVE R12 R5
-  LOADK R13 K24 ["revalidateBundle"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K24 ["revalidateBundle"]
-  MOVE R12 R5
-  LOADK R13 K25 ["findCachedValidationResponse"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K25 ["findCachedValidationResponse"]
-  MOVE R12 R5
-  LOADK R13 K26 ["calculateScaleToValidateBoundsAsync"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K26 ["calculateScaleToValidateBoundsAsync"]
-  MOVE R12 R5
-  LOADK R13 K27 ["preprocessDataAsync"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K27 ["preprocessDataAsync"]
-  MOVE R12 R5
-  LOADK R13 K28 ["isPreprocessDataCached"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K28 ["isPreprocessDataCached"]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K29 ["canUploadBundles"]
-  MOVE R12 R5
-  LOADK R13 K30 ["requestCanUploadBundles"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K30 ["requestCanUploadBundles"]
-  GETTABLEKS R12 R2 K32 ["createContext"]
-  MOVE R13 R11
-  CALL R12 1 1
-  DUPCLOSURE R13 K33 [PROTO_12]
-  CAPTURE VAL R10
+  GETTABLEKS R10 R1 K18 ["ContextServices"]
+  GETTABLEKS R9 R10 K19 ["Analytics"]
+  DUPTABLE R10 K30 [{"DEPRECATED_cachedResponses", "cachedResponses", "validateBundle", "revalidateBundle", "findCachedValidationResponse", "calculateScaleToValidateBoundsAsync", "preprocessDataAsync", "isPreprocessDataCached", "canUploadBundles", "requestCanUploadBundles"}]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K20 ["DEPRECATED_cachedResponses"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K21 ["cachedResponses"]
+  MOVE R11 R5
+  LOADK R12 K22 ["validateBundle"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K22 ["validateBundle"]
+  MOVE R11 R5
+  LOADK R12 K23 ["revalidateBundle"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K23 ["revalidateBundle"]
+  MOVE R11 R5
+  LOADK R12 K24 ["findCachedValidationResponse"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K24 ["findCachedValidationResponse"]
+  MOVE R11 R5
+  LOADK R12 K25 ["calculateScaleToValidateBoundsAsync"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K25 ["calculateScaleToValidateBoundsAsync"]
+  MOVE R11 R5
+  LOADK R12 K26 ["preprocessDataAsync"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K26 ["preprocessDataAsync"]
+  MOVE R11 R5
+  LOADK R12 K27 ["isPreprocessDataCached"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K27 ["isPreprocessDataCached"]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K28 ["canUploadBundles"]
+  MOVE R11 R5
+  LOADK R12 K29 ["requestCanUploadBundles"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K29 ["requestCanUploadBundles"]
+  GETTABLEKS R11 R2 K31 ["createContext"]
+  MOVE R12 R10
+  CALL R11 1 1
+  DUPCLOSURE R12 K32 [PROTO_12]
+  CAPTURE VAL R9
   CAPTURE VAL R2
   CAPTURE VAL R4
-  CAPTURE VAL R9
+  CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R3
-  CAPTURE VAL R8
   CAPTURE VAL R6
-  CAPTURE VAL R12
-  DUPTABLE R14 K36 [{"Context", "Provider"}]
-  SETTABLEKS R12 R14 K34 ["Context"]
-  SETTABLEKS R13 R14 K35 ["Provider"]
-  RETURN R14 1
+  CAPTURE VAL R11
+  DUPTABLE R13 K35 [{"Context", "Provider"}]
+  SETTABLEKS R11 R13 K33 ["Context"]
+  SETTABLEKS R12 R13 K34 ["Provider"]
+  RETURN R13 1

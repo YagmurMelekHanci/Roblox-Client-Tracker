@@ -33,104 +33,102 @@ PROTO_2:
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K9 ["createElement"]
   GETUPVAL R11 2
-  DUPTABLE R12 K17 [{"Buttons", "Enabled", "FitTextButtonWidth", "MinContentSize", "Modal", "OnButtonPressed", "OnClose", "Style", "Title"}]
+  DUPTABLE R12 K16 [{"Buttons", "Enabled", "MinContentSize", "Modal", "OnButtonPressed", "OnClose", "Style", "Title"}]
   NEWTABLE R13 0 2
-  DUPTABLE R14 K20 [{"Key", "Text"}]
+  DUPTABLE R14 K19 [{"Key", "Text"}]
   GETUPVAL R16 3
-  GETTABLEKS R15 R16 K21 ["Cancel"]
-  SETTABLEKS R15 R14 K18 ["Key"]
-  SETTABLEKS R3 R14 K19 ["Text"]
-  DUPTABLE R15 K20 [{"Key", "Text"}]
+  GETTABLEKS R15 R16 K20 ["Cancel"]
+  SETTABLEKS R15 R14 K17 ["Key"]
+  SETTABLEKS R3 R14 K18 ["Text"]
+  DUPTABLE R15 K19 [{"Key", "Text"}]
   GETUPVAL R17 3
-  GETTABLEKS R16 R17 K22 ["Accept"]
-  SETTABLEKS R16 R15 K18 ["Key"]
-  SETTABLEKS R2 R15 K19 ["Text"]
+  GETTABLEKS R16 R17 K21 ["Accept"]
+  SETTABLEKS R16 R15 K17 ["Key"]
+  SETTABLEKS R2 R15 K18 ["Text"]
   SETLIST R13 R14 2 [1]
   SETTABLEKS R13 R12 K10 ["Buttons"]
   JUMPIFEQKB R5 TRUE [+2]
   LOADB R13 0 +1
   LOADB R13 1
   SETTABLEKS R13 R12 K4 ["Enabled"]
-  LOADB R13 1
-  SETTABLEKS R13 R12 K11 ["FitTextButtonWidth"]
   GETUPVAL R13 4
-  SETTABLEKS R13 R12 K12 ["MinContentSize"]
+  SETTABLEKS R13 R12 K11 ["MinContentSize"]
   LOADB R13 1
-  SETTABLEKS R13 R12 K13 ["Modal"]
-  GETTABLEKS R13 R0 K23 ["onButtonPressed"]
-  SETTABLEKS R13 R12 K14 ["OnButtonPressed"]
-  SETTABLEKS R7 R12 K15 ["OnClose"]
-  LOADK R13 K24 ["AssetConfigWarningDialog"]
-  SETTABLEKS R13 R12 K16 ["Style"]
+  SETTABLEKS R13 R12 K12 ["Modal"]
+  GETTABLEKS R13 R0 K22 ["onButtonPressed"]
+  SETTABLEKS R13 R12 K13 ["OnButtonPressed"]
+  SETTABLEKS R7 R12 K14 ["OnClose"]
+  LOADK R13 K23 ["AssetConfigWarningDialog"]
+  SETTABLEKS R13 R12 K15 ["Style"]
   SETTABLEKS R8 R12 K7 ["Title"]
-  DUPTABLE R13 K26 [{"Contents"}]
+  DUPTABLE R13 K25 [{"Contents"}]
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K9 ["createElement"]
   GETUPVAL R15 5
-  DUPTABLE R16 K31 [{"HorizontalAlignment", "Layout", "Spacing", "Size"}]
-  GETIMPORT R17 K34 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R17 R16 K27 ["HorizontalAlignment"]
-  GETIMPORT R17 K37 [Enum.FillDirection.Vertical]
-  SETTABLEKS R17 R16 K28 ["Layout"]
+  DUPTABLE R16 K30 [{"HorizontalAlignment", "Layout", "Spacing", "Size"}]
+  GETIMPORT R17 K33 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R17 R16 K26 ["HorizontalAlignment"]
+  GETIMPORT R17 K36 [Enum.FillDirection.Vertical]
+  SETTABLEKS R17 R16 K27 ["Layout"]
   LOADN R17 20
-  SETTABLEKS R17 R16 K29 ["Spacing"]
-  GETIMPORT R17 K40 [UDim2.fromScale]
+  SETTABLEKS R17 R16 K28 ["Spacing"]
+  GETIMPORT R17 K39 [UDim2.fromScale]
   LOADN R18 1
   LOADN R19 1
   CALL R17 2 1
-  SETTABLEKS R17 R16 K30 ["Size"]
-  DUPTABLE R17 K41 [{"Heading", "Description"}]
+  SETTABLEKS R17 R16 K29 ["Size"]
+  DUPTABLE R17 K40 [{"Heading", "Description"}]
   GETUPVAL R19 1
   GETTABLEKS R18 R19 K9 ["createElement"]
   GETUPVAL R19 6
-  DUPTABLE R20 K47 [{"AutomaticSize", "LayoutOrder", "Size", "Font", "Text", "TextWrapped", "TextXAlignment"}]
-  GETIMPORT R21 K49 [Enum.AutomaticSize.Y]
-  SETTABLEKS R21 R20 K42 ["AutomaticSize"]
-  NAMECALL R21 R9 K50 ["getNextOrder"]
+  DUPTABLE R20 K46 [{"AutomaticSize", "LayoutOrder", "Size", "Font", "Text", "TextWrapped", "TextXAlignment"}]
+  GETIMPORT R21 K48 [Enum.AutomaticSize.Y]
+  SETTABLEKS R21 R20 K41 ["AutomaticSize"]
+  NAMECALL R21 R9 K49 ["getNextOrder"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K43 ["LayoutOrder"]
-  GETIMPORT R21 K51 [UDim2.new]
+  SETTABLEKS R21 R20 K42 ["LayoutOrder"]
+  GETIMPORT R21 K50 [UDim2.new]
   LOADN R22 1
   LOADN R23 0
   LOADN R24 0
   LOADN R25 0
   CALL R21 4 1
-  SETTABLEKS R21 R20 K30 ["Size"]
+  SETTABLEKS R21 R20 K29 ["Size"]
   GETUPVAL R22 7
-  GETTABLEKS R21 R22 K52 ["FONT_BOLD"]
-  SETTABLEKS R21 R20 K44 ["Font"]
-  SETTABLEKS R6 R20 K19 ["Text"]
+  GETTABLEKS R21 R22 K51 ["FONT_BOLD"]
+  SETTABLEKS R21 R20 K43 ["Font"]
+  SETTABLEKS R6 R20 K18 ["Text"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K45 ["TextWrapped"]
-  GETIMPORT R21 K53 [Enum.TextXAlignment.Center]
-  SETTABLEKS R21 R20 K46 ["TextXAlignment"]
+  SETTABLEKS R21 R20 K44 ["TextWrapped"]
+  GETIMPORT R21 K52 [Enum.TextXAlignment.Center]
+  SETTABLEKS R21 R20 K45 ["TextXAlignment"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K5 ["Heading"]
   GETUPVAL R19 1
   GETTABLEKS R18 R19 K9 ["createElement"]
   GETUPVAL R19 6
-  DUPTABLE R20 K54 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextWrapped", "TextXAlignment"}]
-  GETIMPORT R21 K49 [Enum.AutomaticSize.Y]
-  SETTABLEKS R21 R20 K42 ["AutomaticSize"]
-  NAMECALL R21 R9 K50 ["getNextOrder"]
+  DUPTABLE R20 K53 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextWrapped", "TextXAlignment"}]
+  GETIMPORT R21 K48 [Enum.AutomaticSize.Y]
+  SETTABLEKS R21 R20 K41 ["AutomaticSize"]
+  NAMECALL R21 R9 K49 ["getNextOrder"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K43 ["LayoutOrder"]
-  GETIMPORT R21 K51 [UDim2.new]
+  SETTABLEKS R21 R20 K42 ["LayoutOrder"]
+  GETIMPORT R21 K50 [UDim2.new]
   LOADN R22 1
   LOADN R23 0
   LOADN R24 0
   LOADN R25 0
   CALL R21 4 1
-  SETTABLEKS R21 R20 K30 ["Size"]
-  SETTABLEKS R4 R20 K19 ["Text"]
+  SETTABLEKS R21 R20 K29 ["Size"]
+  SETTABLEKS R4 R20 K18 ["Text"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K45 ["TextWrapped"]
-  GETIMPORT R21 K53 [Enum.TextXAlignment.Center]
-  SETTABLEKS R21 R20 K46 ["TextXAlignment"]
+  SETTABLEKS R21 R20 K44 ["TextWrapped"]
+  GETIMPORT R21 K52 [Enum.TextXAlignment.Center]
+  SETTABLEKS R21 R20 K45 ["TextXAlignment"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K3 ["Description"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K25 ["Contents"]
+  SETTABLEKS R14 R13 K24 ["Contents"]
   CALL R10 3 -1
   RETURN R10 -1
 

@@ -495,7 +495,7 @@ MAIN:
   GETTABLEKS R23 R1 K12 ["Core"]
   GETTABLEKS R22 R23 K17 ["Components"]
   GETTABLEKS R21 R22 K30 ["WebView"]
-  GETTABLEKS R20 R21 K31 ["WebViewMessageBusContext"]
+  GETTABLEKS R20 R21 K31 ["WebViewManagerContext"]
   CALL R19 1 1
   GETIMPORT R20 K9 [require]
   GETTABLEKS R22 R5 K32 ["Analytics"]

@@ -1,0 +1,99 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["Item"]
+  GETTABLEKS R1 R2 K1 ["ExplorerHeader"]
+  JUMPIFNOT R1 [+21]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K6 [{"Index", "Text", "Position"}]
+  GETTABLEKS R4 R0 K3 ["Index"]
+  SETTABLEKS R4 R3 K3 ["Index"]
+  GETTABLEKS R5 R0 K0 ["Item"]
+  GETTABLEKS R4 R5 K1 ["ExplorerHeader"]
+  SETTABLEKS R4 R3 K4 ["Text"]
+  GETTABLEKS R4 R0 K5 ["Position"]
+  SETTABLEKS R4 R3 K5 ["Position"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  GETTABLEKS R2 R0 K0 ["Item"]
+  GETTABLEKS R1 R2 K7 ["Scope"]
+  JUMPIFNOT R1 [+21]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["createElement"]
+  GETUPVAL R2 2
+  DUPTABLE R3 K9 [{"Index", "ScopeInfo", "Position"}]
+  GETTABLEKS R4 R0 K3 ["Index"]
+  SETTABLEKS R4 R3 K3 ["Index"]
+  GETTABLEKS R5 R0 K0 ["Item"]
+  GETTABLEKS R4 R5 K7 ["Scope"]
+  SETTABLEKS R4 R3 K8 ["ScopeInfo"]
+  GETTABLEKS R4 R0 K5 ["Position"]
+  SETTABLEKS R4 R3 K5 ["Position"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  GETUPVAL R1 3
+  CALL R1 0 1
+  JUMPIFNOT R1 [+4]
+  GETIMPORT R1 K11 [warn]
+  LOADK R2 K12 ["ExplorerRow: Item does not have a scope"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["createElement"]
+  GETUPVAL R2 4
+  NEWTABLE R3 4 0
+  GETTABLEKS R4 R0 K3 ["Index"]
+  SETTABLEKS R4 R3 K13 ["LayoutOrder"]
+  GETTABLEKS R4 R0 K5 ["Position"]
+  SETTABLEKS R4 R3 K5 ["Position"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K14 ["Tag"]
+  LOADK R5 K15 ["am-size-full-explorerrow"]
+  SETTABLE R5 R3 R4
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetManager"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Types"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K11 ["UI"]
+  GETTABLEKS R5 R4 K12 ["Pane"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K13 ["HeaderRow"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K14 ["ScopeRow"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Hooks"]
+  GETTABLEKS R9 R10 K16 ["useExplorerInfo"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Flags"]
+  GETTABLEKS R10 R11 K18 ["getFFlagDebugAmrOutput"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K19 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  RETURN R10 1

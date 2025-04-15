@@ -205,9 +205,6 @@ PROTO_11:
   RETURN R3 -1
 
 PROTO_12:
-  RETURN R0 0
-
-PROTO_13:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["EngineAssetTypeIdToToolboxAssetType"]
   GETUPVAL R5 1
@@ -288,7 +285,7 @@ PROTO_13:
   CALL R6 7 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_13:
   GETUPVAL R5 0
   GETIMPORT R6 K1 [tick]
   CALL R6 0 1
@@ -323,78 +320,54 @@ PROTO_14:
   JUMP [+3]
   GETUPVAL R19 2
   GETTABLEKS R18 R19 K20 ["tryInsert"]
-  GETUPVAL R20 3
-  CALL R20 0 1
-  JUMPIFNOT R20 [+20]
-  GETUPVAL R20 4
-  GETTABLEKS R21 R10 K21 ["_IXP"]
-  GETTABLEKS R22 R10 K22 ["_WebViewMessageBusContext"]
-  CALL R20 2 1
-  JUMPIFNOT R20 [+13]
-  GETUPVAL R21 5
-  GETTABLEKS R20 R21 K23 ["getTabKeyForCategoryName"]
-  MOVE R21 R11
-  CALL R20 1 1
-  GETUPVAL R22 5
-  GETTABLEKS R21 R22 K24 ["MARKETPLACE_KEY"]
-  JUMPIFEQ R20 R21 [+2]
-  LOADB R19 0 +1
-  LOADB R19 1
-  JUMP [+1]
-  LOADNIL R19
-  MOVE R20 R18
-  DUPTABLE R21 K39 [{"plugin", "assetId", "assetName", "assetSubTypes", "assetTypeId", "assetVersionId", "tutorialLimits", "onError", "onSuccess", "currentCategoryName", "categoryName", "layoutMode", "searchTerm", "assetIndex", "getIsIXPVariableEnabled"}]
-  SETTABLEKS R16 R21 K25 ["plugin"]
-  SETTABLEKS R6 R21 K26 ["assetId"]
-  SETTABLEKS R7 R21 K27 ["assetName"]
-  SETTABLEKS R9 R21 K28 ["assetSubTypes"]
-  SETTABLEKS R8 R21 K29 ["assetTypeId"]
-  SETTABLEKS R4 R21 K30 ["assetVersionId"]
-  SETTABLEKS R15 R21 K31 ["tutorialLimits"]
-  JUMPIFNOT R19 [+2]
-  DUPCLOSURE R22 K40 [PROTO_12]
-  JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K32 ["onError"]
-  NEWCLOSURE R22 P1
-  CAPTURE UPVAL U5
+  MOVE R19 R18
+  DUPTABLE R20 K34 [{"plugin", "assetId", "assetName", "assetSubTypes", "assetTypeId", "assetVersionId", "tutorialLimits", "onSuccess", "currentCategoryName", "categoryName", "layoutMode", "searchTerm", "assetIndex", "getIsIXPVariableEnabled"}]
+  SETTABLEKS R16 R20 K21 ["plugin"]
+  SETTABLEKS R6 R20 K22 ["assetId"]
+  SETTABLEKS R7 R20 K23 ["assetName"]
+  SETTABLEKS R9 R20 K24 ["assetSubTypes"]
+  SETTABLEKS R8 R20 K25 ["assetTypeId"]
+  SETTABLEKS R4 R20 K26 ["assetVersionId"]
+  SETTABLEKS R15 R20 K27 ["tutorialLimits"]
+  NEWCLOSURE R21 P0
+  CAPTURE UPVAL U3
   CAPTURE VAL R8
   CAPTURE UPVAL U0
   CAPTURE VAL R17
   CAPTURE REF R2
   CAPTURE VAL R1
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U4
   CAPTURE VAL R0
   CAPTURE VAL R3
   CAPTURE VAL R14
-  SETTABLEKS R22 R21 K33 ["onSuccess"]
-  SETTABLEKS R11 R21 K34 ["currentCategoryName"]
-  SETTABLEKS R11 R21 K35 ["categoryName"]
-  SETTABLEKS R14 R21 K36 ["layoutMode"]
-  SETTABLEKS R12 R21 K37 ["searchTerm"]
-  SETTABLEKS R13 R21 K12 ["assetIndex"]
-  GETUPVAL R23 7
-  JUMPIFNOT R23 [+4]
-  GETUPVAL R23 0
-  GETTABLEKS R22 R23 K38 ["getIsIXPVariableEnabled"]
+  SETTABLEKS R21 R20 K28 ["onSuccess"]
+  SETTABLEKS R11 R20 K29 ["currentCategoryName"]
+  SETTABLEKS R11 R20 K30 ["categoryName"]
+  SETTABLEKS R14 R20 K31 ["layoutMode"]
+  SETTABLEKS R12 R20 K32 ["searchTerm"]
+  SETTABLEKS R13 R20 K12 ["assetIndex"]
+  GETUPVAL R22 5
+  JUMPIFNOT R22 [+4]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K33 ["getIsIXPVariableEnabled"]
   JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K38 ["getIsIXPVariableEnabled"]
-  GETUPVAL R23 0
-  GETTABLEKS R22 R23 K41 ["insertToolPromise"]
-  MOVE R23 R1
-  MOVE R24 R17
-  CALL R20 4 2
+  LOADNIL R21
+  SETTABLEKS R21 R20 K33 ["getIsIXPVariableEnabled"]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K35 ["insertToolPromise"]
+  MOVE R22 R1
+  MOVE R23 R17
+  CALL R19 4 2
   CLOSEUPVALS R2
-  RETURN R20 2
+  RETURN R19 2
 
-PROTO_15:
+PROTO_14:
   DUPTABLE R0 K1 [{"previewAssetData"}]
   GETUPVAL R1 0
   SETTABLEKS R1 R0 K0 ["previewAssetData"]
   RETURN R0 1
 
-PROTO_16:
+PROTO_15:
   GETUPVAL R2 0
   NEWCLOSURE R4 P0
   CAPTURE VAL R0
@@ -411,16 +384,16 @@ PROTO_16:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_16:
   DUPTABLE R0 K1 [{"previewAssetData"}]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["None"]
   SETTABLEKS R1 R0 K0 ["previewAssetData"]
   RETURN R0 1
 
-PROTO_18:
+PROTO_17:
   GETUPVAL R1 0
-  DUPCLOSURE R3 K0 [PROTO_17]
+  DUPCLOSURE R3 K0 [PROTO_16]
   CAPTURE UPVAL U1
   NAMECALL R1 R1 K1 ["setState"]
   CALL R1 2 0
@@ -434,7 +407,7 @@ PROTO_18:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_18:
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K0 ["props"]
   GETTABLEKS R7 R8 K1 ["_getPageInfoAnalyticsContextInfo"]
@@ -530,7 +503,7 @@ PROTO_19:
   NOT R12 R9
   RETURN R12 1
 
-PROTO_20:
+PROTO_19:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R4 R2 K1 ["_Network"]
@@ -614,7 +587,7 @@ PROTO_20:
   CALL R8 3 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_20:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createRef"]
   CALL R1 0 1
@@ -694,8 +667,6 @@ PROTO_21:
   CAPTURE UPVAL U7
   CAPTURE UPVAL U8
   CAPTURE UPVAL U9
-  CAPTURE UPVAL U10
-  CAPTURE UPVAL U11
   CAPTURE UPVAL U4
   SETTABLEKS R1 R0 K27 ["tryInsert"]
   NEWCLOSURE R1 P13
@@ -707,27 +678,27 @@ PROTO_21:
   SETTABLEKS R1 R0 K29 ["closeAssetPreview"]
   NEWCLOSURE R1 P15
   CAPTURE VAL R0
-  CAPTURE UPVAL U12
-  CAPTURE UPVAL U13
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
   SETTABLEKS R1 R0 K30 ["logAssetImpression"]
-  GETUPVAL R1 14
+  GETUPVAL R1 12
   CALL R1 0 1
   JUMPIFNOT R1 [+7]
   NEWCLOSURE R1 P16
   CAPTURE VAL R0
-  CAPTURE UPVAL U10
-  CAPTURE UPVAL U15
-  CAPTURE UPVAL U16
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U13
+  CAPTURE UPVAL U14
   SETTABLEKS R1 R0 K31 ["onSearchByCreator"]
   RETURN R0 0
 
-PROTO_22:
+PROTO_21:
   GETTABLEKS R1 R0 K0 ["insertToolPromise"]
   NAMECALL R1 R1 K1 ["destroy"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_22:
   GETTABLEKS R4 R0 K0 ["props"]
   GETTABLEKS R3 R4 K1 ["_previewAssetData"]
   GETTABLEKS R5 R0 K2 ["state"]
@@ -753,7 +724,7 @@ PROTO_23:
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_23:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["_isPreviewing"]
@@ -821,230 +792,205 @@ PROTO_24:
   SETLIST R16 R17 15 [1]
   CALL R14 2 1
   MOVE R12 R14
-  GETUPVAL R15 4
-  CALL R15 0 1
-  JUMPIFNOT R15 [+21]
-  GETUPVAL R15 5
-  GETTABLEKS R16 R1 K40 ["_IXP"]
-  GETTABLEKS R17 R1 K41 ["_WebViewMessageBusContext"]
-  CALL R15 2 1
-  JUMPIFNOT R15 [+14]
-  GETUPVAL R16 6
-  GETTABLEKS R15 R16 K42 ["getTabKeyForCategoryName"]
-  GETTABLEKS R16 R1 K29 ["_categoryName"]
-  CALL R15 1 1
-  GETUPVAL R17 6
-  GETTABLEKS R16 R17 K43 ["MARKETPLACE_KEY"]
-  JUMPIFEQ R15 R16 [+2]
-  LOADB R14 0 +1
-  LOADB R14 1
-  JUMP [+1]
-  LOADNIL R14
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K44 ["createFragment"]
-  DUPTABLE R16 K52 [{"ToolScriptWarningMessageBox", "GrantPermissionsMessageBox", "ToolMessageBox", "AssetPreview", "SubsequentDialogController", "PurchaseFlowWrapper", "Contents"}]
-  MOVE R17 R6
-  JUMPIFNOT R17 [+39]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K53 ["createElement"]
-  GETUPVAL R18 7
-  DUPTABLE R19 K61 [{"Name", "Info", "Icon", "onClose", "onCancel", "onOkButtonClicked", "onChangeShowDialog"}]
-  GETIMPORT R20 K64 [string.format]
-  LOADK R21 K65 ["ToolboxToolScriptWarningMessageBox-%s"]
-  GETUPVAL R22 8
-  NAMECALL R22 R22 K66 ["GenerateGUID"]
-  CALL R22 1 -1
-  CALL R20 -1 1
-  SETTABLEKS R20 R19 K54 ["Name"]
-  SETTABLEKS R8 R19 K55 ["Info"]
-  GETUPVAL R21 9
-  GETTABLEKS R20 R21 K67 ["INFO_ICON"]
-  SETTABLEKS R20 R19 K56 ["Icon"]
-  GETTABLEKS R20 R0 K68 ["onScriptWarningBoxCanceled"]
-  SETTABLEKS R20 R19 K57 ["onClose"]
-  GETTABLEKS R20 R0 K68 ["onScriptWarningBoxCanceled"]
-  SETTABLEKS R20 R19 K58 ["onCancel"]
-  GETTABLEKS R20 R0 K69 ["onScriptWarningBoxConfirmed"]
-  SETTABLEKS R20 R19 K59 ["onOkButtonClicked"]
-  GETTABLEKS R20 R0 K70 ["onScriptWarningBoxToggleShow"]
-  SETTABLEKS R20 R19 K60 ["onChangeShowDialog"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K45 ["ToolScriptWarningMessageBox"]
-  MOVE R17 R7
-  JUMPIFNOT R17 [+97]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K53 ["createElement"]
-  GETUPVAL R18 10
-  DUPTABLE R19 K77 [{"Name", "Title", "Text", "InformativeText", "Icon", "IconColor", "onClose", "onButtonClicked", "buttons"}]
-  GETIMPORT R20 K64 [string.format]
-  LOADK R21 K78 ["ToolboxPermissionsMessageBox-%s"]
-  GETUPVAL R22 8
-  NAMECALL R22 R22 K66 ["GenerateGUID"]
-  CALL R22 1 -1
-  CALL R20 -1 1
-  SETTABLEKS R20 R19 K54 ["Name"]
-  LOADK R22 K79 ["General"]
-  LOADK R23 K80 ["RobloxStudio"]
-  NAMECALL R20 R11 K81 ["getText"]
-  CALL R20 3 1
-  SETTABLEKS R20 R19 K71 ["Title"]
-  LOADK R22 K82 ["GrantAssetPermission"]
-  LOADK R23 K83 ["DialogText"]
-  NAMECALL R20 R11 K81 ["getText"]
-  CALL R20 3 1
-  SETTABLEKS R20 R19 K72 ["Text"]
-  LOADK R22 K82 ["GrantAssetPermission"]
-  LOADK R23 K84 ["Information"]
-  DUPTABLE R24 K88 [{"assetName", "assetId", "assetType"}]
-  GETTABLEKS R25 R9 K85 ["assetName"]
-  SETTABLEKS R25 R24 K85 ["assetName"]
-  GETTABLEKS R25 R9 K86 ["assetId"]
-  SETTABLEKS R25 R24 K86 ["assetId"]
-  GETTABLEKS R25 R9 K87 ["assetType"]
-  SETTABLEKS R25 R24 K87 ["assetType"]
-  NAMECALL R20 R11 K81 ["getText"]
-  CALL R20 4 1
-  SETTABLEKS R20 R19 K73 ["InformativeText"]
-  GETUPVAL R21 9
-  GETTABLEKS R20 R21 K89 ["WARNING_ICON"]
-  SETTABLEKS R20 R19 K56 ["Icon"]
-  GETIMPORT R20 K92 [Color3.fromHex]
-  LOADK R21 K93 ["#FFAA21"]
-  CALL R20 1 1
-  SETTABLEKS R20 R19 K74 ["IconColor"]
-  GETTABLEKS R20 R0 K94 ["onPermissionsGrantClosed"]
-  SETTABLEKS R20 R19 K57 ["onClose"]
-  GETTABLEKS R20 R0 K95 ["onPermissionsGranted"]
-  SETTABLEKS R20 R19 K75 ["onButtonClicked"]
-  NEWTABLE R20 0 2
-  DUPTABLE R21 K97 [{"Text", "action"}]
-  LOADK R24 K82 ["GrantAssetPermission"]
-  LOADK R25 K98 ["CancelButton"]
-  NAMECALL R22 R11 K81 ["getText"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K40 ["createFragment"]
+  DUPTABLE R15 K48 [{"ToolScriptWarningMessageBox", "GrantPermissionsMessageBox", "ToolMessageBox", "AssetPreview", "SubsequentDialogController", "PurchaseFlowWrapper", "Contents"}]
+  MOVE R16 R6
+  JUMPIFNOT R16 [+39]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K49 ["createElement"]
+  GETUPVAL R17 4
+  DUPTABLE R18 K57 [{"Name", "Info", "Icon", "onClose", "onCancel", "onOkButtonClicked", "onChangeShowDialog"}]
+  GETIMPORT R19 K60 [string.format]
+  LOADK R20 K61 ["ToolboxToolScriptWarningMessageBox-%s"]
+  GETUPVAL R21 5
+  NAMECALL R21 R21 K62 ["GenerateGUID"]
+  CALL R21 1 -1
+  CALL R19 -1 1
+  SETTABLEKS R19 R18 K50 ["Name"]
+  SETTABLEKS R8 R18 K51 ["Info"]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K63 ["INFO_ICON"]
+  SETTABLEKS R19 R18 K52 ["Icon"]
+  GETTABLEKS R19 R0 K64 ["onScriptWarningBoxCanceled"]
+  SETTABLEKS R19 R18 K53 ["onClose"]
+  GETTABLEKS R19 R0 K64 ["onScriptWarningBoxCanceled"]
+  SETTABLEKS R19 R18 K54 ["onCancel"]
+  GETTABLEKS R19 R0 K65 ["onScriptWarningBoxConfirmed"]
+  SETTABLEKS R19 R18 K55 ["onOkButtonClicked"]
+  GETTABLEKS R19 R0 K66 ["onScriptWarningBoxToggleShow"]
+  SETTABLEKS R19 R18 K56 ["onChangeShowDialog"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K41 ["ToolScriptWarningMessageBox"]
+  MOVE R16 R7
+  JUMPIFNOT R16 [+97]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K49 ["createElement"]
+  GETUPVAL R17 7
+  DUPTABLE R18 K73 [{"Name", "Title", "Text", "InformativeText", "Icon", "IconColor", "onClose", "onButtonClicked", "buttons"}]
+  GETIMPORT R19 K60 [string.format]
+  LOADK R20 K74 ["ToolboxPermissionsMessageBox-%s"]
+  GETUPVAL R21 5
+  NAMECALL R21 R21 K62 ["GenerateGUID"]
+  CALL R21 1 -1
+  CALL R19 -1 1
+  SETTABLEKS R19 R18 K50 ["Name"]
+  LOADK R21 K75 ["General"]
+  LOADK R22 K76 ["RobloxStudio"]
+  NAMECALL R19 R11 K77 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K67 ["Title"]
+  LOADK R21 K78 ["GrantAssetPermission"]
+  LOADK R22 K79 ["DialogText"]
+  NAMECALL R19 R11 K77 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K68 ["Text"]
+  LOADK R21 K78 ["GrantAssetPermission"]
+  LOADK R22 K80 ["Information"]
+  DUPTABLE R23 K84 [{"assetName", "assetId", "assetType"}]
+  GETTABLEKS R24 R9 K81 ["assetName"]
+  SETTABLEKS R24 R23 K81 ["assetName"]
+  GETTABLEKS R24 R9 K82 ["assetId"]
+  SETTABLEKS R24 R23 K82 ["assetId"]
+  GETTABLEKS R24 R9 K83 ["assetType"]
+  SETTABLEKS R24 R23 K83 ["assetType"]
+  NAMECALL R19 R11 K77 ["getText"]
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K69 ["InformativeText"]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K85 ["WARNING_ICON"]
+  SETTABLEKS R19 R18 K52 ["Icon"]
+  GETIMPORT R19 K88 [Color3.fromHex]
+  LOADK R20 K89 ["#FFAA21"]
+  CALL R19 1 1
+  SETTABLEKS R19 R18 K70 ["IconColor"]
+  GETTABLEKS R19 R0 K90 ["onPermissionsGrantClosed"]
+  SETTABLEKS R19 R18 K53 ["onClose"]
+  GETTABLEKS R19 R0 K91 ["onPermissionsGranted"]
+  SETTABLEKS R19 R18 K71 ["onButtonClicked"]
+  NEWTABLE R19 0 2
+  DUPTABLE R20 K93 [{"Text", "action"}]
+  LOADK R23 K78 ["GrantAssetPermission"]
+  LOADK R24 K94 ["CancelButton"]
+  NAMECALL R21 R11 K77 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K68 ["Text"]
+  LOADK R21 K95 ["no"]
+  SETTABLEKS R21 R20 K92 ["action"]
+  DUPTABLE R21 K93 [{"Text", "action"}]
+  LOADK R24 K78 ["GrantAssetPermission"]
+  LOADK R25 K96 ["GrantButton"]
+  NAMECALL R22 R11 K77 ["getText"]
   CALL R22 3 1
-  SETTABLEKS R22 R21 K72 ["Text"]
-  LOADK R22 K99 ["no"]
-  SETTABLEKS R22 R21 K96 ["action"]
-  DUPTABLE R22 K97 [{"Text", "action"}]
-  LOADK R25 K82 ["GrantAssetPermission"]
-  LOADK R26 K100 ["GrantButton"]
-  NAMECALL R23 R11 K81 ["getText"]
-  CALL R23 3 1
-  SETTABLEKS R23 R22 K72 ["Text"]
-  LOADK R23 K101 ["yes"]
-  SETTABLEKS R23 R22 K96 ["action"]
-  SETLIST R20 R21 2 [1]
-  SETTABLEKS R20 R19 K76 ["buttons"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K46 ["GrantPermissionsMessageBox"]
-  MOVE R17 R5
-  JUMPIFNOT R17 [+71]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K53 ["createElement"]
-  GETUPVAL R18 10
-  DUPTABLE R19 K102 [{"Name", "Title", "Text", "Icon", "onClose", "onButtonClicked", "buttons"}]
-  GETIMPORT R20 K64 [string.format]
-  LOADK R21 K103 ["ToolboxToolMessageBox-%s"]
-  GETUPVAL R22 8
-  NAMECALL R22 R22 K66 ["GenerateGUID"]
-  CALL R22 1 -1
-  CALL R20 -1 1
-  SETTABLEKS R20 R19 K54 ["Name"]
-  LOADK R22 K104 ["InsertTool"]
-  LOADK R23 K105 ["DialogTitle"]
-  NAMECALL R20 R11 K81 ["getText"]
-  CALL R20 3 1
-  SETTABLEKS R20 R19 K71 ["Title"]
-  LOADK R22 K104 ["InsertTool"]
-  LOADK R23 K83 ["DialogText"]
-  NAMECALL R20 R11 K81 ["getText"]
-  CALL R20 3 1
-  SETTABLEKS R20 R19 K72 ["Text"]
-  GETUPVAL R21 9
-  GETTABLEKS R20 R21 K67 ["INFO_ICON"]
-  SETTABLEKS R20 R19 K56 ["Icon"]
-  GETTABLEKS R20 R0 K106 ["onMessageBoxClosed"]
-  SETTABLEKS R20 R19 K57 ["onClose"]
-  GETTABLEKS R20 R0 K107 ["onMessageBoxButtonClicked"]
-  SETTABLEKS R20 R19 K75 ["onButtonClicked"]
-  NEWTABLE R20 0 2
-  DUPTABLE R21 K97 [{"Text", "action"}]
-  LOADK R24 K108 ["Common"]
-  LOADK R25 K109 ["Yes"]
-  NAMECALL R22 R11 K81 ["getText"]
+  SETTABLEKS R22 R21 K68 ["Text"]
+  LOADK R22 K97 ["yes"]
+  SETTABLEKS R22 R21 K92 ["action"]
+  SETLIST R19 R20 2 [1]
+  SETTABLEKS R19 R18 K72 ["buttons"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K42 ["GrantPermissionsMessageBox"]
+  MOVE R16 R5
+  JUMPIFNOT R16 [+71]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K49 ["createElement"]
+  GETUPVAL R17 7
+  DUPTABLE R18 K98 [{"Name", "Title", "Text", "Icon", "onClose", "onButtonClicked", "buttons"}]
+  GETIMPORT R19 K60 [string.format]
+  LOADK R20 K99 ["ToolboxToolMessageBox-%s"]
+  GETUPVAL R21 5
+  NAMECALL R21 R21 K62 ["GenerateGUID"]
+  CALL R21 1 -1
+  CALL R19 -1 1
+  SETTABLEKS R19 R18 K50 ["Name"]
+  LOADK R21 K100 ["InsertTool"]
+  LOADK R22 K101 ["DialogTitle"]
+  NAMECALL R19 R11 K77 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K67 ["Title"]
+  LOADK R21 K100 ["InsertTool"]
+  LOADK R22 K79 ["DialogText"]
+  NAMECALL R19 R11 K77 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K68 ["Text"]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K63 ["INFO_ICON"]
+  SETTABLEKS R19 R18 K52 ["Icon"]
+  GETTABLEKS R19 R0 K102 ["onMessageBoxClosed"]
+  SETTABLEKS R19 R18 K53 ["onClose"]
+  GETTABLEKS R19 R0 K103 ["onMessageBoxButtonClicked"]
+  SETTABLEKS R19 R18 K71 ["onButtonClicked"]
+  NEWTABLE R19 0 2
+  DUPTABLE R20 K93 [{"Text", "action"}]
+  LOADK R23 K104 ["Common"]
+  LOADK R24 K105 ["Yes"]
+  NAMECALL R21 R11 K77 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K68 ["Text"]
+  LOADK R21 K97 ["yes"]
+  SETTABLEKS R21 R20 K92 ["action"]
+  DUPTABLE R21 K93 [{"Text", "action"}]
+  LOADK R24 K104 ["Common"]
+  LOADK R25 K106 ["No"]
+  NAMECALL R22 R11 K77 ["getText"]
   CALL R22 3 1
-  SETTABLEKS R22 R21 K72 ["Text"]
-  LOADK R22 K101 ["yes"]
-  SETTABLEKS R22 R21 K96 ["action"]
-  DUPTABLE R22 K97 [{"Text", "action"}]
-  LOADK R25 K108 ["Common"]
-  LOADK R26 K110 ["No"]
-  NAMECALL R23 R11 K81 ["getText"]
-  CALL R23 3 1
-  SETTABLEKS R23 R22 K72 ["Text"]
-  LOADK R23 K99 ["no"]
-  SETTABLEKS R23 R22 K96 ["action"]
-  SETLIST R20 R21 2 [1]
-  SETTABLEKS R20 R19 K76 ["buttons"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K47 ["ToolMessageBox"]
-  JUMPIFNOT R14 [+2]
-  LOADNIL R17
-  JUMP [+41]
-  MOVE R17 R13
-  JUMPIFNOT R17 [+39]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K53 ["createElement"]
-  GETUPVAL R18 11
-  DUPTABLE R19 K114 [{"assetData", "canInsertAsset", "logAssetImpression", "onAssetPreviewButtonClicked", "onClose", "onSearchByCreator", "tryInsert", "tryOpenAssetConfig"}]
-  SETTABLEKS R10 R19 K111 ["assetData"]
-  GETTABLEKS R20 R0 K21 ["canInsertAsset"]
-  SETTABLEKS R20 R19 K21 ["canInsertAsset"]
-  GETTABLEKS R20 R0 K23 ["logAssetImpression"]
-  SETTABLEKS R20 R19 K23 ["logAssetImpression"]
-  GETTABLEKS R20 R0 K25 ["openAssetPreview"]
-  SETTABLEKS R20 R19 K112 ["onAssetPreviewButtonClicked"]
-  GETTABLEKS R20 R0 K115 ["closeAssetPreview"]
-  SETTABLEKS R20 R19 K57 ["onClose"]
-  GETUPVAL R21 1
-  CALL R21 0 1
-  JUMPIFNOT R21 [+3]
-  GETTABLEKS R20 R0 K26 ["onSearchByCreator"]
+  SETTABLEKS R22 R21 K68 ["Text"]
+  LOADK R22 K95 ["no"]
+  SETTABLEKS R22 R21 K92 ["action"]
+  SETLIST R19 R20 2 [1]
+  SETTABLEKS R19 R18 K72 ["buttons"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K43 ["ToolMessageBox"]
+  MOVE R16 R13
+  JUMPIFNOT R16 [+39]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K49 ["createElement"]
+  GETUPVAL R17 8
+  DUPTABLE R18 K110 [{"assetData", "canInsertAsset", "logAssetImpression", "onAssetPreviewButtonClicked", "onClose", "onSearchByCreator", "tryInsert", "tryOpenAssetConfig"}]
+  SETTABLEKS R10 R18 K107 ["assetData"]
+  GETTABLEKS R19 R0 K21 ["canInsertAsset"]
+  SETTABLEKS R19 R18 K21 ["canInsertAsset"]
+  GETTABLEKS R19 R0 K23 ["logAssetImpression"]
+  SETTABLEKS R19 R18 K23 ["logAssetImpression"]
+  GETTABLEKS R19 R0 K25 ["openAssetPreview"]
+  SETTABLEKS R19 R18 K108 ["onAssetPreviewButtonClicked"]
+  GETTABLEKS R19 R0 K111 ["closeAssetPreview"]
+  SETTABLEKS R19 R18 K53 ["onClose"]
+  GETUPVAL R20 1
+  CALL R20 0 1
+  JUMPIFNOT R20 [+3]
+  GETTABLEKS R19 R0 K26 ["onSearchByCreator"]
   JUMP [+1]
-  LOADNIL R20
-  SETTABLEKS R20 R19 K26 ["onSearchByCreator"]
-  GETTABLEKS R20 R0 K24 ["tryInsert"]
-  SETTABLEKS R20 R19 K24 ["tryInsert"]
-  SETTABLEKS R4 R19 K113 ["tryOpenAssetConfig"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K48 ["AssetPreview"]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K53 ["createElement"]
-  GETUPVAL R18 12
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K49 ["SubsequentDialogController"]
-  JUMPIFNOT R14 [+2]
-  LOADNIL R17
-  JUMP [+12]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K53 ["createElement"]
-  GETUPVAL R18 13
-  DUPTABLE R19 K117 [{"AssetData", "TryInsert"}]
-  SETTABLEKS R10 R19 K116 ["AssetData"]
-  GETTABLEKS R20 R0 K24 ["tryInsert"]
-  SETTABLEKS R20 R19 K17 ["TryInsert"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K50 ["PurchaseFlowWrapper"]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K53 ["createElement"]
-  GETUPVAL R18 14
-  MOVE R19 R12
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K51 ["Contents"]
-  CALL R15 1 -1
-  RETURN R15 -1
+  LOADNIL R19
+  SETTABLEKS R19 R18 K26 ["onSearchByCreator"]
+  GETTABLEKS R19 R0 K24 ["tryInsert"]
+  SETTABLEKS R19 R18 K24 ["tryInsert"]
+  SETTABLEKS R4 R18 K109 ["tryOpenAssetConfig"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K44 ["AssetPreview"]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K49 ["createElement"]
+  GETUPVAL R17 9
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K45 ["SubsequentDialogController"]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K49 ["createElement"]
+  GETUPVAL R17 10
+  DUPTABLE R18 K113 [{"AssetData", "TryInsert"}]
+  SETTABLEKS R10 R18 K112 ["AssetData"]
+  GETTABLEKS R19 R0 K24 ["tryInsert"]
+  SETTABLEKS R19 R18 K17 ["TryInsert"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K46 ["PurchaseFlowWrapper"]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K49 ["createElement"]
+  GETUPVAL R17 11
+  MOVE R18 R12
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K47 ["Contents"]
+  CALL R14 1 -1
+  RETURN R14 -1
 
-PROTO_25:
+PROTO_24:
   MOVE R2 R0
   JUMPIF R2 [+2]
   NEWTABLE R2 0 0
@@ -1080,7 +1026,7 @@ PROTO_25:
   SETTABLEKS R5 R9 K13 ["_tutorialLimits"]
   RETURN R9 1
 
-PROTO_26:
+PROTO_25:
   GETUPVAL R3 0
   GETUPVAL R4 1
   MOVE R5 R0
@@ -1090,7 +1036,7 @@ PROTO_26:
   CALL R3 -1 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_26:
   GETUPVAL R2 0
   GETUPVAL R3 1
   MOVE R4 R0
@@ -1099,21 +1045,21 @@ PROTO_27:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_27:
   GETUPVAL R0 0
   GETUPVAL R1 1
   CALL R1 0 -1
   CALL R0 -1 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_28:
   GETUPVAL R0 0
   GETUPVAL R1 1
   CALL R1 0 -1
   CALL R0 -1 -1
   RETURN R0 -1
 
-PROTO_30:
+PROTO_29:
   GETUPVAL R3 0
   GETUPVAL R4 1
   MOVE R5 R0
@@ -1123,7 +1069,7 @@ PROTO_30:
   CALL R3 -1 0
   RETURN R0 0
 
-PROTO_31:
+PROTO_30:
   DUPTABLE R1 K5 [{"_onPreviewToggled", "_postInsertAssetRequest", "_setMostRecentAssetInsertTime", "_getPageInfoAnalyticsContextInfo", "_searchWithOptions"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
@@ -1147,7 +1093,7 @@ PROTO_31:
   SETTABLEKS R2 R1 K4 ["_searchWithOptions"]
   RETURN R1 1
 
-PROTO_32:
+PROTO_31:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["PureComponent"]
   LOADK R3 K1 ["AssetLogicWrapper"]
@@ -1178,77 +1124,65 @@ PROTO_32:
   CAPTURE UPVAL U12
   CAPTURE UPVAL U13
   CAPTURE UPVAL U14
-  CAPTURE UPVAL U15
-  CAPTURE UPVAL U16
   SETTABLEKS R2 R1 K9 ["init"]
-  DUPCLOSURE R2 K10 [PROTO_22]
+  DUPCLOSURE R2 K10 [PROTO_21]
   SETTABLEKS R2 R1 K11 ["willUnmount"]
-  DUPCLOSURE R2 K12 [PROTO_23]
+  DUPCLOSURE R2 K12 [PROTO_22]
   CAPTURE UPVAL U0
   SETTABLEKS R2 R1 K13 ["didUpdate"]
   NEWCLOSURE R2 P3
-  CAPTURE UPVAL U17
-  CAPTURE UPVAL U14
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U12
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U14
   CAPTURE UPVAL U16
-  CAPTURE UPVAL U8
-  CAPTURE UPVAL U9
-  CAPTURE UPVAL U10
+  CAPTURE UPVAL U17
   CAPTURE UPVAL U18
   CAPTURE UPVAL U19
   CAPTURE UPVAL U20
   CAPTURE UPVAL U21
   CAPTURE UPVAL U22
-  CAPTURE UPVAL U23
-  CAPTURE UPVAL U24
   CAPTURE VAL R0
   SETTABLEKS R2 R1 K14 ["render"]
-  GETUPVAL R2 25
-  DUPTABLE R3 K23 [{"_AssetAnalytics", "_Localization", "_Plugin", "_Settings", "_IXP", "_Network", "_NavigationContext", "_WebViewMessageBusContext"}]
-  GETUPVAL R4 26
+  GETUPVAL R2 23
+  DUPTABLE R3 K22 [{"_AssetAnalytics", "_Localization", "_Plugin", "_Settings", "_IXP", "_Network", "_NavigationContext"}]
+  GETUPVAL R4 24
   SETTABLEKS R4 R3 K15 ["_AssetAnalytics"]
-  GETUPVAL R5 27
-  GETTABLEKS R4 R5 K24 ["Localization"]
+  GETUPVAL R5 25
+  GETTABLEKS R4 R5 K23 ["Localization"]
   SETTABLEKS R4 R3 K16 ["_Localization"]
-  GETUPVAL R5 27
-  GETTABLEKS R4 R5 K25 ["Plugin"]
+  GETUPVAL R5 25
+  GETTABLEKS R4 R5 K24 ["Plugin"]
   SETTABLEKS R4 R3 K17 ["_Plugin"]
-  GETUPVAL R4 28
+  GETUPVAL R4 26
   SETTABLEKS R4 R3 K18 ["_Settings"]
   GETUPVAL R5 4
   JUMPIF R5 [+3]
-  GETUPVAL R5 8
+  GETUPVAL R5 27
   CALL R5 0 1
   JUMPIFNOT R5 [+2]
-  GETUPVAL R4 29
+  GETUPVAL R4 28
   JUMP [+1]
   LOADNIL R4
   SETTABLEKS R4 R3 K19 ["_IXP"]
-  GETUPVAL R4 30
+  GETUPVAL R4 29
   SETTABLEKS R4 R3 K20 ["_Network"]
-  GETUPVAL R4 31
+  GETUPVAL R4 30
   SETTABLEKS R4 R3 K21 ["_NavigationContext"]
-  GETUPVAL R5 8
-  CALL R5 0 1
-  JUMPIFNOT R5 [+2]
-  GETUPVAL R4 32
-  JUMP [+1]
-  LOADNIL R4
-  SETTABLEKS R4 R3 K22 ["_WebViewMessageBusContext"]
   CALL R2 1 1
   MOVE R3 R1
   CALL R2 1 1
   MOVE R1 R2
-  DUPCLOSURE R2 K26 [PROTO_25]
-  CAPTURE UPVAL U10
-  DUPCLOSURE R3 K27 [PROTO_31]
+  DUPCLOSURE R2 K25 [PROTO_24]
+  CAPTURE UPVAL U8
+  DUPCLOSURE R3 K26 [PROTO_30]
+  CAPTURE UPVAL U31
+  CAPTURE UPVAL U32
   CAPTURE UPVAL U33
   CAPTURE UPVAL U34
   CAPTURE UPVAL U35
-  CAPTURE UPVAL U36
-  CAPTURE UPVAL U37
-  GETUPVAL R5 38
-  GETTABLEKS R4 R5 K28 ["connect"]
+  GETUPVAL R5 36
+  GETTABLEKS R4 R5 K27 ["connect"]
   MOVE R5 R2
   MOVE R6 R3
   CALL R4 2 1
@@ -1337,136 +1271,116 @@ MAIN:
   GETTABLEKS R21 R12 K31 ["getIsWithinBounds"]
   CALL R20 1 1
   GETIMPORT R21 K12 [require]
-  GETTABLEKS R23 R12 K15 ["SharedFlags"]
-  GETTABLEKS R22 R23 K32 ["getIsUseCSW"]
+  GETTABLEKS R24 R4 K13 ["Core"]
+  GETTABLEKS R23 R24 K32 ["Types"]
+  GETTABLEKS R22 R23 K33 ["Category"]
   CALL R21 1 1
   GETIMPORT R22 K12 [require]
-  GETTABLEKS R25 R4 K13 ["Core"]
-  GETTABLEKS R24 R25 K33 ["Types"]
-  GETTABLEKS R23 R24 K34 ["Category"]
+  GETTABLEKS R27 R4 K13 ["Core"]
+  GETTABLEKS R26 R27 K34 ["Components"]
+  GETTABLEKS R25 R26 K35 ["Asset"]
+  GETTABLEKS R24 R25 K36 ["Preview"]
+  GETTABLEKS R23 R24 K37 ["AssetPreviewWrapper"]
   CALL R22 1 1
   GETIMPORT R23 K12 [require]
-  GETTABLEKS R28 R4 K13 ["Core"]
-  GETTABLEKS R27 R28 K35 ["Components"]
-  GETTABLEKS R26 R27 K36 ["Asset"]
-  GETTABLEKS R25 R26 K37 ["Preview"]
-  GETTABLEKS R24 R25 K38 ["AssetPreviewWrapper"]
+  GETTABLEKS R27 R4 K13 ["Core"]
+  GETTABLEKS R26 R27 K34 ["Components"]
+  GETTABLEKS R25 R26 K38 ["MessageBox"]
+  GETTABLEKS R24 R25 K38 ["MessageBox"]
   CALL R23 1 1
   GETIMPORT R24 K12 [require]
-  GETTABLEKS R28 R4 K13 ["Core"]
-  GETTABLEKS R27 R28 K35 ["Components"]
-  GETTABLEKS R26 R27 K39 ["MessageBox"]
-  GETTABLEKS R25 R26 K39 ["MessageBox"]
+  GETTABLEKS R27 R4 K13 ["Core"]
+  GETTABLEKS R26 R27 K34 ["Components"]
+  GETTABLEKS R25 R26 K39 ["ScriptConfirmationDialog"]
   CALL R24 1 1
   GETIMPORT R25 K12 [require]
   GETTABLEKS R28 R4 K13 ["Core"]
-  GETTABLEKS R27 R28 K35 ["Components"]
-  GETTABLEKS R26 R27 K40 ["ScriptConfirmationDialog"]
+  GETTABLEKS R27 R28 K40 ["ContextServices"]
+  GETTABLEKS R26 R27 K41 ["IXPContext"]
   CALL R25 1 1
   GETIMPORT R26 K12 [require]
-  GETTABLEKS R29 R4 K13 ["Core"]
-  GETTABLEKS R28 R29 K41 ["ContextServices"]
-  GETTABLEKS R27 R28 K42 ["IXPContext"]
+  GETTABLEKS R30 R4 K13 ["Core"]
+  GETTABLEKS R29 R30 K34 ["Components"]
+  GETTABLEKS R28 R29 K42 ["PurchaseFlow"]
+  GETTABLEKS R27 R28 K43 ["PurchaseFlowWrapper"]
   CALL R26 1 1
-  MOVE R28 R7
-  CALL R28 0 1
-  JUMPIFNOT R28 [+12]
   GETIMPORT R27 K12 [require]
   GETTABLEKS R31 R4 K13 ["Core"]
-  GETTABLEKS R30 R31 K35 ["Components"]
-  GETTABLEKS R29 R30 K43 ["WebView"]
-  GETTABLEKS R28 R29 K44 ["WebViewMessageBusContext"]
+  GETTABLEKS R30 R31 K34 ["Components"]
+  GETTABLEKS R29 R30 K42 ["PurchaseFlow"]
+  GETTABLEKS R28 R29 K44 ["SubsequentDialogController"]
   CALL R27 1 1
-  JUMP [+1]
-  LOADNIL R27
   GETIMPORT R28 K12 [require]
   GETTABLEKS R32 R4 K13 ["Core"]
-  GETTABLEKS R31 R32 K35 ["Components"]
-  GETTABLEKS R30 R31 K45 ["PurchaseFlow"]
-  GETTABLEKS R29 R30 K46 ["PurchaseFlowWrapper"]
+  GETTABLEKS R31 R32 K45 ["Networking"]
+  GETTABLEKS R30 R31 K46 ["Requests"]
+  GETTABLEKS R29 R30 K47 ["PostInsertAssetRequest"]
   CALL R28 1 1
   GETIMPORT R29 K12 [require]
-  GETTABLEKS R33 R4 K13 ["Core"]
-  GETTABLEKS R32 R33 K35 ["Components"]
-  GETTABLEKS R31 R32 K45 ["PurchaseFlow"]
-  GETTABLEKS R30 R31 K47 ["SubsequentDialogController"]
+  GETTABLEKS R32 R4 K13 ["Core"]
+  GETTABLEKS R31 R32 K48 ["Actions"]
+  GETTABLEKS R30 R31 K49 ["SetMostRecentAssetInsertTime"]
   CALL R29 1 1
   GETIMPORT R30 K12 [require]
-  GETTABLEKS R34 R4 K13 ["Core"]
-  GETTABLEKS R33 R34 K48 ["Networking"]
-  GETTABLEKS R32 R33 K49 ["Requests"]
-  GETTABLEKS R31 R32 K50 ["PostInsertAssetRequest"]
+  GETTABLEKS R33 R4 K13 ["Core"]
+  GETTABLEKS R32 R33 K50 ["Thunks"]
+  GETTABLEKS R31 R32 K51 ["GetPageInfoAnalyticsContextInfo"]
   CALL R30 1 1
   GETIMPORT R31 K12 [require]
-  GETTABLEKS R34 R4 K13 ["Core"]
-  GETTABLEKS R33 R34 K51 ["Actions"]
-  GETTABLEKS R32 R33 K52 ["SetMostRecentAssetInsertTime"]
+  GETTABLEKS R35 R4 K13 ["Core"]
+  GETTABLEKS R34 R35 K45 ["Networking"]
+  GETTABLEKS R33 R34 K46 ["Requests"]
+  GETTABLEKS R32 R33 K52 ["SearchWithOptions"]
   CALL R31 1 1
   GETIMPORT R32 K12 [require]
   GETTABLEKS R35 R4 K13 ["Core"]
-  GETTABLEKS R34 R35 K53 ["Thunks"]
-  GETTABLEKS R33 R34 K54 ["GetPageInfoAnalyticsContextInfo"]
+  GETTABLEKS R34 R35 K48 ["Actions"]
+  GETTABLEKS R33 R34 K53 ["SetAssetPreview"]
   CALL R32 1 1
   GETIMPORT R33 K12 [require]
-  GETTABLEKS R37 R4 K13 ["Core"]
-  GETTABLEKS R36 R37 K48 ["Networking"]
-  GETTABLEKS R35 R36 K49 ["Requests"]
-  GETTABLEKS R34 R35 K55 ["SearchWithOptions"]
+  GETTABLEKS R34 R8 K54 ["Framework"]
   CALL R33 1 1
-  GETIMPORT R34 K12 [require]
-  GETTABLEKS R37 R4 K13 ["Core"]
-  GETTABLEKS R36 R37 K51 ["Actions"]
-  GETTABLEKS R35 R36 K56 ["SetAssetPreview"]
-  CALL R34 1 1
-  GETIMPORT R35 K12 [require]
-  GETTABLEKS R36 R8 K57 ["Framework"]
-  CALL R35 1 1
-  GETTABLEKS R36 R35 K41 ["ContextServices"]
-  GETTABLEKS R37 R36 K58 ["withContext"]
+  GETTABLEKS R34 R33 K40 ["ContextServices"]
+  GETTABLEKS R35 R34 K55 ["withContext"]
+  GETIMPORT R36 K12 [require]
+  GETTABLEKS R39 R4 K13 ["Core"]
+  GETTABLEKS R38 R39 K40 ["ContextServices"]
+  GETTABLEKS R37 R38 K56 ["Settings"]
+  CALL R36 1 1
+  GETIMPORT R37 K12 [require]
+  GETTABLEKS R40 R4 K13 ["Core"]
+  GETTABLEKS R39 R40 K40 ["ContextServices"]
+  GETTABLEKS R38 R39 K57 ["NetworkContext"]
+  CALL R37 1 1
   GETIMPORT R38 K12 [require]
   GETTABLEKS R41 R4 K13 ["Core"]
-  GETTABLEKS R40 R41 K41 ["ContextServices"]
-  GETTABLEKS R39 R40 K59 ["Settings"]
+  GETTABLEKS R40 R41 K58 ["Models"]
+  GETTABLEKS R39 R40 K59 ["AssetInfo"]
   CALL R38 1 1
   GETIMPORT R39 K12 [require]
   GETTABLEKS R42 R4 K13 ["Core"]
-  GETTABLEKS R41 R42 K41 ["ContextServices"]
-  GETTABLEKS R40 R41 K60 ["NetworkContext"]
+  GETTABLEKS R41 R42 K32 ["Types"]
+  GETTABLEKS R40 R41 K60 ["ConfigTypes"]
   CALL R39 1 1
   GETIMPORT R40 K12 [require]
   GETTABLEKS R43 R4 K13 ["Core"]
-  GETTABLEKS R42 R43 K61 ["Models"]
-  GETTABLEKS R41 R42 K62 ["AssetInfo"]
+  GETTABLEKS R42 R43 K32 ["Types"]
+  GETTABLEKS R41 R42 K61 ["CreatorTypes"]
   CALL R40 1 1
   GETIMPORT R41 K12 [require]
   GETTABLEKS R44 R4 K13 ["Core"]
-  GETTABLEKS R43 R44 K33 ["Types"]
-  GETTABLEKS R42 R43 K63 ["ConfigTypes"]
+  GETTABLEKS R43 R44 K32 ["Types"]
+  GETTABLEKS R42 R43 K62 ["AssetLogicTypes"]
   CALL R41 1 1
   GETIMPORT R42 K12 [require]
-  GETTABLEKS R45 R4 K13 ["Core"]
-  GETTABLEKS R44 R45 K33 ["Types"]
-  GETTABLEKS R43 R44 K64 ["CreatorTypes"]
+  GETTABLEKS R43 R8 K63 ["Dash"]
   CALL R42 1 1
   GETIMPORT R43 K12 [require]
   GETTABLEKS R46 R4 K13 ["Core"]
-  GETTABLEKS R45 R46 K33 ["Types"]
-  GETTABLEKS R44 R45 K65 ["AssetLogicTypes"]
+  GETTABLEKS R45 R46 K40 ["ContextServices"]
+  GETTABLEKS R44 R45 K64 ["NavigationContext"]
   CALL R43 1 1
-  GETIMPORT R45 K12 [require]
-  GETTABLEKS R46 R8 K57 ["Framework"]
-  CALL R45 1 1
-  GETTABLEKS R44 R45 K14 ["Util"]
-  GETTABLEKS R45 R44 K66 ["deepEqual"]
-  GETIMPORT R46 K12 [require]
-  GETTABLEKS R47 R8 K67 ["Dash"]
-  CALL R46 1 1
-  GETIMPORT R47 K12 [require]
-  GETTABLEKS R50 R4 K13 ["Core"]
-  GETTABLEKS R49 R50 K41 ["ContextServices"]
-  GETTABLEKS R48 R49 K68 ["NavigationContext"]
-  CALL R47 1 1
-  NEWCLOSURE R48 P0
+  NEWCLOSURE R44 P0
   CAPTURE VAL R10
   CAPTURE VAL R13
   CAPTURE VAL R1
@@ -1475,36 +1389,34 @@ MAIN:
   CAPTURE REF R19
   CAPTURE VAL R6
   CAPTURE VAL R18
-  CAPTURE VAL R7
   CAPTURE VAL R21
-  CAPTURE VAL R22
   CAPTURE VAL R3
   CAPTURE VAL R14
   CAPTURE VAL R20
   CAPTURE VAL R5
-  CAPTURE VAL R41
-  CAPTURE VAL R46
+  CAPTURE VAL R39
+  CAPTURE VAL R42
   CAPTURE VAL R9
-  CAPTURE VAL R25
+  CAPTURE VAL R24
   CAPTURE VAL R0
   CAPTURE VAL R15
-  CAPTURE VAL R24
   CAPTURE VAL R23
-  CAPTURE VAL R29
-  CAPTURE VAL R28
-  CAPTURE VAL R37
-  CAPTURE VAL R16
-  CAPTURE VAL R36
-  CAPTURE VAL R38
-  CAPTURE VAL R26
-  CAPTURE VAL R39
-  CAPTURE VAL R47
+  CAPTURE VAL R22
   CAPTURE VAL R27
+  CAPTURE VAL R26
+  CAPTURE VAL R35
+  CAPTURE VAL R16
   CAPTURE VAL R34
+  CAPTURE VAL R36
+  CAPTURE VAL R7
+  CAPTURE VAL R25
+  CAPTURE VAL R37
+  CAPTURE VAL R43
+  CAPTURE VAL R32
+  CAPTURE VAL R28
+  CAPTURE VAL R29
   CAPTURE VAL R30
   CAPTURE VAL R31
-  CAPTURE VAL R32
-  CAPTURE VAL R33
   CAPTURE VAL R11
   CLOSEUPVALS R19
-  RETURN R48 1
+  RETURN R44 1

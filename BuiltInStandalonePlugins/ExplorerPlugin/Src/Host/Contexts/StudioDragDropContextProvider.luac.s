@@ -7,9 +7,6 @@ PROTO_0:
   SETTABLEKS R3 R2 K1 ["MimeType"]
   NAMECALL R0 R0 K5 ["StartDrag"]
   CALL R0 2 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K6 ["enable"]
-  CALL R0 0 0
   RETURN R0 0
 
 PROTO_1:
@@ -44,12 +41,6 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETTABLEKS R1 R0 K0 ["MimeType"]
-  JUMPIFEQKS R1 K1 ["roblox/selection"] [+2]
-  RETURN R0 0
-  RETURN R0 0
-
-PROTO_5:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["ContextServices"]
   GETTABLEKS R1 R2 K1 ["Plugin"]
@@ -64,7 +55,6 @@ PROTO_5:
   GETTABLEKS R3 R4 K5 ["useCallback"]
   NEWCLOSURE R4 P0
   CAPTURE VAL R1
-  CAPTURE VAL R2
   NEWTABLE R5 0 1
   MOVE R6 R1
   SETLIST R5 R6 1 [1]
@@ -101,25 +91,18 @@ PROTO_5:
   CAPTURE VAL R4
   NEWTABLE R8 0 0
   CALL R5 3 0
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K6 ["useEventConnection"]
-  GETTABLEKS R7 R0 K7 ["dockWidget"]
-  GETTABLEKS R6 R7 K14 ["PluginDragMoved"]
-  DUPCLOSURE R7 K15 [PROTO_4]
-  NEWTABLE R8 0 0
-  CALL R5 3 0
   GETUPVAL R5 4
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K16 ["Components"]
-  GETTABLEKS R7 R8 K17 ["Contexts"]
-  GETTABLEKS R6 R7 K18 ["DragDropContextProvider"]
-  DUPTABLE R7 K22 [{"startSelectionDrag", "selectionDragInProgress", "selectionDragDropped"}]
-  SETTABLEKS R3 R7 K19 ["startSelectionDrag"]
-  GETTABLEKS R8 R2 K23 ["enabled"]
-  SETTABLEKS R8 R7 K20 ["selectionDragInProgress"]
-  GETTABLEKS R8 R4 K24 ["current"]
-  SETTABLEKS R8 R7 K21 ["selectionDragDropped"]
-  GETTABLEKS R8 R0 K25 ["children"]
+  GETTABLEKS R8 R9 K14 ["Components"]
+  GETTABLEKS R7 R8 K15 ["Contexts"]
+  GETTABLEKS R6 R7 K16 ["DragDropContextProvider"]
+  DUPTABLE R7 K20 [{"startSelectionDrag", "selectionDragInProgress", "selectionDragDropped"}]
+  SETTABLEKS R3 R7 K17 ["startSelectionDrag"]
+  GETTABLEKS R8 R2 K21 ["enabled"]
+  SETTABLEKS R8 R7 K18 ["selectionDragInProgress"]
+  GETTABLEKS R8 R4 K22 ["current"]
+  SETTABLEKS R8 R7 K19 ["selectionDragDropped"]
+  GETTABLEKS R8 R0 K23 ["children"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -146,7 +129,7 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["ReactUtils"]
   CALL R4 1 1
   GETTABLEKS R5 R3 K11 ["createElement"]
-  DUPCLOSURE R6 K12 [PROTO_5]
+  DUPCLOSURE R6 K12 [PROTO_4]
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R3

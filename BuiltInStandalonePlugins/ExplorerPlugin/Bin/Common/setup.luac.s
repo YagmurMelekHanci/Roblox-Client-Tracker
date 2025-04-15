@@ -25,20 +25,51 @@ PROTO_3:
   RETURN R3 -1
 
 PROTO_4:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["build"]
-  GETUPVAL R1 1
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+40]
+  GETUPVAL R0 1
+  DUPTABLE R2 K5 [{"eventName", "description", "backends", "throttlingPercentage", "lastUpdated"}]
+  LOADK R3 K6 ["LuaExplorerDoubleLoad"]
+  SETTABLEKS R3 R2 K0 ["eventName"]
+  LOADK R3 K7 ["Fired when load() is called twice"]
+  SETTABLEKS R3 R2 K1 ["description"]
+  NEWTABLE R3 0 1
+  LOADK R4 K8 ["Points"]
+  SETLIST R3 R4 1 [1]
+  SETTABLEKS R3 R2 K2 ["backends"]
+  GETIMPORT R3 K10 [game]
+  LOADK R5 K11 ["LuaExplorerDoubleLoadThrottlingHundredthsPercent"]
+  LOADN R6 16
+  NAMECALL R3 R3 K12 ["DefineFastInt"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K3 ["throttlingPercentage"]
+  NEWTABLE R3 0 3
+  LOADN R4 25
+  LOADN R5 4
+  LOADN R6 3
+  SETLIST R3 R4 3 [1]
+  SETTABLEKS R3 R2 K4 ["lastUpdated"]
+  NEWTABLE R3 0 0
+  LOADN R4 1
+  NAMECALL R0 R0 K13 ["LogCounter"]
+  CALL R0 4 0
+  RETURN R0 0
+  LOADB R0 1
+  SETUPVAL R0 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K14 ["build"]
+  GETUPVAL R1 3
   CALL R0 1 1
-  GETTABLEKS R1 R0 K1 ["pluginLoader"]
-  NAMECALL R1 R1 K2 ["waitForUserInteraction"]
+  GETTABLEKS R1 R0 K15 ["pluginLoader"]
+  NAMECALL R1 R1 K16 ["waitForUserInteraction"]
   CALL R1 1 1
   JUMPIF R1 [+1]
   RETURN R0 0
-  GETUPVAL R2 2
-  NAMECALL R2 R2 K3 ["Disconnect"]
+  GETUPVAL R2 4
+  NAMECALL R2 R2 K17 ["Disconnect"]
   CALL R2 1 0
-  GETUPVAL R2 3
-  GETUPVAL R3 4
+  GETUPVAL R2 5
+  GETUPVAL R3 6
   MOVE R4 R0
   CALL R2 2 0
   RETURN R0 0
@@ -96,66 +127,61 @@ PROTO_6:
   SETTABLEKS R5 R4 K22 ["zIndexBehavior"]
   SETTABLEKS R4 R3 K35 ["dockWidgetInfo"]
   LOADNIL R4
-  NEWCLOSURE R5 P4
+  LOADB R5 0
+  NEWCLOSURE R6 P4
+  CAPTURE REF R5
   CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CAPTURE VAL R3
   CAPTURE REF R4
   CAPTURE VAL R1
   CAPTURE VAL R0
-  LOADK R8 K36 ["PlaceManager"]
-  NAMECALL R6 R0 K37 ["GetPluginComponent"]
-  CALL R6 2 1
-  GETTABLEKS R7 R6 K38 ["PlaceDocPanelShown"]
-  MOVE R9 R5
-  NAMECALL R7 R7 K39 ["Connect"]
+  LOADK R9 K36 ["PlaceManager"]
+  NAMECALL R7 R0 K37 ["GetPluginComponent"]
   CALL R7 2 1
-  MOVE R4 R7
-  GETIMPORT R7 K41 [pcall]
-  NEWCLOSURE R8 P5
-  CAPTURE VAL R6
-  CALL R7 1 2
-  JUMPIFNOT R7 [+20]
-  JUMPIFNOT R8 [+19]
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K42 ["build"]
-  MOVE R10 R3
-  CALL R9 1 1
-  GETTABLEKS R10 R9 K43 ["pluginLoader"]
-  NAMECALL R10 R10 K44 ["waitForUserInteraction"]
-  CALL R10 1 1
-  JUMPIF R10 [+1]
-  JUMP [+7]
-  NAMECALL R11 R4 K45 ["Disconnect"]
-  CALL R11 1 0
-  MOVE R11 R1
-  MOVE R12 R0
-  MOVE R13 R9
-  CALL R11 2 0
+  GETTABLEKS R8 R7 K38 ["PlaceDocPanelShown"]
+  MOVE R10 R6
+  NAMECALL R8 R8 K39 ["Connect"]
+  CALL R8 2 1
+  MOVE R4 R8
+  GETIMPORT R8 K41 [pcall]
+  NEWCLOSURE R9 P5
+  CAPTURE VAL R7
+  CALL R8 1 2
+  JUMPIFNOT R8 [+3]
+  JUMPIFNOT R9 [+2]
+  MOVE R10 R6
+  CALL R10 0 0
   CLOSEUPVALS R4
   RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["ExplorerPlugin"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["TelemetryService"]
+  NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["PluginLoader"]
-  GETTABLEKS R2 R3 K8 ["PluginLoaderBuilder"]
-  CALL R1 1 1
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Resources"]
-  GETTABLEKS R3 R4 K11 ["Localization"]
-  GETTABLEKS R2 R3 K12 ["SourceStrings"]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Resources"]
-  GETTABLEKS R4 R5 K11 ["Localization"]
-  GETTABLEKS R3 R4 K13 ["LocalizedStrings"]
-  DUPCLOSURE R4 K14 [PROTO_6]
-  CAPTURE VAL R0
-  CAPTURE VAL R3
-  CAPTURE VAL R2
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["ExplorerPlugin"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["PluginLoader"]
+  GETTABLEKS R3 R4 K12 ["PluginLoaderBuilder"]
+  CALL R2 1 1
+  GETTABLEKS R6 R1 K13 ["Src"]
+  GETTABLEKS R5 R6 K14 ["Resources"]
+  GETTABLEKS R4 R5 K15 ["Localization"]
+  GETTABLEKS R3 R4 K16 ["SourceStrings"]
+  GETTABLEKS R7 R1 K13 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Resources"]
+  GETTABLEKS R5 R6 K15 ["Localization"]
+  GETTABLEKS R4 R5 K17 ["LocalizedStrings"]
+  DUPCLOSURE R5 K18 [PROTO_6]
   CAPTURE VAL R1
-  RETURN R4 1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  RETURN R5 1
