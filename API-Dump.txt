@@ -1,7 +1,9 @@
 Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 	Property Object.ClassName: string [ReadOnly]
+	Property Object.className: string [ReadOnly] [Deprecated]
 	Function Object:GetPropertyChangedSignal(property: string) -> RBXScriptSignal
 	Function Object:IsA(className: string) -> boolean [CustomLuaState] {🧬Safe}
+	Function Object:isA(className: string) -> boolean [Deprecated] [CustomLuaState]
 	Event Object.Changed(property: string)
 Class Capture : Object [NotCreatable] [NotReplicated]
 Class ScreenshotCapture : Capture [NotCreatable] [NotReplicated]
@@ -109,6 +111,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Property Instance.Capabilities: SecurityCapabilities {RobloxScriptSecurity}
 	Property Instance.DefinesCapabilities: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Instance.Sandboxed: boolean {RobloxScriptSecurity} [NotReplicated]
+	Property Instance.archivable: boolean [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Instance.numExpectedDirectChildren: number [Hidden] [NotScriptable]
 	Function Instance:AddTag(tag: string) -> ()
 	Function Instance:ClearAllChildren() -> ()
@@ -142,6 +145,12 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:SetAttribute(attribute: string, value: any) -> ()
 	Function Instance:WaitForChild(childName: string, timeOut: number) -> Instance? [CustomLuaState] [CanYield]
 	Function Instance:children() -> { Instance } [Deprecated]
+	Function Instance:clone() -> Instance? [Deprecated]
+	Function Instance:destroy() -> () [Deprecated]
+	Function Instance:findFirstChild(name: string, recursive: boolean? = false) -> Instance? [Deprecated]
+	Function Instance:getChildren() -> { Instance } [Deprecated]
+	Function Instance:isDescendantOf(ancestor: Instance) -> boolean [Deprecated]
+	Function Instance:remove() -> () [Deprecated]
 	Event Instance.AncestryChanged(child: Instance, parent: Instance)
 	Event Instance.AttributeChanged(attribute: string)
 	Event Instance.ChildAdded(child: Instance)
@@ -150,6 +159,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Event Instance.DescendantRemoving(descendant: Instance)
 	Event Instance.Destroying()
 	Event Instance.StyledPropertiesChanged()
+	Event Instance.childAdded(child: Instance) [Deprecated]
 Class AccessoryDescription : Instance
 	Property AccessoryDescription.AccessoryType: Enum.AccessoryType
 	Property AccessoryDescription.AssetId: number
@@ -1095,29 +1105,38 @@ Class BodyAngularVelocity : BodyMover [Deprecated]
 	Property BodyAngularVelocity.MaxTorque: Vector3 [Deprecated]
 	Property BodyAngularVelocity.P: number [Deprecated]
 	Property BodyAngularVelocity.angularvelocity: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
+	Property BodyAngularVelocity.maxTorque: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
 Class BodyForce : BodyMover [Deprecated]
 	Property BodyForce.Force: Vector3 [Deprecated]
+	Property BodyForce.force: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
 Class BodyGyro : BodyMover [Deprecated]
 	Property BodyGyro.CFrame: CFrame [Deprecated]
 	Property BodyGyro.D: number [Deprecated]
 	Property BodyGyro.MaxTorque: Vector3 [Deprecated]
 	Property BodyGyro.P: number [Deprecated]
 	Property BodyGyro.cframe: CFrame [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
+	Property BodyGyro.maxTorque: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
 Class BodyPosition : BodyMover [Deprecated]
 	Property BodyPosition.D: number [Deprecated]
 	Property BodyPosition.MaxForce: Vector3 [Deprecated]
 	Property BodyPosition.P: number [Deprecated]
 	Property BodyPosition.Position: Vector3 [Deprecated]
+	Property BodyPosition.maxForce: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
+	Property BodyPosition.position: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
 	Function BodyPosition:GetLastForce() -> Vector3 [Deprecated]
 	Function BodyPosition:lastForce() -> Vector3 [Deprecated] [Deprecated]
 	Event BodyPosition.ReachedTarget() [Deprecated]
 Class BodyThrust : BodyMover [Deprecated]
 	Property BodyThrust.Force: Vector3 [Deprecated]
 	Property BodyThrust.Location: Vector3 [Deprecated]
+	Property BodyThrust.force: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
+	Property BodyThrust.location: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
 Class BodyVelocity : BodyMover [Deprecated]
 	Property BodyVelocity.MaxForce: Vector3 [Deprecated]
 	Property BodyVelocity.P: number [Deprecated]
 	Property BodyVelocity.Velocity: Vector3 [Deprecated]
+	Property BodyVelocity.maxForce: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
+	Property BodyVelocity.velocity: Vector3 [📁 LoadOnly] [NotReplicated] [Deprecated] [Deprecated]
 	Function BodyVelocity:GetLastForce() -> Vector3 [Deprecated]
 	Function BodyVelocity:lastForce() -> Vector3 [Deprecated]
 Class RocketPropulsion : BodyMover [Deprecated]
@@ -1135,6 +1154,7 @@ Class RocketPropulsion : BodyMover [Deprecated]
 	Property RocketPropulsion.TurnP: number [Deprecated]
 	Function RocketPropulsion:Abort() -> () [Deprecated]
 	Function RocketPropulsion:Fire() -> () [Deprecated]
+	Function RocketPropulsion:fire() -> () [Deprecated] [Deprecated]
 	Event RocketPropulsion.ReachedTarget() [Deprecated]
 Class BodyPartDescription : Instance
 	Property BodyPartDescription.AssetId: number
@@ -1300,6 +1320,7 @@ Class ClickDetector : Instance
 	Event ClickDetector.MouseHoverEnter(playerWhoHovered: Player)
 	Event ClickDetector.MouseHoverLeave(playerWhoHovered: Player)
 	Event ClickDetector.RightMouseClick(playerWhoClicked: Player)
+	Event ClickDetector.mouseClick(playerWhoClicked: Player) [Deprecated]
 Class DragDetector : ClickDetector
 	Property DragDetector.DragStyle: Enum.DragDetectorDragStyle
 	Property DragDetector.Enabled: boolean
@@ -1659,6 +1680,8 @@ Class Controller : Instance [NotCreatable]
 	Function Controller:BindButton(button: Enum.Button, caption: string) -> ()
 	Function Controller:GetButton(button: Enum.Button) -> boolean
 	Function Controller:UnbindButton(button: Enum.Button) -> ()
+	Function Controller:bindButton(button: Enum.Button, caption: string) -> () [Deprecated]
+	Function Controller:getButton(button: Enum.Button) -> boolean [Deprecated]
 	Event Controller.ButtonChanged(button: Enum.Button)
 Class HumanoidController : Controller
 Class SkateboardController : Controller
@@ -1825,6 +1848,7 @@ Class Debris : Instance [NotCreatable] [Service]
 	Property Debris.MaxItems: number [Deprecated]
 	Function Debris:AddItem(item: Instance, lifetime: number? = 10) -> ()
 	Function Debris:SetLegacyMaxItems(enabled: boolean) -> () {LocalUserSecurity}
+	Function Debris:addItem(item: Instance, lifetime: number? = 10) -> () [Deprecated]
 Class DebugSettings : Instance [NotCreatable] [Settings] [NotReplicated] [NotBrowsable]
 	Property DebugSettings.TickCountPreciseOverride: Enum.TickCountSampleMethod
 	Property DebugSettings.IsScriptStackTracingEnabled: boolean
@@ -1842,6 +1866,7 @@ Class DebuggerBreakpoint : Instance [NotCreatable]
 	Property DebuggerBreakpoint.Line: number [ReadOnly]
 	Property DebuggerBreakpoint.LogExpression: string
 	Property DebuggerBreakpoint.isContextDependentBreakpoint: boolean
+	Property DebuggerBreakpoint.line: number [Hidden] [NotScriptable]
 Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Property DebuggerConnection.ErrorMessage: string {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property DebuggerConnection.Id: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -2181,6 +2206,7 @@ Class Fire : Instance
 	Property Fire.Size: number [📁 LoadOnly] [NotReplicated]
 	Property Fire.TimeScale: number
 	Property Fire.heat_xml: number [Hidden] [NotScriptable]
+	Property Fire.size: number [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Fire.size_xml: number [Hidden] [NotScriptable]
 	Function Fire:FastForward(numFrames: number) -> () {RobloxScriptSecurity}
 Class FlagStandService : Instance [NotCreatable] [Service]
@@ -3036,6 +3062,7 @@ Class Humanoid : Instance
 	Property Humanoid.JumpHeight: number
 	Property Humanoid.JumpPower: number
 	Property Humanoid.UseJumpPower: boolean
+	Property Humanoid.maxHealth: number [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Function Humanoid:AddAccessory(accessory: Instance) -> ()
 	Function Humanoid:AddCustomStatus(status: string) -> boolean [Deprecated]
 	Function Humanoid:AddStatus(status: Enum.Status? = "Poison") -> boolean [Deprecated]
@@ -3072,6 +3099,8 @@ Class Humanoid : Instance
 	Function Humanoid:SetStateEnabled(state: Enum.HumanoidStateType, enabled: boolean) -> ()
 	Function Humanoid:TakeDamage(amount: number) -> ()
 	Function Humanoid:UnequipTools() -> ()
+	Function Humanoid:loadAnimation(animation: Animation) -> AnimationTrack [Deprecated]
+	Function Humanoid:takeDamage(amount: number) -> () [Deprecated]
 	Event Humanoid.AnimationPlayed(animationTrack: AnimationTrack) [Deprecated]
 	Event Humanoid.ApplyDescriptionFinished(description: HumanoidDescription)
 	Event Humanoid.Climbing(speed: number)
@@ -3381,6 +3410,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function InsertService:LoadLocalAsset(assetPath: string) -> Instance? {RobloxScriptSecurity}
 	Function InsertService:LoadPackageAsset(url: string) -> { Instance } {RobloxScriptSecurity}
 	Function InsertService:LoadPackageAssetAsync(url: string) -> { Instance } {RobloxScriptSecurity} [Yields]
+	Function InsertService:loadAsset(assetId: number) -> Instance? [Yields] [Deprecated]
 	Event InsertService.InternalDelete(instance: Instance) [Hidden]
 Class InternalSyncItem : Instance [NotReplicated]
 	Property InternalSyncItem.AutoSync: boolean {RobloxScriptSecurity} [NotReplicated]
@@ -3395,6 +3425,7 @@ Class JointInstance : Instance [NotCreatable]
 	Property JointInstance.C1: CFrame
 	Property JointInstance.Part0: BasePart?
 	Property JointInstance.Part1: BasePart?
+	Property JointInstance.part1: BasePart? [Hidden] [NotReplicated] [Deprecated]
 Class DynamicRotate : JointInstance [NotCreatable]
 	Property DynamicRotate.BaseAngle: number
 Class RotateP : DynamicRotate [Deprecated]
@@ -3496,6 +3527,8 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function Lighting:GetMoonPhase() -> number
 	Function Lighting:GetSunDirection() -> Vector3 {🧬Safe}
 	Function Lighting:SetMinutesAfterMidnight(minutes: number) -> ()
+	Function Lighting:getMinutesAfterMidnight() -> number [Deprecated]
+	Function Lighting:setMinutesAfterMidnight(minutes: number) -> () [Deprecated]
 	Event Lighting.LightingChanged(skyChanged: boolean)
 Class LinkingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LinkingService:DetectUrl(url: string) -> () {RobloxScriptSecurity}
@@ -3924,6 +3957,8 @@ Class Mouse : Instance [NotCreatable]
 	Property Mouse.ViewSizeY: number [ReadOnly]
 	Property Mouse.X: number [ReadOnly]
 	Property Mouse.Y: number [ReadOnly]
+	Property Mouse.hit: CFrame [Hidden] [ReadOnly] [Deprecated]
+	Property Mouse.target: BasePart? [ReadOnly] [Deprecated]
 	Event Mouse.Button1Down()
 	Event Mouse.Button1Up()
 	Event Mouse.Button2Down()
@@ -3934,6 +3969,7 @@ Class Mouse : Instance [NotCreatable]
 	Event Mouse.Move()
 	Event Mouse.WheelBackward()
 	Event Mouse.WheelForward()
+	Event Mouse.keyDown(key: string) [Deprecated]
 Class PlayerMouse : Mouse [NotCreatable]
 Class PluginMouse : Mouse [NotCreatable]
 	Event PluginMouse.DragEnter(instances: { Instance }) {PluginSecurity}
@@ -4100,7 +4136,9 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BasePart.Position: Vector3 [Hidden] [NotReplicated]
 	Property BasePart.ReplicationPV: ReplicationPV {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BasePart.Size: Vector3 [📁 LoadOnly] [NotReplicated]
+	Property BasePart.brickColor: BrickColor [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property BasePart.siz: Vector3 [📁 LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
+	Property BasePart.size: Vector3 [Hidden] [NotScriptable]
 	Function BasePart:AngularAccelerationToTorque(angAcceleration: Vector3, angVelocity: Vector3?) -> Vector3
 	Function BasePart:ApplyAngularImpulse(impulse: Vector3) -> ()
 	Function BasePart:ApplyImpulse(impulse: Vector3) -> ()
@@ -4128,6 +4166,10 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function BasePart:SubtractAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
 	Function BasePart:TorqueToAngularAcceleration(torque: Vector3, angVelocity: Vector3?) -> Vector3
 	Function BasePart:UnionAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
+	Function BasePart:breakJoints() -> () [Deprecated]
+	Function BasePart:getMass() -> number [Deprecated]
+	Function BasePart:makeJoints() -> () [Deprecated]
+	Function BasePart:resize(normalId: Enum.NormalId, deltaAmount: number) -> boolean [Deprecated]
 	Event BasePart.LocalSimulationTouched(part: BasePart) [Deprecated]
 	Event BasePart.NetworkOwnerChanged(systemAddress: SystemAddress) {LocalUserSecurity} [Hidden]
 	Event BasePart.OutfitChanged() [Deprecated]
@@ -4137,10 +4179,12 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 Class CornerWedgePart : BasePart
 Class FormFactorPart : BasePart [NotCreatable]
 	Property FormFactorPart.FormFactor: Enum.FormFactor [📁 LoadOnly] [NotReplicated] [Deprecated]
+	Property FormFactorPart.formFactor: Enum.FormFactor [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property FormFactorPart.formFactorRaw: Enum.FormFactor [Hidden] [NotScriptable]
 Class Part : FormFactorPart
 	Property Part.Shape: Enum.PartType [📁 LoadOnly] [NotReplicated]
 	Property Part.shap: Enum.PartType [📁 LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
+	Property Part.shape: Enum.PartType [Hidden] [NotScriptable]
 Class FlagStand : Part [Deprecated]
 	Property FlagStand.TeamColor: BrickColor [Deprecated]
 	Event FlagStand.FlagCaptured(player: Instance) [Deprecated]
@@ -4166,6 +4210,8 @@ Class SkateboardPlatform : Part [Deprecated]
 	Event SkateboardPlatform.RemoteCreateMotor6D(humanoid: Instance) [Hidden] [Deprecated]
 	Event SkateboardPlatform.RemoteDestroyMotor6D() [Hidden] [Deprecated]
 	Event SkateboardPlatform.Unequipped(humanoid: Instance) [Deprecated]
+	Event SkateboardPlatform.equipped(humanoid: Instance, skateboardController: Instance) [Deprecated] [Deprecated]
+	Event SkateboardPlatform.unequipped(humanoid: Instance) [Deprecated] [Deprecated]
 Class SpawnLocation : Part
 	Property SpawnLocation.Enabled: boolean
 	Property SpawnLocation.Duration: number
@@ -4285,6 +4331,7 @@ Class NegateOperation : PartOperation
 Class UnionOperation : PartOperation
 Class TrussPart : BasePart
 	Property TrussPart.Style: Enum.Style [📁 LoadOnly] [NotReplicated]
+	Property TrussPart.style: Enum.Style [Hidden] [NotScriptable]
 Class VehicleSeat : BasePart
 	Property VehicleSeat.AreHingesDetected: number [ReadOnly]
 	Property VehicleSeat.Disabled: boolean
@@ -4315,6 +4362,7 @@ Class Camera : PVInstance [NotReplicated]
 	Property Camera.NearPlaneZ: number [ReadOnly]
 	Property Camera.VRTiltAndRollEnabled: boolean
 	Property Camera.ViewportSize: Vector2 [ReadOnly]
+	Property Camera.focus: CFrame [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Function Camera:GetLargestCutoffDistance(ignoreList: { Instance }) -> number [Deprecated]
 	Function Camera:GetPanSpeed() -> number [Deprecated]
 	Function Camera:GetPartsObscuringTarget(castPoints: { any }, ignoreList: { Instance }) -> { Instance }
@@ -4365,7 +4413,10 @@ Class Model : PVInstance
 	Function Model:SetIdentityOrientation() -> () [Deprecated]
 	Function Model:SetPrimaryPartCFrame(cframe: CFrame) -> () [Deprecated]
 	Function Model:TranslateBy(delta: Vector3) -> ()
+	Function Model:breakJoints() -> () [Deprecated]
+	Function Model:makeJoints() -> () [Deprecated]
 	Function Model:move(location: Vector3) -> () [Deprecated]
+	Function Model:moveTo(location: Vector3) -> () [Deprecated]
 Class Actor : Model
 	Function Actor:BindToMessage(topic: string, function: (...any) -> ...any) -> RBXScriptConnection {🧬Safe}
 	Function Actor:BindToMessageParallel(topic: string, function: (...any) -> ...any) -> RBXScriptConnection {🧬Safe}
@@ -4427,6 +4478,8 @@ Class WorldRoot : Model [NotCreatable]
 	Function WorldRoot:Shapecast(part: BasePart, direction: Vector3, params: RaycastParams?) -> RaycastResult?
 	Function WorldRoot:Spherecast(position: Vector3, radius: number, direction: Vector3, params: RaycastParams?) -> RaycastResult? {🧬Safe}
 	Function WorldRoot:StepPhysics(dt: number, parts: { Instance }?) -> () {PluginSecurity}
+	Function WorldRoot:findPartOnRay(ray: Ray, ignoreDescendantsInstance: Instance? = nil, terrainCellsAreCubes: boolean? = false, ignoreWater: boolean? = false) -> ...any [Deprecated]
+	Function WorldRoot:findPartsInRegion3(region: Region3, ignoreDescendantsInstance: Instance? = nil, maxParts: number? = 20) -> { Instance } [Deprecated]
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.AirDensity: number
 	Property Workspace.AllowThirdPartySales: boolean [NotReplicated]
@@ -4745,7 +4798,7 @@ Class Player : Instance
 	Property Player.MembershipType: Enum.MembershipType [ReadOnly]
 	Property Player.MembershipTypeReplicate: Enum.MembershipType [Hidden] [NotScriptable]
 	Property Player.OsPlatform: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property Player.PartyId: string [Hidden] [NotReplicated]
+	Property Player.PartyId: string {✏️WritePlayerSecurity} [Hidden] [NotReplicated]
 	Property Player.PlatformName: string {RobloxScriptSecurity} [Hidden]
 	Property Player.RawJoinData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Player.ReplicationFocus: Instance?
@@ -4763,6 +4816,7 @@ Class Player : Instance
 	Property Player.Neutral: boolean
 	Property Player.Team: Team? [NotReplicated]
 	Property Player.TeamColor: BrickColor
+	Property Player.userId: number [Deprecated]
 	Function Player:AddReplicationFocus(part: BasePart) -> ()
 	Function Player:AddReplicationFocusPosition(center: Vector3, radius: number) -> () {RobloxSecurity}
 	Function Player:AddToBlockList(userIds: { any }) -> () {RobloxScriptSecurity}
@@ -4817,6 +4871,16 @@ Class Player : Instance
 	Function Player:SetUnder13(value: boolean) -> () {RobloxSecurity} [Deprecated]
 	Function Player:UpdatePlayerBlocked(userId: number, blocked: boolean) -> () {RobloxScriptSecurity}
 	Function Player:WaitForDataReady() -> boolean [Yields] [Deprecated]
+	Function Player:isFriendsWith(userId: number) -> boolean [Yields] [Deprecated]
+	Function Player:loadBoolean(key: string) -> boolean [Deprecated]
+	Function Player:loadInstance(key: string) -> Instance? [Deprecated]
+	Function Player:loadNumber(key: string) -> number [Deprecated]
+	Function Player:loadString(key: string) -> string [Deprecated]
+	Function Player:saveBoolean(key: string, value: boolean) -> () [Deprecated]
+	Function Player:saveInstance(key: string, value: Instance) -> () [Deprecated]
+	Function Player:saveNumber(key: string, value: number) -> () [Deprecated]
+	Function Player:saveString(key: string, value: string) -> () [Deprecated]
+	Function Player:waitForDataReady() -> boolean [Yields] [Deprecated]
 	Event Player.CharacterAdded(character: Model)
 	Event Player.CharacterAppearanceLoaded(character: Model)
 	Event Player.CharacterRemoving(character: Model)
@@ -4923,6 +4987,8 @@ Class Players : Instance [NotCreatable] [Service]
 	Property Players.RespawnTime: number
 	Property Players.ServerGitHash: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Players.ServerLogPrefix: string {RobloxSecurity} [Hidden] [NotScriptable]
+	Property Players.localPlayer: Player? [Hidden] [ReadOnly] [Deprecated]
+	Property Players.numPlayers: number [Hidden] [ReadOnly] [Deprecated]
 	Function Players:BanAsync(config: { [string]: any }) -> () [Yields]
 	Function Players:Chat(message: string) -> () {PluginSecurity}
 	Function Players:CreateHumanoidModelFromDescription(description: HumanoidDescription, rigType: Enum.HumanoidRigType, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> Model [Yields]
@@ -4949,6 +5015,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Players:TeamChat(message: string) -> () {PluginSecurity}
 	Function Players:UnbanAsync(config: { [string]: any }) -> () [Yields]
 	Function Players:WhisperChat(message: string, player: Instance) -> () {LocalUserSecurity}
+	Function Players:getPlayers() -> { Instance } [Deprecated]
 	Function Players:playerFromCharacter(character: Model) -> Player [Deprecated]
 	Function Players:players() -> { Instance } [Deprecated]
 	Event Players.CloudEditApplyEditsMessage(playerName: string, scriptName: string) {RobloxSecurity} [Hidden]
@@ -5532,6 +5599,7 @@ Class ServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
 Class ServiceProvider : Instance [NotCreatable] [NotBrowsable]
 	Function ServiceProvider:FindService(className: string) -> Instance? {🧬Safe}
 	Function ServiceProvider:GetService(className: string) -> Instance?
+	Function ServiceProvider:getService(className: string) -> Instance? [Deprecated]
 	Function ServiceProvider:service(className: string) -> Instance? [Deprecated]
 	Event ServiceProvider.Close()
 	Event ServiceProvider.CloseLate() {LocalUserSecurity}
@@ -5557,6 +5625,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Property DataModel.PlaceVersion: number [ReadOnly]
 	Property DataModel.R15CollisionType: Enum.R15CollisionType {RobloxSecurity} [Hidden] [NotScriptable] [Deprecated]
 	Property DataModel.lighting: Instance? [ReadOnly] [Deprecated]
+	Property DataModel.workspace: Workspace? [ReadOnly] [Deprecated]
 	Function DataModel:BindToClose(function: (...any) -> ...any) -> ()
 	Function DataModel:DefineFastFlag(name: string, defaultValue: boolean) -> boolean {RobloxScriptSecurity}
 	Function DataModel:DefineFastInt(name: string, defaultValue: number) -> number {RobloxScriptSecurity}
@@ -5720,12 +5789,16 @@ Class Sound : Instance
 	Property Sound.LoopRegion: NumberRange
 	Property Sound.PlaybackRegion: NumberRange
 	Property Sound.SoundGroup: SoundGroup?
+	Property Sound.isPlaying: boolean [ReadOnly] [Deprecated]
 	Property Sound.xmlRead_MaxDistance_3: number [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
 	Property Sound.xmlRead_MinDistance_3: number [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
 	Function Sound:Pause() -> ()
 	Function Sound:Play() -> ()
 	Function Sound:Resume() -> ()
 	Function Sound:Stop() -> ()
+	Function Sound:pause() -> () [Deprecated]
+	Function Sound:play() -> () [Deprecated]
+	Function Sound:stop() -> () [Deprecated]
 	Event Sound.DidLoop(soundId: string, numOfTimesLooped: number)
 	Event Sound.Ended(soundId: string)
 	Event Sound.Loaded(soundId: string)
@@ -7124,45 +7197,59 @@ Class BinaryStringValue : ValueBase
 Class BoolValue : ValueBase
 	Property BoolValue.Value: boolean
 	Event BoolValue.Changed(value: boolean)
+	Event BoolValue.changed(value: boolean) [Deprecated]
 Class BrickColorValue : ValueBase
 	Property BrickColorValue.Value: BrickColor
 	Event BrickColorValue.Changed(value: BrickColor)
+	Event BrickColorValue.changed(value: BrickColor) [Deprecated]
 Class CFrameValue : ValueBase
 	Property CFrameValue.Value: CFrame
 	Event CFrameValue.Changed(value: CFrame)
+	Event CFrameValue.changed(value: CFrame) [Deprecated]
 Class Color3Value : ValueBase
 	Property Color3Value.Value: Color3
 	Event Color3Value.Changed(value: Color3)
+	Event Color3Value.changed(value: Color3) [Deprecated]
 Class DoubleConstrainedValue : ValueBase [Deprecated]
 	Property DoubleConstrainedValue.ConstrainedValue: number [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property DoubleConstrainedValue.MaxValue: number [Deprecated]
 	Property DoubleConstrainedValue.MinValue: number [Deprecated]
 	Property DoubleConstrainedValue.Value: number [📁 LoadOnly] [NotReplicated] [Deprecated]
+	Property DoubleConstrainedValue.value: number [Hidden] [NotScriptable] [Deprecated]
 	Event DoubleConstrainedValue.Changed(value: number) [Deprecated]
+	Event DoubleConstrainedValue.changed(value: number) [Deprecated] [Deprecated]
 Class IntConstrainedValue : ValueBase [Deprecated]
 	Property IntConstrainedValue.ConstrainedValue: number [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property IntConstrainedValue.MaxValue: number [Deprecated]
 	Property IntConstrainedValue.MinValue: number [Deprecated]
 	Property IntConstrainedValue.Value: number [📁 LoadOnly] [NotReplicated] [Deprecated]
+	Property IntConstrainedValue.value: number [Hidden] [NotScriptable] [Deprecated]
 	Event IntConstrainedValue.Changed(value: number) [Deprecated]
+	Event IntConstrainedValue.changed(value: number) [Deprecated] [Deprecated]
 Class IntValue : ValueBase
 	Property IntValue.Value: number
 	Event IntValue.Changed(value: number)
+	Event IntValue.changed(value: number) [Deprecated]
 Class NumberValue : ValueBase
 	Property NumberValue.Value: number
 	Event NumberValue.Changed(value: number)
+	Event NumberValue.changed(value: number) [Deprecated]
 Class ObjectValue : ValueBase
 	Property ObjectValue.Value: Instance?
 	Event ObjectValue.Changed(value: Instance)
+	Event ObjectValue.changed(value: Instance) [Deprecated]
 Class RayValue : ValueBase
 	Property RayValue.Value: Ray
 	Event RayValue.Changed(value: Ray)
+	Event RayValue.changed(value: Ray) [Deprecated]
 Class StringValue : ValueBase
 	Property StringValue.Value: string
 	Event StringValue.Changed(value: string)
+	Event StringValue.changed(value: string) [Deprecated]
 Class Vector3Value : ValueBase
 	Property Vector3Value.Value: Vector3
 	Event Vector3Value.Changed(value: Vector3)
+	Event Vector3Value.changed(value: Vector3) [Deprecated]
 Class Vector3Curve : Instance
 	Function Vector3Curve:GetValueAtTime(time: number) -> { any }
 	Function Vector3Curve:X() -> FloatCurve
