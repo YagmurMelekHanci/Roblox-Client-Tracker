@@ -22433,6 +22433,7 @@ EditableSkipPolicyCheckForStudioEditMode
 EditableStatus
 EditableStatusEnum
 EditAddTool
+EditAdorns
 EditAnnotation
 EditBreakpoint
 EditBreakpointDialog_BreakpointEnabledCheckBox
@@ -72050,7 +72051,7 @@ WillReturn
 WillSleep_DEPRECATED
 WIN32_LEAN_AND_MEAN
 Win32HardwareSleepListener
-Win64.669.5987
+Win64.669.5990
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
