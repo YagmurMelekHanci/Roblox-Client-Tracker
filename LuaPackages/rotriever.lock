@@ -91,7 +91,7 @@ dependencies = [
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.20.0 registry",
+    "Foundation Foundation 1.21.0 registry",
     "FoundationImages FoundationImages 1.20.0 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
@@ -295,7 +295,7 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.20.0"
+version = "1.21.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1788,7 +1788,7 @@ source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.20.0 registry",
+    "Foundation Foundation 1.21.0 registry",
     "FoundationImages FoundationImages 1.20.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",

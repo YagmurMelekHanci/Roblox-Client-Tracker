@@ -65,12 +65,17 @@ Studio.App.Property.BubbleChatLifetime,,Bubble Chat Lifetime,Bubble Chat Lifetim
 Studio.App.Property.BubbleChatMaxBubbles,,Bubble Chat Max Bubbles,Bubble Chat Max Bubbles
 Studio.App.Property.BuiltInFunctionColor,,Built-in Function Color,Built-in Function Color
 Studio.App.Property.CameraAdaptiveSpeed,,'Zoom To' - Adapt Camera Speed,'Zoom To' - Adapt Camera Speed
+Studio.App.Property.CameraLookSensitivity,Factor applied to the mouse delta when rotating the camera,Camera Look Sensitivity,Camera Look Sensitivity
 Studio.App.Property.CameraMouseWheelSpeed,,Scroll Speed,Scroll Speed
+Studio.App.Property.CameraOrbitSensitivity,Factor applied to camera orbit movements in Studio,Camera Orbit Sensitivity,Camera Orbit Sensitivity
+Studio.App.Property.CameraPanSensitivity,Factor applied to camera panning movements in Studio,Camera Pan Sensitivity,Camera Pan Sensitivity
 Studio.App.Property.CameraPanSpeed,,Pan Speed,Pan Speed
+Studio.App.Property.CameraShiftFactor,Factor applied to camera movements when holding the shift key in Studio,Camera Shift Factor,Camera Shift Factor
 Studio.App.Property.CameraShiftSpeed,,Shift Speed,Shift Speed
 Studio.App.Property.CameraSpeed,,Camera Speed,Camera Speed
 Studio.App.Property.CameraSpeedAdjustBinding,,Change Camera Speed,Change Camera Speed
 Studio.App.Property.CameraTweenFocus,,'Zoom To' - Tween Transition,'Zoom To' - Tween Transition
+Studio.App.Property.CameraZoomSpeed,How far the camera moves per zoom increment,Camera Zoom Speed,Camera Zoom Speed
 Studio.App.Property.CameraZoomToMousePosition,,Scroll Towards Cursor Position,Scroll Towards Cursor Position
 Studio.App.Property.ChatHistory,,Chat History,Chat History
 Studio.App.Property.ChatScrollLength,,Chat Scroll Length,Chat Scroll Length
@@ -124,6 +129,7 @@ Studio.App.Property.EnableScriptAnalysis,,Enable Script Analysis,Enable Script A
 Studio.App.Property.EnableScrollbarMarkers,Enable scrollbar markers for Script Editor inside Roblox Studio.,Enable Scrollbar Markers,Enable Scrollbar Markers
 Studio.App.Property.EnableSignatureHelp,,Enable Signature Help,Enable Signature Help
 Studio.App.Property.EnableSignatureHelpDocView,,Enable Signature Help Documentation,Enable Signature Help Documentation
+Studio.App.Property.EnableStudioStreaming,Enables Studio streaming,Enable Studio Streaming,Enable Studio Streaming
 Studio.App.Property.EnableTeamCreateToggle,,Display Team Create toggle when creating a new experience,Display Team Create toggle when creating a new experience
 Studio.App.Property.EnableTemporaryTabs,Enable script tab previews in Roblox Studio,Enable Temporary Script Tabs,Enable Temporary Script Tabs
 Studio.App.Property.EnableTemporaryTabsInExplorer,Enable script tab previews in Roblox Studio's explorer widget.,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer
@@ -307,6 +313,8 @@ Studio.App.Property.SkipClosingBracketsAndQuotes,,Skip Closing Brackets and Quot
 Studio.App.Property.SoftwareSound,,Software Sound,Software Sound
 Studio.App.Property.SolverConvergenceMetricType,,Solver Convergence Metric Type,Solver Convergence Metric Type
 Studio.App.Property.SolverConvergenceVisualizationMode,,Solver Convergence Visualization Mode,Solver Convergence Visualization Mode
+Studio.App.Property.StreamingMaxRadius,The maximum bounds for which we should include objects for streaming.,Maximum Radius for Streaming,Maximum Radius for Streaming
+Studio.App.Property.StreamingMinRadius,Number that indicates the minimum bounds that objects should be included for streaming.,Minimum Radius for Streaming,Minimum Radius for Streaming
 Studio.App.Property.StringColor,,String Color,String Color
 Studio.App.Property.SystemProductName,,System Product Name,System Product Name
 Studio.App.Property.TODColor,,TOD Color,TOD Color

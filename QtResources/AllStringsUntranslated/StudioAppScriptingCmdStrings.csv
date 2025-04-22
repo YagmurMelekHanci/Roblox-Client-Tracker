@@ -19,7 +19,7 @@ Studio.App.ScriptingCmd.FINDCURRENTWORD,,Find Current Word,Find Current Word
 Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDS,,Find Current Word Backwards,Find Current Word Backwards
 Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDSTooltip,,"Find the current word, searching backwards through the doc","Find the current word, searching backwards through the doc"
 Studio.App.ScriptingCmd.FINDCURRENTWORDTooltip,,Find the current word,Find the current word
-Studio.App.ScriptingCmd.FOLDALL,,Collapse All Folds,Collapse All Folds
+Studio.App.ScriptingCmd.FOLDALL,Collapse all expanded folds in the script,Collapse Script Folds,Collapse Script Folds
 Studio.App.ScriptingCmd.FOLDALLTooltip,,Collapse all foldable sections of scripts,Collapse all foldable sections of scripts
 Studio.App.ScriptingCmd.FOLDBLOCK,,Fold Code Block,Fold Code Block
 Studio.App.ScriptingCmd.FOLDBLOCKTooltip,,Fold a block of code in the script,Fold a block of code in the script
@@ -94,7 +94,7 @@ Studio.App.ScriptingCmd.SPLITSELECTIONSINTOLINES,,Add Cursor to Selected Line En
 Studio.App.ScriptingCmd.SPLITSELECTIONSINTOLINESTooltip,,Place cursors at the the end of each line in a multi-line selection and at the end of the selection.,Place cursors at the the end of each line in a multi-line selection and at the end of the selection.
 Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
 Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting
-Studio.App.ScriptingCmd.UNFOLDALL,,Expand All Folds,Expand All Folds
+Studio.App.ScriptingCmd.UNFOLDALL,Expand all collapsed folds in the script,Expand Script Folds,Expand Script Folds
 Studio.App.ScriptingCmd.UNFOLDALLTooltip,,Expand all collapsed folds in the script,Expand all collapsed folds in the script
 Studio.App.ScriptingCmd.UNFOLDBLOCK,,Unfold Code Block,Unfold Code Block
 Studio.App.ScriptingCmd.UNFOLDBLOCKTooltip,,Unfold a block of code in the script,Unfold a block of code in the script

@@ -3654,8 +3654,8 @@
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">DeathStyle</string>
-            <string name="FFlag">EnableDeathStyle</string>
+            <string name="Name">RagdollDeath</string>
+            <string name="FFlag">AvatarJointUpgradeCpp</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

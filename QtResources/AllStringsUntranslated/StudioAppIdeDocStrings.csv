@@ -73,7 +73,7 @@ Studio.App.IdeDoc.OpenPlaceFileCancelled,Roblox IDE Doc,File is in use or is not
 Studio.App.IdeDoc.OpenPlaceFileReadOnly,Roblox IDE Doc,File is in use or is not writable. Opened for read-only.,File is in use or is not writable. Opened for read-only.
 Studio.App.IdeDoc.OpeningPlace,Roblox IDE Doc,Opening Place,Opening Place
 Studio.App.IdeDoc.PasteInto,Roblox IDE Doc,Paste Into,Paste Into
-Studio.App.IdeDoc.PasteIntoAtOriginalLocation,Roblox IDE Doc,Paste Into At Original Location,Paste Into At Original Location
+Studio.App.IdeDoc.PasteIntoAtOriginalLocation,"Pastes copied instances at their original world coordinates but also preserves their original hierarchical relationship to the currently selected object. Instead of simply placing the copied objects in the workspace, it pastes them as children of the selected object, while maintaining their original positions relative to the workspace.",Paste Into At Original Location,Paste Into At Original Location
 Studio.App.IdeDoc.PasteIntoSelected,Roblox IDE Doc,Paste Into Selected,Paste Into Selected
 Studio.App.IdeDoc.PasteIntoSelectedAtOriginalLocation,Roblox IDE Doc,Paste Into Selected At Original Location,Paste Into Selected At Original Location
 Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes to the place detected. Did not save.,No changes to the place detected. Did not save.

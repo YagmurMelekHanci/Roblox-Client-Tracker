@@ -12,6 +12,7 @@ Studio.Ribbon.Plugin.AddSeparator,The title of the context menu item that adds a
 Studio.Ribbon.Plugin.AddTools,The title of the context menu item that opens the Add Tools dialog in Ribbon,Add tools,Add tools
 Studio.Ribbon.Plugin.AddTools.Title,The title of the Add Tools dialog,Add Tools,Add Tools
 Studio.Ribbon.Plugin.AnchorToolRibbonAction,,Select object to Anchor,Select object to Anchor
+Studio.Ribbon.Plugin.Command,Opens the command bar plugin,Command,Command
 Studio.Ribbon.Plugin.DegreesFormat,Format for displaying the degree increment for rotating parts,{amount}°,{amount}°
 Studio.Ribbon.Plugin.DeleteSeparator,The name of the action to remove the currently selected divider in a Ribbon custom tab,Remove divider,Remove divider
 Studio.Ribbon.Plugin.DeleteTab,The tooltip of the delete tab button in Ribbon Manage Tabs dialog,Remove tab,Remove tab

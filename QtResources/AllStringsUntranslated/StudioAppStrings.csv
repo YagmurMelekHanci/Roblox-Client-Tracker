@@ -473,8 +473,12 @@ Studio.App.Parts.Surface,Parts menu,Surface,Surface
 Studio.App.Parts.SurfaceTooltip,tooltip,"Pick a surface type, and click on part surfaces to apply","Pick a surface type, and click on part surfaces to apply"
 Studio.App.Physics.AeroMeshPleaseWait,Waiting for aerodynamic mesh generation to complete,Please Wait,Please Wait
 Studio.App.Physics.ProcessingAeroMeshes,Shown during aerodynamic mesh generation,Processing aerodynamic meshes,Processing aerodynamic meshes
-Studio.App.PlaceAnnotations.AddAnnotation,Add a comment,Comments,Comments
-Studio.App.PlaceAnnotations.Toggle,Opens the Place Comments feature.,Comments,Comments
+Studio.App.PlaceAnnotations.AddAnnotation,"Enables/disables the comment cursor, allowing the user to place comments in the 3D workspace.",Toggle comment cursor,Toggle comment cursor
+Studio.App.PlaceAnnotations.AddAnnotation2,Enables/disables a mouse cursor that allows users to place comments.,Toggle comment cursor,Toggle comment cursor
+Studio.App.PlaceAnnotations.AddAnnotationTooltip,Tooltip description for the Add Annotation button.,Toggle the comment cursor to leave comments in the 3D viewport.,Toggle the comment cursor to leave comments in the 3D viewport.
+Studio.App.PlaceAnnotations.Toggle,Opens the Place Comments feature.,Toggle comments panel,Toggle comments panel
+Studio.App.PlaceAnnotations.Toggle2,Toggles visibility of a panel displaying Comments.,Toggle Comments panel,Toggle Comments panel
+Studio.App.PlaceAnnotations.ToggleTooltip,Toggle the comment panel to display comment threads.,Toggle the comment panel to display comment threads.,Toggle the comment panel to display comment threads.
 Studio.App.PlaceResourceController.AddingPlace,,Adding Place...,Adding Place...
 Studio.App.PlaceResourceController.CantRemoveStartPlace,,You cannot remove the start place from a game.,You cannot remove the start place from a game.
 Studio.App.PlaceResourceController.ErrorWhileAddingPlace,,Error while adding place. See Output window for details.,Error while adding place. See Output window for details.
