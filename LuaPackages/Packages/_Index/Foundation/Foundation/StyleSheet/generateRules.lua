@@ -559,6 +559,11 @@ local function StrokeSizeRules(strokes: Strokes)
 	local rules = {}
 
 	for _, stroke in strokes do
+		-- TODO: UIBLOX-1946 to come up with a longer-term solution for this
+		if stroke.name == "none" then
+			continue
+		end
+
 		table.insert(rules, {
 			tag = `stroke-{stroke.name}`,
 			pseudo = "UIStroke",

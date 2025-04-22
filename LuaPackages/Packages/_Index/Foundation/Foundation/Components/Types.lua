@@ -113,7 +113,7 @@ export type GuiObjectProps = {
 	Size: Bindable<UDim2>?,
 
 	stateLayer: StateLayer?, -- Can this be bindable?
-	onActivated: () -> ()?,
+	onActivated: ((self: GuiObject, inputObject: InputObject, clickCount: number) -> ())?,
 	onStateChanged: StateChangedCallback?,
 	isDisabled: boolean?, -- This can't be a bindable due to handling state updates
 

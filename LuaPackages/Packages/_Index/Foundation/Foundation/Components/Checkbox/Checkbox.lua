@@ -29,6 +29,8 @@ type ControlState = ControlState.ControlState
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
 
+local DISABLED_TRANSPARENCY = 0.5
+
 type Props = {
 	-- Whether the checkbox is currently checked. If it is left `nil`,
 	-- the checkbox will be considered uncontrolled.
@@ -89,6 +91,7 @@ local function Checkbox(checkboxProps: Props, ref: React.Ref<GuiObject>?)
 
 	local interactionProps = {
 		Active = not props.isDisabled,
+		GroupTransparency = if props.isDisabled then DISABLED_TRANSPARENCY else 0,
 		onActivated = function()
 			if not props.isDisabled then
 				if props.isChecked == nil then
@@ -107,16 +110,22 @@ local function Checkbox(checkboxProps: Props, ref: React.Ref<GuiObject>?)
 		ref = ref,
 	}
 
+	local checkboxContainerProps = {
+		tag = variantProps.checkbox.tag,
+		Size = variantProps.checkbox.size,
+		stroke = {
+			Color = variantProps.checkbox.stroke.Color3,
+			Transparency = if props.isDisabled and not hasLabel
+				then DISABLED_TRANSPARENCY
+				else variantProps.checkbox.stroke.Transparency,
+		},
+	}
+
 	local checkbox = React.createElement(
 		View,
-		Cryo.Dictionary.union({
-			tag = variantProps.checkbox.tag,
-			Size = variantProps.checkbox.size,
-			stroke = {
-				Color = variantProps.checkbox.stroke.Color3,
-				Transparency = variantProps.checkbox.stroke.Transparency,
-			},
-		}, if not hasLabel then interactionProps else {}),
+		if hasLabel
+			then checkboxContainerProps
+			else withCommonProps(props, Cryo.Dictionary.union(checkboxContainerProps, interactionProps)),
 		{
 			Checkmark = if props.isChecked
 				then React.createElement(Image, {
@@ -140,7 +149,6 @@ local function Checkbox(checkboxProps: Props, ref: React.Ref<GuiObject>?)
 		withCommonProps(
 			props,
 			Cryo.Dictionary.union({
-				GroupTransparency = if props.isDisabled then 0.5 else 0,
 				-- Add padding around checkbox to ensure it's not cut off
 				-- by the bounds of the canvas group
 				padding = variantProps.container.padding,

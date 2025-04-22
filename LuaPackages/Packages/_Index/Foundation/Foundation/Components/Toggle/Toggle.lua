@@ -30,19 +30,10 @@ type InputSize = InputSize.InputSize
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize
 
+local DISABLED_TRANSPARENCY = 0.5
 local SPRING_PARAMETERS = {
 	frequency = 4,
 }
-
---[[
-	Divides a transparency value by a value, as if it were opacity.
-	divideTransparency(0, 2) -> 0.5
-	divideTransparency(0.3, 2) -> 0.65
-]]
-
-local function divideTransparency(transparency: number, divisor: number)
-	return 1 - (1 - transparency) / divisor
-end
 
 type Props = {
 	-- Whether the toggle is currently checked (i.e. on). If it is left `nil`,
@@ -91,15 +82,7 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 	local progress, setProgress = React.useBinding(initialProgress)
 	local progressMotorRef = React.useRef(nil :: Otter.SingleMotor?)
 
-	local transparencyDivisor = if props.isDisabled then 2 else 1
 	local knobTheme = tokens.Color.ActionEmphasis.Background
-
-	local getTargetTransparency = React.useCallback(function(trackTheme)
-		return divideTransparency(trackTheme.Transparency, transparencyDivisor)
-	end, { tokens :: any, props.isDisabled })
-	local knobTransparency = React.useMemo(function()
-		return divideTransparency(knobTheme.Transparency, transparencyDivisor)
-	end, { tokens :: any, props.isDisabled })
 
 	local getLabelStyle = React.useCallback(function(isHovering)
 		if isHovering and not props.isDisabled then
@@ -114,14 +97,14 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 		local trackTheme = if isChecked then knobTheme else getLabelStyle(value)
 		return {
 			Color3 = trackTheme.Color3,
-			Transparency = getTargetTransparency(trackTheme),
+			Transparency = trackTheme.Transparency,
 		}
 	end)
 
 	local fillColor = progress:map(function(value)
 		return {
 			Color3 = knobTheme.Color3,
-			Transparency = lerp(1, getTargetTransparency(knobTheme), value),
+			Transparency = lerp(1, knobTheme.Transparency, value),
 		}
 	end)
 
@@ -164,6 +147,8 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 	end, { props.onActivated :: any, props.isChecked, isChecked, props.isDisabled, setIsChecked })
 
 	local interactionProps = {
+		Active = not props.isDisabled,
+		GroupTransparency = if props.isDisabled then DISABLED_TRANSPARENCY else 0,
 		onActivated = onActivated,
 		onStateChanged = onInputStateChanged,
 		stateLayer = { affordance = StateLayerAffordance.None },
@@ -171,30 +156,30 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 			Selectable = not props.isDisabled,
 			SelectionImageObject = cursor,
 		},
+		isDisabled = props.isDisabled,
 		ref = ref,
+	}
+
+	local toggleContainerProps = {
+		Size = variantProps.toggle.size,
+		stroke = {
+			Color = trackColor:map(function(value)
+				return value.Color3
+			end),
+			Transparency = trackColor:map(function(value)
+				return if props.isDisabled and not hasLabel then DISABLED_TRANSPARENCY else value.Transparency
+			end),
+			Thickness = tokens.Stroke.Standard,
+		},
+		cornerRadius = variantProps.toggle.cornerRadius,
+		backgroundStyle = fillColor,
 	}
 
 	local toggle = React.createElement(
 		View,
-		withCommonProps(
-			props,
-			Cryo.Dictionary.union({
-				Active = not props.isDisabled,
-				Size = variantProps.toggle.size,
-				stroke = {
-					Color = trackColor:map(function(value)
-						return value.Color3
-					end),
-					Transparency = trackColor:map(function(value)
-						return value.Transparency
-					end),
-					Thickness = tokens.Stroke.Standard,
-				},
-				cornerRadius = variantProps.toggle.cornerRadius,
-				backgroundStyle = fillColor,
-				isDisabled = props.isDisabled,
-			}, if not hasLabel then interactionProps else {})
-		),
+		if hasLabel
+			then toggleContainerProps
+			else withCommonProps(props, Cryo.Dictionary.union(toggleContainerProps, interactionProps)),
 		{
 			Knob = React.createElement(View, {
 				backgroundStyle = if props.isDisabled
@@ -208,7 +193,7 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 			KnobShadow = React.createElement(Image, {
 				Image = "component_assets/dropshadow_28",
 				imageStyle = {
-					Transparency = knobTransparency,
+					Transparency = knobTheme.Transparency,
 				},
 				Size = variantProps.knobShadow.size,
 				Position = knobPosition:map(function(value: UDim2)
@@ -231,10 +216,19 @@ local function Toggle(toggleProps: Props, ref: React.Ref<GuiObject>?)
 
 	return React.createElement(
 		View,
-		Cryo.Dictionary.union({
-			tag = "row gap-small auto-xy align-x-left align-y-center",
-			isDisabled = props.isDisabled,
-		}, interactionProps),
+		withCommonProps(
+			props,
+			Cryo.Dictionary.union({
+				-- Add padding around toggle container to ensure it's not cut off
+				-- by the bounds of the canvas group
+				padding = {
+					top = UDim.new(0, tokens.Stroke.Standard),
+					bottom = UDim.new(0, tokens.Stroke.Standard),
+					right = UDim.new(0, tokens.Stroke.Standard),
+				},
+				tag = "row gap-small auto-xy align-x-left align-y-center",
+			}, interactionProps)
+		),
 		{
 			InputLabel = React.createElement(InputLabel, {
 				Text = props.label,
