@@ -29,7 +29,6 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
-local FFlagPlayerListFixBackgroundFlicker = require(PlayerList.Flags.FFlagPlayerListFixBackgroundFlicker)
 local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDownVisibility)
 
 local MOTOR_OPTIONS = {
@@ -112,7 +111,7 @@ function PlayerListApp:init()
 	}
 
 	self.bodyTransparency, self.updateBodyTransparency = Roact.createBinding(0.5)
-	self.bodyTransparencyMotor = Otter.createSingleMotor(if FFlagPlayerListFixBackgroundFlicker then 1 else 0)
+	self.bodyTransparencyMotor = Otter.createSingleMotor(1)
 	self.bodyTransparencyMotor:onStep(function(transparency)
 		self.updateBodyTransparency(transparency)
 		if transparency < 0.5 and self.props.displayOptions.isVisible then
@@ -130,7 +129,7 @@ function PlayerListApp:init()
 	end)
 
 	self.bgTransparency, self.updateBgTransparency = Roact.createBinding(0)
-	self.bgTransparencyMotor = Otter.createSingleMotor(if FFlagPlayerListFixBackgroundFlicker then 1 else 0)
+	self.bgTransparencyMotor = Otter.createSingleMotor(1)
 	self.bgTransparencyMotor:onStep(self.updateBgTransparency)
 
 	self.frameScale, self.updateFrameScale = Roact.createBinding(1)

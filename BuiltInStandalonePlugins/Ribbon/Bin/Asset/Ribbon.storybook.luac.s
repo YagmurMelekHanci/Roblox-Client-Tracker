@@ -1,0 +1,64 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["parse"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  GETTABLEKS R2 R0 K1 ["name"]
+  GETTABLEKS R4 R0 K2 ["source"]
+  GETTABLEKS R3 R4 K3 ["Parent"]
+  CALL R1 2 1
+  GETIMPORT R2 K5 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CALL R2 1 2
+  JUMPIFNOT R2 [+6]
+  SETTABLEKS R3 R0 K6 ["docs"]
+  GETTABLEKS R4 R3 K7 ["Summary"]
+  SETTABLEKS R4 R0 K8 ["summary"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["ReactRoblox"]
+  CALL R3 1 1
+  GETTABLEKS R6 R1 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["Typecheck"]
+  GETTABLEKS R4 R5 K12 ["DocParser"]
+  DUPTABLE R5 K19 [{"name", "storyRoots", "mapStory", "roact", "reactRoblox", "mapDefinition"}]
+  LOADK R6 K2 ["Ribbon"]
+  SETTABLEKS R6 R5 K13 ["name"]
+  NEWTABLE R6 0 1
+  GETTABLEKS R8 R0 K20 ["Src"]
+  GETTABLEKS R7 R8 K21 ["Components"]
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K14 ["storyRoots"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K22 ["Parent"]
+  GETTABLEKS R7 R8 K23 ["StoryMiddleware"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K15 ["mapStory"]
+  SETTABLEKS R2 R5 K16 ["roact"]
+  SETTABLEKS R3 R5 K17 ["reactRoblox"]
+  DUPCLOSURE R6 K24 [PROTO_1]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K18 ["mapDefinition"]
+  RETURN R5 1

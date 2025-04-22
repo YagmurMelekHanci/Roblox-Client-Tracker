@@ -33,11 +33,6 @@ local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
 
-local FFlagLogBadgeAwardImpression = game:DefineFastFlag("LogBadgeAwardImpression", false)
-local FFlagLogBadgeAwardDismissed = game:DefineFastFlag("LogBadgeAwardDismissed", false)
-local FFlagLogFriendRequestImpression = game:DefineFastFlag("LogFriendRequestImpression", false)
-local FFlagLogFriendRequestDismissed = game:DefineFastFlag("LogFriendRequestDismissed", false)
-local FFlagLogAcceptFriendshipEvent = game:DefineFastFlag("LogAcceptFriendshipEvent", false)
 local FFlagClientToastNotificationsEnabled = game:GetEngineFeature("ClientToastNotificationsEnabled")
 local GetFFlagClientToastNotificationsRedirect =
 	require(RobloxGui.Modules.Flags.GetFFlagClientToastNotificationsRedirect)
@@ -820,10 +815,8 @@ local function sendFriendNotification(fromPlayer)
 				AnalyticsService:ReportCounter("NotificationScript-RequestFriendship")
 				AnalyticsService:TrackEvent("Game", "RequestFriendship", "NotificationScript")
 
-				if FFlagLogAcceptFriendshipEvent then
-					AnalyticsService:ReportCounter("NotificationScript-AcceptFriendship")
-					AnalyticsService:TrackEvent("Game", "AcceptFriendship", "NotificationScript")
-				end
+				AnalyticsService:ReportCounter("NotificationScript-AcceptFriendship")
+				AnalyticsService:TrackEvent("Game", "AcceptFriendship", "NotificationScript")
 
 				LocalPlayer:RequestFriendship(fromPlayer)
 			else
@@ -836,18 +829,14 @@ local function sendFriendNotification(fromPlayer)
 		end,
 		Button1Text = acceptText,
 		Button2Text = declineText,
-		OnDisplay = if FFlagLogFriendRequestImpression
-			then function()
-				AnalyticsService:ReportCounter("NotificationScript-FriendshipNotificationDisplayed")
-				AnalyticsService:TrackEvent("Game", "FriendshipNotificationDisplayed", "NotificationScript")
-			end
-			else nil,
-		OnDismiss = if FFlagLogFriendRequestDismissed
-			then function()
-				AnalyticsService:ReportCounter("NotificationScript-FriendshipNotificationDismissed")
-				AnalyticsService:TrackEvent("Game", "FriendshipNotificationDismissed", "NotificationScript")
-			end
-			else nil,
+		OnDisplay = function()
+			AnalyticsService:ReportCounter("NotificationScript-FriendshipNotificationDisplayed")
+			AnalyticsService:TrackEvent("Game", "FriendshipNotificationDisplayed", "NotificationScript")
+		end,
+		OnDismiss = function()
+			AnalyticsService:ReportCounter("NotificationScript-FriendshipNotificationDismissed")
+			AnalyticsService:TrackEvent("Game", "FriendshipNotificationDismissed", "NotificationScript")
+		end,
 	})
 end
 
@@ -986,18 +975,14 @@ local function onBadgeAwarded(userId, creatorId, badgeId)
 			DetailText = badgeAwardText,
 			Image = BADGE_IMG,
 			Duration = DEFAULT_NOTIFICATION_DURATION,
-			OnDisplay = if FFlagLogBadgeAwardImpression
-				then function()
-					AnalyticsService:ReportCounter("NotificationScript-BadgeAwardNotificationDisplayed")
-					AnalyticsService:TrackEvent("Game", "BadgeAwardNotificationDisplayed", "NotificationScript")
-				end
-				else nil,
-			OnDismiss = if FFlagLogBadgeAwardDismissed
-				then function()
-					AnalyticsService:ReportCounter("NotificationScript-BadgeAwardNotificationDismissed")
-					AnalyticsService:TrackEvent("Game", "BadgeAwardNotificationDismissed", "NotificationScript")
-				end
-				else nil,
+			OnDisplay = function()
+				AnalyticsService:ReportCounter("NotificationScript-BadgeAwardNotificationDisplayed")
+				AnalyticsService:TrackEvent("Game", "BadgeAwardNotificationDisplayed", "NotificationScript")
+			end,
+			OnDismiss = function()
+				AnalyticsService:ReportCounter("NotificationScript-BadgeAwardNotificationDismissed")
+				AnalyticsService:TrackEvent("Game", "BadgeAwardNotificationDismissed", "NotificationScript")
+			end,
 		})
 	end
 end

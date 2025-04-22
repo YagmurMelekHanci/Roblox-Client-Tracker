@@ -37,43 +37,44 @@ MAIN:
   GETTABLEKS R3 R4 K4 ["Parent"]
   GETTABLEKS R2 R3 K4 ["Parent"]
   GETIMPORT R3 K1 [require]
-  GETTABLEKS R5 R2 K13 ["PluginLoader"]
-  GETTABLEKS R4 R5 K14 ["PluginLoaderBuilder"]
+  GETTABLEKS R5 R2 K13 ["Packages"]
+  GETTABLEKS R4 R5 K14 ["PluginLoader"]
   CALL R3 1 1
-  GETTABLEKS R6 R2 K15 ["Src"]
-  GETTABLEKS R5 R6 K16 ["Resources"]
-  GETTABLEKS R4 R5 K17 ["SourceStrings"]
-  GETTABLEKS R7 R2 K15 ["Src"]
-  GETTABLEKS R6 R7 K16 ["Resources"]
-  GETTABLEKS R5 R6 K18 ["LocalizedStrings"]
-  DUPTABLE R6 K27 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-  GETIMPORT R7 K12 [plugin]
-  SETTABLEKS R7 R6 K11 ["plugin"]
-  LOADK R7 K28 ["Drafts"]
-  SETTABLEKS R7 R6 K19 ["pluginName"]
-  SETTABLEKS R5 R6 K20 ["translationResourceTable"]
-  SETTABLEKS R4 R6 K21 ["fallbackResourceTable"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K22 ["overrideLocaleId"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K23 ["localizationNamespace"]
-  DUPCLOSURE R7 K29 [PROTO_0]
-  SETTABLEKS R7 R6 K24 ["getToolbarName"]
-  DUPTABLE R7 K35 [{"getName", "getDescription", "icon", "text", "enabled"}]
-  DUPCLOSURE R8 K36 [PROTO_1]
-  SETTABLEKS R8 R7 K30 ["getName"]
-  DUPCLOSURE R8 K37 [PROTO_2]
-  SETTABLEKS R8 R7 K31 ["getDescription"]
-  LOADK R8 K38 [""]
-  SETTABLEKS R8 R7 K32 ["icon"]
+  GETTABLEKS R4 R3 K15 ["PluginLoaderBuilder"]
+  GETTABLEKS R7 R2 K16 ["Src"]
+  GETTABLEKS R6 R7 K17 ["Resources"]
+  GETTABLEKS R5 R6 K18 ["SourceStrings"]
+  GETTABLEKS R8 R2 K16 ["Src"]
+  GETTABLEKS R7 R8 K17 ["Resources"]
+  GETTABLEKS R6 R7 K19 ["LocalizedStrings"]
+  DUPTABLE R7 K28 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
+  GETIMPORT R8 K12 [plugin]
+  SETTABLEKS R8 R7 K11 ["plugin"]
+  LOADK R8 K29 ["Drafts"]
+  SETTABLEKS R8 R7 K20 ["pluginName"]
+  SETTABLEKS R6 R7 K21 ["translationResourceTable"]
+  SETTABLEKS R5 R7 K22 ["fallbackResourceTable"]
   LOADNIL R8
-  SETTABLEKS R8 R7 K33 ["text"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K34 ["enabled"]
-  SETTABLEKS R7 R6 K25 ["buttonInfo"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K26 ["dockWidgetInfo"]
-  GETTABLEKS R7 R3 K39 ["build"]
-  MOVE R8 R6
-  CALL R7 1 0
+  SETTABLEKS R8 R7 K23 ["overrideLocaleId"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K24 ["localizationNamespace"]
+  DUPCLOSURE R8 K30 [PROTO_0]
+  SETTABLEKS R8 R7 K25 ["getToolbarName"]
+  DUPTABLE R8 K36 [{"getName", "getDescription", "icon", "text", "enabled"}]
+  DUPCLOSURE R9 K37 [PROTO_1]
+  SETTABLEKS R9 R8 K31 ["getName"]
+  DUPCLOSURE R9 K38 [PROTO_2]
+  SETTABLEKS R9 R8 K32 ["getDescription"]
+  LOADK R9 K39 [""]
+  SETTABLEKS R9 R8 K33 ["icon"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K34 ["text"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K35 ["enabled"]
+  SETTABLEKS R8 R7 K26 ["buttonInfo"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K27 ["dockWidgetInfo"]
+  GETTABLEKS R8 R4 K40 ["build"]
+  MOVE R9 R7
+  CALL R8 1 0
   RETURN R0 0

@@ -720,7 +720,8 @@ MAIN:
   GETTABLEKS R19 R14 K31 ["StyleModifier"]
   GETTABLEKS R20 R13 K32 ["LoadingIndicator"]
   GETIMPORT R21 K11 [require]
-  GETTABLEKS R22 R0 K33 ["SharedPluginConstants"]
+  GETTABLEKS R23 R0 K12 ["Packages"]
+  GETTABLEKS R22 R23 K33 ["SharedPluginConstants"]
   CALL R21 1 1
   GETTABLEKS R22 R5 K34 ["Component"]
   LOADK R24 K35 ["ManagementMainView"]

@@ -24,6 +24,23 @@ PROTO_1:
   FORGLOOP R1 2 [-17]
   RETURN R0 1
 
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["getInstanceNameWithoutClassification"]
+  MOVE R3 R0
+  CALL R2 1 1
+  JUMPIFEQKNIL R1 [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["getAssetNamePrefix"]
+  MOVE R4 R1
+  CALL R3 1 1
+  JUMP [+1]
+  LOADK R3 K2 [""]
+  MOVE R5 R3
+  MOVE R6 R2
+  CONCAT R4 R5 R6
+  RETURN R4 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -59,4 +76,7 @@ MAIN:
   CAPTURE VAL R3
   CAPTURE VAL R1
   SETTABLEKS R4 R2 K22 ["getInstanceNameWithoutClassification"]
+  DUPCLOSURE R4 K23 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R2 K24 ["getNewInstanceNameWithPrefix"]
   RETURN R2 1

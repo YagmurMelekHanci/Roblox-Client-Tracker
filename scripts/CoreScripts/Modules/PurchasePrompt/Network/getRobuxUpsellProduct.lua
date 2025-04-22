@@ -35,7 +35,7 @@ local function paymentPlatformToUpsellPlatform(paymentPlatform)
 end
 
 -- Flags
-local GetFFlagEnabledEnhancedRobuxUpsell = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnabledEnhancedRobuxUpsell
+local FFlagEnabledEnhancedRobuxUpsellV2 = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnabledEnhancedRobuxUpsellV2
 
 local function OriginalGetRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform)
 	local upsellPlatform = paymentPlatformToUpsellPlatform(paymentPlatform)
@@ -78,7 +78,7 @@ local function EnhancedGetRobuxUpsellProduct(network, price: number, robuxBalanc
 end
 
 local function getRobuxUpsellProduct(...)
-    if GetFFlagEnabledEnhancedRobuxUpsell then
+    if FFlagEnabledEnhancedRobuxUpsellV2 then
         return EnhancedGetRobuxUpsellProduct(...)
     else
         return OriginalGetRobuxUpsellProduct(...)

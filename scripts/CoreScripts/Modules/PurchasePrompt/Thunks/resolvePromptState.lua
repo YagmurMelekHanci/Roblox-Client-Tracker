@@ -50,25 +50,52 @@ local requiredServices = {
 	Network,
 }
 
-local GetFFlagEnabledEnhancedRobuxUpsell = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnabledEnhancedRobuxUpsell
+local FFlagEnabledEnhancedRobuxUpsellV2 = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnabledEnhancedRobuxUpsellV2
 
--- Helper functions to reduce code duplication
--- Using this one in the new flag to test it out
+-- Original handler for the basic Robux upsell flow
 local function handleSuccessfulUpsellProduct(store, analytics, product, state)
+	-- Check if the user cancel the purchase before this could return
+	if not hasPendingRequest(store:getState()) then
+		return
+	end
+	
+	analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
+	
+	store:dispatch(
+		PromptNativeUpsell(
+			product.providerId,
+			product.id,
+			product.robuxAmount,
+			product.robuxAmountBeforeBonus,
+			product.price
+		)
+	)
+	
+	store:dispatch(sendCounter(Counter.UpsellModalShown))
+end
+
+-- Enhanced handler that includes additional item information
+local function handleSuccessfulUpsellProductEnhanced(store, analytics, product, state, itemProductId, itemName, universeId)
 	-- Check if the user cancel the purchase before this could return
 	if not hasPendingRequest(store:getState()) then
 		return
 	end
 
 	analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
+	
 	store:dispatch(
 		PromptNativeUpsell(
 			product.providerId,
 			product.id,
 			product.robuxAmount,
-			product.robuxAmountBeforeBonus
+			product.robuxAmountBeforeBonus,
+			product.price,
+			itemProductId,
+			itemName,
+			universeId
 		)
 	)
+	
 	store:dispatch(sendCounter(Counter.UpsellModalShown))
 end
 
@@ -150,7 +177,7 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 				end
 			end
 
-			if GetFFlagEnabledEnhancedRobuxUpsell then
+			if FFlagEnabledEnhancedRobuxUpsellV2 then
 				local universeId = game.GameId
 				local itemProductId = productInfo.ProductId
 				local itemName = productInfo.DisplayName
@@ -161,7 +188,7 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 					-- Item Name can be nil
 					return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform, itemProductId, itemName, universeId):andThen(
 						function(product)
-							return handleSuccessfulUpsellProduct(store, analytics, product, state)
+							return handleSuccessfulUpsellProductEnhanced(store, analytics, product, state, itemProductId, itemName, universeId)
 						end,
 						function()
 							return handleFailedUpsellProduct(store, state)
@@ -180,19 +207,8 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 						return
 					end
 					
-					-- Keeping original analytics signal for now
-					-- TODO: Remove this once we have confirmed the new flow is working
-					analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
-					store:dispatch(
-						PromptNativeUpsell(
-							product.providerId,
-							product.id,
-							product.robuxAmount,
-							product.robuxAmountBeforeBonus,
-							product.price
-						)
-					)
-					store:dispatch(sendCounter(Counter.UpsellModalShown))
+					-- Using the original handler
+					return handleSuccessfulUpsellProduct(store, analytics, product, state)
 				end,
 				function()
 					-- Check if the user cancel the purchase before this could return

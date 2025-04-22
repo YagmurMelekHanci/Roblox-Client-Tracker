@@ -37,6 +37,8 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local FFlagLogPartyVoiceReconnect = game:DefineFastFlag("LogPartyVoiceReconnect", false)
 local FFlagPartyVoiceReportJoinFailed = game:DefineFastFlag("PartyVoiceReportJoinFailed", false)
+local FFlagPartyVoiceCatchError = game:DefineFastFlag("PartyVoiceCatchError", false)
+local FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit = game:DefineFastFlag("PartyVoiceExecuteVoiceActionsPostAsyncInit", false)
 
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
@@ -77,6 +79,16 @@ local createReducers = function()
 			CrossExperienceVoice = CrossExperience.installReducer(),
 		}),
 	})
+end
+
+local executePostVoiceAsyncInit = function(callback)
+	CoreVoiceManager:asyncInit()
+		:andThen(function()
+			callback()
+		end)
+		:catch(function(err)
+			log:info("CoreVoiceManager did not initialize {}", err)
+		end)
 end
 
 local coreVoiceManagerState = {
@@ -159,10 +171,20 @@ local onLocalPlayerMuteChanged = function(isMuted)
 	local eventName = if isMuted
 		then CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_MUTED
 		else CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_UNMUTED
-	cevEventManager:notify(eventName, {
-		userId = localUserId,
-		isLocalUser = true,
-	})
+
+	if FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit then
+		executePostVoiceAsyncInit(function()
+			cevEventManager:notify(eventName, {
+				userId = localUserId,
+				isLocalUser = true,
+			})	
+		end)
+	else
+		cevEventManager:notify(eventName, {
+			userId = localUserId,
+			isLocalUser = true,
+		})
+	end
 end
 
 local onParticipantsUpdated = function(participants)
@@ -190,10 +212,21 @@ end
 local toggleMutePlayer = function(params)
 	local userId = tonumber(params.userId)
 	local isLocalPlayer = localUserId == userId
-	if isLocalPlayer then
-		CoreVoiceManager:ToggleMic("Squads")
+
+	if FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit then
+		executePostVoiceAsyncInit(function()
+			if isLocalPlayer then
+				CoreVoiceManager:ToggleMic("Squads")
+			else
+				CoreVoiceManager:ToggleMutePlayer(userId)
+			end
+		end)
 	else
-		CoreVoiceManager:ToggleMutePlayer(userId)
+		if isLocalPlayer then
+			CoreVoiceManager:ToggleMic("Squads")
+		else
+			CoreVoiceManager:ToggleMutePlayer(userId)
+		end
 	end
 end
 
@@ -259,13 +292,14 @@ end
 
 local function requestPermissions(permissions): Promise<PermissionResult>
 	local result: PermissionResult = {
-		hasMicPermissions = false
+		hasMicPermissions = false,
 	}
 
 	return Promise.new(function(resolve, reject)
 		PermissionsProtocol:requestPermissions(permissions)
 			:andThen(function(results)
-				result.hasMicPermissions = isAuthorizedPermission(results, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+				result.hasMicPermissions =
+					isAuthorizedPermission(results, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
 				resolve(result)
 			end)
 			:catch(function()
@@ -298,7 +332,13 @@ end
 local function unmuteMicrophoneOnce()
 	CoreVoiceManager.muteChanged.Event:Once(function(muted)
 		if muted ~= nil then
-			CoreVoiceManager:ToggleMic("BackgroundDM")
+			if FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit then
+				executePostVoiceAsyncInit(function()
+					CoreVoiceManager:ToggleMic("BackgroundDM")
+				end)
+			else
+				CoreVoiceManager:ToggleMic("BackgroundDM")
+			end
 		end
 	end)
 end
@@ -383,13 +423,14 @@ end
 
 local function getPermissions(permissions): Promise<PermissionResult>
 	local result: PermissionResult = {
-		hasMicPermissions = false
+		hasMicPermissions = false,
 	}
-	
+
 	return Promise.new(function(resolve, reject)
 		PermissionsProtocol:hasPermissions(permissions)
 			:andThen(function(results)
-				result.hasMicPermissions = isAuthorizedPermission(results, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+				result.hasMicPermissions =
+					isAuthorizedPermission(results, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
 				if not result.hasMicPermissions then
 					requestPermissions(permissions):andThen(resolve)
 				else
@@ -400,7 +441,6 @@ local function getPermissions(permissions): Promise<PermissionResult>
 				resolve(result)
 			end)
 	end)
-	
 end
 
 local function setupListeners()
@@ -440,8 +480,15 @@ local function setupListeners()
 				print("Muted Players", HttpService:JSONEncode(CoreVoiceManager.mutedPlayers))
 				for device in CoreVoiceManager.audioDevices do
 					if device.Player then
-						print("Audio Device ", device.Player.UserId, " Active:", device.Active, " MutedByLocalPlayer:", device.MutedByLocalUser)
-					end	
+						print(
+							"Audio Device ",
+							device.Player.UserId,
+							" Active:",
+							device.Active,
+							" MutedByLocalPlayer:",
+							device.MutedByLocalUser
+						)
+					end
 				end
 				print("Voice Enabled", HttpService:JSONEncode({ value = CoreVoiceManager.voiceEnabled }))
 				print("Permissions Result", HttpService:JSONEncode(CoreVoiceManager.communicationPermissionsResult))
@@ -496,7 +543,7 @@ local function setupListeners()
 					voiceSessionId = voiceSessionId,
 				})
 			end
-			
+
 			coreVoiceManagerState.previousGroupId = CoreVoiceManager.service:GetGroupId()
 		elseif newState == Enum.VoiceChatState.Failed then
 			notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_FAILED)
@@ -614,9 +661,17 @@ function initializeVoice()
 			log:info("CoreVoiceManager did not initialize {}", err)
 			if FFlagEnableCoreVoiceManagerPassErrorInReject then
 				local detail = "INIT_ERROR_UNKNOWN"
-				if err and err.code then
-					detail = err.code
+
+				if FFlagPartyVoiceCatchError then
+					if err then
+						detail = err.code or err
+					end
+				else
+					if err and err.code then
+						detail = err.code
+					end
 				end
+
 				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, detail)
 			else
 				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, err)

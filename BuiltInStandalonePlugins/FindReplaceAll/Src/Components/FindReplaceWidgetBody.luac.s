@@ -1,0 +1,53 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Frame"]
+  NEWTABLE R3 8 0
+  GETTABLEKS R4 R0 K2 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K2 ["LayoutOrder"]
+  GETTABLEKS R4 R0 K3 ["ZIndex"]
+  SETTABLEKS R4 R3 K3 ["ZIndex"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K4 ["BackgroundTransparency"]
+  GETIMPORT R4 K7 [UDim2.fromOffset]
+  LOADN R5 0
+  GETTABLEKS R6 R0 K8 ["headerOffset"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K9 ["Position"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K10 ["Tag"]
+  LOADK R5 K11 ["X-FitY data-testid=WidgetBodyFrame"]
+  SETTABLE R5 R3 R4
+  DUPTABLE R4 K13 [{"ReplaceControls"}]
+  GETUPVAL R5 1
+  GETUPVAL R6 2
+  DUPTABLE R7 K14 [{"ZIndex"}]
+  GETTABLEKS R9 R0 K3 ["ZIndex"]
+  ADDK R8 R9 K15 [1]
+  SETTABLEKS R8 R7 K3 ["ZIndex"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K12 ["ReplaceControls"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Components"]
+  GETTABLEKS R3 R4 K10 ["ReplaceControls"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K11 ["createElement"]
+  DUPCLOSURE R4 K12 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R4 1

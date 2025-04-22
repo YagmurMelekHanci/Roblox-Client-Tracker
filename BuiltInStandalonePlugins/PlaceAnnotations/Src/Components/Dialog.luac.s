@@ -14,7 +14,7 @@ PROTO_0:
   GETTABLEKS R3 R0 K6 ["Modal"]
   SETTABLEKS R3 R2 K6 ["Modal"]
   GETTABLEKS R4 R0 K2 ["Title"]
-  LOADK R5 K8 ["PlaceAnnotationsConfirmDeleleteDialog"]
+  LOADK R5 K8 ["PlaceAnnotationsConfirmDeleteDialog"]
   CONCAT R3 R4 R5
   MOVE R6 R3
   MOVE R7 R2

@@ -41,7 +41,7 @@ local Chrome = script.Parent.Parent.Parent.Chrome
 
 local ChromeEnabled = require(Chrome.Enabled)
 local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
-local PeekConstants = require(Chrome.Integrations.MusicUtility.Constants)
+local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 local FFlagEnableChromeAnalytics = SharedFlags.GetFFlagEnableChromeAnalytics()
 
@@ -434,7 +434,7 @@ function TopBarApp:renderWithStyle(style)
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			BackgroundTransparency = 1,
 			Position = UDim2.fromScale(0.5, 0.5),
-			Size = UDim2.new(1, 0, 0, PeekConstants.AUDIO_REPORTING_WINDOW_MIN_HEIGHT),
+			Size = UDim2.new(1, 0, 0, MusicConstants.AUDIO_REPORTING_WINDOW_MIN_HEIGHT),
 		}, {
 			ReportAudioPopup = Roact.createElement(Songbird.ReportAudioPopup),
 		}),

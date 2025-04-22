@@ -60,20 +60,25 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETUPVAL R2 0
-  FASTCALL1 ASSERT R2 [+2]
-  GETIMPORT R1 K1 [assert]
-  CALL R1 1 0
-  GETGLOBAL R1 K2 ["getCommonArgs"]
-  CALL R1 0 1
-  SETTABLEKS R0 R1 K3 ["unknownPermission"]
-  GETUPVAL R2 1
-  LOADK R4 K4 ["studio"]
-  LOADK R5 K5 ["ManageCollaborators"]
-  LOADK R6 K6 ["UnknownPermission"]
-  MOVE R7 R1
-  NAMECALL R2 R2 K7 ["SendEventDeferred"]
-  CALL R2 5 0
+  GETUPVAL R3 0
+  FASTCALL1 ASSERT R3 [+2]
+  GETIMPORT R2 K1 [assert]
+  CALL R2 1 0
+  GETUPVAL R3 1
+  FASTCALL1 ASSERT R3 [+2]
+  GETIMPORT R2 K1 [assert]
+  CALL R2 1 0
+  GETGLOBAL R2 K2 ["getCommonArgs"]
+  CALL R2 0 1
+  SETTABLEKS R0 R2 K3 ["currentPermission"]
+  SETTABLEKS R1 R2 K4 ["availablePermissions"]
+  GETUPVAL R3 2
+  LOADK R5 K5 ["studio"]
+  LOADK R6 K6 ["ManageCollaborators"]
+  LOADK R7 K7 ["MissingPermission"]
+  MOVE R8 R2
+  NAMECALL R3 R3 K8 ["SendEventDeferred"]
+  CALL R3 5 0
   RETURN R0 0
 
 PROTO_5:
@@ -177,43 +182,48 @@ PROTO_5:
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["Collab7855_HandleUnknownPermission"]
+  LOADK R2 K2 ["Collab7855_HandleUnknownPermission2"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
-  GETIMPORT R4 K5 [script]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R5 R1 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Util"]
-  GETTABLEKS R3 R4 K11 ["IsTeamCreateEnabled"]
-  CALL R2 1 1
-  GETIMPORT R3 K1 [game]
-  LOADK R5 K12 ["RbxAnalyticsService"]
-  NAMECALL R3 R3 K13 ["GetService"]
-  CALL R3 2 1
-  DUPCLOSURE R4 K14 [PROTO_0]
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["Collab7855_LogUnknownPermissions"]
+  NAMECALL R1 R1 K3 ["GetFastFlag"]
+  CALL R1 2 1
+  GETIMPORT R5 K6 [script]
+  GETTABLEKS R4 R5 K7 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Parent"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R2 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["IsTeamCreateEnabled"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [game]
+  LOADK R6 K13 ["RbxAnalyticsService"]
+  NAMECALL R4 R4 K14 ["GetService"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K15 [PROTO_0]
+  CAPTURE VAL R4
+  SETGLOBAL R5 K16 ["getCommonArgs"]
+  NEWTABLE R5 8 0
+  DUPCLOSURE R6 K17 [PROTO_1]
   CAPTURE VAL R3
-  SETGLOBAL R4 K15 ["getCommonArgs"]
-  NEWTABLE R4 8 0
-  DUPCLOSURE R5 K16 [PROTO_1]
-  CAPTURE VAL R2
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K18 ["reportCollaborateButtonPressed"]
+  DUPCLOSURE R6 K19 [PROTO_2]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K20 ["reportSaveToRobloxPressed"]
+  DUPCLOSURE R6 K21 [PROTO_3]
   CAPTURE VAL R3
-  SETTABLEKS R5 R4 K17 ["reportCollaborateButtonPressed"]
-  DUPCLOSURE R5 K18 [PROTO_2]
-  CAPTURE VAL R3
-  SETTABLEKS R5 R4 K19 ["reportSaveToRobloxPressed"]
-  DUPCLOSURE R5 K20 [PROTO_3]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  SETTABLEKS R5 R4 K21 ["reportCancelPressed"]
-  DUPCLOSURE R5 K22 [PROTO_4]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K22 ["reportCancelPressed"]
+  DUPCLOSURE R6 K23 [PROTO_4]
   CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K24 ["reportUnknownPermission"]
+  DUPCLOSURE R6 K25 [PROTO_5]
   CAPTURE VAL R3
-  SETTABLEKS R5 R4 K23 ["reportUnknownPermission"]
-  DUPCLOSURE R5 K24 [PROTO_5]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  SETTABLEKS R5 R4 K25 ["reportSaveCollaboratorsPressed"]
-  RETURN R4 1
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K26 ["reportSaveCollaboratorsPressed"]
+  RETURN R5 1

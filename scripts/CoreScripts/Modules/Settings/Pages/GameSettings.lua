@@ -69,7 +69,6 @@ local FFlagInExperienceMenuReorderFirstVariant =
 	require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
 local FFlagOverrideInExperienceMenuReorderFirstVariant =
 	require(RobloxGui.Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant)
-local FFlagCameraToggleInitBugFix = game:DefineFastFlag("CameraToggleInitBugFix", false)
 local FFlagMicroprofileGameSettingsFix = game:DefineFastFlag("MicroprofileGameSettingsFix", false)
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
@@ -1239,32 +1238,20 @@ local function Initialize()
 				end
 
 				if currentSavedMode > -1 then
-					-- https://roblox.atlassian.net/browse/APPEXP-2133, seems that algorithm relies
-					-- on any enum to have value -1 of corresponding key index in cameraEnumNames.
+					-- the algorithm relies on any enum to have value -1 of 
+					-- corresponding key index in cameraEnumNames.
 					-- CameraToggle, specifically (and only) does not follow this pattern.
 					-- Temporary fix due to https://roblox.atlassian.net/browse/APPEXP-2069 being planned soon
-					if FFlagCameraToggleInitBugFix then
-						if
-							UserInputService.TouchEnabled
-							or GameSettings.ComputerCameraMovementMode
-								~= Enum.ComputerCameraMovementMode.CameraToggle
-						then
-							currentSavedMode = currentSavedMode + 1
-						end
-						updateCurrentCameraMovementIndex(currentSavedMode)
-						this.CameraMode:SetSelectionIndex(currentSavedMode)
-					else
+					if
+						UserInputService.TouchEnabled
+						or GameSettings.ComputerCameraMovementMode
+							~= Enum.ComputerCameraMovementMode.CameraToggle
+					then
 						currentSavedMode = currentSavedMode + 1
-						local savedEnum = nil
-						local exists = pcall(function()
-							savedEnum = enumsToAdd[currentSavedMode]
-						end)
-						if exists and savedEnum then
-							updateCurrentCameraMovementIndex(savedEnum.Value + 1)
-							this.CameraMode:SetSelectionIndex(savedEnum.Value + 1)
-						end
 					end
-				end
+					updateCurrentCameraMovementIndex(currentSavedMode)
+					this.CameraMode:SetSelectionIndex(currentSavedMode)
+			end
 			end
 
 			this.CameraModeFrame, this.CameraModeLabel, this.CameraMode =

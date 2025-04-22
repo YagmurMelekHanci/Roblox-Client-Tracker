@@ -47,61 +47,62 @@ MAIN:
   GETTABLEKS R4 R5 K14 ["Constants"]
   CALL R3 1 1
   GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K15 ["PluginLoader"]
-  GETTABLEKS R5 R6 K16 ["PluginLoaderBuilder"]
+  GETTABLEKS R6 R0 K15 ["Packages"]
+  GETTABLEKS R5 R6 K16 ["PluginLoader"]
   CALL R4 1 1
-  GETTABLEKS R7 R0 K5 ["Src"]
-  GETTABLEKS R6 R7 K17 ["Resources"]
-  GETTABLEKS R5 R6 K18 ["SourceStrings"]
+  GETTABLEKS R5 R4 K17 ["PluginLoaderBuilder"]
   GETTABLEKS R8 R0 K5 ["Src"]
-  GETTABLEKS R7 R8 K17 ["Resources"]
-  GETTABLEKS R6 R7 K19 ["LocalizedStrings"]
-  DUPTABLE R7 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "shouldImmediatelyOpen"}]
-  GETIMPORT R8 K31 [plugin]
-  SETTABLEKS R8 R7 K20 ["plugin"]
-  LOADK R8 K32 ["PlayerEmulator"]
-  SETTABLEKS R8 R7 K21 ["pluginName"]
-  SETTABLEKS R6 R7 K22 ["translationResourceTable"]
-  SETTABLEKS R5 R7 K23 ["fallbackResourceTable"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K24 ["overrideLocaleId"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K25 ["localizationNamespace"]
-  DUPCLOSURE R8 K33 [PROTO_0]
-  SETTABLEKS R8 R7 K26 ["getToolbarName"]
-  DUPTABLE R8 K39 [{"getName", "getDescription", "icon", "text", "enabled"}]
-  DUPCLOSURE R9 K40 [PROTO_1]
-  SETTABLEKS R9 R8 K34 ["getName"]
-  DUPCLOSURE R9 K41 [PROTO_2]
-  SETTABLEKS R9 R8 K35 ["getDescription"]
-  LOADK R9 K42 ["rbxlocaltheme://Player"]
-  SETTABLEKS R9 R8 K36 ["icon"]
+  GETTABLEKS R7 R8 K18 ["Resources"]
+  GETTABLEKS R6 R7 K19 ["SourceStrings"]
+  GETTABLEKS R9 R0 K5 ["Src"]
+  GETTABLEKS R8 R9 K18 ["Resources"]
+  GETTABLEKS R7 R8 K20 ["LocalizedStrings"]
+  DUPTABLE R8 K31 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "shouldImmediatelyOpen"}]
+  GETIMPORT R9 K32 [plugin]
+  SETTABLEKS R9 R8 K21 ["plugin"]
+  LOADK R9 K33 ["PlayerEmulator"]
+  SETTABLEKS R9 R8 K22 ["pluginName"]
+  SETTABLEKS R7 R8 K23 ["translationResourceTable"]
+  SETTABLEKS R6 R8 K24 ["fallbackResourceTable"]
   LOADNIL R9
-  SETTABLEKS R9 R8 K37 ["text"]
-  NAMECALL R9 R2 K43 ["IsEdit"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K38 ["enabled"]
-  SETTABLEKS R8 R7 K27 ["buttonInfo"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K28 ["dockWidgetInfo"]
-  DUPCLOSURE R8 K44 [PROTO_3]
-  CAPTURE VAL R3
-  SETTABLEKS R8 R7 K29 ["shouldImmediatelyOpen"]
-  GETTABLEKS R8 R4 K45 ["build"]
-  MOVE R9 R7
-  CALL R8 1 1
-  GETTABLEKS R9 R8 K46 ["pluginLoader"]
-  NAMECALL R9 R9 K47 ["waitForUserInteraction"]
-  CALL R9 1 1
-  JUMPIF R9 [+1]
-  RETURN R0 0
-  GETIMPORT R10 K4 [require]
-  GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K2 ["Parent"]
-  GETTABLEKS R11 R12 K48 ["main"]
+  SETTABLEKS R9 R8 K25 ["overrideLocaleId"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K26 ["localizationNamespace"]
+  DUPCLOSURE R9 K34 [PROTO_0]
+  SETTABLEKS R9 R8 K27 ["getToolbarName"]
+  DUPTABLE R9 K40 [{"getName", "getDescription", "icon", "text", "enabled"}]
+  DUPCLOSURE R10 K41 [PROTO_1]
+  SETTABLEKS R10 R9 K35 ["getName"]
+  DUPCLOSURE R10 K42 [PROTO_2]
+  SETTABLEKS R10 R9 K36 ["getDescription"]
+  LOADK R10 K43 ["rbxlocaltheme://Player"]
+  SETTABLEKS R10 R9 K37 ["icon"]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K38 ["text"]
+  NAMECALL R10 R2 K44 ["IsEdit"]
   CALL R10 1 1
-  MOVE R11 R10
-  GETIMPORT R12 K31 [plugin]
-  MOVE R13 R8
-  CALL R11 2 0
+  SETTABLEKS R10 R9 K39 ["enabled"]
+  SETTABLEKS R9 R8 K28 ["buttonInfo"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K29 ["dockWidgetInfo"]
+  DUPCLOSURE R9 K45 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R9 R8 K30 ["shouldImmediatelyOpen"]
+  GETTABLEKS R9 R5 K46 ["build"]
+  MOVE R10 R8
+  CALL R9 1 1
+  GETTABLEKS R10 R9 K47 ["pluginLoader"]
+  NAMECALL R10 R10 K48 ["waitForUserInteraction"]
+  CALL R10 1 1
+  JUMPIF R10 [+1]
+  RETURN R0 0
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K2 ["Parent"]
+  GETTABLEKS R12 R13 K49 ["main"]
+  CALL R11 1 1
+  MOVE R12 R11
+  GETIMPORT R13 K32 [plugin]
+  MOVE R14 R9
+  CALL R12 2 0
   RETURN R0 0

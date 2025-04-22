@@ -13,6 +13,7 @@ local PurchaseFlowReducer = require(script.Parent.PurchaseFlowReducer)
 local ProductInfoReducer = require(script.Parent.ProductInfoReducer)
 local PremiumProductsReducer = require(script.Parent.PremiumProductsReducer)
 local NativeUpsellReducer = require(script.Parent.NativeUpsellReducer)
+local EnhancedNativeUpsellReducer = require(script.Parent.EnhancedNativeUpsellReducer)
 local PromptStateReducer = require(script.Parent.PromptStateReducer)
 local PurchaseErrorReducer = require(script.Parent.PurchaseErrorReducer)
 local AccountInfoReducer = require(script.Parent.AccountInfoReducer)
@@ -26,13 +27,14 @@ local SubscriptionPurchaseInfoReducer = require(script.Parent.SubscriptionPurcha
 local CurrentToastMessagesReducer = ToastLite.Reducers.CurrentToastMessagesReducer
 
 local GetFFlagEnableToastLiteRender = require(Root.Flags.GetFFlagEnableToastLiteRender)
+local FFlagEnabledEnhancedRobuxUpsellV2 = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnabledEnhancedRobuxUpsellV2
 
 local Reducer = Rodux.combineReducers({
 	promptRequest = PromptRequestReducer,
 	purchaseFlow = PurchaseFlowReducer,
 	productInfo = ProductInfoReducer,
 	premiumProductInfo = PremiumProductsReducer,
-	nativeUpsell = NativeUpsellReducer,
+	nativeUpsell = if FFlagEnabledEnhancedRobuxUpsellV2 then EnhancedNativeUpsellReducer else NativeUpsellReducer,
 	promptState = PromptStateReducer,
 	purchaseError = PurchaseErrorReducer,
 	accountInfo = AccountInfoReducer,

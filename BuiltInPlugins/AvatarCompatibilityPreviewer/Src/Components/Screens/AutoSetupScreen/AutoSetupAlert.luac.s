@@ -44,81 +44,29 @@ PROTO_2:
   GETTABLEKS R7 R0 K6 ["clearError"]
   SETLIST R5 R6 2 [1]
   CALL R3 2 1
-  GETUPVAL R4 3
-  CALL R4 0 1
-  JUMPIF R4 [+70]
   GETTABLEKS R5 R0 K2 ["autoSetupState"]
   GETTABLEKS R4 R5 K3 ["type"]
-  JUMPIFNOTEQKS R4 K7 ["inAutoSetup"] [+65]
-  LOADK R6 K8 ["AvatarScreen"]
-  LOADK R7 K9 ["AutoSetupInProgressDescription"]
-  NAMECALL R4 R1 K10 ["getText"]
-  CALL R4 3 1
-  GETTABLEKS R6 R0 K2 ["autoSetupState"]
-  GETTABLEKS R5 R6 K11 ["DEPRECATED_eta"]
-  JUMPIFEQKNIL R5 [+22]
-  MOVE R5 R4
-  LOADK R6 K12 ["
-"]
-  CONCAT R4 R5 R6
-  MOVE R5 R4
-  LOADK R8 K8 ["AvatarScreen"]
-  LOADK R9 K13 ["AutoSetupETA"]
-  DUPTABLE R10 K15 [{"eta"}]
-  GETTABLEKS R13 R0 K2 ["autoSetupState"]
-  GETTABLEKS R12 R13 K11 ["DEPRECATED_eta"]
-  FASTCALL1 MATH_CEIL R12 [+2]
-  GETIMPORT R11 K18 [math.ceil]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K14 ["eta"]
-  NAMECALL R6 R1 K10 ["getText"]
-  CALL R6 4 1
-  CONCAT R4 R5 R6
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K19 ["createElement"]
-  GETUPVAL R6 4
-  DUPTABLE R7 K23 [{"Title", "Description", "PrimaryAction"}]
-  LOADK R10 K8 ["AvatarScreen"]
-  LOADK R11 K24 ["AutoSetupInProgressTitle"]
-  NAMECALL R8 R1 K10 ["getText"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K20 ["Title"]
-  SETTABLEKS R4 R7 K21 ["Description"]
-  DUPTABLE R8 K27 [{"Text", "OnClick"}]
-  LOADK R11 K8 ["AvatarScreen"]
-  LOADK R12 K28 ["AutoSetupInProgressActionText"]
-  NAMECALL R9 R1 K10 ["getText"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K25 ["Text"]
-  GETTABLEKS R10 R0 K29 ["cancelDialogOpen"]
-  GETTABLEKS R9 R10 K30 ["enable"]
-  SETTABLEKS R9 R8 K26 ["OnClick"]
-  SETTABLEKS R8 R7 K22 ["PrimaryAction"]
-  CALL R5 2 -1
-  RETURN R5 -1
-  GETTABLEKS R5 R0 K2 ["autoSetupState"]
-  GETTABLEKS R4 R5 K3 ["type"]
-  JUMPIFNOTEQKS R4 K31 ["error"] [+33]
-  GETTABLEKS R4 R2 K30 ["enable"]
+  JUMPIFNOTEQKS R4 K7 ["error"] [+33]
+  GETTABLEKS R4 R2 K8 ["enable"]
   JUMPIFNOT R4 [+29]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K19 ["createElement"]
-  GETUPVAL R5 4
-  DUPTABLE R6 K34 [{"Title", "Description", "Style", "OnClose"}]
-  LOADK R9 K8 ["AvatarScreen"]
-  LOADK R10 K35 ["AutoSetupErrorTitle"]
-  NAMECALL R7 R1 K10 ["getText"]
+  GETTABLEKS R4 R5 K9 ["createElement"]
+  GETUPVAL R5 3
+  DUPTABLE R6 K14 [{"Title", "Description", "Style", "OnClose"}]
+  LOADK R9 K15 ["AvatarScreen"]
+  LOADK R10 K16 ["AutoSetupErrorTitle"]
+  NAMECALL R7 R1 K17 ["getText"]
   CALL R7 3 1
-  SETTABLEKS R7 R6 K20 ["Title"]
-  LOADK R9 K8 ["AvatarScreen"]
+  SETTABLEKS R7 R6 K10 ["Title"]
+  LOADK R9 K15 ["AvatarScreen"]
   GETTABLEKS R11 R0 K2 ["autoSetupState"]
-  GETTABLEKS R10 R11 K31 ["error"]
-  NAMECALL R7 R1 K10 ["getText"]
+  GETTABLEKS R10 R11 K7 ["error"]
+  NAMECALL R7 R1 K17 ["getText"]
   CALL R7 3 1
-  SETTABLEKS R7 R6 K21 ["Description"]
-  LOADK R7 K36 ["Error"]
-  SETTABLEKS R7 R6 K32 ["Style"]
-  SETTABLEKS R3 R6 K33 ["OnClose"]
+  SETTABLEKS R7 R6 K11 ["Description"]
+  LOADK R7 K18 ["Error"]
+  SETTABLEKS R7 R6 K12 ["Style"]
+  SETTABLEKS R3 R6 K13 ["OnClose"]
   CALL R4 2 -1
   RETURN R4 -1
   LOADNIL R4
@@ -325,29 +273,23 @@ MAIN:
   GETTABLEKS R7 R8 K13 ["Flags"]
   GETTABLEKS R6 R7 K14 ["getFFlagAvatarAutosetupStatusNotifications"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Flags"]
-  GETTABLEKS R7 R8 K15 ["getFFlagStudioAvatarAutosetupReportsProgress"]
-  CALL R6 1 1
-  GETTABLEKS R8 R2 K16 ["ContextServices"]
-  GETTABLEKS R7 R8 K17 ["Localization"]
-  GETTABLEKS R8 R2 K18 ["UI"]
-  GETTABLEKS R9 R8 K19 ["Alert"]
-  DUPCLOSURE R10 K20 [PROTO_2]
-  CAPTURE VAL R7
+  GETTABLEKS R7 R2 K15 ["ContextServices"]
+  GETTABLEKS R6 R7 K16 ["Localization"]
+  GETTABLEKS R7 R2 K17 ["UI"]
+  GETTABLEKS R8 R7 K18 ["Alert"]
+  DUPCLOSURE R9 K19 [PROTO_2]
+  CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R3
+  CAPTURE VAL R8
+  DUPCLOSURE R10 K20 [PROTO_6]
   CAPTURE VAL R6
-  CAPTURE VAL R9
-  DUPCLOSURE R11 K21 [PROTO_6]
-  CAPTURE VAL R7
   CAPTURE VAL R3
-  CAPTURE VAL R9
-  MOVE R13 R5
-  CALL R13 0 1
-  JUMPIFNOT R13 [+2]
-  MOVE R12 R11
-  RETURN R12 1
-  MOVE R12 R10
-  RETURN R12 1
+  CAPTURE VAL R8
+  MOVE R12 R5
+  CALL R12 0 1
+  JUMPIFNOT R12 [+2]
+  MOVE R11 R10
+  RETURN R11 1
+  MOVE R11 R9
+  RETURN R11 1

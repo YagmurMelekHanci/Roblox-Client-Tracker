@@ -294,7 +294,7 @@ PROTO_12:
   SETTABLEKS R20 R19 K20 ["Disabled"]
   SETTABLEKS R2 R19 K21 ["SearchTerm"]
   LOADK R22 K31 ["AssetConfigPackagePermissions"]
-  LOADK R23 K32 ["SearchbarDefault"]
+  LOADK R23 K32 ["CollaboratorSearchPlaceholderText"]
   NAMECALL R20 R7 K33 ["getText"]
   CALL R20 3 1
   SETTABLEKS R20 R19 K22 ["PlaceholderText"]
@@ -320,9 +320,10 @@ PROTO_12:
   GETUPVAL R18 0
   GETTABLEKS R17 R18 K12 ["createElement"]
   GETUPVAL R18 5
-  DUPTABLE R19 K41 [{"UseAutoWidth", "Hide", "OnMouseEnter", "OnMouseLeave", "Items", "OnRenderItem", "OnItemActivated"}]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K34 ["UseAutoWidth"]
+  DUPTABLE R19 K41 [{"Width", "Hide", "OnMouseEnter", "OnMouseLeave", "Items", "OnRenderItem", "OnItemActivated"}]
+  GETTABLEKS R21 R0 K42 ["ListItemSize"]
+  GETTABLEKS R20 R21 K43 ["X"]
+  SETTABLEKS R20 R19 K34 ["Width"]
   NOT R20 R12
   SETTABLEKS R20 R19 K35 ["Hide"]
   NEWCLOSURE R20 P4
@@ -340,7 +341,7 @@ PROTO_12:
   CAPTURE UPVAL U7
   CAPTURE UPVAL U8
   SETTABLEKS R20 R19 K39 ["OnRenderItem"]
-  GETTABLEKS R20 R0 K42 ["CollaboratorSelected"]
+  GETTABLEKS R20 R0 K44 ["CollaboratorSelected"]
   SETTABLEKS R20 R19 K40 ["OnItemActivated"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K18 ["Dropdown"]

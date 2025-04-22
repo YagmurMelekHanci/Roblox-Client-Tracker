@@ -13,19 +13,23 @@ local ChromeService = require(Chrome.Service)
 local PartyConstants = require(Chrome.Integrations.Party.Constants)
 local isConnectUnibarEnabled = require(Chrome.Integrations.Connect.isConnectUnibarEnabled)
 local isConnectDropdownEnabled = require(Chrome.Integrations.Connect.isConnectDropdownEnabled)
+local ConfigureShortcuts = require(Chrome.ChromeShared.Shortcuts.ConfigureShortcuts)
 
-local GetFFlagDebugEnableUnibarDummyIntegrations =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugEnableUnibarDummyIntegrations
-local GetFFlagEnableChromePinIntegrations =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromePinIntegrations
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
+local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
-local GetFFlagEnableJoinVoiceOnUnibar =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableJoinVoiceOnUnibar
+local GetFFlagEnableJoinVoiceOnUnibar = SharedFlags.GetFFlagEnableJoinVoiceOnUnibar
+local FFlagChromeCentralizedShortcutConfig = SharedFlags.FFlagChromeCentralizedShortcutConfig
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 local function initializeIntegrations()
 	require(Chrome.Integrations)
+end
+
+local initializeShortcuts = function()
+	ConfigureShortcuts()
 end
 
 local function configureUnibar()
@@ -86,6 +90,9 @@ local function configureUnibar()
 end
 
 initializeIntegrations()
+if FFlagChromeCentralizedShortcutConfig then
+	initializeShortcuts()
+end
 configureUnibar()
 
 return nil

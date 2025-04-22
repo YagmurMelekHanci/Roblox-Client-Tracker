@@ -13,6 +13,8 @@ local getIconSize = UIBlox.App.ImageSet.getIconSize
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 
 local FFlagIncreaseUtilityRowTextSizeConsole = game:DefineFastFlag("IncreaseUtilityRowTextSizeConsole", false)
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
 local AppFontBaseSize = 16 * 1.2
 
@@ -362,7 +364,13 @@ if ThemeEnabled then
 				return HubPadding
 			end
 		end,
-		MenuContainerPosition = function()
+		MenuContainerPosition = function(settingsUIDelegate: any?)
+			if isInExperienceUIVREnabled and settingsUIDelegate then
+				local positionOverride = settingsUIDelegate:getMenuContainerPositionOverride()
+				if positionOverride then
+					return positionOverride
+				end
+			end
 			if IsSmallTouchScreen then
 				if UseStickyBar() then
 					return MenuContainerPositionMobileWithStickyBar
@@ -470,7 +478,7 @@ else
 				return HubPadding
 			end
 		end,
-		MenuContainerPosition = function()
+		MenuContainerPosition = function(_: any?)
 			if IsSmallTouchScreen then
 				return MenuContainerPositionOldMobile
 			else

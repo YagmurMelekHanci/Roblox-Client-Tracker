@@ -64,14 +64,14 @@ PROTO_3:
   CAPTURE UPVAL U0
   CAPTURE REF R0
   CAPTURE UPVAL U3
-  NAMECALL R1 R1 K5 ["Connect"]
+  NAMECALL R1 R1 K10 ["connect"]
   CALL R1 2 0
   GETUPVAL R2 0
   GETUPVAL R3 1
-  LOADK R5 K10 ["InstalledPluginData"]
-  NAMECALL R3 R3 K11 ["GetPropertyChangedSignal"]
+  LOADK R5 K11 ["InstalledPluginData"]
+  NAMECALL R3 R3 K12 ["GetPropertyChangedSignal"]
   CALL R3 2 1
-  DUPCLOSURE R5 K12 [PROTO_2]
+  DUPCLOSURE R5 K13 [PROTO_2]
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
   CAPTURE UPVAL U6
@@ -81,23 +81,23 @@ PROTO_3:
   GETIMPORT R1 K8 [table.insert]
   CALL R1 -1 0
   GETUPVAL R2 3
-  GETTABLEKS R1 R2 K13 ["createElement"]
+  GETTABLEKS R1 R2 K14 ["createElement"]
   GETUPVAL R2 7
-  DUPTABLE R3 K17 [{"plugin", "store", "api", "analytics"}]
+  DUPTABLE R3 K18 [{"plugin", "store", "api", "analytics"}]
   GETIMPORT R4 K1 [plugin]
   SETTABLEKS R4 R3 K0 ["plugin"]
   GETUPVAL R5 4
-  GETTABLEKS R4 R5 K14 ["store"]
-  SETTABLEKS R4 R3 K14 ["store"]
+  GETTABLEKS R4 R5 K15 ["store"]
+  SETTABLEKS R4 R3 K15 ["store"]
   GETUPVAL R5 4
-  GETTABLEKS R4 R5 K15 ["api"]
-  SETTABLEKS R4 R3 K15 ["api"]
+  GETTABLEKS R4 R5 K16 ["api"]
+  SETTABLEKS R4 R3 K16 ["api"]
   GETUPVAL R5 4
-  GETTABLEKS R4 R5 K16 ["analytics"]
-  SETTABLEKS R4 R3 K16 ["analytics"]
+  GETTABLEKS R4 R5 K17 ["analytics"]
+  SETTABLEKS R4 R3 K17 ["analytics"]
   CALL R1 2 1
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K18 ["mount"]
+  GETTABLEKS R2 R3 K19 ["mount"]
   MOVE R3 R1
   CALL R2 1 1
   MOVE R0 R2

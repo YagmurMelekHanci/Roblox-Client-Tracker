@@ -43,7 +43,7 @@ PROTO_2:
   LOADK R8 K12 ["CreateDefaultStyleSheet"]
   SETTABLEKS R8 R7 K1 ["Id"]
   LOADK R10 K7 ["ContextMenu"]
-  LOADK R11 K13 ["CreateStudioDefaultStyleSheet"]
+  LOADK R11 K13 ["CreateStudioDefaultStyleSheetV2"]
   NAMECALL R8 R2 K9 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K2 ["Text"]

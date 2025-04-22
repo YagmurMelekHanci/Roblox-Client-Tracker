@@ -366,7 +366,7 @@ MAIN:
   GETTABLEKS R6 R7 K17 ["joinTags"]
   DUPTABLE R7 K21 [{"Size", "MaxHeight", "Disabled"}]
   GETIMPORT R8 K24 [UDim2.fromScale]
-  LOADN R9 1
+  LOADN R9 0
   LOADN R10 0
   CALL R8 2 1
   SETTABLEKS R8 R7 K18 ["Size"]

@@ -11,6 +11,7 @@ local Constants = require(Root.Unibar.Constants)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagTweakTiltMenuShortcuts = SharedFlags.FFlagTweakTiltMenuShortcuts
+local FFlagChromeShortcutAddRespawnLeaveToIEM = SharedFlags.FFlagChromeShortcutAddRespawnLeaveToIEM
 
 local ChatSelector = if FFlagConsoleChatOnExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
@@ -18,47 +19,105 @@ local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 local FFlagConsoleSinglePressIntegrationExit = SharedFlags.FFlagConsoleSinglePressIntegrationExit
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 
+local leaveActionProps = {
+	keyCode = Enum.KeyCode.ButtonX,
+	activated = function()
+		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+		if SettingsHub:GetVisibility() then
+			if SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.LeaveGamePage then
+				leaveGame(true)
+			else
+				SettingsHub:SwitchToPage(SettingsHub.Instance.LeaveGamePage, true)
+			end
+		else
+			SettingsHub:SetVisibility(true, false, SettingsHub.Instance.LeaveGamePage)
+		end
+		return
+	end,
+}
+
+local repawnActionProps = {
+	keyCode = Enum.KeyCode.ButtonY,
+	integration = "respawn",
+	activated = function()
+		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+		if
+			SettingsHub:GetVisibility()
+			and SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.ResetCharacterPage
+		then
+			SettingsHub.Instance.ResetCharacterPage.ResetFunction()
+		else
+			ChromeService:activate("respawn")
+		end
+		return
+	end,
+}
+
 function registerShortcuts()
 	ChromeService:registerShortcut({
 		id = "leave",
 		label = "CoreScripts.TopBar.Leave",
-		keyCode = Enum.KeyCode.ButtonX,
+		keyCode = if FFlagChromeShortcutAddRespawnLeaveToIEM then leaveActionProps.keyCode else Enum.KeyCode.ButtonX,
 		integration = nil,
 		actionName = "UnibarGamepadLeaveGame",
-		activated = function()
-			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-			if SettingsHub:GetVisibility() then
-				if SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.LeaveGamePage then
-					leaveGame(true)
+		activated = if FFlagChromeShortcutAddRespawnLeaveToIEM
+			then leaveActionProps.activated
+			else function()
+				local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+				if SettingsHub:GetVisibility() then
+					if SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.LeaveGamePage then
+						leaveGame(true)
+					else
+						SettingsHub:SwitchToPage(SettingsHub.Instance.LeaveGamePage, true)
+					end
 				else
-					SettingsHub:SwitchToPage(SettingsHub.Instance.LeaveGamePage, true)
+					SettingsHub:SetVisibility(true, false, SettingsHub.Instance.LeaveGamePage)
 				end
-			else
-				SettingsHub:SetVisibility(true, false, SettingsHub.Instance.LeaveGamePage)
-			end
-			return
-		end,
+				return
+			end,
 	})
 
 	ChromeService:registerShortcut({
 		id = "respawn",
 		label = "CoreScripts.InGameMenu.QuickActions.Respawn",
-		keyCode = Enum.KeyCode.ButtonY,
-		integration = "respawn",
+		keyCode = if FFlagChromeShortcutAddRespawnLeaveToIEM then repawnActionProps.keyCode else Enum.KeyCode.ButtonY,
+		integration = if FFlagChromeShortcutAddRespawnLeaveToIEM then repawnActionProps.integration else "respawn",
 		actionName = "UnibarGamepadRespawn",
-		activated = function()
-			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-			if
-				SettingsHub:GetVisibility()
-				and SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.ResetCharacterPage
-			then
-				SettingsHub.Instance.ResetCharacterPage.ResetFunction()
-			else
-				ChromeService:activate("respawn")
-			end
-			return
-		end,
+		activated = if FFlagChromeShortcutAddRespawnLeaveToIEM
+			then repawnActionProps.activated
+			else function()
+				local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+				if
+					SettingsHub:GetVisibility()
+					and SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.ResetCharacterPage
+				then
+					SettingsHub.Instance.ResetCharacterPage.ResetFunction()
+				else
+					ChromeService:activate("respawn")
+				end
+				return
+			end,
 	})
+
+	if FFlagChromeShortcutAddRespawnLeaveToIEM then
+		ChromeService:registerShortcut({
+			id = "leave_in_experience_menu",
+			label = nil,
+			keyCode = leaveActionProps.keyCode,
+			integration = nil,
+			actionName = "IEMGamepadLeaveGame",
+			activated = leaveActionProps.activated,
+		})
+
+		ChromeService:registerShortcut({
+			id = "respawn_in_experience_menu",
+			label = nil,
+			keyCode = repawnActionProps.keyCode,
+			integration = repawnActionProps.integration,
+			actionName = "IEMGamepadRespawn",
+			activated = repawnActionProps.activated,
+		})
+	end
 
 	ChromeService:registerShortcut({
 		id = "chat",
@@ -188,8 +247,16 @@ function configureShortcutBars()
 
 	ChromeService:configureShortcutBar(
 		Constants.TILTMENU_SHORTCUTBAR_ID,
-		if FFlagTweakTiltMenuShortcuts
-			then { "tiltMenuPreviousTab", "tiltMenuNextTab", "back", "close" }
+		if FFlagChromeShortcutAddRespawnLeaveToIEM
+			then {
+				"leave_in_experience_menu",
+				"respawn_in_experience_menu",
+				"tiltMenuPreviousTab",
+				"tiltMenuNextTab",
+				"back",
+				"close",
+			}
+			elseif FFlagTweakTiltMenuShortcuts then { "tiltMenuPreviousTab", "tiltMenuNextTab", "back", "close" }
 			else { "leave", "respawn", "tiltMenuPreviousTab", "tiltMenuNextTab", "back", "close" }
 	)
 

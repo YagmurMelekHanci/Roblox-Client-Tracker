@@ -1,62 +1,56 @@
 PROTO_0:
-  GETUPVAL R3 0
-  CALL R3 0 1
-  FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["updateActiveTab should only be used when FFlagRibbonConfigUniqueControlsIdentifiers is true"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
   LOADNIL R2
   NEWTABLE R3 0 0
   MOVE R4 R0
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
-  GETTABLEKS R9 R8 K3 ["Visible"]
+  GETTABLEKS R9 R8 K0 ["Visible"]
   JUMPIFNOT R9 [+30]
-  GETTABLEKS R11 R8 K4 ["Identifier"]
+  GETTABLEKS R11 R8 K1 ["Identifier"]
   FASTCALL2 TABLE_INSERT R3 R11 [+4]
   MOVE R10 R3
-  GETIMPORT R9 K7 [table.insert]
+  GETIMPORT R9 K4 [table.insert]
   CALL R9 2 0
   JUMPIFNOT R1 [+21]
-  GETTABLEKS R10 R8 K4 ["Identifier"]
-  GETTABLEKS R9 R10 K8 ["Type"]
-  GETTABLEKS R11 R1 K4 ["Identifier"]
-  GETTABLEKS R10 R11 K8 ["Type"]
+  GETTABLEKS R10 R8 K1 ["Identifier"]
+  GETTABLEKS R9 R10 K5 ["Type"]
+  GETTABLEKS R11 R1 K1 ["Identifier"]
+  GETTABLEKS R10 R11 K5 ["Type"]
   JUMPIFNOTEQ R9 R10 [+12]
-  GETTABLEKS R10 R8 K4 ["Identifier"]
-  GETTABLEKS R9 R10 K9 ["Filename"]
-  GETTABLEKS R11 R1 K4 ["Identifier"]
-  GETTABLEKS R10 R11 K9 ["Filename"]
+  GETTABLEKS R10 R8 K1 ["Identifier"]
+  GETTABLEKS R9 R10 K6 ["Filename"]
+  GETTABLEKS R11 R1 K1 ["Identifier"]
+  GETTABLEKS R10 R11 K6 ["Filename"]
   JUMPIFNOTEQ R9 R10 [+2]
   LENGTH R2 R3
   FORGLOOP R4 2 [-34]
   LENGTH R4 R3
-  JUMPIFNOTEQKN R4 K10 [0] [+3]
+  JUMPIFNOTEQKN R4 K7 [0] [+3]
   LOADNIL R4
   RETURN R4 1
   JUMPIF R1 [+8]
-  DUPTABLE R4 K12 [{"Identifier", "VisibleTabIndex"}]
+  DUPTABLE R4 K9 [{"Identifier", "VisibleTabIndex"}]
   GETTABLEN R5 R3 1
-  SETTABLEKS R5 R4 K4 ["Identifier"]
+  SETTABLEKS R5 R4 K1 ["Identifier"]
   LOADN R5 1
-  SETTABLEKS R5 R4 K11 ["VisibleTabIndex"]
+  SETTABLEKS R5 R4 K8 ["VisibleTabIndex"]
   RETURN R4 1
   JUMPIFNOT R2 [+8]
-  DUPTABLE R4 K12 [{"Identifier", "VisibleTabIndex"}]
-  GETTABLEKS R5 R1 K4 ["Identifier"]
-  SETTABLEKS R5 R4 K4 ["Identifier"]
-  SETTABLEKS R2 R4 K11 ["VisibleTabIndex"]
+  DUPTABLE R4 K9 [{"Identifier", "VisibleTabIndex"}]
+  GETTABLEKS R5 R1 K1 ["Identifier"]
+  SETTABLEKS R5 R4 K1 ["Identifier"]
+  SETTABLEKS R2 R4 K8 ["VisibleTabIndex"]
   RETURN R4 1
-  GETTABLEKS R5 R1 K11 ["VisibleTabIndex"]
+  GETTABLEKS R5 R1 K8 ["VisibleTabIndex"]
   LENGTH R6 R3
   FASTCALL2 MATH_MIN R5 R6 [+3]
-  GETIMPORT R4 K15 [math.min]
+  GETIMPORT R4 K12 [math.min]
   CALL R4 2 1
   GETTABLE R5 R3 R4
-  DUPTABLE R6 K12 [{"Identifier", "VisibleTabIndex"}]
-  SETTABLEKS R5 R6 K4 ["Identifier"]
-  SETTABLEKS R4 R6 K11 ["VisibleTabIndex"]
+  DUPTABLE R6 K9 [{"Identifier", "VisibleTabIndex"}]
+  SETTABLEKS R5 R6 K1 ["Identifier"]
+  SETTABLEKS R4 R6 K8 ["VisibleTabIndex"]
   RETURN R6 1
 
 MAIN:
@@ -69,11 +63,5 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Src"]
   GETTABLEKS R2 R3 K7 ["Types"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K8 ["SharedFlags"]
-  GETTABLEKS R3 R4 K9 ["getFFlagRibbonConfigUniqueControlsIdentifiers"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K10 [PROTO_0]
-  CAPTURE VAL R2
-  RETURN R3 1
+  DUPCLOSURE R2 K8 [PROTO_0]
+  RETURN R2 1

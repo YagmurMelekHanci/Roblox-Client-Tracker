@@ -20,6 +20,7 @@ local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 local GetFFlagEnableSongbirdInChrome = require(Root.Parent.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
+local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 
 local ChromeFlags = script.Parent.Parent.Parent.Flags
@@ -192,6 +193,9 @@ function AnimationStateHelper(props)
 						GuiService.SelectedCoreObject = selectedChild
 					else
 						if FFlagUnibarMenuOpenSubmenu then
+							if FFlagChromeFixInitialFocusSubmenu then
+								ChromeService:selectedItem():set("nine_dot")
+							end
 							ChromeService:toggleSubMenu("nine_dot")
 						else
 							GuiService:Select(props.menuFrameRef.current)

@@ -60,75 +60,76 @@ MAIN:
   JUMPIFNOT R2 [+1]
   RETURN R0 0
   GETIMPORT R2 K1 [require]
-  GETTABLEKS R4 R0 K14 ["PluginLoader"]
-  GETTABLEKS R3 R4 K15 ["PluginLoaderBuilder"]
+  GETTABLEKS R4 R0 K14 ["Packages"]
+  GETTABLEKS R3 R4 K15 ["PluginLoader"]
   CALL R2 1 1
-  GETTABLEKS R6 R0 K10 ["Src"]
-  GETTABLEKS R5 R6 K16 ["Resources"]
-  GETTABLEKS R4 R5 K17 ["Localization"]
-  GETTABLEKS R3 R4 K18 ["SourceStrings"]
+  GETTABLEKS R3 R2 K16 ["PluginLoaderBuilder"]
   GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K16 ["Resources"]
-  GETTABLEKS R5 R6 K17 ["Localization"]
-  GETTABLEKS R4 R5 K19 ["LocalizedStrings"]
-  DUPTABLE R5 K29 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-  GETIMPORT R6 K30 [plugin]
-  SETTABLEKS R6 R5 K20 ["plugin"]
-  LOADK R6 K31 ["DeviceEmulator"]
-  SETTABLEKS R6 R5 K21 ["pluginName"]
-  SETTABLEKS R4 R5 K22 ["translationResourceTable"]
-  SETTABLEKS R3 R5 K23 ["fallbackResourceTable"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K24 ["overrideLocaleId"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K25 ["localizationNamespace"]
-  DUPCLOSURE R6 K32 [PROTO_0]
-  SETTABLEKS R6 R5 K26 ["getToolbarName"]
-  DUPTABLE R6 K38 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
-  DUPCLOSURE R7 K39 [PROTO_1]
-  SETTABLEKS R7 R6 K33 ["getName"]
-  DUPCLOSURE R7 K40 [PROTO_2]
-  SETTABLEKS R7 R6 K34 ["getDescription"]
-  LOADK R7 K41 ["rbxasset://textures/DeviceEmulator/emulator.png"]
-  SETTABLEKS R7 R6 K35 ["icon"]
+  GETTABLEKS R6 R7 K17 ["Resources"]
+  GETTABLEKS R5 R6 K18 ["Localization"]
+  GETTABLEKS R4 R5 K19 ["SourceStrings"]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K17 ["Resources"]
+  GETTABLEKS R6 R7 K18 ["Localization"]
+  GETTABLEKS R5 R6 K20 ["LocalizedStrings"]
+  DUPTABLE R6 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
+  GETIMPORT R7 K31 [plugin]
+  SETTABLEKS R7 R6 K21 ["plugin"]
+  LOADK R7 K32 ["DeviceEmulator"]
+  SETTABLEKS R7 R6 K22 ["pluginName"]
+  SETTABLEKS R5 R6 K23 ["translationResourceTable"]
+  SETTABLEKS R4 R6 K24 ["fallbackResourceTable"]
   LOADNIL R7
-  SETTABLEKS R7 R6 K36 ["text"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K37 ["clickableWhenViewportHidden"]
-  SETTABLEKS R6 R5 K27 ["buttonInfo"]
-  DUPTABLE R6 K46 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R7 K31 ["DeviceEmulator"]
-  SETTABLEKS R7 R6 K42 ["id"]
-  GETIMPORT R7 K49 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R8 K53 [Enum.InitialDockState.Bottom]
-  LOADB R9 0
+  SETTABLEKS R7 R6 K25 ["overrideLocaleId"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K26 ["localizationNamespace"]
+  DUPCLOSURE R7 K33 [PROTO_0]
+  SETTABLEKS R7 R6 K27 ["getToolbarName"]
+  DUPTABLE R7 K39 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
+  DUPCLOSURE R8 K40 [PROTO_1]
+  SETTABLEKS R8 R7 K34 ["getName"]
+  DUPCLOSURE R8 K41 [PROTO_2]
+  SETTABLEKS R8 R7 K35 ["getDescription"]
+  LOADK R8 K42 ["rbxasset://textures/DeviceEmulator/emulator.png"]
+  SETTABLEKS R8 R7 K36 ["icon"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K37 ["text"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K38 ["clickableWhenViewportHidden"]
+  SETTABLEKS R7 R6 K28 ["buttonInfo"]
+  DUPTABLE R7 K47 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+  LOADK R8 K32 ["DeviceEmulator"]
+  SETTABLEKS R8 R7 K43 ["id"]
+  GETIMPORT R8 K50 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R9 K54 [Enum.InitialDockState.Bottom]
   LOADB R10 0
-  LOADN R11 104
-  LOADN R12 164
-  LOADN R13 44
-  LOADN R14 200
-  CALL R7 7 1
-  SETTABLEKS R7 R6 K43 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R7 K54 [PROTO_3]
-  SETTABLEKS R7 R6 K44 ["getDockTitle"]
-  GETIMPORT R7 K57 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R7 R6 K45 ["zIndexBehavior"]
-  SETTABLEKS R6 R5 K28 ["dockWidgetInfo"]
-  GETTABLEKS R6 R2 K58 ["build"]
-  MOVE R7 R5
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K59 ["pluginLoader"]
-  NAMECALL R7 R7 K60 ["waitForUserInteraction"]
+  LOADB R11 0
+  LOADN R12 104
+  LOADN R13 164
+  LOADN R14 44
+  LOADN R15 200
+  CALL R8 7 1
+  SETTABLEKS R8 R7 K44 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R8 K55 [PROTO_3]
+  SETTABLEKS R8 R7 K45 ["getDockTitle"]
+  GETIMPORT R8 K58 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R8 R7 K46 ["zIndexBehavior"]
+  SETTABLEKS R7 R6 K29 ["dockWidgetInfo"]
+  GETTABLEKS R7 R3 K59 ["build"]
+  MOVE R8 R6
   CALL R7 1 1
-  JUMPIF R7 [+1]
-  RETURN R0 0
-  GETIMPORT R8 K1 [require]
-  GETIMPORT R11 K3 [script]
-  GETTABLEKS R10 R11 K4 ["Parent"]
-  GETTABLEKS R9 R10 K61 ["main"]
+  GETTABLEKS R8 R7 K60 ["pluginLoader"]
+  NAMECALL R8 R8 K61 ["waitForUserInteraction"]
   CALL R8 1 1
-  MOVE R9 R8
-  GETIMPORT R10 K30 [plugin]
-  MOVE R11 R6
-  CALL R9 2 0
+  JUMPIF R8 [+1]
+  RETURN R0 0
+  GETIMPORT R9 K1 [require]
+  GETIMPORT R12 K3 [script]
+  GETTABLEKS R11 R12 K4 ["Parent"]
+  GETTABLEKS R10 R11 K62 ["main"]
+  CALL R9 1 1
+  MOVE R10 R9
+  GETIMPORT R11 K31 [plugin]
+  MOVE R12 R7
+  CALL R10 2 0
   RETURN R0 0

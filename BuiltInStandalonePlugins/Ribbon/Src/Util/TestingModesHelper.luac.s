@@ -35,61 +35,17 @@ PROTO_2:
   GETIMPORT R2 K2 [assert]
   CALL R2 2 0
   GETUPVAL R4 1
-  CALL R4 0 1
-  NOT R3 R4
-  FASTCALL2K ASSERT R3 K3 [+4]
-  LOADK R4 K3 ["This function should only be called when FFlagRibbonConfigUniqueControlsIdentifiers is false"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  JUMPIFEQKN R1 K4 [0] [+3]
-  JUMPIFNOTEQKN R1 K5 [1] [+6]
-  GETTABLEKS R3 R0 K6 ["MezzanineControls"]
-  GETTABLEKS R2 R3 K7 ["LeftMezzanineTestAndTestHere"]
-  RETURN R2 1
-  JUMPIFNOTEQKN R1 K8 [2] [+6]
-  GETTABLEKS R3 R0 K6 ["MezzanineControls"]
-  GETTABLEKS R2 R3 K9 ["LeftMezzanineRun"]
-  RETURN R2 1
-  JUMPIFNOTEQKN R1 K10 [3] [+6]
-  GETTABLEKS R3 R0 K6 ["MezzanineControls"]
-  GETTABLEKS R2 R3 K11 ["LeftMezzanineTeamTest"]
-  RETURN R2 1
-  JUMPIFNOTEQKN R1 K12 [4] [+6]
-  GETTABLEKS R3 R0 K6 ["MezzanineControls"]
-  GETTABLEKS R2 R3 K13 ["LeftMezzanineServerAndClients"]
-  RETURN R2 1
-  JUMPIFNOTEQKN R1 K14 [5] [+6]
-  GETTABLEKS R3 R0 K6 ["MezzanineControls"]
-  GETTABLEKS R2 R3 K15 ["LeftMezzanineDebugPlugin"]
-  RETURN R2 1
-  GETTABLEKS R3 R0 K6 ["MezzanineControls"]
-  GETTABLEKS R2 R3 K7 ["LeftMezzanineTestAndTestHere"]
-  RETURN R2 1
-
-PROTO_3:
-  GETUPVAL R3 0
-  FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["This function should only be called when FFlagTestingControlsOptOut is true"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  GETUPVAL R3 1
-  CALL R3 0 1
-  FASTCALL2K ASSERT R3 K3 [+4]
-  LOADK R4 K3 ["This function should only be called when FFlagRibbonConfigUniqueControlsIdentifiers is true"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  GETUPVAL R4 2
   GETTABLE R3 R4 R1
-  ORK R2 R3 K4 ["BuiltIn_LeftMezzanineTestAndTestHere"]
-  GETTABLEKS R4 R0 K5 ["MezzanineControls"]
+  ORK R2 R3 K3 ["BuiltIn_LeftMezzanineTestAndTestHere"]
+  GETTABLEKS R4 R0 K4 ["MezzanineControls"]
   GETTABLE R3 R4 R2
   JUMPIFNOT R3 [+3]
-  GETTABLEKS R4 R3 K6 ["Controls"]
+  GETTABLEKS R4 R3 K5 ["Controls"]
   RETURN R4 1
   NEWTABLE R4 0 0
   RETURN R4 1
 
-PROTO_4:
+PROTO_3:
   GETUPVAL R2 0
   FASTCALL2K ASSERT R2 K0 [+4]
   LOADK R3 K0 ["This function should only be called when FFlagTestingControlsOptOut is true"]
@@ -132,50 +88,40 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["getFFlagTestingControlsOptOut"]
   CALL R3 1 1
   CALL R3 0 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K10 ["SharedFlags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagRibbonConfigUniqueControlsIdentifiers"]
-  CALL R4 1 1
-  LOADNIL R5
-  GETTABLEKS R6 R1 K13 ["fromSetting"]
-  LOADK R7 K14 ["RunTools"]
-  LOADK R8 K15 ["TestMode"]
-  CALL R6 2 1
-  GETIMPORT R7 K18 [table.freeze]
-  NEWTABLE R8 8 0
-  LOADN R9 0
-  LOADK R10 K19 ["BuiltIn_LeftMezzanineTestAndTestHere"]
-  SETTABLE R10 R8 R9
-  LOADK R9 K19 ["BuiltIn_LeftMezzanineTestAndTestHere"]
-  SETTABLEN R9 R8 1
-  LOADK R9 K20 ["BuiltIn_LeftMezzanineRun"]
-  SETTABLEN R9 R8 2
-  LOADK R9 K21 ["BuiltIn_LeftMezzanineTeamTest"]
-  SETTABLEN R9 R8 3
-  LOADK R9 K22 ["BuiltIn_LeftMezzanineServerAndClients"]
-  SETTABLEN R9 R8 4
-  LOADK R9 K23 ["BuiltIn_LeftMezzanineDebugPlugin"]
-  SETTABLEN R9 R8 5
-  CALL R7 1 1
-  NEWTABLE R8 4 0
-  NEWCLOSURE R9 P0
+  LOADNIL R4
+  GETTABLEKS R5 R1 K12 ["fromSetting"]
+  LOADK R6 K13 ["RunTools"]
+  LOADK R7 K14 ["TestMode"]
+  CALL R5 2 1
+  GETIMPORT R6 K17 [table.freeze]
+  NEWTABLE R7 8 0
+  LOADN R8 0
+  LOADK R9 K18 ["BuiltIn_LeftMezzanineTestAndTestHere"]
+  SETTABLE R9 R7 R8
+  LOADK R8 K18 ["BuiltIn_LeftMezzanineTestAndTestHere"]
+  SETTABLEN R8 R7 1
+  LOADK R8 K19 ["BuiltIn_LeftMezzanineRun"]
+  SETTABLEN R8 R7 2
+  LOADK R8 K20 ["BuiltIn_LeftMezzanineTeamTest"]
+  SETTABLEN R8 R7 3
+  LOADK R8 K21 ["BuiltIn_LeftMezzanineServerAndClients"]
+  SETTABLEN R8 R7 4
+  LOADK R8 K22 ["BuiltIn_LeftMezzanineDebugPlugin"]
+  SETTABLEN R8 R7 5
+  CALL R6 1 1
+  NEWTABLE R7 4 0
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE REF R4
+  SETTABLEKS R8 R7 K23 ["connectTestModesAsync"]
+  DUPCLOSURE R8 K24 [PROTO_2]
   CAPTURE VAL R3
   CAPTURE VAL R6
-  CAPTURE REF R5
-  SETTABLEKS R9 R8 K24 ["connectTestModesAsync"]
-  DUPCLOSURE R9 K25 [PROTO_2]
+  SETTABLEKS R8 R7 K25 ["getMezzanineFromTestModeSetting"]
+  DUPCLOSURE R8 K26 [PROTO_3]
   CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R9 R8 K26 ["DEPRECATED_getMezzanineFromTestModeSetting"]
-  DUPCLOSURE R9 K27 [PROTO_3]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R7
-  SETTABLEKS R9 R8 K28 ["getMezzanineFromTestModeSetting"]
-  DUPCLOSURE R9 K29 [PROTO_4]
-  CAPTURE VAL R3
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K30 ["getCurrentTestModeSettingValueAsync"]
-  CLOSEUPVALS R5
-  RETURN R8 1
+  CAPTURE VAL R5
+  SETTABLEKS R8 R7 K27 ["getCurrentTestModeSettingValueAsync"]
+  CLOSEUPVALS R4
+  RETURN R7 1

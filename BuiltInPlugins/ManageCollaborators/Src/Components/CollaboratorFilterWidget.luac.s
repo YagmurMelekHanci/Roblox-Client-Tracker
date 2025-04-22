@@ -11,104 +11,95 @@ PROTO_1:
   GETTABLEKS R3 R1 K2 ["Localization"]
   GETTABLEKS R4 R1 K3 ["SetSelectedFilterPill"]
   GETTABLEKS R5 R1 K4 ["SelectedPill"]
-  DUPTABLE R6 K6 [{"Layout"}]
+  DUPTABLE R6 K7 [{"Layout", "Padding"}]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K7 ["createElement"]
-  LOADK R8 K8 ["UIListLayout"]
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  LOADK R8 K9 ["UIListLayout"]
   DUPTABLE R9 K13 [{"Padding", "HorizontalAlignment", "SortOrder", "FillDirection"}]
-  GETIMPORT R10 K16 [UDim.new]
-  LOADN R11 0
-  GETTABLEKS R13 R2 K17 ["buttonBar"]
-  GETTABLEKS R12 R13 K18 ["padding"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K9 ["Padding"]
-  GETIMPORT R10 K21 [Enum.HorizontalAlignment.Left]
+  GETTABLEKS R12 R2 K14 ["collaboratorFilter"]
+  GETTABLEKS R11 R12 K15 ["pills"]
+  GETTABLEKS R10 R11 K16 ["paddingHorizontal"]
+  SETTABLEKS R10 R9 K6 ["Padding"]
+  GETIMPORT R10 K19 [Enum.HorizontalAlignment.Left]
   SETTABLEKS R10 R9 K10 ["HorizontalAlignment"]
-  GETIMPORT R10 K23 [Enum.SortOrder.LayoutOrder]
+  GETIMPORT R10 K21 [Enum.SortOrder.LayoutOrder]
   SETTABLEKS R10 R9 K11 ["SortOrder"]
-  GETIMPORT R10 K25 [Enum.FillDirection.Horizontal]
+  GETIMPORT R10 K23 [Enum.FillDirection.Horizontal]
   SETTABLEKS R10 R9 K12 ["FillDirection"]
   LOADNIL R10
   CALL R7 3 1
   SETTABLEKS R7 R6 K5 ["Layout"]
-  GETIMPORT R7 K27 [pairs]
-  GETTABLEKS R8 R1 K28 ["FilterPills"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  LOADK R8 K24 ["UIPadding"]
+  DUPTABLE R9 K27 [{"PaddingLeft", "PaddingRight"}]
+  GETTABLEKS R11 R2 K14 ["collaboratorFilter"]
+  GETTABLEKS R10 R11 K16 ["paddingHorizontal"]
+  SETTABLEKS R10 R9 K25 ["PaddingLeft"]
+  GETTABLEKS R11 R2 K14 ["collaboratorFilter"]
+  GETTABLEKS R10 R11 K16 ["paddingHorizontal"]
+  SETTABLEKS R10 R9 K26 ["PaddingRight"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K6 ["Padding"]
+  GETIMPORT R7 K29 [pairs]
+  GETTABLEKS R8 R1 K30 ["FilterPills"]
   CALL R7 1 3
   FORGPREP_NEXT R7
-  LOADNIL R12
-  GETTABLEKS R13 R5 K29 ["key"]
-  GETTABLEKS R14 R11 K29 ["key"]
-  JUMPIFNOTEQ R13 R14 [+2]
-  LOADK R12 K30 ["Active"]
-  MOVE R14 R6
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K7 ["createElement"]
-  GETUPVAL R16 1
-  DUPTABLE R17 K36 [{"LayoutOrder", "Style", "Size", "Text", "ZIndex", "OnClick"}]
-  SETTABLEKS R10 R17 K22 ["LayoutOrder"]
-  SETTABLEKS R12 R17 K31 ["Style"]
-  GETIMPORT R18 K38 [UDim2.new]
-  LOADN R19 0
-  GETUPVAL R21 2
-  GETTABLEKS R20 R21 K39 ["BUTTON_WIDTH"]
-  LOADN R21 1
-  LOADN R22 0
-  CALL R18 4 1
-  SETTABLEKS R18 R17 K32 ["Size"]
-  LOADK R20 K40 ["Permissions"]
-  LOADK R22 K41 ["FilterPill.%*.Label"]
-  GETTABLEKS R24 R11 K29 ["key"]
-  NAMECALL R22 R22 K42 ["format"]
-  CALL R22 2 1
-  MOVE R21 R22
-  NAMECALL R18 R3 K43 ["getText"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K33 ["Text"]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K34 ["ZIndex"]
-  NEWCLOSURE R18 P0
+  MOVE R13 R6
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K8 ["createElement"]
+  GETUPVAL R15 1
+  DUPTABLE R16 K37 [{"LayoutOrder", "Style", "Size", "Text", "StyleModifier", "ZIndex", "OnClick"}]
+  SETTABLEKS R10 R16 K20 ["LayoutOrder"]
+  LOADK R17 K38 ["Pill"]
+  SETTABLEKS R17 R16 K31 ["Style"]
+  GETTABLEKS R19 R2 K14 ["collaboratorFilter"]
+  GETTABLEKS R18 R19 K15 ["pills"]
+  GETTABLEKS R17 R18 K39 ["size"]
+  SETTABLEKS R17 R16 K32 ["Size"]
+  LOADK R19 K40 ["Permissions"]
+  LOADK R21 K41 ["FilterPill.%*.Label"]
+  GETTABLEKS R23 R11 K42 ["key"]
+  NAMECALL R21 R21 K43 ["format"]
+  CALL R21 2 1
+  MOVE R20 R21
+  NAMECALL R17 R3 K44 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K33 ["Text"]
+  GETTABLEKS R18 R5 K42 ["key"]
+  GETTABLEKS R19 R11 K42 ["key"]
+  JUMPIFNOTEQ R18 R19 [+5]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K45 ["Hover"]
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K34 ["StyleModifier"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K35 ["ZIndex"]
+  NEWCLOSURE R17 P0
   CAPTURE VAL R4
   CAPTURE VAL R11
-  SETTABLEKS R18 R17 K35 ["OnClick"]
-  CALL R15 2 -1
+  SETTABLEKS R17 R16 K36 ["OnClick"]
+  CALL R14 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R13 K46 [table.insert]
-  CALL R13 -1 0
-  FORGLOOP R7 2 [-56]
+  GETIMPORT R12 K48 [table.insert]
+  CALL R12 -1 0
+  FORGLOOP R7 2 [-59]
   LENGTH R7 R6
   LOADN R8 2
   JUMPIFNOTLE R7 R8 [+3]
   LOADNIL R7
   RETURN R7 1
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K7 ["createElement"]
-  LOADK R8 K47 ["Frame"]
-  DUPTABLE R9 K51 [{"LayoutOrder", "Size", "AnchorPoint", "Position", "BackgroundTransparency"}]
-  GETTABLEKS R11 R1 K22 ["LayoutOrder"]
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  LOADK R8 K49 ["Frame"]
+  DUPTABLE R9 K51 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
+  GETTABLEKS R11 R1 K20 ["LayoutOrder"]
   ORK R10 R11 K52 [1]
-  SETTABLEKS R10 R9 K22 ["LayoutOrder"]
-  GETIMPORT R10 K38 [UDim2.new]
-  LOADN R11 1
-  GETTABLEKS R14 R2 K53 ["collaboratorItem"]
-  GETTABLEKS R13 R14 K54 ["nonRolesetFrame"]
-  GETTABLEKS R12 R13 K55 ["width"]
-  LOADN R13 0
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K56 ["BUTTON_HEIGHT"]
-  CALL R10 4 1
+  SETTABLEKS R10 R9 K20 ["LayoutOrder"]
+  GETTABLEKS R11 R2 K14 ["collaboratorFilter"]
+  GETTABLEKS R10 R11 K39 ["size"]
   SETTABLEKS R10 R9 K32 ["Size"]
-  GETIMPORT R10 K58 [Vector2.new]
-  LOADN R11 0
-  LOADK R12 K59 [0.5]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K48 ["AnchorPoint"]
-  GETIMPORT R10 K38 [UDim2.new]
-  LOADK R11 K59 [0.5]
-  LOADN R12 0
-  LOADK R13 K59 [0.5]
-  LOADN R14 0
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K49 ["Position"]
   LOADN R10 1
   SETTABLEKS R10 R9 K50 ["BackgroundTransparency"]
   MOVE R10 R6
@@ -167,25 +158,22 @@ MAIN:
   GETTABLEKS R5 R3 K11 ["ContextServices"]
   GETTABLEKS R6 R5 K12 ["withContext"]
   GETTABLEKS R7 R5 K13 ["Localization"]
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R11 R0 K14 ["Src"]
-  GETTABLEKS R10 R11 K15 ["Util"]
-  GETTABLEKS R9 R10 K16 ["Constants"]
-  CALL R8 1 1
-  GETTABLEKS R10 R3 K17 ["UI"]
-  GETTABLEKS R9 R10 K18 ["Button"]
+  GETTABLEKS R9 R3 K14 ["Util"]
+  GETTABLEKS R8 R9 K15 ["StyleModifier"]
+  GETTABLEKS R10 R3 K16 ["UI"]
+  GETTABLEKS R9 R10 K17 ["Button"]
   GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K14 ["Src"]
+  GETTABLEKS R13 R0 K18 ["Src"]
   GETTABLEKS R12 R13 K19 ["Selectors"]
   GETTABLEKS R11 R12 K20 ["GetFilterPills"]
   CALL R10 1 1
   GETIMPORT R11 K4 [require]
-  GETTABLEKS R14 R0 K14 ["Src"]
+  GETTABLEKS R14 R0 K18 ["Src"]
   GETTABLEKS R13 R14 K19 ["Selectors"]
   GETTABLEKS R12 R13 K21 ["GetSelectedFilterPill"]
   CALL R11 1 1
   GETIMPORT R12 K4 [require]
-  GETTABLEKS R15 R0 K14 ["Src"]
+  GETTABLEKS R15 R0 K18 ["Src"]
   GETTABLEKS R14 R15 K22 ["Thunks"]
   GETTABLEKS R13 R14 K23 ["SetSelectedFilterPill"]
   CALL R12 1 1

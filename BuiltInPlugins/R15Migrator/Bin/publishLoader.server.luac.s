@@ -31,54 +31,55 @@ MAIN:
   JUMPIFNOT R3 [+1]
   RETURN R0 0
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K12 ["PluginLoader"]
-  GETTABLEKS R4 R5 K13 ["PluginLoaderBuilder"]
+  GETTABLEKS R5 R0 K12 ["Packages"]
+  GETTABLEKS R4 R5 K13 ["PluginLoader"]
   CALL R3 1 1
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Resources"]
-  GETTABLEKS R5 R6 K15 ["Localization"]
-  GETTABLEKS R4 R5 K16 ["SourceStrings"]
+  GETTABLEKS R4 R3 K14 ["PluginLoaderBuilder"]
   GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Resources"]
-  GETTABLEKS R6 R7 K15 ["Localization"]
-  GETTABLEKS R5 R6 K17 ["LocalizedStrings"]
-  GETIMPORT R6 K19 [game]
-  LOADK R8 K20 ["StudioPublishService"]
-  NAMECALL R6 R6 K21 ["GetService"]
-  CALL R6 2 1
-  DUPTABLE R7 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "extraTriggers"}]
-  GETIMPORT R8 K31 [plugin]
-  SETTABLEKS R8 R7 K22 ["plugin"]
-  LOADK R8 K32 ["PublishBlocked"]
-  SETTABLEKS R8 R7 K23 ["pluginName"]
-  SETTABLEKS R5 R7 K24 ["translationResourceTable"]
-  SETTABLEKS R4 R7 K25 ["fallbackResourceTable"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K26 ["overrideLocaleId"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K27 ["localizationNamespace"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K28 ["noToolbar"]
-  NEWTABLE R8 1 0
-  DUPCLOSURE R9 K33 [PROTO_0]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K34 ["StudioPublishService.OnPublishAttempt"]
-  SETTABLEKS R8 R7 K29 ["extraTriggers"]
-  GETTABLEKS R8 R3 K35 ["build"]
-  MOVE R9 R7
-  CALL R8 1 1
-  GETTABLEKS R9 R8 K36 ["pluginLoader"]
-  NAMECALL R9 R9 K37 ["waitForUserInteraction"]
+  GETTABLEKS R7 R8 K15 ["Resources"]
+  GETTABLEKS R6 R7 K16 ["Localization"]
+  GETTABLEKS R5 R6 K17 ["SourceStrings"]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Resources"]
+  GETTABLEKS R7 R8 K16 ["Localization"]
+  GETTABLEKS R6 R7 K18 ["LocalizedStrings"]
+  GETIMPORT R7 K20 [game]
+  LOADK R9 K21 ["StudioPublishService"]
+  NAMECALL R7 R7 K22 ["GetService"]
+  CALL R7 2 1
+  DUPTABLE R8 K31 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "extraTriggers"}]
+  GETIMPORT R9 K32 [plugin]
+  SETTABLEKS R9 R8 K23 ["plugin"]
+  LOADK R9 K33 ["PublishBlocked"]
+  SETTABLEKS R9 R8 K24 ["pluginName"]
+  SETTABLEKS R6 R8 K25 ["translationResourceTable"]
+  SETTABLEKS R5 R8 K26 ["fallbackResourceTable"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K27 ["overrideLocaleId"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K28 ["localizationNamespace"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K29 ["noToolbar"]
+  NEWTABLE R9 1 0
+  DUPCLOSURE R10 K34 [PROTO_0]
+  CAPTURE VAL R7
+  SETTABLEKS R10 R9 K35 ["StudioPublishService.OnPublishAttempt"]
+  SETTABLEKS R9 R8 K30 ["extraTriggers"]
+  GETTABLEKS R9 R4 K36 ["build"]
+  MOVE R10 R8
   CALL R9 1 1
-  JUMPIF R9 [+1]
-  RETURN R0 0
-  GETIMPORT R10 K5 [require]
-  GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K38 ["Parent"]
-  GETTABLEKS R11 R12 K39 ["publishMain"]
+  GETTABLEKS R10 R9 K37 ["pluginLoader"]
+  NAMECALL R10 R10 K38 ["waitForUserInteraction"]
   CALL R10 1 1
-  MOVE R11 R10
-  GETIMPORT R12 K31 [plugin]
-  MOVE R13 R8
-  CALL R11 2 0
+  JUMPIF R10 [+1]
+  RETURN R0 0
+  GETIMPORT R11 K5 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K39 ["Parent"]
+  GETTABLEKS R12 R13 K40 ["publishMain"]
+  CALL R11 1 1
+  MOVE R12 R11
+  GETIMPORT R13 K32 [plugin]
+  MOVE R14 R9
+  CALL R12 2 0
   RETURN R0 0

@@ -31,6 +31,7 @@ local getFFlagFireSignalForLegacyWindow = SharedFlags.getFFlagFireSignalForLegac
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
 
 local function shouldForceLegacyChatToBeHidden()
 	if getFFlagFireSignalForLegacyWindow() then
@@ -147,7 +148,7 @@ do
 	end
 
 	function moduleApiTable:FocusSelectChatBar(onSelectionLost: ()->()?, keybinds: {Enum.KeyCode}?)
-		if FFlagConsoleChatOnExpControls and TenFootInterfaceExpChatExperimentation.getIsEnabled() then
+		if FFlagConsoleChatOnExpControls and (FFlagChromeChatGamepadSupportFix or TenFootInterfaceExpChatExperimentation.getIsEnabled()) then
 			ExperienceChat.Events.ChatTopBarFocusSelect(onSelectionLost, keybinds)
 		end
 	end

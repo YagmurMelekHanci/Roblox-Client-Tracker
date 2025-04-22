@@ -7,12 +7,6 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_2:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Guest"]
   GETTABLEKS R2 R3 K1 ["InstanceGuestRPCInterface"]
@@ -23,7 +17,7 @@ PROTO_2:
   GETUPVAL R5 2
   GETUPVAL R6 3
   CALL R4 2 1
-  DUPTABLE R5 K13 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "triggerFocusAsync", "listenForFocus", "fieldsConfig"}]
+  DUPTABLE R5 K11 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "fieldsConfig"}]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U2
@@ -36,20 +30,14 @@ PROTO_2:
   SETTABLEKS R6 R5 K8 ["isServiceVisible"]
   GETUPVAL R6 8
   SETTABLEKS R6 R5 K9 ["openScript"]
-  NEWCLOSURE R6 P1
-  CAPTURE UPVAL U9
-  CAPTURE UPVAL U2
-  SETTABLEKS R6 R5 K10 ["triggerFocusAsync"]
-  GETUPVAL R6 10
-  SETTABLEKS R6 R5 K11 ["listenForFocus"]
-  DUPTABLE R6 K15 [{"createLiveSyncStatusWatcher"}]
-  GETUPVAL R7 11
-  SETTABLEKS R7 R6 K14 ["createLiveSyncStatusWatcher"]
-  SETTABLEKS R6 R5 K12 ["fieldsConfig"]
+  DUPTABLE R6 K13 [{"createLiveSyncStatusWatcher"}]
+  GETUPVAL R7 9
+  SETTABLEKS R7 R6 K12 ["createLiveSyncStatusWatcher"]
+  SETTABLEKS R6 R5 K10 ["fieldsConfig"]
   CALL R1 4 -1
   RETURN R1 -1
 
-PROTO_3:
+PROTO_2:
   GETUPVAL R0 0
   CALL R0 0 0
   GETUPVAL R0 1
@@ -65,7 +53,7 @@ PROTO_3:
   CALL R0 0 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_3:
   GETIMPORT R1 K1 [warn]
   LOADK R3 K2 ["Error when unloading: %*"]
   GETIMPORT R5 K5 [debug.traceback]
@@ -118,7 +106,7 @@ PROTO_4:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_4:
   GETIMPORT R0 K1 [xpcall]
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
@@ -133,7 +121,7 @@ PROTO_5:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_5:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
@@ -166,8 +154,6 @@ PROTO_6:
   CAPTURE UPVAL U9
   CAPTURE UPVAL U10
   CAPTURE UPVAL U11
-  CAPTURE UPVAL U12
-  CAPTURE UPVAL U13
   SETTABLEKS R10 R9 K4 ["createGuestRpcInterface"]
   CALL R8 1 1
   GETTABLEKS R9 R0 K6 ["Unloading"]
@@ -178,7 +164,7 @@ PROTO_6:
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R1
-  CAPTURE UPVAL U14
+  CAPTURE UPVAL U12
   CAPTURE VAL R0
   NAMECALL R9 R9 K7 ["Connect"]
   CALL R9 2 0
@@ -243,29 +229,19 @@ MAIN:
   GETIMPORT R11 K9 [require]
   GETTABLEKS R14 R1 K12 ["Src"]
   GETTABLEKS R13 R14 K18 ["Guest"]
-  GETTABLEKS R12 R13 K24 ["listenForFocus"]
+  GETTABLEKS R12 R13 K24 ["listenForVisibilityChanges"]
   CALL R11 1 1
   GETIMPORT R12 K9 [require]
   GETTABLEKS R15 R1 K12 ["Src"]
   GETTABLEKS R14 R15 K18 ["Guest"]
-  GETTABLEKS R13 R14 K25 ["listenForVisibilityChanges"]
+  GETTABLEKS R13 R14 K25 ["openInsertObjectMenuAsync"]
   CALL R12 1 1
   GETIMPORT R13 K9 [require]
   GETTABLEKS R16 R1 K12 ["Src"]
   GETTABLEKS R15 R16 K18 ["Guest"]
-  GETTABLEKS R14 R15 K26 ["openInsertObjectMenuAsync"]
+  GETTABLEKS R14 R15 K26 ["openScript"]
   CALL R13 1 1
-  GETIMPORT R14 K9 [require]
-  GETTABLEKS R17 R1 K12 ["Src"]
-  GETTABLEKS R16 R17 K18 ["Guest"]
-  GETTABLEKS R15 R16 K27 ["openScript"]
-  CALL R14 1 1
-  GETIMPORT R15 K9 [require]
-  GETTABLEKS R18 R1 K12 ["Src"]
-  GETTABLEKS R17 R18 K18 ["Guest"]
-  GETTABLEKS R16 R17 K28 ["triggerFocusAsync"]
-  CALL R15 1 1
-  DUPCLOSURE R16 K29 [PROTO_6]
+  DUPCLOSURE R14 K27 [PROTO_5]
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R4
@@ -273,12 +249,10 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R2
   CAPTURE VAL R8
-  CAPTURE VAL R13
   CAPTURE VAL R12
-  CAPTURE VAL R10
-  CAPTURE VAL R14
-  CAPTURE VAL R15
   CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R0
-  RETURN R16 1
+  RETURN R14 1

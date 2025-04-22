@@ -1,0 +1,240 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R1 K1 [{"Wrapper"}]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R3 2
+  GETUPVAL R4 3
+  CALL R3 1 -1
+  CALL R2 -1 1
+  SETTABLEKS R2 R1 K0 ["Wrapper"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["reset"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  CALL R0 0 0
+  GETIMPORT R0 K2 [require]
+  GETIMPORT R3 K4 [script]
+  GETTABLEKS R2 R3 K5 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["PageController"]
+  CALL R0 1 1
+  SETUPVAL R0 2
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 1
+  GETTABLEKS R1 R0 K0 ["getByText"]
+  LOADK R2 K1 ["Studio.Test.Plugin.PageMenu.Home:[]"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K0 ["getByText"]
+  LOADK R2 K2 ["Studio.Test.Plugin.PageMenu.Experiences:[]"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K0 ["getByText"]
+  LOADK R2 K3 ["Studio.Test.Plugin.PageMenu.Templates:[]"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K0 ["getByText"]
+  LOADK R2 K4 ["Studio.Test.Plugin.PageMenu.Archive:[]"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K0 ["getByText"]
+  LOADK R2 K5 ["Studio.Test.Plugin.PageMenu.Recents:[]"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K0 ["getByText"]
+  LOADK R2 K6 ["Studio.Test.Plugin.TutorialPopup.BackButton:[]"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 1
+  GETTABLEKS R1 R0 K0 ["getByText"]
+  LOADK R2 K1 ["Studio.Test.Plugin.TutorialPopup.Heading:[]"]
+  CALL R1 1 1
+  GETTABLEKS R4 R1 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  NAMECALL R2 R2 K3 ["GetDescendants"]
+  CALL R2 1 3
+  FORGPREP R2
+  LOADK R9 K4 ["ImageButton"]
+  NAMECALL R7 R6 K5 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+6]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K6 ["click"]
+  MOVE R8 R6
+  CALL R7 1 0
+  RETURN R0 0
+  FORGLOOP R2 2 [-12]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 1
+  GETTABLEKS R1 R0 K0 ["getByText"]
+  LOADK R2 K1 ["Studio.Test.Plugin.TutorialPopup.Heading:[]"]
+  CALL R1 1 1
+  GETTABLEKS R4 R1 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  NAMECALL R2 R2 K3 ["GetDescendants"]
+  CALL R2 1 3
+  FORGPREP R2
+  LOADK R9 K4 ["ImageButton"]
+  NAMECALL R7 R6 K5 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+6]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K6 ["click"]
+  MOVE R8 R6
+  CALL R7 1 0
+  JUMP [+2]
+  FORGLOOP R2 2 [-12]
+  GETTABLEKS R2 R0 K0 ["getByText"]
+  LOADK R3 K7 ["Studio.Test.Plugin.HomePage.MyRecentExperiences:[]"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  NAMECALL R3 R3 K3 ["GetDescendants"]
+  CALL R3 1 3
+  FORGPREP R3
+  LOADK R10 K4 ["ImageButton"]
+  NAMECALL R8 R7 K5 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+6]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K6 ["click"]
+  MOVE R9 R7
+  CALL R8 1 0
+  JUMP [+2]
+  FORGLOOP R3 2 [-12]
+  GETUPVAL R3 3
+  GETUPVAL R4 4
+  CALL R3 1 0
+  GETUPVAL R4 5
+  GETTABLEKS R5 R0 K8 ["queryByText"]
+  LOADK R6 K7 ["Studio.Test.Plugin.HomePage.MyRecentExperiences:[]"]
+  CALL R5 1 -1
+  CALL R4 -1 1
+  GETTABLEKS R3 R4 K9 ["toBeUndefined"]
+  CALL R3 0 0
+  GETTABLEKS R3 R0 K0 ["getByText"]
+  LOADK R4 K10 ["Studio.Test.Plugin.RecentsPage.Title:[]"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CALL R0 1 0
+  GETUPVAL R0 4
+  LOADK R1 K0 ["should render correctly"]
+  DUPCLOSURE R2 K1 [PROTO_2]
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CALL R0 2 0
+  GETUPVAL R0 4
+  LOADK R1 K2 ["should close tutorial popup correctly"]
+  DUPCLOSURE R2 K3 [PROTO_3]
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CALL R0 2 0
+  GETUPVAL R0 4
+  LOADK R1 K4 ["should swap to RecentsPage correctly when we click on the 'See All' button"]
+  DUPCLOSURE R2 K5 [PROTO_4]
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U9
+  CALL R0 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["FocusCaptureWrapper"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Network"]
+  GETTABLEKS R3 R4 K10 ["GameCache"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Dev"]
+  GETTABLEKS R4 R5 K13 ["JestGlobals"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K14 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Packages"]
+  GETTABLEKS R7 R8 K12 ["Dev"]
+  GETTABLEKS R6 R7 K15 ["ReactTestingLibrary"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K7 ["Util"]
+  GETTABLEKS R7 R8 K16 ["initializeServiceMockApis"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K7 ["Util"]
+  GETTABLEKS R8 R9 K17 ["mockContext"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Src"]
+  GETTABLEKS R10 R11 K7 ["Util"]
+  GETTABLEKS R9 R10 K18 ["waitForNetworkCacheUpdate"]
+  CALL R8 1 1
+  GETTABLEKS R9 R3 K19 ["beforeEach"]
+  GETTABLEKS R10 R3 K20 ["describe"]
+  GETTABLEKS R11 R3 K21 ["expect"]
+  GETTABLEKS R12 R3 K22 ["it"]
+  GETTABLEKS R13 R5 K23 ["fireEvent"]
+  GETTABLEKS R14 R5 K24 ["render"]
+  LOADNIL R15
+  NEWCLOSURE R16 P0
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE REF R15
+  MOVE R17 R10
+  LOADK R18 K25 ["PageController"]
+  NEWCLOSURE R19 P1
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE REF R15
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R13
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  CALL R17 2 0
+  CLOSEUPVALS R15
+  RETURN R0 0

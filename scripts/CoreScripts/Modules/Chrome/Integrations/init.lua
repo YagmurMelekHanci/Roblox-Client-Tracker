@@ -12,13 +12,6 @@ return {
 	JoinVoice = require(script.JoinVoice),
 	SelfieView = require(script.SelfieView),
 	CapturesEntrypoint = require(script.Captures.CapturesEntrypoint),
-	LikeButton = require(script.MusicUtility.LikeButton),
 	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
-	Songbird = require(script.MusicUtility.Songbird),
-	MusicIcon = require(script.MusicUtility.MusicIcon),
-	MusicPlayingIcon = require(script.MusicUtility.MusicPlayingIcon),
-	PeekTrackDetails = require(script.MusicUtility.PeekTrackDetails),
 	PartyMic = require(script.Party.PartyMic),
-	PeekCloseButton = require(script.PeekCloseButton),
-	OverflowButton = require(script.MusicUtility.OverflowButton),
 }

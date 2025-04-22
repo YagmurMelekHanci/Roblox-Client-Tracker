@@ -33,32 +33,32 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
-  LOADK R4 K0 ["LoadResolvedAnnotations"]
-  MOVE R5 R1
-  NAMECALL R2 R0 K1 ["Invoke"]
-  CALL R2 3 0
-  RETURN R0 0
-
-PROTO_6:
   LOADK R4 K0 ["SetVisibility"]
   MOVE R5 R1
   NAMECALL R2 R0 K1 ["Invoke"]
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_6:
   LOADK R4 K0 ["SelectAnnotation"]
   GETTABLEKS R5 R1 K1 ["Name"]
   NAMECALL R2 R0 K2 ["Invoke"]
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_7:
   LOADK R5 K0 ["SyncEditAnnotation"]
   GETTABLEKS R6 R1 K1 ["Name"]
   MOVE R7 R2
   NAMECALL R3 R0 K2 ["Invoke"]
   CALL R3 4 0
+  RETURN R0 0
+
+PROTO_8:
+  LOADK R4 K0 ["RenderConfirmDeleteDialog"]
+  GETTABLEKS R5 R1 K1 ["Name"]
+  NAMECALL R2 R0 K2 ["Invoke"]
+  CALL R2 3 0
   RETURN R0 0
 
 PROTO_9:
@@ -544,13 +544,13 @@ MAIN:
   DUPCLOSURE R13 K31 [PROTO_4]
   SETTABLEKS R13 R12 K32 ["deleteAnnotation"]
   DUPCLOSURE R13 K33 [PROTO_5]
-  SETTABLEKS R13 R12 K34 ["loadResolvedAnnotations"]
+  SETTABLEKS R13 R12 K34 ["setVisibility"]
   DUPCLOSURE R13 K35 [PROTO_6]
-  SETTABLEKS R13 R12 K36 ["setVisibility"]
+  SETTABLEKS R13 R12 K36 ["selectAnnotation"]
   DUPCLOSURE R13 K37 [PROTO_7]
-  SETTABLEKS R13 R12 K38 ["selectAnnotation"]
+  SETTABLEKS R13 R12 K38 ["syncEditAnnotation"]
   DUPCLOSURE R13 K39 [PROTO_8]
-  SETTABLEKS R13 R12 K40 ["syncEditAnnotation"]
+  SETTABLEKS R13 R12 K40 ["renderConfirmDeleteDialog"]
   NEWTABLE R13 8 0
   DUPCLOSURE R14 K41 [PROTO_9]
   SETTABLEKS R14 R13 K42 ["syncStandaloneAnnotation"]

@@ -108,7 +108,6 @@ local EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHisto
 local FFlagInExperienceMenuReorderFirstVariant = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
 local GetFStringInExperienceMenuIXPLayer = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer)
 local GetFStringInExperienceMenuIXPVar = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar)
-local FFlagInExperienceMenuCanvasGroupsInvisible = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuCanvasGroupsInvisible)
 local GetFFlagPackagifySettingsShowSignal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPackagifySettingsShowSignal
 local FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false)
 local FFlagCenterIGMConsoleBottomButtons = game:DefineFastFlag("CenterIGMConsoleBottomButtons", false)
@@ -1128,7 +1127,7 @@ local function CreateSettingsHub()
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			GroupTransparency = 0,
-			Visible = if FFlagInExperienceMenuCanvasGroupsInvisible then false else true,
+			Visible = false,
 			Parent = this.ClippingShield
 		}
 
@@ -1511,7 +1510,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		local menuPos = Theme.MenuContainerPosition()
+		local menuPos = Theme.MenuContainerPosition(this.SettingsUIDelegate)
 		this.MenuContainer = Create(ShieldInstanceType)
 		{
 			Name = 'MenuContainer',
@@ -1959,7 +1958,7 @@ local function CreateSettingsHub()
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			GroupTransparency = 0,
-			Visible = if FFlagInExperienceMenuCanvasGroupsInvisible then false else true,
+			Visible = false,
 			Parent = this.PageViewInnerFrame
 		}
 
@@ -1969,7 +1968,7 @@ local function CreateSettingsHub()
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			GroupTransparency = 0,
-			Visible = if FFlagInExperienceMenuCanvasGroupsInvisible then false else true,
+			Visible = false,
 			Parent = this.PageViewInnerFrame
 		}
 
@@ -2263,6 +2262,9 @@ local function CreateSettingsHub()
 		end
 
 		local maxButtonWidth = (bottomButtonFrameWidth - ((numberOfButton - 1) * 12) - 12) / numberOfButton
+		if isInExperienceUIVREnabled then
+			maxButtonWidth = this.SettingsUIDelegate:getBottomButtonSize(maxButtonWidth)
+		end
 		for i = 1, #this.BottomBarButtons do
 			local button = this.BottomBarButtons[i]
 			local buttonName = button[1]
@@ -2288,9 +2290,14 @@ local function CreateSettingsHub()
 			return this.FrontBarRef:getValue().Visible
 		end
 
-		local menuPos = Theme.MenuContainerPosition()
+		local menuPos = Theme.MenuContainerPosition(this.SettingsUIDelegate)
 		local largestPageSize = 600
-		local fullScreenSize = RobloxGui.AbsoluteSize.y
+		local fullScreenSize
+		if isInExperienceUIVREnabled then
+			fullScreenSize = this.SettingsUIDelegate:getFullScreenSize()
+		else
+			fullScreenSize = RobloxGui.AbsoluteSize.y
+		end
 		local bufferSize = (1-0.95) * fullScreenSize
 		local isPortrait = utility:IsPortrait()
 
@@ -2369,7 +2376,11 @@ local function CreateSettingsHub()
 				end
 				this.MenuAspectRatio.Parent = nil
 			else
-				this.HubBar.Size = UDim2.new(0, 800, 0, 60)
+				if isInExperienceUIVREnabled then
+					this.HubBar.Size = UDim2.new(0, this.SettingsUIDelegate:getPanelWidth(), 0, 60)
+				else
+					this.HubBar.Size = UDim2.new(0, 800, 0, 60)
+				end
 				this.MenuAspectRatio.Parent = menuAspectRatioParent
 
 				if not GetFFlagRemovePermissionsButtons() and FFlagAvatarChatCoreScriptSupport then
@@ -2665,6 +2676,10 @@ local function CreateSettingsHub()
 	end
 
 	-- need some stuff for functions below so init here
+	if isInExperienceUIVREnabled then
+		local SettingsUIDelegate = require(RobloxGui.Modules.Settings.SettingsUIDelegate)
+		this.SettingsUIDelegate = SettingsUIDelegate.new(this)
+	end
 	createGui()
 
 	if FFlagSettingsHubRaceConditionFix then
@@ -2955,7 +2970,7 @@ local function CreateSettingsHub()
 			this.MenuContainerPadding.PaddingBottom = pad.PaddingBottom + bottomExtra
 			this.MenuContainerPadding.PaddingTop = pad.PaddingTop + topExtra
 
-			local menuPos = Theme.MenuContainerPosition()
+			local menuPos = Theme.MenuContainerPosition(this.SettingsUIDelegate)
 			this.MenuContainer.Position = menuPos.Position
 			this.MenuContainer.Size = menuPos.Size
 			this.MenuContainer.AnchorPoint = menuPos.AnchorPoint
@@ -3295,9 +3310,7 @@ local function CreateSettingsHub()
 
 					this.Shield.Parent = this.CanvasGroup
 					this.CanvasGroup.GroupTransparency = 1
-					if FFlagInExperienceMenuCanvasGroupsInvisible then 
-						this.CanvasGroup.Visible = true
-					end
+					this.CanvasGroup.Visible = true
 					this.Shield.Position = UDim2.new(0, 0, 0, 0)
 
 					local tweenInfo = TweenInfo.new(0.25)
@@ -3317,9 +3330,7 @@ local function CreateSettingsHub()
 							this.Shield.Parent = this.ClippingShield
 						end
 
-						if FFlagInExperienceMenuCanvasGroupsInvisible then
-							this.CanvasGroup.Visible = false
-						end
+						this.CanvasGroup.Visible = false
 					end)
 
 					if FFlagEnableInGameMenuDurationLogger then
@@ -3357,13 +3368,12 @@ local function CreateSettingsHub()
 			end
 
 			local noOpFunc = function() end
-			if isInExperienceUIVREnabled and VRService.VREnabled then
-				local UserGui = require(RobloxGui.Modules.VR.UserGui)
-				local handleOpenVRMenuIfNeeded = UserGui:getOpenVRMenuHandler()
-				noOpFunc = function(actionName, inputState, inputObject)
-					if UserGui:isInputNeededForOpenVRMenu(inputObject) then
-						handleOpenVRMenuIfNeeded(actionName, inputState, inputObject)
+			if isInExperienceUIVREnabled then
+				noOpFunc = function(actionName, inputState, inputObject): Enum.ContextActionResult?
+					if this.SettingsUIDelegate:isInputEventNeededBySettings(actionName, inputState, inputObject) then
+						return Enum.ContextActionResult.Pass
 					end
+					return nil
 				end
 			end
 			ContextActionService:BindCoreAction("RbxSettingsHubStopCharacter", noOpFunc, false,
@@ -3496,9 +3506,7 @@ local function CreateSettingsHub()
 					end
 
 					this.Shield.Parent = this.CanvasGroup
-					if FFlagInExperienceMenuCanvasGroupsInvisible then
-						this.CanvasGroup.Visible = true
-					end
+					this.CanvasGroup.Visible = true
 
 					local tweenInfo = TweenInfo.new(0.25)
 					local tweenProps = {
@@ -3521,9 +3529,7 @@ local function CreateSettingsHub()
 							this.Shield.Visible = this.Visible
 							this.Shield.Parent = this.ClippingShield
 						end
-						if FFlagInExperienceMenuCanvasGroupsInvisible then
-							this.CanvasGroup.Visible = false
-						end
+						this.CanvasGroup.Visible = false
 					end)
 
 					handleShieldClose()
@@ -3772,12 +3778,31 @@ local function CreateSettingsHub()
 		panel:SetVisible(false)
 	end
 
+	local function refreshForSpatialUI()
+		if this.Pages.CurrentPage then
+			onScreenSizeChanged()
+		end
+		onPreferredTransparencyChanged()
+		resizeBottomBarButtons()
+	end
+
 	local function OnVREnabled(prop)
 		if prop == "VREnabled" then
 			if UserInputService.VREnabled then
-				enableVR()
+				if isInExperienceUIVREnabled then
+					-- Entry point of the SpatialUI configuration which will only be present in VR mode
+					this.SettingsUIDelegate:enableVR()
+					refreshForSpatialUI()
+				else
+					enableVR()
+				end
 			else
-				disableVR()
+				if isInExperienceUIVREnabled then
+					this.SettingsUIDelegate:disableVR()
+					refreshForSpatialUI()
+				else
+					disableVR()
+				end
 			end
 		end
 	end

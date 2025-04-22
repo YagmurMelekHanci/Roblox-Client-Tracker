@@ -31,7 +31,12 @@ MAIN:
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K10 ["Collab7855_HandleUnknownPermission"]
+  LOADK R2 K10 ["Collab7855_HandleUnknownPermission2"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K11 ["Collab7855_LogUnknownPermissions"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

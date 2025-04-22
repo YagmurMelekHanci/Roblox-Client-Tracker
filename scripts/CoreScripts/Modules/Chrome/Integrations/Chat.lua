@@ -23,6 +23,7 @@ local GuiService = game:GetService("GuiService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
@@ -132,7 +133,10 @@ local dismissCallback = function(menuWasOpen)
 			ChatSelector:ToggleVisibility()
 		end
 	end
-	if FFlagConsoleChatOnExpControls and TenFootInterfaceExpChatExperimentation.getIsEnabled() then
+	if
+		FFlagConsoleChatOnExpControls
+		and (FFlagChromeChatGamepadSupportFix or TenFootInterfaceExpChatExperimentation.getIsEnabled())
+	then
 		FocusSelectExpChat(chatChromeIntegration.id)
 	end
 end
@@ -289,7 +293,10 @@ if FFlagConsoleChatOnExpControls then
 
 		local chatIsAvailable = chatChromeIntegration.availability:get() ~= AvailabilitySignalState.Unavailable
 
-		if TextChatService.ChatVersion ~= Enum.ChatVersion.TextChatService and chatIsAvailable then
+		if
+			FFlagChromeChatGamepadSupportFix and not TenFootInterfaceExpChatExperimentation.getIsEnabled()
+			or TextChatService.ChatVersion ~= Enum.ChatVersion.TextChatService and chatIsAvailable
+		then
 			chatChromeIntegration.availability:unavailable()
 		end
 	end

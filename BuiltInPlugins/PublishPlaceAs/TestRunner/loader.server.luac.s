@@ -26,60 +26,61 @@ MAIN:
   GETTABLEKS R1 R2 K4 ["Parent"]
   GETTABLEKS R0 R1 K4 ["Parent"]
   GETIMPORT R1 K1 [require]
-  GETTABLEKS R3 R0 K7 ["PluginLoader"]
-  GETTABLEKS R2 R3 K8 ["PluginLoaderBuilder"]
+  GETTABLEKS R3 R0 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["PluginLoader"]
   CALL R1 1 1
-  GETTABLEKS R4 R0 K9 ["Src"]
-  GETTABLEKS R3 R4 K10 ["Resources"]
-  GETTABLEKS R2 R3 K11 ["SourceStrings"]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Resources"]
-  GETTABLEKS R3 R4 K12 ["LocalizedStrings"]
-  GETIMPORT R4 K14 [game]
-  LOADK R6 K15 ["StudioPublishService"]
-  NAMECALL R4 R4 K16 ["GetService"]
-  CALL R4 2 1
-  DUPTABLE R5 K25 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "extraTriggers"}]
-  GETIMPORT R6 K26 [plugin]
-  SETTABLEKS R6 R5 K17 ["plugin"]
-  LOADK R6 K27 ["PublishPlaceAs"]
-  SETTABLEKS R6 R5 K18 ["pluginName"]
-  SETTABLEKS R3 R5 K19 ["translationResourceTable"]
-  SETTABLEKS R2 R5 K20 ["fallbackResourceTable"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K21 ["overrideLocaleId"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K22 ["localizationNamespace"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K23 ["noToolbar"]
-  NEWTABLE R6 4 0
-  DUPCLOSURE R7 K28 [PROTO_0]
-  CAPTURE VAL R4
-  SETTABLEKS R7 R6 K29 ["StudioPublishService.GamePublishFinished"]
-  DUPCLOSURE R7 K30 [PROTO_1]
-  CAPTURE VAL R4
-  SETTABLEKS R7 R6 K31 ["StudioPublishService.GamePublishCancelled"]
-  DUPCLOSURE R7 K32 [PROTO_2]
-  CAPTURE VAL R4
-  SETTABLEKS R7 R6 K33 ["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]
-  SETTABLEKS R6 R5 K24 ["extraTriggers"]
-  GETTABLEKS R6 R1 K34 ["build"]
-  MOVE R7 R5
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K35 ["pluginLoader"]
-  NAMECALL R7 R7 K36 ["waitForUserInteraction"]
+  GETTABLEKS R2 R1 K9 ["PluginLoaderBuilder"]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Resources"]
+  GETTABLEKS R3 R4 K12 ["SourceStrings"]
+  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Resources"]
+  GETTABLEKS R4 R5 K13 ["LocalizedStrings"]
+  GETIMPORT R5 K15 [game]
+  LOADK R7 K16 ["StudioPublishService"]
+  NAMECALL R5 R5 K17 ["GetService"]
+  CALL R5 2 1
+  DUPTABLE R6 K26 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "extraTriggers"}]
+  GETIMPORT R7 K27 [plugin]
+  SETTABLEKS R7 R6 K18 ["plugin"]
+  LOADK R7 K28 ["PublishPlaceAs"]
+  SETTABLEKS R7 R6 K19 ["pluginName"]
+  SETTABLEKS R4 R6 K20 ["translationResourceTable"]
+  SETTABLEKS R3 R6 K21 ["fallbackResourceTable"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K22 ["overrideLocaleId"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K23 ["localizationNamespace"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K24 ["noToolbar"]
+  NEWTABLE R7 4 0
+  DUPCLOSURE R8 K29 [PROTO_0]
+  CAPTURE VAL R5
+  SETTABLEKS R8 R7 K30 ["StudioPublishService.GamePublishFinished"]
+  DUPCLOSURE R8 K31 [PROTO_1]
+  CAPTURE VAL R5
+  SETTABLEKS R8 R7 K32 ["StudioPublishService.GamePublishCancelled"]
+  DUPCLOSURE R8 K33 [PROTO_2]
+  CAPTURE VAL R5
+  SETTABLEKS R8 R7 K34 ["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]
+  SETTABLEKS R7 R6 K25 ["extraTriggers"]
+  GETTABLEKS R7 R2 K35 ["build"]
+  MOVE R8 R6
   CALL R7 1 1
-  JUMPIF R7 [+1]
-  RETURN R0 0
-  GETIMPORT R8 K1 [require]
-  GETIMPORT R13 K3 [script]
-  GETTABLEKS R12 R13 K4 ["Parent"]
-  GETTABLEKS R11 R12 K4 ["Parent"]
-  GETTABLEKS R10 R11 K9 ["Src"]
-  GETTABLEKS R9 R10 K37 ["main"]
+  GETTABLEKS R8 R7 K36 ["pluginLoader"]
+  NAMECALL R8 R8 K37 ["waitForUserInteraction"]
   CALL R8 1 1
-  MOVE R9 R8
-  GETIMPORT R10 K26 [plugin]
-  MOVE R11 R6
-  CALL R9 2 0
+  JUMPIF R8 [+1]
+  RETURN R0 0
+  GETIMPORT R9 K1 [require]
+  GETIMPORT R14 K3 [script]
+  GETTABLEKS R13 R14 K4 ["Parent"]
+  GETTABLEKS R12 R13 K4 ["Parent"]
+  GETTABLEKS R11 R12 K10 ["Src"]
+  GETTABLEKS R10 R11 K38 ["main"]
+  CALL R9 1 1
+  MOVE R10 R9
+  GETIMPORT R11 K27 [plugin]
+  MOVE R12 R7
+  CALL R10 2 0
   RETURN R0 0

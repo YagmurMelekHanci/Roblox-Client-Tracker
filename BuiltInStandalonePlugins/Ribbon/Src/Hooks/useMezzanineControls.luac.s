@@ -1,39 +1,33 @@
 PROTO_0:
-  GETUPVAL R3 0
-  CALL R3 0 1
-  FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["useMezzanineControls should only be used when FFlagRibbonConfigUniqueControlsIdentifiers is true"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  GETUPVAL R2 1
-  GETUPVAL R3 2
+  GETUPVAL R2 0
+  GETUPVAL R3 1
   CALL R2 1 1
-  GETTABLEKS R3 R2 K3 ["Definition"]
+  GETTABLEKS R3 R2 K0 ["Definition"]
   LOADNIL R4
-  GETUPVAL R5 3
+  GETUPVAL R5 2
   CALL R5 0 1
   JUMPIFNOT R5 [+8]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K4 ["getMezzanineFromTestModeSetting"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K1 ["getMezzanineFromTestModeSetting"]
   MOVE R6 R3
   MOVE R7 R0
   CALL R5 2 1
   MOVE R4 R5
   JUMP [+10]
-  GETTABLEKS R6 R3 K5 ["MezzanineControls"]
-  GETTABLEKS R5 R6 K6 ["BuiltIn_LeftMezzanine"]
+  GETTABLEKS R6 R3 K2 ["MezzanineControls"]
+  GETTABLEKS R5 R6 K3 ["BuiltIn_LeftMezzanine"]
   JUMPIFNOT R5 [+3]
-  GETTABLEKS R4 R5 K7 ["Controls"]
+  GETTABLEKS R4 R5 K4 ["Controls"]
   JUMP [+2]
   NEWTABLE R4 0 0
   JUMPIFNOT R1 [+2]
-  LOADK R5 K8 ["BuiltIn_RightMezzanine"]
+  LOADK R5 K5 ["BuiltIn_RightMezzanine"]
   JUMP [+1]
-  LOADK R5 K9 ["BuiltIn_RightMezzanineStartPage"]
-  GETTABLEKS R7 R3 K5 ["MezzanineControls"]
+  LOADK R5 K6 ["BuiltIn_RightMezzanineStartPage"]
+  GETTABLEKS R7 R3 K2 ["MezzanineControls"]
   GETTABLE R6 R7 R5
   JUMPIFNOT R6 [+3]
-  GETTABLEKS R7 R6 K7 ["Controls"]
+  GETTABLEKS R7 R6 K4 ["Controls"]
   JUMP [+2]
   NEWTABLE R7 0 0
   MOVE R8 R4
@@ -67,18 +61,12 @@ MAIN:
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K8 ["Src"]
   GETTABLEKS R7 R8 K14 ["SharedFlags"]
-  GETTABLEKS R6 R7 K15 ["getFFlagRibbonConfigUniqueControlsIdentifiers"]
+  GETTABLEKS R6 R7 K15 ["getFFlagTestingControlsOptOut"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Src"]
-  GETTABLEKS R8 R9 K14 ["SharedFlags"]
-  GETTABLEKS R7 R8 K16 ["getFFlagTestingControlsOptOut"]
-  CALL R6 1 1
-  GETTABLEKS R7 R1 K17 ["useContext"]
-  DUPCLOSURE R8 K18 [PROTO_0]
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  CAPTURE VAL R2
+  GETTABLEKS R6 R1 K16 ["useContext"]
+  DUPCLOSURE R7 K17 [PROTO_0]
   CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R5
   CAPTURE VAL R3
-  RETURN R8 1
+  RETURN R7 1

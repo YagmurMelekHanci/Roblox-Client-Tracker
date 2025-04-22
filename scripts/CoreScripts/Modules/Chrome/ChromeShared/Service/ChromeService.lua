@@ -23,16 +23,15 @@ local NotifySignal = utils.NotifySignal
 local AvailabilitySignal = utils.AvailabilitySignal
 local Types = require(Root.Service.Types)
 local Constants = require(Root.Unibar.Constants)
-local PeekService = require(Root.Service.PeekService)
 local ShortcutService = require(Root.Service.ShortcutService)
 
 local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
-local GetFFlagChromePeekArchitecture = SharedFlags.GetFFlagChromePeekArchitecture
 local GetFFlagChromeTrackWindowStatus = require(Root.Parent.Flags.GetFFlagChromeTrackWindowStatus)
 local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
 local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
+local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -63,8 +62,6 @@ export type ObservableCompactUtility = utils.ObservableValue<Types.CompactUtilit
 export type ObservableInFocusNav = utils.ObservableValue<boolean>
 
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
-export type ObservablePeekList = utils.ObservableValue<Types.PeekList>
-export type ObservablePeekId = utils.ObservableValue<Types.PeekId?>
 
 export type ObservableShortcutBar = utils.ObservableValue<Types.ShortcutBarId?>
 
@@ -146,21 +143,6 @@ export type ChromeService = {
 	createContainerProps: (ChromeService, Types.IntegrationId, number?, boolean?) -> Types.IntegrationComponentProps,
 	orderAlignment: (ChromeService) -> ObservableAlignment,
 	configureOrderAlignment: (ChromeService, alignment: Enum.HorizontalAlignment) -> (),
-
-	configurePeek: (ChromeService, peekId: Types.PeekId, config: Types.PeekConfig) -> (),
-	tryShowPeek: (ChromeService, peekId: Types.PeekId) -> boolean,
-	lockCurrentPeek: (ChromeService) -> (),
-	unlockCurrentPeek: (ChromeService) -> (),
-	dismissPeek: (ChromeService, peekId: Types.PeekId) -> (),
-	dismissCurrentPeek: (ChromeService) -> (),
-	updatePeekList: (ChromeService) -> (),
-	peekList: (ChromeService) -> ObservablePeekList,
-	peekId: (ChromeService) -> ObservablePeekId,
-	onPeekShown: SignalLib.Signal,
-	onPeekHidden: SignalLib.Signal,
-	_peekList: ObservablePeekList,
-	_peekId: ObservablePeekId,
-	_peekService: PeekService.PeekService,
 
 	registerShortcut: (ChromeService, shortcutProps: Types.ShortcutRegisterProps) -> (),
 	activateShortcut: (ChromeService, shortcutId: Types.ShortcutId) -> (),
@@ -248,7 +230,6 @@ end
 function ChromeService.new(): ChromeService
 	local localeId = LocalizationService.RobloxLocaleId
 	local self = {}
-	self._peekService = if GetFFlagChromePeekArchitecture() then PeekService.new() else nil :: never
 	self._shortcutService = if FFlagEnableChromeShortcutBar then ShortcutService.new() else nil :: never
 
 	self._layout = utils.ObservableValue.new(createUnibarLayoutInfo(Vector2.zero, Vector2.zero))
@@ -267,8 +248,6 @@ function ChromeService.new(): ChromeService
 	self._subMenuNotifications = {}
 	self._menuList = ObservableValue.new({})
 	self._windowList = ObservableValue.new({})
-	self._peekList = ObservableValue.new({})
-	self._peekId = ObservableValue.new(nil)
 	self._dragConnection = {}
 	self._windowPositions = ObservableValue.new({})
 	self._totalNotifications = NotifySignal.new(true)
@@ -302,20 +281,6 @@ function ChromeService.new(): ChromeService
 			viewportInfo.tinyPortrait
 		)
 	end, true)
-
-	if GetFFlagChromePeekArchitecture() then
-		self._peekService.onPeekChanged:connect(function()
-			service:updateMenuList()
-		end)
-
-		self._peekService.onPeekShown:connect(function(peekId)
-			service._peekId:set(peekId)
-		end)
-
-		self._peekService.onPeekHidden:connect(function()
-			service._peekId:set(nil)
-		end)
-	end
 
 	if FFlagEnableChromeShortcutBar then
 		self._shortcutService.onShortcutBarChanged:connect(function(shortcutBarId: Types.ShortcutBarId)
@@ -449,7 +414,7 @@ function ChromeService:toggleSubMenu(subMenuId: Types.IntegrationId)
 		self._currentSubMenu:set(nil :: string?)
 	else
 		-- otherwise open the menu
-		if FFlagSubmenuFocusNavFixes and not self._selectedItem:get() then
+		if not FFlagChromeFixInitialFocusSubmenu and FFlagSubmenuFocusNavFixes and not self._selectedItem:get() then
 			self._selectedItem:set(subMenuId)
 		end
 		self._currentSubMenu:set(subMenuId)
@@ -519,16 +484,6 @@ end
 
 function ChromeService:windowList()
 	return self._windowList
-end
-
-if GetFFlagChromePeekArchitecture() then
-	function ChromeService:peekList()
-		return self._peekList
-	end
-
-	function ChromeService:peekId()
-		return self._peekId
-	end
 end
 
 function ChromeService:dragConnection(componentId: Types.IntegrationId)
@@ -877,17 +832,6 @@ function ChromeService:updateMenuList()
 		collectMenu(self._menuConfig, root, windowList)
 	end
 
-	local peekRoot
-	if GetFFlagChromePeekArchitecture() then
-		peekRoot = { children = {} }
-		local currentPeekId = self._peekService:getCurrentPeek()
-		local peekConfig = if currentPeekId then self._peekService:getPeekConfig(currentPeekId) else nil
-
-		if peekConfig then
-			collectMenu(peekConfig.integrations, peekRoot, windowList)
-		end
-	end
-
 	-- Remove dangling dividers
 	if #root.children and root.children[#root.children] and root.children[#root.children].isDivider then
 		table.remove(root.children, #root.children)
@@ -910,9 +854,6 @@ function ChromeService:updateMenuList()
 	-- todo: nice to have optimization, only update if we fail an equality check
 	self._menuList:set(root.children)
 	self._windowList:set(windowList)
-	if GetFFlagChromePeekArchitecture() then
-		self._peekList:set(peekRoot.children)
-	end
 	self:repairSelected()
 end
 
@@ -1030,35 +971,6 @@ function ChromeService:configureSubMenu(parent: Types.IntegrationId, menuConfig:
 	end
 	self:updateNotificationTotals()
 	self:updateMenuList()
-end
-
-if GetFFlagChromePeekArchitecture() then
-	function ChromeService:configurePeek(peekId: Types.PeekId, config: Types.PeekConfig)
-		self._peekService:configurePeek(peekId, config)
-	end
-
-	function ChromeService:tryShowPeek(peekId: Types.PeekId)
-		return self._peekService:tryShowPeek(peekId)
-	end
-
-	function ChromeService:lockCurrentPeek()
-		return self._peekService:lockCurrentPeek()
-	end
-
-	function ChromeService:unlockCurrentPeek()
-		return self._peekService:unlockCurrentPeek()
-	end
-
-	function ChromeService:dismissPeek(peekId: Types.PeekId)
-		self._peekService:dismissPeek(peekId)
-	end
-
-	function ChromeService:dismissCurrentPeek()
-		local peekId = self._peekService:getCurrentPeek()
-		if peekId then
-			self:dismissPeek(peekId)
-		end
-	end
 end
 
 if FFlagEnableChromeShortcutBar then

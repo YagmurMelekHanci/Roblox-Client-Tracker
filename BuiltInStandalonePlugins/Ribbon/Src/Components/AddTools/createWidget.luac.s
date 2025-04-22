@@ -1,45 +1,57 @@
 PROTO_0:
-  LOADK R4 K0 ["AddTools"]
-  DUPTABLE R5 K7 [{"Id", "MinSize", "Resizable", "ToolDialog", "Size", "Name"}]
-  LOADK R6 K0 ["AddTools"]
-  SETTABLEKS R6 R5 K1 ["Id"]
-  GETUPVAL R6 0
-  SETTABLEKS R6 R5 K2 ["MinSize"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K3 ["Resizable"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K4 ["ToolDialog"]
-  GETUPVAL R6 0
-  SETTABLEKS R6 R5 K5 ["Size"]
-  LOADK R6 K0 ["AddTools"]
-  SETTABLEKS R6 R5 K6 ["Name"]
-  NAMECALL R2 R1 K8 ["CreateQWidgetPluginGui"]
-  CALL R2 3 1
-  LOADK R5 K9 ["PluginGui"]
-  NAMECALL R3 R2 K10 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+2]
-  SETTABLEKS R0 R2 K11 ["Title"]
-  GETIMPORT R3 K15 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R3 R2 K13 ["ZIndexBehavior"]
-  NAMECALL R3 R1 K16 ["GetUri"]
-  CALL R3 1 1
-  GETUPVAL R4 1
-  MOVE R5 R3
-  DUPTABLE R6 K19 [{"Category", "ItemId"}]
-  LOADK R7 K20 ["Panels"]
-  SETTABLEKS R7 R6 K17 ["Category"]
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  LOADK R5 K0 ["AddTools"]
+  DUPTABLE R6 K7 [{"Id", "MinSize", "Resizable", "ToolDialog", "Size", "Name"}]
   LOADK R7 K0 ["AddTools"]
-  SETTABLEKS R7 R6 K18 ["ItemId"]
+  SETTABLEKS R7 R6 K1 ["Id"]
+  GETUPVAL R7 0
+  SETTABLEKS R7 R6 K2 ["MinSize"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K3 ["Resizable"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K4 ["ToolDialog"]
+  GETUPVAL R7 0
+  SETTABLEKS R7 R6 K5 ["Size"]
+  LOADK R7 K0 ["AddTools"]
+  SETTABLEKS R7 R6 K6 ["Name"]
+  NAMECALL R3 R1 K8 ["CreateQWidgetPluginGui"]
+  CALL R3 3 1
+  LOADK R6 K9 ["PluginGui"]
+  NAMECALL R4 R3 K10 ["IsA"]
   CALL R4 2 1
-  LOADK R7 K20 ["Panels"]
-  NAMECALL R5 R1 K21 ["GetPluginComponent"]
+  JUMPIFNOT R4 [+9]
+  SETTABLEKS R0 R3 K11 ["Title"]
+  GETUPVAL R4 1
+  JUMPIFNOT R4 [+5]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
+  NAMECALL R4 R3 K12 ["BindToClose"]
+  CALL R4 2 0
+  GETIMPORT R4 K16 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R4 R3 K14 ["ZIndexBehavior"]
+  NAMECALL R4 R1 K17 ["GetUri"]
+  CALL R4 1 1
+  GETUPVAL R5 2
+  MOVE R6 R4
+  DUPTABLE R7 K20 [{"Category", "ItemId"}]
+  LOADK R8 K21 ["Panels"]
+  SETTABLEKS R8 R7 K18 ["Category"]
+  LOADK R8 K0 ["AddTools"]
+  SETTABLEKS R8 R7 K19 ["ItemId"]
   CALL R5 2 1
-  MOVE R8 R4
-  GETUPVAL R9 0
-  NAMECALL R6 R5 K22 ["SetSizeAsync"]
-  CALL R6 3 0
-  RETURN R2 1
+  LOADK R8 K21 ["Panels"]
+  NAMECALL R6 R1 K22 ["GetPluginComponent"]
+  CALL R6 2 1
+  MOVE R9 R5
+  GETUPVAL R10 0
+  NAMECALL R7 R6 K23 ["SetSizeAsync"]
+  CALL R7 3 0
+  RETURN R3 1
 
 MAIN:
   PREPVARARGS 0
@@ -56,7 +68,13 @@ MAIN:
   LOADN R4 128
   LOADN R5 244
   CALL R3 2 1
-  DUPCLOSURE R4 K12 [PROTO_0]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["SharedFlags"]
+  GETTABLEKS R5 R6 K14 ["getFFlagRibbonRefreshTools"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K15 [PROTO_1]
   CAPTURE VAL R3
+  CAPTURE VAL R4
   CAPTURE VAL R2
-  RETURN R4 1
+  RETURN R5 1

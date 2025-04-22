@@ -36,23 +36,23 @@ MAIN:
   NAMECALL R0 R0 K6 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K11 ["AnnotationsAddTaggingKeyConnects"]
+  LOADK R2 K11 ["AnnotationsCardDoubleClickZoom"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K12 ["AnnotationsCardDoubleClickZoom"]
+  LOADK R2 K12 ["AnnotationsOpenPanelOnCreate"]
+  LOADB R3 1
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K13 ["AnnotationCreationLocksCamera"]
+  LOADB R3 1
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K14 ["AnnotationsTaggedYouLabel"]
   LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K13 ["AnnotationsOpenPanelOnCreate"]
-  LOADB R3 1
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K14 ["AnnotationCreationLocksCamera"]
-  LOADB R3 1
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
@@ -65,7 +65,7 @@ MAIN:
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
-  DUPTABLE R0 K34 [{"fflagCOLLAB6176PlaceAnnotations", "fflagAnnotationsModernColors", "fflagAnnotationsMaxTextLength", "fflagAnnotationsFocusTextBox", "fflagPlaceAnnotationsPublicRelease", "fflagAnnotationsAddTagging", "fflagAnnotationsAddTaggingFiltering", "fflagAnnotationsSyncTagging", "fflagPlaceAnnotationsIxp", "fflagAnnotationsReleaseCallout", "fintAnnotationsPointerMaxSize", "fintAnnotationsPointerMinSize", "fflagCOLLAB7954AnnotationsLoadRecentReplies", "fflagAnnotationsAddTaggingKeyConnects", "fflagAnnotationsCardDoubleClickZoom", "fflagAnnotationsOpenPanelOnCreate", "fflagAnnotationCreationLocksCamera"}]
+  DUPTABLE R0 K34 [{"fflagCOLLAB6176PlaceAnnotations", "fflagAnnotationsModernColors", "fflagAnnotationsMaxTextLength", "fflagAnnotationsFocusTextBox", "fflagPlaceAnnotationsPublicRelease", "fflagAnnotationsAddTagging", "fflagAnnotationsAddTaggingFiltering", "fflagAnnotationsSyncTagging", "fflagPlaceAnnotationsIxp", "fflagAnnotationsReleaseCallout", "fintAnnotationsPointerMaxSize", "fintAnnotationsPointerMinSize", "fflagCOLLAB7954AnnotationsLoadRecentReplies", "fflagAnnotationsCardDoubleClickZoom", "fflagAnnotationsOpenPanelOnCreate", "fflagAnnotationCreationLocksCamera", "fflagAnnotationsTaggedYouLabel"}]
   GETIMPORT R1 K1 [game]
   LOADK R3 K35 ["COLLAB6176PlaceAnnotations"]
   NAMECALL R1 R1 K36 ["GetFastFlag"]
@@ -138,23 +138,23 @@ MAIN:
   CALL R1 2 1
   SETTABLEKS R1 R0 K29 ["fflagCOLLAB7954AnnotationsLoadRecentReplies"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K11 ["AnnotationsAddTaggingKeyConnects"]
+  LOADK R3 K11 ["AnnotationsCardDoubleClickZoom"]
   NAMECALL R1 R1 K36 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K30 ["fflagAnnotationsAddTaggingKeyConnects"]
+  SETTABLEKS R1 R0 K30 ["fflagAnnotationsCardDoubleClickZoom"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K12 ["AnnotationsCardDoubleClickZoom"]
+  LOADK R3 K12 ["AnnotationsOpenPanelOnCreate"]
   NAMECALL R1 R1 K36 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K31 ["fflagAnnotationsCardDoubleClickZoom"]
+  SETTABLEKS R1 R0 K31 ["fflagAnnotationsOpenPanelOnCreate"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K13 ["AnnotationsOpenPanelOnCreate"]
+  LOADK R3 K13 ["AnnotationCreationLocksCamera"]
   NAMECALL R1 R1 K36 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K32 ["fflagAnnotationsOpenPanelOnCreate"]
+  SETTABLEKS R1 R0 K32 ["fflagAnnotationCreationLocksCamera"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K14 ["AnnotationCreationLocksCamera"]
+  LOADK R3 K14 ["AnnotationsTaggedYouLabel"]
   NAMECALL R1 R1 K36 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K33 ["fflagAnnotationCreationLocksCamera"]
+  SETTABLEKS R1 R0 K33 ["fflagAnnotationsTaggedYouLabel"]
   RETURN R0 1
