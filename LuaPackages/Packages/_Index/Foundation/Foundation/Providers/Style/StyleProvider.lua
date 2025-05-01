@@ -25,7 +25,6 @@ export type StyleProviderProps = {
 	device: Device?,
 	-- **Deprecated**. Use useStyleSheet hook insteads to derive the Foundation styles.
 	derives: { StyleSheet }?,
-	sheetRef: React.Ref<StyleSheet>?,
 	children: React.ReactNode,
 }
 
@@ -91,19 +90,16 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 						{
 							value = addTags,
 						},
-						if Flags.FoundationStyleSheetContext
-							then React.createElement(StyleSheetContextWrapper, {
-								setStyleSheetRef = setStyleSheetRef,
-							}, styleProviderProps.children)
-							else styleProviderProps.children
+						React.createElement(StyleSheetContextWrapper, {
+							setStyleSheetRef = setStyleSheetRef,
+						}, styleProviderProps.children)
 					),
 					StyleSheet = React.createElement(StyleSheet, {
 						theme = props.theme :: Theme,
 						device = props.device :: Device,
 						tags = tags,
 						derives = styleProviderProps.derives,
-						sheetRef = styleProviderProps.sheetRef,
-						setStyleSheetRef = if Flags.FoundationStyleSheetContext then setStyleSheetRef else nil,
+						setStyleSheetRef = setStyleSheetRef,
 					}),
 				}
 		),

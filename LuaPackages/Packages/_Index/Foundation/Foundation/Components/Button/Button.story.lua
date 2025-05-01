@@ -11,8 +11,6 @@ local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 type FillBehavior = FillBehavior.FillBehavior
 
-local Flags = require(Foundation.Utility.Flags)
-
 return {
 	summary = "Button",
 	stories = Dash.map(ButtonVariant, function(variant)
@@ -20,8 +18,6 @@ return {
 			name = variant,
 			story = function(props)
 				local controls = props.controls
-				Flags.FoundationButtonEnableLoadingState = controls.enableLoadingState
-				Flags.FoundationEnableNewButtonSizes = controls.enableNewButtonSizes
 
 				return React.createElement(
 					View,
@@ -68,7 +64,5 @@ return {
 			FillBehavior.Fill,
 		} :: { FillBehavior },
 		inputDelay = 0,
-		enableLoadingState = Flags.FoundationButtonEnableLoadingState,
-		enableNewButtonSizes = Flags.FoundationEnableNewButtonSizes,
 	},
 }

@@ -133,6 +133,16 @@ local function createTokens(tokens: Tokens): (
 		end
 	end
 
+	for name, value in tokens.Inverse :: any do
+		-- Generate only Content colors on purpose
+		if name == "Content" then
+			for innerName, innerValue in value do
+				local tagName = if KeepPrefix[name] then name .. innerName else innerName
+				colors[name][`inverse-{pascalToKebab(tagName)}`] = innerValue
+			end
+		end
+	end
+
 	for name, value in tokens.Stroke do
 		table.insert(strokes, { name = pascalToKebab(name), size = value })
 	end

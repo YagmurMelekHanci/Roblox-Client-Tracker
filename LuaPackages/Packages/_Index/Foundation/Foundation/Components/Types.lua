@@ -7,8 +7,9 @@ type StateLayerAffordance = StateLayerAffordance.StateLayerAffordance
 local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 type StateLayerMode = StateLayerMode.StateLayerMode
 
-local createGuiControlStateTable = require(Foundation.Utility.Control.createGuiControlStateTable)
-export type StateChangedCallback = createGuiControlStateTable.onGuiControlStateChange
+local ControlState = require(Foundation.Enums.ControlState)
+type ControlState = ControlState.ControlState
+export type StateChangedCallback = (newState: ControlState) -> ()
 
 local React = require(Packages.React)
 export type Bindable<T> = T | React.Binding<T>
@@ -37,6 +38,11 @@ export type FlexItem = {
 export type SizeConstraint = {
 	MinSize: Bindable<Vector2>?,
 	MaxSize: Bindable<Vector2>?,
+}
+
+export type Slice = {
+	center: Rect?,
+	scale: number?,
 }
 
 export type Stroke = {

@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 
 local Components = Foundation.Components
@@ -28,6 +29,8 @@ type ControlState = ControlState.ControlState
 
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
+
+local DISABLED_TRANSPARENCY = 0.5
 
 local useCheckedValue = require(script.Parent.Parent.useCheckedValue)
 
@@ -57,13 +60,18 @@ local function RadioGroupItem(radioGroupItemProps: Props, ref: React.Ref<GuiObje
 
 	local isChecked = value == props.value
 	local label = props.label or props.value
+	local hasLabel = label ~= ""
 
 	local tokens = useTokens()
-	local cursor = useCursor({
-		radius = UDim.new(0, tokens.Radius.Small),
-		offset = tokens.Size.Size_200,
-		borderWidth = tokens.Stroke.Thicker,
-	})
+	local cursorConfig = React.useMemo(function()
+		local radius = if hasLabel then UDim.new(0, tokens.Radius.Small) else UDim.new(0, tokens.Radius.Circle)
+		return {
+			radius = radius,
+			offset = tokens.Size.Size_200,
+			borderWidth = tokens.Stroke.Thicker,
+		}
+	end, { tokens :: any, hasLabel })
+	local cursor = useCursor(cursorConfig)
 
 	local onActivated = React.useCallback(function()
 		if not isDisabled then
@@ -87,47 +95,66 @@ local function RadioGroupItem(radioGroupItemProps: Props, ref: React.Ref<GuiObje
 
 	local variantProps = useRadioGroupItemVariants(tokens, props.size, itemState)
 
-	local radioGroupItem = React.createElement(View, {
+	local interactionProps = {
+		Active = not isDisabled,
+		GroupTransparency = if isDisabled then DISABLED_TRANSPARENCY else 0,
+		onActivated = onActivated,
+		onStateChanged = onInputStateChanged,
+		stateLayer = { affordance = StateLayerAffordance.None },
+		selection = {
+			Selectable = not props.isDisabled,
+			SelectionImageObject = cursor,
+		},
+		isDisabled = isDisabled,
+		ref = ref,
+	}
+
+	local radioContainerProps = {
 		Size = variantProps.radioItem.size,
-		LayoutOrder = 1,
 		stroke = {
 			Color = variantProps.radioItem.stroke.Color3,
-			Transparency = variantProps.radioItem.stroke.Transparency,
+			Transparency = if props.isDisabled and not hasLabel
+				then DISABLED_TRANSPARENCY
+				else variantProps.radioItem.stroke.Transparency,
 		},
 		tag = variantProps.radioItem.tag,
-	}, {
-		Center = if isChecked
-			then React.createElement(View, {
-				tag = variantProps.checkmark.tag,
-			})
-			else nil,
-	})
+	}
+
+	local radio = React.createElement(
+		View,
+		if hasLabel
+			then radioContainerProps
+			else withCommonProps(props, Cryo.Dictionary.union(radioContainerProps, interactionProps)),
+		{
+			Center = if isChecked
+				then React.createElement(View, {
+					tag = variantProps.checkmark.tag,
+				})
+				else nil,
+		}
+	)
+
+	if not hasLabel then
+		return radio
+	end
 
 	--[[
-		Labels for radio buttons and radio itemss should be positioned after the field.
+		Labels for radio buttons and radio items should be positioned after the field.
 		Source: https://www.w3.org/TR/WCAG20-TECHS/G162.html
 	]]
 	return React.createElement(
 		View,
-		withCommonProps(props, {
-			Active = not isDisabled,
-			GroupTransparency = if isDisabled then 0.5 else 0,
-			isDisabled = isDisabled,
-			onActivated = onActivated,
-			onStateChanged = onInputStateChanged,
-			selection = {
-				Selectable = not isDisabled,
-				SelectionImageObject = cursor,
-			},
-			stateLayer = { affordance = StateLayerAffordance.None },
-			-- Add padding around radio item to ensure it's not cut off
-			-- by the bounds of the canvas group
-			padding = variantProps.container.padding,
-			tag = variantProps.container.tag,
-			ref = ref,
-		}),
+		withCommonProps(
+			props,
+			Cryo.Dictionary.union({
+				-- Add padding around radio item to ensure it's not cut off
+				-- by the bounds of the canvas group
+				padding = variantProps.container.padding,
+				tag = variantProps.container.tag,
+			}, interactionProps)
+		),
 		{
-			RadioGroupItem = radioGroupItem,
+			Radio = radio,
 			Label = if type(label) == "string"
 				then React.createElement(InputLabel, {
 					Text = label,

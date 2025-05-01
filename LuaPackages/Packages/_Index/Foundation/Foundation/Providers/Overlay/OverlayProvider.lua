@@ -18,7 +18,6 @@ local ReactRoblox = require(Packages.ReactRoblox)
 
 type Props = {
 	gui: GuiObject?,
-	sheetRef: React.Ref<StyleSheet>?,
 	children: React.ReactNode,
 }
 
@@ -26,10 +25,7 @@ local mainGui = if isCoreGui then CoreGui else PlayerGui
 
 local function OverlayProvider(props: Props)
 	local overlay: GuiObject?, setOverlay = React.useState(props.gui)
-	local styleSheet
-	if Flags.FoundationStyleSheetContext then
-		styleSheet = useStyleSheet()
-	end
+	local styleSheet = useStyleSheet()
 
 	local overlayRefCallback = React.useCallback(function(screenGui: GuiObject)
 		setOverlay(screenGui)
@@ -50,16 +46,15 @@ local function OverlayProvider(props: Props)
 			then ReactRoblox.createPortal(
 				React.createElement("ScreenGui", {
 					Enabled = true,
-					DisplayOrder = math.huge,
+					-- Biggest DisplayOrder allowed. Don't try math.huge, it causes an overflow
+					DisplayOrder = 2147483647,
 					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 					ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets,
 					ref = overlayRefCallback,
 				}, {
 					FoundationStyleLink = if not Flags.FoundationStylingPolyfill
 						then React.createElement("StyleLink", {
-							StyleSheet = if Flags.FoundationStyleSheetContext
-								then styleSheet
-								else if type(props.sheetRef) == "table" then props.sheetRef.current else nil,
+							StyleSheet = styleSheet,
 						})
 						else nil,
 				}),

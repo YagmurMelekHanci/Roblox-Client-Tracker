@@ -2,10 +2,12 @@ local strict = require(script.Utility.strict)
 
 local Types = require(script.Components.Types)
 local Tokens = require(script.Providers.Style.Tokens)
+local ControlState = require(script.Enums.ControlState)
 
 export type Bindable<T> = Types.Bindable<T>
 export type CommonProps = Types.CommonProps
 export type StateChangedCallback = Types.StateChangedCallback
+export type ControlState = ControlState.ControlState
 export type StateLayer = Types.StateLayer
 export type Tags = Types.Tags
 
@@ -68,7 +70,7 @@ local Foundation = strict({
 		ButtonVariant = require(script.Enums.ButtonVariant),
 		-- CheckboxSize is deprecated. Use InputSize instead.
 		CheckboxSize = require(script.Enums.InputSize),
-		ControlState = require(script.Enums.ControlState),
+		ControlState = ControlState,
 		CursorType = require(script.Enums.CursorType),
 		Device = require(script.Enums.Device),
 		DividerVariant = require(script.Enums.DividerVariant),
