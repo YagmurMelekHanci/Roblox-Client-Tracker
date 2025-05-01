@@ -49,47 +49,49 @@ MAIN:
   CALL R10 2 1
   MOVE R11 R3
   LOADK R12 K32 [">> .FindReplaceAll-SearchBox-SearchBar"]
-  NEWTABLE R13 0 0
+  DUPTABLE R13 K34 [{"ClipsDescendants"}]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K33 ["ClipsDescendants"]
   NEWTABLE R14 0 2
   MOVE R15 R3
-  LOADK R16 K33 [">> UIStroke"]
-  DUPTABLE R17 K36 [{"Color", "Thickness"}]
-  LOADK R18 K37 ["$SemanticColorActionPrimaryBrandFill"]
-  SETTABLEKS R18 R17 K34 ["Color"]
-  LOADK R18 K38 [1.5]
-  SETTABLEKS R18 R17 K35 ["Thickness"]
+  LOADK R16 K35 [">> UIStroke"]
+  DUPTABLE R17 K38 [{"Color", "Thickness"}]
+  LOADK R18 K39 ["$SemanticColorActionPrimaryBrandFill"]
+  SETTABLEKS R18 R17 K36 ["Color"]
+  LOADK R18 K40 [1.5]
+  SETTABLEKS R18 R17 K37 ["Thickness"]
   CALL R15 2 1
   MOVE R16 R3
-  LOADK R17 K39 [">> TextBox"]
-  DUPTABLE R18 K49 [{"AnchorPoint", "BackgroundTransparency", "BorderSizePixel", "ClearTextOnFocus", "ClipsDescendants", "Font", "Position", "TextColor3", "Text", "TextSize", "TextXAlignment"}]
-  GETIMPORT R19 K51 [Vector2.new]
-  LOADK R20 K52 [0.5]
-  LOADK R21 K52 [0.5]
+  LOADK R17 K41 [">> TextBox"]
+  DUPTABLE R18 K50 [{"AnchorPoint", "BackgroundTransparency", "BorderSizePixel", "ClearTextOnFocus", "ClipsDescendants", "Font", "Position", "TextColor3", "Text", "TextSize", "TextXAlignment"}]
+  GETIMPORT R19 K52 [Vector2.new]
+  LOADK R20 K53 [0.5]
+  LOADK R21 K53 [0.5]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K40 ["AnchorPoint"]
+  SETTABLEKS R19 R18 K42 ["AnchorPoint"]
   LOADN R19 1
   SETTABLEKS R19 R18 K14 ["BackgroundTransparency"]
   LOADN R19 0
   SETTABLEKS R19 R18 K24 ["BorderSizePixel"]
   LOADB R19 0
-  SETTABLEKS R19 R18 K41 ["ClearTextOnFocus"]
+  SETTABLEKS R19 R18 K43 ["ClearTextOnFocus"]
   LOADB R19 1
-  SETTABLEKS R19 R18 K42 ["ClipsDescendants"]
-  GETTABLEKS R19 R1 K53 ["defaultFont"]
-  SETTABLEKS R19 R18 K43 ["Font"]
-  GETIMPORT R19 K56 [UDim2.fromScale]
-  LOADK R20 K52 [0.5]
-  LOADK R21 K52 [0.5]
+  SETTABLEKS R19 R18 K33 ["ClipsDescendants"]
+  GETTABLEKS R19 R1 K54 ["defaultFont"]
+  SETTABLEKS R19 R18 K44 ["Font"]
+  GETIMPORT R19 K57 [UDim2.fromScale]
+  LOADK R20 K53 [0.5]
+  LOADK R21 K53 [0.5]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K44 ["Position"]
-  LOADK R19 K57 ["$SemanticColorContentMuted"]
-  SETTABLEKS R19 R18 K45 ["TextColor3"]
-  LOADK R19 K58 [""]
-  SETTABLEKS R19 R18 K46 ["Text"]
-  LOADK R19 K59 [17.598]
-  SETTABLEKS R19 R18 K47 ["TextSize"]
-  GETIMPORT R19 K62 [Enum.TextXAlignment.Left]
-  SETTABLEKS R19 R18 K48 ["TextXAlignment"]
+  SETTABLEKS R19 R18 K45 ["Position"]
+  LOADK R19 K58 ["$SemanticColorContentMuted"]
+  SETTABLEKS R19 R18 K46 ["TextColor3"]
+  LOADK R19 K59 [""]
+  SETTABLEKS R19 R18 K47 ["Text"]
+  LOADK R19 K60 [17.598]
+  SETTABLEKS R19 R18 K48 ["TextSize"]
+  GETIMPORT R19 K63 [Enum.TextXAlignment.Left]
+  SETTABLEKS R19 R18 K49 ["TextXAlignment"]
   CALL R16 2 -1
   SETLIST R14 R15 -1 [1]
   CALL R11 3 -1

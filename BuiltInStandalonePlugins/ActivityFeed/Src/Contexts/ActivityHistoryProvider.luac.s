@@ -11,9 +11,7 @@ PROTO_2:
   RETURN R0 2
 
 PROTO_3:
-  LOADN R0 0
-  LOADN R1 0
-  RETURN R0 2
+  RETURN R0 0
 
 PROTO_4:
   RETURN R0 0
@@ -25,85 +23,76 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
-  RETURN R0 0
-
-PROTO_8:
-  DUPTABLE R0 K10 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "useCollaborators", "DEPRECATED_usePlaceAndUniverseId", "usePlaceAndUniverseId", "useConnectToDataModelSessionEffect", "DEPRECATED_openBrowserLink", "openLink", "contextType", "getActivityHistoryManager"}]
+  DUPTABLE R0 K9 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "useCollaborators", "usePlaceAndUniverseId", "useConnectToDataModelSessionEffect", "DEPRECATED_openBrowserLink", "openLink", "contextType", "getActivityHistoryManager"}]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["activityHistoryClient"]
   SETTABLEKS R1 R0 K0 ["activityHistoryClient"]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["showSaveOrPublishPlaceToRobloxFn"]
   JUMPIF R1 [+1]
-  DUPCLOSURE R1 K11 [PROTO_0]
+  DUPCLOSURE R1 K10 [PROTO_0]
   SETTABLEKS R1 R0 K1 ["showSaveOrPublishPlaceToRobloxFn"]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["useCollaborators"]
   JUMPIF R1 [+2]
-  DUPCLOSURE R1 K12 [PROTO_1]
+  DUPCLOSURE R1 K11 [PROTO_1]
   CAPTURE UPVAL U1
   SETTABLEKS R1 R0 K2 ["useCollaborators"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["DEPRECATED_usePlaceAndUniverseId"]
+  GETTABLEKS R1 R2 K3 ["usePlaceAndUniverseId"]
   JUMPIF R1 [+1]
-  DUPCLOSURE R1 K13 [PROTO_2]
-  SETTABLEKS R1 R0 K3 ["DEPRECATED_usePlaceAndUniverseId"]
+  DUPCLOSURE R1 K12 [PROTO_2]
+  SETTABLEKS R1 R0 K3 ["usePlaceAndUniverseId"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K4 ["usePlaceAndUniverseId"]
+  GETTABLEKS R1 R2 K4 ["useConnectToDataModelSessionEffect"]
   JUMPIF R1 [+1]
-  DUPCLOSURE R1 K14 [PROTO_3]
-  SETTABLEKS R1 R0 K4 ["usePlaceAndUniverseId"]
+  DUPCLOSURE R1 K13 [PROTO_3]
+  SETTABLEKS R1 R0 K4 ["useConnectToDataModelSessionEffect"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K5 ["useConnectToDataModelSessionEffect"]
+  GETTABLEKS R1 R2 K5 ["DEPRECATED_openBrowserLink"]
   JUMPIF R1 [+1]
-  DUPCLOSURE R1 K15 [PROTO_4]
-  SETTABLEKS R1 R0 K5 ["useConnectToDataModelSessionEffect"]
+  DUPCLOSURE R1 K14 [PROTO_4]
+  SETTABLEKS R1 R0 K5 ["DEPRECATED_openBrowserLink"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["DEPRECATED_openBrowserLink"]
+  GETTABLEKS R1 R2 K6 ["openLink"]
   JUMPIF R1 [+1]
-  DUPCLOSURE R1 K16 [PROTO_5]
-  SETTABLEKS R1 R0 K6 ["DEPRECATED_openBrowserLink"]
+  DUPCLOSURE R1 K15 [PROTO_5]
+  SETTABLEKS R1 R0 K6 ["openLink"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K7 ["openLink"]
+  GETTABLEKS R1 R2 K7 ["contextType"]
+  SETTABLEKS R1 R0 K7 ["contextType"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K8 ["getActivityHistoryManager"]
   JUMPIF R1 [+1]
-  DUPCLOSURE R1 K17 [PROTO_6]
-  SETTABLEKS R1 R0 K7 ["openLink"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K8 ["contextType"]
-  SETTABLEKS R1 R0 K8 ["contextType"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K9 ["getActivityHistoryManager"]
-  JUMPIF R1 [+1]
-  DUPCLOSURE R1 K18 [PROTO_7]
-  SETTABLEKS R1 R0 K9 ["getActivityHistoryManager"]
+  DUPCLOSURE R1 K16 [PROTO_6]
+  SETTABLEKS R1 R0 K8 ["getActivityHistoryManager"]
   RETURN R0 1
 
-PROTO_9:
+PROTO_8:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useMemo"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  NEWTABLE R3 0 10
+  NEWTABLE R3 0 9
   GETTABLEKS R4 R0 K1 ["activityHistoryClient"]
   GETTABLEKS R5 R0 K2 ["showSaveOrPublishPlaceToRobloxFn"]
   GETTABLEKS R6 R0 K3 ["DEPRECATED_openBrowserLink"]
   GETTABLEKS R7 R0 K4 ["openLink"]
   GETTABLEKS R8 R0 K5 ["contextType"]
   GETTABLEKS R9 R0 K6 ["useCollaborators"]
-  GETTABLEKS R10 R0 K7 ["DEPRECATED_usePlaceAndUniverseId"]
-  GETTABLEKS R11 R0 K8 ["usePlaceAndUniverseId"]
-  GETTABLEKS R12 R0 K9 ["useConnectToDataModelSessionEffect"]
-  GETTABLEKS R13 R0 K10 ["getActivityHistoryManager"]
-  SETLIST R3 R4 10 [1]
+  GETTABLEKS R10 R0 K7 ["usePlaceAndUniverseId"]
+  GETTABLEKS R11 R0 K8 ["useConnectToDataModelSessionEffect"]
+  GETTABLEKS R12 R0 K9 ["getActivityHistoryManager"]
+  SETLIST R3 R4 9 [1]
   CALL R1 2 1
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K11 ["createElement"]
+  GETTABLEKS R2 R3 K10 ["createElement"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K12 ["Provider"]
-  DUPTABLE R4 K14 [{"value"}]
-  SETTABLEKS R1 R4 K13 ["value"]
-  GETTABLEKS R5 R0 K15 ["children"]
+  GETTABLEKS R3 R4 K11 ["Provider"]
+  DUPTABLE R4 K13 [{"value"}]
+  SETTABLEKS R1 R4 K12 ["value"]
+  GETTABLEKS R5 R0 K14 ["children"]
   CALL R2 3 -1
   RETURN R2 -1
 
@@ -128,7 +117,7 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["SharedTypes"]
   CALL R3 1 1
   NEWTABLE R4 0 0
-  DUPCLOSURE R5 K12 [PROTO_9]
+  DUPCLOSURE R5 K12 [PROTO_8]
   CAPTURE VAL R1
   CAPTURE VAL R4
   CAPTURE VAL R2

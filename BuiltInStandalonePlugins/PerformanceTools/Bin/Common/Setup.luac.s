@@ -1,11 +1,17 @@
 PROTO_0:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["GetFFlagStudioPerfToolsQActionButton"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+2]
+  LOADK R3 K1 ["performanceToolsButton"]
+  RETURN R3 1
   MOVE R3 R0
   MOVE R4 R1
   MOVE R5 R2
-  LOADK R6 K0 ["SceneBudgetThermometer"]
-  LOADK R7 K1 ["Button"]
-  CALL R3 4 -1
-  RETURN R3 -1
+  LOADK R6 K2 ["SceneBudgetThermometer"]
+  LOADK R7 K3 ["Button"]
+  CALL R3 4 1
+  RETURN R3 1
 
 PROTO_1:
   MOVE R3 R0
@@ -17,13 +23,19 @@ PROTO_1:
   RETURN R3 -1
 
 PROTO_2:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["GetFFlagStudioPerfToolsQActionButton"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+2]
+  LOADK R3 K1 ["performanceToolsToolbar"]
+  RETURN R3 1
   MOVE R3 R0
   MOVE R4 R1
   MOVE R5 R2
-  LOADK R6 K0 ["Plugin"]
-  LOADK R7 K1 ["Toolbar"]
-  CALL R3 4 -1
-  RETURN R3 -1
+  LOADK R6 K2 ["Plugin"]
+  LOADK R7 K3 ["Toolbar"]
+  CALL R3 4 1
+  RETURN R3 1
 
 PROTO_3:
   MOVE R3 R0
@@ -40,6 +52,7 @@ PROTO_4:
   SETTABLEKS R2 R0 K0 ["Name"]
   DUPTABLE R2 K6 [{"getName", "getDescription", "clickableWhenViewportHidden", "icon", "enabled"}]
   DUPCLOSURE R3 K7 [PROTO_0]
+  CAPTURE UPVAL U1
   SETTABLEKS R3 R2 K1 ["getName"]
   DUPCLOSURE R3 K8 [PROTO_1]
   SETTABLEKS R3 R2 K2 ["getDescription"]
@@ -53,11 +66,12 @@ PROTO_4:
   SETTABLEKS R0 R3 K10 ["plugin"]
   LOADK R4 K17 ["PerformanceTools"]
   SETTABLEKS R4 R3 K11 ["pluginName"]
-  GETUPVAL R4 1
-  SETTABLEKS R4 R3 K12 ["translationResourceTable"]
   GETUPVAL R4 2
+  SETTABLEKS R4 R3 K12 ["translationResourceTable"]
+  GETUPVAL R4 3
   SETTABLEKS R4 R3 K13 ["fallbackResourceTable"]
   DUPCLOSURE R4 K18 [PROTO_2]
+  CAPTURE UPVAL U1
   SETTABLEKS R4 R3 K14 ["getToolbarName"]
   SETTABLEKS R2 R3 K15 ["buttonInfo"]
   DUPTABLE R4 K23 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
@@ -78,19 +92,14 @@ PROTO_4:
   GETIMPORT R5 K34 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R5 R4 K22 ["zIndexBehavior"]
   SETTABLEKS R4 R3 K35 ["dockWidgetInfo"]
-  GETUPVAL R5 3
+  GETUPVAL R5 4
   GETTABLEKS R4 R5 K36 ["build"]
   MOVE R5 R3
   CALL R4 1 1
-  GETTABLEKS R5 R4 K37 ["pluginLoader"]
-  NAMECALL R5 R5 K38 ["waitForUserInteraction"]
-  CALL R5 1 1
-  JUMPIF R5 [+1]
-  RETURN R0 0
-  MOVE R6 R1
-  MOVE R7 R0
-  MOVE R8 R4
-  CALL R6 2 0
+  MOVE R5 R1
+  MOVE R6 R0
+  MOVE R7 R4
+  CALL R5 2 0
   RETURN R0 0
 
 MAIN:
@@ -112,9 +121,15 @@ MAIN:
   GETTABLEKS R6 R7 K10 ["Resources"]
   GETTABLEKS R5 R6 K11 ["Localization"]
   GETTABLEKS R4 R5 K13 ["LocalizedStrings"]
-  DUPCLOSURE R5 K14 [PROTO_4]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K14 ["Bin"]
+  GETTABLEKS R7 R8 K15 ["Common"]
+  GETTABLEKS R6 R7 K16 ["DefineLuaFlags"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K17 [PROTO_4]
   CAPTURE VAL R0
+  CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R3
   CAPTURE VAL R2
-  RETURN R5 1
+  RETURN R6 1

@@ -3479,7 +3479,7 @@ local function Initialize()
 	local crossExperienceVoiceJoinedListener = nil
 	local crossExperienceVoiceLeftListener = nil
 	local teardownCrossExperienceVoiceListeners = nil
-	if game:GetEngineFeature("VoiceChatSupported") then
+	if game:GetEngineFeature("VoiceChatSupported") and (if isInExperienceUIVREnabled then not isSpatial() else true) then
 		spawn(function()
 			VoiceChatServiceManager:asyncInit()
 				:andThen(function()
@@ -3581,7 +3581,7 @@ local function Initialize()
 				end)
 		end)
 	end
-	if GetFFlagEnableCrossExpVoice() then
+	if GetFFlagEnableCrossExpVoice() and (if isInExperienceUIVREnabled then not isSpatial() else true) then
 		crossExperienceVoiceJoinedListener = CrossExperienceVoiceManager.ExperienceJoined.Event:Connect(function()
 			updateInputDeviceVisibility()
 		end)
@@ -3609,7 +3609,7 @@ local function Initialize()
 			cameraPermissionGrantedListener = nil
 		end
 	end
-	if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfViewCameraSettings() then
+	if (FFlagAvatarChatCoreScriptSupport or GetFFlagSelfViewCameraSettings()) and (if isInExperienceUIVREnabled then not isSpatial() else true) then
 		local callback = function(response)
 			this.VideoOptionsEnabled = response.hasCameraPermissions
 		end
@@ -3639,10 +3639,12 @@ local function Initialize()
 		end
 	end
 
-	createCameraModeOptions(
-		not isTenFootInterface
-			and (UserInputService.TouchEnabled or UserInputService.MouseEnabled or UserInputService.KeyboardEnabled)
-	)
+	if not isInExperienceUIVREnabled then
+		createCameraModeOptions(
+			not isTenFootInterface
+				and (UserInputService.TouchEnabled or UserInputService.MouseEnabled or UserInputService.KeyboardEnabled)
+		)
+	end
 
 	local checkGamepadOptions = function()
 		if GameSettings.IsUsingGamepadCameraSensitivity then
@@ -3677,24 +3679,52 @@ local function Initialize()
 		end
 	end
 
-	if GameSettings.IsUsingCameraYInverted then
-		createCameraInvertedOptions()
-	else
-		local gamesettingsConn = nil
-		gamesettingsConn = GameSettings.Changed:connect(function(prop)
-			if prop == "IsUsingCameraYInverted" then
-				if GameSettings.IsUsingCameraYInverted then
-					gamesettingsConn:disconnect()
-					createCameraInvertedOptions()
+	if not isInExperienceUIVREnabled then
+		if GameSettings.IsUsingCameraYInverted then
+			createCameraInvertedOptions()
+		else
+			local gamesettingsConn = nil
+			gamesettingsConn = GameSettings.Changed:connect(function(prop)
+				if prop == "IsUsingCameraYInverted" then
+					if GameSettings.IsUsingCameraYInverted then
+						gamesettingsConn:disconnect()
+						createCameraInvertedOptions()
+					end
 				end
-			end
-		end)
+			end)
+		end
 	end
 
 	if isInExperienceUIVREnabled then
 		if isSpatial() then
 			createVRComfortSettingOptions()
 			createVRSafetyBubbleModeOptions()
+		else
+			createCameraModeOptions(
+				not isTenFootInterface
+					and (
+						UserInputService.TouchEnabled
+						or UserInputService.MouseEnabled
+						or UserInputService.KeyboardEnabled
+					)
+			)
+
+			if GameSettings.IsUsingCameraYInverted then
+				createCameraInvertedOptions()
+			else
+				local gamesettingsConn = nil
+				gamesettingsConn = GameSettings.Changed:connect(function(prop)
+					if prop == "IsUsingCameraYInverted" then
+						if GameSettings.IsUsingCameraYInverted then
+							gamesettingsConn:disconnect()
+							createCameraInvertedOptions()
+						end
+					end
+				end)
+			end
+
+			createReducedMotionOptions()
+			createPreferredTransparencyOptions()
 		end
 	end
 
@@ -3706,8 +3736,10 @@ local function Initialize()
 	createHapticsToggle()
 	createGraphicsOptions()
 
-	createReducedMotionOptions()
-	createPreferredTransparencyOptions()
+	if not isInExperienceUIVREnabled then
+		createReducedMotionOptions()
+		createPreferredTransparencyOptions()
+	end
 
 	if GetFFlagEnablePreferredTextSizeSettingInMenus() then
 		createPreferredTextSizeOptions()
@@ -3807,6 +3839,12 @@ local function Initialize()
 	this.OpenSettingsPage = function()
 		this.PageOpen = true
 
+		if isInExperienceUIVREnabled then
+			if isSpatial() then
+				return
+			end
+		end
+
 		-- Update device info each time user opens the menu
 		-- TODO: This should be simplified by new API
 		updateAudioOptions()
@@ -3848,6 +3886,13 @@ local function Initialize()
 
 	this.CloseSettingsPage = function()
 		this.PageOpen = false
+
+		if isInExperienceUIVREnabled then
+			if isSpatial() then
+				return
+			end
+		end
+
 		teardownDeviceChangedListener()
 		if GetFFlagEnableCrossExpVoice() and teardownCrossExperienceVoiceListeners then
 			teardownCrossExperienceVoiceListeners()
@@ -3899,6 +3944,12 @@ local function Initialize()
 
 	function this:SetHub(newHubRef)
 		this.HubRef = newHubRef
+
+		if isInExperienceUIVREnabled then
+			if isSpatial() then
+				return
+			end
+		end
 
 		if isLangaugeSelectionDropdownEnabled() then
 			createTranslationOptions()

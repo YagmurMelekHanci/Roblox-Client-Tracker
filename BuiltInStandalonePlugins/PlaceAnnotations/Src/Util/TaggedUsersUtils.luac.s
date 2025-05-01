@@ -51,7 +51,7 @@ PROTO_0:
 
 PROTO_1:
   LOADN R1 0
-  LOADK R4 K0 ["%%s"]
+  LOADK R4 K0 ["@%%s"]
   NAMECALL R2 R0 K1 ["gmatch"]
   CALL R2 2 3
   FORGPREP R2
@@ -63,59 +63,83 @@ PROTO_2:
   JUMPIFNOT R1 [+2]
   JUMPIFNOTEQKS R1 K0 [""] [+2]
   RETURN R0 1
-  LOADK R5 K1 ["@%%s"]
-  LOADK R6 K2 ["%%s"]
-  NAMECALL R3 R0 K3 ["gsub"]
-  CALL R3 3 1
-  MOVE R0 R3
   NEWTABLE R3 0 0
-  GETIMPORT R4 K6 [string.split]
+  GETIMPORT R4 K3 [string.split]
   MOVE R5 R1
-  LOADK R6 K7 [","]
+  LOADK R6 K4 [","]
   CALL R4 2 1
-  GETIMPORT R5 K9 [ipairs]
+  GETIMPORT R5 K6 [ipairs]
   MOVE R6 R4
   CALL R5 1 3
   FORGPREP_INEXT R5
-  LOADK R13 K10 ["<b>@"]
+  LOADK R13 K7 ["<b>@"]
   FASTCALL1 TONUMBER R9 [+3]
   MOVE R19 R9
-  GETIMPORT R18 K12 [tonumber]
+  GETIMPORT R18 K9 [tonumber]
   CALL R18 1 1
-  NAMECALL R16 R2 K13 ["getUsername"]
+  NAMECALL R16 R2 K10 ["getUsername"]
   CALL R16 2 1
   MOVE R14 R16
-  LOADK R15 K14 ["</b>"]
+  LOADK R15 K11 ["</b>"]
   CONCAT R12 R13 R15
   FASTCALL2 TABLE_INSERT R3 R12 [+4]
   MOVE R11 R3
-  GETIMPORT R10 K17 [table.insert]
+  GETIMPORT R10 K14 [table.insert]
   CALL R10 2 0
   FORGLOOP R5 2 [inext] [-19]
-  MOVE R6 R0
-  LOADN R7 0
-  LOADK R10 K2 ["%%s"]
-  NAMECALL R8 R6 K18 ["gmatch"]
-  CALL R8 2 3
-  FORGPREP R8
-  ADDK R7 R7 K19 [1]
-  FORGLOOP R8 1 [-2]
-  MOVE R5 R7
+  LOADN R6 0
+  LOADK R9 K15 ["@%%s"]
+  NAMECALL R7 R0 K16 ["gmatch"]
+  CALL R7 2 3
+  FORGPREP R7
+  ADDK R6 R6 K17 [1]
+  FORGLOOP R7 1 [-2]
+  MOVE R5 R6
   LENGTH R6 R3
   JUMPIFNOTLT R6 R5 [+9]
-  FASTCALL2K TABLE_INSERT R3 K20 [+5]
+  FASTCALL2K TABLE_INSERT R3 K18 [+5]
   MOVE R7 R3
-  LOADK R8 K20 ["<b>@</b>"]
-  GETIMPORT R6 K17 [table.insert]
+  LOADK R8 K18 ["<b>@</b>"]
+  GETIMPORT R6 K14 [table.insert]
   CALL R6 2 0
   JUMPBACK [-11]
-  FASTCALL1 TABLE_UNPACK R3 [+3]
-  MOVE R9 R3
-  GETIMPORT R8 K22 [table.unpack]
-  CALL R8 1 -1
-  NAMECALL R6 R0 K23 ["format"]
-  CALL R6 -1 -1
-  RETURN R6 -1
+  NEWTABLE R6 0 0
+  LOADN R7 1
+  LOADN R8 1
+  LOADK R11 K19 ["()@%%s()"]
+  NAMECALL R9 R0 K16 ["gmatch"]
+  CALL R9 2 3
+  FORGPREP R9
+  MOVE R15 R6
+  MOVE R18 R8
+  SUBK R19 R12 K17 [1]
+  NAMECALL R16 R0 K20 ["sub"]
+  CALL R16 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R14 K14 [table.insert]
+  CALL R14 -1 0
+  LENGTH R14 R3
+  JUMPIFLT R14 R7 [+12]
+  GETTABLE R16 R3 R7
+  FASTCALL2 TABLE_INSERT R6 R16 [+4]
+  MOVE R15 R6
+  GETIMPORT R14 K14 [table.insert]
+  CALL R14 2 0
+  ADDK R7 R7 K17 [1]
+  ORK R8 R13 K21 [-1]
+  FORGLOOP R9 2 [-23]
+  JUMPIFEQKN R8 K21 [-1] [+10]
+  MOVE R10 R6
+  MOVE R13 R8
+  NAMECALL R11 R0 K20 ["sub"]
+  CALL R11 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R9 K14 [table.insert]
+  CALL R9 -1 0
+  GETIMPORT R9 K23 [table.concat]
+  MOVE R10 R6
+  CALL R9 1 -1
+  RETURN R9 -1
 
 PROTO_3:
   JUMPIFNOT R1 [+2]
@@ -142,7 +166,7 @@ PROTO_3:
   CALL R10 -1 0
   FORGLOOP R5 2 [inext] [-14]
   LOADN R6 0
-  LOADK R9 K13 ["%%s"]
+  LOADK R9 K13 ["@%%s"]
   NAMECALL R7 R0 K14 ["gmatch"]
   CALL R7 2 3
   FORGPREP R7
@@ -157,13 +181,43 @@ PROTO_3:
   GETIMPORT R6 K12 [table.insert]
   CALL R6 2 0
   JUMPBACK [-11]
-  FASTCALL1 TABLE_UNPACK R3 [+3]
-  MOVE R9 R3
-  GETIMPORT R8 K17 [table.unpack]
-  CALL R8 1 -1
-  NAMECALL R6 R0 K18 ["format"]
-  CALL R6 -1 -1
-  RETURN R6 -1
+  NEWTABLE R6 0 0
+  LOADN R7 1
+  LOADN R8 1
+  LOADK R11 K16 ["()%%s()"]
+  NAMECALL R9 R0 K14 ["gmatch"]
+  CALL R9 2 3
+  FORGPREP R9
+  MOVE R15 R6
+  MOVE R18 R8
+  SUBK R19 R12 K15 [1]
+  NAMECALL R16 R0 K17 ["sub"]
+  CALL R16 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R14 K12 [table.insert]
+  CALL R14 -1 0
+  LENGTH R14 R3
+  JUMPIFLT R14 R7 [+12]
+  GETTABLE R16 R3 R7
+  FASTCALL2 TABLE_INSERT R6 R16 [+4]
+  MOVE R15 R6
+  GETIMPORT R14 K12 [table.insert]
+  CALL R14 2 0
+  ADDK R7 R7 K15 [1]
+  ORK R8 R13 K18 [-1]
+  FORGLOOP R9 2 [-23]
+  JUMPIFEQKN R8 K18 [-1] [+10]
+  MOVE R10 R6
+  MOVE R13 R8
+  NAMECALL R11 R0 K17 ["sub"]
+  CALL R11 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R9 K12 [table.insert]
+  CALL R9 -1 0
+  GETIMPORT R9 K20 [table.concat]
+  MOVE R10 R6
+  CALL R9 1 -1
+  RETURN R9 -1
 
 PROTO_4:
   GETUPVAL R5 0
@@ -306,37 +360,39 @@ PROTO_7:
   RETURN R5 1
 
 PROTO_8:
+  GETTABLEKS R5 R0 K0 ["Parent"]
+  JUMPIFNOT R5 [+10]
+  GETTABLEKS R5 R0 K0 ["Parent"]
+  LOADK R7 K1 ["Annotation"]
+  NAMECALL R5 R5 K2 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+3]
   GETTABLEKS R4 R0 K0 ["Parent"]
-  JUMPIFNOT R4 [+10]
-  GETTABLEKS R4 R0 K0 ["Parent"]
-  LOADK R6 K1 ["Annotation"]
-  NAMECALL R4 R4 K2 ["IsA"]
-  CALL R4 2 1
-  JUMPIFNOT R4 [+3]
-  GETTABLEKS R3 R0 K0 ["Parent"]
   JUMP [+1]
-  MOVE R3 R0
-  GETUPVAL R4 0
-  MOVE R5 R3
-  CALL R4 1 1
-  NAMECALL R5 R3 K3 ["GetStringUniqueId"]
-  CALL R5 1 1
-  NAMECALL R6 R0 K3 ["GetStringUniqueId"]
-  CALL R6 1 1
-  JUMPIFEQ R5 R6 [+10]
-  GETTABLEKS R5 R1 K4 ["syncStandaloneAnnotation"]
-  MOVE R6 R2
-  MOVE R7 R3
-  DUPTABLE R8 K6 [{"TaggedUsersInThread"}]
-  SETTABLEKS R4 R8 K5 ["TaggedUsersInThread"]
-  CALL R5 3 0
-  RETURN R0 0
-  GETTABLEKS R5 R1 K4 ["syncStandaloneAnnotation"]
-  MOVE R6 R2
+  MOVE R4 R0
+  GETUPVAL R5 0
+  MOVE R6 R4
   MOVE R7 R0
-  DUPTABLE R8 K6 [{"TaggedUsersInThread"}]
-  SETTABLEKS R4 R8 K5 ["TaggedUsersInThread"]
-  CALL R5 3 0
+  MOVE R8 R3
+  CALL R5 3 1
+  NAMECALL R6 R4 K3 ["GetStringUniqueId"]
+  CALL R6 1 1
+  NAMECALL R7 R0 K3 ["GetStringUniqueId"]
+  CALL R7 1 1
+  JUMPIFEQ R6 R7 [+10]
+  GETTABLEKS R6 R1 K4 ["syncStandaloneAnnotation"]
+  MOVE R7 R2
+  MOVE R8 R4
+  DUPTABLE R9 K6 [{"TaggedUsersInThread"}]
+  SETTABLEKS R5 R9 K5 ["TaggedUsersInThread"]
+  CALL R6 3 0
+  RETURN R0 0
+  GETTABLEKS R6 R1 K4 ["syncStandaloneAnnotation"]
+  MOVE R7 R2
+  MOVE R8 R0
+  DUPTABLE R9 K6 [{"TaggedUsersInThread"}]
+  SETTABLEKS R5 R9 K5 ["TaggedUsersInThread"]
+  CALL R6 3 0
   RETURN R0 0
 
 PROTO_9:
@@ -351,31 +407,6 @@ PROTO_9:
   CALL R4 3 0
   RETURN R0 0
 
-PROTO_10:
-  JUMPIFNOT R1 [+28]
-  LOADK R8 K0 ["Annotation"]
-  NAMECALL R6 R1 K1 ["IsA"]
-  CALL R6 2 1
-  JUMPIFNOT R6 [+23]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K2 ["Delete"]
-  JUMPIFNOTEQ R2 R6 [+19]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K3 ["Success"]
-  JUMPIFNOTEQ R3 R6 [+14]
-  GETUPVAL R6 2
-  MOVE R7 R1
-  MOVE R8 R0
-  LOADB R9 1
-  CALL R6 3 1
-  GETTABLEKS R7 R4 K4 ["syncStandaloneAnnotation"]
-  MOVE R8 R5
-  MOVE R9 R1
-  DUPTABLE R10 K6 [{"TaggedUsersInThread"}]
-  SETTABLEKS R6 R10 K5 ["TaggedUsersInThread"]
-  CALL R7 3 0
-  RETURN R0 0
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -387,46 +418,31 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Cryo"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Enums"]
-  GETTABLEKS R3 R4 K10 ["AnnotationRequestType"]
+  GETTABLEKS R4 R0 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Enums"]
-  GETTABLEKS R4 R5 K11 ["AnnotationRequestStatus"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Types"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K13 [PROTO_0]
-  DUPCLOSURE R6 K14 [PROTO_1]
-  DUPCLOSURE R7 K15 [PROTO_2]
-  DUPCLOSURE R8 K16 [PROTO_3]
-  DUPCLOSURE R9 K17 [PROTO_4]
+  DUPCLOSURE R3 K10 [PROTO_0]
+  DUPCLOSURE R4 K11 [PROTO_1]
+  DUPCLOSURE R5 K12 [PROTO_2]
+  DUPCLOSURE R6 K13 [PROTO_3]
+  DUPCLOSURE R7 K14 [PROTO_4]
   CAPTURE VAL R1
-  DUPCLOSURE R10 K18 [PROTO_5]
+  DUPCLOSURE R8 K15 [PROTO_5]
   CAPTURE VAL R1
-  DUPCLOSURE R11 K19 [PROTO_6]
+  DUPCLOSURE R9 K16 [PROTO_6]
   CAPTURE VAL R1
-  DUPCLOSURE R12 K20 [PROTO_7]
-  DUPCLOSURE R13 K21 [PROTO_8]
-  CAPTURE VAL R12
-  DUPCLOSURE R14 K22 [PROTO_9]
-  CAPTURE VAL R12
-  DUPCLOSURE R15 K23 [PROTO_10]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R12
-  DUPTABLE R16 K33 [{"GetTaggedUsersAndAnonymizedContents", "GetContentsWithTags", "GetContentsWithBoldTags", "IsUserTagged", "IsUserTaggedInThread", "GetTaggedUsersInThread", "MaybeUpdateTaggedUsersInThreadFromRequest", "UpdateAnnotationOrParentTaggedUsersInThread", "UpdateAnnotationTaggedUsersInThread"}]
-  SETTABLEKS R5 R16 K24 ["GetTaggedUsersAndAnonymizedContents"]
-  SETTABLEKS R8 R16 K25 ["GetContentsWithTags"]
-  SETTABLEKS R7 R16 K26 ["GetContentsWithBoldTags"]
-  SETTABLEKS R10 R16 K27 ["IsUserTagged"]
-  SETTABLEKS R11 R16 K28 ["IsUserTaggedInThread"]
-  SETTABLEKS R12 R16 K29 ["GetTaggedUsersInThread"]
-  SETTABLEKS R15 R16 K30 ["MaybeUpdateTaggedUsersInThreadFromRequest"]
-  SETTABLEKS R13 R16 K31 ["UpdateAnnotationOrParentTaggedUsersInThread"]
-  SETTABLEKS R14 R16 K32 ["UpdateAnnotationTaggedUsersInThread"]
-  RETURN R16 1
+  DUPCLOSURE R10 K17 [PROTO_7]
+  DUPCLOSURE R11 K18 [PROTO_8]
+  CAPTURE VAL R10
+  DUPCLOSURE R12 K19 [PROTO_9]
+  CAPTURE VAL R10
+  DUPTABLE R13 K28 [{"GetTaggedUsersAndAnonymizedContents", "GetContentsWithTags", "GetContentsWithBoldTags", "IsUserTagged", "IsUserTaggedInThread", "GetTaggedUsersInThread", "UpdateAnnotationOrParentTaggedUsersInThread", "UpdateAnnotationTaggedUsersInThread"}]
+  SETTABLEKS R3 R13 K20 ["GetTaggedUsersAndAnonymizedContents"]
+  SETTABLEKS R6 R13 K21 ["GetContentsWithTags"]
+  SETTABLEKS R5 R13 K22 ["GetContentsWithBoldTags"]
+  SETTABLEKS R8 R13 K23 ["IsUserTagged"]
+  SETTABLEKS R9 R13 K24 ["IsUserTaggedInThread"]
+  SETTABLEKS R10 R13 K25 ["GetTaggedUsersInThread"]
+  SETTABLEKS R11 R13 K26 ["UpdateAnnotationOrParentTaggedUsersInThread"]
+  SETTABLEKS R12 R13 K27 ["UpdateAnnotationTaggedUsersInThread"]
+  RETURN R13 1

@@ -33,6 +33,12 @@ local function expandAll(children: Types.Array<Types.StoryItem>, mut_result: { [
 	end)
 end
 
+-- We store states separetely, so if you erase the filter we can restore the expansion you had before
+local function getExpandedStoriesKey(state: State)
+	local isSearching = #state.searchFilter > 0
+	return isSearching and "expandedSearchStories" or "expandedStories"
+end
+
 export type State = {
 	theme: string?,
 	platform: string,
@@ -68,9 +74,13 @@ return Rodux.createReducer({
 		})
 	end,
 	[SetStories.name] = function(state: State, action: SetStories.Props): State
+		local searchStories = StoryTreeUtils.applySearch(action.stories, state.searchFilter)
+		local expandedSearchStories = {}
+		expandAll(searchStories, expandedSearchStories)
 		return join(state, {
 			stories = action.stories,
-			searchStories = StoryTreeUtils.applySearch(action.stories, state.searchFilter),
+			searchStories = searchStories,
+			expandedSearchStories = expandedSearchStories,
 		})
 	end,
 	[SetSearch.name] = function(state: State, action: SetSearch.Props): State
@@ -84,8 +94,7 @@ return Rodux.createReducer({
 		})
 	end,
 	[SelectStory.name] = function(state: State, action: SelectStory.Props): State
-		local isSearching = #state.searchFilter > 0
-		local keyName = isSearching and "expandedSearchStories" or "expandedStories"
+		local keyName = getExpandedStoriesKey(state)
 		return joinDeep(
 			join(state, {
 				selectedStory = action.story,
@@ -98,8 +107,7 @@ return Rodux.createReducer({
 		)
 	end,
 	[ToggleStory.name] = function(state: State, action: ToggleStory.Props): State
-		local isSearching = #state.searchFilter > 0
-		local keyName = isSearching and "expandedSearchStories" or "expandedStories"
+		local keyName = getExpandedStoriesKey(state)
 		return joinDeep(state, {
 			[keyName] = action.change,
 		})

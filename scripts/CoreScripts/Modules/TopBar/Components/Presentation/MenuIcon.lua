@@ -60,6 +60,8 @@ if isNewInGameMenuEnabled() then
 end
 
 local isNewTiltIconEnabled = require(RobloxGui.Modules.isNewTiltIconEnabled)
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
 local IconButton = require(script.Parent.IconButton)
 
@@ -115,15 +117,20 @@ function MenuIcon:init()
 			clickLatched = if tooltipEnabled then true else nil,
 		})
 
-		if VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) then
-			-- in the new VR System, the menu icon opens the gamepad menu instead
-			InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
+		if isInExperienceUIVREnabled then
+			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+			SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
 		else
-			if isNewInGameMenuEnabled() then
+			if VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) then
+				-- in the new VR System, the menu icon opens the gamepad menu instead
 				InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
 			else
-				local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-				SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
+				if isNewInGameMenuEnabled() then
+					InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
+				else
+					local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+					SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
+				end
 			end
 		end
 	end
@@ -237,7 +244,12 @@ function MenuIcon:init()
 end
 
 function MenuIcon:render()
-	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
+	local visible
+	if isInExperienceUIVREnabled then
+		visible = true
+	else
+		visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
+	end
 
 	local onAreaChanged = function(rbx)
 		if rbx then
@@ -337,8 +349,6 @@ function MenuIcon:render()
 				SelectionBehaviorLeft = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then Enum.SelectionBehavior.Stop else nil :: never,
 				SelectionBehaviorUp = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then Enum.SelectionBehavior.Stop else nil :: never,
 				SelectionBehaviorDown =  if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then Enum.SelectionBehavior.Stop else nil :: never,
-				
-
 				[Roact.Change.AbsoluteSize] = onChange,
 				[Roact.Change.AbsolutePosition] = onChange,
 			}, {

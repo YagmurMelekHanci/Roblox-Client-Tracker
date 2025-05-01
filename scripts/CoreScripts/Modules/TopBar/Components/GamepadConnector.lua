@@ -7,7 +7,6 @@ buttons to navigate to and away from Unibar + Toast Notifications.
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
-local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local GamepadService = game:GetService("GamepadService")
@@ -21,6 +20,7 @@ local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagIgnoreDevGamepadBindingsMenuOpen = SharedFlags.FFlagIgnoreDevGamepadBindingsMenuOpen
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
+local FFlagChromeFixDelayLoadControlLock = SharedFlags.FFlagChromeFixDelayLoadControlLock
 
 local Modules = script.Parent.Parent.Parent
 local Chrome = Modules.Chrome
@@ -210,6 +210,11 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 		(not FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.End 
 		  or FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.Begin) then
 		if FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole then
+			if FFlagChromeFixDelayLoadControlLock then
+				if ChromeService:integrations().nine_dot == nil then
+					return Enum.ContextActionResult.Pass
+				end
+			end
 			if self:getSelectedCoreObject():get() == nil then
 				ChromeService:enableFocusNav()
 				if FFlagIgnoreDevGamepadBindingsMenuOpen then
@@ -220,6 +225,11 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 				GuiService.SelectedCoreObject = nil
 			end
 		else
+			if FFlagChromeFixDelayLoadControlLock then
+				if ChromeService:integrations().nine_dot == nil then
+					return Enum.ContextActionResult.Pass
+				end
+			end
 			self:_toggleUnibarMenu()
 		end
 		return Enum.ContextActionResult.Sink

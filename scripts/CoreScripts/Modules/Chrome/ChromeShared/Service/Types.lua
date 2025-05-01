@@ -26,6 +26,7 @@ export type ShortcutProps = {
 	integration: IntegrationId?,
 	actionName: string?,
 	activated: (() -> Enum.ContextActionResult?)?,
+	availability: ChromeUtils.AvailabilitySignal,
 }
 export type ShortcutRegisterProps = {
 	id: ShortcutId,
@@ -34,6 +35,7 @@ export type ShortcutRegisterProps = {
 	integration: IntegrationId?,
 	actionName: string?,
 	activated: (() -> Enum.ContextActionResult?)?,
+	availability: ChromeUtils.AvailabilitySignal?,
 }
 export type ShortcutBarId = string
 export type ShortcutBarProps = ShortcutIdList

@@ -126,17 +126,15 @@ MAIN:
   CALL R20 2 1
   MOVE R21 R3
   LOADK R22 K51 ["> TextLabel"]
-  DUPTABLE R23 K57 [{"TextColor3", "TextTransparency", "TextSize", "Font", "TextXAlignment", "Size", "AutomaticSize", "BackgroundTransparency"}]
-  LOADK R24 K58 ["$SemanticColorContentMuted"]
+  DUPTABLE R23 K56 [{"TextColor3", "TextSize", "Font", "TextXAlignment", "Size", "AutomaticSize", "BackgroundTransparency"}]
+  LOADK R24 K57 ["$SecondaryContrast"]
   SETTABLEKS R24 R23 K52 ["TextColor3"]
-  LOADK R24 K59 [0.2]
-  SETTABLEKS R24 R23 K53 ["TextTransparency"]
   LOADN R24 16
-  SETTABLEKS R24 R23 K54 ["TextSize"]
-  LOADK R24 K60 ["$Font"]
-  SETTABLEKS R24 R23 K55 ["Font"]
-  GETIMPORT R24 K62 [Enum.TextXAlignment.Left]
-  SETTABLEKS R24 R23 K56 ["TextXAlignment"]
+  SETTABLEKS R24 R23 K53 ["TextSize"]
+  LOADK R24 K58 ["$Font"]
+  SETTABLEKS R24 R23 K54 ["Font"]
+  GETIMPORT R24 K60 [Enum.TextXAlignment.Left]
+  SETTABLEKS R24 R23 K55 ["TextXAlignment"]
   GETIMPORT R24 K21 [UDim2.fromScale]
   LOADN R25 1
   LOADN R26 0
@@ -149,7 +147,7 @@ MAIN:
   NEWTABLE R24 0 1
   MOVE R25 R3
   LOADK R26 K27 ["::UIPadding"]
-  DUPTABLE R27 K63 [{"PaddingTop", "PaddingLeft"}]
+  DUPTABLE R27 K61 [{"PaddingTop", "PaddingLeft"}]
   GETIMPORT R28 K32 [UDim.new]
   LOADN R29 0
   LOADN R30 5

@@ -2,35 +2,38 @@ PROTO_0:
   GETIMPORT R2 K1 [game]
   GETTABLEKS R1 R2 K2 ["Workspace"]
   GETTABLEKS R0 R1 K3 ["CurrentCamera"]
-  GETTABLEKS R2 R0 K5 ["ViewportSize"]
-  DIVK R1 R2 K4 [2]
-  GETTABLEKS R4 R1 K6 ["X"]
-  GETTABLEKS R5 R1 K7 ["Y"]
+  JUMPIF R0 [+2]
+  LOADK R1 K4 [{0, 0, 0}]
+  RETURN R1 1
+  GETTABLEKS R2 R0 K6 ["ViewportSize"]
+  DIVK R1 R2 K5 [2]
+  GETTABLEKS R4 R1 K7 ["X"]
+  GETTABLEKS R5 R1 K8 ["Y"]
   LOADN R6 0
-  NAMECALL R2 R0 K8 ["ViewportPointToRay"]
+  NAMECALL R2 R0 K9 ["ViewportPointToRay"]
   CALL R2 4 1
-  GETIMPORT R3 K11 [Ray.new]
-  GETTABLEKS R4 R2 K12 ["Origin"]
-  GETTABLEKS R6 R2 K14 ["Direction"]
-  MULK R5 R6 K13 [2048]
+  GETIMPORT R3 K12 [Ray.new]
+  GETTABLEKS R4 R2 K13 ["Origin"]
+  GETTABLEKS R6 R2 K15 ["Direction"]
+  MULK R5 R6 K14 [2048]
   CALL R3 2 1
-  GETIMPORT R4 K16 [RaycastParams.new]
+  GETIMPORT R4 K17 [RaycastParams.new]
   CALL R4 0 1
   LOADB R5 1
-  SETTABLEKS R5 R4 K17 ["BruteForceAllSlow"]
+  SETTABLEKS R5 R4 K18 ["BruteForceAllSlow"]
   GETIMPORT R6 K1 [game]
   GETTABLEKS R5 R6 K2 ["Workspace"]
-  GETTABLEKS R7 R3 K12 ["Origin"]
-  GETTABLEKS R8 R3 K14 ["Direction"]
+  GETTABLEKS R7 R3 K13 ["Origin"]
+  GETTABLEKS R8 R3 K15 ["Direction"]
   MOVE R9 R4
-  NAMECALL R5 R5 K18 ["Raycast"]
+  NAMECALL R5 R5 K19 ["Raycast"]
   CALL R5 4 1
   JUMPIFNOT R5 [+3]
-  GETTABLEKS R6 R5 K19 ["Position"]
+  GETTABLEKS R6 R5 K20 ["Position"]
   RETURN R6 1
-  GETTABLEKS R8 R0 K20 ["CFrame"]
-  GETTABLEKS R7 R8 K21 ["p"]
-  GETTABLEKS R9 R2 K14 ["Direction"]
+  GETTABLEKS R8 R0 K21 ["CFrame"]
+  GETTABLEKS R7 R8 K20 ["Position"]
+  GETTABLEKS R9 R2 K15 ["Direction"]
   MULK R8 R9 K22 [64]
   ADD R6 R7 R8
   RETURN R6 1

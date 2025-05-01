@@ -6,7 +6,7 @@ PROTO_0:
 
 PROTO_1:
   GETUPVAL R0 0
-  JUMPIFNOT R0 [+61]
+  JUMPIFNOT R0 [+73]
   GETUPVAL R1 1
   GETTABLEKS R0 R1 K0 ["SceneTriangleCount"]
   GETUPVAL R2 1
@@ -37,20 +37,27 @@ PROTO_1:
   NAMECALL R5 R5 K12 ["GetValue"]
   CALL R5 1 1
   MOVE R2 R5
-  NEWTABLE R5 4 0
+  NEWTABLE R5 8 0
   SETTABLEKS R0 R5 K13 ["triangleCount"]
   SETTABLEKS R1 R5 K14 ["drawCallCount"]
   SETTABLEKS R2 R5 K15 ["renderThreadAverageMs"]
   SETTABLEKS R3 R5 K16 ["taskThreadAverageMs"]
+  GETIMPORT R8 K4 [plugin]
+  GETTABLEKS R7 R8 K17 ["HostDataModelType"]
+  GETIMPORT R8 K21 [Enum.StudioDataModelType.Edit]
+  JUMPIFEQ R7 R8 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  SETTABLEKS R6 R5 K22 ["isEditDM"]
   GETIMPORT R6 K4 [plugin]
-  LOADK R8 K17 ["SetStateAndRefresh"]
+  LOADK R8 K23 ["SetStateAndRefresh"]
   MOVE R9 R5
-  NAMECALL R6 R6 K18 ["Invoke"]
+  NAMECALL R6 R6 K24 ["Invoke"]
   CALL R6 3 0
-  GETIMPORT R6 K20 [wait]
-  LOADK R7 K21 [0.25]
+  GETIMPORT R6 K26 [wait]
+  LOADK R7 K27 [0.25]
   CALL R6 1 0
-  JUMPBACK [-63]
+  JUMPBACK [-75]
   RETURN R0 0
 
 PROTO_2:

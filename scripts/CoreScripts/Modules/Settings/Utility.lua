@@ -63,6 +63,9 @@ local isPreferredTextSizePropValid, _result = pcall(function() -- TODO(UIBLOX-10
 	return GuiService.PreferredTextSize
 end)
 
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+
 ------------------ Modules --------------------
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -840,9 +843,19 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			return
 		end
 		if VRService.VREnabled then
-			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
-			DropDownFullscreenFrame.Parent = Panel3D.Get("SettingsMenu"):GetGUI()
-			DropDownFullscreenFrame.BackgroundTransparency = 1
+			if isInExperienceUIVREnabled then
+				local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+				local PanelType = VrSpatialUi.Constants.PanelType
+				local UIManager = VrSpatialUi.UIManager
+				local panelObject = UIManager.getInstance():getPanelObject(PanelType.MoreMenu)
+
+				DropDownFullscreenFrame.Parent = panelObject
+				DropDownFullscreenFrame.BackgroundTransparency = DROPDOWN_BG_TRANSPARENCY
+			else
+				local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
+				DropDownFullscreenFrame.Parent = Panel3D.Get("SettingsMenu"):GetGUI()
+				DropDownFullscreenFrame.BackgroundTransparency = 1
+			end
 		else
 			DropDownFullscreenFrame.Parent = CoreGui.RobloxGui
 			DropDownFullscreenFrame.BackgroundTransparency = DROPDOWN_BG_TRANSPARENCY
@@ -915,8 +928,10 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		active = false
 
 		if VRService.VREnabled then
-			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
-			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0)
+			if not isInExperienceUIVREnabled then
+				local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
+				Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0)
+			end
 		end
 	end
 	local noOpFunc = function() end
@@ -931,8 +946,10 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 
 		DropDownFullscreenFrame.Visible = true
 		if VRService.VREnabled then
-			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
-			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0.5)
+			if not isInExperienceUIVREnabled then
+				local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
+				Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0.5)
+			end
 		end
 
 		lastSelectedCoreObject = this.DropDownFrame
@@ -1772,16 +1789,26 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		end
 		local Panel3D, settingsPanel = nil, nil
 		if VRService.VREnabled then
-			Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
-			settingsPanel = Panel3D.Get("SettingsMenu")
-			parent = settingsPanel:GetGUI()
+			if isInExperienceUIVREnabled then
+				local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+				local PanelType = VrSpatialUi.Constants.PanelType
+				local UIManager = VrSpatialUi.UIManager
+				local panelObject = UIManager.getInstance():getPanelObject(PanelType.MoreMenu)
+				parent = panelObject
+			else
+				Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
+				settingsPanel = Panel3D.Get("SettingsMenu")
+				parent = settingsPanel:GetGUI()
+			end
 		else
 			parent = CoreGui.RobloxGui
 		end
 		if AlertViewBacking and AlertViewBacking.Parent ~= nil then
 			AlertViewBacking.Parent = parent
 			if VRService.VREnabled then
-				settingsPanel:SetSubpanelDepth(AlertViewBacking, 0.5)
+				if not isInExperienceUIVREnabled then
+					settingsPanel:SetSubpanelDepth(AlertViewBacking, 0.5)
+				end
 			end
 		end
 	end
@@ -1801,7 +1828,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		Parent = parent,
 	})
 	onVREnabled("VREnabled")
-	if hasBackground or VRService.VREnabled then
+	if hasBackground or (if isInExperienceUIVREnabled then false else VRService.VREnabled) then
 		AlertViewBacking.ImageTransparency = 0
 	else
 		AlertViewBacking.Size = UDim2.new(0.8, 0, 0, 350)
@@ -1866,8 +1893,10 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 			return
 		end
 		if VRService.VREnabled then
-			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
-			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(AlertViewBacking, 0)
+			if not isInExperienceUIVREnabled then
+				local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
+				Panel3D.Get("SettingsMenu"):SetSubpanelDepth(AlertViewBacking, 0)
+			end
 		end
 		AlertViewBacking:Destroy()
 		AlertViewBacking = nil
@@ -1917,7 +1946,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		Enum.KeyCode.ButtonA
 	)
 
-	if settingsHub and not VRService.VREnabled then
+	if settingsHub and (if isInExperienceUIVREnabled then true else not VRService.VREnabled) then
 		settingsHub:HideBar()
 		settingsHub.Pages.CurrentPage:Hide(1, 1)
 	end

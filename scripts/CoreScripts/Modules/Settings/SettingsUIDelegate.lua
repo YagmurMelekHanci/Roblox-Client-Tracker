@@ -7,15 +7,49 @@ local Observable = require(CorePackages.Workspace.Packages.Observable)
 local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
 local PanelType = VrSpatialUi.Constants.PanelType
 local UIManager = VrSpatialUi.UIManager
+local Theme = require(script.Parent.Theme)
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local GetStyleTokens = require(RobloxGui.Modules.Chrome.ChromeShared.Utility.GetStyleTokens)
+local FIntSpatialUIDarkenBackgroundTransparency = game:DefineFastInt("SpatialUIDarkenBackgroundTransparency", 0)
+
+type ThemeItem = UIBlox.ThemeItem
 
 local UI_CONFIG_DEFAULT = {
-	WIDTH = 800,
-	HEIGHT = 600,
+	HUB_BAR_WIDTH = 800,
+	ASPECT_RATIO = 800 / 600,
 }
 
 local UI_CONFIG_VR = {
 	BOTTOM_BUTTON_MAX_SIZE_IN_PIXEL = 233,
 }
+
+local StyleTokens = nil
+local loadStyleTokens = function()
+	if StyleTokens == nil then
+		StyleTokens = GetStyleTokens()
+	end
+	return StyleTokens
+end
+
+local function setFieldWithBackup(
+	instance: { [string]: any },
+	infoForRestore: { [string]: any }?,
+	key: string,
+	newValue: any?
+)
+	if infoForRestore ~= nil then
+		local original = instance[key]
+		infoForRestore[key] = original
+		instance[key] = newValue
+	end
+end
+
+local function restoreFieldFromBackup(instance: { [string]: any }, infoForRestore: { [string]: any }?, key: string)
+	if infoForRestore ~= nil then
+		instance[key] = infoForRestore[key]
+	end
+end
 
 local SettingsUIDelegate = {}
 SettingsUIDelegate.__index = SettingsUIDelegate
@@ -23,12 +57,15 @@ SettingsUIDelegate.__index = SettingsUIDelegate
 function SettingsUIDelegate.new(settingsHub)
 	local self = {
 		_settingsHub = settingsHub,
-		_originalShieldParent = nil,
+		_originalShieldConfig = nil,
+		_backgroundUICorner = nil,
 		_originalMenuAspectRatio = nil,
 		_vrEnabled = false,
-		_settingsConnection = nil,
+		_surfaceGuiEnabledConnection = nil,
 		_topBarConnection = nil,
 		_userGui = nil,
+		_windowsVisibilityValues = {},
+		_windowsDisconnectCallbacks = {},
 	}
 	setmetatable(self, SettingsUIDelegate)
 	return self
@@ -50,17 +87,26 @@ function SettingsUIDelegate.enableVR(self)
 	end
 	local surfaceGui = uiCreationResult.panelObject :: SurfaceGui
 	local settingsHubVisibilityValue = Observable.ObservableValue.new(self._settingsHub.Visible)
-	local connection = self._settingsHub.SettingsShowSignal:connect(function(visible)
-		settingsHubVisibilityValue:set(visible)
-		surfaceGui.Enabled = visible
+	self._surfaceGuiEnabledConnection = settingsHubVisibilityValue:connect(function()
+		surfaceGui.Enabled = settingsHubVisibilityValue:get()
 	end)
-	self._settingsConnection = connection
+	self:connectWindowsVisibility(settingsHubVisibilityValue)
 	UIManager.getInstance():connectPanelVisibility(PanelType.MoreMenu, settingsHubVisibilityValue)
-	self._originalShieldParent = self._settingsHub.Shield.Parent
-	self._settingsHub.Shield.Parent = surfaceGui
+	self._originalShieldConfig = {}
+	setFieldWithBackup(self._settingsHub.ClippingShield, self._originalShieldConfig, "Parent", surfaceGui)
+	setFieldWithBackup(self._settingsHub.ClippingShield, self._originalShieldConfig, "Size", UDim2.new(1, 0, 1, 0))
+	setFieldWithBackup(self._settingsHub.ClippingShield, self._originalShieldConfig, "Position", UDim2.new(0, 0, 0, 0))
+	if self._settingsHub.DarkenBackground then
+		self._backgroundUICorner = Create("UICorner")({
+			CornerRadius = Theme.MenuContainerCornerRadius,
+			Parent = self._settingsHub.DarkenBackground,
+		})
+	end
 
 	self._originalMenuAspectRatio = self._settingsHub.MenuAspectRatio.AspectRatio
-	self._settingsHub.MenuAspectRatio.AspectRatio = self:getAspectRatio()
+	if self._originalMenuAspectRatio then
+		self._settingsHub.MenuAspectRatio.AspectRatio = self:getAspectRatio()
+	end
 	self._vrEnabled = true
 	if self._topBarConnection == nil then
 		-- TopBar will be always present, so we only init the connection once
@@ -95,42 +141,48 @@ function SettingsUIDelegate.disableVR(self)
 	if not self._vrEnabled then
 		return
 	end
-	self._settingsHub.Shield.Parent = self._originalShieldParent
-	self._originalShieldParent = nil
+	restoreFieldFromBackup(self._settingsHub.ClippingShield, self._originalShieldConfig, "Parent")
+	restoreFieldFromBackup(self._settingsHub.ClippingShield, self._originalShieldConfig, "Size")
+	restoreFieldFromBackup(self._settingsHub.ClippingShield, self._originalShieldConfig, "Position")
+	self._originalShieldConfig = nil :: any
+	if self._backgroundUICorner then
+		self._backgroundUICorner.Parent = nil
+		self._backgroundUICorner = nil :: any
+	end
+
 	self._settingsHub.MenuAspectRatio.AspectRatio = self._originalMenuAspectRatio
 	self._originalMenuAspectRatio = nil
-	if self._settingsConnection ~= nil then
-		self._settingsConnection:disconnect()
+	if self._surfaceGuiEnabledConnection ~= nil then
+		self._surfaceGuiEnabledConnection:disconnect()
 	end
+	self:disconnectWindowsVisibility()
 	UIManager.getInstance():disconnectPanelVisibility(PanelType.MoreMenu)
 	self._vrEnabled = false
 end
 
 function SettingsUIDelegate.getAspectRatio(self)
 	if self._vrEnabled then
-		local width = self:getPanelWidth()
-		local height = self:getPanelHeight()
-		return (width :: number) / (height :: number)
+		local panelSize = UIManager.getInstance():getPanelSizeInPixel(PanelType.MoreMenu)
+		return (panelSize.X :: number) / (panelSize.Y :: number)
 	else
-		return (UI_CONFIG_DEFAULT.WIDTH :: number) / (UI_CONFIG_DEFAULT.HEIGHT :: number)
+		return UI_CONFIG_DEFAULT.ASPECT_RATIO
 	end
 end
 
-function SettingsUIDelegate.getPanelWidth(self)
+function SettingsUIDelegate.getHubBarSize(self)
 	if self._vrEnabled then
+		local hudPadding = Theme.HubPadding()
+		local horizontalPadding = 0
+		if hudPadding and hudPadding.PaddingLeft then
+			horizontalPadding = horizontalPadding + hudPadding.PaddingLeft.Offset
+		end
+		if hudPadding and hudPadding.PaddingRight then
+			horizontalPadding = horizontalPadding + hudPadding.PaddingRight.Offset
+		end
 		local panelSize = UIManager.getInstance():getPanelSizeInPixel(PanelType.MoreMenu)
-		return panelSize.X
+		return panelSize.X - horizontalPadding
 	else
-		return UI_CONFIG_DEFAULT.WIDTH
-	end
-end
-
-function SettingsUIDelegate.getPanelHeight(self)
-	if self._vrEnabled then
-		local panelSize = UIManager.getInstance():getPanelSizeInPixel(PanelType.MoreMenu)
-		return panelSize.Y
-	else
-		return UI_CONFIG_DEFAULT.HEIGHT
+		return UI_CONFIG_DEFAULT.HUB_BAR_WIDTH
 	end
 end
 
@@ -138,9 +190,9 @@ function SettingsUIDelegate.getMenuContainerPositionOverride(self): any
 	if self._vrEnabled then
 		return {
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.new(0.5, 0, 0.5, 10),
-			Size = UDim2.new(1, 0, 1, 0),
-			AutomaticSize = Enum.AutomaticSize.XY,
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			Size = UDim2.new(0, 0, 1, 0),
+			AutomaticSize = Enum.AutomaticSize.X,
 		}
 	else
 		return nil :: any
@@ -149,17 +201,137 @@ end
 
 function SettingsUIDelegate.getFullScreenSize(self): any
 	if self._vrEnabled then
-		return self:getPanelHeight()
+		local panelSize = UIManager.getInstance():getPanelSizeInPixel(PanelType.MoreMenu)
+		return panelSize.Y
 	else
 		return (RobloxGui :: any).AbsoluteSize.y
 	end
 end
+
+function SettingsUIDelegate.getDarkBackgroundTheme(self): ThemeItem
+	if self._vrEnabled then
+		local styleTokens = loadStyleTokens()
+		return {
+			Color = styleTokens.Color.OverMedia.OverMedia_100.Color3,
+			Transparency = math.min(math.max(FIntSpatialUIDarkenBackgroundTransparency, 0), 100) / 100,
+		} :: ThemeItem
+	else
+		return {
+			Color = Theme.color("DarkenBackground"),
+			Transparency = Theme.transparency("DarkenBackground"),
+		} :: ThemeItem
+	end
+end
+
 
 function SettingsUIDelegate.getBottomButtonSize(self, currentMaxWidth)
 	if self._vrEnabled then
 		return math.min(currentMaxWidth, UI_CONFIG_VR.BOTTOM_BUTTON_MAX_SIZE_IN_PIXEL)
 	else
 		return currentMaxWidth
+	end
+end
+
+function SettingsUIDelegate.updatePanelVisibility(self, panelVisibilityValue)
+	for _, visible in self._windowsVisibilityValues do
+		if visible then
+			panelVisibilityValue:set(true)
+			return
+		end
+	end
+	panelVisibilityValue:set(false)
+end
+
+local connectGameInviteVisibility = function(connectCallback)
+	local GameInviteModalManager = require(CorePackages.Workspace.Packages.GameInvite).GameInviteModalManager
+
+	local connection: RBXScriptConnection? = GameInviteModalManager.ToggleGameInviteModalEvent.Event:Connect(function(isModalOpen)
+		connectCallback("GameInvite", isModalOpen :: boolean)
+	end)
+
+	return function()
+		if connection then
+			connection:Disconnect()
+			connection = nil
+		end
+	end
+end
+
+local connectInspectAndBuyVisibility = function(connectCallback)
+	local GuiService = game:GetService("GuiService")
+
+	local openConnection: RBXScriptConnection? = GuiService.InspectPlayerFromUserIdWithCtxRequest:Connect(function()
+		connectCallback("InspectAndBuy", true)
+	end)
+	local closeConnection: RBXScriptConnection? = GuiService.CloseInspectMenuRequest:Connect(function()
+		connectCallback("InspectAndBuy", false)
+	end)
+	local enableConnection: RBXScriptConnection? = GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
+		if not enabled then
+			connectCallback("InspectAndBuy", false)
+		end
+	end)
+
+	return function()
+		if openConnection then
+			openConnection:Disconnect()
+			openConnection = nil
+		end
+		if closeConnection then
+			closeConnection:Disconnect()
+			closeConnection = nil
+		end
+		if enableConnection then
+			enableConnection:Disconnect()
+			enableConnection = nil
+		end
+	end
+end
+
+function SettingsUIDelegate.connectWindowsVisibility(self, panelVisibilityValue)
+	local visibleConnectCallback = function(windowName: string, visible: boolean)
+		self._windowsVisibilityValues[windowName] = visible
+		self:updatePanelVisibility(panelVisibilityValue)
+	end
+
+	local connectSettingsHubVisibility = function(connectCallback)
+		local connection: any = self._settingsHub.SettingsShowSignal:connect(function(visible)
+			connectCallback("SettingsHub", visible :: boolean)
+		end)
+
+		return function()
+			if connection then
+				connection:Disconnect()
+				connection = nil
+			end
+		end
+	end
+
+	local windowsVisibilityConnects = {
+		connectSettingsHubVisibility,
+		connectGameInviteVisibility,
+		connectInspectAndBuyVisibility,
+	}
+
+	for _, connect in windowsVisibilityConnects do
+		local disconnectCallback = connect(visibleConnectCallback)
+		table.insert(self._windowsDisconnectCallbacks, disconnectCallback)
+	end
+end
+
+function SettingsUIDelegate.disconnectWindowsVisibility(self)
+	for _, disconnectCallback in self._windowsDisconnectCallbacks do
+		disconnectCallback()
+	end
+	self._windowsDisconnectCallbacks = {}
+	self._windowsVisibilityValues = {}
+end
+
+function SettingsUIDelegate.isOpenCloseAnimationAllowed(self): boolean
+	if self._vrEnabled then
+		return false
+	else
+		return true
 	end
 end
 

@@ -32,6 +32,7 @@ local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
+local FFlagChromeShortcutDisableRespawn = SharedFlags.FFlagChromeShortcutDisableRespawn
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -976,6 +977,27 @@ end
 if FFlagEnableChromeShortcutBar then
 	function ChromeService:registerShortcut(shortcutProps: Types.ShortcutRegisterProps)
 		self._shortcutService:registerShortcut(shortcutProps)
+
+		if FFlagChromeShortcutDisableRespawn then
+			local shortcut = self._shortcutService:getShortcut(shortcutProps.id)
+			if shortcut.integration and self._integrations[shortcut.integration] then
+				local integration = self._integrations[shortcut.integration]
+				if integration.availability:get() == ChromeService.AvailabilitySignal.Unavailable then
+					shortcut.availability:unavailable()
+				end
+				integration.availability:connect(function()
+					local integrationAvailability = integration.availability:get()
+					if integrationAvailability == ChromeService.AvailabilitySignal.Unavailable then
+						shortcut.availability:unavailable()
+					elseif
+						integrationAvailability == ChromeService.AvailabilitySignal.Available
+						or integrationAvailability == ChromeService.AvailabilitySignal.Pinned
+					then
+						shortcut.availability:available()
+					end
+				end)
+			end
+		end
 	end
 
 	function ChromeService:activateShortcut(shortcutId: Types.ShortcutId)

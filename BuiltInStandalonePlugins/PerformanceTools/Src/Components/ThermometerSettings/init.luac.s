@@ -1,228 +1,344 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["OnCloseSettings"]
-  CALL R0 0 0
-  RETURN R0 0
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [tonumber]
+  CALL R1 1 1
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K3 [type]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K4 ["number"] [+2]
+  RETURN R1 1
+  LOADN R2 1
+  RETURN R2 1
 
 PROTO_1:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["OnResetToDefault"]
-  CALL R0 0 0
+  DUPTABLE R3 K1 [{"triangleText"}]
+  SETTABLEKS R0 R3 K0 ["triangleText"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
   RETURN R0 0
 
 PROTO_2:
-  FASTCALL1 TONUMBER R0 [+3]
-  MOVE R2 R0
-  GETIMPORT R1 K1 [tonumber]
-  CALL R1 1 1
-  JUMPIFNOT R1 [+3]
-  LOADN R2 1
-  JUMPIFNOTLT R1 R2 [+2]
-  RETURN R0 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["OnSettingsUpdated"]
-  DUPTABLE R3 K4 [{"maxTriangles"}]
-  SETTABLEKS R1 R3 K3 ["maxTriangles"]
-  CALL R2 1 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"drawcallText"}]
+  SETTABLEKS R0 R3 K0 ["drawcallText"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
   RETURN R0 0
 
 PROTO_3:
-  FASTCALL1 TONUMBER R0 [+3]
-  MOVE R2 R0
-  GETIMPORT R1 K1 [tonumber]
-  CALL R1 1 1
-  JUMPIFNOT R1 [+3]
-  LOADN R2 1
-  JUMPIFNOTLT R1 R2 [+2]
-  RETURN R0 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["OnSettingsUpdated"]
-  DUPTABLE R3 K4 [{"maxDrawCalls"}]
-  SETTABLEKS R1 R3 K3 ["maxDrawCalls"]
-  CALL R2 1 0
+  GETTABLEKS R1 R0 K0 ["props"]
+  DUPTABLE R2 K3 [{"triangleText", "drawcallText"}]
+  GETTABLEKS R4 R1 K4 ["MaxTriangles"]
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K6 [tostring]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K1 ["triangleText"]
+  GETTABLEKS R4 R1 K7 ["MaxDrawCalls"]
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K6 [tostring]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K2 ["drawcallText"]
+  SETTABLEKS R2 R0 K8 ["state"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K9 ["setTriangleText"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K10 ["setDrawcallText"]
   RETURN R0 0
 
 PROTO_4:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  LOADK R2 K1 ["Frame"]
-  NEWTABLE R3 4 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["Tag"]
-  LOADK R5 K3 ["X-Fill X-Column Component-ThermometerSettings"]
-  SETTABLE R5 R3 R4
-  GETIMPORT R4 K6 [UDim2.new]
-  LOADN R5 1
-  LOADN R6 0
-  LOADN R7 1
-  LOADN R8 0
-  CALL R4 4 1
-  SETTABLEKS R4 R3 K7 ["Size"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["setTriangleText"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["DefaultMaxTriangles"]
+  FASTCALL1 TOSTRING R2 [+2]
+  GETIMPORT R1 K3 [tostring]
+  CALL R1 1 1
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K4 ["setDrawcallText"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["DefaultMaxDrawCalls"]
+  FASTCALL1 TOSTRING R2 [+2]
+  GETIMPORT R1 K3 [tostring]
+  CALL R1 1 1
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K6 ["OnResetToDefault"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_5:
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [tonumber]
+  CALL R2 1 1
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R4 R2
+  GETIMPORT R3 K3 [type]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K4 ["number"] [+3]
+  MOVE R1 R2
+  JUMP [+2]
+  LOADN R1 1
+  JUMP [0]
   LOADN R4 1
-  SETTABLEKS R4 R3 K8 ["BackgroundTransparency"]
-  DUPTABLE R4 K16 [{"Layout", "Padding", "ButtonFrame", "TrianglesLabel", "TriangleInput", "DrawcallsLabel", "DrawcallInput"}]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K17 ["UIListLayout"]
-  DUPTABLE R7 K22 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R8 K24 [UDim.new]
+  LOADK R5 K5 [10000000000]
+  FASTCALL3 MATH_CLAMP R1 R4 R5
+  MOVE R3 R1
+  GETIMPORT R2 K8 [math.clamp]
+  CALL R2 3 1
+  MOVE R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["OnSettingsUpdated"]
+  DUPTABLE R3 K11 [{"maxTriangles"}]
+  SETTABLEKS R1 R3 K10 ["maxTriangles"]
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K12 ["setTriangleText"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R4 R1
+  GETIMPORT R3 K14 [tostring]
+  CALL R3 1 1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["setTriangleText"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_7:
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [tonumber]
+  CALL R2 1 1
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R4 R2
+  GETIMPORT R3 K3 [type]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K4 ["number"] [+3]
+  MOVE R1 R2
+  JUMP [+2]
+  LOADN R1 1
+  JUMP [0]
+  LOADN R4 1
+  LOADK R5 K5 [10000000000]
+  FASTCALL3 MATH_CLAMP R1 R4 R5
+  MOVE R3 R1
+  GETIMPORT R2 K8 [math.clamp]
+  CALL R2 3 1
+  MOVE R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["OnSettingsUpdated"]
+  DUPTABLE R3 K11 [{"maxDrawCalls"}]
+  SETTABLEKS R1 R3 K10 ["maxDrawCalls"]
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K12 ["setDrawcallText"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R4 R1
+  GETIMPORT R3 K14 [tostring]
+  CALL R3 1 1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["setDrawcallText"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  LOADK R5 K4 ["Frame"]
+  NEWTABLE R6 4 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["Tag"]
+  LOADK R8 K6 ["X-Fill X-Column Component-ThermometerSettings"]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K9 [UDim2.new]
+  LOADN R8 1
   LOADN R9 0
-  LOADN R10 30
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K10 ["Padding"]
-  GETIMPORT R8 K27 [Enum.FillDirection.Vertical]
-  SETTABLEKS R8 R7 K18 ["FillDirection"]
-  GETIMPORT R8 K29 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R8 R7 K19 ["HorizontalAlignment"]
-  GETIMPORT R8 K31 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R8 R7 K20 ["VerticalAlignment"]
-  GETIMPORT R8 K33 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R8 R7 K21 ["SortOrder"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K9 ["Layout"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K34 ["UIPadding"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K10 ["Padding"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K1 ["Frame"]
-  NEWTABLE R7 4 0
+  LOADN R10 1
+  LOADN R11 0
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K10 ["Size"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K11 ["BackgroundTransparency"]
+  DUPTABLE R7 K19 [{"Layout", "Padding", "ButtonFrame", "TrianglesLabel", "TriangleInput", "DrawcallsLabel", "DrawcallInput"}]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K2 ["Tag"]
-  LOADK R9 K35 ["X-Fit X-Row Component-ThermometerSettings"]
-  SETTABLE R9 R7 R8
-  LOADN R8 1
-  SETTABLEKS R8 R7 K8 ["BackgroundTransparency"]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K32 ["LayoutOrder"]
-  DUPTABLE R8 K38 [{"Layout", "BackButton", "BackButton2"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K0 ["createElement"]
-  LOADK R10 K17 ["UIListLayout"]
-  DUPTABLE R11 K22 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R12 K24 [UDim.new]
-  LOADN R13 0
-  LOADN R14 5
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K20 ["UIListLayout"]
+  DUPTABLE R10 K25 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R11 K27 [UDim.new]
+  LOADN R12 0
+  LOADN R13 30
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["Padding"]
+  GETIMPORT R11 K30 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K21 ["FillDirection"]
+  GETIMPORT R11 K32 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R11 R10 K22 ["HorizontalAlignment"]
+  GETIMPORT R11 K34 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R11 R10 K23 ["VerticalAlignment"]
+  GETIMPORT R11 K36 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R11 R10 K24 ["SortOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["Layout"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K37 ["UIPadding"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K13 ["Padding"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K4 ["Frame"]
+  NEWTABLE R10 4 0
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K5 ["Tag"]
+  LOADK R12 K38 ["X-Fit X-Row Component-ThermometerSettings"]
+  SETTABLE R12 R10 R11
+  LOADN R11 1
+  SETTABLEKS R11 R10 K11 ["BackgroundTransparency"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K35 ["LayoutOrder"]
+  DUPTABLE R11 K41 [{"Layout", "BackToMainButton", "ResetToDefaultButton"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  LOADK R13 K20 ["UIListLayout"]
+  DUPTABLE R14 K25 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R15 K27 [UDim.new]
+  LOADN R16 0
+  LOADN R17 5
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K13 ["Padding"]
+  GETIMPORT R15 K30 [Enum.FillDirection.Vertical]
+  SETTABLEKS R15 R14 K21 ["FillDirection"]
+  GETIMPORT R15 K32 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R15 R14 K22 ["HorizontalAlignment"]
+  GETIMPORT R15 K43 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R15 R14 K23 ["VerticalAlignment"]
+  GETIMPORT R15 K36 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R15 R14 K24 ["SortOrder"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K10 ["Padding"]
-  GETIMPORT R12 K27 [Enum.FillDirection.Vertical]
-  SETTABLEKS R12 R11 K18 ["FillDirection"]
-  GETIMPORT R12 K29 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R12 R11 K19 ["HorizontalAlignment"]
-  GETIMPORT R12 K31 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R12 R11 K20 ["VerticalAlignment"]
-  GETIMPORT R12 K33 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R12 R11 K21 ["SortOrder"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K9 ["Layout"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K0 ["createElement"]
-  GETUPVAL R10 1
-  DUPTABLE R11 K42 [{"LeftIcon", "Cursor", "OnClick", "LayoutOrder"}]
-  LOADK R12 K43 ["rbxasset://textures/ui/Lobby/Icons/back_icon.png"]
-  SETTABLEKS R12 R11 K39 ["LeftIcon"]
-  LOADK R12 K44 ["PointingHand"]
-  SETTABLEKS R12 R11 K40 ["Cursor"]
-  NEWCLOSURE R12 P0
+  SETTABLEKS R12 R11 K12 ["Layout"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  LOADK R13 K44 ["ImageButton"]
+  NEWTABLE R14 4 0
+  GETIMPORT R15 K9 [UDim2.new]
+  LOADN R16 0
+  LOADN R17 32
+  LOADN R18 0
+  LOADN R19 32
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K10 ["Size"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K11 ["BackgroundTransparency"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K45 ["Event"]
+  GETTABLEKS R15 R16 K46 ["Activated"]
+  GETTABLEKS R16 R1 K47 ["OnCloseSettings"]
+  SETTABLE R16 R14 R15
+  LOADN R15 1
+  SETTABLEKS R15 R14 K35 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K39 ["BackToMainButton"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 1
+  DUPTABLE R14 K51 [{"Text", "Cursor", "OnClick", "LayoutOrder"}]
+  LOADK R17 K52 ["SceneBudgetThermometer"]
+  LOADK R18 K53 ["ResetToDefault"]
+  NAMECALL R15 R3 K54 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K48 ["Text"]
+  LOADK R15 K55 ["PointingHand"]
+  SETTABLEKS R15 R14 K49 ["Cursor"]
+  NEWCLOSURE R15 P0
   CAPTURE VAL R0
-  SETTABLEKS R12 R11 K41 ["OnClick"]
-  LOADN R12 1
-  SETTABLEKS R12 R11 K32 ["LayoutOrder"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K36 ["BackButton"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K0 ["createElement"]
-  GETUPVAL R10 1
-  DUPTABLE R11 K46 [{"Text", "Cursor", "OnClick", "LayoutOrder"}]
-  LOADK R12 K47 ["Reset To Default"]
-  SETTABLEKS R12 R11 K45 ["Text"]
-  LOADK R12 K44 ["PointingHand"]
-  SETTABLEKS R12 R11 K40 ["Cursor"]
-  NEWCLOSURE R12 P1
+  CAPTURE VAL R1
+  SETTABLEKS R15 R14 K50 ["OnClick"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K35 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K40 ["ResetToDefaultButton"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K14 ["ButtonFrame"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K56 ["TextLabel"]
+  DUPTABLE R10 K57 [{"Text", "LayoutOrder"}]
+  LOADK R13 K52 ["SceneBudgetThermometer"]
+  LOADK R14 K58 ["MaxTriangles"]
+  NAMECALL R11 R3 K54 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K48 ["Text"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K35 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["TrianglesLabel"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K61 [{"Text", "LayoutOrder", "OnFocusLost", "OnTextChanged"}]
+  GETTABLEKS R11 R2 K62 ["triangleText"]
+  SETTABLEKS R11 R10 K48 ["Text"]
+  LOADN R11 3
+  SETTABLEKS R11 R10 K35 ["LayoutOrder"]
+  NEWCLOSURE R11 P1
+  CAPTURE VAL R1
   CAPTURE VAL R0
-  SETTABLEKS R12 R11 K41 ["OnClick"]
-  LOADN R12 2
-  SETTABLEKS R12 R11 K32 ["LayoutOrder"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K37 ["BackButton2"]
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K11 ["ButtonFrame"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K48 ["TextLabel"]
-  DUPTABLE R7 K53 [{"Text", "BackgroundTransparency", "TextSize", "Font", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
-  LOADK R8 K54 ["Max Triangles"]
-  SETTABLEKS R8 R7 K45 ["Text"]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K8 ["BackgroundTransparency"]
-  LOADN R8 20
-  SETTABLEKS R8 R7 K49 ["TextSize"]
-  GETIMPORT R8 K56 [Enum.Font.SourceSans]
-  SETTABLEKS R8 R7 K50 ["Font"]
-  GETIMPORT R8 K57 [Enum.TextXAlignment.Left]
-  SETTABLEKS R8 R7 K51 ["TextXAlignment"]
-  GETIMPORT R8 K58 [Enum.TextYAlignment.Top]
-  SETTABLEKS R8 R7 K52 ["TextYAlignment"]
-  LOADN R8 2
-  SETTABLEKS R8 R7 K32 ["LayoutOrder"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K12 ["TrianglesLabel"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K60 [{"Text", "LayoutOrder", "OnTextChanged"}]
-  GETTABLEKS R9 R0 K61 ["MaxTriangles"]
-  FASTCALL1 TOSTRING R9 [+2]
-  GETIMPORT R8 K63 [tostring]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K45 ["Text"]
-  LOADN R8 3
-  SETTABLEKS R8 R7 K32 ["LayoutOrder"]
-  NEWCLOSURE R8 P2
+  SETTABLEKS R11 R10 K59 ["OnFocusLost"]
+  NEWCLOSURE R11 P2
   CAPTURE VAL R0
-  SETTABLEKS R8 R7 K59 ["OnTextChanged"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K13 ["TriangleInput"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K48 ["TextLabel"]
-  DUPTABLE R7 K53 [{"Text", "BackgroundTransparency", "TextSize", "Font", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
-  LOADK R8 K64 ["Max Drawcalls"]
-  SETTABLEKS R8 R7 K45 ["Text"]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K8 ["BackgroundTransparency"]
-  LOADN R8 20
-  SETTABLEKS R8 R7 K49 ["TextSize"]
-  GETIMPORT R8 K56 [Enum.Font.SourceSans]
-  SETTABLEKS R8 R7 K50 ["Font"]
-  GETIMPORT R8 K57 [Enum.TextXAlignment.Left]
-  SETTABLEKS R8 R7 K51 ["TextXAlignment"]
-  GETIMPORT R8 K58 [Enum.TextYAlignment.Top]
-  SETTABLEKS R8 R7 K52 ["TextYAlignment"]
-  LOADN R8 4
-  SETTABLEKS R8 R7 K32 ["LayoutOrder"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K14 ["DrawcallsLabel"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K60 [{"Text", "LayoutOrder", "OnTextChanged"}]
-  GETTABLEKS R9 R0 K65 ["MaxDrawCalls"]
-  FASTCALL1 TOSTRING R9 [+2]
-  GETIMPORT R8 K63 [tostring]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K45 ["Text"]
-  LOADN R8 5
-  SETTABLEKS R8 R7 K32 ["LayoutOrder"]
-  NEWCLOSURE R8 P3
+  SETTABLEKS R11 R10 K60 ["OnTextChanged"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K16 ["TriangleInput"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K56 ["TextLabel"]
+  DUPTABLE R10 K57 [{"Text", "LayoutOrder"}]
+  LOADK R13 K52 ["SceneBudgetThermometer"]
+  LOADK R14 K63 ["MaxDrawcalls"]
+  NAMECALL R11 R3 K54 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K48 ["Text"]
+  LOADN R11 4
+  SETTABLEKS R11 R10 K35 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K17 ["DrawcallsLabel"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K61 [{"Text", "LayoutOrder", "OnFocusLost", "OnTextChanged"}]
+  GETTABLEKS R11 R2 K64 ["drawcallText"]
+  SETTABLEKS R11 R10 K48 ["Text"]
+  LOADN R11 5
+  SETTABLEKS R11 R10 K35 ["LayoutOrder"]
+  NEWCLOSURE R11 P3
+  CAPTURE VAL R1
   CAPTURE VAL R0
-  SETTABLEKS R8 R7 K59 ["OnTextChanged"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K15 ["DrawcallInput"]
-  CALL R1 3 -1
-  RETURN R1 -1
+  SETTABLEKS R11 R10 K59 ["OnFocusLost"]
+  NEWCLOSURE R11 P4
+  CAPTURE VAL R0
+  SETTABLEKS R11 R10 K60 ["OnTextChanged"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K18 ["DrawcallInput"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -238,12 +354,30 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Packages"]
   GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R4 R2 K9 ["UI"]
-  GETTABLEKS R3 R4 K10 ["IconButton"]
-  GETTABLEKS R5 R2 K9 ["UI"]
-  GETTABLEKS R4 R5 K11 ["TextInput"]
-  DUPCLOSURE R5 K12 [PROTO_4]
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETTABLEKS R6 R2 K11 ["UI"]
+  GETTABLEKS R5 R6 K12 ["IconButton"]
+  GETTABLEKS R7 R2 K11 ["UI"]
+  GETTABLEKS R6 R7 K13 ["TextInput"]
+  DUPCLOSURE R7 K14 [PROTO_0]
+  GETTABLEKS R8 R1 K15 ["Component"]
+  LOADK R10 K16 ["ThermometerSettings"]
+  NAMECALL R8 R8 K17 ["extend"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K18 [PROTO_3]
+  SETTABLEKS R9 R8 K19 ["init"]
+  DUPCLOSURE R9 K20 [PROTO_9]
   CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  RETURN R5 1
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  SETTABLEKS R9 R8 K21 ["render"]
+  MOVE R9 R4
+  DUPTABLE R10 K23 [{"Localization"}]
+  GETTABLEKS R11 R3 K22 ["Localization"]
+  SETTABLEKS R11 R10 K22 ["Localization"]
+  CALL R9 1 1
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
+  RETURN R8 1

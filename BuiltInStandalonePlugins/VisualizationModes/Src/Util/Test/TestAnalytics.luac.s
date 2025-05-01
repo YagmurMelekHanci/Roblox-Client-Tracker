@@ -1,0 +1,82 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["ContextServices"]
+  GETTABLEKS R1 R2 K1 ["Analytics"]
+  GETTABLEKS R0 R1 K2 ["mock"]
+  CALL R0 0 1
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K3 ["_knownHandlers"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K4 ["_reportCallCount"]
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K5 ["report"]
+  SETTABLEKS R1 R0 K5 ["report"]
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K6 ["getReportCount"]
+  SETTABLEKS R1 R0 K6 ["getReportCount"]
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["_knownHandlers"]
+  GETTABLE R2 R3 R1
+  JUMPIF R2 [+6]
+  GETIMPORT R2 K2 [error]
+  LOADK R4 K3 ["Unknown analytics ID: "]
+  MOVE R5 R1
+  CONCAT R3 R4 R5
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K4 ["_reportCallCount"]
+  GETTABLEKS R6 R0 K4 ["_reportCallCount"]
+  GETTABLE R5 R6 R1
+  ORK R4 R5 K6 [0]
+  ADDK R3 R4 K5 [1]
+  SETTABLE R3 R2 R1
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["_knownHandlers"]
+  GETTABLE R2 R3 R1
+  JUMPIF R2 [+6]
+  GETIMPORT R2 K2 [error]
+  LOADK R4 K3 ["Unknown analytics ID: "]
+  MOVE R5 R1
+  CONCAT R3 R4 R5
+  CALL R2 1 0
+  GETTABLEKS R4 R0 K5 ["_reportCallCount"]
+  GETTABLE R3 R4 R1
+  ORK R2 R3 K4 [0]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["VisualizationModes"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["RbxAnalyticsService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Resources"]
+  GETTABLEKS R3 R4 K12 ["createAnalyticsHandlers"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R0 K13 ["Packages"]
+  GETTABLEKS R4 R5 K14 ["Framework"]
+  CALL R3 1 1
+  NEWTABLE R4 4 0
+  DUPCLOSURE R5 K15 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K16 ["new"]
+  DUPCLOSURE R5 K17 [PROTO_1]
+  SETTABLEKS R5 R4 K18 ["report"]
+  DUPCLOSURE R5 K19 [PROTO_2]
+  SETTABLEKS R5 R4 K20 ["getReportCount"]
+  RETURN R4 1

@@ -38,7 +38,7 @@ MAIN:
   DUPTABLE R11 K32 [{"TextSize", "Font", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
   LOADN R12 24
   SETTABLEKS R12 R11 K25 ["TextSize"]
-  GETIMPORT R12 K35 [Enum.Font.Gotham]
+  GETIMPORT R12 K35 [Enum.Font.SourceSans]
   SETTABLEKS R12 R11 K26 ["Font"]
   LOADK R12 K36 ["$TextPrimary"]
   SETTABLEKS R12 R11 K27 ["TextColor3"]
@@ -61,7 +61,7 @@ MAIN:
   DUPTABLE R12 K32 [{"TextSize", "Font", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
   LOADN R13 50
   SETTABLEKS R13 R12 K25 ["TextSize"]
-  GETIMPORT R13 K35 [Enum.Font.Gotham]
+  GETIMPORT R13 K35 [Enum.Font.SourceSans]
   SETTABLEKS R13 R12 K26 ["Font"]
   LOADK R13 K36 ["$TextPrimary"]
   SETTABLEKS R13 R12 K27 ["TextColor3"]

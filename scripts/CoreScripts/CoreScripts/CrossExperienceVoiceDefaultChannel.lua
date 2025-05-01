@@ -24,7 +24,6 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local FFlagPartyVoiceBlockSync = SharedFlags.FFlagPartyVoiceBlockSync
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
-local FFlagCevAnalytics = SharedFlags.FFlagCevAnalytics
 
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
@@ -523,27 +522,17 @@ local function setupListeners()
 			local voiceChannelId = CoreVoiceManager:GetChannelId()
 			local voiceSessionId = CoreVoiceManager:GetSessionId()
 
-			if FFlagCevAnalytics then
-				-- get list of participant userids on time of join
-				local playerUserIds = getPlayerUsersIds()
-
-				cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, {
-					userId = localUserId,
-					status = Constants.VOICE_STATUS.VOICE_CONNECTED,
-					voiceChannelId = voiceChannelId,
-					voiceSessionId = voiceSessionId,
-					voicePlaySessionId = AnalyticsService:GetPlaySessionId(),
-					participants = playerUserIds,
-					numberActive = #Players:GetPlayers(),
-				})
-			else
-				cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, {
-					status = Constants.VOICE_STATUS.VOICE_CONNECTED,
-					voiceChannelId = voiceChannelId,
-					voiceSessionId = voiceSessionId,
-				})
-			end
-
+			-- get list of participant userids on time of join
+			local playerUserIds = getPlayerUsersIds()
+			cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, {
+				userId = localUserId,
+				status = Constants.VOICE_STATUS.VOICE_CONNECTED,
+				voiceChannelId = voiceChannelId,
+				voiceSessionId = voiceSessionId,
+				voicePlaySessionId = AnalyticsService:GetPlaySessionId(),
+				participants = playerUserIds,
+				numberActive = #Players:GetPlayers(),
+			})
 			coreVoiceManagerState.previousGroupId = CoreVoiceManager.service:GetGroupId()
 		elseif newState == Enum.VoiceChatState.Failed then
 			notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_FAILED)

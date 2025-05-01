@@ -22,31 +22,32 @@ PROTO_3:
   CALL R1 1 0
   GETUPVAL R2 2
   GETTABLEKS R1 R2 K1 ["new"]
-  CALL R1 0 1
+  GETTABLEKS R2 R0 K2 ["MockContextProps"]
+  CALL R1 1 1
   GETUPVAL R2 0
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
   NEWTABLE R4 0 0
   CALL R2 2 0
-  DUPTABLE R4 K4 [{"Component", "StyleLink"}]
+  DUPTABLE R4 K5 [{"Component", "StyleLink"}]
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETTABLEKS R5 R6 K6 ["createElement"]
   GETUPVAL R6 4
   MOVE R7 R0
   CALL R5 2 1
-  SETTABLEKS R5 R4 K2 ["Component"]
+  SETTABLEKS R5 R4 K3 ["Component"]
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K5 ["createElement"]
-  LOADK R6 K3 ["StyleLink"]
-  DUPTABLE R7 K7 [{"StyleSheet"}]
+  GETTABLEKS R5 R6 K6 ["createElement"]
+  LOADK R6 K4 ["StyleLink"]
+  DUPTABLE R7 K8 [{"StyleSheet"}]
   GETUPVAL R8 5
   GETUPVAL R9 6
   GETUPVAL R10 6
   CALL R8 2 1
-  SETTABLEKS R8 R7 K6 ["StyleSheet"]
+  SETTABLEKS R8 R7 K7 ["StyleSheet"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K3 ["StyleLink"]
-  NAMECALL R2 R1 K8 ["provide"]
+  SETTABLEKS R5 R4 K4 ["StyleLink"]
+  NAMECALL R2 R1 K9 ["provide"]
   CALL R2 2 -1
   RETURN R2 -1
 

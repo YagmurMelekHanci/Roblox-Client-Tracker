@@ -1,47 +1,71 @@
 PROTO_0:
   GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 1
   JUMPIFNOT R0 [+4]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["unmount"]
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K1 ["unmount"]
   CALL R0 1 0
   RETURN R0 0
 
 PROTO_1:
   GETIMPORT R2 K1 [require]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["Packages"]
-  GETTABLEKS R3 R4 K3 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K1 [require]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["Packages"]
-  GETTABLEKS R4 R5 K4 ["ReactRoblox"]
-  CALL R3 1 1
-  GETIMPORT R4 K1 [require]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K5 ["Src"]
-  GETTABLEKS R5 R6 K6 ["MainPlugin"]
+  GETTABLEKS R5 R6 K2 ["Src"]
+  GETTABLEKS R4 R5 K3 ["Util"]
+  GETTABLEKS R3 R4 K4 ["AssetDMListener"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K5 ["new"]
+  CALL R3 0 1
+  MOVE R6 R0
+  GETTABLEKS R7 R1 K6 ["mainButton"]
+  NAMECALL R4 R3 K7 ["connect"]
+  CALL R4 3 0
+  GETTABLEKS R4 R1 K8 ["pluginLoader"]
+  NAMECALL R4 R4 K9 ["waitForUserInteraction"]
   CALL R4 1 1
-  GETTABLEKS R5 R2 K7 ["createElement"]
-  MOVE R6 R4
-  DUPTABLE R7 K10 [{"Plugin", "PluginLoaderContext"}]
-  SETTABLEKS R0 R7 K8 ["Plugin"]
-  SETTABLEKS R1 R7 K9 ["PluginLoaderContext"]
-  CALL R5 2 1
-  GETIMPORT R6 K13 [Instance.new]
-  LOADK R7 K14 ["Frame"]
+  JUMPIF R4 [+4]
+  NAMECALL R5 R3 K10 ["disconnect"]
+  CALL R5 1 0
+  RETURN R0 0
+  GETIMPORT R5 K1 [require]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K11 ["Packages"]
+  GETTABLEKS R6 R7 K12 ["React"]
+  CALL R5 1 1
+  GETIMPORT R6 K1 [require]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K11 ["Packages"]
+  GETTABLEKS R7 R8 K13 ["ReactRoblox"]
   CALL R6 1 1
-  GETTABLEKS R7 R3 K15 ["createRoot"]
-  MOVE R8 R6
+  GETIMPORT R7 K1 [require]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K2 ["Src"]
+  GETTABLEKS R8 R9 K14 ["MainPlugin"]
   CALL R7 1 1
-  MOVE R10 R5
-  NAMECALL R8 R7 K16 ["render"]
-  CALL R8 2 0
-  GETTABLEKS R8 R0 K17 ["Unloading"]
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R7
-  NAMECALL R8 R8 K18 ["Connect"]
-  CALL R8 2 0
+  GETTABLEKS R8 R5 K15 ["createElement"]
+  MOVE R9 R7
+  DUPTABLE R10 K18 [{"Plugin", "PluginLoaderContext", "AssetDMListener"}]
+  SETTABLEKS R0 R10 K16 ["Plugin"]
+  SETTABLEKS R1 R10 K17 ["PluginLoaderContext"]
+  SETTABLEKS R3 R10 K4 ["AssetDMListener"]
+  CALL R8 2 1
+  GETIMPORT R9 K20 [Instance.new]
+  LOADK R10 K21 ["Frame"]
+  CALL R9 1 1
+  GETTABLEKS R10 R6 K22 ["createRoot"]
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R13 R8
+  NAMECALL R11 R10 K23 ["render"]
+  CALL R11 2 0
+  GETTABLEKS R11 R0 K24 ["Unloading"]
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  NAMECALL R11 R11 K25 ["Connect"]
+  CALL R11 2 0
   RETURN R0 0
 
 MAIN:

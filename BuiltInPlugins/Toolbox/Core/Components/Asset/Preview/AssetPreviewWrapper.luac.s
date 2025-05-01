@@ -2394,7 +2394,7 @@ MAIN:
   GETTABLEKS R67 R68 K88 ["getFFlagToolboxFixSharedAssetInsert"]
   CALL R66 1 1
   GETIMPORT R67 K1 [game]
-  LOADK R69 K89 ["STM5706Enabled"]
+  LOADK R69 K89 ["STM5706Enabled2"]
   NAMECALL R67 R67 K78 ["GetFastFlag"]
   CALL R67 2 1
   GETIMPORT R68 K10 [require]

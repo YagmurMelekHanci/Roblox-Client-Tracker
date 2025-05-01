@@ -19,16 +19,18 @@ MAIN:
   SETTABLEKS R4 R3 K14 ["filter"]
   LOADK R4 K15 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Dark/Standard/FilterDisabled.png"]
   SETTABLEKS R4 R3 K16 ["filterdisabled"]
-  LOADK R4 K17 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Dark/Large/NoFilterResults.png"]
-  SETTABLEKS R4 R3 K18 ["nofilterresults"]
-  LOADK R4 K19 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Standard/More.png"]
-  SETTABLEKS R4 R3 K20 ["threedotsicon"]
-  LOADK R4 K21 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Dark/Large/UnsavedExperience.png"]
-  SETTABLEKS R4 R3 K22 ["unsavedexperience"]
-  LOADK R4 K23 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Dark/Large/Script.png"]
-  SETTABLEKS R4 R3 K24 ["scripticon"]
+  LOADK R4 K17 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Dark/Standard/MiniUser.png"]
+  SETTABLEKS R4 R3 K18 ["miniuser"]
+  LOADK R4 K19 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Dark/Large/NoFilterResults.png"]
+  SETTABLEKS R4 R3 K20 ["nofilterresults"]
+  LOADK R4 K21 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Standard/More.png"]
+  SETTABLEKS R4 R3 K22 ["threedotsicon"]
+  LOADK R4 K23 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Dark/Large/UnsavedExperience.png"]
+  SETTABLEKS R4 R3 K24 ["unsavedexperience"]
+  LOADK R4 K25 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Dark/Large/Script.png"]
+  SETTABLEKS R4 R3 K26 ["scripticon"]
   MOVE R4 R2
-  LOADK R5 K25 ["ActivityHistoryPluginDarkTheme"]
+  LOADK R5 K27 ["ActivityHistoryPluginDarkTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

@@ -33,6 +33,7 @@ local useMemo = React.useMemo
 local useState = React.useState
 
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 local SelfieView = require(RobloxGui.Modules.SelfieView)
 
@@ -74,6 +75,9 @@ local shouldShowMusicTooltip = FFlagEnableUnibarFtuxTooltips
 	and GetFFlagShouldShowMusicFtuxTooltip()
 	and GetFFlagEnableSongbirdInChrome()
 
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+
 local SELFIE_ID = Constants.SELFIE_VIEW_ID
 local ICON_SIZE = Constants.ICON_SIZE
 
@@ -85,16 +89,20 @@ local leaderboard = ChromeService:register({
 	id = "leaderboard",
 	label = "CoreScripts.TopBar.Leaderboard",
 	activated = function(self)
-		if VRService.VREnabled then
+		if not isInExperienceUIVREnabled and VRService.VREnabled then
 			local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 			InGameMenu.openPlayersPage()
 		else
 			if PlayerListMaster:GetSetVisible() then
 				PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
 			else
-				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+				if isInExperienceUIVREnabled and isSpatial() then
 					PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
-				end)
+				else
+					ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+						PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+					end)
+				end
 			end
 		end
 	end,
@@ -119,9 +127,13 @@ local emotes = ChromeService:register({
 		if EmotesMenuMaster:isOpen() then
 			EmotesMenuMaster:close()
 		else
-			ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+			if isInExperienceUIVREnabled and isSpatial() then
 				EmotesMenuMaster:open()
-			end)
+			else
+				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+					EmotesMenuMaster:open()
+				end)
+			end
 		end
 	end,
 	isActivated = function()
@@ -165,9 +177,13 @@ local backpack = ChromeService:register({
 		if BackpackModule.IsOpen then
 			BackpackModule:OpenClose()
 		else
-			ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+			if isInExperienceUIVREnabled and isSpatial() then
 				BackpackModule:OpenClose()
-			end)
+			else
+				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+					BackpackModule:OpenClose()
+				end)
+			end
 		end
 	end,
 	isActivated = function()

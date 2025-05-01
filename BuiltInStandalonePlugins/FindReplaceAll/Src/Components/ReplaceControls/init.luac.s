@@ -29,77 +29,107 @@ PROTO_0:
   GETTABLEKS R8 R9 K9 ["Tag"]
   LOADK R9 K10 ["X-FitX X-Row X-Middle X-Right FindReplaceAll-ReplaceControls data-testid=ReplaceControlsFrame"]
   SETTABLE R9 R7 R8
-  DUPTABLE R8 K13 [{"ReplaceButton", "ReplaceAllButton"}]
+  GETTABLEKS R8 R0 K11 ["Visible"]
+  SETTABLEKS R8 R7 K11 ["Visible"]
+  DUPTABLE R8 K15 [{"UISizeConstraint", "ReplaceButton", "ReplaceAllButton"}]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K16 ["createElement"]
+  LOADK R10 K12 ["UISizeConstraint"]
+  DUPTABLE R11 K18 [{"MinSize"}]
+  GETIMPORT R12 K20 [Vector2.new]
+  GETTABLEKS R15 R0 K21 ["xOffset"]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K22 ["minReplaceButtonWidth"]
+  ADD R14 R15 R16
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K23 ["minReplaceAllButtonWidth"]
+  ADD R13 R14 R15
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K7 ["searchBarHeight"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K17 ["MinSize"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K12 ["UISizeConstraint"]
   GETUPVAL R9 3
-  LOADK R10 K14 ["TextButton"]
+  LOADK R10 K24 ["TextButton"]
   NEWTABLE R11 8 0
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K15 ["LayoutOrder"]
-  LOADK R14 K16 ["WidgetHeader"]
-  LOADK R15 K17 ["Replace"]
-  NAMECALL R12 R1 K18 ["getText"]
+  SETTABLEKS R12 R11 K25 ["LayoutOrder"]
+  LOADK R14 K26 ["WidgetHeader"]
+  LOADK R15 K27 ["Replace"]
+  NAMECALL R12 R1 K28 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K19 ["Text"]
+  SETTABLEKS R12 R11 K29 ["Text"]
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K20 ["Event"]
-  GETTABLEKS R12 R13 K21 ["MouseEnter"]
-  GETTABLEKS R13 R4 K22 ["enable"]
+  GETTABLEKS R13 R14 K30 ["Event"]
+  GETTABLEKS R12 R13 K31 ["MouseEnter"]
+  GETTABLEKS R13 R4 K32 ["enable"]
   SETTABLE R13 R11 R12
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K20 ["Event"]
-  GETTABLEKS R12 R13 K23 ["MouseLeave"]
-  GETTABLEKS R13 R4 K24 ["disable"]
+  GETTABLEKS R13 R14 K30 ["Event"]
+  GETTABLEKS R12 R13 K33 ["MouseLeave"]
+  GETTABLEKS R13 R4 K34 ["disable"]
+  SETTABLE R13 R11 R12
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K30 ["Event"]
+  GETTABLEKS R12 R13 K35 ["MouseButton1Down"]
+  GETTABLEKS R13 R0 K36 ["onReplaceButtonClicked"]
   SETTABLE R13 R11 R12
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K9 ["Tag"]
   GETUPVAL R13 6
-  LOADK R14 K25 ["X-FitX"]
-  LOADK R15 K26 ["data-testid=ReplaceButton"]
-  GETTABLEKS R17 R4 K27 ["enabled"]
+  LOADK R14 K37 ["X-FitX"]
+  LOADK R15 K38 ["data-testid=ReplaceButton"]
+  GETTABLEKS R17 R4 K39 ["enabled"]
   JUMPIFNOT R17 [+2]
-  LOADK R16 K28 ["Hover"]
+  LOADK R16 K40 ["Hover"]
   JUMP [+1]
   LOADNIL R16
   CALL R13 3 1
   SETTABLE R13 R11 R12
   CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["ReplaceButton"]
+  SETTABLEKS R9 R8 K13 ["ReplaceButton"]
   GETUPVAL R9 3
-  LOADK R10 K14 ["TextButton"]
+  LOADK R10 K24 ["TextButton"]
   NEWTABLE R11 8 0
   MOVE R12 R2
   CALL R12 0 1
-  SETTABLEKS R12 R11 K15 ["LayoutOrder"]
-  LOADK R14 K16 ["WidgetHeader"]
-  LOADK R15 K29 ["ReplaceAll"]
-  NAMECALL R12 R1 K18 ["getText"]
+  SETTABLEKS R12 R11 K25 ["LayoutOrder"]
+  LOADK R14 K26 ["WidgetHeader"]
+  LOADK R15 K41 ["ReplaceAll"]
+  NAMECALL R12 R1 K28 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K19 ["Text"]
+  SETTABLEKS R12 R11 K29 ["Text"]
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K20 ["Event"]
-  GETTABLEKS R12 R13 K21 ["MouseEnter"]
-  GETTABLEKS R13 R3 K22 ["enable"]
+  GETTABLEKS R13 R14 K30 ["Event"]
+  GETTABLEKS R12 R13 K31 ["MouseEnter"]
+  GETTABLEKS R13 R3 K32 ["enable"]
   SETTABLE R13 R11 R12
   GETUPVAL R14 5
-  GETTABLEKS R13 R14 K20 ["Event"]
-  GETTABLEKS R12 R13 K23 ["MouseLeave"]
-  GETTABLEKS R13 R3 K24 ["disable"]
+  GETTABLEKS R13 R14 K30 ["Event"]
+  GETTABLEKS R12 R13 K33 ["MouseLeave"]
+  GETTABLEKS R13 R3 K34 ["disable"]
+  SETTABLE R13 R11 R12
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K30 ["Event"]
+  GETTABLEKS R12 R13 K42 ["MouseButton1Click"]
+  GETTABLEKS R13 R0 K43 ["onReplaceAllButtonClicked"]
   SETTABLE R13 R11 R12
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K9 ["Tag"]
   GETUPVAL R13 6
-  LOADK R14 K25 ["X-FitX"]
-  LOADK R15 K30 ["data-testid=ReplaceAllButton"]
-  GETTABLEKS R17 R3 K27 ["enabled"]
+  LOADK R14 K37 ["X-FitX"]
+  LOADK R15 K44 ["data-testid=ReplaceAllButton"]
+  GETTABLEKS R17 R3 K39 ["enabled"]
   JUMPIFNOT R17 [+2]
-  LOADK R16 K28 ["Hover"]
+  LOADK R16 K40 ["Hover"]
   JUMP [+1]
   LOADNIL R16
   CALL R13 3 1
   SETTABLE R13 R11 R12
   CALL R9 2 1
-  SETTABLEKS R9 R8 K12 ["ReplaceAllButton"]
+  SETTABLEKS R9 R8 K14 ["ReplaceAllButton"]
   CALL R5 3 -1
   RETURN R5 -1
 

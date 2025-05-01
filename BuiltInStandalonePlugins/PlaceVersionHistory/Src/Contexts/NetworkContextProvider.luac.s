@@ -1,0 +1,60 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"Page", "Cursor"}]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K0 ["Page"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K1 ["Cursor"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["resolve"]
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Provider"]
+  DUPTABLE R3 K3 [{"value"}]
+  DUPTABLE R4 K5 [{"getVersionHistoryAsync"}]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R4 K4 ["getVersionHistoryAsync"]
+  SETTABLEKS R4 R3 K2 ["value"]
+  GETTABLEKS R4 R0 K6 ["children"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceVersionHistory"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Promise"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["LuauPolyfill"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Contexts"]
+  GETTABLEKS R5 R6 K12 ["NetworkContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K14 [PROTO_0]
+  CAPTURE VAL R2
+  DUPCLOSURE R7 K15 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  RETURN R7 1

@@ -451,7 +451,7 @@ MAIN:
   CALL R9 1 1
   GETTABLEKS R10 R9 K22 ["mapOne"]
   NEWTABLE R11 16 0
-  DUPTABLE R12 K30 [{"Blank", "Child", "Descendant", "GuiStateModifier", "Name", "PseudoInstance", "Tag"}]
+  DUPTABLE R12 K30 [{"Blank", "Child", "Descendant", "GuiState", "Name", "PseudoInstance", "Tag"}]
   LOADK R13 K31 [""]
   SETTABLEKS R13 R12 K23 ["Blank"]
   LOADK R13 K32 [">"]
@@ -459,7 +459,7 @@ MAIN:
   LOADK R13 K33 [">>"]
   SETTABLEKS R13 R12 K25 ["Descendant"]
   LOADK R13 K34 [":"]
-  SETTABLEKS R13 R12 K26 ["GuiStateModifier"]
+  SETTABLEKS R13 R12 K26 ["GuiState"]
   LOADK R13 K35 ["#"]
   SETTABLEKS R13 R12 K27 ["Name"]
   LOADK R13 K36 ["::"]

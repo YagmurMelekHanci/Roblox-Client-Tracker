@@ -1,0 +1,240 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["logEvent"]
+  CALL R0 2 0
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  NAMECALL R1 R1 K0 ["logEvent"]
+  CALL R1 3 0
+  GETUPVAL R1 2
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["logEvent"]
+  CALL R0 2 0
+  DUPTABLE R0 K3 [{"maxTriangles", "maxDrawCalls"}]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K4 ["defaultMaxTriangles"]
+  SETTABLEKS R1 R0 K1 ["maxTriangles"]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K5 ["defaultMaxDrawCalls"]
+  SETTABLEKS R1 R0 K2 ["maxDrawCalls"]
+  GETUPVAL R1 3
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["logEvent"]
+  CALL R0 2 0
+  GETUPVAL R0 2
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADB R2 0
+  CALL R1 1 2
+  GETUPVAL R3 1
+  NAMECALL R3 R3 K1 ["use"]
+  CALL R3 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["useContext"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["Context"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K4 ["useAssetDMContext"]
+  CALL R5 0 2
+  MOVE R7 R5
+  CALL R7 0 1
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R6
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  LOADK R10 K6 ["Frame"]
+  DUPTABLE R11 K10 [{"AutomaticSize", "Size", "BackgroundTransparency"}]
+  GETIMPORT R12 K13 [Enum.AutomaticSize.Y]
+  SETTABLEKS R12 R11 K7 ["AutomaticSize"]
+  GETIMPORT R12 K16 [UDim2.fromScale]
+  LOADN R13 1
+  LOADN R14 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K8 ["Size"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K9 ["BackgroundTransparency"]
+  DUPTABLE R12 K19 [{"ThermometerSettings", "ThermometerWrapper"}]
+  JUMPIFNOT R1 [+50]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K5 ["createElement"]
+  GETUPVAL R14 3
+  DUPTABLE R15 K27 [{"MaxTriangles", "MaxDrawCalls", "DefaultMaxTriangles", "DefaultMaxDrawCalls", "OnCloseSettings", "OnSettingsUpdated", "OnResetToDefault"}]
+  GETTABLEKS R17 R7 K28 ["maxTriangles"]
+  FASTCALL1 TOSTRING R17 [+2]
+  GETIMPORT R16 K30 [tostring]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K20 ["MaxTriangles"]
+  GETTABLEKS R17 R7 K31 ["maxDrawCalls"]
+  FASTCALL1 TOSTRING R17 [+2]
+  GETIMPORT R16 K30 [tostring]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K21 ["MaxDrawCalls"]
+  GETTABLEKS R16 R7 K32 ["defaultMaxTriangles"]
+  SETTABLEKS R16 R15 K22 ["DefaultMaxTriangles"]
+  GETTABLEKS R16 R7 K33 ["defaultMaxDrawCalls"]
+  SETTABLEKS R16 R15 K23 ["DefaultMaxDrawCalls"]
+  NEWCLOSURE R16 P1
+  CAPTURE VAL R3
+  CAPTURE UPVAL U4
+  CAPTURE VAL R2
+  SETTABLEKS R16 R15 K24 ["OnCloseSettings"]
+  NEWCLOSURE R16 P2
+  CAPTURE VAL R3
+  CAPTURE UPVAL U5
+  CAPTURE VAL R6
+  SETTABLEKS R16 R15 K25 ["OnSettingsUpdated"]
+  NEWCLOSURE R16 P3
+  CAPTURE VAL R3
+  CAPTURE UPVAL U6
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  SETTABLEKS R16 R15 K26 ["OnResetToDefault"]
+  CALL R13 2 1
+  JUMPIF R13 [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K17 ["ThermometerSettings"]
+  JUMPIF R1 [+57]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K5 ["createElement"]
+  GETUPVAL R14 7
+  DUPTABLE R15 K42 [{"DrawCallCount", "TriangleCount", "RenderThreadAverageMs", "TaskThreadAverageMs", "MaxTotalRenderMs", "MaxTotalTaskMs", "MaxTriangles", "MaxDrawCalls", "IsEditMode", "OnOpenSettings"}]
+  GETTABLEKS R17 R7 K44 ["drawCallCount"]
+  ORK R16 R17 K43 [0]
+  SETTABLEKS R16 R15 K34 ["DrawCallCount"]
+  GETTABLEKS R17 R7 K45 ["triangleCount"]
+  ORK R16 R17 K43 [0]
+  SETTABLEKS R16 R15 K35 ["TriangleCount"]
+  GETTABLEKS R17 R7 K46 ["renderThreadAverageMs"]
+  ORK R16 R17 K43 [0]
+  SETTABLEKS R16 R15 K36 ["RenderThreadAverageMs"]
+  GETTABLEKS R17 R7 K47 ["taskThreadAverageMs"]
+  ORK R16 R17 K43 [0]
+  SETTABLEKS R16 R15 K37 ["TaskThreadAverageMs"]
+  GETTABLEKS R17 R7 K49 ["maxTotalRenderMs"]
+  ORK R16 R17 K48 [1]
+  SETTABLEKS R16 R15 K38 ["MaxTotalRenderMs"]
+  GETTABLEKS R17 R7 K50 ["maxTotalTaskMs"]
+  ORK R16 R17 K48 [1]
+  SETTABLEKS R16 R15 K39 ["MaxTotalTaskMs"]
+  GETTABLEKS R17 R7 K28 ["maxTriangles"]
+  ORK R16 R17 K48 [1]
+  SETTABLEKS R16 R15 K20 ["MaxTriangles"]
+  GETTABLEKS R17 R7 K31 ["maxDrawCalls"]
+  ORK R16 R17 K48 [1]
+  SETTABLEKS R16 R15 K21 ["MaxDrawCalls"]
+  GETTABLEKS R16 R7 K51 ["isEditDM"]
+  SETTABLEKS R16 R15 K40 ["IsEditMode"]
+  NEWCLOSURE R16 P4
+  CAPTURE VAL R3
+  CAPTURE UPVAL U8
+  CAPTURE VAL R2
+  SETTABLEKS R16 R15 K41 ["OnOpenSettings"]
+  CALL R13 2 1
+  JUMPIF R13 [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K18 ["ThermometerWrapper"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PerformanceTools"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Components"]
+  GETTABLEKS R3 R4 K10 ["MainThermometer"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Components"]
+  GETTABLEKS R4 R5 K11 ["ThermometerSettings"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Util"]
+  GETTABLEKS R6 R7 K13 ["Telemetry"]
+  GETTABLEKS R5 R6 K14 ["TelemetryContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K12 ["Util"]
+  GETTABLEKS R8 R9 K13 ["Telemetry"]
+  GETTABLEKS R7 R8 K15 ["Events"]
+  GETTABLEKS R6 R7 K16 ["OpenSettings"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Src"]
+  GETTABLEKS R10 R11 K12 ["Util"]
+  GETTABLEKS R9 R10 K13 ["Telemetry"]
+  GETTABLEKS R8 R9 K15 ["Events"]
+  GETTABLEKS R7 R8 K17 ["CloseSettings"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K12 ["Util"]
+  GETTABLEKS R10 R11 K13 ["Telemetry"]
+  GETTABLEKS R9 R10 K15 ["Events"]
+  GETTABLEKS R8 R9 K18 ["UpdateSettings"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R13 R0 K8 ["Src"]
+  GETTABLEKS R12 R13 K12 ["Util"]
+  GETTABLEKS R11 R12 K13 ["Telemetry"]
+  GETTABLEKS R10 R11 K15 ["Events"]
+  GETTABLEKS R9 R10 K19 ["ResetToDefaultSettings"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R13 R0 K8 ["Src"]
+  GETTABLEKS R12 R13 K9 ["Components"]
+  GETTABLEKS R11 R12 K20 ["Contexts"]
+  GETTABLEKS R10 R11 K21 ["AssetDMDataManagerContext"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K22 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  RETURN R10 1

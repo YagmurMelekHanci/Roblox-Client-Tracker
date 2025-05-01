@@ -1491,7 +1491,9 @@ local function CreateSettingsHub()
 					Name = 'DarkenBackground',
 					ZIndex = this.Shield.ZIndex-1,
 					BackgroundTransparency = 1,
-					BackgroundColor3 = Theme.color("DarkenBackground"),
+					BackgroundColor3 = if isInExperienceUIVREnabled
+						then this.SettingsUIDelegate:getDarkBackgroundTheme().Color
+						else Theme.color("DarkenBackground"),
 					Size = UDim2.new(1,0,1,0),
 					Parent = this.ClippingShield,
 					AutoButtonColor = false,
@@ -2309,7 +2311,7 @@ local function CreateSettingsHub()
 		end
 
 		if FFlagAddNextUpContainer then
-			if this.Pages.CurrentPage.DisableTopPadding and this.Pages.CurrentPage.MaintainVerticalSize then 
+			if this.Pages.CurrentPage and this.Pages.CurrentPage.DisableTopPadding and this.Pages.CurrentPage.MaintainVerticalSize then
 				largestPageSize += this.HubBar.AbsoluteSize.Y
 			end
 		end
@@ -2377,7 +2379,7 @@ local function CreateSettingsHub()
 				this.MenuAspectRatio.Parent = nil
 			else
 				if isInExperienceUIVREnabled then
-					this.HubBar.Size = UDim2.new(0, this.SettingsUIDelegate:getPanelWidth(), 0, 60)
+					this.HubBar.Size = UDim2.new(0, this.SettingsUIDelegate:getHubBarSize(), 0, 60)
 				else
 					this.HubBar.Size = UDim2.new(0, 800, 0, 60)
 				end
@@ -3176,7 +3178,9 @@ local function CreateSettingsHub()
 			movementTime = if Constants then Constants.ShieldCloseAnimationTweenTime else 0.4
 
 			if visible then
-				goalTransparency = Theme.transparency("DarkenBackground")
+				goalTransparency = if isInExperienceUIVREnabled
+					then this.SettingsUIDelegate:getDarkBackgroundTheme().Transparency
+					else Theme.transparency("DarkenBackground")
 				easingStyle = Enum.EasingStyle.Quad
 				movementTime = if Constants then Constants.ShieldOpenAnimationTweenTime else 0.5
 			end
@@ -3203,7 +3207,13 @@ local function CreateSettingsHub()
 			this.DarkenBackground.Visible = visible
 		end
 	end
-	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
+	function setVisibilityInternal(visible, providedNoAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
+		local noAnimation
+		if isInExperienceUIVREnabled then
+			noAnimation = providedNoAnimation or not this.SettingsUIDelegate:isOpenCloseAnimationAllowed()
+		else
+			noAnimation = providedNoAnimation
+		end
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
 
 		local visibilityChanged = visible ~= this.Visible
@@ -3415,14 +3425,16 @@ local function CreateSettingsHub()
 				this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1, true)
 			end
 
-			playerList:HideTemp('SettingsMenu', true)
+			if (if isInExperienceUIVREnabled then not VRService.VREnabled else true) then
+				playerList:HideTemp('SettingsMenu', true)
 
-			if getFFlagAppChatCoreUIConflictFix() then
-				chat:HideTemp('SettingsMenu', true)
-			else
-				if chat:GetVisibility() then
-					chatWasVisible = true
-					chat:ToggleVisibility()
+				if getFFlagAppChatCoreUIConflictFix() then
+					chat:HideTemp('SettingsMenu', true)
+				else
+					if chat:GetVisibility() then
+						chatWasVisible = true
+						chat:ToggleVisibility()
+					end
 				end
 			end
 
@@ -3582,14 +3594,16 @@ local function CreateSettingsHub()
 				end
 			end
 
-			playerList:HideTemp('SettingsMenu', false)
+			if (if isInExperienceUIVREnabled then not VRService.VREnabled else true) then
+				playerList:HideTemp('SettingsMenu', false)
 
-			if getFFlagAppChatCoreUIConflictFix() then
-				chat:HideTemp('SettingsMenu', false)
-			else
-				if chatWasVisible then
-					chat:ToggleVisibility()
-					chatWasVisible = false
+				if getFFlagAppChatCoreUIConflictFix() then
+					chat:HideTemp('SettingsMenu', false)
+				else
+					if chatWasVisible then
+						chat:ToggleVisibility()
+						chatWasVisible = false
+					end
 				end
 			end
 
@@ -3779,9 +3793,7 @@ local function CreateSettingsHub()
 	end
 
 	local function refreshForSpatialUI()
-		if this.Pages.CurrentPage then
-			onScreenSizeChanged()
-		end
+		onScreenSizeChanged()
 		onPreferredTransparencyChanged()
 		resizeBottomBarButtons()
 	end

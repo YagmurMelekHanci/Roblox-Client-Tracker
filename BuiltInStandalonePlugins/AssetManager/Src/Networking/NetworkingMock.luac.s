@@ -37,7 +37,10 @@ PROTO_2:
   SETTABLEKS R3 R2 K3 ["creatorName"]
   LOADN R3 0
   SETTABLEKS R3 R2 K4 ["creatorTargetId"]
-  GETIMPORT R3 K20 [Enum.CreatorType.User]
+  GETIMPORT R4 K20 [Enum.CreatorType.User]
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K22 [tostring]
+  CALL R3 1 1
   SETTABLEKS R3 R2 K5 ["creatorType"]
   LOADK R3 K15 [""]
   SETTABLEKS R3 R2 K6 ["description"]
@@ -47,7 +50,7 @@ PROTO_2:
   SETTABLEKS R3 R2 K8 ["isActive"]
   LOADB R3 0
   SETTABLEKS R3 R2 K9 ["isArchived"]
-  LOADK R3 K21 ["TestGame"]
+  LOADK R3 K23 ["TestGame"]
   SETTABLEKS R3 R2 K10 ["name"]
   LOADK R3 K15 [""]
   SETTABLEKS R3 R2 K11 ["privacyType"]

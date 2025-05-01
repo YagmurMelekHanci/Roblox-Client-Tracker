@@ -36,12 +36,17 @@ MAIN:
   NAMECALL R0 R0 K9 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K12 ["ActivityHistoryUnmountPluginLogic"]
+  LOADK R2 K12 ["ActivityHistoryCompactUI"]
   LOADB R3 0
   NAMECALL R0 R0 K9 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K13 ["AHRemoveUnsubscribeEventNotificationsAsync"]
+  LOADK R2 K13 ["ActivityHistoryUnmountPluginLogic"]
+  LOADB R3 0
+  NAMECALL R0 R0 K9 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K14 ["AHRemoveUnsubscribeEventNotificationsAsync"]
   LOADB R3 0
   NAMECALL R0 R0 K9 ["DefineFastFlag"]
   CALL R0 3 0

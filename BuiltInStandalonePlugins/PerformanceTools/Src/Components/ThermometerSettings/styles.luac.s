@@ -26,33 +26,43 @@ MAIN:
   CALL R7 2 1
   MOVE R8 R2
   LOADK R9 K18 ["> TextLabel"]
-  DUPTABLE R10 K20 [{"TextColor3"}]
-  LOADK R11 K21 ["$TextPrimary"]
+  DUPTABLE R10 K25 [{"TextColor3", "BackgroundTransparency", "TextSize", "Font", "TextXAlignment", "TextYAlignment"}]
+  LOADK R11 K26 ["$TextPrimary"]
   SETTABLEKS R11 R10 K19 ["TextColor3"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K20 ["BackgroundTransparency"]
+  LOADN R11 20
+  SETTABLEKS R11 R10 K21 ["TextSize"]
+  GETIMPORT R11 K29 [Enum.Font.SourceSans]
+  SETTABLEKS R11 R10 K22 ["Font"]
+  GETIMPORT R11 K31 [Enum.TextXAlignment.Left]
+  SETTABLEKS R11 R10 K23 ["TextXAlignment"]
+  GETIMPORT R11 K33 [Enum.TextYAlignment.Top]
+  SETTABLEKS R11 R10 K24 ["TextYAlignment"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K22 ["> UIPadding"]
-  DUPTABLE R11 K27 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R12 K30 [UDim.new]
+  LOADK R10 K34 ["> UIPadding"]
+  DUPTABLE R11 K39 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R12 K42 [UDim.new]
   LOADN R13 0
   LOADN R14 20
   CALL R12 2 1
-  SETTABLEKS R12 R11 K23 ["PaddingTop"]
-  GETIMPORT R12 K30 [UDim.new]
+  SETTABLEKS R12 R11 K35 ["PaddingTop"]
+  GETIMPORT R12 K42 [UDim.new]
   LOADN R13 0
   LOADN R14 10
   CALL R12 2 1
-  SETTABLEKS R12 R11 K24 ["PaddingBottom"]
-  GETIMPORT R12 K30 [UDim.new]
+  SETTABLEKS R12 R11 K36 ["PaddingBottom"]
+  GETIMPORT R12 K42 [UDim.new]
   LOADN R13 0
   LOADN R14 15
   CALL R12 2 1
-  SETTABLEKS R12 R11 K25 ["PaddingLeft"]
-  GETIMPORT R12 K30 [UDim.new]
+  SETTABLEKS R12 R11 K37 ["PaddingLeft"]
+  GETIMPORT R12 K42 [UDim.new]
   LOADN R13 0
   LOADN R14 15
   CALL R12 2 1
-  SETTABLEKS R12 R11 K26 ["PaddingRight"]
+  SETTABLEKS R12 R11 K38 ["PaddingRight"]
   CALL R9 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1

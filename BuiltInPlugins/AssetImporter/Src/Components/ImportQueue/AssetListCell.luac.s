@@ -875,9 +875,9 @@ PROTO_22:
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K10 ["Hover"]
   JUMPIFNOTEQ R5 R6 [+4]
-  GETTABLEKS R4 R2 K11 ["DefaultBackgroundOverride"]
+  GETTABLEKS R4 R2 K11 ["OnHoverBackgroundOverride"]
   JUMP [+17]
-  GETTABLEKS R4 R2 K12 ["OnHoverBackgroundOverride"]
+  GETTABLEKS R4 R2 K12 ["DefaultBackgroundOverride"]
   JUMP [+14]
   GETTABLEKS R5 R1 K9 ["StyleModifier"]
   GETUPVAL R7 1

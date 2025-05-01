@@ -1,9 +1,56 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnablePlaceVersionHistory"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  GETUPVAL R2 0
+  NAMECALL R0 R0 K2 ["GetFastFlag"]
   CALL R0 2 -1
   RETURN R0 -1
+
+PROTO_1:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CALL R1 1 2
+  JUMPIF R1 [+2]
+  LOADB R3 0
+  RETURN R3 1
+  RETURN R2 1
+
+PROTO_2:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnablePlaceVersionHistory"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+32]
+  GETIMPORT R1 K5 [pcall]
+  LOADK R3 K6 ["PlaceSessionContextBridgeComponent"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R3
+  CALL R1 1 2
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  JUMP [+1]
+  MOVE R0 R2
+  JUMPIFNOT R0 [+21]
+  GETIMPORT R1 K5 [pcall]
+  LOADK R3 K7 ["StudioPlaceOpenerPlaceVersion"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R3
+  CALL R1 1 2
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  JUMP [+1]
+  MOVE R0 R2
+  JUMPIFNOT R0 [+10]
+  GETIMPORT R1 K5 [pcall]
+  LOADK R3 K8 ["DevFrameworkMarkdownViewer4"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R3
+  CALL R1 1 2
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  MOVE R0 R2
+  RETURN R0 1
 
 MAIN:
   PREPVARARGS 0
@@ -12,7 +59,8 @@ MAIN:
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
-  DUPTABLE R0 K5 [{"getFFlagEnablePlaceVersionHistory"}]
-  DUPCLOSURE R1 K6 [PROTO_0]
-  SETTABLEKS R1 R0 K4 ["getFFlagEnablePlaceVersionHistory"]
-  RETURN R0 1
+  DUPCLOSURE R0 K4 [PROTO_1]
+  DUPTABLE R1 K6 [{"getFFlagEnablePlaceVersionHistory"}]
+  DUPCLOSURE R2 K7 [PROTO_2]
+  SETTABLEKS R2 R1 K5 ["getFFlagEnablePlaceVersionHistory"]
+  RETURN R1 1

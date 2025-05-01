@@ -12,12 +12,17 @@ MAIN:
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K7 ["Enums"]
-  GETTABLEKS R3 R4 K9 ["UIRequestStatus"]
+  GETTABLEKS R3 R4 K9 ["AnnotationRequestStatus"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Src"]
   GETTABLEKS R5 R6 K7 ["Enums"]
-  GETTABLEKS R4 R5 K10 ["AnnotationEditingMode"]
+  GETTABLEKS R4 R5 K10 ["UIRequestStatus"]
   CALL R3 1 1
-  NEWTABLE R4 0 0
-  RETURN R4 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K7 ["Enums"]
+  GETTABLEKS R5 R6 K11 ["AnnotationEditingMode"]
+  CALL R4 1 1
+  NEWTABLE R5 0 0
+  RETURN R5 1

@@ -31,11 +31,16 @@ function FilterTree:render()
 			ShowSearchButton = false,
 			ShowSearchIcon = true,
 			OnTextChanged = props.setSearch,
+			SearchTerm = props.searchFilter,
 		}),
 	})
 end
 
-return RoactRodux.connect(nil, function(dispatch)
+return RoactRodux.connect(function(state)
+	return {
+		searchFilter = state.Stories.searchFilter,
+	}
+end, function(dispatch)
 	return {
 		setSearch = function(text: string)
 			dispatch(SetSearch(text))

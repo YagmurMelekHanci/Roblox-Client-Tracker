@@ -329,81 +329,86 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Util"]
   GETTABLEKS R2 R3 K8 ["CliAdapter"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["GetService"]
-  LOADK R3 K10 ["ChangeHistoryService"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K9 ["CommandSrc"]
+  GETTABLEKS R3 R4 K10 ["Types"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K9 ["GetService"]
-  LOADK R4 K11 ["ConversationalAIAcceptanceService"]
+  GETTABLEKS R3 R1 K11 ["GetService"]
+  LOADK R4 K12 ["ChangeHistoryService"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K9 ["GetService"]
-  LOADK R5 K12 ["StreamingService"]
+  GETTABLEKS R4 R1 K11 ["GetService"]
+  LOADK R5 K13 ["ConversationalAIAcceptanceService"]
   CALL R4 1 1
-  DUPTABLE R5 K26 [{"assetCacheMap", "g2g", "guid2instance", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata", "activeDraftGuids", "draftModeModels", "cachedAssetAttributionInfo", "recordingActionNumber", "requestToRecordName"}]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K13 ["assetCacheMap"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K14 ["g2g"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K15 ["guid2instance"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K16 ["guidToInfo"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K17 ["chatBulletMap"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K18 ["altDataMap"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K19 ["requestRegionAdornments"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K20 ["requestMetadata"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K21 ["activeDraftGuids"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K22 ["draftModeModels"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K23 ["cachedAssetAttributionInfo"]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K24 ["recordingActionNumber"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K25 ["requestToRecordName"]
-  NEWTABLE R6 0 0
+  GETTABLEKS R5 R1 K11 ["GetService"]
+  LOADK R6 K14 ["StreamingService"]
+  CALL R5 1 1
+  DUPTABLE R6 K28 [{"assetCacheMap", "g2g", "guid2instance", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata", "activeDraftGuids", "draftModeModels", "cachedAssetAttributionInfo", "recordingActionNumber", "requestToRecordName"}]
   NEWTABLE R7 0 0
-  DUPCLOSURE R8 K27 [PROTO_0]
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  SETTABLEKS R8 R5 K28 ["get"]
-  DUPCLOSURE R8 K29 [PROTO_1]
-  CAPTURE VAL R6
-  SETTABLEKS R8 R5 K30 ["set"]
-  LOADNIL R8
-  LOADNIL R9
-  NEWCLOSURE R10 P2
-  CAPTURE REF R9
-  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K15 ["assetCacheMap"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K16 ["g2g"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K17 ["guid2instance"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K18 ["guidToInfo"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K19 ["chatBulletMap"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K20 ["altDataMap"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K21 ["requestRegionAdornments"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K22 ["requestMetadata"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K23 ["activeDraftGuids"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K24 ["draftModeModels"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K25 ["cachedAssetAttributionInfo"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K26 ["recordingActionNumber"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K27 ["requestToRecordName"]
+  NEWTABLE R7 0 0
+  NEWTABLE R8 0 0
+  DUPCLOSURE R9 K29 [PROTO_0]
   CAPTURE VAL R5
-  SETTABLEKS R10 R5 K31 ["StartRecordingActions"]
-  NEWCLOSURE R10 P3
-  CAPTURE REF R9
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE REF R8
-  CAPTURE VAL R3
-  SETTABLEKS R10 R5 K32 ["EndRecordingActions"]
-  DUPCLOSURE R10 K33 [PROTO_4]
-  CAPTURE VAL R5
-  DUPCLOSURE R11 K34 [PROTO_7]
   CAPTURE VAL R7
-  CAPTURE VAL R5
-  SETTABLEKS R11 R5 K35 ["GetRequestFolder"]
-  DUPCLOSURE R11 K36 [PROTO_8]
-  CAPTURE VAL R5
-  SETTABLEKS R11 R5 K37 ["GetRequestMetadata"]
-  DUPCLOSURE R11 K38 [PROTO_9]
-  CAPTURE VAL R5
-  SETTABLEKS R11 R5 K39 ["SetRequestMetadata"]
-  DUPCLOSURE R11 K40 [PROTO_10]
-  CAPTURE VAL R5
-  SETTABLEKS R11 R5 K41 ["clear"]
-  DUPCLOSURE R11 K42 [PROTO_11]
-  SETTABLEKS R11 R5 K43 ["destroy"]
-  CLOSEUPVALS R8
-  RETURN R5 1
+  SETTABLEKS R9 R6 K30 ["get"]
+  DUPCLOSURE R9 K31 [PROTO_1]
+  CAPTURE VAL R7
+  SETTABLEKS R9 R6 K32 ["set"]
+  LOADNIL R9
+  LOADNIL R10
+  NEWCLOSURE R11 P2
+  CAPTURE REF R10
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  SETTABLEKS R11 R6 K33 ["StartRecordingActions"]
+  NEWCLOSURE R11 P3
+  CAPTURE REF R10
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE REF R9
+  CAPTURE VAL R4
+  SETTABLEKS R11 R6 K34 ["EndRecordingActions"]
+  DUPCLOSURE R11 K35 [PROTO_4]
+  CAPTURE VAL R6
+  DUPCLOSURE R12 K36 [PROTO_7]
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R12 R6 K37 ["GetRequestFolder"]
+  DUPCLOSURE R12 K38 [PROTO_8]
+  CAPTURE VAL R6
+  SETTABLEKS R12 R6 K39 ["GetRequestMetadata"]
+  DUPCLOSURE R12 K40 [PROTO_9]
+  CAPTURE VAL R6
+  SETTABLEKS R12 R6 K41 ["SetRequestMetadata"]
+  DUPCLOSURE R12 K42 [PROTO_10]
+  CAPTURE VAL R6
+  SETTABLEKS R12 R6 K43 ["clear"]
+  DUPCLOSURE R12 K44 [PROTO_11]
+  SETTABLEKS R12 R6 K45 ["destroy"]
+  CLOSEUPVALS R9
+  RETURN R6 1

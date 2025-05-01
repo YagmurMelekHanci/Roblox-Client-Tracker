@@ -1,0 +1,85 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  LOADNIL R3
+  NEWTABLE R4 0 1
+  GETUPVAL R5 0
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K0 ["ContextStack"]
+  DUPTABLE R7 K2 [{"providers"}]
+  NEWTABLE R8 0 3
+  GETUPVAL R9 0
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K3 ["Components"]
+  GETTABLEKS R11 R12 K4 ["Contexts"]
+  GETTABLEKS R10 R11 K5 ["ConversationContextProvider"]
+  CALL R9 1 1
+  GETUPVAL R10 0
+  GETUPVAL R11 4
+  CALL R10 1 1
+  GETUPVAL R11 0
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K3 ["Components"]
+  GETTABLEKS R13 R14 K4 ["Contexts"]
+  GETTABLEKS R12 R13 K6 ["ThreadIdContextProvider"]
+  CALL R11 1 -1
+  SETLIST R8 R9 -1 [1]
+  SETTABLEKS R8 R7 K1 ["providers"]
+  DUPTABLE R8 K9 [{"UIListLayout", "MainView"}]
+  GETUPVAL R9 0
+  LOADK R10 K7 ["UIListLayout"]
+  DUPTABLE R11 K11 [{"FillDirection"}]
+  GETIMPORT R12 K14 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K10 ["FillDirection"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K7 ["UIListLayout"]
+  GETUPVAL R9 0
+  GETUPVAL R10 5
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K8 ["MainView"]
+  CALL R5 3 -1
+  SETLIST R4 R5 -1 [1]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Assistant"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AssistantUI"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["ReactUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Components"]
+  GETTABLEKS R6 R7 K12 ["Contexts"]
+  GETTABLEKS R5 R6 K13 ["StudioConversationIdContextProvider"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["StudioFoundation"]
+  CALL R5 1 1
+  GETTABLEKS R7 R5 K11 ["Components"]
+  GETTABLEKS R6 R7 K15 ["FoundationProviderAdapter"]
+  GETTABLEKS R8 R1 K11 ["Components"]
+  GETTABLEKS R7 R8 K16 ["MainView"]
+  GETTABLEKS R8 R2 K17 ["createElement"]
+  DUPCLOSURE R9 K18 [PROTO_0]
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  RETURN R9 1

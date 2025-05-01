@@ -1,0 +1,103 @@
+PROTO_0:
+  GETUPVAL R2 0
+  LOADK R4 K0 ["PlaceOpener"]
+  NAMECALL R2 R2 K1 ["GetPluginComponent"]
+  CALL R2 2 1
+  GETUPVAL R3 0
+  LOADK R5 K2 ["PlaceSessionContextBridge"]
+  NAMECALL R3 R3 K1 ["GetPluginComponent"]
+  CALL R3 2 1
+  DUPTABLE R4 K6 [{"PlaceId", "UniverseId", "Version"}]
+  NAMECALL R5 R3 K7 ["GetPlaceIdAsync"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K3 ["PlaceId"]
+  NAMECALL R5 R3 K8 ["GetUniverseIdAsync"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K4 ["UniverseId"]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K5 ["Version"]
+  MOVE R7 R4
+  NAMECALL R5 R2 K9 ["OpenPlaceAsync"]
+  CALL R5 2 0
+  MOVE R5 R0
+  CALL R5 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  NAMECALL R1 R1 K1 ["get"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["Provider"]
+  DUPTABLE R4 K5 [{"value"}]
+  DUPTABLE R5 K7 [{"openPlaceVersionAsync"}]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K6 ["openPlaceVersionAsync"]
+  SETTABLEKS R5 R4 K4 ["value"]
+  GETTABLEKS R5 R0 K8 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceVersionHistory"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Promise"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["LuauPolyfill"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K11 ["ContextServices"]
+  GETTABLEKS R5 R6 K12 ["Plugin"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Contexts"]
+  GETTABLEKS R7 R8 K15 ["StudioContext"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K16 ["Types"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K17 [PROTO_1]
+  CAPTURE VAL R2
+  DUPCLOSURE R9 K18 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  RETURN R9 1

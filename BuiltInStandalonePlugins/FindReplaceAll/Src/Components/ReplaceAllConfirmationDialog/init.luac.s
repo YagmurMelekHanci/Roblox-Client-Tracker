@@ -1,0 +1,148 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["ReplaceAllAsync"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [pcall]
+  DUPCLOSURE R1 K2 [PROTO_0]
+  CAPTURE UPVAL U0
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["onButtonClicked"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  GETUPVAL R3 2
+  LOADK R4 K1 ["Frame"]
+  NEWTABLE R5 4 0
+  GETTABLEKS R6 R0 K2 ["ZIndex"]
+  SETTABLEKS R6 R5 K2 ["ZIndex"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K3 ["Tag"]
+  LOADK R7 K4 ["FindReplaceAll-ReplaceAllConfirmationDialog X-Row data-testid=ConfirmationDialogFrame"]
+  SETTABLE R7 R5 R6
+  GETTABLEKS R6 R0 K5 ["Visible"]
+  SETTABLEKS R6 R5 K5 ["Visible"]
+  DUPTABLE R6 K8 [{"ReplaceAllDialogText", "DialogButtonFrame"}]
+  GETUPVAL R7 2
+  LOADK R8 K9 ["TextLabel"]
+  NEWTABLE R9 4 0
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K3 ["Tag"]
+  LOADK R11 K6 ["ReplaceAllDialogText"]
+  SETTABLE R11 R9 R10
+  MOVE R10 R2
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K10 ["LayoutOrder"]
+  LOADK R12 K11 ["ReplaceAllConfirmationDialog"]
+  LOADK R13 K12 ["ConfirmationPrompt"]
+  NAMECALL R10 R1 K13 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K14 ["Text"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K6 ["ReplaceAllDialogText"]
+  GETUPVAL R7 2
+  LOADK R8 K1 ["Frame"]
+  NEWTABLE R9 2 0
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K3 ["Tag"]
+  LOADK R11 K15 ["DialogButtonFrame X-Row X-Right"]
+  SETTABLE R11 R9 R10
+  MOVE R10 R2
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K10 ["LayoutOrder"]
+  DUPTABLE R10 K18 [{"YesButton", "NoButton"}]
+  GETUPVAL R11 2
+  LOADK R12 K19 ["TextButton"]
+  NEWTABLE R13 4 0
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K3 ["Tag"]
+  LOADK R15 K20 ["YesButton DialogButton"]
+  SETTABLE R15 R13 R14
+  MOVE R14 R2
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K10 ["LayoutOrder"]
+  LOADK R16 K11 ["ReplaceAllConfirmationDialog"]
+  LOADK R17 K21 ["Yes"]
+  NAMECALL R14 R1 K13 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K14 ["Text"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K22 ["Event"]
+  GETTABLEKS R14 R15 K23 ["MouseButton1Click"]
+  NEWCLOSURE R15 P0
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  SETTABLE R15 R13 R14
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K16 ["YesButton"]
+  GETUPVAL R11 2
+  LOADK R12 K19 ["TextButton"]
+  NEWTABLE R13 4 0
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K3 ["Tag"]
+  LOADK R15 K24 ["NoButton DialogButton"]
+  SETTABLE R15 R13 R14
+  MOVE R14 R2
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K10 ["LayoutOrder"]
+  LOADK R16 K11 ["ReplaceAllConfirmationDialog"]
+  LOADK R17 K25 ["No"]
+  NAMECALL R14 R1 K13 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K14 ["Text"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K22 ["Event"]
+  GETTABLEKS R14 R15 K23 ["MouseButton1Click"]
+  GETTABLEKS R15 R0 K26 ["onButtonClicked"]
+  SETTABLE R15 R13 R14
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K17 ["NoButton"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K7 ["DialogButtonFrame"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["Localization"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K11 ["ReactUtils"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K12 ["createNextOrder"]
+  GETTABLEKS R6 R1 K13 ["createElement"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K14 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Util"]
+  GETTABLEKS R9 R10 K16 ["MockableProxyPluginComponents"]
+  CALL R8 1 1
+  GETTABLEKS R7 R8 K17 ["FindReplace"]
+  DUPCLOSURE R8 K18 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  RETURN R8 1

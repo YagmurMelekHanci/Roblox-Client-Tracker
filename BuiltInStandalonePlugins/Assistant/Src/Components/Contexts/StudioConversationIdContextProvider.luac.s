@@ -1,0 +1,45 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K0 ["Components"]
+  GETTABLEKS R4 R5 K1 ["Contexts"]
+  GETTABLEKS R3 R4 K2 ["ConversationIdContextProvider"]
+  DUPTABLE R4 K4 [{"conversationId"}]
+  MOVE R5 R1
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R1 K5 ["SessionId"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K7 [tostring]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K3 ["conversationId"]
+  GETTABLEKS R5 R0 K8 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Assistant"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AssistantUI"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Hooks"]
+  GETTABLEKS R4 R5 K11 ["useFocusedDataModelSession"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K12 ["createElement"]
+  DUPCLOSURE R5 K13 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  RETURN R5 1

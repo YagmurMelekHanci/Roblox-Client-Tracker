@@ -80,14 +80,18 @@ PROTO_4:
   CAPTURE VAL R2
   NAMECALL R3 R0 K9 ["OnInvoke"]
   CALL R3 3 0
+  GETUPVAL R3 1
+  JUMPIF R3 [+6]
   LOADK R5 K10 ["OpenManageCollaborators"]
   DUPCLOSURE R6 K11 [PROTO_2]
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
   NAMECALL R3 R0 K9 ["OnInvoke"]
   CALL R3 3 0
+  GETUPVAL R3 1
+  JUMPIF R3 [+6]
   LOADK R5 K12 ["ToggleSocialPresenceWidget"]
   DUPCLOSURE R6 K13 [PROTO_3]
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
   NAMECALL R3 R0 K9 ["OnInvoke"]
   CALL R3 3 0
   MOVE R3 R2
@@ -101,16 +105,22 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
+  GETUPVAL R1 0
+  JUMPIF R1 [+5]
   LOADK R3 K0 ["OpenManageCollaborators"]
   NAMECALL R1 R0 K1 ["Invoke"]
   CALL R1 2 -1
   RETURN R1 -1
+  RETURN R0 0
 
 PROTO_7:
+  GETUPVAL R1 0
+  JUMPIF R1 [+5]
   LOADK R3 K0 ["ToggleSocialPresenceWidget"]
   NAMECALL R1 R0 K1 ["Invoke"]
   CALL R1 2 -1
   RETURN R1 -1
+  RETURN R0 0
 
 PROTO_8:
   LOADK R4 K0 ["UpdateCollaborators"]
@@ -137,30 +147,39 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Types"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["Packages"]
-  GETTABLEKS R3 R4 K9 ["Framework"]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K8 ["SharedFlags"]
+  GETTABLEKS R3 R4 K9 ["getFFlagCollaborationActions"]
   CALL R2 1 1
-  GETTABLEKS R4 R2 K10 ["Util"]
-  GETTABLEKS R3 R4 K11 ["CrossPluginCommunication"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K12 ["SharedFlags"]
-  GETTABLEKS R5 R6 K13 ["getFFlagTestingControlsOptOut"]
-  CALL R4 1 1
-  CALL R4 0 1
-  DUPTABLE R5 K20 [{"initAssetDm", "requestAssetCollaborators", "openManageCollaborators", "toggleSocialPresenceWidget", "connectOnUpdateCollaborators", "connectOnDmChange"}]
-  DUPCLOSURE R6 K21 [PROTO_4]
+  CALL R2 0 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K12 ["Util"]
+  GETTABLEKS R4 R5 K13 ["CrossPluginCommunication"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K8 ["SharedFlags"]
+  GETTABLEKS R6 R7 K14 ["getFFlagTestingControlsOptOut"]
+  CALL R5 1 1
+  CALL R5 0 1
+  DUPTABLE R6 K21 [{"initAssetDm", "requestAssetCollaborators", "openManageCollaborators", "toggleSocialPresenceWidget", "connectOnUpdateCollaborators", "connectOnDmChange"}]
+  DUPCLOSURE R7 K22 [PROTO_4]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
   CAPTURE VAL R4
-  CAPTURE VAL R3
-  SETTABLEKS R6 R5 K14 ["initAssetDm"]
-  DUPCLOSURE R6 K22 [PROTO_5]
-  SETTABLEKS R6 R5 K15 ["requestAssetCollaborators"]
-  DUPCLOSURE R6 K23 [PROTO_6]
-  SETTABLEKS R6 R5 K16 ["openManageCollaborators"]
-  DUPCLOSURE R6 K24 [PROTO_7]
-  SETTABLEKS R6 R5 K17 ["toggleSocialPresenceWidget"]
-  DUPCLOSURE R6 K25 [PROTO_8]
-  SETTABLEKS R6 R5 K18 ["connectOnUpdateCollaborators"]
-  DUPCLOSURE R6 K26 [PROTO_9]
-  SETTABLEKS R6 R5 K19 ["connectOnDmChange"]
-  RETURN R5 1
+  SETTABLEKS R7 R6 K15 ["initAssetDm"]
+  DUPCLOSURE R7 K23 [PROTO_5]
+  SETTABLEKS R7 R6 K16 ["requestAssetCollaborators"]
+  DUPCLOSURE R7 K24 [PROTO_6]
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K17 ["openManageCollaborators"]
+  DUPCLOSURE R7 K25 [PROTO_7]
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K18 ["toggleSocialPresenceWidget"]
+  DUPCLOSURE R7 K26 [PROTO_8]
+  SETTABLEKS R7 R6 K19 ["connectOnUpdateCollaborators"]
+  DUPCLOSURE R7 K27 [PROTO_9]
+  SETTABLEKS R7 R6 K20 ["connectOnDmChange"]
+  RETURN R6 1

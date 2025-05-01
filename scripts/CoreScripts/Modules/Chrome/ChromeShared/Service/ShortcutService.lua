@@ -13,9 +13,12 @@ local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Types = require(Root.Service.Types)
 
 local Signal = AppCommonLib.Signal
+local AvailabilitySignal = ChromeUtils.AvailabilitySignal
+local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleSinglePressIntegrationExit = SharedFlags.FFlagConsoleSinglePressIntegrationExit
+local FFlagChromeShortcutDisableRespawn = SharedFlags.FFlagChromeShortcutDisableRespawn
 
 type ShortcutId = Types.ShortcutId
 type ShortcutBarId = Types.ShortcutBarId
@@ -33,6 +36,8 @@ export type ShortcutService = {
 
 	registerShortcut: (ShortcutService, shortcutProps: Types.ShortcutRegisterProps) -> (),
 	activateShortcut: (ShortcutService, shortcutId: ShortcutId) -> Enum.ContextActionResult?,
+	shortcutChanged: (ShortcutService, shortcut: Types.ShortcutProps) -> (),
+	updateShortcutBar: (ShortcutService, shortcutBarId: ShortcutBarId?) -> (),
 
 	configureShortcutBar: (ShortcutService, shortcutBarId: ShortcutBarId, config: Types.ShortcutBarProps) -> (),
 	setShortcutBar: (ShortcutService, shortcutBarId: ShortcutBarId?) -> (),
@@ -98,6 +103,15 @@ function ShortcutService:registerShortcut(shortcut: Types.ShortcutRegisterProps)
 	if shortcut.label then
 		newShortcut.label = locales:Format(shortcut.label)
 	end
+	if FFlagChromeShortcutDisableRespawn then
+		if shortcut.availability == nil then
+			newShortcut.availability = AvailabilitySignal.new(AvailabilitySignalState.Available)
+		end
+
+		newShortcut.availability:connect(function()
+			self:shortcutChanged(newShortcut)
+		end)
+	end
 
 	newShortcut.icon = UserInputService:GetImageForKeyCode(shortcut.keyCode)
 
@@ -115,22 +129,32 @@ function ShortcutService:activateShortcut(shortcutId: ShortcutId)
 	return nil
 end
 
+function ShortcutService:shortcutChanged(shortcut: Types.ShortcutProps)
+	if FFlagChromeShortcutDisableRespawn then
+		self:updateShortcutBar(self:getCurrentShortcutBar())
+	end
+end
+
+function ShortcutService:updateShortcutBar(shortcutBarId: ShortcutBarId?)
+	if self._currentShortcutBar and self._shortcutBarList[self._currentShortcutBar] then
+		self:_unbindShortcutBar(self._currentShortcutBar)
+	end
+
+	self._currentShortcutBar = shortcutBarId
+	self.onShortcutBarChanged:fire(shortcutBarId)
+
+	if shortcutBarId and self._shortcutBarList[shortcutBarId] then
+		self:_bindShortcutBar(shortcutBarId)
+	end
+end
+
 function ShortcutService:configureShortcutBar(shortcutBarId: ShortcutBarId, config: Types.ShortcutBarProps)
 	self._shortcutBarList[shortcutBarId] = config
 end
 
 function ShortcutService:setShortcutBar(shortcutBarId: ShortcutBarId?)
 	if self._currentShortcutBar ~= shortcutBarId then
-		if self._currentShortcutBar and self._shortcutBarList[self._currentShortcutBar] then
-			self:_unbindShortcutBar(self._currentShortcutBar)
-		end
-
-		self._currentShortcutBar = shortcutBarId
-		self.onShortcutBarChanged:fire(shortcutBarId)
-
-		if shortcutBarId and self._shortcutBarList[shortcutBarId] then
-			self:_bindShortcutBar(shortcutBarId)
-		end
+		self:updateShortcutBar(shortcutBarId)
 	end
 end
 
@@ -152,12 +176,18 @@ function ShortcutService:getShortcutsFromBar(shortcutBarId: ShortcutBarId?, inte
 
 		local shortcut = self._shortcuts[shortcutId]
 
-		if shortcut.integration then
-			if
-				integrationList[shortcut.integration].availability:get()
-				== ChromeUtils.AvailabilitySignalState.Unavailable
-			then
+		if FFlagChromeShortcutDisableRespawn then
+			if shortcut.availability:get() == AvailabilitySignalState.Unavailable then
 				continue
+			end
+		else
+			if shortcut.integration then
+				if
+					integrationList[shortcut.integration].availability:get()
+					== ChromeUtils.AvailabilitySignalState.Unavailable
+				then
+					continue
+				end
 			end
 		end
 		table.insert(activeShortcuts, shortcut)
@@ -173,14 +203,27 @@ end
 function ShortcutService:_bindShortcutBar(shortcutBarId: ShortcutBarId)
 	for k, shortcutId in self._shortcutBarList[shortcutBarId] do
 		local shortcut = self._shortcuts[shortcutId]
-		if shortcut and shortcut.actionName then
-			ContextActionService:UnbindCoreAction(shortcut.actionName)
-			ContextActionService:BindCoreAction(
-				shortcut.actionName,
-				_handleShortcutEvent(self),
-				false,
-				shortcut.keyCode
-			)
+		if FFlagChromeShortcutDisableRespawn then
+			if not shortcut or not shortcut.actionName then
+				continue
+			end
+			local actionName = shortcut.actionName
+			ContextActionService:UnbindCoreAction(actionName)
+			if shortcut.availability:get() == AvailabilitySignalState.Unavailable then
+				continue
+			end
+
+			ContextActionService:BindCoreAction(actionName, _handleShortcutEvent(self), false, shortcut.keyCode)
+		else
+			if shortcut and shortcut.actionName then
+				ContextActionService:UnbindCoreAction(shortcut.actionName)
+				ContextActionService:BindCoreAction(
+					shortcut.actionName,
+					_handleShortcutEvent(self),
+					false,
+					shortcut.keyCode
+				)
+			end
 		end
 	end
 end

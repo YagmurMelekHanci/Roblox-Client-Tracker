@@ -189,7 +189,7 @@ PROTO_5:
   LOADK R15 K40 ["#FFFFFF"]
   CALL R14 1 1
   SETTABLEKS R14 R13 K32 ["Color3"]
-  LOADK R14 K41 [0.1]
+  LOADK R14 K41 [0.05]
   SETTABLEKS R14 R13 K33 ["Transparency"]
   SETTABLEKS R13 R12 K21 ["backgroundStyle"]
   DUPTABLE R13 K43 [{"affordance"}]

@@ -10,12 +10,35 @@ PROTO_0:
   LOADK R3 K3 ["Expected children to be a table"]
   GETIMPORT R1 K5 [assert]
   CALL R1 2 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["provideMockContext"]
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R1 2 -1
-  RETURN R1 -1
+  DUPTABLE R1 K7 [{"FoundationProvider"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K8 ["createElement"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["FoundationProvider"]
+  LOADNIL R4
+  DUPTABLE R5 K10 [{"StudioContextProvider"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["createElement"]
+  GETUPVAL R7 2
+  LOADNIL R8
+  DUPTABLE R9 K12 [{"NetworkContextProvider"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETUPVAL R11 3
+  LOADNIL R12
+  MOVE R13 R0
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K11 ["NetworkContextProvider"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K9 ["StudioContextProvider"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K6 ["FoundationProvider"]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K13 ["provideMockContext"]
+  GETUPVAL R3 5
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
@@ -25,19 +48,41 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["TestHelpers"]
-  GETTABLEKS R3 R1 K9 ["ContextServices"]
-  NEWTABLE R4 0 2
-  GETTABLEKS R6 R3 K10 ["Analytics"]
-  GETTABLEKS R5 R6 K11 ["mock"]
-  CALL R5 0 1
-  GETTABLEKS R7 R3 K12 ["Localization"]
-  GETTABLEKS R6 R7 K11 ["mock"]
-  CALL R6 0 -1
-  SETLIST R4 R5 -1 [1]
-  DUPCLOSURE R5 K13 [PROTO_0]
-  CAPTURE VAL R2
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K10 ["TestHelpers"]
+  GETTABLEKS R5 R2 K11 ["ContextServices"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Contexts"]
+  GETTABLEKS R7 R8 K14 ["MockNetworkContextProvider"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K12 ["Src"]
+  GETTABLEKS R9 R10 K13 ["Contexts"]
+  GETTABLEKS R8 R9 K15 ["MockStudioContextProvider"]
+  CALL R7 1 1
+  NEWTABLE R8 0 2
+  GETTABLEKS R10 R5 K16 ["Analytics"]
+  GETTABLEKS R9 R10 K17 ["mock"]
+  CALL R9 0 1
+  GETTABLEKS R11 R5 K18 ["Localization"]
+  GETTABLEKS R10 R11 K17 ["mock"]
+  CALL R10 0 -1
+  SETLIST R8 R9 -1 [1]
+  DUPCLOSURE R9 K19 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R6
   CAPTURE VAL R4
-  RETURN R5 1
+  CAPTURE VAL R8
+  RETURN R9 1

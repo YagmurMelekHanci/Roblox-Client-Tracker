@@ -12,6 +12,8 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagTweakTiltMenuShortcuts = SharedFlags.FFlagTweakTiltMenuShortcuts
 local FFlagChromeShortcutAddRespawnLeaveToIEM = SharedFlags.FFlagChromeShortcutAddRespawnLeaveToIEM
+local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
+local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
 
 local ChatSelector = if FFlagConsoleChatOnExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
@@ -261,10 +263,23 @@ function configureShortcutBars()
 	)
 
 	-- in the future, some kind of availability system for shortcuts would probably be cleaner
-	ChromeService:configureShortcutBar(
-		Constants.TILTMENU_DIALOG_SHORTCUTBAR_ID,
-		{ "leave", "respawn", "back", "close" }
-	)
+	if not FFlagChromeShortcutRemoveRespawnOnLeavePage or not FFlagChromeShortcutRemoveLeaveOnRespawnPage then
+		ChromeService:configureShortcutBar(
+			Constants.TILTMENU_DIALOG_SHORTCUTBAR_ID,
+			{ "leave", "respawn", "back", "close" }
+		)
+	end
+
+	if FFlagChromeShortcutRemoveRespawnOnLeavePage then
+		ChromeService:configureShortcutBar(Constants.TILTMENU_LEAVE_DIALOG_SHORTCUTBAR_ID, { "leave", "back", "close" })
+	end
+
+	if FFlagChromeShortcutRemoveLeaveOnRespawnPage then
+		ChromeService:configureShortcutBar(
+			Constants.TILTMENU_RESPAWN_DIALOG_SHORTCUTBAR_ID,
+			{ "respawn", "back", "close" }
+		)
+	end
 end
 
 return function()

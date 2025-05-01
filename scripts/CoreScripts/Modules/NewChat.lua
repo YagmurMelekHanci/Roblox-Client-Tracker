@@ -28,10 +28,15 @@ local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
 local getFFlagExpChatMigrationSetup = SharedFlags.getFFlagExpChatMigrationSetup
 local getFFlagExposeChatWindowToggled = SharedFlags.getFFlagExposeChatWindowToggled
 local getFFlagFireSignalForLegacyWindow = SharedFlags.getFFlagFireSignalForLegacyWindow
+local GetFFlagUnreduxChatTransparency = SharedFlags.GetFFlagUnreduxChatTransparency
 local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
 local TenFootInterfaceExpChatExperimentation = SocialExperiments.TenFootInterfaceExpChatExperimentation
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
+
+-- Hold strong references near root of features so they can be cleaned
+-- up when no longer in use e.g. feature hidden. In this case chat is never explicitly unmounted
+local transparencyStore = ExperienceChat.Stores.GetTransparencyStore(false)
 
 local function shouldForceLegacyChatToBeHidden()
 	if getFFlagFireSignalForLegacyWindow() then
@@ -112,6 +117,9 @@ do
 		end
 
 		ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
+		if GetFFlagUnreduxChatTransparency() then
+			transparencyStore.resetAllTransparency()
+		end
 		if getFFlagExposeChatWindowToggled() then
 			moduleApiTable.ChatWindowToggled:fire(ChatWindowState.Visible)
 		end
@@ -122,6 +130,9 @@ do
 
 
 		ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
+		if GetFFlagUnreduxChatTransparency() and ChatWindowState.Visible then
+			transparencyStore.resetAllTransparency()
+		end
 		if getFFlagExposeChatWindowToggled() then
 			moduleApiTable.ChatWindowToggled:fire(ChatWindowState.Visible)
 		end

@@ -292,7 +292,7 @@ MAIN:
   GETIMPORT R1 K4 [require]
   GETTABLEKS R4 R0 K5 ["Src"]
   GETTABLEKS R3 R4 K6 ["Flags"]
-  GETTABLEKS R2 R3 K7 ["getFFlagTutorialsUseLuaRibbon"]
+  GETTABLEKS R2 R3 K7 ["getFFlagEnableRibbonPlugin"]
   CALL R1 1 1
   CALL R1 0 1
   GETIMPORT R2 K4 [require]

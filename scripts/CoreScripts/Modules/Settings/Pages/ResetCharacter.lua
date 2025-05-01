@@ -32,7 +32,9 @@ local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local FFlagEnableChromeShortcutBar = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableChromeShortcutBar
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
@@ -172,7 +174,11 @@ PageInstance.Displayed.Event:connect(function()
 	GuiService.SelectedCoreObject = PageInstance.ResetCharacterButton
 	if FFlagEnableChromeShortcutBar then 
 		if ChromeEnabled then 
-			ChromeService:setShortcutBar(ChromeConstants.TILTMENU_DIALOG_SHORTCUTBAR_ID)
+			if FFlagChromeShortcutRemoveLeaveOnRespawnPage then
+				ChromeService:setShortcutBar(ChromeConstants.TILTMENU_RESPAWN_DIALOG_SHORTCUTBAR_ID)
+			else
+				ChromeService:setShortcutBar(ChromeConstants.TILTMENU_DIALOG_SHORTCUTBAR_ID)
+			end
 		end
 	else
 		ContextActionService:BindCoreAction(RESET_CHARACTER_GAME_ACTION, PageInstance.DontResetCharFromHotkey, false, Enum.KeyCode.ButtonB)

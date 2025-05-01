@@ -61,73 +61,57 @@ PROTO_5:
   RETURN R0 1
 
 PROTO_6:
-  DUPTABLE R2 K9 [{"enabled", "targetDropdownIndex", "drawCallCount", "triangleCount", "renderThreadAverageMs", "taskThreadAverageMs", "showingSettings", "maxTriangles", "maxDrawCalls"}]
+  DUPTABLE R2 K1 [{"enabled"}]
   LOADB R3 0
   SETTABLEKS R3 R2 K0 ["enabled"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K1 ["targetDropdownIndex"]
-  LOADK R3 K10 [""]
-  SETTABLEKS R3 R2 K2 ["drawCallCount"]
-  LOADK R3 K10 [""]
-  SETTABLEKS R3 R2 K3 ["triangleCount"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K4 ["renderThreadAverageMs"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K5 ["taskThreadAverageMs"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K6 ["showingSettings"]
-  LOADK R3 K11 [1000000]
-  SETTABLEKS R3 R2 K7 ["maxTriangles"]
-  LOADN R3 232
-  SETTABLEKS R3 R2 K8 ["maxDrawCalls"]
-  SETTABLEKS R2 R0 K12 ["state"]
+  SETTABLEKS R2 R0 K2 ["state"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K13 ["new"]
+  GETTABLEKS R2 R3 K3 ["new"]
   CALL R2 0 1
-  SETTABLEKS R2 R0 K14 ["telemetry"]
+  SETTABLEKS R2 R0 K4 ["telemetry"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  SETTABLEKS R2 R0 K15 ["toggleEnabled"]
+  SETTABLEKS R2 R0 K5 ["toggleEnabled"]
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K16 ["onClose"]
+  SETTABLEKS R2 R0 K6 ["onClose"]
   NEWCLOSURE R2 P2
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K17 ["onRestore"]
+  SETTABLEKS R2 R0 K7 ["onRestore"]
   NEWCLOSURE R2 P3
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K18 ["onWidgetEnabledChanged"]
+  SETTABLEKS R2 R0 K8 ["onWidgetEnabledChanged"]
   NEWCLOSURE R2 P4
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K19 ["onDockWidgetCreated"]
+  SETTABLEKS R2 R0 K9 ["onDockWidgetCreated"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K20 ["Localization"]
-  GETTABLEKS R2 R3 K13 ["new"]
-  DUPTABLE R3 K24 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETTABLEKS R3 R4 K10 ["Localization"]
+  GETTABLEKS R2 R3 K3 ["new"]
+  DUPTABLE R3 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R4 3
-  SETTABLEKS R4 R3 K21 ["stringResourceTable"]
+  SETTABLEKS R4 R3 K11 ["stringResourceTable"]
   GETUPVAL R4 4
-  SETTABLEKS R4 R3 K22 ["translationResourceTable"]
-  LOADK R4 K25 ["PerformanceTools"]
-  SETTABLEKS R4 R3 K23 ["pluginName"]
+  SETTABLEKS R4 R3 K12 ["translationResourceTable"]
+  LOADK R4 K15 ["PerformanceTools"]
+  SETTABLEKS R4 R3 K13 ["pluginName"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K26 ["localization"]
+  SETTABLEKS R2 R0 K16 ["localization"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K27 ["Analytics"]
-  GETTABLEKS R2 R3 K13 ["new"]
-  DUPCLOSURE R3 K28 [PROTO_5]
+  GETTABLEKS R3 R4 K17 ["Analytics"]
+  GETTABLEKS R2 R3 K3 ["new"]
+  DUPCLOSURE R3 K18 [PROTO_5]
   NEWTABLE R4 0 0
   CALL R2 2 1
-  SETTABLEKS R2 R0 K29 ["analytics"]
+  SETTABLEKS R2 R0 K19 ["analytics"]
   GETUPVAL R3 5
-  GETTABLEKS R2 R3 K13 ["new"]
+  GETTABLEKS R2 R3 K3 ["new"]
   CALL R2 0 1
-  SETTABLEKS R2 R0 K30 ["DEPRECATED_stylizer"]
+  SETTABLEKS R2 R0 K20 ["DEPRECATED_stylizer"]
   GETUPVAL R2 6
-  GETTABLEKS R3 R1 K31 ["Plugin"]
+  GETTABLEKS R3 R1 K21 ["Plugin"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K32 ["design"]
+  SETTABLEKS R2 R0 K22 ["design"]
   RETURN R0 0
 
 PROTO_7:
@@ -152,395 +136,142 @@ PROTO_8:
   RETURN R0 0
 
 PROTO_9:
-  GETUPVAL R0 0
-  DUPTABLE R2 K1 [{"showingSettings"}]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K0 ["showingSettings"]
-  NAMECALL R0 R0 K2 ["setStateAndRefresh"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_10:
-  GETUPVAL R1 0
-  MOVE R3 R0
-  NAMECALL R1 R1 K0 ["setStateAndRefresh"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_11:
-  GETUPVAL R0 0
-  DUPTABLE R2 K2 [{"maxTriangles", "maxDrawCalls"}]
-  LOADK R3 K3 [1000000]
-  SETTABLEKS R3 R2 K0 ["maxTriangles"]
-  LOADN R3 232
-  SETTABLEKS R3 R2 K1 ["maxDrawCalls"]
-  NAMECALL R0 R0 K4 ["setStateAndRefresh"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_12:
-  GETUPVAL R0 0
-  DUPTABLE R2 K1 [{"showingSettings"}]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K0 ["showingSettings"]
-  NAMECALL R0 R0 K2 ["setStateAndRefresh"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_13:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
   GETTABLEKS R4 R2 K3 ["enabled"]
-  GETTABLEKS R6 R2 K4 ["triangleCount"]
-  JUMPIFNOT R6 [+7]
-  GETTABLEKS R6 R2 K4 ["triangleCount"]
-  FASTCALL1 TONUMBER R6 [+2]
-  GETIMPORT R5 K6 [tonumber]
-  CALL R5 1 1
-  JUMPIF R5 [+1]
-  LOADN R5 0
   GETUPVAL R6 0
-  MOVE R7 R5
-  CALL R6 1 1
-  GETUPVAL R7 0
-  GETTABLEKS R8 R2 K7 ["maxTriangles"]
+  GETTABLEKS R5 R6 K4 ["provide"]
+  NEWTABLE R6 0 7
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["new"]
+  MOVE R8 R3
   CALL R7 1 1
-  GETTABLEKS R9 R2 K8 ["drawCallCount"]
-  JUMPIFNOT R9 [+7]
-  GETTABLEKS R9 R2 K8 ["drawCallCount"]
-  FASTCALL1 TONUMBER R9 [+2]
-  GETIMPORT R8 K6 [tonumber]
-  CALL R8 1 1
-  JUMPIF R8 [+1]
-  LOADN R8 0
-  GETUPVAL R9 0
-  MOVE R10 R8
-  CALL R9 1 1
-  GETUPVAL R10 0
-  GETTABLEKS R11 R2 K9 ["maxDrawCalls"]
-  CALL R10 1 1
-  GETTABLEKS R13 R2 K7 ["maxTriangles"]
-  DIV R12 R5 R13
-  FASTCALL2K MATH_MIN R12 K10 [+4]
-  LOADK R13 K10 [1]
-  GETIMPORT R11 K13 [math.min]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K5 ["new"]
+  NAMECALL R9 R3 K6 ["getMouse"]
+  CALL R9 1 -1
+  CALL R8 -1 1
+  GETTABLEKS R9 R0 K7 ["DEPRECATED_stylizer"]
+  GETTABLEKS R10 R0 K8 ["localization"]
+  GETTABLEKS R11 R0 K9 ["analytics"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K5 ["new"]
+  GETTABLEKS R13 R0 K10 ["telemetry"]
+  CALL R12 1 1
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K5 ["new"]
+  GETTABLEKS R14 R0 K11 ["design"]
+  CALL R13 1 -1
+  SETLIST R6 R7 -1 [1]
+  DUPTABLE R7 K13 [{"MainWidget"}]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K14 ["createElement"]
+  GETUPVAL R9 6
+  NEWTABLE R10 16 0
+  LOADK R11 K15 ["PerformanceTools"]
+  SETTABLEKS R11 R10 K16 ["Id"]
+  SETTABLEKS R4 R10 K17 ["Enabled"]
+  GETTABLEKS R11 R0 K8 ["localization"]
+  LOADK R13 K18 ["SceneBudgetThermometer"]
+  LOADK R14 K19 ["Name"]
+  NAMECALL R11 R11 K20 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K21 ["Title"]
+  GETIMPORT R11 K25 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K23 ["ZIndexBehavior"]
+  GETIMPORT R11 K28 [Enum.InitialDockState.Bottom]
+  SETTABLEKS R11 R10 K26 ["InitialDockState"]
+  GETIMPORT R11 K30 [Vector2.new]
+  LOADN R12 128
+  LOADN R13 224
   CALL R11 2 1
-  GETTABLEKS R14 R2 K9 ["maxDrawCalls"]
-  DIV R13 R8 R14
-  FASTCALL2K MATH_MIN R13 K10 [+4]
-  LOADK R14 K10 [1]
-  GETIMPORT R12 K13 [math.min]
-  CALL R12 2 1
-  GETTABLEKS R15 R2 K15 ["renderThreadAverageMs"]
-  DIVK R14 R15 K14 [12]
-  FASTCALL2K MATH_MIN R14 K10 [+4]
-  LOADK R15 K10 [1]
-  GETIMPORT R13 K13 [math.min]
-  CALL R13 2 1
-  GETTABLEKS R16 R2 K16 ["taskThreadAverageMs"]
-  DIVK R15 R16 K14 [12]
-  FASTCALL2K MATH_MIN R15 K10 [+4]
-  LOADK R16 K10 [1]
-  GETIMPORT R14 K13 [math.min]
-  CALL R14 2 1
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K17 ["provide"]
-  NEWTABLE R16 0 5
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K18 ["new"]
-  MOVE R18 R3
-  CALL R17 1 1
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K18 ["new"]
-  NAMECALL R19 R3 K19 ["getMouse"]
-  CALL R19 1 -1
-  CALL R18 -1 1
-  GETTABLEKS R19 R0 K20 ["DEPRECATED_stylizer"]
-  GETTABLEKS R20 R0 K21 ["localization"]
-  GETTABLEKS R21 R0 K22 ["analytics"]
-  SETLIST R16 R17 5 [1]
-  DUPTABLE R17 K24 [{"MainWidget"}]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K25 ["createElement"]
-  GETUPVAL R19 5
-  NEWTABLE R20 16 0
-  LOADK R21 K26 ["PerformanceTools"]
-  SETTABLEKS R21 R20 K27 ["Id"]
-  SETTABLEKS R4 R20 K28 ["Enabled"]
-  GETTABLEKS R21 R0 K21 ["localization"]
-  LOADK R23 K29 ["SceneBudgetThermometer"]
-  LOADK R24 K30 ["Name"]
-  NAMECALL R21 R21 K31 ["getText"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K32 ["Title"]
-  GETIMPORT R21 K36 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R21 R20 K34 ["ZIndexBehavior"]
-  GETIMPORT R21 K39 [Enum.InitialDockState.Bottom]
-  SETTABLEKS R21 R20 K37 ["InitialDockState"]
-  GETIMPORT R21 K41 [Vector2.new]
-  LOADN R22 128
-  LOADN R23 224
-  CALL R21 2 1
-  SETTABLEKS R21 R20 K42 ["Size"]
-  GETIMPORT R21 K41 [Vector2.new]
-  LOADN R22 250
-  LOADN R23 200
-  CALL R21 2 1
-  SETTABLEKS R21 R20 K43 ["MinSize"]
-  GETTABLEKS R21 R0 K44 ["onClose"]
-  SETTABLEKS R21 R20 K45 ["OnClose"]
-  GETTABLEKS R22 R1 K46 ["PluginLoaderContext"]
-  GETTABLEKS R21 R22 K47 ["mainDockWidget"]
-  SETTABLEKS R21 R20 K48 ["Widget"]
-  GETTABLEKS R21 R0 K49 ["onDockWidgetCreated"]
-  SETTABLEKS R21 R20 K50 ["OnWidgetCreated"]
-  GETTABLEKS R21 R0 K51 ["onRestore"]
-  SETTABLEKS R21 R20 K52 ["OnWidgetRestored"]
-  LOADB R21 1
-  SETTABLEKS R21 R20 K53 ["ShouldRestore"]
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K54 ["Change"]
-  GETTABLEKS R21 R22 K28 ["Enabled"]
-  GETTABLEKS R22 R0 K55 ["onWidgetEnabledChanged"]
-  SETTABLE R22 R20 R21
-  DUPTABLE R21 K59 [{"ThermometerSettings", "ThermometerWrapper", "StyleLink"}]
-  GETTABLEKS R23 R2 K60 ["showingSettings"]
-  JUMPIFNOT R23 [+27]
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K25 ["createElement"]
-  GETUPVAL R23 6
-  DUPTABLE R24 K66 [{"MaxTriangles", "MaxDrawCalls", "OnCloseSettings", "OnSettingsUpdated", "OnResetToDefault"}]
-  GETTABLEKS R25 R2 K7 ["maxTriangles"]
-  SETTABLEKS R25 R24 K61 ["MaxTriangles"]
-  GETTABLEKS R25 R2 K9 ["maxDrawCalls"]
-  SETTABLEKS R25 R24 K62 ["MaxDrawCalls"]
-  NEWCLOSURE R25 P0
-  CAPTURE VAL R0
-  SETTABLEKS R25 R24 K63 ["OnCloseSettings"]
-  NEWCLOSURE R25 P1
-  CAPTURE VAL R0
-  SETTABLEKS R25 R24 K64 ["OnSettingsUpdated"]
-  NEWCLOSURE R25 P2
-  CAPTURE VAL R0
-  SETTABLEKS R25 R24 K65 ["OnResetToDefault"]
-  CALL R22 2 1
-  JUMPIF R22 [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K56 ["ThermometerSettings"]
-  GETTABLEKS R23 R2 K60 ["showingSettings"]
-  JUMPIF R23 [+241]
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K25 ["createElement"]
-  LOADK R23 K67 ["Frame"]
-  NEWTABLE R24 4 0
-  GETUPVAL R26 4
-  GETTABLEKS R25 R26 K68 ["Tag"]
-  LOADK R26 K69 ["X-Fill X-Column"]
-  SETTABLE R26 R24 R25
-  GETIMPORT R25 K71 [UDim2.new]
-  LOADN R26 1
-  LOADN R27 0
-  LOADN R28 1
-  LOADN R29 0
-  CALL R25 4 1
-  SETTABLEKS R25 R24 K42 ["Size"]
-  LOADN R25 1
-  SETTABLEKS R25 R24 K72 ["BackgroundTransparency"]
-  DUPTABLE R25 K80 [{"Layout", "Padding", "SettingsButton", "TriangleBar", "DrawCallBar", "GameRenderMsBar", "ScriptThreadMsBar"}]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K25 ["createElement"]
-  LOADK R27 K81 ["UIListLayout"]
-  DUPTABLE R28 K86 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R29 K88 [UDim.new]
-  LOADN R30 0
-  LOADN R31 18
-  CALL R29 2 1
-  SETTABLEKS R29 R28 K74 ["Padding"]
-  GETIMPORT R29 K90 [Enum.FillDirection.Vertical]
-  SETTABLEKS R29 R28 K82 ["FillDirection"]
-  GETIMPORT R29 K92 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R29 R28 K83 ["HorizontalAlignment"]
-  GETIMPORT R29 K94 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R29 R28 K84 ["VerticalAlignment"]
-  GETIMPORT R29 K96 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R29 R28 K85 ["SortOrder"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K73 ["Layout"]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K25 ["createElement"]
-  LOADK R27 K97 ["UIPadding"]
-  DUPTABLE R28 K102 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R29 K88 [UDim.new]
-  LOADN R30 0
-  LOADN R31 20
-  CALL R29 2 1
-  SETTABLEKS R29 R28 K98 ["PaddingTop"]
-  GETIMPORT R29 K88 [UDim.new]
-  LOADN R30 0
-  LOADN R31 10
-  CALL R29 2 1
-  SETTABLEKS R29 R28 K99 ["PaddingBottom"]
-  GETIMPORT R29 K88 [UDim.new]
-  LOADN R30 0
-  LOADN R31 15
-  CALL R29 2 1
-  SETTABLEKS R29 R28 K100 ["PaddingLeft"]
-  GETIMPORT R29 K88 [UDim.new]
-  LOADN R30 0
-  LOADN R31 15
-  CALL R29 2 1
-  SETTABLEKS R29 R28 K101 ["PaddingRight"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K74 ["Padding"]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K25 ["createElement"]
-  GETUPVAL R27 7
-  DUPTABLE R28 K107 [{"LeftIcon", "Cursor", "Text", "OnClick", "LayoutOrder"}]
-  LOADK R29 K108 ["rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png"]
-  SETTABLEKS R29 R28 K103 ["LeftIcon"]
-  LOADK R29 K109 ["PointingHand"]
-  SETTABLEKS R29 R28 K104 ["Cursor"]
-  LOADK R29 K110 ["Settings"]
-  SETTABLEKS R29 R28 K105 ["Text"]
-  NEWCLOSURE R29 P3
-  CAPTURE VAL R0
-  SETTABLEKS R29 R28 K106 ["OnClick"]
-  LOADN R29 2
-  SETTABLEKS R29 R28 K95 ["LayoutOrder"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K75 ["SettingsButton"]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K25 ["createElement"]
-  GETUPVAL R27 8
-  DUPTABLE R28 K113 [{"FillAmount", "MainText", "Text", "LayoutOrder"}]
-  SETTABLEKS R11 R28 K111 ["FillAmount"]
-  LOADK R29 K114 ["Triangles (Scene)"]
-  SETTABLEKS R29 R28 K112 ["MainText"]
-  LOADK R30 K115 ["%* / %*"]
-  MOVE R32 R6
-  MOVE R33 R7
-  NAMECALL R30 R30 K116 ["format"]
-  CALL R30 3 1
-  MOVE R29 R30
-  SETTABLEKS R29 R28 K105 ["Text"]
-  LOADN R29 3
-  SETTABLEKS R29 R28 K95 ["LayoutOrder"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K76 ["TriangleBar"]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K25 ["createElement"]
-  GETUPVAL R27 8
-  DUPTABLE R28 K117 [{"FillAmount", "Text", "MainText", "LayoutOrder"}]
-  SETTABLEKS R12 R28 K111 ["FillAmount"]
-  LOADK R30 K115 ["%* / %*"]
-  MOVE R32 R9
-  MOVE R33 R10
-  NAMECALL R30 R30 K116 ["format"]
-  CALL R30 3 1
-  MOVE R29 R30
-  SETTABLEKS R29 R28 K105 ["Text"]
-  LOADK R29 K118 ["Draw Calls (Scene)"]
-  SETTABLEKS R29 R28 K112 ["MainText"]
-  LOADN R29 4
-  SETTABLEKS R29 R28 K95 ["LayoutOrder"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K77 ["DrawCallBar"]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K25 ["createElement"]
-  GETUPVAL R27 8
-  DUPTABLE R28 K120 [{"FillAmount", "Text", "MainText", "LayoutOrder", "PipCount"}]
-  SETTABLEKS R13 R28 K111 ["FillAmount"]
-  LOADK R30 K121 ["%* / %*ms"]
-  GETIMPORT R32 K123 [string.format]
-  LOADK R33 K124 ["%.1f"]
-  GETTABLEKS R34 R2 K15 ["renderThreadAverageMs"]
-  CALL R32 2 1
-  GETIMPORT R33 K123 [string.format]
-  LOADK R34 K124 ["%.1f"]
-  LOADN R35 12
-  CALL R33 2 1
-  NAMECALL R30 R30 K116 ["format"]
-  CALL R30 3 1
-  MOVE R29 R30
-  SETTABLEKS R29 R28 K105 ["Text"]
-  LOADK R29 K125 ["Per-Frame Game Render Time"]
-  SETTABLEKS R29 R28 K112 ["MainText"]
-  LOADN R29 5
-  SETTABLEKS R29 R28 K95 ["LayoutOrder"]
-  LOADN R29 12
-  SETTABLEKS R29 R28 K119 ["PipCount"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K78 ["GameRenderMsBar"]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K25 ["createElement"]
-  GETUPVAL R27 8
-  DUPTABLE R28 K120 [{"FillAmount", "Text", "MainText", "LayoutOrder", "PipCount"}]
-  SETTABLEKS R14 R28 K111 ["FillAmount"]
-  LOADK R30 K121 ["%* / %*ms"]
-  GETIMPORT R32 K123 [string.format]
-  LOADK R33 K124 ["%.1f"]
-  GETTABLEKS R34 R2 K16 ["taskThreadAverageMs"]
-  CALL R32 2 1
-  GETIMPORT R33 K123 [string.format]
-  LOADK R34 K124 ["%.1f"]
-  LOADN R35 12
-  CALL R33 2 1
-  NAMECALL R30 R30 K116 ["format"]
-  CALL R30 3 1
-  MOVE R29 R30
-  SETTABLEKS R29 R28 K105 ["Text"]
-  LOADK R29 K126 ["Per-Frame Task Time"]
-  SETTABLEKS R29 R28 K112 ["MainText"]
-  LOADN R29 6
-  SETTABLEKS R29 R28 K95 ["LayoutOrder"]
-  LOADN R29 12
-  SETTABLEKS R29 R28 K119 ["PipCount"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K79 ["ScriptThreadMsBar"]
-  CALL R22 3 1
-  JUMPIF R22 [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K57 ["ThermometerWrapper"]
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K25 ["createElement"]
-  LOADK R23 K58 ["StyleLink"]
-  DUPTABLE R24 K128 [{"StyleSheet"}]
-  GETTABLEKS R25 R0 K129 ["design"]
-  SETTABLEKS R25 R24 K127 ["StyleSheet"]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K58 ["StyleLink"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K23 ["MainWidget"]
-  CALL R15 2 -1
-  RETURN R15 -1
-
-PROTO_14:
-  GETUPVAL R1 0
-  MOVE R3 R0
-  NAMECALL R1 R1 K0 ["setStateAndRefresh"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_15:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["Plugin"]
-  LOADK R3 K2 ["SetStateAndRefresh"]
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R0
-  NAMECALL R1 R1 K3 ["OnInvoke"]
-  CALL R1 3 1
-  SETTABLEKS R1 R0 K4 ["setStateAndRefreshConnection"]
-  GETTABLEKS R1 R0 K4 ["setStateAndRefreshConnection"]
-  LOADK R2 K5 ["setStateAndRefresh"]
-  SETTABLEKS R2 R1 K6 ["Name"]
-  RETURN R0 0
-
-PROTO_16:
-  GETTABLEKS R1 R0 K0 ["setStateAndRefreshConnection"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  RETURN R0 0
+  SETTABLEKS R11 R10 K31 ["Size"]
+  GETIMPORT R11 K30 [Vector2.new]
+  LOADN R12 250
+  LOADN R13 200
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K32 ["MinSize"]
+  GETTABLEKS R11 R0 K33 ["onClose"]
+  SETTABLEKS R11 R10 K34 ["OnClose"]
+  GETTABLEKS R12 R1 K35 ["PluginLoaderContext"]
+  GETTABLEKS R11 R12 K36 ["mainDockWidget"]
+  SETTABLEKS R11 R10 K37 ["Widget"]
+  GETTABLEKS R11 R0 K38 ["onDockWidgetCreated"]
+  SETTABLEKS R11 R10 K39 ["OnWidgetCreated"]
+  GETTABLEKS R11 R0 K40 ["onRestore"]
+  SETTABLEKS R11 R10 K41 ["OnWidgetRestored"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K42 ["ShouldRestore"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K43 ["Change"]
+  GETTABLEKS R11 R12 K17 ["Enabled"]
+  GETTABLEKS R12 R0 K44 ["onWidgetEnabledChanged"]
+  SETTABLE R12 R10 R11
+  NEWTABLE R11 0 1
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K14 ["createElement"]
+  GETUPVAL R14 7
+  GETTABLEKS R13 R14 K45 ["ContextStack"]
+  DUPTABLE R14 K47 [{"providers"}]
+  NEWTABLE R15 0 2
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K14 ["createElement"]
+  GETUPVAL R17 8
+  DUPTABLE R18 K49 [{"assetDMListener"}]
+  GETTABLEKS R19 R1 K50 ["AssetDMListener"]
+  SETTABLEKS R19 R18 K48 ["assetDMListener"]
+  CALL R16 2 1
+  GETUPVAL R18 5
+  GETTABLEKS R17 R18 K14 ["createElement"]
+  GETUPVAL R18 9
+  CALL R17 1 -1
+  SETLIST R15 R16 -1 [1]
+  SETTABLEKS R15 R14 K46 ["providers"]
+  DUPTABLE R15 K54 [{"ScrollFrame", "StyleLink", "WidgetRegister"}]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K14 ["createElement"]
+  GETUPVAL R17 10
+  DUPTABLE R18 K57 [{"CanvasSize", "AutomaticCanvasSize"}]
+  GETIMPORT R19 K60 [UDim2.fromScale]
+  LOADN R20 0
+  LOADN R21 0
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K55 ["CanvasSize"]
+  GETIMPORT R19 K63 [Enum.AutomaticSize.XY]
+  SETTABLEKS R19 R18 K56 ["AutomaticCanvasSize"]
+  DUPTABLE R19 K65 [{"MainComponent"}]
+  GETUPVAL R21 5
+  GETTABLEKS R20 R21 K14 ["createElement"]
+  GETUPVAL R21 11
+  DUPTABLE R22 K67 [{"Plugin", "MainButton"}]
+  SETTABLEKS R3 R22 K2 ["Plugin"]
+  GETTABLEKS R24 R1 K35 ["PluginLoaderContext"]
+  GETTABLEKS R23 R24 K68 ["mainButton"]
+  SETTABLEKS R23 R22 K66 ["MainButton"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K64 ["MainComponent"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K51 ["ScrollFrame"]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K14 ["createElement"]
+  LOADK R17 K52 ["StyleLink"]
+  DUPTABLE R18 K70 [{"StyleSheet"}]
+  GETTABLEKS R19 R0 K11 ["design"]
+  SETTABLEKS R19 R18 K69 ["StyleSheet"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K52 ["StyleLink"]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K14 ["createElement"]
+  GETUPVAL R17 12
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K53 ["WidgetRegister"]
+  CALL R12 3 -1
+  SETLIST R11 R12 -1 [1]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K12 ["MainWidget"]
+  CALL R5 2 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0
@@ -554,88 +285,107 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
+  GETTABLEKS R3 R4 K8 ["ReactUtils"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Cryo"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
   CALL R3 1 1
-  GETTABLEKS R5 R2 K10 ["UI"]
-  GETTABLEKS R4 R5 K11 ["DockWidget"]
-  GETTABLEKS R6 R2 K10 ["UI"]
-  GETTABLEKS R5 R6 K12 ["IconButton"]
-  GETTABLEKS R6 R2 K13 ["ContextServices"]
-  GETTABLEKS R7 R6 K14 ["Plugin"]
-  GETTABLEKS R8 R6 K15 ["Mouse"]
-  GETTABLEKS R11 R2 K16 ["Style"]
-  GETTABLEKS R10 R11 K17 ["Themes"]
-  GETTABLEKS R9 R10 K18 ["StudioTheme"]
-  GETTABLEKS R11 R2 K19 ["Styling"]
-  GETTABLEKS R10 R11 K20 ["registerPluginStyles"]
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R13 R0 K6 ["Packages"]
-  GETTABLEKS R12 R13 K21 ["TelemetryProtocol"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R16 R0 K22 ["Src"]
-  GETTABLEKS R15 R16 K23 ["Util"]
-  GETTABLEKS R14 R15 K24 ["Telemetry"]
-  GETTABLEKS R13 R14 K25 ["OpenThermometer"]
-  CALL R12 1 1
-  GETTABLEKS R16 R0 K22 ["Src"]
-  GETTABLEKS R15 R16 K26 ["Resources"]
-  GETTABLEKS R14 R15 K27 ["Localization"]
-  GETTABLEKS R13 R14 K28 ["SourceStrings"]
-  GETTABLEKS R17 R0 K22 ["Src"]
-  GETTABLEKS R16 R17 K26 ["Resources"]
-  GETTABLEKS R15 R16 K27 ["Localization"]
-  GETTABLEKS R14 R15 K29 ["LocalizedStrings"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Cryo"]
+  CALL R4 1 1
+  GETTABLEKS R6 R3 K11 ["UI"]
+  GETTABLEKS R5 R6 K12 ["DockWidget"]
+  GETTABLEKS R7 R3 K11 ["UI"]
+  GETTABLEKS R6 R7 K13 ["ScrollingFrame"]
+  GETTABLEKS R7 R3 K14 ["ContextServices"]
+  GETTABLEKS R8 R7 K15 ["Plugin"]
+  GETTABLEKS R9 R7 K16 ["Mouse"]
+  GETTABLEKS R10 R7 K17 ["Design"]
+  GETTABLEKS R13 R3 K18 ["Style"]
+  GETTABLEKS R12 R13 K19 ["Themes"]
+  GETTABLEKS R11 R12 K20 ["StudioTheme"]
+  GETTABLEKS R13 R3 K21 ["Styling"]
+  GETTABLEKS R12 R13 K22 ["registerPluginStyles"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R15 R0 K6 ["Packages"]
+  GETTABLEKS R14 R15 K23 ["TelemetryProtocol"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R18 R0 K24 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Util"]
+  GETTABLEKS R16 R17 K26 ["Telemetry"]
+  GETTABLEKS R15 R16 K27 ["TelemetryContext"]
+  CALL R14 1 1
   GETIMPORT R15 K5 [require]
-  GETTABLEKS R18 R0 K22 ["Src"]
-  GETTABLEKS R17 R18 K30 ["Components"]
-  GETTABLEKS R16 R17 K31 ["MeasuringBar"]
+  GETTABLEKS R20 R0 K24 ["Src"]
+  GETTABLEKS R19 R20 K25 ["Util"]
+  GETTABLEKS R18 R19 K26 ["Telemetry"]
+  GETTABLEKS R17 R18 K28 ["Events"]
+  GETTABLEKS R16 R17 K29 ["OpenThermometer"]
   CALL R15 1 1
-  GETIMPORT R16 K5 [require]
-  GETTABLEKS R19 R0 K22 ["Src"]
-  GETTABLEKS R18 R19 K30 ["Components"]
-  GETTABLEKS R17 R18 K32 ["ThermometerSettings"]
-  CALL R16 1 1
-  GETIMPORT R17 K5 [require]
-  GETTABLEKS R20 R0 K22 ["Src"]
-  GETTABLEKS R19 R20 K23 ["Util"]
-  GETTABLEKS R18 R19 K33 ["FormatLargeNumber"]
-  CALL R17 1 1
-  GETTABLEKS R18 R1 K34 ["PureComponent"]
-  LOADK R20 K35 ["MainPlugin"]
-  NAMECALL R18 R18 K36 ["extend"]
-  CALL R18 2 1
-  DUPCLOSURE R19 K37 [PROTO_6]
+  GETTABLEKS R19 R0 K24 ["Src"]
+  GETTABLEKS R18 R19 K30 ["Resources"]
+  GETTABLEKS R17 R18 K31 ["Localization"]
+  GETTABLEKS R16 R17 K32 ["SourceStrings"]
+  GETTABLEKS R20 R0 K24 ["Src"]
+  GETTABLEKS R19 R20 K30 ["Resources"]
+  GETTABLEKS R18 R19 K31 ["Localization"]
+  GETTABLEKS R17 R18 K33 ["LocalizedStrings"]
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R21 R0 K24 ["Src"]
+  GETTABLEKS R20 R21 K34 ["Components"]
+  GETTABLEKS R19 R20 K35 ["MainComponent"]
+  CALL R18 1 1
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R23 R0 K24 ["Src"]
+  GETTABLEKS R22 R23 K34 ["Components"]
+  GETTABLEKS R21 R22 K36 ["Contexts"]
+  GETTABLEKS R20 R21 K37 ["TooltipContextProvider"]
+  CALL R19 1 1
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R23 R0 K24 ["Src"]
+  GETTABLEKS R22 R23 K25 ["Util"]
+  GETTABLEKS R21 R22 K38 ["WidgetRegister"]
+  CALL R20 1 1
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R25 R0 K24 ["Src"]
+  GETTABLEKS R24 R25 K34 ["Components"]
+  GETTABLEKS R23 R24 K36 ["Contexts"]
+  GETTABLEKS R22 R23 K39 ["AssetDMDataManagerProvider"]
+  CALL R21 1 1
+  GETTABLEKS R22 R1 K40 ["PureComponent"]
+  LOADK R24 K41 ["MainPlugin"]
+  NAMECALL R22 R22 K42 ["extend"]
+  CALL R22 2 1
+  DUPCLOSURE R23 K43 [PROTO_6]
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  CAPTURE VAL R7
+  CAPTURE VAL R16
+  CAPTURE VAL R17
   CAPTURE VAL R11
   CAPTURE VAL R12
-  CAPTURE VAL R6
-  CAPTURE VAL R13
-  CAPTURE VAL R14
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  SETTABLEKS R19 R18 K38 ["init"]
-  DUPCLOSURE R19 K39 [PROTO_7]
-  CAPTURE VAL R3
-  SETTABLEKS R19 R18 K40 ["setStateAndRefresh"]
-  DUPCLOSURE R19 K41 [PROTO_8]
-  SETTABLEKS R19 R18 K42 ["didUpdate"]
-  DUPCLOSURE R19 K43 [PROTO_13]
-  CAPTURE VAL R17
-  CAPTURE VAL R6
+  SETTABLEKS R23 R22 K44 ["init"]
+  DUPCLOSURE R23 K45 [PROTO_7]
+  CAPTURE VAL R4
+  SETTABLEKS R23 R22 K46 ["setStateAndRefresh"]
+  DUPCLOSURE R23 K47 [PROTO_8]
+  SETTABLEKS R23 R22 K48 ["didUpdate"]
+  DUPCLOSURE R23 K49 [PROTO_9]
   CAPTURE VAL R7
   CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  CAPTURE VAL R10
   CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R16
   CAPTURE VAL R5
-  CAPTURE VAL R15
-  SETTABLEKS R19 R18 K44 ["render"]
-  DUPCLOSURE R19 K45 [PROTO_15]
-  SETTABLEKS R19 R18 K46 ["didMount"]
-  DUPCLOSURE R19 K47 [PROTO_16]
-  SETTABLEKS R19 R18 K48 ["willUnmount"]
-  RETURN R18 1
+  CAPTURE VAL R2
+  CAPTURE VAL R21
+  CAPTURE VAL R19
+  CAPTURE VAL R6
+  CAPTURE VAL R18
+  CAPTURE VAL R20
+  SETTABLEKS R23 R22 K50 ["render"]
+  RETURN R22 1
