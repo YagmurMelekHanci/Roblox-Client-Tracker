@@ -2665,6 +2665,15 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">AudioRecorder</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <string name="FFlag">EnableAudioRecorder</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">AudioListener</string>
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
@@ -3655,6 +3664,12 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">RagdollDeath</string>
+            <string name="FFlag">AvatarJointUpgradeCpp</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ClassicDeath</string>
             <string name="FFlag">AvatarJointUpgradeCpp</string>
           </Properties>
         </Item>

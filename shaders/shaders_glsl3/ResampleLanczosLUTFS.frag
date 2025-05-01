@@ -6,7 +6,7 @@ const float f0[10] = float[](1.0, 0.81030094623565673828125, 0.38071689009666442
 #include <Params.h>
 #include <Globals.h>
 uniform vec4 CB1[15];
-uniform vec4 CB0[58];
+uniform vec4 CB0[61];
 uniform sampler2D Texture0Texture;
 
 in vec2 VARYING0;

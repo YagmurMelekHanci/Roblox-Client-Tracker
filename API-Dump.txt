@@ -395,11 +395,11 @@ Class WorkspaceAnnotation : Annotation
 	Function WorkspaceAnnotation:GetAbsolutePosition() -> Vector3 {RobloxScriptSecurity}
 	Function WorkspaceAnnotation:SetAdorneeOffsetFromAbsolutePosition(position: Vector3) -> () {RobloxScriptSecurity}
 Class AnnotationsService : Instance [NotCreatable] [Service]
-	Property AnnotationsService.AnnotationsLoadingStatus: Enum.AnnotationRequestStatus {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property AnnotationsService.AnnotationsLoadingStatus: Enum.AnnotationRequestStatus {RobloxScriptSecurity} [Hidden]
 	Property AnnotationsService.AnnotationsVisible: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property AnnotationsService.Hovered: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property AnnotationsService.Mode: Enum.AnnotationEditingMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property AnnotationsService.ResolvedLoadingStatus: Enum.AnnotationRequestStatus {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property AnnotationsService.ResolvedLoadingStatus: Enum.AnnotationRequestStatus {RobloxScriptSecurity} [Hidden]
 	Property AnnotationsService.Selected: Annotation? {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function AnnotationsService:CreateAnnotation(annotation: Annotation) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:DEPRECATED_EditAnnotation(uniqueId: string, contents: string) -> () {RobloxScriptSecurity}
@@ -408,7 +408,8 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Function AnnotationsService:EditAnnotation(uniqueId: string, contents: string, taggedUsers: string) -> () {RobloxScriptSecurity}
 	Function AnnotationsService:GetAnnotationThreads() -> { Instance } {RobloxScriptSecurity}
 	Function AnnotationsService:LoadAnnotationReplies(annotation: Annotation, reverseOrder: boolean, loadAll: boolean) -> () {RobloxScriptSecurity}
-	Function AnnotationsService:LoadResolvedAnnotations(count: number) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:LoadAnnotations(resolved: boolean) -> () {RobloxScriptSecurity}
+	Function AnnotationsService:LoadResolvedAnnotations(count: number) -> () {RobloxScriptSecurity} [Deprecated]
 	Function AnnotationsService:ResolveAnnotation(annotation: Annotation, resolved: boolean) -> () {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationAdded(requestId: string, annotation: Annotation, channelId: string) {RobloxScriptSecurity}
 	Event AnnotationsService.AnnotationDeleted(requestId: string, annotation: Annotation) {RobloxScriptSecurity}
@@ -417,6 +418,7 @@ Class AnnotationsService : Instance [NotCreatable] [Service]
 	Event AnnotationsService.DEPRECATED_AnnotationEdited(requestId: string, uniqueId: string, contents: string) {RobloxScriptSecurity}
 	Event AnnotationsService.DEPRECATED_ServerLoadAnnotationReplies(annotation: Annotation) {RobloxSecurity}
 	Event AnnotationsService.ServerLoadAnnotationReplies(annotation: Annotation, reverseOrder: boolean, loadAll: boolean) {RobloxSecurity}
+	Event AnnotationsService.ServerLoadAnnotations(resolved: boolean) {RobloxSecurity}
 	Event AnnotationsService.ServerLoadResolvedAnnotations(count: number) {RobloxSecurity}
 Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppLifecycleObserverService:GetCurrentState() -> Enum.AppLifecycleManagerState {RobloxScriptSecurity}
@@ -743,6 +745,19 @@ Class AudioPlayer : Instance
 	Event AudioPlayer.Ended()
 	Event AudioPlayer.Looped()
 	Event AudioPlayer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
+Class AudioRecorder : Instance [NotBrowsable]
+	Property AudioRecorder.TimeLength: number [ReadOnly]
+	Property AudioRecorder.IsRecording: boolean {✏️RobloxSecurity}
+	Function AudioRecorder:CanRecordAsync() -> boolean [Yields]
+	Function AudioRecorder:Clear() -> ()
+	Function AudioRecorder:GetConnectedWires(pin: string) -> { Instance }
+	Function AudioRecorder:GetInputPins() -> { any }
+	Function AudioRecorder:GetOutputPins() -> { any }
+	Function AudioRecorder:GetTemporaryContent() -> Content
+	Function AudioRecorder:GetUnrecordableInstancesAsync() -> { Instance } [Yields]
+	Function AudioRecorder:RecordAsync() -> () [Yields]
+	Function AudioRecorder:Stop() -> ()
+	Event AudioRecorder.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioReverb : Instance
 	Property AudioReverb.Bypass: boolean
 	Property AudioReverb.DecayRatio: number
@@ -793,13 +808,12 @@ Class AudioTextToSpeech : Instance [NotBrowsable]
 	Event AudioTextToSpeech.Ended()
 	Event AudioTextToSpeech.Looped()
 	Event AudioTextToSpeech.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
+Class AuroraScriptObject : Instance [NotCreatable] [Deprecated]
+	Property AuroraScriptObject.BehaviorWeak: AuroraScript? {RobloxSecurity} [Deprecated]
+	Property AuroraScriptObject.BoundInstanceWeak: Instance? {RobloxSecurity} [Deprecated]
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
-	Property AuroraScriptService.BufferSize: number {✏️PluginSecurity} [Deprecated]
 	Function AuroraScriptService:GetLocalFrameId() -> number [Deprecated] {🧬Safe}
-	Function AuroraScriptService:GetProperty(instance: Instance, name: string) -> any [Deprecated] {🧬Safe}
-	Function AuroraScriptService:GetTime() -> number [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () [Deprecated] {🧬Safe}
-	Function AuroraScriptService:SetProperty(instance: Instance, name: string, value: any) -> () [Deprecated] {🧬Safe}
 Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraService:GetPredictedInstances() -> { any } [Deprecated]
 	Function AuroraService:GetRemoteWorldStepId() -> number [Deprecated]
@@ -813,6 +827,7 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraService:StopPrediction(target: Instance) -> () [Deprecated]
 	Function AuroraService:UpdateProperties(target: Instance) -> () [Deprecated]
 	Event AuroraService.FixedRateTick(deltaTime: number, worldStepId: number) [Deprecated]
+	Event AuroraService.Misprediction(worldStepId: number, mispredictedInstances: { any }) [Deprecated]
 	Event AuroraService.Rollback(worldStepId: number) [Deprecated]
 	Event AuroraService.Step() [Deprecated]
 Class AvatarChatService : Instance [NotCreatable] [Service]
@@ -832,6 +847,7 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Event AvatarChatService.OnClientFeatures(features: number) {RobloxSecurity} [Hidden]
 	Event AvatarChatService.RefreshClientFeatures() {RobloxSecurity} [Hidden]
 Class AvatarCreationService : Instance [NotCreatable] [Service]
+	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, model: Model) -> string {RobloxScriptSecurity} [Yields]
 	Function AvatarCreationService:DeserializeAvatarModel(serializedModel: string) -> Instance? {RobloxScriptSecurity}
 	Function AvatarCreationService:GenerateAvatar2DPreviewAsync(avatarGeneration2dPreviewParams: { [string]: any }) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarAsync(avatarGenerationParams: { [string]: any }) -> string [Yields]
@@ -1260,6 +1276,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, captures: { any }) {RobloxScriptSecurity}
 	Event CaptureService.OpenShareCapturePrompt(promptId: number, captureContent: any, launchData: string) {RobloxScriptSecurity}
 	Event CaptureService.RequestCaptureSignature(content: string) {RobloxSecurity} [Hidden]
+	Event CaptureService.RequestCaptureSignatureV2(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function ChangeHistoryService:FinishRecording(identifier: string, operation: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) -> () {PluginSecurity}
@@ -1559,6 +1576,7 @@ Class LinearVelocity : Constraint
 	Property LinearVelocity.LineDirection: Vector3
 	Property LinearVelocity.LineVelocity: number
 	Property LinearVelocity.ForceLimitsEnabled: boolean
+	Property LinearVelocity.ReactionForceEnabled: boolean
 	Property LinearVelocity.RelativeTo: Enum.ActuatorRelativeTo
 	Property LinearVelocity.VelocityConstraintMode: Enum.VelocityConstraintMode
 	Property LinearVelocity.PlaneVelocity: Vector2
@@ -3706,7 +3724,6 @@ Class AuroraScript : LuaSourceContainer [Deprecated]
 	Property AuroraScript.LODCriticality: number {PluginSecurity} [Deprecated]
 	Property AuroraScript.Priority: number {PluginSecurity} [Deprecated]
 	Property AuroraScript.Source: string {PluginSecurity} [Deprecated]
-	Property AuroraScript.Tag: string {✏️PluginSecurity} [Deprecated]
 	Function AuroraScript:AddTo(instance: Instance) -> () [Deprecated]
 	Function AuroraScript:IsOnInstance(instance: Instance) -> boolean [Deprecated]
 	Function AuroraScript:RemoveFrom(instance: Instance) -> () [Deprecated]
@@ -4346,8 +4363,6 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.RenderFidelity: Enum.RenderFidelity {✏️PluginSecurity}
 	Property PartOperation.SmoothingAngle: number {✏️PluginSecurity}
 	Property PartOperation.AssetId: string {RobloxSecurity} [Hidden] [NotScriptable]
-	Property PartOperation.CSGMesh2KernelMap: SharedString [Hidden] [NotReplicated] [NotScriptable]
-	Property PartOperation.CSGPropertyData: CSGPropertyData {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.ChildData: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.ChildData2: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.ComponentIndex: number {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
@@ -4525,6 +4540,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.ClientAnimatorThrottling: Enum.ClientAnimatorThrottlingMode
 	Property Workspace.CollisionGroupData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Workspace.CollisionGroups: string [📁 LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
+	Property Workspace.ConvexDecompCompressed: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Workspace.DataModelPlaceVersion: number [Hidden] [NotScriptable]
 	Property Workspace.ExplicitAutoJoints: boolean [Hidden] [NotScriptable]
 	Property Workspace.FallHeightEnabled: boolean {✏️PluginSecurity}
@@ -5344,6 +5360,9 @@ Class ReflectionMetadataMember : ReflectionMetadataItem
 Class ReflectionMetadataProperties : Instance
 Class ReflectionMetadataYieldFunctions : Instance
 Class ReflectionService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function ReflectionService:GetClass(className: string, filter: { [string]: any }? = nil) -> { [string]: any }?
+	Function ReflectionService:GetClasses(filter: { [string]: any }? = nil) -> { any }
+	Function ReflectionService:GetPropertiesOfClass(className: string, filter: { [string]: any }? = nil) -> { any }
 	Function ReflectionService:GetPropertyNames(name: string) -> { any } {RobloxScriptSecurity}
 	Function ReflectionService:GetStyledPropertyNames(name: string) -> { any } {RobloxScriptSecurity}
 Class RemoteCursorService : Instance [NotCreatable] [Service]
@@ -5756,6 +5775,7 @@ Class Sky : Instance
 	Property Sky.SkyboxDn: string
 	Property Sky.SkyboxFt: string
 	Property Sky.SkyboxLf: string
+	Property Sky.SkyboxOrientation: Vector3
 	Property Sky.SkyboxRt: string
 	Property Sky.SkyboxUp: string
 	Property Sky.StarCount: number
@@ -5992,6 +6012,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.AvatarJointUpgrade_SerializedRollout: Enum.RolloutState [Hidden] [NotScriptable]
 	Property StarterPlayer.CharacterMaxSlopeAngle: number
 	Property StarterPlayer.CharacterWalkSpeed: number
+	Property StarterPlayer.ClassicDeath: boolean
 	Property StarterPlayer.EnableDynamicHeads: Enum.LoadDynamicHeads [NotScriptable]
 	Property StarterPlayer.GameSettingsAssetIDFace: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StarterPlayer.GameSettingsAssetIDHead: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -6139,7 +6160,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.ActionOnAutoResumeSync: Enum.ActionOnAutoResumeSync {RobloxScriptSecurity}
 	Property Studio.ActionOnStopSync: Enum.ActionOnStopSync
 	Property Studio.AutoResumeSyncOnPlaceOpen: boolean {RobloxSecurity}
-	Property Studio.DefaultScriptFileDir: QDir
 	Property Studio.IconOverrideDir: QDir {RobloxScriptSecurity}
 	Property Studio.LocalAssetsFolder: QDir {✏️RobloxScriptSecurity}
 	Property Studio.PluginsDir: QDir
@@ -6688,7 +6708,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.ChatTranslationEnabled: boolean {✏️RobloxScriptSecurity} [NotReplicated]
 	Property TextChatService.ChatTranslationFTUXShown: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextChatService.ChatTranslationToggleEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property TextChatService.ChatVersion: Enum.ChatVersion {✏️NotAccessibleSecurity}
+	Property TextChatService.ChatVersion: Enum.ChatVersion {✏️RobloxScriptSecurity}
 	Property TextChatService.CreateDefaultCommands: boolean {✏️PluginSecurity}
 	Property TextChatService.CreateDefaultTextChannels: boolean {✏️PluginSecurity}
 	Property TextChatService.HasSeenDeprecationDialog: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -8612,8 +8632,7 @@ Enum FeedRankingScoreType
 	EnumItem FeedRankingScoreType.Final : 1
 	EnumItem FeedRankingScoreType.GameJoin : 2
 	EnumItem FeedRankingScoreType.Interaction : 3
-	EnumItem FeedRankingScoreType.Invalid : 4
-	EnumItem FeedRankingScoreType.Sharing : 5
+	EnumItem FeedRankingScoreType.Sharing : 4
 Enum FieldOfViewMode
 	EnumItem FieldOfViewMode.Vertical : 0
 	EnumItem FieldOfViewMode.Diagonal : 1
@@ -8973,7 +8992,7 @@ Enum InitialDockState
 	EnumItem InitialDockState.Float : 4
 Enum InputActionType
 	EnumItem InputActionType.Bool : 0
-	EnumItem InputActionType.Float : 1
+	EnumItem InputActionType.Direction1D : 1
 	EnumItem InputActionType.Direction2D : 2
 Enum InputType
 	EnumItem InputType.NoInput : 0

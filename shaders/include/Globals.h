@@ -45,4 +45,5 @@ struct Globals
     float packedAlphaRef;
     float debugFlags;
     mat4 FroxelTransform;
+    mat3x4 SkyboxRotation;
 };
