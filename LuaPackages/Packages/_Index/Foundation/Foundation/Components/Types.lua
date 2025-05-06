@@ -117,6 +117,7 @@ export type GuiObjectProps = {
 	ClipsDescendants: Bindable<boolean>?,
 	Rotation: Bindable<number>?,
 	Size: Bindable<UDim2>?,
+	SizeConstraint: Bindable<Enum.SizeConstraint>?,
 
 	stateLayer: StateLayer?, -- Can this be bindable?
 	onActivated: ((self: GuiObject, inputObject: InputObject, clickCount: number) -> ())?,

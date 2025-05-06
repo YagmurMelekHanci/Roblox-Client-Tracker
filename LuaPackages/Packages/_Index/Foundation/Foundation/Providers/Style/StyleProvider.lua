@@ -17,6 +17,9 @@ local VariantsContext = require(Style.VariantsContext)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
 local StyleSheetContext = require(Style.StyleSheetContext)
+local TextSizeOffsetContext = require(Style.TextSizeOffsetContext)
+local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
+local getTextSizeOffset = require(Foundation.Utility.getTextSizeOffset)
 
 local getTokens = Tokens.getTokens
 
@@ -70,39 +73,50 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 
 	local rules = if Flags.FoundationStylingPolyfill then useGeneratedRules(props.theme, props.device) else nil
 
+	local preferences = usePreferences()
+	local preferredTextSize = preferences.preferredTextSize
+
+	local textSizeOffset = React.useMemo(function()
+		return getTextSizeOffset() or 0
+	end, { preferredTextSize })
+
 	return React.createElement(TokensContext.Provider, {
 		value = tokens,
 	}, {
-		VariantsContext = React.createElement(
-			VariantsContext.Provider,
-			{
-				value = useVariants,
-			},
-			if Flags.FoundationStylingPolyfill
-				then {
-					RulesContext = React.createElement(RulesContext.Provider, {
-						value = rules,
-					}, styleProviderProps.children),
-				}
-				else {
-					TagsContext = React.createElement(
-						TagsContext.Provider,
-						{
-							value = addTags,
-						},
-						React.createElement(StyleSheetContextWrapper, {
+		TextSizeOffsetContext = React.createElement(TextSizeOffsetContext.Provider, {
+			value = textSizeOffset,
+		}, {
+			VariantsContext = React.createElement(
+				VariantsContext.Provider,
+				{
+					value = useVariants,
+				},
+				if Flags.FoundationStylingPolyfill
+					then {
+						RulesContext = React.createElement(RulesContext.Provider, {
+							value = rules,
+						}, styleProviderProps.children),
+					}
+					else {
+						TagsContext = React.createElement(
+							TagsContext.Provider,
+							{
+								value = addTags,
+							},
+							React.createElement(StyleSheetContextWrapper, {
+								setStyleSheetRef = setStyleSheetRef,
+							}, styleProviderProps.children)
+						),
+						StyleSheet = React.createElement(StyleSheet, {
+							theme = props.theme :: Theme,
+							device = props.device :: Device,
+							tags = tags,
+							derives = styleProviderProps.derives,
 							setStyleSheetRef = setStyleSheetRef,
-						}, styleProviderProps.children)
-					),
-					StyleSheet = React.createElement(StyleSheet, {
-						theme = props.theme :: Theme,
-						device = props.device :: Device,
-						tags = tags,
-						derives = styleProviderProps.derives,
-						setStyleSheetRef = setStyleSheetRef,
-					}),
-				}
-		),
+						}),
+					}
+			),
+		}),
 	})
 end
 

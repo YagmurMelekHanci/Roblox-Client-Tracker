@@ -43,7 +43,11 @@ local getFFlagUGCValidatePartMass = require(root.flags.getFFlagUGCValidatePartMa
 local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
 local getFFlagUGCValidateUseAnalyticsEntryPoint = require(root.flags.getFFlagUGCValidateUseAnalyticsEntryPoint)
 local getEngineFeatureUGCValidateExtraShoesTests = require(root.flags.getEngineFeatureUGCValidateExtraShoesTests)
+local getEngineFeatureUGCValidateBodyPartCageMeshDistance =
+	require(root.flags.getEngineFeatureUGCValidateBodyPartCageMeshDistance)
 local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
+local getFFlagRefactorBodyAttachmentOrientationsCheck =
+	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
 
 local function joinTables(...)
 	local result = {}
@@ -68,7 +72,9 @@ Analytics.ErrorType = {
 	validateAssetCreator_FailedToLoad = "validateAssetCreator_FailedToLoad",
 	validateAssetCreator_TooManyDependencies = "validateAssetCreator_TooManyDependencies",
 	validateAttributes = "validateAttributes",
-	validateBodyPartChildAttachmentBounds_AttachmentRotated = "validateBodyPartChildAttachmentBounds_AttachmentRotated",
+	validateBodyPartChildAttachmentBounds_AttachmentRotated = if getFFlagRefactorBodyAttachmentOrientationsCheck()
+		then nil
+		else "validateBodyPartChildAttachmentBounds_AttachmentRotated",
 	validateBodyPartChildAttachmentBounds_InvalidAttachmentPosition = "validateBodyPartChildAttachmentBounds_InvalidAttachmentPosition",
 	validateBodyPartCollisionFidelity = "validateBodyPartCollisionFidelity",
 	validateBodyPartMeshBounds_FailedToLoadMesh = "validateBodyPartMeshBounds_FailedToLoadMesh",
@@ -230,6 +236,12 @@ if getEngineFeatureUGCValidateExtraShoesTests() then
 		"validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly"
 end
 
+if getEngineFeatureUGCValidateBodyPartCageMeshDistance() then
+	Analytics.ErrorType.validateBodyPartCage_FailedToExecute = "validateBodyPartCage_FailedToExecute"
+	Analytics.ErrorType.validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh =
+		"validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh"
+end
+
 if getFFlagUGCValidatePartSizeWithinRenderSizeLimits() then
 	Analytics.ErrorType.validatePartSizeWithinRenderSizeLimits_SizeExceeded =
 		"validatePartSizeWithinRenderSizeLimits_SizeExceeded"
@@ -259,6 +271,13 @@ if getFFlagUGCValidateIndividualPartBBoxes() then
 		"validateBodyAttPosRelativeToParent_PartAboveParent"
 	Analytics.ErrorType.validateBodyAttPosRelativeToParent_ParentBelowPart =
 		"validateBodyAttPosRelativeToParent_ParentBelowPart"
+end
+
+if getFFlagRefactorBodyAttachmentOrientationsCheck() then
+	Analytics.ErrorType.validateBodyPartChildAttachmentOrientations_RotatedRig =
+		"validateBodyPartChildAttachmentOrientations_RotatedRig"
+	Analytics.ErrorType.validateBodyPartChildAttachmentOrientations_RotatedGrip =
+		"validateBodyPartChildAttachmentOrientations_RotatedGrip"
 end
 
 setmetatable(Analytics.ErrorType, {

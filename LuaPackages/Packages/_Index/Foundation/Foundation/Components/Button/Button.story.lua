@@ -11,6 +11,8 @@ local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 type FillBehavior = FillBehavior.FillBehavior
 
+local Flags = require(Foundation.Utility.Flags)
+
 return {
 	summary = "Button",
 	stories = Dash.map(ButtonVariant, function(variant)
@@ -18,6 +20,7 @@ return {
 			name = variant,
 			story = function(props)
 				local controls = props.controls
+				Flags.FoundationAdjustButtonIconSizes = props.controls.adjustPaddingForIcon
 
 				return React.createElement(
 					View,
@@ -53,6 +56,16 @@ return {
 			"icons/placeholder/placeholderOn",
 			"icons/common/robux",
 			"icons/common/play",
+			"icons/controls/media-play-large",
+			"icons/controls/media-play-medium",
+			"icons/controls/media-play-small",
+			"icons/actions/pumpkin_medium",
+			"icons/actions/accept_small",
+			"icons/actions/friends/friendAdd",
+			"icons/actions/friends/friendAdd_small",
+			"icons/navigation/externallink_medium",
+			"icons/actions/info",
+			"icons/actions/info_small",
 			"",
 		},
 		text = "Lorem ipsum",
@@ -64,5 +77,6 @@ return {
 			FillBehavior.Fill,
 		} :: { FillBehavior },
 		inputDelay = 0,
+		adjustPaddingForIcon = Flags.FoundationAdjustButtonIconSizes,
 	},
 }

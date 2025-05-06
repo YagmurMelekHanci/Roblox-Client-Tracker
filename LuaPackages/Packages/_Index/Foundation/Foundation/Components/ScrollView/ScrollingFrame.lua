@@ -33,6 +33,8 @@ export type ScrollingFrameProps = {
 	AutomaticCanvasSize: Bindable<Enum.AutomaticSize>?,
 	CanvasSize: Bindable<UDim2>?,
 	ScrollingDirection: Bindable<Enum.ScrollingDirection>?,
+	VerticalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
+	HorizontalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
 }
 
 local defaultProps = {
@@ -43,6 +45,7 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 	local props = withDefaults(scrollingFrameProps, defaultProps)
 	local tokens = useTokens()
 	local scrollBarStyle = tokens.Semantic.Color.Common.Placeholder
+	local scrollBarThickness = tokens.Size.Size_300
 	local cursor = useCursor()
 
 	local delayRef = React.useRef(nil :: thread?)
@@ -85,6 +88,9 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 		ScrollingDirection = props.ScrollingDirection,
 		ScrollBarImageColor3 = scrollBarStyle.Color3,
 		ScrollBarImageTransparency = scrollBarTransparency,
+		ScrollBarThickness = scrollBarThickness,
+		VerticalScrollBarInset = props.VerticalScrollBarInset,
+		HorizontalScrollBarInset = props.HorizontalScrollBarInset,
 
 		-- Support insets when they are fixed at the engine level
 		-- https://roblox.atlassian.net/browse/UISYS-3298

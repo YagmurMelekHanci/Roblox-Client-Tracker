@@ -164,7 +164,11 @@ local function getAllActiveTestsOnProperty(
 		local isSub, subValue = extractSubProperty(subPropertyName, currentValue)
 		if isSub then
 			local extraTests = getAllActiveTestsOnProperty(assetTypeEnum, subPropertyName, subValue, specDetails)
-			table.move(extraTests, 1, #extraTests, #tests + 1, tests)
+
+			for _, subtest in extraTests do
+				subtest[1] = propName .. "." .. subtest[1] -- add the parent name as a prefix for the child property DISPLAY name
+				table.insert(tests, subtest)
+			end
 		end
 	end
 

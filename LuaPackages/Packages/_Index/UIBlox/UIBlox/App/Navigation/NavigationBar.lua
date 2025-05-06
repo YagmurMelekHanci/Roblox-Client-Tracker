@@ -146,11 +146,7 @@ local function NavigationBar(providedProps: Props)
 		}, {
 			AnimatedNavigationBar = React.createElement("Frame", {
 				Position = heightOffset:map(function(heightOffset)
-					if UIBloxConfig.enableAppNavAnimationFix then
-						return UDim2.new(0, 0, 0, math.floor((heightOffset :: number) + 0.5))
-					else
-						return UDim2.new(0, 0, 0, heightOffset)
-					end
+					return UDim2.new(0, 0, 0, math.floor((heightOffset :: number) + 0.5))
 				end),
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, 0, 1, 0),

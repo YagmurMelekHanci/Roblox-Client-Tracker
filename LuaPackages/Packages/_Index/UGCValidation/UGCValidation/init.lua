@@ -58,6 +58,10 @@ if getEngineFeatureUGCValidationWithContextEntrypoint() then
 		validationContext.editableImages = result.editableImages :: Types.EditableImages
 		validationContext.lastTickSeconds = tick()
 
+		if validationContext.requireAllFolders == nil then
+			validationContext.requireAllFolders = true
+		end
+
 		local validationSuccess, reasons = validateInternal(validationContext)
 
 		destroyEditableInstances(
@@ -460,6 +464,10 @@ if getEngineFeatureUGCValidationWithContextEntrypoint() then
 		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
 		validationContext.editableImages = result.editableImages :: Types.EditableImages
 		validationContext.lastTickSeconds = tick()
+
+		if validationContext.requireAllFolders == nil then
+			validationContext.requireAllFolders = true
+		end
 
 		local validationSuccess, reasons = validateFullBody(validationContext)
 

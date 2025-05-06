@@ -17,6 +17,7 @@ type Stroke = {
 }
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
+local Flags = require(Foundation.Utility.Flags)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
@@ -89,7 +90,7 @@ local variants = function(tokens: Tokens)
 		},
 		[InputSize.Medium] = {
 			container = {
-				tag = "gap-small padding-small",
+				tag = `gap-small padding-{if Flags.FoundationAdjustButtonIconSizes then "medium" else "small"}`,
 				radius = tokens.Radius.Medium,
 				height = tokens.Size.Size_1000,
 			},

@@ -15,6 +15,12 @@ local FIntUGCValidationLegThresholdBack = require(root.flags.getFIntUGCValidatio
 local FIntUGCValidationLegThresholdSide = require(root.flags.getFIntUGCValidationLegThresholdSide)
 local FIntUGCValidationLegThresholdTopBottom = require(root.flags.getFIntUGCValidationLegThresholdTopBottom)
 
+local getFFlagUGCValidateMinBoundsVisibility = require(root.flags.getFFlagUGCValidateMinBoundsVisibility)
+local FIntUGCValidationVisibilityDistributionSliceMax =
+	require(root.flags.getFIntUGCValidationVisibilityDistributionSliceMax)
+local FIntUGCValidationVisibilityDistributionWeight =
+	require(root.flags.getFIntUGCValidationVisibilityDistributionWeight)
+
 local ConstantsTransparencyValidation = {}
 
 ConstantsTransparencyValidation.CAMERA_ANGLES = {
@@ -69,5 +75,13 @@ ConstantsTransparencyValidation.ASSET_TRANSPARENCY_THRESHOLDS[Enum.AssetType.Lef
 ConstantsTransparencyValidation.ASSET_TRANSPARENCY_THRESHOLDS[Enum.AssetType.RightLeg] = legThresholds
 
 ConstantsTransparencyValidation.ASSET_TRANSPARENCY_RASTER_SIZE = 100
+if getFFlagUGCValidateMinBoundsVisibility() then
+	ConstantsTransparencyValidation.AREA_OF_INTEREST_TARGET_PIXELS = 600
+	ConstantsTransparencyValidation.ASSET_TRANSPARENCY_MAX_RASTER_SIZE = 300
+
+	ConstantsTransparencyValidation.USE_DISTRIBUTION_ASPECT_CUTOFF = 2.0
+	ConstantsTransparencyValidation.DISTRIBUTION_SLICE_MAX = FIntUGCValidationVisibilityDistributionSliceMax() / 100
+	ConstantsTransparencyValidation.DISTRIBUTION_SCORE_WEIGHT = FIntUGCValidationVisibilityDistributionWeight() / 100
+end
 
 return ConstantsTransparencyValidation

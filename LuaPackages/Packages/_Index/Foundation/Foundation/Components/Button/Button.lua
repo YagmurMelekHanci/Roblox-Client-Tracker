@@ -26,6 +26,8 @@ local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 
+local Flags = require(Foundation.Utility.Flags)
+local getIconScale = require(Foundation.Utility.getIconScale)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
@@ -103,6 +105,7 @@ local defaultProps = {
 local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(buttonProps, defaultProps)
 	local inputDelay: number = props.inputDelay
+	local intrinsicIconSize, scale = getIconScale(props.icon, props.size)
 
 	local controlState, setControlState = React.useBinding(ControlState.Initialize :: ControlState)
 	local isDelaying, setIsDelaying = React.useState(inputDelay > 0)
@@ -216,7 +219,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 			-- If there is an icon, render icon and spinner in place of eachother.
 			-- Otherwise, render a Folder to exempt from layout, and use exclusively for loading spinnner.
 			IconWrapper = if props.icon or props.isLoading
-				then React.createElement(if not props.icon then "Folder" else View, {
+				then React.createElement(if props.icon then View else "Folder", {
 					Size = if props.icon then variantProps.icon.size else nil,
 				}, {
 					PresenceWrapper = React.createElement(AnimatePresence, {}, {
@@ -235,14 +238,18 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 							then React.createElement(Image, {
 								tag = "anchor-center-center position-center-center",
 								Image = props.icon,
-								Size = variantProps.icon.size,
+								Size = if Flags.FoundationAdjustButtonIconSizes and intrinsicIconSize
+									then UDim2.fromOffset(intrinsicIconSize.X, intrinsicIconSize.Y)
+									else variantProps.icon.size,
 								imageStyle = disabledValues.transparency:map(function(transparency)
 									return {
 										Color3 = variantProps.content.style.Color3,
 										Transparency = transparency,
 									}
 								end),
-								scale = values.iconScale,
+								scale = values.iconScale:map(function(iconScale: number)
+									return iconScale * (if Flags.FoundationAdjustButtonIconSizes then scale else 1)
+								end),
 							})
 							else nil,
 					}),

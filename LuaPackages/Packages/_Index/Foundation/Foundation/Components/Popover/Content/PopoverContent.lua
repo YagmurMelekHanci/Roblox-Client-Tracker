@@ -12,6 +12,7 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local Radius = require(Foundation.Enums.Radius)
 
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
@@ -21,6 +22,7 @@ type Selection = Types.Selection
 
 type PopoverSide = PopoverSide.PopoverSide
 type PopoverAlign = PopoverAlign.PopoverAlign
+type Radius = Radius.Radius
 
 type SideConfig = useFloating.SideConfig
 type AlignConfig = useFloating.AlignConfig
@@ -35,6 +37,8 @@ type PopoverContentProps = {
 	-- Callback for when the backdrop is pressed. Does not swallow the press event.
 	onPressedOutside: () -> ()?,
 	selection: Selection?,
+	backgroundStyle: Types.ColorStyle?,
+	radius: ("Small" | "Medium")?,
 	children: React.ReactNode,
 }
 
@@ -45,6 +49,12 @@ local defaultProps = {
 	selection = {
 		Selectable = false,
 	},
+	radius = Radius.Medium,
+}
+
+local radiusToTag: { [Radius]: string } = {
+	[Radius.Small] = "radius-small",
+	[Radius.Medium] = "radius-medium",
 }
 
 local SHADOW_IMAGE = "component_assets/dropshadow_17_8"
@@ -61,6 +71,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 	local arrowSide = tokens.Size.Size_200
 	local arrowWidth = arrowSide * math.sqrt(2) -- The diagonal of a square is sqrt(2) times the side length
 	local arrowHeight = arrowWidth / 2
+	local backgroundStyle = props.backgroundStyle or tokens.Color.Surface.Surface_100
 
 	local ref = React.useRef(nil)
 
@@ -137,7 +148,8 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				Rotation = 45,
 				ZIndex = 3,
 				Visible = isVisible,
-				tag = "bg-surface-100 anchor-center-center",
+				backgroundStyle = backgroundStyle,
+				tag = "anchor-center-center",
 			})
 			else nil,
 		Content = React.createElement(View, {
@@ -155,7 +167,8 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 			ZIndex = 4,
 			-- If onPressedOutside is provided, we need to swallow the press event to prevent it from propagating to the backdrop
 			onActivated = if props.onPressedOutside then function() end else nil,
-			tag = "auto-xy bg-surface-100 radius-medium",
+			backgroundStyle = backgroundStyle,
+			tag = `auto-xy {radiusToTag[props.radius]}`,
 			ref = ref,
 		}, props.children),
 	})

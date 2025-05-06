@@ -13,5 +13,5 @@ return {
 	FoundationTextStateLayer = SafeFlags.createGetFFlag("FoundationTextStateLayer")(),
 	FoundationFixChipEmphasisHoverState = SafeFlags.createGetFFlag("FoundationFixChipEmphasisHoverState")(),
 	FoundationFixDisablingForIconButtons = SafeFlags.createGetFFlag("FoundationFixDisablingForIconButtons")(),
-	FoundationIconButtonCanBeCircular = SafeFlags.createGetFFlag("FoundationIconButtonCanBeCircular")(),
+	FoundationAdjustButtonIconSizes = SafeFlags.createGetFFlag("FoundationAdjustButtonIconSizes")(),
 }
