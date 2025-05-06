@@ -12,12 +12,11 @@ local TopBar = require(Main.Src.Components.TopBar)
 local InfoPanel = require(Main.Src.Components.InfoPanel)
 
 local Foundation = require(Main.Packages.Foundation)
-local useStyleTags = Foundation.Hooks.useStyleTags
 local View = Foundation.View
 
 local function ContentPanel()
 	return React.createElement(View, {
-		tag = "col flex-fill size-full-full",
+		tag = "col flex-fill size-full-full bg-surface-0",
 	}, {
 		React.createElement(TopBar, {
 			LayoutOrder = 1,
@@ -49,8 +48,6 @@ local function SideBar(props: SideBarProps)
 end
 
 function Window(props: { sideBarPadding: number? })
-	local tag = useStyleTags("bg-surface-0")
-
 	local paneSizes, setPaneSizes = React.useState({
 		UDim.new(0, 300),
 		UDim.new(1, -300),
@@ -67,7 +64,6 @@ function Window(props: { sideBarPadding: number? })
 		Sizes = paneSizes,
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 1, 0),
-		[React.Tag] = tag,
 	}, {
 		React.createElement(SideBar, {
 			topPadding = props.sideBarPadding,

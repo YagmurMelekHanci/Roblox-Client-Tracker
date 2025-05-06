@@ -1,0 +1,1358 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R3 K3 ["PluginChanged"]
+  MOVE R4 R0
+  CONCAT R2 R3 R4
+  SETTABLEKS R2 R1 K0 ["fromPlugin"]
+  LOADK R3 K4 ["AssetDmChanged"]
+  MOVE R4 R0
+  CONCAT R2 R3 R4
+  SETTABLEKS R2 R1 K1 ["fromAssetDm"]
+  RETURN R1 1
+
+PROTO_1:
+  DUPTABLE R1 K2 [{"assetId", "enabled"}]
+  MOVE R4 R0
+  LOADK R5 K3 ["AssetId"]
+  CONCAT R3 R4 R5
+  DUPTABLE R2 K6 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K7 ["PluginChanged"]
+  MOVE R6 R3
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R2 K4 ["fromPlugin"]
+  LOADK R5 K8 ["AssetDmChanged"]
+  MOVE R6 R3
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R2 K5 ["fromAssetDm"]
+  SETTABLEKS R2 R1 K0 ["assetId"]
+  MOVE R4 R0
+  LOADK R5 K9 ["Enabled"]
+  CONCAT R3 R4 R5
+  DUPTABLE R2 K6 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K7 ["PluginChanged"]
+  MOVE R6 R3
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R2 K4 ["fromPlugin"]
+  LOADK R5 K8 ["AssetDmChanged"]
+  MOVE R6 R3
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R2 K5 ["fromAssetDm"]
+  SETTABLEKS R2 R1 K1 ["enabled"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  DUPCLOSURE R1 K1 [PROTO_1]
+  NEWTABLE R2 64 0
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K6 ["CreateAvatarRules"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K6 ["CreateAvatarRules"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K6 ["CreateAvatarRules"]
+  LOADK R3 K8 ["CurrentSettingsPage"]
+  SETTABLEKS R3 R2 K9 ["currentSettingsPage"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K10 ["AvatarType"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K10 ["AvatarType"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K11 ["avatarType"]
+  LOADK R3 K12 ["SyncAvatarSettings"]
+  SETTABLEKS R3 R2 K13 ["syncAvatarSettings"]
+  LOADK R3 K14 ["WorkspaceGravitySetting"]
+  SETTABLEKS R3 R2 K15 ["workspaceGravitySetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K16 ["BodyScaleSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K16 ["BodyScaleSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K17 ["bodyScaleSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K18 ["BodyScaleCustomHeight"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K18 ["BodyScaleCustomHeight"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K19 ["bodyScaleCustomHeight"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K20 ["BodyAppearanceSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K20 ["BodyAppearanceSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K21 ["bodyAppearanceSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K25 ["BodyAppearanceCustomPartsHead"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K25 ["BodyAppearanceCustomPartsHead"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K28 ["bodyAppearanceCustomPartsHead"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K29 ["BodyAppearanceCustomPartsTorso"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K29 ["BodyAppearanceCustomPartsTorso"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K30 ["bodyAppearanceCustomPartsTorso"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K31 ["BodyAppearanceCustomPartsLeftArm"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K31 ["BodyAppearanceCustomPartsLeftArm"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K32 ["bodyAppearanceCustomPartsLeftArm"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K33 ["BodyAppearanceCustomPartsRightArm"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K33 ["BodyAppearanceCustomPartsRightArm"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K34 ["bodyAppearanceCustomPartsRightArm"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K35 ["BodyAppearanceCustomPartsLeftLeg"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K35 ["BodyAppearanceCustomPartsLeftLeg"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K36 ["bodyAppearanceCustomPartsLeftLeg"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K37 ["BodyAppearanceCustomPartsRightLeg"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K37 ["BodyAppearanceCustomPartsRightLeg"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K38 ["bodyAppearanceCustomPartsRightLeg"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K39 ["BodyBuildSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K39 ["BodyBuildSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K40 ["bodyBuildSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K41 ["BodyBuildCustomHeight"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K41 ["BodyBuildCustomHeight"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K42 ["bodyBuildCustomHeight"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K43 ["BodyBuildCustomWidth"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K43 ["BodyBuildCustomWidth"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K44 ["bodyBuildCustomWidth"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K45 ["BodyBuildCustomHead"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K45 ["BodyBuildCustomHead"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K46 ["bodyBuildCustomHead"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K47 ["BodyBuildCustomBodyType"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K47 ["BodyBuildCustomBodyType"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K48 ["bodyBuildCustomBodyType"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K49 ["BodyBuildCustomProportions"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K49 ["BodyBuildCustomProportions"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K50 ["bodyBuildCustomProportions"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K51 ["CollisionModeSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K51 ["CollisionModeSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K52 ["collisionSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K53 ["HitAndTouchDetectionSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K53 ["HitAndTouchDetectionSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K54 ["collisionHitAndTouchDetectionSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K55 ["CollisionMethodSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K55 ["CollisionMethodSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K56 ["collisionMethodSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K57 ["SingleColliderSize"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K57 ["SingleColliderSize"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K58 ["collisionSizeSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K59 ["AnimationPacksSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K59 ["AnimationPacksSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K60 ["animationPacksSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K61 ["AnimationClipsSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K61 ["AnimationClipsSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K62 ["animationClipsSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K63 ["AnimationClipsRunSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K63 ["AnimationClipsRunSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K64 ["animationClipsRunSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K65 ["AnimationClipsWalkSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K65 ["AnimationClipsWalkSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K66 ["animationClipsWalkSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K67 ["AnimationClipsFallSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K67 ["AnimationClipsFallSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K68 ["animationClipsFallSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K69 ["AnimationClipsJumpSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K69 ["AnimationClipsJumpSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K70 ["animationClipsJumpSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K71 ["AnimationClipsIdleSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K71 ["AnimationClipsIdleSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K72 ["animationClipsIdleSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K73 ["AnimationClipsIdleAlt1Setting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K73 ["AnimationClipsIdleAlt1Setting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K74 ["animationClipsIdleAlt1Setting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K75 ["AnimationClipsIdleAlt2Setting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K75 ["AnimationClipsIdleAlt2Setting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K76 ["animationClipsIdleAlt2Setting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K77 ["AnimationClipsSwimSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K77 ["AnimationClipsSwimSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K78 ["animationClipsSwimSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K79 ["AnimationClipsSwimIdleSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K79 ["AnimationClipsSwimIdleSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K80 ["animationClipsSwimIdleSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K81 ["AnimationClipsClimbSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K81 ["AnimationClipsClimbSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K82 ["animationClipsClimbSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K83 ["AccessoryScaleSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K83 ["AccessoryScaleSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K84 ["accessoryScaleSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K85 ["AccessoryScaleLimitMethodSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K85 ["AccessoryScaleLimitMethodSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K86 ["accessoryScaleLimitMethodSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K87 ["AccessoryScaleLimitBoundsSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K87 ["AccessoryScaleLimitBoundsSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K88 ["accessoryScaleLimitBoundsSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K89 ["CustomAccessoriesSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K89 ["CustomAccessoriesSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K90 ["customAccessoriesSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K91 ["CustomAccessoriesHairSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K91 ["CustomAccessoriesHairSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K92 ["customAccessoriesHairSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K93 ["CustomAccessoriesHeadSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K93 ["CustomAccessoriesHeadSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K94 ["customAccessoriesHeadSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K95 ["CustomAccessoriesFaceSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K95 ["CustomAccessoriesFaceSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K96 ["customAccessoriesFaceSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K97 ["CustomAccessoriesNeckSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K97 ["CustomAccessoriesNeckSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K98 ["customAccessoriesNeckSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K99 ["CustomAccessoriesShoulderSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K99 ["CustomAccessoriesShoulderSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K100 ["customAccessoriesShoulderSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K101 ["CustomAccessoriesFrontSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K101 ["CustomAccessoriesFrontSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K102 ["customAccessoriesFrontSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K103 ["CustomAccessoriesBackSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K103 ["CustomAccessoriesBackSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K104 ["customAccessoriesBackSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K105 ["CustomAccessoriesWaistSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K105 ["CustomAccessoriesWaistSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K106 ["customAccessoriesWaistSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K107 ["AccessoryBehaviorEnableSoundSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K107 ["AccessoryBehaviorEnableSoundSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K108 ["accessoryBehaviorEnableSoundSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K109 ["AccessoryBehaviorEnableVFXSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K109 ["AccessoryBehaviorEnableVFXSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K110 ["accessoryBehaviorEnableVFXSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K111 ["ClothingScaleSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K111 ["ClothingScaleSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K112 ["clothingScaleSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K113 ["ClothingScaleLimitBoundsSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K113 ["ClothingScaleLimitBoundsSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K114 ["clothingScaleLimitBoundsSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K115 ["CustomClothingSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K115 ["CustomClothingSetting"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K116 ["customClothingSetting"]
+  DUPTABLE R3 K119 [{"tshirt", "shirt"}]
+  DUPTABLE R4 K24 [{"assetId", "enabled"}]
+  LOADK R7 K120 ["CustomClothingTopsTshirt"]
+  LOADK R8 K26 ["AssetId"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K22 ["assetId"]
+  LOADK R7 K120 ["CustomClothingTopsTshirt"]
+  LOADK R8 K27 ["Enabled"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K23 ["enabled"]
+  SETTABLEKS R4 R3 K117 ["tshirt"]
+  DUPTABLE R4 K24 [{"assetId", "enabled"}]
+  LOADK R7 K121 ["CustomClothingTopsShirt"]
+  LOADK R8 K26 ["AssetId"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K22 ["assetId"]
+  LOADK R7 K121 ["CustomClothingTopsShirt"]
+  LOADK R8 K27 ["Enabled"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K23 ["enabled"]
+  SETTABLEKS R4 R3 K118 ["shirt"]
+  SETTABLEKS R3 R2 K122 ["customClothingTopsSetting"]
+  DUPTABLE R3 K125 [{"jacket", "sweater"}]
+  DUPTABLE R4 K24 [{"assetId", "enabled"}]
+  LOADK R7 K126 ["CustomClothingOuterwearJacket"]
+  LOADK R8 K26 ["AssetId"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K22 ["assetId"]
+  LOADK R7 K126 ["CustomClothingOuterwearJacket"]
+  LOADK R8 K27 ["Enabled"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K23 ["enabled"]
+  SETTABLEKS R4 R3 K123 ["jacket"]
+  DUPTABLE R4 K24 [{"assetId", "enabled"}]
+  LOADK R7 K127 ["CustomClothingOuterwearSweater"]
+  LOADK R8 K26 ["AssetId"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K22 ["assetId"]
+  LOADK R7 K127 ["CustomClothingOuterwearSweater"]
+  LOADK R8 K27 ["Enabled"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K23 ["enabled"]
+  SETTABLEKS R4 R3 K124 ["sweater"]
+  SETTABLEKS R3 R2 K128 ["customClothingOuterwearSetting"]
+  DUPTABLE R3 K132 [{"pants", "shorts", "dressSkirt"}]
+  DUPTABLE R4 K24 [{"assetId", "enabled"}]
+  LOADK R7 K133 ["CustomClothingBottomsPants"]
+  LOADK R8 K26 ["AssetId"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K22 ["assetId"]
+  LOADK R7 K133 ["CustomClothingBottomsPants"]
+  LOADK R8 K27 ["Enabled"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K23 ["enabled"]
+  SETTABLEKS R4 R3 K129 ["pants"]
+  DUPTABLE R4 K24 [{"assetId", "enabled"}]
+  LOADK R7 K134 ["CustomClothingBottomsShorts"]
+  LOADK R8 K26 ["AssetId"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K22 ["assetId"]
+  LOADK R7 K134 ["CustomClothingBottomsShorts"]
+  LOADK R8 K27 ["Enabled"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K23 ["enabled"]
+  SETTABLEKS R4 R3 K130 ["shorts"]
+  DUPTABLE R4 K24 [{"assetId", "enabled"}]
+  LOADK R7 K135 ["CustomClothingBottomsDressSkirt"]
+  LOADK R8 K26 ["AssetId"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K22 ["assetId"]
+  LOADK R7 K135 ["CustomClothingBottomsDressSkirt"]
+  LOADK R8 K27 ["Enabled"]
+  CONCAT R6 R7 R8
+  DUPTABLE R5 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R8 K5 ["PluginChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K2 ["fromPlugin"]
+  LOADK R8 K7 ["AssetDmChanged"]
+  MOVE R9 R6
+  CONCAT R7 R8 R9
+  SETTABLEKS R7 R5 K3 ["fromAssetDm"]
+  SETTABLEKS R5 R4 K23 ["enabled"]
+  SETTABLEKS R4 R3 K131 ["dressSkirt"]
+  SETTABLEKS R3 R2 K136 ["customClothingBottomsSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K137 ["CustomClothingLeftShoesSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K137 ["CustomClothingLeftShoesSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K138 ["customClothingLeftShoesSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K139 ["CustomClothingRightShoesSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K139 ["CustomClothingRightShoesSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K140 ["customClothingRightShoesSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K141 ["CustomClothingClassicShirtsSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K141 ["CustomClothingClassicShirtsSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K142 ["customClothingClassicShirtsSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K143 ["CustomClothingClassicTShirtsSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K143 ["CustomClothingClassicTShirtsSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K144 ["customClothingClassicTShirtsSetting"]
+  DUPTABLE R3 K24 [{"assetId", "enabled"}]
+  LOADK R6 K145 ["CustomClothingClassicPantsSetting"]
+  LOADK R7 K26 ["AssetId"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K22 ["assetId"]
+  LOADK R6 K145 ["CustomClothingClassicPantsSetting"]
+  LOADK R7 K27 ["Enabled"]
+  CONCAT R5 R6 R7
+  DUPTABLE R4 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R7 K5 ["PluginChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K2 ["fromPlugin"]
+  LOADK R7 K7 ["AssetDmChanged"]
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  SETTABLEKS R6 R4 K3 ["fromAssetDm"]
+  SETTABLEKS R4 R3 K23 ["enabled"]
+  SETTABLEKS R3 R2 K146 ["customClothingClassicPantsSetting"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K147 ["PreviewActivated"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K147 ["PreviewActivated"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K148 ["previewActivated"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K149 ["PreviewDeactivated"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K149 ["PreviewDeactivated"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K150 ["previewDeactivated"]
+  DUPTABLE R3 K4 [{"fromPlugin", "fromAssetDm"}]
+  LOADK R5 K5 ["PluginChanged"]
+  LOADK R6 K151 ["CurrentSettingsPageChanged"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K2 ["fromPlugin"]
+  LOADK R5 K7 ["AssetDmChanged"]
+  LOADK R6 K151 ["CurrentSettingsPageChanged"]
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K3 ["fromAssetDm"]
+  SETTABLEKS R3 R2 K152 ["currentSettingsPageChanged"]
+  RETURN R2 1

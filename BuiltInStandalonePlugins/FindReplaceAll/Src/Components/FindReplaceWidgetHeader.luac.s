@@ -6,57 +6,75 @@ PROTO_0:
 
 PROTO_1:
   NEWTABLE R0 0 3
-  DUPTABLE R1 K4 [{"key", "onClick", "enabled", "tags"}]
-  LOADK R2 K5 ["MatchCase"]
+  DUPTABLE R1 K5 [{"key", "onClick", "enabled", "tooltipText", "tags"}]
+  LOADK R2 K6 ["MatchCase"]
   SETTABLEKS R2 R1 K0 ["key"]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K2 ["enabled"]
   JUMPIFNOT R3 [+4]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K6 ["disable"]
+  GETTABLEKS R2 R3 K7 ["disable"]
   JUMP [+3]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K7 ["enable"]
+  GETTABLEKS R2 R3 K8 ["enable"]
   SETTABLEKS R2 R1 K1 ["onClick"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K2 ["enabled"]
   SETTABLEKS R2 R1 K2 ["enabled"]
-  LOADK R2 K8 ["data-testid=CaseSensitiveButton MatchCaseIcon"]
-  SETTABLEKS R2 R1 K3 ["tags"]
-  DUPTABLE R2 K4 [{"key", "onClick", "enabled", "tags"}]
-  LOADK R3 K9 ["MatchWholeWord"]
+  GETUPVAL R2 1
+  LOADK R4 K9 ["WidgetHeader"]
+  LOADK R5 K10 ["MatchCaseTooltip"]
+  NAMECALL R2 R2 K11 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K3 ["tooltipText"]
+  LOADK R2 K12 ["data-testid=CaseSensitiveButton MatchCaseIcon"]
+  SETTABLEKS R2 R1 K4 ["tags"]
+  DUPTABLE R2 K5 [{"key", "onClick", "enabled", "tooltipText", "tags"}]
+  LOADK R3 K13 ["MatchWholeWord"]
   SETTABLEKS R3 R2 K0 ["key"]
-  GETUPVAL R5 1
+  GETUPVAL R5 2
   GETTABLEKS R4 R5 K2 ["enabled"]
   JUMPIFNOT R4 [+4]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K6 ["disable"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K7 ["disable"]
   JUMP [+3]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K7 ["enable"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K8 ["enable"]
   SETTABLEKS R3 R2 K1 ["onClick"]
-  GETUPVAL R4 1
+  GETUPVAL R4 2
   GETTABLEKS R3 R4 K2 ["enabled"]
   SETTABLEKS R3 R2 K2 ["enabled"]
-  LOADK R3 K10 ["data-testid=MatchCaseButton MatchWholeWordIcon"]
-  SETTABLEKS R3 R2 K3 ["tags"]
-  DUPTABLE R3 K4 [{"key", "onClick", "enabled", "tags"}]
-  LOADK R4 K11 ["RegularExpression"]
+  GETUPVAL R3 1
+  LOADK R5 K9 ["WidgetHeader"]
+  LOADK R6 K14 ["MatchWholeWordTooltip"]
+  NAMECALL R3 R3 K11 ["getText"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K3 ["tooltipText"]
+  LOADK R3 K15 ["data-testid=MatchCaseButton MatchWholeWordIcon"]
+  SETTABLEKS R3 R2 K4 ["tags"]
+  DUPTABLE R3 K5 [{"key", "onClick", "enabled", "tooltipText", "tags"}]
+  LOADK R4 K16 ["RegularExpression"]
   SETTABLEKS R4 R3 K0 ["key"]
-  GETUPVAL R6 2
+  GETUPVAL R6 3
   GETTABLEKS R5 R6 K2 ["enabled"]
   JUMPIFNOT R5 [+4]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K6 ["disable"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K7 ["disable"]
   JUMP [+3]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K7 ["enable"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K8 ["enable"]
   SETTABLEKS R4 R3 K1 ["onClick"]
-  GETUPVAL R5 2
+  GETUPVAL R5 3
   GETTABLEKS R4 R5 K2 ["enabled"]
   SETTABLEKS R4 R3 K2 ["enabled"]
-  LOADK R4 K12 ["data-testid=RegexButton RegularExpressionIcon"]
-  SETTABLEKS R4 R3 K3 ["tags"]
+  GETUPVAL R4 1
+  LOADK R6 K9 ["WidgetHeader"]
+  LOADK R7 K17 ["RegExTooltip"]
+  NAMECALL R4 R4 K11 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["tooltipText"]
+  LOADK R4 K18 ["data-testid=RegexButton RegularExpressionIcon"]
+  SETTABLEKS R4 R3 K4 ["tags"]
   SETLIST R0 R1 3 [1]
   RETURN R0 1
 
@@ -89,13 +107,15 @@ PROTO_2:
   SETTABLEKS R3 R2 K0 ["displayText"]
   LOADK R3 K13 ["showReplace"]
   SETTABLEKS R3 R2 K1 ["text"]
-  GETUPVAL R4 2
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K13 ["showReplace"]
   JUMPIFNOT R4 [+2]
   LOADK R3 K9 ["CheckboxOnIcon"]
   JUMP [+1]
   LOADK R3 K10 ["CheckboxOffIcon"]
   SETTABLEKS R3 R2 K2 ["icon"]
-  GETUPVAL R4 2
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K13 ["showReplace"]
   ORK R3 R4 K11 []
   SETTABLEKS R3 R2 K3 ["keepIconColor"]
   SETLIST R0 R1 2 [1]
@@ -115,9 +135,10 @@ PROTO_5:
   DUPCLOSURE R2 K1 [PROTO_3]
   CALL R1 1 0
   RETURN R0 0
-  JUMPIFNOTEQKS R0 K2 ["showReplace"] [+4]
-  GETUPVAL R1 1
-  DUPCLOSURE R2 K3 [PROTO_4]
+  JUMPIFNOTEQKS R0 K2 ["showReplace"] [+6]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["setShowReplace"]
+  DUPCLOSURE R2 K4 [PROTO_4]
   CALL R1 1 0
   RETURN R0 0
 
@@ -134,14 +155,15 @@ PROTO_6:
   GETUPVAL R2 3
   GETTABLEKS R1 R2 K8 ["enabled"]
   SETTABLEKS R1 R0 K3 ["Regex"]
-  GETUPVAL R2 4
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K9 ["showReplace"]
   JUMPIFNOT R2 [+2]
   GETUPVAL R1 5
   JUMP [+1]
   LOADNIL R1
   SETTABLEKS R1 R0 K4 ["Replace"]
   GETUPVAL R2 6
-  GETTABLEKS R1 R2 K9 ["MAX_RESULTS"]
+  GETTABLEKS R1 R2 K10 ["MAX_RESULTS"]
   SETTABLEKS R1 R0 K5 ["MaxResults"]
   GETUPVAL R2 7
   JUMPIFNOT R2 [+2]
@@ -166,14 +188,15 @@ PROTO_7:
   GETUPVAL R3 4
   GETTABLEKS R2 R3 K9 ["enabled"]
   SETTABLEKS R2 R1 K4 ["Regex"]
-  GETUPVAL R3 5
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K10 ["showReplace"]
   JUMPIFNOT R3 [+2]
   GETUPVAL R2 6
   JUMP [+1]
   LOADNIL R2
   SETTABLEKS R2 R1 K5 ["Replace"]
   GETUPVAL R3 7
-  GETTABLEKS R2 R3 K10 ["MAX_RESULTS"]
+  GETTABLEKS R2 R3 K11 ["MAX_RESULTS"]
   SETTABLEKS R2 R1 K6 ["MaxResults"]
   GETUPVAL R3 8
   JUMPIFNOT R3 [+2]
@@ -182,8 +205,8 @@ PROTO_7:
   LOADNIL R2
   SETTABLEKS R2 R1 K7 ["IncludeFilter"]
   CALL R0 1 1
-  GETUPVAL R2 10
-  GETTABLEKS R1 R2 K11 ["onQueryIdChange"]
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K12 ["onQueryIdChange"]
   MOVE R2 R0
   CALL R1 1 0
   RETURN R0 0
@@ -231,162 +254,159 @@ PROTO_9:
   LOADB R13 0
   CALL R12 1 2
   GETUPVAL R15 2
-  GETTABLEKS R14 R15 K1 ["useState"]
-  LOADB R15 0
-  CALL R14 1 2
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K4 ["useMemo"]
-  DUPCLOSURE R17 K5 [PROTO_0]
-  NEWTABLE R18 0 0
-  CALL R16 2 1
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K4 ["useMemo"]
-  NEWCLOSURE R18 P1
+  GETTABLEKS R14 R15 K4 ["useMemo"]
+  DUPCLOSURE R15 K5 [PROTO_0]
+  NEWTABLE R16 0 0
+  CALL R14 2 1
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K4 ["useMemo"]
+  NEWCLOSURE R16 P1
   CAPTURE VAL R9
+  CAPTURE VAL R1
   CAPTURE VAL R10
   CAPTURE VAL R11
-  NEWTABLE R19 0 3
-  GETTABLEKS R20 R9 K6 ["enabled"]
-  GETTABLEKS R21 R10 K6 ["enabled"]
-  GETTABLEKS R22 R11 K6 ["enabled"]
-  SETLIST R19 R20 3 [1]
-  CALL R17 2 1
-  GETUPVAL R19 2
-  GETTABLEKS R18 R19 K4 ["useMemo"]
-  NEWCLOSURE R19 P2
+  NEWTABLE R17 0 3
+  GETTABLEKS R18 R9 K6 ["enabled"]
+  GETTABLEKS R19 R10 K6 ["enabled"]
+  GETTABLEKS R20 R11 K6 ["enabled"]
+  SETLIST R17 R18 3 [1]
+  CALL R15 2 1
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K4 ["useMemo"]
+  NEWCLOSURE R17 P2
   CAPTURE VAL R1
-  CAPTURE VAL R14
   CAPTURE VAL R12
-  NEWTABLE R20 0 2
-  MOVE R21 R14
-  MOVE R22 R12
-  SETLIST R20 R21 2 [1]
-  CALL R18 2 1
-  GETUPVAL R20 2
-  GETTABLEKS R19 R20 K7 ["useCallback"]
-  NEWCLOSURE R20 P3
-  CAPTURE VAL R15
+  CAPTURE VAL R0
+  NEWTABLE R18 0 2
+  MOVE R19 R12
+  GETTABLEKS R20 R0 K7 ["showReplace"]
+  SETLIST R18 R19 2 [1]
+  CALL R16 2 1
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K8 ["useCallback"]
+  NEWCLOSURE R18 P3
   CAPTURE VAL R13
-  NEWTABLE R21 0 0
-  CALL R19 2 1
-  NEWCLOSURE R20 P4
+  CAPTURE VAL R0
+  NEWTABLE R19 0 0
+  CALL R17 2 1
+  NEWCLOSURE R18 P4
   CAPTURE VAL R3
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  CAPTURE VAL R12
+  CAPTURE VAL R0
   CAPTURE VAL R5
   CAPTURE UPVAL U4
-  CAPTURE VAL R14
+  CAPTURE VAL R12
   CAPTURE VAL R7
-  GETUPVAL R21 5
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K8 ["SEARCH_QUERY_DELAY_SECONDS"]
-  LOADNIL R23
-  NEWCLOSURE R24 P5
+  GETUPVAL R19 5
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K9 ["SEARCH_QUERY_DELAY_SECONDS"]
+  LOADNIL R21
+  NEWCLOSURE R22 P5
   CAPTURE UPVAL U6
   CAPTURE VAL R3
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  CAPTURE VAL R12
+  CAPTURE VAL R0
   CAPTURE VAL R5
   CAPTURE UPVAL U4
-  CAPTURE VAL R14
+  CAPTURE VAL R12
   CAPTURE VAL R7
+  CALL R19 3 1
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K10 ["useEffect"]
+  NEWCLOSURE R21 P6
+  CAPTURE VAL R19
   CAPTURE VAL R0
-  CALL R21 3 1
-  GETUPVAL R23 2
-  GETTABLEKS R22 R23 K9 ["useEffect"]
-  NEWCLOSURE R23 P6
-  CAPTURE VAL R21
-  CAPTURE VAL R0
-  NEWTABLE R24 0 8
-  MOVE R25 R3
-  MOVE R26 R5
-  MOVE R27 R7
-  GETTABLEKS R28 R9 K6 ["enabled"]
-  GETTABLEKS R29 R10 K6 ["enabled"]
-  GETTABLEKS R30 R11 K6 ["enabled"]
-  MOVE R31 R12
-  MOVE R32 R14
-  SETLIST R24 R25 8 [1]
-  CALL R22 2 0
-  GETUPVAL R22 7
-  LOADK R23 K10 ["Frame"]
-  NEWTABLE R24 4 0
-  GETTABLEKS R25 R0 K11 ["ZIndex"]
-  SETTABLEKS R25 R24 K11 ["ZIndex"]
-  LOADN R25 1
-  SETTABLEKS R25 R24 K12 ["BackgroundTransparency"]
-  GETUPVAL R27 2
-  GETTABLEKS R26 R27 K13 ["Change"]
-  GETTABLEKS R25 R26 K14 ["AbsoluteSize"]
-  GETTABLEKS R26 R0 K15 ["onSearchHeaderSizeChange"]
-  SETTABLE R26 R24 R25
-  GETUPVAL R26 2
-  GETTABLEKS R25 R26 K16 ["Tag"]
-  LOADK R26 K17 ["X-FitY X-Column X-Top data-testid=WidgetHeaderFrame"]
-  SETTABLE R26 R24 R25
-  DUPTABLE R25 K21 [{"SearchHeader", "IncludeFilterHeader", "ReplaceHeader"}]
-  GETUPVAL R26 7
-  GETUPVAL R27 8
-  DUPTABLE R28 K31 [{"LayoutOrder", "searchBarLeftIcon", "onSearchbarTextChanged", "searchBarPlaceholderText", "searchBarToggleOptions", "settingsDropdownItemData", "onSettingsDropdownItemClicked", "Visible", "dropdownOverlay"}]
-  MOVE R29 R2
-  CALL R29 0 1
-  SETTABLEKS R29 R28 K22 ["LayoutOrder"]
-  SETTABLEKS R16 R28 K23 ["searchBarLeftIcon"]
-  SETTABLEKS R4 R28 K24 ["onSearchbarTextChanged"]
-  LOADK R31 K32 ["SearchSection"]
-  LOADK R32 K33 ["PlaceholderText"]
-  NAMECALL R29 R1 K34 ["getText"]
-  CALL R29 3 1
-  SETTABLEKS R29 R28 K25 ["searchBarPlaceholderText"]
-  SETTABLEKS R17 R28 K26 ["searchBarToggleOptions"]
-  SETTABLEKS R18 R28 K27 ["settingsDropdownItemData"]
-  SETTABLEKS R19 R28 K28 ["onSettingsDropdownItemClicked"]
-  LOADB R29 1
-  SETTABLEKS R29 R28 K29 ["Visible"]
-  GETTABLEKS R29 R0 K30 ["dropdownOverlay"]
-  SETTABLEKS R29 R28 K30 ["dropdownOverlay"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K18 ["SearchHeader"]
-  GETUPVAL R26 7
-  GETUPVAL R27 8
-  DUPTABLE R28 K35 [{"LayoutOrder", "onSearchbarTextChanged", "searchBarPlaceholderText", "Visible", "dropdownOverlay"}]
-  MOVE R29 R2
-  CALL R29 0 1
-  SETTABLEKS R29 R28 K22 ["LayoutOrder"]
-  SETTABLEKS R8 R28 K24 ["onSearchbarTextChanged"]
-  LOADK R31 K36 ["FilterSection"]
-  LOADK R32 K33 ["PlaceholderText"]
-  NAMECALL R29 R1 K34 ["getText"]
-  CALL R29 3 1
-  SETTABLEKS R29 R28 K25 ["searchBarPlaceholderText"]
-  SETTABLEKS R14 R28 K29 ["Visible"]
-  GETTABLEKS R29 R0 K30 ["dropdownOverlay"]
-  SETTABLEKS R29 R28 K30 ["dropdownOverlay"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K19 ["IncludeFilterHeader"]
-  GETUPVAL R26 7
-  GETUPVAL R27 8
-  DUPTABLE R28 K35 [{"LayoutOrder", "onSearchbarTextChanged", "searchBarPlaceholderText", "Visible", "dropdownOverlay"}]
-  MOVE R29 R2
-  CALL R29 0 1
-  SETTABLEKS R29 R28 K22 ["LayoutOrder"]
-  SETTABLEKS R6 R28 K24 ["onSearchbarTextChanged"]
-  LOADK R31 K37 ["SearchSettingsDropdown"]
-  LOADK R32 K38 ["Replace"]
-  NAMECALL R29 R1 K34 ["getText"]
-  CALL R29 3 1
-  SETTABLEKS R29 R28 K25 ["searchBarPlaceholderText"]
-  SETTABLEKS R12 R28 K29 ["Visible"]
-  GETTABLEKS R29 R0 K30 ["dropdownOverlay"]
-  SETTABLEKS R29 R28 K30 ["dropdownOverlay"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K20 ["ReplaceHeader"]
-  CALL R22 3 -1
-  RETURN R22 -1
+  NEWTABLE R22 0 8
+  MOVE R23 R3
+  MOVE R24 R5
+  MOVE R25 R7
+  GETTABLEKS R26 R9 K6 ["enabled"]
+  GETTABLEKS R27 R10 K6 ["enabled"]
+  GETTABLEKS R28 R11 K6 ["enabled"]
+  GETTABLEKS R29 R0 K7 ["showReplace"]
+  MOVE R30 R12
+  SETLIST R22 R23 8 [1]
+  CALL R20 2 0
+  GETUPVAL R20 7
+  LOADK R21 K11 ["Frame"]
+  NEWTABLE R22 4 0
+  GETTABLEKS R23 R0 K12 ["ZIndex"]
+  SETTABLEKS R23 R22 K12 ["ZIndex"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K13 ["BackgroundTransparency"]
+  GETUPVAL R25 2
+  GETTABLEKS R24 R25 K14 ["Change"]
+  GETTABLEKS R23 R24 K15 ["AbsoluteSize"]
+  GETTABLEKS R24 R0 K16 ["onSearchHeaderSizeChange"]
+  SETTABLE R24 R22 R23
+  GETUPVAL R24 2
+  GETTABLEKS R23 R24 K17 ["Tag"]
+  LOADK R24 K18 ["X-FitY X-Column X-Top data-testid=WidgetHeaderFrame"]
+  SETTABLE R24 R22 R23
+  DUPTABLE R23 K22 [{"SearchHeader", "IncludeFilterHeader", "ReplaceHeader"}]
+  GETUPVAL R24 7
+  GETUPVAL R25 8
+  DUPTABLE R26 K32 [{"LayoutOrder", "searchBarLeftIcon", "onSearchbarTextChanged", "searchBarPlaceholderText", "searchBarToggleOptions", "settingsDropdownItemData", "onSettingsDropdownItemClicked", "Visible", "dropdownOverlay"}]
+  MOVE R27 R2
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K23 ["LayoutOrder"]
+  SETTABLEKS R14 R26 K24 ["searchBarLeftIcon"]
+  SETTABLEKS R4 R26 K25 ["onSearchbarTextChanged"]
+  LOADK R29 K33 ["SearchSection"]
+  LOADK R30 K34 ["PlaceholderText"]
+  NAMECALL R27 R1 K35 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K26 ["searchBarPlaceholderText"]
+  SETTABLEKS R15 R26 K27 ["searchBarToggleOptions"]
+  SETTABLEKS R16 R26 K28 ["settingsDropdownItemData"]
+  SETTABLEKS R17 R26 K29 ["onSettingsDropdownItemClicked"]
+  LOADB R27 1
+  SETTABLEKS R27 R26 K30 ["Visible"]
+  GETTABLEKS R27 R0 K31 ["dropdownOverlay"]
+  SETTABLEKS R27 R26 K31 ["dropdownOverlay"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K19 ["SearchHeader"]
+  GETUPVAL R24 7
+  GETUPVAL R25 8
+  DUPTABLE R26 K36 [{"LayoutOrder", "onSearchbarTextChanged", "searchBarPlaceholderText", "Visible", "dropdownOverlay"}]
+  MOVE R27 R2
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K23 ["LayoutOrder"]
+  SETTABLEKS R8 R26 K25 ["onSearchbarTextChanged"]
+  LOADK R29 K37 ["FilterSection"]
+  LOADK R30 K34 ["PlaceholderText"]
+  NAMECALL R27 R1 K35 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K26 ["searchBarPlaceholderText"]
+  SETTABLEKS R12 R26 K30 ["Visible"]
+  GETTABLEKS R27 R0 K31 ["dropdownOverlay"]
+  SETTABLEKS R27 R26 K31 ["dropdownOverlay"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K20 ["IncludeFilterHeader"]
+  GETUPVAL R24 7
+  GETUPVAL R25 8
+  DUPTABLE R26 K36 [{"LayoutOrder", "onSearchbarTextChanged", "searchBarPlaceholderText", "Visible", "dropdownOverlay"}]
+  MOVE R27 R2
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K23 ["LayoutOrder"]
+  SETTABLEKS R6 R26 K25 ["onSearchbarTextChanged"]
+  LOADK R29 K38 ["SearchSettingsDropdown"]
+  LOADK R30 K39 ["Replace"]
+  NAMECALL R27 R1 K35 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K26 ["searchBarPlaceholderText"]
+  GETTABLEKS R27 R0 K7 ["showReplace"]
+  SETTABLEKS R27 R26 K30 ["Visible"]
+  GETTABLEKS R27 R0 K31 ["dropdownOverlay"]
+  SETTABLEKS R27 R26 K31 ["dropdownOverlay"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K21 ["ReplaceHeader"]
+  CALL R20 3 -1
+  RETURN R20 -1
 
 MAIN:
   PREPVARARGS 0

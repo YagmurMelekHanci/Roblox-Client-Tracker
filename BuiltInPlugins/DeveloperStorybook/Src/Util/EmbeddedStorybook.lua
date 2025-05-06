@@ -6,10 +6,13 @@ if not Packages then
 	return nil
 end
 
-local Roact = require(Packages.Roact)
 local React = require(Packages.React)
 local Rodux = require(Packages.Rodux)
+local ReactRoblox = require(Packages.ReactRoblox)
 local Framework = require(Packages.Framework)
+local RoactRodux = require(Packages.RoactRodux)
+local Dash = Framework.Dash
+local ThemeSwitcher = Framework.Style.ThemeSwitcher
 
 local registerPluginStyles = Framework.Styling.registerPluginStyles
 
@@ -32,16 +35,37 @@ local LocalizedStrings = Src.Resources.LocalizedStrings
 local ExternalEventConnection = require(Src.Util.ExternalEventConnection)
 local GetStories = require(Src.Thunks.GetStories)
 
-function WindowWrapper()
+-- This code is intentionally copied here. Don't use StudioFoundation's FoundationProviderAdapter.lua
+-- It doesn't work in player to some trickstery with react versions we do for ContextItem api.
+local Foundation = require(Packages.Foundation)
+local FoundationProvider = Foundation.FoundationProvider
+
+function FoundationProviderAdaptor(props)
+	return React.createElement(
+		FoundationProvider,
+		Dash.join(props, {
+			theme = props.theme,
+		})
+	)
+end
+
+-- Hack to react to the theme change, we update value in the rodux store, but initially it's empty.
+-- When the ThemeSwitcher has the correct value and doesn't have Default which may map to a different theme in Foundation.
+FoundationProviderAdaptor = RoactRodux.connect(function()
+	return { theme = ThemeSwitcher.getThemeName() }
+end)(FoundationProviderAdaptor)
+-- End of copy
+
+function WindowWrapper(props: { design: any })
 	local sideBarPadding, setSideBarPadding = React.useState(0)
 
 	local onInsetChange = React.useCallback(function()
 		setSideBarPadding(GuiService.TopbarInset.Height)
 	end, {})
 
-	return Roact.createFragment({
-		Roact.createElement(Window, { sideBarPadding = sideBarPadding }),
-		Roact.createElement(ExternalEventConnection, {
+	return React.createElement(FoundationProviderAdaptor, { derives = { props.design } }, {
+		React.createElement(Window, { sideBarPadding = sideBarPadding }),
+		React.createElement(ExternalEventConnection, {
 			event = GuiService:GetPropertyChangedSignal("TopbarInset"),
 			callback = onInsetChange,
 		}),
@@ -82,18 +106,17 @@ function EmbeddedStorybook.start(storybookGui: ScreenGui, player: Player)
 	}
 	local Screen = function()
 		return ContextServices.provide(contextItems, {
-			Window = Roact.createElement(WindowWrapper),
-			StyleLink = Roact.createElement("StyleLink", {
-				StyleSheet = design,
-			}),
+			Window = React.createElement(WindowWrapper, { design = design }),
 		})
 	end
-	local element = Roact.createElement(Screen, {})
-	EmbeddedStorybook.handle = Roact.mount(element, storybookGui)
+
+	local element = React.createElement(Screen)
+	EmbeddedStorybook.handle = ReactRoblox.createRoot(storybookGui)
+	EmbeddedStorybook.handle:render(element)
 end
 
 function EmbeddedStorybook.stop()
-	Roact.unmount(EmbeddedStorybook.handle)
+	EmbeddedStorybook.handle:unmount()
 end
 
 return EmbeddedStorybook

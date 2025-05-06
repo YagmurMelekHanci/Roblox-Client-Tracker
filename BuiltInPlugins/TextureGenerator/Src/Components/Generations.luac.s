@@ -94,86 +94,96 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
+  RETURN R0 0
+
+PROTO_4:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
-  GETUPVAL R2 1
-  CALL R2 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useContext"]
   GETUPVAL R3 2
-  MOVE R4 R2
-  CALL R3 1 1
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K1 ["useContext"]
-  GETUPVAL R5 4
-  CALL R4 1 1
-  GETUPVAL R5 5
-  MOVE R6 R4
-  MOVE R7 R3
-  MOVE R8 R2
-  CALL R5 3 1
-  GETIMPORT R7 K3 [next]
-  MOVE R8 R2
-  CALL R7 1 1
-  JUMPIFNOTEQKNIL R7 [+7]
-  LOADK R8 K4 ["Generations"]
-  LOADK R9 K5 ["TitleAll"]
-  NAMECALL R6 R1 K6 ["getText"]
+  CALL R2 1 1
+  GETUPVAL R3 3
+  CALL R3 0 1
+  GETUPVAL R4 4
+  MOVE R5 R3
+  MOVE R6 R2
+  CALL R4 2 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["useContext"]
+  GETUPVAL R6 5
+  CALL R5 1 1
+  GETUPVAL R6 6
+  MOVE R7 R5
+  MOVE R8 R4
+  MOVE R9 R3
   CALL R6 3 1
+  GETIMPORT R8 K3 [next]
+  MOVE R9 R3
+  CALL R8 1 1
+  JUMPIFNOTEQKNIL R8 [+7]
+  LOADK R9 K4 ["Generations"]
+  LOADK R10 K5 ["TitleAll"]
+  NAMECALL R7 R1 K6 ["getText"]
+  CALL R7 3 1
   JUMP [+5]
-  LOADK R8 K4 ["Generations"]
-  LOADK R9 K7 ["TitleSelected"]
-  NAMECALL R6 R1 K6 ["getText"]
-  CALL R6 3 1
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K8 ["useEffect"]
-  NEWCLOSURE R8 P0
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  NEWTABLE R9 0 2
-  MOVE R10 R2
-  GETTABLEKS R11 R4 K9 ["setSelected"]
-  SETLIST R9 R10 2 [1]
-  CALL R7 2 0
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K10 ["createElement"]
-  GETUPVAL R8 6
-  DUPTABLE R9 K18 [{"AlwaysExpanded", "HorizontalAlignment", "Layout", "LayoutOrder", "Style", "Text", "VerticalAlignment"}]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K11 ["AlwaysExpanded"]
-  GETIMPORT R10 K21 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R10 R9 K12 ["HorizontalAlignment"]
-  GETIMPORT R10 K24 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R10 R9 K13 ["Layout"]
-  GETTABLEKS R10 R0 K14 ["LayoutOrder"]
-  SETTABLEKS R10 R9 K14 ["LayoutOrder"]
-  LOADK R10 K25 ["Section"]
-  SETTABLEKS R10 R9 K15 ["Style"]
-  SETTABLEKS R6 R9 K16 ["Text"]
-  GETIMPORT R10 K27 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R10 R9 K17 ["VerticalAlignment"]
-  DUPTABLE R10 K29 [{"GenerationsPane"}]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K10 ["createElement"]
-  GETUPVAL R12 7
-  DUPTABLE R13 K32 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Spacing", "VerticalAlignment"}]
-  GETIMPORT R14 K34 [Enum.AutomaticSize.Y]
-  SETTABLEKS R14 R13 K30 ["AutomaticSize"]
-  GETIMPORT R14 K21 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R14 R13 K12 ["HorizontalAlignment"]
-  GETIMPORT R14 K36 [Enum.FillDirection.Vertical]
-  SETTABLEKS R14 R13 K13 ["Layout"]
-  GETIMPORT R14 K39 [UDim.new]
-  LOADN R15 0
-  LOADN R16 4
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K31 ["Spacing"]
-  GETIMPORT R14 K27 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R14 R13 K17 ["VerticalAlignment"]
-  MOVE R14 R5
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K28 ["GenerationsPane"]
-  CALL R7 3 -1
-  RETURN R7 -1
+  LOADK R9 K4 ["Generations"]
+  LOADK R10 K7 ["TitleSelected"]
+  NAMECALL R7 R1 K6 ["getText"]
+  CALL R7 3 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K8 ["useEffect"]
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  NEWTABLE R10 0 2
+  MOVE R11 R3
+  GETTABLEKS R12 R5 K9 ["setSelected"]
+  SETLIST R10 R11 2 [1]
+  CALL R8 2 0
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K10 ["createElement"]
+  GETUPVAL R9 7
+  DUPTABLE R10 K19 [{"AlwaysExpanded", "HorizontalAlignment", "Layout", "LayoutOrder", "Style", "OnExpandedChanged", "Text", "VerticalAlignment"}]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K11 ["AlwaysExpanded"]
+  GETIMPORT R11 K22 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R11 R10 K12 ["HorizontalAlignment"]
+  GETIMPORT R11 K25 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R11 R10 K13 ["Layout"]
+  GETTABLEKS R11 R0 K14 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K14 ["LayoutOrder"]
+  LOADK R11 K26 ["Section"]
+  SETTABLEKS R11 R10 K15 ["Style"]
+  DUPCLOSURE R11 K27 [PROTO_3]
+  SETTABLEKS R11 R10 K16 ["OnExpandedChanged"]
+  SETTABLEKS R7 R10 K17 ["Text"]
+  GETIMPORT R11 K29 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R11 R10 K18 ["VerticalAlignment"]
+  DUPTABLE R11 K31 [{"GenerationsPane"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  GETUPVAL R13 8
+  DUPTABLE R14 K34 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Spacing", "VerticalAlignment"}]
+  GETIMPORT R15 K36 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K32 ["AutomaticSize"]
+  GETIMPORT R15 K22 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R15 R14 K12 ["HorizontalAlignment"]
+  GETIMPORT R15 K38 [Enum.FillDirection.Vertical]
+  SETTABLEKS R15 R14 K13 ["Layout"]
+  GETIMPORT R15 K41 [UDim.new]
+  LOADN R16 0
+  LOADN R17 4
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K33 ["Spacing"]
+  GETIMPORT R15 K29 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R15 R14 K18 ["VerticalAlignment"]
+  MOVE R15 R6
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K30 ["GenerationsPane"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0
@@ -200,47 +210,51 @@ MAIN:
   GETIMPORT R7 K5 [require]
   GETTABLEKS R8 R6 K14 ["GenerationCard"]
   CALL R7 1 1
-  GETTABLEKS R9 R0 K12 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Hooks"]
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R8 K16 ["useSelectedMeshParts"]
-  CALL R9 1 1
-  GETTABLEKS R10 R2 K17 ["UI"]
-  GETTABLEKS R11 R10 K18 ["ExpandablePane"]
-  GETTABLEKS R12 R10 K19 ["Pane"]
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K12 ["Src"]
-  GETTABLEKS R15 R16 K20 ["Util"]
-  GETTABLEKS R14 R15 K21 ["Constants"]
-  CALL R13 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R6 K15 ["TextureGenerationServiceContext"]
+  CALL R8 1 1
+  GETTABLEKS R10 R0 K12 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Hooks"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R9 K17 ["useSelectedMeshParts"]
+  CALL R10 1 1
+  GETTABLEKS R11 R2 K18 ["UI"]
+  GETTABLEKS R12 R11 K19 ["ExpandablePane"]
+  GETTABLEKS R13 R11 K20 ["Pane"]
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K12 ["Src"]
-  GETTABLEKS R16 R17 K20 ["Util"]
-  GETTABLEKS R15 R16 K22 ["createHashFromMeshParts"]
+  GETTABLEKS R16 R17 K21 ["Util"]
+  GETTABLEKS R15 R16 K22 ["Constants"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K12 ["Src"]
-  GETTABLEKS R17 R18 K20 ["Util"]
-  GETTABLEKS R16 R17 K23 ["GenerationsContext"]
+  GETTABLEKS R17 R18 K21 ["Util"]
+  GETTABLEKS R16 R17 K23 ["createHashFromMeshParts"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
   GETTABLEKS R19 R0 K12 ["Src"]
-  GETTABLEKS R18 R19 K20 ["Util"]
-  GETTABLEKS R17 R18 K24 ["sort"]
+  GETTABLEKS R18 R19 K21 ["Util"]
+  GETTABLEKS R17 R18 K24 ["GenerationsContext"]
   CALL R16 1 1
-  DUPCLOSURE R17 K25 [PROTO_1]
-  CAPTURE VAL R16
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K12 ["Src"]
+  GETTABLEKS R19 R20 K21 ["Util"]
+  GETTABLEKS R18 R19 K25 ["sort"]
+  CALL R17 1 1
+  DUPCLOSURE R18 K26 [PROTO_1]
+  CAPTURE VAL R17
   CAPTURE VAL R1
-  CAPTURE VAL R13
-  CAPTURE VAL R3
-  CAPTURE VAL R7
-  DUPCLOSURE R18 K26 [PROTO_3]
-  CAPTURE VAL R5
-  CAPTURE VAL R9
   CAPTURE VAL R14
   CAPTURE VAL R3
+  CAPTURE VAL R7
+  DUPCLOSURE R19 K27 [PROTO_4]
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R10
   CAPTURE VAL R15
-  CAPTURE VAL R17
-  CAPTURE VAL R11
+  CAPTURE VAL R16
+  CAPTURE VAL R18
   CAPTURE VAL R12
-  RETURN R18 1
+  CAPTURE VAL R13
+  RETURN R19 1

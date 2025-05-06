@@ -17,7 +17,7 @@ MAIN:
   SETTABLEKS R6 R5 K11 ["BackgroundColor3"]
   LOADN R6 0
   SETTABLEKS R6 R5 K12 ["BorderSizePixel"]
-  NEWTABLE R6 0 7
+  NEWTABLE R6 0 9
   MOVE R7 R2
   LOADK R8 K15 [":hover"]
   DUPTABLE R9 K16 [{"BackgroundColor3"}]
@@ -72,7 +72,19 @@ MAIN:
   DUPTABLE R15 K16 [{"BackgroundColor3"}]
   LOADK R16 K39 ["$MeasuringBarFillHigh"]
   SETTABLEKS R16 R15 K11 ["BackgroundColor3"]
-  CALL R13 2 -1
+  CALL R13 2 1
+  MOVE R14 R2
+  LOADK R15 K40 [">> .ChildRenderBar"]
+  DUPTABLE R16 K42 [{"TextSize"}]
+  LOADK R17 K43 ["$FontSize_300"]
+  SETTABLEKS R17 R16 K41 ["TextSize"]
+  CALL R14 2 1
+  MOVE R15 R2
+  LOADK R16 K44 [">> .MainRenderBar"]
+  DUPTABLE R17 K42 [{"TextSize"}]
+  LOADK R18 K45 ["$FontSize_350"]
+  SETTABLEKS R18 R17 K41 ["TextSize"]
+  CALL R15 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

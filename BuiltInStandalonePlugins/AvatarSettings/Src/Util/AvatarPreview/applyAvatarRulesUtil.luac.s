@@ -1,0 +1,40 @@
+PROTO_0:
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["avatarRules"]
+  CALL R3 0 -1
+  NAMECALL R1 R0 K1 ["ApplyAvatarRules"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["AvatarSettingsProviderTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K7 ["Util"]
+  GETTABLEKS R5 R6 K9 ["BridgingFiles"]
+  GETTABLEKS R4 R5 K10 ["AssetDmFiles"]
+  GETTABLEKS R3 R4 K11 ["assetDmUtils"]
+  CALL R2 1 1
+  NEWTABLE R3 2 0
+  LOADK R4 K12 ["Body"]
+  NEWCLOSURE R5 P0
+  CAPTURE REF R4
+  SETTABLEKS R5 R3 K13 ["setCurrentSettingsPage"]
+  DUPCLOSURE R5 K14 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R3 K15 ["applyAvatarRules"]
+  CLOSEUPVALS R4
+  RETURN R3 1

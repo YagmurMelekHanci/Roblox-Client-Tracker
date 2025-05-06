@@ -93,23 +93,27 @@ PROTO_4:
   SETTABLEKS R18 R17 K11 ["ZIndex"]
   SETTABLEKS R5 R17 K32 ["xOffset"]
   SETTABLEKS R10 R17 K33 ["onReplaceButtonClicked"]
+  GETTABLEKS R19 R0 K37 ["showReplace"]
+  JUMPIF R19 [+2]
+  LOADB R18 0
+  JUMP [+3]
   GETTABLEKS R19 R0 K31 ["confirmationDialogVisible"]
   NOT R18 R19
   SETTABLEKS R18 R17 K24 ["Visible"]
-  GETTABLEKS R18 R0 K37 ["toggleConfirmationDialog"]
+  GETTABLEKS R18 R0 K38 ["toggleConfirmationDialog"]
   SETTABLEKS R18 R17 K34 ["onReplaceAllButtonClicked"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K21 ["ReplaceControls"]
   GETUPVAL R15 2
   GETUPVAL R16 5
-  DUPTABLE R17 K39 [{"ZIndex", "Visible", "onButtonClicked"}]
+  DUPTABLE R17 K40 [{"ZIndex", "Visible", "onButtonClicked"}]
   GETTABLEKS R19 R0 K11 ["ZIndex"]
   ADDK R18 R19 K36 [1]
   SETTABLEKS R18 R17 K11 ["ZIndex"]
   GETTABLEKS R18 R0 K31 ["confirmationDialogVisible"]
   SETTABLEKS R18 R17 K24 ["Visible"]
-  GETTABLEKS R18 R0 K37 ["toggleConfirmationDialog"]
-  SETTABLEKS R18 R17 K38 ["onButtonClicked"]
+  GETTABLEKS R18 R0 K38 ["toggleConfirmationDialog"]
+  SETTABLEKS R18 R17 K39 ["onButtonClicked"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K22 ["ReplaceAllConfirmationDialog"]
   CALL R11 3 -1

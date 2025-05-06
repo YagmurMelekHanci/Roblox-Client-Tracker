@@ -205,43 +205,43 @@ MAIN:
   CALL R25 2 1
   MOVE R26 R2
   LOADK R27 K94 ["> #PillLabel"]
-  DUPTABLE R28 K68 [{"BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "TextXAlignment", "TextSize"}]
-  LOADN R29 0
-  SETTABLEKS R29 R28 K14 ["BackgroundTransparency"]
-  LOADK R29 K95 ["$ColorActionStandardBackground"]
+  DUPTABLE R28 K95 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "TextXAlignment", "TextSize"}]
+  LOADK R29 K96 ["$ColorActionStandardBackground"]
   SETTABLEKS R29 R28 K15 ["BackgroundColor3"]
+  LOADK R29 K97 ["$ColorActionStandardBackgroundTransparency"]
+  SETTABLEKS R29 R28 K14 ["BackgroundTransparency"]
   LOADN R29 0
   SETTABLEKS R29 R28 K16 ["BorderSizePixel"]
   GETIMPORT R29 K69 [Enum.TextXAlignment.Center]
   SETTABLEKS R29 R28 K66 ["TextXAlignment"]
-  GETTABLEKS R29 R3 K96 ["matchNumberLabelTextSize"]
+  GETTABLEKS R29 R3 K98 ["matchNumberLabelTextSize"]
   SETTABLEKS R29 R28 K67 ["TextSize"]
   NEWTABLE R29 0 1
   MOVE R30 R2
-  LOADK R31 K97 ["::UICorner"]
-  DUPTABLE R32 K99 [{"CornerRadius"}]
+  LOADK R31 K99 ["::UICorner"]
+  DUPTABLE R32 K101 [{"CornerRadius"}]
   GETIMPORT R33 K46 [UDim.new]
   LOADN R34 1
   LOADN R35 0
   CALL R33 2 1
-  SETTABLEKS R33 R32 K98 ["CornerRadius"]
+  SETTABLEKS R33 R32 K100 ["CornerRadius"]
   CALL R30 2 -1
   SETLIST R29 R30 -1 [1]
   CALL R26 3 1
   MOVE R27 R2
   LOADK R28 K78 ["::UIFlexItem"]
   DUPTABLE R29 K80 [{"FlexMode"}]
-  GETIMPORT R30 K101 [Enum.UIFlexMode.Grow]
+  GETIMPORT R30 K103 [Enum.UIFlexMode.Grow]
   SETTABLEKS R30 R29 K79 ["FlexMode"]
   CALL R27 2 1
   MOVE R28 R2
-  LOADK R29 K102 ["::UIPadding"]
-  DUPTABLE R30 K104 [{"PaddingRight"}]
+  LOADK R29 K104 ["::UIPadding"]
+  DUPTABLE R30 K106 [{"PaddingRight"}]
   GETIMPORT R31 K46 [UDim.new]
   LOADN R32 0
   LOADN R33 10
   CALL R31 2 1
-  SETTABLEKS R31 R30 K103 ["PaddingRight"]
+  SETTABLEKS R31 R30 K105 ["PaddingRight"]
   CALL R28 2 -1
   SETLIST R24 R25 -1 [1]
   CALL R21 3 -1

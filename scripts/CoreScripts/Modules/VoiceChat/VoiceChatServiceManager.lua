@@ -67,6 +67,7 @@ local FFlagDebugSkipSeamlessVoiceAPICheck = game:DefineFastFlag("DebugSkipSeamle
 local FFlagFixSTUXShowingIncorrectly = game:DefineFastFlag("FixSTUXShowingIncorrectly", false)
 local FFlagSendUserConnectionStatus = game:DefineFastFlag("SendUserConnectionStatus", false)
 local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
+local FFlagSeamlessVoiceV2JoinVoiceToast = game:DefineFastFlag("SeamlessVoiceV2JoinVoiceToast", false)
 local FFlagHideVoiceUIUntilInputExists = require(VoiceChatCore.Flags.GetFFlagHideVoiceUIUntilInputExists)()
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging =
@@ -125,6 +126,8 @@ local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppP
 local GetFFlagVoiceChatClientRewriteMasterLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteMasterLua
 local GetFFlagEnableSeamlessVoiceV2 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSeamlessVoiceV2
+local GetFFlagDisconnectToastClientRewrite =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisconnectToastClientRewrite
 
 local Analytics = VoiceChatCore.Analytics
 
@@ -265,6 +268,7 @@ local VoiceChatServiceManager = {
 	settingsAppAvailable = nil,
 	hasLeftFTUX = false,
 	deniedMicPermissions = nil,
+	isInitialJoin = false,
 }
 
 -- Getting/Setting these properties on VoiceChatServiceManager passes through to CoreVoiceManager instance.
@@ -576,9 +580,17 @@ function VoiceChatServiceManager.new(
 					self:GetConnectDisconnectAnalyticsData()
 				)
 			end
-		elseif GetFFlagEnableSeamlessVoiceV2() and GetFFlagEnableSeamlessVoiceConnectDisconnectButton() and self:IsSeamlessVoice() then
+		elseif
+			GetFFlagEnableSeamlessVoiceV2()
+			and GetFFlagEnableSeamlessVoiceConnectDisconnectButton()
+			and self:IsSeamlessVoice()
+		then
 			ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-			self:showPrompt(VoiceChatPromptType.JoinVoice)
+			if FFlagSeamlessVoiceV2JoinVoiceToast and self.isInitialJoin then
+				self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
+			else
+				self:showPrompt(VoiceChatPromptType.JoinVoice)
+			end
 			self:SetVoiceConnectCookieValue(true)
 		else
 			self:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
@@ -1662,6 +1674,9 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
 	elseif GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self:UserVoiceEnabled() then
 		-- First time joining voice this session
+		if FFlagSeamlessVoiceV2JoinVoiceToast then
+			self.isInitialJoin = true
+		end
 		self.attemptVoiceRejoin:Fire()
 		if GetFFlagEnableSeamlessVoiceV2() and self:IsNewSeamlessVoiceUserDisconnect() then
 			self:SetVoiceConnectCookieValue(true)
@@ -1795,6 +1810,9 @@ end
 
 function VoiceChatServiceManager:Leave()
 	self:ensureInitialized("leave")
+	if GetFFlagDisconnectToastClientRewrite() and GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+		self:SetVoiceConnectCookieValue(false)
+	end
 	if GetFFlagEnableConnectDisconnectAnalytics() then
 		self.Analytics:reportConnectDisconnectEvents("voiceDisconnectEvent", self:GetConnectDisconnectAnalyticsData())
 	end
@@ -1811,7 +1829,7 @@ function VoiceChatServiceManager:Leave()
 	self:HideVoiceUI()
 	self.previousGroupId = previousGroupId
 	self.previousMutedState = previousMutedState
-	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+	if not GetFFlagDisconnectToastClientRewrite() and GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
 		self:SetVoiceConnectCookieValue(false)
 	end
 	if FFlagSendUserConnectionStatus and self:IsSeamlessVoice() then

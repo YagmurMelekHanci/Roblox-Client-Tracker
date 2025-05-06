@@ -335,4 +335,13 @@ function SettingsUIDelegate.isOpenCloseAnimationAllowed(self): boolean
 	end
 end
 
+function SettingsUIDelegate.getMenuContainerExtraSpace(self): number
+	if self._vrEnabled then
+		local padding: UIPadding = self._settingsHub.MenuContainerPadding
+		return padding.PaddingTop.Offset + padding.PaddingBottom.Offset
+	else
+		return 0
+	end
+end
+
 return SettingsUIDelegate

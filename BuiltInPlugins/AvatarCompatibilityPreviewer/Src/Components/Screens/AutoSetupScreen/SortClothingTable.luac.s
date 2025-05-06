@@ -138,15 +138,13 @@ PROTO_3:
   RETURN R13 -1
 
 PROTO_4:
-  DUPTABLE R1 K3 [{"Name", "Type", "Instance"}]
+  DUPTABLE R1 K2 [{"Name", "Instance"}]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["getInstanceNameWithoutClassification"]
+  GETTABLEKS R2 R3 K3 ["getInstanceNameWithoutClassification"]
   GETTABLEKS R3 R0 K0 ["Name"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K0 ["Name"]
-  LOADK R2 K5 ["Automatic"]
-  SETTABLEKS R2 R1 K1 ["Type"]
-  SETTABLEKS R0 R1 K2 ["Instance"]
+  SETTABLEKS R0 R1 K1 ["Instance"]
   RETURN R1 1
 
 PROTO_5:
@@ -172,45 +170,41 @@ PROTO_6:
   LOADK R9 K1 ["BasePart"]
   NAMECALL R7 R6 K2 ["IsA"]
   CALL R7 2 1
-  JUMPIFNOT R7 [+20]
-  DUPTABLE R9 K6 [{"Name", "Type", "Instance"}]
+  JUMPIFNOT R7 [+17]
+  DUPTABLE R9 K5 [{"Name", "Instance"}]
   GETUPVAL R11 1
-  GETTABLEKS R10 R11 K7 ["getInstanceNameWithoutClassification"]
+  GETTABLEKS R10 R11 K6 ["getInstanceNameWithoutClassification"]
   GETTABLEKS R11 R6 K3 ["Name"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K3 ["Name"]
-  LOADK R10 K8 ["Automatic"]
-  SETTABLEKS R10 R9 K4 ["Type"]
-  SETTABLEKS R6 R9 K5 ["Instance"]
+  SETTABLEKS R6 R9 K4 ["Instance"]
   FASTCALL2 TABLE_INSERT R1 R9 [+4]
   MOVE R8 R1
-  GETIMPORT R7 K11 [table.insert]
+  GETIMPORT R7 K9 [table.insert]
   CALL R7 2 0
-  NAMECALL R7 R6 K12 ["GetDescendants"]
+  NAMECALL R7 R6 K10 ["GetDescendants"]
   CALL R7 1 3
   FORGPREP R7
   LOADK R14 K1 ["BasePart"]
   NAMECALL R12 R11 K2 ["IsA"]
   CALL R12 2 1
-  JUMPIFNOT R12 [+20]
-  DUPTABLE R14 K6 [{"Name", "Type", "Instance"}]
+  JUMPIFNOT R12 [+17]
+  DUPTABLE R14 K5 [{"Name", "Instance"}]
   GETUPVAL R16 1
-  GETTABLEKS R15 R16 K7 ["getInstanceNameWithoutClassification"]
+  GETTABLEKS R15 R16 K6 ["getInstanceNameWithoutClassification"]
   GETTABLEKS R16 R11 K3 ["Name"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K3 ["Name"]
-  LOADK R15 K8 ["Automatic"]
-  SETTABLEKS R15 R14 K4 ["Type"]
-  SETTABLEKS R11 R14 K5 ["Instance"]
+  SETTABLEKS R11 R14 K4 ["Instance"]
   FASTCALL2 TABLE_INSERT R1 R14 [+4]
   MOVE R13 R1
-  GETIMPORT R12 K11 [table.insert]
+  GETIMPORT R12 K9 [table.insert]
   CALL R12 2 0
-  FORGLOOP R7 2 [-26]
-  FORGLOOP R2 2 [-57]
-  GETIMPORT R2 K14 [table.sort]
+  FORGLOOP R7 2 [-23]
+  FORGLOOP R2 2 [-51]
+  GETIMPORT R2 K12 [table.sort]
   MOVE R3 R1
-  DUPCLOSURE R4 K15 [PROTO_5]
+  DUPCLOSURE R4 K13 [PROTO_5]
   CALL R2 2 0
   RETURN R1 1
 
@@ -249,52 +243,43 @@ PROTO_7:
   JUMPIF R5 [+2]
   LOADNIL R5
   RETURN R5 1
-  LENGTH R8 R4
-  ADDK R7 R8 K10 [1]
-  GETTABLEKS R8 R2 K11 ["RowHeight"]
-  MUL R6 R7 R8
-  GETTABLEKS R7 R2 K12 ["TableHeight"]
-  JUMPIFLT R7 R6 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K13 ["createElement"]
-  GETUPVAL R7 5
-  DUPTABLE R8 K20 [{"Rows", "Columns", "RowHeight", "Size", "Scroll", "CellComponent", "CellProps"}]
-  SETTABLEKS R4 R8 K14 ["Rows"]
-  NEWTABLE R9 0 2
-  DUPTABLE R10 K22 [{"Name"}]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K10 ["createElement"]
+  GETUPVAL R6 5
+  DUPTABLE R7 K18 [{"Rows", "Columns", "RowHeight", "Size", "Scroll", "CellComponent", "CellProps"}]
+  SETTABLEKS R4 R7 K11 ["Rows"]
+  NEWTABLE R8 0 2
+  DUPTABLE R9 K20 [{"Name"}]
+  LOADK R12 K4 ["SortClothingTable"]
+  LOADK R13 K19 ["Name"]
+  NAMECALL R10 R1 K21 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K19 ["Name"]
+  DUPTABLE R10 K20 [{"Name"}]
   LOADK R13 K4 ["SortClothingTable"]
-  LOADK R14 K21 ["Name"]
-  NAMECALL R11 R1 K23 ["getText"]
+  LOADK R14 K22 ["Type"]
+  NAMECALL R11 R1 K21 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K21 ["Name"]
-  DUPTABLE R11 K22 [{"Name"}]
-  LOADK R14 K4 ["SortClothingTable"]
-  LOADK R15 K24 ["Type"]
-  NAMECALL R12 R1 K23 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K21 ["Name"]
-  SETLIST R9 R10 2 [1]
-  SETTABLEKS R9 R8 K15 ["Columns"]
-  GETTABLEKS R9 R2 K11 ["RowHeight"]
-  SETTABLEKS R9 R8 K11 ["RowHeight"]
-  GETIMPORT R9 K27 [UDim2.new]
+  SETTABLEKS R11 R10 K19 ["Name"]
+  SETLIST R8 R9 2 [1]
+  SETTABLEKS R8 R7 K12 ["Columns"]
+  GETTABLEKS R8 R2 K13 ["RowHeight"]
+  SETTABLEKS R8 R7 K13 ["RowHeight"]
+  GETIMPORT R8 K25 [UDim2.fromScale]
+  LOADN R9 1
   LOADN R10 1
-  LOADN R11 0
-  LOADN R12 0
-  GETTABLEKS R13 R2 K12 ["TableHeight"]
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K16 ["Size"]
-  SETTABLEKS R5 R8 K17 ["Scroll"]
-  GETUPVAL R9 6
-  SETTABLEKS R9 R8 K18 ["CellComponent"]
-  DUPTABLE R9 K29 [{"Padding"}]
-  GETTABLEKS R10 R2 K30 ["CellPadding"]
-  SETTABLEKS R10 R9 K28 ["Padding"]
-  SETTABLEKS R9 R8 K19 ["CellProps"]
-  CALL R6 2 -1
-  RETURN R6 -1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["Size"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K15 ["Scroll"]
+  GETUPVAL R8 6
+  SETTABLEKS R8 R7 K16 ["CellComponent"]
+  DUPTABLE R8 K27 [{"Padding"}]
+  GETTABLEKS R9 R2 K28 ["CellPadding"]
+  SETTABLEKS R9 R8 K26 ["Padding"]
+  SETTABLEKS R8 R7 K17 ["CellProps"]
+  CALL R5 2 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0

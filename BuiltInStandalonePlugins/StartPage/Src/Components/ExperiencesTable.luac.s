@@ -457,24 +457,19 @@ PROTO_9:
   CAPTURE UPVAL U3
   CAPTURE VAL R1
   SETTABLEKS R13 R12 K17 ["OnExpansionChange"]
-  GETUPVAL R14 10
-  CALL R14 0 1
-  JUMPIFNOT R14 [+3]
   NEWTABLE R13 0 0
-  JUMP [+1]
-  LOADNIL R13
   SETTABLEKS R13 R12 K18 ["Selection"]
   NEWCLOSURE R13 P2
-  CAPTURE UPVAL U11
+  CAPTURE UPVAL U10
   CAPTURE VAL R4
-  CAPTURE UPVAL U12
+  CAPTURE UPVAL U11
   SETTABLEKS R13 R12 K19 ["OnSelectionChange"]
   SETTABLEKS R1 R12 K20 ["Expansion"]
   SETTABLEKS R4 R12 K21 ["RootItems"]
   SETTABLEKS R5 R12 K22 ["SortOrder"]
   GETTABLEKS R14 R0 K2 ["CanDisplayComponentAdjustQuery"]
   JUMPIFNOT R14 [+7]
-  GETUPVAL R14 13
+  GETUPVAL R14 12
   GETTABLEKS R16 R0 K3 ["Query"]
   GETTABLEKS R15 R16 K23 ["sortParam"]
   GETTABLE R13 R14 R15
@@ -548,248 +543,242 @@ MAIN:
   CALL R9 1 1
   GETTABLEKS R10 R9 K20 ["StartPageManager"]
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K10 ["Src"]
-  GETTABLEKS R13 R14 K11 ["SharedFlags"]
-  GETTABLEKS R12 R13 K21 ["getFFlagLuaStartPageAtomicTestsFixes"]
+  GETTABLEKS R13 R0 K10 ["Src"]
+  GETTABLEKS R12 R13 K21 ["Types"]
   CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R14 R0 K10 ["Src"]
-  GETTABLEKS R13 R14 K22 ["Types"]
-  CALL R12 1 1
-  GETTABLEKS R13 R5 K23 ["UI"]
-  GETTABLEKS R14 R13 K24 ["TreeTable"]
+  GETTABLEKS R12 R5 K22 ["UI"]
+  GETTABLEKS R13 R12 K23 ["TreeTable"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K10 ["Src"]
+  GETTABLEKS R16 R17 K24 ["Components"]
+  GETTABLEKS R15 R16 K25 ["Shimmer"]
+  CALL R14 1 1
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K10 ["Src"]
-  GETTABLEKS R17 R18 K25 ["Components"]
-  GETTABLEKS R16 R17 K26 ["Shimmer"]
+  GETTABLEKS R17 R18 K18 ["Util"]
+  GETTABLEKS R16 R17 K26 ["formatISOTimestamp"]
   CALL R15 1 1
-  GETIMPORT R16 K5 [require]
-  GETTABLEKS R19 R0 K10 ["Src"]
-  GETTABLEKS R18 R19 K18 ["Util"]
-  GETTABLEKS R17 R18 K27 ["formatISOTimestamp"]
-  CALL R16 1 1
-  NEWTABLE R17 0 7
-  DUPTABLE R18 K32 [{"Name", "Key", "Width", "ShouldSort"}]
-  LOADK R19 K33 [""]
-  SETTABLEKS R19 R18 K28 ["Name"]
-  LOADK R19 K34 ["Icon"]
-  SETTABLEKS R19 R18 K29 ["Key"]
-  GETIMPORT R19 K37 [UDim.new]
-  LOADN R20 0
-  LOADN R21 64
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K30 ["Width"]
-  LOADB R19 0
-  SETTABLEKS R19 R18 K31 ["ShouldSort"]
-  DUPTABLE R19 K39 [{"Name", "Key", "Width", "ShouldSort", "SortParam"}]
-  LOADK R20 K28 ["Name"]
-  SETTABLEKS R20 R19 K28 ["Name"]
-  LOADK R20 K28 ["Name"]
-  SETTABLEKS R20 R19 K29 ["Key"]
+  NEWTABLE R16 0 7
+  DUPTABLE R17 K31 [{"Name", "Key", "Width", "ShouldSort"}]
+  LOADK R18 K32 [""]
+  SETTABLEKS R18 R17 K27 ["Name"]
+  LOADK R18 K33 ["Icon"]
+  SETTABLEKS R18 R17 K28 ["Key"]
+  GETIMPORT R18 K36 [UDim.new]
+  LOADN R19 0
+  LOADN R20 64
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K29 ["Width"]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K30 ["ShouldSort"]
+  DUPTABLE R18 K38 [{"Name", "Key", "Width", "ShouldSort", "SortParam"}]
+  LOADK R19 K27 ["Name"]
+  SETTABLEKS R19 R18 K27 ["Name"]
+  LOADK R19 K27 ["Name"]
+  SETTABLEKS R19 R18 K28 ["Key"]
   JUMPIFNOT R4 [+6]
-  GETIMPORT R20 K37 [UDim.new]
-  LOADK R21 K40 [0.25]
-  LOADN R22 192
-  CALL R20 2 1
+  GETIMPORT R19 K36 [UDim.new]
+  LOADK R20 K39 [0.25]
+  LOADN R21 192
+  CALL R19 2 1
   JUMP [+5]
-  GETIMPORT R20 K37 [UDim.new]
-  LOADK R21 K41 [0.35]
-  LOADN R22 192
+  GETIMPORT R19 K36 [UDim.new]
+  LOADK R20 K40 [0.35]
+  LOADN R21 192
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K29 ["Width"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K30 ["ShouldSort"]
+  LOADK R19 K41 ["GameName"]
+  SETTABLEKS R19 R18 K37 ["SortParam"]
+  DUPTABLE R19 K31 [{"Name", "Key", "Width", "ShouldSort"}]
+  LOADK R20 K42 ["Description"]
+  SETTABLEKS R20 R19 K27 ["Name"]
+  LOADK R20 K42 ["Description"]
+  SETTABLEKS R20 R19 K28 ["Key"]
+  GETIMPORT R20 K36 [UDim.new]
+  LOADK R21 K39 [0.25]
+  LOADN R22 0
   CALL R20 2 1
-  SETTABLEKS R20 R19 K30 ["Width"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K31 ["ShouldSort"]
-  LOADK R20 K42 ["GameName"]
-  SETTABLEKS R20 R19 K38 ["SortParam"]
-  DUPTABLE R20 K32 [{"Name", "Key", "Width", "ShouldSort"}]
-  LOADK R21 K43 ["Description"]
-  SETTABLEKS R21 R20 K28 ["Name"]
-  LOADK R21 K43 ["Description"]
-  SETTABLEKS R21 R20 K29 ["Key"]
-  GETIMPORT R21 K37 [UDim.new]
-  LOADK R22 K40 [0.25]
+  SETTABLEKS R20 R19 K29 ["Width"]
+  LOADB R20 0
+  SETTABLEKS R20 R19 K30 ["ShouldSort"]
+  DUPTABLE R20 K38 [{"Name", "Key", "Width", "ShouldSort", "SortParam"}]
+  LOADK R21 K43 ["Last Edited"]
+  SETTABLEKS R21 R20 K27 ["Name"]
+  LOADK R21 K44 ["Edited"]
+  SETTABLEKS R21 R20 K28 ["Key"]
+  GETIMPORT R21 K36 [UDim.new]
+  LOADK R22 K45 [0.15]
   LOADN R23 0
   CALL R21 2 1
-  SETTABLEKS R21 R20 K30 ["Width"]
-  LOADB R21 0
-  SETTABLEKS R21 R20 K31 ["ShouldSort"]
-  DUPTABLE R21 K39 [{"Name", "Key", "Width", "ShouldSort", "SortParam"}]
-  LOADK R22 K44 ["Last Edited"]
-  SETTABLEKS R22 R21 K28 ["Name"]
-  LOADK R22 K45 ["Edited"]
-  SETTABLEKS R22 R21 K29 ["Key"]
-  GETIMPORT R22 K37 [UDim.new]
-  LOADK R23 K46 [0.15]
+  SETTABLEKS R21 R20 K29 ["Width"]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K30 ["ShouldSort"]
+  LOADK R21 K46 ["LastUpdated"]
+  SETTABLEKS R21 R20 K37 ["SortParam"]
+  DUPTABLE R21 K38 [{"Name", "Key", "Width", "ShouldSort", "SortParam"}]
+  LOADK R22 K47 ["Date Created"]
+  SETTABLEKS R22 R21 K27 ["Name"]
+  LOADK R22 K48 ["Created"]
+  SETTABLEKS R22 R21 K28 ["Key"]
+  GETIMPORT R22 K36 [UDim.new]
+  LOADK R23 K45 [0.15]
   LOADN R24 0
   CALL R22 2 1
-  SETTABLEKS R22 R21 K30 ["Width"]
+  SETTABLEKS R22 R21 K29 ["Width"]
   LOADB R22 1
-  SETTABLEKS R22 R21 K31 ["ShouldSort"]
-  LOADK R22 K47 ["LastUpdated"]
-  SETTABLEKS R22 R21 K38 ["SortParam"]
-  DUPTABLE R22 K39 [{"Name", "Key", "Width", "ShouldSort", "SortParam"}]
-  LOADK R23 K48 ["Date Created"]
-  SETTABLEKS R23 R22 K28 ["Name"]
-  LOADK R23 K49 ["Created"]
-  SETTABLEKS R23 R22 K29 ["Key"]
-  GETIMPORT R23 K37 [UDim.new]
-  LOADK R24 K46 [0.15]
+  SETTABLEKS R22 R21 K30 ["ShouldSort"]
+  LOADK R22 K49 ["GameCreated"]
+  SETTABLEKS R22 R21 K37 ["SortParam"]
+  DUPTABLE R22 K31 [{"Name", "Key", "Width", "ShouldSort"}]
+  LOADK R23 K50 ["Playability"]
+  SETTABLEKS R23 R22 K27 ["Name"]
+  LOADK R23 K50 ["Playability"]
+  SETTABLEKS R23 R22 K28 ["Key"]
+  GETIMPORT R23 K36 [UDim.new]
+  LOADK R24 K51 [0.1]
   LOADN R25 0
   CALL R23 2 1
-  SETTABLEKS R23 R22 K30 ["Width"]
-  LOADB R23 1
-  SETTABLEKS R23 R22 K31 ["ShouldSort"]
-  LOADK R23 K50 ["GameCreated"]
-  SETTABLEKS R23 R22 K38 ["SortParam"]
-  DUPTABLE R23 K32 [{"Name", "Key", "Width", "ShouldSort"}]
-  LOADK R24 K51 ["Playability"]
-  SETTABLEKS R24 R23 K28 ["Name"]
-  LOADK R24 K51 ["Playability"]
-  SETTABLEKS R24 R23 K29 ["Key"]
-  GETIMPORT R24 K37 [UDim.new]
-  LOADK R25 K52 [0.1]
+  SETTABLEKS R23 R22 K29 ["Width"]
+  LOADB R23 0
+  SETTABLEKS R23 R22 K30 ["ShouldSort"]
+  JUMPIFNOT R4 [+18]
+  DUPTABLE R23 K31 [{"Name", "Key", "Width", "ShouldSort"}]
+  LOADK R24 K52 ["Team Create"]
+  SETTABLEKS R24 R23 K27 ["Name"]
+  LOADK R24 K53 ["TeamCreate"]
+  SETTABLEKS R24 R23 K28 ["Key"]
+  GETIMPORT R24 K36 [UDim.new]
+  LOADK R25 K51 [0.1]
   LOADN R26 0
   CALL R24 2 1
-  SETTABLEKS R24 R23 K30 ["Width"]
+  SETTABLEKS R24 R23 K29 ["Width"]
   LOADB R24 0
-  SETTABLEKS R24 R23 K31 ["ShouldSort"]
-  JUMPIFNOT R4 [+18]
-  DUPTABLE R24 K32 [{"Name", "Key", "Width", "ShouldSort"}]
-  LOADK R25 K53 ["Team Create"]
-  SETTABLEKS R25 R24 K28 ["Name"]
-  LOADK R25 K54 ["TeamCreate"]
-  SETTABLEKS R25 R24 K29 ["Key"]
-  GETIMPORT R25 K37 [UDim.new]
-  LOADK R26 K52 [0.1]
-  LOADN R27 0
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K30 ["Width"]
-  LOADB R25 0
-  SETTABLEKS R25 R24 K31 ["ShouldSort"]
+  SETTABLEKS R24 R23 K30 ["ShouldSort"]
   JUMP [+1]
-  LOADNIL R24
-  SETLIST R17 R18 7 [1]
-  NEWTABLE R18 4 0
-  LOADN R19 2
-  SETTABLEKS R19 R18 K42 ["GameName"]
-  LOADN R19 4
-  SETTABLEKS R19 R18 K47 ["LastUpdated"]
-  LOADN R19 5
-  SETTABLEKS R19 R18 K50 ["GameCreated"]
-  DUPCLOSURE R19 K55 [PROTO_0]
+  LOADNIL R23
+  SETLIST R16 R17 7 [1]
+  NEWTABLE R17 4 0
+  LOADN R18 2
+  SETTABLEKS R18 R17 K41 ["GameName"]
+  LOADN R18 4
+  SETTABLEKS R18 R17 K46 ["LastUpdated"]
+  LOADN R18 5
+  SETTABLEKS R18 R17 K49 ["GameCreated"]
+  DUPCLOSURE R18 K54 [PROTO_0]
   CAPTURE VAL R1
-  CAPTURE VAL R15
-  DUPCLOSURE R20 K56 [PROTO_1]
+  CAPTURE VAL R14
+  DUPCLOSURE R19 K55 [PROTO_1]
   CAPTURE VAL R1
-  CAPTURE VAL R15
-  DUPTABLE R21 K58 [{"Icon", "Name", "Description", "Edited", "Created", "Playability", "Type", "TeamCreate"}]
-  DUPTABLE R22 K62 [{"Value", "Schema", "Renderers"}]
-  LOADK R23 K33 [""]
-  SETTABLEKS R23 R22 K59 ["Value"]
-  DUPTABLE R23 K63 [{"Type"}]
-  LOADK R24 K64 ["Placeholder"]
-  SETTABLEKS R24 R23 K57 ["Type"]
-  SETTABLEKS R23 R22 K60 ["Schema"]
-  DUPTABLE R23 K65 [{"Placeholder"}]
-  SETTABLEKS R20 R23 K64 ["Placeholder"]
-  SETTABLEKS R23 R22 K61 ["Renderers"]
-  SETTABLEKS R22 R21 K34 ["Icon"]
-  DUPTABLE R22 K62 [{"Value", "Schema", "Renderers"}]
-  LOADK R23 K33 [""]
-  SETTABLEKS R23 R22 K59 ["Value"]
-  DUPTABLE R23 K63 [{"Type"}]
-  LOADK R24 K64 ["Placeholder"]
-  SETTABLEKS R24 R23 K57 ["Type"]
-  SETTABLEKS R23 R22 K60 ["Schema"]
-  DUPTABLE R23 K65 [{"Placeholder"}]
-  SETTABLEKS R19 R23 K64 ["Placeholder"]
-  SETTABLEKS R23 R22 K61 ["Renderers"]
-  SETTABLEKS R22 R21 K28 ["Name"]
-  DUPTABLE R22 K62 [{"Value", "Schema", "Renderers"}]
-  LOADK R23 K33 [""]
-  SETTABLEKS R23 R22 K59 ["Value"]
-  DUPTABLE R23 K63 [{"Type"}]
-  LOADK R24 K64 ["Placeholder"]
-  SETTABLEKS R24 R23 K57 ["Type"]
-  SETTABLEKS R23 R22 K60 ["Schema"]
-  DUPTABLE R23 K65 [{"Placeholder"}]
-  SETTABLEKS R19 R23 K64 ["Placeholder"]
-  SETTABLEKS R23 R22 K61 ["Renderers"]
-  SETTABLEKS R22 R21 K43 ["Description"]
-  DUPTABLE R22 K62 [{"Value", "Schema", "Renderers"}]
-  LOADK R23 K33 [""]
-  SETTABLEKS R23 R22 K59 ["Value"]
-  DUPTABLE R23 K63 [{"Type"}]
-  LOADK R24 K64 ["Placeholder"]
-  SETTABLEKS R24 R23 K57 ["Type"]
-  SETTABLEKS R23 R22 K60 ["Schema"]
-  DUPTABLE R23 K65 [{"Placeholder"}]
-  SETTABLEKS R19 R23 K64 ["Placeholder"]
-  SETTABLEKS R23 R22 K61 ["Renderers"]
-  SETTABLEKS R22 R21 K45 ["Edited"]
-  DUPTABLE R22 K62 [{"Value", "Schema", "Renderers"}]
-  LOADK R23 K33 [""]
-  SETTABLEKS R23 R22 K59 ["Value"]
-  DUPTABLE R23 K63 [{"Type"}]
-  LOADK R24 K64 ["Placeholder"]
-  SETTABLEKS R24 R23 K57 ["Type"]
-  SETTABLEKS R23 R22 K60 ["Schema"]
-  DUPTABLE R23 K65 [{"Placeholder"}]
-  SETTABLEKS R19 R23 K64 ["Placeholder"]
-  SETTABLEKS R23 R22 K61 ["Renderers"]
-  SETTABLEKS R22 R21 K49 ["Created"]
-  DUPTABLE R22 K62 [{"Value", "Schema", "Renderers"}]
-  LOADK R23 K33 [""]
-  SETTABLEKS R23 R22 K59 ["Value"]
-  DUPTABLE R23 K63 [{"Type"}]
-  LOADK R24 K64 ["Placeholder"]
-  SETTABLEKS R24 R23 K57 ["Type"]
-  SETTABLEKS R23 R22 K60 ["Schema"]
-  DUPTABLE R23 K65 [{"Placeholder"}]
-  SETTABLEKS R19 R23 K64 ["Placeholder"]
-  SETTABLEKS R23 R22 K61 ["Renderers"]
-  SETTABLEKS R22 R21 K51 ["Playability"]
-  DUPTABLE R22 K62 [{"Value", "Schema", "Renderers"}]
-  LOADK R23 K33 [""]
-  SETTABLEKS R23 R22 K59 ["Value"]
-  DUPTABLE R23 K63 [{"Type"}]
-  LOADK R24 K64 ["Placeholder"]
-  SETTABLEKS R24 R23 K57 ["Type"]
-  SETTABLEKS R23 R22 K60 ["Schema"]
-  DUPTABLE R23 K65 [{"Placeholder"}]
-  SETTABLEKS R19 R23 K64 ["Placeholder"]
-  SETTABLEKS R23 R22 K61 ["Renderers"]
-  SETTABLEKS R22 R21 K57 ["Type"]
+  CAPTURE VAL R14
+  DUPTABLE R20 K57 [{"Icon", "Name", "Description", "Edited", "Created", "Playability", "Type", "TeamCreate"}]
+  DUPTABLE R21 K61 [{"Value", "Schema", "Renderers"}]
+  LOADK R22 K32 [""]
+  SETTABLEKS R22 R21 K58 ["Value"]
+  DUPTABLE R22 K62 [{"Type"}]
+  LOADK R23 K63 ["Placeholder"]
+  SETTABLEKS R23 R22 K56 ["Type"]
+  SETTABLEKS R22 R21 K59 ["Schema"]
+  DUPTABLE R22 K64 [{"Placeholder"}]
+  SETTABLEKS R19 R22 K63 ["Placeholder"]
+  SETTABLEKS R22 R21 K60 ["Renderers"]
+  SETTABLEKS R21 R20 K33 ["Icon"]
+  DUPTABLE R21 K61 [{"Value", "Schema", "Renderers"}]
+  LOADK R22 K32 [""]
+  SETTABLEKS R22 R21 K58 ["Value"]
+  DUPTABLE R22 K62 [{"Type"}]
+  LOADK R23 K63 ["Placeholder"]
+  SETTABLEKS R23 R22 K56 ["Type"]
+  SETTABLEKS R22 R21 K59 ["Schema"]
+  DUPTABLE R22 K64 [{"Placeholder"}]
+  SETTABLEKS R18 R22 K63 ["Placeholder"]
+  SETTABLEKS R22 R21 K60 ["Renderers"]
+  SETTABLEKS R21 R20 K27 ["Name"]
+  DUPTABLE R21 K61 [{"Value", "Schema", "Renderers"}]
+  LOADK R22 K32 [""]
+  SETTABLEKS R22 R21 K58 ["Value"]
+  DUPTABLE R22 K62 [{"Type"}]
+  LOADK R23 K63 ["Placeholder"]
+  SETTABLEKS R23 R22 K56 ["Type"]
+  SETTABLEKS R22 R21 K59 ["Schema"]
+  DUPTABLE R22 K64 [{"Placeholder"}]
+  SETTABLEKS R18 R22 K63 ["Placeholder"]
+  SETTABLEKS R22 R21 K60 ["Renderers"]
+  SETTABLEKS R21 R20 K42 ["Description"]
+  DUPTABLE R21 K61 [{"Value", "Schema", "Renderers"}]
+  LOADK R22 K32 [""]
+  SETTABLEKS R22 R21 K58 ["Value"]
+  DUPTABLE R22 K62 [{"Type"}]
+  LOADK R23 K63 ["Placeholder"]
+  SETTABLEKS R23 R22 K56 ["Type"]
+  SETTABLEKS R22 R21 K59 ["Schema"]
+  DUPTABLE R22 K64 [{"Placeholder"}]
+  SETTABLEKS R18 R22 K63 ["Placeholder"]
+  SETTABLEKS R22 R21 K60 ["Renderers"]
+  SETTABLEKS R21 R20 K44 ["Edited"]
+  DUPTABLE R21 K61 [{"Value", "Schema", "Renderers"}]
+  LOADK R22 K32 [""]
+  SETTABLEKS R22 R21 K58 ["Value"]
+  DUPTABLE R22 K62 [{"Type"}]
+  LOADK R23 K63 ["Placeholder"]
+  SETTABLEKS R23 R22 K56 ["Type"]
+  SETTABLEKS R22 R21 K59 ["Schema"]
+  DUPTABLE R22 K64 [{"Placeholder"}]
+  SETTABLEKS R18 R22 K63 ["Placeholder"]
+  SETTABLEKS R22 R21 K60 ["Renderers"]
+  SETTABLEKS R21 R20 K48 ["Created"]
+  DUPTABLE R21 K61 [{"Value", "Schema", "Renderers"}]
+  LOADK R22 K32 [""]
+  SETTABLEKS R22 R21 K58 ["Value"]
+  DUPTABLE R22 K62 [{"Type"}]
+  LOADK R23 K63 ["Placeholder"]
+  SETTABLEKS R23 R22 K56 ["Type"]
+  SETTABLEKS R22 R21 K59 ["Schema"]
+  DUPTABLE R22 K64 [{"Placeholder"}]
+  SETTABLEKS R18 R22 K63 ["Placeholder"]
+  SETTABLEKS R22 R21 K60 ["Renderers"]
+  SETTABLEKS R21 R20 K50 ["Playability"]
+  DUPTABLE R21 K61 [{"Value", "Schema", "Renderers"}]
+  LOADK R22 K32 [""]
+  SETTABLEKS R22 R21 K58 ["Value"]
+  DUPTABLE R22 K62 [{"Type"}]
+  LOADK R23 K63 ["Placeholder"]
+  SETTABLEKS R23 R22 K56 ["Type"]
+  SETTABLEKS R22 R21 K59 ["Schema"]
+  DUPTABLE R22 K64 [{"Placeholder"}]
+  SETTABLEKS R18 R22 K63 ["Placeholder"]
+  SETTABLEKS R22 R21 K60 ["Renderers"]
+  SETTABLEKS R21 R20 K56 ["Type"]
   JUMPIFNOT R4 [+16]
-  DUPTABLE R22 K62 [{"Value", "Schema", "Renderers"}]
-  LOADK R23 K33 [""]
-  SETTABLEKS R23 R22 K59 ["Value"]
-  DUPTABLE R23 K63 [{"Type"}]
-  LOADK R24 K64 ["Placeholder"]
-  SETTABLEKS R24 R23 K57 ["Type"]
-  SETTABLEKS R23 R22 K60 ["Schema"]
-  DUPTABLE R23 K65 [{"Placeholder"}]
-  SETTABLEKS R19 R23 K64 ["Placeholder"]
-  SETTABLEKS R23 R22 K61 ["Renderers"]
+  DUPTABLE R21 K61 [{"Value", "Schema", "Renderers"}]
+  LOADK R22 K32 [""]
+  SETTABLEKS R22 R21 K58 ["Value"]
+  DUPTABLE R22 K62 [{"Type"}]
+  LOADK R23 K63 ["Placeholder"]
+  SETTABLEKS R23 R22 K56 ["Type"]
+  SETTABLEKS R22 R21 K59 ["Schema"]
+  DUPTABLE R22 K64 [{"Placeholder"}]
+  SETTABLEKS R18 R22 K63 ["Placeholder"]
+  SETTABLEKS R22 R21 K60 ["Renderers"]
   JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K54 ["TeamCreate"]
-  DUPCLOSURE R22 K66 [PROTO_2]
-  DUPCLOSURE R23 K67 [PROTO_9]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K53 ["TeamCreate"]
+  DUPCLOSURE R21 K65 [PROTO_2]
+  DUPCLOSURE R22 K66 [PROTO_9]
   CAPTURE VAL R2
   CAPTURE VAL R6
   CAPTURE VAL R3
   CAPTURE VAL R8
-  CAPTURE VAL R21
   CAPTURE VAL R20
-  CAPTURE VAL R16
+  CAPTURE VAL R19
+  CAPTURE VAL R15
   CAPTURE VAL R1
-  CAPTURE VAL R14
-  CAPTURE VAL R17
-  CAPTURE VAL R11
-  CAPTURE VAL R22
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  CAPTURE VAL R21
   CAPTURE VAL R10
-  CAPTURE VAL R18
-  SETGLOBAL R23 K68 ["ExperiencesTable"]
-  GETGLOBAL R23 K68 ["ExperiencesTable"]
-  RETURN R23 1
+  CAPTURE VAL R17
+  SETGLOBAL R22 K67 ["ExperiencesTable"]
+  GETGLOBAL R22 K67 ["ExperiencesTable"]
+  RETURN R22 1

@@ -1,0 +1,138 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  DUPTABLE R4 K5 [{"LayoutOrder", "Size", "Position", "AnchorPoint", "AutomaticSize"}]
+  GETTABLEKS R5 R0 K6 ["layoutOrder"]
+  SETTABLEKS R5 R4 K0 ["LayoutOrder"]
+  GETTABLEKS R5 R0 K7 ["size"]
+  SETTABLEKS R5 R4 K1 ["Size"]
+  GETTABLEKS R5 R0 K8 ["position"]
+  SETTABLEKS R5 R4 K2 ["Position"]
+  GETTABLEKS R5 R0 K9 ["anchorPoint"]
+  SETTABLEKS R5 R4 K3 ["AnchorPoint"]
+  GETIMPORT R5 K12 [Enum.AutomaticSize.XY]
+  SETTABLEKS R5 R4 K4 ["AutomaticSize"]
+  DUPTABLE R5 K16 [{"UIListLayout", "TextLabel", "Content"}]
+  GETUPVAL R6 1
+  LOADK R7 K13 ["UIListLayout"]
+  DUPTABLE R8 K21 [{"FillDirection", "SortOrder", "Padding", "ItemLineAlignment"}]
+  GETIMPORT R9 K23 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K17 ["FillDirection"]
+  GETIMPORT R9 K24 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R9 R8 K18 ["SortOrder"]
+  GETTABLEKS R10 R0 K25 ["separation"]
+  JUMPIFNOT R10 [+3]
+  GETTABLEKS R9 R0 K25 ["separation"]
+  JUMP [+5]
+  GETIMPORT R9 K28 [UDim.new]
+  LOADN R10 0
+  LOADN R11 0
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K19 ["Padding"]
+  GETIMPORT R9 K30 [Enum.ItemLineAlignment.Start]
+  SETTABLEKS R9 R8 K20 ["ItemLineAlignment"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K13 ["UIListLayout"]
+  GETUPVAL R6 1
+  LOADK R7 K14 ["TextLabel"]
+  NEWTABLE R8 8 0
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K31 ["Tag"]
+  GETTABLEKS R10 R0 K32 ["textLabelTags"]
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R0 K33 ["text"]
+  SETTABLEKS R9 R8 K34 ["Text"]
+  LOADN R9 18
+  SETTABLEKS R9 R8 K35 ["TextSize"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K36 ["TextWrapped"]
+  MOVE R9 R1
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K0 ["LayoutOrder"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K37 ["BackgroundTransparency"]
+  GETIMPORT R9 K39 [UDim2.new]
+  GETTABLEKS R11 R0 K40 ["minTextLabelWidth"]
+  GETTABLEKS R10 R11 K41 ["Scale"]
+  GETTABLEKS R12 R0 K40 ["minTextLabelWidth"]
+  GETTABLEKS R11 R12 K42 ["Offset"]
+  LOADN R12 0
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K43 ["STANDARD_HEIGHT"]
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K1 ["Size"]
+  GETTABLEKS R10 R0 K44 ["textLabelAutomaticSize"]
+  JUMPIFNOT R10 [+3]
+  GETTABLEKS R9 R0 K44 ["textLabelAutomaticSize"]
+  JUMP [+2]
+  GETIMPORT R9 K46 [Enum.AutomaticSize.Y]
+  SETTABLEKS R9 R8 K4 ["AutomaticSize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K14 ["TextLabel"]
+  GETUPVAL R6 1
+  GETUPVAL R7 2
+  NEWTABLE R8 4 0
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K31 ["Tag"]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K47 ["Styling"]
+  GETTABLEKS R10 R11 K48 ["joinTags"]
+  LOADK R11 K49 ["X-Column"]
+  GETTABLEKS R12 R0 K50 ["contentTags"]
+  CALL R10 2 1
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R0 K51 ["contentSize"]
+  JUMPIF R9 [+3]
+  GETIMPORT R9 K39 [UDim2.new]
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K1 ["Size"]
+  GETTABLEKS R9 R0 K52 ["contentAutomaticSize"]
+  JUMPIF R9 [+2]
+  GETIMPORT R9 K12 [Enum.AutomaticSize.XY]
+  SETTABLEKS R9 R8 K4 ["AutomaticSize"]
+  MOVE R9 R1
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K0 ["LayoutOrder"]
+  GETTABLEKS R9 R0 K53 ["children"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K15 ["Content"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["Constants"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["ReactUtils"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K13 ["UI"]
+  GETTABLEKS R6 R4 K14 ["createNextOrder"]
+  GETTABLEKS R7 R3 K15 ["createElement"]
+  GETTABLEKS R8 R5 K16 ["Pane"]
+  DUPCLOSURE R9 K17 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R9 1

@@ -14,6 +14,9 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local MappedSignal = ChromeUtils.MappedSignal
 
+local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+local UIManager = VrSpatialUi.UIManager
+
 local ICON_ON = "rbxasset://textures/ui/MenuBar/icon_maximize.png"
 local ICON_OFF = "rbxasset://textures/ui/MenuBar/icon_minimize.png"
 
@@ -39,6 +42,7 @@ local VRToggleButtonIntegration = ChromeService:register({
 	end,
 	activated = function()
 		if VRHub.ShowTopBar then
+			UIManager.getInstance():prepareGuiToggleAnimationState()
 			VRHub:SetShowTopBar(false)
 			if SettingsHub:GetVisibility() then
 				SettingsHub:ToggleVisibility()

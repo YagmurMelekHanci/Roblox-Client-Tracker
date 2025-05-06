@@ -30,6 +30,7 @@ local sendEvent = require(Root.Thunks.sendEvent)
 local isMockingPurchases = require(Root.Utils.isMockingPurchases)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local isLinksAllowed = require(Root.Utils.isLinksAllowed)
+local SelectedRobuxPackage = require(Root.Utils.SelectedRobuxPackage)
 local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(Root.Components.Connection.ExternalEventConnection)
@@ -91,8 +92,8 @@ function RobuxUpsellContainer:createElement()
 			purchaseFlow = props.purchaseFlow,
 			purchaseError = props.purchaseError,
 
-			robuxProviderId = props.nativeUpsell.robuxProductId,
-			robuxProductId = props.nativeUpsell.productId,
+			robuxProviderId = props.robuxProductId,
+			robuxProductId = props.productId,
 
 			itemIcon = imageIcon,
 			itemProductId = if GetFFlagEnableEventMetadataInUpsell then props.productInfo.productId else nil,
@@ -102,8 +103,8 @@ function RobuxUpsellContainer:createElement()
 				props.accountInfo.membershipType == 4,
 				props.expectedPrice
 			),
-			iapRobuxAmount = props.nativeUpsell.robuxPurchaseAmount or 0,
-			iapCostStr = props.nativeUpsell.price,
+			iapRobuxAmount = props.robuxPurchaseAmount or 0,
+			iapCostStr = props.price,
 			beforeRobuxBalance = props.accountInfo.balance,
 
 			isTestPurchase = props.isTestPurchase,
@@ -174,7 +175,12 @@ RobuxUpsellContainer = connectToStore(function(state)
 
 		productInfo = state.productInfo,
 		accountInfo = state.accountInfo,
-		nativeUpsell = state.nativeUpsell,
+
+		robuxProductId = SelectedRobuxPackage.getRobuxProductId(state),
+		productId = SelectedRobuxPackage.getProductId(state),
+		robuxPurchaseAmount = SelectedRobuxPackage.getRobuxPurchaseAmount(state),
+		robuxAmountBeforeBonus = SelectedRobuxPackage.getRobuxAmountBeforeBonus(state),
+		price = SelectedRobuxPackage.getPrice(state),
 
 		isTestPurchase = isTestPurchase,
 		isGamepadEnabled = state.gamepadEnabled,

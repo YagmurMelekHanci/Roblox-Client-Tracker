@@ -19,7 +19,7 @@ PROTO_0:
 
 PROTO_1:
   GETIMPORT R1 K1 [game]
-  LOADK R3 K2 ["ADS6764EnableRewardedVideoAdsStudioSettings"]
+  LOADK R3 K2 ["ADS6764EnableRewardedVideoAdsStudioSettings2"]
   NAMECALL R1 R1 K3 ["GetFastFlag"]
   CALL R1 2 1
   JUMPIF R1 [+28]
@@ -46,20 +46,34 @@ PROTO_1:
   RETURN R2 1
   RETURN R1 1
 
+PROTO_2:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ADS7991EnableShowRewardedAdsToggleBackendFlag"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ADS6764EnableRewardedVideoAdsStudioSettings"]
+  LOADK R2 K2 ["ADS7991EnableShowRewardedAdsToggleBackendFlag"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["RewardedVideoAdsUniverseIdAllowlist"]
-  LOADK R3 K5 [""]
-  NAMECALL R0 R0 K6 ["DefineFastString"]
+  LOADK R2 K4 ["ADS6764EnableRewardedVideoAdsStudioSettings2"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
-  DUPCLOSURE R0 K7 [PROTO_0]
-  DUPTABLE R1 K9 [{"GetFFlagEnableRewardedVideoAdsStudioSettings"}]
-  DUPCLOSURE R2 K10 [PROTO_1]
-  SETTABLEKS R2 R1 K8 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K5 ["RewardedVideoAdsUniverseIdAllowlist"]
+  LOADK R3 K6 [""]
+  NAMECALL R0 R0 K7 ["DefineFastString"]
+  CALL R0 3 0
+  DUPCLOSURE R0 K8 [PROTO_0]
+  DUPTABLE R1 K11 [{"GetFFlagEnableRewardedVideoAdsStudioSettings", "GetFFlagEnableShowRewardedAdsToggleBackendFlag"}]
+  DUPCLOSURE R2 K12 [PROTO_1]
+  SETTABLEKS R2 R1 K9 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
+  DUPCLOSURE R2 K13 [PROTO_2]
+  SETTABLEKS R2 R1 K10 ["GetFFlagEnableShowRewardedAdsToggleBackendFlag"]
   RETURN R1 1

@@ -179,8 +179,6 @@ PROTO_11:
   RETURN R5 1
 
 PROTO_12:
-  GETUPVAL R2 0
-  JUMPIFNOT R2 [+48]
   GETTABLEKS R3 R1 K0 ["Settings"]
   GETTABLEKS R2 R3 K1 ["Errors"]
   DUPTABLE R3 K11 [{"WorkspaceUseJumpPower", "WorkspaceJumpPower", "WorkspaceJumpHeight", "WorkspaceGravity", "WorkspaceGravityError", "WorkspaceWalkSpeed", "WorkspaceWalkSpeedError", "WorkspaceMaxSlopeAngle", "WorkspaceMaxSlopeAngleError"}]
@@ -215,32 +213,6 @@ PROTO_12:
   GETTABLEKS R4 R2 K20 ["maxSlopeAngle"]
   SETTABLEKS R4 R3 K10 ["WorkspaceMaxSlopeAngleError"]
   RETURN R3 1
-  DUPTABLE R2 K21 [{"WorkspaceUseJumpPower", "WorkspaceJumpPower", "WorkspaceJumpHeight", "WorkspaceGravity", "WorkspaceWalkSpeed", "WorkspaceMaxSlopeAngle"}]
-  MOVE R3 R0
-  LOADK R4 K12 ["workspaceUseJumpPower"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K2 ["WorkspaceUseJumpPower"]
-  MOVE R3 R0
-  LOADK R4 K13 ["workspaceJumpPower"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K3 ["WorkspaceJumpPower"]
-  MOVE R3 R0
-  LOADK R4 K14 ["workspaceJumpHeight"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K4 ["WorkspaceJumpHeight"]
-  MOVE R3 R0
-  LOADK R4 K15 ["workspaceGravity"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K5 ["WorkspaceGravity"]
-  MOVE R3 R0
-  LOADK R4 K17 ["workspaceWalkSpeed"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K7 ["WorkspaceWalkSpeed"]
-  MOVE R3 R0
-  LOADK R4 K19 ["workspaceMaxSlopeAngle"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K9 ["WorkspaceMaxSlopeAngle"]
-  RETURN R2 1
 
 PROTO_13:
   GETUPVAL R1 0
@@ -312,8 +284,6 @@ PROTO_18:
   RETURN R0 0
 
 PROTO_19:
-  GETUPVAL R2 0
-  JUMPIFNOT R2 [+50]
   DUPTABLE R2 K9 [{"WorkspaceUseJumpPowerChanged", "WorkspaceJumpPowerChanged", "WorkspaceJumpHeightChanged", "WorkspaceGravityChanged", "WorkspaceRaiseGravityError", "WorkspaceWalkSpeedChanged", "WorkspaceRaiseWalkSpeedError", "WorkspaceMaxSlopeAngleChanged", "WorkspaceRaiseMaxSlopeAngleError"}]
   MOVE R3 R0
   LOADK R4 K10 ["workspaceUseJumpPower"]
@@ -329,57 +299,31 @@ PROTO_19:
   SETTABLEKS R3 R2 K2 ["WorkspaceJumpHeightChanged"]
   NEWCLOSURE R3 P0
   CAPTURE VAL R1
+  CAPTURE UPVAL U0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
   SETTABLEKS R3 R2 K3 ["WorkspaceGravityChanged"]
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
   SETTABLEKS R3 R2 K4 ["WorkspaceRaiseGravityError"]
   NEWCLOSURE R3 P2
   CAPTURE VAL R1
+  CAPTURE UPVAL U0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
   SETTABLEKS R3 R2 K5 ["WorkspaceWalkSpeedChanged"]
   NEWCLOSURE R3 P3
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
   SETTABLEKS R3 R2 K6 ["WorkspaceRaiseWalkSpeedError"]
   NEWCLOSURE R3 P4
   CAPTURE VAL R1
+  CAPTURE UPVAL U0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
   SETTABLEKS R3 R2 K7 ["WorkspaceMaxSlopeAngleChanged"]
   NEWCLOSURE R3 P5
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
   SETTABLEKS R3 R2 K8 ["WorkspaceRaiseMaxSlopeAngleError"]
-  RETURN R2 1
-  DUPTABLE R2 K13 [{"WorkspaceUseJumpPowerChanged", "WorkspaceJumpPowerChanged", "WorkspaceJumpHeightChanged", "WorkspaceGravityChanged", "WorkspaceWalkSpeedChanged", "WorkspaceMaxSlopeAngleChanged"}]
-  MOVE R3 R0
-  LOADK R4 K10 ["workspaceUseJumpPower"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K0 ["WorkspaceUseJumpPowerChanged"]
-  MOVE R3 R0
-  LOADK R4 K11 ["workspaceJumpPower"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K1 ["WorkspaceJumpPowerChanged"]
-  MOVE R3 R0
-  LOADK R4 K12 ["workspaceJumpHeight"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K2 ["WorkspaceJumpHeightChanged"]
-  MOVE R3 R0
-  LOADK R4 K14 ["workspaceGravity"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K3 ["WorkspaceGravityChanged"]
-  MOVE R3 R0
-  LOADK R4 K15 ["workspaceWalkSpeed"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K5 ["WorkspaceWalkSpeedChanged"]
-  MOVE R3 R0
-  LOADK R4 K16 ["workspaceMaxSlopeAngle"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K7 ["WorkspaceMaxSlopeAngleChanged"]
   RETURN R2 1
 
 PROTO_20:
@@ -495,118 +439,6 @@ PROTO_25:
   RETURN R1 -1
 
 PROTO_26:
-  GETTABLEKS R1 R0 K0 ["Gravity"]
-  JUMPIF R1 [+1]
-  GETUPVAL R1 0
-  GETTABLEKS R2 R0 K1 ["JumpPower"]
-  JUMPIF R2 [+1]
-  GETUPVAL R2 1
-  GETTABLEKS R3 R0 K2 ["Walkspeed"]
-  JUMPIF R3 [+1]
-  GETUPVAL R3 2
-  GETTABLEKS R4 R0 K3 ["MaxSlopeAngle"]
-  JUMPIF R4 [+1]
-  GETUPVAL R4 3
-  GETUPVAL R5 4
-  MOVE R6 R1
-  CALL R5 1 0
-  GETUPVAL R5 5
-  LOADB R6 1
-  CALL R5 1 0
-  GETUPVAL R5 6
-  MOVE R6 R2
-  CALL R5 1 0
-  GETUPVAL R5 7
-  GETUPVAL R7 8
-  GETTABLEKS R6 R7 K4 ["calculateJumpHeight"]
-  MOVE R7 R1
-  MOVE R8 R2
-  CALL R6 2 -1
-  CALL R5 -1 0
-  GETUPVAL R5 9
-  MOVE R6 R3
-  CALL R5 1 0
-  GETUPVAL R5 10
-  MOVE R6 R4
-  CALL R5 1 0
-  RETURN R0 0
-
-PROTO_27:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 0
-  GETUPVAL R1 1
-  JUMPIFNOT R1 [+9]
-  GETUPVAL R1 2
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K0 ["calculateJumpHeight"]
-  MOVE R3 R0
-  GETUPVAL R4 4
-  CALL R2 2 -1
-  CALL R1 -1 0
-  RETURN R0 0
-  GETUPVAL R1 5
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K1 ["calculateJumpPower"]
-  MOVE R3 R0
-  GETUPVAL R4 6
-  CALL R2 2 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_28:
-  GETUPVAL R1 0
-  LOADK R3 K0 ["General"]
-  LOADK R4 K1 ["UnitsMetersPerSecondSquared1"]
-  NEWTABLE R5 0 1
-  GETUPVAL R6 1
-  MOVE R7 R0
-  CALL R6 1 -1
-  SETLIST R5 R6 -1 [1]
-  NAMECALL R1 R1 K2 ["getText"]
-  CALL R1 4 -1
-  RETURN R1 -1
-
-PROTO_29:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K0 ["calculateJumpHeight"]
-  GETUPVAL R3 3
-  MOVE R4 R0
-  CALL R2 2 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_30:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K0 ["calculateJumpPower"]
-  GETUPVAL R3 3
-  MOVE R4 R0
-  CALL R2 2 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_31:
-  GETUPVAL R1 0
-  LOADK R3 K0 ["General"]
-  LOADK R4 K1 ["UnitsMetersPerSecond1"]
-  NEWTABLE R5 0 1
-  GETUPVAL R6 1
-  MOVE R7 R0
-  CALL R6 1 -1
-  SETLIST R5 R6 -1 [1]
-  NAMECALL R1 R1 K2 ["getText"]
-  CALL R1 4 -1
-  RETURN R1 -1
-
-PROTO_32:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
   GETTABLEKS R1 R0 K1 ["Localization"]
@@ -644,15 +476,13 @@ PROTO_32:
   MOVE R17 R11
   CALL R15 2 1
   MOVE R12 R15
-  GETUPVAL R15 1
-  JUMPIFNOT R15 [+326]
   GETTABLEKS R15 R0 K19 ["WorkspaceRaiseGravityError"]
   GETTABLEKS R16 R0 K20 ["WorkspaceRaiseWalkSpeedError"]
   GETTABLEKS R17 R0 K21 ["WorkspaceRaiseMaxSlopeAngleError"]
   DUPTABLE R18 K30 [{"Presets", "Separator1", "Gravity", "Separator2", "JumpSelect", "WalkSpeed", "JumpDistance", "MaxSlopeAngle"}]
-  GETUPVAL R20 2
+  GETUPVAL R20 1
   GETTABLEKS R19 R20 K31 ["createElement"]
-  GETUPVAL R20 3
+  GETUPVAL R20 2
   DUPTABLE R21 K34 [{"LayoutOrder", "ApplyPreset"}]
   LOADN R22 1
   SETTABLEKS R22 R21 K32 ["LayoutOrder"]
@@ -671,17 +501,17 @@ PROTO_32:
   SETTABLEKS R22 R21 K33 ["ApplyPreset"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K22 ["Presets"]
-  GETUPVAL R20 2
+  GETUPVAL R20 1
   GETTABLEKS R19 R20 K31 ["createElement"]
-  GETUPVAL R20 4
+  GETUPVAL R20 3
   DUPTABLE R21 K35 [{"LayoutOrder"}]
   LOADN R22 2
   SETTABLEKS R22 R21 K32 ["LayoutOrder"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K23 ["Separator1"]
-  GETUPVAL R20 2
+  GETUPVAL R20 1
   GETTABLEKS R19 R20 K31 ["createElement"]
-  GETUPVAL R20 5
+  GETUPVAL R20 4
   DUPTABLE R21 K44 [{"LayoutOrder", "Title", "Label", "Value", "MinValue", "MaxValue", "OnUpdate", "OnError", "UnitsFormatFunction"}]
   LOADN R22 3
   SETTABLEKS R22 R21 K32 ["LayoutOrder"]
@@ -712,21 +542,21 @@ PROTO_32:
   SETTABLEKS R15 R21 K42 ["OnError"]
   NEWCLOSURE R22 P2
   CAPTURE VAL R1
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U5
   SETTABLEKS R22 R21 K43 ["UnitsFormatFunction"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K24 ["Gravity"]
-  GETUPVAL R20 2
+  GETUPVAL R20 1
   GETTABLEKS R19 R20 K31 ["createElement"]
-  GETUPVAL R20 4
+  GETUPVAL R20 3
   DUPTABLE R21 K35 [{"LayoutOrder"}]
   LOADN R22 4
   SETTABLEKS R22 R21 K32 ["LayoutOrder"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K25 ["Separator2"]
-  GETUPVAL R20 2
+  GETUPVAL R20 1
   GETTABLEKS R19 R20 K31 ["createElement"]
-  GETUPVAL R20 7
+  GETUPVAL R20 6
   DUPTABLE R21 K55 [{"LayoutOrder", "UseJumpPower", "JumpPower", "JumpHeight", "SetUseJumpPower", "SetJumpPower", "SetJumpHeight"}]
   LOADN R22 5
   SETTABLEKS R22 R21 K32 ["LayoutOrder"]
@@ -748,9 +578,9 @@ PROTO_32:
   SETTABLEKS R22 R21 K54 ["SetJumpHeight"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K26 ["JumpSelect"]
-  GETUPVAL R20 2
+  GETUPVAL R20 1
   GETTABLEKS R19 R20 K31 ["createElement"]
-  GETUPVAL R20 5
+  GETUPVAL R20 4
   DUPTABLE R21 K56 [{"LayoutOrder", "Title", "Label", "Value", "MinValue", "OnUpdate", "OnError", "UnitsFormatFunction"}]
   LOADN R22 6
   SETTABLEKS R22 R21 K32 ["LayoutOrder"]
@@ -771,22 +601,22 @@ PROTO_32:
   SETTABLEKS R16 R21 K42 ["OnError"]
   NEWCLOSURE R22 P5
   CAPTURE VAL R1
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U5
   SETTABLEKS R22 R21 K43 ["UnitsFormatFunction"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K27 ["WalkSpeed"]
-  GETUPVAL R20 2
+  GETUPVAL R20 1
   GETTABLEKS R19 R20 K31 ["createElement"]
-  GETUPVAL R20 8
+  GETUPVAL R20 7
   DUPTABLE R21 K58 [{"LayoutOrder", "Title"}]
   LOADN R22 7
   SETTABLEKS R22 R21 K32 ["LayoutOrder"]
   LOADK R22 K59 [""]
   SETTABLEKS R22 R21 K36 ["Title"]
   DUPTABLE R22 K63 [{"JumpDistanceLabel", "JumpDistanceValue", "JumpDistanceMetricValue"}]
-  GETUPVAL R24 2
+  GETUPVAL R24 1
   GETTABLEKS R23 R24 K31 ["createElement"]
-  GETUPVAL R24 9
+  GETUPVAL R24 8
   DUPTABLE R25 K67 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
   GETIMPORT R26 K70 [Enum.AutomaticSize.XY]
   SETTABLEKS R26 R25 K64 ["AutomaticSize"]
@@ -801,9 +631,9 @@ PROTO_32:
   SETTABLEKS R26 R25 K66 ["Text"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K60 ["JumpDistanceLabel"]
-  GETUPVAL R24 2
+  GETUPVAL R24 1
   GETTABLEKS R23 R24 K31 ["createElement"]
-  GETUPVAL R24 9
+  GETUPVAL R24 8
   DUPTABLE R25 K67 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
   GETIMPORT R26 K70 [Enum.AutomaticSize.XY]
   SETTABLEKS R26 R25 K64 ["AutomaticSize"]
@@ -811,7 +641,7 @@ PROTO_32:
   SETTABLEKS R26 R25 K32 ["LayoutOrder"]
   LOADK R26 K72 ["SubText"]
   SETTABLEKS R26 R25 K65 ["Style"]
-  GETUPVAL R26 6
+  GETUPVAL R26 5
   GETTABLEKS R27 R2 K73 ["calculateJumpDistance"]
   MOVE R28 R3
   MOVE R29 R12
@@ -821,9 +651,9 @@ PROTO_32:
   SETTABLEKS R26 R25 K66 ["Text"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K61 ["JumpDistanceValue"]
-  GETUPVAL R24 2
+  GETUPVAL R24 1
   GETTABLEKS R23 R24 K31 ["createElement"]
-  GETUPVAL R24 9
+  GETUPVAL R24 8
   DUPTABLE R25 K67 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
   GETIMPORT R26 K70 [Enum.AutomaticSize.XY]
   SETTABLEKS R26 R25 K64 ["AutomaticSize"]
@@ -834,7 +664,7 @@ PROTO_32:
   LOADK R28 K45 ["General"]
   LOADK R29 K74 ["UnitsMeters1"]
   NEWTABLE R30 0 1
-  GETUPVAL R31 6
+  GETUPVAL R31 5
   GETTABLEKS R32 R2 K75 ["convertStudsToMeters"]
   GETTABLEKS R33 R2 K73 ["calculateJumpDistance"]
   MOVE R34 R3
@@ -851,9 +681,9 @@ PROTO_32:
   SETTABLEKS R23 R22 K62 ["JumpDistanceMetricValue"]
   CALL R19 3 1
   SETTABLEKS R19 R18 K28 ["JumpDistance"]
-  GETUPVAL R20 2
+  GETUPVAL R20 1
   GETTABLEKS R19 R20 K31 ["createElement"]
-  GETUPVAL R20 5
+  GETUPVAL R20 4
   DUPTABLE R21 K44 [{"LayoutOrder", "Title", "Label", "Value", "MinValue", "MaxValue", "OnUpdate", "OnError", "UnitsFormatFunction"}]
   LOADN R22 8
   SETTABLEKS R22 R21 K32 ["LayoutOrder"]
@@ -880,238 +710,8 @@ PROTO_32:
   SETTABLEKS R19 R18 K29 ["MaxSlopeAngle"]
   CLOSEUPVALS R11
   RETURN R18 1
-  DUPTABLE R15 K30 [{"Presets", "Separator1", "Gravity", "Separator2", "JumpSelect", "WalkSpeed", "JumpDistance", "MaxSlopeAngle"}]
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K31 ["createElement"]
-  GETUPVAL R17 3
-  DUPTABLE R18 K34 [{"LayoutOrder", "ApplyPreset"}]
-  LOADN R19 1
-  SETTABLEKS R19 R18 K32 ["LayoutOrder"]
-  NEWCLOSURE R19 P6
-  CAPTURE VAL R3
-  CAPTURE REF R12
-  CAPTURE VAL R7
-  CAPTURE VAL R9
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R13
-  CAPTURE VAL R14
-  CAPTURE VAL R2
-  CAPTURE VAL R8
-  CAPTURE VAL R10
-  SETTABLEKS R19 R18 K33 ["ApplyPreset"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K22 ["Presets"]
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K31 ["createElement"]
-  GETUPVAL R17 4
-  DUPTABLE R18 K35 [{"LayoutOrder"}]
-  LOADN R19 2
-  SETTABLEKS R19 R18 K32 ["LayoutOrder"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K23 ["Separator1"]
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K31 ["createElement"]
-  GETUPVAL R17 5
-  DUPTABLE R18 K78 [{"LayoutOrder", "Title", "Label", "Value", "MinValue", "MaxValue", "OnUpdate", "UnitsFormatFunction"}]
-  LOADN R19 3
-  SETTABLEKS R19 R18 K32 ["LayoutOrder"]
-  LOADK R21 K45 ["General"]
-  LOADK R22 K46 ["TitleGravity"]
-  NAMECALL R19 R1 K47 ["getText"]
-  CALL R19 3 1
-  SETTABLEKS R19 R18 K36 ["Title"]
-  LOADK R21 K45 ["General"]
-  LOADK R22 K48 ["GravityWorkspaceGravity"]
-  NAMECALL R19 R1 K47 ["getText"]
-  CALL R19 3 1
-  SETTABLEKS R19 R18 K37 ["Label"]
-  SETTABLEKS R3 R18 K38 ["Value"]
-  LOADN R19 0
-  SETTABLEKS R19 R18 K39 ["MinValue"]
-  LOADN R19 232
-  SETTABLEKS R19 R18 K40 ["MaxValue"]
-  NEWCLOSURE R19 P7
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R14
-  CAPTURE VAL R2
-  CAPTURE REF R12
-  CAPTURE VAL R13
-  CAPTURE REF R11
-  SETTABLEKS R19 R18 K41 ["OnUpdate"]
-  NEWCLOSURE R19 P8
-  CAPTURE VAL R1
-  CAPTURE UPVAL U6
-  SETTABLEKS R19 R18 K43 ["UnitsFormatFunction"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K24 ["Gravity"]
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K31 ["createElement"]
-  GETUPVAL R17 4
-  DUPTABLE R18 K35 [{"LayoutOrder"}]
-  LOADN R19 4
-  SETTABLEKS R19 R18 K32 ["LayoutOrder"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K25 ["Separator2"]
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K31 ["createElement"]
-  GETUPVAL R17 7
-  DUPTABLE R18 K55 [{"LayoutOrder", "UseJumpPower", "JumpPower", "JumpHeight", "SetUseJumpPower", "SetJumpPower", "SetJumpHeight"}]
-  LOADN R19 5
-  SETTABLEKS R19 R18 K32 ["LayoutOrder"]
-  SETTABLEKS R5 R18 K49 ["UseJumpPower"]
-  SETTABLEKS R12 R18 K50 ["JumpPower"]
-  SETTABLEKS R11 R18 K51 ["JumpHeight"]
-  SETTABLEKS R6 R18 K52 ["SetUseJumpPower"]
-  NEWCLOSURE R19 P9
-  CAPTURE VAL R13
-  CAPTURE VAL R14
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  SETTABLEKS R19 R18 K53 ["SetJumpPower"]
-  NEWCLOSURE R19 P10
-  CAPTURE VAL R14
-  CAPTURE VAL R13
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  SETTABLEKS R19 R18 K54 ["SetJumpHeight"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K26 ["JumpSelect"]
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K31 ["createElement"]
-  GETUPVAL R17 5
-  DUPTABLE R18 K78 [{"LayoutOrder", "Title", "Label", "Value", "MinValue", "MaxValue", "OnUpdate", "UnitsFormatFunction"}]
-  LOADN R19 6
-  SETTABLEKS R19 R18 K32 ["LayoutOrder"]
-  LOADK R21 K45 ["General"]
-  LOADK R22 K57 ["TitleWalk"]
-  NAMECALL R19 R1 K47 ["getText"]
-  CALL R19 3 1
-  SETTABLEKS R19 R18 K36 ["Title"]
-  LOADK R21 K45 ["General"]
-  LOADK R22 K27 ["WalkSpeed"]
-  NAMECALL R19 R1 K47 ["getText"]
-  CALL R19 3 1
-  SETTABLEKS R19 R18 K37 ["Label"]
-  SETTABLEKS R7 R18 K38 ["Value"]
-  LOADN R19 0
-  SETTABLEKS R19 R18 K39 ["MinValue"]
-  LOADK R19 K79 [∞]
-  SETTABLEKS R19 R18 K40 ["MaxValue"]
-  SETTABLEKS R8 R18 K41 ["OnUpdate"]
-  NEWCLOSURE R19 P11
-  CAPTURE VAL R1
-  CAPTURE UPVAL U6
-  SETTABLEKS R19 R18 K43 ["UnitsFormatFunction"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K27 ["WalkSpeed"]
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K31 ["createElement"]
-  GETUPVAL R17 8
-  DUPTABLE R18 K58 [{"LayoutOrder", "Title"}]
-  LOADN R19 7
-  SETTABLEKS R19 R18 K32 ["LayoutOrder"]
-  LOADK R19 K59 [""]
-  SETTABLEKS R19 R18 K36 ["Title"]
-  DUPTABLE R19 K63 [{"JumpDistanceLabel", "JumpDistanceValue", "JumpDistanceMetricValue"}]
-  GETUPVAL R21 2
-  GETTABLEKS R20 R21 K31 ["createElement"]
-  GETUPVAL R21 9
-  DUPTABLE R22 K67 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
-  GETIMPORT R23 K70 [Enum.AutomaticSize.XY]
-  SETTABLEKS R23 R22 K64 ["AutomaticSize"]
-  LOADN R23 1
-  SETTABLEKS R23 R22 K32 ["LayoutOrder"]
-  LOADK R23 K71 ["Normal"]
-  SETTABLEKS R23 R22 K65 ["Style"]
-  LOADK R25 K45 ["General"]
-  LOADK R26 K28 ["JumpDistance"]
-  NAMECALL R23 R1 K47 ["getText"]
-  CALL R23 3 1
-  SETTABLEKS R23 R22 K66 ["Text"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K60 ["JumpDistanceLabel"]
-  GETUPVAL R21 2
-  GETTABLEKS R20 R21 K31 ["createElement"]
-  GETUPVAL R21 9
-  DUPTABLE R22 K67 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
-  GETIMPORT R23 K70 [Enum.AutomaticSize.XY]
-  SETTABLEKS R23 R22 K64 ["AutomaticSize"]
-  LOADN R23 2
-  SETTABLEKS R23 R22 K32 ["LayoutOrder"]
-  LOADK R23 K72 ["SubText"]
-  SETTABLEKS R23 R22 K65 ["Style"]
-  GETUPVAL R23 6
-  GETTABLEKS R24 R2 K73 ["calculateJumpDistance"]
-  MOVE R25 R3
-  MOVE R26 R12
-  MOVE R27 R7
-  CALL R24 3 -1
-  CALL R23 -1 1
-  SETTABLEKS R23 R22 K66 ["Text"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K61 ["JumpDistanceValue"]
-  GETUPVAL R21 2
-  GETTABLEKS R20 R21 K31 ["createElement"]
-  GETUPVAL R21 9
-  DUPTABLE R22 K67 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
-  GETIMPORT R23 K70 [Enum.AutomaticSize.XY]
-  SETTABLEKS R23 R22 K64 ["AutomaticSize"]
-  LOADN R23 3
-  SETTABLEKS R23 R22 K32 ["LayoutOrder"]
-  LOADK R23 K72 ["SubText"]
-  SETTABLEKS R23 R22 K65 ["Style"]
-  LOADK R25 K45 ["General"]
-  LOADK R26 K74 ["UnitsMeters1"]
-  NEWTABLE R27 0 1
-  GETUPVAL R28 6
-  GETTABLEKS R29 R2 K75 ["convertStudsToMeters"]
-  GETTABLEKS R30 R2 K73 ["calculateJumpDistance"]
-  MOVE R31 R3
-  MOVE R32 R12
-  MOVE R33 R7
-  CALL R30 3 -1
-  CALL R29 -1 -1
-  CALL R28 -1 -1
-  SETLIST R27 R28 -1 [1]
-  NAMECALL R23 R1 K47 ["getText"]
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K66 ["Text"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K62 ["JumpDistanceMetricValue"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K28 ["JumpDistance"]
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K31 ["createElement"]
-  GETUPVAL R17 5
-  DUPTABLE R18 K78 [{"LayoutOrder", "Title", "Label", "Value", "MinValue", "MaxValue", "OnUpdate", "UnitsFormatFunction"}]
-  LOADN R19 8
-  SETTABLEKS R19 R18 K32 ["LayoutOrder"]
-  LOADK R21 K45 ["General"]
-  LOADK R22 K76 ["TitleSlope"]
-  NAMECALL R19 R1 K47 ["getText"]
-  CALL R19 3 1
-  SETTABLEKS R19 R18 K36 ["Title"]
-  LOADK R21 K45 ["General"]
-  LOADK R22 K77 ["SlopeAngle"]
-  NAMECALL R19 R1 K47 ["getText"]
-  CALL R19 3 1
-  SETTABLEKS R19 R18 K37 ["Label"]
-  SETTABLEKS R9 R18 K38 ["Value"]
-  LOADN R19 0
-  SETTABLEKS R19 R18 K39 ["MinValue"]
-  LOADN R19 89
-  SETTABLEKS R19 R18 K40 ["MaxValue"]
-  SETTABLEKS R10 R18 K41 ["OnUpdate"]
-  LOADNIL R19
-  SETTABLEKS R19 R18 K43 ["UnitsFormatFunction"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K29 ["MaxSlopeAngle"]
-  CLOSEUPVALS R11
-  RETURN R15 1
 
-PROTO_33:
+PROTO_27:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Localization"]
   NEWCLOSURE R3 P0
@@ -1124,29 +724,28 @@ PROTO_33:
   CAPTURE UPVAL U5
   CAPTURE UPVAL U6
   CAPTURE UPVAL U7
-  CAPTURE UPVAL U8
-  GETUPVAL R5 1
+  GETUPVAL R5 0
   GETTABLEKS R4 R5 K2 ["createElement"]
-  GETUPVAL R5 9
+  GETUPVAL R5 8
   DUPTABLE R6 K8 [{"SettingsLoadJobs", "SettingsSaveJobs", "Title", "PageId", "CreateChildren"}]
-  GETUPVAL R7 10
+  GETUPVAL R7 9
   SETTABLEKS R7 R6 K3 ["SettingsLoadJobs"]
-  GETUPVAL R7 11
+  GETUPVAL R7 10
   SETTABLEKS R7 R6 K4 ["SettingsSaveJobs"]
   LOADK R9 K9 ["General"]
   LOADK R11 K10 ["Category"]
-  GETUPVAL R12 12
+  GETUPVAL R12 11
   CONCAT R10 R11 R12
   NAMECALL R7 R2 K11 ["getText"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K5 ["Title"]
-  GETUPVAL R7 12
+  GETUPVAL R7 11
   SETTABLEKS R7 R6 K6 ["PageId"]
   SETTABLEKS R3 R6 K7 ["CreateChildren"]
   CALL R4 2 -1
   RETURN R4 -1
 
-PROTO_34:
+PROTO_28:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["Settings"]
@@ -1154,7 +753,7 @@ PROTO_34:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_35:
+PROTO_29:
   JUMPIF R0 [+1]
   RETURN R0 0
   NEWCLOSURE R2 P0
@@ -1166,7 +765,7 @@ PROTO_35:
   CALL R3 2 1
   RETURN R3 1
 
-PROTO_36:
+PROTO_30:
   GETUPVAL R1 0
   GETUPVAL R2 1
   GETUPVAL R3 2
@@ -1175,27 +774,20 @@ PROTO_36:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_37:
+PROTO_31:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   RETURN R1 1
 
-PROTO_38:
+PROTO_32:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
   GETUPVAL R2 1
-  JUMPIFNOT R2 [+5]
-  GETUPVAL R2 2
   MOVE R3 R1
   MOVE R4 R0
-  CALL R2 2 1
-  RETURN R2 1
-  GETUPVAL R2 2
-  MOVE R3 R1
-  LOADNIL R4
   CALL R2 2 1
   RETURN R2 1
 
@@ -1215,116 +807,108 @@ MAIN:
   GETTABLEKS R5 R1 K5 ["Packages"]
   GETTABLEKS R4 R5 K7 ["RoactRodux"]
   CALL R3 1 1
-  GETIMPORT R4 K9 [game]
-  LOADK R6 K10 ["GameSettingsNumberInputRowRangeCheck"]
-  NAMECALL R4 R4 K11 ["GetFastFlag"]
-  CALL R4 2 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R7 R1 K5 ["Packages"]
-  GETTABLEKS R6 R7 K12 ["Framework"]
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K13 ["ContextServices"]
-  GETTABLEKS R7 R6 K14 ["withContext"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R1 K5 ["Packages"]
+  GETTABLEKS R5 R6 K8 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K9 ["ContextServices"]
+  GETTABLEKS R6 R5 K10 ["withContext"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K9 ["ContextServices"]
+  GETTABLEKS R8 R9 K11 ["WorldRootPhysics"]
+  CALL R7 1 1
   GETIMPORT R8 K4 [require]
-  GETTABLEKS R10 R0 K13 ["ContextServices"]
-  GETTABLEKS R9 R10 K15 ["WorldRootPhysics"]
+  GETTABLEKS R11 R1 K12 ["Src"]
+  GETTABLEKS R10 R11 K13 ["Actions"]
+  GETTABLEKS R9 R10 K14 ["AddChange"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
-  GETTABLEKS R12 R1 K16 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Actions"]
-  GETTABLEKS R10 R11 K18 ["AddChange"]
+  GETTABLEKS R12 R1 K12 ["Src"]
+  GETTABLEKS R11 R12 K13 ["Actions"]
+  GETTABLEKS R10 R11 K15 ["AddErrors"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R1 K16 ["Src"]
-  GETTABLEKS R12 R13 K17 ["Actions"]
-  GETTABLEKS R11 R12 K19 ["AddErrors"]
+  GETTABLEKS R13 R1 K12 ["Src"]
+  GETTABLEKS R12 R13 K13 ["Actions"]
+  GETTABLEKS R11 R12 K16 ["DiscardError"]
   CALL R10 1 1
   GETIMPORT R11 K4 [require]
-  GETTABLEKS R14 R1 K16 ["Src"]
-  GETTABLEKS R13 R14 K17 ["Actions"]
-  GETTABLEKS R12 R13 K20 ["DiscardError"]
+  GETTABLEKS R13 R0 K17 ["Util"]
+  GETTABLEKS R12 R13 K18 ["formatNumberForDisplay"]
   CALL R11 1 1
   GETIMPORT R12 K4 [require]
-  GETTABLEKS R14 R0 K21 ["Util"]
-  GETTABLEKS R13 R14 K22 ["formatNumberForDisplay"]
+  GETTABLEKS R16 R1 K12 ["Src"]
+  GETTABLEKS R15 R16 K19 ["Components"]
+  GETTABLEKS R14 R15 K20 ["SettingsPages"]
+  GETTABLEKS R13 R14 K21 ["SettingsPage"]
   CALL R12 1 1
   GETIMPORT R13 K4 [require]
-  GETTABLEKS R17 R1 K16 ["Src"]
-  GETTABLEKS R16 R17 K23 ["Components"]
-  GETTABLEKS R15 R16 K24 ["SettingsPages"]
-  GETTABLEKS R14 R15 K25 ["SettingsPage"]
+  GETTABLEKS R15 R0 K19 ["Components"]
+  GETTABLEKS R14 R15 K22 ["PresetsBar"]
   CALL R13 1 1
   GETIMPORT R14 K4 [require]
-  GETTABLEKS R16 R0 K23 ["Components"]
-  GETTABLEKS R15 R16 K26 ["PresetsBar"]
+  GETTABLEKS R16 R0 K19 ["Components"]
+  GETTABLEKS R15 R16 K23 ["JumpSelect"]
   CALL R14 1 1
   GETIMPORT R15 K4 [require]
-  GETTABLEKS R17 R0 K23 ["Components"]
-  GETTABLEKS R16 R17 K27 ["JumpSelect"]
+  GETTABLEKS R17 R0 K19 ["Components"]
+  GETTABLEKS R16 R17 K24 ["NumberInputRow"]
   CALL R15 1 1
-  GETIMPORT R16 K4 [require]
-  GETTABLEKS R18 R0 K23 ["Components"]
-  GETTABLEKS R17 R18 K28 ["NumberInputRow"]
-  CALL R16 1 1
-  GETTABLEKS R17 R5 K29 ["UI"]
-  GETTABLEKS R18 R17 K30 ["TextLabel"]
-  GETTABLEKS R19 R17 K31 ["TitledFrame"]
-  GETTABLEKS R20 R17 K32 ["Separator"]
-  GETIMPORT R22 K1 [script]
-  GETTABLEKS R21 R22 K33 ["Name"]
-  DUPCLOSURE R22 K34 [PROTO_6]
-  DUPCLOSURE R23 K35 [PROTO_11]
-  DUPCLOSURE R24 K36 [PROTO_12]
-  CAPTURE VAL R4
-  DUPCLOSURE R25 K37 [PROTO_19]
-  CAPTURE VAL R4
-  CAPTURE VAL R11
-  CAPTURE VAL R9
+  GETTABLEKS R16 R4 K25 ["UI"]
+  GETTABLEKS R17 R16 K26 ["TextLabel"]
+  GETTABLEKS R18 R16 K27 ["TitledFrame"]
+  GETTABLEKS R19 R16 K28 ["Separator"]
+  GETIMPORT R21 K1 [script]
+  GETTABLEKS R20 R21 K29 ["Name"]
+  DUPCLOSURE R21 K30 [PROTO_6]
+  DUPCLOSURE R22 K31 [PROTO_11]
+  DUPCLOSURE R23 K32 [PROTO_12]
+  DUPCLOSURE R24 K33 [PROTO_19]
   CAPTURE VAL R10
-  GETTABLEKS R26 R2 K38 ["PureComponent"]
-  LOADK R28 K39 ["World"]
-  NAMECALL R26 R26 K40 ["extend"]
-  CALL R26 2 1
-  DUPCLOSURE R27 K41 [PROTO_33]
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  CAPTURE VAL R14
-  CAPTURE VAL R20
-  CAPTURE VAL R16
-  CAPTURE VAL R12
-  CAPTURE VAL R15
-  CAPTURE VAL R19
-  CAPTURE VAL R18
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R23
-  CAPTURE VAL R21
-  SETTABLEKS R27 R26 K42 ["render"]
-  MOVE R27 R7
-  DUPTABLE R28 K44 [{"Localization", "WorldRootPhysics"}]
-  GETTABLEKS R29 R6 K43 ["Localization"]
-  SETTABLEKS R29 R28 K43 ["Localization"]
-  SETTABLEKS R8 R28 K15 ["WorldRootPhysics"]
-  CALL R27 1 1
-  MOVE R28 R26
-  CALL R27 1 1
-  MOVE R26 R27
-  GETIMPORT R27 K4 [require]
-  GETTABLEKS R30 R1 K16 ["Src"]
-  GETTABLEKS R29 R30 K45 ["Networking"]
-  GETTABLEKS R28 R29 K46 ["settingFromState"]
-  CALL R27 1 1
-  GETTABLEKS R28 R3 K47 ["connect"]
-  DUPCLOSURE R29 K48 [PROTO_35]
-  CAPTURE VAL R27
-  CAPTURE VAL R24
-  DUPCLOSURE R30 K49 [PROTO_38]
+  CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE VAL R4
-  CAPTURE VAL R25
-  CALL R28 2 1
-  MOVE R29 R26
-  CALL R28 1 1
-  MOVE R26 R28
-  SETTABLEKS R21 R26 K50 ["LocalizationId"]
-  RETURN R26 1
+  GETTABLEKS R25 R2 K34 ["PureComponent"]
+  LOADK R27 K35 ["World"]
+  NAMECALL R25 R25 K36 ["extend"]
+  CALL R25 2 1
+  DUPCLOSURE R26 K37 [PROTO_27]
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R19
+  CAPTURE VAL R15
+  CAPTURE VAL R11
+  CAPTURE VAL R14
+  CAPTURE VAL R18
+  CAPTURE VAL R17
+  CAPTURE VAL R12
+  CAPTURE VAL R21
+  CAPTURE VAL R22
+  CAPTURE VAL R20
+  SETTABLEKS R26 R25 K38 ["render"]
+  MOVE R26 R6
+  DUPTABLE R27 K40 [{"Localization", "WorldRootPhysics"}]
+  GETTABLEKS R28 R5 K39 ["Localization"]
+  SETTABLEKS R28 R27 K39 ["Localization"]
+  SETTABLEKS R7 R27 K11 ["WorldRootPhysics"]
+  CALL R26 1 1
+  MOVE R27 R25
+  CALL R26 1 1
+  MOVE R25 R26
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R29 R1 K12 ["Src"]
+  GETTABLEKS R28 R29 K41 ["Networking"]
+  GETTABLEKS R27 R28 K42 ["settingFromState"]
+  CALL R26 1 1
+  GETTABLEKS R27 R3 K43 ["connect"]
+  DUPCLOSURE R28 K44 [PROTO_29]
+  CAPTURE VAL R26
+  CAPTURE VAL R23
+  DUPCLOSURE R29 K45 [PROTO_32]
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  CALL R27 2 1
+  MOVE R28 R25
+  CALL R27 1 1
+  MOVE R25 R27
+  SETTABLEKS R20 R25 K46 ["LocalizationId"]
+  RETURN R25 1

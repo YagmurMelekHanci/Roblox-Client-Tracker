@@ -31,6 +31,8 @@ local IAPExperience = require(CorePackages.Workspace.Packages.IAPExperience)
 local PreparePaymentCheck = IAPExperience.PreparePaymentCheck
 local GetFFlagEnableConsolePreparePaymentCheck = IAPExperience.GetEnableConsolePreparePaymentCheck
 
+local SelectedRobuxPackage = require(Root.Utils.SelectedRobuxPackage)
+
 local FFlagQuickPayUpsell = game:DefineFastFlag("QuickPayUpsell", false)
 
 local requiredServices = {
@@ -50,7 +52,7 @@ local function launchRobuxUpsell()
 
 		local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
 
-		local nativeProductId = upsellFlow ~= UpsellFlow.Web and state.nativeUpsell.robuxProductId
+		local nativeProductId = upsellFlow ~= UpsellFlow.Web and SelectedRobuxPackage.getRobuxProductId(state)
 		local productId = state.productInfo.productId
 		if GetFFlagEnableConsolePreparePaymentCheck() then
 			if not PreparePaymentCheck(nativeProductId) then
@@ -90,7 +92,7 @@ local function launchRobuxUpsell()
 
 		if upsellFlow == UpsellFlow.Web then
 			local requestType = state.requestType
-			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, state.nativeUpsell.productId)
+			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, SelectedRobuxPackage.getProductId(state))
 			if getAppFeaturePolicies().getRedirectBuyRobuxToVNG() then
 				if state.promptState == PromptState.LeaveRobloxWarning then
 					if FFlagEnablePreSignedVngShopRedirectUrl then
@@ -110,11 +112,11 @@ local function launchRobuxUpsell()
 				end
 			else
 				if FFlagQuickPayUpsell then
-					platformInterface.startRobuxUpsellWebByFlow(state.purchaseFlow, state.nativeUpsell.productId)
+					platformInterface.startRobuxUpsellWebByFlow(state.purchaseFlow, SelectedRobuxPackage.getProductId(state))
 				else
 					local purchaseFlow = state.purchaseFlow
 					if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
-						platformInterface.startRobuxUpsellWeb(state.nativeUpsell.productId)
+						platformInterface.startRobuxUpsellWeb(SelectedRobuxPackage.getProductId(state))
 					else
 						platformInterface.startRobuxUpsellWeb()
 					end
@@ -122,7 +124,7 @@ local function launchRobuxUpsell()
 				store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 			end
 		elseif upsellFlow == UpsellFlow.Mobile then
-			local nativeProductId = state.nativeUpsell.robuxProductId
+			local nativeProductId = SelectedRobuxPackage.getRobuxProductId(state)
 			local productId = state.productInfo.productId
 			local requestType = state.requestType
 			local player = Players.LocalPlayer
@@ -136,7 +138,7 @@ local function launchRobuxUpsell()
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
 		elseif upsellFlow == UpsellFlow.Xbox then
-			local nativeProductId = state.nativeUpsell.robuxProductId
+			local nativeProductId = SelectedRobuxPackage.getRobuxProductId(state)
 			local productId = state.productInfo.productId
 			local requestType = state.requestType
 

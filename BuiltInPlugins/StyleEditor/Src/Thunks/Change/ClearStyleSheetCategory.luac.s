@@ -1,12 +1,16 @@
 PROTO_0:
-  GETUPVAL R2 0
-  LOADK R5 K0 ["StyleCategory"]
-  NAMECALL R3 R0 K1 ["GetAttribute"]
+  LOADK R3 K0 ["StyleCategory"]
+  NAMECALL R1 R0 K1 ["GetAttribute"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R2 1
+  RETURN R2 1
+  GETUPVAL R3 0
+  MOVE R4 R1
+  LOADK R5 K2 ["Tokens"]
   CALL R3 2 1
-  LOADK R4 K2 ["Tokens"]
-  CALL R2 2 1
-  NOT R1 R2
-  RETURN R1 1
+  NOT R2 R3
+  RETURN R2 1
 
 PROTO_1:
   GETUPVAL R0 0

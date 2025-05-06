@@ -22,9 +22,9 @@ MAIN:
   SETTABLEKS R7 R6 K14 ["BackgroundTransparency"]
   LOADN R7 0
   SETTABLEKS R7 R6 K15 ["BorderSizePixel"]
-  LOADK R7 K20 ["$SemanticColorActionSecondary"]
+  LOADK R7 K20 ["$ColorActionStandardBackground"]
   SETTABLEKS R7 R6 K16 ["ScrollBarImageColor3"]
-  LOADK R7 K21 ["$SemanticColorActionSecondaryTransparency"]
+  LOADK R7 K21 ["$ColorActionStandardBackgroundTransparency"]
   SETTABLEKS R7 R6 K17 ["ScrollBarImageTransparency"]
   GETTABLEKS R7 R3 K22 ["scrollBarThickness"]
   SETTABLEKS R7 R6 K18 ["ScrollBarThickness"]

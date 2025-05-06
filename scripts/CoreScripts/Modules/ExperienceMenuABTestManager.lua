@@ -81,7 +81,7 @@ local validVersion = {
 	[MENU_VERSION_SONGBIRD_ENUM.SONGBIRD_PEEK] = true,
 	[ENUM_UNIBAR_MENU_OPEN_FOCUS.HAMBURGER] = FFlagUnibarMenuOpenSelectionIXP,
 	[ENUM_UNIBAR_MENU_OPEN_FOCUS.SUBMENU] = FFlagUnibarMenuOpenSelectionIXP,
-	[ENUM_UNIBAR_MENU_OPEN_FOCUS.NOT_AVAILABLE] = FFlagUnibarMenuOpenSelectionIXP,
+	[ENUM_UNIBAR_MENU_OPEN_FOCUS.NOT_AVAILABLE] = true,
 
 	-- Invalidate Unibar test variants if the respective disable flag is turned on
 	[MENU_VERSION_CHROME_V3_ENUM.BASELINE] = not GetFFlagDisableChromeV3Baseline,
@@ -295,6 +295,10 @@ end
 
 function ExperienceMenuABTestManager:showConsoleExpControlsMenuOpenSubmenu()
 	return self:getVersion() == ENUM_UNIBAR_MENU_OPEN_FOCUS.SUBMENU
+end
+
+function ExperienceMenuABTestManager:showConsoleExpControlsMenuNotAvailable()
+	return self:getVersion() == ENUM_UNIBAR_MENU_OPEN_FOCUS.NOT_AVAILABLE
 end
 
 -- this is called on the assumption that IXP layers are initialized

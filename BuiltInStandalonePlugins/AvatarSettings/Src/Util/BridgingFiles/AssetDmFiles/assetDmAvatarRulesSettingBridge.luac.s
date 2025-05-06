@@ -1,0 +1,62 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"ruleInstance", "property"}]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K0 ["ruleInstance"]
+  SETTABLEKS R0 R1 K1 ["property"]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["avatarRules"]
+  CALL R1 0 1
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  GETUPVAL R3 1
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"ruleInstance", "property"}]
+  SETTABLEKS R1 R5 K1 ["ruleInstance"]
+  LOADK R6 K4 ["AvatarType"]
+  SETTABLEKS R6 R5 K2 ["property"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K5 ["avatarType"]
+  CALL R3 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Util"]
+  GETTABLEKS R4 R5 K8 ["BridgingFiles"]
+  GETTABLEKS R3 R4 K9 ["AssetDmFiles"]
+  GETTABLEKS R2 R3 K10 ["assetDmInvokeUtils"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K7 ["Util"]
+  GETTABLEKS R5 R6 K8 ["BridgingFiles"]
+  GETTABLEKS R4 R5 K9 ["AssetDmFiles"]
+  GETTABLEKS R3 R4 K11 ["assetDmTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K7 ["Util"]
+  GETTABLEKS R6 R7 K8 ["BridgingFiles"]
+  GETTABLEKS R5 R6 K9 ["AssetDmFiles"]
+  GETTABLEKS R4 R5 K12 ["assetDmUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K7 ["Util"]
+  GETTABLEKS R5 R6 K13 ["InvokeKeys"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K14 ["createInvokes"]
+  DUPCLOSURE R6 K15 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  RETURN R6 1

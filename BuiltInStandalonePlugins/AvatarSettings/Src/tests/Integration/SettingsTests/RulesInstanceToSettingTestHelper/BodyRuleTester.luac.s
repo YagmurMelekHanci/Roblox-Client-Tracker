@@ -1,0 +1,773 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["getByText"]
+  LOADK R3 K1 ["ScaleSectionPlayerChoiceButtonText:"]
+  DUPTABLE R4 K3 [{"exact"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["exact"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["getByText"]
+  LOADK R3 K5 ["ScaleSectionPlayerChoiceSubText"]
+  DUPTABLE R4 K3 [{"exact"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["exact"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K7 ["ScaleHeight"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["querySliderComponentFrom"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["queryTitledComponentByText"]
+  LOADK R2 K2 ["ScaleHeight"]
+  CALL R1 1 -1
+  CALL R0 -1 1
+  FASTCALL2K ASSERT R0 K3 [+5]
+  MOVE R2 R0
+  LOADK R3 K3 ["Scale Height Slider not found"]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K6 ["CustomHeight"]
+  GETTABLEKS R2 R0 K7 ["lowerRangeInput"]
+  JUMPIF R2 [+14]
+  GETTABLEKS R4 R1 K8 ["Min"]
+  GETTABLEKS R5 R1 K9 ["Max"]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K10 [+4]
+  LOADK R4 K10 ["CustomHeight Min and Max should be equal if minMaxToggle is not present"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K11 ["checkSliderInputsAndBodyRulesCustomHeightToBe"]
+  MOVE R3 R0
+  GETUPVAL R4 1
+  GETTABLEKS R5 R1 K9 ["Max"]
+  GETTABLEKS R7 R0 K7 ["lowerRangeInput"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R6 R1 K8 ["Min"]
+  JUMP [+1]
+  LOADNIL R6
+  CALL R2 4 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["ScaleMode"]
+  GETIMPORT R1 K4 [Enum.AvatarSettingsScaleMode.PlayerChoice]
+  JUMPIFNOTEQ R0 R1 [+12]
+  GETUPVAL R0 1
+  CALL R0 0 0
+  GETUPVAL R0 0
+  GETIMPORT R1 K6 [Enum.AvatarSettingsScaleMode.CustomScale]
+  SETTABLEKS R1 R0 K0 ["ScaleMode"]
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K7 ["updateStylingServiceUnitTestOnly"]
+  CALL R0 0 0
+  GETUPVAL R0 3
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["getByText"]
+  LOADK R3 K1 ["AppearanceSectionPlayerChoiceButtonText"]
+  DUPTABLE R4 K3 [{"exact"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["exact"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["getByText"]
+  LOADK R3 K5 ["AppearanceSectionPlayerChoiceSubText"]
+  DUPTABLE R4 K3 [{"exact"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["exact"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K7 ["AppearanceSectionHead"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K9 ["AppearanceSectionTorso"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K10 ["AppearanceSectionLeftArm"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K11 ["AppearanceSectionRightArm"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K12 ["AppearanceSectionLeftLeg"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K13 ["AppearanceSectionRightLeg"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K14 ["AppearanceSectionMethod"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K15 ["AppearanceSectionBody"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
+  LOADK R1 K1 ["AppearanceSectionHead"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["CustomHeadId"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
+  LOADK R1 K3 ["AppearanceSectionTorso"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["CustomTorsoId"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
+  LOADK R1 K5 ["AppearanceSectionLeftArm"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["CustomLeftArmId"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
+  LOADK R1 K7 ["AppearanceSectionRightArm"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K8 ["CustomRightArmId"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
+  LOADK R1 K9 ["AppearanceSectionLeftLeg"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["CustomLeftLegId"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["findAssetIdComponentAndVerifyId"]
+  LOADK R1 K11 ["AppearanceSectionRightLeg"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K12 ["CustomRightLegId"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["AppearanceMode"]
+  GETIMPORT R1 K4 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
+  JUMPIFNOTEQ R0 R1 [+15]
+  GETUPVAL R0 1
+  CALL R0 0 0
+  GETUPVAL R0 0
+  GETIMPORT R1 K6 [Enum.AvatarSettingsAppearanceMode.CustomParts]
+  SETTABLEKS R1 R0 K0 ["AppearanceMode"]
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K7 ["updateStylingServiceUnitTestOnly"]
+  CALL R0 0 0
+  GETUPVAL R0 3
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["AppearanceMode"]
+  GETIMPORT R1 K6 [Enum.AvatarSettingsAppearanceMode.CustomParts]
+  JUMPIFNOTEQ R0 R1 [+3]
+  GETUPVAL R0 3
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["getByText"]
+  LOADK R3 K1 ["BuildSectionPlayerChoiceButtonText"]
+  DUPTABLE R4 K3 [{"exact"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["exact"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["getByText"]
+  LOADK R3 K5 ["BuildSectionPlayerChoiceSubText"]
+  DUPTABLE R4 K3 [{"exact"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["exact"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K7 ["BuildHeight"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K9 ["BuildWidth"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K10 ["BuildHead"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K11 ["BuildBodyType"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["queryByText"]
+  LOADK R4 K12 ["BuildProportions"]
+  DUPTABLE R5 K3 [{"exact"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["exact"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["never"]
+  GETTABLEKS R0 R1 K4 ["toBeDefined"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["querySliderAndCheckValues"]
+  GETUPVAL R1 1
+  LOADK R2 K1 ["BuildHeight"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K3 ["CustomHeightScale"]
+  GETTABLEKS R6 R7 K4 ["Min"]
+  MULK R5 R6 K2 [100]
+  FASTCALL1 MATH_ROUND R5 [+2]
+  GETIMPORT R4 K7 [math.round]
+  CALL R4 1 1
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K9 [tostring]
+  CALL R3 1 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K3 ["CustomHeightScale"]
+  GETTABLEKS R7 R8 K10 ["Max"]
+  MULK R6 R7 K2 [100]
+  FASTCALL1 MATH_ROUND R6 [+2]
+  GETIMPORT R5 K7 [math.round]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K9 [tostring]
+  CALL R4 1 1
+  CALL R0 4 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["querySliderAndCheckValues"]
+  GETUPVAL R1 1
+  LOADK R2 K11 ["BuildWidth"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K12 ["CustomWidthScale"]
+  GETTABLEKS R6 R7 K4 ["Min"]
+  MULK R5 R6 K2 [100]
+  FASTCALL1 MATH_ROUND R5 [+2]
+  GETIMPORT R4 K7 [math.round]
+  CALL R4 1 1
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K9 [tostring]
+  CALL R3 1 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K12 ["CustomWidthScale"]
+  GETTABLEKS R7 R8 K10 ["Max"]
+  MULK R6 R7 K2 [100]
+  FASTCALL1 MATH_ROUND R6 [+2]
+  GETIMPORT R5 K7 [math.round]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K9 [tostring]
+  CALL R4 1 1
+  CALL R0 4 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["querySliderAndCheckValues"]
+  GETUPVAL R1 1
+  LOADK R2 K13 ["BuildHead"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K14 ["CustomHeadScale"]
+  GETTABLEKS R6 R7 K4 ["Min"]
+  MULK R5 R6 K2 [100]
+  FASTCALL1 MATH_ROUND R5 [+2]
+  GETIMPORT R4 K7 [math.round]
+  CALL R4 1 1
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K9 [tostring]
+  CALL R3 1 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K14 ["CustomHeadScale"]
+  GETTABLEKS R7 R8 K10 ["Max"]
+  MULK R6 R7 K2 [100]
+  FASTCALL1 MATH_ROUND R6 [+2]
+  GETIMPORT R5 K7 [math.round]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K9 [tostring]
+  CALL R4 1 1
+  CALL R0 4 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["querySliderAndCheckValues"]
+  GETUPVAL R1 1
+  LOADK R2 K15 ["BuildBodyType"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K16 ["CustomBodyTypeScale"]
+  GETTABLEKS R6 R7 K4 ["Min"]
+  MULK R5 R6 K2 [100]
+  FASTCALL1 MATH_ROUND R5 [+2]
+  GETIMPORT R4 K7 [math.round]
+  CALL R4 1 1
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K9 [tostring]
+  CALL R3 1 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K16 ["CustomBodyTypeScale"]
+  GETTABLEKS R7 R8 K10 ["Max"]
+  MULK R6 R7 K2 [100]
+  FASTCALL1 MATH_ROUND R6 [+2]
+  GETIMPORT R5 K7 [math.round]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K9 [tostring]
+  CALL R4 1 1
+  CALL R0 4 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["querySliderAndCheckValues"]
+  GETUPVAL R1 1
+  LOADK R2 K17 ["BuildProportions"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K18 ["CustomProportionsScale"]
+  GETTABLEKS R6 R7 K4 ["Min"]
+  MULK R5 R6 K2 [100]
+  FASTCALL1 MATH_ROUND R5 [+2]
+  GETIMPORT R4 K7 [math.round]
+  CALL R4 1 1
+  FASTCALL1 TOSTRING R4 [+2]
+  GETIMPORT R3 K9 [tostring]
+  CALL R3 1 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K18 ["CustomProportionsScale"]
+  GETTABLEKS R7 R8 K10 ["Max"]
+  MULK R6 R7 K2 [100]
+  FASTCALL1 MATH_ROUND R6 [+2]
+  GETIMPORT R5 K7 [math.round]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K9 [tostring]
+  CALL R4 1 1
+  CALL R0 4 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["BuildMode"]
+  GETIMPORT R1 K4 [Enum.AvatarSettingsBuildMode.PlayerChoice]
+  JUMPIFNOTEQ R0 R1 [+12]
+  GETUPVAL R0 1
+  CALL R0 0 0
+  GETUPVAL R0 0
+  GETIMPORT R1 K6 [Enum.AvatarSettingsBuildMode.CustomBuild]
+  SETTABLEKS R1 R0 K0 ["BuildMode"]
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K7 ["updateStylingServiceUnitTestOnly"]
+  CALL R0 0 0
+  GETUPVAL R0 3
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_9:
+  SETUPVAL R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["selectBodyCategory"]
+  CALL R2 0 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["screen"]
+  SETUPVAL R2 1
+  SETUPVAL R1 3
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K2 ["ScaleMode"]
+  GETIMPORT R3 K6 [Enum.AvatarSettingsScaleMode.PlayerChoice]
+  JUMPIFNOTEQ R2 R3 [+12]
+  GETUPVAL R2 4
+  CALL R2 0 0
+  GETUPVAL R2 3
+  GETIMPORT R3 K8 [Enum.AvatarSettingsScaleMode.CustomScale]
+  SETTABLEKS R3 R2 K2 ["ScaleMode"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["updateStylingServiceUnitTestOnly"]
+  CALL R2 0 0
+  GETUPVAL R2 5
+  CALL R2 0 0
+  GETUPVAL R2 6
+  CALL R2 0 0
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K10 ["BuildMode"]
+  GETIMPORT R3 K12 [Enum.AvatarSettingsBuildMode.PlayerChoice]
+  JUMPIFNOTEQ R2 R3 [+12]
+  GETUPVAL R2 7
+  CALL R2 0 0
+  GETUPVAL R2 3
+  GETIMPORT R3 K14 [Enum.AvatarSettingsBuildMode.CustomBuild]
+  SETTABLEKS R3 R2 K10 ["BuildMode"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["updateStylingServiceUnitTestOnly"]
+  CALL R2 0 0
+  GETUPVAL R2 8
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R0 0
+  LOADN R1 20
+  SETTABLEKS R1 R0 K0 ["GameSettingsAssetIDHead"]
+  GETUPVAL R0 0
+  LOADN R1 20
+  SETTABLEKS R1 R0 K1 ["GameSettingsAssetIDTorso"]
+  GETUPVAL R0 0
+  LOADN R1 20
+  SETTABLEKS R1 R0 K2 ["GameSettingsAssetIDLeftArm"]
+  GETUPVAL R0 0
+  LOADN R1 20
+  SETTABLEKS R1 R0 K3 ["GameSettingsAssetIDRightArm"]
+  GETUPVAL R0 0
+  LOADN R1 20
+  SETTABLEKS R1 R0 K4 ["GameSettingsAssetIDLeftLeg"]
+  GETUPVAL R0 0
+  LOADN R1 20
+  SETTABLEKS R1 R0 K5 ["GameSettingsAssetIDRightLeg"]
+  GETUPVAL R0 0
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADN R2 4
+  LOADN R3 5
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K9 ["GameSettingsScaleRangeHeight"]
+  GETUPVAL R0 0
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADN R2 4
+  LOADN R3 5
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K10 ["GameSettingsScaleRangeWidth"]
+  GETUPVAL R0 0
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADN R2 4
+  LOADN R3 5
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K11 ["GameSettingsScaleRangeHead"]
+  GETUPVAL R0 0
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADN R2 4
+  LOADN R3 5
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K12 ["GameSettingsScaleRangeBodyType"]
+  GETUPVAL R0 0
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADN R2 4
+  LOADN R3 5
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K13 ["GameSettingsScaleRangeProportion"]
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K0 ["CustomHeadId"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["GameSettingsAssetIDHead"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K3 ["CustomTorsoId"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["GameSettingsAssetIDTorso"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K5 ["CustomLeftArmId"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["GameSettingsAssetIDLeftArm"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K7 ["CustomRightArmId"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K8 ["GameSettingsAssetIDRightArm"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K9 ["CustomLeftLegId"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["GameSettingsAssetIDLeftLeg"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K11 ["CustomRightLegId"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K12 ["GameSettingsAssetIDRightLeg"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K13 ["CustomHeightScale"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K14 ["GameSettingsScaleRangeHeight"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K15 ["CustomWidthScale"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K16 ["GameSettingsScaleRangeWidth"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K17 ["CustomHeadScale"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K18 ["GameSettingsScaleRangeHead"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K19 ["CustomBodyTypeScale"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K20 ["GameSettingsScaleRangeBodyType"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K21 ["CustomProportionsScale"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["toBe"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K22 ["GameSettingsScaleRangeProportion"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["StarterPlayer"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["tests"]
+  GETTABLEKS R6 R7 K12 ["Integration"]
+  GETTABLEKS R5 R6 K13 ["SettingsTests"]
+  GETTABLEKS R4 R5 K14 ["BodySettings"]
+  GETTABLEKS R3 R4 K15 ["BodySettingsTestUtils"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R0 K16 ["Packages"]
+  GETTABLEKS R5 R6 K17 ["Dev"]
+  GETTABLEKS R4 R5 K18 ["JestGlobals"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R7 R0 K16 ["Packages"]
+  GETTABLEKS R6 R7 K17 ["Dev"]
+  GETTABLEKS R5 R6 K19 ["ReactTestingLibrary"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K11 ["tests"]
+  GETTABLEKS R7 R8 K20 ["Util"]
+  GETTABLEKS R6 R7 K21 ["setup"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K22 ["expect"]
+  LOADNIL R7
+  LOADNIL R8
+  LOADNIL R9
+  NEWTABLE R10 4 0
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R6
+  CAPTURE REF R8
+  NEWCLOSURE R12 P1
+  CAPTURE REF R7
+  CAPTURE REF R9
+  CAPTURE VAL R2
+  NEWCLOSURE R13 P2
+  CAPTURE REF R9
+  CAPTURE VAL R11
+  CAPTURE REF R7
+  CAPTURE VAL R12
+  NEWCLOSURE R14 P3
+  CAPTURE VAL R6
+  CAPTURE REF R8
+  NEWCLOSURE R15 P4
+  CAPTURE REF R7
+  CAPTURE REF R9
+  NEWCLOSURE R16 P5
+  CAPTURE REF R9
+  CAPTURE VAL R14
+  CAPTURE REF R7
+  CAPTURE VAL R15
+  NEWCLOSURE R17 P6
+  CAPTURE VAL R6
+  CAPTURE REF R8
+  NEWCLOSURE R18 P7
+  CAPTURE VAL R2
+  CAPTURE REF R7
+  CAPTURE REF R9
+  NEWCLOSURE R19 P8
+  CAPTURE REF R9
+  CAPTURE VAL R17
+  CAPTURE REF R7
+  CAPTURE VAL R18
+  NEWCLOSURE R20 P9
+  CAPTURE REF R7
+  CAPTURE REF R8
+  CAPTURE VAL R4
+  CAPTURE REF R9
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R18
+  SETTABLEKS R20 R10 K23 ["testAvatarBodyRules"]
+  DUPCLOSURE R20 K24 [PROTO_10]
+  CAPTURE VAL R1
+  SETTABLEKS R20 R10 K25 ["setStarterPlayerProperties"]
+  DUPCLOSURE R20 K26 [PROTO_11]
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  SETTABLEKS R20 R10 K27 ["checkBodyRulesPropertiesWithStarterPlayer"]
+  CLOSEUPVALS R7
+  RETURN R10 1

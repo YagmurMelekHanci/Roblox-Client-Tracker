@@ -17,7 +17,7 @@ MAIN:
   SETTABLEKS R6 R5 K11 ["BackgroundColor3"]
   LOADN R6 0
   SETTABLEKS R6 R5 K12 ["BorderSizePixel"]
-  NEWTABLE R6 0 3
+  NEWTABLE R6 0 4
   MOVE R7 R2
   LOADK R8 K15 [":hover"]
   DUPTABLE R9 K16 [{"BackgroundColor3"}]
@@ -31,9 +31,9 @@ MAIN:
   SETTABLEKS R11 R10 K19 ["TextColor3"]
   LOADN R11 1
   SETTABLEKS R11 R10 K20 ["BackgroundTransparency"]
-  LOADN R11 20
+  LOADN R11 17
   SETTABLEKS R11 R10 K21 ["TextSize"]
-  GETIMPORT R11 K29 [Enum.Font.SourceSans]
+  GETIMPORT R11 K29 [Enum.Font.BuilderSans]
   SETTABLEKS R11 R10 K22 ["Font"]
   GETIMPORT R11 K31 [Enum.TextXAlignment.Left]
   SETTABLEKS R11 R10 K23 ["TextXAlignment"]
@@ -63,7 +63,19 @@ MAIN:
   LOADN R14 15
   CALL R12 2 1
   SETTABLEKS R12 R11 K38 ["PaddingRight"]
-  CALL R9 2 -1
+  CALL R9 2 1
+  MOVE R10 R2
+  LOADK R11 K43 [">> .BudgetLabel"]
+  DUPTABLE R12 K44 [{"BackgroundTransparency", "Font", "TextSize", "TextColor3"}]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K20 ["BackgroundTransparency"]
+  GETIMPORT R13 K29 [Enum.Font.BuilderSans]
+  SETTABLEKS R13 R12 K22 ["Font"]
+  LOADN R13 17
+  SETTABLEKS R13 R12 K21 ["TextSize"]
+  LOADK R13 K26 ["$TextPrimary"]
+  SETTABLEKS R13 R12 K19 ["TextColor3"]
+  CALL R10 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

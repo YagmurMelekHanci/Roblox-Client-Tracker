@@ -60,12 +60,12 @@ local GamepadConnector = if FFlagHideTopBarConsole
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
-local renderPanel3DInSpatialUI
+local Panel3DInSpatialUI
 local PanelType
 local SubMenuVisibilitySignal
 if isInExperienceUIVREnabled then
 	local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
-	renderPanel3DInSpatialUI = VrSpatialUi.renderPanel3DInSpatialUI
+	Panel3DInSpatialUI = VrSpatialUi.Panel3DInSpatialUI
 	PanelType = VrSpatialUi.Constants.PanelType
 	local Observable = require(CorePackages.Workspace.Packages.Observable)
 	SubMenuVisibilitySignal = Observable.ObservableValue.new(true)
@@ -692,14 +692,13 @@ local function UnibarPills(props: UnibarPillsProp)
 					CornerRadius = UDim.new(1, 0),
 				}),
 				Padding = React.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, Constants.MENU_SUBMENU_PADDING),
-					PaddingRight = UDim.new(0, Constants.MENU_SUBMENU_PADDING),
+					PaddingLeft = UDim.new(0, Constants.UNIBAR_END_PADDING),
+					PaddingRight = UDim.new(0, Constants.UNIBAR_END_PADDING),
 				}),
 				PillsHorizontalList = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
-					Padding = UDim.new(0, Constants.MENU_SUBMENU_PADDING),
 				}),
 			}, iconHostItems)
 			pillListItems["pill_" .. k] = pillContainer :: any
@@ -831,10 +830,14 @@ local UnibarMenu = function(props: UnibarMenuProp)
 				}) :: any,
 			if isInExperienceUIVREnabled
 					and isSpatial()
-					and renderPanel3DInSpatialUI
-				then renderPanel3DInSpatialUI(PanelType.ChromeSubMenu, function(panelSize)
-					return React.createElement(SubMenu, { subMenuHostRef = subMenuHostRef }) :: any
-				end, SubMenuVisibilitySignal)
+					and Panel3DInSpatialUI
+				then React.createElement(Panel3DInSpatialUI, {
+					panelType = PanelType.ChromeSubMenu,
+					renderFunction = function(panelSize)
+						return React.createElement(SubMenu, { subMenuHostRef = subMenuHostRef }) :: any
+					end,
+					visibilityObservable = SubMenuVisibilitySignal,
+				})
 				else React.createElement(SubMenu, { subMenuHostRef = subMenuHostRef }) :: any,
 			if FFlagEnableChromeShortcutBar then React.createElement(ShortcutBar) else nil,
 			React.createElement(WindowManager) :: React.React_Element<any>,

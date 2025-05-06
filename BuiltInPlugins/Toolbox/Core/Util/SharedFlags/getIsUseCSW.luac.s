@@ -92,7 +92,7 @@ MAIN:
   CALL R5 1 1
   GETIMPORT R6 K7 [require]
   GETTABLEKS R8 R1 K11 ["SharedFlags"]
-  GETTABLEKS R7 R8 K13 ["getFFlagWebBrowserNewCallbacksEnabled"]
+  GETTABLEKS R7 R8 K13 ["getFFlagToolboxCSWOTAEnabled"]
   CALL R6 1 1
   GETIMPORT R7 K7 [require]
   GETTABLEKS R8 R1 K14 ["isCli"]

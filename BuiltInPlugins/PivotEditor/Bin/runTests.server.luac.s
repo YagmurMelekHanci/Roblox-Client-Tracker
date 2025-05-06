@@ -17,7 +17,7 @@ MAIN:
   MOVE R5 R3
   CALL R5 0 1
   JUMPIF R5 [+1]
-  JUMP [+60]
+  JUMP [+63]
   GETIMPORT R5 K12 [_G]
   LOADB R6 1
   SETTABLEKS R6 R5 K13 ["__ROACT_17_MOCK_SCHEDULER__"]
@@ -28,41 +28,43 @@ MAIN:
   CALL R5 1 1
   GETTABLEKS R6 R5 K16 ["runCLI"]
   MOVE R7 R2
-  NEWTABLE R8 0 0
+  DUPTABLE R8 K18 [{"reporters"}]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K17 ["reporters"]
   NEWTABLE R9 0 1
   MOVE R10 R2
   SETLIST R9 R10 1 [1]
   CALL R6 3 1
-  NAMECALL R6 R6 K17 ["awaitStatus"]
+  NAMECALL R6 R6 K19 ["awaitStatus"]
   CALL R6 1 2
-  JUMPIFNOTEQKS R6 K18 ["Resolved"] [+15]
-  GETTABLEKS R9 R7 K19 ["results"]
-  GETTABLEKS R8 R9 K20 ["numFailedTestSuites"]
+  JUMPIFNOTEQKS R6 K20 ["Resolved"] [+15]
+  GETTABLEKS R9 R7 K21 ["results"]
+  GETTABLEKS R8 R9 K22 ["numFailedTestSuites"]
   LOADN R9 0
   JUMPIFLT R9 R8 [+8]
-  GETTABLEKS R9 R7 K19 ["results"]
-  GETTABLEKS R8 R9 K21 ["numFailedTests"]
+  GETTABLEKS R9 R7 K21 ["results"]
+  GETTABLEKS R8 R9 K23 ["numFailedTests"]
   LOADN R9 0
   JUMPIFNOTLT R9 R8 [+17]
-  JUMPIFNOTEQKS R6 K22 ["Rejected"] [+5]
-  GETIMPORT R8 K24 [print]
+  JUMPIFNOTEQKS R6 K24 ["Rejected"] [+5]
+  GETIMPORT R8 K26 [print]
   MOVE R9 R7
   CALL R8 1 0
-  GETIMPORT R8 K26 [game]
-  LOADK R10 K27 ["TestService"]
-  NAMECALL R8 R8 K28 ["GetService"]
+  GETIMPORT R8 K28 [game]
+  LOADK R10 K29 ["TestService"]
+  NAMECALL R8 R8 K30 ["GetService"]
   CALL R8 2 1
-  LOADK R10 K29 ["Jest 3 test run failed"]
-  NAMECALL R8 R8 K30 ["Error"]
+  LOADK R10 K31 ["Jest 3 test run failed"]
+  NAMECALL R8 R8 K32 ["Error"]
   CALL R8 2 0
   MOVE R5 R4
   CALL R5 0 1
   JUMPIFNOT R5 [+10]
-  GETIMPORT R5 K26 [game]
-  LOADK R7 K31 ["ProcessService"]
-  NAMECALL R5 R5 K28 ["GetService"]
+  GETIMPORT R5 K28 [game]
+  LOADK R7 K33 ["ProcessService"]
+  NAMECALL R5 R5 K30 ["GetService"]
   CALL R5 2 1
   LOADN R7 0
-  NAMECALL R5 R5 K32 ["ExitAsync"]
+  NAMECALL R5 R5 K34 ["ExitAsync"]
   CALL R5 2 0
   RETURN R0 0

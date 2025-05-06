@@ -32,7 +32,15 @@ MAIN:
   SETTABLEKS R10 R9 K12 ["Image"]
   CALL R7 2 -1
   SETLIST R4 R5 -1 [1]
-  NEWTABLE R5 0 0
+  DUPTABLE R5 K22 [{"FontSize_300", "FontSize_350", "HeavyDivider"}]
+  LOADN R6 15
+  SETTABLEKS R6 R5 K19 ["FontSize_300"]
+  LOADN R6 17
+  SETTABLEKS R6 R5 K20 ["FontSize_350"]
+  GETIMPORT R6 K25 [Color3.fromHex]
+  LOADK R7 K26 ["#000000"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K21 ["HeavyDivider"]
   MOVE R6 R3
   LOADK R7 K2 ["PerformanceTools"]
   MOVE R8 R4

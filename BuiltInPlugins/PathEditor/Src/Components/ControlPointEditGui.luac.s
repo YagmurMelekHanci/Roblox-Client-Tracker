@@ -56,19 +56,12 @@ PROTO_0:
   FORGLOOP R3 2 [-60]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K10 ["createElement"]
-  GETIMPORT R5 K18 [game]
-  LOADK R7 K19 ["PathEditorSurfaceGui"]
-  NAMECALL R5 R5 K20 ["GetFastFlag"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+2]
   GETUPVAL R4 2
-  JUMP [+1]
-  LOADK R4 K21 ["ScreenGui"]
-  DUPTABLE R5 K24 [{"DisplayOrder", "ZIndexBehavior"}]
+  DUPTABLE R5 K19 [{"DisplayOrder", "ZIndexBehavior"}]
   LOADN R6 2
-  SETTABLEKS R6 R5 K22 ["DisplayOrder"]
-  GETIMPORT R6 K27 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R6 R5 K23 ["ZIndexBehavior"]
+  SETTABLEKS R6 R5 K17 ["DisplayOrder"]
+  GETIMPORT R6 K22 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R6 R5 K18 ["ZIndexBehavior"]
   MOVE R6 R2
   CALL R3 3 -1
   RETURN R3 -1

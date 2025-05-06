@@ -54,6 +54,58 @@ PROTO_5:
 
 PROTO_6:
   GETUPVAL R2 0
+  DUPTABLE R4 K3 [{"ikTargetInstanceName", "ikTargetPath", "showAddIkTargetPrompt"}]
+  SETTABLEKS R0 R4 K0 ["ikTargetInstanceName"]
+  SETTABLEKS R1 R4 K1 ["ikTargetPath"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["showAddIkTargetPrompt"]
+  NAMECALL R2 R2 K4 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  DUPTABLE R2 K3 [{"ikTargetInstanceName", "ikTargetPath", "showAddIkTargetPrompt"}]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["None"]
+  SETTABLEKS R3 R2 K0 ["ikTargetInstanceName"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["None"]
+  SETTABLEKS R3 R2 K1 ["ikTargetPath"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["showAddIkTargetPrompt"]
+  NAMECALL R0 R0 K5 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  DUPTABLE R4 K3 [{"ikTargetPath", "ikTargetInstanceName", "showSelectIkTargetPrompt"}]
+  SETTABLEKS R1 R4 K0 ["ikTargetPath"]
+  SETTABLEKS R0 R4 K1 ["ikTargetInstanceName"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["showSelectIkTargetPrompt"]
+  NAMECALL R2 R2 K4 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  DUPTABLE R2 K3 [{"ikTargetPath", "ikTargetInstanceName", "showSelectIkTargetPrompt"}]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["None"]
+  SETTABLEKS R3 R2 K0 ["ikTargetPath"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["None"]
+  SETTABLEKS R3 R2 K1 ["ikTargetInstanceName"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["showSelectIkTargetPrompt"]
+  NAMECALL R0 R0 K5 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["SetReduceKeyframesDialogMode"]
   GETUPVAL R3 1
@@ -62,7 +114,7 @@ PROTO_6:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_11:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["SetTopTrackIndex"]
@@ -78,7 +130,7 @@ PROTO_7:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_12:
   JUMPIFNOTEQKS R1 K0 ["forward"] [+14]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K1 ["props"]
@@ -99,7 +151,7 @@ PROTO_8:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_13:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["state"]
   GETTABLEKS R2 R3 K1 ["TrackListWidth"]
@@ -120,7 +172,7 @@ PROTO_9:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_14:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["props"]
   GETTABLEKS R4 R5 K1 ["SetPlayState"]
@@ -145,7 +197,7 @@ PROTO_10:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_15:
   GETUPVAL R0 0
   DUPTABLE R2 K1 [{"showContextMenu"}]
   LOADB R3 0
@@ -154,7 +206,7 @@ PROTO_11:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_16:
   GETUPVAL R0 0
   DUPTABLE R2 K1 [{"showPromotePrompt"}]
   LOADB R3 1
@@ -163,7 +215,7 @@ PROTO_12:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_17:
   GETUPVAL R0 0
   DUPTABLE R2 K1 [{"showPromotePrompt"}]
   LOADB R3 0
@@ -172,7 +224,7 @@ PROTO_13:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_18:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["CancelAnimationFromVideoImport"]
@@ -182,7 +234,7 @@ PROTO_14:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_19:
   GETTABLEKS R2 R0 K0 ["Position"]
   GETTABLEKS R1 R2 K1 ["X"]
   GETUPVAL R5 0
@@ -205,7 +257,7 @@ PROTO_15:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_20:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["SelectedTracks"]
@@ -242,7 +294,7 @@ PROTO_16:
   CALL R4 -1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_21:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Tracks"]
@@ -309,7 +361,7 @@ PROTO_17:
   CALL R7 1 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_22:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["SetSelectedTracks"]
@@ -364,7 +416,7 @@ PROTO_18:
   CALL R5 6 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_23:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["props"]
   GETTABLEKS R3 R4 K1 ["AddTrack"]
@@ -379,7 +431,7 @@ PROTO_19:
   CALL R3 6 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_24:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["AttachEditor"]
@@ -389,62 +441,65 @@ PROTO_20:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_21:
-  GETUPVAL R7 0
+PROTO_25:
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIF R5 [+8]
+  GETUPVAL R7 1
   GETTABLEKS R6 R7 K0 ["TRACK_TYPES"]
   GETTABLEKS R5 R6 K1 ["Facs"]
   JUMPIFEQ R2 R5 [+2]
   RETURN R0 0
   GETTABLEN R5 R1 1
-  GETUPVAL R8 0
+  GETUPVAL R8 1
   GETTABLEKS R7 R8 K2 ["FacsCrossMappings"]
   GETTABLE R6 R7 R5
   JUMPIFEQKN R4 K3 [0] [+74]
   NEWTABLE R7 4 0
-  GETUPVAL R10 0
+  GETUPVAL R10 1
   GETTABLEKS R9 R10 K4 ["FacsNames"]
   GETTABLEKS R8 R9 K5 ["EyesLookLeft"]
-  GETUPVAL R11 0
+  GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["FacsNames"]
   GETTABLEKS R9 R10 K6 ["EyesLookRight"]
   SETTABLE R9 R7 R8
-  GETUPVAL R10 0
+  GETUPVAL R10 1
   GETTABLEKS R9 R10 K4 ["FacsNames"]
   GETTABLEKS R8 R9 K6 ["EyesLookRight"]
-  GETUPVAL R11 0
+  GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["FacsNames"]
   GETTABLEKS R9 R10 K5 ["EyesLookLeft"]
   SETTABLE R9 R7 R8
-  GETUPVAL R10 0
+  GETUPVAL R10 1
   GETTABLEKS R9 R10 K4 ["FacsNames"]
   GETTABLEKS R8 R9 K7 ["EyesLookUp"]
-  GETUPVAL R11 0
+  GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["FacsNames"]
   GETTABLEKS R9 R10 K7 ["EyesLookUp"]
   SETTABLE R9 R7 R8
-  GETUPVAL R10 0
+  GETUPVAL R10 1
   GETTABLEKS R9 R10 K4 ["FacsNames"]
   GETTABLEKS R8 R9 K8 ["EyesLookDown"]
-  GETUPVAL R11 0
+  GETUPVAL R11 1
   GETTABLEKS R10 R11 K4 ["FacsNames"]
   GETTABLEKS R9 R10 K8 ["EyesLookDown"]
   SETTABLE R9 R7 R8
   GETTABLE R8 R7 R5
   JUMPIFNOT R8 [+25]
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   GETTABLEKS R9 R10 K9 ["props"]
   GETTABLEKS R8 R9 K10 ["ValueChanged"]
   MOVE R9 R0
   NEWTABLE R10 0 1
   GETTABLE R11 R7 R5
   SETLIST R10 R11 1 [1]
-  GETUPVAL R13 0
+  GETUPVAL R13 1
   GETTABLEKS R12 R13 K0 ["TRACK_TYPES"]
   GETTABLEKS R11 R12 K1 ["Facs"]
   LOADNIL R12
   MOVE R13 R3
   LOADN R14 0
-  GETUPVAL R17 1
+  GETUPVAL R17 2
   GETTABLEKS R16 R17 K9 ["props"]
   GETTABLEKS R15 R16 K11 ["Analytics"]
   CALL R8 7 0
@@ -459,30 +514,30 @@ PROTO_21:
   GETTABLEN R8 R7 2
   JUMP [+1]
   GETTABLEN R8 R7 1
-  GETUPVAL R11 1
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K9 ["props"]
   GETTABLEKS R9 R10 K10 ["ValueChanged"]
   MOVE R10 R0
   NEWTABLE R11 0 1
   MOVE R12 R8
   SETLIST R11 R12 1 [1]
-  GETUPVAL R14 0
+  GETUPVAL R14 1
   GETTABLEKS R13 R14 K0 ["TRACK_TYPES"]
   GETTABLEKS R12 R13 K1 ["Facs"]
   LOADNIL R13
   MOVE R14 R3
   LOADN R15 0
-  GETUPVAL R18 1
+  GETUPVAL R18 2
   GETTABLEKS R17 R18 K9 ["props"]
   GETTABLEKS R16 R17 K11 ["Analytics"]
   CALL R9 7 0
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   GETTABLEKS R9 R10 K9 ["props"]
   GETTABLEKS R8 R9 K15 ["SymmetryEnabled"]
   JUMPIFNOT R8 [+12]
   GETTABLEKS R8 R6 K16 ["symmetryPartner"]
   JUMPIFNOT R8 [+9]
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   GETTABLEKS R9 R10 K17 ["applyValueToSymmetryPartner"]
   MOVE R10 R0
   MOVE R11 R8
@@ -492,7 +547,7 @@ PROTO_21:
   CALL R9 5 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_26:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K0 ["props"]
   GETTABLEKS R5 R6 K1 ["ValueChanged"]
@@ -500,27 +555,34 @@ PROTO_22:
   NEWTABLE R7 0 1
   MOVE R8 R1
   SETLIST R7 R8 1 [1]
+  GETUPVAL R9 1
+  CALL R9 0 1
+  JUMPIFNOT R9 [+6]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K2 ["TRACK_TYPES"]
+  GETTABLEKS R8 R9 K3 ["Facs"]
+  JUMP [+1]
   MOVE R8 R2
   LOADNIL R9
   MOVE R10 R3
   MOVE R11 R4
   GETUPVAL R14 0
   GETTABLEKS R13 R14 K0 ["props"]
-  GETTABLEKS R12 R13 K2 ["Analytics"]
+  GETTABLEKS R12 R13 K4 ["Analytics"]
   CALL R5 7 0
   JUMPIFEQKNIL R4 [+4]
   LOADN R5 0
   JUMPIFNOTLE R4 R5 [+2]
   RETURN R0 0
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K3 ["FacsCrossMappings"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K5 ["FacsCrossMappings"]
   GETTABLE R5 R6 R1
-  GETTABLEKS R6 R5 K4 ["sliderGroup"]
+  GETTABLEKS R6 R5 K6 ["sliderGroup"]
   JUMPIF R6 [+1]
   RETURN R0 0
   LOADNIL R7
-  GETTABLEKS R8 R5 K5 ["indexInGroup"]
-  JUMPIFNOTEQKN R8 K6 [1] [+3]
+  GETTABLEKS R8 R5 K7 ["indexInGroup"]
+  JUMPIFNOTEQKN R8 K8 [1] [+3]
   GETTABLEN R7 R6 2
   JUMP [+1]
   GETTABLEN R7 R6 1
@@ -531,17 +593,24 @@ PROTO_22:
   NEWTABLE R10 0 1
   MOVE R11 R7
   SETLIST R10 R11 1 [1]
+  GETUPVAL R12 1
+  CALL R12 0 1
+  JUMPIFNOT R12 [+6]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K2 ["TRACK_TYPES"]
+  GETTABLEKS R11 R12 K3 ["Facs"]
+  JUMP [+1]
   MOVE R11 R2
   LOADNIL R12
   MOVE R13 R3
   LOADN R14 0
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K0 ["props"]
-  GETTABLEKS R15 R16 K2 ["Analytics"]
+  GETTABLEKS R15 R16 K4 ["Analytics"]
   CALL R8 7 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_27:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["props"]
   GETTABLEKS R3 R4 K1 ["ValueChanged"]
@@ -562,7 +631,7 @@ PROTO_23:
   CALL R3 7 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_28:
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K0 ["props"]
   GETTABLEKS R6 R7 K1 ["AnimationData"]
@@ -646,7 +715,7 @@ PROTO_24:
   CLOSEUPVALS R3
   RETURN R0 0
 
-PROTO_25:
+PROTO_29:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["PromoteKeyframeSequence"]
@@ -666,118 +735,142 @@ PROTO_25:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_26:
-  DUPTABLE R1 K7 [{"AbsoluteSize", "TrackListWidth", "showContextMenu", "showChangeFPSPrompt", "showChangeGridSpeedPrompt", "showChangePlaybackSpeedPrompt", "showPromotePrompt"}]
-  GETIMPORT R2 K10 [Vector2.new]
+PROTO_30:
+  DUPTABLE R1 K11 [{"AbsoluteSize", "TrackListWidth", "ikTargetInstanceName", "ikTargetPath", "showAddIkTargetPrompt", "showSelectIkTargetPrompt", "showContextMenu", "showChangeFPSPrompt", "showChangeGridSpeedPrompt", "showChangePlaybackSpeedPrompt", "showPromotePrompt"}]
+  GETIMPORT R2 K14 [Vector2.new]
   CALL R2 0 1
   SETTABLEKS R2 R1 K0 ["AbsoluteSize"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K11 ["TRACK_LIST_START_WIDTH"]
+  GETTABLEKS R2 R3 K15 ["TRACK_LIST_START_WIDTH"]
   SETTABLEKS R2 R1 K1 ["TrackListWidth"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K2 ["ikTargetInstanceName"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K3 ["ikTargetPath"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K2 ["showContextMenu"]
+  SETTABLEKS R2 R1 K4 ["showAddIkTargetPrompt"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K3 ["showChangeFPSPrompt"]
+  SETTABLEKS R2 R1 K5 ["showSelectIkTargetPrompt"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K4 ["showChangeGridSpeedPrompt"]
+  SETTABLEKS R2 R1 K6 ["showContextMenu"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K5 ["showChangePlaybackSpeedPrompt"]
+  SETTABLEKS R2 R1 K7 ["showChangeFPSPrompt"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K6 ["showPromotePrompt"]
-  SETTABLEKS R1 R0 K12 ["state"]
+  SETTABLEKS R2 R1 K8 ["showChangeGridSpeedPrompt"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K9 ["showChangePlaybackSpeedPrompt"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K10 ["showPromotePrompt"]
+  SETTABLEKS R1 R0 K16 ["state"]
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K13 ["nameToPart"]
+  SETTABLEKS R1 R0 K17 ["nameToPart"]
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K3 ["showChangeFPSPrompt"]
+  SETTABLEKS R1 R0 K7 ["showChangeFPSPrompt"]
   NEWCLOSURE R1 P1
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K14 ["hideChangeFPSPrompt"]
+  SETTABLEKS R1 R0 K18 ["hideChangeFPSPrompt"]
   NEWCLOSURE R1 P2
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K4 ["showChangeGridSpeedPrompt"]
+  SETTABLEKS R1 R0 K8 ["showChangeGridSpeedPrompt"]
   NEWCLOSURE R1 P3
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K15 ["hideChangeGridSpeedPrompt"]
+  SETTABLEKS R1 R0 K19 ["hideChangeGridSpeedPrompt"]
   NEWCLOSURE R1 P4
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K5 ["showChangePlaybackSpeedPrompt"]
+  SETTABLEKS R1 R0 K9 ["showChangePlaybackSpeedPrompt"]
   NEWCLOSURE R1 P5
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K16 ["hideChangePlaybackSpeedPrompt"]
+  SETTABLEKS R1 R0 K20 ["hideChangePlaybackSpeedPrompt"]
   NEWCLOSURE R1 P6
   CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K17 ["hideReduceKeyframesDialog"]
+  SETTABLEKS R1 R0 K4 ["showAddIkTargetPrompt"]
   NEWCLOSURE R1 P7
   CAPTURE VAL R0
-  NEWCLOSURE R2 P8
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K21 ["hideAddIkTargetPrompt"]
+  NEWCLOSURE R1 P8
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K18 ["onWheelTick"]
-  NEWCLOSURE R2 P9
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R2 R0 K19 ["onSizeUpdate"]
-  NEWCLOSURE R2 P10
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R2 R0 K20 ["showMenu"]
-  NEWCLOSURE R2 P11
-  CAPTURE VAL R0
-  SETTABLEKS R2 R0 K21 ["hideMenu"]
-  NEWCLOSURE R2 P12
-  CAPTURE VAL R0
-  SETTABLEKS R2 R0 K6 ["showPromotePrompt"]
-  NEWCLOSURE R2 P13
-  CAPTURE VAL R0
-  SETTABLEKS R2 R0 K22 ["hidePromotePrompt"]
-  NEWCLOSURE R2 P14
-  CAPTURE VAL R0
-  SETTABLEKS R2 R0 K23 ["cancelCreateFromVideo"]
-  NEWCLOSURE R2 P15
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  SETTABLEKS R2 R0 K24 ["updateTrackListWidth"]
-  NEWCLOSURE R2 P16
+  SETTABLEKS R1 R0 K5 ["showSelectIkTargetPrompt"]
+  NEWCLOSURE R1 P9
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  SETTABLEKS R2 R0 K25 ["controlSelectTrack"]
+  SETTABLEKS R1 R0 K22 ["hideSelectIkTargetPrompt"]
+  NEWCLOSURE R1 P10
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K23 ["hideReduceKeyframesDialog"]
+  NEWCLOSURE R1 P11
+  CAPTURE VAL R0
+  NEWCLOSURE R2 P12
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K24 ["onWheelTick"]
+  NEWCLOSURE R2 P13
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R0 K25 ["onSizeUpdate"]
+  NEWCLOSURE R2 P14
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R0 K26 ["showMenu"]
+  NEWCLOSURE R2 P15
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K27 ["hideMenu"]
+  NEWCLOSURE R2 P16
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K10 ["showPromotePrompt"]
   NEWCLOSURE R2 P17
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K26 ["shiftSelectTrack"]
+  SETTABLEKS R2 R0 K28 ["hidePromotePrompt"]
   NEWCLOSURE R2 P18
   CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  SETTABLEKS R2 R0 K27 ["onTrackSelected"]
+  SETTABLEKS R2 R0 K29 ["cancelCreateFromVideo"]
   NEWCLOSURE R2 P19
+  CAPTURE UPVAL U0
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K28 ["addTrackWrapper"]
+  SETTABLEKS R2 R0 K30 ["updateTrackListWidth"]
   NEWCLOSURE R2 P20
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K29 ["attachEditorWrapper"]
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R0 K31 ["controlSelectTrack"]
   NEWCLOSURE R2 P21
-  CAPTURE UPVAL U0
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K30 ["applyValueToFacsSliderPartners"]
+  SETTABLEKS R2 R0 K32 ["shiftSelectTrack"]
   NEWCLOSURE R2 P22
   CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R2 R0 K31 ["applyValueToSymmetryPartner"]
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R0 K33 ["onTrackSelected"]
   NEWCLOSURE R2 P23
   CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U2
-  SETTABLEKS R2 R0 K32 ["onValueChanged"]
+  SETTABLEKS R2 R0 K34 ["addTrackWrapper"]
   NEWCLOSURE R2 P24
   CAPTURE VAL R0
+  SETTABLEKS R2 R0 K35 ["attachEditorWrapper"]
+  NEWCLOSURE R2 P25
+  CAPTURE UPVAL U5
   CAPTURE UPVAL U0
-  SETTABLEKS R2 R0 K33 ["promoteKeyframeSequence"]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K36 ["applyValueToFacsSliderPartners"]
+  NEWCLOSURE R2 P26
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R0 K37 ["applyValueToSymmetryPartner"]
+  NEWCLOSURE R2 P27
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R0 K38 ["onValueChanged"]
+  NEWCLOSURE R2 P28
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R0 K39 ["promoteKeyframeSequence"]
   RETURN R0 0
 
-PROTO_27:
+PROTO_31:
   GETTABLEKS R2 R1 K0 ["RootInstance"]
   GETTABLEKS R4 R0 K1 ["props"]
   GETTABLEKS R3 R4 K0 ["RootInstance"]
@@ -818,7 +911,7 @@ PROTO_27:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_32:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["SetLastSelectedPath"]
   LOADNIL R1
@@ -829,14 +922,14 @@ PROTO_28:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_33:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["SetEventEditingTick"]
   GETUPVAL R1 1
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_34:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["isUp"]
   GETTABLEKS R2 R0 K1 ["KeyCode"]
@@ -896,7 +989,7 @@ PROTO_30:
   SETTABLEKS R2 R1 K11 ["shiftDown"]
   RETURN R0 0
 
-PROTO_31:
+PROTO_35:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["isControl"]
   GETTABLEKS R2 R0 K1 ["KeyCode"]
@@ -916,7 +1009,40 @@ PROTO_31:
   SETTABLEKS R2 R1 K4 ["shiftDown"]
   RETURN R0 0
 
-PROTO_32:
+PROTO_36:
+  JUMPIFNOT R0 [+17]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["AddTargetToEndEffector"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["state"]
+  GETTABLEKS R2 R3 K3 ["ikTargetInstanceName"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["state"]
+  GETTABLEKS R3 R4 K4 ["ikTargetPath"]
+  MOVE R4 R0
+  CALL R1 3 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["hideAddIkTargetPrompt"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_37:
+  JUMPIFNOT R0 [+12]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["SetIkTargetInstance"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["state"]
+  GETTABLEKS R2 R3 K3 ["ikTargetPath"]
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["hideSelectIkTargetPrompt"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_38:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Stylizer"]
@@ -949,713 +1075,749 @@ PROTO_32:
   LOADB R25 0 +1
   LOADB R25 1
   GETTABLEKS R26 R1 K24 ["inReviewState"]
-  GETTABLEKS R27 R2 K25 ["showChangeFPSPrompt"]
-  GETTABLEKS R28 R2 K26 ["showChangeGridSpeedPrompt"]
-  GETTABLEKS R29 R2 K27 ["showChangePlaybackSpeedPrompt"]
+  GETTABLEKS R27 R2 K25 ["showAddIkTargetPrompt"]
+  GETTABLEKS R28 R2 K26 ["showChangeFPSPrompt"]
+  GETTABLEKS R29 R2 K27 ["showChangeGridSpeedPrompt"]
+  GETTABLEKS R30 R2 K28 ["showChangePlaybackSpeedPrompt"]
   JUMPIFNOTEQKNIL R20 [+2]
-  LOADB R30 0 +1
-  LOADB R30 1
-  GETTABLEKS R31 R1 K28 ["VisualizeGrid"]
-  GETTABLEKS R32 R2 K29 ["showPromotePrompt"]
-  GETUPVAL R34 1
-  GETTABLEKS R33 R34 K30 ["isChannelAnimation"]
-  MOVE R34 R20
-  CALL R33 1 1
-  GETTABLEKS R34 R1 K31 ["CreatingAnimationFromVideo"]
-  GETTABLEKS R35 R1 K32 ["AnimationImportProgress"]
-  GETTABLEKS R36 R1 K33 ["AnimationImportStatus"]
+  LOADB R31 0 +1
+  LOADB R31 1
+  GETTABLEKS R32 R1 K29 ["VisualizeGrid"]
+  GETTABLEKS R33 R2 K30 ["showPromotePrompt"]
+  GETTABLEKS R34 R2 K31 ["showSelectIkTargetPrompt"]
+  GETUPVAL R36 1
+  GETTABLEKS R35 R36 K32 ["isChannelAnimation"]
+  MOVE R36 R20
+  CALL R35 1 1
+  GETTABLEKS R36 R1 K33 ["CreatingAnimationFromVideo"]
+  GETTABLEKS R37 R1 K34 ["AnimationImportProgress"]
+  GETTABLEKS R38 R1 K35 ["AnimationImportStatus"]
   JUMPIFNOT R20 [+17]
-  GETUPVAL R38 2
-  GETTABLEKS R37 R38 K34 ["getZoomRange"]
-  GETTABLEKS R38 R1 K16 ["AnimationData"]
-  MOVE R39 R16
-  MOVE R40 R17
-  MOVE R41 R10
-  CALL R37 4 1
-  GETTABLEKS R4 R37 K35 ["Start"]
-  GETTABLEKS R5 R37 K36 ["End"]
-  GETTABLEKS R38 R20 K37 ["Metadata"]
-  GETTABLEKS R6 R38 K38 ["EndTick"]
-  AND R21 R21 R30
-  LOADNIL R37
-  GETTABLEKS R38 R1 K19 ["RootInstance"]
-  JUMPIFNOT R38 [+10]
-  GETTABLEKS R39 R1 K19 ["RootInstance"]
-  GETTABLEKS R38 R39 K39 ["Name"]
-  JUMPIFNOT R38 [+5]
-  GETTABLEKS R38 R1 K19 ["RootInstance"]
-  GETTABLEKS R37 R38 K39 ["Name"]
+  GETUPVAL R40 2
+  GETTABLEKS R39 R40 K36 ["getZoomRange"]
+  GETTABLEKS R40 R1 K16 ["AnimationData"]
+  MOVE R41 R16
+  MOVE R42 R17
+  MOVE R43 R10
+  CALL R39 4 1
+  GETTABLEKS R4 R39 K37 ["Start"]
+  GETTABLEKS R5 R39 K38 ["End"]
+  GETTABLEKS R40 R20 K39 ["Metadata"]
+  GETTABLEKS R6 R40 K40 ["EndTick"]
+  AND R21 R21 R31
+  LOADNIL R39
+  GETTABLEKS R40 R1 K19 ["RootInstance"]
+  JUMPIFNOT R40 [+10]
+  GETTABLEKS R41 R1 K19 ["RootInstance"]
+  GETTABLEKS R40 R41 K41 ["Name"]
+  JUMPIFNOT R40 [+5]
+  GETTABLEKS R40 R1 K19 ["RootInstance"]
+  GETTABLEKS R39 R40 K41 ["Name"]
   JUMP [+1]
-  LOADK R37 K40 [""]
-  GETTABLEKS R39 R1 K42 ["ZIndex"]
-  ORK R38 R39 K41 [1]
-  GETTABLEKS R39 R1 K43 ["Position"]
-  GETTABLEKS R40 R1 K44 ["Size"]
+  LOADK R39 K42 [""]
+  GETTABLEKS R41 R1 K44 ["ZIndex"]
+  ORK R40 R41 K43 [1]
+  GETTABLEKS R41 R1 K45 ["Position"]
+  GETTABLEKS R42 R1 K46 ["Size"]
   JUMPIFNOT R21 [+4]
-  GETUPVAL R43 0
-  GETTABLEKS R42 R43 K45 ["TRACK_HEIGHT"]
-  JUMPIF R42 [+1]
-  LOADN R42 0
-  GETUPVAL R44 0
-  GETTABLEKS R43 R44 K46 ["SUMMARY_TRACK_HEIGHT"]
-  ADD R41 R42 R43
-  GETTABLEKS R43 R1 K47 ["EditorMode"]
+  GETUPVAL R45 0
+  GETTABLEKS R44 R45 K47 ["TRACK_HEIGHT"]
+  JUMPIF R44 [+1]
+  LOADN R44 0
   GETUPVAL R46 0
-  GETTABLEKS R45 R46 K48 ["EDITOR_MODE"]
-  GETTABLEKS R44 R45 K49 ["DopeSheet"]
-  JUMPIFEQ R43 R44 [+2]
-  LOADB R42 0 +1
-  LOADB R42 1
-  GETTABLEKS R44 R1 K50 ["ReduceKeyframesDialogMode"]
-  GETUPVAL R47 0
-  GETTABLEKS R46 R47 K51 ["REDUCE_KEYFRAMES_DIALOG_MODE"]
-  GETTABLEKS R45 R46 K52 ["Hidden"]
-  JUMPIFNOTEQ R44 R45 [+2]
-  LOADB R43 0 +1
-  LOADB R43 1
-  GETTABLEKS R44 R1 K53 ["LegacyAnimationInstances"]
-  JUMPIFNOT R44 [+8]
-  GETTABLEKS R46 R1 K53 ["LegacyAnimationInstances"]
-  LENGTH R45 R46
-  LOADN R46 0
-  JUMPIFLT R46 R45 [+2]
+  GETTABLEKS R45 R46 K48 ["SUMMARY_TRACK_HEIGHT"]
+  ADD R43 R44 R45
+  GETTABLEKS R45 R1 K49 ["EditorMode"]
+  GETUPVAL R48 0
+  GETTABLEKS R47 R48 K50 ["EDITOR_MODE"]
+  GETTABLEKS R46 R47 K51 ["DopeSheet"]
+  JUMPIFEQ R45 R46 [+2]
   LOADB R44 0 +1
   LOADB R44 1
-  GETTABLEKS R45 R1 K54 ["GridSpeed"]
-  GETUPVAL R48 0
-  GETTABLEKS R47 R48 K55 ["GRIDSPEEDS"]
-  GETTABLEKS R46 R47 K56 ["FromRig"]
-  JUMPIFNOTEQ R45 R46 [+15]
-  GETTABLEKS R46 R1 K19 ["RootInstance"]
-  JUMPIFNOT R46 [+6]
-  GETTABLEKS R46 R1 K19 ["RootInstance"]
-  LOADK R48 K57 ["Humanoid"]
-  NAMECALL R46 R46 K58 ["FindFirstChildOfClass"]
-  CALL R46 2 1
-  JUMPIFNOT R46 [+3]
-  GETTABLEKS R45 R46 K59 ["WalkSpeed"]
+  GETTABLEKS R46 R1 K52 ["ReduceKeyframesDialogMode"]
+  GETUPVAL R49 0
+  GETTABLEKS R48 R49 K53 ["REDUCE_KEYFRAMES_DIALOG_MODE"]
+  GETTABLEKS R47 R48 K54 ["Hidden"]
+  JUMPIFNOTEQ R46 R47 [+2]
+  LOADB R45 0 +1
+  LOADB R45 1
+  GETTABLEKS R46 R1 K55 ["LegacyAnimationInstances"]
+  JUMPIFNOT R46 [+8]
+  GETTABLEKS R48 R1 K55 ["LegacyAnimationInstances"]
+  LENGTH R47 R48
+  LOADN R48 0
+  JUMPIFLT R48 R47 [+2]
+  LOADB R46 0 +1
+  LOADB R46 1
+  GETTABLEKS R47 R1 K56 ["GridSpeed"]
+  GETUPVAL R50 0
+  GETTABLEKS R49 R50 K57 ["GRIDSPEEDS"]
+  GETTABLEKS R48 R49 K58 ["FromRig"]
+  JUMPIFNOTEQ R47 R48 [+15]
+  GETTABLEKS R48 R1 K19 ["RootInstance"]
+  JUMPIFNOT R48 [+6]
+  GETTABLEKS R48 R1 K19 ["RootInstance"]
+  LOADK R50 K59 ["Humanoid"]
+  NAMECALL R48 R48 K60 ["FindFirstChildOfClass"]
+  CALL R48 2 1
+  JUMPIFNOT R48 [+3]
+  GETTABLEKS R47 R48 K61 ["WalkSpeed"]
   JUMP [+1]
-  LOADN R45 0
-  GETUPVAL R47 3
-  GETTABLEKS R46 R47 K60 ["createElement"]
-  LOADK R47 K61 ["Frame"]
-  NEWTABLE R48 8 0
-  LOADN R49 1
-  SETTABLEKS R49 R48 K62 ["BackgroundTransparency"]
-  SETTABLEKS R38 R48 K42 ["ZIndex"]
-  SETTABLEKS R39 R48 K43 ["Position"]
-  SETTABLEKS R40 R48 K44 ["Size"]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K63 ["Change"]
-  GETTABLEKS R49 R50 K20 ["AbsoluteSize"]
-  GETTABLEKS R50 R0 K64 ["onSizeUpdate"]
-  SETTABLE R50 R48 R49
-  DUPTABLE R49 K85 [{"Layout", "TrackListAndControlContainer", "TrackListBorder", "TrackEditor", "SettingsAndVerticalScrollBar", "StartScreen", "Playback", "FacialAnimationRecorder", "RecordingModeCover", "InstanceSelector", "FloorGrid", "TrackActions", "InactiveCover", "ProgressScreen", "ChangeFPSPrompt", "ChangeGridSpeedPrompt", "ChangePlaybackSpeedPrompt", "PromotePrompt", "ReduceKeyframesDialog", "MigrationDialog"}]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  LOADK R51 K86 ["UIListLayout"]
-  DUPTABLE R52 K91 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
-  GETIMPORT R53 K94 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R53 R52 K87 ["FillDirection"]
-  GETIMPORT R53 K96 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R53 R52 K88 ["HorizontalAlignment"]
-  GETIMPORT R53 K98 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R53 R52 K89 ["SortOrder"]
-  GETIMPORT R53 K100 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R53 R52 K90 ["VerticalAlignment"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K65 ["Layout"]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  LOADK R51 K61 ["Frame"]
-  DUPTABLE R52 K103 [{"BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "Size", "LayoutOrder", "ZIndex"}]
-  LOADN R53 0
-  SETTABLEKS R53 R52 K62 ["BackgroundTransparency"]
-  GETTABLEKS R53 R3 K104 ["backgroundColor"]
-  SETTABLEKS R53 R52 K101 ["BackgroundColor3"]
-  LOADN R53 0
-  SETTABLEKS R53 R52 K102 ["BorderSizePixel"]
-  GETIMPORT R53 K107 [UDim2.new]
-  LOADN R54 0
-  MOVE R55 R12
-  LOADN R56 1
-  LOADN R57 0
-  CALL R53 4 1
-  SETTABLEKS R53 R52 K44 ["Size"]
-  LOADN R53 0
-  SETTABLEKS R53 R52 K97 ["LayoutOrder"]
-  LOADN R53 2
-  SETTABLEKS R53 R52 K42 ["ZIndex"]
-  DUPTABLE R53 K110 [{"Layout", "AnimationControlPanel", "EventsAndTracks"}]
-  GETUPVAL R55 3
-  GETTABLEKS R54 R55 K60 ["createElement"]
-  LOADK R55 K86 ["UIListLayout"]
-  DUPTABLE R56 K111 [{"FillDirection", "SortOrder"}]
-  GETIMPORT R57 K113 [Enum.FillDirection.Vertical]
-  SETTABLEKS R57 R56 K87 ["FillDirection"]
-  GETIMPORT R57 K98 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R57 R56 K89 ["SortOrder"]
-  CALL R54 2 1
-  SETTABLEKS R54 R53 K65 ["Layout"]
-  GETUPVAL R55 3
-  GETTABLEKS R54 R55 K60 ["createElement"]
-  GETUPVAL R55 4
-  DUPTABLE R56 K117 [{"StartTick", "EndTick", "Playhead", "EditingLength", "AnimationData", "IsLegacyAnimSaves", "TimelineUnit", "IsChannelAnimation", "LayoutOrder"}]
-  SETTABLEKS R4 R56 K114 ["StartTick"]
-  SETTABLEKS R5 R56 K38 ["EndTick"]
-  SETTABLEKS R8 R56 K4 ["Playhead"]
-  SETTABLEKS R10 R56 K6 ["EditingLength"]
-  GETTABLEKS R57 R1 K16 ["AnimationData"]
-  SETTABLEKS R57 R56 K16 ["AnimationData"]
-  GETTABLEKS R57 R1 K115 ["IsLegacyAnimSaves"]
-  SETTABLEKS R57 R56 K115 ["IsLegacyAnimSaves"]
-  SETTABLEKS R9 R56 K5 ["TimelineUnit"]
-  SETTABLEKS R33 R56 K116 ["IsChannelAnimation"]
-  LOADN R57 0
-  SETTABLEKS R57 R56 K97 ["LayoutOrder"]
-  CALL R54 2 1
-  SETTABLEKS R54 R53 K108 ["AnimationControlPanel"]
-  GETUPVAL R55 3
-  GETTABLEKS R54 R55 K60 ["createElement"]
-  LOADK R55 K118 ["ImageButton"]
-  NEWTABLE R56 8 0
-  GETIMPORT R57 K107 [UDim2.new]
-  LOADN R58 0
-  MOVE R59 R12
-  LOADN R60 1
-  GETUPVAL R63 0
-  GETTABLEKS R62 R63 K119 ["TIMELINE_HEIGHT"]
-  MINUS R61 R62
-  CALL R57 4 1
-  SETTABLEKS R57 R56 K44 ["Size"]
-  LOADN R57 1
-  SETTABLEKS R57 R56 K62 ["BackgroundTransparency"]
-  LOADN R57 1
-  SETTABLEKS R57 R56 K120 ["ImageTransparency"]
-  LOADN R57 1
-  SETTABLEKS R57 R56 K97 ["LayoutOrder"]
-  GETUPVAL R59 3
-  GETTABLEKS R58 R59 K121 ["Event"]
-  GETTABLEKS R57 R58 K122 ["Activated"]
-  NEWCLOSURE R58 P0
+  LOADN R47 0
+  GETUPVAL R49 3
+  GETTABLEKS R48 R49 K62 ["createElement"]
+  LOADK R49 K63 ["Frame"]
+  NEWTABLE R50 8 0
+  LOADN R51 1
+  SETTABLEKS R51 R50 K64 ["BackgroundTransparency"]
+  SETTABLEKS R40 R50 K44 ["ZIndex"]
+  SETTABLEKS R41 R50 K45 ["Position"]
+  SETTABLEKS R42 R50 K46 ["Size"]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K65 ["Change"]
+  GETTABLEKS R51 R52 K20 ["AbsoluteSize"]
+  GETTABLEKS R52 R0 K66 ["onSizeUpdate"]
+  SETTABLE R52 R50 R51
+  DUPTABLE R51 K89 [{"Layout", "TrackListAndControlContainer", "TrackListBorder", "TrackEditor", "SettingsAndVerticalScrollBar", "StartScreen", "Playback", "FacialAnimationRecorder", "RecordingModeCover", "InstanceSelector", "FloorGrid", "TrackActions", "InactiveCover", "ProgressScreen", "ChangeFPSPrompt", "ChangeGridSpeedPrompt", "ChangePlaybackSpeedPrompt", "PromotePrompt", "ReduceKeyframesDialog", "MigrationDialog", "AddIkTargetPrompt", "SelectIkTargetPrompt"}]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  LOADK R53 K90 ["UIListLayout"]
+  DUPTABLE R54 K95 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
+  GETIMPORT R55 K98 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R55 R54 K91 ["FillDirection"]
+  GETIMPORT R55 K100 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R55 R54 K92 ["HorizontalAlignment"]
+  GETIMPORT R55 K102 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R55 R54 K93 ["SortOrder"]
+  GETIMPORT R55 K104 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R55 R54 K94 ["VerticalAlignment"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K67 ["Layout"]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  LOADK R53 K63 ["Frame"]
+  DUPTABLE R54 K107 [{"BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "Size", "LayoutOrder", "ZIndex"}]
+  LOADN R55 0
+  SETTABLEKS R55 R54 K64 ["BackgroundTransparency"]
+  GETTABLEKS R55 R3 K108 ["backgroundColor"]
+  SETTABLEKS R55 R54 K105 ["BackgroundColor3"]
+  LOADN R55 0
+  SETTABLEKS R55 R54 K106 ["BorderSizePixel"]
+  GETIMPORT R55 K111 [UDim2.new]
+  LOADN R56 0
+  MOVE R57 R12
+  LOADN R58 1
+  LOADN R59 0
+  CALL R55 4 1
+  SETTABLEKS R55 R54 K46 ["Size"]
+  LOADN R55 0
+  SETTABLEKS R55 R54 K101 ["LayoutOrder"]
+  LOADN R55 2
+  SETTABLEKS R55 R54 K44 ["ZIndex"]
+  DUPTABLE R55 K114 [{"Layout", "AnimationControlPanel", "EventsAndTracks"}]
+  GETUPVAL R57 3
+  GETTABLEKS R56 R57 K62 ["createElement"]
+  LOADK R57 K90 ["UIListLayout"]
+  DUPTABLE R58 K115 [{"FillDirection", "SortOrder"}]
+  GETIMPORT R59 K117 [Enum.FillDirection.Vertical]
+  SETTABLEKS R59 R58 K91 ["FillDirection"]
+  GETIMPORT R59 K102 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R59 R58 K93 ["SortOrder"]
+  CALL R56 2 1
+  SETTABLEKS R56 R55 K67 ["Layout"]
+  GETUPVAL R57 3
+  GETTABLEKS R56 R57 K62 ["createElement"]
+  GETUPVAL R57 4
+  DUPTABLE R58 K121 [{"StartTick", "EndTick", "Playhead", "EditingLength", "AnimationData", "IsLegacyAnimSaves", "TimelineUnit", "IsChannelAnimation", "LayoutOrder"}]
+  SETTABLEKS R4 R58 K118 ["StartTick"]
+  SETTABLEKS R5 R58 K40 ["EndTick"]
+  SETTABLEKS R8 R58 K4 ["Playhead"]
+  SETTABLEKS R10 R58 K6 ["EditingLength"]
+  GETTABLEKS R59 R1 K16 ["AnimationData"]
+  SETTABLEKS R59 R58 K16 ["AnimationData"]
+  GETTABLEKS R59 R1 K119 ["IsLegacyAnimSaves"]
+  SETTABLEKS R59 R58 K119 ["IsLegacyAnimSaves"]
+  SETTABLEKS R9 R58 K5 ["TimelineUnit"]
+  SETTABLEKS R35 R58 K120 ["IsChannelAnimation"]
+  LOADN R59 0
+  SETTABLEKS R59 R58 K101 ["LayoutOrder"]
+  CALL R56 2 1
+  SETTABLEKS R56 R55 K112 ["AnimationControlPanel"]
+  GETUPVAL R57 3
+  GETTABLEKS R56 R57 K62 ["createElement"]
+  LOADK R57 K122 ["ImageButton"]
+  NEWTABLE R58 8 0
+  GETIMPORT R59 K111 [UDim2.new]
+  LOADN R60 0
+  MOVE R61 R12
+  LOADN R62 1
+  GETUPVAL R65 0
+  GETTABLEKS R64 R65 K123 ["TIMELINE_HEIGHT"]
+  MINUS R63 R64
+  CALL R59 4 1
+  SETTABLEKS R59 R58 K46 ["Size"]
+  LOADN R59 1
+  SETTABLEKS R59 R58 K64 ["BackgroundTransparency"]
+  LOADN R59 1
+  SETTABLEKS R59 R58 K124 ["ImageTransparency"]
+  LOADN R59 1
+  SETTABLEKS R59 R58 K101 ["LayoutOrder"]
+  GETUPVAL R61 3
+  GETTABLEKS R60 R61 K125 ["Event"]
+  GETTABLEKS R59 R60 K126 ["Activated"]
+  NEWCLOSURE R60 P0
   CAPTURE VAL R1
-  SETTABLE R58 R56 R57
-  DUPTABLE R57 K127 [{"Layout", "EventsTitle", "TrackListAndScrollBar", "KeyboardListener", "IgnoreLayout"}]
-  GETUPVAL R59 3
-  GETTABLEKS R58 R59 K60 ["createElement"]
-  LOADK R59 K86 ["UIListLayout"]
-  DUPTABLE R60 K111 [{"FillDirection", "SortOrder"}]
-  GETIMPORT R61 K113 [Enum.FillDirection.Vertical]
-  SETTABLEKS R61 R60 K87 ["FillDirection"]
-  GETIMPORT R61 K98 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R61 R60 K89 ["SortOrder"]
-  CALL R58 2 1
-  SETTABLEKS R58 R57 K65 ["Layout"]
-  MOVE R58 R21
-  JUMPIFNOT R58 [+17]
-  GETUPVAL R59 3
-  GETTABLEKS R58 R59 K60 ["createElement"]
-  GETUPVAL R59 5
-  DUPTABLE R60 K130 [{"LayoutOrder", "Indent", "OnButtonClick"}]
-  LOADN R61 0
-  SETTABLEKS R61 R60 K97 ["LayoutOrder"]
-  LOADN R61 1
-  SETTABLEKS R61 R60 K128 ["Indent"]
-  NEWCLOSURE R61 P1
+  SETTABLE R60 R58 R59
+  DUPTABLE R59 K131 [{"Layout", "EventsTitle", "TrackListAndScrollBar", "KeyboardListener", "IgnoreLayout"}]
+  GETUPVAL R61 3
+  GETTABLEKS R60 R61 K62 ["createElement"]
+  LOADK R61 K90 ["UIListLayout"]
+  DUPTABLE R62 K115 [{"FillDirection", "SortOrder"}]
+  GETIMPORT R63 K117 [Enum.FillDirection.Vertical]
+  SETTABLEKS R63 R62 K91 ["FillDirection"]
+  GETIMPORT R63 K102 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R63 R62 K93 ["SortOrder"]
+  CALL R60 2 1
+  SETTABLEKS R60 R59 K67 ["Layout"]
+  MOVE R60 R21
+  JUMPIFNOT R60 [+17]
+  GETUPVAL R61 3
+  GETTABLEKS R60 R61 K62 ["createElement"]
+  GETUPVAL R61 5
+  DUPTABLE R62 K134 [{"LayoutOrder", "Indent", "OnButtonClick"}]
+  LOADN R63 0
+  SETTABLEKS R63 R62 K101 ["LayoutOrder"]
+  LOADN R63 1
+  SETTABLEKS R63 R62 K132 ["Indent"]
+  NEWCLOSURE R63 P1
   CAPTURE VAL R1
   CAPTURE VAL R8
-  SETTABLEKS R61 R60 K129 ["OnButtonClick"]
-  CALL R58 2 1
-  SETTABLEKS R58 R57 K123 ["EventsTitle"]
-  GETUPVAL R59 3
-  GETTABLEKS R58 R59 K60 ["createElement"]
-  LOADK R59 K61 ["Frame"]
-  DUPTABLE R60 K131 [{"Size", "LayoutOrder", "BackgroundTransparency", "BorderSizePixel"}]
-  GETIMPORT R61 K107 [UDim2.new]
-  LOADN R62 1
-  LOADN R63 0
+  SETTABLEKS R63 R62 K133 ["OnButtonClick"]
+  CALL R60 2 1
+  SETTABLEKS R60 R59 K127 ["EventsTitle"]
+  GETUPVAL R61 3
+  GETTABLEKS R60 R61 K62 ["createElement"]
+  LOADK R61 K63 ["Frame"]
+  DUPTABLE R62 K135 [{"Size", "LayoutOrder", "BackgroundTransparency", "BorderSizePixel"}]
+  GETIMPORT R63 K111 [UDim2.new]
   LOADN R64 1
-  JUMPIFNOT R21 [+5]
-  GETUPVAL R67 0
-  GETTABLEKS R66 R67 K45 ["TRACK_HEIGHT"]
-  MINUS R65 R66
-  JUMPIF R65 [+1]
   LOADN R65 0
-  CALL R61 4 1
-  SETTABLEKS R61 R60 K44 ["Size"]
-  LOADN R61 1
-  SETTABLEKS R61 R60 K97 ["LayoutOrder"]
-  LOADN R61 1
-  SETTABLEKS R61 R60 K62 ["BackgroundTransparency"]
-  LOADN R61 0
-  SETTABLEKS R61 R60 K102 ["BorderSizePixel"]
-  DUPTABLE R61 K134 [{"TrackList", "TrackScrollbarFrame"}]
-  GETUPVAL R63 3
-  GETTABLEKS R62 R63 K60 ["createElement"]
-  GETUPVAL R63 6
-  DUPTABLE R64 K143 [{"Size", "TopTrackIndex", "Tracks", "SelectedTracks", "UnusedTracks", "UnusedFacs", "AnimationData", "Playhead", "RootName", "OnWheelTick", "OpenContextMenu", "ToggleTrackExpanded", "OnTrackAdded", "OnValueChanged", "OnChangeBegan", "OnTrackSelected"}]
-  GETIMPORT R65 K107 [UDim2.new]
   LOADN R66 1
-  GETUPVAL R70 0
-  GETTABLEKS R69 R70 K144 ["SCROLL_BAR_SIZE"]
-  MINUS R68 R69
-  SUBK R67 R68 K41 [1]
-  LOADN R68 1
-  LOADN R69 0
-  CALL R65 4 1
-  SETTABLEKS R65 R64 K44 ["Size"]
-  SETTABLEKS R11 R64 K7 ["TopTrackIndex"]
-  SETTABLEKS R13 R64 K9 ["Tracks"]
-  SETTABLEKS R22 R64 K18 ["SelectedTracks"]
-  SETTABLEKS R14 R64 K10 ["UnusedTracks"]
-  SETTABLEKS R15 R64 K11 ["UnusedFacs"]
-  SETTABLEKS R20 R64 K16 ["AnimationData"]
-  SETTABLEKS R8 R64 K4 ["Playhead"]
-  SETTABLEKS R37 R64 K135 ["RootName"]
-  GETTABLEKS R65 R0 K145 ["onWheelTick"]
-  SETTABLEKS R65 R64 K136 ["OnWheelTick"]
-  GETTABLEKS R65 R0 K146 ["showMenu"]
-  SETTABLEKS R65 R64 K137 ["OpenContextMenu"]
-  GETTABLEKS R65 R1 K147 ["SetTracksExpanded"]
-  SETTABLEKS R65 R64 K138 ["ToggleTrackExpanded"]
-  GETTABLEKS R65 R0 K148 ["addTrackWrapper"]
-  SETTABLEKS R65 R64 K139 ["OnTrackAdded"]
-  GETTABLEKS R65 R0 K149 ["onValueChanged"]
-  SETTABLEKS R65 R64 K140 ["OnValueChanged"]
-  GETTABLEKS R65 R1 K150 ["AddWaypoint"]
-  SETTABLEKS R65 R64 K141 ["OnChangeBegan"]
-  GETTABLEKS R65 R0 K151 ["onTrackSelected"]
-  SETTABLEKS R65 R64 K142 ["OnTrackSelected"]
-  CALL R62 2 1
-  SETTABLEKS R62 R61 K132 ["TrackList"]
-  GETUPVAL R63 3
-  GETTABLEKS R62 R63 K60 ["createElement"]
-  LOADK R63 K61 ["Frame"]
-  DUPTABLE R64 K152 [{"Size", "Position", "BackgroundColor3"}]
-  GETIMPORT R65 K107 [UDim2.new]
-  LOADN R66 0
-  GETUPVAL R68 0
-  GETTABLEKS R67 R68 K144 ["SCROLL_BAR_SIZE"]
-  LOADN R68 1
-  LOADN R69 0
-  CALL R65 4 1
-  SETTABLEKS R65 R64 K44 ["Size"]
-  GETIMPORT R65 K107 [UDim2.new]
-  LOADN R66 1
+  JUMPIFNOT R21 [+5]
   GETUPVAL R69 0
-  GETTABLEKS R68 R69 K144 ["SCROLL_BAR_SIZE"]
+  GETTABLEKS R68 R69 K47 ["TRACK_HEIGHT"]
   MINUS R67 R68
-  LOADN R68 0
-  LOADN R69 0
-  CALL R65 4 1
-  SETTABLEKS R65 R64 K43 ["Position"]
-  GETTABLEKS R66 R3 K153 ["scrollBarTheme"]
-  GETTABLEKS R65 R66 K104 ["backgroundColor"]
-  SETTABLEKS R65 R64 K101 ["BackgroundColor3"]
-  DUPTABLE R65 K155 [{"TrackScrollbar"}]
-  GETUPVAL R67 3
-  GETTABLEKS R66 R67 K60 ["createElement"]
-  GETUPVAL R67 7
-  DUPTABLE R68 K158 [{"Size", "TopTrackIndex", "NumTracks", "SetTopTrackIndex", "OnWheelTick"}]
-  GETIMPORT R69 K107 [UDim2.new]
+  JUMPIF R67 [+1]
+  LOADN R67 0
+  CALL R63 4 1
+  SETTABLEKS R63 R62 K46 ["Size"]
+  LOADN R63 1
+  SETTABLEKS R63 R62 K101 ["LayoutOrder"]
+  LOADN R63 1
+  SETTABLEKS R63 R62 K64 ["BackgroundTransparency"]
+  LOADN R63 0
+  SETTABLEKS R63 R62 K106 ["BorderSizePixel"]
+  DUPTABLE R63 K138 [{"TrackList", "TrackScrollbarFrame"}]
+  GETUPVAL R65 3
+  GETTABLEKS R64 R65 K62 ["createElement"]
+  GETUPVAL R65 6
+  DUPTABLE R66 K147 [{"Size", "TopTrackIndex", "Tracks", "SelectedTracks", "UnusedTracks", "UnusedFacs", "AnimationData", "Playhead", "RootName", "OnWheelTick", "OpenContextMenu", "ToggleTrackExpanded", "OnTrackAdded", "OnValueChanged", "OnChangeBegan", "OnTrackSelected"}]
+  GETIMPORT R67 K111 [UDim2.new]
+  LOADN R68 1
+  GETUPVAL R72 0
+  GETTABLEKS R71 R72 K148 ["SCROLL_BAR_SIZE"]
+  MINUS R70 R71
+  SUBK R69 R70 K43 [1]
   LOADN R70 1
   LOADN R71 0
+  CALL R67 4 1
+  SETTABLEKS R67 R66 K46 ["Size"]
+  SETTABLEKS R11 R66 K7 ["TopTrackIndex"]
+  SETTABLEKS R13 R66 K9 ["Tracks"]
+  SETTABLEKS R22 R66 K18 ["SelectedTracks"]
+  SETTABLEKS R14 R66 K10 ["UnusedTracks"]
+  SETTABLEKS R15 R66 K11 ["UnusedFacs"]
+  SETTABLEKS R20 R66 K16 ["AnimationData"]
+  SETTABLEKS R8 R66 K4 ["Playhead"]
+  SETTABLEKS R39 R66 K139 ["RootName"]
+  GETTABLEKS R67 R0 K149 ["onWheelTick"]
+  SETTABLEKS R67 R66 K140 ["OnWheelTick"]
+  GETTABLEKS R67 R0 K150 ["showMenu"]
+  SETTABLEKS R67 R66 K141 ["OpenContextMenu"]
+  GETTABLEKS R67 R1 K151 ["SetTracksExpanded"]
+  SETTABLEKS R67 R66 K142 ["ToggleTrackExpanded"]
+  GETTABLEKS R67 R0 K152 ["addTrackWrapper"]
+  SETTABLEKS R67 R66 K143 ["OnTrackAdded"]
+  GETTABLEKS R67 R0 K153 ["onValueChanged"]
+  SETTABLEKS R67 R66 K144 ["OnValueChanged"]
+  GETTABLEKS R67 R1 K154 ["AddWaypoint"]
+  SETTABLEKS R67 R66 K145 ["OnChangeBegan"]
+  GETTABLEKS R67 R0 K155 ["onTrackSelected"]
+  SETTABLEKS R67 R66 K146 ["OnTrackSelected"]
+  CALL R64 2 1
+  SETTABLEKS R64 R63 K136 ["TrackList"]
+  GETUPVAL R65 3
+  GETTABLEKS R64 R65 K62 ["createElement"]
+  LOADK R65 K63 ["Frame"]
+  DUPTABLE R66 K156 [{"Size", "Position", "BackgroundColor3"}]
+  GETIMPORT R67 K111 [UDim2.new]
+  LOADN R68 0
+  GETUPVAL R70 0
+  GETTABLEKS R69 R70 K148 ["SCROLL_BAR_SIZE"]
+  LOADN R70 1
+  LOADN R71 0
+  CALL R67 4 1
+  SETTABLEKS R67 R66 K46 ["Size"]
+  GETIMPORT R67 K111 [UDim2.new]
+  LOADN R68 1
+  GETUPVAL R71 0
+  GETTABLEKS R70 R71 K148 ["SCROLL_BAR_SIZE"]
+  MINUS R69 R70
+  LOADN R70 0
+  LOADN R71 0
+  CALL R67 4 1
+  SETTABLEKS R67 R66 K45 ["Position"]
+  GETTABLEKS R68 R3 K157 ["scrollBarTheme"]
+  GETTABLEKS R67 R68 K108 ["backgroundColor"]
+  SETTABLEKS R67 R66 K105 ["BackgroundColor3"]
+  DUPTABLE R67 K159 [{"TrackScrollbar"}]
+  GETUPVAL R69 3
+  GETTABLEKS R68 R69 K62 ["createElement"]
+  GETUPVAL R69 7
+  DUPTABLE R70 K162 [{"Size", "TopTrackIndex", "NumTracks", "SetTopTrackIndex", "OnWheelTick"}]
+  GETIMPORT R71 K111 [UDim2.new]
   LOADN R72 1
-  GETUPVAL R76 0
-  GETTABLEKS R75 R76 K144 ["SCROLL_BAR_SIZE"]
-  MINUS R74 R75
-  SUBK R73 R74 K41 [1]
-  CALL R69 4 1
-  SETTABLEKS R69 R68 K44 ["Size"]
-  SETTABLEKS R11 R68 K7 ["TopTrackIndex"]
+  LOADN R73 0
+  LOADN R74 1
+  GETUPVAL R78 0
+  GETTABLEKS R77 R78 K148 ["SCROLL_BAR_SIZE"]
+  MINUS R76 R77
+  SUBK R75 R76 K43 [1]
+  CALL R71 4 1
+  SETTABLEKS R71 R70 K46 ["Size"]
+  SETTABLEKS R11 R70 K7 ["TopTrackIndex"]
   JUMPIFNOT R13 [+2]
-  LENGTH R69 R13
-  JUMPIF R69 [+1]
-  LOADN R69 0
-  SETTABLEKS R69 R68 K156 ["NumTracks"]
-  GETTABLEKS R70 R0 K0 ["props"]
-  GETTABLEKS R69 R70 K157 ["SetTopTrackIndex"]
-  SETTABLEKS R69 R68 K157 ["SetTopTrackIndex"]
-  GETTABLEKS R69 R0 K145 ["onWheelTick"]
-  SETTABLEKS R69 R68 K136 ["OnWheelTick"]
-  CALL R66 2 1
-  SETTABLEKS R66 R65 K154 ["TrackScrollbar"]
-  CALL R62 3 1
-  SETTABLEKS R62 R61 K133 ["TrackScrollbarFrame"]
-  CALL R58 3 1
-  SETTABLEKS R58 R57 K124 ["TrackListAndScrollBar"]
-  GETUPVAL R59 3
-  GETTABLEKS R58 R59 K60 ["createElement"]
-  GETUPVAL R59 8
-  DUPTABLE R60 K161 [{"OnKeyPressed", "OnKeyReleased"}]
-  NEWCLOSURE R61 P2
+  LENGTH R71 R13
+  JUMPIF R71 [+1]
+  LOADN R71 0
+  SETTABLEKS R71 R70 K160 ["NumTracks"]
+  GETTABLEKS R72 R0 K0 ["props"]
+  GETTABLEKS R71 R72 K161 ["SetTopTrackIndex"]
+  SETTABLEKS R71 R70 K161 ["SetTopTrackIndex"]
+  GETTABLEKS R71 R0 K149 ["onWheelTick"]
+  SETTABLEKS R71 R70 K140 ["OnWheelTick"]
+  CALL R68 2 1
+  SETTABLEKS R68 R67 K158 ["TrackScrollbar"]
+  CALL R64 3 1
+  SETTABLEKS R64 R63 K137 ["TrackScrollbarFrame"]
+  CALL R60 3 1
+  SETTABLEKS R60 R59 K128 ["TrackListAndScrollBar"]
+  GETUPVAL R61 3
+  GETTABLEKS R60 R61 K62 ["createElement"]
+  GETUPVAL R61 8
+  DUPTABLE R62 K165 [{"OnKeyPressed", "OnKeyReleased"}]
+  NEWCLOSURE R63 P2
   CAPTURE UPVAL U9
   CAPTURE VAL R1
   CAPTURE VAL R22
   CAPTURE VAL R0
-  SETTABLEKS R61 R60 K159 ["OnKeyPressed"]
-  NEWCLOSURE R61 P3
+  SETTABLEKS R63 R62 K163 ["OnKeyPressed"]
+  NEWCLOSURE R63 P3
   CAPTURE UPVAL U9
   CAPTURE VAL R0
-  SETTABLEKS R61 R60 K160 ["OnKeyReleased"]
-  CALL R58 2 1
-  SETTABLEKS R58 R57 K125 ["KeyboardListener"]
-  JUMPIFNOT R30 [+35]
-  GETUPVAL R59 3
-  GETTABLEKS R58 R59 K60 ["createElement"]
-  LOADK R59 K162 ["Folder"]
-  NEWTABLE R60 0 0
-  DUPTABLE R61 K164 [{"TrackColors"}]
-  GETUPVAL R63 3
-  GETTABLEKS R62 R63 K60 ["createElement"]
-  GETUPVAL R63 10
-  DUPTABLE R64 K166 [{"Tracks", "TopTrackIndex", "Position", "MaxHeight"}]
-  SETTABLEKS R13 R64 K9 ["Tracks"]
-  SETTABLEKS R11 R64 K7 ["TopTrackIndex"]
-  GETIMPORT R65 K107 [UDim2.new]
-  LOADN R66 0
-  LOADN R67 0
+  SETTABLEKS R63 R62 K164 ["OnKeyReleased"]
+  CALL R60 2 1
+  SETTABLEKS R60 R59 K129 ["KeyboardListener"]
+  JUMPIFNOT R31 [+35]
+  GETUPVAL R61 3
+  GETTABLEKS R60 R61 K62 ["createElement"]
+  LOADK R61 K166 ["Folder"]
+  NEWTABLE R62 0 0
+  DUPTABLE R63 K168 [{"TrackColors"}]
+  GETUPVAL R65 3
+  GETTABLEKS R64 R65 K62 ["createElement"]
+  GETUPVAL R65 10
+  DUPTABLE R66 K170 [{"Tracks", "TopTrackIndex", "Position", "MaxHeight"}]
+  SETTABLEKS R13 R66 K9 ["Tracks"]
+  SETTABLEKS R11 R66 K7 ["TopTrackIndex"]
+  GETIMPORT R67 K111 [UDim2.new]
   LOADN R68 0
-  MOVE R69 R41
-  CALL R65 4 1
-  SETTABLEKS R65 R64 K43 ["Position"]
-  GETTABLEKS R66 R24 K167 ["Y"]
-  SUB R65 R66 R41
-  SETTABLEKS R65 R64 K165 ["MaxHeight"]
-  CALL R62 2 1
-  SETTABLEKS R62 R61 K163 ["TrackColors"]
-  CALL R58 3 1
-  JUMPIF R58 [+1]
-  LOADNIL R58
-  SETTABLEKS R58 R57 K126 ["IgnoreLayout"]
-  CALL R54 3 1
-  SETTABLEKS R54 R53 K109 ["EventsAndTracks"]
-  CALL R50 3 1
-  SETTABLEKS R50 R49 K66 ["TrackListAndControlContainer"]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 11
-  DUPTABLE R52 K169 [{"OnDragMoved", "ZIndex"}]
-  GETTABLEKS R53 R0 K170 ["updateTrackListWidth"]
-  SETTABLEKS R53 R52 K168 ["OnDragMoved"]
-  LOADN R53 3
-  SETTABLEKS R53 R52 K42 ["ZIndex"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K67 ["TrackListBorder"]
-  MOVE R50 R30
-  JUMPIFNOT R50 [+66]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 12
-  DUPTABLE R52 K175 [{"ZIndex", "TopTrackIndex", "LayoutOrder", "Size", "StartTick", "EndTick", "LastTick", "Playhead", "FrameRate", "TimelineUnit", "ShowEvents", "HorizontalScroll", "HorizontalZoom", "VerticalScroll", "VerticalZoom", "OnWheelTick", "IsChannelAnimation", "ColorsPosition", "OnPromoteRequested"}]
-  SETTABLEKS R38 R52 K42 ["ZIndex"]
-  SETTABLEKS R11 R52 K7 ["TopTrackIndex"]
-  LOADN R53 2
-  SETTABLEKS R53 R52 K97 ["LayoutOrder"]
-  GETIMPORT R53 K107 [UDim2.new]
-  LOADN R54 1
-  MINUS R57 R12
-  GETUPVAL R59 0
-  GETTABLEKS R58 R59 K144 ["SCROLL_BAR_SIZE"]
-  SUB R56 R57 R58
-  GETUPVAL R58 0
-  GETTABLEKS R57 R58 K176 ["SCROLL_BAR_PADDING"]
-  SUB R55 R56 R57
+  LOADN R69 0
+  LOADN R70 0
+  MOVE R71 R43
+  CALL R67 4 1
+  SETTABLEKS R67 R66 K45 ["Position"]
+  GETTABLEKS R68 R24 K171 ["Y"]
+  SUB R67 R68 R43
+  SETTABLEKS R67 R66 K169 ["MaxHeight"]
+  CALL R64 2 1
+  SETTABLEKS R64 R63 K167 ["TrackColors"]
+  CALL R60 3 1
+  JUMPIF R60 [+1]
+  LOADNIL R60
+  SETTABLEKS R60 R59 K130 ["IgnoreLayout"]
+  CALL R56 3 1
+  SETTABLEKS R56 R55 K113 ["EventsAndTracks"]
+  CALL R52 3 1
+  SETTABLEKS R52 R51 K68 ["TrackListAndControlContainer"]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 11
+  DUPTABLE R54 K173 [{"OnDragMoved", "ZIndex"}]
+  GETTABLEKS R55 R0 K174 ["updateTrackListWidth"]
+  SETTABLEKS R55 R54 K172 ["OnDragMoved"]
+  LOADN R55 3
+  SETTABLEKS R55 R54 K44 ["ZIndex"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K69 ["TrackListBorder"]
+  MOVE R52 R31
+  JUMPIFNOT R52 [+66]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 12
+  DUPTABLE R54 K179 [{"ZIndex", "TopTrackIndex", "LayoutOrder", "Size", "StartTick", "EndTick", "LastTick", "Playhead", "FrameRate", "TimelineUnit", "ShowEvents", "HorizontalScroll", "HorizontalZoom", "VerticalScroll", "VerticalZoom", "OnWheelTick", "IsChannelAnimation", "ColorsPosition", "OnPromoteRequested"}]
+  SETTABLEKS R40 R54 K44 ["ZIndex"]
+  SETTABLEKS R11 R54 K7 ["TopTrackIndex"]
+  LOADN R55 2
+  SETTABLEKS R55 R54 K101 ["LayoutOrder"]
+  GETIMPORT R55 K111 [UDim2.new]
   LOADN R56 1
-  LOADN R57 0
-  CALL R53 4 1
-  SETTABLEKS R53 R52 K44 ["Size"]
-  SETTABLEKS R4 R52 K114 ["StartTick"]
-  SETTABLEKS R5 R52 K38 ["EndTick"]
-  SETTABLEKS R6 R52 K171 ["LastTick"]
-  SETTABLEKS R8 R52 K4 ["Playhead"]
-  GETTABLEKS R53 R1 K172 ["FrameRate"]
-  SETTABLEKS R53 R52 K172 ["FrameRate"]
-  SETTABLEKS R9 R52 K5 ["TimelineUnit"]
-  SETTABLEKS R21 R52 K17 ["ShowEvents"]
-  SETTABLEKS R16 R52 K12 ["HorizontalScroll"]
-  SETTABLEKS R17 R52 K13 ["HorizontalZoom"]
-  SETTABLEKS R18 R52 K14 ["VerticalScroll"]
-  SETTABLEKS R19 R52 K15 ["VerticalZoom"]
-  GETTABLEKS R53 R0 K145 ["onWheelTick"]
-  SETTABLEKS R53 R52 K136 ["OnWheelTick"]
-  SETTABLEKS R33 R52 K116 ["IsChannelAnimation"]
-  SETTABLEKS R41 R52 K173 ["ColorsPosition"]
-  GETTABLEKS R53 R0 K29 ["showPromotePrompt"]
-  SETTABLEKS R53 R52 K174 ["OnPromoteRequested"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K68 ["TrackEditor"]
-  MOVE R50 R30
-  JUMPIFNOT R50 [+101]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  LOADK R51 K61 ["Frame"]
-  DUPTABLE R52 K177 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
-  LOADN R53 1
-  SETTABLEKS R53 R52 K62 ["BackgroundTransparency"]
-  GETIMPORT R53 K107 [UDim2.new]
-  LOADN R54 0
-  GETUPVAL R56 0
-  GETTABLEKS R55 R56 K144 ["SCROLL_BAR_SIZE"]
-  LOADN R56 1
-  LOADN R57 0
-  CALL R53 4 1
-  SETTABLEKS R53 R52 K44 ["Size"]
-  LOADN R53 3
-  SETTABLEKS R53 R52 K97 ["LayoutOrder"]
-  DUPTABLE R53 K179 [{"SettingsButton", "TrackScrollbar"}]
-  GETUPVAL R55 3
-  GETTABLEKS R54 R55 K60 ["createElement"]
-  GETUPVAL R55 13
-  DUPTABLE R56 K183 [{"OnChangeFPS", "OnChangeGridSpeed", "OnChangePlaybackSpeed"}]
-  GETTABLEKS R57 R0 K25 ["showChangeFPSPrompt"]
-  SETTABLEKS R57 R56 K180 ["OnChangeFPS"]
-  GETTABLEKS R57 R0 K26 ["showChangeGridSpeedPrompt"]
-  SETTABLEKS R57 R56 K181 ["OnChangeGridSpeed"]
-  GETTABLEKS R57 R0 K27 ["showChangePlaybackSpeedPrompt"]
-  SETTABLEKS R57 R56 K182 ["OnChangePlaybackSpeed"]
-  CALL R54 2 1
-  SETTABLEKS R54 R53 K178 ["SettingsButton"]
-  JUMPIFNOT R42 [+53]
-  GETUPVAL R55 3
-  GETTABLEKS R54 R55 K60 ["createElement"]
-  GETUPVAL R55 7
-  DUPTABLE R56 K184 [{"Size", "Position", "TopTrackIndex", "NumTracks", "SetTopTrackIndex", "OnWheelTick"}]
-  GETIMPORT R57 K107 [UDim2.new]
+  MINUS R59 R12
+  GETUPVAL R61 0
+  GETTABLEKS R60 R61 K148 ["SCROLL_BAR_SIZE"]
+  SUB R58 R59 R60
+  GETUPVAL R60 0
+  GETTABLEKS R59 R60 K180 ["SCROLL_BAR_PADDING"]
+  SUB R57 R58 R59
   LOADN R58 1
   LOADN R59 0
-  LOADN R60 1
-  GETUPVAL R65 0
-  GETTABLEKS R64 R65 K144 ["SCROLL_BAR_SIZE"]
-  MINUS R63 R64
-  GETUPVAL R65 0
-  GETTABLEKS R64 R65 K119 ["TIMELINE_HEIGHT"]
-  SUB R62 R63 R64
-  SUBK R61 R62 K41 [1]
-  CALL R57 4 1
-  SETTABLEKS R57 R56 K44 ["Size"]
-  GETIMPORT R57 K107 [UDim2.new]
-  LOADN R58 0
+  CALL R55 4 1
+  SETTABLEKS R55 R54 K46 ["Size"]
+  SETTABLEKS R4 R54 K118 ["StartTick"]
+  SETTABLEKS R5 R54 K40 ["EndTick"]
+  SETTABLEKS R6 R54 K175 ["LastTick"]
+  SETTABLEKS R8 R54 K4 ["Playhead"]
+  GETTABLEKS R55 R1 K176 ["FrameRate"]
+  SETTABLEKS R55 R54 K176 ["FrameRate"]
+  SETTABLEKS R9 R54 K5 ["TimelineUnit"]
+  SETTABLEKS R21 R54 K17 ["ShowEvents"]
+  SETTABLEKS R16 R54 K12 ["HorizontalScroll"]
+  SETTABLEKS R17 R54 K13 ["HorizontalZoom"]
+  SETTABLEKS R18 R54 K14 ["VerticalScroll"]
+  SETTABLEKS R19 R54 K15 ["VerticalZoom"]
+  GETTABLEKS R55 R0 K149 ["onWheelTick"]
+  SETTABLEKS R55 R54 K140 ["OnWheelTick"]
+  SETTABLEKS R35 R54 K120 ["IsChannelAnimation"]
+  SETTABLEKS R43 R54 K177 ["ColorsPosition"]
+  GETTABLEKS R55 R0 K30 ["showPromotePrompt"]
+  SETTABLEKS R55 R54 K178 ["OnPromoteRequested"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K70 ["TrackEditor"]
+  MOVE R52 R31
+  JUMPIFNOT R52 [+101]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  LOADK R53 K63 ["Frame"]
+  DUPTABLE R54 K181 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
+  LOADN R55 1
+  SETTABLEKS R55 R54 K64 ["BackgroundTransparency"]
+  GETIMPORT R55 K111 [UDim2.new]
+  LOADN R56 0
+  GETUPVAL R58 0
+  GETTABLEKS R57 R58 K148 ["SCROLL_BAR_SIZE"]
+  LOADN R58 1
   LOADN R59 0
+  CALL R55 4 1
+  SETTABLEKS R55 R54 K46 ["Size"]
+  LOADN R55 3
+  SETTABLEKS R55 R54 K101 ["LayoutOrder"]
+  DUPTABLE R55 K183 [{"SettingsButton", "TrackScrollbar"}]
+  GETUPVAL R57 3
+  GETTABLEKS R56 R57 K62 ["createElement"]
+  GETUPVAL R57 13
+  DUPTABLE R58 K187 [{"OnChangeFPS", "OnChangeGridSpeed", "OnChangePlaybackSpeed"}]
+  GETTABLEKS R59 R0 K26 ["showChangeFPSPrompt"]
+  SETTABLEKS R59 R58 K184 ["OnChangeFPS"]
+  GETTABLEKS R59 R0 K27 ["showChangeGridSpeedPrompt"]
+  SETTABLEKS R59 R58 K185 ["OnChangeGridSpeed"]
+  GETTABLEKS R59 R0 K28 ["showChangePlaybackSpeedPrompt"]
+  SETTABLEKS R59 R58 K186 ["OnChangePlaybackSpeed"]
+  CALL R56 2 1
+  SETTABLEKS R56 R55 K182 ["SettingsButton"]
+  JUMPIFNOT R44 [+53]
+  GETUPVAL R57 3
+  GETTABLEKS R56 R57 K62 ["createElement"]
+  GETUPVAL R57 7
+  DUPTABLE R58 K188 [{"Size", "Position", "TopTrackIndex", "NumTracks", "SetTopTrackIndex", "OnWheelTick"}]
+  GETIMPORT R59 K111 [UDim2.new]
+  LOADN R60 1
+  LOADN R61 0
+  LOADN R62 1
+  GETUPVAL R67 0
+  GETTABLEKS R66 R67 K148 ["SCROLL_BAR_SIZE"]
+  MINUS R65 R66
+  GETUPVAL R67 0
+  GETTABLEKS R66 R67 K123 ["TIMELINE_HEIGHT"]
+  SUB R64 R65 R66
+  SUBK R63 R64 K43 [1]
+  CALL R59 4 1
+  SETTABLEKS R59 R58 K46 ["Size"]
+  GETIMPORT R59 K111 [UDim2.new]
   LOADN R60 0
-  GETUPVAL R62 0
-  GETTABLEKS R61 R62 K119 ["TIMELINE_HEIGHT"]
-  CALL R57 4 1
-  SETTABLEKS R57 R56 K43 ["Position"]
-  SETTABLEKS R11 R56 K7 ["TopTrackIndex"]
+  LOADN R61 0
+  LOADN R62 0
+  GETUPVAL R64 0
+  GETTABLEKS R63 R64 K123 ["TIMELINE_HEIGHT"]
+  CALL R59 4 1
+  SETTABLEKS R59 R58 K45 ["Position"]
+  SETTABLEKS R11 R58 K7 ["TopTrackIndex"]
   JUMPIFNOT R13 [+2]
-  LENGTH R57 R13
-  JUMPIF R57 [+1]
-  LOADN R57 0
-  SETTABLEKS R57 R56 K156 ["NumTracks"]
-  GETTABLEKS R58 R0 K0 ["props"]
-  GETTABLEKS R57 R58 K157 ["SetTopTrackIndex"]
-  SETTABLEKS R57 R56 K157 ["SetTopTrackIndex"]
-  GETTABLEKS R57 R0 K145 ["onWheelTick"]
-  SETTABLEKS R57 R56 K136 ["OnWheelTick"]
-  CALL R54 2 1
-  JUMPIF R54 [+1]
-  LOADNIL R54
-  SETTABLEKS R54 R53 K154 ["TrackScrollbar"]
-  CALL R50 3 1
-  SETTABLEKS R50 R49 K69 ["SettingsAndVerticalScrollBar"]
-  NOT R50 R30
-  JUMPIFNOT R50 [+30]
-  NOT R50 R44
-  JUMPIFNOT R50 [+28]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 14
-  DUPTABLE R52 K185 [{"RootInstance", "Size", "LayoutOrder", "PlayState", "inReviewState"}]
-  SETTABLEKS R23 R52 K19 ["RootInstance"]
-  GETIMPORT R53 K107 [UDim2.new]
-  LOADN R54 1
-  MINUS R55 R12
+  LENGTH R59 R13
+  JUMPIF R59 [+1]
+  LOADN R59 0
+  SETTABLEKS R59 R58 K160 ["NumTracks"]
+  GETTABLEKS R60 R0 K0 ["props"]
+  GETTABLEKS R59 R60 K161 ["SetTopTrackIndex"]
+  SETTABLEKS R59 R58 K161 ["SetTopTrackIndex"]
+  GETTABLEKS R59 R0 K149 ["onWheelTick"]
+  SETTABLEKS R59 R58 K140 ["OnWheelTick"]
+  CALL R56 2 1
+  JUMPIF R56 [+1]
+  LOADNIL R56
+  SETTABLEKS R56 R55 K158 ["TrackScrollbar"]
+  CALL R52 3 1
+  SETTABLEKS R52 R51 K71 ["SettingsAndVerticalScrollBar"]
+  NOT R52 R31
+  JUMPIFNOT R52 [+30]
+  NOT R52 R46
+  JUMPIFNOT R52 [+28]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 14
+  DUPTABLE R54 K189 [{"RootInstance", "Size", "LayoutOrder", "PlayState", "inReviewState"}]
+  SETTABLEKS R23 R54 K19 ["RootInstance"]
+  GETIMPORT R55 K111 [UDim2.new]
   LOADN R56 1
-  LOADN R57 0
-  CALL R53 4 1
-  SETTABLEKS R53 R52 K44 ["Size"]
-  LOADN R53 2
-  SETTABLEKS R53 R52 K97 ["LayoutOrder"]
-  GETTABLEKS R53 R1 K21 ["PlayState"]
-  SETTABLEKS R53 R52 K21 ["PlayState"]
-  GETTABLEKS R53 R1 K24 ["inReviewState"]
-  SETTABLEKS R53 R52 K24 ["inReviewState"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K70 ["StartScreen"]
-  MOVE R50 R7
-  JUMPIFNOT R50 [+7]
-  MOVE R50 R30
-  JUMPIFNOT R50 [+5]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 15
-  CALL R50 1 1
-  SETTABLEKS R50 R49 K71 ["Playback"]
-  MOVE R50 R7
-  JUMPIFNOT R50 [+11]
-  GETUPVAL R50 16
-  CALL R50 0 1
-  JUMPIFNOT R50 [+8]
+  MINUS R57 R12
+  LOADN R58 1
+  LOADN R59 0
+  CALL R55 4 1
+  SETTABLEKS R55 R54 K46 ["Size"]
+  LOADN R55 2
+  SETTABLEKS R55 R54 K101 ["LayoutOrder"]
+  GETTABLEKS R55 R1 K21 ["PlayState"]
+  SETTABLEKS R55 R54 K21 ["PlayState"]
+  GETTABLEKS R55 R1 K24 ["inReviewState"]
+  SETTABLEKS R55 R54 K24 ["inReviewState"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K72 ["StartScreen"]
+  MOVE R52 R7
+  JUMPIFNOT R52 [+7]
+  MOVE R52 R31
+  JUMPIFNOT R52 [+5]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 15
+  CALL R52 1 1
+  SETTABLEKS R52 R51 K73 ["Playback"]
+  MOVE R52 R7
+  JUMPIFNOT R52 [+11]
+  GETUPVAL R52 16
+  CALL R52 0 1
+  JUMPIFNOT R52 [+8]
   JUMPIF R25 [+2]
-  MOVE R50 R26
-  JUMPIFNOT R50 [+5]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 17
-  CALL R50 1 1
-  SETTABLEKS R50 R49 K72 ["FacialAnimationRecorder"]
-  MOVE R50 R7
-  JUMPIFNOT R50 [+10]
-  GETUPVAL R50 16
-  CALL R50 0 1
-  JUMPIFNOT R50 [+7]
-  MOVE R50 R25
-  JUMPIFNOT R50 [+5]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 18
-  CALL R50 1 1
-  SETTABLEKS R50 R49 K73 ["RecordingModeCover"]
-  MOVE R50 R7
-  JUMPIFNOT R50 [+5]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 19
-  CALL R50 1 1
-  SETTABLEKS R50 R49 K74 ["InstanceSelector"]
-  MOVE R50 R7
-  JUMPIFNOT R50 [+20]
-  MOVE R50 R30
-  JUMPIFNOT R50 [+18]
-  MOVE R50 R31
-  JUMPIFNOT R50 [+16]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 20
-  DUPTABLE R52 K187 [{"Playhead", "RootInstance", "Speed"}]
-  GETTABLEKS R53 R1 K4 ["Playhead"]
-  SETTABLEKS R53 R52 K4 ["Playhead"]
-  GETTABLEKS R53 R1 K19 ["RootInstance"]
-  SETTABLEKS R53 R52 K19 ["RootInstance"]
-  SETTABLEKS R45 R52 K186 ["Speed"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K75 ["FloorGrid"]
-  MOVE R50 R7
-  JUMPIFNOT R50 [+18]
-  MOVE R50 R30
-  JUMPIFNOT R50 [+16]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 21
-  DUPTABLE R52 K190 [{"ShowMenu", "OnMenuOpened", "IsChannelAnimation"}]
-  GETTABLEKS R53 R2 K191 ["showContextMenu"]
-  SETTABLEKS R53 R52 K188 ["ShowMenu"]
-  GETTABLEKS R53 R0 K192 ["hideMenu"]
-  SETTABLEKS R53 R52 K189 ["OnMenuOpened"]
-  SETTABLEKS R33 R52 K116 ["IsChannelAnimation"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K76 ["TrackActions"]
-  NOT R50 R7
-  JUMPIFNOT R50 [+10]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 22
-  DUPTABLE R52 K194 [{"OnFocused"}]
-  GETTABLEKS R53 R0 K195 ["attachEditorWrapper"]
-  SETTABLEKS R53 R52 K193 ["OnFocused"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K77 ["InactiveCover"]
-  MOVE R50 R34
-  JUMPIFNOT R50 [+14]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 23
-  DUPTABLE R52 K199 [{"OnCancelled", "Progress", "Status"}]
-  GETTABLEKS R53 R0 K200 ["cancelCreateFromVideo"]
-  SETTABLEKS R53 R52 K196 ["OnCancelled"]
-  SETTABLEKS R35 R52 K197 ["Progress"]
-  SETTABLEKS R36 R52 K198 ["Status"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K78 ["ProgressScreen"]
-  MOVE R50 R27
-  JUMPIFNOT R50 [+18]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 24
-  DUPTABLE R52 K203 [{"FrameRate", "SetFrameRate", "OnClose"}]
-  GETTABLEKS R53 R1 K172 ["FrameRate"]
-  SETTABLEKS R53 R52 K172 ["FrameRate"]
-  GETTABLEKS R53 R1 K201 ["SetFrameRate"]
-  SETTABLEKS R53 R52 K201 ["SetFrameRate"]
-  GETTABLEKS R53 R0 K204 ["hideChangeFPSPrompt"]
-  SETTABLEKS R53 R52 K202 ["OnClose"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K79 ["ChangeFPSPrompt"]
-  JUMPIFNOT R28 [+17]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 25
-  DUPTABLE R52 K206 [{"GridSpeed", "SetGridSpeed", "OnClose"}]
-  SETTABLEKS R45 R52 K54 ["GridSpeed"]
-  GETTABLEKS R53 R1 K205 ["SetGridSpeed"]
-  SETTABLEKS R53 R52 K205 ["SetGridSpeed"]
-  GETTABLEKS R53 R0 K207 ["hideChangeGridSpeedPrompt"]
-  SETTABLEKS R53 R52 K202 ["OnClose"]
-  CALL R50 2 1
+  MOVE R52 R26
+  JUMPIFNOT R52 [+5]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 17
+  CALL R52 1 1
+  SETTABLEKS R52 R51 K74 ["FacialAnimationRecorder"]
+  MOVE R52 R7
+  JUMPIFNOT R52 [+10]
+  GETUPVAL R52 16
+  CALL R52 0 1
+  JUMPIFNOT R52 [+7]
+  MOVE R52 R25
+  JUMPIFNOT R52 [+5]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 18
+  CALL R52 1 1
+  SETTABLEKS R52 R51 K75 ["RecordingModeCover"]
+  MOVE R52 R7
+  JUMPIFNOT R52 [+5]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 19
+  CALL R52 1 1
+  SETTABLEKS R52 R51 K76 ["InstanceSelector"]
+  MOVE R52 R7
+  JUMPIFNOT R52 [+20]
+  MOVE R52 R31
+  JUMPIFNOT R52 [+18]
+  MOVE R52 R32
+  JUMPIFNOT R52 [+16]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 20
+  DUPTABLE R54 K191 [{"Playhead", "RootInstance", "Speed"}]
+  GETTABLEKS R55 R1 K4 ["Playhead"]
+  SETTABLEKS R55 R54 K4 ["Playhead"]
+  GETTABLEKS R55 R1 K19 ["RootInstance"]
+  SETTABLEKS R55 R54 K19 ["RootInstance"]
+  SETTABLEKS R47 R54 K190 ["Speed"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K77 ["FloorGrid"]
+  MOVE R52 R7
+  JUMPIFNOT R52 [+26]
+  MOVE R52 R31
+  JUMPIFNOT R52 [+24]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 21
+  DUPTABLE R54 K196 [{"ShowMenu", "OnMenuOpened", "IsChannelAnimation", "ShowAddIkTargetPrompt", "ShowSelectIkTargetPrompt"}]
+  GETTABLEKS R55 R2 K197 ["showContextMenu"]
+  SETTABLEKS R55 R54 K192 ["ShowMenu"]
+  GETTABLEKS R55 R0 K198 ["hideMenu"]
+  SETTABLEKS R55 R54 K193 ["OnMenuOpened"]
+  SETTABLEKS R35 R54 K120 ["IsChannelAnimation"]
+  GETTABLEKS R55 R0 K25 ["showAddIkTargetPrompt"]
+  SETTABLEKS R55 R54 K194 ["ShowAddIkTargetPrompt"]
+  GETTABLEKS R55 R0 K31 ["showSelectIkTargetPrompt"]
+  SETTABLEKS R55 R54 K195 ["ShowSelectIkTargetPrompt"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K78 ["TrackActions"]
+  NOT R52 R7
+  JUMPIFNOT R52 [+10]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 22
+  DUPTABLE R54 K200 [{"OnFocused"}]
+  GETTABLEKS R55 R0 K201 ["attachEditorWrapper"]
+  SETTABLEKS R55 R54 K199 ["OnFocused"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K79 ["InactiveCover"]
+  MOVE R52 R36
+  JUMPIFNOT R52 [+14]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 23
+  DUPTABLE R54 K205 [{"OnCancelled", "Progress", "Status"}]
+  GETTABLEKS R55 R0 K206 ["cancelCreateFromVideo"]
+  SETTABLEKS R55 R54 K202 ["OnCancelled"]
+  SETTABLEKS R37 R54 K203 ["Progress"]
+  SETTABLEKS R38 R54 K204 ["Status"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K80 ["ProgressScreen"]
+  MOVE R52 R28
+  JUMPIFNOT R52 [+18]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 24
+  DUPTABLE R54 K209 [{"FrameRate", "SetFrameRate", "OnClose"}]
+  GETTABLEKS R55 R1 K176 ["FrameRate"]
+  SETTABLEKS R55 R54 K176 ["FrameRate"]
+  GETTABLEKS R55 R1 K207 ["SetFrameRate"]
+  SETTABLEKS R55 R54 K207 ["SetFrameRate"]
+  GETTABLEKS R55 R0 K210 ["hideChangeFPSPrompt"]
+  SETTABLEKS R55 R54 K208 ["OnClose"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K81 ["ChangeFPSPrompt"]
+  JUMPIFNOT R29 [+17]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 25
+  DUPTABLE R54 K212 [{"GridSpeed", "SetGridSpeed", "OnClose"}]
+  SETTABLEKS R47 R54 K56 ["GridSpeed"]
+  GETTABLEKS R55 R1 K211 ["SetGridSpeed"]
+  SETTABLEKS R55 R54 K211 ["SetGridSpeed"]
+  GETTABLEKS R55 R0 K213 ["hideChangeGridSpeedPrompt"]
+  SETTABLEKS R55 R54 K208 ["OnClose"]
+  CALL R52 2 1
   JUMP [+1]
-  LOADNIL R50
-  SETTABLEKS R50 R49 K80 ["ChangeGridSpeedPrompt"]
-  MOVE R50 R29
-  JUMPIFNOT R50 [+18]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 26
-  DUPTABLE R52 K210 [{"PlaybackSpeed", "SetPlaybackSpeed", "OnClose"}]
-  GETTABLEKS R53 R1 K208 ["PlaybackSpeed"]
-  SETTABLEKS R53 R52 K208 ["PlaybackSpeed"]
-  GETTABLEKS R53 R1 K209 ["SetPlaybackSpeed"]
-  SETTABLEKS R53 R52 K209 ["SetPlaybackSpeed"]
-  GETTABLEKS R53 R0 K211 ["hideChangePlaybackSpeedPrompt"]
-  SETTABLEKS R53 R52 K202 ["OnClose"]
-  CALL R50 2 1
-  SETTABLEKS R50 R49 K81 ["ChangePlaybackSpeedPrompt"]
-  JUMPIFNOT R32 [+15]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 27
-  DUPTABLE R52 K213 [{"OnPromote", "OnClose"}]
-  GETTABLEKS R53 R0 K214 ["promoteKeyframeSequence"]
-  SETTABLEKS R53 R52 K212 ["OnPromote"]
-  GETTABLEKS R53 R0 K215 ["hidePromotePrompt"]
-  SETTABLEKS R53 R52 K202 ["OnClose"]
-  CALL R50 2 1
+  LOADNIL R52
+  SETTABLEKS R52 R51 K82 ["ChangeGridSpeedPrompt"]
+  MOVE R52 R30
+  JUMPIFNOT R52 [+18]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 26
+  DUPTABLE R54 K216 [{"PlaybackSpeed", "SetPlaybackSpeed", "OnClose"}]
+  GETTABLEKS R55 R1 K214 ["PlaybackSpeed"]
+  SETTABLEKS R55 R54 K214 ["PlaybackSpeed"]
+  GETTABLEKS R55 R1 K215 ["SetPlaybackSpeed"]
+  SETTABLEKS R55 R54 K215 ["SetPlaybackSpeed"]
+  GETTABLEKS R55 R0 K217 ["hideChangePlaybackSpeedPrompt"]
+  SETTABLEKS R55 R54 K208 ["OnClose"]
+  CALL R52 2 1
+  SETTABLEKS R52 R51 K83 ["ChangePlaybackSpeedPrompt"]
+  JUMPIFNOT R33 [+15]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 27
+  DUPTABLE R54 K219 [{"OnPromote", "OnClose"}]
+  GETTABLEKS R55 R0 K220 ["promoteKeyframeSequence"]
+  SETTABLEKS R55 R54 K218 ["OnPromote"]
+  GETTABLEKS R55 R0 K221 ["hidePromotePrompt"]
+  SETTABLEKS R55 R54 K208 ["OnClose"]
+  CALL R52 2 1
   JUMP [+1]
-  LOADNIL R50
-  SETTABLEKS R50 R49 K82 ["PromotePrompt"]
-  JUMPIFNOT R43 [+11]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 28
-  DUPTABLE R52 K216 [{"OnClose"}]
-  GETTABLEKS R53 R0 K217 ["hideReduceKeyframesDialog"]
-  SETTABLEKS R53 R52 K202 ["OnClose"]
-  CALL R50 2 1
+  LOADNIL R52
+  SETTABLEKS R52 R51 K84 ["PromotePrompt"]
+  JUMPIFNOT R45 [+11]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 28
+  DUPTABLE R54 K222 [{"OnClose"}]
+  GETTABLEKS R55 R0 K223 ["hideReduceKeyframesDialog"]
+  SETTABLEKS R55 R54 K208 ["OnClose"]
+  CALL R52 2 1
   JUMP [+1]
-  LOADNIL R50
-  SETTABLEKS R50 R49 K83 ["ReduceKeyframesDialog"]
-  JUMPIFNOT R44 [+6]
-  GETUPVAL R51 3
-  GETTABLEKS R50 R51 K60 ["createElement"]
-  GETUPVAL R51 29
-  CALL R50 1 1
+  LOADNIL R52
+  SETTABLEKS R52 R51 K85 ["ReduceKeyframesDialog"]
+  JUMPIFNOT R46 [+6]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 29
+  CALL R52 1 1
   JUMP [+1]
-  LOADNIL R50
-  SETTABLEKS R50 R49 K84 ["MigrationDialog"]
-  CALL R46 3 -1
-  RETURN R46 -1
+  LOADNIL R52
+  SETTABLEKS R52 R51 K86 ["MigrationDialog"]
+  GETUPVAL R53 30
+  CALL R53 0 1
+  JUMPIFNOT R53 [+12]
+  JUMPIFNOT R27 [+11]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 31
+  DUPTABLE R54 K222 [{"OnClose"}]
+  NEWCLOSURE R55 P4
+  CAPTURE VAL R0
+  SETTABLEKS R55 R54 K208 ["OnClose"]
+  CALL R52 2 1
+  JUMP [+1]
+  LOADNIL R52
+  SETTABLEKS R52 R51 K87 ["AddIkTargetPrompt"]
+  GETUPVAL R53 30
+  CALL R53 0 1
+  JUMPIFNOT R53 [+12]
+  JUMPIFNOT R34 [+11]
+  GETUPVAL R53 3
+  GETTABLEKS R52 R53 K62 ["createElement"]
+  GETUPVAL R53 31
+  DUPTABLE R54 K222 [{"OnClose"}]
+  NEWCLOSURE R55 P5
+  CAPTURE VAL R0
+  SETTABLEKS R55 R54 K208 ["OnClose"]
+  CALL R52 2 1
+  JUMP [+1]
+  LOADNIL R52
+  SETTABLEKS R52 R51 K88 ["SelectIkTargetPrompt"]
+  CALL R48 3 -1
+  RETURN R48 -1
 
-PROTO_33:
+PROTO_39:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["SnapMode"]
   GETTABLEKS R3 R1 K2 ["Analytics"]
@@ -1679,7 +1841,7 @@ PROTO_33:
   SETTABLEKS R3 R0 K13 ["openedTimestamp"]
   RETURN R0 0
 
-PROTO_34:
+PROTO_40:
   GETTABLEKS R1 R0 K0 ["props"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["resetAllFacsValuesInFaceControls"]
@@ -1719,7 +1881,7 @@ PROTO_34:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_35:
+PROTO_41:
   GETTABLEKS R1 R0 K0 ["Status"]
   NEWTABLE R2 64 0
   GETTABLEKS R3 R1 K1 ["Active"]
@@ -1804,7 +1966,17 @@ PROTO_35:
   SETTABLEKS R3 R2 K40 ["VisualizeGrid"]
   RETURN R2 1
 
-PROTO_36:
+PROTO_42:
+  GETUPVAL R3 0
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_43:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -1812,7 +1984,7 @@ PROTO_36:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_37:
+PROTO_44:
   GETUPVAL R2 0
   GETUPVAL R3 1
   MOVE R4 R0
@@ -1822,7 +1994,7 @@ PROTO_37:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_38:
+PROTO_45:
   GETUPVAL R0 0
   GETUPVAL R1 1
   NEWTABLE R2 0 0
@@ -1830,7 +2002,7 @@ PROTO_38:
   CALL R0 -1 0
   RETURN R0 0
 
-PROTO_39:
+PROTO_46:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -1838,7 +2010,7 @@ PROTO_39:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_40:
+PROTO_47:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -1846,7 +2018,7 @@ PROTO_40:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_41:
+PROTO_48:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -1856,7 +2028,7 @@ PROTO_41:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_42:
+PROTO_49:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -1866,7 +2038,7 @@ PROTO_42:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_43:
+PROTO_50:
   GETUPVAL R6 0
   GETUPVAL R7 1
   CALL R7 0 -1
@@ -1883,7 +2055,7 @@ PROTO_43:
   CALL R6 -1 0
   RETURN R0 0
 
-PROTO_44:
+PROTO_51:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -1891,7 +2063,7 @@ PROTO_44:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_45:
+PROTO_52:
   GETUPVAL R7 0
   GETUPVAL R8 1
   MOVE R9 R0
@@ -1905,68 +2077,11 @@ PROTO_45:
   CALL R7 -1 0
   RETURN R0 0
 
-PROTO_46:
+PROTO_53:
   GETUPVAL R0 0
   GETUPVAL R1 1
   CALL R1 0 -1
   CALL R0 -1 0
-  RETURN R0 0
-
-PROTO_47:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_48:
-  GETUPVAL R2 0
-  GETUPVAL R3 1
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 -1
-  CALL R2 -1 0
-  RETURN R0 0
-
-PROTO_49:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_50:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_51:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_52:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_53:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
   RETURN R0 0
 
 PROTO_54:
@@ -1978,11 +2093,12 @@ PROTO_54:
   RETURN R0 0
 
 PROTO_55:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
   RETURN R0 0
 
 PROTO_56:
@@ -1994,12 +2110,11 @@ PROTO_56:
   RETURN R0 0
 
 PROTO_57:
-  GETUPVAL R2 0
-  GETUPVAL R3 1
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 -1
-  CALL R2 -1 0
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
   RETURN R0 0
 
 PROTO_58:
@@ -2027,108 +2142,182 @@ PROTO_60:
   RETURN R0 0
 
 PROTO_61:
-  DUPTABLE R1 K25 [{"SetLastSelectedPath", "SetTracksExpanded", "ClearSelectedTrackInstances", "SetSelectedTracks", "MoveSelectedTrack", "ExpandSelectedTracks", "CloseSelectedTracks", "AddTrack", "SetRightClickContextInfo", "ValueChanged", "AddWaypoint", "AttachEditor", "ReleaseEditor", "SetEventEditingTick", "SetFrameRate", "SetGridSpeed", "SetPlaybackSpeed", "PromoteKeyframeSequence", "SetEditorMode", "SetPlayState", "SetReduceKeyframesDialogMode", "SwitchEditorMode", "SetCreatingAnimationFromVideo", "CancelAnimationFromVideoImport", "SetTopTrackIndex"}]
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_62:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_63:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_64:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_65:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_66:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_67:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_68:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_69:
+  DUPTABLE R1 K27 [{"AddTargetToEndEffector", "SetLastSelectedPath", "SetTracksExpanded", "ClearSelectedTrackInstances", "SetSelectedTracks", "MoveSelectedTrack", "ExpandSelectedTracks", "CloseSelectedTracks", "AddTrack", "SetRightClickContextInfo", "ValueChanged", "AddWaypoint", "AttachEditor", "ReleaseEditor", "SetEventEditingTick", "SetFrameRate", "SetGridSpeed", "SetPlaybackSpeed", "PromoteKeyframeSequence", "SetEditorMode", "SetIkTargetInstance", "SetPlayState", "SetReduceKeyframesDialogMode", "SwitchEditorMode", "SetCreatingAnimationFromVideo", "CancelAnimationFromVideoImport", "SetTopTrackIndex"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
-  SETTABLEKS R2 R1 K0 ["SetLastSelectedPath"]
+  SETTABLEKS R2 R1 K0 ["AddTargetToEndEffector"]
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  SETTABLEKS R2 R1 K1 ["SetTracksExpanded"]
+  SETTABLEKS R2 R1 K1 ["SetLastSelectedPath"]
   NEWCLOSURE R2 P2
   CAPTURE VAL R0
   CAPTURE UPVAL U2
-  SETTABLEKS R2 R1 K2 ["ClearSelectedTrackInstances"]
+  SETTABLEKS R2 R1 K2 ["SetTracksExpanded"]
   NEWCLOSURE R2 P3
   CAPTURE VAL R0
-  CAPTURE UPVAL U2
-  SETTABLEKS R2 R1 K3 ["SetSelectedTracks"]
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["ClearSelectedTrackInstances"]
   NEWCLOSURE R2 P4
   CAPTURE VAL R0
   CAPTURE UPVAL U3
-  SETTABLEKS R2 R1 K4 ["MoveSelectedTrack"]
+  SETTABLEKS R2 R1 K4 ["SetSelectedTracks"]
   NEWCLOSURE R2 P5
   CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  SETTABLEKS R2 R1 K5 ["ExpandSelectedTracks"]
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R1 K5 ["MoveSelectedTrack"]
   NEWCLOSURE R2 P6
   CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  SETTABLEKS R2 R1 K6 ["CloseSelectedTracks"]
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K6 ["ExpandSelectedTracks"]
   NEWCLOSURE R2 P7
   CAPTURE VAL R0
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  SETTABLEKS R2 R1 K7 ["AddTrack"]
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K7 ["CloseSelectedTracks"]
   NEWCLOSURE R2 P8
   CAPTURE VAL R0
+  CAPTURE UPVAL U5
   CAPTURE UPVAL U6
-  SETTABLEKS R2 R1 K8 ["SetRightClickContextInfo"]
+  SETTABLEKS R2 R1 K8 ["AddTrack"]
   NEWCLOSURE R2 P9
   CAPTURE VAL R0
   CAPTURE UPVAL U7
-  SETTABLEKS R2 R1 K9 ["ValueChanged"]
+  SETTABLEKS R2 R1 K9 ["SetRightClickContextInfo"]
   NEWCLOSURE R2 P10
   CAPTURE VAL R0
-  CAPTURE UPVAL U4
-  SETTABLEKS R2 R1 K10 ["AddWaypoint"]
+  CAPTURE UPVAL U8
+  SETTABLEKS R2 R1 K10 ["ValueChanged"]
   NEWCLOSURE R2 P11
   CAPTURE VAL R0
-  CAPTURE UPVAL U8
-  SETTABLEKS R2 R1 K11 ["AttachEditor"]
+  CAPTURE UPVAL U5
+  SETTABLEKS R2 R1 K11 ["AddWaypoint"]
   NEWCLOSURE R2 P12
   CAPTURE VAL R0
   CAPTURE UPVAL U9
-  SETTABLEKS R2 R1 K12 ["ReleaseEditor"]
+  SETTABLEKS R2 R1 K12 ["AttachEditor"]
   NEWCLOSURE R2 P13
   CAPTURE VAL R0
   CAPTURE UPVAL U10
-  SETTABLEKS R2 R1 K13 ["SetEventEditingTick"]
+  SETTABLEKS R2 R1 K13 ["ReleaseEditor"]
   NEWCLOSURE R2 P14
   CAPTURE VAL R0
   CAPTURE UPVAL U11
-  SETTABLEKS R2 R1 K14 ["SetFrameRate"]
+  SETTABLEKS R2 R1 K14 ["SetEventEditingTick"]
   NEWCLOSURE R2 P15
   CAPTURE VAL R0
   CAPTURE UPVAL U12
-  SETTABLEKS R2 R1 K15 ["SetGridSpeed"]
+  SETTABLEKS R2 R1 K15 ["SetFrameRate"]
   NEWCLOSURE R2 P16
   CAPTURE VAL R0
   CAPTURE UPVAL U13
-  SETTABLEKS R2 R1 K16 ["SetPlaybackSpeed"]
+  SETTABLEKS R2 R1 K16 ["SetGridSpeed"]
   NEWCLOSURE R2 P17
   CAPTURE VAL R0
   CAPTURE UPVAL U14
-  SETTABLEKS R2 R1 K17 ["PromoteKeyframeSequence"]
+  SETTABLEKS R2 R1 K17 ["SetPlaybackSpeed"]
   NEWCLOSURE R2 P18
   CAPTURE VAL R0
   CAPTURE UPVAL U15
-  SETTABLEKS R2 R1 K18 ["SetEditorMode"]
+  SETTABLEKS R2 R1 K18 ["PromoteKeyframeSequence"]
   NEWCLOSURE R2 P19
   CAPTURE VAL R0
   CAPTURE UPVAL U16
-  SETTABLEKS R2 R1 K19 ["SetPlayState"]
+  SETTABLEKS R2 R1 K19 ["SetEditorMode"]
   NEWCLOSURE R2 P20
   CAPTURE VAL R0
   CAPTURE UPVAL U17
-  SETTABLEKS R2 R1 K20 ["SetReduceKeyframesDialogMode"]
+  SETTABLEKS R2 R1 K20 ["SetIkTargetInstance"]
   NEWCLOSURE R2 P21
   CAPTURE VAL R0
   CAPTURE UPVAL U18
-  SETTABLEKS R2 R1 K21 ["SwitchEditorMode"]
+  SETTABLEKS R2 R1 K21 ["SetPlayState"]
   NEWCLOSURE R2 P22
   CAPTURE VAL R0
   CAPTURE UPVAL U19
-  SETTABLEKS R2 R1 K22 ["SetCreatingAnimationFromVideo"]
+  SETTABLEKS R2 R1 K22 ["SetReduceKeyframesDialogMode"]
   NEWCLOSURE R2 P23
   CAPTURE VAL R0
   CAPTURE UPVAL U20
-  SETTABLEKS R2 R1 K23 ["CancelAnimationFromVideoImport"]
+  SETTABLEKS R2 R1 K23 ["SwitchEditorMode"]
   NEWCLOSURE R2 P24
   CAPTURE VAL R0
   CAPTURE UPVAL U21
-  SETTABLEKS R2 R1 K24 ["SetTopTrackIndex"]
+  SETTABLEKS R2 R1 K24 ["SetCreatingAnimationFromVideo"]
+  NEWCLOSURE R2 P25
+  CAPTURE VAL R0
+  CAPTURE UPVAL U22
+  SETTABLEKS R2 R1 K25 ["CancelAnimationFromVideoImport"]
+  NEWCLOSURE R2 P26
+  CAPTURE VAL R0
+  CAPTURE UPVAL U23
+  SETTABLEKS R2 R1 K26 ["SetTopTrackIndex"]
   RETURN R1 1
 
 MAIN:
@@ -2242,141 +2431,156 @@ MAIN:
   GETTABLEKS R35 R19 K44 ["ReduceKeyframesDialog"]
   CALL R34 1 1
   GETIMPORT R35 K5 [require]
-  GETTABLEKS R36 R19 K45 ["SettingsButton"]
+  GETTABLEKS R36 R19 K45 ["SelectTargetPrompt"]
   CALL R35 1 1
   GETIMPORT R36 K5 [require]
-  GETTABLEKS R37 R19 K46 ["StartScreen"]
+  GETTABLEKS R37 R19 K46 ["SettingsButton"]
   CALL R36 1 1
   GETIMPORT R37 K5 [require]
-  GETTABLEKS R38 R19 K47 ["TrackActions"]
+  GETTABLEKS R38 R19 K47 ["StartScreen"]
   CALL R37 1 1
   GETIMPORT R38 K5 [require]
-  GETTABLEKS R40 R19 K30 ["TrackList"]
-  GETTABLEKS R39 R40 K48 ["TrackColors"]
+  GETTABLEKS R39 R19 K48 ["TrackActions"]
   CALL R38 1 1
   GETIMPORT R39 K5 [require]
-  GETTABLEKS R40 R19 K49 ["TrackEditor"]
+  GETTABLEKS R41 R19 K30 ["TrackList"]
+  GETTABLEKS R40 R41 K49 ["TrackColors"]
   CALL R39 1 1
   GETIMPORT R40 K5 [require]
-  GETTABLEKS R42 R19 K30 ["TrackList"]
-  GETTABLEKS R41 R42 K30 ["TrackList"]
+  GETTABLEKS R41 R19 K50 ["TrackEditor"]
   CALL R40 1 1
   GETIMPORT R41 K5 [require]
   GETTABLEKS R43 R19 K30 ["TrackList"]
-  GETTABLEKS R42 R43 K50 ["TrackListBorder"]
+  GETTABLEKS R42 R43 K30 ["TrackList"]
   CALL R41 1 1
   GETIMPORT R42 K5 [require]
   GETTABLEKS R44 R19 K30 ["TrackList"]
-  GETTABLEKS R43 R44 K51 ["TrackScrollbar"]
+  GETTABLEKS R43 R44 K51 ["TrackListBorder"]
   CALL R42 1 1
-  GETTABLEKS R44 R0 K15 ["Src"]
-  GETTABLEKS R43 R44 K52 ["Thunks"]
-  GETIMPORT R44 K5 [require]
-  GETTABLEKS R45 R43 K53 ["AddTrack"]
-  CALL R44 1 1
+  GETIMPORT R43 K5 [require]
+  GETTABLEKS R45 R19 K30 ["TrackList"]
+  GETTABLEKS R44 R45 K52 ["TrackScrollbar"]
+  CALL R43 1 1
+  GETTABLEKS R45 R0 K15 ["Src"]
+  GETTABLEKS R44 R45 K53 ["Thunks"]
   GETIMPORT R45 K5 [require]
-  GETTABLEKS R47 R43 K54 ["History"]
-  GETTABLEKS R46 R47 K55 ["AddWaypoint"]
+  GETTABLEKS R46 R44 K54 ["AddTargetToEndEffector"]
   CALL R45 1 1
   GETIMPORT R46 K5 [require]
-  GETTABLEKS R47 R43 K56 ["AttachEditor"]
+  GETTABLEKS R47 R44 K55 ["AddTrack"]
   CALL R46 1 1
   GETIMPORT R47 K5 [require]
-  GETTABLEKS R48 R43 K57 ["CancelAnimationFromVideoImport"]
+  GETTABLEKS R49 R44 K56 ["History"]
+  GETTABLEKS R48 R49 K57 ["AddWaypoint"]
   CALL R47 1 1
   GETIMPORT R48 K5 [require]
-  GETTABLEKS R49 R43 K58 ["MoveSelectedTrack"]
+  GETTABLEKS R49 R44 K58 ["AttachEditor"]
   CALL R48 1 1
   GETIMPORT R49 K5 [require]
-  GETTABLEKS R50 R43 K59 ["PromoteKeyframeSequence"]
+  GETTABLEKS R50 R44 K59 ["CancelAnimationFromVideoImport"]
   CALL R49 1 1
   GETIMPORT R50 K5 [require]
-  GETTABLEKS R51 R43 K60 ["ReleaseEditor"]
+  GETTABLEKS R51 R44 K60 ["MoveSelectedTrack"]
   CALL R50 1 1
   GETIMPORT R51 K5 [require]
-  GETTABLEKS R53 R43 K40 ["Playback"]
-  GETTABLEKS R52 R53 K61 ["SetPlaybackSpeed"]
+  GETTABLEKS R52 R44 K61 ["PromoteKeyframeSequence"]
   CALL R51 1 1
   GETIMPORT R52 K5 [require]
-  GETTABLEKS R53 R43 K62 ["SetSelectedTracks"]
+  GETTABLEKS R53 R44 K62 ["ReleaseEditor"]
   CALL R52 1 1
   GETIMPORT R53 K5 [require]
-  GETTABLEKS R54 R43 K63 ["SetTopTrackIndex"]
+  GETTABLEKS R54 R44 K63 ["SetIkTargetInstance"]
   CALL R53 1 1
   GETIMPORT R54 K5 [require]
-  GETTABLEKS R55 R43 K64 ["SetTracksExpanded"]
+  GETTABLEKS R56 R44 K40 ["Playback"]
+  GETTABLEKS R55 R56 K64 ["SetPlaybackSpeed"]
   CALL R54 1 1
   GETIMPORT R55 K5 [require]
-  GETTABLEKS R56 R43 K65 ["SwitchEditorMode"]
+  GETTABLEKS R56 R44 K65 ["SetSelectedTracks"]
   CALL R55 1 1
   GETIMPORT R56 K5 [require]
-  GETTABLEKS R57 R43 K66 ["ValueChanged"]
+  GETTABLEKS R57 R44 K66 ["SetTopTrackIndex"]
   CALL R56 1 1
-  GETTABLEKS R58 R0 K15 ["Src"]
-  GETTABLEKS R57 R58 K67 ["Util"]
+  GETIMPORT R57 K5 [require]
+  GETTABLEKS R58 R44 K67 ["SetTracksExpanded"]
+  CALL R57 1 1
   GETIMPORT R58 K5 [require]
-  GETTABLEKS R59 R57 K68 ["AnimationData"]
+  GETTABLEKS R59 R44 K68 ["SwitchEditorMode"]
   CALL R58 1 1
   GETIMPORT R59 K5 [require]
-  GETTABLEKS R60 R57 K69 ["Constants"]
+  GETTABLEKS R60 R44 K69 ["ValueChanged"]
   CALL R59 1 1
-  GETIMPORT R60 K5 [require]
-  GETTABLEKS R61 R57 K70 ["Input"]
-  CALL R60 1 1
+  GETTABLEKS R61 R0 K15 ["Src"]
+  GETTABLEKS R60 R61 K70 ["Util"]
   GETIMPORT R61 K5 [require]
-  GETTABLEKS R62 R57 K71 ["PathUtils"]
+  GETTABLEKS R62 R60 K71 ["AnimationData"]
   CALL R61 1 1
   GETIMPORT R62 K5 [require]
-  GETTABLEKS R63 R57 K72 ["RigInfo"]
+  GETTABLEKS R63 R60 K72 ["Constants"]
   CALL R62 1 1
   GETIMPORT R63 K5 [require]
-  GETTABLEKS R64 R57 K73 ["RigUtils"]
+  GETTABLEKS R64 R60 K73 ["Input"]
   CALL R63 1 1
   GETIMPORT R64 K5 [require]
-  GETTABLEKS R65 R57 K74 ["TrackUtils"]
+  GETTABLEKS R65 R60 K74 ["PathUtils"]
   CALL R64 1 1
   GETIMPORT R65 K5 [require]
-  GETTABLEKS R67 R0 K75 ["LuaFlags"]
-  GETTABLEKS R66 R67 K76 ["GetFFlagFacialAnimationRecordingInStudio"]
+  GETTABLEKS R66 R60 K75 ["RigInfo"]
   CALL R65 1 1
-  GETTABLEKS R66 R2 K77 ["PureComponent"]
-  LOADK R68 K78 ["EditorController"]
-  NAMECALL R66 R66 K79 ["extend"]
-  CALL R66 2 1
-  DUPCLOSURE R67 K80 [PROTO_26]
-  CAPTURE VAL R59
-  CAPTURE VAL R61
-  CAPTURE VAL R1
-  CAPTURE VAL R58
-  CAPTURE VAL R64
-  SETTABLEKS R67 R66 K81 ["init"]
-  DUPCLOSURE R67 K82 [PROTO_27]
+  GETIMPORT R66 K5 [require]
+  GETTABLEKS R67 R60 K76 ["RigUtils"]
+  CALL R66 1 1
+  GETIMPORT R67 K5 [require]
+  GETTABLEKS R68 R60 K77 ["TrackUtils"]
+  CALL R67 1 1
+  GETIMPORT R68 K5 [require]
+  GETTABLEKS R70 R0 K78 ["LuaFlags"]
+  GETTABLEKS R69 R70 K79 ["GetFFlagFacialAnimationRecordingInStudio"]
+  CALL R68 1 1
+  GETIMPORT R69 K5 [require]
+  GETTABLEKS R71 R0 K78 ["LuaFlags"]
+  GETTABLEKS R70 R71 K80 ["GetFFlagControlRig"]
+  CALL R69 1 1
+  GETTABLEKS R70 R2 K81 ["PureComponent"]
+  LOADK R72 K82 ["EditorController"]
+  NAMECALL R70 R70 K83 ["extend"]
+  CALL R70 2 1
+  DUPCLOSURE R71 K84 [PROTO_30]
   CAPTURE VAL R62
-  CAPTURE VAL R59
-  SETTABLEKS R67 R66 K83 ["didUpdate"]
-  DUPCLOSURE R67 K84 [PROTO_32]
-  CAPTURE VAL R59
-  CAPTURE VAL R58
+  CAPTURE VAL R2
   CAPTURE VAL R64
+  CAPTURE VAL R1
+  CAPTURE VAL R61
+  CAPTURE VAL R69
+  CAPTURE VAL R67
+  SETTABLEKS R71 R70 K85 ["init"]
+  DUPCLOSURE R71 K86 [PROTO_31]
+  CAPTURE VAL R65
+  CAPTURE VAL R62
+  SETTABLEKS R71 R70 K87 ["didUpdate"]
+  DUPCLOSURE R71 K88 [PROTO_38]
+  CAPTURE VAL R62
+  CAPTURE VAL R61
+  CAPTURE VAL R67
   CAPTURE VAL R2
   CAPTURE VAL R20
   CAPTURE VAL R21
-  CAPTURE VAL R40
-  CAPTURE VAL R42
-  CAPTURE VAL R5
-  CAPTURE VAL R60
-  CAPTURE VAL R38
   CAPTURE VAL R41
+  CAPTURE VAL R43
+  CAPTURE VAL R5
+  CAPTURE VAL R63
   CAPTURE VAL R39
-  CAPTURE VAL R35
+  CAPTURE VAL R42
+  CAPTURE VAL R40
   CAPTURE VAL R36
+  CAPTURE VAL R37
   CAPTURE VAL R30
-  CAPTURE VAL R65
+  CAPTURE VAL R68
   CAPTURE VAL R25
   CAPTURE VAL R33
   CAPTURE VAL R28
   CAPTURE VAL R26
-  CAPTURE VAL R37
+  CAPTURE VAL R38
   CAPTURE VAL R27
   CAPTURE VAL R31
   CAPTURE VAL R22
@@ -2385,52 +2589,56 @@ MAIN:
   CAPTURE VAL R32
   CAPTURE VAL R34
   CAPTURE VAL R29
-  SETTABLEKS R67 R66 K85 ["render"]
-  DUPCLOSURE R67 K86 [PROTO_33]
-  CAPTURE VAL R59
-  SETTABLEKS R67 R66 K87 ["didMount"]
-  DUPCLOSURE R67 K88 [PROTO_34]
-  CAPTURE VAL R63
-  SETTABLEKS R67 R66 K89 ["willUnmount"]
-  DUPCLOSURE R67 K90 [PROTO_35]
-  DUPCLOSURE R68 K91 [PROTO_61]
-  CAPTURE VAL R15
-  CAPTURE VAL R54
-  CAPTURE VAL R52
-  CAPTURE VAL R48
+  CAPTURE VAL R69
+  CAPTURE VAL R35
+  SETTABLEKS R71 R70 K89 ["render"]
+  DUPCLOSURE R71 K90 [PROTO_39]
+  CAPTURE VAL R62
+  SETTABLEKS R71 R70 K91 ["didMount"]
+  DUPCLOSURE R71 K92 [PROTO_40]
+  CAPTURE VAL R66
+  SETTABLEKS R71 R70 K93 ["willUnmount"]
+  DUPCLOSURE R71 K94 [PROTO_41]
+  DUPCLOSURE R72 K95 [PROTO_69]
   CAPTURE VAL R45
-  CAPTURE VAL R44
-  CAPTURE VAL R18
-  CAPTURE VAL R56
-  CAPTURE VAL R46
+  CAPTURE VAL R15
+  CAPTURE VAL R57
+  CAPTURE VAL R55
   CAPTURE VAL R50
+  CAPTURE VAL R47
+  CAPTURE VAL R46
+  CAPTURE VAL R18
+  CAPTURE VAL R59
+  CAPTURE VAL R48
+  CAPTURE VAL R52
   CAPTURE VAL R12
   CAPTURE VAL R13
   CAPTURE VAL R14
+  CAPTURE VAL R54
   CAPTURE VAL R51
-  CAPTURE VAL R49
   CAPTURE VAL R11
+  CAPTURE VAL R53
   CAPTURE VAL R16
   CAPTURE VAL R17
-  CAPTURE VAL R55
+  CAPTURE VAL R58
   CAPTURE VAL R10
-  CAPTURE VAL R47
-  CAPTURE VAL R53
-  MOVE R69 R7
-  DUPTABLE R70 K94 [{"Analytics", "Signals", "Stylizer"}]
-  GETTABLEKS R71 R6 K92 ["Analytics"]
-  SETTABLEKS R71 R70 K92 ["Analytics"]
-  SETTABLEKS R8 R70 K17 ["Signals"]
-  GETTABLEKS R71 R6 K93 ["Stylizer"]
-  SETTABLEKS R71 R70 K93 ["Stylizer"]
-  CALL R69 1 1
-  MOVE R70 R66
-  CALL R69 1 1
-  MOVE R66 R69
-  GETTABLEKS R69 R3 K95 ["connect"]
-  MOVE R70 R67
-  MOVE R71 R68
-  CALL R69 2 1
-  MOVE R70 R66
-  CALL R69 1 -1
-  RETURN R69 -1
+  CAPTURE VAL R49
+  CAPTURE VAL R56
+  MOVE R73 R7
+  DUPTABLE R74 K98 [{"Analytics", "Signals", "Stylizer"}]
+  GETTABLEKS R75 R6 K96 ["Analytics"]
+  SETTABLEKS R75 R74 K96 ["Analytics"]
+  SETTABLEKS R8 R74 K17 ["Signals"]
+  GETTABLEKS R75 R6 K97 ["Stylizer"]
+  SETTABLEKS R75 R74 K97 ["Stylizer"]
+  CALL R73 1 1
+  MOVE R74 R70
+  CALL R73 1 1
+  MOVE R70 R73
+  GETTABLEKS R73 R3 K99 ["connect"]
+  MOVE R74 R71
+  MOVE R75 R72
+  CALL R73 2 1
+  MOVE R74 R70
+  CALL R73 1 -1
+  RETURN R73 -1

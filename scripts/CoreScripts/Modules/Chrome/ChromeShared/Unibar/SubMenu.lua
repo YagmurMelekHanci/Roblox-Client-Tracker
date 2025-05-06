@@ -71,6 +71,12 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
+local UIManager
+if isInExperienceUIVREnabled then
+	local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+	UIManager = VrSpatialUi.UIManager
+end
+
 local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
 local SCROLL_OFFSET = ROW_HEIGHT * 0.5
@@ -229,9 +235,11 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			richText = if GetFFlagEnableChromePinIntegrations() then false else true,
 		}),
 	})
-
+	local heightScale = if isInExperienceUIVREnabled
+		then UIManager.getInstance():getAdditionalCameraScaleIfNeeded()
+		else 1
 	return React.createElement(Interactable, {
-		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
+		Size = UDim2.new(1, 0, 0, ROW_HEIGHT * heightScale),
 		BorderSizePixel = 0,
 		BackgroundTransparency = highlightColor:map(function(v)
 			return v.Transparency
@@ -519,19 +527,27 @@ function SubMenu(props: SubMenuProps)
 	local preferredTransparency = if GetFFlagChromeUsePreferredTransparency()
 		then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
 		else style.Theme.BackgroundUIContrast.Transparency
-
+	local heightScale = if isInExperienceUIVREnabled
+		then UIManager.getInstance():getAdditionalCameraScaleIfNeeded()
+		else 1
+	local anchorPoint
+	if isInExperienceUIVREnabled and isSpatial() then
+		anchorPoint = Vector2.new(0, 1)
+	else
+		anchorPoint = if leftAlign then Vector2.zero else Vector2.new(1, 0)
+	end
 	return React.createElement("Frame", {
 		Size = if isInExperienceUIVREnabled and isSpatial()
-			then UDim2.new(1, 0, 1, 0)
+			then UDim2.new(1, 0, 0, canvasSize * heightScale)
 			else UDim2.new(
 				0,
 				Constants.ICON_CELL_WIDTH * 4 + unibarLeftMargin + Constants.UNIBAR_END_PADDING * 2,
 				0,
 				0
 			),
-		AnchorPoint = if leftAlign then Vector2.zero else Vector2.new(1, 0),
+		AnchorPoint = anchorPoint,
 		Position = if isInExperienceUIVREnabled and isSpatial()
-			then UDim2.fromOffset(0, 0)
+			then UDim2.new(0, 0, 1, 0)
 			else UDim2.new(0, -topbarInsetHeight - 2 + unibarLeftMargin, 0, 0),
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,
 		BackgroundTransparency = if GetFFlagAnimateSubMenu() and props.menuTransition
@@ -615,6 +631,10 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 			end)
 
 			connection.current = UserInputService.InputEnded:Connect(function(inputChangedObj: InputObject, _)
+				if isInExperienceUIVREnabled and isSpatial() then
+					-- drag SubMenu in SpatialUI should not dismiss SubMenu
+					return
+				end
 				local pressed = inputChangedObj.UserInputType == Enum.UserInputType.MouseButton1
 
 				local subMenuId = ChromeService:currentSubMenu():get()

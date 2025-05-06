@@ -1,0 +1,194 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["avatarRules"]
+  CALL R0 0 1
+  GETIMPORT R1 K4 [Enum.GameAvatarType.PlayerChoice]
+  SETTABLEKS R1 R0 K5 ["AvatarType"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createAvatarBodyRules"]
+  CALL R0 0 1
+  GETIMPORT R1 K4 [Enum.AvatarSettingsScaleMode.CustomScale]
+  SETTABLEKS R1 R0 K5 ["ScaleMode"]
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADN R2 2
+  LOADN R3 9
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K9 ["CustomHeight"]
+  GETIMPORT R1 K12 [Enum.AvatarSettingsAppearanceMode.CustomParts]
+  SETTABLEKS R1 R0 K13 ["AppearanceMode"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K14 ["VALID_HEAD_ASSETID"]
+  GETTABLEKS R1 R2 K15 ["assetId"]
+  SETTABLEKS R1 R0 K16 ["CustomHeadId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K17 ["VALID_TORSO_ASSETID"]
+  GETTABLEKS R1 R2 K15 ["assetId"]
+  SETTABLEKS R1 R0 K18 ["CustomTorsoId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K19 ["VALID_LEFTARM_ASSETID"]
+  GETTABLEKS R1 R2 K15 ["assetId"]
+  SETTABLEKS R1 R0 K20 ["CustomLeftArmId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K21 ["VALID_RIGHTARM_ASSETID"]
+  GETTABLEKS R1 R2 K15 ["assetId"]
+  SETTABLEKS R1 R0 K22 ["CustomRightArmId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K23 ["VALID_LEFTLEG_ASSETID"]
+  GETTABLEKS R1 R2 K15 ["assetId"]
+  SETTABLEKS R1 R0 K24 ["CustomLeftLegId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K25 ["VALID_RIGHTLEG_ASSETID"]
+  GETTABLEKS R1 R2 K15 ["assetId"]
+  SETTABLEKS R1 R0 K26 ["CustomRightLegId"]
+  GETIMPORT R1 K29 [Enum.AvatarSettingsCustomBodyType.BundleId]
+  SETTABLEKS R1 R0 K30 ["CustomBodyType"]
+  LOADN R1 7
+  SETTABLEKS R1 R0 K31 ["CustomBodyBundleId"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K32 ["KeepPlayerHead"]
+  GETIMPORT R1 K35 [Enum.AvatarSettingsBuildMode.CustomBuild]
+  SETTABLEKS R1 R0 K36 ["BuildMode"]
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADK R2 K37 [0.1]
+  LOADK R3 K38 [0.2]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K39 ["CustomHeightScale"]
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADK R2 K37 [0.1]
+  LOADK R3 K38 [0.2]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K40 ["CustomWidthScale"]
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADK R2 K37 [0.1]
+  LOADK R3 K38 [0.2]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K41 ["CustomHeadScale"]
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADK R2 K37 [0.1]
+  LOADK R3 K38 [0.2]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K42 ["CustomBodyTypeScale"]
+  GETIMPORT R1 K8 [NumberRange.new]
+  LOADK R2 K37 [0.1]
+  LOADK R3 K38 [0.2]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K43 ["CustomProportionsScale"]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createAvatarCollisionRules"]
+  CALL R0 0 1
+  GETIMPORT R1 K4 [Enum.AvatarSettingsCollisionMode.SingleCollider]
+  SETTABLEKS R1 R0 K5 ["CollisionMode"]
+  LOADK R1 K6 [{5, 5, 5}]
+  SETTABLEKS R1 R0 K7 ["SingleColliderSize"]
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createAvatarAnimationRules"]
+  CALL R0 0 1
+  GETIMPORT R1 K4 [Enum.AvatarSettingsAnimationPacksMode.StandardR15]
+  SETTABLEKS R1 R0 K5 ["AnimationPacksMode"]
+  GETIMPORT R1 K8 [Enum.AvatarSettingsAnimationClipsMode.CustomClips]
+  SETTABLEKS R1 R0 K9 ["AnimationClipsMode"]
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createAvatarAccessoryRules"]
+  CALL R0 0 1
+  LOADB R1 0
+  SETTABLEKS R1 R0 K1 ["EnableSound"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K2 ["EnableVFX"]
+  GETIMPORT R1 K6 [Enum.AvatarSettingsAccessoryLimitMethod.Remove]
+  SETTABLEKS R1 R0 K7 ["LimitMethod"]
+  LOADK R1 K8 [{5, 5, 5}]
+  SETTABLEKS R1 R0 K9 ["LimitBounds"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["VALID_ASSETID"]
+  GETTABLEKS R1 R2 K11 ["assetId"]
+  SETTABLEKS R1 R0 K12 ["CustomHeadAccessoryId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["VALID_ASSETID"]
+  GETTABLEKS R1 R2 K11 ["assetId"]
+  SETTABLEKS R1 R0 K13 ["CustomHairAccessoryId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["VALID_ASSETID"]
+  GETTABLEKS R1 R2 K11 ["assetId"]
+  SETTABLEKS R1 R0 K14 ["CustomFaceAccessoryId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["VALID_ASSETID"]
+  GETTABLEKS R1 R2 K11 ["assetId"]
+  SETTABLEKS R1 R0 K15 ["CustomNeckAccessoryId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["VALID_ASSETID"]
+  GETTABLEKS R1 R2 K11 ["assetId"]
+  SETTABLEKS R1 R0 K16 ["CustomShoulderAccessoryId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["VALID_ASSETID"]
+  GETTABLEKS R1 R2 K11 ["assetId"]
+  SETTABLEKS R1 R0 K17 ["CustomFrontAccessoryId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["VALID_ASSETID"]
+  GETTABLEKS R1 R2 K11 ["assetId"]
+  SETTABLEKS R1 R0 K18 ["CustomBackAccessoryId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["VALID_ASSETID"]
+  GETTABLEKS R1 R2 K11 ["assetId"]
+  SETTABLEKS R1 R0 K19 ["CustomWaistAccessoryId"]
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createAvatarClothingRules"]
+  CALL R0 0 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["tests"]
+  GETTABLEKS R3 R4 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["TestConstants"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K8 ["Util"]
+  GETTABLEKS R5 R6 K10 ["BridgingFiles"]
+  GETTABLEKS R4 R5 K11 ["AssetDmFiles"]
+  GETTABLEKS R3 R4 K12 ["assetDmUtils"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K13 ["AssetIds"]
+  NEWTABLE R4 8 0
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K15 ["createNonDefaultAvatarRulesInstance"]
+  DUPCLOSURE R5 K16 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K17 ["createNonDefaultAvatarBodyRulesInstance"]
+  DUPCLOSURE R5 K18 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K19 ["createNonDefaultAvatarCollisionRulesInstance"]
+  DUPCLOSURE R5 K20 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K21 ["createNonDefaultAvatarAnimationRulesInstance"]
+  DUPCLOSURE R5 K22 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K23 ["createNonDefaultAvatarAccessoryRulesInstance"]
+  DUPCLOSURE R5 K24 [PROTO_5]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K25 ["createNonDefaultAvatarClothingRulesInstance"]
+  RETURN R4 1

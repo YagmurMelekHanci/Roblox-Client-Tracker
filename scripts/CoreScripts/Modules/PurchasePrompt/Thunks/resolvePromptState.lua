@@ -8,6 +8,7 @@ local ProductInfoReceived = require(Root.Actions.ProductInfoReceived)
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
 local BalanceInfoRecieved = require(Root.Actions.BalanceInfoRecieved)
 local PromptNativeUpsell = require(Root.Actions.PromptNativeUpsell)
+local PromptNativeUpsellSuggestions = require(Root.Actions.PromptNativeUpsellSuggestions)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local CompleteRequest = require(Root.Actions.CompleteRequest)
 
@@ -20,6 +21,7 @@ local RequestType = require(Root.Enums.RequestType)
 local RobuxUpsell = require(Root.Models.RobuxUpsell)
 
 local getRobuxUpsellProduct = require(Root.Network.getRobuxUpsellProduct)
+local getRobuxUpsellSuggestions = require(Root.Network.getRobuxUpsellSuggestions)
 
 local ABTest = require(Root.Services.ABTest)
 local Analytics = require(Root.Services.Analytics)
@@ -51,6 +53,7 @@ local requiredServices = {
 }
 
 local FFlagEnabledEnhancedRobuxUpsellV2 = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnabledEnhancedRobuxUpsellV2
+local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAPI
 
 -- Original handler for the basic Robux upsell flow
 local function handleSuccessfulUpsellProduct(store, analytics, product, state)
@@ -71,6 +74,15 @@ local function handleSuccessfulUpsellProduct(store, analytics, product, state)
 		)
 	)
 	
+	store:dispatch(sendCounter(Counter.UpsellModalShown))
+end
+
+local function handleSuccessfulUpsellSuggestions(store, upsellSuggestions)
+	-- Check if the user cancel the purchase before this could return
+	if not hasPendingRequest(store:getState()) then
+		return
+	end
+	store:dispatch(PromptNativeUpsellSuggestions(upsellSuggestions.products, 1))
 	store:dispatch(sendCounter(Counter.UpsellModalShown))
 end
 
@@ -177,6 +189,19 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 				end
 			end
 
+			if FFlagEnableUpsellSuggestionsAPI then
+				return getRobuxUpsellSuggestions(price, robuxBalance, paymentPlatform):andThen(
+					-- success handler
+					function(upsellSuggestions)
+						return handleSuccessfulUpsellSuggestions(store, upsellSuggestions)
+					end,
+					-- failure handler
+					function()
+						return handleFailedUpsellProduct(store, state)
+					end
+				)
+			end
+			
 			if FFlagEnabledEnhancedRobuxUpsellV2 then
 				local universeId = game.GameId
 				local itemProductId = productInfo.ProductId

@@ -248,13 +248,13 @@ local function findStorybooks()
 		insert(sources, foundation)
 	end
 
-	-- CONTRACTORS: These are not available
+	-- TODO (AleksandrSl 10/04/2025): Enable when MaterialFramework is migrated
 	-- local materialFramework = index and index.MaterialFramework.MaterialFramework or Main.Parent.MaterialFramework
 	-- insert(sources, materialFramework)
-	-- insert(
-	-- 	sources,
-	-- 	if index then index.ViewportToolingFramework.ViewportToolingFramework else Main.Parent.ViewportToolingFramework
-	-- )
+	insert(
+		sources,
+		if index then index.ViewportToolingFramework.ViewportToolingFramework else Main.Parent.ViewportToolingFramework
+	)
 
 	if index then
 		local PluginDebugService = safeGetService(0, "PluginDebugService")

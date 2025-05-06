@@ -6,6 +6,7 @@ local React = require(CorePackages.Packages.React)
 local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
+local RespawnUtils = require(Chrome.Integrations.RespawnUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
@@ -18,9 +19,7 @@ local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
-local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local SquadExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).SquadExperimentation
-local Signal = SignalLib.Signal
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -197,37 +196,14 @@ local backpack = ChromeService:register({
 })
 ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
 
-local respawnPageOpen = false
-local respawnPageOpenSignal = Signal.new()
-local mappedRespawnPageOpenSignal = MappedSignal.new(respawnPageOpenSignal, function()
-	return respawnPageOpen
-end)
-
-task.defer(function()
-	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-	SettingsHub.CurrentPageSignal:connect(function(pageName)
-		respawnPageOpen = pageName == SettingsHub.Instance.ResetCharacterPage.Page.Name
-		respawnPageOpenSignal:fire()
-	end)
-end)
-
 local respawn = ChromeService:register({
 	id = "respawn",
 	label = "CoreScripts.InGameMenu.QuickActions.Respawn",
 	activated = function(self)
-		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-		if SettingsHub:GetVisibility() then
-			if respawnPageOpen then
-				SettingsHub:SetVisibility(false)
-			else
-				SettingsHub:SwitchToPage(SettingsHub.Instance.ResetCharacterPage, true)
-			end
-		else
-			SettingsHub:SetVisibility(true, false, SettingsHub.Instance.ResetCharacterPage)
-		end
+		RespawnUtils.respawnPage()
 	end,
 	isActivated = function()
-		return mappedRespawnPageOpenSignal:get()
+		return RespawnUtils.respawnPageOpenSignal:get()
 	end,
 	components = {
 		Icon = function(props)

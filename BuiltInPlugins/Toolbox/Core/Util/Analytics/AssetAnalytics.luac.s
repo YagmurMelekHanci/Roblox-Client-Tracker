@@ -326,35 +326,43 @@ PROTO_9:
   MOVE R8 R9
   GETUPVAL R9 4
   CALL R9 0 1
-  JUMPIFNOT R9 [+14]
+  JUMPIFNOT R9 [+24]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K12 ["join"]
   MOVE R10 R8
-  DUPTABLE R11 K16 [{"timestampMs"}]
-  GETIMPORT R13 K19 [DateTime.now]
+  DUPTABLE R11 K17 [{"timestampMs", "toolboxSid"}]
+  GETIMPORT R13 K20 [DateTime.now]
   CALL R13 0 1
-  GETTABLEKS R12 R13 K20 ["UnixTimestampMillis"]
+  GETTABLEKS R12 R13 K21 ["UnixTimestampMillis"]
   SETTABLEKS R12 R11 K15 ["timestampMs"]
+  GETUPVAL R13 4
+  CALL R13 0 1
+  JUMPIFNOT R13 [+4]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K16 ["toolboxSid"]
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K16 ["toolboxSid"]
   CALL R9 2 1
   MOVE R8 R9
   GETTABLEKS R10 R7 K9 ["impressions"]
   GETTABLE R9 R10 R5
   JUMPIF R9 [+24]
-  GETTABLEKS R10 R0 K21 ["senders"]
-  GETTABLEKS R9 R10 K22 ["sendEventDeferred"]
+  GETTABLEKS R10 R0 K22 ["senders"]
+  GETTABLEKS R9 R10 K23 ["sendEventDeferred"]
   GETUPVAL R11 0
   CALL R11 0 1
   JUMPIFNOT R11 [+4]
   GETUPVAL R11 1
-  GETTABLEKS R10 R11 K23 ["eventTarget"]
+  GETTABLEKS R10 R11 K24 ["eventTarget"]
   JUMP [+1]
-  LOADK R10 K24 ["studio"]
+  LOADK R10 K25 ["studio"]
   LOADK R11 K2 ["Marketplace"]
-  LOADK R12 K25 ["MarketplaceAssetImpression"]
+  LOADK R12 K26 ["MarketplaceAssetImpression"]
   MOVE R13 R8
   CALL R9 4 0
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K26 ["incrementAssetImpressionCounter"]
+  GETTABLEKS R9 R10 K27 ["incrementAssetImpressionCounter"]
   CALL R9 0 0
   GETTABLEKS R9 R7 K9 ["impressions"]
   LOADB R10 1
@@ -752,7 +760,7 @@ MAIN:
   GETTABLEKS R19 R1 K12 ["Core"]
   GETTABLEKS R18 R19 K15 ["Util"]
   GETTABLEKS R17 R18 K23 ["SharedFlags"]
-  GETTABLEKS R16 R17 K27 ["getFFlagToolboxSendTimestamp"]
+  GETTABLEKS R16 R17 K27 ["getFFlagToolboxCSWOTAEnabled"]
   CALL R15 1 1
   NEWTABLE R16 32 0
   SETTABLEKS R16 R16 K28 ["__index"]

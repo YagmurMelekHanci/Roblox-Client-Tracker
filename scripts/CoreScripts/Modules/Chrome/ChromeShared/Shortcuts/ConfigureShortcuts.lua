@@ -3,17 +3,24 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local GamepadService = game:GetService("GamepadService")
 
+local Chrome = script:FindFirstAncestor("Chrome")
 local Root = script:FindFirstAncestor("ChromeShared")
 local FocusSelectExpChat = require(Root.Utility.FocusSelectExpChat)
 local ChromeService = require(Root.Service)
 local GuiService = game:GetService("GuiService")
 local Constants = require(Root.Unibar.Constants)
+local RespawnUtils = require(Chrome.Integrations.RespawnUtils)
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagTweakTiltMenuShortcuts = SharedFlags.FFlagTweakTiltMenuShortcuts
 local FFlagChromeShortcutAddRespawnLeaveToIEM = SharedFlags.FFlagChromeShortcutAddRespawnLeaveToIEM
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
+
+local ChromeFlags = Chrome.Flags
+local FFlagRespawnChromeShortcutTelemetry = require(ChromeFlags.FFlagRespawnChromeShortcutTelemetry)
+local FFlagLeaveChromeShortcutTelemetry = require(ChromeFlags.FFlagLeaveChromeShortcutTelemetry)
 
 local ChatSelector = if FFlagConsoleChatOnExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
@@ -25,14 +32,31 @@ local leaveActionProps = {
 	keyCode = Enum.KeyCode.ButtonX,
 	activated = function()
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+		local LeavePage = SettingsHub.Instance.LeaveGamePage
+		local function switchToLeavePage()
+			local payload = {
+				used_shortcut = true,
+			}
+			SettingsHub.Instance:SwitchToPage(LeavePage, true, nil, nil, nil, payload)
+		end
+
 		if SettingsHub:GetVisibility() then
-			if SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.LeaveGamePage then
+			if SettingsHub.Instance.Pages.CurrentPage == LeavePage then
 				leaveGame(true)
 			else
-				SettingsHub:SwitchToPage(SettingsHub.Instance.LeaveGamePage, true)
+				if FFlagLeaveChromeShortcutTelemetry then
+					switchToLeavePage()
+				else
+					SettingsHub:SwitchToPage(LeavePage, true)
+				end
 			end
 		else
-			SettingsHub:SetVisibility(true, false, SettingsHub.Instance.LeaveGamePage)
+			if FFlagRespawnChromeShortcutTelemetry then
+				SettingsHub:SetVisibility(true)
+				switchToLeavePage()
+			else
+				SettingsHub:SetVisibility(true, false, LeavePage)
+			end
 		end
 		return
 	end,
@@ -49,7 +73,13 @@ local repawnActionProps = {
 		then
 			SettingsHub.Instance.ResetCharacterPage.ResetFunction()
 		else
-			ChromeService:activate("respawn")
+			if FFlagRespawnChromeShortcutTelemetry then
+				RespawnUtils.respawnPage({
+					usedShortcut = true,
+				})
+			else
+				ChromeService:activate("respawn")
+			end
 		end
 		return
 	end,
@@ -66,14 +96,31 @@ function registerShortcuts()
 			then leaveActionProps.activated
 			else function()
 				local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+				local LeavePage = SettingsHub.Instance.LeaveGamePage
+				local function switchToLeavePage()
+					local payload = {
+						used_shortcut = true,
+					}
+					SettingsHub.Instance:SwitchToPage(LeavePage, true, nil, nil, nil, payload)
+				end
+
 				if SettingsHub:GetVisibility() then
-					if SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.LeaveGamePage then
+					if SettingsHub.Instance.Pages.CurrentPage == LeavePage then
 						leaveGame(true)
 					else
-						SettingsHub:SwitchToPage(SettingsHub.Instance.LeaveGamePage, true)
+						if FFlagLeaveChromeShortcutTelemetry then
+							switchToLeavePage()
+						else
+							SettingsHub:SwitchToPage(LeavePage, true)
+						end
 					end
 				else
-					SettingsHub:SetVisibility(true, false, SettingsHub.Instance.LeaveGamePage)
+					if FFlagRespawnChromeShortcutTelemetry then
+						SettingsHub:SetVisibility(true)
+						switchToLeavePage()
+					else
+						SettingsHub:SetVisibility(true, false, LeavePage)
+					end
 				end
 				return
 			end,
@@ -95,7 +142,13 @@ function registerShortcuts()
 				then
 					SettingsHub.Instance.ResetCharacterPage.ResetFunction()
 				else
-					ChromeService:activate("respawn")
+					if FFlagRespawnChromeShortcutTelemetry then
+						RespawnUtils.respawnPage({
+							usedShortcut = true,
+						})
+					else
+						ChromeService:activate("respawn")
+					end
 				end
 				return
 			end,

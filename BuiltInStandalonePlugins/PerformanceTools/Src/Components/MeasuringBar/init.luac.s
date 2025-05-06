@@ -371,48 +371,40 @@ PROTO_5:
   GETTABLEKS R19 R20 K21 ["Tag"]
   LOADK R20 K52 ["Component-MeasuringBar"]
   SETTABLE R20 R18 R19
-  GETUPVAL R21 0
-  GETTABLEKS R20 R21 K53 ["Event"]
-  GETTABLEKS R19 R20 K54 ["MouseEnter"]
-  SETTABLE R12 R18 R19
-  GETUPVAL R21 0
-  GETTABLEKS R20 R21 K53 ["Event"]
-  GETTABLEKS R19 R20 K55 ["MouseLeave"]
-  SETTABLE R13 R18 R19
-  GETUPVAL R21 0
-  GETTABLEKS R20 R21 K53 ["Event"]
-  GETTABLEKS R19 R20 K56 ["MouseMoved"]
-  NEWCLOSURE R20 P1
-  CAPTURE VAL R14
-  SETTABLE R20 R18 R19
-  DUPTABLE R19 K59 [{"MainLabel", "BarContainer"}]
+  DUPTABLE R19 K55 [{"MainLabel", "BarContainer"}]
   GETUPVAL R21 0
   GETTABLEKS R20 R21 K12 ["createElement"]
-  LOADK R21 K60 ["TextLabel"]
-  DUPTABLE R22 K66 [{"Text", "BackgroundTransparency", "TextSize", "Font", "TextXAlignment", "TextYAlignment", "Size", "LayoutOrder"}]
-  GETTABLEKS R23 R0 K67 ["MainText"]
-  SETTABLEKS R23 R22 K61 ["Text"]
+  LOADK R21 K56 ["TextLabel"]
+  NEWTABLE R22 8 0
+  GETTABLEKS R23 R0 K57 ["MainText"]
+  SETTABLEKS R23 R22 K58 ["Text"]
   LOADN R23 1
   SETTABLEKS R23 R22 K20 ["BackgroundTransparency"]
-  LOADN R23 16
-  SETTABLEKS R23 R22 K62 ["TextSize"]
-  GETIMPORT R23 K69 [Enum.Font.SourceSans]
-  SETTABLEKS R23 R22 K63 ["Font"]
-  GETIMPORT R23 K71 [Enum.TextXAlignment.Left]
-  SETTABLEKS R23 R22 K64 ["TextXAlignment"]
-  GETIMPORT R23 K73 [Enum.TextYAlignment.Bottom]
-  SETTABLEKS R23 R22 K65 ["TextYAlignment"]
+  GETUPVAL R24 0
+  GETTABLEKS R23 R24 K21 ["Tag"]
+  GETTABLEKS R25 R0 K59 ["IsChildRenderBar"]
+  JUMPIFNOT R25 [+2]
+  LOADK R24 K60 ["ChildRenderBar"]
+  JUMP [+1]
+  LOADK R24 K61 ["MainRenderBar"]
+  SETTABLE R24 R22 R23
+  GETIMPORT R23 K64 [Enum.Font.BuilderSans]
+  SETTABLEKS R23 R22 K62 ["Font"]
+  GETIMPORT R23 K67 [Enum.TextXAlignment.Left]
+  SETTABLEKS R23 R22 K65 ["TextXAlignment"]
+  GETIMPORT R23 K70 [Enum.TextYAlignment.Bottom]
+  SETTABLEKS R23 R22 K68 ["TextYAlignment"]
   GETIMPORT R23 K16 [UDim2.new]
   LOADN R24 1
   LOADN R25 0
   LOADN R26 0
-  LOADN R27 16
+  LOADN R27 17
   CALL R23 4 1
   SETTABLEKS R23 R22 K18 ["Size"]
   LOADN R23 1
   SETTABLEKS R23 R22 K51 ["LayoutOrder"]
   CALL R20 2 1
-  SETTABLEKS R20 R19 K57 ["MainLabel"]
+  SETTABLEKS R20 R19 K53 ["MainLabel"]
   GETUPVAL R21 0
   GETTABLEKS R20 R21 K12 ["createElement"]
   LOADK R21 K13 ["Frame"]
@@ -424,7 +416,7 @@ PROTO_5:
   LOADN R25 0
   CALL R23 2 1
   SETTABLEKS R23 R22 K18 ["Size"]
-  GETIMPORT R23 K75 [UDim2.fromOffset]
+  GETIMPORT R23 K72 [UDim2.fromOffset]
   LOADN R24 0
   LOADN R25 24
   CALL R23 2 1
@@ -440,27 +432,27 @@ PROTO_5:
   NEWTABLE R23 4 1
   GETUPVAL R26 0
   GETTABLEKS R25 R26 K12 ["createElement"]
-  LOADK R26 K76 ["UIListLayout"]
-  DUPTABLE R27 K81 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R28 K83 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R28 R27 K77 ["FillDirection"]
-  GETIMPORT R28 K84 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R28 R27 K78 ["HorizontalAlignment"]
-  GETIMPORT R28 K86 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R28 R27 K79 ["VerticalAlignment"]
-  GETIMPORT R28 K87 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R28 R27 K80 ["SortOrder"]
+  LOADK R26 K73 ["UIListLayout"]
+  DUPTABLE R27 K78 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R28 K80 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R28 R27 K74 ["FillDirection"]
+  GETIMPORT R28 K81 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R28 R27 K75 ["HorizontalAlignment"]
+  GETIMPORT R28 K83 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R28 R27 K76 ["VerticalAlignment"]
+  GETIMPORT R28 K84 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R28 R27 K77 ["SortOrder"]
   CALL R25 2 1
-  SETTABLEKS R25 R23 K88 ["Layout"]
+  SETTABLEKS R25 R23 K85 ["Layout"]
   GETUPVAL R26 0
   GETTABLEKS R25 R26 K12 ["createElement"]
   LOADK R26 K13 ["Frame"]
-  NEWTABLE R27 4 0
+  NEWTABLE R27 8 0
   GETIMPORT R28 K16 [UDim2.new]
   LOADN R29 1
   LOADN R30 176
   LOADN R31 0
-  LOADN R32 14
+  LOADN R32 10
   CALL R28 4 1
   SETTABLEKS R28 R27 K18 ["Size"]
   LOADN R28 1
@@ -469,16 +461,30 @@ PROTO_5:
   SETTABLEKS R28 R27 K19 ["BorderSizePixel"]
   GETUPVAL R29 0
   GETTABLEKS R28 R29 K21 ["Tag"]
-  LOADK R29 K89 ["Component-MeasuringBarBackground"]
+  LOADK R29 K86 ["Component-MeasuringBarBackground"]
   SETTABLE R29 R27 R28
-  DUPTABLE R28 K92 [{"FillObject", "MaxPip", "Pips", "UICorner"}]
-  SETTABLEKS R1 R28 K90 ["FillObject"]
+  GETUPVAL R30 0
+  GETTABLEKS R29 R30 K87 ["Event"]
+  GETTABLEKS R28 R29 K88 ["MouseEnter"]
+  SETTABLE R12 R27 R28
+  GETUPVAL R30 0
+  GETTABLEKS R29 R30 K87 ["Event"]
+  GETTABLEKS R28 R29 K89 ["MouseLeave"]
+  SETTABLE R13 R27 R28
+  GETUPVAL R30 0
+  GETTABLEKS R29 R30 K87 ["Event"]
+  GETTABLEKS R28 R29 K90 ["MouseMoved"]
+  NEWCLOSURE R29 P1
+  CAPTURE VAL R14
+  SETTABLE R29 R27 R28
+  DUPTABLE R28 K93 [{"FillObject", "MaxPip", "Pips", "UICorner"}]
+  SETTABLEKS R1 R28 K91 ["FillObject"]
   MOVE R29 R15
   JUMPIFNOT R29 [+30]
   GETUPVAL R30 0
   GETTABLEKS R29 R30 K12 ["createElement"]
   LOADK R30 K13 ["Frame"]
-  DUPTABLE R31 K94 [{"Position", "Size", "BackgroundColor3", "BorderSizePixel"}]
+  DUPTABLE R31 K95 [{"Position", "Size", "BackgroundColor3", "BorderSizePixel"}]
   GETIMPORT R32 K16 [UDim2.new]
   MOVE R33 R2
   LOADN R34 0
@@ -494,15 +500,15 @@ PROTO_5:
   CALL R32 4 1
   SETTABLEKS R32 R31 K18 ["Size"]
   GETUPVAL R32 4
-  SETTABLEKS R32 R31 K93 ["BackgroundColor3"]
+  SETTABLEKS R32 R31 K94 ["BackgroundColor3"]
   LOADN R32 0
   SETTABLEKS R32 R31 K19 ["BorderSizePixel"]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K91 ["MaxPip"]
+  SETTABLEKS R29 R28 K92 ["MaxPip"]
   GETUPVAL R30 0
   GETTABLEKS R29 R30 K12 ["createElement"]
   LOADK R30 K13 ["Frame"]
-  DUPTABLE R31 K95 [{"Size", "BackgroundTransparency"}]
+  DUPTABLE R31 K96 [{"Size", "BackgroundTransparency"}]
   GETIMPORT R32 K16 [UDim2.new]
   LOADN R33 1
   LOADN R34 0
@@ -527,11 +533,11 @@ PROTO_5:
   CALL R29 2 1
   SETTABLEKS R29 R28 K23 ["UICorner"]
   CALL R25 3 1
-  SETTABLEKS R25 R23 K96 ["LabelBackground"]
+  SETTABLEKS R25 R23 K97 ["LabelBackground"]
   GETUPVAL R25 0
   GETTABLEKS R24 R25 K12 ["createElement"]
   LOADK R25 K13 ["Frame"]
-  DUPTABLE R26 K97 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
+  DUPTABLE R26 K98 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
   LOADN R27 1
   SETTABLEKS R27 R26 K20 ["BackgroundTransparency"]
   GETIMPORT R27 K16 [UDim2.new]
@@ -547,16 +553,18 @@ PROTO_5:
   SETLIST R23 R24 1 [1]
   GETUPVAL R26 0
   GETTABLEKS R25 R26 K12 ["createElement"]
-  LOADK R26 K60 ["TextLabel"]
-  DUPTABLE R27 K98 [{"Text", "LayoutOrder"}]
-  GETTABLEKS R28 R0 K61 ["Text"]
-  SETTABLEKS R28 R27 K61 ["Text"]
+  LOADK R26 K56 ["TextLabel"]
+  DUPTABLE R27 K100 [{"Text", "TextSize", "LayoutOrder"}]
+  GETTABLEKS R28 R0 K58 ["Text"]
+  SETTABLEKS R28 R27 K58 ["Text"]
+  LOADN R28 14
+  SETTABLEKS R28 R27 K99 ["TextSize"]
   LOADN R28 3
   SETTABLEKS R28 R27 K51 ["LayoutOrder"]
   CALL R25 2 1
-  SETTABLEKS R25 R23 K99 ["Label"]
+  SETTABLEKS R25 R23 K101 ["Label"]
   CALL R20 3 1
-  SETTABLEKS R20 R19 K58 ["BarContainer"]
+  SETTABLEKS R20 R19 K54 ["BarContainer"]
   CALL R16 3 -1
   RETURN R16 -1
 

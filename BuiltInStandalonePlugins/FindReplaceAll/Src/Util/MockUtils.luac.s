@@ -88,69 +88,71 @@ PROTO_2:
 
 MAIN:
   PREPVARARGS 0
-  DUPTABLE R0 K5 [{"NumAllResults", "NumAllScripts", "BaseIndex", "QueryId", "Results"}]
+  DUPTABLE R0 K6 [{"NumAllResults", "NumAllScripts", "NumAllElements", "BaseIndex", "QueryId", "Results"}]
   LOADN R1 4
   SETTABLEKS R1 R0 K0 ["NumAllResults"]
   LOADN R1 2
   SETTABLEKS R1 R0 K1 ["NumAllScripts"]
+  LOADN R1 6
+  SETTABLEKS R1 R0 K2 ["NumAllElements"]
   LOADN R1 255
-  SETTABLEKS R1 R0 K2 ["BaseIndex"]
+  SETTABLEKS R1 R0 K3 ["BaseIndex"]
   LOADN R1 1
-  SETTABLEKS R1 R0 K3 ["QueryId"]
+  SETTABLEKS R1 R0 K4 ["QueryId"]
   NEWTABLE R1 0 2
-  DUPTABLE R2 K13 [{"Guid", "Name", "Type", "NumMatches", "Id", "Matches", "Lines"}]
-  LOADK R3 K14 ["1234"]
-  SETTABLEKS R3 R2 K6 ["Guid"]
-  LOADK R3 K15 ["Workspace.Baseplate.Script"]
-  SETTABLEKS R3 R2 K7 ["Name"]
+  DUPTABLE R2 K14 [{"Guid", "Name", "Type", "NumMatches", "Id", "Matches", "Lines"}]
+  LOADK R3 K15 ["1234"]
+  SETTABLEKS R3 R2 K7 ["Guid"]
+  LOADK R3 K16 ["Workspace.Baseplate.Script"]
+  SETTABLEKS R3 R2 K8 ["Name"]
   LOADN R3 0
-  SETTABLEKS R3 R2 K8 ["Type"]
+  SETTABLEKS R3 R2 K9 ["Type"]
   LOADN R3 2
-  SETTABLEKS R3 R2 K9 ["NumMatches"]
+  SETTABLEKS R3 R2 K10 ["NumMatches"]
   LOADN R3 0
-  SETTABLEKS R3 R2 K10 ["Id"]
+  SETTABLEKS R3 R2 K11 ["Id"]
   NEWTABLE R3 0 2
-  LOADK R4 K16 ["Item 1.1"]
-  LOADK R5 K17 ["Item 1.2"]
+  LOADK R4 K17 ["Item 1.1"]
+  LOADK R5 K18 ["Item 1.2"]
   SETLIST R3 R4 2 [1]
-  SETTABLEKS R3 R2 K11 ["Matches"]
+  SETTABLEKS R3 R2 K12 ["Matches"]
   NEWTABLE R3 0 2
   LOADN R4 1
   LOADN R5 2
   SETLIST R3 R4 2 [1]
-  SETTABLEKS R3 R2 K12 ["Lines"]
-  DUPTABLE R3 K13 [{"Guid", "Name", "Type", "NumMatches", "Id", "Matches", "Lines"}]
-  LOADK R4 K18 ["5678"]
-  SETTABLEKS R4 R3 K6 ["Guid"]
-  LOADK R4 K19 ["ReplacatedStorage.Modules.MyGreatModuleScript"]
-  SETTABLEKS R4 R3 K7 ["Name"]
+  SETTABLEKS R3 R2 K13 ["Lines"]
+  DUPTABLE R3 K14 [{"Guid", "Name", "Type", "NumMatches", "Id", "Matches", "Lines"}]
+  LOADK R4 K19 ["5678"]
+  SETTABLEKS R4 R3 K7 ["Guid"]
+  LOADK R4 K20 ["ReplacatedStorage.Modules.MyGreatModuleScript"]
+  SETTABLEKS R4 R3 K8 ["Name"]
   LOADN R4 2
-  SETTABLEKS R4 R3 K8 ["Type"]
+  SETTABLEKS R4 R3 K9 ["Type"]
   LOADN R4 2
-  SETTABLEKS R4 R3 K9 ["NumMatches"]
+  SETTABLEKS R4 R3 K10 ["NumMatches"]
   LOADN R4 1
-  SETTABLEKS R4 R3 K10 ["Id"]
+  SETTABLEKS R4 R3 K11 ["Id"]
   NEWTABLE R4 0 2
-  LOADK R5 K20 ["Item 2.1"]
-  LOADK R6 K21 ["Item 2.2"]
+  LOADK R5 K21 ["Item 2.1"]
+  LOADK R6 K22 ["Item 2.2"]
   SETLIST R4 R5 2 [1]
-  SETTABLEKS R4 R3 K11 ["Matches"]
+  SETTABLEKS R4 R3 K12 ["Matches"]
   NEWTABLE R4 0 2
   LOADN R5 42
   LOADN R6 142
   SETLIST R4 R5 2 [1]
-  SETTABLEKS R4 R3 K12 ["Lines"]
+  SETTABLEKS R4 R3 K13 ["Lines"]
   SETLIST R1 R2 2 [1]
-  SETTABLEKS R1 R0 K4 ["Results"]
-  DUPCLOSURE R1 K22 [PROTO_0]
+  SETTABLEKS R1 R0 K5 ["Results"]
+  DUPCLOSURE R1 K23 [PROTO_0]
   CAPTURE VAL R1
-  DUPCLOSURE R2 K23 [PROTO_1]
+  DUPCLOSURE R2 K24 [PROTO_1]
   CAPTURE VAL R2
-  DUPCLOSURE R3 K24 [PROTO_2]
+  DUPCLOSURE R3 K25 [PROTO_2]
   CAPTURE VAL R3
-  DUPTABLE R4 K29 [{"testFindResults", "findFirstDescendant", "findDescendants", "printAllDescendants"}]
-  SETTABLEKS R0 R4 K25 ["testFindResults"]
-  SETTABLEKS R1 R4 K26 ["findFirstDescendant"]
-  SETTABLEKS R2 R4 K27 ["findDescendants"]
-  SETTABLEKS R3 R4 K28 ["printAllDescendants"]
+  DUPTABLE R4 K30 [{"testFindResults", "findFirstDescendant", "findDescendants", "printAllDescendants"}]
+  SETTABLEKS R0 R4 K26 ["testFindResults"]
+  SETTABLEKS R1 R4 K27 ["findFirstDescendant"]
+  SETTABLEKS R2 R4 K28 ["findDescendants"]
+  SETTABLEKS R3 R4 K29 ["printAllDescendants"]
   RETURN R4 1

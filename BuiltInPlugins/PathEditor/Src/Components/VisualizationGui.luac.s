@@ -53,78 +53,71 @@ PROTO_1:
   LOADB R6 1
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K6 ["createElement"]
-  GETIMPORT R9 K18 [game]
-  LOADK R11 K19 ["PathEditorSurfaceGui"]
-  NAMECALL R9 R9 K20 ["GetFastFlag"]
-  CALL R9 2 1
-  JUMPIFNOT R9 [+2]
   GETUPVAL R8 3
-  JUMP [+1]
-  LOADK R8 K21 ["ScreenGui"]
-  DUPTABLE R9 K23 [{"DisplayOrder"}]
+  DUPTABLE R9 K18 [{"DisplayOrder"}]
   LOADN R10 1
-  SETTABLEKS R10 R9 K22 ["DisplayOrder"]
-  DUPTABLE R10 K27 [{"EmptySpaceInputBlocker", "LineFrame", "PointFrame"}]
+  SETTABLEKS R10 R9 K17 ["DisplayOrder"]
+  DUPTABLE R10 K22 [{"EmptySpaceInputBlocker", "LineFrame", "PointFrame"}]
   MOVE R11 R6
   JUMPIFNOT R11 [+16]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K6 ["createElement"]
   GETUPVAL R12 4
-  DUPTABLE R13 K30 [{"Size", "OnClick"}]
-  GETIMPORT R14 K33 [UDim2.fromScale]
+  DUPTABLE R13 K25 [{"Size", "OnClick"}]
+  GETIMPORT R14 K28 [UDim2.fromScale]
   LOADN R15 1
   LOADN R16 1
   CALL R14 2 1
-  SETTABLEKS R14 R13 K28 ["Size"]
-  DUPCLOSURE R14 K34 [PROTO_0]
-  SETTABLEKS R14 R13 K29 ["OnClick"]
+  SETTABLEKS R14 R13 K23 ["Size"]
+  DUPCLOSURE R14 K29 [PROTO_0]
+  SETTABLEKS R14 R13 K24 ["OnClick"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K24 ["EmptySpaceInputBlocker"]
+  SETTABLEKS R11 R10 K19 ["EmptySpaceInputBlocker"]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K6 ["createElement"]
-  LOADK R12 K35 ["Frame"]
-  DUPTABLE R13 K38 [{"Size", "BackgroundTransparency", "Position"}]
-  GETIMPORT R14 K33 [UDim2.fromScale]
+  LOADK R12 K30 ["Frame"]
+  DUPTABLE R13 K33 [{"Size", "BackgroundTransparency", "Position"}]
+  GETIMPORT R14 K28 [UDim2.fromScale]
   LOADN R15 1
   LOADN R16 1
   CALL R14 2 1
-  SETTABLEKS R14 R13 K28 ["Size"]
+  SETTABLEKS R14 R13 K23 ["Size"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K36 ["BackgroundTransparency"]
-  GETIMPORT R14 K40 [UDim2.fromOffset]
-  GETTABLEKS R15 R2 K41 ["X"]
-  GETTABLEKS R16 R2 K42 ["Y"]
+  SETTABLEKS R14 R13 K31 ["BackgroundTransparency"]
+  GETIMPORT R14 K35 [UDim2.fromOffset]
+  GETTABLEKS R15 R2 K36 ["X"]
+  GETTABLEKS R16 R2 K37 ["Y"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K37 ["Position"]
-  DUPTABLE R14 K44 [{"Line"}]
+  SETTABLEKS R14 R13 K32 ["Position"]
+  DUPTABLE R14 K39 [{"Line"}]
   MOVE R15 R5
   JUMPIFNOT R15 [+13]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 5
-  DUPTABLE R17 K46 [{"Style", "ControlPoints"}]
-  LOADK R18 K47 ["Visualization"]
-  SETTABLEKS R18 R17 K45 ["Style"]
+  DUPTABLE R17 K41 [{"Style", "ControlPoints"}]
+  LOADK R18 K42 ["Visualization"]
+  SETTABLEKS R18 R17 K40 ["Style"]
   GETTABLEKS R18 R1 K3 ["ControlPoints"]
   SETTABLEKS R18 R17 K3 ["ControlPoints"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K43 ["Line"]
+  SETTABLEKS R15 R14 K38 ["Line"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K25 ["LineFrame"]
+  SETTABLEKS R11 R10 K20 ["LineFrame"]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K6 ["createElement"]
-  LOADK R12 K35 ["Frame"]
-  DUPTABLE R13 K48 [{"Size", "BackgroundTransparency"}]
-  GETIMPORT R14 K33 [UDim2.fromScale]
+  LOADK R12 K30 ["Frame"]
+  DUPTABLE R13 K43 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R14 K28 [UDim2.fromScale]
   LOADN R15 1
   LOADN R16 1
   CALL R14 2 1
-  SETTABLEKS R14 R13 K28 ["Size"]
+  SETTABLEKS R14 R13 K23 ["Size"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K36 ["BackgroundTransparency"]
+  SETTABLEKS R14 R13 K31 ["BackgroundTransparency"]
   MOVE R14 R3
   CALL R11 3 1
-  SETTABLEKS R11 R10 K26 ["PointFrame"]
+  SETTABLEKS R11 R10 K21 ["PointFrame"]
   CALL R7 3 -1
   RETURN R7 -1
 

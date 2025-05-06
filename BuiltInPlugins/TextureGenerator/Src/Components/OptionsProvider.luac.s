@@ -40,32 +40,38 @@ PROTO_1:
   GETTABLEKS R15 R16 K0 ["useState"]
   LOADB R16 1
   CALL R15 1 2
-  DUPTABLE R17 K22 [{"promptText", "randomizeSeed", "seed", "rotation", "smartUVUnwrap", "promptMasking", "validRotation", "validSeed", "setPromptText", "setRandomizeSeed", "setSeed", "setRotation", "setSmartUVUnwrap", "setPromptMasking", "setValidRotation", "setValidSeed"}]
-  SETTABLEKS R1 R17 K6 ["promptText"]
-  SETTABLEKS R3 R17 K7 ["randomizeSeed"]
-  SETTABLEKS R5 R17 K8 ["seed"]
-  SETTABLEKS R7 R17 K9 ["rotation"]
-  SETTABLEKS R9 R17 K10 ["smartUVUnwrap"]
-  SETTABLEKS R11 R17 K11 ["promptMasking"]
-  SETTABLEKS R13 R17 K12 ["validRotation"]
-  SETTABLEKS R15 R17 K13 ["validSeed"]
-  SETTABLEKS R2 R17 K14 ["setPromptText"]
-  SETTABLEKS R4 R17 K15 ["setRandomizeSeed"]
-  SETTABLEKS R6 R17 K16 ["setSeed"]
-  SETTABLEKS R8 R17 K17 ["setRotation"]
-  SETTABLEKS R10 R17 K18 ["setSmartUVUnwrap"]
-  SETTABLEKS R12 R17 K19 ["setPromptMasking"]
-  SETTABLEKS R14 R17 K20 ["setValidRotation"]
-  SETTABLEKS R16 R17 K21 ["setValidSeed"]
-  GETUPVAL R19 0
-  GETTABLEKS R18 R19 K23 ["createElement"]
-  GETUPVAL R20 2
-  GETTABLEKS R19 R20 K24 ["Provider"]
-  DUPTABLE R20 K26 [{"value"}]
-  SETTABLEKS R17 R20 K25 ["value"]
-  GETTABLEKS R21 R0 K27 ["children"]
-  CALL R18 3 -1
-  RETURN R18 -1
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K0 ["useState"]
+  NEWTABLE R18 0 0
+  CALL R17 1 2
+  DUPTABLE R19 K24 [{"promptText", "randomizeSeed", "seed", "rotation", "smartUVUnwrap", "promptMasking", "validRotation", "validSeed", "optionsExpanded", "setPromptText", "setRandomizeSeed", "setSeed", "setRotation", "setSmartUVUnwrap", "setPromptMasking", "setValidRotation", "setValidSeed", "setOptionsExpanded"}]
+  SETTABLEKS R1 R19 K6 ["promptText"]
+  SETTABLEKS R3 R19 K7 ["randomizeSeed"]
+  SETTABLEKS R5 R19 K8 ["seed"]
+  SETTABLEKS R7 R19 K9 ["rotation"]
+  SETTABLEKS R9 R19 K10 ["smartUVUnwrap"]
+  SETTABLEKS R11 R19 K11 ["promptMasking"]
+  SETTABLEKS R13 R19 K12 ["validRotation"]
+  SETTABLEKS R15 R19 K13 ["validSeed"]
+  SETTABLEKS R17 R19 K14 ["optionsExpanded"]
+  SETTABLEKS R2 R19 K15 ["setPromptText"]
+  SETTABLEKS R4 R19 K16 ["setRandomizeSeed"]
+  SETTABLEKS R6 R19 K17 ["setSeed"]
+  SETTABLEKS R8 R19 K18 ["setRotation"]
+  SETTABLEKS R10 R19 K19 ["setSmartUVUnwrap"]
+  SETTABLEKS R12 R19 K20 ["setPromptMasking"]
+  SETTABLEKS R14 R19 K21 ["setValidRotation"]
+  SETTABLEKS R16 R19 K22 ["setValidSeed"]
+  SETTABLEKS R18 R19 K23 ["setOptionsExpanded"]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K25 ["createElement"]
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K26 ["Provider"]
+  DUPTABLE R22 K28 [{"value"}]
+  SETTABLEKS R19 R22 K27 ["value"]
+  GETTABLEKS R23 R0 K29 ["children"]
+  CALL R20 3 -1
+  RETURN R20 -1
 
 MAIN:
   PREPVARARGS 0

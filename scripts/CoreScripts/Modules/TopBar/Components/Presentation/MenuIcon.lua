@@ -14,13 +14,13 @@ local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWh
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 
 local Roact = require(CorePackages.Packages.Roact)
+local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -44,7 +44,7 @@ local GetFFlagChangeTopbarHeightCalculation =
 local FFlagEnableChromeBackwardsSignalAPI =
 	require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local FFlagFixMenuIconBackground = game:DefineFastFlag("FixMenuIconBackground", false)
-
+local FFlagEnableReferralRewardTooltip = game:DefineFastFlag("EnableReferralRewardTooltip", false)
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -62,8 +62,23 @@ end
 local isNewTiltIconEnabled = require(RobloxGui.Modules.isNewTiltIconEnabled)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local TooltipCallout
+local isSpatial
+local Panel3DInSpatialUI
+local PanelType
+local SPATIAL_TOOLTIP_SPACING
+if isInExperienceUIVREnabled then
+	isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+	TooltipCallout = UIBlox.App.Dialog.TooltipCallout
+	local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+	Panel3DInSpatialUI = VrSpatialUi.Panel3DInSpatialUI
+	PanelType = VrSpatialUi.Constants.PanelType
+	SPATIAL_TOOLTIP_SPACING = VrSpatialUi.Constants.SPATIAL_TOOLTIP_SPACING
+end
 
 local IconButton = require(script.Parent.IconButton)
+
+local withReferralRewardTooltipInfo = require(script.Parent.withReferralRewardTooltipInfo)
 
 local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
@@ -90,6 +105,7 @@ MenuIcon.validateProps = t.strictInterface({
 	showBadgeOver12 = t.optional(t.boolean),
 	menuIconRef = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
 	unibarMenuRef = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
+	referralRewardTooltipText = t.optional(t.string),
 })
 
 function MenuIcon:init()
@@ -243,6 +259,48 @@ function MenuIcon:init()
 
 end
 
+function MenuIcon:renderWithTooltipCompat(tooltipProps, tooltipOptions, renderTriggerPoint)
+	if isInExperienceUIVREnabled and isSpatial() then
+		local triggerPointName = "MenuIconTriggerPoint"
+		local triggerPointChanged = function(rbx: GuiObject)
+			self:setState({
+				triggerPointSize = rbx.AbsoluteSize,
+				triggerPointPosition = rbx.AbsolutePosition,
+			})
+		end
+		return React.createElement(
+			React.Fragment,
+			nil,
+			{
+				VRSpatialTooltip = if tooltipOptions.active
+						and self.state.triggerPointSize
+						and Panel3DInSpatialUI
+					then React.createElement(Panel3DInSpatialUI, {
+						panelType = PanelType.ToolTipsContainer,
+						renderFunction = function(panelSize)
+							return React.createElement(TooltipCallout, {
+								textAlignment = Enum.TextXAlignment.Center,
+								headerText = tooltipProps.headerText,
+								orientation = TooltipOrientation.Top,
+								distanceOffset = 0,
+								triggerPointCenter = Vector2.new(
+									self.state.triggerPointPosition.X + self.state.triggerPointSize.X / 2,
+									panelSize.Y - SPATIAL_TOOLTIP_SPACING
+								),
+								contentOffsetVector = Vector2.zero,
+								triggerPointRadius = Vector2.zero,
+							})
+						end,
+					})
+					else nil,
+				[triggerPointName] = renderTriggerPoint(triggerPointChanged),
+			} :: any
+		)
+	else
+		return withTooltip(tooltipProps, tooltipOptions, renderTriggerPoint)
+	end
+end
+
 function MenuIcon:render()
 	local visible
 	if isInExperienceUIVREnabled then
@@ -302,6 +360,12 @@ function MenuIcon:render()
 			headerText = tooltipText,
 			hotkeyCodes = MENU_HOTKEYS,
 		}
+
+		if FFlagEnableReferralRewardTooltip and self.props.referralRewardTooltipText and self.props.referralRewardTooltipText ~= "" then
+			tooltipProps.headerText = self.props.referralRewardTooltipText
+			tooltipProps.hotkeyCodes = {}
+		end
+
 		local tooltipOptions = {
 			active = self.state.showTooltip,
 			guiTarget = CoreGui,
@@ -309,7 +373,11 @@ function MenuIcon:render()
 			DisplayOrder = 10,
 		}
 
-		return withTooltip(tooltipProps, tooltipOptions, function(triggerPointChanged)
+		if FFlagEnableReferralRewardTooltip and self.props.referralRewardTooltipText and self.props.referralRewardTooltipText ~= "" then
+			tooltipOptions.active = true
+		end
+
+		return self:renderWithTooltipCompat(tooltipProps, tooltipOptions, function(triggerPointChanged)
 			local onChange = function(rbx)
 				onAreaChanged(rbx)
 				triggerPointChanged(rbx)
@@ -339,7 +407,7 @@ function MenuIcon:render()
 			end
 
 			return Roact.createElement("Frame", {
-				Visible = if ChromeEnabled() and FFlagHideTopBarConsole then self.showIcon:map(function(showIcon)
+					Visible = if ChromeEnabled() and FFlagHideTopBarConsole then self.showIcon:map(function(showIcon)
 					return visible and showIcon
 				end) else visible,
 				BackgroundTransparency = 1,
@@ -356,7 +424,7 @@ function MenuIcon:render()
 				Background = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then nil else background,
 				IconHitArea = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then IconHitArea else 
 					if FFlagFixMenuIconBackground then nil else background :: never,
-				ShowTopBarListener = showTopBarListener,
+					ShowTopBarListener = showTopBarListener,
 			})
 		end)
 	else
@@ -392,4 +460,10 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(MenuIcon)
+local menuIconComponent = RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(MenuIcon)
+
+if FFlagEnableReferralRewardTooltip then
+	return withReferralRewardTooltipInfo(menuIconComponent)
+else
+	return menuIconComponent
+end

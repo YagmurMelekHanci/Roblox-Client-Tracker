@@ -1,0 +1,28 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ACEControlRig"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+2]
+  GETUPVAL R0 0
+  CALL R0 0 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["LuaFlags"]
+  GETTABLEKS R2 R3 K7 ["GetFFlagFixDynamicTrackSelection"]
+  CALL R1 1 1
+  GETIMPORT R2 K9 [game]
+  LOADK R4 K10 ["ACEControlRig"]
+  LOADB R5 0
+  NAMECALL R2 R2 K11 ["DefineFastFlag"]
+  CALL R2 3 0
+  DUPCLOSURE R2 K12 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

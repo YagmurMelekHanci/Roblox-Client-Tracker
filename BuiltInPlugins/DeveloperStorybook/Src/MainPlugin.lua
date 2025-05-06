@@ -39,7 +39,6 @@ local GetStories = require(Main.Src.Thunks.GetStories)
 local RestoreState = require(Main.Src.Thunks.RestoreState)
 
 local LAST_STATE_KEY = "lastState"
-local FFlagFoundationStylingPolyfill = game:DefineFastFlag("FoundationStylingPolyfill", false)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -163,19 +162,8 @@ function MainPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
-		}, {
-			FoundationProvider = Roact.createElement(FoundationProvider, {
-				derives = { self.design },
-				children = {
-					Window = enabled and Roact.createElement(Window),
-				},
-			}),
-			StyleLink = if FFlagFoundationStylingPolyfill
-				then Roact.createElement("StyleLink", {
-					StyleSheet = self.design,
-				})
-				else nil,
-		}),
+			PluginDesign = self.design,
+		}, Roact.createElement(FoundationProvider, nil, { Window = enabled and Roact.createElement(Window) })),
 	})
 end
 

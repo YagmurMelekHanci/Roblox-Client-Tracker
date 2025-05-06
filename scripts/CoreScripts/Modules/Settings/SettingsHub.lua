@@ -16,6 +16,7 @@ local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local IXPService = game:GetService("IXPService")
 local LocalizationService = game:GetService("LocalizationService")
+local TelemetryService = game:GetService("TelemetryService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
@@ -23,6 +24,8 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local Roact = require(CorePackages.Packages.Roact)
 local Cryo = require(CorePackages.Packages.Cryo)
 local Otter = require(CorePackages.Packages.Otter)
+local React = require(CorePackages.Packages.React)
+local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 
 --[[ UTILITIES ]]
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -34,6 +37,7 @@ local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local isSubjectToDesktopPolicies = require(SharedFlags).isSubjectToDesktopPolicies
 local MenuBackButton = require(RobloxGui.Modules.Settings.Components.MenuBackButton)
 local MenuFrontButton = require(RobloxGui.Modules.Settings.Components.MenuFrontButton)
+local MenuButtonsContainer = require(RobloxGui.Modules.Settings.Components.MenuButtons.MenuButtonsContainer)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
@@ -41,6 +45,8 @@ local CapturesPolicy  = require(CorePackages.Workspace.Packages.CapturesInExperi
 local InExperienceCapabilities = require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 local getCamMicPermissions = require(CoreGui.RobloxGui.Modules.Settings.getCamMicPermissions)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
+local Signals = require(CorePackages.Packages.Signals)
+local createSignal = Signals.createSignal
 
 local Theme = require(script.Parent.Theme)
 
@@ -117,6 +123,9 @@ local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Flags.FFlagAd
 local FFlagUpdateTiltMenuButtonIcons = require(SharedFlags).FFlagUpdateTiltMenuButtonIcons
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
+local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
+local FFlagRespawnChromeShortcutTelemetry = require(RobloxGui.Modules.Chrome.Flags.FFlagRespawnChromeShortcutTelemetry)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -176,6 +185,10 @@ local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSi
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
 
+local MenuLeaveGameTelemetryConfig = require(RobloxGui.Modules.Settings.Analytics.MenuLeaveGameTelemetryConfig)
+local MenuResetCharacterTelemetryConfig = require(RobloxGui.Modules.Settings.Analytics.MenuResetCharacterTelemetryConfig)
+local MenuResumeTelemetryConfig = require(RobloxGui.Modules.Settings.Analytics.MenuResumeTelemetryConfig)
+
 local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
 local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.VoiceAnalytics)
 
@@ -215,6 +228,19 @@ if GetFFlagVoiceRecordingIndicatorsEnabled() then
 		dampingRatio = 1,
 	}
 end
+
+export type ExperienceControlStore = {
+	-- Data
+	getCanRespawn: Signals.getter<boolean>,
+	getCustomRespawnCallback: Signals.getter<BindableEvent?>,
+
+	-- Actions
+	setCanRespawn: (canRespawn: boolean) -> (),
+	setCustomRespawnCallback: Signals.setter<BindableEvent?>,
+	onLeaveGame: (source: string) -> (),
+	onRespawn: (source: string) -> (),
+	onResume: (source: string) -> (),
+}
 
 --[[ Localization Package Initialization ]]
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
@@ -336,6 +362,10 @@ local function CreateSettingsHub()
 	this.CurrentPageSignal = if GetFFlagPackagifySettingsShowSignal() then SettingsUtility.CreateSignal() else utility:CreateSignal()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
+	if FFlagRelocateMobileMenuButtons then
+		this.addMenuKeyBindings = nil
+		this.removeMenuKeyBindings = nil
+	end
 	this.hasMicPermissions = false
 	if GetFFlagEnableLeaveGameUpsellEntrypoint() then
 		this.checkedUpsell = false
@@ -381,14 +411,16 @@ local function CreateSettingsHub()
 	local function shouldShowBottomBar(whichPage)
 		whichPage = whichPage or this.Pages.CurrentPage
 
-		if utility:IsPortrait() or utility:IsSmallTouchScreen() then
-			-- If ShouldShowBottomBar is false, it should should take precedence, even if AlwaysShowBottomBar() is true
-			if GetFFlagFixIGMBottomBarVisibility() then
-				if not Theme.AlwaysShowBottomBar() then
-					return false
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 or FIntRelocateMobileMenuButtonsVariant == 2 then
+			if utility:IsPortrait() or utility:IsSmallTouchScreen() then
+				-- If ShouldShowBottomBar is false, it should should take precedence, even if AlwaysShowBottomBar() is true
+				if GetFFlagFixIGMBottomBarVisibility() then
+					if not Theme.AlwaysShowBottomBar() then
+						return false
+					end
+				else
+					return Theme.AlwaysShowBottomBar()
 				end
-			else
-				return Theme.AlwaysShowBottomBar()
 			end
 		end
 
@@ -396,49 +428,55 @@ local function CreateSettingsHub()
 	end
 
 	local function setBottomBarBindings()
-		if not this.Visible then
-			return
-		end
-		for i = 1, #this.BottomBarButtons do
-			local buttonTable = this.BottomBarButtons[i]
-			local buttonName = buttonTable[1]
-			local hotKeyTable = buttonTable[2]
-			ContextActionService:BindCoreAction(buttonName, hotKeyTable[1], false, unpack(hotKeyTable[2]))
-		end
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			if not this.Visible then
+				return
+			end
+			for i = 1, #this.BottomBarButtons do
+				local buttonTable = this.BottomBarButtons[i]
+				local buttonName = buttonTable[1]
+				local hotKeyTable = buttonTable[2]
+				ContextActionService:BindCoreAction(buttonName, hotKeyTable[1], false, unpack(hotKeyTable[2]))
+			end
 
-		if this.BottomButtonFrame then
-			this.BottomButtonFrame.Visible = true
+			if this.BottomButtonFrame then
+				this.BottomButtonFrame.Visible = true
+			end
 		end
 	end
 
 	local function removeBottomBarBindings(delayBeforeRemoving)
-		for _, hotKeyTable in pairs(this.BottomBarButtons) do
-			ContextActionService:UnbindCoreAction(hotKeyTable[1])
-		end
-
-		local myOpenStateChangedCount = this.OpenStateChangedCount
-		local removeBottomButtonFrame = function()
-			if this.OpenStateChangedCount == myOpenStateChangedCount and this.BottomButtonFrame then
-				this.BottomButtonFrame.Visible = false
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			for _, hotKeyTable in pairs(this.BottomBarButtons) do
+				ContextActionService:UnbindCoreAction(hotKeyTable[1])
 			end
-		end
 
-		if delayBeforeRemoving then
-			delay(delayBeforeRemoving, removeBottomButtonFrame)
-		else
-			removeBottomButtonFrame()
+			local myOpenStateChangedCount = this.OpenStateChangedCount
+			local removeBottomButtonFrame = function()
+				if this.OpenStateChangedCount == myOpenStateChangedCount and this.BottomButtonFrame then
+					this.BottomButtonFrame.Visible = false
+				end
+			end
+
+			if delayBeforeRemoving then
+				delay(delayBeforeRemoving, removeBottomButtonFrame)
+			else
+				removeBottomButtonFrame()
+			end
 		end
 	end
 
 	local function updateButtonPosition(buttonName, position, size)
-		-- We need to concat "ButtonButton" because addBottomBarButton creates name+"Button" and sends that to util.createButton
-		-- which creates a button instance using name+"Button"...
-		local buttonInstance = this.BottomButtonFrame:FindFirstChild(buttonName .. "ButtonButton", true)
-		if not buttonInstance then
-			return
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			-- We need to concat "ButtonButton" because addBottomBarButton creates name+"Button" and sends that to util.createButton
+			-- which creates a button instance using name+"Button"...
+			local buttonInstance = this.BottomButtonFrame:FindFirstChild(buttonName .. "ButtonButton", true)
+			if not buttonInstance then
+				return
+			end
+			buttonInstance.Position = position
+			buttonInstance.Size = size
 		end
-		buttonInstance.Position = position
-		buttonInstance.Size = size
 	end
 
 	local function fnOrValue(arg)
@@ -537,9 +575,11 @@ local function CreateSettingsHub()
 		local tenFootButtonHeight = if Theme.UIBloxThemeEnabled then BOTTOM_BUTTON_10FT_SIZE else 120
 		local buttonSize = if isTenFootInterface then UDim2.new(0, 320, 0, tenFootButtonHeight) else UDim2.new(0, 260, 0, Theme.LargeButtonHeight)
 
-		updateButtonPosition("LeaveGame", UDim2.new(0.5, if isTenFootInterface then -160 else -130, 0.5, -25), buttonSize)
-		updateButtonPosition("ResetCharacter", UDim2.new(0.5, if isTenFootInterface then -550 else -400, 0.5, -25), buttonSize)
-		updateButtonPosition("Resume", UDim2.new(0.5, if isTenFootInterface then 200 else 140, 0.5, -25), buttonSize)
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			updateButtonPosition("LeaveGame", UDim2.new(0.5, if isTenFootInterface then -160 else -130, 0.5, -25), buttonSize)
+			updateButtonPosition("ResetCharacter", UDim2.new(0.5, if isTenFootInterface then -550 else -400, 0.5, -25), buttonSize)
+			updateButtonPosition("Resume", UDim2.new(0.5, if isTenFootInterface then 200 else 140, 0.5, -25), buttonSize)
+		end
 	end
 
 
@@ -564,110 +604,110 @@ local function CreateSettingsHub()
 	end
 
 	local function addBottomBarButtonOld(name, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys, hotFunc)
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			local buttonName = name .. "Button"
+			local textName = name .. "Text"
 
-
-		local buttonName = name .. "Button"
-		local textName = name .. "Text"
-
-		local size = UDim2.new(0,260,0,Theme.LargeButtonHeight)
-		if isTenFootInterface then
-			size = if Theme.UIBloxThemeEnabled then UDim2.new(0,320,0,BOTTOM_BUTTON_10FT_SIZE) else UDim2.new(0,320,0,120)
-		end
-
-		this[buttonName], this[textName] = utility:MakeStyledButton(name .. "Button", text, size, clickFunc, nil, this)
-
-		this[buttonName].Position = position
-		this[buttonName].Parent = this.BottomButtonFrame
-		if isTenFootInterface then
-			this[buttonName].ImageTransparency = 1
-		end
-
-		this[textName].FontSize = Enum.FontSize.Size24
-		local hintLabel = nil
-
-		if not isTouchDevice then
-
-			if Theme.UIBloxThemeEnabled then
-				local hintOffset = 9 + 33
-				local rightPad = 9
-				this[textName].Size = UDim2.new(1,-(hintOffset+rightPad),1.0,0)
-				this[textName].Position = UDim2.new(1,-rightPad,0,0)
-				this[textName].AnchorPoint = Vector2.new(1,0)
-			elseif FFlagUseNotificationsLocalization then
-				this[textName].Size = UDim2.new(0.675,0,0.67,0)
-				this[textName].Position = UDim2.new(0.275,0,0.125,0)
-			else
-				this[textName].Size = UDim2.new(0.75,0,0.9,0)
-				this[textName].Position = UDim2.new(0.25,0,0,0)
+			local size = UDim2.new(0,260,0,Theme.LargeButtonHeight)
+			if isTenFootInterface then
+				size = if Theme.UIBloxThemeEnabled then UDim2.new(0,320,0,BOTTOM_BUTTON_10FT_SIZE) else UDim2.new(0,320,0,120)
 			end
 
-			local hintName = name .. "Hint"
-			local image = ""
-			if UserInputService:GetGamepadConnected(Enum.UserInputType.Gamepad1) or platform == Enum.Platform.XBoxOne then
-				image = gamepadImage
-			else
-				image = keyboardImage
+			this[buttonName], this[textName] = utility:MakeStyledButton(name .. "Button", text, size, clickFunc, nil, this)
+
+			this[buttonName].Position = position
+			this[buttonName].Parent = this.BottomButtonFrame
+			if isTenFootInterface then
+				this[buttonName].ImageTransparency = 1
 			end
 
-			hintLabel = Create'ImageLabel'
-			{
-				Name = hintName,
-				ZIndex = this.Shield.ZIndex + 2,
-				BackgroundTransparency = 1,
-				Image = image,
-				Parent = this[buttonName]
-			};
+			this[textName].FontSize = Enum.FontSize.Size24
+			local hintLabel = nil
 
-			if Theme.UIBloxThemeEnabled then
-				if image == keyboardImage then
-					hintLabel.ImageColor3 = Theme.color("WhiteButtonText", Color3.new(1,1,1))
-					hintLabel.ImageTransparency = Theme.transparency("WhiteButtonText", 1)
+			if not isTouchDevice then
+
+				if Theme.UIBloxThemeEnabled then
+					local hintOffset = 9 + 33
+					local rightPad = 9
+					this[textName].Size = UDim2.new(1,-(hintOffset+rightPad),1.0,0)
+					this[textName].Position = UDim2.new(1,-rightPad,0,0)
+					this[textName].AnchorPoint = Vector2.new(1,0)
+				elseif FFlagUseNotificationsLocalization then
+					this[textName].Size = UDim2.new(0.675,0,0.67,0)
+					this[textName].Position = UDim2.new(0.275,0,0.125,0)
+				else
+					this[textName].Size = UDim2.new(0.75,0,0.9,0)
+					this[textName].Position = UDim2.new(0.25,0,0,0)
 				end
-				hintLabel.Position = UDim2.new(0,9,0.5,0)
-				hintLabel.Size = UDim2.new(0,33,0,33)
-				hintLabel.AnchorPoint = Vector2.new(0.0,0.5)
-			else
-				hintLabel.AnchorPoint = Vector2.new(0.5,0.5)
-				hintLabel.Size = UDim2.new(0,50,0,50)
-				hintLabel.Position = UDim2.new(0.15,0,0.475,0)
-			end
-		end
 
-		if isTenFootInterface then
-			this[textName].FontSize = Enum.FontSize.Size36
-		end
-
-		UserInputService.InputBegan:connect(function(inputObject)
-
-			if inputObject.UserInputType == Enum.UserInputType.Gamepad1 or inputObject.UserInputType == Enum.UserInputType.Gamepad2 or
-				inputObject.UserInputType == Enum.UserInputType.Gamepad3 or inputObject.UserInputType == Enum.UserInputType.Gamepad4 then
-				if hintLabel then
-					hintLabel.Image = gamepadImage
-					-- if isTenFootInterface then
-					-- 	hintLabel.Size = UDim2.new(0,90,0,90)
-					-- 	hintLabel.Position = UDim2.new(0,10,0.5,-45)
-					-- else
-					-- 	hintLabel.Size = UDim2.new(0,60,0,60)
-					-- 	hintLabel.Position = UDim2.new(0,10,0,5)
-					-- end
+				local hintName = name .. "Hint"
+				local image = ""
+				if UserInputService:GetGamepadConnected(Enum.UserInputType.Gamepad1) or platform == Enum.Platform.XBoxOne then
+					image = gamepadImage
+				else
+					image = keyboardImage
 				end
-			elseif inputObject.UserInputType == Enum.UserInputType.Keyboard then
-				if hintLabel then
-					hintLabel.Image = keyboardImage
-					-- hintLabel.Size = UDim2.new(0,48,0,48)
-					-- hintLabel.Position = UDim2.new(0,10,0,8)
+
+				hintLabel = Create'ImageLabel'
+				{
+					Name = hintName,
+					ZIndex = this.Shield.ZIndex + 2,
+					BackgroundTransparency = 1,
+					Image = image,
+					Parent = this[buttonName]
+				};
+
+				if Theme.UIBloxThemeEnabled then
+					if image == keyboardImage then
+						hintLabel.ImageColor3 = Theme.color("WhiteButtonText", Color3.new(1,1,1))
+						hintLabel.ImageTransparency = Theme.transparency("WhiteButtonText", 1)
+					end
+					hintLabel.Position = UDim2.new(0,9,0.5,0)
+					hintLabel.Size = UDim2.new(0,33,0,33)
+					hintLabel.AnchorPoint = Vector2.new(0.0,0.5)
+				else
+					hintLabel.AnchorPoint = Vector2.new(0.5,0.5)
+					hintLabel.Size = UDim2.new(0,50,0,50)
+					hintLabel.Position = UDim2.new(0.15,0,0.475,0)
 				end
 			end
-		end)
 
-		local hotKeyFunc = function(contextName, inputState, inputObject)
-			if inputState == Enum.UserInputState.Begin then
-				hotFunc()
+			if isTenFootInterface then
+				this[textName].FontSize = Enum.FontSize.Size36
 			end
-		end
 
-		local hotKeyTable = {hotKeyFunc, hotkeys}
-		this.BottomBarButtons[#this.BottomBarButtons + 1] = {buttonName, hotKeyTable}
+			UserInputService.InputBegan:connect(function(inputObject)
+
+				if inputObject.UserInputType == Enum.UserInputType.Gamepad1 or inputObject.UserInputType == Enum.UserInputType.Gamepad2 or
+					inputObject.UserInputType == Enum.UserInputType.Gamepad3 or inputObject.UserInputType == Enum.UserInputType.Gamepad4 then
+					if hintLabel then
+						hintLabel.Image = gamepadImage
+						-- if isTenFootInterface then
+						-- 	hintLabel.Size = UDim2.new(0,90,0,90)
+						-- 	hintLabel.Position = UDim2.new(0,10,0.5,-45)
+						-- else
+						-- 	hintLabel.Size = UDim2.new(0,60,0,60)
+						-- 	hintLabel.Position = UDim2.new(0,10,0,5)
+						-- end
+					end
+				elseif inputObject.UserInputType == Enum.UserInputType.Keyboard then
+					if hintLabel then
+						hintLabel.Image = keyboardImage
+						-- hintLabel.Size = UDim2.new(0,48,0,48)
+						-- hintLabel.Position = UDim2.new(0,10,0,8)
+					end
+				end
+			end)
+
+			local hotKeyFunc = function(contextName, inputState, inputObject)
+				if inputState == Enum.UserInputState.Begin then
+					hotFunc()
+				end
+			end
+
+			local hotKeyTable = {hotKeyFunc, hotkeys}
+			this.BottomBarButtons[#this.BottomBarButtons + 1] = {buttonName, hotKeyTable}
+		end
 	end
 
 	local function addBottomBarButton(name, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys, sizeOverride, forceHintButton)
@@ -845,9 +885,11 @@ local function CreateSettingsHub()
 		local buttonSize = UDim2.new(0,235,0,Theme.LargeButtonHeight)
 		local buttonOffset = -27.5
 		appendMicButton()
-		updateButtonPosition("LeaveGame", UDim2.new(0.5,(isTenFootInterface and -160 or -130) + buttonOffset,0.5,-25), buttonSize)
-		updateButtonPosition("ResetCharacter", UDim2.new(0.5,(isTenFootInterface and -550 or -400),0.5,-25), buttonSize)
-		updateButtonPosition("Resume", UDim2.new(0.5, (isTenFootInterface and 200 or 140) + buttonOffset * 2, 0.5,-25), buttonSize)
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			updateButtonPosition("LeaveGame", UDim2.new(0.5,(isTenFootInterface and -160 or -130) + buttonOffset,0.5,-25), buttonSize)
+			updateButtonPosition("ResetCharacter", UDim2.new(0.5,(isTenFootInterface and -550 or -400),0.5,-25), buttonSize)
+			updateButtonPosition("Resume", UDim2.new(0.5, (isTenFootInterface and 200 or 140) + buttonOffset * 2, 0.5,-25), buttonSize)
+		end
 	end
 
 	local voiceChatServiceConnected = false
@@ -1048,7 +1090,11 @@ local function CreateSettingsHub()
 
 	local customCallback = nil
 	function this:GetRespawnBehaviour()
-		return resetEnabled, customCallback
+		if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant ~= 0 then
+			return this:GetExperienceControlStore().getCanRespawn(false), this:GetExperienceControlStore().getCustomRespawnCallback(false)
+		else
+			return resetEnabled, customCallback
+		end
 	end
 
 	this.RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
@@ -1060,15 +1106,32 @@ local function CreateSettingsHub()
 		else
 			warn("ResetButtonCallback must be set to a BindableEvent or a boolean")
 		end
+		local resetEnabledValue = if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant ~= 0 then this:GetExperienceControlStore().getCanRespawn(false) else resetEnabled
 		if callback == false then
-			setResetEnabled(false)
-		elseif not resetEnabled and (isBindableEvent or callback == true) then
-			setResetEnabled(true)
+			if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant ~= 0 then
+				this:GetExperienceControlStore().setCanRespawn(false)
+			else
+				setResetEnabled(false)
+			end
+		elseif not resetEnabledValue and (isBindableEvent or callback == true) then
+			if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant ~= 0 then
+				this:GetExperienceControlStore().setCanRespawn(true)
+			else
+				setResetEnabled(true)
+			end
 		end
 		if isBindableEvent then
-			customCallback = callback
+			if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant ~= 0 then
+				this:GetExperienceControlStore().setCustomRespawnCallback(callback)
+			else
+				customCallback = callback
+			end
 		end
-		this.RespawnBehaviourChangedEvent:Fire(resetEnabled, customCallback)
+		if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant ~= 0 then
+			this.RespawnBehaviourChangedEvent:Fire(this:GetExperienceControlStore().getCanRespawn(false), this:GetExperienceControlStore().getCustomRespawnCallback(false))
+		else
+			this.RespawnBehaviourChangedEvent:Fire(resetEnabled, customCallback)
+		end
 	end)
 
 	StarterGui:RegisterGetCore("ResetButtonCallback", function()
@@ -1094,6 +1157,78 @@ local function CreateSettingsHub()
 			useNewMenuTheme = Theme.UIBloxThemeEnabled,
 			hubRef = if GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints() then this else nil,
 		})
+	end
+
+	local getCanRespawn, setCanRespawn = createSignal(true)
+	local getCustomRespawnCallback, setCustomRespawnCallback = createSignal(nil)
+
+	function this:GetExperienceControlStore(): ExperienceControlStore
+		local handleSetCanRespawn = function(canRespawn: boolean)
+			setCanRespawn(canRespawn)
+			if this.ResetCharacterButton then
+				this.ResetCharacterButton.Selectable = canRespawn
+				this.ResetCharacterButton.Active = canRespawn
+				this.ResetCharacterButton.Enabled.Value = canRespawn
+				local resetHint = this.ResetCharacterButton:FindFirstChild("ResetCharacterHint")
+				if resetHint then
+					resetHint.ImageColor3 = (canRespawn and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(100, 100, 100))
+				end
+				local resetButtonText = this.ResetCharacterButton:FindFirstChild("ResetCharacterButtonTextLabel")
+				if resetButtonText then
+					resetButtonText.TextColor3 = (canRespawn and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(100, 100, 100))
+				end
+			end
+		end
+
+		return {
+			getCanRespawn = getCanRespawn,
+			getCustomRespawnCallback = getCustomRespawnCallback,
+			setCanRespawn = handleSetCanRespawn,
+			setCustomRespawnCallback = setCustomRespawnCallback,
+			onLeaveGame = function(source: string)
+				if not this:GetVisibility() then
+					return
+				end
+
+				this:AddToMenuStack(this.Pages.CurrentPage)
+				this.HubBar.Visible = false
+				if GetFFlagEnableLeaveGameUpsellEntrypoint() and this.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
+					this:SwitchToPage(this.LeaveGameUpsellPage, false)
+				else
+					this:SwitchToPage(this.LeaveGamePage, false)
+				end
+
+				TelemetryService:LogCounter(MenuLeaveGameTelemetryConfig, {
+					customFields = {
+						source = source,
+					},
+				})
+			end,
+			onRespawn = function(source: string)
+				if not getCanRespawn(false) then
+					return
+				end
+
+				this:AddToMenuStack(this.Pages.CurrentPage)
+				this.HubBar.Visible = false
+				this:SwitchToPage(this.ResetCharacterPage, false)
+
+				TelemetryService:LogCounter(MenuResetCharacterTelemetryConfig, {
+					customFields = {
+						source = source,
+					},
+				})
+			end,
+			onResume = function(source: string)
+				this:SetVisibility(false)
+
+				TelemetryService:LogCounter(MenuResumeTelemetryConfig, {
+					customFields = {
+						source = source,
+					},
+				})
+			end,
+		}
 	end
 
 	local function createGui()
@@ -2004,33 +2139,8 @@ local function CreateSettingsHub()
 			Parent = menuParent
 		};
 
-		if Theme.UIBloxThemeEnabled then
-			this.BottomButtonFrame.Size = UDim2.new(1,0, 0, 80)
-			this.MenuListLayout = Create'UIListLayout'
-			{
-				Padding = UDim.new(0, 12),
-				FillDirection = Enum.FillDirection.Horizontal,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				HorizontalAlignment = if FFlagCenterIGMConsoleBottomButtons then Enum.HorizontalAlignment.Center else Enum.HorizontalAlignment.Left,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Parent = this.BottomButtonFrame
-			}
-
-		end
-
-		local leaveGameFunc = function()
-			if FFlagPreventHiddenSwitchPage and this:GetVisibility() == false then
-				return
-			end
-
-			this:AddToMenuStack(this.Pages.CurrentPage)
-			this.HubBar.Visible = false
-			removeBottomBarBindings()
-			if GetFFlagEnableLeaveGameUpsellEntrypoint() and this.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
-				this:SwitchToPage(this.LeaveGameUpsellPage, nil, 1, true)
-			else
-				this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
-			end
+		if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+			this.BottomButtonFrame.Size = UDim2.new(1, 0, 0, this.HubBar.Size.Y.Offset)
 		end
 
 		local resumeFunc = function(source)
@@ -2043,9 +2153,57 @@ local function CreateSettingsHub()
 			)
 		end
 
+		if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+			-- Passes the addKeyBindings function from MenuButtonsContainer to SettingsHub so it can be used here
+			local setAddMenuKeyBindings = function(addMenuKeyBindings: () -> ())
+				this.addMenuKeyBindings = addMenuKeyBindings
+			end
+
+			-- Passes the removeKeyBindings function from MenuButtonsContainer to SettingsHub so it can be used here
+			local setRemoveMenuKeyBindings = function(removeMenuKeyBindings: () -> ())
+				this.removeMenuKeyBindings = removeMenuKeyBindings
+			end
+
+			local getVisibility = function()
+				return this.GetVisibility()
+			end
+
+			local experienceControlStore = this:GetExperienceControlStore()
+			this.BottomButtonFrameRoot = ReactRoblox.createRoot(this.BottomButtonFrame)
+			this.BottomButtonFrameRoot:render(React.createElement(MenuButtonsContainer, {
+				onLeaveGame = experienceControlStore.onLeaveGame,
+				onRespawn = experienceControlStore.onRespawn,
+				onResume = experienceControlStore.onResume,
+				setAddMenuKeyBindings = setAddMenuKeyBindings,
+				setRemoveMenuKeyBindings = setRemoveMenuKeyBindings,
+				getVisibility = getVisibility,
+				getCanRespawn = experienceControlStore.getCanRespawn,
+			}))
+		end
+
+		if Theme.UIBloxThemeEnabled then
+			if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 or (FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen()) then
+				this.BottomButtonFrame.Size = UDim2.new(1, 0, 0, 80)
+			end
+			this.MenuListLayout = Create'UIListLayout'
+			{
+				Padding = UDim.new(0, 12),
+				FillDirection = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				HorizontalAlignment = if FFlagCenterIGMConsoleBottomButtons then Enum.HorizontalAlignment.Center else Enum.HorizontalAlignment.Left,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Parent = this.BottomButtonFrame
+			}
+
+		end
+
 		if Theme.UIBloxThemeEnabled then
 			this.Shield.Activated:Connect(function()
-				resumeFunc(Constants.AnalyticsResumeShieldSource)
+				if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant ~= 0 then
+					this:GetExperienceControlStore().onResume(Constants.AnalyticsResumeShieldSource)
+				else
+					resumeFunc(Constants.AnalyticsResumeShieldSource)
+				end
 			end
 			)
 		end
@@ -2053,62 +2211,82 @@ local function CreateSettingsHub()
 		if FFlagSettingsHubIndependentBackgroundVisibility then
 			this.DarkenBackground.Activated:Connect(function()
 				if Theme.UIBloxThemeEnabled then
-					resumeFunc(Constants.AnalyticsResumeShieldSource)
+					if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant ~= 0 then
+						this:GetExperienceControlStore().onResume(Constants.AnalyticsResumeShieldSource)
+					else
+						resumeFunc(Constants.AnalyticsResumeShieldSource)
+					end
 				end
 				InExperienceAppChatModal.default:setVisible(false)
 			end)
 		end
 
-		local leaveGameText = "Leave"
+        if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			local leaveGameFunc = function()
+				if FFlagPreventHiddenSwitchPage and this:GetVisibility() == false then
+					return
+				end
 
-		if InExperienceCapabilities.canNavigateHome then
-			if Theme.UseIconButtons then
-				addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, buttonX,
-					"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-					leaveGameFunc, {Enum.KeyCode.L, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonX else nil}
-				)
-			else
-				addBottomBarButtonOld("LeaveGame", leaveGameText, buttonX,
-					"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-					leaveGameFunc, {Enum.KeyCode.L, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonX else nil}, leaveGameFunc
-				)
-			end
-		end
-
-
-		local resetCharFunc = function()
-			if resetEnabled then
 				this:AddToMenuStack(this.Pages.CurrentPage)
 				this.HubBar.Visible = false
 				removeBottomBarBindings()
-				this:SwitchToPage(this.ResetCharacterPage, nil, 1, true)
+				if GetFFlagEnableLeaveGameUpsellEntrypoint() and this.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
+					this:SwitchToPage(this.LeaveGameUpsellPage, nil, 1, true)
+				else
+					this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
+				end
 			end
-		end
 
-		local RESET_TEXT = localization:Format(Constants.RespawnLocalizedKey)
-		if Theme.UseIconButtons then
-			addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", RESET_TEXT, buttonY,
-				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
-				resetCharFunc, {Enum.KeyCode.R, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonY else nil}
-			)
-		else
-			addBottomBarButtonOld("ResetCharacter", RESET_TEXT, buttonY,
-				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
-				resetCharFunc, {Enum.KeyCode.R, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonY else nil}, resetCharFunc
-			)
-		end
+			local leaveGameText = "Leave"
 
-		local resumeGameText = "Resume"
-		local resumeButtonFunc = function()
-			resumeFunc(Constants.AnalyticsResumeButtonSource)
+			if InExperienceCapabilities.canNavigateHome then
+				if Theme.UseIconButtons then
+					addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, buttonX,
+						"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
+						leaveGameFunc, {Enum.KeyCode.L, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonX else nil}
+					)
+				else
+					addBottomBarButtonOld("LeaveGame", leaveGameText, buttonX,
+						"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
+						leaveGameFunc, {Enum.KeyCode.L, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonX else nil}, leaveGameFunc
+					)
+				end
+			end
+
+			local resetCharFunc = function()
+				if resetEnabled then
+					this:AddToMenuStack(this.Pages.CurrentPage)
+					this.HubBar.Visible = false
+					removeBottomBarBindings()
+					this:SwitchToPage(this.ResetCharacterPage, nil, 1, true)
+				end
+			end
+
+			local RESET_TEXT = localization:Format(Constants.RespawnLocalizedKey)
+			if Theme.UseIconButtons then
+				addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", RESET_TEXT, buttonY,
+					"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
+					resetCharFunc, {Enum.KeyCode.R, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonY else nil}
+				)
+			else
+				addBottomBarButtonOld("ResetCharacter", RESET_TEXT, buttonY,
+					"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
+					resetCharFunc, {Enum.KeyCode.R, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then Enum.KeyCode.ButtonY else nil}, resetCharFunc
+				)
+			end
+
+			local resumeGameText = "Resume"
+			local resumeButtonFunc = function()
+				resumeFunc(Constants.AnalyticsResumeButtonSource)
+			end
+			local resumeHotkeyFunc = function()
+				resumeFunc(Constants.AnalyticsResumeGamepadSource)
+			end
+			addBottomBarButtonOld("Resume", resumeGameText, if FFlagUpdateTiltMenuButtonIcons then buttonStart else buttonB,
+				"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
+				resumeButtonFunc, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart} else {}, resumeHotkeyFunc
+			)
 		end
-		local resumeHotkeyFunc = function()
-			resumeFunc(Constants.AnalyticsResumeGamepadSource)
-		end
-		addBottomBarButtonOld("Resume", resumeGameText, if FFlagUpdateTiltMenuButtonIcons then buttonStart else buttonB,
-			"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
-			resumeButtonFunc, if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart} else {}, resumeHotkeyFunc
-		)
 
 		if Theme.UIBloxThemeEnabled or isSubjectToDesktopPolicies() then
 			if Theme.UIBloxThemeEnabled then
@@ -2308,6 +2486,8 @@ local function CreateSettingsHub()
 			bufferSize = 0.07 * fullScreenSize
 		elseif utility:IsSmallTouchScreen() then
 			bufferSize = math.min(10, (1-0.99) * fullScreenSize)
+		elseif isInExperienceUIVREnabled and VRService.VREnabled then
+			bufferSize = 0
 		end
 
 		if FFlagAddNextUpContainer then
@@ -2418,12 +2598,30 @@ local function CreateSettingsHub()
 		end
 
 		if shouldShowBottomBar() then
-			setBottomBarBindings()
+			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+				this.addMenuKeyBindings()
+			else
+				setBottomBarBindings()
+			end
 		else
-			removeBottomBarBindings()
+			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+				this.removeMenuKeyBindings()
+			else
+				removeBottomBarBindings()
+			end
+		end
+		
+		if isInExperienceUIVREnabled then
+			extraSpace += this.SettingsUIDelegate:getMenuContainerExtraSpace()
 		end
 
 		local usableScreenHeight = fullScreenSize - extraSpace - extraTopPadding
+		-- Account for extra bottom padding on mobile screens
+		if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3) then
+			if utility:IsSmallTouchScreen() then
+				usableScreenHeight -= Theme.ExtraHubBottomPaddingMobile
+			end
+		end
 		local minimumPageSize = 150
 		local usePageSize = nil
 
@@ -2492,12 +2690,21 @@ local function CreateSettingsHub()
 					frontButtonExtraSize = ((EngineFeatureTeleportHistoryButtons and getFrontBarVisible()) and 0 or 44)
 				end
 
-				newPageViewClipperSize = UDim2.new(
-					0,
-					this.HubBar.AbsoluteSize.X,
-					0,
-					usePageSize + backButtonExtraSize + frontButtonExtraSize
-				)
+				if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3) then
+					newPageViewClipperSize = UDim2.new(
+						0,
+						this.HubBar.AbsoluteSize.X,
+						0,
+						usePageSize + backButtonExtraSize + frontButtonExtraSize - this.BottomButtonFrame.Size.Y.Offset
+					)
+				else
+					newPageViewClipperSize = UDim2.new(
+						0,
+						this.HubBar.AbsoluteSize.X,
+						0,
+						usePageSize + backButtonExtraSize + frontButtonExtraSize
+					)
+				end
 			else
 				newPageViewClipperSize = UDim2.new(
 					0,
@@ -2546,7 +2753,6 @@ local function CreateSettingsHub()
 
 			resizeBottomBarButtons()
 		end
-
 	end
 
 	local function onPreferredTransparencyChanged()
@@ -2840,7 +3046,11 @@ local function CreateSettingsHub()
 		this.HubBar.Visible = false
 		this.PageViewClipper.Visible = false
 		if this.BottomButtonFrame then
-			removeBottomBarBindings()
+			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+				this.removeMenuKeyBindings()
+			else
+				removeBottomBarBindings()
+			end
 		end
 	end
 
@@ -2848,7 +3058,11 @@ local function CreateSettingsHub()
 		this.HubBar.Visible = true
 		this.PageViewClipper.Visible = true
 		if this.BottomButtonFrame and shouldShowBottomBar() then
-			setBottomBarBindings()
+			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+				this.addMenuKeyBindings()
+			else
+				setBottomBarBindings()
+			end
 		end
 	end
 
@@ -2901,15 +3115,17 @@ local function CreateSettingsHub()
 			end
 		end
 
-		-- set top & bottom bar visibility
-		if this.BottomButtonFrame then
-			if shouldShowBottomBar(pageToSwitchTo) then
-				setBottomBarBindings()
-			else
-				this.BottomButtonFrame.Visible = false
-			end
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 or (FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen()) then
+			-- set top & bottom bar visibility
+			if this.BottomButtonFrame then
+				if shouldShowBottomBar(pageToSwitchTo) then
+					setBottomBarBindings()
+				else
+					this.BottomButtonFrame.Visible = false
+				end
 
-			this.HubBar.Visible = shouldShowHubBar(pageToSwitchTo)
+				this.HubBar.Visible = shouldShowHubBar(pageToSwitchTo)
+			end
 		end
 
 		-- set whether the page should be clipped
@@ -2957,6 +3173,9 @@ local function CreateSettingsHub()
 			local topExtra = UDim.new(0, 0)
 			local bottomExtra = UDim.new(0, 0)
 			local hasBottomButtons = (not (utility:IsPortrait() or utility:IsSmallTouchScreen())) or Theme.AlwaysShowBottomBar()
+			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+				hasBottomButtons = (not utility:IsPortrait()) or Theme.AlwaysShowBottomBar()
+			end
 
 			if this.HubBar and not shouldShowHubBar(pageToSwitchTo) and not pageToSwitchTo.DisableTopPadding then
 				topExtra = UDim.new(0, this.HubBar.AbsoluteSize.Y)
@@ -3018,7 +3237,12 @@ local function CreateSettingsHub()
 		-- set top & bottom bar visibility
 		if this.BottomButtonFrame then
 			if shouldShowBottomBar(pageToSwitchTo) then
-				setBottomBarBindings()
+				if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant ~= 0 and not (FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen()) then
+					this.addMenuKeyBindings()
+					this.BottomButtonFrame.Visible = true
+				else
+					setBottomBarBindings()
+				end
 			else
 				this.BottomButtonFrame.Visible = false
 			end
@@ -3067,6 +3291,12 @@ local function CreateSettingsHub()
 		eventTable["universeid"] = tostring(game.GameId)
 		if GetFFlagReportAbuseMenuEntrypointAnalytics() and eventData then
 			eventTable = Cryo.Dictionary.join(eventTable, eventData)
+		end
+
+		if FFlagRespawnChromeShortcutTelemetry then
+			if eventTable["used_shortcut"] == nil then
+				eventTable["used_shortcut"] = false
+			end
 		end
 
 		if pageToSwitchTo then
@@ -3401,7 +3631,11 @@ local function CreateSettingsHub()
 			ContextActionService:BindCoreAction("RbxSettingsHubSwitchTab", switchTabFromBumpers, false, Enum.KeyCode.ButtonR1, Enum.KeyCode.ButtonL1)
 			ContextActionService:BindCoreAction("RbxSettingsScrollHotkey", scrollHotkeyFunc, false, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown)
 			if shouldShowBottomBar() then
-				setBottomBarBindings()
+				if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+					this.addMenuKeyBindings()
+				else
+					setBottomBarBindings()
+				end
 			end
 
 			if ChromeEnabled and FFlagEnableChromeShortcutBar then
@@ -3419,7 +3653,11 @@ local function CreateSettingsHub()
 			end
 
 			if customStartPage then
-				removeBottomBarBindings()
+				if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+					this.removeMenuKeyBindings()
+				else
+					removeBottomBarBindings()
+				end
 				this:SwitchToPage(customStartPage, nil, 1, true)
 			else
 				this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1, true)
@@ -3436,6 +3674,11 @@ local function CreateSettingsHub()
 						chat:ToggleVisibility()
 					end
 				end
+
+				local backpack = require(RobloxGui.Modules.BackpackScript)
+				if backpack.IsOpen then
+					backpack:OpenClose()
+				end
 			end
 
 			if GetFFlagEnableAppChatInExperience() and InExperienceAppChatModal:getVisible() then
@@ -3443,9 +3686,11 @@ local function CreateSettingsHub()
 				InExperienceAppChatModal.default:setVisible(false)
 			end
 
-			local backpack = require(RobloxGui.Modules.BackpackScript)
-			if backpack.IsOpen then
-				backpack:OpenClose()
+			if not isInExperienceUIVREnabled then
+				local backpack = require(RobloxGui.Modules.BackpackScript)
+				if backpack.IsOpen then
+					backpack:OpenClose()
+				end
 			end
 
 			this.GameSettingsPage:OpenSettingsPage()
@@ -3616,7 +3861,11 @@ local function CreateSettingsHub()
 			ContextActionService:UnbindCoreAction("RbxSettingsHubSwitchTab")
 			ContextActionService:UnbindCoreAction("RbxSettingsHubStopCharacter")
 			ContextActionService:UnbindCoreAction("RbxSettingsScrollHotkey")
-			removeBottomBarBindings(0.4)
+			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+				this.removeMenuKeyBindings()
+			else
+				removeBottomBarBindings(0.4)
+			end
 
 			if not (FFlagEnableChromeShortcutBar and ChromeEnabled) then 
 				GuiService.SelectedCoreObject = nil
@@ -3872,6 +4121,9 @@ local function CreateSettingsHub()
 	if InExperienceCapabilities.canListPeopleInSameServer then
 		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
 		this.PlayersPage:SetHub(this)
+		if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen() then
+			this.PlayersPage:CreateMenuButtonsContainer()
+		end
 	end
 
 	if isSubjectToDesktopPolicies() then
@@ -4044,7 +4296,11 @@ local function CreateSettingsHub()
 	if this.ExitModalPage then
 		local function showExitModal()
 			this.HubBar.Visible = false
-			removeBottomBarBindings()
+			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+				this.removeMenuKeyBindings()
+			else
+				removeBottomBarBindings()
+			end
 			if this:GetVisibility() then
 				this:AddToMenuStack(this.Pages.CurrentPage)
 				this:SwitchToPage(this.ExitModalPage, nil, 1, true)
@@ -4056,6 +4312,9 @@ local function CreateSettingsHub()
 			if this:GetVisibility() and this.Pages.CurrentPage == this.ExitModalPage then
 				if FFlagEnableInGameMenuDurationLogger then
 					PerfUtils.leavingGame()
+				end
+				if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+					this.BottomButtonFrameRoot:unmount()
 				end
 				this.ExitModalPage.LeaveAppFunc(true)
 			else
@@ -4116,6 +4375,10 @@ VRHub.ModuleOpened.Event:connect(function(moduleName)
 end)
 
 local SettingsHubInstance = CreateSettingsHub()
+
+function moduleApiTable:GetExperienceControlStore()
+	return SettingsHubInstance:GetExperienceControlStore()
+end
 
 function moduleApiTable:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
 	SettingsHubInstance:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)

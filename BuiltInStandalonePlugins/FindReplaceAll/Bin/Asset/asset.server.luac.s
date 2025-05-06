@@ -1,3 +1,20 @@
+PROTO_0:
+  GETIMPORT R1 K1 [plugin]
+  LOADK R3 K2 ["DmAboutToChange"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K3 ["Invoke"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [plugin]
+  LOADK R2 K2 ["DmChanged"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["CurrentDataModelType"]
+  NAMECALL R0 R0 K4 ["Invoke"]
+  CALL R0 3 0
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [plugin]
@@ -28,28 +45,40 @@ MAIN:
   CALL R3 0 1
   JUMPIF R3 [+1]
   RETURN R0 0
-  GETIMPORT R3 K7 [require]
-  GETTABLEKS R6 R0 K13 ["Bin"]
-  GETTABLEKS R5 R6 K14 ["Common"]
-  GETTABLEKS R4 R5 K17 ["pluginType"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K18 ["get"]
-  CALL R4 0 1
-  GETTABLEKS R5 R3 K19 ["Asset"]
-  JUMPIFEQ R4 R5 [+2]
-  RETURN R0 0
-  GETIMPORT R4 K7 [require]
-  GETTABLEKS R7 R0 K13 ["Bin"]
-  GETTABLEKS R6 R7 K14 ["Common"]
-  GETTABLEKS R5 R6 K20 ["setup"]
-  CALL R4 1 1
+  GETIMPORT R4 K1 [plugin]
+  GETTABLEKS R3 R4 K17 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R4 R3 K18 ["FocusedDataModelSession"]
+  GETTABLEKS R5 R4 K19 ["CurrentDataModelTypeAboutToChange"]
+  DUPCLOSURE R7 K20 [PROTO_0]
+  NAMECALL R5 R5 K21 ["Connect"]
+  CALL R5 2 0
+  GETTABLEKS R5 R4 K22 ["CurrentDataModelTypeChanged"]
+  DUPCLOSURE R7 K23 [PROTO_1]
+  CAPTURE VAL R4
+  NAMECALL R5 R5 K21 ["Connect"]
+  CALL R5 2 0
   GETIMPORT R5 K7 [require]
   GETTABLEKS R8 R0 K13 ["Bin"]
   GETTABLEKS R7 R8 K14 ["Common"]
-  GETTABLEKS R6 R7 K21 ["setupMain"]
+  GETTABLEKS R6 R7 K24 ["pluginType"]
   CALL R5 1 1
-  MOVE R6 R4
-  GETIMPORT R7 K1 [plugin]
-  MOVE R8 R5
-  CALL R6 2 0
+  GETTABLEKS R6 R5 K25 ["get"]
+  CALL R6 0 1
+  GETTABLEKS R7 R5 K26 ["Asset"]
+  JUMPIFEQ R6 R7 [+2]
+  RETURN R0 0
+  GETIMPORT R6 K7 [require]
+  GETTABLEKS R9 R0 K13 ["Bin"]
+  GETTABLEKS R8 R9 K14 ["Common"]
+  GETTABLEKS R7 R8 K27 ["setup"]
+  CALL R6 1 1
+  GETIMPORT R7 K7 [require]
+  GETTABLEKS R10 R0 K13 ["Bin"]
+  GETTABLEKS R9 R10 K14 ["Common"]
+  GETTABLEKS R8 R9 K28 ["setupMain"]
+  CALL R7 1 1
+  MOVE R8 R6
+  GETIMPORT R9 K1 [plugin]
+  MOVE R10 R7
+  CALL R8 2 0
   RETURN R0 0

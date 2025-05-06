@@ -1,0 +1,145 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["TextureGenerationService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["CancelGenerationRequest"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["CreatePartGroup"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K0 ["GetQuotasAsync"]
+  CALL R0 1 -1
+  RETURN R0 -1
+  DUPTABLE R0 K5 [{"generationQuota", "generationTotal", "previewQuota", "previewTota"}]
+  LOADN R1 50
+  SETTABLEKS R1 R0 K1 ["generationQuota"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K2 ["generationTotal"]
+  LOADN R1 50
+  SETTABLEKS R1 R0 K3 ["previewQuota"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K4 ["previewTota"]
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["GenerateTexture"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_5:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["GenerationNotificationSignal"]
+  RETURN R0 1
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K1 ["new"]
+  CALL R0 0 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["PreviewNotificationSignal"]
+  RETURN R0 1
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K1 ["new"]
+  CALL R0 0 -1
+  RETURN R0 -1
+
+PROTO_7:
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+8]
+  GETUPVAL R3 1
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  NAMECALL R3 R3 K0 ["PreviewTexture"]
+  CALL R3 4 -1
+  RETURN R3 -1
+  LOADNIL R3
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TextureGenerator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Signal"]
+  CALL R2 1 1
+  GETIMPORT R3 K10 [pcall]
+  DUPCLOSURE R4 K11 [PROTO_0]
+  CALL R3 1 2
+  DUPTABLE R5 K19 [{"cancelGenerationRequest", "createPartGroup", "getQuotasAsync", "generateTexture", "generationNotificationSignal", "previewNotificationSignal", "previewTexture"}]
+  DUPCLOSURE R6 K20 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K12 ["cancelGenerationRequest"]
+  DUPCLOSURE R6 K21 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K13 ["createPartGroup"]
+  DUPCLOSURE R6 K22 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K14 ["getQuotasAsync"]
+  DUPCLOSURE R6 K23 [PROTO_4]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K15 ["generateTexture"]
+  DUPCLOSURE R6 K24 [PROTO_5]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K16 ["generationNotificationSignal"]
+  DUPCLOSURE R6 K25 [PROTO_6]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K17 ["previewNotificationSignal"]
+  DUPCLOSURE R6 K26 [PROTO_7]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K18 ["previewTexture"]
+  GETTABLEKS R6 R1 K27 ["createContext"]
+  MOVE R7 R5
+  CALL R6 1 1
+  RETURN R6 1

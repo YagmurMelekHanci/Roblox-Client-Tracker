@@ -73,312 +73,303 @@ MAIN:
   DUPCLOSURE R4 K10 [PROTO_3]
   CAPTURE VAL R2
   DUPCLOSURE R5 K11 [PROTO_5]
-  DUPTABLE R6 K37 [{"Standard", "Large", "Selectors", "close", "colors", "copy", "delete", "dimensions", "duplicate", "edit", "folder", "fonts", "gridpattern", "palette", "more", "new", "open", "paste", "remove", "sizes", "set", "typography", "arrowUp", "arrowDown", "onboarding"}]
-  DUPTABLE R7 K41 [{"DesignSheet", "TokenSheet", "ThemeSheet"}]
-  LOADK R9 K42 ["StyleEditor"]
+  DUPTABLE R6 K36 [{"Standard", "Large", "Selectors", "close", "colors", "copy", "delete", "dimensions", "duplicate", "edit", "fonts", "gridpattern", "palette", "more", "new", "open", "paste", "remove", "sizes", "set", "typography", "arrowUp", "arrowDown", "onboarding"}]
+  DUPTABLE R7 K40 [{"DesignSheet", "TokenSheet", "ThemeSheet"}]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K43 ["StyleSheetDesign"]
+  LOADK R11 K42 ["StyleSheetDesign"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K38 ["DesignSheet"]
-  LOADK R9 K42 ["StyleEditor"]
+  SETTABLEKS R8 R7 K37 ["DesignSheet"]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K44 ["StyleSheetToken"]
+  LOADK R11 K43 ["StyleSheetToken"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K39 ["TokenSheet"]
-  LOADK R9 K42 ["StyleEditor"]
+  SETTABLEKS R8 R7 K38 ["TokenSheet"]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K45 ["StyleSheetTheme"]
+  LOADK R11 K44 ["StyleSheetTheme"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K40 ["ThemeSheet"]
+  SETTABLEKS R8 R7 K39 ["ThemeSheet"]
   SETTABLEKS R7 R6 K12 ["Standard"]
-  DUPTABLE R7 K46 [{"StyleEditor"}]
-  LOADK R9 K47 ["WidgetIcons"]
+  DUPTABLE R7 K45 [{"StyleEditor"}]
+  LOADK R9 K46 ["WidgetIcons"]
   LOADK R10 K13 ["Large"]
-  LOADK R11 K42 ["StyleEditor"]
+  LOADK R11 K41 ["StyleEditor"]
   NEWCLOSURE R8 P4
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K42 ["StyleEditor"]
+  SETTABLEKS R8 R7 K41 ["StyleEditor"]
   SETTABLEKS R7 R6 K13 ["Large"]
-  DUPTABLE R7 K56 [{"Class", "Child", "Descendant", "Enumerator", "GuiState", "Name", "PseudoInstance", "Tag"}]
-  LOADK R9 K42 ["StyleEditor"]
+  DUPTABLE R7 K55 [{"Class", "Child", "Descendant", "Enumerator", "GuiState", "Name", "PseudoInstance", "Tag"}]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K57 ["UI"]
+  LOADK R11 K56 ["UI"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K48 ["Class"]
-  LOADK R9 K42 ["StyleEditor"]
+  SETTABLEKS R8 R7 K47 ["Class"]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K58 ["StyleSheetChild"]
+  LOADK R11 K57 ["StyleSheetChild"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K49 ["Child"]
-  LOADK R9 K42 ["StyleEditor"]
+  SETTABLEKS R8 R7 K48 ["Child"]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K59 ["StyleSheetDescendant"]
+  LOADK R11 K58 ["StyleSheetDescendant"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K50 ["Descendant"]
-  LOADK R9 K42 ["StyleEditor"]
+  SETTABLEKS R8 R7 K49 ["Descendant"]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K60 ["StyleSheetEnumerator"]
+  LOADK R11 K59 ["StyleSheetEnumerator"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K51 ["Enumerator"]
-  LOADK R9 K42 ["StyleEditor"]
+  SETTABLEKS R8 R7 K50 ["Enumerator"]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K61 ["StyleSheetGuiState"]
+  LOADK R11 K60 ["StyleSheetGuiState"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K52 ["GuiState"]
-  LOADK R9 K42 ["StyleEditor"]
+  SETTABLEKS R8 R7 K51 ["GuiState"]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K62 ["StyleSheetName"]
+  LOADK R11 K61 ["StyleSheetName"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K53 ["Name"]
-  LOADK R9 K42 ["StyleEditor"]
+  SETTABLEKS R8 R7 K52 ["Name"]
+  LOADK R9 K41 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K63 ["StyleSheetPseudoInstance"]
+  LOADK R11 K62 ["StyleSheetPseudoInstance"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K54 ["PseudoInstance"]
-  LOADK R9 K64 ["TagEditor"]
+  SETTABLEKS R8 R7 K53 ["PseudoInstance"]
+  LOADK R9 K63 ["TagEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K55 ["Tag"]
+  LOADK R11 K54 ["Tag"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K55 ["Tag"]
+  SETTABLEKS R8 R7 K54 ["Tag"]
   SETTABLEKS R7 R6 K14 ["Selectors"]
-  LOADK R8 K65 ["Navigation"]
+  LOADK R8 K64 ["Navigation"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K66 ["CloseWidget"]
+  LOADK R10 K65 ["CloseWidget"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K15 ["close"]
-  LOADK R8 K42 ["StyleEditor"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K13 ["Large"]
-  LOADK R10 K67 ["Color"]
+  LOADK R10 K66 ["Color"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K16 ["colors"]
-  LOADK R8 K68 ["Clipboard"]
+  LOADK R8 K67 ["Clipboard"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K69 ["Copy"]
+  LOADK R10 K68 ["Copy"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K17 ["copy"]
-  LOADK R8 K64 ["TagEditor"]
+  LOADK R8 K63 ["TagEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K70 ["Tag_Delete"]
+  LOADK R10 K69 ["Tag_Delete"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K18 ["delete"]
-  LOADK R8 K42 ["StyleEditor"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K71 ["Size"]
+  LOADK R10 K70 ["Size"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K19 ["dimensions"]
-  LOADK R8 K68 ["Clipboard"]
+  LOADK R8 K67 ["Clipboard"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K72 ["Duplicate"]
+  LOADK R10 K71 ["Duplicate"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K20 ["duplicate"]
-  LOADK R8 K64 ["TagEditor"]
+  LOADK R8 K63 ["TagEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K73 ["Tag_Edit"]
+  LOADK R10 K72 ["Tag_Edit"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K21 ["edit"]
-  LOADK R8 K42 ["StyleEditor"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K74 ["Folder"]
+  LOADK R10 K73 ["Typography"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K22 ["folder"]
-  LOADK R8 K42 ["StyleEditor"]
+  SETTABLEKS R7 R6 K22 ["fonts"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K75 ["Typography"]
+  LOADK R10 K74 ["GridPattern"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K23 ["fonts"]
-  LOADK R8 K42 ["StyleEditor"]
-  LOADK R9 K12 ["Standard"]
-  LOADK R10 K76 ["GridPattern"]
-  NEWCLOSURE R7 P3
-  CAPTURE VAL R2
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  SETTABLEKS R7 R6 K24 ["gridpattern"]
-  LOADK R8 K42 ["StyleEditor"]
+  SETTABLEKS R7 R6 K23 ["gridpattern"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K13 ["Large"]
-  LOADK R10 K67 ["Color"]
+  LOADK R10 K66 ["Color"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K25 ["palette"]
-  LOADK R8 K42 ["StyleEditor"]
+  SETTABLEKS R7 R6 K24 ["palette"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K77 ["More"]
+  LOADK R10 K75 ["More"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K26 ["more"]
-  LOADK R8 K42 ["StyleEditor"]
+  SETTABLEKS R7 R6 K25 ["more"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K78 ["InsertS"]
+  LOADK R10 K76 ["InsertS"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K27 ["new"]
-  LOADK R8 K42 ["StyleEditor"]
+  SETTABLEKS R7 R6 K26 ["new"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K79 ["QuickOpen"]
+  LOADK R10 K77 ["QuickOpen"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K28 ["open"]
-  LOADK R8 K68 ["Clipboard"]
+  SETTABLEKS R7 R6 K27 ["open"]
+  LOADK R8 K67 ["Clipboard"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K80 ["Paste"]
+  LOADK R10 K78 ["Paste"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K29 ["paste"]
-  LOADK R8 K64 ["TagEditor"]
+  SETTABLEKS R7 R6 K28 ["paste"]
+  LOADK R8 K63 ["TagEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K81 ["Tag_Remove"]
+  LOADK R10 K79 ["Tag_Remove"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K30 ["remove"]
-  LOADK R8 K42 ["StyleEditor"]
+  SETTABLEKS R7 R6 K29 ["remove"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K71 ["Size"]
+  LOADK R10 K70 ["Size"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K31 ["sizes"]
-  LOADK R8 K64 ["TagEditor"]
+  SETTABLEKS R7 R6 K30 ["sizes"]
+  LOADK R8 K63 ["TagEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K82 ["Tag_Add"]
+  LOADK R10 K80 ["Tag_Add"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K32 ["set"]
-  LOADK R8 K42 ["StyleEditor"]
+  SETTABLEKS R7 R6 K31 ["set"]
+  LOADK R8 K41 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K75 ["Typography"]
+  LOADK R10 K73 ["Typography"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K33 ["typography"]
-  LOADK R8 K65 ["Navigation"]
+  SETTABLEKS R7 R6 K32 ["typography"]
+  LOADK R8 K64 ["Navigation"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K83 ["ArrowUp"]
+  LOADK R10 K81 ["ArrowUp"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K34 ["arrowUp"]
-  LOADK R8 K65 ["Navigation"]
+  SETTABLEKS R7 R6 K33 ["arrowUp"]
+  LOADK R8 K64 ["Navigation"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K84 ["ArrowDown"]
+  LOADK R10 K82 ["ArrowDown"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K35 ["arrowDown"]
-  LOADK R8 K36 ["onboarding"]
+  SETTABLEKS R7 R6 K34 ["arrowDown"]
+  LOADK R8 K35 ["onboarding"]
   NEWCLOSURE R7 P5
   CAPTURE VAL R8
-  SETTABLEKS R7 R6 K36 ["onboarding"]
+  SETTABLEKS R7 R6 K35 ["onboarding"]
   RETURN R6 1

@@ -111,4 +111,8 @@ export type WindowList = { [number]: IntegrationComponentProps }
 export type ShortcutList = { [ShortcutId]: ShortcutProps }
 export type ShortcutBarItems = { [number]: ShortcutProps }
 
+export type ActivateProps = {
+	fromShortcut: boolean?,
+}
+
 return nil

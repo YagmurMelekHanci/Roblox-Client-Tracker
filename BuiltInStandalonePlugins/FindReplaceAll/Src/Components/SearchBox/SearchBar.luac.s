@@ -142,17 +142,19 @@ PROTO_6:
   GETTABLEKS R7 R6 K2 ["key"]
   GETUPVAL R8 1
   GETUPVAL R9 2
-  DUPTABLE R10 K7 [{"LayoutOrder", "onClick", "enabled", "tags"}]
+  DUPTABLE R10 K8 [{"LayoutOrder", "onClick", "enabled", "tooltipText", "tags"}]
   SETTABLEKS R1 R10 K3 ["LayoutOrder"]
   GETTABLEKS R11 R6 K4 ["onClick"]
   SETTABLEKS R11 R10 K4 ["onClick"]
   GETTABLEKS R11 R6 K5 ["enabled"]
   SETTABLEKS R11 R10 K5 ["enabled"]
-  GETTABLEKS R11 R6 K6 ["tags"]
-  SETTABLEKS R11 R10 K6 ["tags"]
+  GETTABLEKS R11 R6 K6 ["tooltipText"]
+  SETTABLEKS R11 R10 K6 ["tooltipText"]
+  GETTABLEKS R11 R6 K7 ["tags"]
+  SETTABLEKS R11 R10 K7 ["tags"]
   CALL R8 2 1
   SETTABLE R8 R0 R7
-  FORGLOOP R2 2 [-23]
+  FORGLOOP R2 2 [-27]
   RETURN R0 1
 
 PROTO_7:

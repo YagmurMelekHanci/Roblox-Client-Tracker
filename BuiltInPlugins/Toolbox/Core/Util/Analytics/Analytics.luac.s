@@ -48,34 +48,42 @@ PROTO_6:
 PROTO_7:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["join"]
-  DUPTABLE R2 K8 [{"clientId", "isEditMode", "placeId", "platformId", "studioSid", "timestampMs", "userId"}]
+  DUPTABLE R2 K9 [{"clientId", "isEditMode", "placeId", "platformId", "studioSid", "timestampMs", "toolboxSid", "userId"}]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K9 ["getClientId"]
+  GETTABLEKS R3 R4 K10 ["getClientId"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K1 ["clientId"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K10 ["getIsEditMode"]
+  GETTABLEKS R3 R4 K11 ["getIsEditMode"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K2 ["isEditMode"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K11 ["getPlaceId"]
+  GETTABLEKS R3 R4 K12 ["getPlaceId"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K3 ["placeId"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K12 ["getPlatformId"]
+  GETTABLEKS R3 R4 K13 ["getPlatformId"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K4 ["platformId"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K13 ["getStudioSessionId"]
+  GETTABLEKS R3 R4 K14 ["getStudioSessionId"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K5 ["studioSid"]
-  GETIMPORT R4 K16 [DateTime.now]
+  GETIMPORT R4 K17 [DateTime.now]
   CALL R4 0 1
-  GETTABLEKS R3 R4 K17 ["UnixTimestampMillis"]
+  GETTABLEKS R3 R4 K18 ["UnixTimestampMillis"]
   SETTABLEKS R3 R2 K6 ["timestampMs"]
-  GETUPVAL R3 2
+  GETUPVAL R4 2
+  CALL R4 0 1
+  JUMPIFNOT R4 [+4]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K7 ["toolboxSid"]
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K7 ["toolboxSid"]
+  GETUPVAL R3 3
   CALL R3 0 1
-  SETTABLEKS R3 R2 K7 ["userId"]
+  SETTABLEKS R3 R2 K8 ["userId"]
   MOVE R3 R0
   CALL R1 2 -1
   RETURN R1 -1
@@ -100,33 +108,34 @@ PROTO_8:
   RETURN R0 0
 
 PROTO_9:
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["WebView"]
-  GETTABLEKS R5 R6 K1 ["toolboxInitTimestamp"]
-  JUMPIFNOT R5 [+7]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["WebView"]
-  GETTABLEKS R5 R6 K1 ["toolboxInitTimestamp"]
-  SUB R4 R0 R5
-  JUMP [+1]
-  LOADNIL R4
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["getWebViewTrackingAttributes"]
-  DUPTABLE R6 K7 [{"timestampMs", "reason", "currentRetryCount", "loadingStatus"}]
-  SETTABLEKS R4 R6 K3 ["timestampMs"]
-  SETTABLEKS R2 R6 K4 ["reason"]
-  SETTABLEKS R1 R6 K5 ["currentRetryCount"]
-  SETTABLEKS R3 R6 K6 ["loadingStatus"]
-  CALL R5 1 1
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K8 ["sendEventDeferred"]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K9 ["ANALYTICS_TARGET"]
+  GETUPVAL R8 0
   GETTABLEKS R7 R8 K0 ["WebView"]
-  LOADK R8 K10 ["marketplace"]
-  LOADK R9 K11 ["CreatorStoreWebViewRetryClicked"]
-  MOVE R10 R5
-  CALL R6 4 0
+  GETTABLEKS R6 R7 K1 ["toolboxInitTimestamp"]
+  JUMPIFNOT R6 [+7]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["WebView"]
+  GETTABLEKS R6 R7 K1 ["toolboxInitTimestamp"]
+  SUB R5 R0 R6
+  JUMP [+1]
+  LOADNIL R5
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["getWebViewTrackingAttributes"]
+  DUPTABLE R7 K8 [{"timeMs", "reason", "currentRetryCount", "maxRetryCount", "loadingStatus"}]
+  SETTABLEKS R5 R7 K3 ["timeMs"]
+  SETTABLEKS R3 R7 K4 ["reason"]
+  SETTABLEKS R1 R7 K5 ["currentRetryCount"]
+  SETTABLEKS R2 R7 K6 ["maxRetryCount"]
+  SETTABLEKS R4 R7 K7 ["loadingStatus"]
+  CALL R6 1 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K9 ["sendEventDeferred"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K10 ["ANALYTICS_TARGET"]
+  GETTABLEKS R8 R9 K0 ["WebView"]
+  LOADK R9 K11 ["marketplace"]
+  LOADK R10 K12 ["CreatorStoreWebViewRetryClicked"]
+  MOVE R11 R6
+  CALL R7 4 0
   RETURN R0 0
 
 PROTO_10:
@@ -427,6 +436,28 @@ PROTO_18:
 
 PROTO_19:
   GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["getWebViewTrackingAttributes"]
+  DUPTABLE R3 K3 [{"newToolboxTab", "oldToolboxTab"}]
+  SETTABLEKS R1 R3 K1 ["newToolboxTab"]
+  SETTABLEKS R0 R3 K2 ["oldToolboxTab"]
+  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["sendEventDeferred"]
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+4]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["eventTarget"]
+  JUMP [+1]
+  LOADK R4 K6 ["studio"]
+  LOADK R5 K7 ["Marketplace"]
+  LOADK R6 K8 ["ToolboxTabChanged"]
+  MOVE R7 R2
+  CALL R3 4 0
+  RETURN R0 0
+
+PROTO_20:
+  GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventImmediately"]
   GETUPVAL R4 1
   CALL R4 0 1
@@ -466,7 +497,7 @@ PROTO_19:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_21:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["sendEventImmediately"]
   GETUPVAL R5 1
@@ -514,7 +545,7 @@ PROTO_20:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_22:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   GETUPVAL R3 1
@@ -554,7 +585,7 @@ PROTO_21:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_23:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   GETUPVAL R3 1
@@ -594,7 +625,7 @@ PROTO_22:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_24:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["sendEventImmediately"]
   GETUPVAL R2 1
@@ -633,7 +664,7 @@ PROTO_23:
   CALL R0 4 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_25:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventImmediately"]
   GETUPVAL R4 1
@@ -671,7 +702,7 @@ PROTO_24:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_26:
   DUPTABLE R5 K9 [{"assetId", "searchText", "assetIndex", "currentCategory", "studioSid", "clientId", "placeId", "userId", "isEditMode"}]
   SETTABLEKS R0 R5 K0 ["assetId"]
   SETTABLEKS R1 R5 K1 ["searchText"]
@@ -719,7 +750,7 @@ PROTO_25:
   CALL R6 4 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_27:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["sendEventImmediately"]
   GETUPVAL R6 1
@@ -765,7 +796,7 @@ PROTO_26:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_28:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventImmediately"]
   GETUPVAL R4 1
@@ -809,7 +840,7 @@ PROTO_27:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_29:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["sendEventImmediately"]
   GETUPVAL R5 1
@@ -852,7 +883,7 @@ PROTO_28:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_30:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["sendEventImmediately"]
   GETUPVAL R5 1
@@ -895,7 +926,7 @@ PROTO_29:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_31:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   GETUPVAL R3 1
@@ -936,7 +967,7 @@ PROTO_30:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_31:
+PROTO_32:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["reportCounter"]
   LOADK R2 K1 ["Studio.ToolboxInsert.%s"]
@@ -949,7 +980,7 @@ PROTO_31:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_32:
+PROTO_33:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["reportCounter"]
   LOADK R2 K1 ["Studio.ToolboxCategoryInsert.%s"]
@@ -962,14 +993,14 @@ PROTO_32:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_33:
+PROTO_34:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["reportCounter"]
   LOADK R1 K1 ["StudioWorkspaceInsertCounter"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_34:
+PROTO_35:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["reportCounter"]
   LOADK R2 K1 ["Studio.Upload.%s.Success"]
@@ -982,7 +1013,7 @@ PROTO_34:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_35:
+PROTO_36:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["reportCounter"]
   LOADK R2 K1 ["Studio.Upload.%s.Failure"]
@@ -995,21 +1026,21 @@ PROTO_35:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_36:
+PROTO_37:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["reportCounter"]
   LOADK R1 K1 ["Studio.ToolboxAudio.Played"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_37:
+PROTO_38:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["reportCounter"]
   LOADK R1 K1 ["Studio.ToolboxAudio.Paused"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_38:
+PROTO_39:
   GETUPVAL R2 0
   FASTCALL1 ASSERT R2 [+2]
   GETIMPORT R1 K1 [assert]
@@ -1020,14 +1051,14 @@ PROTO_38:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_39:
+PROTO_40:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["reportCounter"]
   LOADK R1 K1 ["Studio.ToolboxAsset.Impression"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_40:
+PROTO_41:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventDeferred"]
   GETUPVAL R3 1
@@ -1060,7 +1091,7 @@ PROTO_40:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_41:
+PROTO_42:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventDeferred"]
   GETUPVAL R4 1
@@ -1094,7 +1125,7 @@ PROTO_41:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_42:
+PROTO_43:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventDeferred"]
   GETUPVAL R3 1
@@ -1127,126 +1158,183 @@ PROTO_42:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_43:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["sendEventDeferred"]
-  GETUPVAL R2 1
-  CALL R2 0 1
-  JUMPIFNOT R2 [+4]
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K1 ["eventTarget"]
-  JUMP [+1]
-  LOADK R1 K2 ["studio"]
-  LOADK R2 K3 ["toolbox"]
-  LOADK R3 K4 ["MarketplaceOpen"]
-  DUPTABLE R4 K8 [{"userId", "placeId", "isEditMode"}]
-  GETUPVAL R5 3
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K5 ["userId"]
-  GETUPVAL R5 4
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K6 ["placeId"]
-  GETUPVAL R5 5
-  SETTABLEKS R5 R4 K7 ["isEditMode"]
-  CALL R0 4 0
-  RETURN R0 0
-
 PROTO_44:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["sendEventDeferred"]
-  GETUPVAL R2 1
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+20]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["getWebViewTrackingAttributes"]
+  CALL R0 0 1
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K1 ["sendEventDeferred"]
+  GETUPVAL R3 3
+  CALL R3 0 1
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["eventTarget"]
+  JUMP [+1]
+  LOADK R2 K3 ["studio"]
+  LOADK R3 K4 ["toolbox"]
+  LOADK R4 K5 ["MarketplaceOpen"]
+  MOVE R5 R0
+  CALL R1 4 0
+  RETURN R0 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K1 ["sendEventDeferred"]
+  GETUPVAL R2 3
   CALL R2 0 1
   JUMPIFNOT R2 [+4]
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K1 ["eventTarget"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["eventTarget"]
   JUMP [+1]
-  LOADK R1 K2 ["studio"]
-  LOADK R2 K3 ["toolbox"]
-  LOADK R3 K4 ["MarketplaceClosed"]
-  DUPTABLE R4 K8 [{"userId", "placeId", "isEditMode"}]
-  GETUPVAL R5 3
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K5 ["userId"]
+  LOADK R1 K3 ["studio"]
+  LOADK R2 K4 ["toolbox"]
+  LOADK R3 K5 ["MarketplaceOpen"]
+  DUPTABLE R4 K9 [{"userId", "placeId", "isEditMode"}]
   GETUPVAL R5 4
   CALL R5 0 1
-  SETTABLEKS R5 R4 K6 ["placeId"]
+  SETTABLEKS R5 R4 K6 ["userId"]
   GETUPVAL R5 5
-  SETTABLEKS R5 R4 K7 ["isEditMode"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K7 ["placeId"]
+  GETUPVAL R5 6
+  SETTABLEKS R5 R4 K8 ["isEditMode"]
   CALL R0 4 0
   RETURN R0 0
 
 PROTO_45:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["sendEventDeferred"]
-  GETUPVAL R2 1
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+20]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["getWebViewTrackingAttributes"]
+  CALL R0 0 1
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K1 ["sendEventDeferred"]
+  GETUPVAL R3 3
+  CALL R3 0 1
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["eventTarget"]
+  JUMP [+1]
+  LOADK R2 K3 ["studio"]
+  LOADK R3 K4 ["toolbox"]
+  LOADK R4 K5 ["MarketplaceClosed"]
+  MOVE R5 R0
+  CALL R1 4 0
+  RETURN R0 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K1 ["sendEventDeferred"]
+  GETUPVAL R2 3
   CALL R2 0 1
   JUMPIFNOT R2 [+4]
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K1 ["eventTarget"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["eventTarget"]
   JUMP [+1]
-  LOADK R1 K2 ["studio"]
-  LOADK R2 K3 ["toolbox"]
-  LOADK R3 K4 ["MarketplaceImpression"]
-  DUPTABLE R4 K10 [{"userId", "placeId", "isEditMode", "timestampMs", "studioSid"}]
-  GETUPVAL R5 3
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K5 ["userId"]
+  LOADK R1 K3 ["studio"]
+  LOADK R2 K4 ["toolbox"]
+  LOADK R3 K5 ["MarketplaceClosed"]
+  DUPTABLE R4 K9 [{"userId", "placeId", "isEditMode"}]
   GETUPVAL R5 4
   CALL R5 0 1
-  SETTABLEKS R5 R4 K6 ["placeId"]
+  SETTABLEKS R5 R4 K6 ["userId"]
   GETUPVAL R5 5
-  SETTABLEKS R5 R4 K7 ["isEditMode"]
-  GETUPVAL R6 6
-  CALL R6 0 1
-  JUMPIFNOT R6 [+6]
-  GETIMPORT R6 K13 [DateTime.now]
-  CALL R6 0 1
-  GETTABLEKS R5 R6 K14 ["UnixTimestampMillis"]
-  JUMP [+1]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K8 ["timestampMs"]
-  GETUPVAL R6 6
-  CALL R6 0 1
-  JUMPIFNOT R6 [+10]
-  LOADNIL R6
-  GETIMPORT R7 K16 [pcall]
-  NEWCLOSURE R8 P0
-  CAPTURE REF R6
-  CAPTURE UPVAL U7
-  CALL R7 1 0
-  MOVE R5 R6
-  CLOSEUPVALS R6
-  JUMP [+1]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K9 ["studioSid"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K7 ["placeId"]
+  GETUPVAL R5 6
+  SETTABLEKS R5 R4 K8 ["isEditMode"]
   CALL R0 4 0
   RETURN R0 0
 
 PROTO_46:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["sendEventDeferred"]
-  GETUPVAL R2 1
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+20]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["getWebViewTrackingAttributes"]
+  CALL R0 0 1
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K1 ["sendEventDeferred"]
+  GETUPVAL R3 3
+  CALL R3 0 1
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["eventTarget"]
+  JUMP [+1]
+  LOADK R2 K3 ["studio"]
+  LOADK R3 K4 ["toolbox"]
+  LOADK R4 K5 ["MarketplaceImpression"]
+  MOVE R5 R0
+  CALL R1 4 0
+  RETURN R0 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K1 ["sendEventDeferred"]
+  GETUPVAL R2 3
   CALL R2 0 1
   JUMPIFNOT R2 [+4]
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K1 ["eventTarget"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["eventTarget"]
   JUMP [+1]
-  LOADK R1 K2 ["studio"]
-  LOADK R2 K3 ["Marketplace"]
-  LOADK R3 K4 ["MarketplaceHidden"]
-  DUPTABLE R4 K8 [{"userId", "placeId", "isEditMode"}]
-  GETUPVAL R5 3
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K5 ["userId"]
+  LOADK R1 K3 ["studio"]
+  LOADK R2 K4 ["toolbox"]
+  LOADK R3 K5 ["MarketplaceImpression"]
+  DUPTABLE R4 K9 [{"userId", "placeId", "isEditMode"}]
   GETUPVAL R5 4
   CALL R5 0 1
-  SETTABLEKS R5 R4 K6 ["placeId"]
+  SETTABLEKS R5 R4 K6 ["userId"]
   GETUPVAL R5 5
-  SETTABLEKS R5 R4 K7 ["isEditMode"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K7 ["placeId"]
+  GETUPVAL R5 6
+  SETTABLEKS R5 R4 K8 ["isEditMode"]
   CALL R0 4 0
   RETURN R0 0
 
 PROTO_47:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+20]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["getWebViewTrackingAttributes"]
+  CALL R0 0 1
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K1 ["sendEventDeferred"]
+  GETUPVAL R3 3
+  CALL R3 0 1
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["eventTarget"]
+  JUMP [+1]
+  LOADK R2 K3 ["studio"]
+  LOADK R3 K4 ["Marketplace"]
+  LOADK R4 K5 ["MarketplaceHidden"]
+  MOVE R5 R0
+  CALL R1 4 0
+  RETURN R0 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K1 ["sendEventDeferred"]
+  GETUPVAL R2 3
+  CALL R2 0 1
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["eventTarget"]
+  JUMP [+1]
+  LOADK R1 K3 ["studio"]
+  LOADK R2 K4 ["Marketplace"]
+  LOADK R3 K5 ["MarketplaceHidden"]
+  DUPTABLE R4 K9 [{"userId", "placeId", "isEditMode"}]
+  GETUPVAL R5 4
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K6 ["userId"]
+  GETUPVAL R5 5
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K7 ["placeId"]
+  GETUPVAL R5 6
+  SETTABLEKS R5 R4 K8 ["isEditMode"]
+  CALL R0 4 0
+  RETURN R0 0
+
+PROTO_48:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["sendEventImmediately"]
   GETUPVAL R6 1
@@ -1290,7 +1378,7 @@ PROTO_47:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_48:
+PROTO_49:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["sendEventImmediately"]
   GETUPVAL R2 1
@@ -1326,7 +1414,7 @@ PROTO_48:
   CALL R0 4 0
   RETURN R0 0
 
-PROTO_49:
+PROTO_50:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   GETUPVAL R3 1
@@ -1363,7 +1451,7 @@ PROTO_49:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_50:
+PROTO_51:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventImmediately"]
   GETUPVAL R4 1
@@ -1401,7 +1489,7 @@ PROTO_50:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_51:
+PROTO_52:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   GETUPVAL R3 1
@@ -1441,7 +1529,7 @@ PROTO_51:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_52:
+PROTO_53:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   GETUPVAL R3 1
@@ -1483,7 +1571,7 @@ PROTO_52:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_53:
+PROTO_54:
   GETUPVAL R4 0
   CALL R4 0 1
   JUMPIFNOT R4 [+102]
@@ -1662,7 +1750,7 @@ PROTO_53:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_54:
+PROTO_55:
   GETUPVAL R7 0
   CALL R7 0 1
   JUMPIFNOT R7 [+68]
@@ -1770,52 +1858,77 @@ PROTO_54:
   CALL R7 4 0
   RETURN R0 0
 
-PROTO_55:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
-  GETUPVAL R3 1
+PROTO_56:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+29]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["getWebViewTrackingAttributes"]
+  DUPTABLE R2 K3 [{"widgetWidth", "widgetHeight"}]
+  GETTABLEKS R3 R0 K4 ["X"]
+  SETTABLEKS R3 R2 K1 ["widgetWidth"]
+  GETTABLEKS R3 R0 K5 ["Y"]
+  SETTABLEKS R3 R2 K2 ["widgetHeight"]
+  CALL R1 1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K6 ["sendEventDeferred"]
+  GETUPVAL R4 3
+  CALL R4 0 1
+  JUMPIFNOT R4 [+4]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K7 ["eventTarget"]
+  JUMP [+1]
+  LOADK R3 K8 ["studio"]
+  LOADK R4 K9 ["Marketplace"]
+  LOADK R5 K10 ["ToolboxWidgetInteraction"]
+  MOVE R6 R1
+  CALL R2 4 0
+  RETURN R0 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K11 ["sendEventImmediately"]
+  GETUPVAL R3 3
   CALL R3 0 1
   JUMPIFNOT R3 [+4]
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K1 ["eventTarget"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K7 ["eventTarget"]
   JUMP [+1]
-  LOADK R2 K2 ["studio"]
-  LOADK R3 K3 ["Marketplace"]
-  LOADK R4 K4 ["ToolboxWidgetInteraction"]
-  DUPTABLE R5 K12 [{"clientId", "userId", "platformId", "studioSid", "isEditMode", "widgetWidth", "widgetHeight"}]
+  LOADK R2 K8 ["studio"]
+  LOADK R3 K9 ["Marketplace"]
+  LOADK R4 K10 ["ToolboxWidgetInteraction"]
+  DUPTABLE R5 K17 [{"clientId", "userId", "platformId", "studioSid", "isEditMode", "widgetWidth", "widgetHeight"}]
   LOADNIL R7
-  GETIMPORT R8 K14 [pcall]
+  GETIMPORT R8 K19 [pcall]
   NEWCLOSURE R9 P0
   CAPTURE REF R7
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CALL R8 1 0
   MOVE R6 R7
   CLOSEUPVALS R7
-  SETTABLEKS R6 R5 K5 ["clientId"]
-  GETUPVAL R6 4
+  SETTABLEKS R6 R5 K12 ["clientId"]
+  GETUPVAL R6 5
   CALL R6 0 1
-  SETTABLEKS R6 R5 K6 ["userId"]
+  SETTABLEKS R6 R5 K13 ["userId"]
   LOADN R6 0
-  SETTABLEKS R6 R5 K7 ["platformId"]
+  SETTABLEKS R6 R5 K14 ["platformId"]
   LOADNIL R7
-  GETIMPORT R8 K14 [pcall]
+  GETIMPORT R8 K19 [pcall]
   NEWCLOSURE R9 P1
   CAPTURE REF R7
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CALL R8 1 0
   MOVE R6 R7
   CLOSEUPVALS R7
-  SETTABLEKS R6 R5 K8 ["studioSid"]
-  GETUPVAL R6 5
-  SETTABLEKS R6 R5 K9 ["isEditMode"]
-  GETTABLEKS R6 R0 K15 ["X"]
-  SETTABLEKS R6 R5 K10 ["widgetWidth"]
-  GETTABLEKS R6 R0 K16 ["Y"]
-  SETTABLEKS R6 R5 K11 ["widgetHeight"]
+  SETTABLEKS R6 R5 K15 ["studioSid"]
+  GETUPVAL R6 6
+  SETTABLEKS R6 R5 K16 ["isEditMode"]
+  GETTABLEKS R6 R0 K4 ["X"]
+  SETTABLEKS R6 R5 K1 ["widgetWidth"]
+  GETTABLEKS R6 R0 K5 ["Y"]
+  SETTABLEKS R6 R5 K2 ["widgetHeight"]
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_56:
+PROTO_57:
   DUPTABLE R6 K10 [{"announcementButtonKey", "announcementDateKey", "announcementDescriptionKey", "announcementHeaderKey", "announcementLinkKey", "announcementLinkLocation", "clientId", "platformId", "studioSid", "userId"}]
   SETTABLEKS R0 R6 K0 ["announcementButtonKey"]
   SETTABLEKS R1 R6 K1 ["announcementDateKey"]
@@ -1861,7 +1974,7 @@ PROTO_56:
   CALL R7 4 0
   RETURN R0 0
 
-PROTO_57:
+PROTO_58:
   DUPTABLE R6 K10 [{"announcementButtonKey", "announcementDateKey", "announcementDescriptionKey", "announcementHeaderKey", "announcementLinkKey", "announcementLinkLocation", "clientId", "platformId", "studioSid", "userId"}]
   SETTABLEKS R0 R6 K0 ["announcementButtonKey"]
   SETTABLEKS R1 R6 K1 ["announcementDateKey"]
@@ -1907,7 +2020,7 @@ PROTO_57:
   CALL R7 4 0
   RETURN R0 0
 
-PROTO_58:
+PROTO_59:
   DUPTABLE R7 K11 [{"announcementButtonKey", "announcementDateKey", "announcementDescriptionKey", "announcementHeaderKey", "announcementLinkKey", "announcementLinkLocation", "durationBeforeClosed", "clientId", "platformId", "studioSid", "userId"}]
   SETTABLEKS R0 R7 K0 ["announcementButtonKey"]
   SETTABLEKS R1 R7 K1 ["announcementDateKey"]
@@ -1954,7 +2067,7 @@ PROTO_58:
   CALL R8 4 0
   RETURN R0 0
 
-PROTO_59:
+PROTO_60:
   DUPTABLE R7 K11 [{"announcementButtonKey", "announcementDateKey", "announcementDescriptionKey", "announcementHeaderKey", "announcementLinkKey", "announcementLinkLocation", "durationBeforeClosed", "clientId", "platformId", "studioSid", "userId"}]
   SETTABLEKS R0 R7 K0 ["announcementButtonKey"]
   SETTABLEKS R1 R7 K1 ["announcementDateKey"]
@@ -2001,7 +2114,7 @@ PROTO_59:
   CALL R8 4 0
   RETURN R0 0
 
-PROTO_60:
+PROTO_61:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["sendEventDeferred"]
   GETUPVAL R5 1
@@ -2047,7 +2160,7 @@ PROTO_60:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_61:
+PROTO_62:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventDeferred"]
   GETUPVAL R4 1
@@ -2080,7 +2193,7 @@ PROTO_61:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_62:
+PROTO_63:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["sendEventDeferred"]
   GETUPVAL R6 1
@@ -2117,7 +2230,7 @@ PROTO_62:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_63:
+PROTO_64:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventDeferred"]
   GETUPVAL R3 1
@@ -2146,7 +2259,7 @@ PROTO_63:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_64:
+PROTO_65:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventDeferred"]
   GETUPVAL R4 1
@@ -2180,7 +2293,7 @@ PROTO_64:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_65:
+PROTO_66:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["sendEventDeferred"]
   GETUPVAL R5 1
@@ -2208,7 +2321,7 @@ PROTO_65:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_66:
+PROTO_67:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["sendEventDeferred"]
   GETUPVAL R6 1
@@ -2237,7 +2350,7 @@ PROTO_66:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_67:
+PROTO_68:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["sendEventDeferred"]
   GETUPVAL R7 1
@@ -2267,7 +2380,7 @@ PROTO_67:
   CALL R5 4 0
   RETURN R0 0
 
-PROTO_68:
+PROTO_69:
   GETUPVAL R3 0
   CALL R3 0 1
   FASTCALL2K ASSERT R3 K0 [+4]
@@ -2312,7 +2425,7 @@ PROTO_68:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_69:
+PROTO_70:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K0 ["sendEventDeferred"]
   GETUPVAL R8 1
@@ -2343,7 +2456,7 @@ PROTO_69:
   CALL R6 4 0
   RETURN R0 0
 
-PROTO_70:
+PROTO_71:
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K0 ["sendEventDeferred"]
   GETUPVAL R9 1
@@ -2406,545 +2519,574 @@ MAIN:
   LOADK R8 K16 ["RbxAnalyticsService"]
   NAMECALL R6 R6 K17 ["GetService"]
   CALL R6 2 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K7 ["Core"]
-  GETTABLEKS R9 R10 K8 ["Util"]
-  GETTABLEKS R8 R9 K18 ["getUserId"]
-  CALL R7 1 1
-  GETIMPORT R8 K15 [game]
-  LOADK R10 K19 ["NewPackageAnalyticsWithRefactor2"]
-  NAMECALL R8 R8 K20 ["GetFastFlag"]
-  CALL R8 2 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R13 R0 K7 ["Core"]
-  GETTABLEKS R12 R13 K8 ["Util"]
-  GETTABLEKS R11 R12 K21 ["SharedFlags"]
-  GETTABLEKS R10 R11 K22 ["getFFlagToolboxAddAutocorrect"]
-  CALL R9 1 1
+  GETIMPORT R7 K15 [game]
+  LOADK R9 K18 ["HttpService"]
+  NAMECALL R7 R7 K17 ["GetService"]
+  CALL R7 2 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K7 ["Core"]
+  GETTABLEKS R10 R11 K8 ["Util"]
+  GETTABLEKS R9 R10 K19 ["getUserId"]
+  CALL R8 1 1
+  GETIMPORT R9 K15 [game]
+  LOADK R11 K20 ["NewPackageAnalyticsWithRefactor2"]
+  NAMECALL R9 R9 K21 ["GetFastFlag"]
+  CALL R9 2 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R14 R0 K7 ["Core"]
   GETTABLEKS R13 R14 K8 ["Util"]
-  GETTABLEKS R12 R13 K21 ["SharedFlags"]
-  GETTABLEKS R11 R12 K23 ["getFFlagToolboxEnableSearchOptionsRefactor"]
+  GETTABLEKS R12 R13 K22 ["SharedFlags"]
+  GETTABLEKS R11 R12 K23 ["getFFlagToolboxAddAutocorrect"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R15 R0 K7 ["Core"]
   GETTABLEKS R14 R15 K8 ["Util"]
-  GETTABLEKS R13 R14 K21 ["SharedFlags"]
-  GETTABLEKS R12 R13 K24 ["getFFlagToolboxAddCreationsFilterToListView"]
+  GETTABLEKS R13 R14 K22 ["SharedFlags"]
+  GETTABLEKS R12 R13 K24 ["getFFlagToolboxEnableSearchOptionsRefactor"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETTABLEKS R16 R0 K7 ["Core"]
   GETTABLEKS R15 R16 K8 ["Util"]
-  GETTABLEKS R14 R15 K21 ["SharedFlags"]
-  GETTABLEKS R13 R14 K25 ["getFFlagEnableUGCUploadFlowAnalytics"]
+  GETTABLEKS R14 R15 K22 ["SharedFlags"]
+  GETTABLEKS R13 R14 K25 ["getFFlagToolboxAddCreationsFilterToListView"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R17 R0 K7 ["Core"]
   GETTABLEKS R16 R17 K8 ["Util"]
-  GETTABLEKS R15 R16 K21 ["SharedFlags"]
-  GETTABLEKS R14 R15 K26 ["getFFlagSTM5561Enabled"]
+  GETTABLEKS R15 R16 K22 ["SharedFlags"]
+  GETTABLEKS R14 R15 K26 ["getFFlagEnableUGCUploadFlowAnalytics"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
-  GETTABLEKS R17 R0 K7 ["Core"]
-  GETTABLEKS R16 R17 K27 ["Flags"]
-  GETTABLEKS R15 R16 K28 ["getFFlagEnableUGCIndividualAssetUploadAnalytics"]
+  GETTABLEKS R18 R0 K7 ["Core"]
+  GETTABLEKS R17 R18 K8 ["Util"]
+  GETTABLEKS R16 R17 K22 ["SharedFlags"]
+  GETTABLEKS R15 R16 K27 ["getFFlagSTM5561Enabled"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
-  GETTABLEKS R19 R0 K7 ["Core"]
-  GETTABLEKS R18 R19 K8 ["Util"]
-  GETTABLEKS R17 R18 K21 ["SharedFlags"]
-  GETTABLEKS R16 R17 K29 ["getFFlagToolboxFixAnalyticCapitalization"]
+  GETTABLEKS R18 R0 K7 ["Core"]
+  GETTABLEKS R17 R18 K28 ["Flags"]
+  GETTABLEKS R16 R17 K29 ["getFFlagEnableUGCIndividualAssetUploadAnalytics"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
   GETTABLEKS R20 R0 K7 ["Core"]
   GETTABLEKS R19 R20 K8 ["Util"]
-  GETTABLEKS R18 R19 K21 ["SharedFlags"]
-  GETTABLEKS R17 R18 K30 ["getFFlagToolboxSendTimestamp"]
+  GETTABLEKS R18 R19 K22 ["SharedFlags"]
+  GETTABLEKS R17 R18 K30 ["getFFlagToolboxFixAnalyticCapitalization"]
   CALL R16 1 1
-  GETIMPORT R17 K15 [game]
-  LOADK R19 K31 ["ToolboxNoLuaAITimer"]
-  LOADN R20 10
-  NAMECALL R17 R17 K32 ["DefineFastInt"]
-  CALL R17 3 1
-  GETIMPORT R18 K5 [require]
+  GETIMPORT R17 K5 [require]
   GETTABLEKS R21 R0 K7 ["Core"]
   GETTABLEKS R20 R21 K8 ["Util"]
-  GETTABLEKS R19 R20 K33 ["getPlaceId"]
-  CALL R18 1 1
-  DUPCLOSURE R19 K34 [PROTO_1]
+  GETTABLEKS R19 R20 K22 ["SharedFlags"]
+  GETTABLEKS R18 R19 K31 ["getFFlagToolboxCSWOTAEnabled"]
+  CALL R17 1 1
+  GETIMPORT R18 K15 [game]
+  LOADK R20 K32 ["ToolboxNoLuaAITimer"]
+  LOADN R21 10
+  NAMECALL R18 R18 K33 ["DefineFastInt"]
+  CALL R18 3 1
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K7 ["Core"]
+  GETTABLEKS R21 R22 K8 ["Util"]
+  GETTABLEKS R20 R21 K34 ["getPlaceId"]
+  CALL R19 1 1
+  DUPCLOSURE R20 K35 [PROTO_1]
   CAPTURE VAL R6
-  DUPCLOSURE R20 K35 [PROTO_3]
+  DUPCLOSURE R21 K36 [PROTO_3]
   CAPTURE VAL R6
-  DUPCLOSURE R21 K36 [PROTO_4]
-  NEWTABLE R22 128 0
-  GETIMPORT R23 K15 [game]
-  LOADK R25 K37 ["RunService"]
-  NAMECALL R23 R23 K17 ["GetService"]
-  CALL R23 2 1
-  NAMECALL R23 R23 K38 ["IsEdit"]
-  CALL R23 1 1
-  DUPCLOSURE R24 K39 [PROTO_5]
+  DUPCLOSURE R22 K37 [PROTO_4]
+  NEWTABLE R23 128 0
+  GETIMPORT R24 K15 [game]
+  LOADK R26 K38 ["RunService"]
+  NAMECALL R24 R24 K17 ["GetService"]
+  CALL R24 2 1
+  NAMECALL R24 R24 K39 ["IsEdit"]
+  CALL R24 1 1
+  DUPCLOSURE R25 K40 [PROTO_5]
+  CAPTURE VAL R24
+  SETTABLEKS R25 R23 K41 ["getIsEditMode"]
+  SETTABLEKS R19 R23 K34 ["getPlaceId"]
+  SETTABLEKS R22 R23 K42 ["getPlatformId"]
+  SETTABLEKS R21 R23 K43 ["getClientId"]
+  SETTABLEKS R20 R23 K44 ["getStudioSessionId"]
+  MOVE R26 R17
+  CALL R26 0 1
+  JUMPIFNOT R26 [+6]
+  LOADB R28 0
+  NAMECALL R26 R7 K45 ["GenerateGUID"]
+  CALL R26 2 1
+  SETTABLEKS R26 R23 K46 ["toolboxSid"]
+  MOVE R26 R14
+  CALL R26 0 1
+  JUMPIF R26 [+3]
+  MOVE R26 R17
+  CALL R26 0 1
+  JUMPIFNOT R26 [+17]
+  GETTABLEKS R27 R4 K47 ["ANALYTICS_TARGET"]
+  GETTABLEKS R26 R27 K48 ["Studio"]
+  SETTABLEKS R26 R23 K49 ["eventTarget"]
+  DUPCLOSURE R26 K50 [PROTO_6]
   CAPTURE VAL R23
-  SETTABLEKS R24 R22 K40 ["getIsEditMode"]
-  SETTABLEKS R18 R22 K33 ["getPlaceId"]
-  SETTABLEKS R21 R22 K41 ["getPlatformId"]
-  SETTABLEKS R20 R22 K42 ["getClientId"]
-  SETTABLEKS R19 R22 K43 ["getStudioSessionId"]
-  MOVE R25 R13
-  CALL R25 0 1
-  JUMPIFNOT R25 [+104]
-  GETTABLEKS R26 R4 K44 ["ANALYTICS_TARGET"]
-  GETTABLEKS R25 R26 K45 ["Studio"]
-  SETTABLEKS R25 R22 K46 ["eventTarget"]
-  DUPCLOSURE R25 K47 [PROTO_6]
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K48 ["setEventTarget"]
-  DUPCLOSURE R25 K49 [PROTO_7]
+  SETTABLEKS R26 R23 K51 ["setEventTarget"]
+  DUPCLOSURE R26 K52 [PROTO_7]
   CAPTURE VAL R2
-  CAPTURE VAL R22
-  CAPTURE VAL R7
-  SETTABLEKS R25 R22 K50 ["getWebViewTrackingAttributes"]
-  DUPCLOSURE R25 K51 [PROTO_8]
-  CAPTURE VAL R22
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R25 R22 K52 ["onRetryWebViewInit"]
-  DUPCLOSURE R25 K53 [PROTO_9]
-  CAPTURE VAL R22
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R25 R22 K54 ["onWebViewRetryClicked"]
-  DUPTABLE R25 K65 [{"toolboxInitTimestamp", "storeTabOpenTimestamp", "firstStoreAssetImpressionEventFired", "firstLuaAssetImpressionEventFired", "didFallbackToLuaUi", "initialToolboxTab", "onWebViewTimingEventFired", "beforeInteractiveTimeMs", "afterInteractiveTimeMs", "loadSuccessTimeMs"}]
-  LOADNIL R26
-  SETTABLEKS R26 R25 K55 ["toolboxInitTimestamp"]
-  LOADNIL R26
-  SETTABLEKS R26 R25 K56 ["storeTabOpenTimestamp"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K57 ["firstStoreAssetImpressionEventFired"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K58 ["firstLuaAssetImpressionEventFired"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K59 ["didFallbackToLuaUi"]
-  LOADNIL R26
-  SETTABLEKS R26 R25 K60 ["initialToolboxTab"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K61 ["onWebViewTimingEventFired"]
-  LOADNIL R26
-  SETTABLEKS R26 R25 K62 ["beforeInteractiveTimeMs"]
-  LOADNIL R26
-  SETTABLEKS R26 R25 K63 ["afterInteractiveTimeMs"]
-  LOADNIL R26
-  SETTABLEKS R26 R25 K64 ["loadSuccessTimeMs"]
-  SETTABLEKS R25 R22 K66 ["WebView"]
-  DUPCLOSURE R25 K67 [PROTO_10]
-  CAPTURE VAL R22
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R25 R22 K68 ["onWebViewTimingEvent"]
-  DUPCLOSURE R25 K69 [PROTO_11]
-  CAPTURE VAL R22
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R25 R22 K70 ["onWebViewInit"]
-  DUPCLOSURE R25 K71 [PROTO_12]
-  CAPTURE VAL R22
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R25 R22 K72 ["onFallbackToLuaUi"]
-  DUPCLOSURE R25 K73 [PROTO_13]
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K74 ["setInitialToolboxTab"]
-  DUPCLOSURE R25 K75 [PROTO_15]
-  CAPTURE VAL R22
+  CAPTURE VAL R23
   CAPTURE VAL R17
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R25 R22 K76 ["setToolboxInitTimestamp"]
-  DUPCLOSURE R25 K77 [PROTO_16]
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K78 ["onStoreTabOpened"]
-  DUPCLOSURE R25 K79 [PROTO_17]
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K80 ["logFirstLuaAssetImpression"]
-  DUPCLOSURE R25 K81 [PROTO_18]
-  CAPTURE VAL R22
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R25 R22 K82 ["logFirstStoreAssetImpression"]
-  MOVE R25 R12
-  CALL R25 0 1
-  JUMPIFNOT R25 [+12]
-  DUPTABLE R25 K86 [{"Start", "Success", "Failure"}]
-  LOADK R26 K83 ["Start"]
-  SETTABLEKS R26 R25 K83 ["Start"]
-  LOADK R26 K84 ["Success"]
-  SETTABLEKS R26 R25 K84 ["Success"]
-  LOADK R26 K85 ["Failure"]
-  SETTABLEKS R26 R25 K85 ["Failure"]
-  SETTABLEKS R25 R22 K87 ["Status"]
-  DUPCLOSURE R25 K88 [PROTO_19]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K89 ["onTermSearchedWithoutInsertion"]
-  DUPCLOSURE R25 K90 [PROTO_20]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R10
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K91 ["onCreatorSearched"]
-  DUPCLOSURE R25 K92 [PROTO_21]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K93 ["onTryAsset"]
-  DUPCLOSURE R25 K94 [PROTO_22]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K95 ["onTryAssetFailure"]
-  DUPCLOSURE R25 K96 [PROTO_23]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K97 ["onSearchOptionsOpened"]
-  DUPCLOSURE R25 K98 [PROTO_24]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K99 ["onCategorySelected"]
-  DUPCLOSURE R25 K100 [PROTO_25]
-  CAPTURE VAL R6
-  CAPTURE VAL R18
-  CAPTURE VAL R7
-  CAPTURE VAL R23
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K101 ["onAssetInserted"]
-  DUPCLOSURE R25 K102 [PROTO_26]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R18
-  CAPTURE VAL R7
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K103 ["onAssetDragInserted"]
-  DUPCLOSURE R25 K104 [PROTO_27]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R18
-  CAPTURE VAL R7
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K105 ["reportDragInsertFinished"]
-  DUPCLOSURE R25 K106 [PROTO_28]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R18
-  CAPTURE VAL R7
-  SETTABLEKS R25 R22 K107 ["onPackageNoteCreated"]
-  DUPCLOSURE R25 K108 [PROTO_29]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R18
-  CAPTURE VAL R7
-  SETTABLEKS R25 R22 K109 ["onPackageNoteDiscarded"]
-  DUPCLOSURE R25 K110 [PROTO_30]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R18
-  CAPTURE VAL R7
-  SETTABLEKS R25 R22 K111 ["onPackageNoteCanceled"]
-  DUPCLOSURE R25 K112 [PROTO_31]
-  CAPTURE VAL R3
-  SETTABLEKS R25 R22 K113 ["incrementToolboxInsertCounter"]
-  DUPCLOSURE R25 K114 [PROTO_32]
-  CAPTURE VAL R3
-  SETTABLEKS R25 R22 K115 ["incrementToolboxCategoryInsertCounter"]
-  DUPCLOSURE R25 K116 [PROTO_33]
-  CAPTURE VAL R3
-  SETTABLEKS R25 R22 K117 ["incrementWorkspaceInsertCounter"]
-  DUPCLOSURE R25 K118 [PROTO_34]
-  CAPTURE VAL R3
-  SETTABLEKS R25 R22 K119 ["incrementUploadAssetSuccess"]
-  DUPCLOSURE R25 K120 [PROTO_35]
-  CAPTURE VAL R3
-  SETTABLEKS R25 R22 K121 ["incrementUploadAssetFailure"]
-  DUPCLOSURE R25 K122 [PROTO_36]
-  CAPTURE VAL R3
-  SETTABLEKS R25 R22 K123 ["onSoundPlayedCounter"]
-  DUPCLOSURE R25 K124 [PROTO_37]
-  CAPTURE VAL R3
-  SETTABLEKS R25 R22 K125 ["onSoundPausedCounter"]
-  DUPCLOSURE R25 K126 [PROTO_38]
   CAPTURE VAL R8
-  CAPTURE VAL R3
-  SETTABLEKS R25 R22 K127 ["sendResultToKibana"]
-  DUPCLOSURE R25 K128 [PROTO_39]
-  CAPTURE VAL R3
-  SETTABLEKS R25 R22 K129 ["incrementAssetImpressionCounter"]
-  DUPCLOSURE R25 K130 [PROTO_40]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
+  SETTABLEKS R26 R23 K53 ["getWebViewTrackingAttributes"]
+  MOVE R26 R14
+  CALL R26 0 1
+  JUMPIFNOT R26 [+88]
+  DUPCLOSURE R26 K54 [PROTO_8]
   CAPTURE VAL R23
-  SETTABLEKS R25 R22 K131 ["onAssetPreviewSelected"]
-  DUPCLOSURE R25 K132 [PROTO_41]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
+  CAPTURE VAL R4
+  SETTABLEKS R26 R23 K55 ["onRetryWebViewInit"]
+  DUPCLOSURE R26 K56 [PROTO_9]
   CAPTURE VAL R23
-  SETTABLEKS R25 R22 K133 ["onAssetPreviewEnded"]
-  DUPCLOSURE R25 K134 [PROTO_42]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
+  CAPTURE VAL R4
+  SETTABLEKS R26 R23 K57 ["onWebViewRetryClicked"]
+  DUPTABLE R26 K68 [{"toolboxInitTimestamp", "storeTabOpenTimestamp", "firstStoreAssetImpressionEventFired", "firstLuaAssetImpressionEventFired", "didFallbackToLuaUi", "initialToolboxTab", "onWebViewTimingEventFired", "beforeInteractiveTimeMs", "afterInteractiveTimeMs", "loadSuccessTimeMs"}]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K58 ["toolboxInitTimestamp"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K59 ["storeTabOpenTimestamp"]
+  LOADB R27 0
+  SETTABLEKS R27 R26 K60 ["firstStoreAssetImpressionEventFired"]
+  LOADB R27 0
+  SETTABLEKS R27 R26 K61 ["firstLuaAssetImpressionEventFired"]
+  LOADB R27 0
+  SETTABLEKS R27 R26 K62 ["didFallbackToLuaUi"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K63 ["initialToolboxTab"]
+  LOADB R27 0
+  SETTABLEKS R27 R26 K64 ["onWebViewTimingEventFired"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K65 ["beforeInteractiveTimeMs"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K66 ["afterInteractiveTimeMs"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K67 ["loadSuccessTimeMs"]
+  SETTABLEKS R26 R23 K69 ["WebView"]
+  DUPCLOSURE R26 K70 [PROTO_10]
   CAPTURE VAL R23
-  SETTABLEKS R25 R22 K135 ["onAssetInsertedFromAssetPreview"]
-  DUPCLOSURE R25 K136 [PROTO_43]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R7
-  CAPTURE VAL R18
+  CAPTURE VAL R4
+  SETTABLEKS R26 R23 K71 ["onWebViewTimingEvent"]
+  DUPCLOSURE R26 K72 [PROTO_11]
   CAPTURE VAL R23
-  SETTABLEKS R25 R22 K137 ["onPluginButtonClickOpen"]
-  DUPCLOSURE R25 K138 [PROTO_44]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R7
-  CAPTURE VAL R18
+  CAPTURE VAL R4
+  SETTABLEKS R26 R23 K73 ["onWebViewInit"]
+  DUPCLOSURE R26 K74 [PROTO_12]
   CAPTURE VAL R23
-  SETTABLEKS R25 R22 K139 ["onPluginButtonClickClose"]
-  DUPCLOSURE R25 K140 [PROTO_45]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R7
-  CAPTURE VAL R18
+  CAPTURE VAL R4
+  SETTABLEKS R26 R23 K75 ["onFallbackToLuaUi"]
+  DUPCLOSURE R26 K76 [PROTO_13]
   CAPTURE VAL R23
-  CAPTURE VAL R16
-  CAPTURE VAL R6
-  SETTABLEKS R25 R22 K141 ["onToolboxDisplayed"]
-  DUPCLOSURE R25 K142 [PROTO_46]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R7
-  CAPTURE VAL R18
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K143 ["onToolboxHidden"]
-  DUPCLOSURE R25 K144 [PROTO_47]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K145 ["onContextMenuClicked"]
-  DUPCLOSURE R25 K146 [PROTO_48]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K147 ["openedFromPluginManagement"]
-  DUPCLOSURE R25 K148 [PROTO_49]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K149 ["openedExternallyByAssetType"]
-  DUPCLOSURE R25 K150 [PROTO_50]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K151 ["reportAssetClicked"]
-  DUPCLOSURE R25 K152 [PROTO_51]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
+  SETTABLEKS R26 R23 K77 ["setInitialToolboxTab"]
+  DUPCLOSURE R26 K78 [PROTO_15]
   CAPTURE VAL R23
   CAPTURE VAL R18
-  SETTABLEKS R25 R22 K153 ["reportMeshPartFiltered"]
-  DUPCLOSURE R25 K154 [PROTO_52]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
+  CAPTURE VAL R4
+  SETTABLEKS R26 R23 K79 ["setToolboxInitTimestamp"]
+  DUPCLOSURE R26 K80 [PROTO_16]
   CAPTURE VAL R23
-  SETTABLEKS R25 R22 K155 ["onIdVerificationIconClicked"]
-  DUPCLOSURE R25 K156 [PROTO_53]
-  CAPTURE VAL R15
+  SETTABLEKS R26 R23 K81 ["onStoreTabOpened"]
+  DUPCLOSURE R26 K82 [PROTO_17]
+  CAPTURE VAL R23
+  SETTABLEKS R26 R23 K83 ["logFirstLuaAssetImpression"]
+  DUPCLOSURE R26 K84 [PROTO_18]
+  CAPTURE VAL R23
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R26 R23 K85 ["logFirstStoreAssetImpression"]
+  MOVE R26 R17
+  CALL R26 0 1
+  JUMPIFNOT R26 [+6]
+  DUPCLOSURE R26 K86 [PROTO_19]
+  CAPTURE VAL R23
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  SETTABLEKS R26 R23 K87 ["onToolboxTabChanged"]
+  MOVE R26 R13
+  CALL R26 0 1
+  JUMPIFNOT R26 [+12]
+  DUPTABLE R26 K91 [{"Start", "Success", "Failure"}]
+  LOADK R27 K88 ["Start"]
+  SETTABLEKS R27 R26 K88 ["Start"]
+  LOADK R27 K89 ["Success"]
+  SETTABLEKS R27 R26 K89 ["Success"]
+  LOADK R27 K90 ["Failure"]
+  SETTABLEKS R27 R26 K90 ["Failure"]
+  SETTABLEKS R26 R23 K92 ["Status"]
+  DUPCLOSURE R26 K93 [PROTO_20]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
   CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K94 ["onTermSearchedWithoutInsertion"]
+  DUPCLOSURE R26 K95 [PROTO_21]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
   CAPTURE VAL R11
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K96 ["onCreatorSearched"]
+  DUPCLOSURE R26 K97 [PROTO_22]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
   CAPTURE VAL R23
-  CAPTURE VAL R7
-  CAPTURE VAL R18
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K98 ["onTryAsset"]
+  DUPCLOSURE R26 K99 [PROTO_23]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K100 ["onTryAssetFailure"]
+  DUPCLOSURE R26 K101 [PROTO_24]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K102 ["onSearchOptionsOpened"]
+  DUPCLOSURE R26 K103 [PROTO_25]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K104 ["onCategorySelected"]
+  DUPCLOSURE R26 K105 [PROTO_26]
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  SETTABLEKS R26 R23 K106 ["onAssetInserted"]
+  DUPCLOSURE R26 K107 [PROTO_27]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K108 ["onAssetDragInserted"]
+  DUPCLOSURE R26 K109 [PROTO_28]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K110 ["reportDragInsertFinished"]
+  DUPCLOSURE R26 K111 [PROTO_29]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE VAL R8
+  SETTABLEKS R26 R23 K112 ["onPackageNoteCreated"]
+  DUPCLOSURE R26 K113 [PROTO_30]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE VAL R8
+  SETTABLEKS R26 R23 K114 ["onPackageNoteDiscarded"]
+  DUPCLOSURE R26 K115 [PROTO_31]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE VAL R8
+  SETTABLEKS R26 R23 K116 ["onPackageNoteCanceled"]
+  DUPCLOSURE R26 K117 [PROTO_32]
+  CAPTURE VAL R3
+  SETTABLEKS R26 R23 K118 ["incrementToolboxInsertCounter"]
+  DUPCLOSURE R26 K119 [PROTO_33]
+  CAPTURE VAL R3
+  SETTABLEKS R26 R23 K120 ["incrementToolboxCategoryInsertCounter"]
+  DUPCLOSURE R26 K121 [PROTO_34]
+  CAPTURE VAL R3
+  SETTABLEKS R26 R23 K122 ["incrementWorkspaceInsertCounter"]
+  DUPCLOSURE R26 K123 [PROTO_35]
+  CAPTURE VAL R3
+  SETTABLEKS R26 R23 K124 ["incrementUploadAssetSuccess"]
+  DUPCLOSURE R26 K125 [PROTO_36]
+  CAPTURE VAL R3
+  SETTABLEKS R26 R23 K126 ["incrementUploadAssetFailure"]
+  DUPCLOSURE R26 K127 [PROTO_37]
+  CAPTURE VAL R3
+  SETTABLEKS R26 R23 K128 ["onSoundPlayedCounter"]
+  DUPCLOSURE R26 K129 [PROTO_38]
+  CAPTURE VAL R3
+  SETTABLEKS R26 R23 K130 ["onSoundPausedCounter"]
+  DUPCLOSURE R26 K131 [PROTO_39]
   CAPTURE VAL R9
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K157 ["marketplaceSearch"]
-  DUPCLOSURE R25 K158 [PROTO_54]
-  CAPTURE VAL R15
-  CAPTURE VAL R6
-  CAPTURE VAL R23
-  CAPTURE VAL R7
-  CAPTURE VAL R18
+  SETTABLEKS R26 R23 K132 ["sendResultToKibana"]
+  DUPCLOSURE R26 K133 [PROTO_40]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K159 ["marketplaceAutocompleteSearch"]
-  DUPCLOSURE R25 K160 [PROTO_55]
+  SETTABLEKS R26 R23 K134 ["incrementAssetImpressionCounter"]
+  DUPCLOSURE R26 K135 [PROTO_41]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K161 ["onToolboxWidgetInteraction"]
-  DUPCLOSURE R25 K162 [PROTO_56]
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K163 ["AnnouncementViewed"]
-  DUPCLOSURE R25 K164 [PROTO_57]
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K165 ["AnnouncementLinkClicked"]
-  DUPCLOSURE R25 K166 [PROTO_58]
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K167 ["AnnouncementClosed"]
-  DUPCLOSURE R25 K168 [PROTO_59]
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  SETTABLEKS R25 R22 K169 ["AnnouncementAcknowledged"]
-  DUPCLOSURE R25 K170 [PROTO_60]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  SETTABLEKS R25 R22 K171 ["AssetMediaItemsUpdated"]
-  DUPCLOSURE R25 K172 [PROTO_61]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  SETTABLEKS R25 R22 K173 ["MarketplaceListViewToggleClicked"]
-  DUPCLOSURE R25 K174 [PROTO_62]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  SETTABLEKS R25 R22 K175 ["MarketplaceAssetRowExpanded"]
-  DUPCLOSURE R25 K176 [PROTO_63]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  SETTABLEKS R25 R22 K177 ["MarketplaceRecentSearchClicked"]
-  DUPCLOSURE R25 K178 [PROTO_64]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  SETTABLEKS R25 R22 K179 ["MarketplaceSearchFilterOpened"]
-  MOVE R25 R12
-  CALL R25 0 1
-  JUMPIFNOT R25 [+44]
-  DUPCLOSURE R25 K180 [PROTO_65]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  SETTABLEKS R25 R22 K181 ["UGCBundleValidationEvent"]
-  DUPCLOSURE R25 K182 [PROTO_66]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  SETTABLEKS R25 R22 K183 ["UGCUploadRequestOperationIdEvent"]
-  DUPCLOSURE R25 K184 [PROTO_67]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R6
-  SETTABLEKS R25 R22 K185 ["UGCUploadAssetsEvent"]
-  DUPCLOSURE R25 K186 [PROTO_68]
   CAPTURE VAL R14
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R18
+  CAPTURE VAL R23
   CAPTURE VAL R6
-  SETTABLEKS R25 R22 K187 ["UGCIndividualAssetUploadEvent"]
-  DUPCLOSURE R25 K188 [PROTO_69]
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K136 ["onAssetPreviewSelected"]
+  DUPCLOSURE R26 K137 [PROTO_42]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
+  CAPTURE VAL R14
+  CAPTURE VAL R23
   CAPTURE VAL R6
-  SETTABLEKS R25 R22 K189 ["UGCUploadRequestBundleCreationStatusEvent"]
-  DUPCLOSURE R25 K190 [PROTO_70]
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K138 ["onAssetPreviewEnded"]
+  DUPCLOSURE R26 K139 [PROTO_43]
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R22
+  CAPTURE VAL R14
+  CAPTURE VAL R23
   CAPTURE VAL R6
-  SETTABLEKS R25 R22 K191 ["UGCUploadGetBundleCreationStatusEvent"]
-  RETURN R22 1
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K140 ["onAssetInsertedFromAssetPreview"]
+  DUPCLOSURE R26 K141 [PROTO_44]
+  CAPTURE VAL R17
+  CAPTURE VAL R23
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R19
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K142 ["onPluginButtonClickOpen"]
+  DUPCLOSURE R26 K143 [PROTO_45]
+  CAPTURE VAL R17
+  CAPTURE VAL R23
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R19
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K144 ["onPluginButtonClickClose"]
+  DUPCLOSURE R26 K145 [PROTO_46]
+  CAPTURE VAL R17
+  CAPTURE VAL R23
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R19
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K146 ["onToolboxDisplayed"]
+  DUPCLOSURE R26 K147 [PROTO_47]
+  CAPTURE VAL R17
+  CAPTURE VAL R23
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R19
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K148 ["onToolboxHidden"]
+  DUPCLOSURE R26 K149 [PROTO_48]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K150 ["onContextMenuClicked"]
+  DUPCLOSURE R26 K151 [PROTO_49]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K152 ["openedFromPluginManagement"]
+  DUPCLOSURE R26 K153 [PROTO_50]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K154 ["openedExternallyByAssetType"]
+  DUPCLOSURE R26 K155 [PROTO_51]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K156 ["reportAssetClicked"]
+  DUPCLOSURE R26 K157 [PROTO_52]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R24
+  CAPTURE VAL R19
+  SETTABLEKS R26 R23 K158 ["reportMeshPartFiltered"]
+  DUPCLOSURE R26 K159 [PROTO_53]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K160 ["onIdVerificationIconClicked"]
+  DUPCLOSURE R26 K161 [PROTO_54]
+  CAPTURE VAL R16
+  CAPTURE VAL R6
+  CAPTURE VAL R12
+  CAPTURE VAL R24
+  CAPTURE VAL R8
+  CAPTURE VAL R19
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  SETTABLEKS R26 R23 K162 ["marketplaceSearch"]
+  DUPCLOSURE R26 K163 [PROTO_55]
+  CAPTURE VAL R16
+  CAPTURE VAL R6
+  CAPTURE VAL R24
+  CAPTURE VAL R8
+  CAPTURE VAL R19
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  SETTABLEKS R26 R23 K164 ["marketplaceAutocompleteSearch"]
+  DUPCLOSURE R26 K165 [PROTO_56]
+  CAPTURE VAL R17
+  CAPTURE VAL R23
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K166 ["onToolboxWidgetInteraction"]
+  DUPCLOSURE R26 K167 [PROTO_57]
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  SETTABLEKS R26 R23 K168 ["AnnouncementViewed"]
+  DUPCLOSURE R26 K169 [PROTO_58]
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  SETTABLEKS R26 R23 K170 ["AnnouncementLinkClicked"]
+  DUPCLOSURE R26 K171 [PROTO_59]
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  SETTABLEKS R26 R23 K172 ["AnnouncementClosed"]
+  DUPCLOSURE R26 K173 [PROTO_60]
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  SETTABLEKS R26 R23 K174 ["AnnouncementAcknowledged"]
+  DUPCLOSURE R26 K175 [PROTO_61]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  SETTABLEKS R26 R23 K176 ["AssetMediaItemsUpdated"]
+  DUPCLOSURE R26 K177 [PROTO_62]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  SETTABLEKS R26 R23 K178 ["MarketplaceListViewToggleClicked"]
+  DUPCLOSURE R26 K179 [PROTO_63]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  SETTABLEKS R26 R23 K180 ["MarketplaceAssetRowExpanded"]
+  DUPCLOSURE R26 K181 [PROTO_64]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  SETTABLEKS R26 R23 K182 ["MarketplaceRecentSearchClicked"]
+  DUPCLOSURE R26 K183 [PROTO_65]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  SETTABLEKS R26 R23 K184 ["MarketplaceSearchFilterOpened"]
+  MOVE R26 R13
+  CALL R26 0 1
+  JUMPIFNOT R26 [+44]
+  DUPCLOSURE R26 K185 [PROTO_66]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  SETTABLEKS R26 R23 K186 ["UGCBundleValidationEvent"]
+  DUPCLOSURE R26 K187 [PROTO_67]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  SETTABLEKS R26 R23 K188 ["UGCUploadRequestOperationIdEvent"]
+  DUPCLOSURE R26 K189 [PROTO_68]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  SETTABLEKS R26 R23 K190 ["UGCUploadAssetsEvent"]
+  DUPCLOSURE R26 K191 [PROTO_69]
+  CAPTURE VAL R15
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R19
+  CAPTURE VAL R6
+  SETTABLEKS R26 R23 K192 ["UGCIndividualAssetUploadEvent"]
+  DUPCLOSURE R26 K193 [PROTO_70]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  SETTABLEKS R26 R23 K194 ["UGCUploadRequestBundleCreationStatusEvent"]
+  DUPCLOSURE R26 K195 [PROTO_71]
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  SETTABLEKS R26 R23 K196 ["UGCUploadGetBundleCreationStatusEvent"]
+  RETURN R23 1

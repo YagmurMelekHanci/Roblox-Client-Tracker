@@ -33,6 +33,7 @@ local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
 local FFlagChromeShortcutDisableRespawn = SharedFlags.FFlagChromeShortcutDisableRespawn
+local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -124,7 +125,7 @@ export type ChromeService = {
 	rebuildUserPins: (ChromeService) -> (),
 	areUserPinsFull: (ChromeService) -> boolean,
 	storeChromeInteracted: (ChromeService) -> (),
-	activate: (ChromeService, componentId: Types.IntegrationId) -> (),
+	activate: (ChromeService, componentId: Types.IntegrationId, props: Types.ActivateProps?) -> (),
 	toggleWindow: (ChromeService, componentId: Types.IntegrationId) -> (),
 	isWindowOpen: (ChromeService, componentId: Types.IntegrationId) -> boolean,
 	updateWindowSizeSignals: (ChromeService) -> (),
@@ -1002,8 +1003,19 @@ if FFlagEnableChromeShortcutBar then
 
 	function ChromeService:activateShortcut(shortcutId: Types.ShortcutId)
 		local shortcut = self._shortcutService:getShortcut(shortcutId)
-		if shortcut.integration and not shortcut.activated then
-			self:activate(shortcut.integration)
+		if shortcut.integration then
+			if shortcut.activated then
+				if FFlagIntegrationsChromeShortcutTelemetry then
+					self._shortcutService:activateShortcut(shortcutId)
+					self._onIntegrationActivated:fire(shortcut.integration, { fromShortcut = true })
+				end
+			else
+				if FFlagIntegrationsChromeShortcutTelemetry then
+					self:activate(shortcut.integration, { fromShortcut = true })
+				else
+					self:activate(shortcut.integration)
+				end
+			end
 		else
 			self._shortcutService:activateShortcut(shortcutId)
 		end
@@ -1179,12 +1191,16 @@ function ChromeService:getWindowPositionFromStore(componentId: Types.Integration
 	return nil
 end
 
-function ChromeService:activate(componentId: Types.IntegrationId)
+function ChromeService:activate(componentId: Types.IntegrationId, props: Types.ActivateProps?)
 	local errorMessage
 	-- todo: Consider if we need to auto-close the sub-menus when items are selected
 	if self._integrations[componentId] then
 		local integrationActivated = self._integrations[componentId].activated
-		self._onIntegrationActivated:fire(componentId)
+		if FFlagIntegrationsChromeShortcutTelemetry then
+			self._onIntegrationActivated:fire(componentId, props)
+		else
+			self._onIntegrationActivated:fire(componentId)
+		end
 
 		self:storeChromeInteracted()
 

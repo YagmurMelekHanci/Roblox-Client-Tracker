@@ -3,9 +3,6 @@
 ]]
 
 local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-local EmbeddedStorybook = require(script.Parent.EmbeddedStorybook)
-local LocalPlayer = Players.LocalPlayer
 
 local isCli = pcall(function()
 	-- selene: allow(incorrect_standard_library_use)
@@ -15,7 +12,7 @@ end)
 local isRunning = RunService:IsRunning()
 
 -- The embedded storybook should only be run inside Studio
-if isCli or not isRunning or not LocalPlayer or not EmbeddedStorybook then
+if isCli or not isRunning then
 	return nil
 end
 

@@ -33,7 +33,7 @@ MAIN:
   SETTABLEKS R11 R10 K20 ["BackgroundTransparency"]
   LOADN R11 16
   SETTABLEKS R11 R10 K21 ["TextSize"]
-  GETIMPORT R11 K29 [Enum.Font.SourceSans]
+  GETIMPORT R11 K29 [Enum.Font.BuilderSans]
   SETTABLEKS R11 R10 K22 ["Font"]
   GETIMPORT R11 K31 [Enum.TextXAlignment.Left]
   SETTABLEKS R11 R10 K23 ["TextXAlignment"]

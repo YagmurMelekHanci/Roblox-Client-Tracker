@@ -45,31 +45,30 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R2 K8 ["ContextServices"]
   GETTABLEKS R4 R2 K9 ["UI"]
-  GETTABLEKS R5 R4 K10 ["Pane"]
-  GETTABLEKS R6 R4 K11 ["TextLabel"]
-  GETIMPORT R7 K4 [require]
-  GETIMPORT R11 K1 [script]
-  GETTABLEKS R10 R11 K2 ["Parent"]
+  GETTABLEKS R5 R4 K10 ["TextLabel"]
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R10 K1 [script]
   GETTABLEKS R9 R10 K2 ["Parent"]
-  GETTABLEKS R8 R9 K12 ["Constants"]
-  CALL R7 1 1
-  GETTABLEKS R8 R1 K13 ["Component"]
-  LOADK R10 K14 ["GroupCountDisplay"]
-  NAMECALL R8 R8 K15 ["extend"]
-  CALL R8 2 1
-  DUPCLOSURE R9 K16 [PROTO_0]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K11 ["Constants"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K12 ["Component"]
+  LOADK R9 K13 ["GroupCountDisplay"]
+  NAMECALL R7 R7 K14 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K15 [PROTO_0]
   CAPTURE VAL R1
+  CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R7
-  SETTABLEKS R9 R8 K17 ["render"]
-  GETTABLEKS R9 R3 K18 ["withContext"]
-  DUPTABLE R10 K21 [{"Stylizer", "Localization"}]
-  GETTABLEKS R11 R3 K19 ["Stylizer"]
-  SETTABLEKS R11 R10 K19 ["Stylizer"]
-  GETTABLEKS R11 R3 K20 ["Localization"]
-  SETTABLEKS R11 R10 K20 ["Localization"]
-  CALL R9 1 1
-  MOVE R10 R8
-  CALL R9 1 1
-  MOVE R8 R9
-  RETURN R8 1
+  SETTABLEKS R8 R7 K16 ["render"]
+  GETTABLEKS R8 R3 K17 ["withContext"]
+  DUPTABLE R9 K20 [{"Stylizer", "Localization"}]
+  GETTABLEKS R10 R3 K18 ["Stylizer"]
+  SETTABLEKS R10 R9 K18 ["Stylizer"]
+  GETTABLEKS R10 R3 K19 ["Localization"]
+  SETTABLEKS R10 R9 K19 ["Localization"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

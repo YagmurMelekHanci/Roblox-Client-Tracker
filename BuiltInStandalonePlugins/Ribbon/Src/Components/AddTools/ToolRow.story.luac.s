@@ -1,0 +1,104 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  DUPTABLE R3 K9 [{"Depth", "Children", "Expanded", "Item", "Index", "OnCheck", "OnToggle", "Position", "Size"}]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K0 ["Depth"]
+  NEWTABLE R4 0 2
+  NEWTABLE R5 0 0
+  NEWTABLE R6 0 0
+  SETLIST R4 R5 2 [1]
+  SETTABLEKS R4 R3 K1 ["Children"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K2 ["Expanded"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K3 ["Item"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K4 ["Index"]
+  DUPCLOSURE R4 K10 [PROTO_0]
+  SETTABLEKS R4 R3 K5 ["OnCheck"]
+  DUPCLOSURE R4 K11 [PROTO_1]
+  SETTABLEKS R4 R3 K6 ["OnToggle"]
+  GETIMPORT R4 K14 [UDim2.new]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K7 ["Position"]
+  GETIMPORT R4 K16 [UDim2.fromOffset]
+  LOADN R5 144
+  LOADN R6 54
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K8 ["Size"]
+  GETUPVAL R4 3
+  CALL R2 2 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_3:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["createElement"]
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Dash"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K10 ["join"]
+  GETIMPORT R6 K6 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K11 ["Parent"]
+  GETTABLEKS R7 R8 K12 ["ToolRow"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R10 R0 K13 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Util"]
+  GETTABLEKS R8 R9 K15 ["IconHelper"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K16 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  DUPTABLE R9 K18 [{"stories"}]
+  NEWTABLE R10 0 1
+  DUPTABLE R11 K21 [{"name", "story"}]
+  LOADK R12 K22 ["Normal"]
+  SETTABLEKS R12 R11 K19 ["name"]
+  DUPTABLE R13 K24 [{"Item"}]
+  DUPTABLE R14 K28 [{"Title", "Description", "Icon"}]
+  LOADK R15 K29 ["Test Title"]
+  SETTABLEKS R15 R14 K25 ["Title"]
+  LOADK R15 K30 ["This is a mock description about an action provided by a plugin and it is in fact really long so is going to go on for a long time and get truncated"]
+  SETTABLEKS R15 R14 K26 ["Description"]
+  GETTABLEKS R15 R7 K31 ["getPathForIcon"]
+  LOADK R16 K32 ["Scale"]
+  LOADK R17 K33 ["Large"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K27 ["Icon"]
+  SETTABLEKS R14 R13 K23 ["Item"]
+  NEWCLOSURE R12 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  SETTABLEKS R12 R11 K20 ["story"]
+  SETLIST R10 R11 1 [1]
+  SETTABLEKS R10 R9 K17 ["stories"]
+  RETURN R9 1

@@ -12,49 +12,62 @@ PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["_buildStyleRule"]
   MOVE R2 R0
-  CALL R1 1 -1
+  GETUPVAL R3 1
+  CALL R1 2 -1
   RETURN R1 -1
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createItemId"]
-  MOVE R2 R0
-  CALL R1 1 1
-  GETUPVAL R2 1
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K1 ["getOrderedStyleRules"]
-  MOVE R4 R0
-  CALL R3 1 1
-  DUPCLOSURE R4 K2 [PROTO_2]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createItemId"]
+  MOVE R3 R0
+  CALL R2 1 1
+  GETUPVAL R3 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["getOrderedStyleRules"]
+  MOVE R5 R0
+  CALL R4 1 1
+  NEWCLOSURE R5 P0
   CAPTURE UPVAL U3
-  CALL R2 2 1
-  DUPTABLE R3 K7 [{"Id", "Name", "Instance", "Children"}]
-  SETTABLEKS R1 R3 K3 ["Id"]
-  DUPTABLE R4 K13 [{"ErrorMessage", "FullSpan", "Actions", "Schema", "Value"}]
-  GETTABLEKS R5 R0 K14 ["SelectorError"]
-  SETTABLEKS R5 R4 K8 ["ErrorMessage"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K9 ["FullSpan"]
+  CAPTURE VAL R1
+  CALL R3 2 1
+  GETTABLEKS R4 R0 K2 ["SelectorError"]
+  JUMPIFNOTEQKS R4 K3 [""] [+13]
   GETUPVAL R6 4
-  GETTABLEKS R5 R6 K15 ["FullSpanMoreAction"]
-  SETTABLEKS R5 R4 K10 ["Actions"]
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K16 ["SelectorSchema"]
-  SETTABLEKS R5 R4 K11 ["Schema"]
-  GETTABLEKS R5 R0 K17 ["Selector"]
-  SETTABLEKS R5 R4 K12 ["Value"]
-  SETTABLEKS R4 R3 K4 ["Name"]
-  SETTABLEKS R0 R3 K5 ["Instance"]
-  GETUPVAL R4 6
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K18 ["_buildProperties"]
-  MOVE R6 R1
-  MOVE R7 R0
-  CALL R5 2 1
-  MOVE R6 R2
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K6 ["Children"]
-  RETURN R3 1
+  GETTABLEKS R5 R6 K4 ["isNestedPseudoInstance"]
+  MOVE R6 R0
+  CALL R5 1 1
+  JUMPIFNOT R5 [+6]
+  LOADK R7 K5 ["Label"]
+  LOADK R8 K6 ["NestedPseudoInstanceError"]
+  NAMECALL R5 R1 K7 ["getText"]
+  CALL R5 3 1
+  MOVE R4 R5
+  DUPTABLE R5 K12 [{"Id", "Name", "Instance", "Children"}]
+  SETTABLEKS R2 R5 K8 ["Id"]
+  DUPTABLE R6 K18 [{"ErrorMessage", "FullSpan", "Actions", "Schema", "Value"}]
+  SETTABLEKS R4 R6 K13 ["ErrorMessage"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K14 ["FullSpan"]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K19 ["FullSpanMoreAction"]
+  SETTABLEKS R7 R6 K15 ["Actions"]
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K20 ["SelectorSchema"]
+  SETTABLEKS R7 R6 K16 ["Schema"]
+  GETTABLEKS R7 R0 K21 ["Selector"]
+  SETTABLEKS R7 R6 K17 ["Value"]
+  SETTABLEKS R6 R5 K9 ["Name"]
+  SETTABLEKS R0 R5 K10 ["Instance"]
+  GETUPVAL R6 7
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K22 ["_buildProperties"]
+  MOVE R8 R2
+  MOVE R9 R0
+  CALL R7 2 1
+  MOVE R8 R3
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K11 ["Children"]
+  RETURN R5 1
 
 PROTO_4:
   DUPTABLE R2 K4 [{"Id", "Name", "Value", "Children"}]
@@ -238,18 +251,19 @@ PROTO_6:
   RETURN R6 1
 
 PROTO_7:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["_buildStyleRule"]
-  MOVE R2 R0
-  CALL R1 1 1
-  NEWTABLE R2 0 1
-  MOVE R3 R1
-  SETLIST R2 R3 1 [1]
-  GETUPVAL R3 1
-  MOVE R5 R2
-  NAMECALL R3 R3 K1 ["updatePaths"]
-  CALL R3 2 -1
-  RETURN R3 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_buildStyleRule"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 1
+  NEWTABLE R3 0 1
+  MOVE R4 R2
+  SETLIST R3 R4 1 [1]
+  GETUPVAL R4 1
+  MOVE R6 R3
+  NAMECALL R4 R4 K1 ["updatePaths"]
+  CALL R4 2 -1
+  RETURN R4 -1
 
 PROTO_8:
   JUMPIFNOT R0 [+3]
@@ -391,6 +405,7 @@ MAIN:
   CAPTURE VAL R10
   CAPTURE VAL R13
   CAPTURE VAL R19
+  CAPTURE VAL R12
   CAPTURE VAL R11
   CAPTURE VAL R14
   CAPTURE VAL R6

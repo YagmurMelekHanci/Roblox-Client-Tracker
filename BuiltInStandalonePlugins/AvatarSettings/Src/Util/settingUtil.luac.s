@@ -1,0 +1,63 @@
+PROTO_0:
+  DUPTABLE R2 K2 [{"plugin", "settingInvokeKeys"}]
+  SETTABLEKS R0 R2 K0 ["plugin"]
+  SETTABLEKS R1 R2 K1 ["settingInvokeKeys"]
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R2 1 0
+  GETUPVAL R2 1
+  JUMPIFNOT R2 [+13]
+  JUMPIF R1 [+12]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["plugin"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["settingInvokeKeys"]
+  GETTABLEKS R4 R5 K2 ["fromPlugin"]
+  MOVE R5 R0
+  NAMECALL R2 R2 K3 ["Invoke"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useState"]
+  MOVE R3 R0
+  CALL R2 1 2
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  DUPTABLE R5 K3 [{"value", "set"}]
+  SETTABLEKS R2 R5 K1 ["value"]
+  SETTABLEKS R4 R5 K2 ["set"]
+  RETURN R5 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["AvatarSettingsProviderTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Util"]
+  GETTABLEKS R4 R5 K11 ["InvokeKeys"]
+  CALL R3 1 1
+  NEWTABLE R4 2 0
+  DUPCLOSURE R5 K12 [PROTO_0]
+  SETTABLEKS R5 R4 K13 ["createInvokeArgs"]
+  DUPCLOSURE R5 K14 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K15 ["useSetting"]
+  RETURN R4 1

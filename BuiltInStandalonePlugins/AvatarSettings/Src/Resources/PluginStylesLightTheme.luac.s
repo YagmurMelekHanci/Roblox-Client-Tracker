@@ -10,9 +10,15 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  NEWTABLE R3 0 0
+  DUPTABLE R3 K13 [{"GeneralSettingsGamesFillImage", "PresetTooltipCheckImage", "PresetTooltipXImage"}]
+  LOADK R4 K14 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/GamesFill-Light.png"]
+  SETTABLEKS R4 R3 K10 ["GeneralSettingsGamesFillImage"]
+  LOADK R4 K15 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/Check-LightMode.png"]
+  SETTABLEKS R4 R3 K11 ["PresetTooltipCheckImage"]
+  LOADK R4 K16 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/X-LightMode.png"]
+  SETTABLEKS R4 R3 K12 ["PresetTooltipXImage"]
   MOVE R4 R2
-  LOADK R5 K10 ["AvatarSettingsLightTheme"]
+  LOADK R5 K17 ["AvatarSettingsLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

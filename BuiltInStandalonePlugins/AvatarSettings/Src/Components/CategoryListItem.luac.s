@@ -1,0 +1,54 @@
+PROTO_0:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["TextButton"]
+  NEWTABLE R3 4 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["Tag"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K2 ["Styling"]
+  GETTABLEKS R5 R6 K3 ["joinTags"]
+  LOADK R6 K4 ["Component-CategoryListItem"]
+  GETTABLEKS R8 R0 K5 ["extraTabbing"]
+  JUMPIFNOT R8 [+2]
+  LOADK R7 K6 ["Tabbed"]
+  JUMP [+1]
+  LOADNIL R7
+  GETTABLEKS R9 R0 K7 ["selected"]
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K8 ["Selected"]
+  JUMP [+1]
+  LOADK R8 K9 ["Unselected"]
+  CALL R5 3 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R0 K10 ["name"]
+  SETTABLEKS R4 R3 K11 ["Text"]
+  GETTABLEKS R4 R0 K12 ["layoutOrder"]
+  SETTABLEKS R4 R3 K13 ["LayoutOrder"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K14 ["Event"]
+  GETTABLEKS R4 R5 K15 ["Activated"]
+  GETTABLEKS R5 R0 K16 ["onClick"]
+  SETTABLE R5 R3 R4
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["createElement"]
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R4 1

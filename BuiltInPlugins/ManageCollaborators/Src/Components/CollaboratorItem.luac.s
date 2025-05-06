@@ -343,6 +343,10 @@ PROTO_10:
   JUMPIF R10 [+1]
   JUMPIF R19 [+2]
   LOADN R21 0
+  JUMP [+5]
+  GETUPVAL R22 1
+  JUMPIFNOT R22 [+2]
+  LOADN R21 232
   JUMP [+1]
   LOADN R21 216
   JUMPIFNOT R4 [+9]
@@ -388,7 +392,7 @@ PROTO_10:
   GETTABLEKS R28 R17 K17 ["collaboratorItem"]
   GETTABLEKS R27 R28 K27 ["collaboratorSubText"]
   GETTABLEKS R26 R27 K25 ["yOffset"]
-  GETUPVAL R28 1
+  GETUPVAL R28 2
   GETTABLEKS R27 R28 K29 ["new"]
   CALL R27 0 1
   LOADNIL R28
@@ -438,7 +442,7 @@ PROTO_10:
   MOVE R33 R13
   JUMP [+1]
   MOVE R33 R28
-  GETUPVAL R35 2
+  GETUPVAL R35 3
   GETTABLEKS R34 R35 K36 ["createElement"]
   LOADK R35 K37 ["Frame"]
   DUPTABLE R36 K43 [{"Size", "LayoutOrder", "BackgroundTransparency", "Position", "AnchorPoint", "BorderSizePixel"}]
@@ -461,7 +465,7 @@ PROTO_10:
   DUPTABLE R37 K57 [{"IconContainer", "CollaboratorName", "CollaboratorSubText", "OwnerLabel", "PermissionEditor", "Delete", "Separator"}]
   MOVE R38 R4
   JUMPIFNOT R38 [+48]
-  GETUPVAL R39 2
+  GETUPVAL R39 3
   GETTABLEKS R38 R39 K36 ["createElement"]
   LOADK R39 K37 ["Frame"]
   DUPTABLE R40 K58 [{"LayoutOrder", "Size", "Position", "AnchorPoint", "BackgroundTransparency"}]
@@ -495,10 +499,10 @@ PROTO_10:
   SETTABLEKS R4 R41 K3 ["Icon"]
   CALL R38 3 1
   SETTABLEKS R38 R37 K50 ["IconContainer"]
-  GETUPVAL R39 2
+  GETUPVAL R39 3
   GETTABLEKS R38 R39 K36 ["createElement"]
   LOADK R39 K65 ["TextLabel"]
-  GETUPVAL R42 3
+  GETUPVAL R42 4
   GETTABLEKS R41 R42 K66 ["Dictionary"]
   GETTABLEKS R40 R41 K67 ["join"]
   GETTABLEKS R42 R17 K68 ["fontStyle"]
@@ -539,10 +543,10 @@ PROTO_10:
   CALL R38 -1 1
   SETTABLEKS R38 R37 K51 ["CollaboratorName"]
   JUMPIFNOT R15 [+49]
-  GETUPVAL R39 2
+  GETUPVAL R39 3
   GETTABLEKS R38 R39 K36 ["createElement"]
   LOADK R39 K65 ["TextLabel"]
-  GETUPVAL R42 3
+  GETUPVAL R42 4
   GETTABLEKS R41 R42 K66 ["Dictionary"]
   GETTABLEKS R40 R41 K67 ["join"]
   GETTABLEKS R42 R17 K68 ["fontStyle"]
@@ -575,10 +579,10 @@ PROTO_10:
   LOADNIL R38
   SETTABLEKS R38 R37 K52 ["CollaboratorSubText"]
   JUMPIFNOT R30 [+67]
-  GETUPVAL R39 2
+  GETUPVAL R39 3
   GETTABLEKS R38 R39 K36 ["createElement"]
   LOADK R39 K65 ["TextLabel"]
-  GETUPVAL R42 3
+  GETUPVAL R42 4
   GETTABLEKS R41 R42 K66 ["Dictionary"]
   GETTABLEKS R40 R41 K67 ["join"]
   GETTABLEKS R42 R17 K68 ["fontStyle"]
@@ -620,7 +624,7 @@ PROTO_10:
   LOADNIL R38
   SETTABLEKS R38 R37 K53 ["OwnerLabel"]
   JUMPIFNOT R31 [+142]
-  GETUPVAL R39 2
+  GETUPVAL R39 3
   GETTABLEKS R38 R39 K36 ["createElement"]
   LOADK R39 K37 ["Frame"]
   DUPTABLE R40 K85 [{"LayoutOrder", "BackgroundTransparency", "Size", "Position", "AnchorPoint"}]
@@ -641,7 +645,7 @@ PROTO_10:
   SETTABLEKS R41 R40 K38 ["Size"]
   GETIMPORT R41 K45 [UDim2.new]
   LOADN R42 1
-  GETUPVAL R44 4
+  GETUPVAL R44 1
   JUMPIFNOT R44 [+2]
   LOADN R43 0
   JUMP [+1]
@@ -660,7 +664,7 @@ PROTO_10:
   DUPTABLE R41 K92 [{"LoadingIndicator", "PermissionsDropdown", "Tooltip"}]
   MOVE R42 R6
   JUMPIFNOT R42 [+13]
-  GETUPVAL R43 2
+  GETUPVAL R43 3
   GETTABLEKS R42 R43 K36 ["createElement"]
   GETUPVAL R43 5
   DUPTABLE R44 K93 [{"Size"}]
@@ -672,7 +676,7 @@ PROTO_10:
   CALL R42 2 1
   SETTABLEKS R42 R41 K89 ["LoadingIndicator"]
   JUMPIF R6 [+45]
-  GETUPVAL R43 2
+  GETUPVAL R43 3
   GETTABLEKS R42 R43 K36 ["createElement"]
   GETUPVAL R43 6
   DUPTABLE R44 K103 [{"Enabled", "Items", "OnItemActivated", "OnRenderItem", "PlaceholderText", "Width", "Style"}]
@@ -691,7 +695,7 @@ PROTO_10:
   SETTABLEKS R32 R44 K100 ["PlaceholderText"]
   GETTABLEKS R47 R17 K86 ["selectInput"]
   GETTABLEKS R46 R47 K46 ["width"]
-  GETUPVAL R48 4
+  GETUPVAL R48 1
   JUMPIFNOT R48 [+2]
   MOVE R47 R21
   JUMP [+1]
@@ -708,7 +712,7 @@ PROTO_10:
   LOADNIL R42
   SETTABLEKS R42 R41 K90 ["PermissionsDropdown"]
   JUMPIFNOT R33 [+14]
-  GETUPVAL R43 2
+  GETUPVAL R43 3
   GETTABLEKS R42 R43 K36 ["createElement"]
   GETUPVAL R43 7
   DUPTABLE R44 K108 [{"Text"}]
@@ -728,7 +732,7 @@ PROTO_10:
   SETTABLEKS R38 R37 K54 ["PermissionEditor"]
   MOVE R38 R19
   JUMPIFNOT R38 [+22]
-  GETUPVAL R39 2
+  GETUPVAL R39 3
   GETTABLEKS R38 R39 K36 ["createElement"]
   GETUPVAL R39 8
   DUPTABLE R40 K110 [{"LayoutOrder", "Enabled", "OnClicked"}]
@@ -748,7 +752,7 @@ PROTO_10:
   SETTABLEKS R38 R37 K55 ["Delete"]
   NOT R38 R11
   JUMPIFNOT R38 [+20]
-  GETUPVAL R39 2
+  GETUPVAL R39 3
   GETTABLEKS R38 R39 K36 ["createElement"]
   GETUPVAL R39 9
   DUPTABLE R40 K111 [{"Position", "LayoutOrder"}]
@@ -888,10 +892,10 @@ MAIN:
   SETTABLEKS R26 R25 K47 ["init"]
   NEWCLOSURE R26 P5
   CAPTURE VAL R0
+  CAPTURE VAL R2
   CAPTURE VAL R20
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R2
   CAPTURE VAL R19
   CAPTURE VAL R14
   CAPTURE VAL R18

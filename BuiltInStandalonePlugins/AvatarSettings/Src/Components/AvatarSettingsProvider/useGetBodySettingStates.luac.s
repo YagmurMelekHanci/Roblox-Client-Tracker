@@ -1,0 +1,247 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["bodyScaleCustomHeightSetMinMax"]
+  GETTABLEKS R0 R1 K1 ["value"]
+  JUMPIFNOT R0 [+1]
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["bodyScaleCustomHeight"]
+  GETTABLEKS R1 R2 K1 ["value"]
+  GETTABLEKS R0 R1 K3 ["Min"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["bodyScaleCustomHeight"]
+  GETTABLEKS R2 R3 K1 ["value"]
+  GETTABLEKS R1 R2 K4 ["Max"]
+  JUMPIFEQ R0 R1 [+8]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["bodyScaleCustomHeightSetMinMax"]
+  GETTABLEKS R0 R1 K5 ["set"]
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["PlayerSettingPresetValues"]
+  NEWTABLE R2 16 0
+  GETUPVAL R3 1
+  GETTABLEKS R4 R1 K1 ["bodyScaleSetting"]
+  GETUPVAL R5 2
+  MOVE R6 R0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K1 ["bodyScaleSetting"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K1 ["bodyScaleSetting"]
+  GETUPVAL R3 1
+  LOADB R4 0
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K2 ["bodyScaleCustomHeightSetMinMax"]
+  GETUPVAL R3 1
+  GETIMPORT R4 K5 [NumberRange.new]
+  LOADN R5 6
+  CALL R4 1 1
+  GETUPVAL R5 2
+  MOVE R6 R0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K6 ["bodyScaleCustomHeight"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K6 ["bodyScaleCustomHeight"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K7 ["useEffect"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  NEWTABLE R5 0 1
+  GETTABLEKS R7 R2 K6 ["bodyScaleCustomHeight"]
+  GETTABLEKS R6 R7 K8 ["value"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R4 R1 K9 ["bodyAppearanceSetting"]
+  GETUPVAL R5 2
+  MOVE R6 R0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K9 ["bodyAppearanceSetting"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K9 ["bodyAppearanceSetting"]
+  GETUPVAL R3 5
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 6
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K10 ["bodyAppearanceCustomPartsHead"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K10 ["bodyAppearanceCustomPartsHead"]
+  GETUPVAL R3 5
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 6
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K11 ["bodyAppearanceCustomPartsTorso"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K11 ["bodyAppearanceCustomPartsTorso"]
+  GETUPVAL R3 5
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 6
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K12 ["bodyAppearanceCustomPartsLeftArm"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K12 ["bodyAppearanceCustomPartsLeftArm"]
+  GETUPVAL R3 5
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 6
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K13 ["bodyAppearanceCustomPartsRightArm"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K13 ["bodyAppearanceCustomPartsRightArm"]
+  GETUPVAL R3 5
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 6
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K14 ["bodyAppearanceCustomPartsLeftLeg"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K14 ["bodyAppearanceCustomPartsLeftLeg"]
+  GETUPVAL R3 5
+  LOADB R4 0
+  LOADN R5 0
+  GETUPVAL R6 6
+  MOVE R7 R0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K15 ["bodyAppearanceCustomPartsRightLeg"]
+  CALL R6 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K15 ["bodyAppearanceCustomPartsRightLeg"]
+  GETUPVAL R3 1
+  GETTABLEKS R4 R1 K16 ["bodyBuildSetting"]
+  GETUPVAL R5 2
+  MOVE R6 R0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K16 ["bodyBuildSetting"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K16 ["bodyBuildSetting"]
+  GETUPVAL R3 1
+  GETIMPORT R4 K5 [NumberRange.new]
+  LOADK R5 K17 [0.9]
+  LOADK R6 K18 [1.05]
+  CALL R4 2 1
+  GETUPVAL R5 2
+  MOVE R6 R0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K19 ["bodyBuildCustomHeight"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K19 ["bodyBuildCustomHeight"]
+  GETUPVAL R3 1
+  GETIMPORT R4 K5 [NumberRange.new]
+  LOADK R5 K20 [0.7]
+  LOADN R6 1
+  CALL R4 2 1
+  GETUPVAL R5 2
+  MOVE R6 R0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K21 ["bodyBuildCustomWidth"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K21 ["bodyBuildCustomWidth"]
+  GETUPVAL R3 1
+  GETIMPORT R4 K5 [NumberRange.new]
+  LOADK R5 K22 [0.95]
+  LOADN R6 1
+  CALL R4 2 1
+  GETUPVAL R5 2
+  MOVE R6 R0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K23 ["bodyBuildCustomHead"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K23 ["bodyBuildCustomHead"]
+  GETUPVAL R3 1
+  GETIMPORT R4 K5 [NumberRange.new]
+  LOADN R5 0
+  LOADN R6 1
+  CALL R4 2 1
+  GETUPVAL R5 2
+  MOVE R6 R0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K24 ["bodyBuildCustomBodyType"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K24 ["bodyBuildCustomBodyType"]
+  GETUPVAL R3 1
+  GETIMPORT R4 K5 [NumberRange.new]
+  LOADN R5 0
+  LOADN R6 1
+  CALL R4 2 1
+  GETUPVAL R5 2
+  MOVE R6 R0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K25 ["bodyBuildCustomProportions"]
+  CALL R5 2 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K25 ["bodyBuildCustomProportions"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["AvatarPresetValues"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K9 ["AvatarSettingsProviderTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K7 ["Util"]
+  GETTABLEKS R5 R6 K12 ["assetIdSettingUtil"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K7 ["Util"]
+  GETTABLEKS R6 R7 K13 ["InvokeKeys"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K7 ["Util"]
+  GETTABLEKS R7 R8 K14 ["settingUtil"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K15 ["useSetting"]
+  GETTABLEKS R8 R4 K16 ["useAssetIdSetting"]
+  GETTABLEKS R9 R6 K17 ["createInvokeArgs"]
+  GETTABLEKS R10 R4 K18 ["createAssetIdSettingInvokeArgs"]
+  DUPCLOSURE R11 K19 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  RETURN R11 1

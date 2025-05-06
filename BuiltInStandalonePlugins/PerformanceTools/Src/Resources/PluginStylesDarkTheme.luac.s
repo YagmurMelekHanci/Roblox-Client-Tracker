@@ -10,33 +10,37 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  DUPTABLE R3 K17 [{"BackButtonIcon", "InformationImage", "MeasuringBarFillLow", "MeasuringBarFillMedium", "MeasuringBarFillHigh", "SemanticColorSurface300Inverse", "SemanticColorContentStandardInverse"}]
-  LOADK R4 K18 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Large/Back.png"]
+  DUPTABLE R3 K19 [{"BackButtonIcon", "InformationImage", "DownArrow", "UpArrow", "MeasuringBarFillLow", "MeasuringBarFillMedium", "MeasuringBarFillHigh", "SemanticColorSurface300Inverse", "SemanticColorContentStandardInverse"}]
+  LOADK R4 K20 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Large/Back.png"]
   SETTABLEKS R4 R3 K10 ["BackButtonIcon"]
-  LOADK R4 K19 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Large/Information.png"]
+  LOADK R4 K21 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Large/Information.png"]
   SETTABLEKS R4 R3 K11 ["InformationImage"]
-  GETIMPORT R4 K22 [Color3.fromHex]
-  LOADK R5 K23 ["#13E986"]
+  LOADK R4 K22 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Standard/ArrowDown.png"]
+  SETTABLEKS R4 R3 K12 ["DownArrow"]
+  LOADK R4 K23 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Standard/ArrowUp.png"]
+  SETTABLEKS R4 R3 K13 ["UpArrow"]
+  GETIMPORT R4 K26 [Color3.fromHex]
+  LOADK R5 K27 ["#13E986"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K12 ["MeasuringBarFillLow"]
-  GETIMPORT R4 K22 [Color3.fromHex]
-  LOADK R5 K24 ["#F9DD64"]
+  SETTABLEKS R4 R3 K14 ["MeasuringBarFillLow"]
+  GETIMPORT R4 K26 [Color3.fromHex]
+  LOADK R5 K28 ["#F9DD64"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K13 ["MeasuringBarFillMedium"]
-  GETIMPORT R4 K22 [Color3.fromHex]
-  LOADK R5 K25 ["#FB654F"]
+  SETTABLEKS R4 R3 K15 ["MeasuringBarFillMedium"]
+  GETIMPORT R4 K26 [Color3.fromHex]
+  LOADK R5 K29 ["#FB654F"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K14 ["MeasuringBarFillHigh"]
-  GETIMPORT R4 K22 [Color3.fromHex]
-  LOADK R5 K26 ["#FFFFFF"]
+  SETTABLEKS R4 R3 K16 ["MeasuringBarFillHigh"]
+  GETIMPORT R4 K26 [Color3.fromHex]
+  LOADK R5 K30 ["#FFFFFF"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K15 ["SemanticColorSurface300Inverse"]
-  GETIMPORT R4 K22 [Color3.fromHex]
-  LOADK R5 K27 ["#202227"]
+  SETTABLEKS R4 R3 K17 ["SemanticColorSurface300Inverse"]
+  GETIMPORT R4 K26 [Color3.fromHex]
+  LOADK R5 K31 ["#202227"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K16 ["SemanticColorContentStandardInverse"]
+  SETTABLEKS R4 R3 K18 ["SemanticColorContentStandardInverse"]
   MOVE R4 R2
-  LOADK R5 K28 ["PerformanceToolsDarkTheme"]
+  LOADK R5 K32 ["PerformanceToolsDarkTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

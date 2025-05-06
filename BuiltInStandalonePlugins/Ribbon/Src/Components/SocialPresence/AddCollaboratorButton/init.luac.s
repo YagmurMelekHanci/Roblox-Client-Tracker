@@ -3,9 +3,20 @@ PROTO_0:
   LOADK R2 K0 ["manageCollaboratorsPressed"]
   NAMECALL R0 R0 K1 ["report"]
   CALL R0 2 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K2 ["openManageCollaborators"]
-  GETUPVAL R1 2
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+11]
+  GETUPVAL R0 2
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K2 ["fromAction"]
+  LOADK R3 K3 ["ManageCollaborators"]
+  LOADK R4 K4 ["Open"]
+  CALL R2 2 -1
+  NAMECALL R0 R0 K5 ["ActivateAsync"]
+  CALL R0 -1 0
+  RETURN R0 0
+  GETUPVAL R1 4
+  GETTABLEKS R0 R1 K6 ["openManageCollaborators"]
+  GETUPVAL R1 5
   CALL R0 1 0
   RETURN R0 0
 
@@ -21,79 +32,85 @@ PROTO_1:
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K0 ["use"]
   CALL R3 0 1
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K2 ["createElement"]
-  LOADK R5 K3 ["TextButton"]
-  NEWTABLE R6 2 0
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K4 ["Event"]
-  GETTABLEKS R7 R8 K5 ["Activated"]
-  NEWCLOSURE R8 P0
+  LOADK R6 K2 ["Actions"]
+  NAMECALL R4 R1 K3 ["GetPluginComponent"]
+  CALL R4 2 1
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  LOADK R6 K5 ["TextButton"]
+  NEWTABLE R7 2 0
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K6 ["Event"]
+  GETTABLEKS R8 R9 K7 ["Activated"]
+  NEWCLOSURE R9 P0
   CAPTURE VAL R2
   CAPTURE UPVAL U4
+  CAPTURE VAL R4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
   CAPTURE VAL R1
-  SETTABLE R8 R6 R7
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K6 ["Tag"]
-  GETUPVAL R8 5
-  LOADK R9 K7 ["Component-AddCollaboratorButton Role-Surface X-Fit State-Default"]
-  GETTABLEKS R11 R0 K8 ["IsTeamCreateOn"]
-  JUMPIFNOT R11 [+2]
-  LOADK R10 K9 ["Component-RibbonButton NonTeamCreate"]
-  JUMP [+1]
-  LOADK R10 K10 ["Component-Button Primary X-CornerM TeamCreate"]
-  CALL R8 2 1
-  SETTABLE R8 R6 R7
-  DUPTABLE R7 K12 [{"StateLayer"}]
+  SETTABLE R9 R7 R8
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K2 ["createElement"]
-  LOADK R9 K13 ["Frame"]
-  NEWTABLE R10 1 0
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K6 ["Tag"]
-  GETUPVAL R12 5
-  LOADK R13 K14 ["Role-Surface X-Fit"]
-  GETTABLEKS R15 R0 K8 ["IsTeamCreateOn"]
-  JUMPIFNOT R15 [+2]
-  LOADK R14 K15 ["X-CornerXS X-PadMezzanine"]
+  GETTABLEKS R8 R9 K8 ["Tag"]
+  GETUPVAL R9 7
+  LOADK R10 K9 ["Component-AddCollaboratorButton Role-Surface X-Fit State-Default"]
+  GETTABLEKS R12 R0 K10 ["IsTeamCreateOn"]
+  JUMPIFNOT R12 [+2]
+  LOADK R11 K11 ["Component-RibbonButton NonTeamCreate"]
   JUMP [+1]
-  LOADK R14 K16 ["X-CornerM X-PadButtonSmall X-Row X-Middle X-Center"]
-  CALL R12 2 1
-  SETTABLE R12 R10 R11
-  DUPTABLE R11 K19 [{"ButtonIcon", "ButtonText"}]
+  LOADK R11 K12 ["Component-Button Primary X-CornerM TeamCreate"]
+  CALL R9 2 1
+  SETTABLE R9 R7 R8
+  DUPTABLE R8 K14 [{"StateLayer"}]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  LOADK R10 K15 ["Frame"]
+  NEWTABLE R11 1 0
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K2 ["createElement"]
-  LOADK R13 K20 ["ImageLabel"]
-  NEWTABLE R14 1 0
-  GETUPVAL R16 3
-  GETTABLEKS R15 R16 K6 ["Tag"]
-  LOADK R16 K21 ["Role-Surface Icon-Small"]
-  SETTABLE R16 R14 R15
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K17 ["ButtonIcon"]
-  GETTABLEKS R13 R0 K8 ["IsTeamCreateOn"]
-  JUMPIF R13 [+20]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K2 ["createElement"]
-  LOADK R13 K22 ["TextLabel"]
-  NEWTABLE R14 2 0
-  LOADK R17 K23 ["Plugin"]
-  LOADK R18 K24 ["SocialPresence_Collaborate"]
-  NAMECALL R15 R3 K25 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K26 ["Text"]
-  GETUPVAL R16 3
-  GETTABLEKS R15 R16 K6 ["Tag"]
-  LOADK R16 K27 ["Role-Surface X-Fit Small Primary"]
-  SETTABLE R16 R14 R15
-  CALL R12 2 1
+  GETTABLEKS R12 R13 K8 ["Tag"]
+  GETUPVAL R13 7
+  LOADK R14 K16 ["Role-Surface X-Fit"]
+  GETTABLEKS R16 R0 K10 ["IsTeamCreateOn"]
+  JUMPIFNOT R16 [+2]
+  LOADK R15 K17 ["X-CornerXS X-PadMezzanine"]
   JUMP [+1]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K18 ["ButtonText"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K11 ["StateLayer"]
-  CALL R4 3 -1
-  RETURN R4 -1
+  LOADK R15 K18 ["X-CornerM X-PadButtonSmall X-Row X-Middle X-Center"]
+  CALL R13 2 1
+  SETTABLE R13 R11 R12
+  DUPTABLE R12 K21 [{"ButtonIcon", "ButtonText"}]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K4 ["createElement"]
+  LOADK R14 K22 ["ImageLabel"]
+  NEWTABLE R15 1 0
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K8 ["Tag"]
+  LOADK R17 K23 ["Role-Surface Icon-Small"]
+  SETTABLE R17 R15 R16
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K19 ["ButtonIcon"]
+  GETTABLEKS R14 R0 K10 ["IsTeamCreateOn"]
+  JUMPIF R14 [+20]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K4 ["createElement"]
+  LOADK R14 K24 ["TextLabel"]
+  NEWTABLE R15 2 0
+  LOADK R18 K25 ["Plugin"]
+  LOADK R19 K26 ["SocialPresence_Collaborate"]
+  NAMECALL R16 R3 K27 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K28 ["Text"]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K8 ["Tag"]
+  LOADK R17 K29 ["Role-Surface X-Fit Small Primary"]
+  SETTABLE R17 R15 R16
+  CALL R13 2 1
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K20 ["ButtonText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K13 ["StateLayer"]
+  CALL R5 3 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0
@@ -109,23 +126,36 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Packages"]
   GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R4 R2 K9 ["Styling"]
-  GETTABLEKS R3 R4 K10 ["joinTags"]
-  GETTABLEKS R4 R2 K11 ["ContextServices"]
-  GETTABLEKS R5 R4 K12 ["Localization"]
-  GETTABLEKS R6 R4 K13 ["Analytics"]
-  GETTABLEKS R7 R4 K14 ["Plugin"]
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R12 R0 K15 ["Src"]
-  GETTABLEKS R11 R12 K16 ["Util"]
-  GETTABLEKS R10 R11 K17 ["SocialPresence"]
-  GETTABLEKS R9 R10 K18 ["SocialPresenceDmBridge"]
-  CALL R8 1 1
-  DUPCLOSURE R9 K19 [PROTO_1]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["SharedFlags"]
+  GETTABLEKS R4 R5 K11 ["getFFlagCollaborationActions"]
+  CALL R3 1 1
+  CALL R3 0 1
+  GETTABLEKS R5 R2 K12 ["Styling"]
+  GETTABLEKS R4 R5 K13 ["joinTags"]
+  GETTABLEKS R5 R2 K14 ["ContextServices"]
+  GETTABLEKS R6 R5 K15 ["Localization"]
+  GETTABLEKS R7 R5 K16 ["Analytics"]
+  GETTABLEKS R8 R5 K17 ["Plugin"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Util"]
+  GETTABLEKS R10 R11 K19 ["StudioUri"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R14 R0 K9 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Util"]
+  GETTABLEKS R12 R13 K20 ["SocialPresence"]
+  GETTABLEKS R11 R12 K21 ["SocialPresenceDmBridge"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K22 [PROTO_1]
+  CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R6
-  CAPTURE VAL R5
   CAPTURE VAL R1
-  CAPTURE VAL R8
   CAPTURE VAL R3
-  RETURN R9 1
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  RETURN R11 1

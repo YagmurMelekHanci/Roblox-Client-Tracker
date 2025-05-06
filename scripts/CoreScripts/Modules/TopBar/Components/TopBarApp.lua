@@ -127,7 +127,9 @@ local TopBarAppPolicy = require(script.Parent.Parent.TopBarAppPolicy)
 local UseUpdatedHealthBar = ChromeEnabled()
 
 -- vr bottom bar
-local VRBottomBar = if isInExperienceUIVREnabled then require(script.Parent.VRBottomUnibar) else require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
+local VRBottomBar = if isInExperienceUIVREnabled
+	then require(script.Parent.VRBottomUnibar)
+	else require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
 
 local function selectMenuOpen(state)
 	return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
@@ -266,11 +268,14 @@ function TopBarApp:renderWithStyle(style)
 					voiceChatServiceManager = VoiceChatServiceManager,
 					voiceEnabled = voiceContext.voiceEnabled,
 					voiceState = voiceContext.voiceState,
+					showBadgeOver12 = if isInExperienceUIVREnabled then self.props.showBadgeOver12 else nil,
+					iconScale = if isInExperienceUIVREnabled and self.props.menuOpen then 1.25 else 1,
 				})
 			end),
 		})
 		else Roact.createElement(VRBottomBar, {
 			showBadgeOver12 = if isInExperienceUIVREnabled then self.props.showBadgeOver12 else nil,
+			iconScale = if isInExperienceUIVREnabled and self.props.menuOpen then 1.25 else 1,
 		})
 
 	local newMenuIcon = Roact.createElement(MenuIcon, {

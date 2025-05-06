@@ -2,14 +2,23 @@ PROTO_0:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
   GETTABLEKS R1 R0 K1 ["Uploading"]
-  JUMPIFNOT R1 [+9]
+  JUMPIFNOT R1 [+10]
   GETIMPORT R1 K3 [warn]
   LOADK R2 K4 ["Closing the importer and emptying import queue"]
   CALL R1 1 0
   GETTABLEKS R1 R0 K5 ["QueueController"]
   NAMECALL R1 R1 K6 ["destroy"]
   CALL R1 1 0
-  GETTABLEKS R1 R0 K7 ["SetShowQueue"]
+  JUMP [+10]
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIFNOT R1 [+7]
+  GETTABLEKS R1 R0 K7 ["Parsing"]
+  JUMPIFNOT R1 [+4]
+  GETIMPORT R1 K3 [warn]
+  LOADK R2 K8 ["Currently parsing files - closing the importer may lead to unexpected behaviour"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K9 ["SetShowQueue"]
   LOADB R2 0
   CALL R1 1 0
   RETURN R0 0
@@ -17,6 +26,7 @@ PROTO_0:
 PROTO_1:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
+  CAPTURE UPVAL U0
   SETTABLEKS R1 R0 K0 ["onClose"]
   RETURN R0 0
 
@@ -140,16 +150,24 @@ PROTO_6:
   RETURN R1 1
 
 PROTO_7:
-  DUPTABLE R1 K3 [{"ShowQueue", "ShowProgress", "Uploading"}]
-  GETTABLEKS R3 R0 K4 ["Dialogs"]
-  GETTABLEKS R2 R3 K5 ["showQueue"]
+  DUPTABLE R1 K4 [{"ShowQueue", "ShowProgress", "Uploading", "Parsing"}]
+  GETTABLEKS R3 R0 K5 ["Dialogs"]
+  GETTABLEKS R2 R3 K6 ["showQueue"]
   SETTABLEKS R2 R1 K0 ["ShowQueue"]
-  GETTABLEKS R3 R0 K4 ["Dialogs"]
-  GETTABLEKS R2 R3 K6 ["showProgress"]
+  GETTABLEKS R3 R0 K5 ["Dialogs"]
+  GETTABLEKS R2 R3 K7 ["showProgress"]
   SETTABLEKS R2 R1 K1 ["ShowProgress"]
-  GETTABLEKS R3 R0 K4 ["Dialogs"]
-  GETTABLEKS R2 R3 K7 ["uploading"]
+  GETTABLEKS R3 R0 K5 ["Dialogs"]
+  GETTABLEKS R2 R3 K8 ["uploading"]
   SETTABLEKS R2 R1 K2 ["Uploading"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R0 K9 ["Sessions"]
+  GETTABLEKS R2 R3 K10 ["parsing"]
+  JUMP [+1]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K3 ["Parsing"]
   RETURN R1 1
 
 MAIN:
@@ -212,42 +230,49 @@ MAIN:
   GETTABLEKS R21 R22 K28 ["Controllers"]
   GETTABLEKS R20 R21 K30 ["QueueController"]
   CALL R19 1 1
-  GETTABLEKS R20 R1 K31 ["PureComponent"]
-  LOADK R22 K22 ["ImportQueue"]
-  NAMECALL R20 R20 K32 ["extend"]
-  CALL R20 2 1
-  DUPCLOSURE R21 K33 [PROTO_1]
-  SETTABLEKS R21 R20 K34 ["init"]
-  DUPCLOSURE R21 K35 [PROTO_2]
-  SETTABLEKS R21 R20 K36 ["didMount"]
-  DUPCLOSURE R21 K37 [PROTO_3]
-  SETTABLEKS R21 R20 K38 ["willUnmount"]
-  DUPCLOSURE R21 K39 [PROTO_4]
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R23 R0 K19 ["Src"]
+  GETTABLEKS R22 R23 K31 ["Flags"]
+  GETTABLEKS R21 R22 K32 ["getFFlagImportQueueFixRibbonToggle"]
+  CALL R20 1 1
+  GETTABLEKS R21 R1 K33 ["PureComponent"]
+  LOADK R23 K22 ["ImportQueue"]
+  NAMECALL R21 R21 K34 ["extend"]
+  CALL R21 2 1
+  DUPCLOSURE R22 K35 [PROTO_1]
+  CAPTURE VAL R20
+  SETTABLEKS R22 R21 K36 ["init"]
+  DUPCLOSURE R22 K37 [PROTO_2]
+  SETTABLEKS R22 R21 K38 ["didMount"]
+  DUPCLOSURE R22 K39 [PROTO_3]
+  SETTABLEKS R22 R21 K40 ["willUnmount"]
+  DUPCLOSURE R22 K41 [PROTO_4]
   CAPTURE VAL R1
   CAPTURE VAL R10
   CAPTURE VAL R11
   CAPTURE VAL R15
   CAPTURE VAL R14
   CAPTURE VAL R16
-  SETTABLEKS R21 R20 K40 ["render"]
-  MOVE R21 R5
-  DUPTABLE R22 K41 [{"Analytics", "Localization", "Stylizer", "FileController", "QueueController"}]
-  SETTABLEKS R7 R22 K13 ["Analytics"]
-  SETTABLEKS R6 R22 K12 ["Localization"]
-  SETTABLEKS R8 R22 K15 ["Stylizer"]
-  SETTABLEKS R18 R22 K29 ["FileController"]
-  SETTABLEKS R19 R22 K30 ["QueueController"]
-  CALL R21 1 1
-  MOVE R22 R20
-  CALL R21 1 1
-  MOVE R20 R21
-  DUPCLOSURE R21 K42 [PROTO_6]
+  SETTABLEKS R22 R21 K42 ["render"]
+  MOVE R22 R5
+  DUPTABLE R23 K43 [{"Analytics", "Localization", "Stylizer", "FileController", "QueueController"}]
+  SETTABLEKS R7 R23 K13 ["Analytics"]
+  SETTABLEKS R6 R23 K12 ["Localization"]
+  SETTABLEKS R8 R23 K15 ["Stylizer"]
+  SETTABLEKS R18 R23 K29 ["FileController"]
+  SETTABLEKS R19 R23 K30 ["QueueController"]
+  CALL R22 1 1
+  MOVE R23 R21
+  CALL R22 1 1
+  MOVE R21 R22
+  DUPCLOSURE R22 K44 [PROTO_6]
   CAPTURE VAL R17
-  DUPCLOSURE R22 K43 [PROTO_7]
-  GETTABLEKS R23 R2 K44 ["connect"]
-  MOVE R24 R22
+  DUPCLOSURE R23 K45 [PROTO_7]
+  CAPTURE VAL R20
+  GETTABLEKS R24 R2 K46 ["connect"]
+  MOVE R25 R23
+  MOVE R26 R22
+  CALL R24 2 1
   MOVE R25 R21
-  CALL R23 2 1
-  MOVE R24 R20
-  CALL R23 1 -1
-  RETURN R23 -1
+  CALL R24 1 -1
+  RETURN R24 -1

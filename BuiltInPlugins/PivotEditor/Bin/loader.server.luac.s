@@ -39,55 +39,56 @@ MAIN:
   JUMPIFNOT R3 [+1]
   RETURN R0 0
   GETIMPORT R3 K1 [require]
-  GETTABLEKS R5 R0 K12 ["PluginLoader"]
-  GETTABLEKS R4 R5 K13 ["PluginLoaderBuilder"]
+  GETTABLEKS R5 R0 K12 ["Packages"]
+  GETTABLEKS R4 R5 K13 ["PluginLoader"]
   CALL R3 1 1
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Resources"]
-  GETTABLEKS R5 R6 K15 ["Localization"]
-  GETTABLEKS R4 R5 K16 ["SourceStrings"]
+  GETTABLEKS R4 R3 K14 ["PluginLoaderBuilder"]
   GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Resources"]
-  GETTABLEKS R6 R7 K15 ["Localization"]
-  GETTABLEKS R5 R6 K17 ["LocalizedStrings"]
-  DUPTABLE R6 K26 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo"}]
-  GETIMPORT R7 K27 [plugin]
-  SETTABLEKS R7 R6 K18 ["plugin"]
-  LOADK R7 K28 ["EditPivotPlugin"]
-  SETTABLEKS R7 R6 K19 ["pluginName"]
-  SETTABLEKS R5 R6 K20 ["translationResourceTable"]
-  SETTABLEKS R4 R6 K21 ["fallbackResourceTable"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K22 ["overrideLocaleId"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K23 ["localizationNamespace"]
-  DUPCLOSURE R7 K29 [PROTO_0]
-  SETTABLEKS R7 R6 K24 ["getToolbarName"]
-  DUPTABLE R7 K34 [{"getName", "getDescription", "icon", "text"}]
-  DUPCLOSURE R8 K35 [PROTO_1]
-  SETTABLEKS R8 R7 K30 ["getName"]
-  DUPCLOSURE R8 K36 [PROTO_2]
-  SETTABLEKS R8 R7 K31 ["getDescription"]
-  LOADK R8 K37 [""]
-  SETTABLEKS R8 R7 K32 ["icon"]
+  GETTABLEKS R7 R8 K15 ["Resources"]
+  GETTABLEKS R6 R7 K16 ["Localization"]
+  GETTABLEKS R5 R6 K17 ["SourceStrings"]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Resources"]
+  GETTABLEKS R7 R8 K16 ["Localization"]
+  GETTABLEKS R6 R7 K18 ["LocalizedStrings"]
+  DUPTABLE R7 K27 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo"}]
+  GETIMPORT R8 K28 [plugin]
+  SETTABLEKS R8 R7 K19 ["plugin"]
+  LOADK R8 K29 ["EditPivotPlugin"]
+  SETTABLEKS R8 R7 K20 ["pluginName"]
+  SETTABLEKS R6 R7 K21 ["translationResourceTable"]
+  SETTABLEKS R5 R7 K22 ["fallbackResourceTable"]
   LOADNIL R8
-  SETTABLEKS R8 R7 K33 ["text"]
-  SETTABLEKS R7 R6 K25 ["buttonInfo"]
-  GETTABLEKS R7 R3 K38 ["build"]
-  MOVE R8 R6
-  CALL R7 1 1
-  GETTABLEKS R8 R7 K39 ["pluginLoader"]
-  NAMECALL R8 R8 K40 ["waitForUserInteraction"]
+  SETTABLEKS R8 R7 K23 ["overrideLocaleId"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K24 ["localizationNamespace"]
+  DUPCLOSURE R8 K30 [PROTO_0]
+  SETTABLEKS R8 R7 K25 ["getToolbarName"]
+  DUPTABLE R8 K35 [{"getName", "getDescription", "icon", "text"}]
+  DUPCLOSURE R9 K36 [PROTO_1]
+  SETTABLEKS R9 R8 K31 ["getName"]
+  DUPCLOSURE R9 K37 [PROTO_2]
+  SETTABLEKS R9 R8 K32 ["getDescription"]
+  LOADK R9 K38 [""]
+  SETTABLEKS R9 R8 K33 ["icon"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K34 ["text"]
+  SETTABLEKS R8 R7 K26 ["buttonInfo"]
+  GETTABLEKS R8 R4 K39 ["build"]
+  MOVE R9 R7
   CALL R8 1 1
-  JUMPIF R8 [+1]
-  RETURN R0 0
-  GETIMPORT R9 K1 [require]
-  GETIMPORT R12 K3 [script]
-  GETTABLEKS R11 R12 K4 ["Parent"]
-  GETTABLEKS R10 R11 K41 ["main"]
+  GETTABLEKS R9 R8 K40 ["pluginLoader"]
+  NAMECALL R9 R9 K41 ["waitForUserInteraction"]
   CALL R9 1 1
-  MOVE R10 R9
-  GETIMPORT R11 K27 [plugin]
-  MOVE R12 R7
-  CALL R10 2 0
+  JUMPIF R9 [+1]
+  RETURN R0 0
+  GETIMPORT R10 K1 [require]
+  GETIMPORT R13 K3 [script]
+  GETTABLEKS R12 R13 K4 ["Parent"]
+  GETTABLEKS R11 R12 K42 ["main"]
+  CALL R10 1 1
+  MOVE R11 R10
+  GETIMPORT R12 K28 [plugin]
+  MOVE R13 R8
+  CALL R11 2 0
   RETURN R0 0

@@ -34,42 +34,46 @@ PROTO_2:
   GETUPVAL R7 2
   GETTABLEKS R6 R7 K8 ["Tag"]
   GETUPVAL R7 3
-  LOADK R8 K9 ["Component-TabRow Role-Surface X-RowSpace200 X-Pad X-Fit"]
-  GETTABLEKS R10 R0 K10 ["Selected"]
+  GETUPVAL R9 4
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K9 ["Component-TabRow Role-Surface X-RowSpace100 X-Fit X-Middle"]
+  JUMP [+1]
+  LOADK R8 K10 ["Component-TabRow Role-Surface X-RowSpace200 X-Pad X-Fit"]
+  GETTABLEKS R10 R0 K11 ["Selected"]
   JUMPIFNOT R10 [+2]
-  LOADK R9 K10 ["Selected"]
+  LOADK R9 K11 ["Selected"]
   JUMP [+1]
   LOADNIL R9
   CALL R7 2 1
   SETTABLE R7 R5 R6
-  DUPTABLE R6 K13 [{"Checkbox", "Text"}]
+  DUPTABLE R6 K14 [{"Checkbox", "Text"}]
   GETUPVAL R7 1
-  GETUPVAL R8 4
-  DUPTABLE R9 K16 [{"LayoutOrder", "Checked", "OnClick"}]
+  GETUPVAL R8 5
+  DUPTABLE R9 K17 [{"LayoutOrder", "Checked", "OnClick"}]
   MOVE R10 R1
   CALL R10 0 1
   SETTABLEKS R10 R9 K3 ["LayoutOrder"]
-  GETTABLEKS R10 R2 K14 ["Checked"]
-  SETTABLEKS R10 R9 K14 ["Checked"]
+  GETTABLEKS R10 R2 K15 ["Checked"]
+  SETTABLEKS R10 R9 K15 ["Checked"]
   NEWCLOSURE R10 P1
   CAPTURE VAL R0
-  SETTABLEKS R10 R9 K15 ["OnClick"]
+  SETTABLEKS R10 R9 K16 ["OnClick"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K11 ["Checkbox"]
+  SETTABLEKS R7 R6 K12 ["Checkbox"]
   GETUPVAL R7 1
-  LOADK R8 K17 ["TextLabel"]
+  LOADK R8 K18 ["TextLabel"]
   NEWTABLE R9 4 0
   MOVE R10 R1
   CALL R10 0 1
   SETTABLEKS R10 R9 K3 ["LayoutOrder"]
-  GETTABLEKS R10 R2 K12 ["Text"]
-  SETTABLEKS R10 R9 K12 ["Text"]
+  GETTABLEKS R10 R2 K13 ["Text"]
+  SETTABLEKS R10 R9 K13 ["Text"]
   GETUPVAL R11 2
   GETTABLEKS R10 R11 K8 ["Tag"]
-  LOADK R11 K18 ["X-Fit"]
+  LOADK R11 K19 ["X-Fit"]
   SETTABLE R11 R9 R10
   CALL R7 2 1
-  SETTABLEKS R7 R6 K12 ["Text"]
+  SETTABLEKS R7 R6 K13 ["Text"]
   CALL R3 3 -1
   RETURN R3 -1
 
@@ -94,13 +98,20 @@ MAIN:
   GETTABLEKS R5 R6 K13 ["joinTags"]
   GETIMPORT R6 K5 [require]
   GETTABLEKS R9 R0 K14 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Components"]
-  GETTABLEKS R7 R8 K16 ["RibbonCheckbox"]
+  GETTABLEKS R8 R9 K15 ["SharedFlags"]
+  GETTABLEKS R7 R8 K16 ["getFFlagRibbonStyleUpgrades"]
   CALL R6 1 1
-  DUPCLOSURE R7 K17 [PROTO_2]
+  CALL R6 0 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K14 ["Src"]
+  GETTABLEKS R9 R10 K17 ["Components"]
+  GETTABLEKS R8 R9 K18 ["RibbonCheckbox"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K19 [PROTO_2]
   CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R6
-  RETURN R7 1
+  CAPTURE VAL R7
+  RETURN R8 1

@@ -131,7 +131,7 @@ PROTO_5:
   SETTABLEKS R6 R5 K10 ["LayoutOrder"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K11 ["Tag"]
-  LOADK R7 K12 ["X-ColumnM X-FitY X-PadS"]
+  LOADK R7 K12 ["X-ColumnM X-FitY X-PadS compact"]
   SETTABLE R7 R5 R6
   DUPTABLE R6 K14 [{"Background"}]
   GETUPVAL R8 0

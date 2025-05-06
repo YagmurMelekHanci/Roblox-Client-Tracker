@@ -12,6 +12,38 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  JUMPIFNOT R1 [+44]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["cursorPosition"]
+  JUMPIFNOT R2 [+40]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["textInputRef"]
+  GETTABLEKS R2 R3 K2 ["current"]
+  JUMPIFNOT R2 [+34]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["textInputRef"]
+  GETTABLEKS R3 R4 K2 ["current"]
+  GETTABLEKS R2 R3 K3 ["CaptureFocus"]
+  JUMPIFNOT R2 [+26]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["textInputRef"]
+  GETTABLEKS R3 R4 K2 ["current"]
+  GETTABLEKS R2 R3 K4 ["CursorPosition"]
+  JUMPIFNOT R2 [+18]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["cursorPosition"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["textInputRef"]
+  GETTABLEKS R3 R4 K2 ["current"]
+  NAMECALL R3 R3 K3 ["CaptureFocus"]
+  CALL R3 1 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["textInputRef"]
+  GETTABLEKS R3 R4 K2 ["current"]
+  SETTABLEKS R2 R3 K4 ["CursorPosition"]
+  RETURN R0 0
+
+PROTO_2:
   NEWTABLE R2 0 0
   SETTABLEKS R2 R0 K0 ["state"]
   LOADB R2 0
@@ -19,9 +51,63 @@ PROTO_1:
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   SETTABLEKS R2 R0 K2 ["onTextChanged"]
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+5]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["createRef"]
+  CALL R2 0 1
+  JUMP [+1]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K4 ["textInputRef"]
+  GETUPVAL R2 0
+  JUMPIFNOT R2 [+4]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K5 ["onFocusLost"]
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["textInputRef"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  JUMPIFNOT R0 [+20]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["textInputRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  GETTABLEKS R0 R1 K2 ["CursorPosition"]
+  LOADN R1 0
+  JUMPIFNOTLE R1 R0 [+11]
+  GETUPVAL R0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["textInputRef"]
+  GETTABLEKS R2 R3 K1 ["current"]
+  GETTABLEKS R1 R2 K2 ["CursorPosition"]
+  SETTABLEKS R1 R0 K3 ["cursorPosition"]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+27]
+  GETTABLEKS R2 R0 K0 ["textInputRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  JUMPIFNOT R1 [+22]
+  GETTABLEKS R3 R0 K0 ["textInputRef"]
+  GETTABLEKS R2 R3 K1 ["current"]
+  GETTABLEKS R1 R2 K2 ["GetPropertyChangedSignal"]
+  JUMPIFNOT R1 [+15]
+  GETTABLEKS R2 R0 K0 ["textInputRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  LOADK R3 K3 ["CursorPosition"]
+  NAMECALL R1 R1 K2 ["GetPropertyChangedSignal"]
+  CALL R1 2 1
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K4 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K5 ["textInputRefCursorPositionChanged"]
+  RETURN R0 0
+
+PROTO_5:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["Stylizer"]
   GETTABLEKS R2 R0 K0 ["props"]
@@ -128,8 +214,8 @@ PROTO_2:
   GETUPVAL R26 1
   GETTABLEKS R25 R26 K20 ["createElement"]
   GETUPVAL R26 4
-  DUPTABLE R27 K56 [{"BottomText", "LayoutOrder", "MultiLine", "OnTextChanged", "Size", "StyleModifier", "Text"}]
-  GETTABLEKS R29 R2 K57 ["BottomRightText"]
+  DUPTABLE R27 K58 [{"BottomText", "LayoutOrder", "MultiLine", "OnTextChanged", "Size", "StyleModifier", "Text", "OnFocusLost", "ForwardRef"}]
+  GETTABLEKS R29 R2 K59 ["BottomRightText"]
   JUMPIFNOT R29 [+2]
   LOADNIL R28
   JUMP [+1]
@@ -139,31 +225,43 @@ PROTO_2:
   CALL R28 1 1
   SETTABLEKS R28 R27 K5 ["LayoutOrder"]
   SETTABLEKS R14 R27 K52 ["MultiLine"]
-  GETTABLEKS R28 R0 K58 ["onTextChanged"]
+  GETTABLEKS R28 R0 K60 ["onTextChanged"]
   SETTABLEKS R28 R27 K53 ["OnTextChanged"]
   GETIMPORT R28 K33 [UDim2.new]
   LOADN R29 1
   LOADN R30 0
   LOADN R31 0
-  SUBK R33 R5 K60 [40]
-  SUBK R32 R33 K59 [20]
+  SUBK R33 R5 K62 [40]
+  SUBK R32 R33 K61 [20]
   CALL R28 4 1
   SETTABLEKS R28 R27 K25 ["Size"]
   JUMPIFNOT R12 [+4]
   GETUPVAL R29 5
-  GETTABLEKS R28 R29 K61 ["Error"]
+  GETTABLEKS R28 R29 K63 ["Error"]
   JUMP [+1]
   LOADNIL R28
   SETTABLEKS R28 R27 K54 ["StyleModifier"]
   SETTABLEKS R9 R27 K55 ["Text"]
+  GETUPVAL R29 6
+  JUMPIFNOT R29 [+3]
+  GETTABLEKS R28 R0 K64 ["onFocusLost"]
+  JUMP [+1]
+  LOADNIL R28
+  SETTABLEKS R28 R27 K56 ["OnFocusLost"]
+  GETUPVAL R29 6
+  JUMPIFNOT R29 [+3]
+  GETTABLEKS R28 R0 K65 ["textInputRef"]
+  JUMP [+1]
+  LOADNIL R28
+  SETTABLEKS R28 R27 K57 ["ForwardRef"]
   CALL R25 2 1
   SETTABLEKS R25 R24 K36 ["TextField"]
-  GETTABLEKS R26 R2 K57 ["BottomRightText"]
+  GETTABLEKS R26 R2 K59 ["BottomRightText"]
   JUMPIFNOT R26 [+112]
   GETUPVAL R26 1
   GETTABLEKS R25 R26 K20 ["createElement"]
   GETUPVAL R26 3
-  DUPTABLE R27 K62 [{"AutomaticSize", "LayoutOrder", "Size"}]
+  DUPTABLE R27 K66 [{"AutomaticSize", "LayoutOrder", "Size"}]
   GETIMPORT R28 K30 [Enum.AutomaticSize.XY]
   SETTABLEKS R28 R27 K24 ["AutomaticSize"]
   NAMECALL R28 R15 K31 ["getNextOrder"]
@@ -176,11 +274,11 @@ PROTO_2:
   LOADN R32 0
   CALL R28 4 1
   SETTABLEKS R28 R27 K25 ["Size"]
-  DUPTABLE R28 K64 [{"CounterText", "BottomText"}]
+  DUPTABLE R28 K68 [{"CounterText", "BottomText"}]
   GETUPVAL R30 1
   GETTABLEKS R29 R30 K20 ["createElement"]
-  GETUPVAL R30 6
-  DUPTABLE R31 K68 [{"AutomaticSize", "LayoutOrder", "Size", "TextXAlignment", "Text", "TextColor", "TextSize"}]
+  GETUPVAL R30 7
+  DUPTABLE R31 K72 [{"AutomaticSize", "LayoutOrder", "Size", "TextXAlignment", "Text", "TextColor", "TextSize"}]
   GETIMPORT R32 K30 [Enum.AutomaticSize.XY]
   SETTABLEKS R32 R31 K24 ["AutomaticSize"]
   NAMECALL R32 R15 K31 ["getNextOrder"]
@@ -193,23 +291,23 @@ PROTO_2:
   LOADN R36 0
   CALL R32 4 1
   SETTABLEKS R32 R31 K25 ["Size"]
-  GETIMPORT R32 K69 [Enum.TextXAlignment.Left]
-  SETTABLEKS R32 R31 K65 ["TextXAlignment"]
+  GETIMPORT R32 K73 [Enum.TextXAlignment.Left]
+  SETTABLEKS R32 R31 K69 ["TextXAlignment"]
   SETTABLEKS R13 R31 K55 ["Text"]
   JUMPIFNOT R12 [+3]
-  GETTABLEKS R32 R16 K70 ["textErrorColor"]
+  GETTABLEKS R32 R16 K74 ["textErrorColor"]
   JUMP [+2]
-  GETTABLEKS R32 R16 K71 ["textColor"]
-  SETTABLEKS R32 R31 K66 ["TextColor"]
-  GETTABLEKS R32 R16 K72 ["textSize"]
-  SETTABLEKS R32 R31 K67 ["TextSize"]
+  GETTABLEKS R32 R16 K75 ["textColor"]
+  SETTABLEKS R32 R31 K70 ["TextColor"]
+  GETTABLEKS R32 R16 K76 ["textSize"]
+  SETTABLEKS R32 R31 K71 ["TextSize"]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K63 ["CounterText"]
+  SETTABLEKS R29 R28 K67 ["CounterText"]
   GETUPVAL R30 1
   GETTABLEKS R29 R30 K20 ["createElement"]
-  GETUPVAL R30 6
-  DUPTABLE R31 K73 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextXAlignment"}]
-  GETIMPORT R32 K75 [Enum.AutomaticSize.Y]
+  GETUPVAL R30 7
+  DUPTABLE R31 K77 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextXAlignment"}]
+  GETIMPORT R32 K79 [Enum.AutomaticSize.Y]
   SETTABLEKS R32 R31 K24 ["AutomaticSize"]
   NAMECALL R32 R15 K31 ["getNextOrder"]
   CALL R32 1 1
@@ -221,14 +319,14 @@ PROTO_2:
   LOADN R36 0
   CALL R32 4 1
   SETTABLEKS R32 R31 K25 ["Size"]
-  GETTABLEKS R32 R2 K57 ["BottomRightText"]
+  GETTABLEKS R32 R2 K59 ["BottomRightText"]
   SETTABLEKS R32 R31 K55 ["Text"]
-  GETTABLEKS R32 R16 K71 ["textColor"]
-  SETTABLEKS R32 R31 K66 ["TextColor"]
-  GETTABLEKS R32 R16 K72 ["textSize"]
-  SETTABLEKS R32 R31 K67 ["TextSize"]
-  GETIMPORT R32 K77 [Enum.TextXAlignment.Right]
-  SETTABLEKS R32 R31 K65 ["TextXAlignment"]
+  GETTABLEKS R32 R16 K75 ["textColor"]
+  SETTABLEKS R32 R31 K70 ["TextColor"]
+  GETTABLEKS R32 R16 K76 ["textSize"]
+  SETTABLEKS R32 R31 K71 ["TextSize"]
+  GETIMPORT R32 K81 [Enum.TextXAlignment.Right]
+  SETTABLEKS R32 R31 K69 ["TextXAlignment"]
   CALL R29 2 1
   SETTABLEKS R29 R28 K51 ["BottomText"]
   CALL R25 3 1
@@ -278,27 +376,42 @@ MAIN:
   GETIMPORT R16 K5 [require]
   GETTABLEKS R17 R15 K22 ["ConfigSectionWrapper"]
   CALL R16 1 1
-  GETTABLEKS R17 R2 K23 ["PureComponent"]
-  LOADK R19 K24 ["ConfigTextField"]
-  NAMECALL R17 R17 K25 ["extend"]
+  GETIMPORT R17 K24 [game]
+  LOADK R19 K25 ["AssetConfigurationFixConfigTextFieldEnterLosingFocus"]
+  LOADB R20 0
+  NAMECALL R17 R17 K26 ["DefineFastFlag"]
+  CALL R17 3 0
+  GETIMPORT R17 K24 [game]
+  LOADK R19 K25 ["AssetConfigurationFixConfigTextFieldEnterLosingFocus"]
+  NAMECALL R17 R17 K27 ["GetFastFlag"]
   CALL R17 2 1
-  DUPCLOSURE R18 K26 [PROTO_1]
-  SETTABLEKS R18 R17 K27 ["init"]
-  DUPCLOSURE R18 K28 [PROTO_2]
+  GETTABLEKS R18 R2 K28 ["PureComponent"]
+  LOADK R20 K29 ["ConfigTextField"]
+  NAMECALL R18 R18 K30 ["extend"]
+  CALL R18 2 1
+  DUPCLOSURE R19 K31 [PROTO_2]
+  CAPTURE VAL R17
+  CAPTURE VAL R2
+  SETTABLEKS R19 R18 K32 ["init"]
+  DUPCLOSURE R19 K33 [PROTO_4]
+  CAPTURE VAL R17
+  SETTABLEKS R19 R18 K34 ["didMount"]
+  DUPCLOSURE R19 K35 [PROTO_5]
   CAPTURE VAL R9
   CAPTURE VAL R2
   CAPTURE VAL R16
   CAPTURE VAL R12
   CAPTURE VAL R13
   CAPTURE VAL R10
+  CAPTURE VAL R17
   CAPTURE VAL R14
-  SETTABLEKS R18 R17 K29 ["render"]
-  MOVE R18 R5
-  DUPTABLE R19 K31 [{"Stylizer"}]
-  GETTABLEKS R20 R4 K30 ["Stylizer"]
-  SETTABLEKS R20 R19 K30 ["Stylizer"]
-  CALL R18 1 1
-  MOVE R19 R17
-  CALL R18 1 1
-  MOVE R17 R18
-  RETURN R17 1
+  SETTABLEKS R19 R18 K36 ["render"]
+  MOVE R19 R5
+  DUPTABLE R20 K38 [{"Stylizer"}]
+  GETTABLEKS R21 R4 K37 ["Stylizer"]
+  SETTABLEKS R21 R20 K37 ["Stylizer"]
+  CALL R19 1 1
+  MOVE R20 R18
+  CALL R19 1 1
+  MOVE R18 R19
+  RETURN R18 1

@@ -64,6 +64,64 @@ local function installGui()
 	subtitle.AnchorPoint = Vector2.new(0.5, 0)
 end
 
+-- Recusrsively gathers all the deps needed for the root package and and its children
+local function gatherDependencies(pluginIndex: any, packageName: string, allDependencies: {})
+	for _, module in pluginIndex[packageName]:GetChildren() do
+		if not module:IsA("ModuleScript") then
+			continue
+		end
+
+		if module.Name == packageName then
+			continue
+		end
+		local packageSource = module.Source
+
+		local libraryName = packageSource:match('PackageIndex%[%"([^"]+)%"%]')
+		if libraryName and pluginIndex:FindFirstChild(libraryName) then
+			allDependencies[libraryName] = true
+			gatherDependencies(pluginIndex, libraryName, allDependencies)
+		end
+	end
+end
+
+local function installWithAllDependencies(root: Instance, pluginPackages: Folder, packageName: string)
+	local packages = getDeepFolder({ "Packages" }, root)
+	local pluginIndex = pluginPackages:FindFirstChild("_Index")
+	local embeddedLibrary
+	if packages:FindFirstChild(packageName) then
+		-- We still want to check the deps, because for unknown reason DF doesn't install all of them correctly.
+		-- Namely Rodux-31ab8d40-4.0.0-rc.0 is missing
+	else
+		print("Locating", packageName)
+		local redirect = pluginPackages:FindFirstChild(packageName):Clone()
+		redirect.Parent = packages
+		local libraryName = redirect.Source:match('PackageIndex%[%"([^"]+)%"%]')
+		print("Linking", packageName, "to", libraryName)
+		local library = pluginIndex:FindFirstChild(libraryName)
+		local index = getDeepFolder({ "_Index" }, packages)
+		embeddedLibrary = library:Clone()
+		embeddedLibrary.Parent = index
+	end
+	local dependencies = {}
+	gatherDependencies(pluginIndex, packageName, dependencies)
+
+	for dependency, _ in dependencies do
+		local dependencyPackage = pluginIndex:FindFirstChild(dependency)
+		if dependencyPackage then
+			local index = getDeepFolder({ "_Index" }, packages)
+			if index:FindFirstChild(dependency) then
+				continue
+			end
+			local clonedLibrary = dependencyPackage:Clone()
+			clonedLibrary.Parent = index
+		else
+			warn("Library not found for embedding:", packageName)
+		end
+	end
+
+	return embeddedLibrary
+end
+
 local function installStorybookEmbed(parent: Instance)
 	local oldRoot = parent:FindFirstChild("RunStorybook")
 	if oldRoot then
@@ -75,9 +133,27 @@ local function installStorybookEmbed(parent: Instance)
 	root.Source = Main.Src.Util.RunStorybook.Source
 
 	installGui()
-
 	Framework.Util.Embed.install(root, Main.Packages)
 	Framework.Util.Embed.installPeerDependencies(root, Main.Packages)
+	-- There is a weird conflict in a peer dependency installation, so I have to install this one separately,
+	-- though it's already handled by the calls above
+	installWithAllDependencies(root, Main.Packages, "RoactRodux")
+	local foundation = installWithAllDependencies(root, Main.Packages, "Foundation")
+	if foundation then
+		foundation.Foundation.Utility.Flags.Source = foundation.Foundation.Utility.Flags.Source:gsub(
+			[[SafeFlags.createGetFFlag%(%s*"([^"]+)"[^)]*%)%(%)]],
+			Framework.Util.Embed.rewriteFlag
+		)
+	end
+
+	for _, source in pairs(root.Packages._Index.TestLoader:GetDescendants()) do
+		if source:IsA("ModuleScript") then
+			source.Source = source.Source:gsub(
+				'local Plugin = Main:FindFirstAncestorWhichIsA%(%"Plugin%"%):FindFirstChildWhichIsA%(%"Folder%"%)',
+				'local Plugin = Main:FindFirstAncestor("Packages").Parent'
+			)
+		end
+	end
 
 	local StorybookFolder = getDeepFolder({ "Packages", "DeveloperStorybook" }, root)
 	local SrcFolder = Main.Src:Clone()
@@ -92,9 +168,11 @@ local function installStorybookEmbed(parent: Instance)
 	createPackageLink("Roact", SrcPackages)
 	createPackageLink("React", SrcPackages)
 	createPackageLink("ReactRoblox", SrcPackages)
+	createPackageLink("Foundation", SrcPackages)
 	createPackageLink("RoactRodux", SrcPackages)
 	createPackageLink("Rodux", SrcPackages)
 	createPackageLink("TestLoader", SrcPackages)
+	createPackageLink("StudioFoundation", SrcPackages)
 	createPackageLink("ViewportToolingFramework", SrcPackages)
 
 	-- Disable StorybookLocal - will be enabled by runner

@@ -1,7 +1,7 @@
 PROTO_0:
   DUPTABLE R0 K3 [{"Metadata", "Events", "Instances"}]
-  DUPTABLE R1 K11 [{"Name", "StartTick", "EndTick", "Looping", "Priority", "FrameRate", "Guid"}]
-  LOADK R2 K12 [""]
+  DUPTABLE R1 K12 [{"Name", "StartTick", "EndTick", "Looping", "Priority", "FrameRate", "Guid", "IkTargets"}]
+  LOADK R2 K13 [""]
   SETTABLEKS R2 R1 K4 ["Name"]
   LOADN R2 0
   SETTABLEKS R2 R1 K5 ["StartTick"]
@@ -9,28 +9,30 @@ PROTO_0:
   SETTABLEKS R2 R1 K6 ["EndTick"]
   LOADB R2 0
   SETTABLEKS R2 R1 K7 ["Looping"]
-  GETIMPORT R2 K16 [Enum.AnimationPriority.Core]
+  GETIMPORT R2 K17 [Enum.AnimationPriority.Core]
   SETTABLEKS R2 R1 K8 ["Priority"]
   LOADN R2 30
   SETTABLEKS R2 R1 K9 ["FrameRate"]
   GETUPVAL R2 0
-  NAMECALL R2 R2 K17 ["GenerateGUID"]
+  NAMECALL R2 R2 K18 ["GenerateGUID"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K10 ["Guid"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K11 ["IkTargets"]
   SETTABLEKS R1 R0 K0 ["Metadata"]
-  DUPTABLE R1 K21 [{"NamedKeyframes", "Keyframes", "Data"}]
+  DUPTABLE R1 K22 [{"NamedKeyframes", "Keyframes", "Data"}]
   NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K18 ["NamedKeyframes"]
+  SETTABLEKS R2 R1 K19 ["NamedKeyframes"]
   NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K19 ["Keyframes"]
+  SETTABLEKS R2 R1 K20 ["Keyframes"]
   NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K20 ["Data"]
+  SETTABLEKS R2 R1 K21 ["Data"]
   SETTABLEKS R1 R0 K1 ["Events"]
-  DUPTABLE R1 K23 [{"Root"}]
-  DUPTABLE R2 K25 [{"Tracks"}]
+  DUPTABLE R1 K24 [{"Root"}]
+  DUPTABLE R2 K26 [{"Tracks"}]
   NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K24 ["Tracks"]
-  SETTABLEKS R2 R1 K22 ["Root"]
+  SETTABLEKS R3 R2 K25 ["Tracks"]
+  SETTABLEKS R2 R1 K23 ["Root"]
   SETTABLEKS R1 R0 K2 ["Instances"]
   RETURN R0 1
 
@@ -50,16 +52,18 @@ PROTO_2:
   RETURN R1 1
 
 PROTO_3:
-  DUPTABLE R1 K5 [{"Name", "Depth", "Expanded", "Selected", "Type"}]
-  LOADK R2 K6 [""]
+  DUPTABLE R1 K6 [{"Name", "Instance", "Depth", "Expanded", "Selected", "Type"}]
+  LOADK R2 K7 [""]
   SETTABLEKS R2 R1 K0 ["Name"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K1 ["Instance"]
   LOADN R2 0
-  SETTABLEKS R2 R1 K1 ["Depth"]
+  SETTABLEKS R2 R1 K2 ["Depth"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K2 ["Expanded"]
+  SETTABLEKS R2 R1 K3 ["Expanded"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K3 ["Selected"]
-  SETTABLEKS R0 R1 K4 ["Type"]
+  SETTABLEKS R2 R1 K4 ["Selected"]
+  SETTABLEKS R0 R1 K5 ["Type"]
   RETURN R1 1
 
 PROTO_4:

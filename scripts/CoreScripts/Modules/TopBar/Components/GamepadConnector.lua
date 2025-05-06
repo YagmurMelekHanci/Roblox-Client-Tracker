@@ -23,6 +23,9 @@ local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCurso
 local FFlagChromeFixDelayLoadControlLock = SharedFlags.FFlagChromeFixDelayLoadControlLock
 
 local Modules = script.Parent.Parent.Parent
+local TopBar = Modules.TopBar
+local TopBarTelemetry = require(TopBar:WaitForChild("Telemetry"))
+local LogGamepadOpenExperienceControlsMenu = TopBarTelemetry.LogGamepadOpenExperienceControlsMenu
 local Chrome = Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: any
@@ -215,7 +218,8 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 					return Enum.ContextActionResult.Pass
 				end
 			end
-			if self:getSelectedCoreObject():get() == nil then
+			local toggleTopBarOpen = self:getSelectedCoreObject():get() == nil
+			if toggleTopBarOpen then
 				ChromeService:enableFocusNav()
 				if FFlagIgnoreDevGamepadBindingsMenuOpen then
 					self.setTopbarActive(true)
@@ -224,6 +228,7 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 				ChromeService:disableFocusNav()
 				GuiService.SelectedCoreObject = nil
 			end
+			LogGamepadOpenExperienceControlsMenu(toggleTopBarOpen)
 		else
 			if FFlagChromeFixDelayLoadControlLock then
 				if ChromeService:integrations().nine_dot == nil then
@@ -239,11 +244,13 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 end
 
 function GamepadConnector:_toggleUnibarMenu()
-	if self._topbarFocused:get() then
+	local toggleUnibarOpen = self._topbarFocused:get()
+	if toggleUnibarOpen then
 		ChromeService:disableFocusNav()
 	else
 		ChromeService:enableFocusNav()
 	end
+	LogGamepadOpenExperienceControlsMenu(toggleUnibarOpen)
 end
 
 function  GamepadConnector:_focusToastNotification(userInputState): boolean

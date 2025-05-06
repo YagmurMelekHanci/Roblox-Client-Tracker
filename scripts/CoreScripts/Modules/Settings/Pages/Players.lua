@@ -27,6 +27,8 @@ local formatUsername = UserProfiles.Formatters.formatUsername
 local getInExperienceCombinedNameFromId = UserProfiles.Selectors.getInExperienceCombinedNameFromId
 local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
+local React = require(CorePackages.Packages.React)
+local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local OpenTypeSupport = UIBlox.Utility.OpenTypeSupport
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
@@ -53,6 +55,7 @@ local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
+local MenuButtonsContainer = require(RobloxGui.Modules.Settings.Components.MenuButtons.MenuButtonsContainer)
 
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 	require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
@@ -64,6 +67,8 @@ end
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local FFlagUpdateSquadInDefaultAppChatContainer = SharedFlags.FFlagUpdateSquadInDefaultAppChatContainer
+local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
+local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 
 local _, PlatformFriendsService = pcall(function()
 	return game:GetService("PlatformFriendsService")
@@ -778,6 +783,10 @@ local function Initialize()
 		Visible = false,
 	})
 
+	if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+		buttonsContainer.Parent = nil
+	end
+
 	local buttonPadding = 5
 	if Theme.UIBloxThemeEnabled then
 		Create("UIPadding")({
@@ -815,7 +824,9 @@ local function Initialize()
 		leaveLabel.Size = UDim2.new(1, 0, 1, -6)
 	end
 
-	leaveButton.Parent = buttonsContainer
+	if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+		leaveButton.Parent = buttonsContainer
+	end
 
 	local resetFunc = function()
 		this.HubRef:SwitchToPage(this.HubRef.ResetCharacterPage, false, 1)
@@ -834,7 +845,9 @@ local function Initialize()
 	else
 		resetLabel.Size = UDim2.new(1, 0, 1, -6)
 	end
-	resetButton.Parent = buttonsContainer
+	if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+		resetButton.Parent = buttonsContainer
+	end
 
 	local resumeGameFunc = function()
 		this.HubRef:SetVisibility(false)
@@ -860,7 +873,9 @@ local function Initialize()
 		resumeLabel.Size = UDim2.new(1, 0, 1, -6)
 	end
 
-	resumeButton.Parent = buttonsContainer
+	if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+		resumeButton.Parent = buttonsContainer
+	end
 
 	local function pollImage()
 		local newMuted = VoiceChatServiceManager.localMuted
@@ -892,33 +907,35 @@ local function Initialize()
 	end
 
 	local function updateButtonRow()
-		local buttonPaddingY = 6
-		local buttonPaddingX = 0
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			local buttonPaddingY = 6
+			local buttonPaddingX = 0
 
-		local newButtonSize = 2 / 7
-		if Theme.UIBloxThemeEnabled then
-			buttonPaddingY = 0
-			buttonPaddingX = 12
+			local newButtonSize = 2 / 7
+			if Theme.UIBloxThemeEnabled then
+				buttonPaddingY = 0
+				buttonPaddingX = 12
+			end
+			local oldButtonContainerSize = 6 / 7
+			updateButtonPosition(
+				"ResumeButton",
+				UDim2.new(1 * oldButtonContainerSize, 0, 0, 0),
+				UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY),
+				Vector2.new(1, 0)
+			)
+			updateButtonPosition(
+				"ResetButton",
+				UDim2.new(0.5 * oldButtonContainerSize, 0, 0, 0),
+				UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY),
+				Vector2.new(0.5, 0)
+			)
+			updateButtonPosition(
+				"LeaveButton",
+				UDim2.new(0 * oldButtonContainerSize, 0, 0, 0),
+				UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY),
+				Vector2.new(0, 0)
+			)
 		end
-		local oldButtonContainerSize = 6 / 7
-		updateButtonPosition(
-			"ResumeButton",
-			UDim2.new(1 * oldButtonContainerSize, 0, 0, 0),
-			UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY),
-			Vector2.new(1, 0)
-		)
-		updateButtonPosition(
-			"ResetButton",
-			UDim2.new(0.5 * oldButtonContainerSize, 0, 0, 0),
-			UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY),
-			Vector2.new(0.5, 0)
-		)
-		updateButtonPosition(
-			"LeaveButton",
-			UDim2.new(0 * oldButtonContainerSize, 0, 0, 0),
-			UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY),
-			Vector2.new(0, 0)
-		)
 	end
 
 	local function muteButtonReset()
@@ -929,24 +946,26 @@ local function Initialize()
 	end
 
 	local function resetButtonRow()
-		updateButtonPosition(
-			"ResumeButton",
-			UDim2.new(1, 0, 0, 0),
-			UDim2.new(1 / 3, -buttonPadding, 1, 0),
-			Vector2.new(1, 0)
-		)
-		updateButtonPosition(
-			"ResetButton",
-			UDim2.new(0.5, 0, 0, 0),
-			UDim2.new(1 / 3, -buttonPadding, 1, 0),
-			Vector2.new(0.5, 0)
-		)
-		updateButtonPosition(
-			"LeaveButton",
-			UDim2.new(0, 0, 0, 0),
-			UDim2.new(1 / 3, -buttonPadding, 1, 0),
-			Vector2.new(0, 0)
-		)
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			updateButtonPosition(
+				"ResumeButton",
+				UDim2.new(1, 0, 0, 0),
+				UDim2.new(1 / 3, -buttonPadding, 1, 0),
+				Vector2.new(1, 0)
+			)
+			updateButtonPosition(
+				"ResetButton",
+				UDim2.new(0.5, 0, 0, 0),
+				UDim2.new(1 / 3, -buttonPadding, 1, 0),
+				Vector2.new(0.5, 0)
+			)
+			updateButtonPosition(
+				"LeaveButton",
+				UDim2.new(0, 0, 0, 0),
+				UDim2.new(1 / 3, -buttonPadding, 1, 0),
+				Vector2.new(0, 0)
+			)
+		end
 		muteButtonReset()
 	end
 
@@ -1020,9 +1039,11 @@ local function Initialize()
 			else
 				buttonsContainer.Size = UDim2.new(1, 0, 0, isPortrait and 50 or 62)
 			end
-			resetLabel.TextSize = buttonsFontSize
-			leaveLabel.TextSize = buttonsFontSize
-			resumeLabel.TextSize = buttonsFontSize
+			if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+				resetLabel.TextSize = buttonsFontSize
+				leaveLabel.TextSize = buttonsFontSize
+				resumeLabel.TextSize = buttonsFontSize
+			end
 		else
 			buttonsContainer.Visible = false
 			buttonsContainer.Size = UDim2.new(1, 0, 0, 0)
@@ -1035,9 +1056,11 @@ local function Initialize()
 			label.Position = UDim2.new(0.5, 0, 0.5, -3)
 			label.Size = UDim2.new(0.75, 0, 0.5, 0)
 		end
-		ApplyLocalizeTextSettingsToLabel(leaveLabel)
-		ApplyLocalizeTextSettingsToLabel(resetLabel)
-		ApplyLocalizeTextSettingsToLabel(resetLabel)
+		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
+			ApplyLocalizeTextSettingsToLabel(leaveLabel)
+			ApplyLocalizeTextSettingsToLabel(resetLabel)
+			ApplyLocalizeTextSettingsToLabel(resetLabel)
+		end
 	end
 
 	local function reportAbuseButtonCreate(playerLabel, player)
@@ -2508,6 +2531,24 @@ local function Initialize()
 			removeInspectButtons()
 		end
 	end)
+
+	function this:CreateMenuButtonsContainer()
+		if FIntRelocateMobileMenuButtonsVariant == 2 then
+			local buttonsContainerRoot = ReactRoblox.createRoot(buttonsContainer)
+			local experienceControlStore = this.HubRef:GetExperienceControlStore()
+			buttonsContainerRoot:render(React.createElement(MenuButtonsContainer, {
+				onLeaveGame = experienceControlStore.onLeaveGame,
+				onRespawn = experienceControlStore.onRespawn,
+				onResume = experienceControlStore.onResume,
+				setAddMenuKeyBindings = function() end,
+				setRemoveMenuKeyBindings = function() end,
+				getVisibility = function()
+					return true
+				end,
+				getCanRespawn = experienceControlStore.getCanRespawn,
+			}))
+		end
+	end
 
 	return this
 end
