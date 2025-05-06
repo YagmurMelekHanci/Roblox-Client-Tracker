@@ -280,7 +280,7 @@ Esc: Exit &amp; Clear filter
 </table>
 </div>
 <ul id="nav">
-<li><a href="javascript:void(0)" onclick="ToggleDebugMode();">?</a>
+<li><a href="javascript:void(0)" onclick="ToggleDebugMode();">Info</a>
 <div class="info" id="infowindow" style="left:0px;top:1em;width:450px;"></div>
 </li>
 <li><a id='ModeSubMenuText'>Mode</a>

@@ -32,7 +32,7 @@ Class EditableMesh : Object [NotCreatable]
 	Property EditableMesh.FixedSize: boolean {✏️RobloxSecurity} [ReadOnly]
 	Property EditableMesh.IsReplicatedCopy: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
-	Property EditableMesh.SkinningEnabled: boolean
+	Property EditableMesh.SkinningEnabled: boolean [Deprecated]
 	Function EditableMesh:AddBone(boneProperties: { [string]: any }) -> number
 	Function EditableMesh:AddColor(color: Color3, alpha: number) -> number
 	Function EditableMesh:AddNormal(normal: Vector3?) -> number
@@ -811,6 +811,7 @@ Class AudioTextToSpeech : Instance [NotBrowsable]
 Class AuroraScriptObject : Instance [NotCreatable] [Deprecated]
 	Property AuroraScriptObject.BehaviorWeak: AuroraScript? {RobloxSecurity} [Deprecated]
 	Property AuroraScriptObject.BoundInstanceWeak: Instance? {RobloxSecurity} [Deprecated]
+	Property AuroraScriptObject.FrameId: number [Deprecated]
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraScriptService:GetLocalFrameId() -> number [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () [Deprecated] {🧬Safe}
@@ -830,6 +831,78 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Event AuroraService.Misprediction(worldStepId: number, mispredictedInstances: { any }) [Deprecated]
 	Event AuroraService.Rollback(worldStepId: number) [Deprecated]
 	Event AuroraService.Step() [Deprecated]
+Class AvatarAccessoryRules : Instance
+	Property AvatarAccessoryRules.AccessoryMode: Enum.AvatarSettingsAccessoryMode {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomAccessoryMode: Enum.AvatarSettingsCustomAccessoryMode {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomBackAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomBackAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomFaceAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomFaceAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomFrontAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomFrontAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomHairAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomHairAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomHeadAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomHeadAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomNeckAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomNeckAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomShoulderAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomShoulderAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomWaistAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.CustomWaistAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.EnableSound: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.EnableVFX: boolean {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.LimitBounds: Vector3 {RobloxScriptSecurity}
+	Property AvatarAccessoryRules.LimitMethod: Enum.AvatarSettingsAccessoryLimitMethod {RobloxScriptSecurity}
+Class AvatarAnimationRules : Instance
+	Property AvatarAnimationRules.AnimationClipsMode: Enum.AvatarSettingsAnimationClipsMode {RobloxScriptSecurity}
+	Property AvatarAnimationRules.AnimationPacksMode: Enum.AvatarSettingsAnimationPacksMode {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomClimbAnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomClimbAnimationId: number {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomFallAnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomFallAnimationId: number {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomIdleAlt1AnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomIdleAlt1AnimationId: number {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomIdleAlt2AnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomIdleAlt2AnimationId: number {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomIdleAnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomIdleAnimationId: number {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomJumpAnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomJumpAnimationId: number {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomRunAnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomRunAnimationId: number {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomSwimAnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomSwimAnimationId: number {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomSwimIdleAnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomSwimIdleAnimationId: number {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomWalkAnimationEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarAnimationRules.CustomWalkAnimationId: number {RobloxScriptSecurity}
+Class AvatarBodyRules : Instance
+	Property AvatarBodyRules.AppearanceMode: Enum.AvatarSettingsAppearanceMode {RobloxScriptSecurity}
+	Property AvatarBodyRules.BuildMode: Enum.AvatarSettingsBuildMode {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomBodyAvatarReference: Instance? {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomBodyBundleId: number {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomBodyType: Enum.AvatarSettingsCustomBodyType {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomBodyTypeScale: NumberRange {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomHeadEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomHeadId: number {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomHeadScale: NumberRange {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomHeight: NumberRange {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomHeightScale: NumberRange {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomLeftArmEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomLeftArmId: number {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomLeftLegEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomLeftLegId: number {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomProportionsScale: NumberRange {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomRightArmEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomRightArmId: number {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomRightLegEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomRightLegId: number {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomTorsoEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomTorsoId: number {RobloxScriptSecurity}
+	Property AvatarBodyRules.CustomWidthScale: NumberRange {RobloxScriptSecurity}
+	Property AvatarBodyRules.KeepPlayerHead: boolean {RobloxScriptSecurity}
+	Property AvatarBodyRules.ScaleMode: Enum.AvatarSettingsScaleMode {RobloxScriptSecurity}
 Class AvatarChatService : Instance [NotCreatable] [Service]
 	Property AvatarChatService.ClientFeatures: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property AvatarChatService.ClientFeaturesInitialized: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -846,6 +919,39 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Function AvatarChatService:deviceMeetsRequirementsForFeature(feature: Enum.DeviceFeatureType) -> boolean {RobloxScriptSecurity}
 	Event AvatarChatService.OnClientFeatures(features: number) {RobloxSecurity} [Hidden]
 	Event AvatarChatService.RefreshClientFeatures() {RobloxSecurity} [Hidden]
+Class AvatarClothingRules : Instance
+	Property AvatarClothingRules.ClothingMode: Enum.AvatarSettingsClothingMode {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomClassicPantsAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomClassicPantsAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomClassicShirtsAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomClassicShirtsAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomClassicTShirtsAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomClassicTShirtsAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomClothingMode: Enum.AvatarSettingsCustomClothingMode {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomDressSkirtAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomDressSkirtAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomJacketAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomJacketAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomLeftShoesAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomLeftShoesAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomPantsAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomPantsAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomRightShoesAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomRightShoesAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomShirtAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomShirtAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomShortsAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomShortsAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomSweaterAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomSweaterAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomTShirtAccessoryEnabled: boolean {RobloxScriptSecurity}
+	Property AvatarClothingRules.CustomTShirtAccessoryId: number {RobloxScriptSecurity}
+	Property AvatarClothingRules.LimitBounds: Vector3 {RobloxScriptSecurity}
+Class AvatarCollisionRules : Instance
+	Property AvatarCollisionRules.CollisionMode: Enum.AvatarSettingsCollisionMode {RobloxScriptSecurity}
+	Property AvatarCollisionRules.HitAndTouchDetectionMode: Enum.AvatarSettingsHitAndTouchDetectionMode {RobloxScriptSecurity}
+	Property AvatarCollisionRules.LegacyCollisionMode: Enum.AvatarSettingsLegacyCollisionMode {RobloxScriptSecurity}
+	Property AvatarCollisionRules.SingleColliderSize: Vector3 {RobloxScriptSecurity}
 Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, model: Model) -> string {RobloxScriptSecurity} [Yields]
 	Function AvatarCreationService:DeserializeAvatarModel(serializedModel: string) -> Instance? {RobloxScriptSecurity}
@@ -942,6 +1048,9 @@ Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarImportService:LoadRigAndDetectType(promptR15Callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
 Class AvatarPreloader : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarPreloader:PreloadModelAssets(models: { Instance }) -> { any } {RobloxScriptSecurity}
+Class AvatarRules : Instance
+	Property AvatarRules.AvatarType: Enum.GameAvatarType {RobloxScriptSecurity}
+Class AvatarSettings : Instance [NotCreatable] [Service]
 Class Backpack : Instance
 Class BadgeService : Instance [NotCreatable] [Service]
 	Function BadgeService:AwardBadge(userId: number, badgeId: number) -> boolean [Yields]
@@ -1081,6 +1190,8 @@ Class BaseWrap : Instance [NotCreatable]
 	Property BaseWrap.HSRMeshIdData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BaseWrap.ImportInProcess: boolean {✏️RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property BaseWrap.ImportOriginWorld: CFrame [ReadOnly]
+	Property BaseWrap.MaxSize: Vector3 {RobloxScriptSecurity} [Hidden]
+	Property BaseWrap.Offset: Vector3 {RobloxScriptSecurity} [Hidden]
 	Function BaseWrap:GetCageOffset() -> Vector3 {RobloxScriptSecurity}
 	Function BaseWrap:GetFaces(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
 	Function BaseWrap:GetUVs(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
@@ -1253,6 +1364,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:GetCaptureSizeAsync(captureContent: Content) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureUploadDataAsync(capturePath: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function CaptureService:IsCapturingVideo() -> boolean {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureShared(capturePath: string) -> () {RobloxScriptSecurity}
@@ -2665,6 +2777,7 @@ Class VideoFrame : GuiObject
 	Property VideoFrame.TimePosition: number [NotReplicated]
 	Property VideoFrame.TimePositionReplicating: number [Hidden] [NotScriptable]
 	Property VideoFrame.Video: string
+	Property VideoFrame.VideoContent: Content {RobloxScriptSecurity} [Hidden]
 	Property VideoFrame.Volume: number
 	Function VideoFrame:Pause() -> ()
 	Function VideoFrame:Play() -> ()
@@ -3103,6 +3216,7 @@ Class Humanoid : Instance
 	Property Humanoid.NameDisplayDistance: number
 	Property Humanoid.NameOcclusion: Enum.NameOcclusion
 	Property Humanoid.NetworkHumanoidState: Enum.HumanoidStateType [Hidden] [NotScriptable]
+	Property Humanoid.OverrideDefaultCollisions: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Humanoid.RigType: Enum.HumanoidRigType
 	Property Humanoid.RightLeg: BasePart? [📁 LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Humanoid.RootPart: BasePart? [ReadOnly]
@@ -3122,6 +3236,7 @@ Class Humanoid : Instance
 	Function Humanoid:AddAccessory(accessory: Instance) -> ()
 	Function Humanoid:AddCustomStatus(status: string) -> boolean [Deprecated]
 	Function Humanoid:AddStatus(status: Enum.Status? = "Poison") -> boolean [Deprecated]
+	Function Humanoid:ApplyAvatarRules(avatarRules: AvatarRules) -> () {RobloxScriptSecurity} [Yields]
 	Function Humanoid:ApplyDescription(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () [Yields]
 	Function Humanoid:ApplyDescriptionClientServer(humanoidDescription: HumanoidDescription) -> () {RobloxScriptSecurity} [Yields]
 	Function Humanoid:ApplyDescriptionReset(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () [Yields]
@@ -3386,6 +3501,7 @@ Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function IXPService:GetUserStatusForLayer(layerName: string) -> Enum.IXPLoadingStatus? {LocalUserSecurity}
 	Function IXPService:InitializeUserLayers(userId: number) -> () {LocalUserSecurity}
 	Function IXPService:LogBrowserTrackerLayerExposure(layerName: string) -> () {LocalUserSecurity}
+	Function IXPService:LogFlagLinkedUserLayerExposure(layerName: string) -> () {LocalUserSecurity}
 	Function IXPService:LogUserLayerExposure(layerName: string) -> () {LocalUserSecurity}
 	Function IXPService:RegisterUserLayers(userLayers: any) -> () {LocalUserSecurity}
 	Event IXPService.OnBrowserTrackerLayerLoadingStatusChanged(status: Enum.IXPLoadingStatus) {LocalUserSecurity}
@@ -4372,6 +4488,7 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.ManifoldMesh: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.MeshData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.MeshData2: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
+	Property PartOperation.OffCentered: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.PhysicsData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.SerializedCSGTree: SharedString [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.SerializedOperationGraph: SharedString [Hidden] [NotReplicated] [NotScriptable]
@@ -4898,6 +5015,7 @@ Class Player : Instance
 	Function Player:LoadCharacter() -> () [Yields]
 	Function Player:LoadCharacterAppearance(assetInstance: Instance) -> () [Deprecated]
 	Function Player:LoadCharacterBlocking() -> () {LocalUserSecurity} [Yields]
+	Function Player:LoadCharacterWithAvatarRules(avatarRules: AvatarRules) -> () {RobloxScriptSecurity} [Yields]
 	Function Player:LoadCharacterWithHumanoidDescription(humanoidDescription: HumanoidDescription) -> () [Yields]
 	Function Player:LoadData() -> () {LocalUserSecurity} [Deprecated]
 	Function Player:LoadInstance(key: string) -> Instance? [Deprecated]
@@ -6446,7 +6564,8 @@ Class StyleSheet : StyleBase
 	Function StyleSheet:GetDerives() -> { Instance }
 	Function StyleSheet:SetDerives(derives: { Instance }) -> ()
 Class StyleDerive : Instance
-	Property StyleDerive.Index: number [Hidden] [NotScriptable]
+	Property StyleDerive.Index: number [📁 LoadOnly] [Hidden] [NotScriptable]
+	Property StyleDerive.Priority: number
 	Property StyleDerive.StyleSheet: StyleSheet?
 Class StyleLink : Instance
 	Property StyleLink.StyleSheet: StyleSheet?
@@ -7195,6 +7314,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UserInputService:GetMouseDelta() -> Vector2
 	Function UserInputService:GetMouseLocation() -> Vector2
 	Function UserInputService:GetNavigationGamepads() -> { any }
+	Function UserInputService:GetPasteText() -> string {RobloxScriptSecurity}
 	Function UserInputService:GetPlatform() -> Enum.Platform {RobloxScriptSecurity}
 	Function UserInputService:GetStringForKeyCode(keyCode: Enum.KeyCode) -> string
 	Function UserInputService:GetSupportedGamepadKeyCodes(gamepadNum: Enum.UserInputType) -> { any }
@@ -7849,6 +7969,7 @@ Enum AudioApiRollout
 	EnumItem AudioApiRollout.Disabled : 0
 	EnumItem AudioApiRollout.Automatic : 1
 	EnumItem AudioApiRollout.Enabled : 2
+Enum AudioCaptureMode
 Enum AudioChannelLayout
 	EnumItem AudioChannelLayout.Mono : 0
 	EnumItem AudioChannelLayout.Stereo : 1
@@ -7962,6 +8083,54 @@ Enum AvatarPromptResult
 	EnumItem AvatarPromptResult.Success : 1
 	EnumItem AvatarPromptResult.PermissionDenied : 2
 	EnumItem AvatarPromptResult.Failed : 3
+Enum AvatarSettingsAccessoryLimitMethod
+	EnumItem AvatarSettingsAccessoryLimitMethod.Scale : 0
+	EnumItem AvatarSettingsAccessoryLimitMethod.Remove : 1
+Enum AvatarSettingsAccessoryMode
+	EnumItem AvatarSettingsAccessoryMode.PlayerChoice : 0
+	EnumItem AvatarSettingsAccessoryMode.CustomLimit : 1
+Enum AvatarSettingsAnimationClipsMode
+	EnumItem AvatarSettingsAnimationClipsMode.PlayerChoice : 0
+	EnumItem AvatarSettingsAnimationClipsMode.CustomClips : 1
+Enum AvatarSettingsAnimationPacksMode
+	EnumItem AvatarSettingsAnimationPacksMode.PlayerChoice : 0
+	EnumItem AvatarSettingsAnimationPacksMode.StandardR15 : 1
+	EnumItem AvatarSettingsAnimationPacksMode.StandardR6 : 2
+Enum AvatarSettingsAppearanceMode
+	EnumItem AvatarSettingsAppearanceMode.PlayerChoice : 0
+	EnumItem AvatarSettingsAppearanceMode.CustomParts : 1
+	EnumItem AvatarSettingsAppearanceMode.CustomBody : 2
+Enum AvatarSettingsBuildMode
+	EnumItem AvatarSettingsBuildMode.PlayerChoice : 0
+	EnumItem AvatarSettingsBuildMode.CustomBuild : 1
+Enum AvatarSettingsClothingMode
+	EnumItem AvatarSettingsClothingMode.PlayerChoice : 0
+	EnumItem AvatarSettingsClothingMode.CustomLimit : 1
+Enum AvatarSettingsCollisionMode
+	EnumItem AvatarSettingsCollisionMode.Default : 0
+	EnumItem AvatarSettingsCollisionMode.SingleCollider : 1
+	EnumItem AvatarSettingsCollisionMode.Legacy : 2
+Enum AvatarSettingsCustomAccessoryMode
+	EnumItem AvatarSettingsCustomAccessoryMode.PlayerChoice : 0
+	EnumItem AvatarSettingsCustomAccessoryMode.CustomAccessories : 1
+Enum AvatarSettingsCustomBodyType
+	EnumItem AvatarSettingsCustomBodyType.AvatarReference : 0
+	EnumItem AvatarSettingsCustomBodyType.BundleId : 1
+Enum AvatarSettingsCustomClothingMode
+	EnumItem AvatarSettingsCustomClothingMode.PlayerChoice : 0
+	EnumItem AvatarSettingsCustomClothingMode.CustomClothing : 1
+Enum AvatarSettingsHitAndTouchDetectionMode
+	EnumItem AvatarSettingsHitAndTouchDetectionMode.UseParts : 0
+	EnumItem AvatarSettingsHitAndTouchDetectionMode.UseCollider : 1
+Enum AvatarSettingsJumpMode
+	EnumItem AvatarSettingsJumpMode.JumpHeight : 0
+	EnumItem AvatarSettingsJumpMode.JumpPower : 1
+Enum AvatarSettingsLegacyCollisionMode
+	EnumItem AvatarSettingsLegacyCollisionMode.R6Colliders : 0
+	EnumItem AvatarSettingsLegacyCollisionMode.InnerBoxColliders : 1
+Enum AvatarSettingsScaleMode
+	EnumItem AvatarSettingsScaleMode.PlayerChoice : 0
+	EnumItem AvatarSettingsScaleMode.CustomScale : 1
 Enum AvatarThumbnailCustomizationType
 	EnumItem AvatarThumbnailCustomizationType.Closeup : 1
 	EnumItem AvatarThumbnailCustomizationType.FullBody : 2
@@ -8903,6 +9072,8 @@ Enum HttpError
 	EnumItem HttpError.SslConnectFail : 10
 	EnumItem HttpError.SslVerificationFail : 11
 	EnumItem HttpError.Unknown : 12
+	EnumItem HttpError.ConnectionClosed : 13
+	EnumItem HttpError.ServerProtocolError : 14
 Enum HttpRequestType
 	EnumItem HttpRequestType.Default : 0
 	EnumItem HttpRequestType.MarketplaceService : 2
@@ -10109,16 +10280,16 @@ Enum StartCorner
 	EnumItem StartCorner.TopRight : 1
 	EnumItem StartCorner.BottomLeft : 2
 	EnumItem StartCorner.BottomRight : 3
-Enum StateObjectFieldType
-	EnumItem StateObjectFieldType.Boolean : 0
-	EnumItem StateObjectFieldType.CFrame : 1
-	EnumItem StateObjectFieldType.Color3 : 2
-	EnumItem StateObjectFieldType.Float : 3
-	EnumItem StateObjectFieldType.Instance : 4
-	EnumItem StateObjectFieldType.Random : 5
-	EnumItem StateObjectFieldType.Vector2 : 6
-	EnumItem StateObjectFieldType.Vector3 : 7
-	EnumItem StateObjectFieldType.INVALID : 8
+Enum StateObjectFieldType [Deprecated]
+	EnumItem StateObjectFieldType.Boolean : 0 [Deprecated]
+	EnumItem StateObjectFieldType.CFrame : 1 [Deprecated]
+	EnumItem StateObjectFieldType.Color3 : 2 [Deprecated]
+	EnumItem StateObjectFieldType.Float : 3 [Deprecated]
+	EnumItem StateObjectFieldType.Instance : 4 [Deprecated]
+	EnumItem StateObjectFieldType.Random : 5 [Deprecated]
+	EnumItem StateObjectFieldType.Vector2 : 6 [Deprecated]
+	EnumItem StateObjectFieldType.Vector3 : 7 [Deprecated]
+	EnumItem StateObjectFieldType.INVALID : 8 [Deprecated]
 Enum Status [Deprecated]
 	EnumItem Status.Poison : 0 [Deprecated] [Deprecated]
 	EnumItem Status.Confusion : 1 [Deprecated] [Deprecated]
@@ -10742,6 +10913,12 @@ Enum VibrationMotor
 	EnumItem VibrationMotor.RightTrigger : 3
 	EnumItem VibrationMotor.LeftHand : 4
 	EnumItem VibrationMotor.RightHand : 5
+Enum VideoCaptureResult
+	EnumItem VideoCaptureResult.Success : 0
+	EnumItem VideoCaptureResult.OtherError : 1
+	EnumItem VideoCaptureResult.CapturingAlready : 2
+	EnumItem VideoCaptureResult.NoDeviceSupport : 3
+	EnumItem VideoCaptureResult.NoSpaceOnDevice : 4
 Enum VideoDeviceCaptureQuality
 	EnumItem VideoDeviceCaptureQuality.Default : 0
 	EnumItem VideoDeviceCaptureQuality.Low : 1

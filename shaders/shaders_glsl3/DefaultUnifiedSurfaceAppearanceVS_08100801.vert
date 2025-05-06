@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <InstanceData.h>
 #include <SAParams.h>
-uniform vec4 CB0[61];
+uniform vec4 CB0[58];
 uniform vec4 CB1[511];
 uniform vec4 CB3[1];
 in vec4 POSITION;

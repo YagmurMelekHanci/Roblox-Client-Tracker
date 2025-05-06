@@ -1,0 +1,16 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,hi-in,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.AudioCompressorEditor.Plugin.AudioCompressorEditor,,,AudioCompressorEditor,AudioCompressorEditor,,AudioCompressorEditor,AudioCompressorEditor,AudioCompressorEditor,AudioCompressorEditor,AudioCompressorEditor,AudioCompressorEditor,AudioCompressorEditor,AudioCompressorEditor,AudioCompressorEditor,AudioCompressorEditor,,AudioCompressorEditor,Ses Sıkıştırma Düzenleyici,AudioCompressorEditor,,,AudioCompressorEditor
+Studio.AudioCompressorEditor.Label.Bypass,,,Bypass,Bypass,,Bypass,Saltar,Bypass,बाईपास,Bypass,Ignora,バイパス,우회,Bypass,Ignorar,,บายพาส,Bypass,Bypass,,,Bypass
+Studio.AudioCompressorEditor.Label.EnableMetering,,,Enable Metering,Enable Metering,,Metering aktivieren,Activar medición,Activer le comptage,मीटरिंग चालू करें,Aktifkan Pengukuran,Abilita misurazione,メーターを有効化,미터링 활성화,Włącz pomiar,Ativar medição,,เปิดใช้งานการ Metering,Metrelemeyi etkinleştir,Bật Chế Độ Đo,,,啟用計量
+Studio.AudioCompressorEditor.Label.ShowEnvelope,,,Env,Env,,Env,Envolv.,Env,वॉल्यूम और समय,Env,Env,エンベロープ,엔벨로프,Obw.,Env,,Env,Env,Env,,,Env
+Studio.AudioCompressorEditor.Label.ShowInputWaveform,,,In,In,,In,Entrada,Dans,अंदर,Masuk,In,入力,입력,We.,Entrada,,ใน,In,In,,,In
+Studio.AudioCompressorEditor.Label.ShowOutputWaveform,,,Out,Out,,Out,Salida,"""Out""",बाहर,Keluar,Out,出力,출력,Wy.,Saída,,นอก,Out,Out,,,Out
+Studio.AudioCompressorEditor.Label.ShowGainChange,,,Gain,Gain,,Gain,Ganancia,Gain,वॉल्यूम लेवल,Perolehan,Gain,ゲイン,게인,Wzmocnienie,Ganho,,เพิ่ม,Gain,Độ Khuếch Đại,,,Gain
+Studio.AudioCompressorEditor.Label.ShowSidechain,,,SC,SC,,SC,Cadena lateral,SC,SC,SC,SC,サイドチェーン,사이드 체인,SC,SC,,SC,SC,SC,,,SC
+Studio.AudioCompressorEditor.Label.IsPaused,,,Paused,Paused,,Pausiert,Pausado,En pause,रोका गया,Dijeda,In pausa,一時停止中,멈춤,Wstrzymano,Pausado,,ถูกหยุดชั่วคราว,Duraklatıldı,Đã Tạm Dừng,,,暫停
+Studio.AudioCompressorEditor.Label.Threshold,,,Threshold,Threshold,,Threshold,Umbral,Seuil,थ्रेशोल्ड,Ambang Batas,Soglia,しきい値,임계값,Próg,Limite,,เกณฑ์,Sınır,Ngưỡng,,,閾值
+Studio.AudioCompressorEditor.Label.MaxLevel,,,Max Level,Max Level,,Max. Level,Nivel máx.,Niveau max,अधिकतम लेवल,Level Maks,Livello massimo,最大レベル,최대 레벨,Poziom maks.,Nível máximo,,ระดับสูงสุด,Maks. Düzey,Mức Tối Đa,,,最高等級
+Studio.AudioCompressorEditor.Label.Ratio,,,Ratio,Ratio,,Ratio,Ratio,Ratio,अनुपात,Rasio,Rapporto,比率,비율,Ratio,Taxa,,อัตราส่วน,Oran,Tỷ Lệ,,,比率
+Studio.AudioCompressorEditor.Label.Attack,,,Attack,Attack,,Attack,Ataque,Attaquer,हमला करें,Serangan,Attacco,アタック,어택,Attack,Ataque,,โจมตี,Attack,Thời gian Attack,,,Attack
+Studio.AudioCompressorEditor.Label.Release,,,Release,Release,,Release,Soltar,Publier,रिलीज़ करें,Pembebasan,Release,リリース,릴리즈,Release,Liberação,,ปล่อย,Release,Thời gian Release,,,Release
+Studio.AudioCompressorEditor.Label.MakeupGain,,,Makeup Gain,Makeup Gain,,Make-up Gain,Ganancia de Makeup,Gain de maquillage,मेकअप गेन,Perolehan Kompensasi,Makeup Gain,メイクアップゲイン,메이크업 게인,Makeup Gain,Ganho da compensação,,การเพิ่มชดเชย,Telafi Gain,Độ Khuếch Đại Thành Phần,,,Makeup Gain

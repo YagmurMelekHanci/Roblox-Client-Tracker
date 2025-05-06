@@ -91,6 +91,10 @@ Studio.BetaFeatures.DraggerImprovementsDescription,,Many small quality of life i
 Studio.BetaFeatures.DraggerImprovementsTitle,,Dragger QoL Improvements,Dragger QoL Improvements
 Studio.BetaFeatures.EditableImageMeshDescription,,Enables the new EditableImage and EditableMesh instances which allow the runtime creation and editing of Images and Meshes,Enables the new EditableImage and EditableMesh instances which allow the runtime creation and editing of Images and Meshes
 Studio.BetaFeatures.EditableImageMeshTitle,,EditableImage and EditableMesh,EditableImage and EditableMesh
+Studio.BetaFeatures.EditableMeshSkinningFACSDescription,Enables EditableMesh to support skinning and Facial Action Coding System (FACS) integration.,Enables EditableMesh to support skinning and Facial Action Coding System (FACS) integration.,Enables EditableMesh to support skinning and Facial Action Coding System (FACS) integration.
+Studio.BetaFeatures.EditableMeshSkinningFACSTitle,EditableMesh Skinning & FACS,EditableMesh Skinning & FACS,EditableMesh Skinning & FACS
+Studio.BetaFeatures.EngineStylingDescription,"Define your UI's visual appearance separate from the instance itself through new APIs (StyleRule, StyleSheet, StyleLink) and a no-code Style Editor.","Define your UI's visual appearance separate from the instance itself through new APIs (StyleRule, StyleSheet, StyleLink) and a no-code Style Editor.","Define your UI's visual appearance separate from the instance itself through new APIs (StyleRule, StyleSheet, StyleLink) and a no-code Style Editor."
+Studio.BetaFeatures.EngineStylingTitle,UI Styling,UI Styling,UI Styling
 Studio.BetaFeatures.FacialAnimationBetaDescription,,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.
 Studio.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
 Studio.BetaFeatures.FacialAnimationRecordingDescription,,"Animation Editor will have a ""Face Capture"" button to use a camera to record your own face movements onto an avatar.","Animation Editor will have a ""Face Capture"" button to use a camera to record your own face movements onto an avatar."
@@ -220,6 +224,8 @@ Studio.BetaFeatures.ShowTagsInPropertiesDescription,,Tags for selected instances
 Studio.BetaFeatures.ShowTagsInPropertiesTitle,,Tags in Properties,Tags in Properties
 Studio.BetaFeatures.SimulationPauseAndStepDescription,,"Enables visual pausing, stepping, and simulation debugging at studio run time.","Enables visual pausing, stepping, and simulation debugging at studio run time."
 Studio.BetaFeatures.SimulationPauseAndStepTitle,,Simulation Pause and Step,Simulation Pause and Step
+Studio.BetaFeatures.SkyboxOrientationDescription,Enable the ability to set the orientation of a skybox in the properties panel.,Enable the ability to set the orientation of a skybox in the properties panel.,Enable the ability to set the orientation of a skybox in the properties panel.
+Studio.BetaFeatures.SkyboxOrientationTitle,Skybox Orientation,Skybox Orientation,Skybox Orientation
 Studio.BetaFeatures.SmoothVoxelsDescription,1:1 Copy from Studio.App.BetaFeature.SmoothVoxelsDescription,Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!),Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!)
 Studio.BetaFeatures.SmoothVoxelsTitle,1:1 copy from Studio.App.BetaFeature.SmoothVoxelsTitle,Smooth Voxels,Smooth Voxels
 Studio.BetaFeatures.SomethingChangedPrompt,,Would you like to restart Studio now?,Would you like to restart Studio now?
