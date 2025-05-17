@@ -390,6 +390,8 @@ PROTO_11:
 PROTO_12:
   GETUPVAL R1 0
   CALL R1 0 1
+  JUMPIFNOT R1 [+20]
+  GETTABLEKS R1 R0 K0 ["draggerContext"]
   JUMPIFNOT R1 [+17]
   GETTABLEKS R2 R0 K0 ["draggerContext"]
   GETTABLEKS R1 R2 K1 ["ikControlManager"]

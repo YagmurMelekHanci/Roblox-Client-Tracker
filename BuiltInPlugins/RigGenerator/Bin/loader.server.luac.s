@@ -27,79 +27,74 @@ MAIN:
   LOADK R2 K4 ["EnableRibbonPlugin"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K5 ["RibbonControlsRefactor"]
-  NAMECALL R1 R1 K3 ["GetFastFlag"]
-  CALL R1 2 1
-  GETIMPORT R4 K7 [script]
-  GETTABLEKS R3 R4 K8 ["Parent"]
-  GETTABLEKS R2 R3 K8 ["Parent"]
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R5 R2 K11 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["TestLoader"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K13 ["launch"]
-  LOADK R5 K14 ["RigGenerator"]
-  GETTABLEKS R6 R2 K15 ["Src"]
-  CALL R4 2 0
-  GETTABLEKS R4 R3 K16 ["isCli"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+1]
+  GETIMPORT R3 K6 [script]
+  GETTABLEKS R2 R3 K7 ["Parent"]
+  GETTABLEKS R1 R2 K7 ["Parent"]
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["TestLoader"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K12 ["launch"]
+  LOADK R4 K13 ["RigGenerator"]
+  GETTABLEKS R5 R1 K14 ["Src"]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K15 ["isCli"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+1]
   RETURN R0 0
-  GETTABLEKS R7 R2 K15 ["Src"]
-  GETTABLEKS R6 R7 K17 ["Resources"]
-  GETTABLEKS R5 R6 K18 ["Localization"]
-  GETTABLEKS R4 R5 K19 ["SourceStrings"]
-  GETTABLEKS R8 R2 K15 ["Src"]
-  GETTABLEKS R7 R8 K17 ["Resources"]
-  GETTABLEKS R6 R7 K18 ["Localization"]
-  GETTABLEKS R5 R6 K20 ["LocalizedStrings"]
-  GETIMPORT R6 K10 [require]
-  GETTABLEKS R8 R2 K21 ["PluginLoader"]
-  GETTABLEKS R7 R8 K22 ["PluginLoaderBuilder"]
-  CALL R6 1 1
-  DUPTABLE R7 K31 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo"}]
-  GETIMPORT R8 K32 [plugin]
-  SETTABLEKS R8 R7 K23 ["plugin"]
-  LOADK R8 K14 ["RigGenerator"]
-  SETTABLEKS R8 R7 K24 ["pluginName"]
-  SETTABLEKS R5 R7 K25 ["translationResourceTable"]
-  SETTABLEKS R4 R7 K26 ["fallbackResourceTable"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K27 ["overrideLocaleId"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K28 ["localizationNamespace"]
-  DUPCLOSURE R8 K33 [PROTO_0]
-  SETTABLEKS R8 R7 K29 ["getToolbarName"]
-  DUPTABLE R8 K38 [{"getName", "getDescription", "icon", "text"}]
-  DUPCLOSURE R9 K39 [PROTO_1]
-  SETTABLEKS R9 R8 K34 ["getName"]
-  DUPCLOSURE R9 K40 [PROTO_2]
-  SETTABLEKS R9 R8 K35 ["getDescription"]
-  JUMPIFNOT R0 [+3]
-  JUMPIFNOT R1 [+2]
-  LOADK R9 K41 ["rbxlocaltheme://RibbonCharacter"]
+  GETTABLEKS R6 R1 K14 ["Src"]
+  GETTABLEKS R5 R6 K16 ["Resources"]
+  GETTABLEKS R4 R5 K17 ["Localization"]
+  GETTABLEKS R3 R4 K18 ["SourceStrings"]
+  GETTABLEKS R7 R1 K14 ["Src"]
+  GETTABLEKS R6 R7 K16 ["Resources"]
+  GETTABLEKS R5 R6 K17 ["Localization"]
+  GETTABLEKS R4 R5 K19 ["LocalizedStrings"]
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R7 R1 K20 ["PluginLoader"]
+  GETTABLEKS R6 R7 K21 ["PluginLoaderBuilder"]
+  CALL R5 1 1
+  DUPTABLE R6 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo"}]
+  GETIMPORT R7 K31 [plugin]
+  SETTABLEKS R7 R6 K22 ["plugin"]
+  LOADK R7 K13 ["RigGenerator"]
+  SETTABLEKS R7 R6 K23 ["pluginName"]
+  SETTABLEKS R4 R6 K24 ["translationResourceTable"]
+  SETTABLEKS R3 R6 K25 ["fallbackResourceTable"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K26 ["overrideLocaleId"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K27 ["localizationNamespace"]
+  DUPCLOSURE R7 K32 [PROTO_0]
+  SETTABLEKS R7 R6 K28 ["getToolbarName"]
+  DUPTABLE R7 K37 [{"getName", "getDescription", "icon", "text"}]
+  DUPCLOSURE R8 K38 [PROTO_1]
+  SETTABLEKS R8 R7 K33 ["getName"]
+  DUPCLOSURE R8 K39 [PROTO_2]
+  SETTABLEKS R8 R7 K34 ["getDescription"]
+  JUMPIFNOT R0 [+2]
+  LOADK R8 K40 ["rbxlocaltheme://RibbonCharacter"]
   JUMP [+1]
-  LOADK R9 K42 ["rbxlocaltheme://BuildRig"]
-  SETTABLEKS R9 R8 K36 ["icon"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K37 ["text"]
-  SETTABLEKS R8 R7 K30 ["buttonInfo"]
-  GETTABLEKS R8 R6 K43 ["build"]
-  MOVE R9 R7
+  LOADK R8 K41 ["rbxlocaltheme://BuildRig"]
+  SETTABLEKS R8 R7 K35 ["icon"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K36 ["text"]
+  SETTABLEKS R7 R6 K29 ["buttonInfo"]
+  GETTABLEKS R7 R5 K42 ["build"]
+  MOVE R8 R6
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K43 ["pluginLoader"]
+  NAMECALL R8 R8 K44 ["waitForUserInteraction"]
   CALL R8 1 1
-  GETTABLEKS R9 R8 K44 ["pluginLoader"]
-  NAMECALL R9 R9 K45 ["waitForUserInteraction"]
-  CALL R9 1 1
-  JUMPIF R9 [+1]
+  JUMPIF R8 [+1]
   RETURN R0 0
-  GETIMPORT R10 K10 [require]
-  GETIMPORT R13 K7 [script]
-  GETTABLEKS R12 R13 K8 ["Parent"]
-  GETTABLEKS R11 R12 K46 ["main"]
-  CALL R10 1 1
-  MOVE R11 R10
-  GETIMPORT R12 K32 [plugin]
-  MOVE R13 R8
-  CALL R11 2 0
+  GETIMPORT R9 K9 [require]
+  GETIMPORT R12 K6 [script]
+  GETTABLEKS R11 R12 K7 ["Parent"]
+  GETTABLEKS R10 R11 K45 ["main"]
+  CALL R9 1 1
+  MOVE R10 R9
+  GETIMPORT R11 K31 [plugin]
+  MOVE R12 R7
+  CALL R10 2 0
   RETURN R0 0

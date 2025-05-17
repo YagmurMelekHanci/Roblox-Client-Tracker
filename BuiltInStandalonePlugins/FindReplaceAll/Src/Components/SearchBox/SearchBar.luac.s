@@ -170,18 +170,18 @@ PROTO_7:
   GETTABLEKS R3 R4 K2 ["Tag"]
   LOADK R4 K3 ["FindReplaceAll-Icon FindReplaceAll-PadRight X-Fit"]
   SETTABLE R4 R2 R3
-  NEWTABLE R3 0 1
+  DUPTABLE R3 K5 [{"SearchIconImage"}]
   GETUPVAL R4 1
-  LOADK R5 K4 ["ImageLabel"]
+  LOADK R5 K6 ["ImageLabel"]
   NEWTABLE R6 1 0
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K2 ["Tag"]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K0 ["searchBarLeftIcon"]
-  GETTABLEKS R8 R9 K5 ["tags"]
+  GETTABLEKS R8 R9 K7 ["tags"]
   SETTABLE R8 R6 R7
-  CALL R4 2 -1
-  SETLIST R3 R4 -1 [1]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K4 ["SearchIconImage"]
   CALL R0 3 -1
   RETURN R0 -1
 

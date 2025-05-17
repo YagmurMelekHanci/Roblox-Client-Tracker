@@ -12,15 +12,12 @@ PROTO_0:
   SETTABLE R6 R4 R5
   DUPTABLE R5 K6 [{"OptionalContent"}]
   GETTABLEKS R7 R0 K7 ["showContent"]
-  JUMPIFNOT R7 [+14]
+  JUMPIFNOT R7 [+10]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K1 ["createElement"]
   LOADK R7 K8 ["TextLabel"]
   DUPTABLE R8 K10 [{"Text"}]
-  LOADK R11 K11 ["BasicExample"]
-  LOADK R12 K9 ["Text"]
-  NAMECALL R9 R1 K12 ["getText"]
-  CALL R9 3 1
+  LOADK R9 K11 ["I love hippos!!!"]
   SETTABLEKS R9 R8 K9 ["Text"]
   CALL R6 2 1
   JUMP [+1]

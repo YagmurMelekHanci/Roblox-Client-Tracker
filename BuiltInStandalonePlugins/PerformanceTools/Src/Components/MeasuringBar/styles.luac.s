@@ -17,74 +17,68 @@ MAIN:
   SETTABLEKS R6 R5 K11 ["BackgroundColor3"]
   LOADN R6 0
   SETTABLEKS R6 R5 K12 ["BorderSizePixel"]
-  NEWTABLE R6 0 9
+  NEWTABLE R6 0 8
   MOVE R7 R2
-  LOADK R8 K15 [":hover"]
-  DUPTABLE R9 K16 [{"BackgroundColor3"}]
-  LOADK R10 K17 ["$BackgroundHover"]
-  SETTABLEKS R10 R9 K11 ["BackgroundColor3"]
+  LOADK R8 K15 ["> TextLabel"]
+  DUPTABLE R9 K17 [{"TextColor3"}]
+  LOADK R10 K18 ["$TextPrimary"]
+  SETTABLEKS R10 R9 K16 ["TextColor3"]
   CALL R7 2 1
   MOVE R8 R2
-  LOADK R9 K18 ["> TextLabel"]
-  DUPTABLE R10 K20 [{"TextColor3"}]
-  LOADK R11 K21 ["$TextPrimary"]
-  SETTABLEKS R11 R10 K19 ["TextColor3"]
+  LOADK R9 K19 [">> .Component-MeasuringBarPip"]
+  DUPTABLE R10 K22 [{"BackgroundColor3", "Size", "BorderSizePixel", "LayoutOrder"}]
+  LOADK R11 K14 ["$BackgroundPaper"]
+  SETTABLEKS R11 R10 K11 ["BackgroundColor3"]
+  GETIMPORT R11 K25 [UDim2.new]
+  LOADN R12 0
+  LOADN R13 2
+  LOADN R14 1
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K20 ["Size"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K12 ["BorderSizePixel"]
+  LOADN R11 4
+  SETTABLEKS R11 R10 K21 ["LayoutOrder"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K22 [">> .Component-MeasuringBarPip"]
-  DUPTABLE R11 K25 [{"BackgroundColor3", "Size", "BorderSizePixel", "LayoutOrder"}]
-  LOADK R12 K14 ["$BackgroundPaper"]
+  LOADK R10 K26 [">> .Component-MeasuringBarBackground"]
+  DUPTABLE R11 K28 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R12 K29 ["$MeasuringBarBackground"]
   SETTABLEKS R12 R11 K11 ["BackgroundColor3"]
-  GETIMPORT R12 K28 [UDim2.new]
-  LOADN R13 0
-  LOADN R14 2
-  LOADN R15 1
-  LOADN R16 0
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K23 ["Size"]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K12 ["BorderSizePixel"]
-  LOADN R12 4
-  SETTABLEKS R12 R11 K24 ["LayoutOrder"]
+  LOADK R12 K30 [0.92]
+  SETTABLEKS R12 R11 K27 ["BackgroundTransparency"]
   CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K29 [">> .Component-MeasuringBarBackground"]
-  DUPTABLE R12 K31 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R13 K32 ["$Shift200Color"]
+  LOADK R11 K31 [">> .Component-MeasurementBarFillLow"]
+  DUPTABLE R12 K32 [{"BackgroundColor3"}]
+  LOADK R13 K33 ["$MeasuringBarFillLow"]
   SETTABLEKS R13 R12 K11 ["BackgroundColor3"]
-  LOADK R13 K33 [0.92]
-  SETTABLEKS R13 R12 K30 ["BackgroundTransparency"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K34 [">> .Component-MeasurementBarFillLow"]
-  DUPTABLE R13 K16 [{"BackgroundColor3"}]
-  LOADK R14 K35 ["$MeasuringBarFillLow"]
+  LOADK R12 K34 [">> .Component-MeasurementBarFillMedium"]
+  DUPTABLE R13 K32 [{"BackgroundColor3"}]
+  LOADK R14 K35 ["$MeasuringBarFillMedium"]
   SETTABLEKS R14 R13 K11 ["BackgroundColor3"]
   CALL R11 2 1
   MOVE R12 R2
-  LOADK R13 K36 [">> .Component-MeasurementBarFillMedium"]
-  DUPTABLE R14 K16 [{"BackgroundColor3"}]
-  LOADK R15 K37 ["$MeasuringBarFillMedium"]
+  LOADK R13 K36 [">> .Component-MeasurementBarFillHigh"]
+  DUPTABLE R14 K32 [{"BackgroundColor3"}]
+  LOADK R15 K37 ["$MeasuringBarFillHigh"]
   SETTABLEKS R15 R14 K11 ["BackgroundColor3"]
   CALL R12 2 1
   MOVE R13 R2
-  LOADK R14 K38 [">> .Component-MeasurementBarFillHigh"]
-  DUPTABLE R15 K16 [{"BackgroundColor3"}]
-  LOADK R16 K39 ["$MeasuringBarFillHigh"]
-  SETTABLEKS R16 R15 K11 ["BackgroundColor3"]
+  LOADK R14 K38 [">> .ChildRenderBar"]
+  DUPTABLE R15 K40 [{"TextSize"}]
+  LOADK R16 K41 ["$FontSize_300"]
+  SETTABLEKS R16 R15 K39 ["TextSize"]
   CALL R13 2 1
   MOVE R14 R2
-  LOADK R15 K40 [">> .ChildRenderBar"]
-  DUPTABLE R16 K42 [{"TextSize"}]
-  LOADK R17 K43 ["$FontSize_300"]
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  CALL R14 2 1
-  MOVE R15 R2
-  LOADK R16 K44 [">> .MainRenderBar"]
-  DUPTABLE R17 K42 [{"TextSize"}]
-  LOADK R18 K45 ["$FontSize_350"]
-  SETTABLEKS R18 R17 K41 ["TextSize"]
-  CALL R15 2 -1
+  LOADK R15 K42 [">> .MainRenderBar"]
+  DUPTABLE R16 K40 [{"TextSize"}]
+  LOADK R17 K43 ["$FontSize_350"]
+  SETTABLEKS R17 R16 K39 ["TextSize"]
+  CALL R14 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

@@ -17,29 +17,23 @@ MAIN:
   SETTABLEKS R6 R5 K11 ["BackgroundColor3"]
   LOADN R6 0
   SETTABLEKS R6 R5 K12 ["BorderSizePixel"]
-  NEWTABLE R6 0 2
+  NEWTABLE R6 0 1
   MOVE R7 R2
-  LOADK R8 K15 [":hover"]
-  DUPTABLE R9 K16 [{"BackgroundColor3"}]
-  LOADK R10 K17 ["$BackgroundHover"]
-  SETTABLEKS R10 R9 K11 ["BackgroundColor3"]
-  CALL R7 2 1
-  MOVE R8 R2
-  LOADK R9 K18 [">> TextLabel"]
-  DUPTABLE R10 K25 [{"TextColor3", "BackgroundTransparency", "TextSize", "Font", "TextXAlignment", "TextYAlignment"}]
-  LOADK R11 K26 ["$TextPrimary"]
-  SETTABLEKS R11 R10 K19 ["TextColor3"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K20 ["BackgroundTransparency"]
-  LOADN R11 16
-  SETTABLEKS R11 R10 K21 ["TextSize"]
-  GETIMPORT R11 K29 [Enum.Font.BuilderSans]
-  SETTABLEKS R11 R10 K22 ["Font"]
-  GETIMPORT R11 K31 [Enum.TextXAlignment.Left]
-  SETTABLEKS R11 R10 K23 ["TextXAlignment"]
-  GETIMPORT R11 K33 [Enum.TextYAlignment.Center]
-  SETTABLEKS R11 R10 K24 ["TextYAlignment"]
-  CALL R8 2 -1
+  LOADK R8 K15 [">> TextLabel"]
+  DUPTABLE R9 K22 [{"TextColor3", "BackgroundTransparency", "TextSize", "Font", "TextXAlignment", "TextYAlignment"}]
+  LOADK R10 K23 ["$TextPrimary"]
+  SETTABLEKS R10 R9 K16 ["TextColor3"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K17 ["BackgroundTransparency"]
+  LOADN R10 16
+  SETTABLEKS R10 R9 K18 ["TextSize"]
+  GETIMPORT R10 K26 [Enum.Font.BuilderSans]
+  SETTABLEKS R10 R9 K19 ["Font"]
+  GETIMPORT R10 K28 [Enum.TextXAlignment.Left]
+  SETTABLEKS R10 R9 K20 ["TextXAlignment"]
+  GETIMPORT R10 K30 [Enum.TextYAlignment.Center]
+  SETTABLEKS R10 R9 K21 ["TextYAlignment"]
+  CALL R7 2 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

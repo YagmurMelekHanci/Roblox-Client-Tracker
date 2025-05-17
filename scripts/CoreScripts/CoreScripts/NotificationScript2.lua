@@ -27,7 +27,11 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local VRService = game:GetService("VRService")
 local GroupService = game:GetService("GroupService")
 local TeleportService = game:GetService("TeleportService")
+local LocalizationService = game:GetService("LocalizationService")
 local CorePackages = game:GetService("CorePackages")
+local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
 local RobloxGui = CoreGui.RobloxGui
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
@@ -37,6 +41,8 @@ local FFlagClientToastNotificationsEnabled = game:GetEngineFeature("ClientToastN
 local GetFFlagClientToastNotificationsRedirect =
 	require(RobloxGui.Modules.Flags.GetFFlagClientToastNotificationsRedirect)
 local GetFFlagFriendshipNotifsUseSendr = require(RobloxGui.Modules.Flags.GetFFlagFriendshipNotifsUseSendr)
+local FFlagNotificationsRenameFriendRequestToConnection =
+	game:DefineFastFlag("NotificationsRenameFriendRequestToConnection", false)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 local FFlagFixOnBadgeAwardedError = game:DefineFastFlag("FixOnBadgeAwardedError", false)
@@ -105,6 +111,29 @@ local TWEEN_TIME = 0.35
 local DEFAULT_NOTIFICATION_DURATION = 5
 local MAX_GET_FRIEND_IMAGE_YIELD_TIME = 5
 local FRIEND_REQUEST_NOTIFICATION_THROTTLE = 5
+
+local FRIEND_REQUEST_NOTIFICATION_LOCALIZATION_KEYS = {
+	ACCEPTED = "InGame.NotificationScript2.Message.ConnectionRequestEvent.Accepted",
+	SENT = "InGame.NotificationScript2.Message.ConnectionRequestEvent.Sent",
+}
+
+-- The new, supported way to translate strings in the client.
+-- This function should be used instead of coreScriptTableTranslator:FormatByKey.
+-- Errors will be caught and an empty string will be returned if the translation fails.
+local function translateString(key: string, arguments: { [string]: any }?): string
+	local localeId = LocalizationService.RobloxLocaleId
+	local localization = Localization.new(localeId)
+	localization:SetLocale(localeId)
+
+	local success, result = pcall(function()
+		return localization:Format(key, arguments)
+	end)
+	if success then
+		return result
+	end
+	Logging.warn("Failed to translate string with key: " .. key)
+	return ""
+end
 
 local friendRequestNotificationFIntSuccess, friendRequestNotificationFIntValue = pcall(function()
 	return tonumber(settings():GetFVariable("FriendRequestNotificationThrottle"))
@@ -803,10 +832,17 @@ local function sendFriendNotification(fromPlayer)
 
 	local acceptText = "Accept"
 	local declineText = "Decline"
+
+	local shouldRenameToConnection = FFlagNotificationsRenameFriendRequestToConnection
+		and UniversalAppPolicy.getAppFeaturePolicies().getRenameFriendsToConnections()
+	local text = if shouldRenameToConnection
+		then translateString(FRIEND_REQUEST_NOTIFICATION_LOCALIZATION_KEYS.SENT)
+		else "Sent you a friend request!"
+
 	sendNotificationInfo({
 		GroupName = "Friends",
 		Title = fromPlayer.DisplayName,
-		Text = "Sent you a friend request!",
+		Text = text,
 		DetailText = fromPlayer.DisplayName,
 		Image = getFriendImage(fromPlayer.UserId),
 		Duration = 8,
@@ -844,7 +880,13 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 	if fromPlayer ~= LocalPlayer and toPlayer ~= LocalPlayer then
 		return
 	end
-	--
+
+	local shouldRenameToConnection = FFlagNotificationsRenameFriendRequestToConnection
+		and UniversalAppPolicy.getAppFeaturePolicies().getRenameFriendsToConnections()
+	local titleText = if shouldRenameToConnection
+		then translateString(FRIEND_REQUEST_NOTIFICATION_LOCALIZATION_KEYS.ACCEPTED)
+		else "New Friend"
+
 	if fromPlayer == LocalPlayer then
 		if event == Enum.FriendRequestEvent.Accept and (not GetFFlagFriendshipNotifsUseSendr()) then
 			local detailText = RobloxTranslator:FormatByKey(
@@ -854,7 +896,7 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 
 			sendNotificationInfo({
 				GroupName = "Friends",
-				Title = "New Friend",
+				Title = titleText,
 				Text = toPlayer.Name,
 				DetailText = detailText,
 
@@ -876,7 +918,7 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 
 			sendNotificationInfo({
 				GroupName = "Friends",
-				Title = "New Friend",
+				Title = titleText,
 				Text = fromPlayer.Name,
 				DetailText = detailText,
 

@@ -58,6 +58,7 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
 local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
 local FFlagUnbindRenderSteps = game:DefineFastFlag("UnbindRenderSteps", false)
+local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 
 local isPreferredTextSizePropValid, _result = pcall(function() -- TODO(UIBLOX-1002): Ideally we'd use an engine feature here instead of a pcall. This will be removed when we have the EnablePreferredTextSizeAccessGuiService engine feature
 	return GuiService.PreferredTextSize
@@ -3310,6 +3311,16 @@ end
 
 function moduleApiTable:IsPortrait()
 	return isPortrait()
+end
+
+if FFlagRefactorMenuConfirmationButtons then
+	local function isUsingGamepad()
+		return gamepadSet[UserInputService:GetLastInputType()] or false
+	end
+
+	function moduleApiTable:IsUsingGamepad()
+		return isUsingGamepad()
+	end
 end
 
 function moduleApiTable:MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef)

@@ -84,7 +84,7 @@ local function MenuButton(props: Props)
 			Transparency = if props.isDisabled then getDisabledTransparency(backgroundStyle.Transparency) else backgroundStyle.Transparency,
 		},
 		tag = {
-			["fill row align-y-center align-x-center gap-small radius-medium"] = true,
+			["fill auto-x row align-y-center align-x-center gap-small radius-medium"] = true,
 			["size-0-1200"] = not props.isSmall,
 			["size-0-1000"] = props.isSmall,
 			["bg-action-standard"] = not props.isEmphasized,

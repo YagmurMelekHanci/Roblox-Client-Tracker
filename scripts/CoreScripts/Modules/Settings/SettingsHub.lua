@@ -3174,7 +3174,7 @@ local function CreateSettingsHub()
 			local bottomExtra = UDim.new(0, 0)
 			local hasBottomButtons = (not (utility:IsPortrait() or utility:IsSmallTouchScreen())) or Theme.AlwaysShowBottomBar()
 			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-				hasBottomButtons = (not utility:IsPortrait()) or Theme.AlwaysShowBottomBar()
+				hasBottomButtons = true
 			end
 
 			if this.HubBar and not shouldShowHubBar(pageToSwitchTo) and not pageToSwitchTo.DisableTopPadding then

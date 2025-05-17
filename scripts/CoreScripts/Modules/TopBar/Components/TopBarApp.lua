@@ -127,7 +127,7 @@ local TopBarAppPolicy = require(script.Parent.Parent.TopBarAppPolicy)
 local UseUpdatedHealthBar = ChromeEnabled()
 
 -- vr bottom bar
-local VRBottomBar = if isInExperienceUIVREnabled
+local VRBottomBar = if isInExperienceUIVREnabled and ChromeEnabled()
 	then require(script.Parent.VRBottomUnibar)
 	else require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
 

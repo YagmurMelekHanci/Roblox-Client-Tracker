@@ -389,57 +389,21 @@ MAIN:
   SETTABLEKS R22 R21 K44 ["BackgroundColor3"]
   CALL R19 2 1
   MOVE R20 R3
-  LOADK R21 K154 [".Component-Wrapper"]
-  DUPTABLE R22 K155 [{"BackgroundTransparency"}]
-  LOADN R23 1
-  SETTABLEKS R23 R22 K45 ["BackgroundTransparency"]
-  NEWTABLE R23 0 3
+  LOADK R21 K154 ["#ResultsContainer"]
+  NEWTABLE R22 0 0
+  NEWTABLE R23 0 1
   MOVE R24 R3
-  LOADK R25 K156 [":: UIListLayout"]
-  DUPTABLE R26 K159 [{"FillDirection", "VerticalFlex", "SortOrder", "ItemLineAlignment"}]
-  GETIMPORT R27 K95 [Enum.FillDirection.Vertical]
-  SETTABLEKS R27 R26 K90 ["FillDirection"]
-  GETIMPORT R27 K162 [Enum.UIFlexAlignment.None]
-  SETTABLEKS R27 R26 K157 ["VerticalFlex"]
-  GETIMPORT R27 K97 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R27 R26 K92 ["SortOrder"]
-  GETIMPORT R27 K164 [Enum.ItemLineAlignment.Start]
-  SETTABLEKS R27 R26 K158 ["ItemLineAlignment"]
-  CALL R24 2 1
-  MOVE R25 R3
-  LOADK R26 K165 [".Component-WidgetHeader"]
-  DUPTABLE R27 K155 [{"BackgroundTransparency"}]
-  LOADN R28 1
-  SETTABLEKS R28 R27 K45 ["BackgroundTransparency"]
-  NEWTABLE R28 0 1
-  MOVE R29 R3
-  LOADK R30 K166 [":: UIFlexItem"]
-  DUPTABLE R31 K66 [{"FlexMode"}]
-  GETIMPORT R32 K167 [Enum.UIFlexMode.None]
-  SETTABLEKS R32 R31 K65 ["FlexMode"]
-  CALL R29 2 -1
-  SETLIST R28 R29 -1 [1]
-  CALL R25 3 1
-  MOVE R26 R3
-  LOADK R27 K168 [".Component-WidgetBody"]
-  DUPTABLE R28 K155 [{"BackgroundTransparency"}]
-  LOADN R29 1
-  SETTABLEKS R29 R28 K45 ["BackgroundTransparency"]
-  NEWTABLE R29 0 1
-  MOVE R30 R3
-  LOADK R31 K166 [":: UIFlexItem"]
-  DUPTABLE R32 K66 [{"FlexMode"}]
-  GETIMPORT R33 K80 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R33 R32 K65 ["FlexMode"]
-  CALL R30 2 -1
-  SETLIST R29 R30 -1 [1]
-  CALL R26 3 -1
+  LOADK R25 K155 [":: UIFlexItem"]
+  DUPTABLE R26 K66 [{"FlexMode"}]
+  GETIMPORT R27 K80 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R27 R26 K65 ["FlexMode"]
+  CALL R24 2 -1
   SETLIST R23 R24 -1 [1]
   CALL R20 3 -1
   SETLIST R5 R6 -1 [17]
   NEWTABLE R6 0 0
   MOVE R7 R4
-  LOADK R8 K169 ["FindReplaceAllPlugin"]
+  LOADK R8 K156 ["FindReplaceAllPlugin"]
   MOVE R9 R5
   MOVE R10 R6
   CALL R7 3 -1

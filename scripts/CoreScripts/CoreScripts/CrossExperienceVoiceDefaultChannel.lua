@@ -23,6 +23,7 @@ local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local FFlagPartyVoiceBlockSync = SharedFlags.FFlagPartyVoiceBlockSync
+local FFlagPartyVoiceBypassCheck = SharedFlags.FFlagPartyVoiceBypassCheck
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
 
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
@@ -62,6 +63,7 @@ if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	CoreVoiceManager:setOptions({
 		allowSeamlessVoice = false,
 		passInitErrorInPromiseReject = true,
+		forceVoiceEnabled = FFlagPartyVoiceBypassCheck,
 	})
 end
 

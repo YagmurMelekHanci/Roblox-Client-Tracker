@@ -51,7 +51,7 @@ MAIN:
   SETTABLEKS R1 R0 K31 ["iconButtonSize"]
   LOADN R1 100
   SETTABLEKS R1 R0 K32 ["findResultsMinTextWidth"]
-  LOADN R1 120
+  LOADN R1 150
   SETTABLEKS R1 R0 K33 ["findResultsMaxTextWidth"]
   LOADN R1 59
   SETTABLEKS R1 R0 K34 ["minReplaceButtonWidth"]
@@ -59,7 +59,7 @@ MAIN:
   SETTABLEKS R1 R0 K36 ["minReplaceAllButtonWidth"]
   LOADN R1 210
   SETTABLEKS R1 R0 K37 ["replaceAllConfirmationLabelWidth"]
-  LOADN R1 8
+  LOADN R1 10
   SETTABLEKS R1 R0 K38 ["scrollBarThickness"]
   DUPTABLE R1 K41 [{"Dark", "Light"}]
   DUPTABLE R2 K45 [{"Color_Found_Background", "Color_Replaced_Background", "Color_Replacement_Background"}]

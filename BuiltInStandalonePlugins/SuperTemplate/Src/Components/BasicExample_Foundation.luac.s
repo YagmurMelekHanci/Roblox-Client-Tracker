@@ -11,18 +11,15 @@ PROTO_0:
   SETTABLEKS R5 R4 K3 ["tag"]
   DUPTABLE R5 K7 [{"OptionalContent"}]
   GETTABLEKS R7 R0 K8 ["showContent"]
-  JUMPIFNOT R7 [+19]
+  JUMPIFNOT R7 [+15]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K1 ["createElement"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K9 ["Text"]
   DUPTABLE R8 K10 [{"Text", "tag"}]
-  LOADK R11 K11 ["BasicExample"]
-  LOADK R12 K9 ["Text"]
-  NAMECALL R9 R1 K12 ["getText"]
-  CALL R9 3 1
+  LOADK R9 K11 ["I love hippos!!!"]
   SETTABLEKS R9 R8 K9 ["Text"]
-  LOADK R9 K13 ["padding-small grow size-2800 bg-alert"]
+  LOADK R9 K12 ["padding-small grow size-2800 bg-alert"]
   SETTABLEKS R9 R8 K3 ["tag"]
   CALL R6 2 1
   JUMP [+1]

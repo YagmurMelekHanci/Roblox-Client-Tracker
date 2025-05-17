@@ -24,7 +24,9 @@ local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
-local ChromeService = if ChromeEnabled() and (FFlagTiltIconUnibarFocusNav or FFlagEnableChromeShortcutBar) then require(Chrome.Service) else nil :: never
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local ChromeService = if ChromeEnabled() and (FFlagTiltIconUnibarFocusNav or FFlagEnableChromeShortcutBar or isInExperienceUIVREnabled) then require(Chrome.Service) else nil :: never
 local UnibarConstants = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then require(Chrome.ChromeShared.Unibar.Constants) else nil :: never
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
@@ -60,8 +62,7 @@ if isNewInGameMenuEnabled() then
 end
 
 local isNewTiltIconEnabled = require(RobloxGui.Modules.isNewTiltIconEnabled)
-local isInExperienceUIVREnabled =
-	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+
 local TooltipCallout
 local isSpatial
 local Panel3DInSpatialUI
@@ -164,6 +165,10 @@ function MenuIcon:init()
 
 			delay(DEFAULT_DELAY_TIME, function()
 				if self.state.isHovering and not self.state.clickLatched then
+					if isInExperienceUIVREnabled and isSpatial() then
+						-- In VR, MenuIcon shows up when it is hidden and tooltip showing up in hovering state
+						ChromeService:onTriggerVRToggleButton():fire(true)
+					end
 					self:setState({
 						showTooltip = true,
 					})

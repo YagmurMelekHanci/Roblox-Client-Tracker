@@ -276,27 +276,40 @@ function TooltipButton(props: TooltipButtonProps)
 	-- clickLatched inhibits the display of the tooltip if you've clicked on the icon
 	-- this is reset on the next hover
 	local clickLatched, setClicked = useTimeHysteresis(0, 1.0)
-	local hoverHandler = React.useCallback(function(oldState, newState)
-		if
-			newState == ControlState.Selected
-			and (oldState == ControlState.Default or oldState == ControlState.Hover)
-		then
-			ChromeService:setSelected(props.integration.id)
-		elseif newState == ControlState.Selected and oldState == ControlState.Default then
-			ChromeService:setSelected(props.integration.id)
-		end
+	local isSpatial = if isInExperienceUIVREnabled then isSpatial() else nil
+	local hoverHandler = React.useCallback(
+		function(oldState, newState)
+			if
+				newState == ControlState.Selected
+				and (oldState == ControlState.Default or oldState == ControlState.Hover)
+			then
+				ChromeService:setSelected(props.integration.id)
+			elseif newState == ControlState.Selected and oldState == ControlState.Default then
+				ChromeService:setSelected(props.integration.id)
+			end
 
-		local active = newState ~= ControlState.Default
-		props.setHovered(active)
-		local hovered = newState == ControlState.Hover
-		setHovered(hovered, (hovered and isTooltipHovered) or areTooltipsDisplaying())
-		if FFlagEnableUnibarFtuxTooltips and hovered then
-			ChromeService:onIntegrationHovered():fire(props.integration.id)
-		end
-		if not active then
-			setClicked(false)
-		end
-	end, { props.setHovered :: any, setHovered, setClicked, isTooltipHovered })
+			local active = newState ~= ControlState.Default
+			props.setHovered(active)
+			local hovered = newState == ControlState.Hover
+			setHovered(hovered, (hovered and isTooltipHovered) or areTooltipsDisplaying())
+			if FFlagEnableUnibarFtuxTooltips and hovered then
+				ChromeService:onIntegrationHovered():fire(props.integration.id)
+				if isInExperienceUIVREnabled and isSpatial then
+					-- In VR, Unibar shows up when it is hidden and tooltip showing up in hovering state
+					local isHoverState = oldState == ControlState.Default and newState == ControlState.Hover
+					if isHoverState then
+						ChromeService:onTriggerVRToggleButton():fire(true)
+					end
+				end
+			end
+			if not active then
+				setClicked(false)
+			end
+		end,
+		if isInExperienceUIVREnabled
+			then { props.setHovered :: any, setHovered, setClicked, isTooltipHovered, isSpatial }
+			else { props.setHovered :: any, setHovered, setClicked, isTooltipHovered }
+	)
 
 	local touchBegan = React.useCallback(function(_rbx: Frame, inputObj: InputObject)
 		if not draggable then
@@ -502,7 +515,7 @@ function TooltipButton(props: TooltipButtonProps)
 		}
 		else nil
 
-	if isInExperienceUIVREnabled and isSpatial() then
+	if isInExperienceUIVREnabled and isSpatial then
 		local triggerPointPosition, setTriggerPointPosition = React.useBinding(Vector2.zero)
 		local triggerPointSize, setTriggerPointSize = React.useBinding(Vector2.zero)
 

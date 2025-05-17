@@ -971,16 +971,10 @@ MAIN:
   SETTABLEKS R12 R9 K313 ["VALIDATION_STATE"]
   MOVE R12 R7
   CALL R12 0 1
-  JUMPIFNOT R12 [+14]
-  NEWTABLE R12 0 8
+  JUMPIFNOT R12 [+8]
+  NEWTABLE R12 0 2
   LOADK R13 K58 ["SciFi"]
   LOADK R14 K59 [Enum.Genre.SciFi]
-  LOADK R15 K60 ["Ninja"]
-  LOADK R16 K61 [Enum.Genre.Ninja]
-  LOADK R17 K62 ["Scary"]
-  LOADK R18 K63 [Enum.Genre.Scary]
-  LOADK R19 K64 ["Pirate"]
-  LOADK R20 K65 [Enum.Genre.Pirate]
-  SETLIST R12 R13 8 [1]
-  SETTABLEKS R12 R9 K322 ["avatarMarketplaceAssetIdPropertyNames"]
+  SETLIST R12 R13 2 [1]
+  SETTABLEKS R12 R9 K316 ["assetIdStringPatterns"]
   RETURN R9 1

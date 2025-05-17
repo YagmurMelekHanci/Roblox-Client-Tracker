@@ -42,36 +42,54 @@ PROTO_1:
   CALL R15 1 2
   GETUPVAL R18 0
   GETTABLEKS R17 R18 K0 ["useState"]
-  NEWTABLE R18 0 0
+  LOADK R18 K1 [""]
   CALL R17 1 2
-  DUPTABLE R19 K24 [{"promptText", "randomizeSeed", "seed", "rotation", "smartUVUnwrap", "promptMasking", "validRotation", "validSeed", "optionsExpanded", "setPromptText", "setRandomizeSeed", "setSeed", "setRotation", "setSmartUVUnwrap", "setPromptMasking", "setValidRotation", "setValidSeed", "setOptionsExpanded"}]
-  SETTABLEKS R1 R19 K6 ["promptText"]
-  SETTABLEKS R3 R19 K7 ["randomizeSeed"]
-  SETTABLEKS R5 R19 K8 ["seed"]
-  SETTABLEKS R7 R19 K9 ["rotation"]
-  SETTABLEKS R9 R19 K10 ["smartUVUnwrap"]
-  SETTABLEKS R11 R19 K11 ["promptMasking"]
-  SETTABLEKS R13 R19 K12 ["validRotation"]
-  SETTABLEKS R15 R19 K13 ["validSeed"]
-  SETTABLEKS R17 R19 K14 ["optionsExpanded"]
-  SETTABLEKS R2 R19 K15 ["setPromptText"]
-  SETTABLEKS R4 R19 K16 ["setRandomizeSeed"]
-  SETTABLEKS R6 R19 K17 ["setSeed"]
-  SETTABLEKS R8 R19 K18 ["setRotation"]
-  SETTABLEKS R10 R19 K19 ["setSmartUVUnwrap"]
-  SETTABLEKS R12 R19 K20 ["setPromptMasking"]
-  SETTABLEKS R14 R19 K21 ["setValidRotation"]
-  SETTABLEKS R16 R19 K22 ["setValidSeed"]
-  SETTABLEKS R18 R19 K23 ["setOptionsExpanded"]
-  GETUPVAL R21 0
-  GETTABLEKS R20 R21 K25 ["createElement"]
-  GETUPVAL R22 2
-  GETTABLEKS R21 R22 K26 ["Provider"]
-  DUPTABLE R22 K28 [{"value"}]
-  SETTABLEKS R19 R22 K27 ["value"]
-  GETTABLEKS R23 R0 K29 ["children"]
-  CALL R20 3 -1
-  RETURN R20 -1
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K0 ["useState"]
+  LOADK R20 K6 [0.5]
+  CALL R19 1 2
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K0 ["useState"]
+  LOADB R22 0
+  CALL R21 1 2
+  GETUPVAL R24 0
+  GETTABLEKS R23 R24 K0 ["useState"]
+  NEWTABLE R24 0 0
+  CALL R23 1 2
+  DUPTABLE R25 K31 [{"promptText", "randomizeSeed", "seed", "rotation", "smartUVUnwrap", "promptMasking", "validRotation", "validSeed", "artStyle", "strength", "artStyleExpanded", "optionsExpanded", "setPromptText", "setRandomizeSeed", "setSeed", "setRotation", "setSmartUVUnwrap", "setPromptMasking", "setValidRotation", "setValidSeed", "setArtStyle", "setStrength", "setArtStyleExpanded", "setOptionsExpanded"}]
+  SETTABLEKS R1 R25 K7 ["promptText"]
+  SETTABLEKS R3 R25 K8 ["randomizeSeed"]
+  SETTABLEKS R5 R25 K9 ["seed"]
+  SETTABLEKS R7 R25 K10 ["rotation"]
+  SETTABLEKS R9 R25 K11 ["smartUVUnwrap"]
+  SETTABLEKS R11 R25 K12 ["promptMasking"]
+  SETTABLEKS R13 R25 K13 ["validRotation"]
+  SETTABLEKS R15 R25 K14 ["validSeed"]
+  SETTABLEKS R17 R25 K15 ["artStyle"]
+  SETTABLEKS R19 R25 K16 ["strength"]
+  SETTABLEKS R21 R25 K17 ["artStyleExpanded"]
+  SETTABLEKS R23 R25 K18 ["optionsExpanded"]
+  SETTABLEKS R2 R25 K19 ["setPromptText"]
+  SETTABLEKS R4 R25 K20 ["setRandomizeSeed"]
+  SETTABLEKS R6 R25 K21 ["setSeed"]
+  SETTABLEKS R8 R25 K22 ["setRotation"]
+  SETTABLEKS R10 R25 K23 ["setSmartUVUnwrap"]
+  SETTABLEKS R12 R25 K24 ["setPromptMasking"]
+  SETTABLEKS R14 R25 K25 ["setValidRotation"]
+  SETTABLEKS R16 R25 K26 ["setValidSeed"]
+  SETTABLEKS R18 R25 K27 ["setArtStyle"]
+  SETTABLEKS R20 R25 K28 ["setStrength"]
+  SETTABLEKS R22 R25 K29 ["setArtStyleExpanded"]
+  SETTABLEKS R24 R25 K30 ["setOptionsExpanded"]
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K32 ["createElement"]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K33 ["Provider"]
+  DUPTABLE R28 K35 [{"value"}]
+  SETTABLEKS R25 R28 K34 ["value"]
+  GETTABLEKS R29 R0 K36 ["children"]
+  CALL R26 3 -1
+  RETURN R26 -1
 
 MAIN:
   PREPVARARGS 0

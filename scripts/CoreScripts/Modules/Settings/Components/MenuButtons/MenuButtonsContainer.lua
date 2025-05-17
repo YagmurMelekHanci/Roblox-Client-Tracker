@@ -33,16 +33,21 @@ type ButtonsData = { MenuButton.ButtonData }
 local function createMenuButtons(buttonsData: ButtonsData, lastInput: string, isSmall: boolean)
 	local buttonElems: { [string]: React.ReactNode } = {}
 	for i = 1, #buttonsData do
-		buttonElems["MenuButton" .. i] = React.createElement(MenuButton, {
-			text = buttonsData[i].text,
-			lastInput = lastInput,
-			keyboardHint = buttonsData[i].hint.keyboard,
-			gamepadButtonImageHint = buttonsData[i].hint.gamepadButtonImage,
-			onActivated = buttonsData[i].onActivated,
-			layoutOrder = i,
-			isEmphasized = buttonsData[i].isEmphasized,
-			isSmall = isSmall,
-			isDisabled = buttonsData[i].getIsDisabled(),
+		buttonElems["MenuButtonContainer" .. i] = React.createElement(View, {
+			tag = "fill row align-y-center",
+			LayoutOrder = i,
+		}, {
+			MenuButton = React.createElement(MenuButton, {
+				text = buttonsData[i].text,
+				lastInput = lastInput,
+				keyboardHint = buttonsData[i].hint.keyboard,
+				gamepadButtonImageHint = buttonsData[i].hint.gamepadButtonImage,
+				onActivated = buttonsData[i].onActivated,
+				layoutOrder = 1,
+				isEmphasized = buttonsData[i].isEmphasized,
+				isSmall = isSmall,
+				isDisabled = buttonsData[i].getIsDisabled(),
+			})
 		})
 	end
 	return buttonElems

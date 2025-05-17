@@ -11,7 +11,10 @@ local Theme = require(script.Parent.Theme)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local GetStyleTokens = require(RobloxGui.Modules.Chrome.ChromeShared.Utility.GetStyleTokens)
+
+local CoreScriptVersionEnabled = game:GetEngineFeature("CoreScriptVersionEnabled")
 local FIntSpatialUIDarkenBackgroundTransparency = game:DefineFastInt("SpatialUIDarkenBackgroundTransparency", 0)
+local FIntSpatialUIScaledVersionTextSize = game:DefineFastInt("SpatialUIVersionTextSizeScaled", 1400)
 
 type ThemeItem = UIBlox.ThemeItem
 
@@ -66,6 +69,8 @@ function SettingsUIDelegate.new(settingsHub)
 		_userGui = nil,
 		_windowsVisibilityValues = {},
 		_windowsDisconnectCallbacks = {},
+		_openVRMenuHandler = nil,
+		_originalVersionTextSizes = {},
 	}
 	setmetatable(self, SettingsUIDelegate)
 	return self
@@ -116,7 +121,14 @@ function SettingsUIDelegate.enableVR(self)
 			topBarVisibilityObservable:set(VRHub.ShowTopBar)
 		end)
 		UIManager.getInstance():connectTopBarVisibility(topBarVisibilityObservable)
+
+		local Chrome = RobloxGui.Modules.Chrome
+		local ChromeService = require(Chrome.ChromeShared.Service)
+		ChromeService:onTriggerVRToggleButton():connect(function(showTopBar)
+			VRHub:SetShowTopBar(showTopBar)
+		end)
 	end
+	self:setVersionTextSize()
 end
 
 function SettingsUIDelegate.isInputEventNeededBySettings(self, actionName, inputState, inputObject)
@@ -125,7 +137,10 @@ function SettingsUIDelegate.isInputEventNeededBySettings(self, actionName, input
 			self._userGui = require(RobloxGui.Modules.VR.UserGui)
 		end
 		if self._userGui:isInputNeededForOpenVRMenu(inputObject) then
-			local handleOpenVRMenuIfNeeded = self._userGui:getOpenVRMenuHandler()
+			if self._openVRMenuHandler == nil then
+				self._openVRMenuHandler = self._userGui:getOpenVRMenuHandler()
+			end
+			local handleOpenVRMenuIfNeeded = self._openVRMenuHandler
 			handleOpenVRMenuIfNeeded(actionName, inputState, inputObject)
 			return false
 		end
@@ -155,8 +170,10 @@ function SettingsUIDelegate.disableVR(self)
 	if self._surfaceGuiEnabledConnection ~= nil then
 		self._surfaceGuiEnabledConnection:disconnect()
 	end
+	self._openVRMenuHandler = nil
 	self:disconnectWindowsVisibility()
 	UIManager.getInstance():disconnectPanelVisibility(PanelType.MoreMenu)
+	self:restoreVersionTextSize()
 	self._vrEnabled = false
 end
 
@@ -342,6 +359,35 @@ function SettingsUIDelegate.getMenuContainerExtraSpace(self): number
 	else
 		return 0
 	end
+end
+
+local function refreshVersionTextLabelSize(label: TextLabel)
+	local marginSize = 6
+	local defaultSize = UDim2.new(0.2, -6, 1, 0)
+	label.Size = if CoreScriptVersionEnabled then UDim2.new(0, label.TextBounds.X + marginSize, 1, 0) else defaultSize
+end
+
+function SettingsUIDelegate.setVersionTextSize(self)
+	local children = (self._settingsHub.VersionContainer :: GuiObject):GetChildren()
+	for _, c in children do
+		if c:IsA("TextLabel") then
+			self._originalVersionTextSizes[c] = c.TextSize
+			c.TextSize = Theme.textSize(FIntSpatialUIScaledVersionTextSize / 100)
+			refreshVersionTextLabelSize(c)
+		end
+	end
+end
+
+function SettingsUIDelegate.restoreVersionTextSize(self)
+	local children = (self._settingsHub.VersionContainer :: GuiObject):GetChildren()
+	for _, c in children do
+		if c:IsA("TextLabel") and self._originalVersionTextSizes[c] then
+			c.TextSize = self._originalVersionTextSizes[c]
+			refreshVersionTextLabelSize(c)
+			self._originalVersionTextSizes[c] = nil
+		end
+	end
+	self._originalVersionTextSizes = {}
 end
 
 return SettingsUIDelegate

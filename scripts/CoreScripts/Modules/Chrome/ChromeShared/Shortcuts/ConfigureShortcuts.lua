@@ -20,7 +20,9 @@ local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShort
 
 local ChromeFlags = Chrome.Flags
 local FFlagRespawnChromeShortcutTelemetry = require(ChromeFlags.FFlagRespawnChromeShortcutTelemetry)
+local FFlagLeaveActionChromeShortcutTelemetry = require(ChromeFlags.FFlagLeaveActionChromeShortcutTelemetry)
 local FFlagLeaveChromeShortcutTelemetry = require(ChromeFlags.FFlagLeaveChromeShortcutTelemetry)
+local FFlagRespawnActionChromeShortcutTelemetry = require(ChromeFlags.FFlagRespawnActionChromeShortcutTelemetry)
 
 local ChatSelector = if FFlagConsoleChatOnExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
@@ -42,7 +44,15 @@ local leaveActionProps = {
 
 		if SettingsHub:GetVisibility() then
 			if SettingsHub.Instance.Pages.CurrentPage == LeavePage then
-				leaveGame(true)
+				if FFlagLeaveActionChromeShortcutTelemetry then
+					leaveGame(true, {
+						telemetryFields = {
+							used_shortcut = true,
+						},
+					})
+				else
+					leaveGame(true)
+				end
 			else
 				if FFlagLeaveChromeShortcutTelemetry then
 					switchToLeavePage()
@@ -71,7 +81,15 @@ local repawnActionProps = {
 			SettingsHub:GetVisibility()
 			and SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.ResetCharacterPage
 		then
-			SettingsHub.Instance.ResetCharacterPage.ResetFunction()
+			if FFlagRespawnActionChromeShortcutTelemetry then
+				SettingsHub.Instance.ResetCharacterPage.ResetFunction({
+					resetTelemetryFields = {
+						used_shortcut = true,
+					},
+				})
+			else
+				SettingsHub.Instance.ResetCharacterPage.ResetFunction()
+			end
 		else
 			if FFlagRespawnChromeShortcutTelemetry then
 				RespawnUtils.respawnPage({
@@ -106,7 +124,15 @@ function registerShortcuts()
 
 				if SettingsHub:GetVisibility() then
 					if SettingsHub.Instance.Pages.CurrentPage == LeavePage then
-						leaveGame(true)
+						if FFlagLeaveActionChromeShortcutTelemetry then
+							leaveGame(true, {
+								telemetryFields = {
+									used_shortcut = true,
+								},
+							})
+						else
+							leaveGame(true)
+						end
 					else
 						if FFlagLeaveChromeShortcutTelemetry then
 							switchToLeavePage()
@@ -140,7 +166,15 @@ function registerShortcuts()
 					SettingsHub:GetVisibility()
 					and SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.ResetCharacterPage
 				then
-					SettingsHub.Instance.ResetCharacterPage.ResetFunction()
+					if FFlagRespawnActionChromeShortcutTelemetry then
+						SettingsHub.Instance.ResetCharacterPage.ResetFunction({
+							resetTelemetryFields = {
+								used_shortcut = true,
+							},
+						})
+					else
+						SettingsHub.Instance.ResetCharacterPage.ResetFunction()
+					end
 				else
 					if FFlagRespawnChromeShortcutTelemetry then
 						RespawnUtils.respawnPage({

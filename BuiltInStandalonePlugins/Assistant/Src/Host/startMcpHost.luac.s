@@ -1,0 +1,673 @@
+PROTO_0:
+  NEWTABLE R1 0 0
+  GETIMPORT R2 K1 [pairs]
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  GETTABLEKS R7 R6 K2 ["disabled"]
+  JUMPIF R7 [+12]
+  GETTABLEKS R7 R6 K3 ["tool"]
+  MOVE R9 R1
+  GETIMPORT R10 K6 [table.clone]
+  GETTABLEKS R11 R7 K7 ["definition"]
+  CALL R10 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K9 [table.insert]
+  CALL R8 -1 0
+  FORGLOOP R2 2 [-16]
+  RETURN R1 1
+
+PROTO_1:
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K2 ["Server: Received ping request:"]
+  MOVE R4 R0
+  CALL R2 2 0
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K3 ["Server: Responding with pong..."]
+  GETTABLEKS R4 R1 K4 ["sessionId"]
+  CALL R2 2 0
+  DUPTABLE R2 K6 [{"message"}]
+  LOADK R4 K7 ["pong from "]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["_serverInfo"]
+  GETTABLEKS R5 R6 K9 ["name"]
+  CONCAT R3 R4 R5
+  SETTABLEKS R3 R2 K5 ["message"]
+  RETURN R2 1
+
+PROTO_2:
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K2 ["Server: Received tools/list request:"]
+  MOVE R4 R0
+  CALL R2 2 0
+  DUPTABLE R2 K4 [{"tools"}]
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  CALL R5 0 1
+  GETTABLEKS R4 R5 K3 ["tools"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K3 ["tools"]
+  RETURN R2 1
+
+PROTO_3:
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K2 ["Server: Received tools/call request:"]
+  MOVE R4 R0
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K3 ["params"]
+  FASTCALL2K ASSERT R2 K4 [+5]
+  MOVE R4 R2
+  LOADK R5 K4 ["Expected params to be present in tools/call request"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K7 ["name"]
+  MOVE R5 R3
+  JUMPIFNOT R5 [+9]
+  FASTCALL1 TYPEOF R3 [+3]
+  MOVE R7 R3
+  GETIMPORT R6 K9 [typeof]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K10 ["string"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K11 [+4]
+  LOADK R6 K11 ["Expected tool name to be a string"]
+  GETIMPORT R4 K6 [assert]
+  CALL R4 2 0
+  GETTABLEKS R4 R2 K12 ["arguments"]
+  GETUPVAL R7 0
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K13 ["tools"]
+  GETTABLE R5 R6 R3
+  JUMPIFNOT R5 [+10]
+  GETTABLEKS R6 R5 K14 ["disabled"]
+  JUMPIF R6 [+7]
+  GETTABLEKS R7 R5 K15 ["tool"]
+  GETTABLEKS R6 R7 K16 ["handler"]
+  MOVE R7 R4
+  CALL R6 1 -1
+  RETURN R6 -1
+  GETIMPORT R6 K18 [error]
+  LOADK R8 K19 ["Unknown tool: "]
+  MOVE R9 R3
+  CONCAT R7 R8 R9
+  CALL R6 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETIMPORT R1 K1 [print]
+  LOADK R2 K2 ["Server: Received initialized notification - client ready."]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  DUPTABLE R1 K3 [{"name", "version"}]
+  LOADK R2 K4 ["Roblox Studio"]
+  SETTABLEKS R2 R1 K1 ["name"]
+  LOADK R2 K5 ["0.1.0"]
+  SETTABLEKS R2 R1 K2 ["version"]
+  DUPTABLE R2 K7 [{"capabilities"}]
+  DUPTABLE R3 K11 [{"prompts", "resources", "tools"}]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K8 ["prompts"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K9 ["resources"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K10 ["tools"]
+  SETTABLEKS R3 R2 K6 ["capabilities"]
+  CALL R0 2 1
+  DUPTABLE R3 K13 [{"method"}]
+  LOADK R4 K14 ["ping"]
+  SETTABLEKS R4 R3 K12 ["method"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R0 K15 ["setRequestHandler"]
+  CALL R1 3 0
+  DUPTABLE R3 K13 [{"method"}]
+  LOADK R4 K16 ["tools/list"]
+  SETTABLEKS R4 R3 K12 ["method"]
+  DUPCLOSURE R4 K17 [PROTO_2]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  NAMECALL R1 R0 K15 ["setRequestHandler"]
+  CALL R1 3 0
+  DUPTABLE R3 K13 [{"method"}]
+  LOADK R4 K18 ["tools/call"]
+  SETTABLEKS R4 R3 K12 ["method"]
+  DUPCLOSURE R4 K19 [PROTO_3]
+  CAPTURE UPVAL U2
+  NAMECALL R1 R0 K15 ["setRequestHandler"]
+  CALL R1 3 0
+  DUPTABLE R3 K13 [{"method"}]
+  LOADK R4 K20 ["notifications/initialized"]
+  SETTABLEKS R4 R3 K12 ["method"]
+  DUPCLOSURE R4 K21 [PROTO_4]
+  NAMECALL R1 R0 K22 ["setNotificationHandler"]
+  CALL R1 3 0
+  RETURN R0 1
+
+PROTO_6:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+5]
+  GETIMPORT R0 K1 [pcall]
+  GETUPVAL R1 0
+  GETVARARGS R2 -1
+  CALL R0 -1 0
+  GETUPVAL R0 1
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["onclose"]
+  GETUPVAL R2 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K0 ["onclose"]
+  RETURN R0 0
+
+PROTO_8:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["Server: Ready."]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["new"]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U1
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_9:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["close"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_10:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["--- Server Simulation Finished with Error ---"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["Server Simulation Error: "]
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K3 ["close"]
+  CALL R1 1 1
+  DUPCLOSURE R3 K4 [PROTO_10]
+  NAMECALL R1 R1 K5 ["finally"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_12:
+  GETGLOBAL R1 K0 ["getBuiltinServer"]
+  CALL R1 0 1
+  GETUPVAL R3 0
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K1 ["registerServer"]
+  MOVE R3 R1
+  CALL R2 1 0
+  MOVE R4 R0
+  NAMECALL R2 R1 K2 ["connect"]
+  CALL R2 2 1
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K3 ["andThen"]
+  CALL R2 2 1
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K3 ["andThen"]
+  CALL R2 2 1
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K4 ["catch"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_13:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["Client: Successfully connected and initialized."]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_14:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["connect"]
+  CALL R2 2 1
+  DUPCLOSURE R4 K1 [PROTO_13]
+  NAMECALL R2 R2 K2 ["andThen"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_15:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  LOADK R2 K1 ["Client->Side"]
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  LOADK R3 K2 ["Server<-Side"]
+  CALL R2 1 1
+  MOVE R5 R2
+  LOADB R6 0
+  NAMECALL R3 R1 K3 ["bindPeer"]
+  CALL R3 3 0
+  RETURN R1 2
+
+PROTO_16:
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K2 ["Server: Received prompts/list request:"]
+  MOVE R4 R0
+  CALL R2 2 0
+  DUPTABLE R2 K4 [{"prompts"}]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K3 ["prompts"]
+  RETURN R2 1
+
+PROTO_17:
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K2 ["Server: Received resources/list request:"]
+  MOVE R4 R0
+  CALL R2 2 0
+  DUPTABLE R2 K4 [{"resources"}]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K3 ["resources"]
+  RETURN R2 1
+
+PROTO_18:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["SSE connection closed"]
+  CALL R0 1 0
+  GETIMPORT R0 K5 [table.find]
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  CALL R0 2 1
+  JUMPIFNOT R0 [+5]
+  GETIMPORT R1 K7 [table.remove]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R1 2
+  LOADK R3 K8 ["close"]
+  NAMECALL R1 R1 K9 ["Fire"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_19:
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["Server error:"]
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_20:
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K2 ["Got new SSE connection"]
+  CALL R2 1 0
+  GETIMPORT R2 K5 [Instance.new]
+  LOADK R3 K6 ["BindableEvent"]
+  CALL R2 1 1
+  LOADK R3 K7 ["SSEEventLoop"]
+  SETTABLEKS R3 R2 K8 ["Name"]
+  GETUPVAL R3 0
+  SETTABLEKS R3 R2 K9 ["Parent"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["new"]
+  LOADK R4 K10 ["/message"]
+  MOVE R5 R1
+  CALL R3 2 1
+  GETGLOBAL R4 K11 ["getBuiltinServer"]
+  CALL R4 0 1
+  MOVE R7 R3
+  NAMECALL R5 R4 K12 ["connect"]
+  CALL R5 2 0
+  DUPTABLE R7 K14 [{"method"}]
+  LOADK R8 K15 ["prompts/list"]
+  SETTABLEKS R8 R7 K13 ["method"]
+  DUPCLOSURE R8 K16 [PROTO_16]
+  NAMECALL R5 R4 K17 ["setRequestHandler"]
+  CALL R5 3 0
+  DUPTABLE R7 K14 [{"method"}]
+  LOADK R8 K18 ["resources/list"]
+  SETTABLEKS R8 R7 K13 ["method"]
+  DUPCLOSURE R8 K19 [PROTO_17]
+  NAMECALL R5 R4 K17 ["setRequestHandler"]
+  CALL R5 3 0
+  NEWCLOSURE R5 P2
+  CAPTURE UPVAL U2
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K20 ["onclose"]
+  DUPCLOSURE R5 K21 [PROTO_19]
+  SETTABLEKS R5 R4 K22 ["onerror"]
+  GETUPVAL R6 2
+  FASTCALL2 TABLE_INSERT R6 R4 [+4]
+  MOVE R7 R4
+  GETIMPORT R5 K25 [table.insert]
+  CALL R5 2 0
+  GETUPVAL R6 3
+  CALL R6 0 1
+  GETTABLEKS R5 R6 K26 ["registerServer"]
+  MOVE R6 R4
+  CALL R5 1 0
+  GETTABLEKS R5 R2 K27 ["Event"]
+  NAMECALL R5 R5 K28 ["Wait"]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K29 ["close"] [+2]
+  JUMPBACK [-8]
+  RETURN R0 0
+
+PROTO_21:
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K2 ["REMOTE SSE - Received message, body: "]
+  NAMECALL R4 R0 K3 ["body"]
+  CALL R4 1 -1
+  CALL R2 -1 0
+  LOADK R4 K4 ["sessionId"]
+  NAMECALL R2 R0 K5 ["query"]
+  CALL R2 2 1
+  LOADNIL R3
+  GETUPVAL R4 0
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  NAMECALL R9 R8 K6 ["getTransport"]
+  CALL R9 1 1
+  NAMECALL R9 R9 K7 ["getSessionId"]
+  CALL R9 1 1
+  JUMPIFNOTEQ R9 R2 [+3]
+  MOVE R3 R8
+  JUMP [+2]
+  FORGLOOP R4 2 [-11]
+  JUMPIF R3 [+9]
+  LOADN R6 148
+  NAMECALL R4 R1 K8 ["SetStatus"]
+  CALL R4 2 0
+  LOADK R6 K9 ["Session not found"]
+  NAMECALL R4 R1 K10 ["SetContent"]
+  CALL R4 2 0
+  RETURN R0 0
+  NAMECALL R4 R3 K6 ["getTransport"]
+  CALL R4 1 1
+  MOVE R6 R0
+  MOVE R7 R1
+  NAMECALL R4 R4 K11 ["handlePostMessage"]
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R0 0
+  LOADNIL R1
+  LOADNIL R2
+  FORGPREP R0
+  NAMECALL R5 R4 K0 ["close"]
+  CALL R5 1 0
+  FORGLOOP R0 2 [-4]
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K0 ["close"]
+  CALL R0 1 0
+  GETIMPORT R0 K2 [print]
+  LOADK R1 K3 ["Hosted server closed."]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_23:
+  GETUPVAL R0 0
+  GETTABLEKS R1 R0 K0 ["StartServer"]
+  JUMPIFNOTEQKNIL R1 [+5]
+  GETIMPORT R1 K2 [error]
+  LOADK R2 K3 ["HttpService.StartServer is not available in this environment."]
+  CALL R1 1 0
+  LOADN R3 80
+  NAMECALL R1 R0 K0 ["StartServer"]
+  CALL R1 2 1
+  NAMECALL R2 R1 K4 ["listening"]
+  CALL R2 1 1
+  JUMPIF R2 [+7]
+  GETIMPORT R2 K2 [error]
+  LOADK R4 K5 ["Server is not listening. It tried to start on port "]
+  LOADN R5 80
+  LOADK R6 K6 [" but failed. Reloading the plugin by re-opening the place might help."]
+  CONCAT R3 R4 R6
+  CALL R2 1 0
+  NEWTABLE R2 0 0
+  LOADK R5 K7 ["/sse"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  CAPTURE UPVAL U3
+  NAMECALL R3 R1 K8 ["use"]
+  CALL R3 3 0
+  LOADK R5 K9 ["/message"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R2
+  NAMECALL R3 R1 K8 ["use"]
+  CALL R3 3 0
+  NEWCLOSURE R3 P2
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R3 1
+
+PROTO_24:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+2]
+  GETUPVAL R0 1
+  CALL R0 0 0
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["Closing remote server..."]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_25:
+  GETIMPORT R1 K1 [pcall]
+  GETUPVAL R2 0
+  CALL R1 1 2
+  JUMPIFNOT R1 [+5]
+  GETIMPORT R3 K3 [print]
+  LOADK R4 K4 ["Local SSE server started successfully."]
+  CALL R3 1 0
+  JUMP [+10]
+  GETIMPORT R3 K6 [warn]
+  LOADK R5 K7 ["Failed to start local SSE server: "]
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R7 R2
+  GETIMPORT R6 K9 [tostring]
+  CALL R6 1 1
+  CONCAT R4 R5 R6
+  CALL R3 1 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1
+
+PROTO_26:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 0
+  CALL R0 0 0
+  LOADNIL R0
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_27:
+  JUMPIF R0 [+7]
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R1 0
+  CALL R1 0 0
+  LOADNIL R1
+  SETUPVAL R1 0
+  RETURN R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R1 1 1
+  SETUPVAL R1 0
+  RETURN R0 0
+
+PROTO_28:
+  LOADNIL R1
+  GETTABLEKS R2 R0 K0 ["Unloading"]
+  NEWCLOSURE R4 P0
+  CAPTURE REF R1
+  NAMECALL R2 R2 K1 ["Connect"]
+  CALL R2 2 0
+  DUPTABLE R2 K4 [{"label", "onChange"}]
+  LOADK R3 K5 ["Enable Remote Server"]
+  SETTABLEKS R3 R2 K2 ["label"]
+  NEWCLOSURE R3 P1
+  CAPTURE REF R1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K3 ["onChange"]
+  CLOSEUPVALS R1
+  RETURN R2 1
+
+PROTO_29:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["Closing client..."]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K3 ["close"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K3 ["close"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_30:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_31:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["new"]
+  LOADK R5 K1 ["Client->Side"]
+  CALL R4 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["new"]
+  LOADK R6 K2 ["Server<-Side"]
+  CALL R5 1 1
+  MOVE R8 R5
+  LOADB R9 0
+  NAMECALL R6 R4 K3 ["bindPeer"]
+  CALL R6 3 0
+  MOVE R2 R4
+  MOVE R3 R5
+  GETGLOBAL R4 K4 ["startLocalServer"]
+  MOVE R5 R3
+  CALL R4 1 0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  GETTABLEKS R5 R0 K5 ["Unloading"]
+  MOVE R7 R4
+  NAMECALL R5 R5 K6 ["Connect"]
+  CALL R5 2 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["new"]
+  DUPTABLE R6 K9 [{"name", "version"}]
+  LOADK R7 K10 ["mcp-lua test client"]
+  SETTABLEKS R7 R6 K7 ["name"]
+  LOADK R7 K11 ["0.1.0"]
+  SETTABLEKS R7 R6 K8 ["version"]
+  DUPTABLE R7 K13 [{"capabilities"}]
+  DUPTABLE R8 K15 [{"sampling"}]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K14 ["sampling"]
+  SETTABLEKS R8 R7 K12 ["capabilities"]
+  CALL R5 2 1
+  MOVE R8 R2
+  NAMECALL R6 R5 K16 ["connect"]
+  CALL R6 2 1
+  DUPCLOSURE R8 K17 [PROTO_13]
+  NAMECALL R6 R6 K18 ["andThen"]
+  CALL R6 2 1
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  NAMECALL R6 R6 K18 ["andThen"]
+  CALL R6 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Assistant"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AssistantUI"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["ModelContextProtocol"]
+  GETTABLEKS R2 R3 K9 ["Server"]
+  GETTABLEKS R4 R1 K8 ["ModelContextProtocol"]
+  GETTABLEKS R3 R4 K10 ["PeerTransport"]
+  GETTABLEKS R5 R1 K8 ["ModelContextProtocol"]
+  GETTABLEKS R4 R5 K11 ["Client"]
+  GETTABLEKS R6 R1 K8 ["ModelContextProtocol"]
+  GETTABLEKS R5 R6 K12 ["Promise"]
+  GETTABLEKS R7 R1 K8 ["ModelContextProtocol"]
+  GETTABLEKS R6 R7 K13 ["ServerSSE"]
+  GETIMPORT R7 K15 [game]
+  LOADK R9 K16 ["HttpService"]
+  NAMECALL R7 R7 K17 ["GetService"]
+  CALL R7 2 1
+  GETIMPORT R8 K15 [game]
+  LOADK R10 K18 ["ServerScriptService"]
+  NAMECALL R8 R8 K17 ["GetService"]
+  CALL R8 2 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K19 ["Src"]
+  GETTABLEKS R11 R12 K20 ["Host"]
+  GETTABLEKS R10 R11 K21 ["mcpTools"]
+  CALL R9 1 1
+  GETTABLEKS R10 R9 K22 ["useTools"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K19 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Host"]
+  GETTABLEKS R12 R13 K23 ["serverRegistry"]
+  CALL R11 1 1
+  DUPCLOSURE R12 K24 [PROTO_0]
+  DUPCLOSURE R13 K25 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  SETGLOBAL R13 K26 ["getBuiltinServer"]
+  DUPCLOSURE R13 K27 [PROTO_12]
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  SETGLOBAL R13 K28 ["startLocalServer"]
+  DUPCLOSURE R13 K29 [PROTO_14]
+  DUPCLOSURE R14 K30 [PROTO_15]
+  CAPTURE VAL R3
+  DUPCLOSURE R15 K31 [PROTO_23]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R11
+  DUPCLOSURE R16 K32 [PROTO_25]
+  CAPTURE VAL R15
+  DUPCLOSURE R17 K33 [PROTO_28]
+  CAPTURE VAL R16
+  DUPCLOSURE R18 K34 [PROTO_31]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  DUPTABLE R19 K37 [{"registerMcpHost", "getRemoteServerOption"}]
+  SETTABLEKS R18 R19 K35 ["registerMcpHost"]
+  SETTABLEKS R17 R19 K36 ["getRemoteServerOption"]
+  RETURN R19 1

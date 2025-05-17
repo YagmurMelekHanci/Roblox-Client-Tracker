@@ -84,18 +84,19 @@ PROTO_1:
   SETTABLEKS R14 R13 K14 ["WidgetHeader"]
   GETUPVAL R14 4
   GETUPVAL R15 6
-  DUPTABLE R16 K33 [{"LayoutOrder", "ZIndex", "headerOffset", "confirmationDialogVisible", "toggleConfirmationDialog", "showReplace"}]
+  DUPTABLE R16 K34 [{"LayoutOrder", "ZIndex", "headerOffset", "confirmationDialogVisible", "toggleConfirmationDialog", "showReplace", "queryId"}]
   MOVE R17 R0
   CALL R17 0 1
   SETTABLEKS R17 R16 K21 ["LayoutOrder"]
   LOADN R17 2
   SETTABLEKS R17 R16 K18 ["ZIndex"]
   SETTABLEKS R2 R16 K30 ["headerOffset"]
-  GETTABLEKS R17 R7 K34 ["enabled"]
+  GETTABLEKS R17 R7 K35 ["enabled"]
   SETTABLEKS R17 R16 K31 ["confirmationDialogVisible"]
-  GETTABLEKS R17 R7 K35 ["toggle"]
+  GETTABLEKS R17 R7 K36 ["toggle"]
   SETTABLEKS R17 R16 K32 ["toggleConfirmationDialog"]
   SETTABLEKS R8 R16 K26 ["showReplace"]
+  SETTABLEKS R5 R16 K33 ["queryId"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K15 ["WidgetBody"]
   CALL R10 3 -1

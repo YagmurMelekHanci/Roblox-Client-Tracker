@@ -148,6 +148,11 @@ local Constants = {
 	RespawnLocalizedKey = "CoreScripts.InGameMenu.QuickActions.Respawn",
 	LeaveGameLocalizedKey = "CoreScripts.InGameMenu.LeaveGame",
 	ResumeLocalizedKey = "CoreScripts.InGameMenu.Prompt.ResumeGame",
+	ResetCharacterLocalizedKey = "CoreScripts.InGameMenu.Action.ResetCharacter",
+	ConfirmLeaveGameLocalizedKey = "CoreScripts.InGameMenu.Prompt.ConfirmLeaveGame",
+	ConfirmResetCharacterLocalizedKey = "CoreScripts.InGameMenu.Prompt.ConfirmResetCharacter",
+	DontLeaveGameLocalizedKey = "CoreScripts.InGameMenu.Action.DontLeaveGame",
+	DontResetCharacterLocalizedKey = "CoreScripts.InGameMenu.Action.DontResetCharacter",
 }
 
 return Constants

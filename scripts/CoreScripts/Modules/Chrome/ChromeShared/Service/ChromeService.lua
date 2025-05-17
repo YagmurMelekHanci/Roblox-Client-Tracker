@@ -33,6 +33,8 @@ local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
 local FFlagChromeShortcutDisableRespawn = SharedFlags.FFlagChromeShortcutDisableRespawn
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
@@ -160,6 +162,7 @@ export type ChromeService = {
 
 	selectMenuIcon: (ChromeService) -> (),
 	onTriggerMenuIcon: (ChromeService) -> SignalLib.Signal,
+	onTriggerVRToggleButton: (ChromeService) -> SignalLib.Signal,
 
 	onIntegrationRegistered: (ChromeService) -> SignalLib.Signal,
 	onIntegrationActivated: (ChromeService) -> SignalLib.Signal,
@@ -204,6 +207,7 @@ export type ChromeService = {
 	_onIntegrationHovered: SignalLib.Signal,
 
 	_triggerMenuIcon: SignalLib.Signal,
+	_triggerVRToggleButton: SignalLib.Signal,
 
 	_localization: any,
 	_localizedLabelKeys: {
@@ -269,6 +273,7 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationStatusChanged = Signal.new()
 	self._onIntegrationHovered = Signal.new()
 	self._triggerMenuIcon = Signal.new()
+	self._triggerVRToggleButton = if isInExperienceUIVREnabled then Signal.new() else nil :: never
 
 	self._inFocusNav = ObservableValue.new(false)
 
@@ -1051,6 +1056,12 @@ if FFlagEnableChromeShortcutBar then
 
 	function ChromeService:onTriggerMenuIcon()
 		return self._triggerMenuIcon
+	end
+end
+
+if isInExperienceUIVREnabled then
+	function ChromeService:onTriggerVRToggleButton()
+		return self._triggerVRToggleButton
 	end
 end
 

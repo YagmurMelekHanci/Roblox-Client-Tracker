@@ -126,7 +126,7 @@ MAIN:
   GETTABLEKS R6 R0 K6 ["Src"]
   GETTABLEKS R5 R6 K8 ["Asset"]
   GETTABLEKS R4 R5 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["getAssetInstance"]
+  GETTABLEKS R3 R4 K10 ["getAssetInstances"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R7 R0 K6 ["Src"]

@@ -7,52 +7,101 @@ PROTO_0:
   SETTABLEKS R4 R3 K1 ["Size"]
   GETTABLEKS R4 R0 K2 ["LayoutOrder"]
   SETTABLEKS R4 R3 K2 ["LayoutOrder"]
-  DUPTABLE R4 K5 [{"SendButton"}]
+  DUPTABLE R4 K6 [{"SendButton", "DEPRECATED_SendButton"}]
+  GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+58]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K12 [{"AnchorPoint", "OnClick", "Position", "Size", "Style", "StyleModifier", "Text"}]
-  GETIMPORT R8 K15 [Vector2.new]
+  GETUPVAL R6 3
+  DUPTABLE R7 K15 [{"AnchorPoint", "Disabled", "Position", "Size", "Style", "StyleModifier", "Text", "TooltipText", "OnClick"}]
+  GETIMPORT R8 K18 [Vector2.new]
   LOADN R9 1
-  LOADK R10 K16 [0.5]
+  LOADK R10 K19 [0.5]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K6 ["AnchorPoint"]
-  GETTABLEKS R8 R0 K7 ["OnClick"]
-  SETTABLEKS R8 R7 K7 ["OnClick"]
-  GETIMPORT R8 K19 [UDim2.fromScale]
+  SETTABLEKS R8 R7 K7 ["AnchorPoint"]
+  GETTABLEKS R9 R0 K20 ["Enabled"]
+  NOT R8 R9
+  SETTABLEKS R8 R7 K8 ["Disabled"]
+  GETIMPORT R8 K23 [UDim2.fromScale]
   LOADN R9 1
-  LOADK R10 K16 [0.5]
+  LOADK R10 K19 [0.5]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K8 ["Position"]
-  GETIMPORT R8 K21 [UDim2.fromOffset]
+  SETTABLEKS R8 R7 K9 ["Position"]
+  GETIMPORT R8 K25 [UDim2.fromOffset]
   LOADN R9 100
   LOADN R10 30
   CALL R8 2 1
   SETTABLEKS R8 R7 K1 ["Size"]
-  LOADK R8 K22 ["RoundPrimary"]
-  SETTABLEKS R8 R7 K9 ["Style"]
-  GETTABLEKS R9 R0 K23 ["Enabled"]
+  LOADK R8 K26 ["Primary"]
+  SETTABLEKS R8 R7 K10 ["Style"]
+  GETTABLEKS R9 R0 K20 ["Enabled"]
   JUMPIF R9 [+4]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K24 ["Disabled"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K8 ["Disabled"]
   JUMP [+1]
   LOADNIL R8
-  SETTABLEKS R8 R7 K10 ["StyleModifier"]
-  GETTABLEKS R8 R0 K25 ["PreviewButtonText"]
-  SETTABLEKS R8 R7 K11 ["Text"]
-  DUPTABLE R8 K27 [{"QuotaTooltip"}]
+  SETTABLEKS R8 R7 K11 ["StyleModifier"]
+  GETTABLEKS R8 R0 K27 ["PreviewButtonText"]
+  SETTABLEKS R8 R7 K12 ["Text"]
+  GETTABLEKS R8 R0 K28 ["QuotaTooltipText"]
+  SETTABLEKS R8 R7 K13 ["TooltipText"]
+  GETTABLEKS R8 R0 K14 ["OnClick"]
+  SETTABLEKS R8 R7 K14 ["OnClick"]
+  CALL R5 2 1
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K4 ["SendButton"]
+  GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIF R6 [+66]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 5
+  DUPTABLE R7 K29 [{"AnchorPoint", "OnClick", "Position", "Size", "Style", "StyleModifier", "Text"}]
+  GETIMPORT R8 K18 [Vector2.new]
+  LOADN R9 1
+  LOADK R10 K19 [0.5]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K7 ["AnchorPoint"]
+  GETTABLEKS R8 R0 K14 ["OnClick"]
+  SETTABLEKS R8 R7 K14 ["OnClick"]
+  GETIMPORT R8 K23 [UDim2.fromScale]
+  LOADN R9 1
+  LOADK R10 K19 [0.5]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K9 ["Position"]
+  GETIMPORT R8 K25 [UDim2.fromOffset]
+  LOADN R9 100
+  LOADN R10 30
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K1 ["Size"]
+  LOADK R8 K30 ["RoundPrimary"]
+  SETTABLEKS R8 R7 K10 ["Style"]
+  GETTABLEKS R9 R0 K20 ["Enabled"]
+  JUMPIF R9 [+4]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K8 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K11 ["StyleModifier"]
+  GETTABLEKS R8 R0 K27 ["PreviewButtonText"]
+  SETTABLEKS R8 R7 K12 ["Text"]
+  DUPTABLE R8 K32 [{"QuotaTooltip"}]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K0 ["createElement"]
-  GETUPVAL R10 4
-  DUPTABLE R11 K29 [{"Text", "TextXAlignment"}]
-  GETTABLEKS R12 R0 K30 ["QuotaTooltipText"]
-  SETTABLEKS R12 R11 K11 ["Text"]
-  GETIMPORT R12 K33 [Enum.TextXAlignment.Left]
-  SETTABLEKS R12 R11 K28 ["TextXAlignment"]
+  GETUPVAL R10 6
+  DUPTABLE R11 K34 [{"Text", "TextXAlignment"}]
+  GETTABLEKS R12 R0 K28 ["QuotaTooltipText"]
+  SETTABLEKS R12 R11 K12 ["Text"]
+  GETIMPORT R12 K37 [Enum.TextXAlignment.Left]
+  SETTABLEKS R12 R11 K33 ["TextXAlignment"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K26 ["QuotaTooltip"]
+  SETTABLEKS R9 R8 K31 ["QuotaTooltip"]
   CALL R5 3 1
-  SETTABLEKS R5 R4 K4 ["SendButton"]
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K5 ["DEPRECATED_SendButton"]
   CALL R1 3 -1
   RETURN R1 -1
 
@@ -423,48 +472,56 @@ MAIN:
   CALL R11 1 1
   GETTABLEKS R12 R2 K22 ["UI"]
   GETTABLEKS R13 R12 K23 ["Pane"]
-  GETTABLEKS R14 R12 K24 ["Button"]
-  GETTABLEKS R15 R12 K25 ["TextInput"]
-  GETTABLEKS R16 R12 K26 ["Tooltip"]
-  GETTABLEKS R18 R0 K9 ["Src"]
-  GETTABLEKS R17 R18 K18 ["Util"]
-  GETIMPORT R18 K5 [require]
-  GETTABLEKS R19 R17 K27 ["createHashFromMeshParts"]
-  CALL R18 1 1
+  GETTABLEKS R14 R12 K24 ["IconButton"]
+  GETTABLEKS R15 R12 K25 ["Button"]
+  GETTABLEKS R16 R12 K26 ["TextInput"]
+  GETTABLEKS R17 R12 K27 ["Tooltip"]
+  GETTABLEKS R19 R0 K9 ["Src"]
+  GETTABLEKS R18 R19 K18 ["Util"]
   GETIMPORT R19 K5 [require]
-  GETTABLEKS R20 R17 K28 ["fetchAndSetQuotas"]
+  GETTABLEKS R20 R18 K28 ["createHashFromMeshParts"]
   CALL R19 1 1
   GETIMPORT R20 K5 [require]
-  GETTABLEKS R21 R17 K29 ["GenerationsContext"]
+  GETTABLEKS R21 R18 K29 ["fetchAndSetQuotas"]
   CALL R20 1 1
   GETIMPORT R21 K5 [require]
-  GETTABLEKS R22 R17 K30 ["OptionsContext"]
+  GETTABLEKS R22 R18 K30 ["GenerationsContext"]
   CALL R21 1 1
   GETIMPORT R22 K5 [require]
-  GETTABLEKS R23 R17 K31 ["PreviewsContext"]
+  GETTABLEKS R23 R18 K31 ["OptionsContext"]
   CALL R22 1 1
   GETIMPORT R23 K5 [require]
-  GETTABLEKS R24 R17 K32 ["createOptionsFromContext"]
+  GETTABLEKS R24 R18 K32 ["PreviewsContext"]
   CALL R23 1 1
-  DUPCLOSURE R24 K33 [PROTO_0]
+  GETIMPORT R24 K5 [require]
+  GETTABLEKS R25 R18 K33 ["createOptionsFromContext"]
+  CALL R24 1 1
+  GETIMPORT R25 K5 [require]
+  GETTABLEKS R28 R0 K9 ["Src"]
+  GETTABLEKS R27 R28 K34 ["Flags"]
+  GETTABLEKS R26 R27 K35 ["getFFlagTextureGeneratorRerollButton"]
+  CALL R25 1 1
+  DUPCLOSURE R26 K36 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R13
+  CAPTURE VAL R25
   CAPTURE VAL R14
   CAPTURE VAL R10
-  CAPTURE VAL R16
-  DUPCLOSURE R25 K34 [PROTO_6]
+  CAPTURE VAL R15
+  CAPTURE VAL R17
+  DUPCLOSURE R27 K37 [PROTO_6]
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R1
   CAPTURE VAL R11
-  CAPTURE VAL R21
-  CAPTURE VAL R20
   CAPTURE VAL R22
+  CAPTURE VAL R21
   CAPTURE VAL R23
-  CAPTURE VAL R18
-  CAPTURE VAL R19
-  CAPTURE VAL R13
-  CAPTURE VAL R15
   CAPTURE VAL R24
-  RETURN R25 1
+  CAPTURE VAL R19
+  CAPTURE VAL R20
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  CAPTURE VAL R26
+  RETURN R27 1

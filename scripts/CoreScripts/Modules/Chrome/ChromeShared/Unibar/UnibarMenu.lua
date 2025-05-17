@@ -789,7 +789,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 		end
 	end)
 
-	if isInExperienceUIVREnabled then
+	if isInExperienceUIVREnabled and isSpatial() and Panel3DInSpatialUI then
 		local currentSubMenu = useObservableValue(ChromeService:currentSubMenu())
 		SubMenuVisibilitySignal:set(currentSubMenu ~= nil)
 	end

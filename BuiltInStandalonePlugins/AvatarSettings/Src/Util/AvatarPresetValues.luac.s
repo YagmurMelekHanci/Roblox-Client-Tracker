@@ -31,13 +31,13 @@ MAIN:
   GETIMPORT R2 K47 [Enum.AvatarSettingsScaleMode.CustomScale]
   SETTABLEKS R2 R1 K0 ["bodyScaleSetting"]
   GETIMPORT R2 K50 [NumberRange.new]
-  LOADN R3 5
-  LOADN R4 5
+  LOADK R3 K51 [6.5]
+  LOADK R4 K51 [6.5]
   CALL R2 2 1
   SETTABLEKS R2 R1 K37 ["bodyScaleCustomHeight"]
   GETIMPORT R2 K18 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
   SETTABLEKS R2 R1 K1 ["bodyAppearanceSetting"]
-  GETIMPORT R2 K52 [Enum.AvatarSettingsBuildMode.CustomBuild]
+  GETIMPORT R2 K53 [Enum.AvatarSettingsBuildMode.CustomBuild]
   SETTABLEKS R2 R1 K2 ["bodyBuildSetting"]
   GETIMPORT R2 K50 [NumberRange.new]
   LOADN R3 1
@@ -64,11 +64,11 @@ MAIN:
   LOADN R4 0
   CALL R2 2 1
   SETTABLEKS R2 R1 K42 ["bodyBuildCustomProportions"]
-  GETIMPORT R2 K54 [Enum.AvatarSettingsCollisionMode.SingleCollider]
+  GETIMPORT R2 K55 [Enum.AvatarSettingsCollisionMode.SingleCollider]
   SETTABLEKS R2 R1 K3 ["collisionSetting"]
-  LOADK R2 K55 [{2, 4, 1}]
+  LOADK R2 K56 [{2, 4, 1}]
   SETTABLEKS R2 R1 K43 ["collisionSizeSetting"]
-  GETIMPORT R2 K58 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
+  GETIMPORT R2 K59 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
   SETTABLEKS R2 R1 K44 ["collisionHitAndTouchDetectionSetting"]
-  SETTABLEKS R1 R0 K59 ["ConsistentGameplayPresetValues"]
+  SETTABLEKS R1 R0 K60 ["ConsistentGameplayPresetValues"]
   RETURN R0 1

@@ -389,6 +389,7 @@ end
 game:DefineFastInt("V1MenuLanguageSelectionFeaturePerMillageRollout", 0)
 game:DefineFastString("V1MenuLanguageSelectionFeatureForcedUserIds", "")
 local FFlagIGMEnableGFXReset = game:DefineFastFlag("IGMEnableGFXReset", false)
+local FFlagNewLanguageSelectorEndpoint = game:DefineFastFlag("NewLanguageSelectorEndpoint", false)
 
 ----------- CLASS DECLARATION --------------
 
@@ -1796,8 +1797,14 @@ local function Initialize()
 		})
 
 		-- Request to get the supported language codes for the experience
-		local experienceSupportedLanguagesUrl = Url.GAME_INTERNATIONALIZATION_URL
-			.. string.format("v1/supported-languages/games/%d", game.GameId)
+		local experienceSupportedLanguagesUrl = nil
+		if FFlagNewLanguageSelectorEndpoint then
+			experienceSupportedLanguagesUrl = Url.GAME_INTERNATIONALIZATION_URL
+				.. string.format("v1/supported-languages/games/%d/in-experience-language-selection", game.GameId)
+		else
+			experienceSupportedLanguagesUrl = Url.GAME_INTERNATIONALIZATION_URL
+				.. string.format("v1/supported-languages/games/%d", game.GameId)
+		end
 		local experienceSupportedLanguagesRequest = HttpService:RequestInternal({
 			Url = experienceSupportedLanguagesUrl,
 			Method = "GET",

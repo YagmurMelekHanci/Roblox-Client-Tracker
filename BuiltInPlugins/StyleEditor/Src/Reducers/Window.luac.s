@@ -2,7 +2,12 @@ PROTO_0:
   GETUPVAL R2 0
   MOVE R3 R0
   DUPTABLE R4 K1 [{"IsDirty"}]
-  GETTABLEKS R5 R1 K2 ["isDirty"]
+  GETTABLEKS R6 R1 K2 ["isDirty"]
+  JUMPIFNOT R6 [+4]
+  GETTABLEKS R6 R0 K0 ["IsDirty"]
+  ADDK R5 R6 K3 [1]
+  JUMP [+1]
+  LOADN R5 0
   SETTABLEKS R5 R4 K0 ["IsDirty"]
   CALL R2 2 -1
   RETURN R2 -1
@@ -132,7 +137,7 @@ MAIN:
   GETTABLEKS R11 R12 K17 ["SetSearch"]
   CALL R10 1 1
   DUPTABLE R11 K23 [{"IsDirty", "SearchTerm", "RootRoute", "SelectedItemId", "ExpandedItems"}]
-  LOADB R12 0
+  LOADN R12 0
   SETTABLEKS R12 R11 K18 ["IsDirty"]
   LOADK R12 K24 [""]
   SETTABLEKS R12 R11 K19 ["SearchTerm"]

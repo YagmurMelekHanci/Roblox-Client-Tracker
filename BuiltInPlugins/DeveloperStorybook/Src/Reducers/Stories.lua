@@ -7,6 +7,7 @@ local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
 local Rodux = require(Main.Packages.Rodux)
 
+local GuiService = game:GetService("GuiService")
 local Framework = require(Main.Packages.Framework)
 local Dash = Framework.Dash
 local forEach = Dash.forEach
@@ -62,6 +63,7 @@ return Rodux.createReducer({
 	settings = {
 		reducedMotion = false,
 		preferredTransparency = 1,
+		preferredTextSize = GuiService.PreferredTextSize,
 	},
 	expandedSearchStories = {},
 	stories = {},

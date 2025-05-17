@@ -397,7 +397,7 @@ MAIN:
   DUPTABLE R36 K105 [{"AutomaticSize"}]
   GETIMPORT R37 K101 [Enum.AutomaticSize.XY]
   SETTABLEKS R37 R36 K25 ["AutomaticSize"]
-  NEWTABLE R37 0 5
+  NEWTABLE R37 0 4
   MOVE R38 R3
   LOADK R39 K95 ["::UIListLayout"]
   DUPTABLE R40 K121 [{"HorizontalFlex"}]
@@ -405,59 +405,29 @@ MAIN:
   SETTABLEKS R41 R40 K120 ["HorizontalFlex"]
   CALL R38 2 1
   MOVE R39 R3
-  LOADK R40 K125 ["> .SecondaryText >> TextLabel"]
+  LOADK R40 K125 [">> #LinkButton"]
   DUPTABLE R41 K126 [{"TextColor3"}]
-  LOADK R42 K102 ["$SecondaryContrast"]
+  LOADK R42 K127 ["$TextLink"]
   SETTABLEKS R42 R41 K56 ["TextColor3"]
   CALL R39 2 1
   MOVE R40 R3
-  LOADK R41 K127 ["TextLabel"]
-  DUPTABLE R42 K128 [{"TextColor3", "TextSize", "TextXAlignment", "TextYAlignment"}]
-  LOADK R43 K102 ["$SecondaryContrast"]
+  LOADK R41 K128 [">> #ShowMore"]
+  DUPTABLE R42 K126 [{"TextColor3"}]
+  LOADK R43 K127 ["$TextLink"]
   SETTABLEKS R43 R42 K56 ["TextColor3"]
-  GETTABLEKS R43 R2 K129 ["normalFontSize"]
-  SETTABLEKS R43 R42 K91 ["TextSize"]
-  GETIMPORT R43 K77 [Enum.TextXAlignment.Left]
-  SETTABLEKS R43 R42 K73 ["TextXAlignment"]
-  GETIMPORT R43 K131 [Enum.TextYAlignment.Top]
-  SETTABLEKS R43 R42 K74 ["TextYAlignment"]
   CALL R40 2 1
   MOVE R41 R3
-  LOADK R42 K132 ["> .AddTopPadding"]
-  NEWTABLE R43 0 0
-  NEWTABLE R44 0 1
-  MOVE R45 R3
-  LOADK R46 K47 ["::UIPadding"]
-  DUPTABLE R47 K133 [{"PaddingTop"}]
-  GETIMPORT R48 K39 [UDim.new]
-  LOADN R49 0
-  LOADN R50 4
-  CALL R48 2 1
-  SETTABLEKS R48 R47 K48 ["PaddingTop"]
-  CALL R45 2 -1
-  SETLIST R44 R45 -1 [1]
-  CALL R41 3 1
-  MOVE R42 R3
-  LOADK R43 K134 ["> .Markdown"]
-  NEWTABLE R44 0 0
-  NEWTABLE R45 0 1
-  MOVE R46 R3
-  LOADK R47 K47 ["::UIPadding"]
-  DUPTABLE R48 K133 [{"PaddingTop"}]
-  GETIMPORT R49 K39 [UDim.new]
-  LOADN R50 0
-  LOADN R51 246
-  CALL R49 2 1
-  SETTABLEKS R49 R48 K48 ["PaddingTop"]
-  CALL R46 2 -1
-  SETLIST R45 R46 -1 [1]
-  CALL R42 3 -1
+  LOADK R42 K129 ["> .SecondaryText >> TextLabel"]
+  DUPTABLE R43 K126 [{"TextColor3"}]
+  LOADK R44 K102 ["$SecondaryContrast"]
+  SETTABLEKS R44 R43 K56 ["TextColor3"]
+  CALL R41 2 -1
   SETLIST R37 R38 -1 [1]
   CALL R34 3 -1
   SETLIST R32 R33 -1 [1]
   CALL R29 3 1
   MOVE R30 R3
-  LOADK R31 K135 ["> #Bottom"]
+  LOADK R31 K130 ["> #Bottom"]
   DUPTABLE R32 K107 [{"Size", "AutomaticSize"}]
   GETIMPORT R33 K30 [UDim2.new]
   LOADN R34 0
@@ -485,7 +455,7 @@ MAIN:
   SETTABLEKS R38 R37 K26 ["BackgroundColor3"]
   CALL R35 2 1
   MOVE R36 R3
-  LOADK R37 K136 ["> #IconFrame"]
+  LOADK R37 K131 ["> #IconFrame"]
   DUPTABLE R38 K105 [{"AutomaticSize"}]
   GETIMPORT R39 K101 [Enum.AutomaticSize.XY]
   SETTABLEKS R39 R38 K25 ["AutomaticSize"]
@@ -524,8 +494,8 @@ MAIN:
   SETLIST R39 R40 -1 [1]
   CALL R36 3 1
   MOVE R37 R3
-  LOADK R38 K137 ["> #TargetName"]
-  DUPTABLE R39 K138 [{"Size", "AutomaticSize", "TextSize", "TextColor3", "TextXAlignment", "TextYAlignment", "BackgroundTransparency"}]
+  LOADK R38 K132 ["> #TargetName"]
+  DUPTABLE R39 K133 [{"Size", "AutomaticSize", "TextSize", "TextColor3", "TextXAlignment", "TextYAlignment", "BackgroundTransparency"}]
   GETIMPORT R40 K30 [UDim2.new]
   LOADN R41 0
   LOADN R42 0
@@ -548,9 +518,9 @@ MAIN:
   NEWTABLE R40 0 1
   MOVE R41 R3
   LOADK R42 K53 [":hover"]
-  DUPTABLE R43 K140 [{"Font"}]
-  GETTABLEKS R44 R2 K141 ["boldedFont"]
-  SETTABLEKS R44 R43 K139 ["Font"]
+  DUPTABLE R43 K135 [{"Font"}]
+  GETTABLEKS R44 R2 K136 ["boldedFont"]
+  SETTABLEKS R44 R43 K134 ["Font"]
   CALL R41 2 -1
   SETLIST R40 R41 -1 [1]
   CALL R37 3 -1
@@ -559,7 +529,7 @@ MAIN:
   SETLIST R25 R26 -1 [1]
   CALL R22 3 1
   MOVE R23 R3
-  LOADK R24 K142 [".TargetIcon ::UICorner"]
+  LOADK R24 K137 [".TargetIcon ::UICorner"]
   DUPTABLE R25 K37 [{"CornerRadius"}]
   GETIMPORT R26 K39 [UDim.new]
   LOADN R27 0

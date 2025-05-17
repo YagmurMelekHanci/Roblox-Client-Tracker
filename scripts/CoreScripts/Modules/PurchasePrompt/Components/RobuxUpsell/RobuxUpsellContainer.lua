@@ -16,7 +16,12 @@ local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCo
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
+local PromptNativeUpsellSuggestions = require(Root.Actions.PromptNativeUpsellSuggestions)
+
 local PurchaseFlow = require(Root.Enums.PurchaseFlow)
+
+local RobuxUpsell =  require(Root.Models.RobuxUpsell)
+type RobuxUpsellProduct = RobuxUpsell.Product
 
 local completeRequest = require(Root.Thunks.completeRequest)
 local purchaseItem = require(Root.Thunks.purchaseItem)
@@ -39,6 +44,8 @@ local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
 	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
 local GetFFlagEnableEventMetadataInUpsell = IAPExperience.Flags.GetFFlagEnableEventMetadataInUpsell
 local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
+local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAPI
+local UpsellSuggestionsAPIMaxPackages = require(CorePackages.Workspace.Packages.SharedFlags).UpsellSuggestionsAPIMaxPackages
 
 local RobuxUpsellOverlay = require(script.Parent.RobuxUpsellOverlay)
 
@@ -91,6 +98,14 @@ function RobuxUpsellContainer:createElement()
 			promptState = props.promptState,
 			purchaseFlow = props.purchaseFlow,
 			purchaseError = props.purchaseError,
+
+			-- Robux Upsell Suggestions
+			useUpsellSuggestions = FFlagEnableUpsellSuggestionsAPI and UpsellSuggestionsAPIMaxPackages > 1,
+			upsellSuggestions = props.robuxSuggestions,
+			selectedUpsellIndex = props.robuxPackageSelection,
+			onUpsellSuggestionsSelected = function(index: number)
+				props.onUpsellSuggestionsSelected(props.robuxSuggestions, index)
+			end,
 
 			robuxProviderId = props.robuxProductId,
 			robuxProductId = props.productId,
@@ -175,7 +190,12 @@ RobuxUpsellContainer = connectToStore(function(state)
 
 		productInfo = state.productInfo,
 		accountInfo = state.accountInfo,
-
+		
+		-- Robux Upsell Suggestions
+		robuxSuggestions = state.robuxUpsellSuggestions.products,
+		robuxPackageSelection = state.robuxUpsellSuggestions.selection,
+		
+		-- Selected Robux Package details - used for legacy upsell flow and processing
 		robuxProductId = SelectedRobuxPackage.getRobuxProductId(state),
 		productId = SelectedRobuxPackage.getProductId(state),
 		robuxPurchaseAmount = SelectedRobuxPackage.getRobuxPurchaseAmount(state),
@@ -214,6 +234,9 @@ end, function(dispatch)
 		completeRequest = function()
 			GuiService.SelectedCoreObject = nil
 			return dispatch(completeRequest())
+		end,
+		onUpsellSuggestionsSelected = function(products: {[number]: RobuxUpsellProduct}, index: number)
+			return dispatch(PromptNativeUpsellSuggestions(products, index))
 		end,
 		onAnalyticEvent = function(name, data)
 			return dispatch(sendEvent(name, data))

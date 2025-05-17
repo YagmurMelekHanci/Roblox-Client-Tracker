@@ -1,5 +1,5 @@
 PROTO_0:
-  LOADK R0 K0 ["Standalone"]
+  LOADK R0 K0 ["Asset"]
   RETURN R0 1
 
 MAIN:

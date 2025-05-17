@@ -10,6 +10,9 @@ local PurchasePromptDeps = require(CorePackages.Workspace.Packages.PurchasePromp
 local IAPExperience = PurchasePromptDeps.IAPExperience
 local GetUpsellSuggestions = IAPExperience.Api.PaymentsGateway.GetUpsellSuggestions
 
+local UpsellSuggestionsAPIMaxPackages =
+	require(CorePackages.Workspace.Packages.SharedFlags).UpsellSuggestionsAPIMaxPackages
+
 return function(price: number, robuxBalance: number, paymentPlatform: string, itemProductId: number?, itemName: string?, universeId: number?)
     local upsellPlatform = paymentPlatformToUpsellPlatform(paymentPlatform)
 
@@ -17,7 +20,7 @@ return function(price: number, robuxBalance: number, paymentPlatform: string, it
 	local promise = Promise.new(function(resolve, reject)
 		-- Spawn a new thread to avoid blocking the main thread
 		spawn(function()
-			local success, response = GetUpsellSuggestions(upsellPlatform, robuxBalance, price, 1, itemProductId, itemName, universeId)
+			local success, response = GetUpsellSuggestions(upsellPlatform, robuxBalance, price, UpsellSuggestionsAPIMaxPackages, itemProductId, itemName, universeId)
 			if not success then
 				return reject(PurchaseError.UnknownFailure)
 			end

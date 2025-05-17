@@ -68,7 +68,6 @@ local FFlagFixSTUXShowingIncorrectly = game:DefineFastFlag("FixSTUXShowingIncorr
 local FFlagSendUserConnectionStatus = game:DefineFastFlag("SendUserConnectionStatus", false)
 local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
 local FFlagSeamlessVoiceV2JoinVoiceToast = game:DefineFastFlag("SeamlessVoiceV2JoinVoiceToast", false)
-local FFlagHideVoiceUIUntilInputExists = require(VoiceChatCore.Flags.GetFFlagHideVoiceUIUntilInputExists)()
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging =
 	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
@@ -237,7 +236,6 @@ local VoiceChatServiceManager = {
 	voiceUIVisible = false,
 	mutedNonFriends = if FFlagMuteNonFriendsEvent then Instance.new("BindableEvent") else nil,
 	userAgencySelected = if GetFFlagShowMuteToggles() then Instance.new("BindableEvent") else nil,
-	audioDeviceInputAdded = if FFlagHideVoiceUIUntilInputExists then Instance.new("BindableEvent") else nil,
 	sendMuteEvent = nil,
 	LikelySpeakingUsersEvent = nil,
 	muteAll = false,
@@ -513,7 +511,7 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe("OnAudioDeviceInputAdded", function()
 		self:UpdateAudioDeviceInputDebugger()
 	end)
-
+	
 	if GetFFlagEnableShowVoiceUI() then
 		self.coreVoiceManager:subscribe("OnVoiceChatServiceInitialized", function()
 			self:ShowVoiceUI()

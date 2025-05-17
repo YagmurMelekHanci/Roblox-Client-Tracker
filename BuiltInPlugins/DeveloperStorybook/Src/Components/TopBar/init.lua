@@ -34,6 +34,8 @@ local SetSettings = require(Actions.SetSettings)
 local EmbedStorybook = require(Thunks.EmbedStorybook)
 local GetStories = require(Thunks.GetStories)
 
+local GuiService = game:GetService("GuiService")
+
 local TopBar = React.PureComponent:extend("TopBar")
 
 local THEMES = {
@@ -63,6 +65,7 @@ function TopBar:init()
 		local settings = {
 			reducedMotion = not self.props.Settings.reducedMotion,
 			preferredTransparency = self.props.Settings.preferredTransparency,
+			preferredTextSize = self.props.Settings.preferredTextSize,
 		}
 		self.props.setSettings(settings)
 	end
@@ -71,6 +74,7 @@ function TopBar:init()
 		local settings = {
 			reducedMotion = self.props.Settings.reducedMotion,
 			preferredTransparency = value,
+			preferredTextSize = self.props.Settings.preferredTextSize,
 		}
 		self.props.setSettings(settings)
 	end
@@ -78,6 +82,16 @@ function TopBar:init()
 	self.onEmbedStorybook = function()
 		self.props.embedStorybook()
 	end
+
+	-- Listen for PreferredTextSize changes
+	GuiService:GetPropertyChangedSignal("PreferredTextSize"):Connect(function()
+		local settings = {
+			reducedMotion = self.props.Settings.reducedMotion,
+			preferredTransparency = self.props.Settings.preferredTransparency,
+			preferredTextSize = GuiService.PreferredTextSize,
+		}
+		self.props.setSettings(settings)
+	end)
 end
 
 function TopBar:render()
@@ -191,6 +205,13 @@ function TopBar:render()
 				VerticalDragTolerance = SLIDER_HEIGHT,
 				ShowInput = true,
 			}),
+		}),
+		PreferredTextSizeLabel = React.createElement(Text, {
+			Text = `Preferred Text Size: <b>{props.Settings.preferredTextSize.Name}</b>`,
+			RichText = true,
+			tag = "auto-xy text-align-x-left text-label-small",
+			AnchorPoint = Vector2.new(0, 0),
+			LayoutOrder = 14,
 		}),
 	})
 end

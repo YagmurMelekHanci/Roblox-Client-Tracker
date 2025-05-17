@@ -117,7 +117,7 @@ do
 		end
 
 		ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
-		if GetFFlagUnreduxChatTransparency() then
+		if GetFFlagUnreduxChatTransparency() and ChatWindowState.Visible then
 			transparencyStore.resetAllTransparency()
 		end
 		if getFFlagExposeChatWindowToggled() then

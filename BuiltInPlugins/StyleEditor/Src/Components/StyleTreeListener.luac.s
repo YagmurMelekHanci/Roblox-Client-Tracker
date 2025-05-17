@@ -34,7 +34,8 @@ PROTO_0:
 PROTO_1:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["IsDirty"]
-  JUMPIFNOT R0 [+5]
+  LOADN R1 0
+  JUMPIFNOTLT R1 R0 [+6]
   GETUPVAL R0 1
   GETUPVAL R1 2
   LOADB R2 0
@@ -57,16 +58,17 @@ PROTO_3:
   GETTABLEKS R0 R1 K0 ["new"]
   GETUPVAL R1 1
   GETUPVAL R2 2
-  NEWTABLE R3 0 4
+  NEWTABLE R3 0 5
   LOADK R4 K1 ["Name"]
   LOADK R5 K2 ["Parent"]
   LOADK R6 K3 ["Selector"]
-  LOADK R7 K4 ["Priority"]
-  SETLIST R3 R4 4 [1]
+  LOADK R7 K4 ["SelectorError"]
+  LOADK R8 K5 ["Priority"]
+  SETLIST R3 R4 5 [1]
   NEWTABLE R4 0 3
-  LOADK R5 K5 ["StyleSheet"]
-  LOADK R6 K6 ["Folder"]
-  LOADK R7 K7 ["StyleRule"]
+  LOADK R5 K6 ["StyleSheet"]
+  LOADK R6 K7 ["Folder"]
+  LOADK R7 K8 ["StyleRule"]
   SETLIST R4 R5 3 [1]
   CALL R0 4 1
   NEWCLOSURE R1 P0
