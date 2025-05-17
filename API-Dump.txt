@@ -7,6 +7,8 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 	Event Object.Changed(property: string)
 Class Capture : Object [NotCreatable] [NotReplicated]
 Class ScreenshotCapture : Capture [NotCreatable] [NotReplicated]
+Class VideoCapture : Capture [NotCreatable] [NotReplicated]
+	Property VideoCapture.TimeLength: number {RobloxScriptSecurity} [ReadOnly]
 Class ConfigSnapshot : Object [NotCreatable] [NotReplicated]
 	Property ConfigSnapshot.Error: Enum.ConfigSnapshotErrorState [ReadOnly]
 	Property ConfigSnapshot.Outdated: boolean [ReadOnly]
@@ -816,6 +818,9 @@ Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraScriptService:GetLocalFrameId() -> number [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () [Deprecated] {🧬Safe}
 Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
+	Property AuroraService.HashRoundingPoint: number [Deprecated]
+	Property AuroraService.IgnoreRotation: boolean [Deprecated]
+	Property AuroraService.RollbackOffset: number [Deprecated]
 	Function AuroraService:GetPredictedInstances() -> { any } [Deprecated]
 	Function AuroraService:GetRemoteWorldStepId() -> number [Deprecated]
 	Function AuroraService:GetServerView(target: Instance) -> Instance? [Deprecated]
@@ -880,7 +885,6 @@ Class AvatarAnimationRules : Instance
 Class AvatarBodyRules : Instance
 	Property AvatarBodyRules.AppearanceMode: Enum.AvatarSettingsAppearanceMode {RobloxScriptSecurity}
 	Property AvatarBodyRules.BuildMode: Enum.AvatarSettingsBuildMode {RobloxScriptSecurity}
-	Property AvatarBodyRules.CustomBodyAvatarReference: Instance? {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomBodyBundleId: number {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomBodyType: Enum.AvatarSettingsCustomBodyType {RobloxScriptSecurity}
 	Property AvatarBodyRules.CustomBodyTypeScale: NumberRange {RobloxScriptSecurity}
@@ -1051,6 +1055,8 @@ Class AvatarPreloader : Instance [NotCreatable] [Service] [NotReplicated]
 Class AvatarRules : Instance
 	Property AvatarRules.AvatarType: Enum.GameAvatarType {RobloxScriptSecurity}
 Class AvatarSettings : Instance [NotCreatable] [Service]
+	Property AvatarSettings.Loaded: boolean {RobloxScriptSecurity} [ReadOnly]
+	Function AvatarSettings:Publish() -> () {RobloxScriptSecurity}
 Class Backpack : Instance
 Class BadgeService : Instance [NotCreatable] [Service]
 	Function BadgeService:AwardBadge(userId: number, badgeId: number) -> boolean [Yields]
@@ -1376,8 +1382,9 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:SaveCapturesToExternalStorageAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:SaveScreenshotCapture(additionalInfo: string? = "") -> () {RobloxScriptSecurity}
-	Function CaptureService:StartVideoCaptureInternal() -> () {RobloxScriptSecurity}
-	Function CaptureService:StopCapture() -> () {RobloxScriptSecurity}
+	Function CaptureService:StartVideoCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> Enum.VideoCaptureResult [Yields]
+	Function CaptureService:StartVideoCaptureInternalAsync() -> Enum.VideoCaptureResult {RobloxScriptSecurity} [Yields]
+	Function CaptureService:StopVideoCapture() -> ()
 	Function CaptureService:StopVideoCaptureInternal() -> () {RobloxScriptSecurity}
 	Function CaptureService:TakeCapture(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> ()
 	Event CaptureService.CaptureBegan()
@@ -3112,6 +3119,48 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.UiMessageChanged(msgType: Enum.UiMessageType, newUiMessage: string) {RobloxScriptSecurity}
 	Callback GuiService.SendCoreUiNotification(title: string, text: string) -> () {RobloxScriptSecurity}
 Class GuidRegistryService : Instance [NotCreatable] [Service]
+Class HandRigDescription : Instance
+	Property HandRigDescription.Side: Enum.HandRigDescriptionSide
+	Property HandRigDescription.Index1: Instance?
+	Property HandRigDescription.Index2: Instance?
+	Property HandRigDescription.Index3: Instance?
+	Property HandRigDescription.Middle1: Instance?
+	Property HandRigDescription.Middle2: Instance?
+	Property HandRigDescription.Middle3: Instance?
+	Property HandRigDescription.Pinky1: Instance?
+	Property HandRigDescription.Pinky2: Instance?
+	Property HandRigDescription.Pinky3: Instance?
+	Property HandRigDescription.Ring1: Instance?
+	Property HandRigDescription.Ring2: Instance?
+	Property HandRigDescription.Ring3: Instance?
+	Property HandRigDescription.Thumb1: Instance?
+	Property HandRigDescription.Thumb2: Instance?
+	Property HandRigDescription.Thumb3: Instance?
+	Property HandRigDescription.IndexRange: Vector3
+	Property HandRigDescription.MiddleRange: Vector3
+	Property HandRigDescription.PinkyRange: Vector3
+	Property HandRigDescription.RingRange: Vector3
+	Property HandRigDescription.ThumbRange: Vector3
+	Property HandRigDescription.IndexSize: number
+	Property HandRigDescription.MiddleSize: number
+	Property HandRigDescription.PinkySize: number
+	Property HandRigDescription.RingSize: number
+	Property HandRigDescription.ThumbSize: number
+	Property HandRigDescription.Index1TposeAdjustment: CFrame
+	Property HandRigDescription.Index2TposeAdjustment: CFrame
+	Property HandRigDescription.Index3TposeAdjustment: CFrame
+	Property HandRigDescription.Middle1TposeAdjustment: CFrame
+	Property HandRigDescription.Middle2TposeAdjustment: CFrame
+	Property HandRigDescription.Middle3TposeAdjustment: CFrame
+	Property HandRigDescription.Pinky1TposeAdjustment: CFrame
+	Property HandRigDescription.Pinky2TposeAdjustment: CFrame
+	Property HandRigDescription.Pinky3TposeAdjustment: CFrame
+	Property HandRigDescription.Ring1TposeAdjustment: CFrame
+	Property HandRigDescription.Ring2TposeAdjustment: CFrame
+	Property HandRigDescription.Ring3TposeAdjustment: CFrame
+	Property HandRigDescription.Thumb1TposeAdjustment: CFrame
+	Property HandRigDescription.Thumb2TposeAdjustment: CFrame
+	Property HandRigDescription.Thumb3TposeAdjustment: CFrame
 Class HapticEffect : Instance [NotBrowsable]
 	Property HapticEffect.Looped: boolean
 	Property HapticEffect.Position: Vector3
@@ -3354,7 +3403,7 @@ Class HumanoidDescription : Instance
 	Function HumanoidDescription:SetEquippedEmotes(equippedEmotes: { any }) -> ()
 	Event HumanoidDescription.EmotesChanged(newEmotes: { [string]: any })
 	Event HumanoidDescription.EquippedEmotesChanged(newEquippedEmotes: { any })
-Class HumanoidRigDescription : Instance
+Class HumanoidRigDescription : Instance [NotBrowsable]
 	Property HumanoidRigDescription.Chest: Instance?
 	Property HumanoidRigDescription.Head: Instance?
 	Property HumanoidRigDescription.LeftAnkle: Instance?
@@ -4024,10 +4073,14 @@ Class MaterialService : Instance [NotCreatable] [Service]
 Class MaterialVariant : Instance
 	Property MaterialVariant.BaseMaterial: Enum.Material {✏️PluginSecurity}
 	Property MaterialVariant.ColorMap: string {PluginSecurity}
+	Property MaterialVariant.ColorMapContent: Content {PluginSecurity}
 	Property MaterialVariant.MaterialPattern: Enum.MaterialPattern
 	Property MaterialVariant.MetalnessMap: string {PluginSecurity}
+	Property MaterialVariant.MetalnessMapContent: Content {PluginSecurity}
 	Property MaterialVariant.NormalMap: string {PluginSecurity}
+	Property MaterialVariant.NormalMapContent: Content {PluginSecurity}
 	Property MaterialVariant.RoughnessMap: string {PluginSecurity}
+	Property MaterialVariant.RoughnessMapContent: Content {PluginSecurity}
 	Property MaterialVariant.StudsPerTile: number
 	Property MaterialVariant.AvgMetalness: number [Hidden] [NotReplicated] [NotScriptable]
 	Property MaterialVariant.AvgRoughness: number [Hidden] [NotReplicated] [NotScriptable]
@@ -4498,6 +4551,7 @@ Class PartOperation : TriangleMeshPart
 	Function PartOperation:SubstituteGeometry(source: Instance) -> ()
 Class IntersectOperation : PartOperation
 Class NegateOperation : PartOperation
+	Property NegateOperation.PreviousOperation: Enum.NegateOperationHiddenHistory {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class UnionOperation : PartOperation
 Class TrussPart : BasePart
 	Property TrussPart.Style: Enum.Style [📁 LoadOnly] [NotReplicated]
@@ -5412,6 +5466,7 @@ Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PublishService:CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParamErrorJson(serializedInstance: string, publishInfo: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PublishService:PublishCageMeshAsync(wrap: Instance, cageType: Enum.CageType) -> string {RobloxScriptSecurity} [Yields]
 	Function PublishService:PublishDescendantAssets(instance: Instance) -> boolean {RobloxScriptSecurity}
+	Function PublishService:PublishDescendantAssetsAsync(instance: Instance) -> boolean {RobloxScriptSecurity} [Yields]
 Class RTAnimationTracker : Instance [NotReplicated]
 	Property RTAnimationTracker.Active: boolean [Hidden] [NotReplicated]
 	Property RTAnimationTracker.EnableFallbackAudioInput: boolean [Hidden] [NotReplicated]
@@ -6069,6 +6124,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function SoundService:SetListener(listenerType: Enum.ListenerType, listener: ...any) -> ()
 	Function SoundService:SetOutputDevice(name: string, guid: string) -> () {RobloxScriptSecurity}
 	Function SoundService:SetRecordingDevice(deviceIndex: number) -> boolean {RobloxScriptSecurity}
+	Function SoundService:SetSoundEnabled(enabled: boolean) -> () {RobloxScriptSecurity}
 	Event SoundService.AudioInstanceAdded(instance: Instance) {RobloxScriptSecurity}
 	Event SoundService.ClientLoggedEvent(sessionIdRaw: string) {RobloxSecurity} [Hidden]
 	Event SoundService.DeviceListChanged(newDevices: ...any) {RobloxScriptSecurity}
@@ -6884,14 +6940,11 @@ Class TextureGenerationUnwrappingRequest : Instance [NotCreatable] [NotReplicate
 	Function TextureGenerationUnwrappingRequest:ApplyToDataModel(partGroup: TextureGenerationPartGroup) -> TextureGenerationPartGroup {RobloxScriptSecurity}
 	Function TextureGenerationUnwrappingRequest:GetPartGroup() -> TextureGenerationPartGroup {RobloxScriptSecurity}
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function ThirdPartyUserService:GetUserPlatformId() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetUserPlatformName() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetVoiceChatRestrictionStatus() -> Enum.ChatRestrictionStatus {RobloxScriptSecurity}
 	Function ThirdPartyUserService:HaveActiveUser() -> boolean {RobloxScriptSecurity}
 	Function ThirdPartyUserService:IsChatRestrictionSupported() -> boolean {RobloxScriptSecurity}
-	Function ThirdPartyUserService:IsOver13() -> boolean {RobloxScriptSecurity}
 	Function ThirdPartyUserService:RegisterActiveUser(gamepadId: Enum.UserInputType) -> number {RobloxScriptSecurity} [Yields]
-	Function ThirdPartyUserService:ReturnToEngagement() -> () {RobloxScriptSecurity}
 	Function ThirdPartyUserService:ShowAccountPicker() -> () {RobloxScriptSecurity}
 	Event ThirdPartyUserService.ActiveUserSignedOut(signOutStatus: number) {RobloxScriptSecurity}
 Class ThreadState : Instance [NotCreatable] [NotReplicated]
@@ -7618,8 +7671,12 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.JoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishStateChange(muteState: Enum.MuteState, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishingHandshakeAcked(handshakeAnswer: string, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeAckedWithBothSdp(fullHandshakeAnswer: string, compressedHandshakeAnswer: string, sessionId: string, compressMode: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeAckedWithCompressedSdp(compressedHandshakeAnswer: string, sessionId: string, compressMode: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishingHandshakeCompleted(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishingHandshakeInitiated(handshakeOffer: string, muteState: Enum.MuteState, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeInitiatedWithBothSdp(fullHandshakeOffer: string, compressedHandshakeOffer: string, muteState: Enum.MuteState, sessionId: string, compressMode: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeInitiatedWithCompressedSdp(compressedHandshakeOffer: string, muteState: Enum.MuteState, sessionId: string, compressMode: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ReJoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string, clientIp: string, clientPort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RuppInitialToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number) {RobloxSecurity} [Hidden]
@@ -7628,8 +7685,12 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.SubscriptionDropped(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionFeedStarted(eventTag: number, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeAcked(eventTag: number, handshakeAnswer: string, usersToMute: string, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeAckedWithBothSdp(eventTag: number, fullHandshakeAnswer: string, compressedSdpAnswer: string, usersToMute: string, sessionId: string, compressMode: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeAckedWithCompressedSdp(eventTag: number, compressedSdpAnswer: string, usersToMute: string, sessionId: string, compressMode: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeCompleted(sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeInitiated(handshakeOffer: string, newSubscriptionStates: string, isNewConnection: boolean, sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeInitiatedWithBothSdp(fullHandshakeOffer: string, compressedHandshakeOffer: string, newSubscriptionStates: string, isNewConnection: boolean, sessionId: string, eventTag: number, compressMode: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeInitiatedWithCompressedSdp(compressedHandshakeOffer: string, newSubscriptionStates: string, isNewConnection: boolean, sessionId: string, eventTag: number, compressMode: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionReset(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.UpdateTurnAuthInfoRequest() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.UserTurnAuth(sessionId: string, userName: string, password: string, ttl: number, uris: { any }) {RobloxSecurity} [Hidden]
@@ -9020,6 +9081,10 @@ Enum GuiType
 	EnumItem GuiType.PlayerNameplates : 2
 	EnumItem GuiType.CustomBillboards : 3
 	EnumItem GuiType.CoreBillboards : 4
+Enum HandRigDescriptionSide
+	EnumItem HandRigDescriptionSide.None : 0
+	EnumItem HandRigDescriptionSide.Left : 1
+	EnumItem HandRigDescriptionSide.Right : 2
 Enum HandlesStyle
 	EnumItem HandlesStyle.Resize : 0
 	EnumItem HandlesStyle.Movement : 1
@@ -9701,6 +9766,10 @@ Enum NameOcclusion
 	EnumItem NameOcclusion.NoOcclusion : 0
 	EnumItem NameOcclusion.EnemyOcclusion : 1
 	EnumItem NameOcclusion.OccludeAll : 2
+Enum NegateOperationHiddenHistory
+	EnumItem NegateOperationHiddenHistory.None : 0
+	EnumItem NegateOperationHiddenHistory.NegatedUnion : 1
+	EnumItem NegateOperationHiddenHistory.NegatedIntersection : 2
 Enum NetworkOwnership
 	EnumItem NetworkOwnership.Automatic : 0
 	EnumItem NetworkOwnership.Manual : 1
@@ -11020,6 +11089,7 @@ Enum WrapLayerDebugMode
 	EnumItem WrapLayerDebugMode.HSRInnerReverse : 11
 	EnumItem WrapLayerDebugMode.LayerCageFittedToBase : 12
 	EnumItem WrapLayerDebugMode.LayerCageFittedToPrev : 13
+	EnumItem WrapLayerDebugMode.PreWrapDeformerOuterCage : 14
 Enum WrapTargetDebugMode
 	EnumItem WrapTargetDebugMode.None : 0
 	EnumItem WrapTargetDebugMode.TargetCageOriginal : 1
@@ -11030,6 +11100,7 @@ Enum WrapTargetDebugMode
 	EnumItem WrapTargetDebugMode.TargetLayerInterface : 6
 	EnumItem WrapTargetDebugMode.Rbf : 7
 	EnumItem WrapTargetDebugMode.OuterCageDetail : 8
+	EnumItem WrapTargetDebugMode.PreWrapDeformerCage : 9
 Enum ZIndexBehavior
 	EnumItem ZIndexBehavior.Global : 0
 	EnumItem ZIndexBehavior.Sibling : 1

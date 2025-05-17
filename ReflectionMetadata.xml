@@ -8883,7 +8883,7 @@
             <string name="PropertyOrder">1001</string>
             <bool name="FFlag">AnimatorIsThrottledPropertyEnabled</bool>
           </Properties>
-	    </Item>
+        </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">RootMotion</string>
@@ -9011,6 +9011,1089 @@
             <string name="Description">Returns the CFrame of the smoothed final target in world space.</string>
           </Properties>
         </Item>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">HumanoidRigDescription</string>
+        <string name="ClassCategory">Animations</string>
+        <string name="ExplorerOrder">220</string>
+        <string name="ExplorerImageIndex">53</string>
+        <bool name="FFlag">HumanoidRigDescriptionEnabled</bool>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <!-- BEGIN GEN -->
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Root</string>
+            <string name="Description">Specifies which joint corresponds to the Root.</string>
+            <string name="PropertyOrder">1000</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Pelvis</string>
+            <string name="Description">Specifies which joint corresponds to the Pelvis.</string>
+            <string name="PropertyOrder">1001</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Waist</string>
+            <string name="Description">Specifies which joint corresponds to the Waist.</string>
+            <string name="PropertyOrder">1002</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Chest</string>
+            <string name="Description">Specifies which joint corresponds to the Chest.</string>
+            <string name="PropertyOrder">1003</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Neck</string>
+            <string name="Description">Specifies which joint corresponds to the Neck.</string>
+            <string name="PropertyOrder">1004</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HeadBase</string>
+            <string name="Description">Specifies which joint corresponds to the HeadBase.</string>
+            <string name="PropertyOrder">1005</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftClavicle</string>
+            <string name="Description">Specifies which joint corresponds to the LeftClavicle.</string>
+            <string name="PropertyOrder">1006</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftShoulder</string>
+            <string name="Description">Specifies which joint corresponds to the LeftShoulder.</string>
+            <string name="PropertyOrder">1007</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftElbow</string>
+            <string name="Description">Specifies which joint corresponds to the LeftElbow.</string>
+            <string name="PropertyOrder">1008</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftWrist</string>
+            <string name="Description">Specifies which joint corresponds to the LeftWrist.</string>
+            <string name="PropertyOrder">1009</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightClavicle</string>
+            <string name="Description">Specifies which joint corresponds to the RightClavicle.</string>
+            <string name="PropertyOrder">1010</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightShoulder</string>
+            <string name="Description">Specifies which joint corresponds to the RightShoulder.</string>
+            <string name="PropertyOrder">1011</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightElbow</string>
+            <string name="Description">Specifies which joint corresponds to the RightElbow.</string>
+            <string name="PropertyOrder">1012</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightWrist</string>
+            <string name="Description">Specifies which joint corresponds to the RightWrist.</string>
+            <string name="PropertyOrder">1013</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftHip</string>
+            <string name="Description">Specifies which joint corresponds to the LeftHip.</string>
+            <string name="PropertyOrder">1014</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftKnee</string>
+            <string name="Description">Specifies which joint corresponds to the LeftKnee.</string>
+            <string name="PropertyOrder">1015</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftAnkle</string>
+            <string name="Description">Specifies which joint corresponds to the LeftAnkle.</string>
+            <string name="PropertyOrder">1016</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftToes</string>
+            <string name="Description">Specifies which joint corresponds to the LeftToes.</string>
+            <string name="PropertyOrder">1017</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightHip</string>
+            <string name="Description">Specifies which joint corresponds to the RightHip.</string>
+            <string name="PropertyOrder">1018</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightKnee</string>
+            <string name="Description">Specifies which joint corresponds to the RightKnee.</string>
+            <string name="PropertyOrder">1019</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightAnkle</string>
+            <string name="Description">Specifies which joint corresponds to the RightAnkle.</string>
+            <string name="PropertyOrder">1020</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightToes</string>
+            <string name="Description">Specifies which joint corresponds to the RightToes.</string>
+            <string name="PropertyOrder">1021</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RootRangeMin</string>
+            <string name="Description">Specifies the minimum range of the Root.</string>
+            <string name="PropertyOrder">1100</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PelvisRangeMin</string>
+            <string name="Description">Specifies the minimum range of the Pelvis.</string>
+            <string name="PropertyOrder">1102</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WaistRangeMin</string>
+            <string name="Description">Specifies the minimum range of the Waist.</string>
+            <string name="PropertyOrder">1104</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ChestRangeMin</string>
+            <string name="Description">Specifies the minimum range of the Chest.</string>
+            <string name="PropertyOrder">1106</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">NeckRangeMin</string>
+            <string name="Description">Specifies the minimum range of the Neck.</string>
+            <string name="PropertyOrder">1108</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HeadBaseRangeMin</string>
+            <string name="Description">Specifies the minimum range of the HeadBase.</string>
+            <string name="PropertyOrder">1110</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftClavicleRangeMin</string>
+            <string name="Description">Specifies the minimum range of the LeftClavicle.</string>
+            <string name="PropertyOrder">1112</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftShoulderRangeMin</string>
+            <string name="Description">Specifies the minimum range of the LeftShoulder.</string>
+            <string name="PropertyOrder">1114</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftElbowRangeMin</string>
+            <string name="Description">Specifies the minimum range of the LeftElbow.</string>
+            <string name="PropertyOrder">1116</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftWristRangeMin</string>
+            <string name="Description">Specifies the minimum range of the LeftWrist.</string>
+            <string name="PropertyOrder">1118</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightClavicleRangeMin</string>
+            <string name="Description">Specifies the minimum range of the RightClavicle.</string>
+            <string name="PropertyOrder">1120</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightShoulderRangeMin</string>
+            <string name="Description">Specifies the minimum range of the RightShoulder.</string>
+            <string name="PropertyOrder">1122</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightElbowRangeMin</string>
+            <string name="Description">Specifies the minimum range of the RightElbow.</string>
+            <string name="PropertyOrder">1124</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightWristRangeMin</string>
+            <string name="Description">Specifies the minimum range of the RightWrist.</string>
+            <string name="PropertyOrder">1126</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftHipRangeMin</string>
+            <string name="Description">Specifies the minimum range of the LeftHip.</string>
+            <string name="PropertyOrder">1128</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftKneeRangeMin</string>
+            <string name="Description">Specifies the minimum range of the LeftKnee.</string>
+            <string name="PropertyOrder">1130</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftAnkleRangeMin</string>
+            <string name="Description">Specifies the minimum range of the LeftAnkle.</string>
+            <string name="PropertyOrder">1132</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftToesRangeMin</string>
+            <string name="Description">Specifies the minimum range of the LeftToes.</string>
+            <string name="PropertyOrder">1134</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightHipRangeMin</string>
+            <string name="Description">Specifies the minimum range of the RightHip.</string>
+            <string name="PropertyOrder">1136</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightKneeRangeMin</string>
+            <string name="Description">Specifies the minimum range of the RightKnee.</string>
+            <string name="PropertyOrder">1138</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightAnkleRangeMin</string>
+            <string name="Description">Specifies the minimum range of the RightAnkle.</string>
+            <string name="PropertyOrder">1140</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightToesRangeMin</string>
+            <string name="Description">Specifies the minimum range of the RightToes.</string>
+            <string name="PropertyOrder">1142</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RootRangeMax</string>
+            <string name="Description">Specifies the maximum range of the Root.</string>
+            <string name="PropertyOrder">1101</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PelvisRangeMax</string>
+            <string name="Description">Specifies the maximum range of the Pelvis.</string>
+            <string name="PropertyOrder">1103</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WaistRangeMax</string>
+            <string name="Description">Specifies the maximum range of the Waist.</string>
+            <string name="PropertyOrder">1105</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ChestRangeMax</string>
+            <string name="Description">Specifies the maximum range of the Chest.</string>
+            <string name="PropertyOrder">1107</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">NeckRangeMax</string>
+            <string name="Description">Specifies the maximum range of the Neck.</string>
+            <string name="PropertyOrder">1109</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HeadBaseRangeMax</string>
+            <string name="Description">Specifies the maximum range of the HeadBase.</string>
+            <string name="PropertyOrder">1111</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftClavicleRangeMax</string>
+            <string name="Description">Specifies the maximum range of the LeftClavicle.</string>
+            <string name="PropertyOrder">1113</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftShoulderRangeMax</string>
+            <string name="Description">Specifies the maximum range of the LeftShoulder.</string>
+            <string name="PropertyOrder">1115</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftElbowRangeMax</string>
+            <string name="Description">Specifies the maximum range of the LeftElbow.</string>
+            <string name="PropertyOrder">1117</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftWristRangeMax</string>
+            <string name="Description">Specifies the maximum range of the LeftWrist.</string>
+            <string name="PropertyOrder">1119</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightClavicleRangeMax</string>
+            <string name="Description">Specifies the maximum range of the RightClavicle.</string>
+            <string name="PropertyOrder">1121</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightShoulderRangeMax</string>
+            <string name="Description">Specifies the maximum range of the RightShoulder.</string>
+            <string name="PropertyOrder">1123</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightElbowRangeMax</string>
+            <string name="Description">Specifies the maximum range of the RightElbow.</string>
+            <string name="PropertyOrder">1125</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightWristRangeMax</string>
+            <string name="Description">Specifies the maximum range of the RightWrist.</string>
+            <string name="PropertyOrder">1127</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftHipRangeMax</string>
+            <string name="Description">Specifies the maximum range of the LeftHip.</string>
+            <string name="PropertyOrder">1129</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftKneeRangeMax</string>
+            <string name="Description">Specifies the maximum range of the LeftKnee.</string>
+            <string name="PropertyOrder">1131</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftAnkleRangeMax</string>
+            <string name="Description">Specifies the maximum range of the LeftAnkle.</string>
+            <string name="PropertyOrder">1133</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftToesRangeMax</string>
+            <string name="Description">Specifies the maximum range of the LeftToes.</string>
+            <string name="PropertyOrder">1135</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightHipRangeMax</string>
+            <string name="Description">Specifies the maximum range of the RightHip.</string>
+            <string name="PropertyOrder">1137</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightKneeRangeMax</string>
+            <string name="Description">Specifies the maximum range of the RightKnee.</string>
+            <string name="PropertyOrder">1139</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightAnkleRangeMax</string>
+            <string name="Description">Specifies the maximum range of the RightAnkle.</string>
+            <string name="PropertyOrder">1141</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightToesRangeMax</string>
+            <string name="Description">Specifies the maximum range of the RightToes.</string>
+            <string name="PropertyOrder">1143</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RootSize</string>
+            <string name="Description">Specifies the size of the Root.</string>
+            <string name="PropertyOrder">1200</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PelvisSize</string>
+            <string name="Description">Specifies the size of the Pelvis.</string>
+            <string name="PropertyOrder">1201</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WaistSize</string>
+            <string name="Description">Specifies the size of the Waist.</string>
+            <string name="PropertyOrder">1202</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ChestSize</string>
+            <string name="Description">Specifies the size of the Chest.</string>
+            <string name="PropertyOrder">1203</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">NeckSize</string>
+            <string name="Description">Specifies the size of the Neck.</string>
+            <string name="PropertyOrder">1204</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HeadBaseSize</string>
+            <string name="Description">Specifies the size of the HeadBase.</string>
+            <string name="PropertyOrder">1205</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftClavicleSize</string>
+            <string name="Description">Specifies the size of the LeftClavicle.</string>
+            <string name="PropertyOrder">1206</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftShoulderSize</string>
+            <string name="Description">Specifies the size of the LeftShoulder.</string>
+            <string name="PropertyOrder">1207</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftElbowSize</string>
+            <string name="Description">Specifies the size of the LeftElbow.</string>
+            <string name="PropertyOrder">1208</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftWristSize</string>
+            <string name="Description">Specifies the size of the LeftWrist.</string>
+            <string name="PropertyOrder">1209</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightClavicleSize</string>
+            <string name="Description">Specifies the size of the RightClavicle.</string>
+            <string name="PropertyOrder">1210</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightShoulderSize</string>
+            <string name="Description">Specifies the size of the RightShoulder.</string>
+            <string name="PropertyOrder">1211</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightElbowSize</string>
+            <string name="Description">Specifies the size of the RightElbow.</string>
+            <string name="PropertyOrder">1212</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightWristSize</string>
+            <string name="Description">Specifies the size of the RightWrist.</string>
+            <string name="PropertyOrder">1213</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftHipSize</string>
+            <string name="Description">Specifies the size of the LeftHip.</string>
+            <string name="PropertyOrder">1214</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftKneeSize</string>
+            <string name="Description">Specifies the size of the LeftKnee.</string>
+            <string name="PropertyOrder">1215</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftAnkleSize</string>
+            <string name="Description">Specifies the size of the LeftAnkle.</string>
+            <string name="PropertyOrder">1216</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftToesSize</string>
+            <string name="Description">Specifies the size of the LeftToes.</string>
+            <string name="PropertyOrder">1217</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightHipSize</string>
+            <string name="Description">Specifies the size of the RightHip.</string>
+            <string name="PropertyOrder">1218</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightKneeSize</string>
+            <string name="Description">Specifies the size of the RightKnee.</string>
+            <string name="PropertyOrder">1219</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightAnkleSize</string>
+            <string name="Description">Specifies the size of the RightAnkle.</string>
+            <string name="PropertyOrder">1220</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightToesSize</string>
+            <string name="Description">Specifies the size of the RightToes.</string>
+            <string name="PropertyOrder">1221</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RootTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Root.</string>
+            <string name="PropertyOrder">1300</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PelvisTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Pelvis.</string>
+            <string name="PropertyOrder">1301</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WaistTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Waist.</string>
+            <string name="PropertyOrder">1302</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ChestTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Chest.</string>
+            <string name="PropertyOrder">1303</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">NeckTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Neck.</string>
+            <string name="PropertyOrder">1304</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HeadBaseTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the HeadBase.</string>
+            <string name="PropertyOrder">1305</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftClavicleTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the LeftClavicle.</string>
+            <string name="PropertyOrder">1306</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftShoulderTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the LeftShoulder.</string>
+            <string name="PropertyOrder">1307</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftElbowTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the LeftElbow.</string>
+            <string name="PropertyOrder">1308</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftWristTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the LeftWrist.</string>
+            <string name="PropertyOrder">1309</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightClavicleTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the RightClavicle.</string>
+            <string name="PropertyOrder">1310</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightShoulderTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the RightShoulder.</string>
+            <string name="PropertyOrder">1311</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightElbowTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the RightElbow.</string>
+            <string name="PropertyOrder">1312</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightWristTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the RightWrist.</string>
+            <string name="PropertyOrder">1313</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftHipTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the LeftHip.</string>
+            <string name="PropertyOrder">1314</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftKneeTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the LeftKnee.</string>
+            <string name="PropertyOrder">1315</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftAnkleTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the LeftAnkle.</string>
+            <string name="PropertyOrder">1316</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LeftToesTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the LeftToes.</string>
+            <string name="PropertyOrder">1317</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightHipTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the RightHip.</string>
+            <string name="PropertyOrder">1318</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightKneeTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the RightKnee.</string>
+            <string name="PropertyOrder">1319</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightAnkleTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the RightAnkle.</string>
+            <string name="PropertyOrder">1320</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RightToesTposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the RightToes.</string>
+            <string name="PropertyOrder">1321</string>
+          </Properties>
+        </Item>
+        <!-- END GEN -->
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">HandRigDescription</string>
+        <string name="ClassCategory">Animations</string>
+        <string name="ExplorerOrder">222</string>
+        <string name="ExplorerImageIndex">53</string>
+        <bool name="FFlag">HandRigDescriptionEnabled</bool>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <!-- BEGIN GEN -->
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thumb1</string>
+            <string name="Description">Specifies which joint corresponds to the Thumb1.</string>
+            <string name="PropertyOrder">1000</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thumb2</string>
+            <string name="Description">Specifies which joint corresponds to the Thumb2.</string>
+            <string name="PropertyOrder">1001</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thumb3</string>
+            <string name="Description">Specifies which joint corresponds to the Thumb3.</string>
+            <string name="PropertyOrder">1002</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Index1</string>
+            <string name="Description">Specifies which joint corresponds to the Index1.</string>
+            <string name="PropertyOrder">1003</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Index2</string>
+            <string name="Description">Specifies which joint corresponds to the Index2.</string>
+            <string name="PropertyOrder">1004</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Index3</string>
+            <string name="Description">Specifies which joint corresponds to the Index3.</string>
+            <string name="PropertyOrder">1005</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Middle1</string>
+            <string name="Description">Specifies which joint corresponds to the Middle1.</string>
+            <string name="PropertyOrder">1006</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Middle2</string>
+            <string name="Description">Specifies which joint corresponds to the Middle2.</string>
+            <string name="PropertyOrder">1007</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Middle3</string>
+            <string name="Description">Specifies which joint corresponds to the Middle3.</string>
+            <string name="PropertyOrder">1008</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Ring1</string>
+            <string name="Description">Specifies which joint corresponds to the Ring1.</string>
+            <string name="PropertyOrder">1009</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Ring2</string>
+            <string name="Description">Specifies which joint corresponds to the Ring2.</string>
+            <string name="PropertyOrder">1010</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Ring3</string>
+            <string name="Description">Specifies which joint corresponds to the Ring3.</string>
+            <string name="PropertyOrder">1011</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Pinky1</string>
+            <string name="Description">Specifies which joint corresponds to the Pinky1.</string>
+            <string name="PropertyOrder">1012</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Pinky2</string>
+            <string name="Description">Specifies which joint corresponds to the Pinky2.</string>
+            <string name="PropertyOrder">1013</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Pinky3</string>
+            <string name="Description">Specifies which joint corresponds to the Pinky3.</string>
+            <string name="PropertyOrder">1014</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thumb1TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Thumb1.</string>
+            <string name="PropertyOrder">1300</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thumb2TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Thumb2.</string>
+            <string name="PropertyOrder">1301</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thumb3TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Thumb3.</string>
+            <string name="PropertyOrder">1302</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Index1TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Index1.</string>
+            <string name="PropertyOrder">1303</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Index2TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Index2.</string>
+            <string name="PropertyOrder">1304</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Index3TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Index3.</string>
+            <string name="PropertyOrder">1305</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Middle1TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Middle1.</string>
+            <string name="PropertyOrder">1306</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Middle2TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Middle2.</string>
+            <string name="PropertyOrder">1307</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Middle3TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Middle3.</string>
+            <string name="PropertyOrder">1308</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Ring1TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Ring1.</string>
+            <string name="PropertyOrder">1309</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Ring2TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Ring2.</string>
+            <string name="PropertyOrder">1310</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Ring3TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Ring3.</string>
+            <string name="PropertyOrder">1311</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Pinky1TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Pinky1.</string>
+            <string name="PropertyOrder">1312</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Pinky2TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Pinky2.</string>
+            <string name="PropertyOrder">1313</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Pinky3TposeAdjustment</string>
+            <string name="Description">Specifies the T-pose adjustment of the Pinky3.</string>
+            <string name="PropertyOrder">1314</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ThumbRange</string>
+            <string name="Description">Specifies the range of the Thumb.</string>
+            <string name="PropertyOrder">1100</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">IndexRange</string>
+            <string name="Description">Specifies the range of the Index.</string>
+            <string name="PropertyOrder">1101</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MiddleRange</string>
+            <string name="Description">Specifies the range of the Middle.</string>
+            <string name="PropertyOrder">1102</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RingRange</string>
+            <string name="Description">Specifies the range of the Ring.</string>
+            <string name="PropertyOrder">1103</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PinkyRange</string>
+            <string name="Description">Specifies the range of the Pinky.</string>
+            <string name="PropertyOrder">1104</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ThumbSize</string>
+            <string name="Description">Specifies the size of the Thumb.</string>
+            <string name="PropertyOrder">1200</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">IndexSize</string>
+            <string name="Description">Specifies the size of the Index.</string>
+            <string name="PropertyOrder">1201</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MiddleSize</string>
+            <string name="Description">Specifies the size of the Middle.</string>
+            <string name="PropertyOrder">1202</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RingSize</string>
+            <string name="Description">Specifies the size of the Ring.</string>
+            <string name="PropertyOrder">1203</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PinkySize</string>
+            <string name="Description">Specifies the size of the Pinky.</string>
+            <string name="PropertyOrder">1204</string>
+          </Properties>
+        </Item>
+        <!-- END GEN -->
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
