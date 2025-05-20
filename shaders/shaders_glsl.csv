@@ -714,6 +714,7 @@ SmootherStepFS,Fragment
 SmoothWaterVS_00000000,Vertex
 SmoothWaterVSUnified_10000000,Vertex
 SmoothWaterVSUnified_10000400,Vertex
+SmoothWaterVSUnified_20000000,Vertex
 SRGBToLinearFS,Fragment
 SSAOBlurXFS,Fragment
 SSAOBlurYFS,Fragment

@@ -70,3 +70,7 @@ Studio.ManageCollaborators.Permissions.Universe.GranularPublisher.Subtext,,,Publ
 Studio.ManageCollaborators.Permissions.FilterPill.All.Label,,,All,All,,Alle,Todos,Tout,सभी,Semua,Tutti,全員,전체,Wszystko,Tudo,,ทั้งหมด,Tümü,Tất Cả,,,全部
 Studio.ManageCollaborators.Permissions.FilterPill.Creators.Label,,,Creators,Creators,,Creator,Creadores,Créateurs,क्रिएटर,Kreator,Creatori,クリエーター,크리에이터,Twórcy,Criadores,,ครีเอเตอร์,Yaratıcılar,Nhà Sáng Tạo,,,創作者
 Studio.ManageCollaborators.Permissions.FilterPill.Roles.Label,,,Roles,Roles,,Rollen,Roles,Rôles,रोल्स,Peran,Ruoli,役割,역할,Role,Funções,,บทบาท,Roller,Vai Trò,,,身分
+Studio.ManageCollaborators.Description.ConnectionsEditAccess,,,(only connections can have edit access),(only connections can have edit access),,,,,,,,,,,,,,,,（只有联系人可以有编辑权限）,（只有联系人可以有编辑权限）,
+Studio.ManageCollaborators.PermissionDescriptions.ConnectionToEdit,,,User must be a connection to edit,User must be a connection to edit,,,,,,,,,,,,,,,,用户必须是联系人才能编辑,用户必须是联系人才能编辑,
+Studio.ManageCollaborators.SearchBar.AgeWarningConnectionUsers,,,Only connections can have edit access. This experience is restricted to age-verified 17+ creators.,Only connections can have edit access. This experience is restricted to age-verified 17+ creators.,,,,,,,,,,,,,,,,只有联系人可以有编辑权限。此体验仅限于经过年龄验证的 17 岁及以上创作者访问。,只有联系人可以有编辑权限。此体验仅限于经过年龄验证的 17 岁及以上创作者访问。,
+Studio.ManageCollaborators.SearchBar.ConnectionLabel,,,Connection,Connection,,,,,,,,,,,,,,,,联系人,联系人,

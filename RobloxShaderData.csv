@@ -176,7 +176,7 @@ DefaultUnifiedFlatTransparentVS_10300400,Vertex,✔,✔,✔,❌,❌,✔
 DefaultUnifiedFlatTransparentVS_14000006,Vertex,✔,✔,✔,✔,✔,✔
 DefaultUnifiedFlatTransparentVS_14000406,Vertex,✔,✔,✔,✔,✔,✔
 DefaultUnifiedFlatTransparentVS_14001006,Vertex,✔,✔,✔,✔,✔,✔
-DefaultUnifiedFlatTransparentVS_14001406,Vertex,❌,✔,✔,✔,✔,✔
+DefaultUnifiedFlatTransparentVS_14001406,Vertex,✔,✔,✔,✔,✔,✔
 DefaultUnifiedFlatTransparentVS_20000000,Vertex,❌,✔,✔,✔,✔,✔
 DefaultUnifiedFlatTransparentVS_20000001,Vertex,❌,✔,✔,❌,✔,✔
 DefaultUnifiedFlatTransparentVS_20000002,Vertex,❌,❌,✔,✔,✔,✔
@@ -184,7 +184,7 @@ DefaultUnifiedFlatTransparentVS_20000006,Vertex,❌,❌,✔,✔,✔,✔
 DefaultUnifiedFlatTransparentVS_20001000,Vertex,❌,❌,✔,✔,✔,✔
 DefaultUnifiedFlatTransparentVS_20001002,Vertex,❌,❌,✔,✔,✔,✔
 DefaultUnifiedFlatTransparentVS_20001006,Vertex,❌,❌,✔,✔,✔,✔
-DefaultUnifiedFlatTransparentVS_20100001,Vertex,❌,❌,✔,❌,✔,✔
+DefaultUnifiedFlatTransparentVS_20100001,Vertex,❌,✔,✔,❌,✔,✔
 DefaultUnifiedFlatTransparentVS_20200000,Vertex,❌,✔,✔,❌,❌,✔
 DefaultUnifiedFlatTransparentVS_20300000,Vertex,❌,❌,✔,❌,❌,✔
 DefaultUnifiedFlatTransparentVS_24000006,Vertex,❌,❌,✔,✔,✔,✔
@@ -204,6 +204,7 @@ DefaultUnifiedFlatTransparentVS_44001006,Vertex,❌,❌,✔,❌,❌,✔
 DefaultUnifiedFlatTransparentVS_80000000,Vertex,❌,❌,✔,❌,❌,✔
 DefaultUnifiedFlatTransparentVS_80000001,Vertex,❌,❌,✔,❌,❌,✔
 DefaultUnifiedFlatTransparentVS_80000002,Vertex,❌,❌,✔,❌,❌,✔
+DefaultUnifiedFlatTransparentVS_80000006,Vertex,❌,❌,✔,❌,❌,✔
 DefaultUnifiedFlatTransparentVS_80100001,Vertex,❌,❌,✔,❌,❌,✔
 DefaultUnifiedFlatTransparentVS_80200000,Vertex,❌,❌,✔,❌,❌,✔
 DefaultUnifiedFlatTransparentVS_80300000,Vertex,❌,❌,✔,❌,❌,✔
@@ -586,7 +587,7 @@ DefaultUnifiedNeonInGuiFS_10000000,Fragment,❌,❌,❌,✔,✔,❌
 DefaultUnifiedNeonInGuiFS_10000400,Fragment,❌,❌,❌,✔,✔,❌
 DefaultUnifiedNeonInGuiFS_11000000,Fragment,❌,❌,❌,✔,❌,❌
 DefaultUnifiedNeonInGuiFS_11000400,Fragment,❌,❌,❌,✔,❌,❌
-DefaultUnifiedNeonInGuiFS_20000000,Fragment,❌,❌,❌,✔,❌,❌
+DefaultUnifiedNeonInGuiFS_20000000,Fragment,❌,❌,❌,✔,✔,❌
 DefaultUnifiedNeonInGuiFS_21000000,Fragment,❌,❌,❌,✔,❌,❌
 DefaultUnifiedNeonInGuiVS_00000800,Vertex,❌,❌,❌,❌,✔,❌
 DefaultUnifiedNeonInGuiVS_00000801,Vertex,❌,❌,❌,❌,✔,❌
@@ -1362,6 +1363,7 @@ SmootherStepFS,Fragment,✔,✔,✔,✔,✔,✔
 SmoothWaterVS_00000000,Vertex,✔,✔,✔,✔,✔,✔
 SmoothWaterVSUnified_10000000,Vertex,❌,❌,❌,✔,❌,❌
 SmoothWaterVSUnified_10000400,Vertex,❌,❌,❌,✔,❌,❌
+SmoothWaterVSUnified_20000000,Vertex,❌,❌,❌,✔,❌,❌
 SpecularConvFS,Fragment,✔,✔,✔,❌,✔,✔
 SpecularConvVS,Vertex,✔,✔,✔,❌,✔,✔
 SRGBToLinearFS,Fragment,✔,✔,✔,✔,✔,✔

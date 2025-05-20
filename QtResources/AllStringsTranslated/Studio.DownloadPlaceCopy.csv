@@ -1,0 +1,6 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,hi-in,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.DownloadPlaceCopy.PlaceFileDownloaded,,,Place file downloaded to,Place file downloaded to,,,,,,,,,,,,,,,,,,
+Studio.DownloadPlaceCopy.UnableToDownloadSaveFailed,,,Failed to download the place file because save failed,Failed to download the place file because save failed,,,,,,,,,,,,,,,,,,
+Studio.DownloadPlaceCopy.UnableToDownloadFetchContentUrlFailed,,,Failed to download the place file because unable to fetch content url,Failed to download the place file because unable to fetch content url,,,,,,,,,,,,,,,,,,
+Studio.DownloadPlaceCopy.UnableToDownloadFetchPlaceDataFailed,,,Failed to download the place file because unable to fetch place data,Failed to download the place file because unable to fetch place data,,,,,,,,,,,,,,,,,,
+Studio.DownloadPlaceCopy.UnableToDownloadWriteToFileFailed,,,Failed to download the place file because unable to write data to disk,Failed to download the place file because unable to write data to disk,,,,,,,,,,,,,,,,,,

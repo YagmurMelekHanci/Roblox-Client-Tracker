@@ -244,6 +244,8 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.PortalPrompt(destinationId: number, portal: Instance, requiresNoButton: boolean) {RobloxScriptSecurity}
 	Event AdService.ReportImpressionSignal(ad_instance_name: string, encrypted_ad_tracking_data: string, encryption_metadata: string) {RobloxSecurity} [Hidden]
 	Event AdService.ReportTeleportSignal(ad_instance_name: string, encrypted_ad_tracking_data: string, encryption_metadata: string, teleport_type: string, teleport_source_universe_id: number, teleport_source_place_id: number, teleport_dest_place_id: number) {RobloxSecurity} [Hidden]
+	Event AdService.RewardedVideoAdEnded() {RobloxScriptSecurity}
+	Event AdService.RewardedVideoAdStarted() {RobloxScriptSecurity}
 	Event AdService.ServeAdResponseSignal(uuid: string, response: string, isError: boolean) {RobloxSecurity} [Hidden]
 	Event AdService.ServeAdSignal(uuid: string, request: string) {RobloxSecurity} [Hidden]
 	Event AdService.ShowDynamicEudsaDisclosure(advertiserName: string, payerName: string) {RobloxScriptSecurity}
@@ -497,7 +499,6 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreateMeshPartAsync(meshContent: Content, options: { [string]: any }? = nil) -> MeshPart [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
-	Function AssetService:CreateSurfaceAppearance(content: { [string]: any }) -> SurfaceAppearance
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
 	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } [Yields]
 	Function AssetService:GetAudioMetadataAsync(idList: { any }) -> { any } [Yields]
@@ -1196,8 +1197,6 @@ Class BaseWrap : Instance [NotCreatable]
 	Property BaseWrap.HSRMeshIdData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BaseWrap.ImportInProcess: boolean {✏️RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property BaseWrap.ImportOriginWorld: CFrame [ReadOnly]
-	Property BaseWrap.MaxSize: Vector3 {RobloxScriptSecurity} [Hidden]
-	Property BaseWrap.Offset: Vector3 {RobloxScriptSecurity} [Hidden]
 	Function BaseWrap:GetCageOffset() -> Vector3 {RobloxScriptSecurity}
 	Function BaseWrap:GetFaces(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
 	Function BaseWrap:GetUVs(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
@@ -1218,6 +1217,8 @@ Class WrapLayer : BaseWrap
 	Property WrapLayer.TemporaryReferenceId: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property WrapLayer.AutoSkin: Enum.WrapLayerAutoSkin
 	Property WrapLayer.Enabled: boolean
+	Property WrapLayer.MaxSize: Vector3 {RobloxScriptSecurity} [Hidden]
+	Property WrapLayer.Offset: Vector3 {RobloxScriptSecurity} [Hidden]
 	Property WrapLayer.ReferenceOriginWorld: CFrame [ReadOnly]
 	Property WrapLayer.Color: Color3 [NotReplicated] [NotScriptable]
 	Property WrapLayer.DebugMode: Enum.WrapLayerDebugMode [NotReplicated] [NotScriptable]
@@ -1387,8 +1388,8 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:StopVideoCapture() -> ()
 	Function CaptureService:StopVideoCaptureInternal() -> () {RobloxScriptSecurity}
 	Function CaptureService:TakeCapture(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> ()
-	Event CaptureService.CaptureBegan()
-	Event CaptureService.CaptureEnded()
+	Event CaptureService.CaptureBegan(captureType: Enum.CaptureType)
+	Event CaptureService.CaptureEnded(captureType: Enum.CaptureType)
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) [Deprecated]
 	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {RobloxScriptSecurity}
 	Event CaptureService.OnCaptureSignatureResult(content: string, signature: string, signatureVersion: number) {RobloxSecurity} [Hidden]
@@ -1397,6 +1398,8 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Event CaptureService.RequestCaptureSignature(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.RequestCaptureSignatureV2(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
+	Event CaptureService.UserVideoCaptureFailed(result: Enum.VideoCaptureResult) {RobloxScriptSecurity}
+	Event CaptureService.VideoCaptureInProgress(isInProgress: boolean) {RobloxScriptSecurity}
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function ChangeHistoryService:FinishRecording(identifier: string, operation: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) -> () {PluginSecurity}
 	Function ChangeHistoryService:GetCanRedo() -> ...any {PluginSecurity}
@@ -2474,8 +2477,6 @@ Class DataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function DataStore:RemoveVersionAsync(key: string, version: string) -> () [Yields]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function OrderedDataStore:GetSortedAsync(ascending: boolean, pagesize: number, minValue: any, maxValue: any) -> DataStorePages [Yields]
-Class GoogleAnalyticsConfiguration : Instance [NotCreatable] [Service]
-	Property GoogleAnalyticsConfiguration.gaID: string {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class GroupService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GroupService:GetAlliesAsync(groupId: number) -> StandardPages [Yields]
 	Function GroupService:GetEnemiesAsync(groupId: number) -> StandardPages [Yields]
@@ -3119,7 +3120,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.UiMessageChanged(msgType: Enum.UiMessageType, newUiMessage: string) {RobloxScriptSecurity}
 	Callback GuiService.SendCoreUiNotification(title: string, text: string) -> () {RobloxScriptSecurity}
 Class GuidRegistryService : Instance [NotCreatable] [Service]
-Class HandRigDescription : Instance
+Class HandRigDescription : Instance [NotBrowsable]
 	Property HandRigDescription.Side: Enum.HandRigDescriptionSide
 	Property HandRigDescription.Index1: Instance?
 	Property HandRigDescription.Index2: Instance?
@@ -3161,6 +3162,10 @@ Class HandRigDescription : Instance
 	Property HandRigDescription.Thumb1TposeAdjustment: CFrame
 	Property HandRigDescription.Thumb2TposeAdjustment: CFrame
 	Property HandRigDescription.Thumb3TposeAdjustment: CFrame
+	Function HandRigDescription:GetFingerControl(fingerIndex: number) -> Vector3
+	Function HandRigDescription:GetFingerTip(fingerIndex: number) -> Vector3
+	Function HandRigDescription:SetFingerControl(fingerIndex: number, control: Vector3) -> ()
+	Function HandRigDescription:SetFingerTip(fingerIndex: number, point: Vector3) -> ()
 Class HapticEffect : Instance [NotBrowsable]
 	Property HapticEffect.Looped: boolean
 	Property HapticEffect.Position: Vector3
@@ -3405,7 +3410,7 @@ Class HumanoidDescription : Instance
 	Event HumanoidDescription.EquippedEmotesChanged(newEquippedEmotes: { any })
 Class HumanoidRigDescription : Instance [NotBrowsable]
 	Property HumanoidRigDescription.Chest: Instance?
-	Property HumanoidRigDescription.Head: Instance?
+	Property HumanoidRigDescription.HeadBase: Instance?
 	Property HumanoidRigDescription.LeftAnkle: Instance?
 	Property HumanoidRigDescription.LeftClavicle: Instance?
 	Property HumanoidRigDescription.LeftElbow: Instance?
@@ -3428,8 +3433,8 @@ Class HumanoidRigDescription : Instance [NotBrowsable]
 	Property HumanoidRigDescription.Waist: Instance?
 	Property HumanoidRigDescription.ChestRangeMax: Vector3
 	Property HumanoidRigDescription.ChestRangeMin: Vector3
-	Property HumanoidRigDescription.HeadRangeMax: Vector3
-	Property HumanoidRigDescription.HeadRangeMin: Vector3
+	Property HumanoidRigDescription.HeadBaseRangeMax: Vector3
+	Property HumanoidRigDescription.HeadBaseRangeMin: Vector3
 	Property HumanoidRigDescription.LeftAnkleRangeMax: Vector3
 	Property HumanoidRigDescription.LeftAnkleRangeMin: Vector3
 	Property HumanoidRigDescription.LeftClavicleRangeMax: Vector3
@@ -3471,7 +3476,7 @@ Class HumanoidRigDescription : Instance [NotBrowsable]
 	Property HumanoidRigDescription.WaistRangeMax: Vector3
 	Property HumanoidRigDescription.WaistRangeMin: Vector3
 	Property HumanoidRigDescription.ChestSize: number
-	Property HumanoidRigDescription.HeadSize: number
+	Property HumanoidRigDescription.HeadBaseSize: number
 	Property HumanoidRigDescription.LeftAnkleSize: number
 	Property HumanoidRigDescription.LeftClavicleSize: number
 	Property HumanoidRigDescription.LeftElbowSize: number
@@ -3493,7 +3498,7 @@ Class HumanoidRigDescription : Instance [NotBrowsable]
 	Property HumanoidRigDescription.RootSize: number
 	Property HumanoidRigDescription.WaistSize: number
 	Property HumanoidRigDescription.ChestTposeAdjustment: CFrame
-	Property HumanoidRigDescription.HeadTposeAdjustment: CFrame
+	Property HumanoidRigDescription.HeadBaseTposeAdjustment: CFrame
 	Property HumanoidRigDescription.LeftAnkleTposeAdjustment: CFrame
 	Property HumanoidRigDescription.LeftClavicleTposeAdjustment: CFrame
 	Property HumanoidRigDescription.LeftElbowTposeAdjustment: CFrame
@@ -3515,6 +3520,7 @@ Class HumanoidRigDescription : Instance [NotBrowsable]
 	Property HumanoidRigDescription.RootTposeAdjustment: CFrame
 	Property HumanoidRigDescription.WaistTposeAdjustment: CFrame
 	Function HumanoidRigDescription:Automap(character: Instance) -> () {🧬Safe}
+	Function HumanoidRigDescription:GetJointFromName(name: string) -> Instance? {🧬Safe}
 	Function HumanoidRigDescription:GetJointNames() -> { any } {🧬Safe}
 	Function HumanoidRigDescription:GetR15JointNames() -> { any } {🧬Safe}
 	Function HumanoidRigDescription:GetR6JointNames() -> { any } {🧬Safe}
@@ -3582,7 +3588,7 @@ Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated
 Class InputAction : Instance [NotBrowsable]
 	Property InputAction.Enabled: boolean
 	Property InputAction.Type: Enum.InputActionType
-	Function InputAction:Fire(value: any) -> ()
+	Function InputAction:Fire(state: any) -> ()
 	Function InputAction:GetState() -> any
 	Event InputAction.Pressed()
 	Event InputAction.Released()
@@ -4105,6 +4111,7 @@ Class MemoryStoreHashMap : Instance [NotCreatable] [NotReplicated]
 	Function MemoryStoreHashMap:UpdateAsync(key: string, transformFunction: (...any) -> ...any, expiration: number) -> any [Yields]
 Class MemoryStoreQueue : Instance [NotCreatable] [NotReplicated]
 	Function MemoryStoreQueue:AddAsync(value: any, expiration: number, priority: number? = 0) -> () [Yields]
+	Function MemoryStoreQueue:GetSizeAsync(excludeInvisible: boolean? = false) -> number [Yields]
 	Function MemoryStoreQueue:ReadAsync(count: number, allOrNothing: boolean? = false, waitTimeout: number? = -1) -> ...any [Yields]
 	Function MemoryStoreQueue:RemoveAsync(id: string) -> () [Yields]
 Class MemoryStoreService : Instance [Service]
@@ -4114,6 +4121,7 @@ Class MemoryStoreService : Instance [Service]
 Class MemoryStoreSortedMap : Instance [NotCreatable] [NotReplicated]
 	Function MemoryStoreSortedMap:GetAsync(key: string) -> ...any [Yields]
 	Function MemoryStoreSortedMap:GetRangeAsync(direction: Enum.SortDirection, count: number, exclusiveLowerBound: any, exclusiveUpperBound: any) -> { any } [Yields]
+	Function MemoryStoreSortedMap:GetSizeAsync() -> number [Yields]
 	Function MemoryStoreSortedMap:RemoveAsync(key: string) -> () [Yields]
 	Function MemoryStoreSortedMap:SetAsync(key: string, value: any, expiration: number, sortKey: any) -> boolean [Yields]
 	Function MemoryStoreSortedMap:UpdateAsync(key: string, transformFunction: (...any) -> ...any, expiration: number) -> ...any [Yields]
@@ -4507,7 +4515,7 @@ Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.UnscaledVolume: number {RobloxSecurity} [Hidden]
 	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.AeroMeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
-	Property TriangleMeshPart.ConvexDecompData: NetAssetRef {RobloxSecurity} [Hidden] [NotScriptable]
+	Property TriangleMeshPart.ConvexDecompHolder: NetAssetRef {RobloxSecurity} [Hidden] [NotScriptable]
 	Property TriangleMeshPart.MeshSize: Vector3 [ReadOnly]
 	Property TriangleMeshPart.PhysicalConfigData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 Class MeshPart : TriangleMeshPart
@@ -5904,7 +5912,6 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Event DataModel.UniverseMetadataLoaded() {RobloxScriptSecurity}
 	Callback DataModel.OnClose() -> ...any [Deprecated]
 Class GenericSettings : ServiceProvider [NotCreatable]
-Class AnalysticsSettings : GenericSettings [NotCreatable]
 Class GlobalSettings : GenericSettings [NotCreatable] [NotBrowsable]
 	Function GlobalSettings:GetFFlag(name: string) -> boolean
 	Function GlobalSettings:GetFFlagOverrides() -> string {RobloxScriptSecurity}
@@ -6666,6 +6673,8 @@ Class TeamCreateData : Instance [NotCreatable] [Service]
 	Property TeamCreateData.InitialCameraCFrame: CFrame {RobloxSecurity} [Hidden] [NotScriptable]
 Class TeamCreatePublishService : Instance [NotCreatable] [Service]
 	Event TeamCreatePublishService.TeamCreateErrorStatus(result: Enum.TeamCreateErrorState, teamCreateSaveData: { [string]: any }) {RobloxScriptSecurity}
+	Event TeamCreatePublishService.TeamCreatePlaceUploadRequest(metadata: { [string]: any }) {RobloxSecurity} [Hidden]
+	Event TeamCreatePublishService.TeamCreatePlaceUploadResponse(success: boolean, metadata: { [string]: any }) {RobloxSecurity} [Hidden]
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TeamCreateService:CloseGameIfUserDoesntHavePerms() -> () {RobloxScriptSecurity}
 Class Teams : Instance [NotCreatable] [Service]
@@ -6716,11 +6725,15 @@ Class TemporaryCageMeshProvider : Instance [NotCreatable] [Service] [NotReplicat
 Class TemporaryScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class TerrainDetail : Instance
 	Property TerrainDetail.ColorMap: string {PluginSecurity}
+	Property TerrainDetail.ColorMapContent: Content {PluginSecurity}
 	Property TerrainDetail.Face: Enum.TerrainFace
 	Property TerrainDetail.MaterialPattern: Enum.MaterialPattern
 	Property TerrainDetail.MetalnessMap: string {PluginSecurity}
+	Property TerrainDetail.MetalnessMapContent: Content {PluginSecurity}
 	Property TerrainDetail.NormalMap: string {PluginSecurity}
+	Property TerrainDetail.NormalMapContent: Content {PluginSecurity}
 	Property TerrainDetail.RoughnessMap: string {PluginSecurity}
+	Property TerrainDetail.RoughnessMapContent: Content {PluginSecurity}
 	Property TerrainDetail.StudsPerTile: number
 	Property TerrainDetail.TexturePack: string [Hidden] [NotScriptable]
 Class TerrainRegion : Instance
@@ -7041,6 +7054,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CreateEditableMeshFromBinaryStringRobloxOnly(value: BinaryStringValue) -> EditableMesh {RobloxScriptSecurity}
 	Function UGCValidationService:DoesMeshHaveSkinningData(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:FetchAssetWithFormat(url: string, assetFormat: string) -> { Instance } {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:GetBoundingBoxManipulationData(partMeshObjects: { any }, partCFs: { any }, meshScales: { any }) -> { [string]: any } {RobloxScriptSecurity}
 	Function UGCValidationService:GetCagingRelevancyMetrics(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: EditableMesh, controlNames: { any }) -> ...any {RobloxScriptSecurity}
 	Function UGCValidationService:GetDynamicHeadMeshInactiveControls(meshId: string, controlNames: { any }) -> ...any {RobloxScriptSecurity} [Yields]
@@ -8292,6 +8306,9 @@ Enum CameraType
 	EnumItem CameraType.Custom : 5
 	EnumItem CameraType.Scriptable : 6
 	EnumItem CameraType.Orbital : 7
+Enum CaptureType
+	EnumItem CaptureType.Screenshot : 0
+	EnumItem CaptureType.Video : 1
 Enum CatalogCategoryFilter
 	EnumItem CatalogCategoryFilter.None : 1
 	EnumItem CatalogCategoryFilter.Featured : 2
@@ -9512,9 +9529,9 @@ Enum KeyCode
 	EnumItem KeyCode.DPadDown : 1015
 	EnumItem KeyCode.Thumbstick1 : 1016
 	EnumItem KeyCode.Thumbstick2 : 1017
-	EnumItem KeyCode.MouseLeftButton : 1018 [Deprecated]
-	EnumItem KeyCode.MouseRightButton : 1019 [Deprecated]
-	EnumItem KeyCode.MouseMiddleButton : 1020 [Deprecated]
+	EnumItem KeyCode.MouseLeftButton : 1018
+	EnumItem KeyCode.MouseRightButton : 1019
+	EnumItem KeyCode.MouseMiddleButton : 1020
 	EnumItem KeyCode.MouseBackButton : 1021 [Deprecated]
 	EnumItem KeyCode.MouseNoButton : 1022 [Deprecated]
 	EnumItem KeyCode.MouseX : 1023 [Deprecated]
