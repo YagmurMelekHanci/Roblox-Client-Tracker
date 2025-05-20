@@ -1,0 +1,67 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["LoadAsset"]
+  MOVE R3 R0
+  CALL R2 1 1
+  JUMPIF R2 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["AvatarAnimationAssetIdPropertyToAnimationStringValue"]
+  GETTABLE R3 R4 R1
+  LOADK R6 K2 ["R15Anim"]
+  NAMECALL R4 R2 K3 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIF R4 [+2]
+  LOADNIL R5
+  RETURN R5 1
+  GETTABLEKS R7 R3 K4 ["stringValueInstanceName"]
+  NAMECALL R5 R4 K3 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIF R5 [+2]
+  LOADNIL R6
+  RETURN R6 1
+  GETTABLEKS R8 R3 K5 ["animationInstanceName"]
+  NAMECALL R6 R5 K3 ["FindFirstChild"]
+  CALL R6 2 1
+  JUMPIF R6 [+2]
+  LOADNIL R7
+  RETURN R7 1
+  LOADK R10 K6 ["Animation"]
+  NAMECALL R8 R6 K7 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+2]
+  MOVE R7 R6
+  RETURN R7 1
+  LOADNIL R7
+  RETURN R7 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["AvatarPreview"]
+  GETTABLEKS R2 R3 K9 ["AvatarPreviewConstants"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Util"]
+  GETTABLEKS R4 R5 K10 ["Interfaces"]
+  GETTABLEKS R3 R4 K11 ["InsertServiceInterface"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K7 ["Util"]
+  GETTABLEKS R6 R7 K12 ["BridgingFiles"]
+  GETTABLEKS R5 R6 K13 ["AssetDmFiles"]
+  GETTABLEKS R4 R5 K14 ["assetDmTypes"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K15 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R4 1

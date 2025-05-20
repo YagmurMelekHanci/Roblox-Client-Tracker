@@ -83,63 +83,38 @@ PROTO_0:
   GETTABLEKS R8 R9 K6 ["value"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K16 ["bodyScaleSetting"]
-  JUMPIFNOTEQ R8 R9 [+102]
+  JUMPIFNOTEQ R8 R9 [+57]
   GETTABLEKS R9 R3 K29 ["bodyScaleCustomHeight"]
   GETTABLEKS R8 R9 K6 ["value"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K29 ["bodyScaleCustomHeight"]
-  JUMPIFNOTEQ R8 R9 [+93]
+  JUMPIFNOTEQ R8 R9 [+48]
   GETTABLEKS R9 R3 K17 ["bodyAppearanceSetting"]
   GETTABLEKS R8 R9 K6 ["value"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K17 ["bodyAppearanceSetting"]
-  JUMPIFNOTEQ R8 R9 [+84]
+  JUMPIFNOTEQ R8 R9 [+39]
   GETTABLEKS R9 R3 K18 ["bodyBuildSetting"]
   GETTABLEKS R8 R9 K6 ["value"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K18 ["bodyBuildSetting"]
-  JUMPIFNOTEQ R8 R9 [+75]
-  GETTABLEKS R9 R3 K30 ["bodyBuildCustomHeight"]
-  GETTABLEKS R8 R9 K6 ["value"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K30 ["bodyBuildCustomHeight"]
-  JUMPIFNOTEQ R8 R9 [+66]
-  GETTABLEKS R9 R3 K31 ["bodyBuildCustomWidth"]
-  GETTABLEKS R8 R9 K6 ["value"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K31 ["bodyBuildCustomWidth"]
-  JUMPIFNOTEQ R8 R9 [+57]
-  GETTABLEKS R9 R3 K32 ["bodyBuildCustomHead"]
-  GETTABLEKS R8 R9 K6 ["value"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K32 ["bodyBuildCustomHead"]
-  JUMPIFNOTEQ R8 R9 [+48]
-  GETTABLEKS R9 R3 K33 ["bodyBuildCustomBodyType"]
-  GETTABLEKS R8 R9 K6 ["value"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K33 ["bodyBuildCustomBodyType"]
-  JUMPIFNOTEQ R8 R9 [+39]
-  GETTABLEKS R9 R3 K34 ["bodyBuildCustomProportions"]
-  GETTABLEKS R8 R9 K6 ["value"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K34 ["bodyBuildCustomProportions"]
   JUMPIFNOTEQ R8 R9 [+30]
   GETTABLEKS R9 R4 K19 ["collisionSetting"]
   GETTABLEKS R8 R9 K6 ["value"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K19 ["collisionSetting"]
   JUMPIFNOTEQ R8 R9 [+21]
-  GETTABLEKS R9 R4 K35 ["collisionSizeSetting"]
+  GETTABLEKS R9 R4 K30 ["collisionSizeSetting"]
   GETTABLEKS R8 R9 K6 ["value"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K35 ["collisionSizeSetting"]
+  GETTABLEKS R9 R10 K30 ["collisionSizeSetting"]
   JUMPIFNOTEQ R8 R9 [+12]
-  GETTABLEKS R9 R4 K36 ["collisionHitAndTouchDetectionSetting"]
+  GETTABLEKS R9 R4 K31 ["collisionHitAndTouchDetectionSetting"]
   GETTABLEKS R8 R9 K6 ["value"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K36 ["collisionHitAndTouchDetectionSetting"]
+  GETTABLEKS R9 R10 K31 ["collisionHitAndTouchDetectionSetting"]
   JUMPIFNOTEQ R8 R9 [+3]
-  LOADK R8 K37 ["ConsistentGameplay"]
+  LOADK R8 K32 ["ConsistentGameplay"]
   RETURN R8 1
   LOADNIL R8
   RETURN R8 1
@@ -225,7 +200,7 @@ PROTO_1:
   GETTABLEKS R2 R3 K18 ["customClothingSetting"]
   CALL R1 1 0
   RETURN R0 0
-  JUMPIFNOTEQKS R0 K19 ["ConsistentGameplay"] [+109]
+  JUMPIFNOTEQKS R0 K19 ["ConsistentGameplay"] [+64]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K7 ["bodyScaleSetting"]
   GETTABLEKS R1 R2 K1 ["set"]
@@ -250,36 +225,6 @@ PROTO_1:
   GETUPVAL R3 7
   GETTABLEKS R2 R3 K9 ["bodyBuildSetting"]
   CALL R1 1 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K21 ["bodyBuildCustomHeight"]
-  GETTABLEKS R1 R2 K1 ["set"]
-  GETUPVAL R3 7
-  GETTABLEKS R2 R3 K21 ["bodyBuildCustomHeight"]
-  CALL R1 1 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K22 ["bodyBuildCustomWidth"]
-  GETTABLEKS R1 R2 K1 ["set"]
-  GETUPVAL R3 7
-  GETTABLEKS R2 R3 K22 ["bodyBuildCustomWidth"]
-  CALL R1 1 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K23 ["bodyBuildCustomHead"]
-  GETTABLEKS R1 R2 K1 ["set"]
-  GETUPVAL R3 7
-  GETTABLEKS R2 R3 K23 ["bodyBuildCustomHead"]
-  CALL R1 1 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K24 ["bodyBuildCustomBodyType"]
-  GETTABLEKS R1 R2 K1 ["set"]
-  GETUPVAL R3 7
-  GETTABLEKS R2 R3 K24 ["bodyBuildCustomBodyType"]
-  CALL R1 1 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K25 ["bodyBuildCustomProportions"]
-  GETTABLEKS R1 R2 K1 ["set"]
-  GETUPVAL R3 7
-  GETTABLEKS R2 R3 K25 ["bodyBuildCustomProportions"]
-  CALL R1 1 0
   GETUPVAL R3 3
   GETTABLEKS R2 R3 K10 ["collisionSetting"]
   GETTABLEKS R1 R2 K1 ["set"]
@@ -287,16 +232,16 @@ PROTO_1:
   GETTABLEKS R2 R3 K10 ["collisionSetting"]
   CALL R1 1 0
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K26 ["collisionSizeSetting"]
+  GETTABLEKS R2 R3 K21 ["collisionSizeSetting"]
   GETTABLEKS R1 R2 K1 ["set"]
   GETUPVAL R3 7
-  GETTABLEKS R2 R3 K26 ["collisionSizeSetting"]
+  GETTABLEKS R2 R3 K21 ["collisionSizeSetting"]
   CALL R1 1 0
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K27 ["collisionHitAndTouchDetectionSetting"]
+  GETTABLEKS R2 R3 K22 ["collisionHitAndTouchDetectionSetting"]
   GETTABLEKS R1 R2 K1 ["set"]
   GETUPVAL R3 7
-  GETTABLEKS R2 R3 K27 ["collisionHitAndTouchDetectionSetting"]
+  GETTABLEKS R2 R3 K22 ["collisionHitAndTouchDetectionSetting"]
   CALL R1 1 0
   RETURN R0 0
 
@@ -388,51 +333,26 @@ PROTO_3:
   LOADB R6 0 +1
   LOADB R6 1
   RETURN R6 1
-  JUMPIFNOTEQKS R5 K25 ["ConsistentGameplay"] [+99]
+  JUMPIFNOTEQKS R5 K25 ["ConsistentGameplay"] [+59]
   LOADB R6 0
   GETTABLEKS R7 R0 K1 ["ScaleMode"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K2 ["bodyScaleSetting"]
-  JUMPIFNOTEQ R7 R8 [+90]
+  JUMPIFNOTEQ R7 R8 [+50]
   LOADB R6 0
   GETTABLEKS R7 R0 K26 ["CustomHeight"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K27 ["bodyScaleCustomHeight"]
-  JUMPIFNOTEQ R7 R8 [+82]
+  JUMPIFNOTEQ R7 R8 [+42]
   LOADB R6 0
   GETTABLEKS R7 R0 K3 ["AppearanceMode"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K4 ["bodyAppearanceSetting"]
-  JUMPIFNOTEQ R7 R8 [+74]
+  JUMPIFNOTEQ R7 R8 [+34]
   LOADB R6 0
   GETTABLEKS R7 R0 K5 ["BuildMode"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K6 ["bodyBuildSetting"]
-  JUMPIFNOTEQ R7 R8 [+66]
-  LOADB R6 0
-  GETTABLEKS R7 R0 K28 ["CustomHeightScale"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K29 ["bodyBuildCustomHeight"]
-  JUMPIFNOTEQ R7 R8 [+58]
-  LOADB R6 0
-  GETTABLEKS R7 R0 K30 ["CustomWidthScale"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K31 ["bodyBuildCustomWidth"]
-  JUMPIFNOTEQ R7 R8 [+50]
-  LOADB R6 0
-  GETTABLEKS R7 R0 K32 ["CustomHeadScale"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K33 ["bodyBuildCustomHead"]
-  JUMPIFNOTEQ R7 R8 [+42]
-  LOADB R6 0
-  GETTABLEKS R7 R0 K34 ["CustomBodyTypeScale"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K35 ["bodyBuildCustomBodyType"]
-  JUMPIFNOTEQ R7 R8 [+34]
-  LOADB R6 0
-  GETTABLEKS R7 R0 K36 ["CustomProportionsScale"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K37 ["bodyBuildCustomProportions"]
   JUMPIFNOTEQ R7 R8 [+26]
   LOADB R6 0
   GETTABLEKS R7 R1 K7 ["CollisionMode"]
@@ -440,13 +360,13 @@ PROTO_3:
   GETTABLEKS R8 R9 K8 ["collisionSetting"]
   JUMPIFNOTEQ R7 R8 [+18]
   LOADB R6 0
-  GETTABLEKS R7 R1 K38 ["SingleColliderSize"]
+  GETTABLEKS R7 R1 K28 ["SingleColliderSize"]
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K39 ["collisionSizeSetting"]
+  GETTABLEKS R8 R9 K29 ["collisionSizeSetting"]
   JUMPIFNOTEQ R7 R8 [+10]
-  GETTABLEKS R7 R1 K40 ["HitAndTouchDetectionMode"]
+  GETTABLEKS R7 R1 K30 ["HitAndTouchDetectionMode"]
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K41 ["collisionHitAndTouchDetectionSetting"]
+  GETTABLEKS R8 R9 K31 ["collisionHitAndTouchDetectionSetting"]
   JUMPIFEQ R7 R8 [+2]
   LOADB R6 0 +1
   LOADB R6 1

@@ -16,25 +16,28 @@ PROTO_0:
   GETIMPORT R1 K7 [Instance.new]
   LOADK R2 K11 ["Part"]
   CALL R1 1 1
+  GETIMPORT R3 K1 [game]
+  GETTABLEKS R2 R3 K12 ["Workspace"]
+  SETTABLEKS R2 R1 K10 ["Parent"]
   GETIMPORT R2 K7 [Instance.new]
-  LOADK R3 K12 ["WorkspaceAnnotation"]
+  LOADK R3 K13 ["WorkspaceAnnotation"]
   CALL R2 1 1
-  NAMECALL R3 R2 K13 ["GetStringUniqueId"]
+  NAMECALL R3 R2 K14 ["GetStringUniqueId"]
   CALL R3 1 1
   SETTABLEKS R3 R2 K9 ["Name"]
-  LOADK R3 K14 [123456789]
-  SETTABLEKS R3 R2 K15 ["AuthorId"]
-  GETIMPORT R4 K18 [DateTime.now]
+  LOADK R3 K15 [123456789]
+  SETTABLEKS R3 R2 K16 ["AuthorId"]
+  GETIMPORT R4 K19 [DateTime.now]
   CALL R4 0 1
-  GETTABLEKS R3 R4 K19 ["UnixTimestamp"]
-  SETTABLEKS R3 R2 K20 ["CreationTimeUnix"]
-  GETTABLEKS R3 R2 K20 ["CreationTimeUnix"]
-  SETTABLEKS R3 R2 K21 ["LastModifiedTimeUnix"]
-  SETTABLEKS R1 R2 K22 ["Adornee"]
-  LOADK R3 K23 [""]
-  SETTABLEKS R3 R2 K24 ["TaggedUsers"]
+  GETTABLEKS R3 R4 K20 ["UnixTimestamp"]
+  SETTABLEKS R3 R2 K21 ["CreationTimeUnix"]
+  GETTABLEKS R3 R2 K21 ["CreationTimeUnix"]
+  SETTABLEKS R3 R2 K22 ["LastModifiedTimeUnix"]
+  SETTABLEKS R1 R2 K23 ["Adornee"]
+  LOADK R3 K24 [""]
+  SETTABLEKS R3 R2 K25 ["TaggedUsers"]
   JUMPIFNOT R0 [+2]
-  SETTABLEKS R0 R2 K25 ["Contents"]
+  SETTABLEKS R0 R2 K26 ["Contents"]
   RETURN R2 1
 
 MAIN:

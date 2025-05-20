@@ -3,88 +3,92 @@ PROTO_0:
   GETIMPORT R3 K3 [Enum.UserInputType.MouseButton2]
   JUMPIFEQ R2 R3 [+2]
   RETURN R0 0
-  GETUPVAL R2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["join"]
   GETUPVAL R3 1
-  DUPTABLE R4 K6 [{"Category", "ItemId"}]
-  LOADK R5 K7 ["Widgets"]
-  SETTABLEKS R5 R4 K4 ["Category"]
-  LOADK R5 K8 ["Mezzanine"]
-  SETTABLEKS R5 R4 K5 ["ItemId"]
+  DUPTABLE R4 K7 [{"Category", "ItemId"}]
+  LOADK R5 K8 ["Widgets"]
+  SETTABLEKS R5 R4 K5 ["Category"]
+  LOADK R5 K9 ["Mezzanine"]
+  SETTABLEKS R5 R4 K6 ["ItemId"]
   CALL R2 2 1
   NEWTABLE R3 0 4
-  DUPTABLE R4 K12 [{"Id", "Type", "Action"}]
-  LOADK R5 K13 ["ShowHideLabels"]
-  SETTABLEKS R5 R4 K9 ["Id"]
-  LOADK R5 K14 ["Option"]
-  SETTABLEKS R5 R4 K10 ["Type"]
-  GETUPVAL R5 0
-  GETUPVAL R6 1
-  DUPTABLE R7 K6 [{"Category", "ItemId"}]
-  LOADK R8 K15 ["Actions"]
-  SETTABLEKS R8 R7 K4 ["Category"]
-  LOADK R8 K13 ["ShowHideLabels"]
-  SETTABLEKS R8 R7 K5 ["ItemId"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K11 ["Action"]
-  DUPTABLE R5 K12 [{"Id", "Type", "Action"}]
-  LOADK R6 K16 ["DockUndockRibbon"]
-  SETTABLEKS R6 R5 K9 ["Id"]
-  LOADK R6 K14 ["Option"]
-  SETTABLEKS R6 R5 K10 ["Type"]
+  DUPTABLE R4 K13 [{"Id", "Type", "Action"}]
+  LOADK R5 K14 ["ShowHideLabels"]
+  SETTABLEKS R5 R4 K10 ["Id"]
+  LOADK R5 K15 ["Option"]
+  SETTABLEKS R5 R4 K11 ["Type"]
   GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["join"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K7 [{"Category", "ItemId"}]
+  LOADK R8 K16 ["Actions"]
+  SETTABLEKS R8 R7 K5 ["Category"]
+  LOADK R8 K14 ["ShowHideLabels"]
+  SETTABLEKS R8 R7 K6 ["ItemId"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K12 ["Action"]
+  DUPTABLE R5 K13 [{"Id", "Type", "Action"}]
+  LOADK R6 K17 ["DockUndockRibbon"]
+  SETTABLEKS R6 R5 K10 ["Id"]
+  LOADK R6 K15 ["Option"]
+  SETTABLEKS R6 R5 K11 ["Type"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["join"]
   GETUPVAL R7 1
-  DUPTABLE R8 K6 [{"Category", "ItemId"}]
-  LOADK R9 K15 ["Actions"]
-  SETTABLEKS R9 R8 K4 ["Category"]
-  LOADK R9 K16 ["DockUndockRibbon"]
-  SETTABLEKS R9 R8 K5 ["ItemId"]
+  DUPTABLE R8 K7 [{"Category", "ItemId"}]
+  LOADK R9 K16 ["Actions"]
+  SETTABLEKS R9 R8 K5 ["Category"]
+  LOADK R9 K17 ["DockUndockRibbon"]
+  SETTABLEKS R9 R8 K6 ["ItemId"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K11 ["Action"]
-  DUPTABLE R6 K17 [{"Type"}]
-  LOADK R7 K18 ["Separator"]
-  SETTABLEKS R7 R6 K10 ["Type"]
-  DUPTABLE R7 K12 [{"Id", "Type", "Action"}]
-  LOADK R8 K19 ["ManageTabs"]
-  SETTABLEKS R8 R7 K9 ["Id"]
-  LOADK R8 K14 ["Option"]
-  SETTABLEKS R8 R7 K10 ["Type"]
-  GETUPVAL R8 0
+  SETTABLEKS R6 R5 K12 ["Action"]
+  DUPTABLE R6 K18 [{"Type"}]
+  LOADK R7 K19 ["Separator"]
+  SETTABLEKS R7 R6 K11 ["Type"]
+  DUPTABLE R7 K13 [{"Id", "Type", "Action"}]
+  LOADK R8 K20 ["ManageTabs"]
+  SETTABLEKS R8 R7 K10 ["Id"]
+  LOADK R8 K15 ["Option"]
+  SETTABLEKS R8 R7 K11 ["Type"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["join"]
   GETUPVAL R9 1
-  DUPTABLE R10 K6 [{"Category", "ItemId"}]
-  LOADK R11 K15 ["Actions"]
-  SETTABLEKS R11 R10 K4 ["Category"]
-  LOADK R11 K19 ["ManageTabs"]
-  SETTABLEKS R11 R10 K5 ["ItemId"]
+  DUPTABLE R10 K7 [{"Category", "ItemId"}]
+  LOADK R11 K16 ["Actions"]
+  SETTABLEKS R11 R10 K5 ["Category"]
+  LOADK R11 K20 ["ManageTabs"]
+  SETTABLEKS R11 R10 K6 ["ItemId"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K11 ["Action"]
+  SETTABLEKS R8 R7 K12 ["Action"]
   SETLIST R3 R4 4 [1]
-  DUPTABLE R4 K21 [{"Type", "Children"}]
-  LOADK R5 K22 ["Column"]
-  SETTABLEKS R5 R4 K10 ["Type"]
-  SETTABLEKS R3 R4 K20 ["Children"]
+  DUPTABLE R4 K22 [{"Type", "Children"}]
+  LOADK R5 K23 ["Column"]
+  SETTABLEKS R5 R4 K11 ["Type"]
+  SETTABLEKS R3 R4 K21 ["Children"]
   GETUPVAL R5 2
   NEWTABLE R6 0 1
   MOVE R7 R4
   SETLIST R6 R7 1 [1]
   MOVE R7 R2
-  DUPTABLE R8 K26 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  GETIMPORT R9 K29 [Vector2.new]
+  DUPTABLE R8 K27 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  GETIMPORT R9 K30 [Vector2.new]
   LOADN R10 0
   LOADN R11 0
   CALL R9 2 1
-  SETTABLEKS R9 R8 K23 ["SubjectAnchorPoint"]
-  GETIMPORT R9 K29 [Vector2.new]
+  SETTABLEKS R9 R8 K24 ["SubjectAnchorPoint"]
+  GETIMPORT R9 K30 [Vector2.new]
   LOADN R10 0
   LOADN R11 0
   CALL R9 2 1
-  SETTABLEKS R9 R8 K24 ["TargetAnchorPoint"]
-  GETIMPORT R9 K29 [Vector2.new]
-  GETTABLEKS R11 R1 K30 ["Position"]
-  GETTABLEKS R10 R11 K31 ["X"]
-  GETTABLEKS R12 R1 K30 ["Position"]
-  GETTABLEKS R11 R12 K32 ["Y"]
+  SETTABLEKS R9 R8 K25 ["TargetAnchorPoint"]
+  GETIMPORT R9 K30 [Vector2.new]
+  GETTABLEKS R11 R1 K31 ["Position"]
+  GETTABLEKS R10 R11 K32 ["X"]
+  GETTABLEKS R12 R1 K31 ["Position"]
+  GETTABLEKS R11 R12 K33 ["Y"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K25 ["Offset"]
+  SETTABLEKS R9 R8 K26 ["Offset"]
   CALL R5 3 0
   RETURN R0 0
 
@@ -116,27 +120,27 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["useCallback"]
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Dash"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["StudioUri"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K10 ["join"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Types"]
+  CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K11 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Types"]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Components"]
+  GETTABLEKS R6 R7 K14 ["ControlsView"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Components"]
-  GETTABLEKS R7 R8 K14 ["ControlsView"]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Hooks"]
+  GETTABLEKS R7 R8 K16 ["useMenu"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K11 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Hooks"]
-  GETTABLEKS R8 R9 K16 ["useMenu"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K17 [PROTO_1]
-  CAPTURE VAL R7
+  DUPCLOSURE R7 K17 [PROTO_1]
   CAPTURE VAL R6
+  CAPTURE VAL R5
   CAPTURE VAL R2
-  CAPTURE VAL R4
-  RETURN R8 1
+  CAPTURE VAL R3
+  RETURN R7 1

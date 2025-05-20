@@ -60,112 +60,124 @@ PROTO_2:
   GETUPVAL R9 2
   GETTABLEKS R8 R9 K13 ["customClothingTopsSetting"]
   GETTABLEKS R7 R8 K14 ["tshirt"]
-  CALL R4 3 0
+  GETIMPORT R8 K18 [Enum.AssetType.TShirtAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K15 ["CustomShirtAccessory"]
+  LOADK R7 K19 ["CustomShirtAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R9 2
   GETTABLEKS R8 R9 K13 ["customClothingTopsSetting"]
-  GETTABLEKS R7 R8 K16 ["shirt"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K20 ["shirt"]
+  GETIMPORT R8 K22 [Enum.AssetType.ShirtAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K17 ["CustomJacketAccessory"]
+  LOADK R7 K23 ["CustomJacketAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K18 ["customClothingOuterwearSetting"]
-  GETTABLEKS R7 R8 K19 ["jacket"]
-  CALL R4 3 0
+  GETTABLEKS R8 R9 K24 ["customClothingOuterwearSetting"]
+  GETTABLEKS R7 R8 K25 ["jacket"]
+  GETIMPORT R8 K27 [Enum.AssetType.JacketAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K20 ["CustomSweaterAccessory"]
+  LOADK R7 K28 ["CustomSweaterAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K18 ["customClothingOuterwearSetting"]
-  GETTABLEKS R7 R8 K21 ["sweater"]
-  CALL R4 3 0
+  GETTABLEKS R8 R9 K24 ["customClothingOuterwearSetting"]
+  GETTABLEKS R7 R8 K29 ["sweater"]
+  GETIMPORT R8 K31 [Enum.AssetType.SweaterAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K22 ["CustomPantsAccessory"]
+  LOADK R7 K32 ["CustomPantsAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K23 ["customClothingBottomsSetting"]
-  GETTABLEKS R7 R8 K24 ["pants"]
-  CALL R4 3 0
+  GETTABLEKS R8 R9 K33 ["customClothingBottomsSetting"]
+  GETTABLEKS R7 R8 K34 ["pants"]
+  GETIMPORT R8 K36 [Enum.AssetType.PantsAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K25 ["CustomShortsAccessory"]
+  LOADK R7 K37 ["CustomShortsAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K23 ["customClothingBottomsSetting"]
-  GETTABLEKS R7 R8 K26 ["shorts"]
-  CALL R4 3 0
+  GETTABLEKS R8 R9 K33 ["customClothingBottomsSetting"]
+  GETTABLEKS R7 R8 K38 ["shorts"]
+  GETIMPORT R8 K40 [Enum.AssetType.ShortsAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K27 ["CustomDressSkirtAccessory"]
+  LOADK R7 K41 ["CustomDressSkirtAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K23 ["customClothingBottomsSetting"]
-  GETTABLEKS R7 R8 K28 ["dressSkirt"]
-  CALL R4 3 0
+  GETTABLEKS R8 R9 K33 ["customClothingBottomsSetting"]
+  GETTABLEKS R7 R8 K42 ["dressSkirt"]
+  GETIMPORT R8 K44 [Enum.AssetType.DressSkirtAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K29 ["CustomLeftShoesAccessory"]
+  LOADK R7 K45 ["CustomLeftShoesAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K30 ["customClothingLeftShoesSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K46 ["customClothingLeftShoesSetting"]
+  GETIMPORT R8 K48 [Enum.AssetType.LeftShoeAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K31 ["CustomRightShoesAccessory"]
+  LOADK R7 K49 ["CustomRightShoesAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K32 ["customClothingRightShoesSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K50 ["customClothingRightShoesSetting"]
+  GETIMPORT R8 K52 [Enum.AssetType.RightShoeAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K33 ["CustomClassicShirtsAccessory"]
+  LOADK R7 K53 ["CustomClassicShirtsAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K34 ["customClothingClassicShirtsSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K54 ["customClothingClassicShirtsSetting"]
+  GETIMPORT R8 K56 [Enum.AssetType.Shirt]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K35 ["CustomClassicTShirtsAccessory"]
+  LOADK R7 K57 ["CustomClassicTShirtsAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K36 ["customClothingClassicTShirtsSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K58 ["customClothingClassicTShirtsSetting"]
+  GETIMPORT R8 K60 [Enum.AssetType.TShirt]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K37 ["CustomClassicPantsAccessory"]
+  LOADK R7 K61 ["CustomClassicPantsAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K38 ["customClothingClassicPantsSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K62 ["customClothingClassicPantsSetting"]
+  GETIMPORT R8 K64 [Enum.AssetType.Pants]
+  CALL R4 4 0
   RETURN R0 0
 
 MAIN:
@@ -201,7 +213,7 @@ MAIN:
   GETTABLEKS R5 R6 K13 ["InvokeKeys"]
   CALL R4 1 1
   GETTABLEKS R5 R1 K14 ["createInvokes"]
-  GETTABLEKS R6 R1 K15 ["createAssetIdInvokes"]
+  GETTABLEKS R6 R1 K15 ["createAccessoryAssetIdInvokes"]
   DUPCLOSURE R7 K16 [PROTO_2]
   CAPTURE VAL R3
   CAPTURE VAL R5

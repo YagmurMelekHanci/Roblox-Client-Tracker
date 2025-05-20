@@ -5,28 +5,30 @@ PROTO_0:
   GETTABLEKS R1 R2 K2 ["activeQueueItem"]
   GETUPVAL R2 0
   CALL R2 0 1
-  JUMPIFNOT R2 [+10]
-  JUMPIFNOT R1 [+9]
+  JUMPIFNOT R2 [+12]
+  JUMPIFNOT R1 [+11]
   GETUPVAL R4 1
   MOVE R5 R1
-  NEWTABLE R6 0 0
+  DUPTABLE R6 K4 [{"settingsChanged"}]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K3 ["settingsChanged"]
   CALL R4 2 -1
-  NAMECALL R2 R0 K3 ["dispatch"]
+  NAMECALL R2 R0 K5 ["dispatch"]
   CALL R2 -1 0
   JUMP [+6]
   GETUPVAL R4 2
   MOVE R5 R1
   CALL R4 1 1
-  NAMECALL R2 R0 K3 ["dispatch"]
+  NAMECALL R2 R0 K5 ["dispatch"]
   CALL R2 2 0
   GETUPVAL R4 3
   LOADB R5 0
   CALL R4 1 -1
-  NAMECALL R2 R0 K3 ["dispatch"]
+  NAMECALL R2 R0 K5 ["dispatch"]
   CALL R2 -1 0
   GETUPVAL R4 4
   CALL R4 0 -1
-  NAMECALL R2 R0 K3 ["dispatch"]
+  NAMECALL R2 R0 K5 ["dispatch"]
   CALL R2 -1 0
   RETURN R0 0
 

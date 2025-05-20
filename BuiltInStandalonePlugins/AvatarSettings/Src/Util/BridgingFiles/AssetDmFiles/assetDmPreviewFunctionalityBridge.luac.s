@@ -10,8 +10,9 @@ PROTO_0:
 
 PROTO_1:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["removeExistingAvatarPreviewFolder"]
-  CALL R0 0 0
+  GETTABLEKS R0 R1 K0 ["cleanupPreview"]
+  GETUPVAL R1 1
+  CALL R0 1 0
   RETURN R0 0
 
 PROTO_2:
@@ -27,16 +28,17 @@ PROTO_2:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K3 ["previewDeactivated"]
   GETTABLEKS R4 R5 K1 ["fromPlugin"]
-  DUPCLOSURE R5 K4 [PROTO_1]
+  NEWCLOSURE R5 P1
   CAPTURE UPVAL U1
+  CAPTURE VAL R0
   NAMECALL R2 R0 K2 ["OnInvoke"]
   CALL R2 3 1
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K5 ["addOnInvokeConnection"]
+  GETTABLEKS R3 R4 K4 ["addOnInvokeConnection"]
   MOVE R4 R1
   CALL R3 1 0
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K5 ["addOnInvokeConnection"]
+  GETTABLEKS R3 R4 K4 ["addOnInvokeConnection"]
   MOVE R4 R2
   CALL R3 1 0
   RETURN R0 0

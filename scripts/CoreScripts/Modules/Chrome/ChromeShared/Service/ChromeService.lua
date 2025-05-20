@@ -64,6 +64,7 @@ export type ObservableIntegrationId = utils.ObservableValue<string?>
 export type ObservableMenuLayout = utils.ObservableValue<UnibarLayoutInfo>
 export type ObservableCompactUtility = utils.ObservableValue<Types.CompactUtilityId?>
 export type ObservableInFocusNav = utils.ObservableValue<boolean>
+export type ObservableShowTopBar = utils.ObservableValue<boolean>
 
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
 
@@ -85,6 +86,9 @@ export type ChromeService = {
 	new: () -> ChromeService,
 	toggleSubMenu: (ChromeService, subMenuId: Types.IntegrationId) -> (),
 	currentSubMenu: (ChromeService) -> ObservableSubMenu,
+	showTopBar: (ChromeService) -> boolean,
+	getTopBarVisibiity: (ChromeService) -> ObservableShowTopBar,
+	connectTopBarVisibility: (ChromeService, topBarVisibilityObservable: ObservableShowTopBar) -> (),
 	getLastInputToOpenMenu: (ChromeService) -> Enum.UserInputType,
 	inFocusNav: (ChromeService) -> ObservableInFocusNav,
 	enableFocusNav: (ChromeService) -> (),
@@ -181,6 +185,7 @@ export type ChromeService = {
 	_menuAbsolutePosition: Vector2,
 	_menuAbsoluteSizeOpen: Vector2,
 	_currentSubMenu: ObservableSubMenu,
+	_topBarVisibility: ObservableShowTopBar,
 
 	_integrations: Types.IntegrationList,
 	_integrationsConnections: { [Types.IntegrationId]: { SignalLib.SignalHandle } },
@@ -274,6 +279,7 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationHovered = Signal.new()
 	self._triggerMenuIcon = Signal.new()
 	self._triggerVRToggleButton = if isInExperienceUIVREnabled then Signal.new() else nil :: never
+	self._topBarVisibility = if isInExperienceUIVREnabled then Signal.new() else nil :: never
 
 	self._inFocusNav = ObservableValue.new(false)
 
@@ -1062,6 +1068,18 @@ end
 if isInExperienceUIVREnabled then
 	function ChromeService:onTriggerVRToggleButton()
 		return self._triggerVRToggleButton
+	end
+
+	function ChromeService:showTopBar()
+		return self._topBarVisibility:get()
+	end
+
+	function ChromeService:getTopBarVisibiity()
+		return self._topBarVisibility
+	end
+
+	function ChromeService:connectTopBarVisibility(topBarVisibilityObservable: ObservableShowTopBar)
+		self._topBarVisibility = topBarVisibilityObservable
 	end
 end
 

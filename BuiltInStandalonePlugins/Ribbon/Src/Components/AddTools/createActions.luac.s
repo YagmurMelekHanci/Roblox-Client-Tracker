@@ -10,74 +10,79 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  NAMECALL R4 R1 K0 ["GetUri"]
-  CALL R4 1 1
-  LOADK R7 K1 ["Actions"]
-  NAMECALL R5 R1 K2 ["GetPluginComponent"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["wrap"]
+  NAMECALL R5 R1 K1 ["GetUri"]
+  CALL R5 1 -1
+  CALL R4 -1 1
+  LOADK R7 K2 ["Actions"]
+  NAMECALL R5 R1 K3 ["GetPluginComponent"]
   CALL R5 2 1
-  DUPTABLE R8 K9 [{"Uri", "Enabled", "Exists", "Visible", "Icon", "Text"}]
-  GETUPVAL R9 0
+  DUPTABLE R8 K10 [{"Uri", "Enabled", "Exists", "Visible", "Icon", "Text"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K11 ["join"]
   MOVE R10 R4
-  DUPTABLE R11 K12 [{"Category", "ItemId"}]
-  LOADK R12 K1 ["Actions"]
-  SETTABLEKS R12 R11 K10 ["Category"]
-  LOADK R12 K13 ["AddTools"]
-  SETTABLEKS R12 R11 K11 ["ItemId"]
+  DUPTABLE R11 K14 [{"Category", "ItemId"}]
+  LOADK R12 K2 ["Actions"]
+  SETTABLEKS R12 R11 K12 ["Category"]
+  LOADK R12 K15 ["AddTools"]
+  SETTABLEKS R12 R11 K13 ["ItemId"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K3 ["Uri"]
+  SETTABLEKS R9 R8 K4 ["Uri"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K4 ["Enabled"]
+  SETTABLEKS R9 R8 K5 ["Enabled"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K5 ["Exists"]
+  SETTABLEKS R9 R8 K6 ["Exists"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K6 ["Visible"]
+  SETTABLEKS R9 R8 K7 ["Visible"]
   GETUPVAL R10 1
   JUMPIFNOT R10 [+2]
-  LOADK R9 K14 ["RibbonAddTools"]
+  LOADK R9 K16 ["RibbonAddTools"]
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K7 ["Icon"]
-  LOADK R11 K15 ["Plugin"]
-  LOADK R12 K13 ["AddTools"]
-  NAMECALL R9 R0 K16 ["getText"]
+  SETTABLEKS R9 R8 K8 ["Icon"]
+  LOADK R11 K17 ["Plugin"]
+  LOADK R12 K15 ["AddTools"]
+  NAMECALL R9 R0 K18 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K8 ["Text"]
+  SETTABLEKS R9 R8 K9 ["Text"]
   LOADB R9 1
-  NAMECALL R6 R5 K17 ["CreateAsync"]
+  NAMECALL R6 R5 K19 ["CreateAsync"]
   CALL R6 3 1
   GETTABLEN R7 R6 1
   NEWCLOSURE R9 P0
   CAPTURE VAL R2
-  NAMECALL R7 R7 K18 ["Connect"]
+  NAMECALL R7 R7 K20 ["Connect"]
   CALL R7 2 1
-  DUPTABLE R10 K19 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
-  GETUPVAL R11 0
+  DUPTABLE R10 K21 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K11 ["join"]
   MOVE R12 R4
-  DUPTABLE R13 K12 [{"Category", "ItemId"}]
-  LOADK R14 K1 ["Actions"]
-  SETTABLEKS R14 R13 K10 ["Category"]
-  LOADK R14 K20 ["AddSeparator"]
-  SETTABLEKS R14 R13 K11 ["ItemId"]
+  DUPTABLE R13 K14 [{"Category", "ItemId"}]
+  LOADK R14 K2 ["Actions"]
+  SETTABLEKS R14 R13 K12 ["Category"]
+  LOADK R14 K22 ["AddSeparator"]
+  SETTABLEKS R14 R13 K13 ["ItemId"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K3 ["Uri"]
+  SETTABLEKS R11 R10 K4 ["Uri"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K4 ["Enabled"]
+  SETTABLEKS R11 R10 K5 ["Enabled"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K5 ["Exists"]
+  SETTABLEKS R11 R10 K6 ["Exists"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K6 ["Visible"]
-  LOADK R13 K15 ["Plugin"]
-  LOADK R14 K20 ["AddSeparator"]
-  NAMECALL R11 R0 K16 ["getText"]
+  SETTABLEKS R11 R10 K7 ["Visible"]
+  LOADK R13 K17 ["Plugin"]
+  LOADK R14 K22 ["AddSeparator"]
+  NAMECALL R11 R0 K18 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K8 ["Text"]
+  SETTABLEKS R11 R10 K9 ["Text"]
   LOADB R11 1
-  NAMECALL R8 R5 K17 ["CreateAsync"]
+  NAMECALL R8 R5 K19 ["CreateAsync"]
   CALL R8 3 1
   GETTABLEN R9 R8 1
   NEWCLOSURE R11 P1
   CAPTURE VAL R3
-  NAMECALL R9 R9 K18 ["Connect"]
+  NAMECALL R9 R9 K20 ["Connect"]
   CALL R9 2 1
   NEWTABLE R10 0 2
   MOVE R11 R7
@@ -92,21 +97,21 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Dash"]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["join"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["StudioUri"]
+  CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Types"]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K10 ["SharedFlags"]
+  GETTABLEKS R4 R5 K11 ["getFFlagAddDefaultAddTabToEmptyTab"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K11 ["SharedFlags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagAddDefaultAddTabToEmptyTab"]
-  CALL R4 1 1
-  CALL R4 0 1
-  DUPCLOSURE R5 K13 [PROTO_2]
+  CALL R3 0 1
+  DUPCLOSURE R4 K12 [PROTO_2]
   CAPTURE VAL R2
-  CAPTURE VAL R4
-  RETURN R5 1
+  CAPTURE VAL R3
+  RETURN R4 1

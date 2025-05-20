@@ -1,145 +1,455 @@
 MAIN:
   PREPVARARGS 0
-  DUPTABLE R0 K7 [{"AvatarPreviewFolderName", "AvatarPreviewFolderTag", "AvatarSpacing", "MaxPreviewPlacementDistance", "FantasyAvatar", "AddisonAvatar", "DennisAvatar"}]
-  LOADK R1 K8 ["AvatarPreview"]
-  SETTABLEKS R1 R0 K0 ["AvatarPreviewFolderName"]
-  LOADK R1 K9 ["AvatarSettingsPreviewFolder"]
-  SETTABLEKS R1 R0 K1 ["AvatarPreviewFolderTag"]
-  LOADN R1 5
-  SETTABLEKS R1 R0 K2 ["AvatarSpacing"]
-  LOADN R1 50
-  SETTABLEKS R1 R0 K3 ["MaxPreviewPlacementDistance"]
-  DUPTABLE R1 K16 [{"name", "bundleId", "outfitId", "insertionOrder", "defaultHumanoidRigType", "accessories"}]
-  LOADK R2 K4 ["FantasyAvatar"]
-  SETTABLEKS R2 R1 K10 ["name"]
-  LOADN R2 208
-  SETTABLEKS R2 R1 K11 ["bundleId"]
-  LOADK R2 K17 [765918676]
-  SETTABLEKS R2 R1 K12 ["outfitId"]
-  LOADN R2 3
-  SETTABLEKS R2 R1 K13 ["insertionOrder"]
-  GETIMPORT R2 K21 [Enum.HumanoidRigType.R15]
-  SETTABLEKS R2 R1 K14 ["defaultHumanoidRigType"]
-  NEWTABLE R2 0 1
-  NEWTABLE R3 4 0
-  GETIMPORT R4 K24 [Enum.AccessoryType.Back]
-  SETTABLEKS R4 R3 K22 ["AccessoryType"]
-  LOADK R4 K25 [335079187]
-  SETTABLEKS R4 R3 K26 ["AssetId"]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K27 ["IsLayered"]
-  SETLIST R2 R3 1 [1]
-  SETTABLEKS R2 R1 K15 ["accessories"]
-  SETTABLEKS R1 R0 K4 ["FantasyAvatar"]
-  DUPTABLE R1 K29 [{"name", "bundleId", "outfitId", "insertionOrder", "defaultHumanoidRigType", "accessories", "keepDefaultAccessories"}]
-  LOADK R2 K5 ["AddisonAvatar"]
-  SETTABLEKS R2 R1 K10 ["name"]
-  LOADN R2 220
-  SETTABLEKS R2 R1 K11 ["bundleId"]
-  LOADK R2 K30 [12092458560]
-  SETTABLEKS R2 R1 K12 ["outfitId"]
-  LOADN R2 1
-  SETTABLEKS R2 R1 K13 ["insertionOrder"]
-  GETIMPORT R2 K21 [Enum.HumanoidRigType.R15]
-  SETTABLEKS R2 R1 K14 ["defaultHumanoidRigType"]
-  NEWTABLE R2 0 4
-  NEWTABLE R3 4 0
-  GETIMPORT R4 K32 [Enum.AccessoryType.Shirt]
-  SETTABLEKS R4 R3 K22 ["AccessoryType"]
-  LOADK R4 K33 [9728267998]
-  SETTABLEKS R4 R3 K26 ["AssetId"]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K27 ["IsLayered"]
-  LOADN R4 7
-  SETTABLEKS R4 R3 K34 ["Order"]
-  NEWTABLE R4 4 0
-  GETIMPORT R5 K36 [Enum.AccessoryType.Shorts]
-  SETTABLEKS R5 R4 K22 ["AccessoryType"]
-  LOADK R5 K37 [7192687500]
-  SETTABLEKS R5 R4 K26 ["AssetId"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K27 ["IsLayered"]
-  LOADN R5 6
-  SETTABLEKS R5 R4 K34 ["Order"]
-  NEWTABLE R5 4 0
-  GETIMPORT R6 K39 [Enum.AccessoryType.LeftShoe]
-  SETTABLEKS R6 R5 K22 ["AccessoryType"]
-  LOADK R6 K40 [9614836327]
-  SETTABLEKS R6 R5 K26 ["AssetId"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K27 ["IsLayered"]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K34 ["Order"]
-  NEWTABLE R6 4 0
-  GETIMPORT R7 K42 [Enum.AccessoryType.RightShoe]
-  SETTABLEKS R7 R6 K22 ["AccessoryType"]
-  LOADK R7 K43 [9614841343]
-  SETTABLEKS R7 R6 K26 ["AssetId"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K27 ["IsLayered"]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K34 ["Order"]
-  SETLIST R2 R3 4 [1]
-  SETTABLEKS R2 R1 K15 ["accessories"]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K28 ["keepDefaultAccessories"]
-  SETTABLEKS R1 R0 K5 ["AddisonAvatar"]
-  DUPTABLE R1 K16 [{"name", "bundleId", "outfitId", "insertionOrder", "defaultHumanoidRigType", "accessories"}]
-  LOADK R2 K6 ["DennisAvatar"]
-  SETTABLEKS R2 R1 K10 ["name"]
-  LOADN R2 93
-  SETTABLEKS R2 R1 K11 ["bundleId"]
-  LOADK R2 K44 [2219390889]
-  SETTABLEKS R2 R1 K12 ["outfitId"]
-  LOADN R2 2
-  SETTABLEKS R2 R1 K13 ["insertionOrder"]
-  GETIMPORT R2 K46 [Enum.HumanoidRigType.R6]
-  SETTABLEKS R2 R1 K14 ["defaultHumanoidRigType"]
-  NEWTABLE R2 0 5
-  NEWTABLE R3 4 0
-  GETIMPORT R4 K48 [Enum.AccessoryType.Jacket]
-  SETTABLEKS R4 R3 K22 ["AccessoryType"]
-  LOADK R4 K49 [7192553841]
-  SETTABLEKS R4 R3 K26 ["AssetId"]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K27 ["IsLayered"]
-  LOADN R4 1
-  SETTABLEKS R4 R3 K34 ["Order"]
-  NEWTABLE R4 4 0
-  GETIMPORT R5 K51 [Enum.AccessoryType.Pants]
-  SETTABLEKS R5 R4 K22 ["AccessoryType"]
-  LOADK R5 K52 [9112492265]
-  SETTABLEKS R5 R4 K26 ["AssetId"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K27 ["IsLayered"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["AvatarPreview"]
+  GETTABLEKS R2 R3 K9 ["AvatarPreviewTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K7 ["Util"]
+  GETTABLEKS R5 R6 K10 ["BridgingFiles"]
+  GETTABLEKS R4 R5 K11 ["AssetDmFiles"]
+  GETTABLEKS R3 R4 K12 ["assetDmTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Flags"]
+  GETTABLEKS R4 R5 K14 ["getFIntAvatarSettingsPreviewSpacing"]
+  CALL R3 1 1
+  DUPTABLE R4 K33 [{"AvatarPreviewFolderName", "AvatarPreviewFolderTag", "CollisionBoxVisibleTransparency", "CollisionBoxInvisibleTransparency", "CollisionBoxVisibleColor", "CollisionBoxInvisibleColor", "AvatarSpacing", "MaxPreviewPlacementDistance", "FantasyAvatar", "AddisonAvatar", "DennisAvatar", "AvatarAccessoryRulesAssetIdPropertyTypes", "AvatarClothingRulesAssetIdPropertyTypes", "ClassicClothingTypes", "HumanoidDescriptionClothingTypes", "AccessoryTypeToAssetType", "AvatarAnimationAssetIdPropertyToAnimationStringValue", "CollisionBoxPartNames"}]
+  LOADK R5 K8 ["AvatarPreview"]
+  SETTABLEKS R5 R4 K15 ["AvatarPreviewFolderName"]
+  LOADK R5 K34 ["AvatarSettingsPreviewFolder"]
+  SETTABLEKS R5 R4 K16 ["AvatarPreviewFolderTag"]
+  LOADK R5 K35 [0.5]
+  SETTABLEKS R5 R4 K17 ["CollisionBoxVisibleTransparency"]
   LOADN R5 1
-  SETTABLEKS R5 R4 K34 ["Order"]
-  NEWTABLE R5 4 0
-  GETIMPORT R6 K39 [Enum.AccessoryType.LeftShoe]
-  SETTABLEKS R6 R5 K22 ["AccessoryType"]
-  LOADK R6 K53 [9483690316]
-  SETTABLEKS R6 R5 K26 ["AssetId"]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K27 ["IsLayered"]
-  LOADN R6 2
-  SETTABLEKS R6 R5 K34 ["Order"]
-  NEWTABLE R6 4 0
-  GETIMPORT R7 K42 [Enum.AccessoryType.RightShoe]
-  SETTABLEKS R7 R6 K22 ["AccessoryType"]
-  LOADK R7 K54 [9483697460]
-  SETTABLEKS R7 R6 K26 ["AssetId"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K27 ["IsLayered"]
-  LOADN R7 2
-  SETTABLEKS R7 R6 K34 ["Order"]
+  SETTABLEKS R5 R4 K18 ["CollisionBoxInvisibleTransparency"]
+  GETIMPORT R5 K38 [Color3.fromRGB]
+  LOADN R6 0
+  LOADN R7 139
+  LOADN R8 219
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K19 ["CollisionBoxVisibleColor"]
+  GETIMPORT R5 K38 [Color3.fromRGB]
+  LOADN R6 163
+  LOADN R7 162
+  LOADN R8 165
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K20 ["CollisionBoxInvisibleColor"]
+  MOVE R5 R3
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K21 ["AvatarSpacing"]
+  LOADN R5 50
+  SETTABLEKS R5 R4 K22 ["MaxPreviewPlacementDistance"]
+  DUPTABLE R5 K45 [{"name", "bundleId", "outfitId", "insertionOrder", "defaultHumanoidRigType", "accessories"}]
+  LOADK R6 K23 ["FantasyAvatar"]
+  SETTABLEKS R6 R5 K39 ["name"]
+  LOADN R6 208
+  SETTABLEKS R6 R5 K40 ["bundleId"]
+  LOADK R6 K46 [765918676]
+  SETTABLEKS R6 R5 K41 ["outfitId"]
+  LOADN R6 3
+  SETTABLEKS R6 R5 K42 ["insertionOrder"]
+  GETIMPORT R6 K50 [Enum.HumanoidRigType.R15]
+  SETTABLEKS R6 R5 K43 ["defaultHumanoidRigType"]
+  NEWTABLE R6 0 1
   NEWTABLE R7 4 0
-  GETIMPORT R8 K56 [Enum.AccessoryType.Hair]
-  SETTABLEKS R8 R7 K22 ["AccessoryType"]
-  LOADK R8 K57 [9243987340]
-  SETTABLEKS R8 R7 K26 ["AssetId"]
+  GETIMPORT R8 K53 [Enum.AccessoryType.Back]
+  SETTABLEKS R8 R7 K51 ["AccessoryType"]
+  LOADK R8 K54 [335079187]
+  SETTABLEKS R8 R7 K55 ["AssetId"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K27 ["IsLayered"]
-  SETLIST R2 R3 5 [1]
-  SETTABLEKS R2 R1 K15 ["accessories"]
-  SETTABLEKS R1 R0 K6 ["DennisAvatar"]
-  RETURN R0 1
+  SETTABLEKS R8 R7 K56 ["IsLayered"]
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K44 ["accessories"]
+  SETTABLEKS R5 R4 K23 ["FantasyAvatar"]
+  DUPTABLE R5 K58 [{"name", "bundleId", "outfitId", "insertionOrder", "defaultHumanoidRigType", "accessories", "keepDefaultAccessories"}]
+  LOADK R6 K24 ["AddisonAvatar"]
+  SETTABLEKS R6 R5 K39 ["name"]
+  LOADN R6 220
+  SETTABLEKS R6 R5 K40 ["bundleId"]
+  LOADK R6 K59 [12092458560]
+  SETTABLEKS R6 R5 K41 ["outfitId"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K42 ["insertionOrder"]
+  GETIMPORT R6 K50 [Enum.HumanoidRigType.R15]
+  SETTABLEKS R6 R5 K43 ["defaultHumanoidRigType"]
+  NEWTABLE R6 0 4
+  NEWTABLE R7 4 0
+  GETIMPORT R8 K61 [Enum.AccessoryType.Shirt]
+  SETTABLEKS R8 R7 K51 ["AccessoryType"]
+  LOADK R8 K62 [9728267998]
+  SETTABLEKS R8 R7 K55 ["AssetId"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K56 ["IsLayered"]
+  LOADN R8 7
+  SETTABLEKS R8 R7 K63 ["Order"]
+  NEWTABLE R8 4 0
+  GETIMPORT R9 K65 [Enum.AccessoryType.Shorts]
+  SETTABLEKS R9 R8 K51 ["AccessoryType"]
+  LOADK R9 K66 [7192687500]
+  SETTABLEKS R9 R8 K55 ["AssetId"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K56 ["IsLayered"]
+  LOADN R9 6
+  SETTABLEKS R9 R8 K63 ["Order"]
+  NEWTABLE R9 4 0
+  GETIMPORT R10 K68 [Enum.AccessoryType.LeftShoe]
+  SETTABLEKS R10 R9 K51 ["AccessoryType"]
+  LOADK R10 K69 [9614836327]
+  SETTABLEKS R10 R9 K55 ["AssetId"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K56 ["IsLayered"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K63 ["Order"]
+  NEWTABLE R10 4 0
+  GETIMPORT R11 K71 [Enum.AccessoryType.RightShoe]
+  SETTABLEKS R11 R10 K51 ["AccessoryType"]
+  LOADK R11 K72 [9614841343]
+  SETTABLEKS R11 R10 K55 ["AssetId"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K56 ["IsLayered"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K63 ["Order"]
+  SETLIST R6 R7 4 [1]
+  SETTABLEKS R6 R5 K44 ["accessories"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K57 ["keepDefaultAccessories"]
+  SETTABLEKS R5 R4 K24 ["AddisonAvatar"]
+  DUPTABLE R5 K45 [{"name", "bundleId", "outfitId", "insertionOrder", "defaultHumanoidRigType", "accessories"}]
+  LOADK R6 K25 ["DennisAvatar"]
+  SETTABLEKS R6 R5 K39 ["name"]
+  LOADN R6 93
+  SETTABLEKS R6 R5 K40 ["bundleId"]
+  LOADK R6 K73 [2219390889]
+  SETTABLEKS R6 R5 K41 ["outfitId"]
+  LOADN R6 2
+  SETTABLEKS R6 R5 K42 ["insertionOrder"]
+  GETIMPORT R6 K75 [Enum.HumanoidRigType.R6]
+  SETTABLEKS R6 R5 K43 ["defaultHumanoidRigType"]
+  NEWTABLE R6 0 5
+  NEWTABLE R7 4 0
+  GETIMPORT R8 K77 [Enum.AccessoryType.Jacket]
+  SETTABLEKS R8 R7 K51 ["AccessoryType"]
+  LOADK R8 K78 [7192553841]
+  SETTABLEKS R8 R7 K55 ["AssetId"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K56 ["IsLayered"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K63 ["Order"]
+  NEWTABLE R8 4 0
+  GETIMPORT R9 K80 [Enum.AccessoryType.Pants]
+  SETTABLEKS R9 R8 K51 ["AccessoryType"]
+  LOADK R9 K81 [9112492265]
+  SETTABLEKS R9 R8 K55 ["AssetId"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K56 ["IsLayered"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K63 ["Order"]
+  NEWTABLE R9 4 0
+  GETIMPORT R10 K68 [Enum.AccessoryType.LeftShoe]
+  SETTABLEKS R10 R9 K51 ["AccessoryType"]
+  LOADK R10 K82 [9483690316]
+  SETTABLEKS R10 R9 K55 ["AssetId"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K56 ["IsLayered"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K63 ["Order"]
+  NEWTABLE R10 4 0
+  GETIMPORT R11 K71 [Enum.AccessoryType.RightShoe]
+  SETTABLEKS R11 R10 K51 ["AccessoryType"]
+  LOADK R11 K83 [9483697460]
+  SETTABLEKS R11 R10 K55 ["AssetId"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K56 ["IsLayered"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K63 ["Order"]
+  NEWTABLE R11 4 0
+  GETIMPORT R12 K85 [Enum.AccessoryType.Hair]
+  SETTABLEKS R12 R11 K51 ["AccessoryType"]
+  LOADK R12 K86 [9243987340]
+  SETTABLEKS R12 R11 K55 ["AssetId"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K56 ["IsLayered"]
+  SETLIST R6 R7 5 [1]
+  SETTABLEKS R6 R5 K44 ["accessories"]
+  SETTABLEKS R5 R4 K25 ["DennisAvatar"]
+  NEWTABLE R5 0 8
+  DUPTABLE R6 K89 [{"property", "type"}]
+  LOADK R7 K90 ["CustomHairAccessory"]
+  SETTABLEKS R7 R6 K87 ["property"]
+  GETIMPORT R7 K93 [Enum.AssetType.HairAccessory]
+  SETTABLEKS R7 R6 K88 ["type"]
+  DUPTABLE R7 K89 [{"property", "type"}]
+  LOADK R8 K94 ["CustomHeadAccessory"]
+  SETTABLEKS R8 R7 K87 ["property"]
+  GETIMPORT R8 K96 [Enum.AssetType.Hat]
+  SETTABLEKS R8 R7 K88 ["type"]
+  DUPTABLE R8 K89 [{"property", "type"}]
+  LOADK R9 K97 ["CustomFaceAccessory"]
+  SETTABLEKS R9 R8 K87 ["property"]
+  GETIMPORT R9 K99 [Enum.AssetType.FaceAccessory]
+  SETTABLEKS R9 R8 K88 ["type"]
+  DUPTABLE R9 K89 [{"property", "type"}]
+  LOADK R10 K100 ["CustomNeckAccessory"]
+  SETTABLEKS R10 R9 K87 ["property"]
+  GETIMPORT R10 K102 [Enum.AssetType.NeckAccessory]
+  SETTABLEKS R10 R9 K88 ["type"]
+  DUPTABLE R10 K89 [{"property", "type"}]
+  LOADK R11 K103 ["CustomShoulderAccessory"]
+  SETTABLEKS R11 R10 K87 ["property"]
+  GETIMPORT R11 K105 [Enum.AssetType.ShoulderAccessory]
+  SETTABLEKS R11 R10 K88 ["type"]
+  DUPTABLE R11 K89 [{"property", "type"}]
+  LOADK R12 K106 ["CustomFrontAccessory"]
+  SETTABLEKS R12 R11 K87 ["property"]
+  GETIMPORT R12 K108 [Enum.AssetType.FrontAccessory]
+  SETTABLEKS R12 R11 K88 ["type"]
+  DUPTABLE R12 K89 [{"property", "type"}]
+  LOADK R13 K109 ["CustomBackAccessory"]
+  SETTABLEKS R13 R12 K87 ["property"]
+  GETIMPORT R13 K111 [Enum.AssetType.BackAccessory]
+  SETTABLEKS R13 R12 K88 ["type"]
+  DUPTABLE R13 K89 [{"property", "type"}]
+  LOADK R14 K112 ["CustomWaistAccessory"]
+  SETTABLEKS R14 R13 K87 ["property"]
+  GETIMPORT R14 K114 [Enum.AssetType.WaistAccessory]
+  SETTABLEKS R14 R13 K88 ["type"]
+  SETLIST R5 R6 8 [1]
+  SETTABLEKS R5 R4 K26 ["AvatarAccessoryRulesAssetIdPropertyTypes"]
+  NEWTABLE R5 0 12
+  DUPTABLE R6 K89 [{"property", "type"}]
+  LOADK R7 K115 ["CustomTShirtAccessory"]
+  SETTABLEKS R7 R6 K87 ["property"]
+  GETIMPORT R7 K117 [Enum.AssetType.TShirtAccessory]
+  SETTABLEKS R7 R6 K88 ["type"]
+  DUPTABLE R7 K89 [{"property", "type"}]
+  LOADK R8 K118 ["CustomShirtAccessory"]
+  SETTABLEKS R8 R7 K87 ["property"]
+  GETIMPORT R8 K120 [Enum.AssetType.ShirtAccessory]
+  SETTABLEKS R8 R7 K88 ["type"]
+  DUPTABLE R8 K89 [{"property", "type"}]
+  LOADK R9 K121 ["CustomJacketAccessory"]
+  SETTABLEKS R9 R8 K87 ["property"]
+  GETIMPORT R9 K123 [Enum.AssetType.JacketAccessory]
+  SETTABLEKS R9 R8 K88 ["type"]
+  DUPTABLE R9 K89 [{"property", "type"}]
+  LOADK R10 K124 ["CustomSweaterAccessory"]
+  SETTABLEKS R10 R9 K87 ["property"]
+  GETIMPORT R10 K126 [Enum.AssetType.SweaterAccessory]
+  SETTABLEKS R10 R9 K88 ["type"]
+  DUPTABLE R10 K89 [{"property", "type"}]
+  LOADK R11 K127 ["CustomPantsAccessory"]
+  SETTABLEKS R11 R10 K87 ["property"]
+  GETIMPORT R11 K129 [Enum.AssetType.PantsAccessory]
+  SETTABLEKS R11 R10 K88 ["type"]
+  DUPTABLE R11 K89 [{"property", "type"}]
+  LOADK R12 K130 ["CustomShortsAccessory"]
+  SETTABLEKS R12 R11 K87 ["property"]
+  GETIMPORT R12 K132 [Enum.AssetType.ShortsAccessory]
+  SETTABLEKS R12 R11 K88 ["type"]
+  DUPTABLE R12 K89 [{"property", "type"}]
+  LOADK R13 K133 ["CustomDressSkirtAccessory"]
+  SETTABLEKS R13 R12 K87 ["property"]
+  GETIMPORT R13 K135 [Enum.AssetType.DressSkirtAccessory]
+  SETTABLEKS R13 R12 K88 ["type"]
+  DUPTABLE R13 K89 [{"property", "type"}]
+  LOADK R14 K136 ["CustomLeftShoesAccessory"]
+  SETTABLEKS R14 R13 K87 ["property"]
+  GETIMPORT R14 K138 [Enum.AssetType.LeftShoeAccessory]
+  SETTABLEKS R14 R13 K88 ["type"]
+  DUPTABLE R14 K89 [{"property", "type"}]
+  LOADK R15 K139 ["CustomRightShoesAccessory"]
+  SETTABLEKS R15 R14 K87 ["property"]
+  GETIMPORT R15 K141 [Enum.AssetType.RightShoeAccessory]
+  SETTABLEKS R15 R14 K88 ["type"]
+  DUPTABLE R15 K89 [{"property", "type"}]
+  LOADK R16 K142 ["CustomClassicShirtsAccessory"]
+  SETTABLEKS R16 R15 K87 ["property"]
+  GETIMPORT R16 K143 [Enum.AssetType.Shirt]
+  SETTABLEKS R16 R15 K88 ["type"]
+  DUPTABLE R16 K89 [{"property", "type"}]
+  LOADK R17 K144 ["CustomClassicTShirtsAccessory"]
+  SETTABLEKS R17 R16 K87 ["property"]
+  GETIMPORT R17 K146 [Enum.AssetType.TShirt]
+  SETTABLEKS R17 R16 K88 ["type"]
+  DUPTABLE R17 K89 [{"property", "type"}]
+  LOADK R18 K147 ["CustomClassicPantsAccessory"]
+  SETTABLEKS R18 R17 K87 ["property"]
+  GETIMPORT R18 K148 [Enum.AssetType.Pants]
+  SETTABLEKS R18 R17 K88 ["type"]
+  SETLIST R5 R6 12 [1]
+  SETTABLEKS R5 R4 K27 ["AvatarClothingRulesAssetIdPropertyTypes"]
+  NEWTABLE R5 0 3
+  GETIMPORT R7 K146 [Enum.AssetType.TShirt]
+  GETTABLEKS R6 R7 K149 ["Name"]
+  GETIMPORT R8 K143 [Enum.AssetType.Shirt]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  GETIMPORT R9 K148 [Enum.AssetType.Pants]
+  GETTABLEKS R8 R9 K149 ["Name"]
+  SETLIST R5 R6 3 [1]
+  SETTABLEKS R5 R4 K28 ["ClassicClothingTypes"]
+  NEWTABLE R5 4 0
+  GETIMPORT R7 K146 [Enum.AssetType.TShirt]
+  GETTABLEKS R6 R7 K149 ["Name"]
+  LOADK R7 K150 ["GraphicTShirt"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R7 K143 [Enum.AssetType.Shirt]
+  GETTABLEKS R6 R7 K149 ["Name"]
+  LOADK R7 K60 ["Shirt"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R7 K148 [Enum.AssetType.Pants]
+  GETTABLEKS R6 R7 K149 ["Name"]
+  LOADK R7 K79 ["Pants"]
+  SETTABLE R7 R5 R6
+  SETTABLEKS R5 R4 K29 ["HumanoidDescriptionClothingTypes"]
+  NEWTABLE R5 32 0
+  GETIMPORT R6 K151 [Enum.AccessoryType.Hat]
+  GETIMPORT R8 K96 [Enum.AssetType.Hat]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K85 [Enum.AccessoryType.Hair]
+  GETIMPORT R8 K93 [Enum.AssetType.HairAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K153 [Enum.AccessoryType.Face]
+  GETIMPORT R8 K99 [Enum.AssetType.FaceAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K155 [Enum.AccessoryType.Neck]
+  GETIMPORT R8 K102 [Enum.AssetType.NeckAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K157 [Enum.AccessoryType.Shoulder]
+  GETIMPORT R8 K105 [Enum.AssetType.ShoulderAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K159 [Enum.AccessoryType.Front]
+  GETIMPORT R8 K108 [Enum.AssetType.FrontAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K53 [Enum.AccessoryType.Back]
+  GETIMPORT R8 K111 [Enum.AssetType.BackAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K161 [Enum.AccessoryType.Waist]
+  GETIMPORT R8 K114 [Enum.AssetType.WaistAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K162 [Enum.AccessoryType.TShirt]
+  GETIMPORT R8 K117 [Enum.AssetType.TShirtAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K61 [Enum.AccessoryType.Shirt]
+  GETIMPORT R8 K120 [Enum.AssetType.ShirtAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K77 [Enum.AccessoryType.Jacket]
+  GETIMPORT R8 K123 [Enum.AssetType.JacketAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K164 [Enum.AccessoryType.Sweater]
+  GETIMPORT R8 K126 [Enum.AssetType.SweaterAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K80 [Enum.AccessoryType.Pants]
+  GETIMPORT R8 K129 [Enum.AssetType.PantsAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K65 [Enum.AccessoryType.Shorts]
+  GETIMPORT R8 K132 [Enum.AssetType.ShortsAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K166 [Enum.AccessoryType.DressSkirt]
+  GETIMPORT R8 K135 [Enum.AssetType.DressSkirtAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K68 [Enum.AccessoryType.LeftShoe]
+  GETIMPORT R8 K138 [Enum.AssetType.LeftShoeAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K71 [Enum.AccessoryType.RightShoe]
+  GETIMPORT R8 K141 [Enum.AssetType.RightShoeAccessory]
+  GETTABLEKS R7 R8 K149 ["Name"]
+  SETTABLE R7 R5 R6
+  SETTABLEKS R5 R4 K30 ["AccessoryTypeToAssetType"]
+  NEWTABLE R5 16 0
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K170 ["run"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K171 ["RunAnim"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K172 ["CustomRunAnimation"]
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K173 ["walk"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K174 ["WalkAnim"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K175 ["CustomWalkAnimation"]
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K176 ["fall"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K177 ["FallAnim"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K178 ["CustomFallAnimation"]
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K179 ["jump"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K180 ["JumpAnim"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K181 ["CustomJumpAnimation"]
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K182 ["idle"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K183 ["Animation1"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K184 ["CustomIdleAnimation"]
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K182 ["idle"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K185 ["Animation2"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K186 ["CustomIdleAlt1Animation"]
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K182 ["idle"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K187 ["Animation3"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K188 ["CustomIdleAlt2Animation"]
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K189 ["swim"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K190 ["Swim"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K191 ["CustomSwimAnimation"]
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K192 ["swimidle"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K193 ["SwimIdle"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K194 ["CustomSwimIdleAnimation"]
+  DUPTABLE R6 K169 [{"stringValueInstanceName", "animationInstanceName"}]
+  LOADK R7 K195 ["climb"]
+  SETTABLEKS R7 R6 K167 ["stringValueInstanceName"]
+  LOADK R7 K196 ["ClimbAnim"]
+  SETTABLEKS R7 R6 K168 ["animationInstanceName"]
+  SETTABLEKS R6 R5 K197 ["CustomClimbAnimation"]
+  SETTABLEKS R5 R4 K31 ["AvatarAnimationAssetIdPropertyToAnimationStringValue"]
+  NEWTABLE R5 0 7
+  LOADK R6 K198 ["CollisionBox"]
+  LOADK R7 K199 ["CollisionHead"]
+  LOADK R8 K200 ["CollisionTorso"]
+  LOADK R9 K201 ["CollisionLeftLeg"]
+  LOADK R10 K202 ["CollisionRightLeg"]
+  LOADK R11 K203 ["CollisionLeftArm"]
+  LOADK R12 K204 ["CollisionRightArm"]
+  SETLIST R5 R6 7 [1]
+  SETTABLEKS R5 R4 K32 ["CollisionBoxPartNames"]
+  RETURN R4 1

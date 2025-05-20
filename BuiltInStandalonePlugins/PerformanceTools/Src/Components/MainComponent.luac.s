@@ -82,6 +82,17 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["logEvent"]
+  CALL R0 2 0
+  GETUPVAL R0 2
+  LOADK R2 K1 ["ToggleMicroprofiler"]
+  NAMECALL R0 R0 K2 ["Invoke"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_7:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useState"]
   LOADB R2 0
@@ -178,42 +189,55 @@ PROTO_6:
   JUMPIF R16 [+1]
   LOADNIL R16
   SETTABLEKS R16 R15 K19 ["ThermometerSettings"]
-  JUMPIF R1 [+57]
+  JUMPIF R1 [+74]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K7 ["createElement"]
   GETUPVAL R17 9
-  DUPTABLE R18 K50 [{"DrawCallCount", "TriangleCount", "RenderThreadAverageMs", "TaskThreadAverageMs", "MaxTotalTaskMs", "MaxTotalRenderMs", "MaxTriangles", "MaxDrawCalls", "IsEditMode", "OnOpenSettings"}]
-  GETTABLEKS R20 R9 K52 ["drawCallCount"]
-  ORK R19 R20 K51 [0]
+  DUPTABLE R18 K52 [{"DrawCallCount", "TriangleCount", "RenderThreadAverageMs", "TaskThreadAverageMs", "MaxTotalTaskMs", "MaxTotalRenderMs", "MaxTriangles", "MaxDrawCalls", "IsEditMode", "MicroprofilerVisible", "OnOpenSettings", "OnToggleMicroprofiler"}]
+  GETTABLEKS R20 R9 K54 ["drawCallCount"]
+  ORK R19 R20 K53 [0]
   SETTABLEKS R19 R18 K44 ["DrawCallCount"]
-  GETTABLEKS R20 R9 K53 ["triangleCount"]
-  ORK R19 R20 K51 [0]
+  GETTABLEKS R20 R9 K55 ["triangleCount"]
+  ORK R19 R20 K53 [0]
   SETTABLEKS R19 R18 K45 ["TriangleCount"]
-  GETTABLEKS R20 R9 K54 ["renderThreadAverageMs"]
-  ORK R19 R20 K51 [0]
+  GETTABLEKS R20 R9 K56 ["renderThreadAverageMs"]
+  ORK R19 R20 K53 [0]
   SETTABLEKS R19 R18 K46 ["RenderThreadAverageMs"]
-  GETTABLEKS R20 R9 K55 ["taskThreadAverageMs"]
-  ORK R19 R20 K51 [0]
+  GETTABLEKS R20 R9 K57 ["taskThreadAverageMs"]
+  ORK R19 R20 K53 [0]
   SETTABLEKS R19 R18 K47 ["TaskThreadAverageMs"]
   GETTABLEKS R20 R9 K38 ["maxTotalTaskMs"]
-  ORK R19 R20 K56 [1]
+  ORK R19 R20 K58 [1]
   SETTABLEKS R19 R18 K24 ["MaxTotalTaskMs"]
   GETTABLEKS R20 R9 K39 ["maxTotalRenderMs"]
-  ORK R19 R20 K56 [1]
+  ORK R19 R20 K58 [1]
   SETTABLEKS R19 R18 K25 ["MaxTotalRenderMs"]
   GETTABLEKS R20 R9 K34 ["maxTriangles"]
-  ORK R19 R20 K56 [1]
+  ORK R19 R20 K58 [1]
   SETTABLEKS R19 R18 K22 ["MaxTriangles"]
   GETTABLEKS R20 R9 K37 ["maxDrawCalls"]
-  ORK R19 R20 K56 [1]
+  ORK R19 R20 K58 [1]
   SETTABLEKS R19 R18 K23 ["MaxDrawCalls"]
-  GETTABLEKS R19 R9 K57 ["isEditDM"]
+  GETTABLEKS R19 R9 K59 ["isEditDM"]
   SETTABLEKS R19 R18 K48 ["IsEditMode"]
+  GETUPVAL R21 10
+  GETTABLEKS R20 R21 K60 ["GetStudioAddPerformanceBridgeMicroprofilerInfo"]
+  CALL R20 0 1
+  JUMPIFNOT R20 [+3]
+  GETTABLEKS R19 R9 K61 ["microprofilerVisible"]
+  JUMPIF R19 [+1]
+  LOADB R19 0
+  SETTABLEKS R19 R18 K49 ["MicroprofilerVisible"]
   NEWCLOSURE R19 P5
   CAPTURE VAL R3
-  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
   CAPTURE VAL R2
-  SETTABLEKS R19 R18 K49 ["OnOpenSettings"]
+  SETTABLEKS R19 R18 K50 ["OnOpenSettings"]
+  NEWCLOSURE R19 P6
+  CAPTURE VAL R3
+  CAPTURE UPVAL U12
+  CAPTURE VAL R5
+  SETTABLEKS R19 R18 K51 ["OnToggleMicroprofiler"]
   CALL R16 2 1
   JUMPIF R16 [+1]
   LOADNIL R16
@@ -286,21 +310,35 @@ MAIN:
   GETTABLEKS R12 R13 K22 ["ResetToDefaultSettings"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R16 R0 K10 ["Src"]
-  GETTABLEKS R15 R16 K11 ["Components"]
-  GETTABLEKS R14 R15 K23 ["Contexts"]
-  GETTABLEKS R13 R14 K24 ["AssetDMDataManagerContext"]
+  GETTABLEKS R17 R0 K10 ["Src"]
+  GETTABLEKS R16 R17 K13 ["Util"]
+  GETTABLEKS R15 R16 K16 ["Telemetry"]
+  GETTABLEKS R14 R15 K18 ["Events"]
+  GETTABLEKS R13 R14 K23 ["ToggleMicroprofiler"]
   CALL R12 1 1
-  DUPCLOSURE R13 K25 [PROTO_6]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R17 R0 K10 ["Src"]
+  GETTABLEKS R16 R17 K11 ["Components"]
+  GETTABLEKS R15 R16 K24 ["Contexts"]
+  GETTABLEKS R14 R15 K25 ["AssetDMDataManagerContext"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K26 ["Bin"]
+  GETTABLEKS R16 R17 K27 ["Common"]
+  GETTABLEKS R15 R16 K28 ["DefineLuaFlags"]
+  CALL R14 1 1
+  DUPCLOSURE R15 K29 [PROTO_7]
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R3
-  CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
   CAPTURE VAL R4
+  CAPTURE VAL R14
   CAPTURE VAL R8
-  RETURN R13 1
+  CAPTURE VAL R12
+  RETURN R15 1

@@ -1,67 +1,174 @@
 PROTO_0:
-  PREPVARARGS 1
   GETUPVAL R1 0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["fromHost"]
-  GETTABLEKS R3 R4 K1 ["message"]
-  GETUPVAL R4 2
-  MOVE R5 R0
-  GETVARARGS R6 -1
-  NAMECALL R1 R1 K2 ["Invoke"]
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_1:
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R4 R0
-  GETIMPORT R3 K1 [typeof]
-  CALL R3 1 1
-  JUMPIFEQKS R3 K2 ["string"] [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K3 [+4]
-  LOADK R3 K3 ["Connection identifier is not a string"]
-  GETIMPORT R1 K5 [assert]
-  CALL R1 2 0
-  GETUPVAL R2 0
-  GETTABLE R1 R2 R0
-  JUMPIFEQKNIL R1 [+10]
-  GETIMPORT R1 K7 [error]
-  LOADK R3 K8 ["Double connection with %*"]
-  MOVE R5 R0
-  NAMECALL R3 R3 K9 ["format"]
-  CALL R3 2 1
-  MOVE R2 R3
-  CALL R1 1 0
-  GETUPVAL R1 1
-  LOADK R2 K10 ["%s connected"]
+  LOADK R2 K0 ["%s disconnecting"]
   MOVE R3 R0
   CALL R1 2 0
-  DUPTABLE R1 K15 [{"identifier", "disconnectSignal", "messageReceivedSignal", "sendMessage"}]
-  SETTABLEKS R0 R1 K11 ["identifier"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K16 ["Signal"]
-  GETTABLEKS R2 R3 K17 ["new"]
-  CALL R2 0 1
-  SETTABLEKS R2 R1 K12 ["disconnectSignal"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K16 ["Signal"]
-  GETTABLEKS R2 R3 K17 ["new"]
-  CALL R2 0 1
-  SETTABLEKS R2 R1 K13 ["messageReceivedSignal"]
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K14 ["sendMessage"]
-  GETUPVAL R2 0
-  SETTABLE R1 R2 R0
-  GETUPVAL R2 5
-  MOVE R3 R1
+  GETUPVAL R2 1
+  GETTABLE R1 R2 R0
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["Disconnect sent without a connection"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 2
+  GETTABLEKS R4 R1 K4 ["identifier"]
+  GETTABLE R2 R3 R4
+  JUMPIFNOTEQ R2 R0 [+6]
+  GETUPVAL R2 2
+  GETTABLEKS R3 R1 K4 ["identifier"]
+  LOADNIL R4
+  SETTABLE R4 R2 R3
+  GETUPVAL R2 1
+  LOADNIL R3
+  SETTABLE R3 R2 R0
+  GETTABLEKS R2 R1 K5 ["disconnectSignal"]
+  NAMECALL R2 R2 K6 ["Fire"]
   CALL R2 1 0
   RETURN R0 0
 
+PROTO_1:
+  PREPVARARGS 1
+  GETUPVAL R1 0
+  LOADK R2 K0 ["Sending message to %s (%s)"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  CALL R1 3 0
+  GETUPVAL R1 2
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K1 ["fromHost"]
+  GETTABLEKS R3 R4 K2 ["message"]
+  GETUPVAL R4 1
+  MOVE R5 R0
+  GETVARARGS R6 -1
+  NAMECALL R1 R1 K3 ["Invoke"]
+  CALL R1 -1 0
+  RETURN R0 0
+
 PROTO_2:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["string"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["Connection identifier is not a string"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["string"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K6 [+4]
+  LOADK R4 K6 ["Session UUID is not a string"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R1
+  JUMPIFEQKNIL R2 [+11]
+  GETIMPORT R2 K8 [error]
+  LOADK R4 K9 ["Double connection on session UUID with %* (from identifier %*)"]
+  MOVE R6 R1
+  MOVE R7 R0
+  NAMECALL R4 R4 K10 ["format"]
+  CALL R4 3 1
+  MOVE R3 R4
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLE R2 R3 R0
+  JUMPIFEQKNIL R2 [+72]
+  GETUPVAL R3 2
+  LOADK R4 K11 ["Had double connection from %s (old session UUID = %s, new session UUID = %s)"]
+  MOVE R5 R0
+  MOVE R6 R2
+  MOVE R7 R1
+  CALL R3 4 0
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K12 ["logCounter"]
+  DUPTABLE R4 K18 [{"eventName", "backends", "throttlingPercentage", "description", "lastUpdated"}]
+  LOADK R5 K19 ["LuaExplorerSloppyShutdown"]
+  SETTABLEKS R5 R4 K13 ["eventName"]
+  NEWTABLE R5 0 1
+  LOADK R6 K20 ["RobloxTelemetryCounter"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K14 ["backends"]
+  GETIMPORT R5 K22 [game]
+  LOADK R7 K23 ["LuaExplorerSloppyShutdownThrottlingHundredthsPercent"]
+  LOADN R8 16
+  NAMECALL R5 R5 K24 ["DefineFastInt"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K15 ["throttlingPercentage"]
+  LOADK R5 K25 ["Fired when the Luau Explorer requests a sloppy shutdown after receiving a double connection"]
+  SETTABLEKS R5 R4 K16 ["description"]
+  LOADK R5 K26 ["2025-05-09"]
+  SETTABLEKS R5 R4 K17 ["lastUpdated"]
+  CALL R3 1 0
+  GETUPVAL R3 2
+  LOADK R4 K27 ["%s disconnecting"]
+  MOVE R5 R2
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLE R3 R4 R2
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K28 [+4]
+  LOADK R6 K28 ["Disconnect sent without a connection"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  GETUPVAL R5 1
+  GETTABLEKS R6 R3 K29 ["identifier"]
+  GETTABLE R4 R5 R6
+  JUMPIFNOTEQ R4 R2 [+6]
+  GETUPVAL R4 1
+  GETTABLEKS R5 R3 K29 ["identifier"]
+  LOADNIL R6
+  SETTABLE R6 R4 R5
+  GETUPVAL R4 0
+  LOADNIL R5
+  SETTABLE R5 R4 R2
+  GETTABLEKS R4 R3 K30 ["disconnectSignal"]
+  NAMECALL R4 R4 K31 ["Fire"]
+  CALL R4 1 0
+  GETUPVAL R3 2
+  LOADK R4 K32 ["%s (%s) connected"]
+  MOVE R5 R1
+  MOVE R6 R0
+  CALL R3 3 0
+  DUPTABLE R3 K35 [{"identifier", "disconnectSignal", "messageReceivedSignal", "sendMessage"}]
+  SETTABLEKS R0 R3 K29 ["identifier"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K36 ["Signal"]
+  GETTABLEKS R4 R5 K37 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K30 ["disconnectSignal"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K36 ["Signal"]
+  GETTABLEKS R4 R5 K37 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K33 ["messageReceivedSignal"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R1
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  SETTABLEKS R4 R3 K34 ["sendMessage"]
+  GETUPVAL R4 0
+  SETTABLE R3 R4 R1
+  GETUPVAL R4 1
+  SETTABLE R1 R4 R0
+  GETUPVAL R4 7
+  MOVE R5 R3
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_3:
   LOADK R1 K0 ["%* sent message \"%*\""]
   GETUPVAL R3 0
   GETUPVAL R4 1
@@ -74,7 +181,7 @@ PROTO_2:
   CALL R1 1 -1
   RETURN R0 -1
 
-PROTO_3:
+PROTO_4:
   PREPVARARGS 2
   FASTCALL1 TYPEOF R0 [+3]
   MOVE R5 R0
@@ -84,7 +191,7 @@ PROTO_3:
   LOADB R3 0 +1
   LOADB R3 1
   FASTCALL2K ASSERT R3 K3 [+4]
-  LOADK R4 K3 ["Message identifier is not a string"]
+  LOADK R4 K3 ["Message session UUID is not a string"]
   GETIMPORT R2 K5 [assert]
   CALL R2 2 0
   GETUPVAL R3 0
@@ -121,7 +228,7 @@ PROTO_3:
   CALL R4 -1 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   FASTCALL1 TYPEOF R0 [+3]
   MOVE R4 R0
   GETIMPORT R3 K1 [typeof]
@@ -130,7 +237,7 @@ PROTO_4:
   LOADB R2 0 +1
   LOADB R2 1
   FASTCALL2K ASSERT R2 K3 [+4]
-  LOADK R3 K3 ["Connection identifier is not a string"]
+  LOADK R3 K3 ["Session UUID is not a string"]
   GETIMPORT R1 K5 [assert]
   CALL R1 2 0
   GETUPVAL R1 0
@@ -146,15 +253,23 @@ PROTO_4:
   LOADK R4 K7 ["Disconnect sent without a connection"]
   GETIMPORT R2 K5 [assert]
   CALL R2 2 0
+  GETUPVAL R3 2
+  GETTABLEKS R4 R1 K8 ["identifier"]
+  GETTABLE R2 R3 R4
+  JUMPIFNOTEQ R2 R0 [+6]
+  GETUPVAL R2 2
+  GETTABLEKS R3 R1 K8 ["identifier"]
+  LOADNIL R4
+  SETTABLE R4 R2 R3
   GETUPVAL R2 1
   LOADNIL R3
   SETTABLE R3 R2 R0
-  GETTABLEKS R2 R1 K8 ["disconnectSignal"]
-  NAMECALL R2 R2 K9 ["Fire"]
+  GETTABLEKS R2 R1 K9 ["disconnectSignal"]
+  NAMECALL R2 R2 K10 ["Fire"]
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R0 0
   LOADK R1 K0 ["Destroying"]
   CALL R0 1 0
@@ -183,87 +298,103 @@ PROTO_5:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   NEWTABLE R1 0 0
-  GETUPVAL R2 0
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K0 ["fromGuest"]
-  GETTABLEKS R4 R5 K1 ["connect"]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
+  NEWTABLE R2 0 0
+  NEWCLOSURE R3 P0
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  NAMECALL R2 R2 K2 ["OnInvokeSuspendOverride"]
-  CALL R2 3 1
-  GETUPVAL R3 0
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K0 ["fromGuest"]
-  GETTABLEKS R5 R6 K3 ["message"]
-  NEWCLOSURE R6 P1
   CAPTURE VAL R1
-  CAPTURE UPVAL U2
-  NAMECALL R3 R3 K2 ["OnInvokeSuspendOverride"]
-  CALL R3 3 1
-  GETUPVAL R4 0
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K0 ["fromGuest"]
-  GETTABLEKS R6 R7 K4 ["disconnect"]
-  NEWCLOSURE R7 P2
-  CAPTURE UPVAL U2
-  CAPTURE VAL R1
-  NAMECALL R4 R4 K2 ["OnInvokeSuspendOverride"]
-  CALL R4 3 1
-  GETUPVAL R5 0
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K5 ["fromHost"]
-  GETTABLEKS R7 R8 K6 ["starting"]
-  NAMECALL R5 R5 K7 ["Invoke"]
-  CALL R5 2 0
-  GETUPVAL R5 4
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K5 ["fromHost"]
-  GETTABLEKS R7 R8 K8 ["itemStarted"]
-  NAMECALL R5 R5 K9 ["SetItem"]
-  CALL R5 2 0
-  NEWCLOSURE R5 P3
-  CAPTURE UPVAL U2
   CAPTURE VAL R2
-  CAPTURE VAL R4
-  CAPTURE VAL R3
+  GETUPVAL R4 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K0 ["fromGuest"]
+  GETTABLEKS R6 R7 K1 ["connect"]
+  NEWCLOSURE R7 P1
   CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U1
-  RETURN R5 1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  NAMECALL R4 R4 K2 ["OnInvokeSuspendOverride"]
+  CALL R4 3 1
+  GETUPVAL R5 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K0 ["fromGuest"]
+  GETTABLEKS R7 R8 K3 ["message"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  NAMECALL R5 R5 K2 ["OnInvokeSuspendOverride"]
+  CALL R5 3 1
+  GETUPVAL R6 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K0 ["fromGuest"]
+  GETTABLEKS R8 R9 K4 ["disconnect"]
+  NEWCLOSURE R9 P3
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  NAMECALL R6 R6 K2 ["OnInvokeSuspendOverride"]
+  CALL R6 3 1
+  GETUPVAL R7 1
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K5 ["fromHost"]
+  GETTABLEKS R9 R10 K6 ["starting"]
+  NAMECALL R7 R7 K7 ["Invoke"]
+  CALL R7 2 0
+  GETUPVAL R7 5
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K5 ["fromHost"]
+  GETTABLEKS R9 R10 K8 ["itemStarted"]
+  NAMECALL R7 R7 K9 ["SetItem"]
+  CALL R7 2 0
+  NEWCLOSURE R7 P4
+  CAPTURE UPVAL U0
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U2
+  RETURN R7 1
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
   NAMECALL R1 R1 K1 ["get"]
   CALL R1 1 1
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["useCallback"]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U2
+  GETTABLEKS R2 R3 K2 ["useContext"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["Components"]
+  GETTABLEKS R4 R5 K4 ["Contexts"]
+  GETTABLEKS R3 R4 K5 ["AnalyticsContext"]
+  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["useCallback"]
+  NEWCLOSURE R4 P0
   CAPTURE UPVAL U3
+  CAPTURE VAL R1
   CAPTURE UPVAL U4
+  CAPTURE VAL R2
+  CAPTURE UPVAL U2
   CAPTURE UPVAL U5
-  NEWTABLE R4 0 0
-  CALL R2 2 1
-  GETUPVAL R3 6
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K3 ["Components"]
-  GETTABLEKS R5 R6 K4 ["Contexts"]
-  GETTABLEKS R4 R5 K5 ["NetworkContextProvider"]
-  DUPTABLE R5 K7 [{"registerOnConnect"}]
-  SETTABLEKS R2 R5 K6 ["registerOnConnect"]
-  GETTABLEKS R6 R0 K8 ["children"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  NEWTABLE R5 0 0
+  CALL R3 2 1
+  GETUPVAL R4 6
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K3 ["Components"]
+  GETTABLEKS R6 R7 K4 ["Contexts"]
+  GETTABLEKS R5 R6 K7 ["NetworkContextProvider"]
+  DUPTABLE R6 K9 [{"registerOnConnect"}]
+  SETTABLEKS R3 R6 K8 ["registerOnConnect"]
+  GETTABLEKS R7 R0 K10 ["children"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -299,12 +430,12 @@ MAIN:
   GETTABLEKS R8 R9 K20 ["createDebugLogger"]
   LOADK R9 K21 ["StudioNetworkContextProvider"]
   CALL R8 1 1
-  DUPCLOSURE R9 K22 [PROTO_7]
+  DUPCLOSURE R9 K22 [PROTO_8]
   CAPTURE VAL R7
   CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R8
   CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R5
   CAPTURE VAL R0
   CAPTURE VAL R6
   RETURN R9 1

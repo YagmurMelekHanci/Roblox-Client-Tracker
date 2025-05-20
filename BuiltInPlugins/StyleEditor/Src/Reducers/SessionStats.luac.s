@@ -36,27 +36,41 @@ PROTO_2:
   RETURN R2 -1
 
 PROTO_3:
-  GETTABLEKS R2 R0 K0 ["PluginFocusEndWithoutStartCount"]
-  LOADN R3 0
-  GETTABLEKS R4 R0 K1 ["PluginFocusPeriodStartTimestamp"]
-  JUMPIFNOT R4 [+6]
-  GETTABLEKS R4 R1 K2 ["focusEndTimestamp"]
-  GETTABLEKS R5 R0 K1 ["PluginFocusPeriodStartTimestamp"]
-  SUB R3 R4 R5
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R2 R0 K0 ["PluginFocusEndWithStartCount"]
   JUMP [+1]
-  ADDK R2 R2 K3 [1]
-  GETTABLEKS R5 R0 K4 ["TotalPluginFocusTimeSeconds"]
-  ADD R4 R5 R3
+  LOADN R2 0
+  GETTABLEKS R3 R0 K1 ["PluginFocusEndWithoutStartCount"]
+  LOADN R4 0
+  GETTABLEKS R5 R0 K2 ["PluginFocusPeriodStartTimestamp"]
+  JUMPIFNOT R5 [+9]
+  GETTABLEKS R5 R1 K3 ["focusEndTimestamp"]
+  GETTABLEKS R6 R0 K2 ["PluginFocusPeriodStartTimestamp"]
+  SUB R4 R5 R6
   GETUPVAL R5 0
-  MOVE R6 R0
-  DUPTABLE R7 K5 [{"PluginFocusPeriodStartTimestamp", "TotalPluginFocusTimeSeconds", "PluginFocusEndWithoutStartCount"}]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K6 ["None"]
-  SETTABLEKS R8 R7 K1 ["PluginFocusPeriodStartTimestamp"]
-  SETTABLEKS R4 R7 K4 ["TotalPluginFocusTimeSeconds"]
-  SETTABLEKS R2 R7 K0 ["PluginFocusEndWithoutStartCount"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  JUMPIFNOT R5 [+3]
+  ADDK R2 R2 K4 [1]
+  JUMP [+1]
+  ADDK R3 R3 K4 [1]
+  GETTABLEKS R6 R0 K5 ["TotalPluginFocusTimeSeconds"]
+  ADD R5 R6 R4
+  GETUPVAL R6 1
+  MOVE R7 R0
+  DUPTABLE R8 K6 [{"PluginFocusPeriodStartTimestamp", "TotalPluginFocusTimeSeconds", "PluginFocusEndWithStartCount", "PluginFocusEndWithoutStartCount"}]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K7 ["None"]
+  SETTABLEKS R9 R8 K2 ["PluginFocusPeriodStartTimestamp"]
+  SETTABLEKS R5 R8 K5 ["TotalPluginFocusTimeSeconds"]
+  GETUPVAL R10 0
+  JUMPIFNOT R10 [+2]
+  MOVE R9 R2
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K0 ["PluginFocusEndWithStartCount"]
+  SETTABLEKS R3 R8 K1 ["PluginFocusEndWithoutStartCount"]
+  CALL R6 2 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -89,42 +103,54 @@ MAIN:
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
   GETTABLEKS R10 R4 K11 ["SessionStats"]
-  GETTABLEKS R9 R10 K15 ["TrackButtonPress"]
+  GETTABLEKS R9 R10 K15 ["DEPRECATED_TrackButtonPress"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
-  GETTABLEKS R11 R0 K9 ["Src"]
-  GETTABLEKS R10 R11 K16 ["Types"]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Flags"]
+  GETTABLEKS R10 R11 K17 ["getFFlagStyleEditorTelemetryRefactor"]
   CALL R9 1 1
-  DUPTABLE R10 K22 [{"SessionStartTimestamp", "TotalPluginFocusTimeSeconds", "PluginFocusPeriodStartTimestamp", "PluginFocusEndWithoutStartCount", "ButtonPressCounts"}]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K17 ["SessionStartTimestamp"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K18 ["TotalPluginFocusTimeSeconds"]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K19 ["PluginFocusPeriodStartTimestamp"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K20 ["PluginFocusEndWithoutStartCount"]
-  NEWTABLE R11 0 0
-  SETTABLEKS R11 R10 K21 ["ButtonPressCounts"]
-  GETTABLEKS R11 R1 K23 ["createReducer"]
-  MOVE R12 R10
-  NEWTABLE R13 4 0
-  GETTABLEKS R14 R8 K24 ["name"]
-  DUPCLOSURE R15 K25 [PROTO_0]
+  CALL R9 0 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Types"]
+  CALL R10 1 1
+  DUPTABLE R11 K25 [{"SessionStartTimestamp", "TotalPluginFocusTimeSeconds", "PluginFocusPeriodStartTimestamp", "PluginFocusEndWithStartCount", "PluginFocusEndWithoutStartCount", "ButtonPressCounts"}]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K19 ["SessionStartTimestamp"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K20 ["TotalPluginFocusTimeSeconds"]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K21 ["PluginFocusPeriodStartTimestamp"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K22 ["PluginFocusEndWithStartCount"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K23 ["PluginFocusEndWithoutStartCount"]
+  NEWTABLE R12 0 0
+  SETTABLEKS R12 R11 K24 ["ButtonPressCounts"]
+  GETTABLEKS R12 R1 K26 ["createReducer"]
+  MOVE R13 R11
+  NEWTABLE R14 4 0
+  GETTABLEKS R15 R8 K27 ["name"]
+  JUMPIFNOT R9 [+2]
+  LOADNIL R16
+  JUMP [+2]
+  DUPCLOSURE R16 K28 [PROTO_0]
   CAPTURE VAL R3
-  SETTABLE R15 R13 R14
-  GETTABLEKS R14 R7 K24 ["name"]
-  DUPCLOSURE R15 K26 [PROTO_1]
+  SETTABLE R16 R14 R15
+  GETTABLEKS R15 R7 K27 ["name"]
+  DUPCLOSURE R16 K29 [PROTO_1]
   CAPTURE VAL R3
-  SETTABLE R15 R13 R14
-  GETTABLEKS R14 R6 K24 ["name"]
-  DUPCLOSURE R15 K27 [PROTO_2]
+  SETTABLE R16 R14 R15
+  GETTABLEKS R15 R6 K27 ["name"]
+  DUPCLOSURE R16 K30 [PROTO_2]
   CAPTURE VAL R3
-  SETTABLE R15 R13 R14
-  GETTABLEKS R14 R5 K24 ["name"]
-  DUPCLOSURE R15 K28 [PROTO_3]
+  SETTABLE R16 R14 R15
+  GETTABLEKS R15 R5 K27 ["name"]
+  DUPCLOSURE R16 K31 [PROTO_3]
+  CAPTURE VAL R9
   CAPTURE VAL R3
   CAPTURE VAL R2
-  SETTABLE R15 R13 R14
-  CALL R11 2 -1
-  RETURN R11 -1
+  SETTABLE R16 R14 R15
+  CALL R12 2 -1
+  RETURN R12 -1

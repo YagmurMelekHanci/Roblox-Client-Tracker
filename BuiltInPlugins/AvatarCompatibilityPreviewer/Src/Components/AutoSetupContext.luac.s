@@ -12,21 +12,23 @@ PROTO_0:
   SETTABLEKS R4 R3 K1 ["jobId"]
   CALL R2 1 0
   MOVE R2 R0
-  DUPTABLE R3 K10 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId"}]
+  DUPTABLE R3 K11 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId", "estimatedWait"}]
   LOADN R4 1
   SETTABLEKS R4 R3 K5 ["progressPercentage"]
-  LOADK R4 K11 ["Initializing"]
+  LOADK R4 K12 ["Initializing"]
   SETTABLEKS R4 R3 K6 ["progressName"]
   LOADN R4 0
   SETTABLEKS R4 R3 K7 ["completionStart"]
-  LOADK R4 K12 [0.2]
+  LOADK R4 K13 [0.2]
   SETTABLEKS R4 R3 K8 ["completionEnd"]
-  LOADK R4 K13 ["Created"]
+  LOADK R4 K14 ["Created"]
   SETTABLEKS R4 R3 K9 ["jobStatus"]
   LOADK R4 K4 ["abcd"]
   SETTABLEKS R4 R3 K1 ["jobId"]
+  LOADN R4 20
+  SETTABLEKS R4 R3 K10 ["estimatedWait"]
   CALL R2 1 0
-  GETIMPORT R2 K16 [task.wait]
+  GETIMPORT R2 K17 [task.wait]
   LOADN R3 5
   CALL R2 1 0
   GETUPVAL R2 0
@@ -34,69 +36,73 @@ PROTO_0:
   JUMPIFNOT R2 [+17]
   JUMPIFEQKNIL R1 [+16]
   MOVE R2 R1
-  DUPTABLE R3 K19 [{"notificationType", "jobId", "level", "message"}]
-  LOADK R4 K20 ["AutoSetupMetadataNotification"]
+  DUPTABLE R3 K20 [{"notificationType", "jobId", "level", "message"}]
+  LOADK R4 K21 ["AutoSetupMetadataNotification"]
   SETTABLEKS R4 R3 K0 ["notificationType"]
   LOADK R4 K4 ["abcd"]
   SETTABLEKS R4 R3 K1 ["jobId"]
-  LOADK R4 K21 ["info"]
-  SETTABLEKS R4 R3 K17 ["level"]
-  LOADK R4 K22 ["Test message for status notification"]
-  SETTABLEKS R4 R3 K18 ["message"]
+  LOADK R4 K22 ["info"]
+  SETTABLEKS R4 R3 K18 ["level"]
+  LOADK R4 K23 ["Test message for status notification"]
+  SETTABLEKS R4 R3 K19 ["message"]
   CALL R2 1 0
   MOVE R2 R0
-  DUPTABLE R3 K10 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId"}]
+  DUPTABLE R3 K11 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId", "estimatedWait"}]
   LOADN R4 1
   SETTABLEKS R4 R3 K5 ["progressPercentage"]
-  LOADK R4 K23 ["NotProcessing"]
+  LOADK R4 K24 ["NotProcessing"]
   SETTABLEKS R4 R3 K6 ["progressName"]
-  LOADK R4 K12 [0.2]
+  LOADK R4 K13 [0.2]
   SETTABLEKS R4 R3 K7 ["completionStart"]
-  LOADK R4 K24 [0.95]
+  LOADK R4 K25 [0.95]
   SETTABLEKS R4 R3 K8 ["completionEnd"]
-  LOADK R4 K25 ["Processing"]
+  LOADK R4 K26 ["Processing"]
   SETTABLEKS R4 R3 K9 ["jobStatus"]
   LOADK R4 K4 ["abcd"]
   SETTABLEKS R4 R3 K1 ["jobId"]
+  LOADN R4 15
+  SETTABLEKS R4 R3 K10 ["estimatedWait"]
   CALL R2 1 0
-  GETIMPORT R2 K16 [task.wait]
+  GETIMPORT R2 K17 [task.wait]
   LOADN R3 12
   CALL R2 1 0
   MOVE R2 R0
-  DUPTABLE R3 K10 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId"}]
+  DUPTABLE R3 K11 [{"progressPercentage", "progressName", "completionStart", "completionEnd", "jobStatus", "jobId", "estimatedWait"}]
   LOADN R4 1
   SETTABLEKS R4 R3 K5 ["progressPercentage"]
-  LOADK R4 K26 ["Finalizing"]
+  LOADK R4 K27 ["Finalizing"]
   SETTABLEKS R4 R3 K6 ["progressName"]
-  LOADK R4 K24 [0.95]
+  LOADK R4 K25 [0.95]
   SETTABLEKS R4 R3 K7 ["completionStart"]
   LOADN R4 1
   SETTABLEKS R4 R3 K8 ["completionEnd"]
-  LOADK R4 K26 ["Finalizing"]
+  LOADK R4 K27 ["Finalizing"]
   SETTABLEKS R4 R3 K9 ["jobStatus"]
   LOADK R4 K4 ["abcd"]
   SETTABLEKS R4 R3 K1 ["jobId"]
+  LOADN R4 3
+  SETTABLEKS R4 R3 K10 ["estimatedWait"]
   CALL R2 1 0
-  GETIMPORT R2 K16 [task.wait]
+  GETIMPORT R2 K17 [task.wait]
   LOADN R3 3
   CALL R2 1 0
   GETUPVAL R2 2
   LOADN R4 109
-  NAMECALL R2 R2 K27 ["CreateHumanoidModelFromUserId"]
+  NAMECALL R2 R2 K28 ["CreateHumanoidModelFromUserId"]
   CALL R2 2 1
-  LOADK R5 K28 ["Accessory"]
-  NAMECALL R3 R2 K29 ["FindFirstChildWhichIsA"]
+  LOADK R5 K29 ["Accessory"]
+  NAMECALL R3 R2 K30 ["FindFirstChildWhichIsA"]
   CALL R3 2 1
   JUMPIFEQKNIL R3 [+17]
   JUMPIFNOTEQKNIL R3 [+2]
   LOADB R5 0 +1
   LOADB R5 1
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K30 ["LUAU_ANALYZE_ERROR"]
+  GETTABLEKS R6 R7 K31 ["LUAU_ANALYZE_ERROR"]
   FASTCALL2 ASSERT R5 R6 [+3]
-  GETIMPORT R4 K32 [assert]
+  GETIMPORT R4 K33 [assert]
   CALL R4 2 0
-  NAMECALL R4 R3 K33 ["Destroy"]
+  NAMECALL R4 R3 K34 ["Destroy"]
   CALL R4 1 0
   JUMPBACK [-22]
   RETURN R2 1

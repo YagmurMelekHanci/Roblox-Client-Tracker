@@ -7,14 +7,26 @@ local Panel3DInSpatialUI = VrSpatialUi.Panel3DInSpatialUI
 local Modules = script.Parent.Parent.Parent
 local Unibar = require(Modules.Chrome.ChromeShared.Unibar)
 local MenuIcon = require(Modules.TopBar.Components.Presentation.MenuIcon)
+local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 
 type Props = {
 	showBadgeOver12: boolean?,
-	iconScale: number?,
 	voiceChatServiceManager: any?,
 	voiceEnabled: boolean?,
 	voiceState: any?,
 }
+
+local function MenuIconWrapper(props: any)
+	local menuOpen = useSelector(function(state)
+		return if state and state.displayOptions then state.displayOptions.menuOpen else false
+	end)
+	local iconScale = if menuOpen then 1.5 else 1
+	return React.createElement(MenuIcon, {
+		layout = props.layout,
+		iconScale = iconScale,
+		showBadgeOver12 = props.showBadgeOver12,
+	})
+end
 
 local function VRBottomUnibar(props: Props)
 	if not Panel3DInSpatialUI then
@@ -40,9 +52,8 @@ local function VRBottomUnibar(props: Props)
 					Size = UDim2.new(0, 0, 1, 0),
 					AutomaticSize = Enum.AutomaticSize.X,
 				}, {
-					MenuIcon = React.createElement(MenuIcon, {
+					MenuIcon = React.createElement(MenuIconWrapper, {
 						layout = 1,
-						iconScale = props.iconScale,
 						showBadgeOver12 = props.showBadgeOver12,
 					}),
 				}),
@@ -64,4 +75,4 @@ local function VRBottomUnibar(props: Props)
 	})
 end
 
-return VRBottomUnibar
+return React.memo(VRBottomUnibar)

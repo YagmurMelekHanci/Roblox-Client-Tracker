@@ -42,7 +42,6 @@ local ExternalEventConnection = require(Root.Components.Connection.ExternalEvent
 
 local GetFFLagUseCoreScriptsRootProviderForUpsellModal =
 	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
-local GetFFlagEnableEventMetadataInUpsell = IAPExperience.Flags.GetFFlagEnableEventMetadataInUpsell
 local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 local FFlagEnableUpsellSuggestionsAPI = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUpsellSuggestionsAPI
 local UpsellSuggestionsAPIMaxPackages = require(CorePackages.Workspace.Packages.SharedFlags).UpsellSuggestionsAPIMaxPackages
@@ -111,7 +110,7 @@ function RobuxUpsellContainer:createElement()
 			robuxProductId = props.productId,
 
 			itemIcon = imageIcon,
-			itemProductId = if GetFFlagEnableEventMetadataInUpsell then props.productInfo.productId else nil,
+			itemProductId = props.productInfo.productId,
 			itemName = props.productInfo.name,
 			itemRobuxCost = getPlayerPrice(
 				props.productInfo,

@@ -1,0 +1,14 @@
+PROTO_0:
+  LOADK R5 K0 ["HumanoidDescription"]
+  NAMECALL R3 R0 K1 ["FindFirstChildOfClass"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+3]
+  NAMECALL R4 R3 K2 ["Destroy"]
+  CALL R4 1 0
+  SETTABLEKS R0 R1 K3 ["Parent"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

@@ -269,13 +269,11 @@ function TopBarApp:renderWithStyle(style)
 					voiceEnabled = voiceContext.voiceEnabled,
 					voiceState = voiceContext.voiceState,
 					showBadgeOver12 = if isInExperienceUIVREnabled then self.props.showBadgeOver12 else nil,
-					iconScale = if isInExperienceUIVREnabled and self.props.menuOpen then 1.25 else 1,
 				})
 			end),
 		})
 		else Roact.createElement(VRBottomBar, {
 			showBadgeOver12 = if isInExperienceUIVREnabled then self.props.showBadgeOver12 else nil,
-			iconScale = if isInExperienceUIVREnabled and self.props.menuOpen then 1.25 else 1,
 		})
 
 	local newMenuIcon = Roact.createElement(MenuIcon, {

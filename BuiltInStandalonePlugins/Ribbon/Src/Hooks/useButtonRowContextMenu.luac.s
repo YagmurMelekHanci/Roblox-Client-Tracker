@@ -1,40 +1,22 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["MoveControl"]
-  FASTCALL2K ASSERT R1 K1 [+4]
-  LOADK R2 K1 ["Should always exist with FFlagRibbonTabsMenu"]
-  GETIMPORT R0 K3 [assert]
-  CALL R0 2 0
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["MoveControl"]
   GETUPVAL R1 1
   GETUPVAL R2 2
-  LOADK R3 K4 ["Left"]
+  LOADK R3 K1 ["Left"]
   CALL R0 3 0
   RETURN R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["MoveControl"]
-  FASTCALL2K ASSERT R1 K1 [+4]
-  LOADK R2 K1 ["Should always exist with FFlagRibbonTabsMenu"]
-  GETIMPORT R0 K3 [assert]
-  CALL R0 2 0
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["MoveControl"]
   GETUPVAL R1 1
   GETUPVAL R2 2
-  LOADK R3 K4 ["Right"]
+  LOADK R3 K1 ["Right"]
   CALL R0 3 0
   RETURN R0 0
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["RemoveControlFromTab"]
-  FASTCALL2K ASSERT R1 K1 [+4]
-  LOADK R2 K1 ["Should always exist with FFlagRibbonTabsMenu"]
-  GETIMPORT R0 K3 [assert]
-  CALL R0 2 0
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["RemoveControlFromTab"]
   GETUPVAL R1 1
@@ -47,181 +29,184 @@ PROTO_3:
   GETIMPORT R3 K3 [Enum.UserInputType.MouseButton2]
   JUMPIFEQ R2 R3 [+2]
   RETURN R0 0
-  GETUPVAL R2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["join"]
   GETUPVAL R3 1
-  DUPTABLE R4 K6 [{"Category", "ItemId"}]
-  LOADK R5 K7 ["Widgets"]
-  SETTABLEKS R5 R4 K4 ["Category"]
-  LOADK R5 K8 ["Mezzanine"]
-  SETTABLEKS R5 R4 K5 ["ItemId"]
+  DUPTABLE R4 K7 [{"Category", "ItemId"}]
+  LOADK R5 K8 ["Widgets"]
+  SETTABLEKS R5 R4 K5 ["Category"]
+  LOADK R5 K9 ["Mezzanine"]
+  SETTABLEKS R5 R4 K6 ["ItemId"]
   CALL R2 2 1
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K9 ["ActiveTabState"]
+  GETTABLEKS R4 R5 K10 ["ActiveTabState"]
   JUMPIFNOT R4 [+6]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K9 ["ActiveTabState"]
-  GETTABLEKS R3 R4 K10 ["Identifier"]
+  GETTABLEKS R4 R5 K10 ["ActiveTabState"]
+  GETTABLEKS R3 R4 K11 ["Identifier"]
   JUMP [+1]
   LOADNIL R3
   JUMPIFNOTEQKNIL R3 [+6]
-  GETIMPORT R4 K12 [warn]
-  LOADK R5 K13 ["Cannot open context menu wil no active tab"]
+  GETIMPORT R4 K13 [warn]
+  LOADK R5 K14 ["Cannot open context menu wil no active tab"]
   CALL R4 1 0
   RETURN R0 0
-  GETTABLEKS R4 R3 K14 ["Type"]
-  JUMPIFNOTEQKS R4 K15 ["BuiltIn"] [+2]
+  GETTABLEKS R4 R3 K15 ["Type"]
+  JUMPIFNOTEQKS R4 K16 ["BuiltIn"] [+2]
   RETURN R0 0
-  LOADK R5 K16 ["%*_%*"]
-  GETTABLEKS R7 R3 K14 ["Type"]
-  GETTABLEKS R8 R3 K17 ["Filename"]
-  NAMECALL R5 R5 K18 ["format"]
+  LOADK R5 K17 ["%*_%*"]
+  GETTABLEKS R7 R3 K15 ["Type"]
+  GETTABLEKS R8 R3 K18 ["Filename"]
+  NAMECALL R5 R5 K19 ["format"]
   CALL R5 3 1
   MOVE R4 R5
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K19 ["Definition"]
-  GETTABLEKS R7 R8 K20 ["TabControls"]
+  GETTABLEKS R8 R9 K20 ["Definition"]
+  GETTABLEKS R7 R8 K21 ["TabControls"]
   GETTABLE R6 R7 R4
-  GETTABLEKS R5 R6 K21 ["Controls"]
+  GETTABLEKS R5 R6 K22 ["Controls"]
   JUMPIFNOTEQKNIL R1 [+2]
   LOADB R6 0 +1
   LOADB R6 1
   JUMPIFEQKNIL R1 [+9]
   GETTABLE R9 R5 R1
-  GETTABLEKS R8 R9 K14 ["Type"]
-  JUMPIFEQKS R8 K22 ["Separator"] [+2]
+  GETTABLEKS R8 R9 K15 ["Type"]
+  JUMPIFEQKS R8 K23 ["Separator"] [+2]
   LOADB R7 0 +1
   LOADB R7 1
   JUMP [+1]
   LOADNIL R7
   JUMPIFNOT R6 [+89]
   NEWTABLE R8 0 4
-  DUPTABLE R9 K27 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
-  LOADK R10 K28 ["MoveLeft"]
-  SETTABLEKS R10 R9 K23 ["Id"]
+  DUPTABLE R9 K28 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
+  LOADK R10 K29 ["MoveLeft"]
+  SETTABLEKS R10 R9 K24 ["Id"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K24 ["Enabled"]
-  LOADK R10 K29 ["Option"]
-  SETTABLEKS R10 R9 K14 ["Type"]
+  SETTABLEKS R10 R9 K25 ["Enabled"]
+  LOADK R10 K30 ["Option"]
+  SETTABLEKS R10 R9 K15 ["Type"]
   GETUPVAL R10 3
-  LOADK R12 K30 ["Plugin"]
-  LOADK R13 K28 ["MoveLeft"]
-  NAMECALL R10 R10 K31 ["getText"]
+  LOADK R12 K31 ["Plugin"]
+  LOADK R13 K29 ["MoveLeft"]
+  NAMECALL R10 R10 K32 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K25 ["Text"]
+  SETTABLEKS R10 R9 K26 ["Text"]
   NEWCLOSURE R10 P0
   CAPTURE UPVAL U2
   CAPTURE VAL R3
   CAPTURE VAL R1
-  SETTABLEKS R10 R9 K26 ["OnSelect"]
-  DUPTABLE R10 K27 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
-  LOADK R11 K32 ["MoveRight"]
-  SETTABLEKS R11 R10 K23 ["Id"]
+  SETTABLEKS R10 R9 K27 ["OnSelect"]
+  DUPTABLE R10 K28 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
+  LOADK R11 K33 ["MoveRight"]
+  SETTABLEKS R11 R10 K24 ["Id"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K24 ["Enabled"]
-  LOADK R11 K29 ["Option"]
-  SETTABLEKS R11 R10 K14 ["Type"]
+  SETTABLEKS R11 R10 K25 ["Enabled"]
+  LOADK R11 K30 ["Option"]
+  SETTABLEKS R11 R10 K15 ["Type"]
   GETUPVAL R11 3
-  LOADK R13 K30 ["Plugin"]
-  LOADK R14 K32 ["MoveRight"]
-  NAMECALL R11 R11 K31 ["getText"]
+  LOADK R13 K31 ["Plugin"]
+  LOADK R14 K33 ["MoveRight"]
+  NAMECALL R11 R11 K32 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K25 ["Text"]
+  SETTABLEKS R11 R10 K26 ["Text"]
   NEWCLOSURE R11 P1
   CAPTURE UPVAL U2
   CAPTURE VAL R3
   CAPTURE VAL R1
-  SETTABLEKS R11 R10 K26 ["OnSelect"]
-  DUPTABLE R11 K33 [{"Type"}]
-  LOADK R12 K22 ["Separator"]
-  SETTABLEKS R12 R11 K14 ["Type"]
-  DUPTABLE R12 K27 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
-  LOADK R13 K34 ["Delete"]
-  SETTABLEKS R13 R12 K23 ["Id"]
+  SETTABLEKS R11 R10 K27 ["OnSelect"]
+  DUPTABLE R11 K34 [{"Type"}]
+  LOADK R12 K23 ["Separator"]
+  SETTABLEKS R12 R11 K15 ["Type"]
+  DUPTABLE R12 K28 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
+  LOADK R13 K35 ["Delete"]
+  SETTABLEKS R13 R12 K24 ["Id"]
   LOADB R13 1
-  SETTABLEKS R13 R12 K24 ["Enabled"]
-  LOADK R13 K29 ["Option"]
-  SETTABLEKS R13 R12 K14 ["Type"]
+  SETTABLEKS R13 R12 K25 ["Enabled"]
+  LOADK R13 K30 ["Option"]
+  SETTABLEKS R13 R12 K15 ["Type"]
   JUMPIFNOT R7 [+7]
   GETUPVAL R13 3
-  LOADK R15 K30 ["Plugin"]
-  LOADK R16 K35 ["DeleteSeparator"]
-  NAMECALL R13 R13 K31 ["getText"]
+  LOADK R15 K31 ["Plugin"]
+  LOADK R16 K36 ["DeleteSeparator"]
+  NAMECALL R13 R13 K32 ["getText"]
   CALL R13 3 1
   JUMP [+6]
   GETUPVAL R13 3
-  LOADK R15 K30 ["Plugin"]
-  LOADK R16 K36 ["DeleteTool"]
-  NAMECALL R13 R13 K31 ["getText"]
+  LOADK R15 K31 ["Plugin"]
+  LOADK R16 K37 ["DeleteTool"]
+  NAMECALL R13 R13 K32 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K25 ["Text"]
+  SETTABLEKS R13 R12 K26 ["Text"]
   NEWCLOSURE R13 P2
   CAPTURE UPVAL U2
   CAPTURE VAL R3
   CAPTURE VAL R1
-  SETTABLEKS R13 R12 K26 ["OnSelect"]
+  SETTABLEKS R13 R12 K27 ["OnSelect"]
   SETLIST R8 R9 4 [1]
-  JUMP [+48]
+  JUMP [+52]
   NEWTABLE R8 0 2
-  DUPTABLE R9 K38 [{"Id", "Enabled", "Type", "Action"}]
-  LOADK R10 K39 ["AddTools"]
-  SETTABLEKS R10 R9 K23 ["Id"]
+  DUPTABLE R9 K39 [{"Id", "Enabled", "Type", "Action"}]
+  LOADK R10 K40 ["AddTools"]
+  SETTABLEKS R10 R9 K24 ["Id"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K24 ["Enabled"]
-  LOADK R10 K29 ["Option"]
-  SETTABLEKS R10 R9 K14 ["Type"]
-  GETUPVAL R10 0
-  GETUPVAL R11 1
-  DUPTABLE R12 K6 [{"Category", "ItemId"}]
-  LOADK R13 K40 ["Actions"]
-  SETTABLEKS R13 R12 K4 ["Category"]
-  LOADK R13 K39 ["AddTools"]
-  SETTABLEKS R13 R12 K5 ["ItemId"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K37 ["Action"]
-  DUPTABLE R10 K38 [{"Id", "Enabled", "Type", "Action"}]
-  LOADK R11 K41 ["AddSeparator"]
-  SETTABLEKS R11 R10 K23 ["Id"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K24 ["Enabled"]
-  LOADK R11 K29 ["Option"]
-  SETTABLEKS R11 R10 K14 ["Type"]
+  SETTABLEKS R10 R9 K25 ["Enabled"]
+  LOADK R10 K30 ["Option"]
+  SETTABLEKS R10 R9 K15 ["Type"]
   GETUPVAL R11 0
+  GETTABLEKS R10 R11 K4 ["join"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K7 [{"Category", "ItemId"}]
+  LOADK R13 K41 ["Actions"]
+  SETTABLEKS R13 R12 K5 ["Category"]
+  LOADK R13 K40 ["AddTools"]
+  SETTABLEKS R13 R12 K6 ["ItemId"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K38 ["Action"]
+  DUPTABLE R10 K39 [{"Id", "Enabled", "Type", "Action"}]
+  LOADK R11 K42 ["AddSeparator"]
+  SETTABLEKS R11 R10 K24 ["Id"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K25 ["Enabled"]
+  LOADK R11 K30 ["Option"]
+  SETTABLEKS R11 R10 K15 ["Type"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K4 ["join"]
   GETUPVAL R12 1
-  DUPTABLE R13 K6 [{"Category", "ItemId"}]
-  LOADK R14 K40 ["Actions"]
-  SETTABLEKS R14 R13 K4 ["Category"]
-  LOADK R14 K41 ["AddSeparator"]
-  SETTABLEKS R14 R13 K5 ["ItemId"]
+  DUPTABLE R13 K7 [{"Category", "ItemId"}]
+  LOADK R14 K41 ["Actions"]
+  SETTABLEKS R14 R13 K5 ["Category"]
+  LOADK R14 K42 ["AddSeparator"]
+  SETTABLEKS R14 R13 K6 ["ItemId"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K37 ["Action"]
+  SETTABLEKS R11 R10 K38 ["Action"]
   SETLIST R8 R9 2 [1]
-  DUPTABLE R9 K43 [{"Type", "Children"}]
-  LOADK R10 K44 ["Column"]
-  SETTABLEKS R10 R9 K14 ["Type"]
-  SETTABLEKS R8 R9 K42 ["Children"]
+  DUPTABLE R9 K44 [{"Type", "Children"}]
+  LOADK R10 K45 ["Column"]
+  SETTABLEKS R10 R9 K15 ["Type"]
+  SETTABLEKS R8 R9 K43 ["Children"]
   GETUPVAL R10 4
   NEWTABLE R11 0 1
   MOVE R12 R9
   SETLIST R11 R12 1 [1]
   MOVE R12 R2
-  DUPTABLE R13 K48 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  GETIMPORT R14 K51 [Vector2.new]
+  DUPTABLE R13 K49 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  GETIMPORT R14 K52 [Vector2.new]
   LOADN R15 0
   LOADN R16 0
   CALL R14 2 1
-  SETTABLEKS R14 R13 K45 ["SubjectAnchorPoint"]
-  GETIMPORT R14 K51 [Vector2.new]
+  SETTABLEKS R14 R13 K46 ["SubjectAnchorPoint"]
+  GETIMPORT R14 K52 [Vector2.new]
   LOADN R15 0
   LOADN R16 0
   CALL R14 2 1
-  SETTABLEKS R14 R13 K46 ["TargetAnchorPoint"]
-  GETIMPORT R14 K51 [Vector2.new]
-  GETTABLEKS R16 R0 K52 ["Position"]
-  GETTABLEKS R15 R16 K53 ["X"]
-  GETTABLEKS R17 R0 K52 ["Position"]
-  GETTABLEKS R16 R17 K54 ["Y"]
+  SETTABLEKS R14 R13 K47 ["TargetAnchorPoint"]
+  GETIMPORT R14 K52 [Vector2.new]
+  GETTABLEKS R16 R0 K53 ["Position"]
+  GETTABLEKS R15 R16 K54 ["X"]
+  GETTABLEKS R17 R0 K53 ["Position"]
+  GETTABLEKS R16 R17 K55 ["Y"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K47 ["Offset"]
+  SETTABLEKS R14 R13 K48 ["Offset"]
   CALL R10 3 0
   RETURN R0 0
 
@@ -263,40 +248,40 @@ MAIN:
   GETTABLEKS R3 R1 K9 ["useContext"]
   GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["Dash"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
   CALL R4 1 1
-  GETTABLEKS R5 R4 K11 ["join"]
+  GETTABLEKS R6 R4 K11 ["ContextServices"]
+  GETTABLEKS R5 R6 K12 ["Localization"]
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Packages"]
-  GETTABLEKS R7 R8 K12 ["Framework"]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Util"]
+  GETTABLEKS R7 R8 K15 ["StudioUri"]
   CALL R6 1 1
-  GETTABLEKS R8 R6 K13 ["ContextServices"]
-  GETTABLEKS R7 R8 K14 ["Localization"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K16 ["Types"]
+  CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K15 ["Src"]
-  GETTABLEKS R9 R10 K16 ["Types"]
+  GETTABLEKS R11 R0 K13 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Contexts"]
+  GETTABLEKS R9 R10 K18 ["RibbonDefinition"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K15 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Contexts"]
-  GETTABLEKS R10 R11 K18 ["RibbonDefinition"]
+  GETTABLEKS R12 R0 K13 ["Src"]
+  GETTABLEKS R11 R12 K19 ["Components"]
+  GETTABLEKS R10 R11 K20 ["ControlsView"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K15 ["Src"]
-  GETTABLEKS R12 R13 K19 ["Components"]
-  GETTABLEKS R11 R12 K20 ["ControlsView"]
+  GETTABLEKS R13 R0 K13 ["Src"]
+  GETTABLEKS R12 R13 K21 ["Hooks"]
+  GETTABLEKS R11 R12 K22 ["useMenu"]
   CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K15 ["Src"]
-  GETTABLEKS R13 R14 K21 ["Hooks"]
-  GETTABLEKS R12 R13 K22 ["useMenu"]
-  CALL R11 1 1
-  DUPCLOSURE R12 K23 [PROTO_4]
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CAPTURE VAL R9
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  CAPTURE VAL R2
+  DUPCLOSURE R11 K23 [PROTO_4]
   CAPTURE VAL R5
-  RETURN R12 1
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  RETURN R11 1

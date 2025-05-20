@@ -48,101 +48,91 @@ MAIN:
   GETTABLEKS R3 R2 K16 ["fflagCOLLAB6176PlaceAnnotations"]
   JUMPIF R3 [+1]
   RETURN R0 0
-  GETTABLEKS R3 R2 K17 ["fflagPlaceAnnotationsPublicRelease"]
-  JUMPIF R3 [+11]
-  GETIMPORT R3 K19 [game]
-  LOADK R5 K20 ["StudioService"]
-  NAMECALL R3 R3 K21 ["GetService"]
+  GETIMPORT R3 K18 [game]
+  LOADK R5 K19 ["CollaboratorsService"]
+  NAMECALL R3 R3 K20 ["GetService"]
   CALL R3 2 1
-  NAMECALL R3 R3 K22 ["HasInternalPermission"]
-  CALL R3 1 1
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K19 [game]
-  LOADK R5 K23 ["CollaboratorsService"]
-  NAMECALL R3 R3 K21 ["GetService"]
-  CALL R3 2 1
-  NAMECALL R5 R3 K24 ["GetCollaboratorsList"]
+  NAMECALL R5 R3 K21 ["GetCollaboratorsList"]
   CALL R5 1 1
   LENGTH R4 R5
-  JUMPIFNOTEQKN R4 K25 [0] [+2]
+  JUMPIFNOTEQKN R4 K22 [0] [+2]
   RETURN R0 0
   GETIMPORT R4 K7 [require]
   GETTABLEKS R6 R0 K8 ["Packages"]
-  GETTABLEKS R5 R6 K26 ["ReactRoblox"]
+  GETTABLEKS R5 R6 K23 ["ReactRoblox"]
   CALL R4 1 1
   GETIMPORT R5 K7 [require]
   GETTABLEKS R7 R0 K8 ["Packages"]
-  GETTABLEKS R6 R7 K27 ["React"]
+  GETTABLEKS R6 R7 K24 ["React"]
   CALL R5 1 1
   GETIMPORT R6 K7 [require]
   GETTABLEKS R8 R0 K11 ["Src"]
-  GETTABLEKS R7 R8 K28 ["CoreGuiRoot"]
+  GETTABLEKS R7 R8 K25 ["CoreGuiRoot"]
   CALL R6 1 1
   GETIMPORT R8 K7 [require]
   GETTABLEKS R11 R0 K11 ["Src"]
-  GETTABLEKS R10 R11 K29 ["Contexts"]
-  GETTABLEKS R9 R10 K30 ["TagDropdownContext"]
+  GETTABLEKS R10 R11 K26 ["Contexts"]
+  GETTABLEKS R9 R10 K27 ["TagDropdownContext"]
   CALL R8 1 1
-  GETTABLEKS R7 R8 K31 ["TagDropdownProvider"]
-  GETIMPORT R8 K34 [Instance.new]
-  LOADK R9 K35 ["Folder"]
+  GETTABLEKS R7 R8 K28 ["TagDropdownProvider"]
+  GETIMPORT R8 K31 [Instance.new]
+  LOADK R9 K32 ["Folder"]
   CALL R8 1 1
   LOADK R9 K4 ["PlaceAnnotations"]
-  SETTABLEKS R9 R8 K36 ["Name"]
-  GETIMPORT R10 K19 [game]
-  GETTABLEKS R9 R10 K37 ["CoreGui"]
-  SETTABLEKS R9 R8 K38 ["Parent"]
-  GETIMPORT R9 K34 [Instance.new]
-  LOADK R10 K39 ["ScreenGui"]
+  SETTABLEKS R9 R8 K33 ["Name"]
+  GETIMPORT R10 K18 [game]
+  GETTABLEKS R9 R10 K34 ["CoreGui"]
+  SETTABLEKS R9 R8 K35 ["Parent"]
+  GETIMPORT R9 K31 [Instance.new]
+  LOADK R10 K36 ["ScreenGui"]
   CALL R9 1 1
-  LOADK R10 K40 ["PlaceAnnotationsGui"]
-  SETTABLEKS R10 R9 K36 ["Name"]
-  SETTABLEKS R8 R9 K38 ["Parent"]
-  GETIMPORT R10 K44 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R10 R9 K42 ["ZIndexBehavior"]
-  GETTABLEKS R10 R4 K45 ["createRoot"]
+  LOADK R10 K37 ["PlaceAnnotationsGui"]
+  SETTABLEKS R10 R9 K33 ["Name"]
+  SETTABLEKS R8 R9 K35 ["Parent"]
+  GETIMPORT R10 K41 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R10 R9 K39 ["ZIndexBehavior"]
+  GETTABLEKS R10 R4 K42 ["createRoot"]
   MOVE R11 R9
   CALL R10 1 1
-  GETTABLEKS R13 R5 K46 ["createElement"]
+  GETTABLEKS R13 R5 K43 ["createElement"]
   MOVE R14 R7
   LOADNIL R15
-  GETTABLEKS R16 R5 K46 ["createElement"]
+  GETTABLEKS R16 R5 K43 ["createElement"]
   MOVE R17 R6
-  DUPTABLE R18 K48 [{"Plugin"}]
+  DUPTABLE R18 K45 [{"Plugin"}]
   GETIMPORT R19 K1 [plugin]
-  SETTABLEKS R19 R18 K47 ["Plugin"]
+  SETTABLEKS R19 R18 K44 ["Plugin"]
   CALL R16 2 -1
   CALL R13 -1 -1
-  NAMECALL R11 R10 K49 ["render"]
+  NAMECALL R11 R10 K46 ["render"]
   CALL R11 -1 0
   GETIMPORT R12 K1 [plugin]
-  GETTABLEKS R11 R12 K50 ["Unloading"]
+  GETTABLEKS R11 R12 K47 ["Unloading"]
   NEWCLOSURE R13 P0
   CAPTURE REF R10
   CAPTURE REF R8
-  NAMECALL R11 R11 K51 ["Connect"]
+  NAMECALL R11 R11 K48 ["Connect"]
   CALL R11 2 0
   GETIMPORT R11 K7 [require]
   GETTABLEKS R14 R0 K13 ["Bin"]
   GETTABLEKS R13 R14 K14 ["Common"]
-  GETTABLEKS R12 R13 K52 ["pluginType"]
+  GETTABLEKS R12 R13 K49 ["pluginType"]
   CALL R11 1 1
-  GETTABLEKS R12 R11 K53 ["get"]
+  GETTABLEKS R12 R11 K50 ["get"]
   CALL R12 0 1
-  GETTABLEKS R13 R11 K54 ["Asset"]
+  GETTABLEKS R13 R11 K51 ["Asset"]
   JUMPIFEQ R12 R13 [+3]
   CLOSEUPVALS R8
   RETURN R0 0
   GETIMPORT R12 K7 [require]
   GETTABLEKS R15 R0 K13 ["Bin"]
   GETTABLEKS R14 R15 K14 ["Common"]
-  GETTABLEKS R13 R14 K55 ["setup"]
+  GETTABLEKS R13 R14 K52 ["setup"]
   CALL R12 1 1
   GETIMPORT R13 K7 [require]
   GETTABLEKS R16 R0 K13 ["Bin"]
   GETTABLEKS R15 R16 K14 ["Common"]
-  GETTABLEKS R14 R15 K56 ["setupMain"]
+  GETTABLEKS R14 R15 K53 ["setupMain"]
   CALL R13 1 1
   MOVE R14 R12
   GETIMPORT R15 K1 [plugin]

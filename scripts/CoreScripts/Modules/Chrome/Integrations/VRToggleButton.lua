@@ -36,7 +36,7 @@ end)
 local VRToggleButtonIntegration = ChromeService:register({
 	initialAvailability = initialAvailability,
 	id = "vr_toggle_button",
-	label = "CoreScripts.VRFTUX.Heading.ExperienceMenu.Title",
+	label = "Feature.Catalog.Label.Filter.Hide",
 	isActivated = function()
 		return mappedSignal:get()
 	end,

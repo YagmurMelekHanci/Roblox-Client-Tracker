@@ -68,13 +68,26 @@ local isSpatial
 local Panel3DInSpatialUI
 local PanelType
 local SPATIAL_TOOLTIP_SPACING
+local UIManager
+local shouldDisableBottomBarInteraction
 if isInExperienceUIVREnabled then
 	isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 	TooltipCallout = UIBlox.App.Dialog.TooltipCallout
 	local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+	UIManager = VrSpatialUi.UIManager
 	Panel3DInSpatialUI = VrSpatialUi.Panel3DInSpatialUI
 	PanelType = VrSpatialUi.Constants.PanelType
 	SPATIAL_TOOLTIP_SPACING = VrSpatialUi.Constants.SPATIAL_TOOLTIP_SPACING
+	shouldDisableBottomBarInteraction = function()
+		if isInExperienceUIVREnabled and isSpatial() then
+			-- hide the tooltip if the top bar is not showing in VR
+			local showTopBar = ChromeService:showTopBar()
+			local isBottomBarInteractionOnAnimationSupported = UIManager.getInstance():isBottomBarInteractionOnAnimationSupported()
+			return not showTopBar and not isBottomBarInteractionOnAnimationSupported
+		else
+			return false
+		end
+	end
 end
 
 local IconButton = require(script.Parent.IconButton)
@@ -135,6 +148,9 @@ function MenuIcon:init()
 		})
 
 		if isInExperienceUIVREnabled then
+			if shouldDisableBottomBarInteraction() then
+				return
+			end
 			local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 			SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
 		else
@@ -155,6 +171,9 @@ function MenuIcon:init()
 		menuIconHoveredSignal:fire(tooltipEnabled)
 	end
 	self.menuIconOnHover = function()
+		if isInExperienceUIVREnabled and shouldDisableBottomBarInteraction() then
+			return
+		end
 		if tooltipEnabled then
 			self:setState({
 				isHovering = true,
@@ -165,9 +184,8 @@ function MenuIcon:init()
 
 			delay(DEFAULT_DELAY_TIME, function()
 				if self.state.isHovering and not self.state.clickLatched then
-					if isInExperienceUIVREnabled and isSpatial() then
-						-- In VR, MenuIcon shows up when it is hidden and tooltip showing up in hovering state
-						ChromeService:onTriggerVRToggleButton():fire(true)
+					if isInExperienceUIVREnabled and shouldDisableBottomBarInteraction() then
+						return
 					end
 					self:setState({
 						showTooltip = true,

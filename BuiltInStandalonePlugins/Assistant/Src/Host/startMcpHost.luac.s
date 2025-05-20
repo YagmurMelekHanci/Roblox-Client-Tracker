@@ -5,16 +5,18 @@ PROTO_0:
   CALL R2 1 3
   FORGPREP_NEXT R2
   GETTABLEKS R7 R6 K2 ["disabled"]
-  JUMPIF R7 [+12]
-  GETTABLEKS R7 R6 K3 ["tool"]
+  JUMPIF R7 [+15]
+  GETTABLEKS R7 R6 K3 ["mcpEnabled"]
+  JUMPIFNOT R7 [+12]
+  GETTABLEKS R7 R6 K4 ["tool"]
   MOVE R9 R1
-  GETIMPORT R10 K6 [table.clone]
-  GETTABLEKS R11 R7 K7 ["definition"]
+  GETIMPORT R10 K7 [table.clone]
+  GETTABLEKS R11 R7 K8 ["definition"]
   CALL R10 1 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R8 K9 [table.insert]
+  GETIMPORT R8 K10 [table.insert]
   CALL R8 -1 0
-  FORGLOOP R2 2 [-16]
+  FORGLOOP R2 2 [-19]
   RETURN R1 1
 
 PROTO_1:
@@ -341,27 +343,29 @@ PROTO_20:
   DUPCLOSURE R8 K19 [PROTO_17]
   NAMECALL R5 R4 K17 ["setRequestHandler"]
   CALL R5 3 0
-  NEWCLOSURE R5 P2
+  GETTABLEKS R5 R4 K20 ["_protocol"]
+  NEWCLOSURE R6 P2
   CAPTURE UPVAL U2
   CAPTURE VAL R4
   CAPTURE VAL R2
-  SETTABLEKS R5 R4 K20 ["onclose"]
-  DUPCLOSURE R5 K21 [PROTO_19]
-  SETTABLEKS R5 R4 K22 ["onerror"]
+  SETTABLEKS R6 R5 K21 ["onclose"]
+  GETTABLEKS R5 R4 K20 ["_protocol"]
+  DUPCLOSURE R6 K22 [PROTO_19]
+  SETTABLEKS R6 R5 K23 ["onerror"]
   GETUPVAL R6 2
   FASTCALL2 TABLE_INSERT R6 R4 [+4]
   MOVE R7 R4
-  GETIMPORT R5 K25 [table.insert]
+  GETIMPORT R5 K26 [table.insert]
   CALL R5 2 0
   GETUPVAL R6 3
   CALL R6 0 1
-  GETTABLEKS R5 R6 K26 ["registerServer"]
+  GETTABLEKS R5 R6 K27 ["registerServer"]
   MOVE R6 R4
   CALL R5 1 0
-  GETTABLEKS R5 R2 K27 ["Event"]
-  NAMECALL R5 R5 K28 ["Wait"]
+  GETTABLEKS R5 R2 K28 ["Event"]
+  NAMECALL R5 R5 K29 ["Wait"]
   CALL R5 1 1
-  JUMPIFEQKS R5 K29 ["close"] [+2]
+  JUMPIFEQKS R5 K30 ["close"] [+2]
   JUMPBACK [-8]
   RETURN R0 0
 
@@ -379,27 +383,29 @@ PROTO_21:
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
-  NAMECALL R9 R8 K6 ["getTransport"]
+  GETTABLEKS R9 R8 K6 ["_protocol"]
+  NAMECALL R9 R9 K7 ["getTransport"]
   CALL R9 1 1
-  NAMECALL R9 R9 K7 ["getSessionId"]
+  NAMECALL R9 R9 K8 ["getSessionId"]
   CALL R9 1 1
   JUMPIFNOTEQ R9 R2 [+3]
   MOVE R3 R8
   JUMP [+2]
-  FORGLOOP R4 2 [-11]
+  FORGLOOP R4 2 [-13]
   JUMPIF R3 [+9]
   LOADN R6 148
-  NAMECALL R4 R1 K8 ["SetStatus"]
+  NAMECALL R4 R1 K9 ["SetStatus"]
   CALL R4 2 0
-  LOADK R6 K9 ["Session not found"]
-  NAMECALL R4 R1 K10 ["SetContent"]
+  LOADK R6 K10 ["Session not found"]
+  NAMECALL R4 R1 K11 ["SetContent"]
   CALL R4 2 0
   RETURN R0 0
-  NAMECALL R4 R3 K6 ["getTransport"]
+  GETTABLEKS R4 R3 K6 ["_protocol"]
+  NAMECALL R4 R4 K7 ["getTransport"]
   CALL R4 1 1
   MOVE R6 R0
   MOVE R7 R1
-  NAMECALL R4 R4 K11 ["handlePostMessage"]
+  NAMECALL R4 R4 K12 ["handlePostMessage"]
   CALL R4 3 0
   RETURN R0 0
 

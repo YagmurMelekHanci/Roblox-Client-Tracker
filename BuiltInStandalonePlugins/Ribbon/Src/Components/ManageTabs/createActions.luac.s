@@ -16,13 +16,14 @@ PROTO_2:
   NAMECALL R5 R1 K2 ["GetPluginComponent"]
   CALL R5 2 1
   DUPTABLE R8 K8 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
-  GETUPVAL R9 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K9 ["join"]
   MOVE R10 R4
-  DUPTABLE R11 K11 [{"Category", "ItemId"}]
+  DUPTABLE R11 K12 [{"Category", "ItemId"}]
   LOADK R12 K1 ["Actions"]
-  SETTABLEKS R12 R11 K9 ["Category"]
-  LOADK R12 K12 ["ManageTabs"]
-  SETTABLEKS R12 R11 K10 ["ItemId"]
+  SETTABLEKS R12 R11 K10 ["Category"]
+  LOADK R12 K13 ["ManageTabs"]
+  SETTABLEKS R12 R11 K11 ["ItemId"]
   CALL R9 2 1
   SETTABLEKS R9 R8 K3 ["Uri"]
   LOADB R9 1
@@ -31,27 +32,28 @@ PROTO_2:
   SETTABLEKS R9 R8 K5 ["Exists"]
   LOADB R9 1
   SETTABLEKS R9 R8 K6 ["Visible"]
-  LOADK R11 K13 ["Plugin"]
-  LOADK R12 K12 ["ManageTabs"]
-  NAMECALL R9 R0 K14 ["getText"]
+  LOADK R11 K14 ["Plugin"]
+  LOADK R12 K13 ["ManageTabs"]
+  NAMECALL R9 R0 K15 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K7 ["Text"]
   LOADB R9 1
-  NAMECALL R6 R5 K15 ["CreateAsync"]
+  NAMECALL R6 R5 K16 ["CreateAsync"]
   CALL R6 3 1
   GETTABLEN R7 R6 1
   NEWCLOSURE R9 P0
   CAPTURE VAL R2
-  NAMECALL R7 R7 K16 ["Connect"]
+  NAMECALL R7 R7 K17 ["Connect"]
   CALL R7 2 1
   DUPTABLE R10 K8 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
-  GETUPVAL R11 0
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K9 ["join"]
   MOVE R12 R4
-  DUPTABLE R13 K11 [{"Category", "ItemId"}]
+  DUPTABLE R13 K12 [{"Category", "ItemId"}]
   LOADK R14 K1 ["Actions"]
-  SETTABLEKS R14 R13 K9 ["Category"]
-  LOADK R14 K17 ["ResetTabs"]
-  SETTABLEKS R14 R13 K10 ["ItemId"]
+  SETTABLEKS R14 R13 K10 ["Category"]
+  LOADK R14 K18 ["ResetTabs"]
+  SETTABLEKS R14 R13 K11 ["ItemId"]
   CALL R11 2 1
   SETTABLEKS R11 R10 K3 ["Uri"]
   LOADB R11 1
@@ -60,18 +62,18 @@ PROTO_2:
   SETTABLEKS R11 R10 K5 ["Exists"]
   LOADB R11 1
   SETTABLEKS R11 R10 K6 ["Visible"]
-  LOADK R13 K13 ["Plugin"]
-  LOADK R14 K17 ["ResetTabs"]
-  NAMECALL R11 R0 K14 ["getText"]
+  LOADK R13 K14 ["Plugin"]
+  LOADK R14 K18 ["ResetTabs"]
+  NAMECALL R11 R0 K15 ["getText"]
   CALL R11 3 1
   SETTABLEKS R11 R10 K7 ["Text"]
   LOADB R11 1
-  NAMECALL R8 R5 K15 ["CreateAsync"]
+  NAMECALL R8 R5 K16 ["CreateAsync"]
   CALL R8 3 1
   GETTABLEN R9 R8 1
   NEWCLOSURE R11 P1
   CAPTURE VAL R3
-  NAMECALL R9 R9 K16 ["Connect"]
+  NAMECALL R9 R9 K17 ["Connect"]
   CALL R9 2 1
   NEWTABLE R10 0 2
   MOVE R11 R7
@@ -86,14 +88,14 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Dash"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["StudioUri"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["join"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Types"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K11 [PROTO_2]
-  CAPTURE VAL R2
-  RETURN R4 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K10 [PROTO_2]
+  CAPTURE VAL R1
+  RETURN R3 1

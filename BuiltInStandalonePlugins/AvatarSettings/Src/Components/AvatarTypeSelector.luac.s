@@ -114,185 +114,195 @@ PROTO_4:
   GETUPVAL R8 5
   GETUPVAL R9 6
   MOVE R10 R0
-  DUPTABLE R11 K20 [{"UIListLayout", "AvatarTypeTitleFrame", "PresetTitleFrame"}]
+  DUPTABLE R11 K21 [{"UIListLayout", "UIPadding", "AvatarTypeTitleFrame", "PresetTitleFrame"}]
   GETUPVAL R12 5
   LOADK R13 K17 ["UIListLayout"]
-  DUPTABLE R14 K24 [{"FillDirection", "SortOrder", "Padding"}]
-  GETIMPORT R15 K26 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R15 R14 K21 ["FillDirection"]
-  GETIMPORT R15 K28 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R15 R14 K22 ["SortOrder"]
-  GETIMPORT R15 K31 [UDim.new]
+  DUPTABLE R14 K25 [{"FillDirection", "SortOrder", "Padding"}]
+  GETIMPORT R15 K27 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R15 R14 K22 ["FillDirection"]
+  GETIMPORT R15 K29 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R15 R14 K23 ["SortOrder"]
+  GETIMPORT R15 K32 [UDim.new]
   LOADN R16 0
   LOADN R17 24
   CALL R15 2 1
-  SETTABLEKS R15 R14 K23 ["Padding"]
+  SETTABLEKS R15 R14 K24 ["Padding"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K17 ["UIListLayout"]
   GETUPVAL R12 5
+  LOADK R13 K18 ["UIPadding"]
+  DUPTABLE R14 K34 [{"PaddingLeft"}]
+  GETIMPORT R15 K32 [UDim.new]
+  LOADN R16 0
+  LOADN R17 12
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K33 ["PaddingLeft"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K18 ["UIPadding"]
+  GETUPVAL R12 5
   GETUPVAL R13 7
-  DUPTABLE R14 K38 [{"layoutOrder", "Size", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
+  DUPTABLE R14 K41 [{"layoutOrder", "Size", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
   MOVE R15 R2
   CALL R15 0 1
-  SETTABLEKS R15 R14 K32 ["layoutOrder"]
-  GETIMPORT R15 K41 [UDim2.fromScale]
+  SETTABLEKS R15 R14 K35 ["layoutOrder"]
+  GETIMPORT R15 K44 [UDim2.fromScale]
   LOADN R16 0
   LOADN R17 1
   CALL R15 2 1
-  SETTABLEKS R15 R14 K33 ["Size"]
-  GETIMPORT R15 K31 [UDim.new]
+  SETTABLEKS R15 R14 K36 ["Size"]
+  GETIMPORT R15 K32 [UDim.new]
   LOADN R16 0
   LOADN R17 4
   CALL R15 2 1
-  SETTABLEKS R15 R14 K34 ["separation"]
-  LOADK R15 K42 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R15 R14 K35 ["textLabelTags"]
-  GETIMPORT R15 K31 [UDim.new]
+  SETTABLEKS R15 R14 K37 ["separation"]
+  LOADK R15 K45 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R15 R14 K38 ["textLabelTags"]
+  GETIMPORT R15 K32 [UDim.new]
   LOADN R16 0
   LOADN R17 75
   CALL R15 2 1
-  SETTABLEKS R15 R14 K36 ["minTextLabelWidth"]
-  LOADK R17 K43 ["AvatarTypeSelector"]
-  LOADK R18 K44 ["AvatarTypeText"]
-  NAMECALL R15 R1 K45 ["getText"]
+  SETTABLEKS R15 R14 K39 ["minTextLabelWidth"]
+  LOADK R17 K46 ["AvatarTypeSelector"]
+  LOADK R18 K47 ["AvatarTypeText"]
+  NAMECALL R15 R1 K48 ["getText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K37 ["text"]
-  DUPTABLE R15 K47 [{"AvatarTypeSelectInput"}]
+  SETTABLEKS R15 R14 K40 ["text"]
+  DUPTABLE R15 K50 [{"AvatarTypeSelectInput"}]
   GETUPVAL R16 5
   GETUPVAL R17 8
-  DUPTABLE R18 K54 [{"PlaceholderText", "Items", "Size", "OnRenderItem", "UseAutoWidth", "SelectedId", "OnItemActivated"}]
-  LOADK R19 K55 ["R15 Only"]
-  SETTABLEKS R19 R18 K48 ["PlaceholderText"]
+  DUPTABLE R18 K57 [{"PlaceholderText", "Items", "Size", "OnRenderItem", "UseAutoWidth", "SelectedId", "OnItemActivated"}]
+  LOADK R19 K58 ["R15 Only"]
+  SETTABLEKS R19 R18 K51 ["PlaceholderText"]
   NEWTABLE R19 0 3
-  DUPTABLE R20 K59 [{"Id", "Label", "Description"}]
-  GETIMPORT R21 K61 [Enum.GameAvatarType.R15]
-  SETTABLEKS R21 R20 K56 ["Id"]
-  LOADK R23 K43 ["AvatarTypeSelector"]
-  LOADK R24 K62 ["R15Only"]
-  NAMECALL R21 R1 K45 ["getText"]
+  DUPTABLE R20 K62 [{"Id", "Label", "Description"}]
+  GETIMPORT R21 K64 [Enum.GameAvatarType.R15]
+  SETTABLEKS R21 R20 K59 ["Id"]
+  LOADK R23 K46 ["AvatarTypeSelector"]
+  LOADK R24 K65 ["R15Only"]
+  NAMECALL R21 R1 K48 ["getText"]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K57 ["Label"]
-  LOADK R23 K43 ["AvatarTypeSelector"]
-  LOADK R24 K63 ["R15OnlyDescription"]
-  NAMECALL R21 R1 K45 ["getText"]
+  SETTABLEKS R21 R20 K60 ["Label"]
+  LOADK R23 K46 ["AvatarTypeSelector"]
+  LOADK R24 K66 ["R15OnlyDescription"]
+  NAMECALL R21 R1 K48 ["getText"]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K58 ["Description"]
-  DUPTABLE R21 K59 [{"Id", "Label", "Description"}]
+  SETTABLEKS R21 R20 K61 ["Description"]
+  DUPTABLE R21 K62 [{"Id", "Label", "Description"}]
   GETIMPORT R22 K14 [Enum.GameAvatarType.R6]
-  SETTABLEKS R22 R21 K56 ["Id"]
-  LOADK R24 K43 ["AvatarTypeSelector"]
-  LOADK R25 K64 ["R6Only"]
-  NAMECALL R22 R1 K45 ["getText"]
+  SETTABLEKS R22 R21 K59 ["Id"]
+  LOADK R24 K46 ["AvatarTypeSelector"]
+  LOADK R25 K67 ["R6Only"]
+  NAMECALL R22 R1 K48 ["getText"]
   CALL R22 3 1
-  SETTABLEKS R22 R21 K57 ["Label"]
-  LOADK R24 K43 ["AvatarTypeSelector"]
-  LOADK R25 K65 ["R6OnlyDescription"]
-  NAMECALL R22 R1 K45 ["getText"]
+  SETTABLEKS R22 R21 K60 ["Label"]
+  LOADK R24 K46 ["AvatarTypeSelector"]
+  LOADK R25 K68 ["R6OnlyDescription"]
+  NAMECALL R22 R1 K48 ["getText"]
   CALL R22 3 1
-  SETTABLEKS R22 R21 K58 ["Description"]
-  DUPTABLE R22 K59 [{"Id", "Label", "Description"}]
-  GETIMPORT R23 K67 [Enum.GameAvatarType.PlayerChoice]
-  SETTABLEKS R23 R22 K56 ["Id"]
-  LOADK R25 K43 ["AvatarTypeSelector"]
-  LOADK R26 K68 ["R15AndR6"]
-  NAMECALL R23 R1 K45 ["getText"]
+  SETTABLEKS R22 R21 K61 ["Description"]
+  DUPTABLE R22 K62 [{"Id", "Label", "Description"}]
+  GETIMPORT R23 K70 [Enum.GameAvatarType.PlayerChoice]
+  SETTABLEKS R23 R22 K59 ["Id"]
+  LOADK R25 K46 ["AvatarTypeSelector"]
+  LOADK R26 K71 ["R15AndR6"]
+  NAMECALL R23 R1 K48 ["getText"]
   CALL R23 3 1
-  SETTABLEKS R23 R22 K57 ["Label"]
-  LOADK R25 K43 ["AvatarTypeSelector"]
-  LOADK R26 K69 ["R15AndR6Description"]
-  NAMECALL R23 R1 K45 ["getText"]
+  SETTABLEKS R23 R22 K60 ["Label"]
+  LOADK R25 K46 ["AvatarTypeSelector"]
+  LOADK R26 K72 ["R15AndR6Description"]
+  NAMECALL R23 R1 K48 ["getText"]
   CALL R23 3 1
-  SETTABLEKS R23 R22 K58 ["Description"]
+  SETTABLEKS R23 R22 K61 ["Description"]
   SETLIST R19 R20 3 [1]
-  SETTABLEKS R19 R18 K49 ["Items"]
-  GETIMPORT R19 K71 [UDim2.fromOffset]
+  SETTABLEKS R19 R18 K52 ["Items"]
+  GETIMPORT R19 K74 [UDim2.fromOffset]
   LOADN R20 112
   GETUPVAL R22 9
-  GETTABLEKS R21 R22 K72 ["STANDARD_HEIGHT"]
+  GETTABLEKS R21 R22 K75 ["STANDARD_HEIGHT"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K33 ["Size"]
+  SETTABLEKS R19 R18 K36 ["Size"]
   GETUPVAL R19 10
-  SETTABLEKS R19 R18 K50 ["OnRenderItem"]
+  SETTABLEKS R19 R18 K53 ["OnRenderItem"]
   LOADB R19 1
-  SETTABLEKS R19 R18 K51 ["UseAutoWidth"]
-  SETTABLEKS R5 R18 K52 ["SelectedId"]
+  SETTABLEKS R19 R18 K54 ["UseAutoWidth"]
+  SETTABLEKS R5 R18 K55 ["SelectedId"]
   NEWCLOSURE R19 P1
   CAPTURE VAL R5
   CAPTURE VAL R4
-  SETTABLEKS R19 R18 K53 ["OnItemActivated"]
+  SETTABLEKS R19 R18 K56 ["OnItemActivated"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K46 ["AvatarTypeSelectInput"]
+  SETTABLEKS R16 R15 K49 ["AvatarTypeSelectInput"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K18 ["AvatarTypeTitleFrame"]
+  SETTABLEKS R12 R11 K19 ["AvatarTypeTitleFrame"]
   MOVE R12 R7
   JUMPIFNOT R12 [+89]
   GETUPVAL R12 5
   GETUPVAL R13 7
-  DUPTABLE R14 K38 [{"layoutOrder", "Size", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
+  DUPTABLE R14 K41 [{"layoutOrder", "Size", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
   MOVE R15 R2
   CALL R15 0 1
-  SETTABLEKS R15 R14 K32 ["layoutOrder"]
-  GETIMPORT R15 K41 [UDim2.fromScale]
+  SETTABLEKS R15 R14 K35 ["layoutOrder"]
+  GETIMPORT R15 K44 [UDim2.fromScale]
   LOADN R16 0
   LOADN R17 1
   CALL R15 2 1
-  SETTABLEKS R15 R14 K33 ["Size"]
-  GETIMPORT R15 K31 [UDim.new]
+  SETTABLEKS R15 R14 K36 ["Size"]
+  GETIMPORT R15 K32 [UDim.new]
   LOADN R16 0
   LOADN R17 4
   CALL R15 2 1
-  SETTABLEKS R15 R14 K34 ["separation"]
-  LOADK R15 K42 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R15 R14 K35 ["textLabelTags"]
-  GETIMPORT R15 K31 [UDim.new]
+  SETTABLEKS R15 R14 K37 ["separation"]
+  LOADK R15 K45 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R15 R14 K38 ["textLabelTags"]
+  GETIMPORT R15 K32 [UDim.new]
   LOADN R16 0
   LOADN R17 41
   CALL R15 2 1
-  SETTABLEKS R15 R14 K36 ["minTextLabelWidth"]
-  LOADK R17 K43 ["AvatarTypeSelector"]
-  LOADK R18 K73 ["Preset"]
-  NAMECALL R15 R1 K45 ["getText"]
+  SETTABLEKS R15 R14 K39 ["minTextLabelWidth"]
+  LOADK R17 K46 ["AvatarTypeSelector"]
+  LOADK R18 K76 ["Preset"]
+  NAMECALL R15 R1 K48 ["getText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K37 ["text"]
-  DUPTABLE R15 K75 [{"AvatarPresetSelectInput"}]
+  SETTABLEKS R15 R14 K40 ["text"]
+  DUPTABLE R15 K78 [{"AvatarPresetSelectInput"}]
   GETUPVAL R16 5
   GETUPVAL R17 8
-  DUPTABLE R18 K76 [{"Items", "PlaceholderText", "Size", "OnRenderItem", "UseAutoWidth", "SelectedId", "OnItemActivated"}]
+  DUPTABLE R18 K79 [{"Items", "PlaceholderText", "Size", "OnRenderItem", "UseAutoWidth", "SelectedId", "OnItemActivated"}]
   NEWTABLE R19 0 2
   GETUPVAL R20 11
-  LOADK R21 K66 ["PlayerChoice"]
+  LOADK R21 K69 ["PlayerChoice"]
   MOVE R22 R1
   CALL R20 2 1
   GETUPVAL R21 11
-  LOADK R22 K77 ["ConsistentGameplay"]
+  LOADK R22 K80 ["ConsistentGameplay"]
   MOVE R23 R1
   CALL R21 2 1
   SETLIST R19 R20 2 [1]
-  SETTABLEKS R19 R18 K49 ["Items"]
-  LOADK R21 K43 ["AvatarTypeSelector"]
-  LOADK R22 K78 ["EmptyPreset"]
-  NAMECALL R19 R1 K45 ["getText"]
+  SETTABLEKS R19 R18 K52 ["Items"]
+  LOADK R21 K46 ["AvatarTypeSelector"]
+  LOADK R22 K81 ["EmptyPreset"]
+  NAMECALL R19 R1 K48 ["getText"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K48 ["PlaceholderText"]
-  GETIMPORT R19 K71 [UDim2.fromOffset]
+  SETTABLEKS R19 R18 K51 ["PlaceholderText"]
+  GETIMPORT R19 K74 [UDim2.fromOffset]
   LOADN R20 171
   GETUPVAL R22 9
-  GETTABLEKS R21 R22 K72 ["STANDARD_HEIGHT"]
+  GETTABLEKS R21 R22 K75 ["STANDARD_HEIGHT"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K33 ["Size"]
+  SETTABLEKS R19 R18 K36 ["Size"]
   GETUPVAL R19 10
-  SETTABLEKS R19 R18 K50 ["OnRenderItem"]
+  SETTABLEKS R19 R18 K53 ["OnRenderItem"]
   LOADB R19 1
-  SETTABLEKS R19 R18 K51 ["UseAutoWidth"]
-  SETTABLEKS R6 R18 K52 ["SelectedId"]
+  SETTABLEKS R19 R18 K54 ["UseAutoWidth"]
+  SETTABLEKS R6 R18 K55 ["SelectedId"]
   NEWCLOSURE R19 P2
   CAPTURE VAL R6
   CAPTURE VAL R4
-  SETTABLEKS R19 R18 K53 ["OnItemActivated"]
+  SETTABLEKS R19 R18 K56 ["OnItemActivated"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K74 ["AvatarPresetSelectInput"]
+  SETTABLEKS R16 R15 K77 ["AvatarPresetSelectInput"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K19 ["PresetTitleFrame"]
+  SETTABLEKS R12 R11 K20 ["PresetTitleFrame"]
   CALL R8 3 -1
   RETURN R8 -1
 

@@ -58,6 +58,7 @@ local GetFFlagShouldShowMusicFtuxTooltipXTimes = require(Chrome.Flags.GetFFlagSh
 local GetFStringMusicTooltipLocalStorageKey_v2 = require(Chrome.Flags.GetFStringMusicTooltipLocalStorageKey_v2)
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFFlagShouldShowSimpleMusicFtuxTooltip = require(Chrome.Flags.GetFFlagShouldShowSimpleMusicFtuxTooltip)
+local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated", false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
@@ -439,6 +440,13 @@ return ChromeService:register({
 	notification = ChromeService:subMenuNotifications("nine_dot"),
 	id = "nine_dot",
 	label = "CoreScripts.TopBar.MoreMenu",
+	isActivated = if FFlagFixIntegrationActivated
+		then function()
+			-- There is a delay of submenuVisibility, which get function returns previouse status here
+			local isToggleOn = not submenuVisibility:get()
+			return isToggleOn
+		end
+		else nil,
 	components = {
 		Icon = function(props)
 			return React.createElement(HamburgerButton, props)

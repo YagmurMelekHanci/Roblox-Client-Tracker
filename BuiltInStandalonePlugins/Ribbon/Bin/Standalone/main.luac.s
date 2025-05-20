@@ -53,19 +53,24 @@ PROTO_1:
   SETTABLEKS R8 R7 K17 ["AddToParentLayout"]
   NAMECALL R4 R0 K23 ["CreateQWidgetPluginGui"]
   CALL R4 3 1
+  GETUPVAL R5 1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+3]
+  LOADK R5 K7 ["Ribbon"]
+  SETTABLEKS R5 R4 K15 ["Title"]
   GETIMPORT R5 K27 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R5 R4 K25 ["ZIndexBehavior"]
   LOADK R7 K28 ["Floating"]
   DUPTABLE R8 K31 [{"Id", "Callout", "Popup", "Resizable", "Title"}]
   LOADK R9 K28 ["Floating"]
   SETTABLEKS R9 R8 K8 ["Id"]
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   JUMPIFNOT R10 [+2]
   LOADNIL R9
   JUMP [+1]
   LOADB R9 1
   SETTABLEKS R9 R8 K29 ["Callout"]
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   JUMPIFNOT R10 [+5]
   DUPTABLE R9 K33 [{"PassesThroughMouseEvents"}]
   LOADB R10 1
@@ -79,27 +84,51 @@ PROTO_1:
   SETTABLEKS R9 R8 K15 ["Title"]
   NAMECALL R5 R0 K23 ["CreateQWidgetPluginGui"]
   CALL R5 3 1
+  GETUPVAL R6 1
+  CALL R6 0 1
+  JUMPIFNOT R6 [+3]
+  LOADK R6 K34 ["FloatingRibbon"]
+  SETTABLEKS R6 R5 K15 ["Title"]
   GETIMPORT R6 K27 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R6 R5 K25 ["ZIndexBehavior"]
-  GETTABLEKS R6 R1 K34 ["createElement"]
+  GETTABLEKS R6 R1 K35 ["createElement"]
   MOVE R7 R3
-  DUPTABLE R8 K37 [{"Plugin", "Widget", "Floating"}]
-  SETTABLEKS R0 R8 K35 ["Plugin"]
-  SETTABLEKS R4 R8 K36 ["Widget"]
+  DUPTABLE R8 K38 [{"Plugin", "Widget", "Floating"}]
+  SETTABLEKS R0 R8 K36 ["Plugin"]
+  SETTABLEKS R4 R8 K37 ["Widget"]
   SETTABLEKS R5 R8 K28 ["Floating"]
   CALL R6 2 1
-  GETTABLEKS R7 R2 K38 ["createRoot"]
+  GETTABLEKS R7 R2 K39 ["createRoot"]
   MOVE R8 R4
   CALL R7 1 1
   MOVE R10 R6
-  NAMECALL R8 R7 K39 ["render"]
+  NAMECALL R8 R7 K40 ["render"]
   CALL R8 2 0
-  GETTABLEKS R8 R0 K40 ["Unloading"]
+  GETTABLEKS R8 R0 K41 ["Unloading"]
   NEWCLOSURE R10 P0
   CAPTURE VAL R7
   CAPTURE VAL R4
-  NAMECALL R8 R8 K41 ["Once"]
+  NAMECALL R8 R8 K42 ["Once"]
   CALL R8 2 0
+  GETUPVAL R8 3
+  CALL R8 0 1
+  JUMPIFNOT R8 [+23]
+  GETIMPORT R8 K44 [game]
+  LOADK R10 K45 ["RobloxPluginGuiService"]
+  NAMECALL R8 R8 K46 ["GetService"]
+  CALL R8 2 1
+  GETIMPORT R9 K1 [require]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K5 ["Src"]
+  GETTABLEKS R10 R11 K47 ["FoundationInspector"]
+  CALL R9 1 1
+  GETTABLEKS R10 R9 K48 ["open"]
+  MOVE R11 R0
+  CALL R10 1 0
+  GETTABLEKS R10 R9 K49 ["watchDockWidgets"]
+  MOVE R11 R0
+  MOVE R12 R8
+  CALL R10 2 0
   RETURN R0 0
 
 MAIN:
@@ -113,7 +142,19 @@ MAIN:
   LOADB R4 0
   NAMECALL R1 R1 K7 ["DefineFastFlag"]
   CALL R1 3 1
-  DUPCLOSURE R2 K8 [PROTO_1]
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["SharedFlags"]
+  GETTABLEKS R3 R4 K12 ["getFFlagDebugEnableFoundationInspector"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["SharedFlags"]
+  GETTABLEKS R4 R5 K13 ["getFFlagRibbonWidgetTitles"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K14 [PROTO_1]
   CAPTURE VAL R0
+  CAPTURE VAL R3
   CAPTURE VAL R1
-  RETURN R2 1
+  CAPTURE VAL R2
+  RETURN R4 1

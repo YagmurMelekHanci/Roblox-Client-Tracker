@@ -216,40 +216,66 @@ PROTO_8:
   LOADB R2 1
   NAMECALL R0 R0 K0 ["Activate"]
   CALL R0 2 0
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K1 ["GetMouse"]
-  CALL R0 1 1
-  LOADK R1 K2 ["rbxasset://textures/PlaceAnnotations/Cursor.png"]
-  SETTABLEKS R1 R0 K3 ["Icon"]
   GETUPVAL R0 1
   LOADNIL R1
-  SETTABLEKS R1 R0 K4 ["Selected"]
+  SETTABLEKS R1 R0 K1 ["Selected"]
   GETUPVAL R0 1
   GETUPVAL R2 2
-  GETTABLEKS R1 R2 K5 ["PlacingNew"]
-  SETTABLEKS R1 R0 K6 ["Mode"]
+  GETTABLEKS R1 R2 K2 ["PlacingNew"]
+  SETTABLEKS R1 R0 K3 ["Mode"]
+  GETIMPORT R1 K5 [game]
+  GETTABLEKS R0 R1 K6 ["CoreGui"]
+  LOADK R2 K7 ["PlaceAnnotations"]
+  NAMECALL R0 R0 K8 ["FindFirstChild"]
+  CALL R0 2 1
+  NAMECALL R1 R0 K9 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K10 ["BillboardGui"]
+  NAMECALL R6 R5 K11 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+7]
+  LOADK R8 K12 ["ImageButton"]
+  NAMECALL R6 R5 K13 ["FindFirstChildOfClass"]
+  CALL R6 2 1
+  LOADB R7 0
+  SETTABLEKS R7 R6 K14 ["Interactable"]
+  FORGLOOP R1 2 [-13]
   RETURN R0 0
 
 PROTO_9:
   GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["GetMouse"]
-  CALL R0 1 1
-  LOADK R1 K1 [""]
-  SETTABLEKS R1 R0 K2 ["Icon"]
-  GETUPVAL R0 1
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K3 ["None"]
-  SETTABLEKS R1 R0 K4 ["Mode"]
-  GETUPVAL R0 1
-  LOADNIL R1
-  SETTABLEKS R1 R0 K5 ["Selected"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["None"]
+  SETTABLEKS R1 R0 K1 ["Mode"]
   GETUPVAL R0 0
-  NAMECALL R0 R0 K6 ["IsActivated"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["Selected"]
+  GETUPVAL R0 2
+  NAMECALL R0 R0 K3 ["IsActivated"]
   CALL R0 1 1
   JUMPIFNOT R0 [+4]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K7 ["Deactivate"]
+  GETUPVAL R0 2
+  NAMECALL R0 R0 K4 ["Deactivate"]
   CALL R0 1 0
+  GETIMPORT R1 K6 [game]
+  GETTABLEKS R0 R1 K7 ["CoreGui"]
+  LOADK R2 K8 ["PlaceAnnotations"]
+  NAMECALL R0 R0 K9 ["FindFirstChild"]
+  CALL R0 2 1
+  NAMECALL R1 R0 K10 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K11 ["BillboardGui"]
+  NAMECALL R6 R5 K12 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+7]
+  LOADK R8 K13 ["ImageButton"]
+  NAMECALL R6 R5 K14 ["FindFirstChildOfClass"]
+  CALL R6 2 1
+  LOADB R7 1
+  SETTABLEKS R7 R6 K15 ["Interactable"]
+  FORGLOOP R1 2 [-13]
   RETURN R0 0
 
 PROTO_10:
@@ -466,9 +492,9 @@ PROTO_20:
   CALL R3 3 1
   LOADK R6 K7 ["EndAddAnnotation"]
   NEWCLOSURE R7 P3
-  CAPTURE VAL R0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
+  CAPTURE VAL R0
   NAMECALL R4 R0 K6 ["OnInvoke"]
   CALL R4 3 1
   LOADK R7 K8 ["DEPRECATED_EditAnnotation"]

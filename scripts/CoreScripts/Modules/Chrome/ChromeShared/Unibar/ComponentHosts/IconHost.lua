@@ -57,6 +57,9 @@ local PanelType
 local TooltipOrientation
 local TooltipCallout
 local SPATIAL_TOOLTIP_SPACING
+local UIManager
+local MappedSignal
+local BottomBarVisibilitySignal
 if isInExperienceUIVREnabled then
 	isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 	local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
@@ -65,6 +68,14 @@ if isInExperienceUIVREnabled then
 	TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 	TooltipCallout = UIBlox.App.Dialog.TooltipCallout
 	SPATIAL_TOOLTIP_SPACING = VrSpatialUi.Constants.SPATIAL_TOOLTIP_SPACING
+	UIManager = VrSpatialUi.UIManager
+	MappedSignal = require(Root.Service.ChromeUtils).MappedSignal
+	local BottomBarVisibility = (UIManager.getInstance() :: any):getBottomBarVisibility()
+	if BottomBarVisibility and isSpatial() then
+		BottomBarVisibilitySignal = MappedSignal.new(BottomBarVisibility, function()
+			return (BottomBarVisibility :: any):get()
+		end) :: any
+	end
 end
 
 local MenuIconContext = if FFlagTiltIconUnibarFocusNav
@@ -277,8 +288,24 @@ function TooltipButton(props: TooltipButtonProps)
 	-- this is reset on the next hover
 	local clickLatched, setClicked = useTimeHysteresis(0, 1.0)
 	local isSpatial = if isInExperienceUIVREnabled then isSpatial() else nil
+	local showTopBar = if isInExperienceUIVREnabled
+		then useObservableValue((ChromeService :: any):getTopBarVisibiity())
+		else nil
+	local isBottomBarInteractionOnAnimationSupported = if isInExperienceUIVREnabled and BottomBarVisibilitySignal
+		then useObservableValue(BottomBarVisibilitySignal :: any)
+		else nil
+	local shouldDisableInteraction = false
+	if isInExperienceUIVREnabled then
+		if isSpatial and not showTopBar and not isBottomBarInteractionOnAnimationSupported then
+			shouldDisableInteraction = true
+			draggable = draggable and not shouldDisableInteraction
+		end
+	end
 	local hoverHandler = React.useCallback(
 		function(oldState, newState)
+			if isInExperienceUIVREnabled and shouldDisableInteraction then
+				return
+			end
 			if
 				newState == ControlState.Selected
 				and (oldState == ControlState.Default or oldState == ControlState.Hover)
@@ -294,20 +321,20 @@ function TooltipButton(props: TooltipButtonProps)
 			setHovered(hovered, (hovered and isTooltipHovered) or areTooltipsDisplaying())
 			if FFlagEnableUnibarFtuxTooltips and hovered then
 				ChromeService:onIntegrationHovered():fire(props.integration.id)
-				if isInExperienceUIVREnabled and isSpatial then
-					-- In VR, Unibar shows up when it is hidden and tooltip showing up in hovering state
-					local isHoverState = oldState == ControlState.Default and newState == ControlState.Hover
-					if isHoverState then
-						ChromeService:onTriggerVRToggleButton():fire(true)
-					end
-				end
 			end
 			if not active then
 				setClicked(false)
 			end
 		end,
 		if isInExperienceUIVREnabled
-			then { props.setHovered :: any, setHovered, setClicked, isTooltipHovered, isSpatial }
+			then {
+				props.setHovered :: any,
+				setHovered,
+				setClicked,
+				isTooltipHovered,
+				isSpatial,
+				shouldDisableInteraction,
+			}
 			else { props.setHovered :: any, setHovered, setClicked, isTooltipHovered }
 	)
 
@@ -375,6 +402,12 @@ function TooltipButton(props: TooltipButtonProps)
 	end, { draggable })
 
 	local displayTooltip = (isHovered or isTooltipHovered or isTooltipButtonSelected) and not clickLatched
+	if isInExperienceUIVREnabled then
+		-- hide the tooltip if the TopBar(Unibar) is hidden in VR
+		if displayTooltip and shouldDisableInteraction then
+			displayTooltip = false
+		end
+	end
 	logTooltipState(props.integration.id, displayTooltip)
 
 	local menuIconContext = if FFlagTiltIconUnibarFocusNav then React.useContext(MenuIconContext) else nil :: never
@@ -424,6 +457,13 @@ function TooltipButton(props: TooltipButtonProps)
 				[React.Event.InputBegan] = touchBegan,
 				[React.Event.InputEnded] = touchEnded,
 				[React.Event.Activated] = function()
+					if isInExperienceUIVREnabled and isSpatial then
+						if shouldDisableInteraction then
+							return
+						else
+							ChromeService:onTriggerVRToggleButton():fire(true)
+						end
+					end
 					setClicked(true, true)
 					props.integration.activated()
 					if connection.current then
@@ -450,6 +490,7 @@ function TooltipButton(props: TooltipButtonProps)
 		props.isCurrentlyOpenSubMenu,
 		displayTooltip,
 		secondaryAction,
+		if isInExperienceUIVREnabled then shouldDisableInteraction else nil :: never,
 		if FFlagTiltIconUnibarFocusNav then menuIconContext.menuIconRef else nil :: never,
 	})
 

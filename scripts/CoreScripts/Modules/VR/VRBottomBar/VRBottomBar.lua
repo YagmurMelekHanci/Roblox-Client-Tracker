@@ -6,6 +6,7 @@
 --
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local TelemetryService = game:GetService("TelemetryService")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
@@ -64,6 +65,8 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local VRBottomBar = Roact.PureComponent:extend("TopBarApp")
 local VRBarSeparator = require(script.Parent.VRBarSeparator)
 local VRBarVoiceIcon = require(script.Parent.VRBarVoiceIcon)
+local VRBottomBarAnalytics = require(script.Parent.VRBottomBarAnalytics)
+local VRBottomBarType = require(script.Parent.VRBottomBarType)
 
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackScript = require(RobloxGui.Modules.BackpackScript)
@@ -87,6 +90,8 @@ local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreen
 -- this var moves the gui and bottom bar together
 local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
 local scaleGuiDistance = GetFIntVRScaleGuiDistance() * 0.01
+
+local FFlagFixVRBottomBarAnalytics = game:DefineFastFlag("FixVRBottomBarAnalytics", false)
 
 -- This can be useful in cases where a flag configuration issue causes requiring a CoreScript to fail
 local function safeRequire(moduleScript)
@@ -133,6 +138,14 @@ local MainMenu = {
 			InGameMenu.closeInGameMenu()
 		end
 
+		if FFlagFixVRBottomBarAnalytics then
+			local isToggleOn = InGameMenu.getOpen()
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.MainMenu,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.VRBottomBar
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-MainMenu")
 	end,
 }
@@ -149,6 +162,15 @@ local ToggleGui = {
 			InGameMenu.closeInGameMenu()
 		end
 
+		if FFlagFixVRBottomBarAnalytics then
+			-- ToggleGui on will hide all gui and menu
+			local isToggleOn = VRHub.ShowTopBar
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.ToggleGui,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.VRBottomBar
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-ToggleGui")
 	end,
 }
@@ -166,7 +188,14 @@ local BackpackIcon = {
 		else
 			BackpackScript.OpenClose()
 		end
-
+		if FFlagFixVRBottomBarAnalytics then
+			local isToggleOn = BackpackScript.IsOpen
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.Inventory,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.MoreSubMenu
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-Backpack")
 	end,
 }
@@ -185,6 +214,14 @@ local PlayerList = {
 			PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
 		end
 
+		if FFlagFixVRBottomBarAnalytics then
+			local isToggleOn = PlayerListMaster:GetSetVisible()
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.Leaderboard,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.MoreSubMenu
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-PlayerList")
 	end,
 }
@@ -207,6 +244,14 @@ local Emotes = {
 			end
 		end
 
+		if FFlagFixVRBottomBarAnalytics then
+			local isToggleOn = EmotesMenuMaster:isOpen()
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.Emotes,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.MoreSubMenu
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-Emotes")
 	end,
 }
@@ -227,6 +272,14 @@ local Chat = {
 			GameSettings.ChatVisible = ChatSelector:GetVisibility()
 		end
 
+		if FFlagFixVRBottomBarAnalytics then
+			local isToggleOn = GameSettings.ChatVisible
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.Chat,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.VRBottomBar
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-Chat")
 	end,
 }
@@ -237,6 +290,14 @@ local SafetyOn = {
 	onActivated = function()
 		VRHub:ToggleSafetyBubble()
 
+		if FFlagFixVRBottomBarAnalytics then
+			local isToggleOn = VRHub.SafetyBubble.enabled
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.Safety,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.VRBottomBar
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-Safety")
 	end,
 }
@@ -247,6 +308,14 @@ local SafetyOff = {
 	onActivated = function()
 		VRHub:ToggleSafetyBubble()
 
+		if FFlagFixVRBottomBarAnalytics then
+			local isToggleOn = VRHub.SafetyBubble.enabled
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.Safety,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.VRBottomBar
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-Safety")
 	end,
 }
@@ -265,6 +334,14 @@ local LeaveGame = {
 			InGameMenu.openGameLeavePage()
 		end
 
+		if FFlagFixVRBottomBarAnalytics then
+			local isToggleOn = InGameMenu.getOpen()
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.Leave,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.VRBottomBar
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-LeaveGame")
 	end,
 }
@@ -281,6 +358,15 @@ local MoreButton = {
 	onActivated = function()
 		VRHub:SetShowTopBar(true)
 		VRHub:SetShowMoreMenu(not VRHub.ShowMoreMenu)
+
+		if FFlagFixVRBottomBarAnalytics then
+			local isToggleOn = VRHub.ShowMoreMenu
+			VRBottomBarAnalytics.sendEventToTelemetryV2({
+				integrationId = VRBottomBarType.ButtomName.MoreSubMenu,
+				isToggleOn = isToggleOn,
+				source = VRBottomBarType.Source.VRBottomBar
+			})
+		end
 		AnalyticsService:ReportCounter("VR-BottomBar-More")
 	end,
 }
@@ -361,6 +447,17 @@ function VRBottomBar:init()
 					self.props.voiceChatServiceManager:ToggleMic("VRBottomBar")
 				end
 
+				if FFlagFixVRBottomBarAnalytics then
+					local isToggleOn = false
+					if self.props.voiceState == (Enum :: any).VoiceChatState.Joined then
+						isToggleOn = true
+					end
+					VRBottomBarAnalytics.sendEventToTelemetryV2({
+						integrationId = VRBottomBarType.ButtomName.Voice,
+						isToggleOn = isToggleOn,
+						source = VRBottomBarType.Source.VRBottomBar
+					})
+				end
 				AnalyticsService:ReportCounter("VR-BottomBar-Voice")
 			end,
 		}

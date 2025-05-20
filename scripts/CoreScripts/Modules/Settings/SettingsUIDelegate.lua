@@ -127,6 +127,7 @@ function SettingsUIDelegate.enableVR(self)
 		ChromeService:onTriggerVRToggleButton():connect(function(showTopBar)
 			VRHub:SetShowTopBar(showTopBar)
 		end)
+		ChromeService:connectTopBarVisibility(topBarVisibilityObservable :: any)
 	end
 	self:setVersionTextSize()
 end

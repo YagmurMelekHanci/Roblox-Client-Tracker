@@ -1,0 +1,258 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["renderRef"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K2 ["lastWidth"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K3 ["lastHeight"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K4 ["treemapSolveDirty"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["treemapNode"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K6 ["treemapInputData"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K7 ["timeCostOfLastSolve"]
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["timeCostOfLastSolve"]
+  LOADK R2 K1 [0.0333333333333333]
+  JUMPIFNOTLT R1 R2 [+7]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K2 ["treemapSolveDirty"]
+  NAMECALL R1 R0 K3 ["repaintTreemap"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R0 K2 [task.wait]
+  CALL R0 0 0
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K3 ["Destroy"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R1 K1 [tick]
+  CALL R1 0 1
+  GETTABLEKS R2 R0 K2 ["treemapSolveDirty"]
+  JUMPIFNOTEQKB R2 FALSE [+2]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K3 ["treemapInputData"]
+  JUMPIFNOTEQKNIL R2 [+2]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K4 ["renderRef"]
+  NAMECALL R2 R2 K5 ["getValue"]
+  CALL R2 1 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  RETURN R0 0
+  LOADB R3 0
+  SETTABLEKS R3 R0 K2 ["treemapSolveDirty"]
+  GETTABLEKS R4 R2 K6 ["AbsoluteSize"]
+  GETTABLEKS R3 R4 K7 ["x"]
+  SETTABLEKS R3 R0 K8 ["lastWidth"]
+  GETTABLEKS R4 R2 K6 ["AbsoluteSize"]
+  GETTABLEKS R3 R4 K9 ["y"]
+  SETTABLEKS R3 R0 K10 ["lastHeight"]
+  GETTABLEKS R3 R0 K3 ["treemapInputData"]
+  JUMPIFNOT R3 [+29]
+  GETUPVAL R3 0
+  GETTABLEKS R5 R0 K3 ["treemapInputData"]
+  GETTABLEKS R6 R0 K8 ["lastWidth"]
+  GETTABLEKS R7 R0 K10 ["lastHeight"]
+  LOADN R8 3
+  NAMECALL R3 R3 K11 ["SolveTreemap"]
+  CALL R3 5 1
+  GETTABLEKS R4 R0 K12 ["treemapRenderedFrame"]
+  GETUPVAL R5 1
+  MOVE R7 R3
+  NAMECALL R5 R5 K13 ["RenderTreemap"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K12 ["treemapRenderedFrame"]
+  GETTABLEKS R5 R0 K12 ["treemapRenderedFrame"]
+  SETTABLEKS R2 R5 K14 ["Parent"]
+  GETIMPORT R5 K17 [task.spawn]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R4
+  CALL R5 1 0
+  GETIMPORT R4 K1 [tick]
+  CALL R4 0 1
+  SUB R3 R4 R1
+  SETTABLEKS R3 R0 K18 ["timeCostOfLastSolve"]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"size"}]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["AbsoluteSize"]
+  SETTABLEKS R3 R2 K0 ["size"]
+  NAMECALL R0 R0 K3 ["setState"]
+  CALL R0 2 0
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K4 ["repaintTreemapPerformanceAware"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["renderRef"]
+  NAMECALL R1 R1 K1 ["getValue"]
+  CALL R1 1 1
+  JUMPIFNOTEQKNIL R1 [+2]
+  RETURN R0 0
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  DUPTABLE R5 K3 [{"size"}]
+  GETTABLEKS R6 R1 K4 ["AbsoluteSize"]
+  SETTABLEKS R6 R5 K2 ["size"]
+  NAMECALL R3 R0 K5 ["setState"]
+  CALL R3 2 0
+  NAMECALL R3 R0 K6 ["repaintTreemapPerformanceAware"]
+  CALL R3 1 0
+  LOADK R5 K4 ["AbsoluteSize"]
+  NAMECALL R3 R1 K7 ["GetPropertyChangedSignal"]
+  CALL R3 2 1
+  MOVE R5 R2
+  NAMECALL R3 R3 K8 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K9 ["resizeConn"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["resizeConn"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["resizeConn"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["resizeConn"]
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["props"]
+  DUPTABLE R2 K7 [{"Size", "Position", "AnchorPoint", "LayoutOrder", "ZIndex", "Visible"}]
+  GETTABLEKS R3 R1 K1 ["Size"]
+  SETTABLEKS R3 R2 K1 ["Size"]
+  GETTABLEKS R3 R1 K2 ["Position"]
+  SETTABLEKS R3 R2 K2 ["Position"]
+  GETTABLEKS R3 R1 K3 ["AnchorPoint"]
+  SETTABLEKS R3 R2 K3 ["AnchorPoint"]
+  GETTABLEKS R3 R1 K4 ["LayoutOrder"]
+  SETTABLEKS R3 R2 K4 ["LayoutOrder"]
+  GETTABLEKS R3 R1 K5 ["ZIndex"]
+  SETTABLEKS R3 R2 K5 ["ZIndex"]
+  GETTABLEKS R3 R1 K6 ["Visible"]
+  SETTABLEKS R3 R2 K6 ["Visible"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K8 ["createElement"]
+  LOADK R4 K9 ["Frame"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K10 ["join"]
+  MOVE R6 R2
+  DUPTABLE R7 K13 [{"BackgroundColor3", "BorderSizePixel"}]
+  GETIMPORT R8 K16 [Color3.new]
+  LOADN R9 1
+  LOADN R10 1
+  LOADN R11 0
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K11 ["BackgroundColor3"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K12 ["BorderSizePixel"]
+  CALL R5 2 1
+  DUPTABLE R6 K18 [{"InnerFrame"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  LOADK R8 K9 ["Frame"]
+  DUPTABLE R9 K20 [{"Size", "BorderSizePixel", "BackgroundColor3", "ref"}]
+  GETIMPORT R10 K22 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 1
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K1 ["Size"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K12 ["BorderSizePixel"]
+  GETIMPORT R10 K16 [Color3.new]
+  LOADK R11 K23 [0.3]
+  LOADK R12 K23 [0.3]
+  LOADK R13 K23 [0.3]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K11 ["BackgroundColor3"]
+  GETTABLEKS R10 R0 K24 ["renderRef"]
+  SETTABLEKS R10 R9 K19 ["ref"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K17 ["InnerFrame"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_8:
+  LOADB R2 1
+  SETTABLEKS R2 R0 K0 ["treemapSolveDirty"]
+  SETTABLEKS R1 R0 K1 ["treemapInputData"]
+  NAMECALL R2 R0 K2 ["repaintTreemap"]
+  CALL R2 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["SceneAnalysis"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K8 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["Treemap"]
+  GETTABLEKS R3 R4 K10 ["SquarifiedTreemapTree"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K8 ["Parent"]
+  GETTABLEKS R5 R6 K9 ["Treemap"]
+  GETTABLEKS R4 R5 K11 ["TreemapToFrames"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Dash"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Components"]
+  GETTABLEKS R7 R8 K9 ["Treemap"]
+  GETTABLEKS R6 R7 K15 ["TreemapTypes"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K16 ["PureComponent"]
+  LOADK R8 K9 ["Treemap"]
+  NAMECALL R6 R6 K17 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K18 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K19 ["init"]
+  DUPCLOSURE R7 K20 [PROTO_1]
+  SETTABLEKS R7 R6 K21 ["repaintTreemapPerformanceAware"]
+  DUPCLOSURE R7 K22 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K23 ["repaintTreemap"]
+  DUPCLOSURE R7 K24 [PROTO_5]
+  SETTABLEKS R7 R6 K25 ["didMount"]
+  DUPCLOSURE R7 K26 [PROTO_6]
+  SETTABLEKS R7 R6 K27 ["willUnmount"]
+  DUPCLOSURE R7 K28 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K29 ["render"]
+  DUPCLOSURE R7 K30 [PROTO_8]
+  SETTABLEKS R7 R6 K31 ["SubmitTreemapNodes"]
+  RETURN R6 1

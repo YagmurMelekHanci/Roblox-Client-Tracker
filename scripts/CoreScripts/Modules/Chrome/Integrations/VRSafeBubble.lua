@@ -35,7 +35,7 @@ local VRSafeBubbleIntegration = ChromeService:register({
 	initialAvailability = initialAvailability,
 	id = "vr_safety_bubble",
 	label = "CoreScripts.VRFTUX.Heading.SafetyBubble.Title",
-	isActive = function()
+	isActivated = function()
 		return mappedSignal:get()
 	end,
 	activated = function()

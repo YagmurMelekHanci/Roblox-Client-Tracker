@@ -58,36 +58,41 @@ MAIN:
   GETTABLEKS R10 R8 K19 ["getFFlagStyleEditorEnableTelemetry"]
   CALL R9 1 1
   CALL R9 0 1
-  GETTABLEKS R10 R2 K20 ["interface"]
-  DUPTABLE R11 K22 [{"loadTimeMillis"}]
-  GETTABLEKS R12 R2 K23 ["number"]
-  SETTABLEKS R12 R11 K21 ["loadTimeMillis"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R8 K20 ["getFFlagStyleEditorThrottleHundrethsPercent"]
   CALL R10 1 1
-  DUPTABLE R11 K30 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-  LOADK R12 K31 ["StyleEditor_PluginMounted"]
-  SETTABLEKS R12 R11 K24 ["eventName"]
-  NEWTABLE R12 0 1
-  GETTABLEKS R13 R5 K32 ["Points"]
-  SETLIST R12 R13 1 [1]
-  SETTABLEKS R12 R11 K25 ["backends"]
-  JUMPIFNOT R9 [+3]
-  GETTABLEKS R12 R3 K33 ["ONE_HUNDRED_PERCENT"]
+  CALL R10 0 1
+  GETTABLEKS R11 R2 K21 ["interface"]
+  DUPTABLE R12 K23 [{"loadTimeMillis"}]
+  GETTABLEKS R13 R2 K24 ["number"]
+  SETTABLEKS R13 R12 K22 ["loadTimeMillis"]
+  CALL R11 1 1
+  DUPTABLE R12 K31 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
+  LOADK R13 K32 ["StyleEditor_PluginMounted"]
+  SETTABLEKS R13 R12 K25 ["eventName"]
+  NEWTABLE R13 0 2
+  GETTABLEKS R14 R5 K33 ["Points"]
+  GETTABLEKS R15 R5 K34 ["EventIngest"]
+  SETLIST R13 R14 2 [1]
+  SETTABLEKS R13 R12 K26 ["backends"]
+  JUMPIFNOT R9 [+2]
+  MOVE R13 R10
   JUMP [+1]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K26 ["throttlingPercentage"]
-  NEWTABLE R12 0 3
-  LOADN R13 24
-  LOADN R14 3
-  LOADN R15 11
-  SETLIST R12 R13 3 [1]
-  SETTABLEKS R12 R11 K27 ["lastUpdated"]
-  LOADK R12 K34 ["Root Roact component mounted."]
-  SETTABLEKS R12 R11 K28 ["description"]
-  LOADK R12 K35 [""]
-  SETTABLEKS R12 R11 K29 ["links"]
-  DUPCLOSURE R12 K36 [PROTO_0]
-  CAPTURE VAL R10
-  CAPTURE VAL R4
+  LOADN R13 0
+  SETTABLEKS R13 R12 K27 ["throttlingPercentage"]
+  NEWTABLE R13 0 3
+  LOADN R14 24
+  LOADN R15 3
+  LOADN R16 11
+  SETLIST R13 R14 3 [1]
+  SETTABLEKS R13 R12 K28 ["lastUpdated"]
+  LOADK R13 K35 ["Root Roact component mounted."]
+  SETTABLEKS R13 R12 K29 ["description"]
+  LOADK R13 K36 [""]
+  SETTABLEKS R13 R12 K30 ["links"]
+  DUPCLOSURE R13 K37 [PROTO_0]
   CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R12
   CAPTURE VAL R6
-  RETURN R12 1
+  RETURN R13 1

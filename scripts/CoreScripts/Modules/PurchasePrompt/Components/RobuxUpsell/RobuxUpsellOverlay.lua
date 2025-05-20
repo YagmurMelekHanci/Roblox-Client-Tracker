@@ -25,8 +25,6 @@ local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 
 local GetFFlagDisablePurchasePromptFunctionForMaquettes =
 	require(Root.Flags.GetFFlagDisablePurchasePromptFunctionForMaquettes)
-local GetFFlagEnableEventMetadataInUpsell = IAPExperience.Flags.GetFFlagEnableEventMetadataInUpsell
-
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
 local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
 
@@ -290,7 +288,7 @@ function RobuxUpsellOverlay:render()
 
 		model = props.humanoidModel,
 		itemIcon = props.itemIcon,
-		itemProductId = if GetFFlagEnableEventMetadataInUpsell then props.itemProductId else nil,
+		itemProductId = props.itemProductId,
 		itemName = props.itemName,
 		itemRobuxCost = props.itemRobuxCost,
 

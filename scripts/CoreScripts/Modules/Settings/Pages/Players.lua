@@ -33,6 +33,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local OpenTypeSupport = UIBlox.Utility.OpenTypeSupport
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
@@ -67,6 +68,7 @@ end
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local FFlagUpdateSquadInDefaultAppChatContainer = SharedFlags.FFlagUpdateSquadInDefaultAppChatContainer
+local FFlagRenameFriendsToConnectionsCoreUI = SharedFlags.FFlagRenameFriendsToConnectionsCoreUI
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 
@@ -240,6 +242,10 @@ local function Initialize()
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "Players"
 
+	local function getShouldRenameFriends()
+		return FFlagRenameFriendsToConnectionsCoreUI and UniversalAppPolicy.getAppFeaturePolicies().getRenameFriendsToConnections()
+	end
+
 	local function getShowAppChatTreatment()
 		return GetFFlagEnableAppChatInExperience()
 			and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatTiltMenuEntryPoint2
@@ -278,7 +284,7 @@ local function Initialize()
 			friendLabel.TextColor3 = Color3.new(1, 1, 1)
 			friendLabel.SelectionImageObject = fakeSelection
 			if status == Enum.FriendStatus.Friend then
-				friendLabel.Text = "Friend"
+				friendLabel.Text = if getShouldRenameFriends() then LocalizationStrings[localeId]:Format(Constants.ConnectionLocalizedKey) else "Friend"
 			else
 				friendLabel.Text = "Request Sent"
 			end
@@ -292,7 +298,7 @@ local function Initialize()
 					friendLabel.ImageTransparency = 1
 					friendLabelText.Text = ""
 					if GetFFlagDefaultFriendingLabelTextNonEmpty() then
-						friendLabelText.Text = "Add Friend"
+						friendLabelText.Text = if getShouldRenameFriends() then LocalizationStrings[localeId]:Format(Constants.AddConnectionLocalizedKey) else "Add Friend"
 					end
 					if localPlayer and player then
 						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
@@ -311,7 +317,7 @@ local function Initialize()
 
 			friendLabel, friendLabelText = utility:MakeStyledButton(
 				"FriendStatus",
-				"Add Friend",
+				if getShouldRenameFriends() then LocalizationStrings[localeId]:Format(Constants.AddConnectionLocalizedKey) else "Add Friend",
 				UDim2.new(0, 182, 0, Theme.ButtonHeight),
 				addFriendFunc
 			)
@@ -1205,7 +1211,7 @@ local function Initialize()
 
 		textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 		textLabel.AutoLocalize = false
-		textLabel.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsToPlay")
+		textLabel.Text = if getShouldRenameFriends() then LocalizationStrings[localeId]:Format(Constants.InviteConnectionsLocalizedKey) else RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsToPlay")
 
 		if Theme.UIBloxThemeEnabled then
 			icon.AnchorPoint = Vector2.new(0, 0.5)

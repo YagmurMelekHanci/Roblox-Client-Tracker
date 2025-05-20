@@ -4,14 +4,17 @@ PROTO_0:
   LOADNIL R3
   LOADNIL R4
   FORGPREP R2
-  DUPTABLE R7 K2 [{"tool", "disabled"}]
+  DUPTABLE R7 K3 [{"tool", "disabled", "mcpEnabled"}]
   SETTABLEKS R6 R7 K0 ["tool"]
   LOADB R8 0
   SETTABLEKS R8 R7 K1 ["disabled"]
-  GETTABLEKS R9 R6 K3 ["definition"]
-  GETTABLEKS R8 R9 K4 ["name"]
+  GETTABLEKS R9 R6 K4 ["mcpDisabled"]
+  NOT R8 R9
+  SETTABLEKS R8 R7 K2 ["mcpEnabled"]
+  GETTABLEKS R9 R6 K5 ["definition"]
+  GETTABLEKS R8 R9 K6 ["name"]
   SETTABLE R7 R1 R8
-  FORGLOOP R2 2 [-12]
+  FORGLOOP R2 2 [-17]
   RETURN R1 1
 
 PROTO_1:

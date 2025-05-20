@@ -92,6 +92,9 @@ PROTO_1:
   GETUPVAL R7 2
   GETUPVAL R8 3
   DUPTABLE R9 K30 [{"Uri", "Disabled", "Visible", "Increment", "LayoutOrder", "Maximum", "Minimum", "Precision", "Icon", "FormatStringKey", "Value", "IsShort", "OnValueChanged"}]
+  GETUPVAL R11 4
+  CALL R11 0 1
+  JUMPIF R11 [+6]
   GETTABLEKS R11 R0 K31 ["WidgetUri"]
   JUMPIFNOT R11 [+12]
   GETTABLEKS R11 R1 K4 ["Id"]
@@ -164,18 +167,24 @@ MAIN:
   CALL R5 1 1
   CALL R5 0 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Src"]
-  GETTABLEKS R9 R10 K12 ["Components"]
-  GETTABLEKS R8 R9 K16 ["ControlsView"]
-  GETTABLEKS R7 R8 K17 ["ControlProps"]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K14 ["SharedFlags"]
+  GETTABLEKS R7 R8 K16 ["getFFlagStudioUriEqMetamethod"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K18 ["Types"]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K12 ["Components"]
+  GETTABLEKS R9 R10 K17 ["ControlsView"]
+  GETTABLEKS R8 R9 K18 ["ControlProps"]
   CALL R7 1 1
-  DUPCLOSURE R8 K19 [PROTO_1]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K19 ["Types"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K20 [PROTO_1]
   CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R2
   CAPTURE VAL R4
-  RETURN R8 1
+  CAPTURE VAL R6
+  RETURN R9 1

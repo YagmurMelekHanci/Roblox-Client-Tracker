@@ -20,6 +20,7 @@ local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local GameSettings = UserSettings().GameSettings
 local GuiService = game:GetService("GuiService")
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
@@ -45,6 +46,8 @@ local FFlagShowChatButtonWhenChatForceOpened = game:DefineFastFlag("ShowChatButt
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
 local FFlagAlwaysShowChatButtonWhenWindowIsVisible =
 	game:DefineFastFlag("AlwaysShowChatButtonWhenWindowIsVisibleV2", false)
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
 local SocialExperiments
 local TenFootInterfaceExpChatExperimentation
@@ -152,9 +155,13 @@ chatChromeIntegration = ChromeService:register({
 				ChatSelector:ToggleVisibility()
 			end
 		else
-			ChromeIntegrationUtils.dismissRobloxMenuAndRun(function(menuWasOpen)
-				dismissCallback(menuWasOpen)
-			end)
+			if isInExperienceUIVREnabled and isSpatial() then
+				ChatSelector:SetVisible(true)
+			else
+				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function(menuWasOpen)
+					dismissCallback(menuWasOpen)
+				end)
+			end
 		end
 	end,
 	isActivated = function()

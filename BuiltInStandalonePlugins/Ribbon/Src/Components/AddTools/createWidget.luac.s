@@ -37,21 +37,30 @@ PROTO_1:
   SETTABLEKS R4 R3 K14 ["ZIndexBehavior"]
   NAMECALL R4 R1 K17 ["GetUri"]
   CALL R4 1 1
-  GETUPVAL R5 2
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K18 ["join"]
   MOVE R6 R4
-  DUPTABLE R7 K20 [{"Category", "ItemId"}]
-  LOADK R8 K21 ["Panels"]
-  SETTABLEKS R8 R7 K18 ["Category"]
+  DUPTABLE R7 K21 [{"Category", "ItemId"}]
+  LOADK R8 K22 ["Panels"]
+  SETTABLEKS R8 R7 K19 ["Category"]
   LOADK R8 K0 ["AddTools"]
-  SETTABLEKS R8 R7 K19 ["ItemId"]
+  SETTABLEKS R8 R7 K20 ["ItemId"]
   CALL R5 2 1
-  LOADK R8 K21 ["Panels"]
-  NAMECALL R6 R1 K22 ["GetPluginComponent"]
+  LOADK R8 K22 ["Panels"]
+  NAMECALL R6 R1 K23 ["GetPluginComponent"]
   CALL R6 2 1
   MOVE R9 R5
   GETUPVAL R10 0
-  NAMECALL R7 R6 K23 ["SetSizeAsync"]
+  NAMECALL R7 R6 K24 ["SetSizeAsync"]
   CALL R7 3 0
+  GETUPVAL R7 3
+  CALL R7 0 1
+  JUMPIFNOT R7 [+6]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K25 ["watchPluginGui"]
+  MOVE R8 R1
+  MOVE R9 R3
+  CALL R7 2 0
   RETURN R3 1
 
 MAIN:
@@ -61,21 +70,32 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Dash"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["StudioUri"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["join"]
-  GETIMPORT R3 K11 [Vector2.new]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K9 ["FoundationInspector"]
+  CALL R2 1 1
+  GETIMPORT R3 K12 [Vector2.new]
   LOADN R4 128
   LOADN R5 244
   CALL R3 2 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K12 ["Src"]
+  GETTABLEKS R7 R0 K6 ["Src"]
   GETTABLEKS R6 R7 K13 ["SharedFlags"]
   GETTABLEKS R5 R6 K14 ["getFFlagRibbonRefreshTools"]
   CALL R4 1 1
-  DUPCLOSURE R5 K15 [PROTO_1]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K13 ["SharedFlags"]
+  GETTABLEKS R6 R7 K15 ["getFFlagDebugEnableFoundationInspector"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K16 [PROTO_1]
   CAPTURE VAL R3
   CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R5
   CAPTURE VAL R2
-  RETURN R5 1
+  RETURN R6 1

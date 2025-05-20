@@ -68,87 +68,95 @@ PROTO_2:
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K15 ["customAccessoriesHairSetting"]
-  CALL R4 3 0
+  GETIMPORT R8 K19 [Enum.AssetType.HairAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K16 ["CustomHeadAccessory"]
+  LOADK R7 K20 ["CustomHeadAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K17 ["customAccessoriesHeadSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K21 ["customAccessoriesHeadSetting"]
+  GETIMPORT R8 K23 [Enum.AssetType.Hat]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K18 ["CustomFaceAccessory"]
+  LOADK R7 K24 ["CustomFaceAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K19 ["customAccessoriesFaceSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K25 ["customAccessoriesFaceSetting"]
+  GETIMPORT R8 K27 [Enum.AssetType.FaceAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K20 ["CustomNeckAccessory"]
+  LOADK R7 K28 ["CustomNeckAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K21 ["customAccessoriesNeckSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K29 ["customAccessoriesNeckSetting"]
+  GETIMPORT R8 K31 [Enum.AssetType.NeckAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K22 ["CustomShoulderAccessory"]
+  LOADK R7 K32 ["CustomShoulderAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K23 ["customAccessoriesShoulderSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K33 ["customAccessoriesShoulderSetting"]
+  GETIMPORT R8 K35 [Enum.AssetType.ShoulderAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K24 ["CustomFrontAccessory"]
+  LOADK R7 K36 ["CustomFrontAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K25 ["customAccessoriesFrontSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K37 ["customAccessoriesFrontSetting"]
+  GETIMPORT R8 K39 [Enum.AssetType.FrontAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K26 ["CustomBackAccessory"]
+  LOADK R7 K40 ["CustomBackAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K27 ["customAccessoriesBackSetting"]
-  CALL R4 3 0
+  GETTABLEKS R7 R8 K41 ["customAccessoriesBackSetting"]
+  GETIMPORT R8 K43 [Enum.AssetType.BackAccessory]
+  CALL R4 4 0
   GETUPVAL R4 3
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K28 ["CustomWaistAccessory"]
+  LOADK R7 K44 ["CustomWaistAccessory"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K29 ["customAccessoriesWaistSetting"]
+  GETTABLEKS R7 R8 K45 ["customAccessoriesWaistSetting"]
+  GETIMPORT R8 K47 [Enum.AssetType.WaistAccessory]
+  CALL R4 4 0
+  GETUPVAL R4 1
+  MOVE R5 R0
+  DUPTABLE R6 K5 [{"ruleInstance", "property"}]
+  SETTABLEKS R1 R6 K3 ["ruleInstance"]
+  LOADK R7 K48 ["EnableSound"]
+  SETTABLEKS R7 R6 K4 ["property"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K49 ["accessoryBehaviorEnableSoundSetting"]
   CALL R4 3 0
   GETUPVAL R4 1
   MOVE R5 R0
   DUPTABLE R6 K5 [{"ruleInstance", "property"}]
   SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K30 ["EnableSound"]
+  LOADK R7 K50 ["EnableVFX"]
   SETTABLEKS R7 R6 K4 ["property"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K31 ["accessoryBehaviorEnableSoundSetting"]
-  CALL R4 3 0
-  GETUPVAL R4 1
-  MOVE R5 R0
-  DUPTABLE R6 K5 [{"ruleInstance", "property"}]
-  SETTABLEKS R1 R6 K3 ["ruleInstance"]
-  LOADK R7 K32 ["EnableVFX"]
-  SETTABLEKS R7 R6 K4 ["property"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K33 ["accessoryBehaviorEnableVFXSetting"]
+  GETTABLEKS R7 R8 K51 ["accessoryBehaviorEnableVFXSetting"]
   CALL R4 3 0
   RETURN R0 0
 
@@ -185,7 +193,7 @@ MAIN:
   GETTABLEKS R5 R6 K13 ["InvokeKeys"]
   CALL R4 1 1
   GETTABLEKS R5 R1 K14 ["createInvokes"]
-  GETTABLEKS R6 R1 K15 ["createAssetIdInvokes"]
+  GETTABLEKS R6 R1 K15 ["createAccessoryAssetIdInvokes"]
   DUPCLOSURE R7 K16 [PROTO_2]
   CAPTURE VAL R3
   CAPTURE VAL R5

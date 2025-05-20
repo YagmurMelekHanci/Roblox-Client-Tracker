@@ -17,7 +17,7 @@ PROTO_1:
   GETUPVAL R5 2
   GETUPVAL R6 3
   CALL R4 2 1
-  DUPTABLE R5 K11 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "fieldsConfig"}]
+  DUPTABLE R5 K13 [{"openInsertObjectMenuAsync", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "openScript", "fieldsConfig", "DEBUG_dataModelType", "DEBUG_startTime"}]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U2
@@ -30,10 +30,17 @@ PROTO_1:
   SETTABLEKS R6 R5 K8 ["isServiceVisible"]
   GETUPVAL R6 8
   SETTABLEKS R6 R5 K9 ["openScript"]
-  DUPTABLE R6 K13 [{"createLiveSyncStatusWatcher"}]
+  DUPTABLE R6 K15 [{"createLiveSyncStatusWatcher"}]
   GETUPVAL R7 9
-  SETTABLEKS R7 R6 K12 ["createLiveSyncStatusWatcher"]
+  SETTABLEKS R7 R6 K14 ["createLiveSyncStatusWatcher"]
   SETTABLEKS R6 R5 K10 ["fieldsConfig"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K16 ["HostDataModelType"]
+  GETTABLEKS R6 R7 K17 ["Name"]
+  SETTABLEKS R6 R5 K11 ["DEBUG_dataModelType"]
+  GETIMPORT R6 K20 [os.clock]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K12 ["DEBUG_startTime"]
   CALL R1 4 -1
   RETURN R1 -1
 

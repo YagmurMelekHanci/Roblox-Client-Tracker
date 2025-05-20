@@ -153,6 +153,9 @@ local Constants = {
 	ConfirmResetCharacterLocalizedKey = "CoreScripts.InGameMenu.Prompt.ConfirmResetCharacter",
 	DontLeaveGameLocalizedKey = "CoreScripts.InGameMenu.Action.DontLeaveGame",
 	DontResetCharacterLocalizedKey = "CoreScripts.InGameMenu.Action.DontResetCharacter",
+	ConnectionLocalizedKey = "CommonUI.Features.Label.Connection",
+	AddConnectionLocalizedKey = "CommonUI.Features.Label.AddConnection",
+	InviteConnectionsLocalizedKey = "CommonUI.Features.Label.InviteConnections",
 }
 
 return Constants

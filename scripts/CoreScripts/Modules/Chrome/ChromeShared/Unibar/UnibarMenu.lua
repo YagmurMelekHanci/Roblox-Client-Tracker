@@ -738,6 +738,27 @@ export type UnibarMenuProp = {
 	menuRef: any,
 }
 
+local function SubMenuWrapper(props)
+	if isInExperienceUIVREnabled and isSpatial() and Panel3DInSpatialUI then
+		local currentSubMenu = useObservableValue(ChromeService:currentSubMenu())
+		SubMenuVisibilitySignal:set(currentSubMenu ~= nil)
+	end
+	local renderFunc = React.useCallback(function()
+		return React.createElement(SubMenu, { subMenuHostRef = props.subMenuHostRef }) :: any
+	end, {
+		props.subMenuHostRef,
+	})
+	return if isInExperienceUIVREnabled
+			and isSpatial()
+			and Panel3DInSpatialUI
+		then React.createElement(Panel3DInSpatialUI, {
+			panelType = PanelType.ChromeSubMenu,
+			renderFunction = renderFunc,
+			visibilityObservable = SubMenuVisibilitySignal,
+		})
+		else React.createElement(SubMenu, { subMenuHostRef = props.subMenuHostRef }) :: any
+end
+
 local UnibarMenu = function(props: UnibarMenuProp)
 	local menuFrame = React.useRef(nil)
 	if FFlagTiltIconUnibarFocusNav and props.menuRef then
@@ -788,12 +809,6 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			end
 		end
 	end)
-
-	if isInExperienceUIVREnabled and isSpatial() and Panel3DInSpatialUI then
-		local currentSubMenu = useObservableValue(ChromeService:currentSubMenu())
-		SubMenuVisibilitySignal:set(currentSubMenu ~= nil)
-	end
-
 	return {
 		React.createElement("Frame", {
 			Name = "UnibarMenu",
@@ -829,15 +844,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 					onMinWidthChanged = props.onMinWidthChanged,
 				}) :: any,
 			if isInExperienceUIVREnabled
-					and isSpatial()
-					and Panel3DInSpatialUI
-				then React.createElement(Panel3DInSpatialUI, {
-					panelType = PanelType.ChromeSubMenu,
-					renderFunction = function(panelSize)
-						return React.createElement(SubMenu, { subMenuHostRef = subMenuHostRef }) :: any
-					end,
-					visibilityObservable = SubMenuVisibilitySignal,
-				})
+				then React.createElement(SubMenuWrapper, { subMenuHostRef = subMenuHostRef }) :: any
 				else React.createElement(SubMenu, { subMenuHostRef = subMenuHostRef }) :: any,
 			if FFlagEnableChromeShortcutBar then React.createElement(ShortcutBar) else nil,
 			React.createElement(WindowManager) :: React.React_Element<any>,
