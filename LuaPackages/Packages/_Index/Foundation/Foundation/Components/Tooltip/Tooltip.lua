@@ -19,6 +19,7 @@ local useScaledValue = require(Foundation.Utility.useScaledValue)
 type PopoverAlign = PopoverAlign.PopoverAlign
 type PopoverSide = PopoverSide.PopoverSide
 local Popover = require(Foundation.Components.Popover)
+type PopoverAnchorProps = Popover.PopoverAnchorProps
 
 type TooltipProps = {
 	title: string,
@@ -33,7 +34,7 @@ local defaultProps = {
 	side = PopoverSide.Right,
 }
 
-local function AnchorWrapper(props: { children: ReactNode, onHover: (isHovered: boolean) -> () })
+local function AnchorWrapper(props: { onHover: (isHovered: boolean) -> () } & PopoverAnchorProps)
 	local context = React.useContext(PopoverContext)
 	local listener = React.useRef(nil :: RBXScriptConnection?)
 
@@ -51,70 +52,69 @@ local function AnchorWrapper(props: { children: ReactNode, onHover: (isHovered: 
 		end
 	end, { context.anchor :: unknown, props.onHover })
 
-	return React.createElement(Popover.Anchor, nil, props.children)
+	return React.createElement(Popover.Anchor, withCommonProps(props, {}), props.children)
 end
 
-local function Tooltip(tooltipProps: TooltipProps, ref: React.Ref<GuiObject>?)
+local function Tooltip(tooltipProps: TooltipProps)
 	local props = withDefaults(tooltipProps, defaultProps)
 	local isOpen, setIsOpen = React.useState(false)
 	local tokens = useTokens()
 	local maxXSize = useScaledValue(320)
 
-	return React.createElement(
-		Popover.Root,
-		withCommonProps(props, {
-			isOpen = isOpen,
-			ref = ref,
-		}),
-		{
-			Anchor = React.createElement(AnchorWrapper, {
+	return React.createElement(Popover.Root, {
+		isOpen = isOpen,
+	}, {
+		Anchor = React.createElement(
+			AnchorWrapper,
+			withCommonProps(props, {
 				onHover = setIsOpen,
-			}, props.children),
-			Content = React.createElement(
-				Popover.Content,
-				{
-					hasArrow = false,
-					align = props.align,
-					side = {
-						position = props.side,
-						offset = tokens.Size.Size_200,
-					},
-					radius = Radius.Small,
-					backgroundStyle = tokens.Inverse.Surface.Surface_0,
+			}),
+			props.children
+		),
+		Content = React.createElement(
+			Popover.Content,
+			{
+				hasArrow = false,
+				align = props.align,
+				side = {
+					position = props.side,
+					offset = tokens.Size.Size_200,
 				},
-				React.createElement(View, {
-					tag = {
-						["col gap-xsmall auto-xy"] = true,
-						["padding-y-small padding-x-medium"] = props.text ~= nil,
-						["padding-y-xsmall padding-x-small"] = props.text == nil,
-					},
-					sizeConstraint = {
-						MaxSize = Vector2.new(maxXSize, math.huge),
-					},
-				}, {
-					Header = React.createElement(
-						View,
-						{ LayoutOrder = 1, tag = "row gap-small size-full-0 auto-y flex-between" },
-						{
-							Title = React.createElement(Text, {
-								LayoutOrder = 1,
-								Text = props.title,
-								tag = "auto-xy text-title-small content-inverse-emphasis text-truncate-end shrink",
-							}),
-						}
-					),
-					Text = if props.text and props.text ~= ""
-						then React.createElement(Text, {
-							LayoutOrder = 2,
-							Text = props.text,
-							tag = "size-full-0 auto-y text-wrap text-align-x-left text-body-small content-inverse-default",
-							testId = "--foundation-tooltip-text",
-						})
-						else nil,
-				})
-			),
-		}
-	)
+				radius = Radius.Small,
+				backgroundStyle = tokens.Inverse.Surface.Surface_0,
+			},
+			React.createElement(View, {
+				tag = {
+					["col gap-xsmall auto-xy"] = true,
+					["padding-y-small padding-x-medium"] = props.text ~= nil,
+					["padding-y-xsmall padding-x-small"] = props.text == nil,
+				},
+				sizeConstraint = {
+					MaxSize = Vector2.new(maxXSize, math.huge),
+				},
+			}, {
+				Header = React.createElement(
+					View,
+					{ LayoutOrder = 1, tag = "row gap-small size-full-0 auto-y flex-between" },
+					{
+						Title = React.createElement(Text, {
+							LayoutOrder = 1,
+							Text = props.title,
+							tag = "auto-xy text-title-small content-inverse-emphasis text-truncate-end shrink",
+						}),
+					}
+				),
+				Text = if props.text and props.text ~= ""
+					then React.createElement(Text, {
+						LayoutOrder = 2,
+						Text = props.text,
+						tag = "size-full-0 auto-y text-wrap text-align-x-left text-body-small content-inverse-default",
+						testId = "--foundation-tooltip-text",
+					})
+					else nil,
+			})
+		),
+	})
 end
 
-return React.memo(React.forwardRef(Tooltip))
+return React.memo(Tooltip)

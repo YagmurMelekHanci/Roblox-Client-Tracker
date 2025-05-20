@@ -8,10 +8,13 @@ local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 local RadioGroup = require(Foundation.Components.RadioGroup)
 local InputSize = require(Foundation.Enums.InputSize)
-local LayerCollectorProvider = require(Foundation.Providers.LayerCollector.LayerCollectorProvider)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local DialogSize = require(Foundation.Enums.DialogSize)
+local OverlayProvider = require(Foundation.Providers.Overlay.OverlayProvider)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 type ButtonVariant = ButtonVariant.ButtonVariant
+type DialogSize = DialogSize.DialogSize
 
 type StoryProps = {
 	controls: {
@@ -22,10 +25,16 @@ type StoryProps = {
 		actionsLabel: string,
 		content: string?,
 		media: string?,
-		mediaSize: UDim2?,
+		mediaSizeScaleX: number?,
+		mediaSizeOffsetX: number?,
+		mediaSizeScaleY: number?,
+		mediaSizeOffsetY: number?,
 		mediaAspectRatio: number?,
-		heroMediaHeight: UDim?,
+		heroMediaHeightScale: number?,
+		heroMediaHeightOffset: number?,
 		heroMediaAspectRatio: number?,
+		mockScreenYOffset: number?,
+		size: DialogSize?,
 	},
 	children: {
 		DialogMedia: React.ReactNode?,
@@ -36,43 +45,54 @@ type StoryProps = {
 local function Story(props: StoryProps)
 	local children = props.children or { DialogMedia = nil, DialogContent = nil }
 	local controls = props.controls
+	local ref, setRef = React.useState(nil :: GuiBase2d?)
+	local tokens = useTokens()
 
-	return React.createElement(LayerCollectorProvider, {}, {
-		Dialog = React.createElement(Dialog.Root, {
-			title = controls.title,
-			hasHeroMediaBleed = controls.hasHeroMediaBleed,
-			onClose = if controls.isDismissable
-				then function()
-					print("Dialog closed!")
-				end
-				else nil,
-		}, {
-			DialogMedia = children.DialogMedia,
-			DialogContent = children.DialogContent,
-			DialogActions = if controls.hasActions
-				then React.createElement(Dialog.Actions, {
-					LayoutOrder = 3,
-					actions = {
-						{
-							text = "No",
-							variant = ButtonVariant.Standard,
-							onActivated = function()
-								print("No clicked!")
-							end,
-						} :: any,
-						{
-							text = "Yes",
-							variant = ButtonVariant.Emphasis,
-							icon = "icons/common/robux",
-							onActivated = function()
-								print("Yes clicked!")
-							end,
-							inputDelay = 3,
-						} :: any,
-					},
-					label = controls.actionsLabel,
-				})
-				else nil,
+	return React.createElement(View, {
+		ref = setRef,
+		backgroundStyle = {
+			Color3 = tokens.Color.Shift.Shift_200.Color3,
+			Transparency = tokens.Color.Shift.Shift_200.Transparency,
+		},
+		Size = UDim2.new(1, 0, 0, controls.mockScreenYOffset or 0),
+	}, {
+		OverlayProvider = React.createElement(OverlayProvider, { gui = ref }, {
+			DialogRoot = React.createElement(Dialog.Root, {
+				title = if controls.title == "" then nil else controls.title,
+				size = controls.size,
+				onClose = if controls.isDismissable
+					then function()
+						print("Dialog closed!")
+					end
+					else nil,
+			}, {
+				DialogMedia = children.DialogMedia,
+				DialogContent = children.DialogContent,
+				DialogActions = if controls.hasActions
+					then React.createElement(Dialog.Actions, {
+						LayoutOrder = 3,
+						actions = {
+							{
+								text = "No",
+								variant = ButtonVariant.Standard,
+								onActivated = function()
+									print("No clicked!")
+								end,
+							} :: any,
+							{
+								text = "Yes",
+								variant = ButtonVariant.Emphasis,
+								icon = "icons/common/robux",
+								onActivated = function()
+									print("Yes clicked!")
+								end,
+								inputDelay = 3,
+							} :: any,
+						},
+						label = controls.actionsLabel,
+					})
+					else nil,
+			}),
 		}),
 	})
 end
@@ -86,7 +106,11 @@ return {
 				return React.createElement(Story, props, {
 					DialogMedia = React.createElement(Dialog.HeroMedia, {
 						media = props.controls.media :: string,
-						height = props.controls.heroMediaHeight :: UDim,
+						hasBleed = props.controls.hasHeroMediaBleed,
+						height = UDim.new(
+							props.controls.heroMediaHeightScale or 0,
+							props.controls.heroMediaHeightOffset or 0
+						),
 						aspectRatio = if props.controls.heroMediaAspectRatio > 0
 							then props.controls.heroMediaAspectRatio :: number
 							else nil,
@@ -95,7 +119,7 @@ return {
 						LayoutOrder = 2,
 					}, {
 						DialogText = React.createElement(Dialog.Text, {
-							text = props.controls.content :: string,
+							Text = props.controls.content :: string,
 						}),
 					}),
 				})
@@ -104,10 +128,17 @@ return {
 		{
 			name = "Default Image",
 			story = function(props: StoryProps)
+				local mediaSize = UDim2.new(
+					props.controls.mediaSizeScaleX or 0,
+					props.controls.mediaSizeOffsetX or 0,
+					props.controls.mediaSizeScaleY or 0,
+					props.controls.mediaSizeOffsetY or 0
+				)
+
 				return React.createElement(Story, props, {
 					DialogMedia = React.createElement(Dialog.Media, {
 						media = props.controls.media :: string,
-						size = props.controls.mediaSize :: UDim2,
+						Size = mediaSize,
 						aspectRatio = if props.controls.mediaAspectRatio > 0
 							then props.controls.mediaAspectRatio :: number
 							else nil,
@@ -116,7 +147,7 @@ return {
 						LayoutOrder = 2,
 					}, {
 						DialogText = React.createElement(Dialog.Text, {
-							text = props.controls.content :: string,
+							Text = props.controls.content :: string,
 						}),
 					}),
 				})
@@ -130,7 +161,7 @@ return {
 						LayoutOrder = 2,
 					}, {
 						DialogText = React.createElement(Dialog.Text, {
-							text = props.controls.content :: string,
+							Text = props.controls.content :: string,
 						}),
 					}),
 				})
@@ -139,6 +170,12 @@ return {
 		{
 			name = "Custom Content",
 			story = function(props: StoryProps)
+				local mediaSize = UDim2.new(
+					props.controls.mediaSizeScaleX or 0,
+					props.controls.mediaSizeOffsetX or 0,
+					props.controls.mediaSizeScaleY or 0,
+					props.controls.mediaSizeOffsetY or 0
+				)
 				local contentValues = { "A", "B", "C", "D", "E" }
 				local contentItems = Dash.map(contentValues, function(value)
 					return React.createElement(RadioGroup.Item, {
@@ -161,7 +198,7 @@ return {
 						LayoutOrder = 3,
 					}, contentItems),
 					DialogText = React.createElement(Dialog.Text, {
-						text = props.controls.content :: string,
+						Text = props.controls.content :: string,
 						LayoutOrder = 4,
 					}),
 				})
@@ -169,7 +206,7 @@ return {
 				return React.createElement(Story, props, {
 					DialogMedia = React.createElement(Dialog.Media, {
 						media = props.controls.media :: string,
-						size = props.controls.mediaSize :: UDim2,
+						Size = mediaSize,
 						aspectRatio = if props.controls.mediaAspectRatio > 0
 							then props.controls.mediaAspectRatio :: number
 							else nil,
@@ -185,19 +222,26 @@ return {
 		{
 			name = "Embedded Media",
 			story = function(props: StoryProps)
+				local mediaSize = UDim2.new(
+					props.controls.mediaSizeScaleX or 0,
+					props.controls.mediaSizeOffsetX or 0,
+					props.controls.mediaSizeScaleY or 0,
+					props.controls.mediaSizeOffsetY or 0
+				)
+
 				local CustomContent = React.createElement(View, {
 					tag = "auto-y size-full-0 col gap-xxlarge",
 				}, {
 					DialogMedia = React.createElement(Dialog.Media, {
 						media = props.controls.media :: string,
-						size = props.controls.mediaSize :: UDim2,
+						Size = mediaSize,
 						aspectRatio = if props.controls.mediaAspectRatio > 0
 							then props.controls.mediaAspectRatio :: number
 							else nil,
 						LayoutOrder = 1,
 					}),
 					DialogText = React.createElement(Dialog.Text, {
-						text = props.controls.content :: string,
+						Text = props.controls.content :: string,
 						LayoutOrder = 4,
 					}),
 				})
@@ -220,10 +264,16 @@ return {
 		actionsLabel = "Actions Label",
 		hasActions = true,
 		media = "component_assets/avatarBG_dark",
-		mediaSize = UDim2.new(1, 0, 0, 200),
+		mediaSizeScaleX = 1,
+		mediaSizeScaleY = 0,
+		mediaSizeOffsetX = 0,
+		mediaSizeOffsetY = 100,
 		mediaAspectRatio = 0,
 		hasHeroMediaBleed = true,
 		heroMediaAspectRatio = 2.5,
-		heroMediaHeight = UDim.new(1, 0),
+		heroMediaHeightScale = 1,
+		heroMediaHeightOffset = 0,
+		size = Dash.values(DialogSize),
+		mockScreenYOffset = 800,
 	},
 }

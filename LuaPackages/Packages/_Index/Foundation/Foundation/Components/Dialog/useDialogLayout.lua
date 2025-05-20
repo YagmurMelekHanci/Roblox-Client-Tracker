@@ -6,8 +6,11 @@ local React = require(Packages.React)
 local DialogLayoutContext = require(script.Parent.DialogLayoutContext)
 
 type DialogLayout = {
+	isTitleVisible: boolean,
 	titleHeight: number,
+	setTitleHeight: (titleHeight: number) -> (),
 	hasMediaBleed: boolean,
+	setHasMediaBleed: (hasMediaBleed: boolean) -> (),
 }
 
 local function useDialogLayout(): DialogLayout

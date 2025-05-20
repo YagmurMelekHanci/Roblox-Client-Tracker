@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastInt("UGCValidationVisibilityDistributionSliceMax", 50)
 
 return function()

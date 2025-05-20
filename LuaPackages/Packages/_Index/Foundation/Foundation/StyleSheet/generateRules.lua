@@ -399,6 +399,22 @@ local function ListLayoutRules(gaps: Gaps, gutters: Gutters)
 				VerticalFlex = alignment,
 			},
 		})
+
+		table.insert(flexAlignments, {
+			tag = `flex-x-{name}`,
+			pseudo = "UIListLayout",
+			properties = {
+				HorizontalFlex = alignment,
+			},
+		})
+
+		table.insert(flexAlignments, {
+			tag = `flex-y-{name}`,
+			pseudo = "UIListLayout",
+			properties = {
+				VerticalFlex = alignment,
+			},
+		})
 	end
 
 	local itemAlignments = {

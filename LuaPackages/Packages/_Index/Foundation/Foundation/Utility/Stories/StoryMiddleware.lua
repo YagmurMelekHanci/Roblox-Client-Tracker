@@ -21,7 +21,7 @@ local devices = {
 local function StoryMiddleware(story)
 	-- A component wrapping each story in the StyleProvider
 	return function(storyProps)
-		local ref = React.useRef(nil :: GuiObject?)
+		local ref = React.useRef(nil :: GuiBase2d?)
 		local shouldRender, setShouldRender = React.useState(false)
 		React.useEffect(function()
 			setShouldRender(true)

@@ -7,15 +7,18 @@ local IconButton = require(Foundation.Components.IconButton)
 local IconSize = require(Foundation.Enums.IconSize)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
-
+local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local useTextSizeOffset = require(Foundation.Providers.Style.useTextSizeOffset)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useDialogLayout = require(script.Parent.Parent.useDialogLayout)
 local renderFade = require(script.Parent.Parent.renderFade)
 
+type Bindable<T> = Types.Bindable<T>
+
 export type DialogTitleProps = {
-	title: string?,
+	title: Bindable<string>?,
 	onClose: (() -> ())?,
 	closeIcon: string?,
 	ZIndex: number?,
@@ -28,7 +31,22 @@ local defaultProps = {
 local function DialogTitle(titleProps: DialogTitleProps)
 	local props = withDefaults(titleProps, defaultProps)
 	local tokens = useTokens()
+	local textSizeOffset = useTextSizeOffset()
 	local dialogLayout = useDialogLayout()
+
+	React.useEffect(function()
+		local titleFontStyle = tokens.Typography.HeadingSmall
+		local titleFontHeight = (titleFontStyle.FontSize + textSizeOffset) * titleFontStyle.LineHeight
+		local titleHeight = titleFontHeight + tokens.Padding.Medium * 2
+
+		dialogLayout.setTitleHeight(titleHeight)
+	end, { tokens, textSizeOffset } :: { any })
+
+	React.useEffect(function()
+		return function()
+			dialogLayout.setTitleHeight(0)
+		end
+	end, { tokens, textSizeOffset } :: { any })
 
 	return React.createElement(View, {
 		Size = UDim2.new(1, 0, 0, dialogLayout.titleHeight),
@@ -40,7 +58,8 @@ local function DialogTitle(titleProps: DialogTitleProps)
 		}, {
 			CloseButton = if props.onClose
 				then React.createElement(IconButton, {
-					tag = "position-left-center",
+					Position = UDim2.fromScale(0, 0.5),
+					AnchorPoint = Vector2.new(0, 0.5),
 					icon = props.closeIcon,
 					size = IconSize.Medium, -- TODO: this needs to be smaller, but current IconSize mappings do not align with IconButton designs for InputSizes
 					onActivated = props.onClose,

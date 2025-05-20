@@ -1,5 +1,3 @@
---!strict
-
 --[[
 	validateMeshPartBodyPart.lua exposes common tests for MeshPart Dynamic heads and body parts
 ]]
@@ -18,9 +16,11 @@ local getEngineFeatureUGCValidateBodyPartCageMeshDistance =
 	require(root.flags.getEngineFeatureUGCValidateBodyPartCageMeshDistance)
 local getFFlagRefactorBodyAttachmentOrientationsCheck =
 	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
+local getFFlagUGCValidateBoundsManipulation = require(root.flags.getFFlagUGCValidateBoundsManipulation)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
+local validateAccurateBoundingBox = require(root.validation.validateAccurateBoundingBox)
 local validateBodyPartChildAttachmentBounds = require(root.validation.validateBodyPartChildAttachmentBounds)
 local validateBodyPartChildAttachmentOrientations = require(root.validation.validateBodyPartChildAttachmentOrientations)
 local validateBodyPartExtentsRelativeToParent = require(root.validation.validateBodyPartExtentsRelativeToParent)
@@ -87,7 +87,7 @@ local function validateMeshPartBodyPart(
 	]]
 	local success, errorMessage = resetPhysicsData({ inst }, validationContext)
 	if not success then
-		return false, { errorMessage }
+		return false, { errorMessage :: string }
 	end
 
 	if getFFlagUGCValidateMeshMin() then
@@ -119,6 +119,10 @@ local function validateMeshPartBodyPart(
 	reasonsAccumulator:updateReasons(validatePose(inst, validationContext))
 
 	reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, validationContext))
+
+	if getFFlagUGCValidateBoundsManipulation() then
+		reasonsAccumulator:updateReasons(validateAccurateBoundingBox(inst, validationContext))
+	end
 
 	reasonsAccumulator:updateReasons(validateDescendantMeshMetrics(inst, validationContext))
 

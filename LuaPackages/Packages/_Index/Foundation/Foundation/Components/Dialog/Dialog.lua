@@ -2,67 +2,72 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local Dash = require(Packages.Dash)
 
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local withDefaults = require(Foundation.Utility.withDefaults)
+local DialogSize = require(Foundation.Enums.DialogSize)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-
+local withDefaults = require(Foundation.Utility.withDefaults)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local useLayerCollector = require(Foundation.Providers.LayerCollector.useLayerCollector)
-
 local DialogLayoutProvider = require(script.Parent.DialogLayoutProvider)
 local DialogTitle = require(script.Parent.Title)
 local DialogActions = require(script.Parent.Actions)
+local useDialogLayout = require(script.Parent.useDialogLayout)
+local useDialogVariants = require(script.Parent.useDialogVariants)
+
+type Bindable<T> = Types.Bindable<T>
 
 type DialogAction = DialogActions.DialogAction
+type DialogSize = DialogSize.DialogSize
 
 type DialogProps = {
-	title: string?,
+	title: Bindable<string>?,
 	closeIcon: string?,
 	onClose: (() -> ())?,
-	hasHeroMediaBleed: boolean?,
-	size: UDim2?,
+	size: DialogSize?,
 	children: React.ReactNode,
-} & Types.CommonProps
+} & Types.NativeCallbackProps
 
-local defaultProps = {
-	hasHeroMediaBleed = false,
+type DialogInternalProps = DialogProps & {
+	forwardRef: React.Ref<GuiObject>?,
 }
 
-local function Dialog(dialogProps: DialogProps, ref: React.Ref<GuiObject>?)
-	local props = withDefaults(dialogProps, defaultProps)
+local defaultProps = {
+	size = DialogSize.Large,
+}
+
+local function Dialog(dialogProps: DialogInternalProps)
+	local overriddenProps = Dash.assign({}, dialogProps, { LayoutOrder = 1 })
+	local props = withDefaults(overriddenProps, defaultProps)
 	local tokens = useTokens()
+	local variants = useDialogVariants(tokens, props.size)
+	local dialogLayout = useDialogLayout()
+	local maxWidth = useScaledValue(variants.dialog.maxWidth)
 
-	local layerCollector = useLayerCollector()
-	local screenSize = layerCollector.absoluteSize
-	local maxWidth = math.max(screenSize.X - (tokens.Margin.Large * 2), 0)
-	local maxHeight = math.max(screenSize.Y - (tokens.Margin.Large * 2), 0)
+	local bodyOffsetY = if dialogLayout.hasMediaBleed then 0 else dialogLayout.titleHeight
 
-	local hasTitle = props.title ~= nil or props.onClose ~= nil
-	local titleHeight = if hasTitle then tokens.Size.Size_1200 + tokens.Padding.Small * 2 else 0
-	local bodyOffsetY = if props.hasHeroMediaBleed then 0 else titleHeight
-
-	return React.createElement(DialogLayoutProvider, {
-		titleHeight = titleHeight,
-		hasMediaBleed = props.hasHeroMediaBleed,
+	return React.createElement(View, {
+		tag = `{variants.container.tag} {variants.container.margin}`,
 	}, {
-		Dialog = React.createElement(
+		DialogFlexStart = React.createElement(View, {
+			tag = "fill",
+			LayoutOrder = 0,
+		}),
+		DialogInner = React.createElement(
 			View,
 			withCommonProps(props, {
-				tag = "auto-y bg-surface-100 clip radius-medium",
-				Size = props.size or UDim2.fromScale(1, 0),
-				ref = ref,
+				tag = variants.dialog.tag,
+				ref = props.forwardRef,
+				sizeConstraint = {
+					MaxSize = Vector2.new(maxWidth, math.huge),
+				},
 			}),
 			{
-				DialogSizeConstraint = React.createElement("UISizeConstraint", {
-					MaxSize = Vector2.new(maxWidth, maxHeight),
-					MinSize = Vector2.new(0, 0),
-				}),
-				DialogTitle = if hasTitle
+				DialogTitle = if dialogLayout.isTitleVisible
 					then React.createElement(DialogTitle, {
 						title = props.title,
-						height = titleHeight,
 						onClose = props.onClose,
 						closeIcon = props.closeIcon,
 						ZIndex = 2,
@@ -70,15 +75,34 @@ local function Dialog(dialogProps: DialogProps, ref: React.Ref<GuiObject>?)
 					else nil,
 				DialogBody = React.createElement(View, {
 					tag = {
-						["size-full-0 auto-y clip col align-x-center padding-x-xxlarge padding-bottom-xxlarge gap-xxlarge"] = true,
-						["padding-top-xxlarge"] = not props.hasHeroMediaBleed,
+						["size-full-0 auto-y col align-x-center padding-x-xxlarge padding-bottom-xxlarge gap-xxlarge clip"] = true,
+						["padding-top-xxlarge"] = not dialogLayout.hasMediaBleed,
 					},
 					ZIndex = 1,
 					Position = UDim2.fromOffset(0, bodyOffsetY),
 				}, props.children),
 			}
 		),
+		DialogFlexEnd = React.createElement(View, {
+			tag = "fill",
+			LayoutOrder = 2,
+		}),
 	})
 end
 
-return React.memo(React.forwardRef(Dialog))
+local function DialogContainer(props: DialogProps, ref: React.Ref<GuiObject>?)
+	local isTitleVisible = props.title ~= nil or props.onClose ~= nil
+
+	return React.createElement(DialogLayoutProvider, {
+		isTitleVisible = isTitleVisible,
+	}, {
+		Dialog = React.createElement(
+			Dialog,
+			Dash.assign({}, props, {
+				forwardRef = ref,
+			})
+		),
+	})
+end
+
+return React.memo(React.forwardRef(DialogContainer))

@@ -29,6 +29,7 @@ local iconSizes: { [IconSize]: { Vector2 } } = {
 -- The exact numbers were perfect, but resulted in visuals that werea little off,
 -- so we're manually adjusting them here. Probably some subpixel rendering issue.
 local MANUAL_SCALE_ADJUSTMENT = 0.9
+local resolutionScale = FoundationImages.getResolutionScale()
 
 type UIBloxIconSize = "Small" | "Medium" | "Large"
 local iconScales: { [UIBloxIconSize]: { [IconSize]: number } } = {
@@ -63,16 +64,20 @@ local function useIcon(name: string?, size: IconSize): (Vector2?, number)
 		return nil, 1
 	end
 
+	-- Need to take into account the resolution scale for accurate intrinsic
+	-- icon sizes. Spritesheets are scaled based on this value.
+	local imageRectSize = Vector2.new(image.ImageRectSize.X / resolutionScale, image.ImageRectSize.Y / resolutionScale)
+
 	local iconSize: UIBloxIconSize = IconSize.Medium
-	if Dash.includes(iconSizes[IconSize.Small], image.ImageRectSize) then
+	if Dash.includes(iconSizes[IconSize.Small], imageRectSize) then
 		iconSize = IconSize.Small
-	elseif Dash.includes(iconSizes[IconSize.Medium], image.ImageRectSize) then
+	elseif Dash.includes(iconSizes[IconSize.Medium], imageRectSize) then
 		iconSize = IconSize.Medium
-	elseif Dash.includes(iconSizes[IconSize.Large], image.ImageRectSize) then
+	elseif Dash.includes(iconSizes[IconSize.Large], imageRectSize) then
 		iconSize = IconSize.Large
 	end
 
-	return image.ImageRectSize, iconScales[iconSize][size]
+	return imageRectSize, iconScales[iconSize][size]
 end
 
 return useIcon

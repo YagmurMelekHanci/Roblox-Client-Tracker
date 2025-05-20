@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastInt("UGCValidationGripAttOrientationThreshold", 30)
 
 return function()

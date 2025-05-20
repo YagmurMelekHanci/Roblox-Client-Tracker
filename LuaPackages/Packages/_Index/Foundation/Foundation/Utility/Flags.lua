@@ -13,5 +13,8 @@ return {
 	FoundationTextStateLayer = SafeFlags.createGetFFlag("FoundationTextStateLayer")(),
 	FoundationFixChipEmphasisHoverState = SafeFlags.createGetFFlag("FoundationFixChipEmphasisHoverState")(),
 	FoundationFixDisablingForIconButtons = SafeFlags.createGetFFlag("FoundationFixDisablingForIconButtons")(),
-	FoundationAdjustButtonIconSizes = SafeFlags.createGetFFlag("FoundationAdjustButtonIconSizes")(),
+	FoundationFixUseFloatingContentSize = SafeFlags.createGetFFlag("FoundationFixUseFloatingContentSize")(),
+	FoundationAdjustButtonIconSizes = SafeFlags.createGetFFlag("FoundationAdjustButtonIconSizes2")(),
+	FoundationFixBackgroundForStylingV2 = SafeFlags.createGetFFlag("FoundationFixBackgroundForStylingV2")(),
+	FoundationRefactorInputs = SafeFlags.createGetFFlag("FoundationRefactorInputs")(),
 }

@@ -1,4 +1,3 @@
---!strict
 local root = script.Parent
 
 local FIntUGCValidationHeadThreshold = require(root.flags.getFIntUGCValidationHeadThreshold)
@@ -16,6 +15,8 @@ local FIntUGCValidationLegThresholdSide = require(root.flags.getFIntUGCValidatio
 local FIntUGCValidationLegThresholdTopBottom = require(root.flags.getFIntUGCValidationLegThresholdTopBottom)
 
 local getFFlagUGCValidateMinBoundsVisibility = require(root.flags.getFFlagUGCValidateMinBoundsVisibility)
+local FStringUGCValidationVisibilityDistributionAspect =
+	require(root.flags.getFStringUGCValidationVisibilityDistributionAspect)
 local FIntUGCValidationVisibilityDistributionSliceMax =
 	require(root.flags.getFIntUGCValidationVisibilityDistributionSliceMax)
 local FIntUGCValidationVisibilityDistributionWeight =
@@ -79,7 +80,8 @@ if getFFlagUGCValidateMinBoundsVisibility() then
 	ConstantsTransparencyValidation.AREA_OF_INTEREST_TARGET_PIXELS = 600
 	ConstantsTransparencyValidation.ASSET_TRANSPARENCY_MAX_RASTER_SIZE = 300
 
-	ConstantsTransparencyValidation.USE_DISTRIBUTION_ASPECT_CUTOFF = 2.0
+	ConstantsTransparencyValidation.DISTRIBUTION_ASPECT_CUTOFF =
+		tonumber(FStringUGCValidationVisibilityDistributionAspect())
 	ConstantsTransparencyValidation.DISTRIBUTION_SLICE_MAX = FIntUGCValidationVisibilityDistributionSliceMax() / 100
 	ConstantsTransparencyValidation.DISTRIBUTION_SCORE_WEIGHT = FIntUGCValidationVisibilityDistributionWeight() / 100
 end

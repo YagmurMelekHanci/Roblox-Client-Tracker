@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local ScrollView = require(Foundation.Components.ScrollView)
-local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local useScrollBarPadding = require(script.Parent.useScrollBarPadding)
@@ -25,17 +24,13 @@ local function DialogContent(props: DialogContentProps)
 			},
 			onAbsoluteCanvasSizeChanged = updateScrollBarPadding,
 			onAbsoluteWindowSizeChanged = updateScrollBarPadding,
-			tag = "auto-y size-full-0 fill clip",
+			tag = "auto-y size-full fill clip",
 		}),
 		{
-			ScrollContent = React.createElement(View, {
-				tag = "auto-y size-full-0",
-			}, {
-				Padding = React.createElement("UIPadding", {
-					PaddingRight = UDim.new(0, scrollBarPadding),
-				}),
-				Content = React.createElement(React.Fragment, nil, props.children),
+			ScrollPadding = React.createElement("UIPadding", {
+				PaddingRight = UDim.new(0, scrollBarPadding),
 			}),
+			ScrollContent = React.createElement(React.Fragment, nil, props.children),
 		}
 	)
 end

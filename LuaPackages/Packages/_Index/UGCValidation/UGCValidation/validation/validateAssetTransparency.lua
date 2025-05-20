@@ -1,5 +1,3 @@
---!strict
-
 --[[
 	validateAssetTransparency.lua: This file validates that a mesh part has transparency set to zero
 	and that the geometry of the mesh part is visible enough. The visibility of the geometry is
@@ -341,10 +339,12 @@ local function getHighestSubregionVisibility(raster: EditableImage, windowSize: 
 	assetOpacityScan:BuildSummedAreaTable(raster)
 
 	local distributionDirection = nil
-	if windowSize.X / windowSize.Y >= ConstantsTransparencyValidation.USE_DISTRIBUTION_ASPECT_CUTOFF then
-		distributionDirection = Vector2.xAxis
-	elseif windowSize.Y / windowSize.X >= ConstantsTransparencyValidation.USE_DISTRIBUTION_ASPECT_CUTOFF then
-		distributionDirection = Vector2.yAxis
+	if ConstantsTransparencyValidation.DISTRIBUTION_ASPECT_CUTOFF then
+		if windowSize.X / windowSize.Y >= ConstantsTransparencyValidation.DISTRIBUTION_ASPECT_CUTOFF then
+			distributionDirection = Vector2.xAxis
+		elseif windowSize.Y / windowSize.X >= ConstantsTransparencyValidation.DISTRIBUTION_ASPECT_CUTOFF then
+			distributionDirection = Vector2.yAxis
+		end
 	end
 
 	local maxOpacity = 0.0
@@ -498,7 +498,7 @@ local function validateAssetTransparency(inst: Instance, validationContext: Vali
 			local visibility = getHighestSubregionVisibility(editableImage, minBoundsPixelSpace, threshold)
 			editableImage:Destroy()
 
-			if visibility == 0.0 then
+			if visibility == 0.0 and threshold > 0.0 then
 				reasonsAccumulator:updateReasons(false, {
 					string.format("Mesh for %s is completely invisible from the %s.", assetTypeEnum.Name, view.viewId),
 				})

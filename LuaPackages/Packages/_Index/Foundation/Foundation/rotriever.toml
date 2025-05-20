@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.23.0"
+version = "1.25.1"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -50,7 +50,7 @@ version = "^0.0.7"
 version = "^1.2.1"
 
 [dependencies.RbxDesignFoundations]
-version = "^2.0.144"
+version = "^2.0.153"
 
 [dependencies.React]
 version = "^17.0.6"

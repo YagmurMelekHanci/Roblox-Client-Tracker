@@ -36,6 +36,7 @@ local Foundation = strict({
 	ScrollView = require(script.Components.ScrollView),
 	Skeleton = require(script.Components.Skeleton),
 	Toggle = require(script.Components.Toggle),
+	Tooltip = require(script.Components.Tooltip),
 	Text = require(script.Components.Text),
 	TextInput = require(script.Components.TextInput),
 	NumberInput = require(script.Components.NumberInput),
@@ -97,6 +98,12 @@ local Foundation = strict({
 		mockComponent = require(script.Utility.mockComponent),
 		withCommonProps = require(script.Utility.withCommonProps),
 		withDefaults = require(script.Utility.withDefaults),
+	},
+
+	-- Unstable APIs, do not use
+	UNSTABLE = {
+		-- Use View/Text/Image instead
+		Interactable = require(script.Components.Interactable),
 	},
 })
 

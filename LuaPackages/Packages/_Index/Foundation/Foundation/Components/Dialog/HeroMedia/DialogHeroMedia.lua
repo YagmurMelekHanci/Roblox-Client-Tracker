@@ -12,33 +12,48 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local useDialogLayout = require(script.Parent.Parent.useDialogLayout)
 local renderFade = require(script.Parent.Parent.renderFade)
 
+type Bindable<T> = Types.Bindable<T>
 type AspectRatio = Types.AspectRatio
 
 export type DialogHeroMediaProps = {
-	media: string,
+	media: Bindable<string>,
 	height: UDim?,
 	aspectRatio: AspectRatio?,
+	hasBleed: boolean?,
 }
 
 local defaultProps = {
 	height = UDim.new(1, 0),
+	hasBleed = false,
 }
 
-local function DialogMedia(mediaProps: DialogHeroMediaProps)
+local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 	local props = withDefaults(mediaProps, defaultProps)
 	local dialogLayout = useDialogLayout()
 	local tokens = useTokens()
 
+	-- Update context with hasBleed value
+	React.useEffect(function()
+		dialogLayout.setHasMediaBleed(props.hasBleed)
+	end, { dialogLayout, props.hasBleed } :: { any })
+
+	-- Reset context when component unmounts
+	React.useEffect(function()
+		return function()
+			dialogLayout.setHasMediaBleed(false)
+		end
+	end, {})
+
 	local offsetX = tokens.Padding.XXLarge
-	local offsetY = if not dialogLayout.hasMediaBleed then tokens.Padding.XXLarge else 0
-	local hasRoundedCorners = dialogLayout.hasMediaBleed or dialogLayout.titleHeight == 0
+	local offsetY = if dialogLayout.hasMediaBleed then 0 else tokens.Padding.XXLarge
+	local hasRoundedCorners = dialogLayout.hasMediaBleed or not dialogLayout.isTitleVisible
 
 	return React.createElement(View, {
 		tag = {
 			["auto-y size-full-0 position-top-center"] = true,
 			["radius-medium"] = hasRoundedCorners,
 		},
-		LayoutOrder = -2147483648, -- Ensure Hero is always rendered first
+		LayoutOrder = -2147483648, -- Ensure HeroMedia is always rendered first
 	}, {
 		Image = React.createElement(Image, {
 			tag = {
@@ -55,4 +70,4 @@ local function DialogMedia(mediaProps: DialogHeroMediaProps)
 	})
 end
 
-return DialogMedia
+return DialogHeroMedia

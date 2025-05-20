@@ -22,11 +22,14 @@ export type NativeCommonProps = {
 	ZIndex: Bindable<number>?,
 }
 
-export type CommonProps = {
+export type NativeCallbackProps = {
 	onAbsoluteSizeChanged: (instance: GuiObject) -> ()?,
 	onAbsolutePositionChanged: (instance: GuiObject) -> ()?,
+}
+
+export type CommonProps = NativeCallbackProps & NativeCommonProps & {
 	testId: string?,
-} & NativeCommonProps
+}
 
 export type FlexItem = {
 	FlexMode: Bindable<Enum.UIFlexMode>?,

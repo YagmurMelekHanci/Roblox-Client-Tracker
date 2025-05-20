@@ -1,5 +1,3 @@
---!strict
-
 --[[
 	SummedAreaTable.lua is an implementation of the summed area table data structure.
 	It allows O(1) time calculation of the sum of elements in a rectangular region of a grid.

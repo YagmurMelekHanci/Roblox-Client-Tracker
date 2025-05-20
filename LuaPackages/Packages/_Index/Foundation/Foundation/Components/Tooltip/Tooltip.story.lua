@@ -10,12 +10,15 @@ local IconSize = require(Foundation.Enums.IconSize)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 
+local Flags = require(Foundation.Utility.Flags)
+
 return {
 	summary = "Tooltip",
 	stories = {
 		{
 			name = "Base",
 			story = function(props)
+				Flags.FoundationFixUseFloatingContentSize = props.controls.fixUseFloatingContentSize
 				return React.createElement(
 					View,
 					{
@@ -65,6 +68,7 @@ return {
 		},
 	},
 	controls = {
+		fixUseFloatingContentSize = Flags.FoundationFixUseFloatingContentSize,
 		title = "Title",
 		side = Dash.values(PopoverSide),
 		align = Dash.values(PopoverAlign),

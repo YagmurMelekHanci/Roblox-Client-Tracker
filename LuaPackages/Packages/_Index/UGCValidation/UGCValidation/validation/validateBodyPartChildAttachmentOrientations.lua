@@ -1,4 +1,3 @@
---!strict
 --[[
 We will validate two things:
     - All rig attachments have no orientation

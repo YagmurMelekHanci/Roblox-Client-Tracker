@@ -1,4 +1,3 @@
---!strict
 --[[
 	Flexible property validation. Acceptable formats are
 	Constants.PROPERTIES[className][propertyName] = __Test__

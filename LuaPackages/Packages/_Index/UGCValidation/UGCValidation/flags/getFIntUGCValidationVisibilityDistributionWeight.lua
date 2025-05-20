@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastInt("UGCValidationVisibilityDistributionWeight", 50)
 
 return function()

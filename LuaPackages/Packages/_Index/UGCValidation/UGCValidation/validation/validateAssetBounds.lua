@@ -1,5 +1,3 @@
---!strict
-
 --[[
 	validateAssetBounds.lua checks the entire asset is not to big or too small
 ]]
@@ -8,15 +6,12 @@ local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
-local ConstantsInterface = require(root.ConstantsInterface)
 local Types = require(root.util.Types)
 local BoundsCalculator = require(root.util.BoundsCalculator)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
 local validateScaleType = require(root.validation.validateScaleType)
-
-local getFFlagUGCValidateConfigurableFullBodyBounds = require(root.flags.getFFlagUGCValidateConfigurableFullBodyBounds)
 
 local function forEachMeshPart(
 	fullBodyAssets: Types.AllBodyParts?,
@@ -200,12 +195,8 @@ local function validateAssetBounds(
 
 	local minSize, maxSize
 	if fullBodyAssets then
-		if getFFlagUGCValidateConfigurableFullBodyBounds() then
-			minSize = Constants.FULL_BODY_BOUNDS[scaleType :: string].minSize
-			maxSize = Constants.FULL_BODY_BOUNDS[scaleType :: string].maxSize
-		else
-			minSize, maxSize = ConstantsInterface.calculateFullBodyBounds(scaleType :: string)
-		end
+		minSize = Constants.FULL_BODY_BOUNDS[scaleType :: string].minSize
+		maxSize = Constants.FULL_BODY_BOUNDS[scaleType :: string].maxSize
 	else
 		minSize = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds[scaleType].minSize
 		maxSize = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds[scaleType].maxSize

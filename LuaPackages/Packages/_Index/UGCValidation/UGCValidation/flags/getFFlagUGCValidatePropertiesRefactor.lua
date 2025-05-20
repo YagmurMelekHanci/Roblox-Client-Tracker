@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("UGCValidatePropertiesRefactor2", false)
 
 return function()

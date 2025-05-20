@@ -133,4 +133,7 @@ return {
 
 	-- Uses engine rich text support for GetTextBoundsAsync
 	useEngineRichTextBounds = false,
+
+	-- Uses the Foundation Interactable component instead
+	useFoundationInteractable = false,
 }

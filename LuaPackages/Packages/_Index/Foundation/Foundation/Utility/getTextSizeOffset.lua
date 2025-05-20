@@ -1,5 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
-local TextService = require(Foundation.Utility.Services).TextService
+local TextService = require(Foundation.Utility.Wrappers).Services.TextService
 local noYield = require(Foundation.Utility.noYield)
 
 local function getTextSizeOffset(fontSize: number?, font: Font?): number?

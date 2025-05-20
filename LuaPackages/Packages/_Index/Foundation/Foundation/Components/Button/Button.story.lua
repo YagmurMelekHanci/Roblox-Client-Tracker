@@ -21,6 +21,7 @@ return {
 			story = function(props)
 				local controls = props.controls
 				Flags.FoundationAdjustButtonIconSizes = props.controls.adjustPaddingForIcon
+				Flags.FoundationFixBackgroundForStylingV2 = props.controls.fixBackgroundForStylingV2
 
 				return React.createElement(
 					View,
@@ -78,5 +79,6 @@ return {
 		} :: { FillBehavior },
 		inputDelay = 0,
 		adjustPaddingForIcon = Flags.FoundationAdjustButtonIconSizes,
+		fixBackgroundForStylingV2 = Flags.FoundationFixBackgroundForStylingV2,
 	},
 }

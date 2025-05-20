@@ -4,7 +4,7 @@ local Packages = Foundation.Parent
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
 local PopoverContext = require(script.Parent.Parent.PopoverContext)
-local OverlayContext = require(Foundation.Providers.Overlay.OverlayContext)
+local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local useFloating = require(script.Parent.Parent.useFloating)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -64,7 +64,7 @@ local SHADOW_VERTICAL_OFFSET = 2
 local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: React.Ref<GuiObject>?)
 	local props = withDefaults(contentProps, defaultProps)
 	local popoverContext = React.useContext(PopoverContext)
-	local overlayContext = React.useContext(OverlayContext)
+	local overlay = useOverlay()
 
 	local tokens = useTokens()
 
@@ -83,7 +83,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 		popoverContext.isOpen,
 		popoverContext.anchor,
 		ref.current,
-		overlayContext.overlay,
+		overlay,
 		props.side,
 		props.align,
 		if props.hasArrow then arrowHeight else 0
@@ -173,11 +173,11 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 		}, props.children),
 	})
 
-	if not overlayContext.overlay then
+	if overlay == nil then
 		return content
 	end
 
-	return ReactRoblox.createPortal(content, overlayContext.overlay)
+	return ReactRoblox.createPortal(content, overlay)
 end
 
 return React.forwardRef(PopoverContent)

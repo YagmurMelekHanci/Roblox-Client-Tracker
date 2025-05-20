@@ -1,5 +1,3 @@
---!strict
-
 --[[
 	ValidateBodyPartCage.lua iterates over all the render and wrap meshes for body parts and checks that no verts on the
 	cage are too far in front of the render mesh

@@ -1,5 +1,3 @@
---!strict
-
 game:DefineFastFlag("RefactorBodyAttachmentOrientationsCheck", false)
 
 return function()

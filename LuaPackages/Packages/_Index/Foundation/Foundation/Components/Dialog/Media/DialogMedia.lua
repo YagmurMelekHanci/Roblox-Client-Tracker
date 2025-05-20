@@ -9,13 +9,14 @@ local Types = require(Foundation.Components.Types)
 
 local withDefaults = require(Foundation.Utility.withDefaults)
 
+type Bindable<T> = Types.Bindable<T>
 type AspectRatio = Types.AspectRatio
 
 export type DialogMediaProps = {
-	media: string,
-	size: UDim2,
+	media: Bindable<string>,
 	aspectRatio: AspectRatio?,
-	LayoutOrder: number?,
+	Size: Bindable<UDim2>?,
+	LayoutOrder: Bindable<number>?,
 }
 
 local defaultProps = {
@@ -32,7 +33,7 @@ local function DialogMedia(mediaProps: DialogMediaProps)
 		Image = React.createElement(Image, {
 			aspectRatio = props.aspectRatio,
 			Image = props.media,
-			Size = props.size,
+			Size = props.Size,
 		}),
 	})
 end

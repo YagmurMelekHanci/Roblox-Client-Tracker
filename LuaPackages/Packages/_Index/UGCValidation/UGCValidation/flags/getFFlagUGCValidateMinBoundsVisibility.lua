@@ -1,7 +1,5 @@
---!strict
-
-game:DefineFastFlag("UGCValidateMinBoundsVisibility", false)
+game:DefineFastFlag("UGCValidateMinBoundsVisibility2", false)
 
 return function()
-	return game:GetFastFlag("UGCValidateMinBoundsVisibility")
+	return game:GetFastFlag("UGCValidateMinBoundsVisibility2")
 end

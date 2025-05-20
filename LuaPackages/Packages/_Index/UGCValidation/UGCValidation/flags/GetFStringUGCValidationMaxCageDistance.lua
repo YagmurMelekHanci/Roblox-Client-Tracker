@@ -1,5 +1,3 @@
---!strict
-
 --[[
 	declare and retrieve the FStringUGCValidationMaxCageDistance fast flag
 ]]
