@@ -6,8 +6,8 @@
 #include <Globals.h>
 #include <CBMatrix.h>
 uniform vec4 CB4[2];
-uniform vec4 CB1[15];
-uniform vec4 CB0[58];
+uniform vec4 CB1[16];
+uniform vec4 CB0[61];
 uniform vec4 CB3[8];
 uniform sampler2D distTexture;
 uniform sampler2D cloudColorTexture;

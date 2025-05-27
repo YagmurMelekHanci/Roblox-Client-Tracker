@@ -4,9 +4,9 @@
 #include <Globals.h>
 #include <CloudsParams.h>
 #include <Params.h>
-uniform vec4 CB0[58];
+uniform vec4 CB0[61];
 uniform vec4 CB5[5];
-uniform vec4 CB1[15];
+uniform vec4 CB1[16];
 uniform sampler2D BeerShadowMapTexture;
 
 out float _entryPointOutput;

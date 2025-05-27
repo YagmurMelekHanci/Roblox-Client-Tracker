@@ -91,8 +91,10 @@ DefaultUnifiedFlatTransparentVS_14001006,Vertex
 DefaultUnifiedFlatTransparentVS_14001406,Vertex
 DefaultUnifiedFlatTransparentVS_20000000,Vertex
 DefaultUnifiedFlatTransparentVS_20000001,Vertex
+DefaultUnifiedFlatTransparentVS_20000002,Vertex
 DefaultUnifiedFlatTransparentVS_20100001,Vertex
 DefaultUnifiedFlatTransparentVS_20200000,Vertex
+DefaultUnifiedFlatTransparentVS_20300000,Vertex
 DefaultUnifiedGlassTintFS,Fragment
 DefaultUnifiedGlassTintFS_01000000,Fragment
 DefaultUnifiedGlassTintVS,Vertex
@@ -805,6 +807,8 @@ PassThroughModifyVS,Vertex
 PassThroughNoOpVS,Vertex
 PassThroughPosViewportVS,Vertex
 PassThroughPosVS,Vertex
+PassThroughRotationVS,Vertex
+PassThroughViewportRotationVS,Vertex
 PassThroughViewportVS,Vertex
 PassThroughVS,Vertex
 PerformanceOverlayFS_00000000,Fragment

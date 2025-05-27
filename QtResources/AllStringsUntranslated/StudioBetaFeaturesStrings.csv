@@ -84,6 +84,8 @@ Studio.BetaFeatures.CreateAssetAsyncDescription,,Enables the use of AssetService
 Studio.BetaFeatures.CreateAssetAsyncTitle,,CreateAssetAsync Lua API,CreateAssetAsync Lua API
 Studio.BetaFeatures.CustomVideoUploadDescription,,Enables video uploads through the Asset Manager for eligible users.,Enables video uploads through the Asset Manager for eligible users.
 Studio.BetaFeatures.CustomVideoUploadTitle,,Video Uploads,Video Uploads
+Studio.BetaFeatures.DetachedAttachmentsDescription,note that Attachment refers to the class name https://create.roblox.com/docs/reference/engine/classes/Attachment,"Loosens restrictions, allowing Attachments as children of anything.","Loosens restrictions, allowing Attachments as children of anything."
+Studio.BetaFeatures.DetachedAttachmentsTitle,"Title for the ""Detached Attachments"" beta feature. Note that Attachment here refers to the class-name https://create.roblox.com/docs/reference/engine/classes/Attachment",Detached Attachments,Detached Attachments
 Studio.BetaFeatures.Details,,Details,Details
 Studio.BetaFeatures.DragDetectorsDescription,,New Instance type DragDetector that enables click-drag-release interactions. Enabling this beta feature allows using DragDetectors only within Roblox Studio.,New Instance type DragDetector that enables click-drag-release interactions. Enabling this beta feature allows using DragDetectors only within Roblox Studio.
 Studio.BetaFeatures.DragDetectorsTitle,,DragDetectors,DragDetectors

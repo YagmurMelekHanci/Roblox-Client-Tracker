@@ -375,8 +375,10 @@ DefaultUnifiedNeonFS_11000400,Fragment
 DefaultUnifiedNeonFS_20000000,Fragment
 DefaultUnifiedNeonFS_21000000,Fragment
 DefaultUnifiedNeonInGuiFS_00000800,Fragment
+DefaultUnifiedNeonInGuiFS_01000800,Fragment
 DefaultUnifiedNeonInGuiFS_10000000,Fragment
 DefaultUnifiedNeonInGuiFS_10000400,Fragment
+DefaultUnifiedNeonInGuiFS_11000000,Fragment
 DefaultUnifiedNeonInGuiFS_20000000,Fragment
 DefaultUnifiedNeonInGuiVS_00000800,Vertex
 DefaultUnifiedNeonInGuiVS_00000801,Vertex
@@ -773,6 +775,8 @@ PassThroughModifyVS,Vertex
 PassThroughNoOpVS,Vertex
 PassThroughPosViewportVS,Vertex
 PassThroughPosVS,Vertex
+PassThroughRotationVS,Vertex
+PassThroughViewportRotationVS,Vertex
 PassThroughViewportVS,Vertex
 PassThroughVS,Vertex
 PerformanceOverlayFS_00000000,Fragment

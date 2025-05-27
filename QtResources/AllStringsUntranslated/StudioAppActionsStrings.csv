@@ -10,6 +10,7 @@ Studio.App.Actions.ImageLabel,"An ImageLabel renders a rectangle, like a Frame d
 Studio.App.Actions.Inspector,Name of the action to display the Inspector plugin,Inspector,Inspector
 Studio.App.Actions.LocalizationTools,Name of the action to display the Localization Tools plugin,Localization Tool,Localization Tool
 Studio.App.Actions.LogoutMenu,,Username,Username
+Studio.App.Actions.Perf,"A shortened form of the word Performance, used for the Scene Budget Thermometer button label.",Perf,Perf
 Studio.App.Actions.ScreenGui,The main storage object for 2D GuiObjects displayed on the user's screen.,ScreenGui,ScreenGui
 Studio.App.Actions.ScrollingFrame,"A container object used to layout other GUI objects, and allows for scrolling. A special Frame that handles all scrolling for you, with a range of different ways to customize how the scrolling works.",ScrollingFrame,ScrollingFrame
 Studio.App.Actions.Storybook,Name of the action to display the Storybook plugin,Storybook,Storybook

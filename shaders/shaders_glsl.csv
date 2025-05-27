@@ -682,6 +682,8 @@ PassThroughModifyVS,Vertex
 PassThroughNoOpVS,Vertex
 PassThroughPosViewportVS,Vertex
 PassThroughPosVS,Vertex
+PassThroughRotationVS,Vertex
+PassThroughViewportRotationVS,Vertex
 PassThroughViewportVS,Vertex
 PassThroughVS,Vertex
 PerformanceOverlayFS_00000000,Fragment
@@ -711,6 +713,8 @@ SmoothClusterVTTranslationFS,Fragment
 SmoothClusterVTTranslationVS,Vertex
 SmoothClusterVTVS_00000000,Vertex
 SmootherStepFS,Fragment
+SmoothWaterFSUnified_10000000,Fragment
+SmoothWaterFSUnified_10000400,Fragment
 SmoothWaterVS_00000000,Vertex
 SmoothWaterVSUnified_10000000,Vertex
 SmoothWaterVSUnified_10000400,Vertex

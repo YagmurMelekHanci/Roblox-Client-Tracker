@@ -237,7 +237,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:OnDemandVideoCompleteFromUI(result: Enum.ShowAdResult, encryptedAdTrackingData: string, encryptionMetadata: string, rewardDetails: string) -> () {RobloxScriptSecurity}
 	Function AdService:ReturnToPublisherExperience(adTeleportMethod: Enum.AdTeleportMethod) -> () {RobloxScriptSecurity}
 	Function AdService:SetAdGuiInteractivityHandlerInitialized() -> () {RobloxScriptSecurity}
-	Function AdService:ShowRewardedVideoAdAsync(player: Player, reward: AdReward) -> Enum.ShowAdResult [Yields]
+	Function AdService:ShowRewardedVideoAdAsync(player: Player, reward: AdReward, placementId: number?) -> Enum.ShowAdResult [Yields]
 	Function AdService:ShowVideoAd() -> () [Deprecated]
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
 	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
@@ -252,7 +252,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.ShowReportAdPopup(adInfo: { [string]: any }) {RobloxScriptSecurity}
 	Event AdService.VideoAdClosed(adShown: boolean) [Deprecated]
 	Event AdService.adGuiRegisterUI(adGui: Instance) {RobloxScriptSecurity}
-	Event AdService.rewardedVideoAdPlayServerToClient(rewardDetails: string) {RobloxSecurity} [Hidden]
+	Event AdService.rewardedVideoAdPlayServerToClient(rewardDetails: string, placementId: number) {RobloxSecurity} [Hidden]
 	Event AdService.rewardedVideoAdResultClientToServer(result: Enum.ShowAdResult, encryptedAdTrackingData: string, encryptionMetadata: string) {RobloxSecurity} [Hidden]
 	Callback AdService.onDemandVideoPlayInUI(data: { [string]: any }) -> VideoFrame {RobloxScriptSecurity}
 Class AdvancedDragger : Instance
@@ -509,7 +509,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:PromptCreateAssetAsync(player: Player, instance: Instance, assetType: Enum.AssetType) -> ...any [Yields]
 	Function AssetService:PromptImportAnimationClipFromVideoAsync(player: Player, progressCallback: (...any) -> ...any) -> ...any [Yields]
 	Function AssetService:RegisterUGCValidationFunction(function: (...any) -> ...any) -> () {RobloxScriptSecurity}
-	Function AssetService:SavePlaceAsync() -> () [Yields]
+	Function AssetService:SavePlaceAsync(requestParameters: { [string]: any }?) -> () [Yields]
 	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields]
 	Event AssetService.AudioMetadataFailedResponse(requestid: number) {RobloxScriptSecurity}
 	Event AssetService.AudioMetadataRequest(requestid: number, request: { any }) {RobloxScriptSecurity}
@@ -958,7 +958,7 @@ Class AvatarCollisionRules : Instance
 	Property AvatarCollisionRules.LegacyCollisionMode: Enum.AvatarSettingsLegacyCollisionMode {RobloxScriptSecurity}
 	Property AvatarCollisionRules.SingleColliderSize: Vector3 {RobloxScriptSecurity}
 Class AvatarCreationService : Instance [NotCreatable] [Service]
-	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, model: Model) -> string {RobloxScriptSecurity} [Yields]
+	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, model: Model) -> string [Yields]
 	Function AvatarCreationService:DeserializeAvatarModel(serializedModel: string) -> Instance? {RobloxScriptSecurity}
 	Function AvatarCreationService:GenerateAvatar2DPreviewAsync(avatarGeneration2dPreviewParams: { [string]: any }) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarAsync(avatarGenerationParams: { [string]: any }) -> string [Yields]
@@ -1357,6 +1357,8 @@ Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicate
 Class HSRDataContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 	Function MeshContentProvider:GetContentMemoryData() -> { [string]: any } {RobloxScriptSecurity}
+Class SlimContentProvider : CacheableContentProvider [NotCreatable] [Service]
+	Function SlimContentProvider:GetContentMemoryData() -> { [string]: any } {RobloxSecurity}
 Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 Class CalloutService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CalloutService:AttachCallout(definitionId: string, locationId: string, target: Instance) -> () {RobloxScriptSecurity}
@@ -1367,6 +1369,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:CreatePostAsync(pathArr: { any }, caption: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:DeleteCapturesAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
+	Function CaptureService:DeleteVideoCapture(videoCapture: VideoCapture) -> () {RobloxScriptSecurity}
 	Function CaptureService:GetCaptureFilePathAsync(captureContent: Content) -> string {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureSizeAsync(captureContent: Content) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
@@ -1377,12 +1380,14 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:OnCaptureShared(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity} [CustomLuaState]
 	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {RobloxScriptSecurity}
+	Function CaptureService:OnVideoCaptureShared(videoCapture: VideoCapture) -> () {RobloxScriptSecurity}
 	Function CaptureService:PromptSaveCapturesToGallery(captures: { any }, resultCallback: (...any) -> ...any) -> ()
 	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
 	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:SaveCapturesToExternalStorageAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:SaveScreenshotCapture(additionalInfo: string? = "") -> () {RobloxScriptSecurity}
+	Function CaptureService:SaveVideoCaptureToExternalStorage(videoCapture: VideoCapture) -> () {RobloxScriptSecurity}
 	Function CaptureService:StartVideoCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> Enum.VideoCaptureResult [Yields]
 	Function CaptureService:StartVideoCaptureInternalAsync() -> Enum.VideoCaptureResult {RobloxScriptSecurity} [Yields]
 	Function CaptureService:StopVideoCapture() -> ()
@@ -1399,7 +1404,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Event CaptureService.RequestCaptureSignatureV2(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
 	Event CaptureService.UserVideoCaptureFailed(result: Enum.VideoCaptureResult) {RobloxScriptSecurity}
-	Event CaptureService.VideoCaptureInProgress(isInProgress: boolean) {RobloxScriptSecurity}
+	Event CaptureService.VideoCaptureInProgress(isInProgress: boolean, captureTrigger: string) {RobloxScriptSecurity}
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function ChangeHistoryService:FinishRecording(identifier: string, operation: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) -> () {PluginSecurity}
 	Function ChangeHistoryService:GetCanRedo() -> ...any {PluginSecurity}
@@ -3166,7 +3171,7 @@ Class HandRigDescription : Instance [NotBrowsable]
 	Function HandRigDescription:GetFingerTip(fingerIndex: number) -> Vector3
 	Function HandRigDescription:SetFingerControl(fingerIndex: number, control: Vector3) -> ()
 	Function HandRigDescription:SetFingerTip(fingerIndex: number, point: Vector3) -> ()
-Class HapticEffect : Instance [NotBrowsable]
+Class HapticEffect : Instance
 	Property HapticEffect.Looped: boolean
 	Property HapticEffect.Position: Vector3
 	Property HapticEffect.Radius: number
@@ -4476,6 +4481,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:CellCenterToWorld(x: number, y: number, z: number) -> Vector3
 	Function Terrain:CellCornerToWorld(x: number, y: number, z: number) -> Vector3
 	Function Terrain:Clear() -> ()
+	Function Terrain:ClearVoxelsAsync_beta(region: Region3, channelIds: { any }) -> () [CustomLuaState]
 	Function Terrain:ConvertToSmooth() -> () {PluginSecurity} [Deprecated]
 	Function Terrain:CopyRegion(region: Region3int16) -> TerrainRegion
 	Function Terrain:CountCells() -> number
@@ -4488,9 +4494,12 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:GetMaterialColor(material: Enum.Material) -> Color3 {🧬Safe}
 	Function Terrain:GetTerrainWireframe(cframe: CFrame, size: Vector3) -> { any } {RobloxScriptSecurity}
 	Function Terrain:GetWaterCell(x: number, y: number, z: number) -> ...any [Deprecated]
+	Function Terrain:IterateVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainIterateOperation [CustomLuaState]
+	Function Terrain:ModifyVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainModifyOperation [CustomLuaState]
 	Function Terrain:PasteRegion(region: TerrainRegion, corner: Vector3int16, pasteEmptyCells: boolean) -> ()
 	Function Terrain:ReadVoxelChannels(region: Region3, resolution: number, channelIds: { any }) -> { [string]: any } [CustomLuaState] {🧬Safe}
 	Function Terrain:ReadVoxels(region: Region3, resolution: number) -> ...any [CustomLuaState] {🧬Safe}
+	Function Terrain:ReadVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainReadOperation [CustomLuaState]
 	Function Terrain:ReplaceMaterial(region: Region3, resolution: number, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> ()
 	Function Terrain:ReplaceMaterialInTransform(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> () {RobloxScriptSecurity}
 	Function Terrain:ReplaceMaterialInTransformSubregion(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material, targetRegion: Region3int16) -> () {RobloxScriptSecurity}
@@ -4506,6 +4515,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:WorldToCellPreferSolid(position: Vector3) -> Vector3
 	Function Terrain:WriteVoxelChannels(region: Region3, resolution: number, channels: { [string]: any }) -> () [CustomLuaState]
 	Function Terrain:WriteVoxels(region: Region3, resolution: number, materials: { any }, occupancy: { any }) -> () [CustomLuaState]
+	Function Terrain:WriteVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainWriteOperation [CustomLuaState]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.FluidFidelityInternal: Enum.FluidFidelity {RobloxSecurity} [Hidden] [NotScriptable]
@@ -4546,7 +4556,7 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.DCDPropertyData: CSGPropertyData {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.FormFactor: Enum.FormFactor {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.InitialSize: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
-	Property PartOperation.ManifoldMesh: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property PartOperation.ManifoldMesh_DEPRECATED: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
 	Property PartOperation.MeshData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.MeshData2: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.OffCentered: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
@@ -5085,6 +5095,7 @@ Class Player : Instance
 	Function Player:LoadString(key: string) -> string [Deprecated]
 	Function Player:Move(walkDirection: Vector3, relativeToCamera: boolean? = false) -> ()
 	Function Player:OverrideStreamingRadii(minRadius: number, targetRadius: number) -> () {RobloxSecurity}
+	Function Player:PinStreamingForInstance(instance: Instance, depth: number) -> () {RobloxScriptSecurity}
 	Function Player:RemoveCharacter() -> () {LocalUserSecurity}
 	Function Player:RemoveReplicationFocus(part: BasePart) -> ()
 	Function Player:RemoveReplicationFocusPosition(center: Vector3, radius: number) -> () {RobloxSecurity}
@@ -5105,6 +5116,7 @@ Class Player : Instance
 	Function Player:SetModerationAccessKey(moderationAccessKey: string) -> () {RobloxScriptSecurity}
 	Function Player:SetSuperSafeChat(value: boolean) -> () {PluginSecurity}
 	Function Player:SetUnder13(value: boolean) -> () {RobloxSecurity} [Deprecated]
+	Function Player:UnpinStreamingForInstance(instance: Instance, depth: number) -> () {RobloxScriptSecurity}
 	Function Player:UpdatePlayerBlocked(userId: number, blocked: boolean) -> () {RobloxScriptSecurity}
 	Function Player:WaitForDataReady() -> boolean [Yields] [Deprecated]
 	Function Player:isFriendsWith(userId: number) -> boolean [Yields] [Deprecated]
@@ -5129,11 +5141,13 @@ Class Player : Instance
 	Event Player.OnTeleport(teleportState: Enum.TeleportState, placeId: number, spawnName: string)
 	Event Player.OnTeleportInternal(teleportState: Enum.TeleportState, teleportInfo: { [string]: any }, customLoadingScreen: Instance) {RobloxSecurity} [Hidden]
 	Event Player.OverrideStreamRadii(minRadius: number, targetRadius: number) {RobloxSecurity} [Hidden]
+	Event Player.PinStreamingStart(instance: Instance, depth: number) {RobloxSecurity} [Hidden]
 	Event Player.PlayerCharacterLoaded(metrics: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event Player.PlayerChatTranslationSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
 	Event Player.PlayerExperienceSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
 	Event Player.RemoteFriendRequestSignal(otherUserId: number, eventType: Enum.FriendRequestEvent) {RobloxScriptSecurity} [Hidden]
 	Event Player.RemoteInsert(url: string, position: Vector3) {LocalUserSecurity} [Hidden]
+	Event Player.RequestStreamingPin(instance: Instance, depth: number) {RobloxSecurity} [Hidden]
 	Event Player.ScopeCheckInitiated(guid: string, serializedScopes: { any }, metadata: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event Player.ScriptSecurityError(hash: string, error: string, stack: string) {LocalUserSecurity} [Hidden]
 	Event Player.ServerToClientUnfilteredChatReplicate(value: boolean) {RobloxSecurity} [Hidden]
@@ -5141,6 +5155,8 @@ Class Player : Instance
 	Event Player.SetShutdownMessage(message: string) {RobloxSecurity} [Hidden]
 	Event Player.SimulationRadiusChanged(radius: number) {LocalUserSecurity}
 	Event Player.StatsAvailable(info: string) {LocalUserSecurity} [Hidden]
+	Event Player.StreamingPinComplete(instance: Instance) {RobloxScriptSecurity}
+	Event Player.UnpinStreaming(instance: Instance, depth: number) {RobloxSecurity} [Hidden]
 Class PlayerData : Instance [NotCreatable] [NotReplicated]
 	Function PlayerData:GetPlayer() -> Player
 	Function PlayerData:GetRecordAsync(recordName: string? = "Default") -> PlayerDataRecord [Yields]
@@ -6917,7 +6933,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Callback TextChatService.OnChatWindowAdded(message: TextChatMessage) -> ...any
 	Callback TextChatService.OnIncomingMessage(message: TextChatMessage) -> ...any
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
-	Function TextFilterResult:GetChatForUserAsync(toUserId: number) -> string [Yields]
+	Function TextFilterResult:GetChatForUserAsync(toUserId: number) -> string [Yields] [Deprecated]
 	Function TextFilterResult:GetNonChatStringForBroadcastAsync() -> string [Yields]
 	Function TextFilterResult:GetNonChatStringForUserAsync(toUserId: number) -> string [Yields]
 Class TextFilterTranslatedResult : Instance [NotCreatable] [NotReplicated]
@@ -7359,6 +7375,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property UserInputService.OnScreenKeyboardSize: Vector2 [ReadOnly]
 	Property UserInputService.OnScreenKeyboardVisible: boolean [ReadOnly]
 	Property UserInputService.OverrideMouseIconBehavior: Enum.OverrideMouseIconBehavior {RobloxScriptSecurity} [Hidden]
+	Property UserInputService.PreferredInput: Enum.PreferredInput [ReadOnly]
 	Property UserInputService.RightBarSize: Vector2 {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property UserInputService.StatusBarSize: Vector2 {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property UserInputService.TouchEnabled: boolean [ReadOnly]
@@ -7751,6 +7768,17 @@ Class Wire : Instance
 	Property Wire.TargetInstance: Instance?
 	Property Wire.TargetName: string
 	Function Wire:RenameToDefault() -> () {RobloxScriptSecurity}
+Class TerrainIterateOperation : Object [NotCreatable] [NotReplicated]
+	Function TerrainIterateOperation:CommitBlock(block: { [string]: any }) -> RBXScriptSignal
+	Event TerrainIterateOperation.Ready(block: { [string]: any })
+Class TerrainModifyOperation : Object [NotCreatable] [NotReplicated]
+	Function TerrainModifyOperation:CommitBlock(block: { [string]: any }) -> RBXScriptSignal
+	Event TerrainModifyOperation.Ready(block: { [string]: any })
+Class TerrainReadOperation : Object [NotCreatable] [NotReplicated]
+	Event TerrainReadOperation.Ready(block: { [string]: any })
+Class TerrainWriteOperation : Object [NotCreatable] [NotReplicated]
+	Function TerrainWriteOperation:CommitBlock(block: { [string]: any }) -> RBXScriptSignal
+	Function TerrainWriteOperation:GetBlock() -> { [string]: any } [CustomLuaState]
 Enum AccessModifierType
 	EnumItem AccessModifierType.Allow : 0
 	EnumItem AccessModifierType.Deny : 1
@@ -8707,6 +8735,7 @@ Enum DeveloperMemoryTag
 	EnumItem DeveloperMemoryTag.Animation : 22
 	EnumItem DeveloperMemoryTag.Navigation : 23
 	EnumItem DeveloperMemoryTag.GeometryCSG : 24
+	EnumItem DeveloperMemoryTag.GraphicsSlimModels : 25
 Enum DeviceFeatureType
 	EnumItem DeviceFeatureType.DeviceCapture : 0
 Enum DeviceForm
@@ -9971,6 +10000,10 @@ Enum PoseEasingStyle
 Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.OneAttachment : 0
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
+Enum PreferredInput
+	EnumItem PreferredInput.KeyboardAndMouse : 0
+	EnumItem PreferredInput.Gamepad : 1
+	EnumItem PreferredInput.Touch : 2
 Enum PreferredTextSize
 	EnumItem PreferredTextSize.Medium : 1
 	EnumItem PreferredTextSize.Large : 2
