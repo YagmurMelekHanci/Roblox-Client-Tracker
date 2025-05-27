@@ -12,6 +12,9 @@ local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 
 local Flags = require(Foundation.Utility.Flags)
 
+-- Used as a constant on purpose, otherwise a new table will be created each render, causing extra renders.
+local shortcut = { Enum.KeyCode.F2, Enum.KeyCode.One, Enum.KeyCode.ButtonR3 }
+
 return {
 	summary = "Tooltip",
 	stories = {
@@ -29,6 +32,7 @@ return {
 						Tooltip,
 						{
 							title = props.controls.title,
+							shortcut = shortcut,
 							side = props.controls.side,
 							align = props.controls.align,
 							text = "Generally we should avoid tooltips with long titles and bodys. Consider using other affordances for sharing contextual information when content expands beyond a few lines.",
@@ -52,6 +56,7 @@ return {
 					Tooltip,
 					{
 						title = props.controls.text,
+						shortcut = shortcut,
 						side = props.controls.side,
 						align = props.controls.align,
 					},

@@ -49,6 +49,8 @@ local function getSizeMapping(standardSize, size: UDim2?, tokens: typeof(Foundat
 	elseif size then
 		if size.Y.Offset >= tokens.Size.Size_1200 then
 			return InputSize.Large
+		elseif size.Y.Scale > 0 then
+			return InputSize.Medium
 		elseif size.Y.Offset >= tokens.Size.Size_1000 then
 			return InputSize.Medium
 		elseif size.Y.Offset >= tokens.Size.Size_800 then

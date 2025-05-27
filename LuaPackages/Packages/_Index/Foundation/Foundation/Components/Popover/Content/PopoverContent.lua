@@ -91,7 +91,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 
 	local backdropListener = React.useRef(nil :: RBXScriptConnection?)
 
-	local backdropCallback = React.useCallback(function(instance: GuiObject)
+	local backdropCallback = React.useCallback(function(instance: GuiObject?)
 		if backdropListener.current then
 			backdropListener.current:Disconnect()
 		end

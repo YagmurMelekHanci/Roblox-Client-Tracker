@@ -4,6 +4,8 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 type ReactNode = React.ReactNode
 
+local UserInputService = require(Foundation.Utility.Wrappers).Services.UserInputService
+
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
@@ -24,6 +26,8 @@ type PopoverAnchorProps = Popover.PopoverAnchorProps
 type TooltipProps = {
 	title: string,
 	text: string?,
+	-- Shortcut associated with the action owning the tooltip
+	shortcut: { Enum.KeyCode }?,
 	align: PopoverAlign?,
 	side: PopoverSide?,
 	children: ReactNode?,
@@ -60,6 +64,25 @@ local function Tooltip(tooltipProps: TooltipProps)
 	local isOpen, setIsOpen = React.useState(false)
 	local tokens = useTokens()
 	local maxXSize = useScaledValue(320)
+
+	local shortcutText = React.useMemo(function()
+		if props.shortcut == nil then
+			return nil :: string?
+		end
+		local text = ""
+		for index, value in props.shortcut do
+			local key = UserInputService:GetStringForKeyCode(value)
+			if key == nil or key == "" then
+				key = value.Name
+			end
+
+			if index > 1 then
+				text ..= " + "
+			end
+			text ..= key
+		end
+		return text
+	end, { props.shortcut })
 
 	return React.createElement(Popover.Root, {
 		isOpen = isOpen,
@@ -102,6 +125,14 @@ local function Tooltip(tooltipProps: TooltipProps)
 							Text = props.title,
 							tag = "auto-xy text-title-small content-inverse-emphasis text-truncate-end shrink",
 						}),
+						Shortcut = if props.shortcut
+							then React.createElement(Text, {
+								LayoutOrder = 2,
+								Text = shortcutText,
+								tag = "auto-xy text-body-small content-inverse-muted",
+								testId = "--foundation-tooltip-shortcut",
+							})
+							else nil,
 					}
 				),
 				Text = if props.text and props.text ~= ""

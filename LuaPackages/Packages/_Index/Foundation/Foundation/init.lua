@@ -87,6 +87,8 @@ local Foundation = strict({
 		StateLayerAffordance = require(script.Enums.StateLayerAffordance),
 		StateLayerMode = require(script.Enums.StateLayerMode),
 		Theme = require(script.Enums.Theme),
+		ThumbnailType = require(script.Enums.ThumbnailType),
+		ThumbnailSize = require(script.Enums.ThumbnailSize),
 		-- ToggleSize is deprecated. Use InputSize instead.
 		ToggleSize = require(script.Enums.InputSize),
 	},
@@ -94,6 +96,7 @@ local Foundation = strict({
 	-- Utility
 	Utility = {
 		composeStyleVariant = require(script.Utility.composeStyleVariant),
+		getRbxThumb = require(script.Utility.getRbxThumb),
 		indexBindable = require(script.Utility.indexBindable),
 		mockComponent = require(script.Utility.mockComponent),
 		withCommonProps = require(script.Utility.withCommonProps),
