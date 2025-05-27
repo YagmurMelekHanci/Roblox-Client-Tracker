@@ -1,25 +1,17 @@
 PROTO_0:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["BaseUrl"]
-  GETUPVAL R3 1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+10]
-  GETUPVAL R2 2
+  GETUPVAL R2 1
   FASTCALL1 TOSTRING R0 [+3]
   MOVE R5 R0
   GETIMPORT R4 K2 [tostring]
   CALL R4 1 1
   NAMECALL R2 R2 K3 ["UrlEncode"]
   CALL R2 2 1
-  JUMP [+5]
-  GETUPVAL R2 2
-  MOVE R4 R0
-  NAMECALL R2 R2 K4 ["urlEncode"]
-  CALL R2 2 1
-  LOADK R4 K5 ["%*library/%*/asset"]
+  LOADK R4 K4 ["%*library/%*/asset"]
   MOVE R6 R1
   MOVE R7 R2
-  NAMECALL R4 R4 K6 ["format"]
+  NAMECALL R4 R4 K5 ["format"]
   CALL R4 3 1
   MOVE R3 R4
   RETURN R3 1
@@ -34,17 +26,7 @@ MAIN:
   LOADK R3 K4 ["HttpService"]
   NAMECALL R1 R1 K3 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R2 K6 [script]
-  LOADK R4 K7 ["AssetManager"]
-  NAMECALL R2 R2 K8 ["FindFirstAncestor"]
-  CALL R2 2 1
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R6 R2 K11 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Flags"]
-  GETTABLEKS R4 R5 K13 ["getFFlagAmrStrictTyping"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K14 [PROTO_0]
+  DUPCLOSURE R2 K5 [PROTO_0]
   CAPTURE VAL R0
-  CAPTURE VAL R3
   CAPTURE VAL R1
-  RETURN R4 1
+  RETURN R2 1

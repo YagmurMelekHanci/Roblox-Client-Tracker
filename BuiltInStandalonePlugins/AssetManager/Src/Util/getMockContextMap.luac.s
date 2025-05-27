@@ -48,20 +48,29 @@ PROTO_0:
   MOVE R11 R7
   MOVE R12 R2
   CALL R8 4 1
-  DUPTABLE R9 K13 [{"Localization", "Theme", "PluginController", "LayoutController", "InputController", "ExplorerController", "SearchController", "ItemsController", "Networking"}]
-  SETTABLEKS R1 R9 K3 ["Localization"]
-  GETUPVAL R11 11
-  GETTABLEKS R10 R11 K4 ["mock"]
-  CALL R10 0 1
-  SETTABLEKS R10 R9 K5 ["Theme"]
-  SETTABLEKS R3 R9 K6 ["PluginController"]
-  SETTABLEKS R4 R9 K7 ["LayoutController"]
-  SETTABLEKS R5 R9 K8 ["InputController"]
-  SETTABLEKS R6 R9 K9 ["ExplorerController"]
-  SETTABLEKS R7 R9 K10 ["SearchController"]
-  SETTABLEKS R8 R9 K11 ["ItemsController"]
-  SETTABLEKS R2 R9 K12 ["Networking"]
-  RETURN R9 1
+  GETUPVAL R10 11
+  GETTABLEKS R9 R10 K4 ["mock"]
+  MOVE R10 R0
+  MOVE R11 R4
+  MOVE R12 R8
+  MOVE R13 R7
+  MOVE R14 R6
+  CALL R9 5 1
+  DUPTABLE R10 K14 [{"Localization", "Theme", "PluginController", "LayoutController", "InputController", "ExplorerController", "SearchController", "ItemsController", "Networking", "Input"}]
+  SETTABLEKS R1 R10 K3 ["Localization"]
+  GETUPVAL R12 12
+  GETTABLEKS R11 R12 K4 ["mock"]
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K5 ["Theme"]
+  SETTABLEKS R3 R10 K6 ["PluginController"]
+  SETTABLEKS R4 R10 K7 ["LayoutController"]
+  SETTABLEKS R5 R10 K8 ["InputController"]
+  SETTABLEKS R6 R10 K9 ["ExplorerController"]
+  SETTABLEKS R7 R10 K10 ["SearchController"]
+  SETTABLEKS R8 R10 K11 ["ItemsController"]
+  SETTABLEKS R2 R10 K12 ["Networking"]
+  SETTABLEKS R9 R10 K13 ["Input"]
+  RETURN R10 1
 
 MAIN:
   PREPVARARGS 0
@@ -117,45 +126,51 @@ MAIN:
   GETTABLEKS R13 R14 K24 ["SearchController"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R15 R0 K15 ["Src"]
-  GETTABLEKS R14 R15 K25 ["Networking"]
+  GETTABLEKS R16 R0 K15 ["Src"]
+  GETTABLEKS R15 R16 K7 ["Controllers"]
+  GETTABLEKS R14 R15 K25 ["Input"]
   CALL R13 1 1
-  GETTABLEKS R17 R0 K15 ["Src"]
-  GETTABLEKS R16 R17 K26 ["Resources"]
-  GETTABLEKS R15 R16 K27 ["Localization"]
-  GETTABLEKS R14 R15 K28 ["SourceStrings"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R16 R0 K15 ["Src"]
+  GETTABLEKS R15 R16 K26 ["Networking"]
+  CALL R14 1 1
   GETTABLEKS R18 R0 K15 ["Src"]
-  GETTABLEKS R17 R18 K26 ["Resources"]
-  GETTABLEKS R16 R17 K27 ["Localization"]
-  GETTABLEKS R15 R16 K29 ["LocalizedStrings"]
-  DUPTABLE R16 K34 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries"}]
-  SETTABLEKS R14 R16 K30 ["stringResourceTable"]
-  SETTABLEKS R15 R16 K31 ["translationResourceTable"]
-  LOADK R17 K2 ["AssetManager"]
-  SETTABLEKS R17 R16 K32 ["pluginName"]
-  NEWTABLE R17 1 0
-  GETTABLEKS R19 R2 K26 ["Resources"]
-  GETTABLEKS R18 R19 K35 ["LOCALIZATION_PROJECT_NAME"]
-  DUPTABLE R19 K36 [{"stringResourceTable", "translationResourceTable"}]
-  GETTABLEKS R21 R2 K26 ["Resources"]
-  GETTABLEKS R20 R21 K28 ["SourceStrings"]
-  SETTABLEKS R20 R19 K30 ["stringResourceTable"]
-  GETTABLEKS R21 R2 K26 ["Resources"]
-  GETTABLEKS R20 R21 K29 ["LocalizedStrings"]
-  SETTABLEKS R20 R19 K31 ["translationResourceTable"]
-  SETTABLE R19 R17 R18
-  SETTABLEKS R17 R16 K33 ["libraries"]
-  DUPCLOSURE R17 K37 [PROTO_0]
+  GETTABLEKS R17 R18 K27 ["Resources"]
+  GETTABLEKS R16 R17 K28 ["Localization"]
+  GETTABLEKS R15 R16 K29 ["SourceStrings"]
+  GETTABLEKS R19 R0 K15 ["Src"]
+  GETTABLEKS R18 R19 K27 ["Resources"]
+  GETTABLEKS R17 R18 K28 ["Localization"]
+  GETTABLEKS R16 R17 K30 ["LocalizedStrings"]
+  DUPTABLE R17 K35 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries"}]
+  SETTABLEKS R15 R17 K31 ["stringResourceTable"]
+  SETTABLEKS R16 R17 K32 ["translationResourceTable"]
+  LOADK R18 K2 ["AssetManager"]
+  SETTABLEKS R18 R17 K33 ["pluginName"]
+  NEWTABLE R18 1 0
+  GETTABLEKS R20 R2 K27 ["Resources"]
+  GETTABLEKS R19 R20 K36 ["LOCALIZATION_PROJECT_NAME"]
+  DUPTABLE R20 K37 [{"stringResourceTable", "translationResourceTable"}]
+  GETTABLEKS R22 R2 K27 ["Resources"]
+  GETTABLEKS R21 R22 K29 ["SourceStrings"]
+  SETTABLEKS R21 R20 K31 ["stringResourceTable"]
+  GETTABLEKS R22 R2 K27 ["Resources"]
+  GETTABLEKS R21 R22 K30 ["LocalizedStrings"]
+  SETTABLEKS R21 R20 K32 ["translationResourceTable"]
+  SETTABLE R20 R18 R19
+  SETTABLEKS R18 R17 K34 ["libraries"]
+  DUPCLOSURE R18 K38 [PROTO_0]
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R4
-  CAPTURE VAL R16
-  CAPTURE VAL R13
+  CAPTURE VAL R17
+  CAPTURE VAL R14
   CAPTURE VAL R11
   CAPTURE VAL R1
   CAPTURE VAL R9
   CAPTURE VAL R8
   CAPTURE VAL R12
   CAPTURE VAL R10
+  CAPTURE VAL R13
   CAPTURE VAL R7
-  RETURN R17 1
+  RETURN R18 1

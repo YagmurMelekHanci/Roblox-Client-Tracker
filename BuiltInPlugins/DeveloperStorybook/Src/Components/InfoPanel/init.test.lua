@@ -14,6 +14,6 @@ local expect = JestGlobals.expect
 describe("InfoPanel", function()
 	it("should render correctly", function()
 		local result = render(MockWrap(Roact.createElement(InfoPanel)))
-		expect(result.container.Element.Prompt).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true).Prompt).never.toBeNil()
 	end)
 end)

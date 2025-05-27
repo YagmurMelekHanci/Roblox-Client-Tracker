@@ -12,8 +12,8 @@ local it = JestGlobals.it
 local expect = JestGlobals.expect
 
 describe("Footer", function()
-	it("should render correctly", function()
+	it("should not render unless story is setup in the state", function()
 		local result = render(MockWrap(Roact.createElement(Footer)))
-		expect(result.container.Element.Explore.Contents).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true)).toBeNil()
 	end)
 end)

@@ -33,8 +33,6 @@ local GetFFlagEnableConsolePreparePaymentCheck = IAPExperience.GetEnableConsoleP
 
 local SelectedRobuxPackage = require(Root.Utils.SelectedRobuxPackage)
 
-local FFlagQuickPayUpsell = game:DefineFastFlag("QuickPayUpsell", false)
-
 local requiredServices = {
 	Analytics,
 	ExternalSettings,
@@ -111,16 +109,7 @@ local function launchRobuxUpsell()
 					store:dispatch(SetPromptState(PromptState.LeaveRobloxWarning))
 				end
 			else
-				if FFlagQuickPayUpsell then
-					platformInterface.startRobuxUpsellWebByFlow(state.purchaseFlow, SelectedRobuxPackage.getProductId(state))
-				else
-					local purchaseFlow = state.purchaseFlow
-					if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
-						platformInterface.startRobuxUpsellWeb(SelectedRobuxPackage.getProductId(state))
-					else
-						platformInterface.startRobuxUpsellWeb()
-					end
-				end
+				platformInterface.startRobuxUpsellWebByFlow(state.purchaseFlow, SelectedRobuxPackage.getProductId(state))
 				store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 			end
 		elseif upsellFlow == UpsellFlow.Mobile then

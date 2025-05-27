@@ -1,0 +1,6 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K1 [{"plugin"}]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["plugin"]
+  RETURN R0 1

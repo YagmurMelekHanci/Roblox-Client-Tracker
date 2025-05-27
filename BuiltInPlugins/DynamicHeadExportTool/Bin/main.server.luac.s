@@ -110,8 +110,11 @@ MAIN:
   LOADNIL R8
   GETTABLEKS R9 R2 K26 ["hasInternalPermission"]
   CALL R9 0 1
-  JUMPIFNOT R9 [+10]
-  GETTABLEKS R10 R5 K27 ["DeveloperTools"]
+  JUMPIFNOT R9 [+15]
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R12 R1 K14 ["Packages"]
+  GETTABLEKS R11 R12 K27 ["DeveloperTools"]
+  CALL R10 1 1
   GETTABLEKS R9 R10 K28 ["forPlugin"]
   GETTABLEKS R10 R1 K29 ["Name"]
   GETIMPORT R11 K6 [plugin]

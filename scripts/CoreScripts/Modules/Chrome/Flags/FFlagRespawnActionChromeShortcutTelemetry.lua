@@ -12,5 +12,6 @@ local enrolledInConsoleExperienceControlsIXP = FFlagUnibarMenuOpenHamburger
 	or FFlagUnibarMenuOpenSubmenu
 	or ExperienceMenuABTestManager.default:showConsoleExpControlsMenuNotAvailable()
 
-return IsExperienceMenuABTestEnabled() and enrolledInConsoleExperienceControlsIXP
-	or FFlagRespawnActionChromeShortcutTelemetry
+return IsExperienceMenuABTestEnabled()
+	and enrolledInConsoleExperienceControlsIXP
+	and FFlagRespawnActionChromeShortcutTelemetry

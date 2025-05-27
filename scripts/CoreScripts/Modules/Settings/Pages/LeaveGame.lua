@@ -25,10 +25,17 @@ local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
-local Foundation = require(CorePackages.Packages.Foundation)
+
+local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
+local useFocusGuiObject = ReactFocusNavigation.useFocusGuiObject
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local useLastInputMode = FocusNavigationUtils.useLastInputMode
+
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
+
+local Foundation = require(CorePackages.Packages.Foundation)
 
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(RobloxGui.Modules.Chrome.Service) else nil
@@ -47,6 +54,8 @@ local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
+local focusNavigationService = ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
+
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local FoundationProvider = Foundation.FoundationProvider
@@ -60,14 +69,47 @@ local View = Foundation.View
 
 type Props = {
 	dontLeaveFromButton: (isUsingGamepad: boolean) -> (),
+	pageDisplayed: BindableEvent,
+	pageHidden: BindableEvent,
 }
 
 local function LeaveButtonsContainer(props: Props)
+	local leaveButtonRef = React.useRef(nil)
+
+	local pageVisible, setPageVisible = React.useState(false)
+
+	local useLastInputMode = useLastInputMode()
+	local focusGuiObject = useFocusGuiObject()
+
 	local localizedText = useLocalization({
 		ConfirmLeaveGame = Constants.ConfirmLeaveGameLocalizedKey,
 		LeaveGame = Constants.LeaveGameLocalizedKey,
 		DontLeaveGame = Constants.DontLeaveGameLocalizedKey,
 	}) 
+
+	React.useEffect(function()
+		local displayedConnection = props.pageDisplayed.Event:Connect(function()
+			setPageVisible(true)
+		end)
+		local hiddenConnection = props.pageHidden.Event:Connect(function()
+			setPageVisible(false)
+		end)
+	
+		return function()
+			displayedConnection:Disconnect()
+			hiddenConnection:Disconnect()
+		end
+	end, { props.pageDisplayed, props.pageHidden })
+
+	React.useEffect(function() 
+		if pageVisible then
+			if useLastInputMode == "Focus" then
+				focusGuiObject(leaveButtonRef.current)
+			else
+				focusGuiObject(nil)
+			end
+		end
+	end, { pageVisible, useLastInputMode, leaveButtonRef.current })
 
 	local onLeaveGame = React.useCallback(function()
 		leaveGame(true)
@@ -78,8 +120,8 @@ local function LeaveButtonsContainer(props: Props)
 	end, {})
 
 	return React.createElement(View, {
-		tag = "size-full-0 auto-y col",
 		Position = UDim2.new(0, 0, 0, if isTenFootInterface then 100 else 0),
+		tag = "size-full-0 auto-y col",
 	}, {
 		LeaveGameText = React.createElement(Text, {
 			Text = localizedText.ConfirmLeaveGame,
@@ -102,6 +144,7 @@ local function LeaveButtonsContainer(props: Props)
 				variant = ButtonVariant.SoftEmphasis,
 				width = UDim.new(0, if isTenFootInterface then 300 else 200),
 				LayoutOrder = 1,
+				ref = leaveButtonRef,
 				onActivated = onLeaveGame,
 			}),
 			DontLeaveGameButton = React.createElement(Button, {
@@ -122,10 +165,14 @@ local function LeaveGameContainer(props: Props)
 	return React.createElement(LocalizationProvider, {
 		localization = localization,
 	}, {
-		React.createElement(FoundationProvider, {
+		FoundationProvider = React.createElement(FoundationProvider, {
 			theme = Foundation.Enums.Theme.Dark,
 		}, {
-			LeaveButtonsContainer = React.createElement(LeaveButtonsContainer, props),
+			FocusNavigationProvider = React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
+				value = focusNavigationService,
+			}, {
+				LeaveButtonsContainer = React.createElement(LeaveButtonsContainer, props),
+			})
 		})
 	})
 end
@@ -174,6 +221,8 @@ local function Initialize()
 		this.PageRoot = ReactRoblox.createRoot(this.Page)
 		this.PageRoot:render(React.createElement(LeaveGameContainer, {
 			dontLeaveFromButton = this.DontLeaveFromButton,
+			pageDisplayed = this.Displayed,
+			pageHidden = this.Hidden,
 		}))
 	else
 		local leaveGameConfirmationText = "Are you sure you want to leave the experience?"
@@ -242,7 +291,9 @@ end
 PageInstance = Initialize()
 
 PageInstance.Displayed.Event:connect(function()
-	GuiService.SelectedCoreObject = PageInstance.LeaveGameButton
+	if not FFlagRefactorMenuConfirmationButtons then
+		GuiService.SelectedCoreObject = PageInstance.LeaveGameButton
+	end
 	if FFlagEnableChromeShortcutBar then 
 		if ChromeEnabled then 
 			if FFlagChromeShortcutRemoveRespawnOnLeavePage then

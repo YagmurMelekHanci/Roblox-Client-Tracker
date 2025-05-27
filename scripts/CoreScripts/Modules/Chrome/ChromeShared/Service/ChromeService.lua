@@ -8,11 +8,15 @@ local reverse = LuauPolyfill.Array.reverse
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagChromeFocusOnAndOffUtils = SharedFlags.FFlagChromeFocusOnAndOffUtils
 
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 local Signal = SignalLib.Signal
+local FocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
+local FocusOnChromeSignal = FocusUtils.FocusOnChromeSignal
+local FocusOffChromeSignal = FocusUtils.FocusOffChromeSignal
 local utils = require(Root.Service.ChromeUtils)
 local LocalStore = require(Root.Service.LocalStore)
 local ViewportUtil = require(Root.Service.ViewportUtil)
@@ -160,6 +164,8 @@ export type ChromeService = {
 	getShortcutsFromBar: (ChromeService, shortcutBarId: Types.ShortcutBarId?) -> Types.ShortcutBarItems,
 	getCurrentShortcuts: (ChromeService) -> Types.ShortcutBarItems,
 	onShortcutBarChanged: (ChromeService) -> SignalLib.Signal,
+	setHideShortcutBar: (ChromeService, sourceName: Types.ShortcutOverrideId, hidden: boolean?) -> (),
+	getHideShortcutBar: (ChromeService) -> boolean,
 
 	_currentShortcutBar: ObservableShortcutBar,
 	_shortcutService: ShortcutService.ShortcutService,
@@ -279,7 +285,7 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationHovered = Signal.new()
 	self._triggerMenuIcon = Signal.new()
 	self._triggerVRToggleButton = if isInExperienceUIVREnabled then Signal.new() else nil :: never
-	self._topBarVisibility = if isInExperienceUIVREnabled then Signal.new() else nil :: never
+	self._topBarVisibility = if isInExperienceUIVREnabled then ObservableValue.new(nil) else nil :: never
 
 	self._inFocusNav = ObservableValue.new(false)
 
@@ -298,6 +304,22 @@ function ChromeService.new(): ChromeService
 	if FFlagEnableChromeShortcutBar then
 		self._shortcutService.onShortcutBarChanged:connect(function(shortcutBarId: Types.ShortcutBarId)
 			service._currentShortcutBar:set(shortcutBarId)
+		end)
+	end
+
+	if FFlagChromeFocusOnAndOffUtils then
+		FocusOnChromeSignal:connect(function(integrationIdToFocus: Types.IntegrationId?)
+			-- initial focus on submenu integration not supported
+			if integrationIdToFocus and not self._subMenuConfig["nine_dot"][integrationIdToFocus] then
+				service:setSelected(integrationIdToFocus)
+			end
+			service:enableFocusNav()
+		end)
+		FocusOffChromeSignal:connect(function()
+			service:disableFocusNav()
+			if FFlagEnableChromeShortcutBar then
+				service:setShortcutBar(nil)
+			end
 		end)
 	end
 
@@ -1062,6 +1084,14 @@ if FFlagEnableChromeShortcutBar then
 
 	function ChromeService:onTriggerMenuIcon()
 		return self._triggerMenuIcon
+	end
+
+	function ChromeService:setHideShortcutBar(sourceName: Types.ShortcutOverrideId, hidden: boolean?)
+		self._shortcutService:setHideShortcutBar(sourceName, hidden)
+	end
+
+	function ChromeService:getHideShortcutBar()
+		return self._shortcutService:getHideShortcutBar()
 	end
 end
 

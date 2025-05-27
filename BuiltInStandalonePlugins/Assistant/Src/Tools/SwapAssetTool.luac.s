@@ -37,8 +37,8 @@ PROTO_0:
   JUMPIFNOT R11 [+13]
   NAMECALL R11 R9 K10 ["GetPivot"]
   CALL R11 1 1
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K11 ["setPosition"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K11 ["setPositionOnGround"]
   MOVE R13 R10
   LOADB R14 0
   GETTABLEKS R15 R11 K12 ["Position"]
@@ -84,24 +84,15 @@ MAIN:
   GETTABLEKS R4 R0 K10 ["Packages"]
   GETTABLEKS R3 R4 K11 ["AssistantUI"]
   CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R0 K12 ["Src"]
-  GETTABLEKS R5 R6 K13 ["CommandSrc"]
-  GETTABLEKS R4 R5 K14 ["Utils"]
-  CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K12 ["Src"]
-  GETTABLEKS R6 R7 K15 ["Util"]
-  GETTABLEKS R5 R6 K16 ["WorldPlacement"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K17 [PROTO_0]
+  GETTABLEKS R4 R2 K12 ["Utils"]
+  GETTABLEKS R3 R4 K13 ["Tools"]
+  DUPCLOSURE R4 K14 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R1
-  CAPTURE VAL R4
-  DUPTABLE R6 K21 [{"name", "description", "inputSchema"}]
-  LOADK R7 K22 ["swap_asset"]
-  SETTABLEKS R7 R6 K18 ["name"]
-  LOADK R7 K23 ["Swaps a priorly inserted asset with a new one. 
+  DUPTABLE R5 K18 [{"name", "description", "inputSchema"}]
+  LOADK R6 K19 ["swap_asset"]
+  SETTABLEKS R6 R5 K15 ["name"]
+  LOADK R6 K20 ["Swaps a priorly inserted asset with a new one. 
 MUST be used in conjunction with the insert_from_marketplace tool. 
 
 Intended use: 
@@ -109,33 +100,33 @@ Intended use:
 2. Read primaryResult's insertGuid.
 3. Then call swap_asset with any new assetId.
 "]
-  SETTABLEKS R7 R6 K19 ["description"]
-  DUPTABLE R7 K27 [{"type", "properties", "required"}]
-  LOADK R8 K28 ["object"]
-  SETTABLEKS R8 R7 K24 ["type"]
-  DUPTABLE R8 K31 [{"assetId", "insertGuid"}]
-  DUPTABLE R9 K32 [{"type", "description"}]
-  LOADK R10 K33 ["string"]
-  SETTABLEKS R10 R9 K24 ["type"]
-  LOADK R10 K34 ["The asset ID of the new asset to load."]
-  SETTABLEKS R10 R9 K19 ["description"]
-  SETTABLEKS R9 R8 K29 ["assetId"]
-  DUPTABLE R9 K32 [{"type", "description"}]
-  LOADK R10 K33 ["string"]
-  SETTABLEKS R10 R9 K24 ["type"]
-  LOADK R10 K35 ["The unique GUID of the asset to swap. The GUID MUST be the same as the one returned from insert_from_marketplace tool, otherwise the command WILL NOT work."]
-  SETTABLEKS R10 R9 K19 ["description"]
-  SETTABLEKS R9 R8 K30 ["insertGuid"]
-  SETTABLEKS R8 R7 K25 ["properties"]
-  NEWTABLE R8 0 2
-  LOADK R9 K29 ["assetId"]
-  LOADK R10 K30 ["insertGuid"]
-  SETLIST R8 R9 2 [1]
-  SETTABLEKS R8 R7 K26 ["required"]
-  SETTABLEKS R7 R6 K20 ["inputSchema"]
-  DUPCLOSURE R7 K36 [PROTO_1]
-  CAPTURE VAL R5
-  DUPTABLE R8 K39 [{"definition", "handler"}]
-  SETTABLEKS R6 R8 K37 ["definition"]
-  SETTABLEKS R7 R8 K38 ["handler"]
-  RETURN R8 1
+  SETTABLEKS R6 R5 K16 ["description"]
+  DUPTABLE R6 K24 [{"type", "properties", "required"}]
+  LOADK R7 K25 ["object"]
+  SETTABLEKS R7 R6 K21 ["type"]
+  DUPTABLE R7 K28 [{"assetId", "insertGuid"}]
+  DUPTABLE R8 K29 [{"type", "description"}]
+  LOADK R9 K30 ["string"]
+  SETTABLEKS R9 R8 K21 ["type"]
+  LOADK R9 K31 ["The asset ID of the new asset to load."]
+  SETTABLEKS R9 R8 K16 ["description"]
+  SETTABLEKS R8 R7 K26 ["assetId"]
+  DUPTABLE R8 K29 [{"type", "description"}]
+  LOADK R9 K30 ["string"]
+  SETTABLEKS R9 R8 K21 ["type"]
+  LOADK R9 K32 ["The unique GUID of the asset to swap. The GUID MUST be the same as the one returned from insert_from_marketplace tool, otherwise the command WILL NOT work."]
+  SETTABLEKS R9 R8 K16 ["description"]
+  SETTABLEKS R8 R7 K27 ["insertGuid"]
+  SETTABLEKS R7 R6 K22 ["properties"]
+  NEWTABLE R7 0 2
+  LOADK R8 K26 ["assetId"]
+  LOADK R9 K27 ["insertGuid"]
+  SETLIST R7 R8 2 [1]
+  SETTABLEKS R7 R6 K23 ["required"]
+  SETTABLEKS R6 R5 K17 ["inputSchema"]
+  DUPCLOSURE R6 K33 [PROTO_1]
+  CAPTURE VAL R4
+  DUPTABLE R7 K36 [{"definition", "handler"}]
+  SETTABLEKS R5 R7 K34 ["definition"]
+  SETTABLEKS R6 R7 K35 ["handler"]
+  RETURN R7 1

@@ -39,10 +39,6 @@ PROTO_0:
   RETURN R2 1
 
 PROTO_1:
-  GETIMPORT R1 K1 [warn]
-  LOADK R2 K2 ["Error fetching group roles data:"]
-  MOVE R3 R0
-  CALL R1 2 0
   RETURN R0 0
 
 PROTO_2:

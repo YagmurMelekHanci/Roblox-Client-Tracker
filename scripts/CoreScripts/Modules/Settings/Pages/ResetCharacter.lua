@@ -26,10 +26,17 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local Cryo = require(CorePackages.Packages.Cryo)
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
-local Foundation = require(CorePackages.Packages.Foundation)
+
+local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
+local useFocusGuiObject = ReactFocusNavigation.useFocusGuiObject
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local useLastInputMode = FocusNavigationUtils.useLastInputMode
+
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
+
+local Foundation = require(CorePackages.Packages.Foundation)
 
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(RobloxGui.Modules.Chrome.Service) else nil
@@ -46,7 +53,11 @@ local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShort
 local FFlagRespawnActionChromeShortcutTelemetry = require(RobloxGui.Modules.Chrome.Flags.FFlagRespawnActionChromeShortcutTelemetry)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 
+local FFlagResetTelemetryTypeCheckFix = game:DefineFastFlag("ResetTelemetryTypeCheckFix", false)
+
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
+
+local focusNavigationService = ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
 
 local FoundationProvider = Foundation.FoundationProvider
 local Button = Foundation.Button
@@ -64,22 +75,55 @@ export type ResetProps = {
 type Props = {
 	dontResetCharFromButton: (isUsingGamepad: boolean) -> (),
 	onResetFunction: () -> (),
+	pageDisplayed: BindableEvent,
+	pageHidden: BindableEvent,
 }
 
 local function ResetCharacterButtonsContainer(props: Props)
+	local resetCharacterButtonRef = React.useRef(nil)
+
+	local pageVisible, setPageVisible = React.useState(false)
+
+	local useLastInputMode = useLastInputMode()
+	local focusGuiObject = useFocusGuiObject()
+
 	local localizedText = useLocalization({
 		ConfirmResetCharacter = Constants.ConfirmResetCharacterLocalizedKey,
 		ResetCharacter = Constants.ResetCharacterLocalizedKey,
 		DontResetCharacter = Constants.DontResetCharacterLocalizedKey,
 	}) 
 
+	React.useEffect(function()
+		local displayedConnection = props.pageDisplayed.Event:Connect(function()
+			setPageVisible(true)
+		end)
+		local hiddenConnection = props.pageHidden.Event:Connect(function()
+			setPageVisible(false)
+		end)
+	
+		return function()
+			displayedConnection:Disconnect()
+			hiddenConnection:Disconnect()
+		end
+	end, { props.pageDisplayed, props.pageHidden })
+
+	React.useEffect(function() 
+		if pageVisible then
+			if useLastInputMode == "Focus" then
+				focusGuiObject(resetCharacterButtonRef.current)
+			else
+				focusGuiObject(nil)
+			end
+		end
+	end, { pageVisible, useLastInputMode, resetCharacterButtonRef.current })
+
 	local onDontResetCharacter = React.useCallback(function()
 		props.dontResetCharFromButton(utility:IsUsingGamepad())
 	end, {})
 
 	return React.createElement(View, {
-		tag = "size-full-0 auto-y col",
 		Position = UDim2.new(0, 0, 0, if isTenFootInterface then 100 else 0),
+		tag = "size-full-0 auto-y col",
 	}, {
 		ResetCharacterText = React.createElement(Text, {
 			Text = localizedText.ConfirmResetCharacter,
@@ -102,6 +146,7 @@ local function ResetCharacterButtonsContainer(props: Props)
 				variant = ButtonVariant.SoftEmphasis,
 				width = UDim.new(0, if isTenFootInterface then 300 else 200),
 				LayoutOrder = 1,
+				ref = resetCharacterButtonRef,
 				onActivated = props.onResetFunction,
 			}),
 			DontResetCharacterButton = React.createElement(Button, {
@@ -122,10 +167,14 @@ local function ResetCharacterContainer(props: Props)
 	return React.createElement(LocalizationProvider, {
 		localization = localization,
 	}, {
-		React.createElement(FoundationProvider, {
+		FoundationProvider = React.createElement(FoundationProvider, {
 			theme = Foundation.Enums.Theme.Dark,
 		}, {
-			ResetCharacterButtonsContainer = React.createElement(ResetCharacterButtonsContainer, props),
+			FocusNavigationProvider = React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
+				value = focusNavigationService,
+			}, {
+				ResetCharacterButtonsContainer = React.createElement(ResetCharacterButtonsContainer, props),
+			})
 		})
 	})
 end
@@ -222,8 +271,14 @@ local function Initialize()
 		end
 
 		local respawnCustomFields = { confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId) }
-		if FFlagRespawnActionChromeShortcutTelemetry and props and props.resetTelemetryFields then
-			respawnCustomFields = Cryo.Dictionary.join(respawnCustomFields, props.resetTelemetryFields)
+		if FFlagResetTelemetryTypeCheckFix then
+			if FFlagRespawnActionChromeShortcutTelemetry and props and type(props) == "table" and props.resetTelemetryFields then
+				respawnCustomFields = Cryo.Dictionary.join(respawnCustomFields, props.resetTelemetryFields)
+			end
+		else
+			if FFlagRespawnActionChromeShortcutTelemetry and props and props.resetTelemetryFields then
+				respawnCustomFields = Cryo.Dictionary.join(respawnCustomFields, props.resetTelemetryFields)
+			end
 		end
 		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
 			Constants.AnalyticsRespawnCharacterName, respawnCustomFields)
@@ -264,6 +319,8 @@ local function Initialize()
 		this.PageRoot:render(React.createElement(ResetCharacterContainer, {
 			onResetFunction = onResetFunction,
 			dontResetCharFromButton = this.DontResetCharFromButton,
+			pageDisplayed = this.Displayed,
+			pageHidden = this.Hidden,
 		}))
 	end
 
@@ -277,7 +334,9 @@ local isOpen = false
 
 PageInstance.Displayed.Event:connect(function()
 	isOpen = true
-	GuiService.SelectedCoreObject = PageInstance.ResetCharacterButton
+	if not FFlagRefactorMenuConfirmationButtons then
+		GuiService.SelectedCoreObject = PageInstance.ResetCharacterButton
+	end
 	if FFlagEnableChromeShortcutBar then 
 		if ChromeEnabled then 
 			if FFlagChromeShortcutRemoveLeaveOnRespawnPage then

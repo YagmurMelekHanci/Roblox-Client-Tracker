@@ -21,7 +21,7 @@ describe("StylesList", function()
 			},
 		})))
 
-		expect(result.container.Element.Content).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true).Content).never.toBeNil()
 	end)
 
 	it("should render correctly when there are styles", function()
@@ -34,6 +34,6 @@ describe("StylesList", function()
 				Item = {},
 			},
 		})))
-		expect(result.container.Element.Content.Styles).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true).Content.Styles).never.toBeNil()
 	end)
 end)

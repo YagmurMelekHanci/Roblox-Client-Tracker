@@ -15,6 +15,7 @@
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
 local React = require(Main.Packages.React)
+local Dash = require(Main.Packages.Dash)
 
 local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -23,7 +24,6 @@ local withContext = ContextServices.withContext
 local Foundation = require(Main.Packages.Foundation)
 local Text = Foundation.Text
 
-local Dash = Framework.Dash
 local join = Dash.join
 local reverse = Dash.reverse
 
@@ -115,7 +115,7 @@ function StoryHost:_mountInspector(currentHost: Instance)
 	end
 	-- The inspector can fail to attach in certain weak security contexts
 	pcall(function()
-		self.inspector = Framework.DeveloperTools.forLibrary("DeveloperStorybook", {
+		self.inspector = Main.Packages.DeveloperTools.forLibrary("DeveloperStorybook", {
 			rootInstance = pluginGui,
 			rootPrefix = reverse(reversePrefix),
 			pickerParent = currentHost:FindFirstAncestor("InfoPanel"),

@@ -11,25 +11,25 @@
 
 local Main = script.Parent.Parent.Parent
 local React = require(Main.Packages.React)
-local Framework = require(Main.Packages.Framework)
-
-local Dash = Framework.Dash
+local Dash = require(Main.Packages.Dash)
 local mapOne = Dash.mapOne
 
+local Framework = require(Main.Packages.Framework)
 local joinTags = Framework.Styling.joinTags
 
 local Foundation = require(Main.Packages.Foundation)
 local View = Foundation.View
 local Text = Foundation.Text
 
-local PanelEntry = React.PureComponent:extend("InfoPanel")
-
-function PanelEntry:render()
-	local props = self.props
-	local header = props.Header
+function PanelEntry(props: {
+	Header: string,
+	Description: string,
+	LayoutOrder: number?,
+	IsTitle: boolean?,
+	Size: UDim2?,
+	children: React.ReactNode,
+})
 	local description = props.Description
-	local layoutOrder = props.LayoutOrder
-	local size = props.Size
 
 	local contentChildren = props.children
 	local hasChild = contentChildren and mapOne(contentChildren)
@@ -38,7 +38,7 @@ function PanelEntry:render()
 	local children = {
 		Name = React.createElement(Text, {
 			LayoutOrder = 1,
-			Text = header,
+			Text = props.Header,
 			tag = joinTags(
 				"text-wrap size-full-0 auto-y text-align-x-left",
 				if props.IsTitle then "text-heading-medium" else "text-heading-small"
@@ -55,8 +55,8 @@ function PanelEntry:render()
 		}, contentChildren),
 	}
 	return React.createElement(View, {
-		LayoutOrder = layoutOrder,
-		Size = size,
+		LayoutOrder = props.LayoutOrder,
+		Size = props.Size,
 		tag = "size-full-0 padding-medium col gap-medium auto-y",
 	}, children)
 end

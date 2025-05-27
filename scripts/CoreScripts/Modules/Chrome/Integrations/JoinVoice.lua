@@ -4,12 +4,17 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 
+local React = require(CorePackages.Packages.React)
+local Foundation = require(CorePackages.Packages.Foundation)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
+local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
+local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local VOICE_JOIN_PROGRESS = VoiceConstants.VOICE_JOIN_PROGRESS
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local observeCurrentContextId = require(CorePackages.Workspace.Packages.CrossExperience).Utils.observeCurrentContextId
+local VoiceChatConstants = require(CorePackages.Workspace.Packages.VoiceChatCore).Constants
 local CEV_CONTEXT_ID =
 	require(CorePackages.Workspace.Packages.CrossExperience).Constants.AUDIO_FOCUS_MANAGEMENT.CEV.CONTEXT_ID
 
@@ -25,10 +30,30 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 local FFlagJoinVoiceHideWhenPartyVoiceFocused = game:DefineFastFlag("JoinVoiceHideWhenPartyVoiceFocused", false)
 local FFlagCheckShouldShowJoinVoiceInEvent = game:DefineFastFlag("CheckShouldShowJoinVoiceInEvent", false)
 
+local FIntJoinVoiceFtuxShowDelayMs = game:DefineFastInt("JoinVoiceFtuxShowDelayMs", 1000)
+local FIntJoinVoiceFtuxDismissDelayMs = game:DefineFastInt("JoinVoiceFtuxDismissDelayMs", 5000)
+local FFlagEnableChromeJoinVoiceTooltip = game:DefineFastFlag("EnableChromeJoinVoiceTooltip", false)
+
 local ChromeService = require(Chrome.Service)
 
+local ICON_SIZE = Constants.ICON_SIZE
+
 local isPrivateVoiceFocused = false
+local wasJoinVoiceSeenInThisPlaySession = false
 local lastKnownIntegrationAvailability: number = ChromeService.AvailabilitySignal.Unavailable
+
+function getShouldShowJoinVoiceTooltip(): boolean
+	local likelySpeakingBubblesRemoved = VoiceChatServiceManager:HasSeamlessVoiceFeature(
+		VoiceChatConstants.SeamlessVoiceFeatures.LikelySpeakingBubblesRemoved
+	)
+	local ageVerificationOverlay = VoiceChatServiceManager:FetchAgeVerificationOverlay()
+	local shouldShow = not wasJoinVoiceSeenInThisPlaySession
+		and likelySpeakingBubblesRemoved
+		and ageVerificationOverlay
+		and ageVerificationOverlay.showJoinVoiceUpsellTooltip
+	wasJoinVoiceSeenInThisPlaySession = true
+	return shouldShow
+end
 
 local joinVoice
 joinVoice = ChromeService:register({
@@ -43,7 +68,30 @@ joinVoice = ChromeService:register({
 	end,
 	components = {
 		Icon = function()
-			return CommonIcon("icons/controls/publicAudioJoin")
+			if FFlagEnableChromeJoinVoiceTooltip then
+				local shouldShowTooltip = getShouldShowJoinVoiceTooltip()
+				return React.createElement(Foundation.View, {
+					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+				}, {
+					Icon = CommonIcon("icons/controls/publicAudioJoin"),
+					Tooltip = CommonFtuxTooltip({
+						isIconVisible = shouldShowTooltip,
+						dismissOnOutsideInput = true,
+						headerKey = "CoreScripts.FTUX.Heading.JoinVoice",
+						bodyKey = "CoreScripts.FTUX.Label.JoinVoiceDescription",
+						showDelay = FIntJoinVoiceFtuxShowDelayMs,
+						dismissDelay = FIntJoinVoiceFtuxDismissDelayMs,
+						onDismissed = function()
+							pcall(function()
+								VoiceChatServiceManager:RecordUserSeenModal(
+									VoiceConstants.MODAL_IDS.IN_EXP_JOIN_VOICE_UPSELL
+								)
+							end)
+						end,
+					}),
+				})
+			end
+			return CommonIcon("icons/controls/publicAudioJoin") :: any
 		end,
 	},
 })

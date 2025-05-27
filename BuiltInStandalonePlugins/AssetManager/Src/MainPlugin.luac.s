@@ -1,17 +1,19 @@
 PROTO_0:
-  DUPTABLE R1 K6 [{"PluginController", "InputController", "ExplorerController", "ItemsController", "SearchController", "LayoutController"}]
-  GETTABLEKS R2 R0 K7 ["pluginController"]
-  SETTABLEKS R2 R1 K0 ["PluginController"]
-  GETTABLEKS R2 R0 K8 ["inputController"]
-  SETTABLEKS R2 R1 K1 ["InputController"]
-  GETTABLEKS R2 R0 K9 ["explorerController"]
-  SETTABLEKS R2 R1 K2 ["ExplorerController"]
-  GETTABLEKS R2 R0 K10 ["itemsController"]
-  SETTABLEKS R2 R1 K3 ["ItemsController"]
-  GETTABLEKS R2 R0 K11 ["searchController"]
-  SETTABLEKS R2 R1 K4 ["SearchController"]
-  GETTABLEKS R2 R0 K12 ["layoutController"]
-  SETTABLEKS R2 R1 K5 ["LayoutController"]
+  DUPTABLE R1 K7 [{"Input", "PluginController", "InputController", "ExplorerController", "ItemsController", "SearchController", "LayoutController"}]
+  GETTABLEKS R2 R0 K8 ["input"]
+  SETTABLEKS R2 R1 K0 ["Input"]
+  GETTABLEKS R2 R0 K9 ["pluginController"]
+  SETTABLEKS R2 R1 K1 ["PluginController"]
+  GETTABLEKS R2 R0 K10 ["inputController"]
+  SETTABLEKS R2 R1 K2 ["InputController"]
+  GETTABLEKS R2 R0 K11 ["explorerController"]
+  SETTABLEKS R2 R1 K3 ["ExplorerController"]
+  GETTABLEKS R2 R0 K12 ["itemsController"]
+  SETTABLEKS R2 R1 K4 ["ItemsController"]
+  GETTABLEKS R2 R0 K13 ["searchController"]
+  SETTABLEKS R2 R1 K5 ["SearchController"]
+  GETTABLEKS R2 R0 K14 ["layoutController"]
+  SETTABLEKS R2 R1 K6 ["LayoutController"]
   RETURN R1 1
 
 PROTO_1:
@@ -207,11 +209,25 @@ PROTO_8:
   GETTABLEKS R6 R0 K20 ["networking"]
   CALL R2 4 1
   SETTABLEKS R2 R0 K26 ["itemsController"]
+  GETUPVAL R3 15
+  CALL R3 0 1
+  JUMPIFNOT R3 [+15]
+  GETUPVAL R3 16
+  GETTABLEKS R2 R3 K11 ["new"]
+  GETTABLEKS R3 R0 K21 ["pluginController"]
+  GETTABLEKS R4 R0 K25 ["layoutController"]
+  GETTABLEKS R5 R0 K26 ["itemsController"]
+  GETTABLEKS R6 R0 K24 ["searchController"]
+  GETTABLEKS R7 R0 K23 ["explorerController"]
+  CALL R2 5 1
+  JUMP [+1]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K27 ["input"]
   GETUPVAL R2 1
   CALL R2 0 1
   JUMPIFNOT R2 [+5]
   GETTABLEKS R4 R1 K9 ["Plugin"]
-  NAMECALL R2 R0 K27 ["_loadSettingsIntoControllers"]
+  NAMECALL R2 R0 K28 ["_loadSettingsIntoControllers"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -236,42 +252,66 @@ PROTO_10:
   NAMECALL R3 R0 K2 ["_getAllControllers"]
   CALL R3 1 -1
   CALL R1 -1 0
-  GETTABLEKS R1 R0 K3 ["networking"]
+  GETUPVAL R1 2
+  CALL R1 0 1
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K3 ["input"]
+  NAMECALL R1 R1 K4 ["destroy"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K5 ["networking"]
   NAMECALL R1 R1 K4 ["destroy"]
   CALL R1 1 0
   GETTABLEKS R1 R0 K0 ["pluginController"]
   NAMECALL R1 R1 K4 ["destroy"]
   CALL R1 1 0
-  GETTABLEKS R1 R0 K5 ["inputController"]
+  GETTABLEKS R1 R0 K6 ["inputController"]
   NAMECALL R1 R1 K4 ["destroy"]
   CALL R1 1 0
-  GETTABLEKS R1 R0 K6 ["explorerController"]
+  GETTABLEKS R1 R0 K7 ["explorerController"]
   NAMECALL R1 R1 K4 ["destroy"]
   CALL R1 1 0
-  GETTABLEKS R1 R0 K7 ["itemsController"]
+  GETTABLEKS R1 R0 K8 ["itemsController"]
   NAMECALL R1 R1 K4 ["destroy"]
   CALL R1 1 0
-  GETTABLEKS R1 R0 K8 ["searchController"]
+  GETTABLEKS R1 R0 K9 ["searchController"]
   NAMECALL R1 R1 K4 ["destroy"]
   CALL R1 1 0
-  GETTABLEKS R1 R0 K9 ["layoutController"]
+  GETTABLEKS R1 R0 K10 ["layoutController"]
   NAMECALL R1 R1 K4 ["destroy"]
   CALL R1 1 0
   RETURN R0 0
 
 PROTO_11:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["inputController"]
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["input"]
   GETTABLEKS R3 R0 K1 ["KeyCode"]
-  NAMECALL R1 R1 K2 ["addKeyPress"]
+  NAMECALL R1 R1 K2 ["handleKeyDown"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["inputController"]
+  GETTABLEKS R3 R0 K1 ["KeyCode"]
+  NAMECALL R1 R1 K4 ["addKeyPress"]
   CALL R1 2 0
   RETURN R0 0
 
 PROTO_12:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["inputController"]
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["input"]
   GETTABLEKS R3 R0 K1 ["KeyCode"]
-  NAMECALL R1 R1 K2 ["removeKeyPress"]
+  NAMECALL R1 R1 K2 ["handleKeyUp"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["inputController"]
+  GETTABLEKS R3 R0 K1 ["KeyCode"]
+  NAMECALL R1 R1 K4 ["removeKeyPress"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -282,7 +322,7 @@ PROTO_13:
   GETTABLEKS R4 R2 K3 ["enabled"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K4 ["provide"]
-  NEWTABLE R6 0 13
+  NEWTABLE R6 0 14
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K5 ["new"]
   MOVE R8 R3
@@ -299,97 +339,100 @@ PROTO_13:
   GETTABLEKS R10 R0 K8 ["DEPRECATED_stylizer"]
   GETTABLEKS R11 R0 K9 ["localization"]
   GETTABLEKS R12 R0 K10 ["analytics"]
-  GETTABLEKS R13 R0 K11 ["pluginController"]
-  GETTABLEKS R14 R0 K12 ["inputController"]
-  GETTABLEKS R15 R0 K13 ["explorerController"]
-  GETTABLEKS R16 R0 K14 ["itemsController"]
-  GETTABLEKS R17 R0 K15 ["searchController"]
-  GETTABLEKS R18 R0 K16 ["layoutController"]
-  GETTABLEKS R19 R0 K17 ["networking"]
-  SETLIST R6 R7 13 [1]
-  DUPTABLE R7 K19 [{"MainWidget"}]
+  GETTABLEKS R13 R0 K11 ["input"]
+  GETTABLEKS R14 R0 K12 ["pluginController"]
+  GETTABLEKS R15 R0 K13 ["inputController"]
+  GETTABLEKS R16 R0 K14 ["explorerController"]
+  GETTABLEKS R17 R0 K15 ["itemsController"]
+  GETTABLEKS R18 R0 K16 ["searchController"]
+  GETTABLEKS R19 R0 K17 ["layoutController"]
+  GETTABLEKS R20 R0 K18 ["networking"]
+  SETLIST R6 R7 14 [1]
+  DUPTABLE R7 K20 [{"MainWidget"}]
   GETUPVAL R9 4
-  GETTABLEKS R8 R9 K20 ["createElement"]
+  GETTABLEKS R8 R9 K21 ["createElement"]
   GETUPVAL R9 5
   NEWTABLE R10 16 0
-  LOADK R11 K21 ["AssetManager"]
-  SETTABLEKS R11 R10 K22 ["Id"]
-  SETTABLEKS R4 R10 K23 ["Enabled"]
+  LOADK R11 K22 ["AssetManager"]
+  SETTABLEKS R11 R10 K23 ["Id"]
+  SETTABLEKS R4 R10 K24 ["Enabled"]
   GETTABLEKS R11 R0 K9 ["localization"]
   LOADK R13 K2 ["Plugin"]
-  LOADK R14 K24 ["Name"]
-  NAMECALL R11 R11 K25 ["getText"]
+  LOADK R14 K25 ["Name"]
+  NAMECALL R11 R11 K26 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K26 ["Title"]
-  GETIMPORT R11 K30 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R11 R10 K28 ["ZIndexBehavior"]
-  GETIMPORT R11 K33 [Enum.InitialDockState.Bottom]
-  SETTABLEKS R11 R10 K31 ["InitialDockState"]
-  GETIMPORT R11 K35 [Vector2.new]
+  SETTABLEKS R11 R10 K27 ["Title"]
+  GETIMPORT R11 K31 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K29 ["ZIndexBehavior"]
+  GETIMPORT R11 K34 [Enum.InitialDockState.Bottom]
+  SETTABLEKS R11 R10 K32 ["InitialDockState"]
+  GETIMPORT R11 K36 [Vector2.new]
   LOADN R12 128
   LOADN R13 224
   CALL R11 2 1
-  SETTABLEKS R11 R10 K36 ["Size"]
-  GETIMPORT R11 K35 [Vector2.new]
+  SETTABLEKS R11 R10 K37 ["Size"]
+  GETIMPORT R11 K36 [Vector2.new]
   LOADN R12 250
   LOADN R13 200
   CALL R11 2 1
-  SETTABLEKS R11 R10 K37 ["MinSize"]
-  GETTABLEKS R11 R0 K38 ["onClose"]
-  SETTABLEKS R11 R10 K39 ["OnClose"]
-  GETTABLEKS R12 R1 K40 ["PluginLoaderContext"]
-  GETTABLEKS R11 R12 K41 ["mainDockWidget"]
-  SETTABLEKS R11 R10 K42 ["Widget"]
-  GETTABLEKS R11 R0 K43 ["onDockWidgetCreated"]
-  SETTABLEKS R11 R10 K44 ["OnWidgetCreated"]
-  GETTABLEKS R11 R0 K45 ["onRestore"]
-  SETTABLEKS R11 R10 K46 ["OnWidgetRestored"]
+  SETTABLEKS R11 R10 K38 ["MinSize"]
+  GETTABLEKS R11 R0 K39 ["onClose"]
+  SETTABLEKS R11 R10 K40 ["OnClose"]
+  GETTABLEKS R12 R1 K41 ["PluginLoaderContext"]
+  GETTABLEKS R11 R12 K42 ["mainDockWidget"]
+  SETTABLEKS R11 R10 K43 ["Widget"]
+  GETTABLEKS R11 R0 K44 ["onDockWidgetCreated"]
+  SETTABLEKS R11 R10 K45 ["OnWidgetCreated"]
+  GETTABLEKS R11 R0 K46 ["onRestore"]
+  SETTABLEKS R11 R10 K47 ["OnWidgetRestored"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K47 ["ShouldRestore"]
+  SETTABLEKS R11 R10 K48 ["ShouldRestore"]
   GETUPVAL R13 4
-  GETTABLEKS R12 R13 K48 ["Change"]
-  GETTABLEKS R11 R12 K23 ["Enabled"]
-  GETTABLEKS R12 R0 K49 ["onWidgetEnabledChanged"]
+  GETTABLEKS R12 R13 K49 ["Change"]
+  GETTABLEKS R11 R12 K24 ["Enabled"]
+  GETTABLEKS R12 R0 K50 ["onWidgetEnabledChanged"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K52 [{"Wrapper", "StyleLink"}]
+  DUPTABLE R11 K53 [{"Wrapper", "StyleLink"}]
   GETUPVAL R13 4
-  GETTABLEKS R12 R13 K20 ["createElement"]
+  GETTABLEKS R12 R13 K21 ["createElement"]
   GETUPVAL R13 6
   NEWTABLE R14 1 0
   GETUPVAL R16 4
-  GETTABLEKS R15 R16 K53 ["Tag"]
-  LOADK R16 K54 ["X-Fill X-Column"]
+  GETTABLEKS R15 R16 K54 ["Tag"]
+  LOADK R16 K55 ["X-Fill X-Column"]
   SETTABLE R16 R14 R15
-  DUPTABLE R15 K57 [{"App", "KeyboardListener"}]
+  DUPTABLE R15 K58 [{"App", "KeyboardListener"}]
   GETUPVAL R17 4
-  GETTABLEKS R16 R17 K20 ["createElement"]
+  GETTABLEKS R16 R17 K21 ["createElement"]
   GETUPVAL R17 7
   CALL R16 1 1
-  SETTABLEKS R16 R15 K55 ["App"]
+  SETTABLEKS R16 R15 K56 ["App"]
   GETUPVAL R17 4
-  GETTABLEKS R16 R17 K20 ["createElement"]
+  GETTABLEKS R16 R17 K21 ["createElement"]
   GETUPVAL R17 8
-  DUPTABLE R18 K60 [{"OnKeyPressed", "OnKeyReleased"}]
+  DUPTABLE R18 K61 [{"OnKeyPressed", "OnKeyReleased"}]
   NEWCLOSURE R19 P0
+  CAPTURE UPVAL U9
   CAPTURE VAL R0
-  SETTABLEKS R19 R18 K58 ["OnKeyPressed"]
+  SETTABLEKS R19 R18 K59 ["OnKeyPressed"]
   NEWCLOSURE R19 P1
+  CAPTURE UPVAL U9
   CAPTURE VAL R0
-  SETTABLEKS R19 R18 K59 ["OnKeyReleased"]
+  SETTABLEKS R19 R18 K60 ["OnKeyReleased"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K56 ["KeyboardListener"]
+  SETTABLEKS R16 R15 K57 ["KeyboardListener"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K50 ["Wrapper"]
+  SETTABLEKS R12 R11 K51 ["Wrapper"]
   GETUPVAL R13 4
-  GETTABLEKS R12 R13 K20 ["createElement"]
-  LOADK R13 K51 ["StyleLink"]
-  DUPTABLE R14 K62 [{"StyleSheet"}]
+  GETTABLEKS R12 R13 K21 ["createElement"]
+  LOADK R13 K52 ["StyleLink"]
+  DUPTABLE R14 K63 [{"StyleSheet"}]
   GETTABLEKS R15 R0 K7 ["design"]
-  SETTABLEKS R15 R14 K61 ["StyleSheet"]
+  SETTABLEKS R15 R14 K62 ["StyleSheet"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K51 ["StyleLink"]
+  SETTABLEKS R12 R11 K52 ["StyleLink"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K18 ["MainWidget"]
+  SETTABLEKS R8 R7 K19 ["MainWidget"]
   CALL R5 2 -1
   RETURN R5 -1
 
@@ -444,85 +487,98 @@ MAIN:
   GETIMPORT R18 K5 [require]
   GETTABLEKS R21 R0 K8 ["Src"]
   GETTABLEKS R20 R21 K31 ["Controllers"]
-  GETTABLEKS R19 R20 K32 ["ExplorerController"]
+  GETTABLEKS R19 R20 K32 ["Input"]
   CALL R18 1 1
   GETIMPORT R19 K5 [require]
   GETTABLEKS R22 R0 K8 ["Src"]
   GETTABLEKS R21 R22 K31 ["Controllers"]
-  GETTABLEKS R20 R21 K33 ["InputController"]
+  GETTABLEKS R20 R21 K33 ["ExplorerController"]
   CALL R19 1 1
   GETIMPORT R20 K5 [require]
   GETTABLEKS R23 R0 K8 ["Src"]
   GETTABLEKS R22 R23 K31 ["Controllers"]
-  GETTABLEKS R21 R22 K34 ["ItemsController"]
+  GETTABLEKS R21 R22 K34 ["InputController"]
   CALL R20 1 1
   GETIMPORT R21 K5 [require]
   GETTABLEKS R24 R0 K8 ["Src"]
   GETTABLEKS R23 R24 K31 ["Controllers"]
-  GETTABLEKS R22 R23 K35 ["LayoutController"]
+  GETTABLEKS R22 R23 K35 ["ItemsController"]
   CALL R21 1 1
   GETIMPORT R22 K5 [require]
   GETTABLEKS R25 R0 K8 ["Src"]
   GETTABLEKS R24 R25 K31 ["Controllers"]
-  GETTABLEKS R23 R24 K36 ["PluginController"]
+  GETTABLEKS R23 R24 K36 ["LayoutController"]
   CALL R22 1 1
   GETIMPORT R23 K5 [require]
   GETTABLEKS R26 R0 K8 ["Src"]
   GETTABLEKS R25 R26 K31 ["Controllers"]
-  GETTABLEKS R24 R25 K37 ["SearchController"]
+  GETTABLEKS R24 R25 K37 ["PluginController"]
   CALL R23 1 1
   GETIMPORT R24 K5 [require]
-  GETTABLEKS R26 R0 K8 ["Src"]
-  GETTABLEKS R25 R26 K38 ["Networking"]
+  GETTABLEKS R27 R0 K8 ["Src"]
+  GETTABLEKS R26 R27 K31 ["Controllers"]
+  GETTABLEKS R25 R26 K38 ["SearchController"]
   CALL R24 1 1
   GETIMPORT R25 K5 [require]
-  GETTABLEKS R28 R0 K8 ["Src"]
-  GETTABLEKS R27 R28 K39 ["Util"]
-  GETTABLEKS R26 R27 K40 ["loadSettings"]
+  GETTABLEKS R27 R0 K8 ["Src"]
+  GETTABLEKS R26 R27 K39 ["Networking"]
   CALL R25 1 1
   GETIMPORT R26 K5 [require]
   GETTABLEKS R29 R0 K8 ["Src"]
-  GETTABLEKS R28 R29 K39 ["Util"]
-  GETTABLEKS R27 R28 K41 ["saveSettings"]
+  GETTABLEKS R28 R29 K40 ["Util"]
+  GETTABLEKS R27 R28 K41 ["loadSettings"]
   CALL R26 1 1
   GETIMPORT R27 K5 [require]
   GETTABLEKS R30 R0 K8 ["Src"]
-  GETTABLEKS R29 R30 K42 ["Flags"]
-  GETTABLEKS R28 R29 K43 ["getFFlagAmrSaveConfig"]
+  GETTABLEKS R29 R30 K40 ["Util"]
+  GETTABLEKS R28 R29 K42 ["saveSettings"]
   CALL R27 1 1
-  GETTABLEKS R28 R1 K44 ["PureComponent"]
-  LOADK R30 K45 ["MainPlugin"]
-  NAMECALL R28 R28 K46 ["extend"]
-  CALL R28 2 1
-  DUPCLOSURE R29 K47 [PROTO_0]
-  SETTABLEKS R29 R28 K48 ["_getAllControllers"]
-  DUPCLOSURE R29 K49 [PROTO_1]
-  CAPTURE VAL R25
-  SETTABLEKS R29 R28 K50 ["_loadSettingsIntoControllers"]
-  DUPCLOSURE R29 K51 [PROTO_8]
-  CAPTURE VAL R4
-  CAPTURE VAL R27
+  GETIMPORT R28 K5 [require]
+  GETTABLEKS R31 R0 K8 ["Src"]
+  GETTABLEKS R30 R31 K43 ["Flags"]
+  GETTABLEKS R29 R30 K44 ["getFFlagAmrSaveConfig"]
+  CALL R28 1 1
+  GETIMPORT R29 K5 [require]
+  GETTABLEKS R32 R0 K8 ["Src"]
+  GETTABLEKS R31 R32 K43 ["Flags"]
+  GETTABLEKS R30 R31 K45 ["getFFlagAmrRefactorInput"]
+  CALL R29 1 1
+  GETTABLEKS R30 R1 K46 ["PureComponent"]
+  LOADK R32 K47 ["MainPlugin"]
+  NAMECALL R30 R30 K48 ["extend"]
+  CALL R30 2 1
+  DUPCLOSURE R31 K49 [PROTO_0]
+  SETTABLEKS R31 R30 K50 ["_getAllControllers"]
+  DUPCLOSURE R31 K51 [PROTO_1]
   CAPTURE VAL R26
+  SETTABLEKS R31 R30 K52 ["_loadSettingsIntoControllers"]
+  DUPCLOSURE R31 K53 [PROTO_8]
+  CAPTURE VAL R4
+  CAPTURE VAL R28
+  CAPTURE VAL R27
   CAPTURE VAL R9
   CAPTURE VAL R15
   CAPTURE VAL R16
   CAPTURE VAL R13
   CAPTURE VAL R14
+  CAPTURE VAL R25
+  CAPTURE VAL R23
+  CAPTURE VAL R20
+  CAPTURE VAL R19
   CAPTURE VAL R24
   CAPTURE VAL R22
-  CAPTURE VAL R19
-  CAPTURE VAL R18
-  CAPTURE VAL R23
   CAPTURE VAL R21
-  CAPTURE VAL R20
-  SETTABLEKS R29 R28 K52 ["init"]
-  DUPCLOSURE R29 K53 [PROTO_9]
-  SETTABLEKS R29 R28 K54 ["didUpdate"]
-  DUPCLOSURE R29 K55 [PROTO_10]
+  CAPTURE VAL R29
+  CAPTURE VAL R18
+  SETTABLEKS R31 R30 K54 ["init"]
+  DUPCLOSURE R31 K55 [PROTO_9]
+  SETTABLEKS R31 R30 K56 ["didUpdate"]
+  DUPCLOSURE R31 K57 [PROTO_10]
+  CAPTURE VAL R28
   CAPTURE VAL R27
-  CAPTURE VAL R26
-  SETTABLEKS R29 R28 K56 ["willUnmount"]
-  DUPCLOSURE R29 K57 [PROTO_13]
+  CAPTURE VAL R29
+  SETTABLEKS R31 R30 K58 ["willUnmount"]
+  DUPCLOSURE R31 K59 [PROTO_13]
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
@@ -532,5 +588,6 @@ MAIN:
   CAPTURE VAL R7
   CAPTURE VAL R17
   CAPTURE VAL R8
-  SETTABLEKS R29 R28 K58 ["render"]
-  RETURN R28 1
+  CAPTURE VAL R29
+  SETTABLEKS R31 R30 K60 ["render"]
+  RETURN R30 1

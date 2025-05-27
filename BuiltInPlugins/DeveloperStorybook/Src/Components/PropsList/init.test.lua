@@ -23,6 +23,6 @@ describe("PropsList", function()
 				},
 			},
 		})))
-		expect(result.container.Element.Content.TestProp.Comment).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true).Content.TestProp.Comment).never.toBeNil()
 	end)
 end)

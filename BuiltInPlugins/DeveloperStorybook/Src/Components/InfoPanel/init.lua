@@ -7,12 +7,12 @@ local Types = require(Main.Src.Types)
 local React = require(Main.Packages.React)
 local ReactIs = require(Main.Packages.ReactIs)
 local RoactRodux = require(Main.Packages.RoactRodux)
+local Dash = require(Main.Packages.Dash)
 
 local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local Dash = Framework.Dash
 local assign = Dash.assign
 local forEach = Dash.forEach
 local keys = Dash.keys

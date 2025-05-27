@@ -57,6 +57,8 @@ local GetFFlagEnableSeamlessVoiceDataConsentToast =
 local GetFFlagSeamlessVoiceConsentToastPolicy =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeamlessVoiceConsentToastPolicy
 local GetFFlagEnableFtuxExitOnMuteToggle = require(VoiceChatCore.Flags.GetFFlagEnableFtuxExitOnMuteToggle)
+local GetFFlagEnableVoiceChatMuteForVideoCaptures =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceChatMuteForVideoCaptures
 
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
@@ -138,6 +140,8 @@ local MicrophoneDevicePermissionsLogging =
 	require(RobloxGui.Modules.Settings.Resources.MicrophoneDevicePermissionsLogging)
 
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
+local CaptureService = if GetFFlagEnableVoiceChatMuteForVideoCaptures() then game:GetService("CaptureService") else nil
+
 local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 
 local GetFFlagUsePostRecordUserSeenGeneralModal = VoiceChatFlags.GetFFlagUsePostRecordUserSeenGeneralModal
@@ -267,6 +271,7 @@ local VoiceChatServiceManager = {
 	hasLeftFTUX = false,
 	deniedMicPermissions = nil,
 	isInitialJoin = false,
+	CaptureService = CaptureService,
 }
 
 -- Getting/Setting these properties on VoiceChatServiceManager passes through to CoreVoiceManager instance.
@@ -365,7 +370,8 @@ function VoiceChatServiceManager.new(
 	AnalyticsService,
 	NotificationService,
 	getPermissionsFunction,
-	AvatarChatService
+	AvatarChatService,
+	CaptureService
 )
 	local self = setmetatable({
 		service = VoiceChatService,
@@ -380,6 +386,7 @@ function VoiceChatServiceManager.new(
 		SignalREventTable = {} :: EventTable,
 		coreVoiceManager = coreVoiceManager,
 		_mutedAnyone = false,
+		CaptureService = CaptureService,
 	}, VoiceChatServiceManager)
 
 	if GetFFlagUseLuaSignalrConsumer() then
@@ -592,6 +599,10 @@ function VoiceChatServiceManager.new(
 			self:SetVoiceConnectCookieValue(true)
 		else
 			self:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
+		end
+
+		if GetFFlagEnableVoiceChatMuteForVideoCaptures() and self.CaptureService:IsCapturingVideo() then
+			self:MuteAll(true, "Capture")
 		end
 
 		if GetFFlagEnableConnectDisconnectAnalytics() and shouldSendConnectDisconnectAnalytics then

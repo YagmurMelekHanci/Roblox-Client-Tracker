@@ -59,10 +59,16 @@ local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSe
 local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
 local FFlagUnbindRenderSteps = game:DefineFastFlag("UnbindRenderSteps", false)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
+local FFlagRemovePreferredTextSizePcall = game:DefineFastFlag("RemovePreferredTextSizePcall", false)
 
-local isPreferredTextSizePropValid, _result = pcall(function() -- TODO(UIBLOX-1002): Ideally we'd use an engine feature here instead of a pcall. This will be removed when we have the EnablePreferredTextSizeAccessGuiService engine feature
-	return GuiService.PreferredTextSize
-end)
+local isPreferredTextSizePropValid, _result 
+if FFlagRemovePreferredTextSizePcall then
+	isPreferredTextSizePropValid = game:GetEngineFeature("EnablePreferredTextSizeAccessGuiService")
+else
+	isPreferredTextSizePropValid, _result = pcall(function() -- TODO(UIBLOX-1002): Ideally we'd use an engine feature here instead of a pcall. This will be removed when we have the EnablePreferredTextSizeAccessGuiService engine feature
+		return GuiService.PreferredTextSize
+	end)
+end
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled

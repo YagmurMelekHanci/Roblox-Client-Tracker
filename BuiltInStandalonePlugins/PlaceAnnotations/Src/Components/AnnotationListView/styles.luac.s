@@ -250,15 +250,17 @@ MAIN:
   CALL R14 2 1
   MOVE R15 R3
   LOADK R16 K79 [">> ScrollingFrame"]
-  DUPTABLE R17 K81 [{"ScrollBarThickness"}]
+  DUPTABLE R17 K82 [{"ScrollBarThickness", "ScrollBarImageColor3"}]
   LOADN R18 8
   SETTABLEKS R18 R17 K80 ["ScrollBarThickness"]
+  LOADK R18 K83 ["$BackgroundDefault"]
+  SETTABLEKS R18 R17 K81 ["ScrollBarImageColor3"]
   CALL R15 2 -1
   SETLIST R13 R14 -1 [1]
   CALL R10 3 1
   MOVE R11 R3
-  LOADK R12 K82 [">> #EmptyState"]
-  DUPTABLE R13 K83 [{"Size"}]
+  LOADK R12 K84 [">> #EmptyState"]
+  DUPTABLE R13 K85 [{"Size"}]
   GETIMPORT R14 K48 [UDim2.fromScale]
   LOADN R15 1
   LOADN R16 0
@@ -272,12 +274,12 @@ MAIN:
   SETTABLEKS R18 R17 K74 ["FlexMode"]
   CALL R15 2 1
   MOVE R16 R3
-  LOADK R17 K84 ["> #AnnotationIcon"]
-  DUPTABLE R18 K87 [{"Image", "ImageTransparency", "Size"}]
-  LOADK R19 K88 ["$AnnotationLarge"]
-  SETTABLEKS R19 R18 K85 ["Image"]
-  LOADK R19 K89 [0.4]
-  SETTABLEKS R19 R18 K86 ["ImageTransparency"]
+  LOADK R17 K86 ["> #AnnotationIcon"]
+  DUPTABLE R18 K89 [{"Image", "ImageTransparency", "Size"}]
+  LOADK R19 K90 ["$AnnotationLarge"]
+  SETTABLEKS R19 R18 K87 ["Image"]
+  LOADK R19 K91 [0.4]
+  SETTABLEKS R19 R18 K88 ["ImageTransparency"]
   GETIMPORT R19 K56 [UDim2.fromOffset]
   LOADN R20 40
   LOADN R21 40
@@ -285,10 +287,10 @@ MAIN:
   SETTABLEKS R19 R18 K26 ["Size"]
   CALL R16 2 1
   MOVE R17 R3
-  LOADK R18 K90 ["> #NoCommentsYet"]
-  DUPTABLE R19 K92 [{"Font", "Size"}]
-  LOADK R20 K93 ["$FontBold"]
-  SETTABLEKS R20 R19 K91 ["Font"]
+  LOADK R18 K92 ["> #NoCommentsYet"]
+  DUPTABLE R19 K94 [{"Font", "Size"}]
+  LOADK R20 K95 ["$FontBold"]
+  SETTABLEKS R20 R19 K93 ["Font"]
   GETIMPORT R20 K31 [UDim2.new]
   LOADN R21 1
   LOADN R22 216
@@ -298,14 +300,14 @@ MAIN:
   SETTABLEKS R20 R19 K26 ["Size"]
   CALL R17 2 1
   MOVE R18 R3
-  LOADK R19 K94 ["> #ToAdd"]
-  DUPTABLE R20 K98 [{"TextTransparency", "TextSize", "TextWrapped", "AutomaticSize", "Size"}]
-  LOADK R21 K89 [0.4]
-  SETTABLEKS R21 R20 K95 ["TextTransparency"]
-  LOADK R21 K99 ["$FontSizeS"]
-  SETTABLEKS R21 R20 K96 ["TextSize"]
+  LOADK R19 K96 ["> #ToAdd"]
+  DUPTABLE R20 K100 [{"TextTransparency", "TextSize", "TextWrapped", "AutomaticSize", "Size"}]
+  LOADK R21 K91 [0.4]
+  SETTABLEKS R21 R20 K97 ["TextTransparency"]
+  LOADK R21 K101 ["$FontSizeS"]
+  SETTABLEKS R21 R20 K98 ["TextSize"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K97 ["TextWrapped"]
+  SETTABLEKS R21 R20 K99 ["TextWrapped"]
   GETIMPORT R21 K34 [Enum.AutomaticSize.Y]
   SETTABLEKS R21 R20 K27 ["AutomaticSize"]
   GETIMPORT R21 K31 [UDim2.new]
@@ -317,24 +319,24 @@ MAIN:
   SETTABLEKS R21 R20 K26 ["Size"]
   CALL R18 2 1
   MOVE R19 R3
-  LOADK R20 K100 ["> TextButton"]
-  DUPTABLE R21 K102 [{"TextColor3", "TextSize", "Font", "AutomaticSize", "BackgroundColor3"}]
-  LOADK R22 K103 ["$SemanticColorContentStaticLight"]
-  SETTABLEKS R22 R21 K101 ["TextColor3"]
-  LOADK R22 K104 ["$FontSizeM"]
-  SETTABLEKS R22 R21 K96 ["TextSize"]
-  LOADK R22 K93 ["$FontBold"]
-  SETTABLEKS R22 R21 K91 ["Font"]
+  LOADK R20 K102 ["> TextButton"]
+  DUPTABLE R21 K104 [{"TextColor3", "TextSize", "Font", "AutomaticSize", "BackgroundColor3"}]
+  LOADK R22 K105 ["$SemanticColorContentStaticLight"]
+  SETTABLEKS R22 R21 K103 ["TextColor3"]
+  LOADK R22 K106 ["$FontSizeM"]
+  SETTABLEKS R22 R21 K98 ["TextSize"]
+  LOADK R22 K95 ["$FontBold"]
+  SETTABLEKS R22 R21 K93 ["Font"]
   GETIMPORT R22 K51 [Enum.AutomaticSize.XY]
   SETTABLEKS R22 R21 K27 ["AutomaticSize"]
-  LOADK R22 K105 ["$EmptyStateButtonFill"]
+  LOADK R22 K107 ["$EmptyStateButtonFill"]
   SETTABLEKS R22 R21 K14 ["BackgroundColor3"]
   NEWTABLE R22 0 4
   MOVE R23 R3
   LOADK R24 K59 ["::UICorner"]
   DUPTABLE R25 K61 [{"CornerRadius"}]
   GETIMPORT R26 K42 [UDim.new]
-  LOADK R27 K106 [0.3]
+  LOADK R27 K108 [0.3]
   LOADN R28 0
   CALL R26 2 1
   SETTABLEKS R26 R25 K60 ["CornerRadius"]
@@ -342,13 +344,13 @@ MAIN:
   MOVE R24 R3
   LOADK R25 K62 [":hover"]
   DUPTABLE R26 K15 [{"BackgroundColor3"}]
-  LOADK R27 K107 ["$EmptyStateButtonHovered"]
+  LOADK R27 K109 ["$EmptyStateButtonHovered"]
   SETTABLEKS R27 R26 K14 ["BackgroundColor3"]
   CALL R24 2 1
   MOVE R25 R3
   LOADK R26 K65 [":pressed"]
   DUPTABLE R27 K15 [{"BackgroundColor3"}]
-  LOADK R28 K108 ["$EmptyStateButtonSelected"]
+  LOADK R28 K110 ["$EmptyStateButtonSelected"]
   SETTABLEKS R28 R27 K14 ["BackgroundColor3"]
   CALL R25 2 1
   MOVE R26 R3
@@ -380,24 +382,24 @@ MAIN:
   SETLIST R14 R15 -1 [1]
   CALL R11 3 1
   MOVE R12 R3
-  LOADK R13 K109 ["> #ErrorWrapper >> #ErrorAlert"]
+  LOADK R13 K111 ["> #ErrorWrapper >> #ErrorAlert"]
   DUPTABLE R14 K15 [{"BackgroundColor3"}]
-  LOADK R15 K110 ["$BackgroundPaper"]
+  LOADK R15 K112 ["$BackgroundPaper"]
   SETTABLEKS R15 R14 K14 ["BackgroundColor3"]
   NEWTABLE R15 0 1
   MOVE R16 R3
-  LOADK R17 K111 [">> TextButton"]
-  DUPTABLE R18 K112 [{"AutomaticSize", "BackgroundColor3", "TextColor3", "TextSize", "Font", "BackgroundTransparency"}]
+  LOADK R17 K113 [">> TextButton"]
+  DUPTABLE R18 K114 [{"AutomaticSize", "BackgroundColor3", "TextColor3", "TextSize", "Font", "BackgroundTransparency"}]
   GETIMPORT R19 K51 [Enum.AutomaticSize.XY]
   SETTABLEKS R19 R18 K27 ["AutomaticSize"]
-  LOADK R19 K105 ["$EmptyStateButtonFill"]
+  LOADK R19 K107 ["$EmptyStateButtonFill"]
   SETTABLEKS R19 R18 K14 ["BackgroundColor3"]
-  LOADK R19 K103 ["$SemanticColorContentStaticLight"]
-  SETTABLEKS R19 R18 K101 ["TextColor3"]
-  LOADK R19 K99 ["$FontSizeS"]
-  SETTABLEKS R19 R18 K96 ["TextSize"]
-  LOADK R19 K93 ["$FontBold"]
-  SETTABLEKS R19 R18 K91 ["Font"]
+  LOADK R19 K105 ["$SemanticColorContentStaticLight"]
+  SETTABLEKS R19 R18 K103 ["TextColor3"]
+  LOADK R19 K101 ["$FontSizeS"]
+  SETTABLEKS R19 R18 K98 ["TextSize"]
+  LOADK R19 K95 ["$FontBold"]
+  SETTABLEKS R19 R18 K93 ["Font"]
   LOADN R19 0
   SETTABLEKS R19 R18 K28 ["BackgroundTransparency"]
   NEWTABLE R19 0 4
@@ -437,13 +439,13 @@ MAIN:
   MOVE R22 R3
   LOADK R23 K62 [":hover"]
   DUPTABLE R24 K15 [{"BackgroundColor3"}]
-  LOADK R25 K107 ["$EmptyStateButtonHovered"]
+  LOADK R25 K109 ["$EmptyStateButtonHovered"]
   SETTABLEKS R25 R24 K14 ["BackgroundColor3"]
   CALL R22 2 1
   MOVE R23 R3
   LOADK R24 K65 [":pressed"]
   DUPTABLE R25 K15 [{"BackgroundColor3"}]
-  LOADK R26 K108 ["$EmptyStateButtonSelected"]
+  LOADK R26 K110 ["$EmptyStateButtonSelected"]
   SETTABLEKS R26 R25 K14 ["BackgroundColor3"]
   CALL R23 2 -1
   SETLIST R19 R20 -1 [1]

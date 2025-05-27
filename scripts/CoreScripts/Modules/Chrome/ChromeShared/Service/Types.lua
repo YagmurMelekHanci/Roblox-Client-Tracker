@@ -40,6 +40,7 @@ export type ShortcutRegisterProps = {
 export type ShortcutBarId = string
 export type ShortcutBarProps = ShortcutIdList
 export type ShortcutBarList = { [ShortcutBarId]: ShortcutBarProps }
+export type ShortcutOverrideId = string
 
 export type SecondaryAction = {
 	label: string,

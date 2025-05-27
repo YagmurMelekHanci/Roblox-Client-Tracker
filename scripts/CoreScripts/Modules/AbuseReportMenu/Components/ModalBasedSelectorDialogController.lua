@@ -61,8 +61,8 @@ local function mountModalSelector(viewportHeight, viewportWidth, selections, onS
 		local panelObject = UIManager.getInstance():getPanelObject(PanelType.MoreMenu)
 		local frame = Instance.new("Frame")
 		frame.BackgroundTransparency = 1
-		frame.Position = UDim2.new(0, 0, 0, -topCornerInset.Y)
-		frame.Size = UDim2.new(1, 0, 1, topCornerInset.Y)
+		frame.Position = UDim2.new(0, 0, 0, 0)
+		frame.Size = UDim2.new(1, 0, 1, 0)
 		frame.ZIndex = 10
 		frame.Parent = panelObject
 		elements.modalSelectorFrame = frame

@@ -224,7 +224,7 @@ local function resolveBundlePromptState(
 						return getRobuxUpsellSuggestions(price, robuxBalance, paymentPlatform):andThen(
 							-- success handler
 							function(upsellSuggestions)
-								store:dispatch(PromptNativeUpsellSuggestions(upsellSuggestions.products, 1))
+								store:dispatch(PromptNativeUpsellSuggestions(upsellSuggestions.products, 1, upsellSuggestions.virtualItemBadgeType))
 							end,
 							-- failure handler
 							function()

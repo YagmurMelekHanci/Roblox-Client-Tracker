@@ -105,7 +105,7 @@ local function retryAfterUpsell(retriesRemaining)
 											if not hasPendingRequest(store:getState()) then
 												return
 											end
-											store:dispatch(PromptNativeUpsellSuggestions(upsellSuggestions.products, 1))
+											store:dispatch(PromptNativeUpsellSuggestions(upsellSuggestions.products, 1, upsellSuggestions.virtualItemBadgeType))
 											store:dispatch(sendCounter(Counter.UpsellModalShownAgain))
 										end,
 										-- failure handler

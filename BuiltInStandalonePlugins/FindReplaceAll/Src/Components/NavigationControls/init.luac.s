@@ -116,25 +116,32 @@ PROTO_0:
   GETTABLEKS R12 R13 K13 ["Tag"]
   GETUPVAL R13 6
   LOADK R14 K47 ["data-testid=FindPreviousButton"]
-  GETTABLEKS R16 R4 K48 ["enabled"]
+  GETTABLEKS R16 R0 K48 ["NavigationEnabled"]
+  JUMPIFNOT R16 [+5]
+  GETTABLEKS R16 R4 K49 ["enabled"]
   JUMPIFNOT R16 [+2]
-  LOADK R15 K49 ["Hover"]
+  LOADK R15 K50 ["Hover"]
   JUMP [+1]
   LOADNIL R15
-  CALL R13 2 1
+  GETTABLEKS R17 R0 K48 ["NavigationEnabled"]
+  JUMPIF R17 [+2]
+  LOADK R16 K51 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R16
+  CALL R13 3 1
   SETTABLE R13 R11 R12
-  DUPTABLE R12 K51 [{"Icon"}]
+  DUPTABLE R12 K53 [{"Icon"}]
   GETUPVAL R13 3
-  LOADK R14 K52 ["ImageLabel"]
+  LOADK R14 K54 ["ImageLabel"]
   NEWTABLE R15 2 0
-  LOADK R16 K53 [0.5]
-  SETTABLEKS R16 R15 K54 ["ImageTransparency"]
+  LOADK R16 K55 [0.5]
+  SETTABLEKS R16 R15 K56 ["ImageTransparency"]
   GETUPVAL R17 5
   GETTABLEKS R16 R17 K13 ["Tag"]
-  LOADK R17 K55 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard FindReplaceAll-BG-Input FindPreviousIcon"]
+  LOADK R17 K57 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard FindReplaceAll-BG-Input FindPreviousIcon"]
   SETTABLE R17 R15 R16
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["Icon"]
+  SETTABLEKS R13 R12 K52 ["Icon"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K16 ["FindPreviousButton"]
   GETUPVAL R9 3
@@ -156,31 +163,38 @@ PROTO_0:
   GETUPVAL R14 5
   GETTABLEKS R13 R14 K40 ["Event"]
   GETTABLEKS R12 R13 K45 ["MouseButton1Click"]
-  GETTABLEKS R13 R0 K56 ["onFindNextClicked"]
+  GETTABLEKS R13 R0 K58 ["onFindNextClicked"]
   SETTABLE R13 R11 R12
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K13 ["Tag"]
   GETUPVAL R13 6
-  LOADK R14 K57 ["data-testid=FindNextButton"]
-  GETTABLEKS R16 R3 K48 ["enabled"]
+  LOADK R14 K59 ["data-testid=FindNextButton"]
+  GETTABLEKS R16 R0 K48 ["NavigationEnabled"]
+  JUMPIFNOT R16 [+5]
+  GETTABLEKS R16 R3 K49 ["enabled"]
   JUMPIFNOT R16 [+2]
-  LOADK R15 K49 ["Hover"]
+  LOADK R15 K50 ["Hover"]
   JUMP [+1]
   LOADNIL R15
-  CALL R13 2 1
+  GETTABLEKS R17 R0 K48 ["NavigationEnabled"]
+  JUMPIF R17 [+2]
+  LOADK R16 K51 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R16
+  CALL R13 3 1
   SETTABLE R13 R11 R12
-  DUPTABLE R12 K51 [{"Icon"}]
+  DUPTABLE R12 K53 [{"Icon"}]
   GETUPVAL R13 3
-  LOADK R14 K52 ["ImageLabel"]
+  LOADK R14 K54 ["ImageLabel"]
   NEWTABLE R15 2 0
-  LOADK R16 K53 [0.5]
-  SETTABLEKS R16 R15 K54 ["ImageTransparency"]
+  LOADK R16 K55 [0.5]
+  SETTABLEKS R16 R15 K56 ["ImageTransparency"]
   GETUPVAL R17 5
   GETTABLEKS R16 R17 K13 ["Tag"]
-  LOADK R17 K58 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard FindReplaceAll-BG-Input FindNextIcon"]
+  LOADK R17 K60 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard FindReplaceAll-BG-Input FindNextIcon"]
   SETTABLE R17 R15 R16
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["Icon"]
+  SETTABLEKS R13 R12 K52 ["Icon"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K17 ["FindNextButton"]
   CALL R5 3 -1

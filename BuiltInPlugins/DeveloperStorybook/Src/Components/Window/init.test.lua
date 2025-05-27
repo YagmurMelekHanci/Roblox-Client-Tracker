@@ -14,6 +14,6 @@ local expect = JestGlobals.expect
 describe("Window", function()
 	it("should create and destroy Window without errors", function()
 		local result = render(MockWrap(Roact.createElement(Window, {})))
-		expect(result.container.Element).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true)).never.toBeNil()
 	end)
 end)

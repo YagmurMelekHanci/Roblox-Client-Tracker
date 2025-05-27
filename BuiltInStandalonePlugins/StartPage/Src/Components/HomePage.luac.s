@@ -1187,12 +1187,11 @@ MAIN:
   GETTABLEKS R28 R29 K37 ["Resources"]
   GETTABLEKS R27 R28 K38 ["PlaceholderMomentumContent"]
   CALL R26 1 1
-  GETIMPORT R28 K5 [require]
-  GETTABLEKS R31 R0 K23 ["Src"]
-  GETTABLEKS R30 R31 K39 ["SharedFlags"]
-  GETTABLEKS R29 R30 K40 ["getFFlagEnableKnowledgeFeeds"]
-  CALL R28 1 1
-  GETTABLEKS R27 R28 K40 ["getFFlagEnableKnowledgeFeeds"]
+  GETIMPORT R27 K5 [require]
+  GETTABLEKS R30 R0 K23 ["Src"]
+  GETTABLEKS R29 R30 K39 ["SharedFlags"]
+  GETTABLEKS R28 R29 K40 ["getFFlagEnableKnowledgeFeeds"]
+  CALL R27 1 1
   CALL R27 0 1
   GETIMPORT R28 K5 [require]
   GETTABLEKS R31 R0 K23 ["Src"]

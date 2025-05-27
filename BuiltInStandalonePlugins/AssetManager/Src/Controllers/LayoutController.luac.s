@@ -1,102 +1,110 @@
 PROTO_0:
-  DUPTABLE R2 K19 [{"_isMock", "_root", "_sidebarSize", "_browserSize", "_sidebarMinSize", "_browserMinSize", "_pluginWidth", "_showSidebar", "_browserLayout", "_columnWidths", "_columns", "_connections", "OnSidebarToggled", "OnPluginWidthChanged", "OnIsCompactChanged", "OnAppSizesChanged", "OnBrowserLayoutChanged", "OnColumnWidthsChanged", "OnColumnsChanged"}]
+  DUPTABLE R2 K23 [{"_isMock", "_root", "_contentList", "_contentGrid", "_sidebarSize", "_browserSize", "_sidebarMinSize", "_browserMinSize", "_pluginWidth", "_showSidebar", "_browserLayout", "_gridWidth", "_gridCellsPerRow", "_columnWidths", "_columns", "_connections", "OnSidebarToggled", "OnPluginWidthChanged", "OnIsCompactChanged", "OnAppSizesChanged", "OnBrowserLayoutChanged", "OnColumnWidthsChanged", "OnColumnsChanged"}]
   SETTABLEKS R1 R2 K0 ["_isMock"]
   LOADNIL R3
   SETTABLEKS R3 R2 K1 ["_root"]
-  GETIMPORT R3 K22 [UDim.new]
-  LOADK R4 K23 [0.2]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K2 ["_contentList"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K3 ["_contentGrid"]
+  GETIMPORT R3 K26 [UDim.new]
+  LOADK R4 K27 [0.2]
   LOADN R5 0
   CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["_sidebarSize"]
-  GETIMPORT R3 K22 [UDim.new]
-  LOADK R4 K24 [0.8]
+  SETTABLEKS R3 R2 K4 ["_sidebarSize"]
+  GETIMPORT R3 K26 [UDim.new]
+  LOADK R4 K28 [0.8]
   LOADN R5 0
   CALL R3 2 1
-  SETTABLEKS R3 R2 K3 ["_browserSize"]
-  GETIMPORT R3 K22 [UDim.new]
+  SETTABLEKS R3 R2 K5 ["_browserSize"]
+  GETIMPORT R3 K26 [UDim.new]
   LOADN R4 0
   LOADN R5 100
   CALL R3 2 1
-  SETTABLEKS R3 R2 K4 ["_sidebarMinSize"]
-  GETIMPORT R3 K22 [UDim.new]
+  SETTABLEKS R3 R2 K6 ["_sidebarMinSize"]
+  GETIMPORT R3 K26 [UDim.new]
   LOADN R4 0
   LOADN R5 144
   CALL R3 2 1
-  SETTABLEKS R3 R2 K5 ["_browserMinSize"]
+  SETTABLEKS R3 R2 K7 ["_browserMinSize"]
   LOADN R3 0
-  SETTABLEKS R3 R2 K6 ["_pluginWidth"]
+  SETTABLEKS R3 R2 K8 ["_pluginWidth"]
   LOADB R3 1
-  SETTABLEKS R3 R2 K7 ["_showSidebar"]
-  DUPTABLE R3 K27 [{"GridSize", "ViewType"}]
+  SETTABLEKS R3 R2 K9 ["_showSidebar"]
+  DUPTABLE R3 K31 [{"GridSize", "ViewType"}]
   LOADN R4 100
-  SETTABLEKS R4 R3 K25 ["GridSize"]
+  SETTABLEKS R4 R3 K29 ["GridSize"]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K26 ["ViewType"]
-  GETTABLEKS R4 R5 K28 ["List"]
-  SETTABLEKS R4 R3 K26 ["ViewType"]
-  SETTABLEKS R3 R2 K8 ["_browserLayout"]
+  GETTABLEKS R5 R6 K30 ["ViewType"]
+  GETTABLEKS R4 R5 K32 ["List"]
+  SETTABLEKS R4 R3 K30 ["ViewType"]
+  SETTABLEKS R3 R2 K10 ["_browserLayout"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K11 ["_gridWidth"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["_gridCellsPerRow"]
   NEWTABLE R3 0 1
   GETUPVAL R4 1
   SETLIST R3 R4 1 [1]
-  SETTABLEKS R3 R2 K9 ["_columnWidths"]
+  SETTABLEKS R3 R2 K13 ["_columnWidths"]
   NEWTABLE R3 0 5
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K29 ["AssetInfoField"]
-  GETTABLEKS R4 R5 K30 ["DisplayName"]
+  GETTABLEKS R5 R6 K33 ["AssetInfoField"]
+  GETTABLEKS R4 R5 K34 ["DisplayName"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K29 ["AssetInfoField"]
-  GETTABLEKS R5 R6 K31 ["AssetId"]
+  GETTABLEKS R6 R7 K33 ["AssetInfoField"]
+  GETTABLEKS R5 R6 K35 ["AssetId"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K29 ["AssetInfoField"]
-  GETTABLEKS R6 R7 K32 ["AssetType"]
+  GETTABLEKS R7 R8 K33 ["AssetInfoField"]
+  GETTABLEKS R6 R7 K36 ["AssetType"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K29 ["AssetInfoField"]
-  GETTABLEKS R7 R8 K33 ["Modified"]
+  GETTABLEKS R8 R9 K33 ["AssetInfoField"]
+  GETTABLEKS R7 R8 K37 ["Modified"]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K29 ["AssetInfoField"]
-  GETTABLEKS R8 R9 K34 ["Creator"]
+  GETTABLEKS R9 R10 K33 ["AssetInfoField"]
+  GETTABLEKS R8 R9 K38 ["Creator"]
   SETLIST R3 R4 5 [1]
-  SETTABLEKS R3 R2 K10 ["_columns"]
+  SETTABLEKS R3 R2 K14 ["_columns"]
   NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K11 ["_connections"]
+  SETTABLEKS R3 R2 K15 ["_connections"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K21 ["new"]
+  GETTABLEKS R3 R4 K25 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R2 K12 ["OnSidebarToggled"]
+  SETTABLEKS R3 R2 K16 ["OnSidebarToggled"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K21 ["new"]
+  GETTABLEKS R3 R4 K25 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R2 K13 ["OnPluginWidthChanged"]
+  SETTABLEKS R3 R2 K17 ["OnPluginWidthChanged"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K21 ["new"]
+  GETTABLEKS R3 R4 K25 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R2 K14 ["OnIsCompactChanged"]
+  SETTABLEKS R3 R2 K18 ["OnIsCompactChanged"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K21 ["new"]
+  GETTABLEKS R3 R4 K25 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R2 K15 ["OnAppSizesChanged"]
+  SETTABLEKS R3 R2 K19 ["OnAppSizesChanged"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K21 ["new"]
+  GETTABLEKS R3 R4 K25 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R2 K16 ["OnBrowserLayoutChanged"]
+  SETTABLEKS R3 R2 K20 ["OnBrowserLayoutChanged"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K21 ["new"]
+  GETTABLEKS R3 R4 K25 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R2 K17 ["OnColumnWidthsChanged"]
+  SETTABLEKS R3 R2 K21 ["OnColumnWidthsChanged"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K21 ["new"]
+  GETTABLEKS R3 R4 K25 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R2 K18 ["OnColumnsChanged"]
+  SETTABLEKS R3 R2 K22 ["OnColumnsChanged"]
   GETUPVAL R5 3
   FASTCALL2 SETMETATABLE R2 R5 [+4]
   MOVE R4 R2
-  GETIMPORT R3 K36 [setmetatable]
+  GETIMPORT R3 K40 [setmetatable]
   CALL R3 2 0
-  GETTABLEKS R3 R2 K10 ["_columns"]
+  GETTABLEKS R3 R2 K14 ["_columns"]
   LOADNIL R4
   LOADNIL R5
   FORGPREP R3
-  GETTABLEKS R8 R2 K9 ["_columnWidths"]
+  GETTABLEKS R8 R2 K13 ["_columnWidths"]
   GETUPVAL R9 1
   SETTABLE R9 R8 R6
   FORGLOOP R3 2 [-5]
@@ -428,6 +436,54 @@ PROTO_27:
   CALL R2 1 0
   RETURN R0 0
 
+PROTO_28:
+  SETTABLEKS R1 R0 K0 ["_gridWidth"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["X"]
+  GETTABLEKS R2 R3 K2 ["Offset"]
+  GETTABLEKS R5 R0 K3 ["_browserLayout"]
+  GETTABLEKS R4 R5 K4 ["GridSize"]
+  ADD R3 R4 R2
+  GETTABLEKS R7 R0 K0 ["_gridWidth"]
+  SUB R6 R7 R2
+  DIV R5 R6 R3
+  FASTCALL1 MATH_FLOOR R5 [+2]
+  GETIMPORT R4 K7 [math.floor]
+  CALL R4 1 1
+  SETTABLEKS R4 R0 K8 ["_gridCellsPerRow"]
+  RETURN R0 0
+
+PROTO_29:
+  SETTABLEKS R1 R0 K0 ["_contentGrid"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R5 R1 K1 ["AbsoluteSize"]
+  GETTABLEKS R4 R5 K2 ["X"]
+  NAMECALL R2 R0 K3 ["_updateGridState"]
+  CALL R2 2 0
+  RETURN R0 0
+  LOADN R4 0
+  NAMECALL R2 R0 K3 ["_updateGridState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_30:
+  GETUPVAL R1 0
+  RETURN R1 1
+
+PROTO_31:
+  GETTABLEKS R3 R0 K0 ["_contentGrid"]
+  GETTABLEKS R2 R3 K1 ["AbsoluteSize"]
+  GETTABLEKS R1 R2 K2 ["X"]
+  GETTABLEKS R2 R0 K3 ["_gridWidth"]
+  JUMPIFEQ R1 R2 [+10]
+  GETTABLEKS R5 R0 K0 ["_contentGrid"]
+  GETTABLEKS R4 R5 K1 ["AbsoluteSize"]
+  GETTABLEKS R3 R4 K2 ["X"]
+  NAMECALL R1 R0 K4 ["_updateGridState"]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K5 ["_gridCellsPerRow"]
+  RETURN R1 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -462,64 +518,78 @@ MAIN:
   LOADN R10 0
   LOADN R11 150
   CALL R9 2 1
-  DUPCLOSURE R10 K21 [PROTO_0]
+  GETIMPORT R10 K23 [UDim2.fromOffset]
+  LOADN R11 10
+  LOADN R12 10
+  CALL R10 2 1
+  DUPCLOSURE R11 K24 [PROTO_0]
   CAPTURE VAL R4
   CAPTURE VAL R9
   CAPTURE VAL R6
   CAPTURE VAL R8
-  SETTABLEKS R10 R8 K19 ["new"]
-  DUPCLOSURE R10 K22 [PROTO_1]
+  SETTABLEKS R11 R8 K19 ["new"]
+  DUPCLOSURE R11 K25 [PROTO_1]
   CAPTURE VAL R8
-  SETTABLEKS R10 R8 K23 ["mock"]
-  DUPCLOSURE R10 K24 [PROTO_2]
+  SETTABLEKS R11 R8 K26 ["mock"]
+  DUPCLOSURE R11 K27 [PROTO_2]
   CAPTURE VAL R7
-  SETTABLEKS R10 R8 K25 ["destroy"]
-  DUPCLOSURE R10 K26 [PROTO_3]
+  SETTABLEKS R11 R8 K28 ["destroy"]
+  DUPCLOSURE R11 K29 [PROTO_3]
   CAPTURE VAL R4
-  SETTABLEKS R10 R8 K27 ["populateSavedSettings"]
-  DUPCLOSURE R10 K28 [PROTO_4]
-  SETTABLEKS R10 R8 K29 ["setRoot"]
-  DUPCLOSURE R10 K30 [PROTO_5]
-  SETTABLEKS R10 R8 K31 ["getShowSidebar"]
-  DUPCLOSURE R10 K32 [PROTO_6]
-  SETTABLEKS R10 R8 K33 ["toggleSidebar"]
-  DUPCLOSURE R10 K34 [PROTO_7]
-  SETTABLEKS R10 R8 K35 ["_setShowSidebar"]
-  DUPCLOSURE R10 K36 [PROTO_8]
-  SETTABLEKS R10 R8 K37 ["getIsCompact"]
-  DUPCLOSURE R10 K38 [PROTO_9]
-  SETTABLEKS R10 R8 K39 ["getPluginWidth"]
-  DUPCLOSURE R10 K40 [PROTO_10]
-  SETTABLEKS R10 R8 K41 ["setPluginWidth"]
-  DUPCLOSURE R10 K42 [PROTO_11]
-  SETTABLEKS R10 R8 K43 ["setAppSizes"]
-  DUPCLOSURE R10 K44 [PROTO_12]
-  SETTABLEKS R10 R8 K45 ["getAppSizes"]
-  DUPCLOSURE R10 K46 [PROTO_13]
-  SETTABLEKS R10 R8 K47 ["getAppMinSizes"]
-  DUPCLOSURE R10 K48 [PROTO_14]
-  SETTABLEKS R10 R8 K49 ["setBrowserLayout"]
-  DUPCLOSURE R10 K50 [PROTO_15]
-  SETTABLEKS R10 R8 K51 ["getBrowserLayout"]
-  DUPCLOSURE R10 K52 [PROTO_16]
-  SETTABLEKS R10 R8 K53 ["setColumnWidths"]
-  DUPCLOSURE R10 K54 [PROTO_17]
-  SETTABLEKS R10 R8 K55 ["getColumnWidths"]
-  DUPCLOSURE R10 K56 [PROTO_18]
-  SETTABLEKS R10 R8 K57 ["setColumns"]
-  DUPCLOSURE R10 K58 [PROTO_19]
-  SETTABLEKS R10 R8 K59 ["getColumns"]
-  DUPCLOSURE R10 K60 [PROTO_21]
+  SETTABLEKS R11 R8 K30 ["populateSavedSettings"]
+  DUPCLOSURE R11 K31 [PROTO_4]
+  SETTABLEKS R11 R8 K32 ["setRoot"]
+  DUPCLOSURE R11 K33 [PROTO_5]
+  SETTABLEKS R11 R8 K34 ["getShowSidebar"]
+  DUPCLOSURE R11 K35 [PROTO_6]
+  SETTABLEKS R11 R8 K36 ["toggleSidebar"]
+  DUPCLOSURE R11 K37 [PROTO_7]
+  SETTABLEKS R11 R8 K38 ["_setShowSidebar"]
+  DUPCLOSURE R11 K39 [PROTO_8]
+  SETTABLEKS R11 R8 K40 ["getIsCompact"]
+  DUPCLOSURE R11 K41 [PROTO_9]
+  SETTABLEKS R11 R8 K42 ["getPluginWidth"]
+  DUPCLOSURE R11 K43 [PROTO_10]
+  SETTABLEKS R11 R8 K44 ["setPluginWidth"]
+  DUPCLOSURE R11 K45 [PROTO_11]
+  SETTABLEKS R11 R8 K46 ["setAppSizes"]
+  DUPCLOSURE R11 K47 [PROTO_12]
+  SETTABLEKS R11 R8 K48 ["getAppSizes"]
+  DUPCLOSURE R11 K49 [PROTO_13]
+  SETTABLEKS R11 R8 K50 ["getAppMinSizes"]
+  DUPCLOSURE R11 K51 [PROTO_14]
+  SETTABLEKS R11 R8 K52 ["setBrowserLayout"]
+  DUPCLOSURE R11 K53 [PROTO_15]
+  SETTABLEKS R11 R8 K54 ["getBrowserLayout"]
+  DUPCLOSURE R11 K55 [PROTO_16]
+  SETTABLEKS R11 R8 K56 ["setColumnWidths"]
+  DUPCLOSURE R11 K57 [PROTO_17]
+  SETTABLEKS R11 R8 K58 ["getColumnWidths"]
+  DUPCLOSURE R11 K59 [PROTO_18]
+  SETTABLEKS R11 R8 K60 ["setColumns"]
+  DUPCLOSURE R11 K61 [PROTO_19]
+  SETTABLEKS R11 R8 K62 ["getColumns"]
+  DUPCLOSURE R11 K63 [PROTO_21]
   CAPTURE VAL R5
-  SETTABLEKS R10 R8 K61 ["getColumnIndex"]
-  DUPCLOSURE R10 K62 [PROTO_22]
-  SETTABLEKS R10 R8 K63 ["toggleColumn"]
-  DUPCLOSURE R10 K64 [PROTO_24]
-  SETTABLEKS R10 R8 K65 ["_bindScroll"]
-  DUPCLOSURE R10 K66 [PROTO_25]
-  SETTABLEKS R10 R8 K67 ["_unbindScroll"]
-  DUPCLOSURE R10 K68 [PROTO_26]
-  SETTABLEKS R10 R8 K69 ["setContentList"]
-  DUPCLOSURE R10 K70 [PROTO_27]
-  SETTABLEKS R10 R8 K71 ["setListHeaderRow"]
+  SETTABLEKS R11 R8 K64 ["getColumnIndex"]
+  DUPCLOSURE R11 K65 [PROTO_22]
+  SETTABLEKS R11 R8 K66 ["toggleColumn"]
+  DUPCLOSURE R11 K67 [PROTO_24]
+  SETTABLEKS R11 R8 K68 ["_bindScroll"]
+  DUPCLOSURE R11 K69 [PROTO_25]
+  SETTABLEKS R11 R8 K70 ["_unbindScroll"]
+  DUPCLOSURE R11 K71 [PROTO_26]
+  SETTABLEKS R11 R8 K72 ["setContentList"]
+  DUPCLOSURE R11 K73 [PROTO_27]
+  SETTABLEKS R11 R8 K74 ["setListHeaderRow"]
+  DUPCLOSURE R11 K75 [PROTO_28]
+  CAPTURE VAL R10
+  SETTABLEKS R11 R8 K76 ["_updateGridState"]
+  DUPCLOSURE R11 K77 [PROTO_29]
+  SETTABLEKS R11 R8 K78 ["setContentGrid"]
+  DUPCLOSURE R11 K79 [PROTO_30]
+  CAPTURE VAL R10
+  SETTABLEKS R11 R8 K80 ["getGridPadding"]
+  DUPCLOSURE R11 K81 [PROTO_31]
+  SETTABLEKS R11 R8 K82 ["getGridCellsPerRow"]
   RETURN R8 1

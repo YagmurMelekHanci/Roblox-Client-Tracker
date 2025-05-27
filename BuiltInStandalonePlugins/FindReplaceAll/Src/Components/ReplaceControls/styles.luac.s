@@ -43,52 +43,58 @@ MAIN:
   SETTABLEKS R11 R10 K24 ["Font"]
   LOADK R11 K32 ["$SemanticColorActionUtilityForeground"]
   SETTABLEKS R11 R10 K25 ["TextColor3"]
-  LOADK R11 K33 [0.5]
+  LOADN R11 0
   SETTABLEKS R11 R10 K26 ["TextTransparency"]
-  LOADK R11 K34 [15.084]
+  LOADK R11 K33 [15.084]
   SETTABLEKS R11 R10 K27 ["TextSize"]
-  GETIMPORT R11 K37 [Enum.TextXAlignment.Center]
+  GETIMPORT R11 K36 [Enum.TextXAlignment.Center]
   SETTABLEKS R11 R10 K28 ["TextXAlignment"]
-  NEWTABLE R11 0 3
+  NEWTABLE R11 0 4
   MOVE R12 R3
-  LOADK R13 K38 [".Hover"]
-  DUPTABLE R14 K39 [{"BackgroundTransparency"}]
-  GETTABLEKS R15 R1 K40 ["hoveredTransparency"]
+  LOADK R13 K37 [".Hover"]
+  DUPTABLE R14 K38 [{"BackgroundTransparency"}]
+  GETTABLEKS R15 R1 K39 ["hoveredTransparency"]
   SETTABLEKS R15 R14 K16 ["BackgroundTransparency"]
   CALL R12 2 1
   MOVE R13 R3
-  LOADK R14 K41 ["::UIPadding"]
-  DUPTABLE R15 K46 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  GETIMPORT R16 K48 [UDim.new]
-  LOADN R17 0
-  GETTABLEKS R18 R1 K49 ["paddingSmall"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K42 ["PaddingLeft"]
-  GETIMPORT R16 K48 [UDim.new]
-  LOADN R17 0
-  GETTABLEKS R18 R1 K49 ["paddingSmall"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K43 ["PaddingRight"]
-  GETIMPORT R16 K48 [UDim.new]
-  LOADN R17 0
-  GETTABLEKS R18 R1 K49 ["paddingSmall"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K44 ["PaddingTop"]
-  GETIMPORT R16 K48 [UDim.new]
-  LOADN R17 0
-  GETTABLEKS R18 R1 K49 ["paddingSmall"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K45 ["PaddingBottom"]
+  LOADK R14 K40 [".Disabled"]
+  DUPTABLE R15 K41 [{"TextTransparency"}]
+  LOADK R16 K42 [0.5]
+  SETTABLEKS R16 R15 K26 ["TextTransparency"]
   CALL R13 2 1
   MOVE R14 R3
-  LOADK R15 K50 ["::UICorner"]
-  DUPTABLE R16 K52 [{"CornerRadius"}]
-  GETIMPORT R17 K48 [UDim.new]
+  LOADK R15 K43 ["::UIPadding"]
+  DUPTABLE R16 K48 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R17 K50 [UDim.new]
   LOADN R18 0
-  GETTABLEKS R19 R1 K53 ["radiusMedium"]
+  GETTABLEKS R19 R1 K51 ["paddingSmall"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K51 ["CornerRadius"]
-  CALL R14 2 -1
+  SETTABLEKS R17 R16 K44 ["PaddingLeft"]
+  GETIMPORT R17 K50 [UDim.new]
+  LOADN R18 0
+  GETTABLEKS R19 R1 K51 ["paddingSmall"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K45 ["PaddingRight"]
+  GETIMPORT R17 K50 [UDim.new]
+  LOADN R18 0
+  GETTABLEKS R19 R1 K51 ["paddingSmall"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K46 ["PaddingTop"]
+  GETIMPORT R17 K50 [UDim.new]
+  LOADN R18 0
+  GETTABLEKS R19 R1 K51 ["paddingSmall"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K47 ["PaddingBottom"]
+  CALL R14 2 1
+  MOVE R15 R3
+  LOADK R16 K52 ["::UICorner"]
+  DUPTABLE R17 K54 [{"CornerRadius"}]
+  GETIMPORT R18 K50 [UDim.new]
+  LOADN R19 0
+  GETTABLEKS R20 R1 K55 ["radiusMedium"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K53 ["CornerRadius"]
+  CALL R15 2 -1
   SETLIST R11 R12 -1 [1]
   CALL R8 3 -1
   SETLIST R7 R8 -1 [1]

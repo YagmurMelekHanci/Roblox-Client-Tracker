@@ -18,6 +18,8 @@ local MainReducer = require(Main.Src.Reducers.MainReducer)
 local ContextServices = require(Main.Packages.Framework).ContextServices
 local MakeTheme = require(Main.Src.Resources.MakeTheme)
 local InspectorContext = require(Main.Src.Util.InspectorContext)
+local Foundation = require(Main.Packages.Foundation)
+local mockComponent = Foundation.Utility.mockComponent
 
 local MockPlugin = Roact.PureComponent:extend("MockPlugin")
 
@@ -88,9 +90,13 @@ function MockPlugin:render()
 end
 
 local function MockWrap(element, mockProps)
-	return Roact.createElement(MockPlugin, mockProps, {
-		Element = element,
-	})
+	return Roact.createElement(
+		MockPlugin,
+		mockProps,
+		mockComponent({
+			Element = element,
+		})
+	)
 end
 
 return MockWrap

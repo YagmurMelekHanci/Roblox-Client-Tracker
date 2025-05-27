@@ -151,4 +151,12 @@ MAIN:
   SETTABLEKS R13 R12 K67 ["Groups"]
   CALL R10 2 1
   SETTABLEKS R10 R2 K66 ["ExplorerHeader"]
+  DUPTABLE R11 K72 [{"Browser", "Explorer", "Filters"}]
+  LOADK R12 K69 ["Browser"]
+  SETTABLEKS R12 R11 K69 ["Browser"]
+  LOADK R12 K70 ["Explorer"]
+  SETTABLEKS R12 R11 K70 ["Explorer"]
+  LOADK R12 K71 ["Filters"]
+  SETTABLEKS R12 R11 K71 ["Filters"]
+  SETTABLEKS R11 R2 K73 ["UiZone"]
   RETURN R2 1

@@ -2,36 +2,33 @@ local Main = script.Parent.Parent.Parent
 local React = require(Main.Packages.React)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
-local Framework = require(Main.Packages.Framework)
-
-local UI = Framework.UI
-local SearchBar = UI.SearchBar
-
 local Foundation = require(Main.Packages.Foundation)
 local View = Foundation.View
+local TextInput = Foundation.TextInput
+local InputSize = Foundation.Enums.InputSize
 
 local Actions = Main.Src.Actions
 local SetSearch = require(Actions.SetSearch)
 
-local FilterTree = React.PureComponent:extend("FilterTree")
-
-function FilterTree:init() end
-
-function FilterTree:render()
-	local props = self.props
-
+function FilterTree(props: { LayoutOrder: number, setSearch: (value: string) -> (), searchFilter: string })
 	return React.createElement(View, {
 		LayoutOrder = props.LayoutOrder,
 		tag = "size-full-0 auto-y",
 	}, {
-		Search = React.createElement(SearchBar, {
-			PlaceholderText = "Search...",
-			Width = UDim.new(1, 0),
-			AutomaticSize = Enum.AutomaticSize.None,
-			ShowSearchButton = false,
-			ShowSearchIcon = true,
-			OnTextChanged = props.setSearch,
-			SearchTerm = props.searchFilter,
+		Search = React.createElement(TextInput, {
+			iconLeading = "magnifying-glass",
+			label = "",
+			size = InputSize.Small,
+			width = UDim.new(1, 0),
+			placeholder = "Search...",
+			onChanged = props.setSearch,
+			text = props.searchFilter,
+			iconTrailing = {
+				name = "circle-x",
+				onActivated = function()
+					props.setSearch("")
+				end,
+			},
 		}),
 	})
 end

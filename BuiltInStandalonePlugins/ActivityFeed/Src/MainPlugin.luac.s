@@ -240,7 +240,7 @@ PROTO_10:
   GETTABLEKS R14 R0 K41 ["onWidgetEnabledChanged"]
   SETTABLE R14 R12 R13
   GETUPVAL R14 8
-  JUMPIFNOT R14 [+42]
+  JUMPIFNOT R14 [+44]
   NEWTABLE R13 0 1
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K15 ["createElement"]
@@ -250,8 +250,9 @@ PROTO_10:
   GETUPVAL R19 5
   GETTABLEKS R18 R19 K15 ["createElement"]
   GETUPVAL R19 10
-  DUPTABLE R20 K47 [{"plugin", "errorHeader", "errorMsg", "OnClearErrorMessage"}]
+  DUPTABLE R20 K47 [{"plugin", "enabled", "errorHeader", "errorMsg", "OnClearErrorMessage"}]
   SETTABLEKS R3 R20 K45 ["plugin"]
+  SETTABLEKS R4 R20 K3 ["enabled"]
   SETTABLEKS R5 R20 K4 ["errorHeader"]
   SETTABLEKS R6 R20 K5 ["errorMsg"]
   GETTABLEKS R21 R0 K48 ["onClearErrorMessage"]
@@ -268,13 +269,14 @@ PROTO_10:
   SETTABLEKS R18 R17 K43 ["StyleLink"]
   CALL R14 3 -1
   SETLIST R13 R14 -1 [1]
-  JUMPIF R13 [+31]
+  JUMPIF R13 [+33]
   DUPTABLE R13 K44 [{"App", "StyleLink"}]
   GETUPVAL R15 5
   GETTABLEKS R14 R15 K15 ["createElement"]
   GETUPVAL R15 10
-  DUPTABLE R16 K47 [{"plugin", "errorHeader", "errorMsg", "OnClearErrorMessage"}]
+  DUPTABLE R16 K47 [{"plugin", "enabled", "errorHeader", "errorMsg", "OnClearErrorMessage"}]
   SETTABLEKS R3 R16 K45 ["plugin"]
+  SETTABLEKS R4 R16 K3 ["enabled"]
   SETTABLEKS R5 R16 K4 ["errorHeader"]
   SETTABLEKS R6 R16 K5 ["errorMsg"]
   GETTABLEKS R17 R0 K48 ["onClearErrorMessage"]

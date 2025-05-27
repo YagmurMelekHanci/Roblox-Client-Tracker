@@ -33,6 +33,6 @@ describe("StoryHost", function()
 		end
 
 		local result = render(MockWrap(Roact.createElement(StoryHost, getProps())))
-		expect(result.container.Element.Name).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true).Name).never.toBeNil()
 	end)
 end)

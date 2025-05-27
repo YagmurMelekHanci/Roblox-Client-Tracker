@@ -11,6 +11,7 @@ return Rodux.createReducer({}, {
 		local newState = {
 			products = action.products,
 			selection = action.selection,
+			virtualItemBadgeType = action.virtualItemBadgeType,
 		}
 		return newState
 	end,

@@ -727,33 +727,30 @@ PROTO_16:
   GETIMPORT R1 K1 [plugin]
   GETTABLEKS R0 R1 K2 ["HostDataModelType"]
   GETIMPORT R1 K6 [Enum.StudioDataModelType.PlayClient]
-  JUMPIFNOTEQ R0 R1 [+31]
+  JUMPIFNOTEQ R0 R1 [+26]
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K7 ["EnableDeveloperTools"]
   CALL R0 0 1
-  JUMPIFNOT R0 [+25]
-  GETIMPORT R0 K9 [require]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K10 ["Packages"]
-  GETTABLEKS R1 R2 K11 ["Framework"]
-  CALL R0 1 1
-  GETTABLEKS R2 R0 K12 ["DeveloperTools"]
-  GETTABLEKS R1 R2 K13 ["forPlugin"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K14 ["Name"]
-  GETIMPORT R3 K1 [plugin]
-  CALL R1 2 1
-  SETUPVAL R1 2
-  GETUPVAL R1 2
-  GETIMPORT R3 K1 [plugin]
-  NAMECALL R1 R1 K15 ["addPluginRouter"]
-  CALL R1 2 0
+  JUMPIFNOT R0 [+20]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K8 ["Packages"]
+  GETTABLEKS R1 R2 K9 ["DeveloperTools"]
+  GETTABLEKS R0 R1 K10 ["forPlugin"]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K11 ["Name"]
+  GETIMPORT R2 K1 [plugin]
+  CALL R0 2 1
+  SETUPVAL R0 1
+  GETUPVAL R0 1
+  GETIMPORT R2 K1 [plugin]
+  NAMECALL R0 R0 K12 ["addPluginRouter"]
+  CALL R0 2 0
   GETIMPORT R1 K1 [plugin]
   GETTABLEKS R0 R1 K2 ["HostDataModelType"]
-  GETIMPORT R1 K17 [Enum.StudioDataModelType.Edit]
+  GETIMPORT R1 K14 [Enum.StudioDataModelType.Edit]
   JUMPIFNOTEQ R0 R1 [+6]
   GETUPVAL R1 3
-  GETTABLEKS R0 R1 K18 ["setupEditDMEventListeners"]
+  GETTABLEKS R0 R1 K15 ["setupEditDMEventListeners"]
   CALL R0 0 0
   RETURN R0 0
   GETIMPORT R1 K1 [plugin]
@@ -761,31 +758,31 @@ PROTO_16:
   GETIMPORT R1 K6 [Enum.StudioDataModelType.PlayClient]
   JUMPIFNOTEQ R0 R1 [+40]
   GETUPVAL R1 3
-  GETTABLEKS R0 R1 K19 ["getPluginEnabled"]
+  GETTABLEKS R0 R1 K16 ["getPluginEnabled"]
   CALL R0 0 1
   JUMPIFNOT R0 [+34]
   GETUPVAL R1 3
-  GETTABLEKS R0 R1 K20 ["setIsPlayMode"]
+  GETTABLEKS R0 R1 K17 ["setIsPlayMode"]
   LOADB R1 1
   CALL R0 1 0
   GETUPVAL R0 4
   CALL R0 0 0
   GETUPVAL R1 3
-  GETTABLEKS R0 R1 K21 ["onPlayClientSessionStarted"]
+  GETTABLEKS R0 R1 K18 ["onPlayClientSessionStarted"]
   CALL R0 0 0
   GETUPVAL R1 3
-  GETTABLEKS R0 R1 K22 ["getPluginState"]
+  GETTABLEKS R0 R1 K19 ["getPluginState"]
   CALL R0 0 1
   GETUPVAL R3 5
-  GETTABLEKS R2 R3 K23 ["PluginState"]
-  GETTABLEKS R1 R2 K24 ["ShouldStartRecording"]
+  GETTABLEKS R2 R3 K20 ["PluginState"]
+  GETTABLEKS R1 R2 K21 ["ShouldStartRecording"]
   JUMPIFNOTEQ R0 R1 [+4]
   GETUPVAL R1 6
   CALL R1 0 0
   RETURN R0 0
   GETUPVAL R3 5
-  GETTABLEKS R2 R3 K23 ["PluginState"]
-  GETTABLEKS R1 R2 K25 ["ShouldStartPlayback"]
+  GETTABLEKS R2 R3 K20 ["PluginState"]
+  GETTABLEKS R1 R2 K22 ["ShouldStartPlayback"]
   JUMPIFNOTEQ R0 R1 [+3]
   GETUPVAL R1 7
   CALL R1 0 0
@@ -966,8 +963,8 @@ MAIN:
   LOADNIL R38
   NEWCLOSURE R39 P14
   CAPTURE VAL R5
-  CAPTURE VAL R2
   CAPTURE REF R38
+  CAPTURE VAL R2
   CAPTURE VAL R12
   CAPTURE VAL R36
   CAPTURE VAL R14

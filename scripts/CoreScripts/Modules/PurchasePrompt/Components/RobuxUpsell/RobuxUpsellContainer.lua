@@ -102,6 +102,7 @@ function RobuxUpsellContainer:createElement()
 			useUpsellSuggestions = FFlagEnableUpsellSuggestionsAPI and UpsellSuggestionsAPIMaxPackages > 1,
 			upsellSuggestions = props.robuxSuggestions,
 			selectedUpsellIndex = props.robuxPackageSelection,
+			virtualItemBadgeType = props.virtualItemBadgeType,
 			onUpsellSuggestionsSelected = function(index: number)
 				props.onUpsellSuggestionsSelected(props.robuxSuggestions, index)
 			end,
@@ -193,7 +194,8 @@ RobuxUpsellContainer = connectToStore(function(state)
 		-- Robux Upsell Suggestions
 		robuxSuggestions = state.robuxUpsellSuggestions.products,
 		robuxPackageSelection = state.robuxUpsellSuggestions.selection,
-		
+		virtualItemBadgeType = state.robuxUpsellSuggestions.virtualItemBadgeType,
+
 		-- Selected Robux Package details - used for legacy upsell flow and processing
 		robuxProductId = SelectedRobuxPackage.getRobuxProductId(state),
 		productId = SelectedRobuxPackage.getProductId(state),

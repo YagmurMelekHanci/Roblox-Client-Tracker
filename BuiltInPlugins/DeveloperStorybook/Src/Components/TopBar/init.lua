@@ -2,22 +2,24 @@ local Main = script.Parent.Parent.Parent
 local React = require(Main.Packages.React)
 local Types = require(Main.Src.Types)
 local RoactRodux = require(Main.Packages.RoactRodux)
+local Dash = require(Main.Packages.Dash)
 
 local Framework = require(Main.Packages.Framework)
-local Dash = Framework.Dash
 local findIndex = Dash.findIndex
 
 local UI = Framework.UI
-local Button = UI.Button
-local Checkbox = UI.Checkbox
 local SelectInput = UI.SelectInput
 local Slider = UI.Slider
-local Tooltip = UI.Tooltip
-local Image = UI.Image
 
 local Foundation = require(Main.Packages.Foundation)
 local View = Foundation.View
 local Text = Foundation.Text
+local Tooltip = Foundation.Tooltip
+local Image = Foundation.Image
+local Checkbox = Foundation.Checkbox
+local InputSize = Foundation.Enums.InputSize
+
+local joinTags = Framework.Styling.joinTags
 
 local ThemeSwitcher = Framework.Style.ThemeSwitcher
 
@@ -56,46 +58,50 @@ local PLATFORMS = PLATFORM_STRING:split(",")
 -- TODO (AleksandrSl 31/07/2024): Consider joining this and `local isRunningAsPlugin = typeof(props.Plugin:get().OpenScript) == "function"` check in InfoPanel
 local isEmbedded = script:FindFirstAncestor("RunStorybook")
 
-function TopBar:init()
-	self.onToggleLive = function()
-		self.props.setLive(not self.props.Live)
+function TopBar(props)
+	local onToggleLive = function()
+		props.setLive(not props.Live)
 	end
-
-	self.onToggleReducedMotion = function()
+	local onToggleReducedMotion = function()
 		local settings = {
-			reducedMotion = not self.props.Settings.reducedMotion,
-			preferredTransparency = self.props.Settings.preferredTransparency,
-			preferredTextSize = self.props.Settings.preferredTextSize,
+			reducedMotion = not props.Settings.reducedMotion,
+			preferredTransparency = props.Settings.preferredTransparency,
+			preferredTextSize = props.Settings.preferredTextSize,
 		}
-		self.props.setSettings(settings)
+		props.setSettings(settings)
 	end
 
-	self.onPreferredTransparencyChanged = function(value: number)
+	local onPreferredTransparencyChanged = function(value: number)
 		local settings = {
-			reducedMotion = self.props.Settings.reducedMotion,
+			reducedMotion = props.Settings.reducedMotion,
 			preferredTransparency = value,
-			preferredTextSize = self.props.Settings.preferredTextSize,
+			preferredTextSize = props.Settings.preferredTextSize,
 		}
-		self.props.setSettings(settings)
+		props.setSettings(settings)
 	end
 
-	self.onEmbedStorybook = function()
-		self.props.embedStorybook()
+	local onEmbedStorybook = function()
+		props.embedStorybook()
 	end
 
-	-- Listen for PreferredTextSize changes
-	GuiService:GetPropertyChangedSignal("PreferredTextSize"):Connect(function()
-		local settings = {
-			reducedMotion = self.props.Settings.reducedMotion,
-			preferredTransparency = self.props.Settings.preferredTransparency,
-			preferredTextSize = GuiService.PreferredTextSize,
-		}
-		self.props.setSettings(settings)
-	end)
-end
+	React.useEffect(function()
+		-- Listen for PreferredTextSize changes
+		local connection = GuiService:GetPropertyChangedSignal("PreferredTextSize"):Connect(function()
+			-- TODO (AleksandrSl 19/05/2025): Turn setSettings into updateSettings so we don't have to keep unrelated values here.
+			local settings = {
+				reducedMotion = props.Settings.reducedMotion,
+				preferredTransparency = props.Settings.preferredTransparency,
+				preferredTextSize = GuiService.PreferredTextSize,
+			}
+			props.setSettings(settings)
+		end)
 
-function TopBar:render()
-	local props = self.props
+		return function()
+			if connection then
+				connection:Disconnect()
+			end
+		end
+	end, { props.Settings.reducedMotion, props.Settings.preferredTransparency, props.setSettings })
 
 	return React.createElement("ScrollingFrame", {
 		[React.Tag] = "X-RowM X-Middle X-PadS X-FitY",
@@ -108,57 +114,57 @@ function TopBar:render()
 		UIFlexItem = React.createElement("UIFlexItem", {
 			FlexMode = Enum.UIFlexMode.None,
 		}),
-		Collapse = React.createElement(Button, {
-			Style = "Round",
-			AnchorPoint = Vector2.new(1, 0),
-			Size = UDim2.fromOffset(32, 32),
-			LayoutOrder = 2,
-			OnClick = props.getStories,
-		}, {
-			Tooltip = React.createElement(Tooltip, {
-				Text = "Collapse all stories",
-			}),
-			Icon = React.createElement(Image, {
-				Size = UDim2.fromOffset(24, 24),
-				Position = UDim2.fromScale(0.5, 0.5),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Image = "rbxasset://textures/DeveloperStorybook/Collapse.png",
-			}),
-		}),
+		Collapse = React.createElement(
+			Tooltip,
+			{ title = "Collapse all stories", LayoutOrder = 1 },
+			React.createElement(
+				View,
+				{
+					onActivated = props.getStories,
+					tag = "auto-xy padding-small radius-small",
+				},
+				React.createElement(Image, {
+					tag = "size-600",
+					Image = "rbxasset://textures/DeveloperStorybook/Collapse.png",
+				})
+			)
+		),
 		Embed = if not isEmbedded
-			then React.createElement(Button, {
-				Style = props.Embedded and "RoundPrimary" or "Round",
-				Size = UDim2.fromOffset(32, 32),
-				AnchorPoint = Vector2.new(1, 0),
-				LayoutOrder = 4,
-				OnClick = self.onEmbedStorybook,
-			}, {
-				Tooltip = React.createElement(Tooltip, {
-					Text = "Embed Storybook in the place",
-				}),
-				Icon = React.createElement(Image, {
-					Size = UDim2.fromOffset(24, 24),
-					Position = UDim2.fromScale(0.5, 0.5),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Image = "rbxasset://textures/DeveloperStorybook/Embed.png",
-				}),
-			})
+			then React.createElement(
+				Tooltip,
+				{ title = "Embed Storybook in the place", LayoutOrder = 2 },
+				React.createElement(
+					View,
+					{
+						onActivated = onEmbedStorybook,
+						tag = joinTags(
+							"auto-xy padding-small radius-small",
+							if props.Embedded then "bg-system-contrast content-system-contrast" else nil
+						),
+					},
+					React.createElement(Image, {
+						tag = "size-600",
+						Image = "rbxasset://textures/DeveloperStorybook/Embed.png",
+					})
+				)
+			)
 			else nil,
 		Live = if not isEmbedded
 			then React.createElement(Checkbox, {
-				LayoutOrder = 5,
-				Checked = props.Live,
-				OnClick = self.onToggleLive,
-				Text = "Live",
+				LayoutOrder = 3,
+				isChecked = props.Live,
+				onActivated = onToggleLive,
+				label = "Live",
+				size = InputSize.XSmall,
 			})
 			else nil,
 		ThemeLabel = React.createElement(Text, {
 			Text = "Theme:",
-			LayoutOrder = 7,
+			LayoutOrder = 4,
 			tag = "auto-xy text-align-x-left text-label-small",
 		}),
 		SelectTheme = React.createElement(SelectInput, {
-			LayoutOrder = 8,
+			LayoutOrder = 5,
 			Width = INPUT_WIDTH,
 			SelectedIndex = findIndex(THEMES, function(theme)
 				return theme == props.CurrentTheme
@@ -168,11 +174,11 @@ function TopBar:render()
 		}),
 		PlatformLabel = React.createElement(Text, {
 			Text = "Platform:",
-			LayoutOrder = 9,
+			LayoutOrder = 6,
 			tag = "auto-xy text-align-x-left text-label-small",
 		}),
 		SelectPlatform = React.createElement(SelectInput, {
-			LayoutOrder = 10,
+			LayoutOrder = 7,
 			Width = INPUT_WIDTH,
 			SelectedIndex = findIndex(PLATFORMS, function(platform)
 				return platform == props.Platform
@@ -181,27 +187,28 @@ function TopBar:render()
 			OnItemActivated = props.selectPlatform,
 		}),
 		ReducedMotion = React.createElement(Checkbox, {
-			LayoutOrder = 11,
-			Checked = props.Settings.reducedMotion,
-			OnClick = self.onToggleReducedMotion,
-			Text = "Reduced Motion",
+			LayoutOrder = 8,
+			isChecked = props.Settings.reducedMotion,
+			onActivated = onToggleReducedMotion,
+			label = "Reduced Motion",
+			size = InputSize.XSmall,
 		}),
 		PreferredTransparencyLabel = React.createElement(Text, {
 			Text = "Preferred Transparency:",
 			tag = "auto-xy text-align-x-left text-label-small",
 			AnchorPoint = Vector2.new(0, 0),
-			LayoutOrder = 12,
+			LayoutOrder = 9,
 		}),
 		PreferredTransparencySlider = React.createElement(View, {
 			AnchorPoint = Vector2.new(1, 0),
 			Size = UDim2.new(0, SLIDER_WIDTH, 0, SLIDER_HEIGHT),
-			LayoutOrder = 13,
+			LayoutOrder = 10,
 		}, {
 			Slider = React.createElement(Slider, {
 				Min = 0,
 				Max = 1,
 				Value = props.Settings.preferredTransparency,
-				OnValueChanged = self.onPreferredTransparencyChanged,
+				OnValueChanged = onPreferredTransparencyChanged,
 				VerticalDragTolerance = SLIDER_HEIGHT,
 				ShowInput = true,
 			}),
@@ -211,7 +218,7 @@ function TopBar:render()
 			RichText = true,
 			tag = "auto-xy text-align-x-left text-label-small",
 			AnchorPoint = Vector2.new(0, 0),
-			LayoutOrder = 14,
+			LayoutOrder = 11,
 		}),
 	})
 end

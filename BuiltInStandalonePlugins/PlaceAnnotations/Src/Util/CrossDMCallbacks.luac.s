@@ -20,21 +20,21 @@ PROTO_0:
   GETIMPORT R2 K8 [Instance.new]
   LOADK R3 K9 ["Annotation"]
   CALL R2 1 1
-  SETTABLEKS R1 R2 K10 ["Parent"]
-  GETTABLEKS R3 R0 K11 ["UniqueId"]
-  SETTABLEKS R3 R2 K12 ["Name"]
-  GETTABLEKS R3 R0 K13 ["AuthorId"]
-  SETTABLEKS R3 R2 K13 ["AuthorId"]
-  GETTABLEKS R3 R0 K14 ["CreationTimeUnix"]
-  SETTABLEKS R3 R2 K14 ["CreationTimeUnix"]
-  GETTABLEKS R3 R0 K15 ["LastModifiedTimeUnix"]
-  SETTABLEKS R3 R2 K15 ["LastModifiedTimeUnix"]
-  GETTABLEKS R3 R0 K16 ["Contents"]
-  SETTABLEKS R3 R2 K16 ["Contents"]
-  GETTABLEKS R3 R0 K17 ["Resolved"]
-  SETTABLEKS R3 R2 K17 ["Resolved"]
-  GETTABLEKS R3 R0 K18 ["TaggedUsers"]
-  SETTABLEKS R3 R2 K18 ["TaggedUsers"]
+  GETTABLEKS R3 R0 K10 ["UniqueId"]
+  SETTABLEKS R3 R2 K11 ["Name"]
+  GETTABLEKS R3 R0 K12 ["AuthorId"]
+  SETTABLEKS R3 R2 K12 ["AuthorId"]
+  GETTABLEKS R3 R0 K13 ["CreationTimeUnix"]
+  SETTABLEKS R3 R2 K13 ["CreationTimeUnix"]
+  GETTABLEKS R3 R0 K14 ["LastModifiedTimeUnix"]
+  SETTABLEKS R3 R2 K14 ["LastModifiedTimeUnix"]
+  GETTABLEKS R3 R0 K15 ["Contents"]
+  SETTABLEKS R3 R2 K15 ["Contents"]
+  GETTABLEKS R3 R0 K16 ["Resolved"]
+  SETTABLEKS R3 R2 K16 ["Resolved"]
+  GETTABLEKS R3 R0 K17 ["TaggedUsers"]
+  SETTABLEKS R3 R2 K17 ["TaggedUsers"]
+  SETTABLEKS R1 R2 K18 ["Parent"]
   GETTABLEKS R3 R0 K19 ["HeaderInfo"]
   JUMPIFNOT R3 [+16]
   LOADK R5 K20 ["HeaderText"]
@@ -228,6 +228,8 @@ PROTO_8:
   LOADK R2 K7 ["PlaceAnnotations"]
   NAMECALL R0 R0 K8 ["FindFirstChild"]
   CALL R0 2 1
+  JUMPIF R0 [+1]
+  RETURN R0 0
   NAMECALL R1 R0 K9 ["GetChildren"]
   CALL R1 1 3
   FORGPREP R1
@@ -263,6 +265,8 @@ PROTO_9:
   LOADK R2 K8 ["PlaceAnnotations"]
   NAMECALL R0 R0 K9 ["FindFirstChild"]
   CALL R0 2 1
+  JUMPIF R0 [+1]
+  RETURN R0 0
   NAMECALL R1 R0 K10 ["GetChildren"]
   CALL R1 1 3
   FORGPREP R1

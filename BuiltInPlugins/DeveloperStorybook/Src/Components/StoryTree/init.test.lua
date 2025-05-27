@@ -14,6 +14,6 @@ local expect = JestGlobals.expect
 describe("StoryTree", function()
 	it("should render correctly", function()
 		local result = render(MockWrap(Roact.createElement(StoryTree)))
-		expect(result.container.Element).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true)).never.toBeNil()
 	end)
 end)

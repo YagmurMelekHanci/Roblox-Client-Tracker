@@ -10,4 +10,4 @@ local FFlagLoggingGamepadOpenExpControlsMenu = game:DefineFastFlag("LoggingGamep
 
 local enrolledInConsoleExperienceControlsIXP = FFlagUnibarMenuOpenHamburger or FFlagUnibarMenuOpenSubmenu or ExperienceMenuABTestManager.default:showConsoleExpControlsMenuNotAvailable() 
 
-return IsExperienceMenuABTestEnabled() and enrolledInConsoleExperienceControlsIXP or FFlagLoggingGamepadOpenExpControlsMenu
+return IsExperienceMenuABTestEnabled() and enrolledInConsoleExperienceControlsIXP and FFlagLoggingGamepadOpenExpControlsMenu

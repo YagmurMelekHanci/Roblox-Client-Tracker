@@ -46,6 +46,7 @@ type Props = {
 	upsellSuggestions: { [number]: RobuxUpsell.Product },
 	selectedUpsellIndex: number,
 	onUpsellSuggestionsSelected: (index: number) -> any?,
+	virtualItemBadgeType: string?,
 
 	robuxProviderId: string,
 	robuxProductId: number,
@@ -302,6 +303,7 @@ function RobuxUpsellOverlay:render()
 		upsellSuggestions = props.upsellSuggestions,
 		selectedUpsellIndex = props.selectedUpsellIndex,
 		onUpsellSuggestionsSelected = props.onUpsellSuggestionsSelected,
+		virtualItemBadgeType = props.virtualItemBadgeType,
 
 		purchaseState = self:getFlowState(),
 		errorType = self:getErrorType(),

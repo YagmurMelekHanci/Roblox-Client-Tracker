@@ -9,25 +9,27 @@ local RoactRodux = require(Main.Packages.RoactRodux)
 
 local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local withContext = ContextServices.withContext
-local InspectorContext = require(Main.Src.Util.InspectorContext)
+local Plugin = ContextServices.Plugin
 
 local TestLoader = require(Main.Packages.TestLoader)
 local ModuleLoader = TestLoader.ModuleLoader
 
-local UI = Framework.UI
-local Button = UI.Button
-
 local Foundation = require(Main.Packages.Foundation)
 local View = Foundation.View
+local Button = Foundation.Button
 
 local SelectionService = game:GetService("Selection")
 
-local Footer = React.PureComponent:extend("Footer")
+local function Footer(
+	props: { StoryRef: React.RefObject<GuiObject?>, LayoutOrder: number, SelectedStory: Types.StoryItem? }
+)
+	local plugin = Plugin.use():get()
 
-function Footer:init()
-	self.runTests = function()
-		local props = self.props
+	if props.SelectedStory == nil then
+		return nil
+	end
+
+	local runTests = function()
 		local story = props.SelectedStory.Script
 		local TestEZ = ModuleLoader:load(Main.Packages.Dev.TestEZ)
 		local TestBootstrap = TestEZ.TestBootstrap
@@ -40,43 +42,29 @@ function Footer:init()
 		end
 		TestBootstrap:run(children, TextReporter)
 	end
-	self.viewStorySource = function()
-		local props = self.props
-		local plugin = props.Plugin:get()
+
+	local viewStorySource = function()
 		local source = props.SelectedStory.Script
 		plugin:OpenScript(source)
 		SelectionService:Set({ source })
 	end
-	self.explore = function()
-		SelectionService:Set({ self.props.StoryRef.current })
+
+	local explore = function()
+		SelectionService:Set({ props.StoryRef.current })
 	end
-end
 
-function Footer:renderButton(index: number, text: string, callback: () -> ())
-	return React.createElement(Button, {
-		LayoutOrder = index,
-		OnClick = callback,
-		Text = text,
-		Style = "Round",
-		Size = UDim2.fromOffset(150, 32),
-	})
-end
-
-function Footer:render()
 	return React.createElement(View, {
 		tag = "size-full-0 row gap-medium align-x-right padding-medium auto-y grow",
-		LayoutOrder = self.props.LayoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
-		Explore = self:renderButton(2, "Explore", self.explore),
-		RunTests = self:renderButton(3, "Run Tests", self.runTests),
-		StorySource = self:renderButton(4, "View Source", self.viewStorySource),
+		Explore = React.createElement(Button, { LayoutOrder = 2, text = "Explore", onActivated = explore }),
+		RunTests = React.createElement(Button, { LayoutOrder = 3, text = "Run Tests", onActivated = runTests }),
+		StorySource = React.createElement(
+			Button,
+			{ LayoutOrder = 4, text = "View Source", onActivated = viewStorySource }
+		),
 	})
 end
-
-Footer = withContext({
-	Inspector = InspectorContext,
-	Plugin = ContextServices.Plugin,
-})(Footer)
 
 return RoactRodux.connect(function(state: Types.RoduxStore)
 	return {

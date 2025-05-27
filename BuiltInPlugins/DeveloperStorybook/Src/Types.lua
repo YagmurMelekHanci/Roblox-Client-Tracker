@@ -28,6 +28,8 @@ export type Storybook = {
 	definition: StoryDefinition?,
 	mapDefinition: MapStoryDefinition?,
 	mapStory: MapStory?,
+	-- Deprecated
+	mapTests: (self: Storybook, story: Story) -> (),
 	exclude: { string }?,
 }
 

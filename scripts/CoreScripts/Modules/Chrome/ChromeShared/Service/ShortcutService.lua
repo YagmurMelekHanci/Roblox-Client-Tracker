@@ -19,6 +19,7 @@ local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleSinglePressIntegrationExit = SharedFlags.FFlagConsoleSinglePressIntegrationExit
 local FFlagChromeShortcutDisableRespawn = SharedFlags.FFlagChromeShortcutDisableRespawn
+local FFlagChromeShortcutBarUseHideOverrides = SharedFlags.FFlagChromeShortcutBarUseHideOverrides
 
 type ShortcutId = Types.ShortcutId
 type ShortcutBarId = Types.ShortcutBarId
@@ -49,6 +50,8 @@ export type ShortcutService = {
 		integrationList: Types.IntegrationList
 	) -> Types.ShortcutBarItems,
 	getCurrentShortcutBar: (ShortcutService) -> ShortcutBarId?,
+	setHideShortcutBar: (ShortcutService, sourceName: string, hidden: boolean?) -> (),
+	getHideShortcutBar: (ShortcutService) -> boolean,
 
 	onShortcutBarChanged: AppCommonLib.Signal,
 
@@ -61,6 +64,8 @@ export type ShortcutService = {
 	_shortcuts: ShortcutList,
 	_shortcutBarList: ShortcutBarList,
 	_currentShortcutBar: ShortcutBarId?,
+	_shortcutBarHiddenOverrides: { [Types.ShortcutOverrideId]: boolean? },
+	_shortcutBarHidden: boolean,
 }
 
 local function _handleShortcutEvent(shortcutService: ShortcutService)
@@ -88,6 +93,7 @@ function ShortcutService.new(): ShortcutService
 
 	self._shortcuts = {} :: ShortcutIdList
 	self._shortcutBarList = {} :: ShortcutBarList
+	self._shortcutBarHiddenOverrides = {}
 
 	self.onShortcutBarChanged = Signal.new()
 
@@ -141,10 +147,15 @@ function ShortcutService:updateShortcutBar(shortcutBarId: ShortcutBarId?)
 	end
 
 	self._currentShortcutBar = shortcutBarId
-	self.onShortcutBarChanged:fire(shortcutBarId)
 
-	if shortcutBarId and self._shortcutBarList[shortcutBarId] then
-		self:_bindShortcutBar(shortcutBarId)
+	if FFlagChromeShortcutBarUseHideOverrides and self._shortcutBarHidden then
+		self.onShortcutBarChanged:fire(nil)
+	else
+		self.onShortcutBarChanged:fire(shortcutBarId)
+
+		if shortcutBarId and self._shortcutBarList[shortcutBarId] then
+			self:_bindShortcutBar(shortcutBarId)
+		end
 	end
 end
 
@@ -156,6 +167,31 @@ function ShortcutService:setShortcutBar(shortcutBarId: ShortcutBarId?)
 	if self._currentShortcutBar ~= shortcutBarId then
 		self:updateShortcutBar(shortcutBarId)
 	end
+end
+
+function ShortcutService:setHideShortcutBar(sourceName: Types.ShortcutOverrideId, hidden: boolean?)
+	if self._shortcutBarHiddenOverrides[sourceName] ~= hidden then
+		if hidden then
+			self._shortcutBarHiddenOverrides[sourceName] = hidden
+		else
+			self._shortcutBarHiddenOverrides[sourceName] = nil
+		end
+
+		local isHidden = false
+		for _, hidden in pairs(self._shortcutBarHiddenOverrides) do
+			if hidden then
+				isHidden = true
+				break
+			end
+		end
+
+		self._shortcutBarHidden = isHidden
+		self:updateShortcutBar(self._currentShortcutBar)
+	end
+end
+
+function ShortcutService:getHideShortcutBar()
+	return self._shortcutBarHidden
 end
 
 function ShortcutService:getShortcut(shortcutId: ShortcutId)

@@ -17,7 +17,7 @@ describe("PanelEntry", function()
 			Header = "Test",
 			Description = "Test",
 		})))
-		expect(result.container.Element.Name).never.toBeNil()
-		expect(result.container.Element.Description).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true).Name).never.toBeNil()
+		expect(result.container:FindFirstChild("Element", true).Description).never.toBeNil()
 	end)
 end)

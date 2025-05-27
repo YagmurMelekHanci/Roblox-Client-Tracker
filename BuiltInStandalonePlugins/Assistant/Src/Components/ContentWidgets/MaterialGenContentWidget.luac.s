@@ -39,7 +39,11 @@ PROTO_1:
   DUPTABLE R9 K16 [{"tag", "Text", "LayoutOrder"}]
   LOADK R10 K17 ["size-full-0 auto-y text-body-small text-align-x-left text-align-y-center"]
   SETTABLEKS R10 R9 K8 ["tag"]
-  LOADK R10 K18 ["Select a variant to apply to your model"]
+  GETUPVAL R10 4
+  LOADK R12 K18 ["MaterialGen"]
+  LOADK R13 K19 ["SelectAVariant"]
+  NAMECALL R10 R10 K20 ["getText"]
+  CALL R10 3 1
   SETTABLEKS R10 R9 K15 ["Text"]
   MOVE R10 R2
   CALL R10 0 1
@@ -47,13 +51,13 @@ PROTO_1:
   CALL R7 2 1
   SETTABLEKS R7 R6 K12 ["Description"]
   GETUPVAL R7 1
-  GETUPVAL R8 4
-  DUPTABLE R9 K22 [{"height", "canSelect", "items", "LayoutOrder"}]
+  GETUPVAL R8 5
+  DUPTABLE R9 K24 [{"height", "canSelect", "items", "LayoutOrder"}]
   LOADN R10 110
-  SETTABLEKS R10 R9 K19 ["height"]
+  SETTABLEKS R10 R9 K21 ["height"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K20 ["canSelect"]
-  SETTABLEKS R1 R9 K21 ["items"]
+  SETTABLEKS R10 R9 K22 ["canSelect"]
+  SETTABLEKS R1 R9 K23 ["items"]
   MOVE R10 R2
   CALL R10 0 1
   SETTABLEKS R10 R9 K9 ["LayoutOrder"]
@@ -84,26 +88,30 @@ MAIN:
   GETTABLEKS R6 R0 K6 ["Packages"]
   GETTABLEKS R5 R6 K10 ["ReactUtils"]
   CALL R4 1 1
-  GETTABLEKS R6 R1 K11 ["Components"]
-  GETTABLEKS R5 R6 K12 ["ContentWidgetRegistry"]
-  GETTABLEKS R7 R1 K11 ["Components"]
-  GETTABLEKS R6 R7 K13 ["Carousel"]
-  GETTABLEKS R7 R2 K14 ["View"]
-  GETTABLEKS R8 R2 K15 ["Text"]
-  GETTABLEKS R9 R4 K16 ["createNextOrder"]
-  GETTABLEKS R10 R3 K17 ["createElement"]
-  DUPCLOSURE R11 K18 [PROTO_1]
-  CAPTURE VAL R9
+  GETTABLEKS R7 R1 K11 ["Resources"]
+  GETTABLEKS R6 R7 K12 ["Localization"]
+  GETTABLEKS R5 R6 K13 ["Translator"]
+  GETTABLEKS R7 R1 K14 ["Components"]
+  GETTABLEKS R6 R7 K15 ["ContentWidgetRegistry"]
+  GETTABLEKS R8 R1 K14 ["Components"]
+  GETTABLEKS R7 R8 K16 ["Carousel"]
+  GETTABLEKS R8 R2 K17 ["View"]
+  GETTABLEKS R9 R2 K18 ["Text"]
+  GETTABLEKS R10 R4 K19 ["createNextOrder"]
+  GETTABLEKS R11 R3 K20 ["createElement"]
+  DUPCLOSURE R12 K21 [PROTO_1]
   CAPTURE VAL R10
-  CAPTURE VAL R7
+  CAPTURE VAL R11
   CAPTURE VAL R8
-  CAPTURE VAL R6
-  DUPTABLE R12 K21 [{"Type", "ContentWidget"}]
-  LOADK R13 K22 ["MaterialGen"]
-  SETTABLEKS R13 R12 K19 ["Type"]
-  SETTABLEKS R11 R12 K20 ["ContentWidget"]
-  GETTABLEKS R13 R5 K23 ["registerWidget"]
-  GETTABLEKS R14 R12 K19 ["Type"]
-  GETTABLEKS R15 R12 K20 ["ContentWidget"]
-  CALL R13 2 0
-  RETURN R12 1
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  DUPTABLE R13 K24 [{"Type", "ContentWidget"}]
+  LOADK R14 K25 ["MaterialGen"]
+  SETTABLEKS R14 R13 K22 ["Type"]
+  SETTABLEKS R12 R13 K23 ["ContentWidget"]
+  GETTABLEKS R14 R6 K26 ["registerWidget"]
+  GETTABLEKS R15 R13 K22 ["Type"]
+  GETTABLEKS R16 R13 K23 ["ContentWidget"]
+  CALL R14 2 0
+  RETURN R13 1

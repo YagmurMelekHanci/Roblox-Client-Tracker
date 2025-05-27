@@ -8,18 +8,19 @@
 ]]
 local Main = script.Parent.Parent.Parent
 local React = require(Main.Packages.React)
+local Dash = require(Main.Packages.Dash)
 
 local Framework = require(Main.Packages.Framework)
 local UI = Framework.UI
-local Checkbox = UI.Checkbox
-local TextInput = UI.TextInput
 local SelectInput = UI.SelectInput
 
 local Foundation = require(Main.Packages.Foundation)
 local View = Foundation.View
 local Text = Foundation.Text
+local Checkbox = Foundation.Checkbox
+local InputSize = Foundation.Enums.InputSize
+local TextInput = Foundation.TextInput
 
-local Dash = Framework.Dash
 local keys = Dash.keys
 local map = Dash.map
 local collect = Dash.collect
@@ -41,9 +42,10 @@ type Props = {
 -- A checkbox for boolean values
 local function getCheckbox(key: string, value: any, props: Props)
 	return React.createElement(Checkbox, {
-		Checked = value,
-		Text = key,
-		OnClick = function()
+		size = InputSize.XSmall,
+		isChecked = value,
+		label = key,
+		onActivated = function()
 			props.SetControls({
 				[key] = not value,
 			})
@@ -60,9 +62,11 @@ local function getTextInput(key: string, value: any, props: Props)
 			tag = "auto-xy text-label-small",
 		}),
 		TextInput = React.createElement(TextInput, {
-			Size = UDim2.fromOffset(100, 32),
-			Text = tostring(value),
-			OnTextChanged = function(newValue: string)
+			label = "",
+			width = UDim.new(0, 100),
+			size = InputSize.Small,
+			text = tostring(value),
+			onChanged = function(newValue: string)
 				local typedValue = newValue
 				if typeof(props.Controls[key]) == "number" then
 					typedValue = tonumber(newValue) or 0
