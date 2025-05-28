@@ -252,7 +252,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.ShowReportAdPopup(adInfo: { [string]: any }) {RobloxScriptSecurity}
 	Event AdService.VideoAdClosed(adShown: boolean) [Deprecated]
 	Event AdService.adGuiRegisterUI(adGui: Instance) {RobloxScriptSecurity}
-	Event AdService.rewardedVideoAdPlayServerToClient(rewardDetails: string, placementId: number) {RobloxSecurity} [Hidden]
+	Event AdService.rewardedVideoAdPlayServerToClient(rewardDetails: string) {RobloxSecurity} [Hidden]
 	Event AdService.rewardedVideoAdResultClientToServer(result: Enum.ShowAdResult, encryptedAdTrackingData: string, encryptionMetadata: string) {RobloxSecurity} [Hidden]
 	Callback AdService.onDemandVideoPlayInUI(data: { [string]: any }) -> VideoFrame {RobloxScriptSecurity}
 Class AdvancedDragger : Instance

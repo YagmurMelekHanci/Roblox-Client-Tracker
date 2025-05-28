@@ -21821,7 +21821,7 @@ Dinonaktifkan
 Dinonaktifkan]
 Dinormalkan[Fitur
 Dioptimalkan
-DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsosp
+DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos
 Dipengaruhi
 Dipercepat
 DIPERDAGANGKAN
@@ -23630,7 +23630,6 @@ EnableAdditionalGmaDebuggingVariants
 EnableAdFormatInViewabilityEvent
 EnableAdGuiInteractivityControlRefactor
 EnableAdPlacementCheckInRequest
-EnableAdPlacementId
 EnableAdPortalInsert
 EnableAdsApiClientGrantAdReward
 EnableAdsApiClientValidateAdReward
@@ -25803,6 +25802,7 @@ Feature_CookieProtocolEnabled
 Feature_CookieStoreMacStickyEnabled
 Feature_DisableOldCookieManagementSticky
 Feature_LuobuLuaAuthEnabled
+Feature_UnifiedC
 Feature_UnifiedCookieProtocolEnabledSticky
 FeatureActivity
 FeatureActivityTracker
@@ -39878,7 +39878,6 @@ OnDataChannel
 OnDeafenVoiceAudio
 OnDeclarationResponse
 OnDemandAd_HorizontalRectangle
-OnDemandAdPlayAtClient
 OnDemandAdsMutex
 OnDemandAdsProvider
 OnDemandAdsProviderConstructAdContentLoader
@@ -48602,8 +48601,6 @@ RevokeFriendship
 RevokeTokenRequest
 Revolution
 REWARD_NAME
-RewardAndPlacement
-RewardAndPlacementStudio
 RewardDetails
 REWARDED_AD_STATE_AD_AVAILABLE
 REWARDED_AD_STATE_AD_COMPLETED
@@ -70717,7 +70714,6 @@ ValidExtents
 Validierung
 ValidIndex
 ValidIntersectSelectionVerb
-ValidPlacement
 ValidPlayerSkip
 ValidReward
 ValidValue

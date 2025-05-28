@@ -626,7 +626,6 @@
 [C++] DFFlagEnableAdditionalGmaDebuggingVariants
 [C++] DFFlagEnableAdFormatInViewabilityEvent
 [C++] DFFlagEnableAdPlacementCheckInRequest
-[C++] DFFlagEnableAdPlacementId
 [C++] DFFlagEnableAdsApiClientGrantAdReward
 [C++] DFFlagEnableAdsApiClientValidateAdReward
 [C++] DFFlagEnableAdsCriticalInvalidHttpResponseTelemetry
