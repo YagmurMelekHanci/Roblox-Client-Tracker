@@ -545,6 +545,7 @@
 [C++] DFFlagDecoupleExpandedAllowlistFromGmaSdkInit
 [C++] DFFlagDeferInferredCrashEvaluation
 [C++] DFFlagDeferredEventsMaximumQueueSizeTelemetry
+[C++] DFFlagDelayLocalThrottleResults
 [C++] DFFlagDelayRewardedAdsInitialization
 [C++] DFFlagDelayServingAdStateToVideoPlay
 [C++] DFFlagDeprecatableBroadcasts2
@@ -1043,6 +1044,8 @@
 [C++] DFFlagHttpSslCertCacheEnabled3
 [C++] DFFlagHttpSyncRbxStorageWhenAppSuspended
 [C++] DFFlagHttpTelemV2DownloadBwTracker
+[C++] DFFlagHttpThrottleAccurateTime
+[C++] DFFlagHttpThrottleEarlierHandling
 [C++] DFFlagHttpThrottleRequestInWorkerThread
 [C++] DFFlagHttpThrottlingDisableXCoverage
 [C++] DFFlagHttpThrottlingGetEntryCleanup
@@ -3412,6 +3415,7 @@
 [C++] DFIntLocalLightCountsInCompatibilityThrottlePerTenThousand
 [C++] DFIntLocalSimZonePercent
 [C++] DFIntLocalStorageManagerLoggingThrottleHundredthsPercent
+[C++] DFIntLocalThrottleCallbackDelayMs
 [C++] DFIntLocalThrottlingHundredthsPercentage
 [C++] DFIntLocationRecordDelta
 [C++] DFIntLocationRecordPeriod

@@ -14152,7 +14152,7 @@ CC583B11E29A3DBD856014A660
 CCCC0C1CCCCCCCCCCCCCC2CC345CCCCCCCC6CCCC789
 CCCCCCCCCCCCCCC
 CCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCACCB
+CCCCCCCCCCCCCCCCCCCCCCCCACCBj1
 CCCCCCCCCCCCCCCCCCCCCCCCCC
 CCCCCCCCCCCCCDC
 CCCCCCCCCCCCCDCCCCCCC0123CCCCCCCCCC
@@ -15471,6 +15471,7 @@ ClientLeaveFailState
 ClientLeaveInitializeState
 ClientLeaveOperation
 ClientLeaveSuccessState
+ClientLightingTechno
 ClientLightingTechnologyBTIDIxpLayer
 ClientLightingTechnologyChanged
 ClientLightingTechnologyChangedTelemetryHundredthsPercent
@@ -20939,6 +20940,7 @@ DelayedStackTraceLoading
 DelayedTimePercent
 DelayExecutionInSecondsAfterHomePage
 DelayLoadAnimationWhenNecessary
+DelayLocalThrottleResults
 DelayManager
 DelayMillis
 DelayPrecision
@@ -25802,7 +25804,6 @@ Feature_CookieProtocolEnabled
 Feature_CookieStoreMacStickyEnabled
 Feature_DisableOldCookieManagementSticky
 Feature_LuobuLuaAuthEnabled
-Feature_UnifiedC
 Feature_UnifiedCookieProtocolEnabledSticky
 FeatureActivity
 FeatureActivityTracker
@@ -31068,6 +31069,8 @@ HttpSynchronousWriteCache
 HttpSyncRbxStorageWhenAppSuspended
 HttpTelemV2DownloadBwTracker
 HttpThreadPool
+HttpThrottleAccurateTime
+HttpThrottleEarlierHandling
 HttpThrottleRequestInWorkerThread
 HttpThrottlingDisableXCoverage
 HttpThrottlingGetEntryCleanup
@@ -35283,6 +35286,7 @@ LocalStorageManagerEvent
 LocalStorageManagerLoggingThrottleHundredthsPercent
 LocalStorageService
 LocalSubscriptions
+LocalThrottleCallbackDelayMs
 LocalThrottlingHundredthsPercentage
 LocalThrottlingRequestType
 LocalTimestamp
