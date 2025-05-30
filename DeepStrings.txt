@@ -2715,7 +2715,6 @@ AssetImportMatchNameDotNumber
 AssetImportMaxPresetCount
 AssetImportMaxPresetNameLength
 AssetImportOnlyRenameMeshesOnce
-AssetImportQDialogFileTypeFilter
 AssetImportRemoveAnimationSuffix
 AssetImportRespectGltfTangents
 AssetImportService
@@ -14152,7 +14151,7 @@ CC583B11E29A3DBD856014A660
 CCCC0C1CCCCCCCCCCCCCC2CC345CCCCCCCC6CCCC789
 CCCCCCCCCCCCCCC
 CCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCACCBj1
+CCCCCCCCCCCCCCCCCCCCCCCCACCB
 CCCCCCCCCCCCCCCCCCCCCCCCCC
 CCCCCCCCCCCCCDC
 CCCCCCCCCCCCCDCCCCCCC0123CCCCCCCCCC
@@ -15471,7 +15470,6 @@ ClientLeaveFailState
 ClientLeaveInitializeState
 ClientLeaveOperation
 ClientLeaveSuccessState
-ClientLightingTechno
 ClientLightingTechnologyBTIDIxpLayer
 ClientLightingTechnologyChanged
 ClientLightingTechnologyChangedTelemetryHundredthsPercent
@@ -21823,7 +21821,7 @@ Dinonaktifkan
 Dinonaktifkan]
 Dinormalkan[Fitur
 Dioptimalkan
-DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos
+DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsospx
 Dipengaruhi
 Dipercepat
 DIPERDAGANGKAN
@@ -24032,7 +24030,6 @@ EnableRobloxGuiFocusedChangedEvent
 EnableRobloxTypeAliases
 EnableRunRenderJobCheck
 EnableSaleLocationShopAndExperiencesDevApi1
-EnableSavePlaceAsyncInCreation
 EnableScriptAnalysisCallbacks2
 EnableScriptCollabByDefaultOnLoad
 EnableScriptIterationDiff
@@ -45591,6 +45588,7 @@ QWidgetWindow
 QXmlStreamAttributes
 QXmlStreamReader
 R\T2RTL\R2T
+R_OTLP_TRACES_MALP_TRACES_PROTOCLP_TRACES_COMPREOTEL_CPP_EXPORTELP_TRACES_CERTIFLP_CLIENT_CERTIFR_OTLP_TRACES_CIR_OTLP_TRACES_MILP_TRA
 R_OTLP_TRACES_MALP_TRACES_PROTOCLP_TRACES_COMPREOTEL_CPP_EXPORTELP_TRACES_CERTIFLP_CLIENT_CERTIFR_OTLP_TRACES_CIR_OTLP_TRACES_MILP_TRACES_ENDPOILP_TRACES_HEADER_CERTIFICATE_STRLP_CERTIFICATE_SLP_TRACES_CLIENTOTEL_EXPORTER_OTLP_CLIENT_KEY_STLP_TRACES_TIMEOUR_OTLP_CIPHER_SUhttp
 R_YY9455Uo
 Raccomandazione
@@ -49944,7 +49942,6 @@ SaveToFileAs
 SaveToRoblox
 SaveToRobloxAs
 SaveVideoCaptureToExternalStorage
-SaveWithoutPublish
 Saving_XXXXXX.
 SavingAttribute
 SavingInProgress
@@ -58800,6 +58797,7 @@ Studio.App.RobloxDocManager.ApplyingScriptEdits
 Studio.App.RobloxDocManager.NoScriptChanges
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused
 Studio.App.RobloxDocManager.StartPage
+Studio.App.RobloxExplor
 Studio.App.RobloxExplorerWidget.AutoupdateDisabled
 Studio.App.RobloxExplorerWidget.AutoupdateOff
 Studio.App.RobloxExplorerWidget.AutoupdateOn
@@ -75821,7 +75819,7 @@ WillReturn
 WillSleep_DEPRECATED
 WIN32_LEAN_AND_MEAN
 Win32HardwareSleepListener
-Win64.675.581
+Win64.675.508
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled

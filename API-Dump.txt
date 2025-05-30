@@ -509,7 +509,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:PromptCreateAssetAsync(player: Player, instance: Instance, assetType: Enum.AssetType) -> ...any [Yields]
 	Function AssetService:PromptImportAnimationClipFromVideoAsync(player: Player, progressCallback: (...any) -> ...any) -> ...any [Yields]
 	Function AssetService:RegisterUGCValidationFunction(function: (...any) -> ...any) -> () {RobloxScriptSecurity}
-	Function AssetService:SavePlaceAsync(requestParameters: { [string]: any }?) -> () [Yields]
+	Function AssetService:SavePlaceAsync() -> () [Yields]
 	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields]
 	Event AssetService.AudioMetadataFailedResponse(requestid: number) {RobloxScriptSecurity}
 	Event AssetService.AudioMetadataRequest(requestid: number, request: { any }) {RobloxScriptSecurity}
