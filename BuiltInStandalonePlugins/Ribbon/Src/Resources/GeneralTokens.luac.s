@@ -1,0 +1,70 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["Styling"]
+  GETTABLEKS R2 R3 K9 ["createStyleSheet"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["SharedFlags"]
+  GETTABLEKS R4 R5 K12 ["getFFlagRibbonDensityModeStyles"]
+  CALL R3 1 1
+  NEWTABLE R4 0 0
+  DUPTABLE R5 K21 [{"GlobalSpace25", "GlobalSpace50", "GlobalSpace75", "GlobalSpace100", "GlobalSpace150", "GlobalSpace200", "GlobalSpace250", "GlobalSpace350"}]
+  GETIMPORT R6 K24 [UDim.new]
+  LOADN R7 0
+  LOADN R8 2
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K13 ["GlobalSpace25"]
+  GETIMPORT R6 K24 [UDim.new]
+  LOADN R7 0
+  LOADN R8 4
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K14 ["GlobalSpace50"]
+  GETIMPORT R6 K24 [UDim.new]
+  LOADN R7 0
+  LOADN R8 6
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K15 ["GlobalSpace75"]
+  GETIMPORT R6 K24 [UDim.new]
+  LOADN R7 0
+  LOADN R8 8
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K16 ["GlobalSpace100"]
+  GETIMPORT R6 K24 [UDim.new]
+  LOADN R7 0
+  LOADN R8 12
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K17 ["GlobalSpace150"]
+  GETIMPORT R6 K24 [UDim.new]
+  LOADN R7 0
+  LOADN R8 16
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K18 ["GlobalSpace200"]
+  GETIMPORT R6 K24 [UDim.new]
+  LOADN R7 0
+  LOADN R8 20
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K19 ["GlobalSpace250"]
+  GETIMPORT R6 K24 [UDim.new]
+  LOADN R7 0
+  LOADN R8 28
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K20 ["GlobalSpace350"]
+  MOVE R7 R3
+  CALL R7 0 1
+  JUMPIFNOT R7 [+6]
+  MOVE R6 R2
+  LOADK R7 K25 ["GeneralTokens"]
+  MOVE R8 R4
+  MOVE R9 R5
+  CALL R6 3 1
+  RETURN R6 1
+  LOADNIL R6
+  RETURN R6 1

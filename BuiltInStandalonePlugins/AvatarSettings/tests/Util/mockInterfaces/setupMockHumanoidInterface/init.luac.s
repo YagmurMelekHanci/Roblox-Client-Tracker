@@ -5,6 +5,9 @@ PROTO_0:
   GETUPVAL R0 0
   GETUPVAL R1 2
   SETTABLEKS R1 R0 K1 ["ApplyDescription"]
+  GETUPVAL R0 0
+  GETUPVAL R1 2
+  SETTABLEKS R1 R0 K2 ["ApplyDescriptionReset"]
   RETURN R0 0
 
 MAIN:

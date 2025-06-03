@@ -425,129 +425,136 @@ PROTO_9:
   LOADK R21 K22 ["AgeWarningGroups"]
   NAMECALL R18 R11 K21 ["getText"]
   CALL R18 3 1
-  JUMP [+5]
+  JUMP [+13]
+  GETUPVAL R19 0
+  JUMPIFNOT R19 [+6]
   LOADK R20 K17 ["SearchBar"]
-  LOADK R21 K23 ["AgeWarningUsers"]
+  LOADK R21 K23 ["AgeWarningConnectionUsers"]
   NAMECALL R18 R11 K21 ["getText"]
   CALL R18 3 1
-  GETUPVAL R20 0
-  GETTABLEKS R19 R20 K24 ["createElement"]
+  JUMP [+5]
+  LOADK R20 K17 ["SearchBar"]
+  LOADK R21 K24 ["AgeWarningUsers"]
+  NAMECALL R18 R11 K21 ["getText"]
+  CALL R18 3 1
   GETUPVAL R20 1
-  DUPTABLE R21 K26 [{"BackgroundTransparency", "LayoutOrder"}]
+  GETTABLEKS R19 R20 K25 ["createElement"]
+  GETUPVAL R20 2
+  DUPTABLE R21 K27 [{"BackgroundTransparency", "LayoutOrder"}]
   LOADN R22 1
-  SETTABLEKS R22 R21 K25 ["BackgroundTransparency"]
+  SETTABLEKS R22 R21 K26 ["BackgroundTransparency"]
   SETTABLEKS R2 R21 K1 ["LayoutOrder"]
-  DUPTABLE R22 K30 [{"Padding", "AgeWarningFrame", "Searchbar"}]
-  GETUPVAL R24 0
-  GETTABLEKS R23 R24 K24 ["createElement"]
-  LOADK R24 K31 ["UIPadding"]
-  DUPTABLE R25 K35 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
-  GETTABLEKS R27 R10 K36 ["searchWidget"]
-  GETTABLEKS R26 R27 K37 ["paddingTop"]
-  SETTABLEKS R26 R25 K32 ["PaddingTop"]
-  GETTABLEKS R27 R10 K36 ["searchWidget"]
-  GETTABLEKS R26 R27 K38 ["paddingHorizontal"]
-  SETTABLEKS R26 R25 K33 ["PaddingLeft"]
-  GETTABLEKS R27 R10 K36 ["searchWidget"]
-  GETTABLEKS R26 R27 K38 ["paddingHorizontal"]
-  SETTABLEKS R26 R25 K34 ["PaddingRight"]
+  DUPTABLE R22 K31 [{"Padding", "AgeWarningFrame", "Searchbar"}]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K25 ["createElement"]
+  LOADK R24 K32 ["UIPadding"]
+  DUPTABLE R25 K36 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
+  GETTABLEKS R27 R10 K37 ["searchWidget"]
+  GETTABLEKS R26 R27 K38 ["paddingTop"]
+  SETTABLEKS R26 R25 K33 ["PaddingTop"]
+  GETTABLEKS R27 R10 K37 ["searchWidget"]
+  GETTABLEKS R26 R27 K39 ["paddingHorizontal"]
+  SETTABLEKS R26 R25 K34 ["PaddingLeft"]
+  GETTABLEKS R27 R10 K37 ["searchWidget"]
+  GETTABLEKS R26 R27 K39 ["paddingHorizontal"]
+  SETTABLEKS R26 R25 K35 ["PaddingRight"]
   CALL R23 2 1
-  SETTABLEKS R23 R22 K27 ["Padding"]
+  SETTABLEKS R23 R22 K28 ["Padding"]
   MOVE R23 R9
   JUMPIFNOT R23 [+56]
-  GETUPVAL R24 0
-  GETTABLEKS R23 R24 K24 ["createElement"]
-  LOADK R24 K39 ["Frame"]
-  DUPTABLE R25 K42 [{"BackgroundTransparency", "LayoutOrder", "Size", "BorderSizePixel"}]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K25 ["createElement"]
+  LOADK R24 K40 ["Frame"]
+  DUPTABLE R25 K43 [{"BackgroundTransparency", "LayoutOrder", "Size", "BorderSizePixel"}]
   LOADN R26 1
-  SETTABLEKS R26 R25 K25 ["BackgroundTransparency"]
+  SETTABLEKS R26 R25 K26 ["BackgroundTransparency"]
   LOADN R26 1
   SETTABLEKS R26 R25 K1 ["LayoutOrder"]
-  GETIMPORT R26 K45 [UDim2.new]
+  GETIMPORT R26 K46 [UDim2.new]
   LOADN R27 1
   LOADN R28 0
   LOADN R29 0
-  GETTABLEKS R32 R10 K36 ["searchWidget"]
-  GETTABLEKS R31 R32 K46 ["ageWarning"]
-  GETTABLEKS R30 R31 K47 ["Height"]
+  GETTABLEKS R32 R10 K37 ["searchWidget"]
+  GETTABLEKS R31 R32 K47 ["ageWarning"]
+  GETTABLEKS R30 R31 K48 ["Height"]
   CALL R26 4 1
-  SETTABLEKS R26 R25 K40 ["Size"]
+  SETTABLEKS R26 R25 K41 ["Size"]
   LOADN R26 0
-  SETTABLEKS R26 R25 K41 ["BorderSizePixel"]
-  DUPTABLE R26 K49 [{"AgeWarning"}]
-  GETUPVAL R28 0
-  GETTABLEKS R27 R28 K24 ["createElement"]
-  LOADK R28 K50 ["TextLabel"]
-  GETUPVAL R31 2
-  GETTABLEKS R30 R31 K51 ["Dictionary"]
-  GETTABLEKS R29 R30 K52 ["join"]
-  GETTABLEKS R32 R10 K36 ["searchWidget"]
-  GETTABLEKS R31 R32 K46 ["ageWarning"]
-  GETTABLEKS R30 R31 K53 ["fontStyle"]
-  DUPTABLE R31 K56 [{"Text", "TextXAlignment"}]
-  SETTABLEKS R18 R31 K54 ["Text"]
-  GETIMPORT R32 K59 [Enum.TextXAlignment.Left]
-  SETTABLEKS R32 R31 K55 ["TextXAlignment"]
+  SETTABLEKS R26 R25 K42 ["BorderSizePixel"]
+  DUPTABLE R26 K50 [{"AgeWarning"}]
+  GETUPVAL R28 1
+  GETTABLEKS R27 R28 K25 ["createElement"]
+  LOADK R28 K51 ["TextLabel"]
+  GETUPVAL R31 3
+  GETTABLEKS R30 R31 K52 ["Dictionary"]
+  GETTABLEKS R29 R30 K53 ["join"]
+  GETTABLEKS R32 R10 K37 ["searchWidget"]
+  GETTABLEKS R31 R32 K47 ["ageWarning"]
+  GETTABLEKS R30 R31 K54 ["fontStyle"]
+  DUPTABLE R31 K57 [{"Text", "TextXAlignment"}]
+  SETTABLEKS R18 R31 K55 ["Text"]
+  GETIMPORT R32 K60 [Enum.TextXAlignment.Left]
+  SETTABLEKS R32 R31 K56 ["TextXAlignment"]
   CALL R29 2 -1
   CALL R27 -1 1
-  SETTABLEKS R27 R26 K48 ["AgeWarning"]
+  SETTABLEKS R27 R26 K49 ["AgeWarning"]
   CALL R23 3 1
-  SETTABLEKS R23 R22 K28 ["AgeWarningFrame"]
-  GETUPVAL R24 0
-  GETTABLEKS R23 R24 K24 ["createElement"]
-  GETUPVAL R24 3
-  DUPTABLE R25 K71 [{"LayoutOrder", "Enabled", "HeaderHeight", "ItemHeight", "ErrorText", "DefaultText", "NoResultsText", "LoadingMore", "IsGroupGame", "onSearchRequested", "onTextChanged", "OnItemClicked", "Results", "Is17PlusGame"}]
+  SETTABLEKS R23 R22 K29 ["AgeWarningFrame"]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K25 ["createElement"]
+  GETUPVAL R24 4
+  DUPTABLE R25 K72 [{"LayoutOrder", "Enabled", "HeaderHeight", "ItemHeight", "ErrorText", "DefaultText", "NoResultsText", "LoadingMore", "IsGroupGame", "onSearchRequested", "onTextChanged", "OnItemClicked", "Results", "Is17PlusGame"}]
   LOADN R26 2
   SETTABLEKS R26 R25 K1 ["LayoutOrder"]
   MOVE R26 R3
   JUMPIFNOT R26 [+1]
   NOT R26 R16
-  SETTABLEKS R26 R25 K60 ["Enabled"]
-  GETTABLEKS R27 R10 K72 ["searchBar"]
-  GETTABLEKS R26 R27 K73 ["headerHeight"]
-  SETTABLEKS R26 R25 K61 ["HeaderHeight"]
-  GETTABLEKS R27 R10 K72 ["searchBar"]
-  GETTABLEKS R26 R27 K74 ["itemHeight"]
-  SETTABLEKS R26 R25 K62 ["ItemHeight"]
+  SETTABLEKS R26 R25 K61 ["Enabled"]
+  GETTABLEKS R27 R10 K73 ["searchBar"]
+  GETTABLEKS R26 R27 K74 ["headerHeight"]
+  SETTABLEKS R26 R25 K62 ["HeaderHeight"]
+  GETTABLEKS R27 R10 K73 ["searchBar"]
+  GETTABLEKS R26 R27 K75 ["itemHeight"]
+  SETTABLEKS R26 R25 K63 ["ItemHeight"]
   JUMPIFNOT R16 [+2]
   MOVE R26 R17
   JUMPIF R26 [+1]
   LOADNIL R26
-  SETTABLEKS R26 R25 K63 ["ErrorText"]
+  SETTABLEKS R26 R25 K64 ["ErrorText"]
   LOADK R28 K17 ["SearchBar"]
   JUMPIFNOT R8 [+2]
-  LOADK R29 K75 ["AddUsers"]
+  LOADK R29 K76 ["AddUsers"]
   JUMP [+1]
-  LOADK R29 K76 ["AddUsersGroups"]
+  LOADK R29 K77 ["AddUsersGroups"]
   NAMECALL R26 R11 K21 ["getText"]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K64 ["DefaultText"]
+  SETTABLEKS R26 R25 K65 ["DefaultText"]
   LOADK R28 K17 ["SearchBar"]
-  LOADK R29 K65 ["NoResultsText"]
+  LOADK R29 K66 ["NoResultsText"]
   NAMECALL R26 R11 K21 ["getText"]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K65 ["NoResultsText"]
-  SETTABLEKS R13 R25 K66 ["LoadingMore"]
+  SETTABLEKS R26 R25 K66 ["NoResultsText"]
+  SETTABLEKS R13 R25 K67 ["LoadingMore"]
   SETTABLEKS R8 R25 K7 ["IsGroupGame"]
   NEWCLOSURE R26 P0
   CAPTURE VAL R7
-  SETTABLEKS R26 R25 K67 ["onSearchRequested"]
+  SETTABLEKS R26 R25 K68 ["onSearchRequested"]
   NEWCLOSURE R26 P1
   CAPTURE VAL R7
-  SETTABLEKS R26 R25 K68 ["onTextChanged"]
+  SETTABLEKS R26 R25 K69 ["onTextChanged"]
   NEWCLOSURE R26 P2
   CAPTURE VAL R1
-  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   CAPTURE VAL R0
   CAPTURE VAL R5
-  CAPTURE UPVAL U5
   CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
   CAPTURE VAL R6
-  SETTABLEKS R26 R25 K69 ["OnItemClicked"]
-  SETTABLEKS R12 R25 K70 ["Results"]
+  SETTABLEKS R26 R25 K70 ["OnItemClicked"]
+  SETTABLEKS R12 R25 K71 ["Results"]
   SETTABLEKS R9 R25 K8 ["Is17PlusGame"]
   CALL R23 2 1
-  SETTABLEKS R23 R22 K29 ["Searchbar"]
+  SETTABLEKS R23 R22 K30 ["Searchbar"]
   CALL R19 3 -1
   RETURN R19 -1
 
@@ -754,74 +761,79 @@ MAIN:
   GETTABLEKS R29 R30 K31 ["Selectors"]
   GETTABLEKS R28 R29 K40 ["IsGame17Plus"]
   CALL R27 1 1
-  MOVE R28 R19
-  LOADK R29 K41 ["Frame"]
-  LOADK R30 K42 ["UIListLayout"]
-  DUPTABLE R31 K46 [{"SortOrder", "Padding", "HorizontalAlignment"}]
-  GETIMPORT R32 K49 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R32 R31 K43 ["SortOrder"]
-  GETIMPORT R32 K52 [UDim.new]
-  LOADN R33 0
-  LOADN R34 32
-  CALL R32 2 1
-  SETTABLEKS R32 R31 K44 ["Padding"]
-  GETIMPORT R32 K54 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R32 R31 K45 ["HorizontalAlignment"]
-  CALL R28 3 1
-  GETTABLEKS R29 R1 K55 ["PureComponent"]
-  LOADK R31 K56 ["CollaboratorSearchWidget"]
-  NAMECALL R29 R29 K57 ["extend"]
-  CALL R29 2 1
-  DUPCLOSURE R30 K58 [PROTO_0]
+  GETIMPORT R28 K42 [game]
+  LOADK R30 K43 ["StudioFriendToConnection"]
+  NAMECALL R28 R28 K44 ["GetFastFlag"]
+  CALL R28 2 1
+  MOVE R29 R19
+  LOADK R30 K45 ["Frame"]
+  LOADK R31 K46 ["UIListLayout"]
+  DUPTABLE R32 K50 [{"SortOrder", "Padding", "HorizontalAlignment"}]
+  GETIMPORT R33 K53 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R33 R32 K47 ["SortOrder"]
+  GETIMPORT R33 K56 [UDim.new]
+  LOADN R34 0
+  LOADN R35 32
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K48 ["Padding"]
+  GETIMPORT R33 K58 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R33 R32 K49 ["HorizontalAlignment"]
+  CALL R29 3 1
+  GETTABLEKS R30 R1 K59 ["PureComponent"]
+  LOADK R32 K60 ["CollaboratorSearchWidget"]
+  NAMECALL R30 R30 K61 ["extend"]
+  CALL R30 2 1
+  DUPCLOSURE R31 K62 [PROTO_0]
   CAPTURE VAL R10
-  SETTABLEKS R30 R29 K59 ["isLoading"]
-  DUPCLOSURE R30 K60 [PROTO_1]
-  SETTABLEKS R30 R29 K61 ["isFriend"]
-  DUPCLOSURE R30 K62 [PROTO_4]
+  SETTABLEKS R31 R30 K63 ["isLoading"]
+  DUPCLOSURE R31 K64 [PROTO_1]
+  SETTABLEKS R31 R30 K65 ["isFriend"]
+  DUPCLOSURE R31 K66 [PROTO_4]
   CAPTURE VAL R10
   CAPTURE VAL R9
-  SETTABLEKS R30 R29 K63 ["getMatches"]
-  DUPCLOSURE R30 K64 [PROTO_5]
+  SETTABLEKS R31 R30 K67 ["getMatches"]
+  DUPCLOSURE R31 K68 [PROTO_5]
   CAPTURE VAL R9
   CAPTURE VAL R1
   CAPTURE VAL R16
   CAPTURE VAL R14
   CAPTURE VAL R17
   CAPTURE VAL R15
-  SETTABLEKS R30 R29 K65 ["getResults"]
-  DUPCLOSURE R30 K66 [PROTO_9]
-  CAPTURE VAL R1
+  SETTABLEKS R31 R30 K69 ["getResults"]
+  DUPCLOSURE R31 K70 [PROTO_9]
   CAPTURE VAL R28
+  CAPTURE VAL R1
+  CAPTURE VAL R29
   CAPTURE VAL R3
   CAPTURE VAL R18
   CAPTURE VAL R9
   CAPTURE VAL R12
   CAPTURE VAL R11
-  SETTABLEKS R30 R29 K67 ["render"]
-  MOVE R30 R7
-  DUPTABLE R31 K69 [{"Stylizer", "Localization", "Mouse"}]
-  SETTABLEKS R5 R31 K11 ["Stylizer"]
-  SETTABLEKS R8 R31 K14 ["Localization"]
-  GETTABLEKS R32 R6 K68 ["Mouse"]
-  SETTABLEKS R32 R31 K68 ["Mouse"]
-  CALL R30 1 1
-  MOVE R31 R29
-  CALL R30 1 1
-  MOVE R29 R30
-  GETTABLEKS R30 R2 K70 ["connect"]
-  DUPCLOSURE R31 K71 [PROTO_10]
+  SETTABLEKS R31 R30 K71 ["render"]
+  MOVE R31 R7
+  DUPTABLE R32 K73 [{"Stylizer", "Localization", "Mouse"}]
+  SETTABLEKS R5 R32 K11 ["Stylizer"]
+  SETTABLEKS R8 R32 K14 ["Localization"]
+  GETTABLEKS R33 R6 K72 ["Mouse"]
+  SETTABLEKS R33 R32 K72 ["Mouse"]
+  CALL R31 1 1
+  MOVE R32 R30
+  CALL R31 1 1
+  MOVE R30 R31
+  GETTABLEKS R31 R2 K74 ["connect"]
+  DUPCLOSURE R32 K75 [PROTO_10]
   CAPTURE VAL R20
   CAPTURE VAL R21
   CAPTURE VAL R3
   CAPTURE VAL R26
   CAPTURE VAL R27
-  DUPCLOSURE R32 K72 [PROTO_15]
+  DUPCLOSURE R33 K76 [PROTO_15]
   CAPTURE VAL R22
   CAPTURE VAL R23
   CAPTURE VAL R24
   CAPTURE VAL R25
-  CALL R30 2 1
-  MOVE R31 R29
-  CALL R30 1 1
-  MOVE R29 R30
-  RETURN R29 1
+  CALL R31 2 1
+  MOVE R32 R30
+  CALL R31 1 1
+  MOVE R30 R31
+  RETURN R30 1

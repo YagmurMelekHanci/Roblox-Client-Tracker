@@ -28,15 +28,19 @@ local Panel3D = UIBlox.Core.VR.Panel3D
 local VRConstants = UIBlox.Core.VR.Constants
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Core.Style.withStyle
+local Images = UIBlox.App.ImageSet.Images
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local VRUtil = require(CorePackages.Workspace.Packages.VrCommon).VRUtil
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local FFlagEnableUIManagerPackgify = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUIManagerPackgify
+local GetFFlagEnableVrVoiceParity = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVrVoiceParity
+
 local PanelType
 local registerRoactPanel
 local UIManager
@@ -403,6 +407,15 @@ local MoreInventory = {
 	end,
 }
 
+local JoinVoice = {
+	iconOn = Images["icons/controls/publicAudioJoin"],
+	iconOff = Images["icons/controls/publicAudioJoin"],
+	text = "Join Voice",
+	onActivated = function()
+		VoiceChatServiceManager:JoinVoice()
+	end,
+}
+
 -- Remove when remove FFlagVRBottomBarDebugPositionConfig
 local function roundOffset(x)
 	return x >= 0 and math.floor(x * 10 + 0.5) / 10 or math.ceil(x * 10 - 0.5) / 10
@@ -736,6 +749,10 @@ function VRBottomBar:updateItems()
 
 	if chatEnabled then
 		table.insert(enabledItems, Chat)
+	end
+
+	if GetFFlagEnableVrVoiceParity() and VoiceChatServiceManager:ShouldShowJoinVoice() then
+		table.insert(enabledItems, JoinVoice)
 	end
 
 	if FFlagVRMoveVoiceIndicatorToBottomBar and self.props.voiceEnabled then

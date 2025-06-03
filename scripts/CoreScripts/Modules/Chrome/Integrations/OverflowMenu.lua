@@ -58,6 +58,7 @@ local GetFFlagShouldShowMusicFtuxTooltipXTimes = require(Chrome.Flags.GetFFlagSh
 local GetFStringMusicTooltipLocalStorageKey_v2 = require(Chrome.Flags.GetFStringMusicTooltipLocalStorageKey_v2)
 local GetFFlagEnableSongbirdInChrome = require(Chrome.Flags.GetFFlagEnableSongbirdInChrome)
 local GetFFlagShouldShowSimpleMusicFtuxTooltip = require(Chrome.Flags.GetFFlagShouldShowSimpleMusicFtuxTooltip)
+local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
 local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated", false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
@@ -65,6 +66,9 @@ local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandSt
 
 local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 	game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false)
+
+local FIntUnibarConnectIconTooltipPriority = game:DefineFastInt("UnibarConnectTooltipPriority", 2000)
+local FIntUnibarMusicIconTooltipPriority = game:DefineFastInt("UnibarMusicIconTooltipPriority", 3000)
 local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 	and FFlagEnableUnibarFtuxTooltips
 	and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
@@ -321,6 +325,8 @@ function HamburgerButton(props)
 	local connectTooltip = if shouldShowConnectTooltip
 		then if shouldShowMusicTooltip and not hasUserAlreadySeenConnectTooltip
 			then CommonFtuxTooltip({
+				id = if FFlagEnableUnibarTooltipQueue then "CONNECT_TOOLTIP" else nil,
+				priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarConnectIconTooltipPriority else nil,
 				isIconVisible = props.visible,
 
 				headerKey = if GetFFlagAppChatRebrandStringUpdates()
@@ -339,6 +345,8 @@ function HamburgerButton(props)
 				onDismissed = if shouldShowMusicTooltip then onConnectTooltipDismissed else nil,
 			})
 			else CommonFtuxTooltip({
+				id = if FFlagEnableUnibarTooltipQueue then "CONNECT_TOOLTIP" else nil,
+				priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarConnectIconTooltipPriority else nil,
 				isIconVisible = props.visible,
 
 				headerKey = if GetFFlagAppChatRebrandStringUpdates()
@@ -359,6 +367,8 @@ function HamburgerButton(props)
 
 	local musicTooltip = if isMusicTooltipVisible and not hasUserAlreadySeenMusicTooltip
 		then CommonFtuxTooltip({
+			id = if FFlagEnableUnibarTooltipQueue then "MUSIC_TOOLTIP" else nil,
+			priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarMusicIconTooltipPriority else nil,
 			isIconVisible = props.visible,
 
 			headerKey = "CoreScripts.FTUX.Heading.MusicIsAvailable",

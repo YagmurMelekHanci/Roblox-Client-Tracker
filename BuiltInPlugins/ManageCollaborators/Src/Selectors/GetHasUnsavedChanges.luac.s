@@ -29,53 +29,47 @@ PROTO_0:
   RETURN R2 1
 
 PROTO_1:
-  GETUPVAL R2 0
-  FASTCALL1 ASSERT R2 [+2]
-  GETIMPORT R1 K1 [assert]
-  CALL R1 1 0
   LOADB R1 0
-  GETTABLEKS R3 R0 K2 ["Permissions"]
-  GETTABLEKS R2 R3 K3 ["NewPermissions"]
+  GETTABLEKS R3 R0 K0 ["Permissions"]
+  GETTABLEKS R2 R3 K1 ["NewPermissions"]
   JUMPIFNOT R2 [+44]
-  GETTABLEKS R4 R0 K2 ["Permissions"]
-  GETTABLEKS R3 R4 K3 ["NewPermissions"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["UserSubjectKey"]
+  GETTABLEKS R4 R0 K0 ["Permissions"]
+  GETTABLEKS R3 R4 K1 ["NewPermissions"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["UserSubjectKey"]
   GETTABLE R2 R3 R4
-  GETTABLEKS R5 R0 K2 ["Permissions"]
-  GETTABLEKS R4 R5 K5 ["CurrentPermissions"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K4 ["UserSubjectKey"]
+  GETTABLEKS R5 R0 K0 ["Permissions"]
+  GETTABLEKS R4 R5 K3 ["CurrentPermissions"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["UserSubjectKey"]
   GETTABLE R3 R4 R5
-  GETTABLEKS R6 R0 K2 ["Permissions"]
-  GETTABLEKS R5 R6 K3 ["NewPermissions"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K6 ["RoleSubjectKey"]
+  GETTABLEKS R6 R0 K0 ["Permissions"]
+  GETTABLEKS R5 R6 K1 ["NewPermissions"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["RoleSubjectKey"]
   GETTABLE R4 R5 R6
-  GETTABLEKS R7 R0 K2 ["Permissions"]
-  GETTABLEKS R6 R7 K5 ["CurrentPermissions"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K6 ["RoleSubjectKey"]
+  GETTABLEKS R7 R0 K0 ["Permissions"]
+  GETTABLEKS R6 R7 K3 ["CurrentPermissions"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["RoleSubjectKey"]
   GETTABLE R5 R6 R7
-  GETGLOBAL R6 K7 ["checkForDifferenceInCollaborators"]
+  GETGLOBAL R6 K5 ["checkForDifferenceInCollaborators"]
   MOVE R7 R2
   MOVE R8 R3
   CALL R6 2 1
   JUMPIF R6 [+5]
-  GETGLOBAL R6 K7 ["checkForDifferenceInCollaborators"]
+  GETGLOBAL R6 K5 ["checkForDifferenceInCollaborators"]
   MOVE R7 R4
   MOVE R8 R5
   CALL R6 2 1
   MOVE R1 R6
-  GETUPVAL R2 2
-  JUMPIFNOT R2 [+18]
-  GETTABLEKS R3 R0 K8 ["GranularPermissions"]
-  GETTABLEKS R2 R3 K9 ["UpdatedPermissionValues"]
+  GETTABLEKS R3 R0 K6 ["GranularPermissions"]
+  GETTABLEKS R2 R3 K7 ["UpdatedPermissionValues"]
   JUMPIFNOT R2 [+13]
   JUMPIF R1 [+12]
-  GETTABLEKS R3 R0 K8 ["GranularPermissions"]
-  GETTABLEKS R2 R3 K9 ["UpdatedPermissionValues"]
-  GETIMPORT R3 K11 [next]
+  GETTABLEKS R3 R0 K6 ["GranularPermissions"]
+  GETTABLEKS R2 R3 K7 ["UpdatedPermissionValues"]
+  GETIMPORT R3 K9 [next]
   MOVE R4 R2
   CALL R3 1 1
   JUMPIFNOTEQKNIL R3 [+2]
@@ -85,28 +79,18 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["COLLAB2699FixSaveChangesLogic"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["EnableGranularExperiencePermissions"]
-  NAMECALL R1 R1 K3 ["GetFastFlag"]
-  CALL R1 2 1
-  GETIMPORT R5 K6 [script]
-  GETTABLEKS R4 R5 K7 ["Parent"]
-  GETTABLEKS R3 R4 K7 ["Parent"]
-  GETTABLEKS R2 R3 K7 ["Parent"]
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R2 K10 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Util"]
-  GETTABLEKS R4 R5 K12 ["PermissionsConstants"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K13 [PROTO_0]
-  CAPTURE VAL R3
-  SETGLOBAL R4 K14 ["checkForDifferenceInCollaborators"]
-  DUPCLOSURE R4 K15 [PROTO_1]
-  CAPTURE VAL R0
-  CAPTURE VAL R3
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["PermissionsConstants"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K8 [PROTO_0]
   CAPTURE VAL R1
-  RETURN R4 1
+  SETGLOBAL R2 K9 ["checkForDifferenceInCollaborators"]
+  DUPCLOSURE R2 K10 [PROTO_1]
+  CAPTURE VAL R1
+  RETURN R2 1

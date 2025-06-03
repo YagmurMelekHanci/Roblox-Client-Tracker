@@ -27,10 +27,18 @@ MAIN:
   LOADK R2 K2 ["TextureGenerator"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  DUPTABLE R1 K5 [{"TouchTransmitter"}]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K4 ["TouchTransmitter"]
-  DUPCLOSURE R2 K6 [PROTO_0]
-  CAPTURE VAL R1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["TextureGeneratorCloneIgnorePackageLink"]
+  LOADB R4 0
+  NAMECALL R1 R1 K7 ["DefineFastFlag"]
+  CALL R1 3 1
+  DUPTABLE R2 K9 [{"TouchTransmitter"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K8 ["TouchTransmitter"]
+  JUMPIFNOT R1 [+3]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K10 ["PackageLink"]
+  DUPCLOSURE R3 K11 [PROTO_0]
   CAPTURE VAL R2
-  RETURN R2 1
+  CAPTURE VAL R3
+  RETURN R3 1

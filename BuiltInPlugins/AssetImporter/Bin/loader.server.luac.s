@@ -99,75 +99,75 @@ MAIN:
   CALL R2 1 0
   RETURN R0 0
   GETIMPORT R2 K6 [require]
-  GETTABLEKS R5 R0 K7 ["Packages"]
-  GETTABLEKS R4 R5 K18 ["PluginLoader"]
-  GETTABLEKS R3 R4 K19 ["PluginLoaderBuilder"]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K18 ["PluginLoader"]
   CALL R2 1 1
-  GETTABLEKS R6 R0 K13 ["Src"]
-  GETTABLEKS R5 R6 K20 ["Resources"]
-  GETTABLEKS R4 R5 K21 ["Localization"]
-  GETTABLEKS R3 R4 K22 ["SourceStrings"]
+  GETTABLEKS R3 R2 K19 ["PluginLoaderBuilder"]
   GETTABLEKS R7 R0 K13 ["Src"]
   GETTABLEKS R6 R7 K20 ["Resources"]
   GETTABLEKS R5 R6 K21 ["Localization"]
-  GETTABLEKS R4 R5 K23 ["LocalizedStrings"]
-  GETIMPORT R5 K25 [game]
-  LOADK R7 K26 ["FixAvatarTabPluginsNotLoadingOnNonEnglishBuilds"]
-  NAMECALL R5 R5 K27 ["GetFastFlag"]
-  CALL R5 2 1
-  DUPTABLE R6 K36 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-  GETIMPORT R7 K4 [plugin]
-  SETTABLEKS R7 R6 K3 ["plugin"]
-  LOADK R7 K12 ["AssetImporter"]
-  SETTABLEKS R7 R6 K28 ["pluginName"]
-  SETTABLEKS R4 R6 K29 ["translationResourceTable"]
-  SETTABLEKS R3 R6 K30 ["fallbackResourceTable"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K31 ["overrideLocaleId"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K32 ["localizationNamespace"]
-  DUPCLOSURE R7 K37 [PROTO_0]
-  CAPTURE VAL R5
-  SETTABLEKS R7 R6 K33 ["getToolbarName"]
-  DUPTABLE R7 K43 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
-  DUPCLOSURE R8 K44 [PROTO_1]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R7 K38 ["getName"]
-  DUPCLOSURE R8 K45 [PROTO_2]
-  SETTABLEKS R8 R7 K39 ["getDescription"]
-  LOADK R8 K46 ["rbxlocaltheme://MeshImporter"]
-  SETTABLEKS R8 R7 K40 ["icon"]
-  DUPCLOSURE R8 K47 [PROTO_3]
-  SETTABLEKS R8 R7 K41 ["text"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K42 ["clickableWhenViewportHidden"]
-  SETTABLEKS R7 R6 K34 ["buttonInfo"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K35 ["dockWidgetInfo"]
-  GETTABLEKS R7 R2 K48 ["build"]
-  MOVE R8 R6
-  CALL R7 1 1
-  GETTABLEKS R8 R7 K49 ["pluginLoader"]
-  NAMECALL R8 R8 K50 ["waitForUserInteraction"]
+  GETTABLEKS R4 R5 K22 ["SourceStrings"]
+  GETTABLEKS R8 R0 K13 ["Src"]
+  GETTABLEKS R7 R8 K20 ["Resources"]
+  GETTABLEKS R6 R7 K21 ["Localization"]
+  GETTABLEKS R5 R6 K23 ["LocalizedStrings"]
+  GETIMPORT R6 K25 [game]
+  LOADK R8 K26 ["FixAvatarTabPluginsNotLoadingOnNonEnglishBuilds"]
+  NAMECALL R6 R6 K27 ["GetFastFlag"]
+  CALL R6 2 1
+  DUPTABLE R7 K36 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
+  GETIMPORT R8 K4 [plugin]
+  SETTABLEKS R8 R7 K3 ["plugin"]
+  LOADK R8 K12 ["AssetImporter"]
+  SETTABLEKS R8 R7 K28 ["pluginName"]
+  SETTABLEKS R5 R7 K29 ["translationResourceTable"]
+  SETTABLEKS R4 R7 K30 ["fallbackResourceTable"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K31 ["overrideLocaleId"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K32 ["localizationNamespace"]
+  DUPCLOSURE R8 K37 [PROTO_0]
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K33 ["getToolbarName"]
+  DUPTABLE R8 K43 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
+  DUPCLOSURE R9 K44 [PROTO_1]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R8 K38 ["getName"]
+  DUPCLOSURE R9 K45 [PROTO_2]
+  SETTABLEKS R9 R8 K39 ["getDescription"]
+  LOADK R9 K46 ["rbxlocaltheme://MeshImporter"]
+  SETTABLEKS R9 R8 K40 ["icon"]
+  DUPCLOSURE R9 K47 [PROTO_3]
+  SETTABLEKS R9 R8 K41 ["text"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K42 ["clickableWhenViewportHidden"]
+  SETTABLEKS R8 R7 K34 ["buttonInfo"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K35 ["dockWidgetInfo"]
+  GETTABLEKS R8 R3 K48 ["build"]
+  MOVE R9 R7
   CALL R8 1 1
-  JUMPIF R8 [+1]
+  GETTABLEKS R9 R8 K49 ["pluginLoader"]
+  NAMECALL R9 R9 K50 ["waitForUserInteraction"]
+  CALL R9 1 1
+  JUMPIF R9 [+1]
   RETURN R0 0
-  GETIMPORT R11 K1 [script]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K2 ["Parent"]
   GETTABLEKS R10 R11 K2 ["Parent"]
-  GETTABLEKS R9 R10 K2 ["Parent"]
-  LOADNIL R10
-  NEWCLOSURE R11 P4
-  CAPTURE VAL R9
-  CAPTURE REF R10
-  CAPTURE VAL R7
-  SETGLOBAL R11 K51 ["init"]
-  GETIMPORT R12 K4 [plugin]
-  GETTABLEKS R11 R12 K52 ["Unloading"]
-  NEWCLOSURE R13 P5
-  CAPTURE REF R10
-  NAMECALL R11 R11 K53 ["Connect"]
-  CALL R11 2 0
-  GETGLOBAL R11 K51 ["init"]
-  CALL R11 0 0
-  CLOSEUPVALS R10
+  LOADNIL R11
+  NEWCLOSURE R12 P4
+  CAPTURE VAL R10
+  CAPTURE REF R11
+  CAPTURE VAL R8
+  SETGLOBAL R12 K51 ["init"]
+  GETIMPORT R13 K4 [plugin]
+  GETTABLEKS R12 R13 K52 ["Unloading"]
+  NEWCLOSURE R14 P5
+  CAPTURE REF R11
+  NAMECALL R12 R12 K53 ["Connect"]
+  CALL R12 2 0
+  GETGLOBAL R12 K51 ["init"]
+  CALL R12 0 0
+  CLOSEUPVALS R11
   RETURN R0 0

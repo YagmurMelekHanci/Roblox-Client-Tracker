@@ -23,6 +23,7 @@ local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCurso
 local FFlagChromeFixDelayLoadControlLock = SharedFlags.FFlagChromeFixDelayLoadControlLock
 local FFlagGamepadConnectorUseChromeFocusAPI = SharedFlags.FFlagGamepadConnectorUseChromeFocusAPI
 local FFlagGamepadConnectorSetCoreGuiNavEnabled = SharedFlags.FFlagGamepadConnectorSetCoreGuiNavEnabled
+local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 
 local Modules = script.Parent.Parent.Parent
 local TopBar = Modules.TopBar
@@ -37,6 +38,9 @@ local ObservableValue = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFl
 local ToastNotificationConstants = require(CorePackages.Workspace.Packages.ToastNotification).ToastNotificationConstants
 local Constants = require(script.Parent.Parent.Constants)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
+
+local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
+local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
 
 local ToastRoot = nil
 local ToastGui = nil
@@ -299,6 +303,9 @@ end
 
 function GamepadConnector:_unfocusGamepadFromTopBar()
 	ChromeFocusUtils.FocusOffChrome(function()
+		if FFlagConsoleChatUseChromeFocusUtils and ExpChatFocusNavigationStore.getChatInputBarFocused(false) then
+			ExpChatFocusNavigationStore.unfocusChatInputBar()
+		end
 		if FFlagIgnoreDevGamepadBindingsMenuOpen then
 			self.setTopbarActive(false)
 		end

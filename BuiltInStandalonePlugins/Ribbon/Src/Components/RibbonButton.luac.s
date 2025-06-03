@@ -112,107 +112,108 @@ PROTO_3:
   JUMP [+1]
   LOADNIL R7
   GETUPVAL R8 4
-  DUPTABLE R9 K13 [{"Uri", "Title", "Text", "Shortcuts"}]
+  DUPTABLE R9 K14 [{"Uri", "Title", "Text", "Shortcuts", "WidgetRef"}]
   GETTABLEKS R10 R0 K1 ["Uri"]
   SETTABLEKS R10 R9 K1 ["Uri"]
   GETTABLEKS R10 R0 K11 ["Text"]
   SETTABLEKS R10 R9 K10 ["Title"]
-  GETTABLEKS R10 R0 K14 ["Tooltip"]
+  GETTABLEKS R10 R0 K15 ["Tooltip"]
   SETTABLEKS R10 R9 K11 ["Text"]
   GETTABLEKS R10 R0 K12 ["Shortcuts"]
   SETTABLEKS R10 R9 K12 ["Shortcuts"]
+  SETTABLEKS R1 R9 K13 ["WidgetRef"]
   CALL R8 1 2
   GETTABLEKS R10 R0 K11 ["Text"]
   JUMPIFNOT R10 [+6]
-  LOADK R13 K15 ["
+  LOADK R13 K16 ["
 "]
-  LOADK R14 K16 [" "]
-  NAMECALL R11 R10 K17 ["gsub"]
+  LOADK R14 K17 [" "]
+  NAMECALL R11 R10 K18 ["gsub"]
   CALL R11 3 1
   MOVE R10 R11
   GETUPVAL R12 5
-  GETTABLEKS R11 R12 K18 ["createElement"]
-  LOADK R12 K19 ["TextButton"]
+  GETTABLEKS R11 R12 K19 ["createElement"]
+  LOADK R12 K20 ["TextButton"]
   NEWTABLE R13 8 0
-  SETTABLEKS R1 R13 K20 ["ref"]
-  GETTABLEKS R14 R0 K21 ["LayoutOrder"]
-  SETTABLEKS R14 R13 K21 ["LayoutOrder"]
+  SETTABLEKS R1 R13 K21 ["ref"]
+  GETTABLEKS R14 R0 K22 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K22 ["LayoutOrder"]
   GETUPVAL R16 5
-  GETTABLEKS R15 R16 K22 ["Event"]
-  GETTABLEKS R14 R15 K23 ["InputBegan"]
+  GETTABLEKS R15 R16 K23 ["Event"]
+  GETTABLEKS R14 R15 K24 ["InputBegan"]
   NEWCLOSURE R15 P1
   CAPTURE VAL R0
   CAPTURE UPVAL U6
   CAPTURE UPVAL U7
   SETTABLE R15 R13 R14
-  GETTABLEKS R14 R0 K24 ["Visible"]
-  SETTABLEKS R14 R13 K24 ["Visible"]
+  GETTABLEKS R14 R0 K25 ["Visible"]
+  SETTABLEKS R14 R13 K25 ["Visible"]
   GETUPVAL R16 5
-  GETTABLEKS R15 R16 K22 ["Event"]
-  GETTABLEKS R14 R15 K25 ["MouseEnter"]
+  GETTABLEKS R15 R16 K23 ["Event"]
+  GETTABLEKS R14 R15 K26 ["MouseEnter"]
   SETTABLE R8 R13 R14
   GETUPVAL R16 5
-  GETTABLEKS R15 R16 K22 ["Event"]
-  GETTABLEKS R14 R15 K26 ["MouseLeave"]
+  GETTABLEKS R15 R16 K23 ["Event"]
+  GETTABLEKS R14 R15 K27 ["MouseLeave"]
   SETTABLE R9 R13 R14
   GETUPVAL R15 5
-  GETTABLEKS R14 R15 K27 ["Tag"]
+  GETTABLEKS R14 R15 K28 ["Tag"]
   GETUPVAL R15 8
-  LOADK R16 K28 ["Component-RibbonButton X-Fit X-Column X-Center data-testid=Component-RibbonButton"]
-  GETTABLEKS R18 R0 K29 ["Disabled"]
+  LOADK R16 K29 ["Component-RibbonButton X-Fit X-Column X-Center data-testid=Component-RibbonButton"]
+  GETTABLEKS R18 R0 K30 ["Disabled"]
   JUMPIFNOT R18 [+2]
-  LOADK R17 K30 ["State-Disabled"]
+  LOADK R17 K31 ["State-Disabled"]
   JUMP [+6]
-  GETTABLEKS R18 R0 K31 ["Selected"]
+  GETTABLEKS R18 R0 K32 ["Selected"]
   JUMPIFNOT R18 [+2]
-  LOADK R17 K32 ["State-Selected"]
+  LOADK R17 K33 ["State-Selected"]
   JUMP [+1]
-  LOADK R17 K33 ["State-Default"]
+  LOADK R17 K34 ["State-Default"]
   GETUPVAL R20 5
-  GETTABLEKS R19 R20 K27 ["Tag"]
+  GETTABLEKS R19 R20 K28 ["Tag"]
   GETTABLE R18 R0 R19
   CALL R15 3 1
   SETTABLE R15 R13 R14
-  DUPTABLE R14 K35 [{"RibbonTool", "Text"}]
+  DUPTABLE R14 K36 [{"RibbonTool", "Text"}]
   GETUPVAL R16 5
-  GETTABLEKS R15 R16 K18 ["createElement"]
-  LOADK R16 K36 ["Frame"]
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  LOADK R16 K37 ["Frame"]
   NEWTABLE R17 1 0
   GETUPVAL R19 5
-  GETTABLEKS R18 R19 K27 ["Tag"]
+  GETTABLEKS R18 R19 K28 ["Tag"]
   GETUPVAL R19 8
-  LOADK R20 K37 ["Role-Surface X-Fit"]
+  LOADK R20 K38 ["Role-Surface X-Fit"]
   JUMPIFNOT R4 [+2]
-  LOADK R21 K38 ["X-Pad25 X-CornerXS"]
+  LOADK R21 K39 ["X-Pad25 X-CornerXS"]
   JUMP [+4]
   JUMPIFNOT R3 [+2]
-  LOADK R21 K39 ["X-PadMezzanine X-CornerXS"]
+  LOADK R21 K40 ["X-PadMezzanine X-CornerXS"]
   JUMP [+1]
-  LOADK R21 K40 ["X-PadRibbonTool X-CornerM"]
+  LOADK R21 K41 ["X-PadRibbonTool X-CornerM"]
   CALL R19 2 1
   SETTABLE R19 R17 R18
-  DUPTABLE R18 K42 [{"RibbonToolButtonIcon"}]
+  DUPTABLE R18 K43 [{"RibbonToolButtonIcon"}]
   GETUPVAL R20 5
-  GETTABLEKS R19 R20 K18 ["createElement"]
-  LOADK R20 K43 ["ImageLabel"]
+  GETTABLEKS R19 R20 K19 ["createElement"]
+  LOADK R20 K44 ["ImageLabel"]
   NEWTABLE R21 2 0
-  SETTABLEKS R7 R21 K44 ["Image"]
+  SETTABLEKS R7 R21 K45 ["Image"]
   GETUPVAL R23 5
-  GETTABLEKS R22 R23 K27 ["Tag"]
+  GETTABLEKS R22 R23 K28 ["Tag"]
   GETUPVAL R23 8
-  LOADK R25 K45 ["Icon-%*"]
+  LOADK R25 K46 ["Icon-%*"]
   MOVE R27 R5
-  NAMECALL R25 R25 K46 ["format"]
+  NAMECALL R25 R25 K47 ["format"]
   CALL R25 2 1
   MOVE R24 R25
   GETUPVAL R26 9
   CALL R26 0 1
   JUMPIFNOT R26 [+10]
-  LOADK R26 K47 ["data-testid=%*"]
+  LOADK R26 K48 ["data-testid=%*"]
   GETUPVAL R28 10
   GETTABLEKS R29 R0 K1 ["Uri"]
   CALL R28 1 1
-  NAMECALL R26 R26 K46 ["format"]
+  NAMECALL R26 R26 K47 ["format"]
   CALL R26 2 1
   MOVE R25 R26
   JUMP [+1]
@@ -220,19 +221,19 @@ PROTO_3:
   CALL R23 2 1
   SETTABLE R23 R21 R22
   CALL R19 2 1
-  SETTABLEKS R19 R18 K41 ["RibbonToolButtonIcon"]
+  SETTABLEKS R19 R18 K42 ["RibbonToolButtonIcon"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K34 ["RibbonTool"]
-  GETTABLEKS R16 R0 K48 ["IconOnly"]
+  SETTABLEKS R15 R14 K35 ["RibbonTool"]
+  GETTABLEKS R16 R0 K49 ["IconOnly"]
   JUMPIF R16 [+15]
   GETUPVAL R16 5
-  GETTABLEKS R15 R16 K18 ["createElement"]
-  LOADK R16 K49 ["TextLabel"]
+  GETTABLEKS R15 R16 K19 ["createElement"]
+  LOADK R16 K50 ["TextLabel"]
   NEWTABLE R17 2 0
   SETTABLEKS R10 R17 K11 ["Text"]
   GETUPVAL R19 5
-  GETTABLEKS R18 R19 K27 ["Tag"]
-  LOADK R19 K50 ["X-Fit X-PadButtonLabel"]
+  GETTABLEKS R18 R19 K28 ["Tag"]
+  LOADK R19 K51 ["X-Fit X-PadButtonLabel"]
   SETTABLE R19 R17 R18
   CALL R15 2 1
   JUMP [+1]

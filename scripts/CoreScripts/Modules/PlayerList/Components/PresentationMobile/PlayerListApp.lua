@@ -16,6 +16,8 @@ local ChromeEnabled = require(Modules.Chrome.Enabled)()
 local Presentation = script.Parent
 local PlayerList = Presentation.Parent.Parent
 
+local FFlagPlayerListClosedNoRender = require(PlayerList.Flags.FFlagPlayerListClosedNoRender)
+
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
 local PlayerDropDown = require(Presentation.PlayerDropDown)
@@ -114,19 +116,30 @@ function PlayerListApp:init()
 	self.bodyTransparencyMotor = Otter.createSingleMotor(1)
 	self.bodyTransparencyMotor:onStep(function(transparency)
 		self.updateBodyTransparency(transparency)
-		if transparency < 0.5 and self.props.displayOptions.isVisible then
-			if not self.state.visible then
+		if not FFlagPlayerListClosedNoRender then
+			if transparency < 0.5 and self.props.displayOptions.isVisible then
+				if not self.state.visible then
+					self:setState({
+						visible = true,
+					})
+				end
+			elseif self.state.visible then
 				self:setState({
-					visible = true,
+					visible = false,
 				})
 			end
-		elseif self.state.visible then
-			self:setState({
-				visible = false,
-			})
 		end
 		self.props.setLayerCollectorEnabled(transparency < 0.99 or self.props.displayOptions.isVisible)
 	end)
+	if FFlagPlayerListClosedNoRender then
+		self.bodyTransparencyMotor:onComplete(function()
+			if not self.props.displayOptions.isVisible then
+				self:setState({
+					visible = false,
+				})
+			end
+		end)
+	end
 
 	self.bgTransparency, self.updateBgTransparency = Roact.createBinding(0)
 	self.bgTransparencyMotor = Otter.createSingleMotor(1)
@@ -197,6 +210,9 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 end
 
 function PlayerListApp:render()
+	if FFlagPlayerListClosedNoRender and not self.state.visible then
+		return Roact.createElement(ContextActionsBinder)
+	end
 	return WithLayoutValues(function(layoutValues)
 		local entrySize
 		if layoutValues.IsTenFoot then
@@ -288,10 +304,18 @@ function PlayerListApp:didUpdate(previousProps, previousState)
 	local isVisible = self.props.displayOptions.isVisible
 	local isDropDownVisible = self.props.isDropDownVisible
 
-	if isVisible ~= previousProps.displayOptions.isVisible and not isVisible then
+	if not FFlagPlayerListClosedNoRender and isVisible ~= previousProps.displayOptions.isVisible and not isVisible then
 		self:setState({
 			visible = isVisible,
 		})
+	end
+
+	if FFlagPlayerListClosedNoRender then
+		if isVisible then
+			self:setState({
+				visible = true,
+			})
+		end
 	end
 
 	local backgroundTransparency = (isDropDownVisible or isVisible) and 0.7 or 1

@@ -17,7 +17,7 @@ PROTO_0:
   GETTABLEKS R6 R7 K1 ["createElement"]
   LOADK R7 K8 ["TextLabel"]
   DUPTABLE R8 K10 [{"Text"}]
-  LOADK R9 K11 ["Giraffes run very fast"]
+  LOADK R9 K11 ["Kangaroos are great!"]
   SETTABLEKS R9 R8 K9 ["Text"]
   CALL R6 2 1
   JUMP [+1]

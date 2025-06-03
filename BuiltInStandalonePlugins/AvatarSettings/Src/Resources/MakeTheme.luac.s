@@ -48,7 +48,7 @@ MAIN:
   GETTABLEKS R10 R1 K18 ["Dictionary"]
   GETTABLEKS R9 R10 K19 ["join"]
   MOVE R10 R6
-  NEWTABLE R11 4 0
+  NEWTABLE R11 16 0
   GETTABLEKS R12 R5 K20 ["GeneralSettingsGamesFillImage"]
   LOADK R13 K21 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/GamesFill-Dark.png"]
   SETTABLE R13 R11 R12
@@ -58,22 +58,58 @@ MAIN:
   GETTABLEKS R12 R5 K24 ["PresetTooltipXImage"]
   LOADK R13 K25 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/X-DarkMode.png"]
   SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K26 ["PreviewTooltipSettingVisibleImage"]
+  LOADK R13 K27 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/eye-fill-dark.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K28 ["PreviewTooltipSettingInvisibleImage"]
+  LOADK R13 K29 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/eye-slash-dark.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K30 ["PreviewTooltipPlayImage"]
+  LOADK R13 K31 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/play-large-dark.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K32 ["PreviewTooltipPlayDisabledImage"]
+  LOADK R13 K33 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/play-large-disabled-dark.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K34 ["PreviewTooltipAddAvatarImage"]
+  LOADK R13 K35 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/plus-heavy-dark.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K36 ["PreviewTooltipResetAvatarsToCameraImage"]
+  LOADK R13 K37 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/reset-to-mannequin-dark.png"]
+  SETTABLE R13 R11 R12
   CALL R9 2 1
   GETTABLEKS R11 R1 K18 ["Dictionary"]
   GETTABLEKS R10 R11 K19 ["join"]
   MOVE R11 R7
-  NEWTABLE R12 4 0
+  NEWTABLE R12 16 0
   GETTABLEKS R13 R5 K20 ["GeneralSettingsGamesFillImage"]
-  LOADK R14 K26 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/GamesFill-Light.png"]
+  LOADK R14 K38 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/GamesFill-Light.png"]
   SETTABLE R14 R12 R13
   GETTABLEKS R13 R5 K22 ["PresetTooltipCheckImage"]
-  LOADK R14 K27 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/Check-LightMode.png"]
+  LOADK R14 K39 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/Check-LightMode.png"]
   SETTABLE R14 R12 R13
   GETTABLEKS R13 R5 K24 ["PresetTooltipXImage"]
-  LOADK R14 K28 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/X-LightMode.png"]
+  LOADK R14 K40 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/X-LightMode.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K26 ["PreviewTooltipSettingVisibleImage"]
+  LOADK R14 K41 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/eye-fill-light.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K28 ["PreviewTooltipSettingInvisibleImage"]
+  LOADK R14 K42 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/eye-slash-light.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K30 ["PreviewTooltipPlayImage"]
+  LOADK R14 K43 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/play-large-light.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K32 ["PreviewTooltipPlayDisabledImage"]
+  LOADK R14 K44 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/play-large-disabled-light.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K34 ["PreviewTooltipAddAvatarImage"]
+  LOADK R14 K45 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/plus-heavy-light.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K36 ["PreviewTooltipResetAvatarsToCameraImage"]
+  LOADK R14 K46 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/reset-to-mannequin-light.png"]
   SETTABLE R14 R12 R13
   CALL R10 2 1
-  DUPCLOSURE R11 K29 [PROTO_0]
+  DUPCLOSURE R11 K47 [PROTO_0]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10

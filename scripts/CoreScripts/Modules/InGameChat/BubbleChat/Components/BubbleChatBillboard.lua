@@ -42,7 +42,6 @@ local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.G
 local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService =
 	require(RobloxGui.Modules.Flags.FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService)
-local GetFFlagShowSpeakerIconWithChatBubbles = require(RobloxGui.Modules.Flags.GetFFlagShowSpeakerIconWithChatBubbles)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 
 local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
@@ -640,18 +639,7 @@ function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
 	end
 
 	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
-	if GetFFlagShowSpeakerIconWithChatBubbles() then
-		return showVoiceIndicator
-	else
-		if
-			showVoiceIndicator
-			and (not self.props.bubbleChatEnabled or not self.props.messageIds or #self.props.messageIds == 0)
-		then
-			return true
-		end
-	end
-
-	return false
+	return showVoiceIndicator
 end
 
 function BubbleChatBillboard:shouldRenderCarat()

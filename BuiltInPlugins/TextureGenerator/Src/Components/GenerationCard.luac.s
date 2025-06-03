@@ -579,6 +579,9 @@ PROTO_10:
   RETURN R0 0
 
 PROTO_11:
+  RETURN R0 0
+
+PROTO_12:
   GETIMPORT R0 K2 [table.clone]
   GETUPVAL R1 0
   CALL R0 1 1
@@ -604,7 +607,7 @@ PROTO_11:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
   GETIMPORT R0 K2 [table.clone]
   GETUPVAL R1 0
   CALL R0 1 1
@@ -630,7 +633,7 @@ PROTO_12:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETIMPORT R0 K2 [table.clone]
   GETUPVAL R1 0
   CALL R0 1 1
@@ -656,7 +659,7 @@ PROTO_13:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETIMPORT R0 K2 [table.clone]
   GETUPVAL R1 0
   CALL R0 1 1
@@ -682,7 +685,7 @@ PROTO_14:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   GETIMPORT R1 K2 [table.clone]
   GETUPVAL R2 0
   CALL R1 1 1
@@ -703,7 +706,7 @@ PROTO_15:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_17:
   GETIMPORT R0 K2 [table.clone]
   GETUPVAL R1 0
   CALL R0 1 1
@@ -724,7 +727,7 @@ PROTO_16:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_18:
   GETIMPORT R0 K2 [table.clone]
   GETUPVAL R1 0
   CALL R0 1 1
@@ -775,7 +778,7 @@ PROTO_17:
   CALL R2 13 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_19:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useContext"]
   GETUPVAL R2 1
@@ -1171,13 +1174,15 @@ PROTO_18:
   GETUPVAL R32 0
   GETTABLEKS R31 R32 K20 ["createElement"]
   GETUPVAL R32 20
-  DUPTABLE R33 K120 [{"AlwaysExpanded", "ContentPadding", "ContentSpacing", "Style", "Text", "VerticalAlignment"}]
+  DUPTABLE R33 K121 [{"AlwaysExpanded", "ContentPadding", "ContentSpacing", "OnExpandedChanged", "Style", "Text", "VerticalAlignment"}]
   LOADB R34 1
   SETTABLEKS R34 R33 K117 ["AlwaysExpanded"]
   LOADN R34 10
   SETTABLEKS R34 R33 K118 ["ContentPadding"]
   LOADN R34 15
   SETTABLEKS R34 R33 K119 ["ContentSpacing"]
+  DUPCLOSURE R34 K122 [PROTO_11]
+  SETTABLEKS R34 R33 K120 ["OnExpandedChanged"]
   LOADK R34 K104 ["Title"]
   SETTABLEKS R34 R33 K60 ["Style"]
   LOADK R36 K107 ["FeedbackDialog"]
@@ -1185,57 +1190,34 @@ PROTO_18:
   NAMECALL R34 R2 K108 ["getText"]
   CALL R34 3 1
   SETTABLEKS R34 R33 K61 ["Text"]
-  GETIMPORT R34 K122 [Enum.VerticalAlignment.Top]
+  GETIMPORT R34 K124 [Enum.VerticalAlignment.Top]
   SETTABLEKS R34 R33 K25 ["VerticalAlignment"]
-  DUPTABLE R34 K125 [{"Checkboxes", "FreeformText"}]
+  DUPTABLE R34 K127 [{"Checkboxes", "FreeformText"}]
   GETUPVAL R36 0
   GETTABLEKS R35 R36 K20 ["createElement"]
   GETUPVAL R36 21
-  DUPTABLE R37 K126 [{"Title", "LayoutOrder"}]
+  DUPTABLE R37 K128 [{"Title", "LayoutOrder"}]
   LOADK R40 K107 ["FeedbackDialog"]
-  LOADK R41 K127 ["CheckboxTitle"]
+  LOADK R41 K129 ["CheckboxTitle"]
   NAMECALL R38 R2 K108 ["getText"]
   CALL R38 3 1
   SETTABLEKS R38 R37 K104 ["Title"]
   NAMECALL R38 R5 K54 ["getNextOrder"]
   CALL R38 1 1
   SETTABLEKS R38 R37 K44 ["LayoutOrder"]
-  DUPTABLE R38 K132 [{"PromptCheckbox", "QualityCheckbox", "ResolutionCheckbox", "LooksCheckbox"}]
+  DUPTABLE R38 K134 [{"PromptCheckbox", "QualityCheckbox", "ResolutionCheckbox", "LooksCheckbox"}]
   GETUPVAL R40 0
   GETTABLEKS R39 R40 K20 ["createElement"]
   GETUPVAL R40 22
-  DUPTABLE R41 K134 [{"Checked", "LayoutOrder", "Text", "OnClick"}]
-  GETTABLEKS R43 R8 K135 ["feedbackTable"]
-  GETTABLEKS R42 R43 K136 ["promptCheckbox"]
-  SETTABLEKS R42 R41 K133 ["Checked"]
+  DUPTABLE R41 K136 [{"Checked", "LayoutOrder", "Text", "OnClick"}]
+  GETTABLEKS R43 R8 K137 ["feedbackTable"]
+  GETTABLEKS R42 R43 K138 ["promptCheckbox"]
+  SETTABLEKS R42 R41 K135 ["Checked"]
   NAMECALL R42 R5 K54 ["getNextOrder"]
   CALL R42 1 1
   SETTABLEKS R42 R41 K44 ["LayoutOrder"]
   LOADK R44 K107 ["FeedbackDialog"]
-  LOADK R45 K128 ["PromptCheckbox"]
-  NAMECALL R42 R2 K108 ["getText"]
-  CALL R42 3 1
-  SETTABLEKS R42 R41 K61 ["Text"]
-  NEWCLOSURE R42 P7
-  CAPTURE VAL R8
-  CAPTURE VAL R1
-  CAPTURE UPVAL U7
-  CAPTURE VAL R0
-  SETTABLEKS R42 R41 K74 ["OnClick"]
-  CALL R39 2 1
-  SETTABLEKS R39 R38 K128 ["PromptCheckbox"]
-  GETUPVAL R40 0
-  GETTABLEKS R39 R40 K20 ["createElement"]
-  GETUPVAL R40 22
-  DUPTABLE R41 K134 [{"Checked", "LayoutOrder", "Text", "OnClick"}]
-  GETTABLEKS R43 R8 K135 ["feedbackTable"]
-  GETTABLEKS R42 R43 K137 ["qualityCheckbox"]
-  SETTABLEKS R42 R41 K133 ["Checked"]
-  NAMECALL R42 R5 K54 ["getNextOrder"]
-  CALL R42 1 1
-  SETTABLEKS R42 R41 K44 ["LayoutOrder"]
-  LOADK R44 K107 ["FeedbackDialog"]
-  LOADK R45 K129 ["QualityCheckbox"]
+  LOADK R45 K130 ["PromptCheckbox"]
   NAMECALL R42 R2 K108 ["getText"]
   CALL R42 3 1
   SETTABLEKS R42 R41 K61 ["Text"]
@@ -1246,19 +1228,19 @@ PROTO_18:
   CAPTURE VAL R0
   SETTABLEKS R42 R41 K74 ["OnClick"]
   CALL R39 2 1
-  SETTABLEKS R39 R38 K129 ["QualityCheckbox"]
+  SETTABLEKS R39 R38 K130 ["PromptCheckbox"]
   GETUPVAL R40 0
   GETTABLEKS R39 R40 K20 ["createElement"]
   GETUPVAL R40 22
-  DUPTABLE R41 K134 [{"Checked", "LayoutOrder", "Text", "OnClick"}]
-  GETTABLEKS R43 R8 K135 ["feedbackTable"]
-  GETTABLEKS R42 R43 K138 ["resolutionCheckbox"]
-  SETTABLEKS R42 R41 K133 ["Checked"]
+  DUPTABLE R41 K136 [{"Checked", "LayoutOrder", "Text", "OnClick"}]
+  GETTABLEKS R43 R8 K137 ["feedbackTable"]
+  GETTABLEKS R42 R43 K139 ["qualityCheckbox"]
+  SETTABLEKS R42 R41 K135 ["Checked"]
   NAMECALL R42 R5 K54 ["getNextOrder"]
   CALL R42 1 1
   SETTABLEKS R42 R41 K44 ["LayoutOrder"]
   LOADK R44 K107 ["FeedbackDialog"]
-  LOADK R45 K130 ["ResolutionCheckbox"]
+  LOADK R45 K131 ["QualityCheckbox"]
   NAMECALL R42 R2 K108 ["getText"]
   CALL R42 3 1
   SETTABLEKS R42 R41 K61 ["Text"]
@@ -1269,19 +1251,19 @@ PROTO_18:
   CAPTURE VAL R0
   SETTABLEKS R42 R41 K74 ["OnClick"]
   CALL R39 2 1
-  SETTABLEKS R39 R38 K130 ["ResolutionCheckbox"]
+  SETTABLEKS R39 R38 K131 ["QualityCheckbox"]
   GETUPVAL R40 0
   GETTABLEKS R39 R40 K20 ["createElement"]
   GETUPVAL R40 22
-  DUPTABLE R41 K134 [{"Checked", "LayoutOrder", "Text", "OnClick"}]
-  GETTABLEKS R43 R8 K135 ["feedbackTable"]
-  GETTABLEKS R42 R43 K139 ["looksCheckbox"]
-  SETTABLEKS R42 R41 K133 ["Checked"]
+  DUPTABLE R41 K136 [{"Checked", "LayoutOrder", "Text", "OnClick"}]
+  GETTABLEKS R43 R8 K137 ["feedbackTable"]
+  GETTABLEKS R42 R43 K140 ["resolutionCheckbox"]
+  SETTABLEKS R42 R41 K135 ["Checked"]
   NAMECALL R42 R5 K54 ["getNextOrder"]
   CALL R42 1 1
   SETTABLEKS R42 R41 K44 ["LayoutOrder"]
   LOADK R44 K107 ["FeedbackDialog"]
-  LOADK R45 K131 ["LooksCheckbox"]
+  LOADK R45 K132 ["ResolutionCheckbox"]
   NAMECALL R42 R2 K108 ["getText"]
   CALL R42 3 1
   SETTABLEKS R42 R41 K61 ["Text"]
@@ -1292,27 +1274,50 @@ PROTO_18:
   CAPTURE VAL R0
   SETTABLEKS R42 R41 K74 ["OnClick"]
   CALL R39 2 1
-  SETTABLEKS R39 R38 K131 ["LooksCheckbox"]
+  SETTABLEKS R39 R38 K132 ["ResolutionCheckbox"]
+  GETUPVAL R40 0
+  GETTABLEKS R39 R40 K20 ["createElement"]
+  GETUPVAL R40 22
+  DUPTABLE R41 K136 [{"Checked", "LayoutOrder", "Text", "OnClick"}]
+  GETTABLEKS R43 R8 K137 ["feedbackTable"]
+  GETTABLEKS R42 R43 K141 ["looksCheckbox"]
+  SETTABLEKS R42 R41 K135 ["Checked"]
+  NAMECALL R42 R5 K54 ["getNextOrder"]
+  CALL R42 1 1
+  SETTABLEKS R42 R41 K44 ["LayoutOrder"]
+  LOADK R44 K107 ["FeedbackDialog"]
+  LOADK R45 K133 ["LooksCheckbox"]
+  NAMECALL R42 R2 K108 ["getText"]
+  CALL R42 3 1
+  SETTABLEKS R42 R41 K61 ["Text"]
+  NEWCLOSURE R42 P11
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE UPVAL U7
+  CAPTURE VAL R0
+  SETTABLEKS R42 R41 K74 ["OnClick"]
+  CALL R39 2 1
+  SETTABLEKS R39 R38 K133 ["LooksCheckbox"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K123 ["Checkboxes"]
+  SETTABLEKS R35 R34 K125 ["Checkboxes"]
   GETUPVAL R36 0
   GETTABLEKS R35 R36 K20 ["createElement"]
   GETUPVAL R36 21
-  DUPTABLE R37 K126 [{"Title", "LayoutOrder"}]
+  DUPTABLE R37 K128 [{"Title", "LayoutOrder"}]
   LOADK R40 K107 ["FeedbackDialog"]
-  LOADK R41 K140 ["OtherNotesTitle"]
+  LOADK R41 K142 ["OtherNotesTitle"]
   NAMECALL R38 R2 K108 ["getText"]
   CALL R38 3 1
   SETTABLEKS R38 R37 K104 ["Title"]
   NAMECALL R38 R5 K54 ["getNextOrder"]
   CALL R38 1 1
   SETTABLEKS R38 R37 K44 ["LayoutOrder"]
-  DUPTABLE R38 K142 [{"TextInput"}]
+  DUPTABLE R38 K144 [{"TextInput"}]
   GETUPVAL R40 0
   GETTABLEKS R39 R40 K20 ["createElement"]
   GETUPVAL R40 23
-  DUPTABLE R41 K146 [{"Size", "MultiLine", "MaxLength", "Text", "OnTextChanged"}]
-  GETIMPORT R42 K147 [UDim2.new]
+  DUPTABLE R41 K148 [{"Size", "MultiLine", "MaxLength", "Text", "OnTextChanged"}]
+  GETIMPORT R42 K149 [UDim2.new]
   LOADN R43 1
   LOADN R44 0
   LOADN R45 0
@@ -1320,58 +1325,56 @@ PROTO_18:
   CALL R42 4 1
   SETTABLEKS R42 R41 K47 ["Size"]
   LOADB R42 1
-  SETTABLEKS R42 R41 K143 ["MultiLine"]
+  SETTABLEKS R42 R41 K145 ["MultiLine"]
   LOADN R42 232
-  SETTABLEKS R42 R41 K144 ["MaxLength"]
-  GETTABLEKS R43 R8 K135 ["feedbackTable"]
-  GETTABLEKS R42 R43 K148 ["otherNotes"]
+  SETTABLEKS R42 R41 K146 ["MaxLength"]
+  GETTABLEKS R43 R8 K137 ["feedbackTable"]
+  GETTABLEKS R42 R43 K150 ["otherNotes"]
   SETTABLEKS R42 R41 K61 ["Text"]
-  NEWCLOSURE R42 P11
+  NEWCLOSURE R42 P12
   CAPTURE VAL R8
   CAPTURE VAL R1
   CAPTURE UPVAL U7
   CAPTURE VAL R0
-  SETTABLEKS R42 R41 K145 ["OnTextChanged"]
+  SETTABLEKS R42 R41 K147 ["OnTextChanged"]
   CALL R39 2 1
-  SETTABLEKS R39 R38 K141 ["TextInput"]
+  SETTABLEKS R39 R38 K143 ["TextInput"]
   CALL R35 3 1
-  SETTABLEKS R35 R34 K124 ["FreeformText"]
+  SETTABLEKS R35 R34 K126 ["FreeformText"]
   CALL R31 3 1
   SETTABLEKS R31 R30 K104 ["Title"]
   GETUPVAL R32 0
   GETTABLEKS R31 R32 K20 ["createElement"]
   GETUPVAL R32 24
-  DUPTABLE R33 K150 [{"LayoutOrder", "Weight"}]
+  DUPTABLE R33 K151 [{"LayoutOrder"}]
   LOADN R34 2
   SETTABLEKS R34 R33 K44 ["LayoutOrder"]
-  LOADN R34 5
-  SETTABLEKS R34 R33 K149 ["Weight"]
   CALL R31 2 1
   SETTABLEKS R31 R30 K114 ["Separator"]
   GETUPVAL R32 0
   GETTABLEKS R31 R32 K20 ["createElement"]
   GETUPVAL R32 13
-  DUPTABLE R33 K152 [{"Size", "HorizontalAlignment", "Layout", "Spacing", "LayoutOrder"}]
-  GETIMPORT R34 K147 [UDim2.new]
+  DUPTABLE R33 K153 [{"Size", "HorizontalAlignment", "Layout", "Spacing", "LayoutOrder"}]
+  GETIMPORT R34 K149 [UDim2.new]
   LOADN R35 1
   LOADN R36 0
   LOADN R37 0
   LOADN R38 70
   CALL R34 4 1
   SETTABLEKS R34 R33 K47 ["Size"]
-  GETIMPORT R34 K154 [Enum.HorizontalAlignment.Right]
+  GETIMPORT R34 K155 [Enum.HorizontalAlignment.Right]
   SETTABLEKS R34 R33 K22 ["HorizontalAlignment"]
   GETIMPORT R34 K34 [Enum.FillDirection.Horizontal]
   SETTABLEKS R34 R33 K23 ["Layout"]
   LOADN R34 10
-  SETTABLEKS R34 R33 K151 ["Spacing"]
+  SETTABLEKS R34 R33 K152 ["Spacing"]
   LOADN R34 3
   SETTABLEKS R34 R33 K44 ["LayoutOrder"]
-  DUPTABLE R34 K157 [{"CancelButton", "SubmitButton"}]
+  DUPTABLE R34 K158 [{"CancelButton", "SubmitButton"}]
   GETUPVAL R36 0
   GETTABLEKS R35 R36 K20 ["createElement"]
   GETUPVAL R36 16
-  DUPTABLE R37 K158 [{"LayoutOrder", "Size", "Style", "Text", "OnClick"}]
+  DUPTABLE R37 K159 [{"LayoutOrder", "Size", "Style", "Text", "OnClick"}]
   LOADN R38 1
   SETTABLEKS R38 R37 K44 ["LayoutOrder"]
   GETIMPORT R38 K94 [UDim2.fromOffset]
@@ -1379,36 +1382,10 @@ PROTO_18:
   LOADN R40 40
   CALL R38 2 1
   SETTABLEKS R38 R37 K47 ["Size"]
-  LOADK R38 K159 ["Round"]
+  LOADK R38 K160 ["Round"]
   SETTABLEKS R38 R37 K60 ["Style"]
   LOADK R40 K5 ["GenerationCard"]
-  LOADK R41 K160 ["Cancel"]
-  NAMECALL R38 R2 K108 ["getText"]
-  CALL R38 3 1
-  SETTABLEKS R38 R37 K61 ["Text"]
-  NEWCLOSURE R38 P12
-  CAPTURE VAL R8
-  CAPTURE VAL R1
-  CAPTURE UPVAL U7
-  CAPTURE VAL R0
-  SETTABLEKS R38 R37 K74 ["OnClick"]
-  CALL R35 2 1
-  SETTABLEKS R35 R34 K155 ["CancelButton"]
-  GETUPVAL R36 0
-  GETTABLEKS R35 R36 K20 ["createElement"]
-  GETUPVAL R36 16
-  DUPTABLE R37 K158 [{"LayoutOrder", "Size", "Style", "Text", "OnClick"}]
-  LOADN R38 2
-  SETTABLEKS R38 R37 K44 ["LayoutOrder"]
-  GETIMPORT R38 K94 [UDim2.fromOffset]
-  LOADN R39 150
-  LOADN R40 40
-  CALL R38 2 1
-  SETTABLEKS R38 R37 K47 ["Size"]
-  LOADK R38 K161 ["RoundPrimary"]
-  SETTABLEKS R38 R37 K60 ["Style"]
-  LOADK R40 K107 ["FeedbackDialog"]
-  LOADK R41 K156 ["SubmitButton"]
+  LOADK R41 K161 ["Cancel"]
   NAMECALL R38 R2 K108 ["getText"]
   CALL R38 3 1
   SETTABLEKS R38 R37 K61 ["Text"]
@@ -1417,11 +1394,37 @@ PROTO_18:
   CAPTURE VAL R1
   CAPTURE UPVAL U7
   CAPTURE VAL R0
+  SETTABLEKS R38 R37 K74 ["OnClick"]
+  CALL R35 2 1
+  SETTABLEKS R35 R34 K156 ["CancelButton"]
+  GETUPVAL R36 0
+  GETTABLEKS R35 R36 K20 ["createElement"]
+  GETUPVAL R36 16
+  DUPTABLE R37 K159 [{"LayoutOrder", "Size", "Style", "Text", "OnClick"}]
+  LOADN R38 2
+  SETTABLEKS R38 R37 K44 ["LayoutOrder"]
+  GETIMPORT R38 K94 [UDim2.fromOffset]
+  LOADN R39 150
+  LOADN R40 40
+  CALL R38 2 1
+  SETTABLEKS R38 R37 K47 ["Size"]
+  LOADK R38 K162 ["RoundPrimary"]
+  SETTABLEKS R38 R37 K60 ["Style"]
+  LOADK R40 K107 ["FeedbackDialog"]
+  LOADK R41 K157 ["SubmitButton"]
+  NAMECALL R38 R2 K108 ["getText"]
+  CALL R38 3 1
+  SETTABLEKS R38 R37 K61 ["Text"]
+  NEWCLOSURE R38 P14
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE UPVAL U7
+  CAPTURE VAL R0
   CAPTURE UPVAL U25
   CAPTURE VAL R6
   SETTABLEKS R38 R37 K74 ["OnClick"]
   CALL R35 2 1
-  SETTABLEKS R35 R34 K156 ["SubmitButton"]
+  SETTABLEKS R35 R34 K157 ["SubmitButton"]
   CALL R31 3 1
   SETTABLEKS R31 R30 K115 ["ButtonPane"]
   CALL R27 3 1
@@ -1433,7 +1436,7 @@ PROTO_18:
   CALL R19 3 -1
   RETURN R19 -1
 
-PROTO_19:
+PROTO_20:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["cancelGenerationRequest"]
   GETUPVAL R3 1
@@ -1483,7 +1486,7 @@ PROTO_19:
   CALL R0 10 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_21:
   GETUPVAL R0 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["STATUS"]
@@ -1648,7 +1651,7 @@ PROTO_20:
   SETTABLEKS R1 R4 K49 ["Focus"]
   RETURN R0 0
 
-PROTO_21:
+PROTO_22:
   GETUPVAL R1 0
   LOADK R3 K0 ["GenerationCard"]
   NAMECALL R1 R1 K1 ["use"]
@@ -1943,7 +1946,7 @@ MAIN:
   CAPTURE VAL R36
   CAPTURE VAL R18
   CAPTURE VAL R9
-  DUPCLOSURE R41 K55 [PROTO_18]
+  DUPCLOSURE R41 K55 [PROTO_19]
   CAPTURE VAL R2
   CAPTURE VAL R29
   CAPTURE VAL R5
@@ -1970,7 +1973,7 @@ MAIN:
   CAPTURE VAL R17
   CAPTURE VAL R15
   CAPTURE VAL R28
-  DUPCLOSURE R42 K56 [PROTO_21]
+  DUPCLOSURE R42 K56 [PROTO_22]
   CAPTURE VAL R23
   CAPTURE VAL R2
   CAPTURE VAL R29

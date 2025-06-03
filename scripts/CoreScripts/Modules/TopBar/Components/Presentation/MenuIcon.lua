@@ -12,6 +12,7 @@ local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWhileHidden
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
+local FFlagMenuIconRemoveBinding = SharedFlags.FFlagMenuIconRemoveBinding
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -226,25 +227,31 @@ function MenuIcon:init()
 	end
 
 	if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then
-		self.onMenuIconSelectionChanged = function(MenuIcon: GuiObject, isMenuIconSelected: boolean, oldSelection: GuiObject, newSelection: GuiObject)
-			local UNFOCUS_TILT = "Unfocus_Tilt"
-			local function unfocusTilt(actionName, userInputState, input): Enum.ContextActionResult
-				if not FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.End 
-				    or FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.Begin then
-					GuiService.SelectedCoreObject = nil
-					return Enum.ContextActionResult.Sink
+	self.onMenuIconSelectionChanged = function(MenuIcon: GuiObject, isMenuIconSelected: boolean, oldSelection: GuiObject, newSelection: GuiObject)
+			if FFlagMenuIconRemoveBinding then 
+				if not (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled) and newSelection and string.find(newSelection.Name, UnibarConstants.ICON_NAME_PREFIX :: string) then
+						ChromeService:enableFocusNav()
+				end
+			else
+				local UNFOCUS_TILT = "Unfocus_Tilt"
+				local function unfocusTilt(actionName, userInputState, input): Enum.ContextActionResult
+					if not FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.End 
+						or FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.Begin then
+						GuiService.SelectedCoreObject = nil
+						return Enum.ContextActionResult.Sink
+					end
+
+					return Enum.ContextActionResult.Pass
 				end
 
-				return Enum.ContextActionResult.Pass
-			end
-
-			if isMenuIconSelected then
-				ContextActionService:BindCoreAction(UNFOCUS_TILT, unfocusTilt, false, Enum.KeyCode.ButtonB)
-			else
-				ContextActionService:UnbindCoreAction(UNFOCUS_TILT)
-				-- update inFocusNav if GuiSelection enters Unibar
-				if not (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled) and newSelection and string.find(newSelection.Name, UnibarConstants.ICON_NAME_PREFIX :: string) then
-					ChromeService:enableFocusNav()
+				if isMenuIconSelected then
+					ContextActionService:BindCoreAction(UNFOCUS_TILT, unfocusTilt, false, Enum.KeyCode.ButtonB)
+				else
+					ContextActionService:UnbindCoreAction(UNFOCUS_TILT)
+					-- update inFocusNav if GuiSelection enters Unibar
+					if not (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled) and newSelection and string.find(newSelection.Name, UnibarConstants.ICON_NAME_PREFIX :: string) then
+						ChromeService:enableFocusNav()
+					end
 				end
 			end
 		end

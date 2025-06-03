@@ -17,7 +17,7 @@ PROTO_0:
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K9 ["Text"]
   DUPTABLE R8 K10 [{"Text", "tag"}]
-  LOADK R9 K11 ["Giraffes run very fast"]
+  LOADK R9 K11 ["Kangaroos are great!"]
   SETTABLEKS R9 R8 K9 ["Text"]
   LOADK R9 K12 ["padding-small grow size-2800 bg-alert"]
   SETTABLEKS R9 R8 K3 ["tag"]

@@ -16,20 +16,23 @@ PROTO_0:
   ADD R9 R6 R7
   DIV R8 R6 R9
   MULK R5 R8 K8 [100]
+  GETUPVAL R6 0
+  JUMPIFNOT R6 [+1]
+  JUMP [+4]
+  GETTABLEKS R6 R2 K4 ["SessionStats"]
+  GETTABLEKS R5 R6 K6 ["PluginFocusEndWithoutStartCount"]
+  GETUPVAL R6 1
+  JUMPIFNOT R6 [+2]
+  JUMPIF R5 [+1]
+  LOADN R5 0
   GETTABLEKS R6 R1 K9 ["Telemetry"]
-  GETUPVAL R9 1
+  GETUPVAL R9 2
   DUPTABLE R10 K14 [{"sessionLengthSeconds", "focusTimeSeconds", "unmatchedFocusEndCount", "buttonPressCounts"}]
   SETTABLEKS R4 R10 K10 ["sessionLengthSeconds"]
   GETTABLEKS R12 R2 K4 ["SessionStats"]
   GETTABLEKS R11 R12 K15 ["TotalPluginFocusTimeSeconds"]
   SETTABLEKS R11 R10 K11 ["focusTimeSeconds"]
-  GETUPVAL R12 0
-  JUMPIFNOT R12 [+2]
-  MOVE R11 R5
-  JUMP [+4]
-  GETTABLEKS R12 R2 K4 ["SessionStats"]
-  GETTABLEKS R11 R12 K6 ["PluginFocusEndWithoutStartCount"]
-  SETTABLEKS R11 R10 K12 ["unmatchedFocusEndCount"]
+  SETTABLEKS R5 R10 K12 ["unmatchedFocusEndCount"]
   GETUPVAL R12 0
   JUMPIFNOT R12 [+2]
   LOADNIL R11
@@ -46,6 +49,7 @@ PROTO_1:
   DUPCLOSURE R0 K0 [PROTO_0]
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
   RETURN R0 1
 
 MAIN:
@@ -61,23 +65,29 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["getFFlagStyleEditorTelemetryRefactor"]
   CALL R1 1 1
   CALL R1 0 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Resources"]
-  GETTABLEKS R4 R5 K9 ["Telemetry"]
-  GETTABLEKS R3 R4 K10 ["PluginUnmountedEvent"]
-  CALL R2 1 1
+  GETIMPORT R2 K9 [game]
+  LOADK R4 K10 ["StyleEditorUnmountedCrash"]
+  LOADB R5 0
+  NAMECALL R2 R2 K11 ["DefineFastFlag"]
+  CALL R2 3 1
   GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Reducers"]
-  GETTABLEKS R4 R5 K12 ["RootReducer"]
+  GETTABLEKS R7 R0 K5 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Resources"]
+  GETTABLEKS R5 R6 K13 ["Telemetry"]
+  GETTABLEKS R4 R5 K14 ["PluginUnmountedEvent"]
   CALL R3 1 1
   GETIMPORT R4 K4 [require]
   GETTABLEKS R7 R0 K5 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Thunks"]
-  GETTABLEKS R5 R6 K14 ["Types"]
+  GETTABLEKS R6 R7 K15 ["Reducers"]
+  GETTABLEKS R5 R6 K16 ["RootReducer"]
   CALL R4 1 1
-  DUPCLOSURE R5 K15 [PROTO_1]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Src"]
+  GETTABLEKS R7 R8 K17 ["Thunks"]
+  GETTABLEKS R6 R7 K18 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K19 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R2
-  RETURN R5 1
+  CAPTURE VAL R3
+  RETURN R6 1

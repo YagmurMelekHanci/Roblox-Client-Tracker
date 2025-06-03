@@ -389,10 +389,6 @@ end
 
 if FFlagAvatarChatCoreScriptSupport then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
-
-	if game:GetEngineFeature("TrackerLodControllerDebugUI") then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/TrackerLodControllerDebugUI", script.Parent)
-	end
 end
 
 if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag("MoodsEmoteFix3") then

@@ -5,6 +5,12 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
   LOADK R5 K0 ["ManageTabs"]
   DUPTABLE R6 K7 [{"Id", "MinSize", "Resizable", "ToolDialog", "Size", "Name"}]
   LOADK R7 K0 ["ManageTabs"]
@@ -64,6 +70,17 @@ PROTO_1:
   MOVE R8 R1
   MOVE R9 R3
   CALL R7 2 0
+  GETUPVAL R7 5
+  CALL R7 0 1
+  JUMPIFNOT R7 [+11]
+  LOADK R9 K27 ["PlaceManager"]
+  NAMECALL R7 R1 K24 ["GetPluginComponent"]
+  CALL R7 2 1
+  GETTABLEKS R8 R7 K28 ["PlaceDocPanelClosed"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R2
+  NAMECALL R8 R8 K29 ["Connect"]
+  CALL R8 2 0
   RETURN R3 1
 
 MAIN:
@@ -95,10 +112,16 @@ MAIN:
   GETTABLEKS R7 R8 K13 ["SharedFlags"]
   GETTABLEKS R6 R7 K15 ["getFFlagDebugEnableFoundationInspector"]
   CALL R5 1 1
-  DUPCLOSURE R6 K16 [PROTO_1]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K13 ["SharedFlags"]
+  GETTABLEKS R7 R8 K16 ["getFFlagRibbonCloseTools"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K17 [PROTO_2]
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R2
-  RETURN R6 1
+  CAPTURE VAL R6
+  RETURN R7 1

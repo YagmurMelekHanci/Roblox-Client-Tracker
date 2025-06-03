@@ -221,7 +221,7 @@ PROTO_7:
   NAMECALL R5 R1 K12 ["SetAccessories"]
   CALL R5 3 0
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K13 ["ApplyDescription"]
+  GETTABLEKS R5 R6 K13 ["ApplyDescriptionReset"]
   MOVE R6 R0
   MOVE R7 R1
   CALL R5 2 0

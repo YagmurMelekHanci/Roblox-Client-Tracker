@@ -36,31 +36,37 @@ PROTO_0:
   GETUPVAL R18 3
   GETTABLEKS R17 R18 K3 ["Components"]
   GETTABLEKS R16 R17 K4 ["Contexts"]
-  GETTABLEKS R15 R16 K8 ["ProcessLLMEventContextProvider"]
+  GETTABLEKS R15 R16 K8 ["LLMProcessEventContextProvider"]
   CALL R14 1 1
   GETUPVAL R15 0
-  GETUPVAL R16 6
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K3 ["Components"]
+  GETTABLEKS R17 R18 K4 ["Contexts"]
+  GETTABLEKS R16 R17 K9 ["LLMRequestContextProvider"]
   CALL R15 1 1
   GETUPVAL R16 0
-  GETUPVAL R17 7
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K3 ["Components"]
+  GETTABLEKS R18 R19 K4 ["Contexts"]
+  GETTABLEKS R17 R18 K10 ["LLMSystemMessageContextProvider"]
   CALL R16 1 1
   GETUPVAL R17 0
-  GETUPVAL R18 8
+  GETUPVAL R18 6
   CALL R17 1 -1
   SETLIST R8 R9 -1 [1]
   SETTABLEKS R8 R7 K1 ["providers"]
-  DUPTABLE R8 K11 [{"UIListLayout", "MainView"}]
+  DUPTABLE R8 K13 [{"UIListLayout", "MainView"}]
   GETUPVAL R9 0
-  LOADK R10 K9 ["UIListLayout"]
-  DUPTABLE R11 K13 [{"FillDirection"}]
-  GETIMPORT R12 K16 [Enum.FillDirection.Vertical]
-  SETTABLEKS R12 R11 K12 ["FillDirection"]
+  LOADK R10 K11 ["UIListLayout"]
+  DUPTABLE R11 K15 [{"FillDirection"}]
+  GETIMPORT R12 K18 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K14 ["FillDirection"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K9 ["UIListLayout"]
+  SETTABLEKS R9 R8 K11 ["UIListLayout"]
   GETUPVAL R9 0
-  GETUPVAL R10 9
+  GETUPVAL R10 7
   CALL R9 1 1
-  SETTABLEKS R9 R8 K10 ["MainView"]
+  SETTABLEKS R9 R8 K12 ["MainView"]
   CALL R5 3 -1
   SETLIST R4 R5 -1 [1]
   CALL R1 3 -1
@@ -95,45 +101,29 @@ MAIN:
   GETTABLEKS R6 R7 K14 ["StudioFoundation"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K11 ["Components"]
+  GETTABLEKS R8 R9 K12 ["Contexts"]
+  GETTABLEKS R7 R8 K15 ["StudioMcpClientContextProvider"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
   GETTABLEKS R11 R0 K10 ["Src"]
   GETTABLEKS R10 R11 K11 ["Components"]
   GETTABLEKS R9 R10 K12 ["Contexts"]
-  GETTABLEKS R8 R9 K15 ["Claude"]
-  GETTABLEKS R7 R8 K16 ["StudioLLMRequestContextProvider"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R12 R0 K10 ["Src"]
-  GETTABLEKS R11 R12 K11 ["Components"]
-  GETTABLEKS R10 R11 K12 ["Contexts"]
-  GETTABLEKS R9 R10 K15 ["Claude"]
-  GETTABLEKS R8 R9 K17 ["StudioLLMSystemMessageContextProvider"]
+  GETTABLEKS R8 R9 K16 ["StudioOptionsContextProvider"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R12 R0 K10 ["Src"]
-  GETTABLEKS R11 R12 K11 ["Components"]
-  GETTABLEKS R10 R11 K12 ["Contexts"]
-  GETTABLEKS R9 R10 K18 ["StudioMcpClientContextProvider"]
-  CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K11 ["Components"]
-  GETTABLEKS R11 R12 K12 ["Contexts"]
-  GETTABLEKS R10 R11 K19 ["StudioOptionsContextProvider"]
-  CALL R9 1 1
-  GETTABLEKS R11 R5 K11 ["Components"]
-  GETTABLEKS R10 R11 K20 ["FoundationProviderAdapter"]
-  GETTABLEKS R12 R1 K11 ["Components"]
-  GETTABLEKS R11 R12 K21 ["MainView"]
-  GETTABLEKS R12 R2 K22 ["createElement"]
-  DUPCLOSURE R13 K23 [PROTO_0]
-  CAPTURE VAL R12
+  GETTABLEKS R9 R5 K11 ["Components"]
+  GETTABLEKS R8 R9 K17 ["FoundationProviderAdapter"]
+  GETTABLEKS R10 R1 K11 ["Components"]
+  GETTABLEKS R9 R10 K18 ["MainView"]
+  GETTABLEKS R10 R2 K19 ["createElement"]
+  DUPCLOSURE R11 K20 [PROTO_0]
   CAPTURE VAL R10
+  CAPTURE VAL R8
   CAPTURE VAL R3
   CAPTURE VAL R1
   CAPTURE VAL R4
-  CAPTURE VAL R8
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R9
-  CAPTURE VAL R11
-  RETURN R13 1
+  RETURN R11 1

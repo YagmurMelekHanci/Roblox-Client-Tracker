@@ -10,6 +10,10 @@ local ChromeService = require(Root.Service)
 local GuiService = game:GetService("GuiService")
 local Constants = require(Root.Unibar.Constants)
 local RespawnUtils = require(Chrome.Integrations.RespawnUtils)
+local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
+
+local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
+local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
@@ -17,6 +21,7 @@ local FFlagTweakTiltMenuShortcuts = SharedFlags.FFlagTweakTiltMenuShortcuts
 local FFlagChromeShortcutAddRespawnLeaveToIEM = SharedFlags.FFlagChromeShortcutAddRespawnLeaveToIEM
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
+local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 
 local ChromeFlags = Chrome.Flags
 local FFlagRespawnChromeShortcutTelemetry = require(ChromeFlags.FFlagRespawnChromeShortcutTelemetry)
@@ -61,6 +66,10 @@ local leaveActionProps = {
 				end
 			end
 		else
+			if FFlagConsoleChatUseChromeFocusUtils and ExpChatFocusNavigationStore.getChatInputBarFocused(false) then
+				ExpChatFocusNavigationStore.unfocusChatInputBar()
+			end
+
 			if FFlagRespawnChromeShortcutTelemetry then
 				SettingsHub:SetVisibility(true)
 				switchToLeavePage()
@@ -91,6 +100,10 @@ local repawnActionProps = {
 				SettingsHub.Instance.ResetCharacterPage.ResetFunction()
 			end
 		else
+			if FFlagConsoleChatUseChromeFocusUtils and ExpChatFocusNavigationStore.getChatInputBarFocused(false) then
+				ExpChatFocusNavigationStore.unfocusChatInputBar()
+			end
+
 			if FFlagRespawnChromeShortcutTelemetry then
 				RespawnUtils.respawnPage({
 					usedShortcut = true,
@@ -107,85 +120,19 @@ function registerShortcuts()
 	ChromeService:registerShortcut({
 		id = "leave",
 		label = "CoreScripts.TopBar.Leave",
-		keyCode = if FFlagChromeShortcutAddRespawnLeaveToIEM then leaveActionProps.keyCode else Enum.KeyCode.ButtonX,
+		keyCode = leaveActionProps.keyCode,
 		integration = nil,
 		actionName = "UnibarGamepadLeaveGame",
-		activated = if FFlagChromeShortcutAddRespawnLeaveToIEM
-			then leaveActionProps.activated
-			else function()
-				local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-				local LeavePage = SettingsHub.Instance.LeaveGamePage
-				local function switchToLeavePage()
-					local payload = {
-						used_shortcut = true,
-					}
-					SettingsHub.Instance:SwitchToPage(LeavePage, true, nil, nil, nil, payload)
-				end
-
-				if SettingsHub:GetVisibility() then
-					if SettingsHub.Instance.Pages.CurrentPage == LeavePage then
-						if FFlagLeaveActionChromeShortcutTelemetry then
-							leaveGame(true, {
-								telemetryFields = {
-									used_shortcut = true,
-								},
-							})
-						else
-							leaveGame(true)
-						end
-					else
-						if FFlagLeaveChromeShortcutTelemetry then
-							switchToLeavePage()
-						else
-							SettingsHub:SwitchToPage(LeavePage, true)
-						end
-					end
-				else
-					if FFlagRespawnChromeShortcutTelemetry then
-						SettingsHub:SetVisibility(true)
-						switchToLeavePage()
-					else
-						SettingsHub:SetVisibility(true, false, LeavePage)
-					end
-				end
-				return
-			end,
+		activated = leaveActionProps.activated,
 	})
 
 	ChromeService:registerShortcut({
 		id = "respawn",
 		label = "CoreScripts.InGameMenu.QuickActions.Respawn",
-		keyCode = if FFlagChromeShortcutAddRespawnLeaveToIEM then repawnActionProps.keyCode else Enum.KeyCode.ButtonY,
-		integration = if FFlagChromeShortcutAddRespawnLeaveToIEM then repawnActionProps.integration else "respawn",
+		keyCode = repawnActionProps.keyCode,
+		integration = repawnActionProps.integration,
 		actionName = "UnibarGamepadRespawn",
-		activated = if FFlagChromeShortcutAddRespawnLeaveToIEM
-			then repawnActionProps.activated
-			else function()
-				local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-				if
-					SettingsHub:GetVisibility()
-					and SettingsHub.Instance.Pages.CurrentPage == SettingsHub.Instance.ResetCharacterPage
-				then
-					if FFlagRespawnActionChromeShortcutTelemetry then
-						SettingsHub.Instance.ResetCharacterPage.ResetFunction({
-							resetTelemetryFields = {
-								used_shortcut = true,
-							},
-						})
-					else
-						SettingsHub.Instance.ResetCharacterPage.ResetFunction()
-					end
-				else
-					if FFlagRespawnChromeShortcutTelemetry then
-						RespawnUtils.respawnPage({
-							usedShortcut = true,
-						})
-					else
-						ChromeService:activate("respawn")
-					end
-				end
-				return
-			end,
+		activated = repawnActionProps.activated,
 	})
 
 	if FFlagChromeShortcutAddRespawnLeaveToIEM then
@@ -220,6 +167,12 @@ function registerShortcuts()
 				ChatSelector:SetVisible(not chatVisible)
 				if not chatVisible then
 					FocusSelectExpChat("chat")
+				elseif
+					FFlagConsoleChatUseChromeFocusUtils and ExpChatFocusNavigationStore.getChatInputBarFocused(false)
+				then
+					ChromeFocusUtils.FocusOnChrome(function()
+						ExpChatFocusNavigationStore.unfocusChatInputBar()
+					end, "chat")
 				end
 				return
 			end
@@ -237,6 +190,11 @@ function registerShortcuts()
 			if SettingsHub:GetVisibility() then
 				SettingsHub:SetVisibility(false)
 			else
+				if
+					FFlagConsoleChatUseChromeFocusUtils and ExpChatFocusNavigationStore.getChatInputBarFocused(false)
+				then
+					ExpChatFocusNavigationStore.unfocusChatInputBar()
+				end
 				SettingsHub:SetVisibility(true)
 			end
 			return
@@ -256,7 +214,7 @@ function registerShortcuts()
 				if not SettingsHub:GetVisibility() then
 					ChromeService:selectMenuIcon()
 				end
-			else
+			elseif not FFlagConsoleChatUseChromeFocusUtils or ChromeService:inFocusNav():get() then
 				local subMenuId = ChromeService:currentSubMenu():get()
 				if subMenuId then
 					ChromeService:toggleSubMenu(subMenuId)
@@ -269,6 +227,12 @@ function registerShortcuts()
 						return Enum.ContextActionResult.Pass
 					end
 				end
+			elseif
+				FFlagConsoleChatUseChromeFocusUtils and ExpChatFocusNavigationStore.getChatInputBarFocused(false)
+			then
+				ChromeFocusUtils.FocusOnChrome(function()
+					ExpChatFocusNavigationStore.unfocusChatInputBar()
+				end, "chat")
 			end
 			return
 		end,

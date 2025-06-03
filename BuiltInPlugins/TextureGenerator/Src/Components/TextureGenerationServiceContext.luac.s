@@ -53,7 +53,9 @@ PROTO_4:
   NAMECALL R1 R1 K0 ["GenerateTexture"]
   CALL R1 2 -1
   RETURN R1 -1
-  LOADNIL R1
+  DUPTABLE R1 K2 [{"uuid"}]
+  LOADK R2 K3 ["1234"]
+  SETTABLEKS R2 R1 K1 ["uuid"]
   RETURN R1 1
 
 PROTO_5:
@@ -88,7 +90,9 @@ PROTO_7:
   NAMECALL R3 R3 K0 ["PreviewTexture"]
   CALL R3 4 -1
   RETURN R3 -1
-  LOADNIL R3
+  DUPTABLE R3 K2 [{"uuid"}]
+  LOADK R4 K3 ["1234"]
+  SETTABLEKS R4 R3 K1 ["uuid"]
   RETURN R3 1
 
 MAIN:

@@ -129,6 +129,7 @@ local GetFFlagVoiceChatClientRewriteMasterLua =
 local GetFFlagEnableSeamlessVoiceV2 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSeamlessVoiceV2
 local GetFFlagDisconnectToastClientRewrite =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisconnectToastClientRewrite
+local GetFFlagEnableVrVoiceParity = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVrVoiceParity
 
 local Analytics = VoiceChatCore.Analytics
 
@@ -518,7 +519,7 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe("OnAudioDeviceInputAdded", function()
 		self:UpdateAudioDeviceInputDebugger()
 	end)
-	
+
 	if GetFFlagEnableShowVoiceUI() then
 		self.coreVoiceManager:subscribe("OnVoiceChatServiceInitialized", function()
 			self:ShowVoiceUI()
@@ -575,6 +576,13 @@ function VoiceChatServiceManager.new(
 			)
 		end
 	end)
+	self.coreVoiceManager.setVoiceUIVisibility.Event:Connect(function(enable: boolean)
+		if enable then
+			self:ShowVoiceUI()
+		else
+			self:HideVoiceUI()
+		end
+    end)
 	self.coreVoiceManager:subscribe("OnVoiceJoin", function()
 		if GetFFlagNonVoiceFTUX() and self.hasLeftFTUX then
 			self.hasLeftFTUX = false
@@ -603,6 +611,7 @@ function VoiceChatServiceManager.new(
 
 		if GetFFlagEnableVoiceChatMuteForVideoCaptures() and self.CaptureService:IsCapturingVideo() then
 			self:MuteAll(true, "Capture")
+			self:HideVoiceUI()
 		end
 
 		if GetFFlagEnableConnectDisconnectAnalytics() and shouldSendConnectDisconnectAnalytics then
@@ -1680,7 +1689,11 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		self:HideFTUX(AppStorageService)
 	elseif self.deniedMicPermissions then
 		-- M3: Mic permissions previously denied
-		self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
+		if GetFFlagEnableVrVoiceParity() then
+			self:CheckAndShowPermissionPrompt()
+		else
+			self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
+		end
 	elseif GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self:UserVoiceEnabled() then
 		-- First time joining voice this session
 		if FFlagSeamlessVoiceV2JoinVoiceToast then

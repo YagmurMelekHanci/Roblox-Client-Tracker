@@ -19,12 +19,20 @@ MAIN:
   GETTABLEKS R3 R4 K11 ["ApplyDescription"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K7 ["Util"]
-  GETTABLEKS R5 R6 K8 ["Interfaces"]
-  GETTABLEKS R4 R5 K12 ["InterfaceTypes"]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K7 ["Util"]
+  GETTABLEKS R6 R7 K8 ["Interfaces"]
+  GETTABLEKS R5 R6 K9 ["HumanoidInterface"]
+  GETTABLEKS R4 R5 K12 ["ApplyDescriptionReset"]
   CALL R3 1 1
-  DUPTABLE R4 K13 [{"AddAccessory", "ApplyDescription"}]
-  SETTABLEKS R1 R4 K10 ["AddAccessory"]
-  SETTABLEKS R2 R4 K11 ["ApplyDescription"]
-  RETURN R4 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K7 ["Util"]
+  GETTABLEKS R6 R7 K8 ["Interfaces"]
+  GETTABLEKS R5 R6 K13 ["InterfaceTypes"]
+  CALL R4 1 1
+  DUPTABLE R5 K14 [{"AddAccessory", "ApplyDescription", "ApplyDescriptionReset"}]
+  SETTABLEKS R1 R5 K10 ["AddAccessory"]
+  SETTABLEKS R2 R5 K11 ["ApplyDescription"]
+  SETTABLEKS R3 R5 K12 ["ApplyDescriptionReset"]
+  RETURN R5 1

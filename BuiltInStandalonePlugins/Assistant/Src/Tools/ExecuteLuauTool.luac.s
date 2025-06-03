@@ -11,47 +11,52 @@ PROTO_0:
   RETURN R1 -1
 
 PROTO_1:
-  GETUPVAL R1 0
-  LOADB R3 0
-  NAMECALL R1 R1 K0 ["GenerateGUID"]
-  CALL R1 2 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["startRecording"]
-  MOVE R3 R1
-  CALL R2 1 0
-  GETIMPORT R2 K3 [pcall]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CALL R2 1 2
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["endRecording"]
-  MOVE R5 R1
-  CALL R4 1 0
-  JUMPIFNOT R2 [+6]
-  FASTCALL1 TOSTRING R3 [+3]
-  MOVE R5 R3
-  GETIMPORT R4 K6 [tostring]
-  CALL R4 1 1
-  RETURN R4 1
-  LOADK R5 K7 ["Error: %*"]
-  MOVE R7 R3
-  NAMECALL R5 R5 K8 ["format"]
-  CALL R5 2 1
-  MOVE R4 R5
-  RETURN R4 1
+  GETTABLEKS R1 R0 K0 ["code"]
+  GETUPVAL R2 0
+  LOADB R4 0
+  NAMECALL R2 R2 K1 ["GenerateGUID"]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["startRecording"]
+  MOVE R4 R2
+  CALL R3 1 0
+  GETIMPORT R3 K4 [pcall]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CALL R3 1 2
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["endRecording"]
+  MOVE R6 R2
+  CALL R5 1 0
+  JUMPIFNOT R3 [+6]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R6 R4
+  GETIMPORT R5 K7 [tostring]
+  CALL R5 1 1
+  RETURN R5 1
+  LOADK R6 K8 ["Error: %*"]
+  MOVE R8 R4
+  NAMECALL R6 R6 K9 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  RETURN R5 1
 
 PROTO_2:
   GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["code"]
+  MOVE R2 R0
   CALL R1 1 1
-  DUPTABLE R2 K2 [{"content"}]
+  DUPTABLE R2 K1 [{"content"}]
   NEWTABLE R3 0 1
-  DUPTABLE R4 K5 [{"type", "text"}]
-  LOADK R5 K4 ["text"]
-  SETTABLEKS R5 R4 K3 ["type"]
-  SETTABLEKS R1 R4 K4 ["text"]
+  DUPTABLE R4 K4 [{"type", "text"}]
+  LOADK R5 K3 ["text"]
+  SETTABLEKS R5 R4 K2 ["type"]
+  GETUPVAL R5 1
+  MOVE R7 R1
+  NAMECALL R5 R5 K5 ["JSONEncode"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K3 ["text"]
   SETLIST R3 R4 1 [1]
-  SETTABLEKS R3 R2 K1 ["content"]
+  SETTABLEKS R3 R2 K0 ["content"]
   RETURN R2 1
 
 MAIN:
@@ -68,35 +73,46 @@ MAIN:
   GETTABLEKS R4 R0 K10 ["Packages"]
   GETTABLEKS R3 R4 K11 ["AssistantUI"]
   CALL R2 1 1
-  GETTABLEKS R4 R2 K12 ["Utils"]
-  GETTABLEKS R3 R4 K13 ["Tools"]
-  DUPTABLE R4 K17 [{"name", "description", "inputSchema"}]
-  LOADK R5 K18 ["execute_luau"]
-  SETTABLEKS R5 R4 K14 ["name"]
-  LOADK R5 K19 ["Executes Luau code in Roblox Studio. Returns the result of the executed code or an error message if the code fails to execute."]
-  SETTABLEKS R5 R4 K15 ["description"]
-  DUPTABLE R5 K23 [{"type", "properties", "required"}]
-  LOADK R6 K24 ["object"]
-  SETTABLEKS R6 R5 K20 ["type"]
-  DUPTABLE R6 K26 [{"code"}]
-  DUPTABLE R7 K27 [{"type", "description"}]
-  LOADK R8 K28 ["string"]
-  SETTABLEKS R8 R7 K20 ["type"]
-  LOADK R8 K29 ["The Luau code to execute"]
-  SETTABLEKS R8 R7 K15 ["description"]
-  SETTABLEKS R7 R6 K25 ["code"]
-  SETTABLEKS R6 R5 K21 ["properties"]
-  NEWTABLE R6 0 1
-  LOADK R7 K25 ["code"]
-  SETLIST R6 R7 1 [1]
-  SETTABLEKS R6 R5 K22 ["required"]
-  SETTABLEKS R5 R4 K16 ["inputSchema"]
-  DUPCLOSURE R5 K30 [PROTO_1]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R0 K12 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Util"]
+  GETTABLEKS R4 R5 K14 ["StudioNetworking"]
+  CALL R3 1 1
+  GETTABLEKS R5 R2 K15 ["Utils"]
+  GETTABLEKS R4 R5 K16 ["Tools"]
+  GETTABLEKS R5 R3 K17 ["get"]
+  CALL R5 0 1
+  DUPTABLE R6 K21 [{"name", "description", "inputSchema"}]
+  LOADK R7 K22 ["execute_luau"]
+  SETTABLEKS R7 R6 K18 ["name"]
+  LOADK R7 K23 ["Executes Luau code in Roblox Studio. Returns the result of the executed code or an error message if the code fails to execute."]
+  SETTABLEKS R7 R6 K19 ["description"]
+  DUPTABLE R7 K27 [{"type", "properties", "required"}]
+  LOADK R8 K28 ["object"]
+  SETTABLEKS R8 R7 K24 ["type"]
+  DUPTABLE R8 K30 [{"code"}]
+  DUPTABLE R9 K31 [{"type", "description"}]
+  LOADK R10 K32 ["string"]
+  SETTABLEKS R10 R9 K24 ["type"]
+  LOADK R10 K33 ["The Luau code to execute"]
+  SETTABLEKS R10 R9 K19 ["description"]
+  SETTABLEKS R9 R8 K29 ["code"]
+  SETTABLEKS R8 R7 K25 ["properties"]
+  NEWTABLE R8 0 1
+  LOADK R9 K29 ["code"]
+  SETLIST R8 R9 1 [1]
+  SETTABLEKS R8 R7 K26 ["required"]
+  SETTABLEKS R7 R6 K20 ["inputSchema"]
+  LOADK R9 K34 ["ExecuteLuauTool_doLoadstring"]
+  DUPCLOSURE R10 K35 [PROTO_1]
   CAPTURE VAL R1
-  CAPTURE VAL R3
-  DUPCLOSURE R6 K31 [PROTO_2]
-  CAPTURE VAL R5
-  DUPTABLE R7 K34 [{"definition", "handler"}]
-  SETTABLEKS R4 R7 K32 ["definition"]
-  SETTABLEKS R6 R7 K33 ["handler"]
-  RETURN R7 1
+  CAPTURE VAL R4
+  NAMECALL R7 R5 K36 ["OnEditableDMInvoke"]
+  CALL R7 3 1
+  DUPCLOSURE R8 K37 [PROTO_2]
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  DUPTABLE R9 K40 [{"definition", "handler"}]
+  SETTABLEKS R6 R9 K38 ["definition"]
+  SETTABLEKS R8 R9 K39 ["handler"]
+  RETURN R9 1

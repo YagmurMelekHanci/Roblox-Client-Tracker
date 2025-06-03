@@ -9,12 +9,14 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
+local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local VOICE_JOIN_PROGRESS = VoiceConstants.VOICE_JOIN_PROGRESS
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local observeCurrentContextId = require(CorePackages.Workspace.Packages.CrossExperience).Utils.observeCurrentContextId
 local VoiceChatConstants = require(CorePackages.Workspace.Packages.VoiceChatCore).Constants
+local GetIcon = require(CorePackages.Workspace.Packages.VoiceChat).Utils.GetIcon
 local CEV_CONTEXT_ID =
 	require(CorePackages.Workspace.Packages.CrossExperience).Constants.AUDIO_FOCUS_MANAGEMENT.CEV.CONTEXT_ID
 
@@ -30,8 +32,10 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 local FFlagJoinVoiceHideWhenPartyVoiceFocused = game:DefineFastFlag("JoinVoiceHideWhenPartyVoiceFocused", false)
 local FFlagCheckShouldShowJoinVoiceInEvent = game:DefineFastFlag("CheckShouldShowJoinVoiceInEvent", false)
 
+local FFlagReplaceJoinVoiceIconToMuted = game:DefineFastFlag("ReplaceJoinVoiceIconToMuted", false)
 local FIntJoinVoiceFtuxShowDelayMs = game:DefineFastInt("JoinVoiceFtuxShowDelayMs", 1000)
 local FIntJoinVoiceFtuxDismissDelayMs = game:DefineFastInt("JoinVoiceFtuxDismissDelayMs", 5000)
+local FIntUnibarJoinVoiceTooltipPriority = game:DefineFastInt("UnibarJoinVoiceTooltipPriority", 1000)
 local FFlagEnableChromeJoinVoiceTooltip = game:DefineFastFlag("EnableChromeJoinVoiceTooltip", false)
 
 local ChromeService = require(Chrome.Service)
@@ -68,13 +72,19 @@ joinVoice = ChromeService:register({
 	end,
 	components = {
 		Icon = function()
+			local iconName = "icons/controls/publicAudioJoin"
+			if FFlagReplaceJoinVoiceIconToMuted then
+				iconName = GetIcon("Muted", "MicLight")
+			end
 			if FFlagEnableChromeJoinVoiceTooltip then
 				local shouldShowTooltip = getShouldShowJoinVoiceTooltip()
 				return React.createElement(Foundation.View, {
 					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
 				}, {
-					Icon = CommonIcon("icons/controls/publicAudioJoin"),
+					Icon = CommonIcon(iconName),
 					Tooltip = CommonFtuxTooltip({
+						id = if FFlagEnableUnibarTooltipQueue then "JOIN_VOICE" else nil,
+						priority = if FFlagEnableUnibarTooltipQueue then FIntUnibarJoinVoiceTooltipPriority else nil,
 						isIconVisible = shouldShowTooltip,
 						dismissOnOutsideInput = true,
 						headerKey = "CoreScripts.FTUX.Heading.JoinVoice",
@@ -91,7 +101,7 @@ joinVoice = ChromeService:register({
 					}),
 				})
 			end
-			return CommonIcon("icons/controls/publicAudioJoin") :: any
+			return CommonIcon(iconName) :: any
 		end,
 	},
 })

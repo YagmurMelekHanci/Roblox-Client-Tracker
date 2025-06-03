@@ -19,13 +19,6 @@ PROTO_2:
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_3:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["Path2DWrapperMaxPointsRefactor"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 -1
-  RETURN R0 -1
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
@@ -43,18 +36,11 @@ MAIN:
   LOADN R3 144
   NAMECALL R0 R0 K5 ["DefineFastInt"]
   CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K7 ["Path2DWrapperMaxPointsRefactor"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  DUPTABLE R0 K12 [{"getFFlagLoadDirectionalCurveEditorInAssetDM", "getFIntDistanceAttenuationMaxPoints", "getFIntDirectionalAttenuationMaxPoints", "getFFlagPath2DWrapperMaxPointsRefactor"}]
-  DUPCLOSURE R1 K13 [PROTO_0]
-  SETTABLEKS R1 R0 K8 ["getFFlagLoadDirectionalCurveEditorInAssetDM"]
-  DUPCLOSURE R1 K14 [PROTO_1]
-  SETTABLEKS R1 R0 K9 ["getFIntDistanceAttenuationMaxPoints"]
-  DUPCLOSURE R1 K15 [PROTO_2]
-  SETTABLEKS R1 R0 K10 ["getFIntDirectionalAttenuationMaxPoints"]
-  DUPCLOSURE R1 K16 [PROTO_3]
-  SETTABLEKS R1 R0 K11 ["getFFlagPath2DWrapperMaxPointsRefactor"]
+  DUPTABLE R0 K10 [{"getFFlagLoadDirectionalCurveEditorInAssetDM", "getFIntDistanceAttenuationMaxPoints", "getFIntDirectionalAttenuationMaxPoints"}]
+  DUPCLOSURE R1 K11 [PROTO_0]
+  SETTABLEKS R1 R0 K7 ["getFFlagLoadDirectionalCurveEditorInAssetDM"]
+  DUPCLOSURE R1 K12 [PROTO_1]
+  SETTABLEKS R1 R0 K8 ["getFIntDistanceAttenuationMaxPoints"]
+  DUPCLOSURE R1 K13 [PROTO_2]
+  SETTABLEKS R1 R0 K9 ["getFIntDirectionalAttenuationMaxPoints"]
   RETURN R0 1

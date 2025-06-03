@@ -69,46 +69,47 @@ PROTO_4:
   SETLIST R5 R6 1 [1]
   CALL R3 2 0
   GETUPVAL R3 3
-  DUPTABLE R4 K5 [{"Uri", "Title", "Text", "Shortcuts"}]
+  DUPTABLE R4 K6 [{"Uri", "Title", "Text", "Shortcuts", "WidgetRef"}]
   GETTABLEKS R5 R0 K1 ["Uri"]
   SETTABLEKS R5 R4 K1 ["Uri"]
-  GETTABLEKS R5 R0 K6 ["TooltipTitle"]
+  GETTABLEKS R5 R0 K7 ["TooltipTitle"]
   SETTABLEKS R5 R4 K2 ["Title"]
-  GETTABLEKS R5 R0 K7 ["Tooltip"]
+  GETTABLEKS R5 R0 K8 ["Tooltip"]
   SETTABLEKS R5 R4 K3 ["Text"]
   GETTABLEKS R5 R0 K4 ["Shortcuts"]
   SETTABLEKS R5 R4 K4 ["Shortcuts"]
+  SETTABLEKS R1 R4 K5 ["WidgetRef"]
   CALL R3 1 2
   GETUPVAL R6 4
-  GETTABLEKS R5 R6 K8 ["createElement"]
-  LOADK R6 K9 ["TextButton"]
+  GETTABLEKS R5 R6 K9 ["createElement"]
+  LOADK R6 K10 ["TextButton"]
   NEWTABLE R7 8 0
-  SETTABLEKS R1 R7 K10 ["ref"]
-  GETTABLEKS R8 R0 K11 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K11 ["LayoutOrder"]
+  SETTABLEKS R1 R7 K11 ["ref"]
+  GETTABLEKS R8 R0 K12 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K12 ["LayoutOrder"]
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K12 ["Event"]
-  GETTABLEKS R8 R9 K13 ["InputBegan"]
+  GETTABLEKS R9 R10 K13 ["Event"]
+  GETTABLEKS R8 R9 K14 ["InputBegan"]
   NEWCLOSURE R9 P1
   CAPTURE UPVAL U5
   CAPTURE VAL R0
   SETTABLE R9 R7 R8
-  GETTABLEKS R8 R0 K14 ["Visible"]
-  SETTABLEKS R8 R7 K14 ["Visible"]
+  GETTABLEKS R8 R0 K15 ["Visible"]
+  SETTABLEKS R8 R7 K15 ["Visible"]
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K12 ["Event"]
-  GETTABLEKS R8 R9 K15 ["MouseEnter"]
+  GETTABLEKS R9 R10 K13 ["Event"]
+  GETTABLEKS R8 R9 K16 ["MouseEnter"]
   SETTABLE R3 R7 R8
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K12 ["Event"]
-  GETTABLEKS R8 R9 K16 ["MouseLeave"]
+  GETTABLEKS R9 R10 K13 ["Event"]
+  GETTABLEKS R8 R9 K17 ["MouseLeave"]
   SETTABLE R4 R7 R8
   GETUPVAL R9 4
-  GETTABLEKS R8 R9 K17 ["Tag"]
+  GETTABLEKS R8 R9 K18 ["Tag"]
   GETUPVAL R9 6
-  LOADK R10 K18 ["Component-AvatarThumbnail Role-Surface X-Fit"]
+  LOADK R10 K19 ["Component-AvatarThumbnail Role-Surface X-Fit"]
   GETUPVAL R13 4
-  GETTABLEKS R12 R13 K17 ["Tag"]
+  GETTABLEKS R12 R13 K18 ["Tag"]
   GETTABLE R11 R0 R12
   CALL R9 2 1
   SETTABLE R9 R7 R8
@@ -116,37 +117,37 @@ PROTO_4:
   GETUPVAL R10 7
   JUMPIFNOT R10 [+54]
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K8 ["createElement"]
-  LOADK R10 K19 ["ImageLabel"]
+  GETTABLEKS R9 R10 K9 ["createElement"]
+  LOADK R10 K20 ["ImageLabel"]
   NEWTABLE R11 4 0
-  GETTABLEKS R13 R0 K6 ["TooltipTitle"]
-  ORK R12 R13 K20 ["Avatar"]
-  SETTABLEKS R12 R11 K21 ["key"]
-  GETTABLEKS R13 R0 K22 ["UserId"]
-  GETIMPORT R14 K25 [Vector2.new]
+  GETTABLEKS R13 R0 K7 ["TooltipTitle"]
+  ORK R12 R13 K21 ["Avatar"]
+  SETTABLEKS R12 R11 K22 ["key"]
+  GETTABLEKS R13 R0 K23 ["UserId"]
+  GETIMPORT R14 K26 [Vector2.new]
   LOADN R15 60
   LOADN R16 60
   CALL R14 2 1
-  LOADK R15 K26 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
+  LOADK R15 K27 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
   MOVE R17 R13
-  GETTABLEKS R18 R14 K27 ["X"]
-  GETTABLEKS R19 R14 K28 ["Y"]
-  NAMECALL R15 R15 K29 ["format"]
+  GETTABLEKS R18 R14 K28 ["X"]
+  GETTABLEKS R19 R14 K29 ["Y"]
+  NAMECALL R15 R15 K30 ["format"]
   CALL R15 4 1
   MOVE R12 R15
-  SETTABLEKS R12 R11 K30 ["Image"]
+  SETTABLEKS R12 R11 K31 ["Image"]
   GETUPVAL R13 4
-  GETTABLEKS R12 R13 K17 ["Tag"]
+  GETTABLEKS R12 R13 K18 ["Tag"]
   GETUPVAL R13 6
-  GETTABLEKS R14 R0 K31 ["Size"]
+  GETTABLEKS R14 R0 K32 ["Size"]
   GETUPVAL R16 8
   CALL R16 0 1
   JUMPIFNOT R16 [+10]
-  LOADK R16 K32 ["data-testid=%*"]
+  LOADK R16 K33 ["data-testid=%*"]
   GETUPVAL R18 9
   GETTABLEKS R19 R0 K1 ["Uri"]
   CALL R18 1 1
-  NAMECALL R16 R16 K29 ["format"]
+  NAMECALL R16 R16 K30 ["format"]
   CALL R16 2 1
   MOVE R15 R16
   JUMP [+1]
@@ -160,34 +161,34 @@ PROTO_4:
   GETUPVAL R11 7
   JUMPIF R11 [+49]
   GETUPVAL R11 4
-  GETTABLEKS R10 R11 K8 ["createElement"]
-  LOADK R11 K19 ["ImageLabel"]
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  LOADK R11 K20 ["ImageLabel"]
   NEWTABLE R12 2 0
-  GETTABLEKS R14 R0 K22 ["UserId"]
-  GETIMPORT R15 K25 [Vector2.new]
+  GETTABLEKS R14 R0 K23 ["UserId"]
+  GETIMPORT R15 K26 [Vector2.new]
   LOADN R16 60
   LOADN R17 60
   CALL R15 2 1
-  LOADK R16 K26 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
+  LOADK R16 K27 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
   MOVE R18 R14
-  GETTABLEKS R19 R15 K27 ["X"]
-  GETTABLEKS R20 R15 K28 ["Y"]
-  NAMECALL R16 R16 K29 ["format"]
+  GETTABLEKS R19 R15 K28 ["X"]
+  GETTABLEKS R20 R15 K29 ["Y"]
+  NAMECALL R16 R16 K30 ["format"]
   CALL R16 4 1
   MOVE R13 R16
-  SETTABLEKS R13 R12 K30 ["Image"]
+  SETTABLEKS R13 R12 K31 ["Image"]
   GETUPVAL R14 4
-  GETTABLEKS R13 R14 K17 ["Tag"]
+  GETTABLEKS R13 R14 K18 ["Tag"]
   GETUPVAL R14 6
-  GETTABLEKS R15 R0 K31 ["Size"]
+  GETTABLEKS R15 R0 K32 ["Size"]
   GETUPVAL R17 8
   CALL R17 0 1
   JUMPIFNOT R17 [+10]
-  LOADK R17 K32 ["data-testid=%*"]
+  LOADK R17 K33 ["data-testid=%*"]
   GETUPVAL R19 9
   GETTABLEKS R20 R0 K1 ["Uri"]
   CALL R19 1 1
-  NAMECALL R17 R17 K29 ["format"]
+  NAMECALL R17 R17 K30 ["format"]
   CALL R17 2 1
   MOVE R16 R17
   JUMP [+1]
@@ -197,7 +198,7 @@ PROTO_4:
   CALL R10 2 1
   JUMP [+1]
   LOADNIL R10
-  SETTABLEKS R10 R8 K20 ["Avatar"]
+  SETTABLEKS R10 R8 K21 ["Avatar"]
   CALL R5 3 -1
   CLOSEUPVALS R1
   RETURN R5 -1
