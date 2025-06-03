@@ -253,6 +253,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.VideoAdClosed(adShown: boolean) [Deprecated]
 	Event AdService.adGuiRegisterUI(adGui: Instance) {RobloxScriptSecurity}
 	Event AdService.rewardedVideoAdPlayServerToClient(rewardDetails: string) {RobloxSecurity} [Hidden]
+	Event AdService.rewardedVideoAdPlayServerToClientWithPlacement(rewardDetails: string, placementId: number) {RobloxSecurity} [Hidden]
 	Event AdService.rewardedVideoAdResultClientToServer(result: Enum.ShowAdResult, encryptedAdTrackingData: string, encryptionMetadata: string) {RobloxSecurity} [Hidden]
 	Callback AdService.onDemandVideoPlayInUI(data: { [string]: any }) -> VideoFrame {RobloxScriptSecurity}
 Class AdvancedDragger : Instance
@@ -815,6 +816,7 @@ Class AuroraScriptObject : Instance [NotCreatable] [Deprecated]
 	Property AuroraScriptObject.BehaviorWeak: AuroraScript? {RobloxSecurity} [Deprecated]
 	Property AuroraScriptObject.BoundInstanceWeak: Instance? {RobloxSecurity} [Deprecated]
 	Property AuroraScriptObject.FrameId: number [Deprecated]
+	Property AuroraScriptObject.MaxFrequency: number [Hidden] [NotScriptable] [Deprecated]
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraScriptService:GetLocalFrameId() -> number [Deprecated] {🧬Safe}
 	Function AuroraScriptService:SendMessage(instance: Instance, behaviorName: string, functionName: string, args: ...any) -> () [Deprecated] {🧬Safe}
@@ -1381,6 +1383,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity} [CustomLuaState]
 	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnVideoCaptureShared(videoCapture: VideoCapture) -> () {RobloxScriptSecurity}
+	Function CaptureService:PreVideoCaptureShared(videoCapture: VideoCapture) -> string {RobloxScriptSecurity}
 	Function CaptureService:PromptSaveCapturesToGallery(captures: { any }, resultCallback: (...any) -> ...any) -> ()
 	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
@@ -1388,8 +1391,8 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:SaveCapturesToExternalStorageAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:SaveScreenshotCapture(additionalInfo: string? = "") -> () {RobloxScriptSecurity}
 	Function CaptureService:SaveVideoCaptureToExternalStorage(videoCapture: VideoCapture) -> () {RobloxScriptSecurity}
-	Function CaptureService:StartVideoCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> Enum.VideoCaptureResult [Yields]
-	Function CaptureService:StartVideoCaptureInternalAsync() -> Enum.VideoCaptureResult {RobloxScriptSecurity} [Yields]
+	Function CaptureService:StartVideoCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> Enum.VideoCaptureStartedResult [Yields]
+	Function CaptureService:StartVideoCaptureInternalAsync() -> Enum.VideoCaptureStartedResult {RobloxScriptSecurity} [Yields]
 	Function CaptureService:StopVideoCapture() -> ()
 	Function CaptureService:StopVideoCaptureInternal() -> () {RobloxScriptSecurity}
 	Function CaptureService:TakeCapture(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> ()
@@ -1404,6 +1407,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Event CaptureService.RequestCaptureSignatureV2(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
 	Event CaptureService.UserVideoCaptureFailed(result: Enum.VideoCaptureResult) {RobloxScriptSecurity}
+	Event CaptureService.UserVideoCaptureStartFailed(result: Enum.VideoCaptureStartedResult) {RobloxScriptSecurity}
 	Event CaptureService.VideoCaptureInProgress(isInProgress: boolean, captureTrigger: string) {RobloxScriptSecurity}
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function ChangeHistoryService:FinishRecording(identifier: string, operation: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) -> () {PluginSecurity}
@@ -3303,6 +3307,7 @@ Class Humanoid : Instance
 	Function Humanoid:CacheDefaults() -> () {RobloxScriptSecurity}
 	Function Humanoid:ChangeState(state: Enum.HumanoidStateType? = "None") -> ()
 	Function Humanoid:ComputeOriginalSizeForPart(part: Instance) -> Vector3? {RobloxScriptSecurity}
+	Function Humanoid:ComputeR15BodyBoundingBox() -> (CFrame, Vector3) {RobloxScriptSecurity}
 	Function Humanoid:EquipTool(tool: Instance) -> ()
 	Function Humanoid:GetAccessories() -> { any }
 	Function Humanoid:GetAccessoryHandleScale(instance: Instance, partType: Enum.BodyPartR15) -> Vector3 {RobloxScriptSecurity}
@@ -3593,6 +3598,9 @@ Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated
 Class InputAction : Instance [NotBrowsable]
 	Property InputAction.Enabled: boolean
 	Property InputAction.Type: Enum.InputActionType
+	Property InputAction.BoolState: boolean {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
+	Property InputAction.Direction1DState: number {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
+	Property InputAction.Direction2DState: Vector2 {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
 	Function InputAction:Fire(state: any) -> ()
 	Function InputAction:GetState() -> any
 	Event InputAction.Pressed()
@@ -3922,6 +3930,8 @@ Class ModuleScript : LuaSourceContainer
 Class LuaWebService : Instance [NotCreatable] [Service]
 Class LuauScriptAnalyzerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class MLModelDeliveryService : Instance [NotCreatable] [Service]
+Class MLService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function MLService:CreateSessionAsync(assetId: string) -> MLSession [Yields]
 Class MarkerCurve : Instance
 	Property MarkerCurve.Length: number [ReadOnly]
 	Property MarkerCurve.ValuesAndTimes: BinaryString [Hidden] [NotScriptable]
@@ -4459,7 +4469,6 @@ Class Terrain : BasePart [NotCreatable]
 	Property Terrain.Decoration: boolean [NotScriptable]
 	Property Terrain.GrassLength: number [NotScriptable]
 	Property Terrain.MaterialColors: BinaryString [NotScriptable]
-	Property Terrain.ShorelinesUpgraded: boolean {RobloxScriptSecurity} [Hidden]
 	Property Terrain.SmoothVoxelsUpgraded: boolean {RobloxScriptSecurity} [Hidden]
 	Property Terrain.WaterColor: Color3
 	Property Terrain.WaterReflectance: number
@@ -6916,6 +6925,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.CreateDefaultCommands: boolean {✏️PluginSecurity}
 	Property TextChatService.CreateDefaultTextChannels: boolean {✏️PluginSecurity}
 	Property TextChatService.HasSeenDeprecationDialog: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property TextChatService.isLegacyChatDisabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function TextChatService:CanUserChatAsync(userId: number) -> boolean [Yields]
 	Function TextChatService:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
 	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } [Yields]
@@ -7768,6 +7778,8 @@ Class Wire : Instance
 	Property Wire.TargetInstance: Instance?
 	Property Wire.TargetName: string
 	Function Wire:RenameToDefault() -> () {RobloxScriptSecurity}
+Class MLSession : Object [NotCreatable] [NotReplicated]
+	Function MLSession:ForwardAsync(data: { [string]: any }) -> { [string]: any } [Yields]
 Class TerrainIterateOperation : Object [NotCreatable] [NotReplicated]
 	Function TerrainIterateOperation:CommitBlock(block: { [string]: any }) -> RBXScriptSignal
 	Event TerrainIterateOperation.Ready(block: { [string]: any })
@@ -11035,9 +11047,14 @@ Enum VibrationMotor
 Enum VideoCaptureResult
 	EnumItem VideoCaptureResult.Success : 0
 	EnumItem VideoCaptureResult.OtherError : 1
-	EnumItem VideoCaptureResult.CapturingAlready : 2
-	EnumItem VideoCaptureResult.NoDeviceSupport : 3
-	EnumItem VideoCaptureResult.NoSpaceOnDevice : 4
+	EnumItem VideoCaptureResult.ScreenSizeChanged : 2
+	EnumItem VideoCaptureResult.TimeLimitReached : 3
+Enum VideoCaptureStartedResult
+	EnumItem VideoCaptureStartedResult.Success : 0
+	EnumItem VideoCaptureStartedResult.OtherError : 1
+	EnumItem VideoCaptureStartedResult.CapturingAlready : 2
+	EnumItem VideoCaptureStartedResult.NoDeviceSupport : 3
+	EnumItem VideoCaptureStartedResult.NoSpaceOnDevice : 4
 Enum VideoDeviceCaptureQuality
 	EnumItem VideoDeviceCaptureQuality.Default : 0
 	EnumItem VideoDeviceCaptureQuality.Low : 1

@@ -116,6 +116,8 @@ Studio.App.RBXMainWindow.ExpandAllFolds,,Expand All Folds,Expand All Folds
 Studio.App.RBXMainWindow.ExpandsAllFolds,,Expands all folds,Expands all folds
 Studio.App.RBXMainWindow.Explorer,,Explorer,Explorer
 Studio.App.RBXMainWindow.ExplorerFilter,,Explorer Filter,Explorer Filter
+Studio.App.RBXMainWindow.ExportAsGltf,Export as glTF,Export as glTF,Export as glTF
+Studio.App.RBXMainWindow.ExportAsGltfElps,Export as glTF...,Export as glTF...,Export as glTF...
 Studio.App.RBXMainWindow.ExportAsObj,,Export as Obj,Export as Obj
 Studio.App.RBXMainWindow.ExportForUploadElps,,(INTERNAL) Export for upload...,(INTERNAL) Export for upload...
 Studio.App.RBXMainWindow.ExportSelection,,Export Selection,Export Selection

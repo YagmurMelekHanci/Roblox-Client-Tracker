@@ -119,7 +119,7 @@ dependencies = [
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
     "Otter Otter 1.3.2 registry",
-    "PolicyProvider LuaRoactPolicyProvider 0.1.2 registry",
+    "PolicyProvider LuaRoactPolicyProvider 0.1.3 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "QRCode QRCode 0.1.0 registry",
     "React React 17.2.0 registry",
@@ -395,7 +395,7 @@ dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Mock mock 1.1.0 registry",
     "Otter Otter 0.1.4 registry",
-    "PolicyProvider LuaRoactPolicyProvider 0.1.2 registry",
+    "PolicyProvider LuaRoactPolicyProvider 0.1.3 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "Roact RoactCompat 17.2.0 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
@@ -941,7 +941,7 @@ dependencies = [
 
 [[package]]
 name = "LuaRoactPolicyProvider"
-version = "0.1.2"
+version = "0.1.3"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",

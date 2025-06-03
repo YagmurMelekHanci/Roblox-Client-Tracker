@@ -26,7 +26,7 @@ Otter = "1.2.1"
 ReactOtter = "1.2.1"
 t = "3.0.0"
 enumerate = "1.0.0"
-PolicyProvider = { version = "0.1.2", package = "LuaRoactPolicyProvider" }
+PolicyProvider = { version = "0.1.3", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
 StringUtilities = { version = "1.0.0", package = "string-utilities" }
 UrlBuilder = "1.2.9"
