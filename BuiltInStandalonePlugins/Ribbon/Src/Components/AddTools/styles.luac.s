@@ -13,10 +13,8 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K10 ["Src"]
   GETTABLEKS R5 R6 K11 ["SharedFlags"]
-  GETTABLEKS R4 R5 K12 ["getFFlagRibbonStyleUpgrades"]
+  GETTABLEKS R4 R5 K12 ["getFFlagRibbonDensityModeStyles"]
   CALL R3 1 1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+162]
   MOVE R4 R2
   LOADK R5 K13 [".Role-AddTools"]
   NEWTABLE R6 0 0
@@ -43,200 +41,99 @@ MAIN:
   DUPTABLE R15 K29 [{"BorderSizePixel", "BackgroundTransparency", "LayoutOrder", "Size"}]
   LOADK R16 K30 ["$BorderNone"]
   SETTABLEKS R16 R15 K26 ["BorderSizePixel"]
-  LOADK R16 K31 ["$BackgroundTransparent"]
+  MOVE R17 R3
+  CALL R17 0 1
+  JUMPIFNOT R17 [+2]
+  LOADK R16 K31 ["$Transparency100"]
+  JUMP [+1]
+  LOADK R16 K32 ["$BackgroundTransparent"]
   SETTABLEKS R16 R15 K16 ["BackgroundTransparency"]
   LOADN R16 1
   SETTABLEKS R16 R15 K27 ["LayoutOrder"]
-  LOADK R16 K32 ["$IconLarge"]
+  LOADK R16 K33 ["$IconLarge"]
   SETTABLEKS R16 R15 K28 ["Size"]
   CALL R13 2 1
   MOVE R14 R2
-  LOADK R15 K33 ["> #Text"]
-  DUPTABLE R16 K35 [{"AutomaticSize"}]
-  GETIMPORT R17 K38 [Enum.AutomaticSize.Y]
-  SETTABLEKS R17 R16 K34 ["AutomaticSize"]
+  LOADK R15 K34 ["> #Text"]
+  DUPTABLE R16 K36 [{"AutomaticSize"}]
+  GETIMPORT R17 K39 [Enum.AutomaticSize.Y]
+  SETTABLEKS R17 R16 K35 ["AutomaticSize"]
   NEWTABLE R17 0 1
   MOVE R18 R2
-  LOADK R19 K39 ["::UIFlexItem"]
-  DUPTABLE R20 K43 [{"FlexMode", "GrowRatio", "ShrinkRatio"}]
-  GETIMPORT R21 K46 [Enum.UIFlexMode.Custom]
-  SETTABLEKS R21 R20 K40 ["FlexMode"]
+  LOADK R19 K40 ["::UIFlexItem"]
+  DUPTABLE R20 K44 [{"FlexMode", "GrowRatio", "ShrinkRatio"}]
+  GETIMPORT R21 K47 [Enum.UIFlexMode.Custom]
+  SETTABLEKS R21 R20 K41 ["FlexMode"]
   LOADN R21 1
-  SETTABLEKS R21 R20 K41 ["GrowRatio"]
+  SETTABLEKS R21 R20 K42 ["GrowRatio"]
   LOADN R21 1
-  SETTABLEKS R21 R20 K42 ["ShrinkRatio"]
+  SETTABLEKS R21 R20 K43 ["ShrinkRatio"]
   CALL R18 2 -1
   SETLIST R17 R18 -1 [1]
   CALL R14 3 1
   MOVE R15 R2
-  LOADK R16 K47 ["> #Arrow > #Button"]
-  DUPTABLE R17 K48 [{"Size", "BackgroundTransparency"}]
-  LOADK R18 K49 ["$IconSmall"]
+  LOADK R16 K48 ["> #Arrow > #Button"]
+  DUPTABLE R17 K49 [{"Size", "BackgroundTransparency"}]
+  LOADK R18 K50 ["$IconSmall"]
   SETTABLEKS R18 R17 K28 ["Size"]
   LOADN R18 1
   SETTABLEKS R18 R17 K16 ["BackgroundTransparency"]
   CALL R15 2 1
   MOVE R16 R2
-  LOADK R17 K50 [">> TextLabel"]
-  DUPTABLE R18 K56 [{"BackgroundTransparency", "Font", "Text", "TextXAlignment", "TextTruncate", "TextSize", "LayoutOrder", "TextColor3"}]
+  LOADK R17 K51 [">> TextLabel"]
+  DUPTABLE R18 K57 [{"BackgroundTransparency", "Font", "Text", "TextXAlignment", "TextTruncate", "TextSize", "LayoutOrder", "TextColor3"}]
   LOADN R19 1
   SETTABLEKS R19 R18 K16 ["BackgroundTransparency"]
-  LOADK R19 K57 ["$FontWeight400"]
-  SETTABLEKS R19 R18 K51 ["Font"]
+  LOADK R19 K58 ["$FontWeight400"]
+  SETTABLEKS R19 R18 K52 ["Font"]
   LOADK R19 K24 [""]
   SETTABLEKS R19 R18 K22 ["Text"]
-  GETIMPORT R19 K59 [Enum.TextXAlignment.Left]
-  SETTABLEKS R19 R18 K52 ["TextXAlignment"]
-  GETIMPORT R19 K61 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R19 R18 K53 ["TextTruncate"]
-  LOADK R19 K62 ["$FontSize75"]
-  SETTABLEKS R19 R18 K54 ["TextSize"]
+  GETIMPORT R19 K60 [Enum.TextXAlignment.Left]
+  SETTABLEKS R19 R18 K53 ["TextXAlignment"]
+  GETIMPORT R19 K62 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R19 R18 K54 ["TextTruncate"]
+  LOADK R19 K63 ["$FontSize75"]
+  SETTABLEKS R19 R18 K55 ["TextSize"]
   LOADN R19 2
   SETTABLEKS R19 R18 K27 ["LayoutOrder"]
-  LOADK R19 K63 ["$SemanticColorContentStandard"]
-  SETTABLEKS R19 R18 K55 ["TextColor3"]
+  LOADK R19 K64 ["$SemanticColorContentStandard"]
+  SETTABLEKS R19 R18 K56 ["TextColor3"]
   NEWTABLE R19 0 1
   MOVE R20 R2
-  LOADK R21 K64 ["#Title"]
-  DUPTABLE R22 K65 [{"Font", "TextSize"}]
-  LOADK R23 K66 ["$FontWeight600"]
-  SETTABLEKS R23 R22 K51 ["Font"]
-  LOADK R23 K67 ["$FontSize150"]
-  SETTABLEKS R23 R22 K54 ["TextSize"]
+  LOADK R21 K65 ["#Title"]
+  DUPTABLE R22 K66 [{"Font", "TextSize"}]
+  LOADK R23 K67 ["$FontWeight600"]
+  SETTABLEKS R23 R22 K52 ["Font"]
+  LOADK R23 K68 ["$FontSize150"]
+  SETTABLEKS R23 R22 K55 ["TextSize"]
   CALL R20 2 -1
   SETLIST R19 R20 -1 [1]
   CALL R16 3 1
   MOVE R17 R2
-  LOADK R18 K68 [":hover"]
+  LOADK R18 K69 [":hover"]
   DUPTABLE R19 K17 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R20 K69 ["$SemanticColorStatesHover"]
+  LOADK R20 K70 ["$SemanticColorStatesHover"]
   SETTABLEKS R20 R19 K15 ["BackgroundColor3"]
-  LOADK R20 K70 ["$SemanticColorStatesHoverTransparency"]
+  LOADK R20 K71 ["$SemanticColorStatesHoverTransparency"]
   SETTABLEKS R20 R19 K16 ["BackgroundTransparency"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K71 ["::UIPadding"]
-  DUPTABLE R20 K76 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  GETIMPORT R21 K79 [UDim.new]
+  LOADK R19 K72 ["::UIPadding"]
+  DUPTABLE R20 K77 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R21 K80 [UDim.new]
   LOADN R22 0
   LOADN R23 0
   CALL R21 2 1
-  SETTABLEKS R21 R20 K72 ["PaddingLeft"]
-  LOADK R21 K80 ["$GlobalSpace100"]
-  SETTABLEKS R21 R20 K73 ["PaddingRight"]
-  LOADK R21 K80 ["$GlobalSpace100"]
-  SETTABLEKS R21 R20 K74 ["PaddingTop"]
-  LOADK R21 K80 ["$GlobalSpace100"]
-  SETTABLEKS R21 R20 K75 ["PaddingBottom"]
+  SETTABLEKS R21 R20 K73 ["PaddingLeft"]
+  LOADK R21 K81 ["$GlobalSpace100"]
+  SETTABLEKS R21 R20 K74 ["PaddingRight"]
+  LOADK R21 K81 ["$GlobalSpace100"]
+  SETTABLEKS R21 R20 K75 ["PaddingTop"]
+  LOADK R21 K81 ["$GlobalSpace100"]
+  SETTABLEKS R21 R20 K76 ["PaddingBottom"]
   CALL R18 2 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 -1
-  SETLIST R7 R8 -1 [1]
-  CALL R4 3 -1
-  RETURN R4 -1
-  MOVE R4 R2
-  LOADK R5 K81 [".Component-ToolRow"]
-  DUPTABLE R6 K23 [{"AutoButtonColor", "Text"}]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K21 ["AutoButtonColor"]
-  LOADK R7 K24 [""]
-  SETTABLEKS R7 R6 K22 ["Text"]
-  NEWTABLE R7 0 5
-  MOVE R8 R2
-  LOADK R9 K25 ["> #Icon"]
-  DUPTABLE R10 K29 [{"BorderSizePixel", "BackgroundTransparency", "LayoutOrder", "Size"}]
-  LOADK R11 K30 ["$BorderNone"]
-  SETTABLEKS R11 R10 K26 ["BorderSizePixel"]
-  LOADK R11 K31 ["$BackgroundTransparent"]
-  SETTABLEKS R11 R10 K16 ["BackgroundTransparency"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K27 ["LayoutOrder"]
-  LOADK R11 K32 ["$IconLarge"]
-  SETTABLEKS R11 R10 K28 ["Size"]
-  CALL R8 2 1
-  MOVE R9 R2
-  LOADK R10 K33 ["> #Text"]
-  DUPTABLE R11 K82 [{"AutomaticSize", "Size"}]
-  GETIMPORT R12 K38 [Enum.AutomaticSize.Y]
-  SETTABLEKS R12 R11 K34 ["AutomaticSize"]
-  GETIMPORT R12 K84 [UDim2.new]
-  LOADN R13 1
-  LOADN R14 224
-  LOADN R15 0
-  LOADN R16 0
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K28 ["Size"]
-  CALL R9 2 1
-  MOVE R10 R2
-  LOADK R11 K85 ["> #Arrow"]
-  DUPTABLE R12 K90 [{"Size", "BackgroundTransparency", "Image", "ImageColor3", "ImageRectOffset", "ImageRectSize"}]
-  GETIMPORT R13 K92 [UDim2.fromOffset]
-  LOADN R14 12
-  LOADN R15 12
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K28 ["Size"]
-  LOADN R13 1
-  SETTABLEKS R13 R12 K16 ["BackgroundTransparency"]
-  LOADK R13 K93 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
-  SETTABLEKS R13 R12 K86 ["Image"]
-  LOADK R13 K94 ["$TextPrimary"]
-  SETTABLEKS R13 R12 K87 ["ImageColor3"]
-  GETIMPORT R13 K96 [Vector2.new]
-  LOADN R14 12
-  LOADN R15 0
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K88 ["ImageRectOffset"]
-  GETIMPORT R13 K96 [Vector2.new]
-  LOADN R14 12
-  LOADN R15 12
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K89 ["ImageRectSize"]
-  NEWTABLE R13 0 1
-  MOVE R14 R2
-  LOADK R15 K97 [".Expanded"]
-  DUPTABLE R16 K98 [{"ImageRectOffset"}]
-  GETIMPORT R17 K96 [Vector2.new]
-  LOADN R18 24
-  LOADN R19 0
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K88 ["ImageRectOffset"]
-  CALL R14 2 -1
-  SETLIST R13 R14 -1 [1]
-  CALL R10 3 1
-  MOVE R11 R2
-  LOADK R12 K50 [">> TextLabel"]
-  DUPTABLE R13 K99 [{"BackgroundTransparency", "Font", "Text", "TextSize", "LayoutOrder", "TextColor3"}]
-  LOADN R14 1
-  SETTABLEKS R14 R13 K16 ["BackgroundTransparency"]
-  LOADK R14 K57 ["$FontWeight400"]
-  SETTABLEKS R14 R13 K51 ["Font"]
-  LOADK R14 K24 [""]
-  SETTABLEKS R14 R13 K22 ["Text"]
-  LOADK R14 K67 ["$FontSize150"]
-  SETTABLEKS R14 R13 K54 ["TextSize"]
-  LOADN R14 2
-  SETTABLEKS R14 R13 K27 ["LayoutOrder"]
-  LOADK R14 K63 ["$SemanticColorContentStandard"]
-  SETTABLEKS R14 R13 K55 ["TextColor3"]
-  NEWTABLE R14 0 1
-  MOVE R15 R2
-  LOADK R16 K64 ["#Title"]
-  DUPTABLE R17 K65 [{"Font", "TextSize"}]
-  LOADK R18 K100 ["$FontWeight700"]
-  SETTABLEKS R18 R17 K51 ["Font"]
-  LOADK R18 K101 ["$FontSize200"]
-  SETTABLEKS R18 R17 K54 ["TextSize"]
-  CALL R15 2 -1
-  SETLIST R14 R15 -1 [1]
-  CALL R11 3 1
-  MOVE R12 R2
-  LOADK R13 K68 [":hover"]
-  DUPTABLE R14 K17 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R15 K69 ["$SemanticColorStatesHover"]
-  SETTABLEKS R15 R14 K15 ["BackgroundColor3"]
-  LOADK R15 K70 ["$SemanticColorStatesHoverTransparency"]
-  SETTABLEKS R15 R14 K16 ["BackgroundTransparency"]
-  CALL R12 2 -1
   SETLIST R7 R8 -1 [1]
   CALL R4 3 -1
   RETURN R4 -1

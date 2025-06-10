@@ -1,0 +1,291 @@
+PROTO_0:
+  MOVE R2 R0
+  JUMPIFNOT R0 [+3]
+  MOVE R3 R0
+  LOADK R4 K0 ["Title"]
+  CONCAT R2 R3 R4
+  DUPTABLE R3 K4 [{"Id", "Label", "TooltipProps"}]
+  SETTABLEKS R0 R3 K1 ["Id"]
+  LOADK R6 K5 ["AvatarTypeSelector"]
+  MOVE R7 R2
+  NAMECALL R4 R1 K6 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K2 ["Label"]
+  NEWTABLE R4 4 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["Tag"]
+  LOADK R6 K8 ["PresetHoverTooltip"]
+  SETTABLE R6 R4 R5
+  GETUPVAL R5 1
+  GETUPVAL R6 2
+  DUPTABLE R7 K10 [{"id"}]
+  SETTABLEKS R0 R7 K9 ["id"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["Content"]
+  GETUPVAL R5 3
+  SETTABLEKS R5 R4 K12 ["ContentExtents"]
+  GETUPVAL R5 4
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K13 ["ShowDelay"]
+  SETTABLEKS R4 R3 K3 ["TooltipProps"]
+  RETURN R3 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETIMPORT R1 K3 [Enum.GameAvatarType.R6]
+  JUMPIFNOTEQ R0 R1 [+16]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K4 ["currentSettingsPage"]
+  JUMPIFEQKS R0 K5 ["Body"] [+11]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K4 ["currentSettingsPage"]
+  JUMPIFEQKS R0 K6 ["Clothing"] [+6]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K7 ["setCurrentSettingsPage"]
+  LOADK R1 K5 ["Body"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["Id"]
+  GETUPVAL R3 0
+  JUMPIFEQ R2 R3 [+9]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["navigationBarSettings"]
+  GETTABLEKS R2 R3 K2 ["setAvatarPreset"]
+  GETTABLEKS R3 R0 K0 ["Id"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["useContext"]
+  GETUPVAL R4 3
+  CALL R3 1 1
+  GETTABLEKS R6 R3 K2 ["settings"]
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K3 [+4]
+  LOADK R6 K3 ["Settings must not be nil in AvatarSettingsContext"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  GETTABLEKS R4 R3 K2 ["settings"]
+  GETTABLEKS R7 R4 K6 ["navigationBarSettings"]
+  GETTABLEKS R6 R7 K7 ["avatarType"]
+  GETTABLEKS R5 R6 K8 ["value"]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K9 ["computeCurrentPresetType"]
+  MOVE R7 R3
+  CALL R6 1 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K10 ["useEffect"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  NEWTABLE R9 0 1
+  MOVE R10 R5
+  SETLIST R9 R10 1 [1]
+  CALL R7 2 0
+  LOADB R7 0
+  GETIMPORT R8 K14 [Enum.GameAvatarType.R6]
+  JUMPIFEQ R5 R8 [+7]
+  GETTABLEKS R8 R4 K15 ["currentSettingsPage"]
+  JUMPIFNOTEQKS R8 K16 ["General"] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETUPVAL R8 5
+  GETUPVAL R9 6
+  MOVE R10 R0
+  DUPTABLE R11 K20 [{"UIListLayout", "UIPadding", "PresetTitleFrame"}]
+  GETUPVAL R12 5
+  LOADK R13 K17 ["UIListLayout"]
+  DUPTABLE R14 K24 [{"FillDirection", "SortOrder", "Padding"}]
+  GETIMPORT R15 K26 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R15 R14 K21 ["FillDirection"]
+  GETIMPORT R15 K28 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R15 R14 K22 ["SortOrder"]
+  GETIMPORT R15 K31 [UDim.new]
+  LOADN R16 0
+  LOADN R17 24
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K23 ["Padding"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K17 ["UIListLayout"]
+  GETUPVAL R12 5
+  LOADK R13 K18 ["UIPadding"]
+  DUPTABLE R14 K33 [{"PaddingLeft"}]
+  GETIMPORT R15 K31 [UDim.new]
+  LOADN R16 0
+  LOADN R17 12
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K32 ["PaddingLeft"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K18 ["UIPadding"]
+  MOVE R12 R7
+  JUMPIFNOT R12 [+89]
+  GETUPVAL R12 5
+  GETUPVAL R13 7
+  DUPTABLE R14 K40 [{"layoutOrder", "Size", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
+  MOVE R15 R2
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K34 ["layoutOrder"]
+  GETIMPORT R15 K43 [UDim2.fromScale]
+  LOADN R16 0
+  LOADN R17 1
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K35 ["Size"]
+  GETIMPORT R15 K31 [UDim.new]
+  LOADN R16 0
+  LOADN R17 4
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K36 ["separation"]
+  LOADK R15 K44 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R15 R14 K37 ["textLabelTags"]
+  GETIMPORT R15 K31 [UDim.new]
+  LOADN R16 0
+  LOADN R17 41
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K38 ["minTextLabelWidth"]
+  LOADK R17 K45 ["AvatarTypeSelector"]
+  LOADK R18 K46 ["Preset"]
+  NAMECALL R15 R1 K47 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K39 ["text"]
+  DUPTABLE R15 K49 [{"AvatarPresetSelectInput"}]
+  GETUPVAL R16 5
+  GETUPVAL R17 8
+  DUPTABLE R18 K56 [{"Items", "PlaceholderText", "Size", "OnRenderItem", "UseAutoWidth", "SelectedId", "OnItemActivated"}]
+  NEWTABLE R19 0 2
+  GETUPVAL R20 9
+  LOADK R21 K57 ["PlayerChoice"]
+  MOVE R22 R1
+  CALL R20 2 1
+  GETUPVAL R21 9
+  LOADK R22 K58 ["ConsistentGameplay"]
+  MOVE R23 R1
+  CALL R21 2 1
+  SETLIST R19 R20 2 [1]
+  SETTABLEKS R19 R18 K50 ["Items"]
+  LOADK R21 K45 ["AvatarTypeSelector"]
+  LOADK R22 K59 ["EmptyPreset"]
+  NAMECALL R19 R1 K47 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K51 ["PlaceholderText"]
+  GETIMPORT R19 K61 [UDim2.fromOffset]
+  LOADN R20 171
+  GETUPVAL R22 10
+  GETTABLEKS R21 R22 K62 ["STANDARD_HEIGHT"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K35 ["Size"]
+  GETUPVAL R19 11
+  SETTABLEKS R19 R18 K52 ["OnRenderItem"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K53 ["UseAutoWidth"]
+  SETTABLEKS R6 R18 K54 ["SelectedId"]
+  NEWCLOSURE R19 P1
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  SETTABLEKS R19 R18 K55 ["OnItemActivated"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K48 ["AvatarPresetSelectInput"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K19 ["PresetTitleFrame"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["AvatarPresetUtil"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Components"]
+  GETTABLEKS R4 R5 K10 ["Contexts"]
+  GETTABLEKS R3 R4 K11 ["AvatarSettingsContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Util"]
+  GETTABLEKS R4 R5 K12 ["AvatarSettingsProviderTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K7 ["Util"]
+  GETTABLEKS R5 R6 K13 ["Constants"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K14 ["Packages"]
+  GETTABLEKS R6 R7 K15 ["Framework"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K9 ["Components"]
+  GETTABLEKS R7 R8 K16 ["PresetHoverTooltipContent"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K14 ["Packages"]
+  GETTABLEKS R8 R9 K17 ["React"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K14 ["Packages"]
+  GETTABLEKS R9 R10 K18 ["ReactUtils"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Src"]
+  GETTABLEKS R11 R12 K9 ["Components"]
+  GETTABLEKS R10 R11 K19 ["TitledComponent"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K6 ["Src"]
+  GETTABLEKS R12 R13 K7 ["Util"]
+  GETTABLEKS R11 R12 K20 ["getHoverTooltipDelay"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K6 ["Src"]
+  GETTABLEKS R13 R14 K7 ["Util"]
+  GETTABLEKS R12 R13 K21 ["selectInputOnRenderFunction"]
+  CALL R11 1 1
+  GETTABLEKS R12 R5 K22 ["ContextServices"]
+  GETTABLEKS R13 R12 K23 ["Localization"]
+  GETTABLEKS R14 R5 K24 ["UI"]
+  GETTABLEKS R15 R14 K25 ["Pane"]
+  GETTABLEKS R16 R14 K26 ["SelectInput"]
+  GETTABLEKS R17 R8 K27 ["createNextOrder"]
+  GETTABLEKS R18 R7 K28 ["createElement"]
+  GETIMPORT R19 K31 [Vector2.new]
+  LOADN R20 0
+  LOADN R21 45
+  CALL R19 2 1
+  DUPCLOSURE R20 K32 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R18
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE VAL R10
+  DUPCLOSURE R21 K33 [PROTO_3]
+  CAPTURE VAL R13
+  CAPTURE VAL R17
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R18
+  CAPTURE VAL R15
+  CAPTURE VAL R9
+  CAPTURE VAL R16
+  CAPTURE VAL R20
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  RETURN R21 1

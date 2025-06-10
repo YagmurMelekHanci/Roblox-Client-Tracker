@@ -14,7 +14,7 @@ PROTO_0:
   CALL R2 2 1
   NEWTABLE R3 0 4
   DUPTABLE R4 K13 [{"Id", "Type", "Action"}]
-  LOADK R5 K14 ["ShowHideLabels"]
+  LOADK R5 K14 ["ManageTabs"]
   SETTABLEKS R5 R4 K10 ["Id"]
   LOADK R5 K15 ["Option"]
   SETTABLEKS R5 R4 K11 ["Type"]
@@ -24,30 +24,30 @@ PROTO_0:
   DUPTABLE R7 K7 [{"Category", "ItemId"}]
   LOADK R8 K16 ["Actions"]
   SETTABLEKS R8 R7 K5 ["Category"]
-  LOADK R8 K14 ["ShowHideLabels"]
+  LOADK R8 K14 ["ManageTabs"]
   SETTABLEKS R8 R7 K6 ["ItemId"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K12 ["Action"]
-  DUPTABLE R5 K13 [{"Id", "Type", "Action"}]
-  LOADK R6 K17 ["DockUndockRibbon"]
-  SETTABLEKS R6 R5 K10 ["Id"]
-  LOADK R6 K15 ["Option"]
+  DUPTABLE R5 K17 [{"Type"}]
+  LOADK R6 K18 ["Separator"]
   SETTABLEKS R6 R5 K11 ["Type"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K4 ["join"]
-  GETUPVAL R7 1
-  DUPTABLE R8 K7 [{"Category", "ItemId"}]
-  LOADK R9 K16 ["Actions"]
-  SETTABLEKS R9 R8 K5 ["Category"]
-  LOADK R9 K17 ["DockUndockRibbon"]
-  SETTABLEKS R9 R8 K6 ["ItemId"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K12 ["Action"]
-  DUPTABLE R6 K18 [{"Type"}]
-  LOADK R7 K19 ["Separator"]
+  DUPTABLE R6 K13 [{"Id", "Type", "Action"}]
+  LOADK R7 K19 ["DockUndockRibbon"]
+  SETTABLEKS R7 R6 K10 ["Id"]
+  LOADK R7 K15 ["Option"]
   SETTABLEKS R7 R6 K11 ["Type"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["join"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K7 [{"Category", "ItemId"}]
+  LOADK R10 K16 ["Actions"]
+  SETTABLEKS R10 R9 K5 ["Category"]
+  LOADK R10 K19 ["DockUndockRibbon"]
+  SETTABLEKS R10 R9 K6 ["ItemId"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K12 ["Action"]
   DUPTABLE R7 K13 [{"Id", "Type", "Action"}]
-  LOADK R8 K20 ["ManageTabs"]
+  LOADK R8 K20 ["ShowHideLabels"]
   SETTABLEKS R8 R7 K10 ["Id"]
   LOADK R8 K15 ["Option"]
   SETTABLEKS R8 R7 K11 ["Type"]
@@ -57,7 +57,7 @@ PROTO_0:
   DUPTABLE R10 K7 [{"Category", "ItemId"}]
   LOADK R11 K16 ["Actions"]
   SETTABLEKS R11 R10 K5 ["Category"]
-  LOADK R11 K20 ["ManageTabs"]
+  LOADK R11 K20 ["ShowHideLabels"]
   SETTABLEKS R11 R10 K6 ["ItemId"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K12 ["Action"]

@@ -53,9 +53,6 @@ PROTO_1:
   SETTABLEKS R8 R7 K17 ["AddToParentLayout"]
   NAMECALL R4 R0 K23 ["CreateQWidgetPluginGui"]
   CALL R4 3 1
-  GETUPVAL R5 1
-  CALL R5 0 1
-  JUMPIFNOT R5 [+3]
   LOADK R5 K7 ["Ribbon"]
   SETTABLEKS R5 R4 K15 ["Title"]
   GETIMPORT R5 K27 [Enum.ZIndexBehavior.Sibling]
@@ -64,13 +61,13 @@ PROTO_1:
   DUPTABLE R8 K31 [{"Id", "Callout", "Popup", "Resizable", "Title"}]
   LOADK R9 K28 ["Floating"]
   SETTABLEKS R9 R8 K8 ["Id"]
-  GETUPVAL R10 2
+  GETUPVAL R10 1
   JUMPIFNOT R10 [+2]
   LOADNIL R9
   JUMP [+1]
   LOADB R9 1
   SETTABLEKS R9 R8 K29 ["Callout"]
-  GETUPVAL R10 2
+  GETUPVAL R10 1
   JUMPIFNOT R10 [+5]
   DUPTABLE R9 K33 [{"PassesThroughMouseEvents"}]
   LOADB R10 1
@@ -84,9 +81,6 @@ PROTO_1:
   SETTABLEKS R9 R8 K15 ["Title"]
   NAMECALL R5 R0 K23 ["CreateQWidgetPluginGui"]
   CALL R5 3 1
-  GETUPVAL R6 1
-  CALL R6 0 1
-  JUMPIFNOT R6 [+3]
   LOADK R6 K34 ["FloatingRibbon"]
   SETTABLEKS R6 R5 K15 ["Title"]
   GETIMPORT R6 K27 [Enum.ZIndexBehavior.Sibling]
@@ -110,7 +104,7 @@ PROTO_1:
   CAPTURE VAL R4
   NAMECALL R8 R8 K42 ["Once"]
   CALL R8 2 0
-  GETUPVAL R8 3
+  GETUPVAL R8 2
   CALL R8 0 1
   JUMPIFNOT R8 [+23]
   GETIMPORT R8 K44 [game]
@@ -147,14 +141,8 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["SharedFlags"]
   GETTABLEKS R3 R4 K12 ["getFFlagDebugEnableFoundationInspector"]
   CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R0 K10 ["Src"]
-  GETTABLEKS R5 R6 K11 ["SharedFlags"]
-  GETTABLEKS R4 R5 K13 ["getFFlagRibbonWidgetTitles"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K14 [PROTO_1]
+  DUPCLOSURE R3 K13 [PROTO_1]
   CAPTURE VAL R0
-  CAPTURE VAL R3
   CAPTURE VAL R1
   CAPTURE VAL R2
-  RETURN R4 1
+  RETURN R3 1

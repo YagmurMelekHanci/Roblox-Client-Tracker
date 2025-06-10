@@ -208,7 +208,7 @@ MAIN:
   GETIMPORT R8 K5 [require]
   GETIMPORT R11 K1 [script]
   GETTABLEKS R10 R11 K14 ["Parent"]
-  GETTABLEKS R9 R10 K15 ["FlyoutToggleItem"]
+  GETTABLEKS R9 R10 K15 ["DropdownToggleItem"]
   CALL R8 1 1
   GETTABLEKS R10 R2 K16 ["Util"]
   GETTABLEKS R9 R10 K17 ["LayoutOrderIterator"]

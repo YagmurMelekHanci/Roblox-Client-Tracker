@@ -94,7 +94,7 @@ PROTO_4:
   GETTABLEKS R3 R4 K0 ["current"]
   SETTABLEKS R3 R2 K5 ["Cursor"]
   GETUPVAL R4 6
-  GETTABLEKS R3 R4 K7 ["getVersionHistoryAsync"]
+  GETTABLEKS R3 R4 K7 ["getVersionHistory"]
   MOVE R4 R2
   CALL R3 1 1
   NEWCLOSURE R5 P0

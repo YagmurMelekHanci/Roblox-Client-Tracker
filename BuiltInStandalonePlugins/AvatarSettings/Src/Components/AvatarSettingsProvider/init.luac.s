@@ -57,7 +57,7 @@ PROTO_3:
   CAPTURE VAL R2
   CAPTURE UPVAL U3
   DUPTABLE R6 K6 [{"settings"}]
-  DUPTABLE R7 K16 [{"workspaceGravity", "navigationBarSettings", "currentSettingsPage", "setCurrentSettingsPage", "bodySettings", "movementSettings", "animationSettings", "accessoriesSettings", "clothingSettings"}]
+  DUPTABLE R7 K17 [{"workspaceGravity", "navigationBarSettings", "currentSettingsPage", "setCurrentSettingsPage", "categoryListExpanded", "bodySettings", "movementSettings", "animationSettings", "accessoriesSettings", "clothingSettings"}]
   SETTABLEKS R1 R7 K7 ["workspaceGravity"]
   GETUPVAL R8 4
   MOVE R9 R2
@@ -66,45 +66,45 @@ PROTO_3:
   SETTABLEKS R3 R7 K9 ["currentSettingsPage"]
   SETTABLEKS R5 R7 K10 ["setCurrentSettingsPage"]
   GETUPVAL R8 5
-  MOVE R9 R2
+  LOADB R9 0
   CALL R8 1 1
-  SETTABLEKS R8 R7 K11 ["bodySettings"]
+  SETTABLEKS R8 R7 K11 ["categoryListExpanded"]
   GETUPVAL R8 6
   MOVE R9 R2
   CALL R8 1 1
-  SETTABLEKS R8 R7 K12 ["movementSettings"]
+  SETTABLEKS R8 R7 K12 ["bodySettings"]
   GETUPVAL R8 7
   MOVE R9 R2
   CALL R8 1 1
-  SETTABLEKS R8 R7 K13 ["animationSettings"]
+  SETTABLEKS R8 R7 K13 ["movementSettings"]
   GETUPVAL R8 8
   MOVE R9 R2
   CALL R8 1 1
-  SETTABLEKS R8 R7 K14 ["accessoriesSettings"]
+  SETTABLEKS R8 R7 K14 ["animationSettings"]
   GETUPVAL R8 9
   MOVE R9 R2
   CALL R8 1 1
-  SETTABLEKS R8 R7 K15 ["clothingSettings"]
+  SETTABLEKS R8 R7 K15 ["accessoriesSettings"]
+  GETUPVAL R8 10
+  MOVE R9 R2
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K16 ["clothingSettings"]
   SETTABLEKS R7 R6 K5 ["settings"]
   GETTABLEKS R9 R6 K5 ["settings"]
   JUMPIFNOTEQKNIL R9 [+2]
   LOADB R8 0 +1
   LOADB R8 1
-  FASTCALL2K ASSERT R8 K17 [+4]
-  LOADK R9 K17 ["Settings must not be nil in AvatarSettingsContext"]
-  GETIMPORT R7 K19 [assert]
+  FASTCALL2K ASSERT R8 K18 [+4]
+  LOADK R9 K18 ["Settings must not be nil in AvatarSettingsContext"]
+  GETIMPORT R7 K20 [assert]
   CALL R7 2 0
   GETTABLEKS R8 R6 K5 ["settings"]
   GETTABLEKS R7 R8 K8 ["navigationBarSettings"]
-  GETUPVAL R9 10
-  GETTABLEKS R8 R9 K20 ["createPresetTypeSetter"]
+  GETUPVAL R9 11
+  GETTABLEKS R8 R9 K21 ["createPresetTypeSetter"]
   MOVE R9 R6
   CALL R8 1 1
-  SETTABLEKS R8 R7 K21 ["setAvatarPreset"]
-  GETUPVAL R7 11
-  MOVE R8 R6
-  MOVE R9 R2
-  CALL R7 2 0
+  SETTABLEKS R8 R7 K22 ["setAvatarPreset"]
   GETUPVAL R7 12
   MOVE R8 R6
   MOVE R9 R2
@@ -134,11 +134,15 @@ PROTO_3:
   MOVE R9 R2
   CALL R7 2 0
   GETUPVAL R7 19
-  GETUPVAL R9 20
-  GETTABLEKS R8 R9 K22 ["Provider"]
-  DUPTABLE R9 K24 [{"value"}]
-  SETTABLEKS R6 R9 K23 ["value"]
-  GETTABLEKS R10 R0 K25 ["children"]
+  MOVE R8 R6
+  MOVE R9 R2
+  CALL R7 2 0
+  GETUPVAL R7 20
+  GETUPVAL R9 21
+  GETTABLEKS R8 R9 K23 ["Provider"]
+  DUPTABLE R9 K25 [{"value"}]
+  SETTABLEKS R6 R9 K24 ["value"]
+  GETTABLEKS R10 R0 K26 ["children"]
   CALL R7 3 -1
   RETURN R7 -1
 
@@ -268,21 +272,27 @@ MAIN:
   GETTABLEKS R22 R23 K28 ["AvatarSettingsProvider"]
   GETTABLEKS R21 R22 K33 ["useGetMovementSettingStates"]
   CALL R20 1 1
-  GETTABLEKS R21 R4 K34 ["ContextServices"]
-  GETTABLEKS R22 R21 K35 ["Plugin"]
-  GETTABLEKS R23 R7 K36 ["useSetting"]
-  GETTABLEKS R24 R5 K37 ["createElement"]
-  DUPCLOSURE R25 K38 [PROTO_1]
-  CAPTURE VAL R23
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R24 R0 K6 ["Src"]
+  GETTABLEKS R23 R24 K34 ["Hooks"]
+  GETTABLEKS R22 R23 K35 ["useToggleState"]
+  CALL R21 1 1
+  GETTABLEKS R22 R4 K36 ["ContextServices"]
+  GETTABLEKS R23 R22 K37 ["Plugin"]
+  GETTABLEKS R24 R7 K38 ["useSetting"]
+  GETTABLEKS R25 R5 K39 ["createElement"]
+  DUPCLOSURE R26 K40 [PROTO_1]
+  CAPTURE VAL R24
   CAPTURE VAL R7
   CAPTURE VAL R6
   CAPTURE VAL R5
-  DUPCLOSURE R26 K39 [PROTO_3]
+  DUPCLOSURE R27 K41 [PROTO_3]
+  CAPTURE VAL R24
   CAPTURE VAL R23
-  CAPTURE VAL R22
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R25
+  CAPTURE VAL R26
+  CAPTURE VAL R21
   CAPTURE VAL R18
   CAPTURE VAL R20
   CAPTURE VAL R17
@@ -297,6 +307,6 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R11
   CAPTURE VAL R14
-  CAPTURE VAL R24
+  CAPTURE VAL R25
   CAPTURE VAL R2
-  RETURN R26 1
+  RETURN R27 1

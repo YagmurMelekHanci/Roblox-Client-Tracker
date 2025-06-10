@@ -192,12 +192,12 @@ PROTO_9:
   GETTABLEKS R12 R13 K19 ["createElement"]
   GETUPVAL R13 5
   LOADNIL R14
-  DUPTABLE R15 K51 [{"StudioContextProvider"}]
+  DUPTABLE R15 K51 [{"MockNetworkContextProvider"}]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K19 ["createElement"]
   GETUPVAL R17 6
   LOADNIL R18
-  DUPTABLE R19 K53 [{"NetworkContextProvider"}]
+  DUPTABLE R19 K53 [{"StudioContextProvider"}]
   GETUPVAL R21 3
   GETTABLEKS R20 R21 K19 ["createElement"]
   GETUPVAL R21 7
@@ -209,9 +209,9 @@ PROTO_9:
   CALL R24 1 1
   SETTABLEKS R24 R23 K54 ["MainView"]
   CALL R20 3 1
-  SETTABLEKS R20 R19 K52 ["NetworkContextProvider"]
+  SETTABLEKS R20 R19 K52 ["StudioContextProvider"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K50 ["StudioContextProvider"]
+  SETTABLEKS R16 R15 K50 ["MockNetworkContextProvider"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K48 ["FoundationProvider"]
   CALL R8 3 1
@@ -292,8 +292,8 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R4
   CAPTURE VAL R13
-  CAPTURE VAL R18
   CAPTURE VAL R17
+  CAPTURE VAL R18
   CAPTURE VAL R15
   SETTABLEKS R20 R19 K40 ["render"]
   RETURN R19 1

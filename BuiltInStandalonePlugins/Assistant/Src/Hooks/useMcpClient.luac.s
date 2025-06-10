@@ -68,7 +68,7 @@ MAIN:
   GETTABLEKS R5 R6 K14 ["registerMcpHost"]
   GETIMPORT R6 K5 [require]
   GETTABLEKS R8 R0 K6 ["Packages"]
-  GETTABLEKS R7 R8 K15 ["AssistantUI"]
+  GETTABLEKS R7 R8 K15 ["ModelContextProtocol"]
   CALL R6 1 1
   DUPCLOSURE R7 K16 [PROTO_4]
   CAPTURE VAL R4

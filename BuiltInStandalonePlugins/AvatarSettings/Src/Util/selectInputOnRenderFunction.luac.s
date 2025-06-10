@@ -4,7 +4,7 @@ PROTO_0:
   NEWTABLE R6 2 0
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K1 ["Tag"]
-  LOADK R8 K2 ["AvatarTypeDropdownItem"]
+  LOADK R8 K2 ["DropdownItem"]
   SETTABLE R8 R6 R7
   GETUPVAL R7 2
   CALL R7 0 1
@@ -15,7 +15,7 @@ PROTO_0:
   NEWTABLE R10 4 0
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K1 ["Tag"]
-  LOADK R12 K7 ["AvatarTypeDropdownItem X-Column X-Middle X-Left"]
+  LOADK R12 K7 ["DropdownItem X-Column X-Middle X-Left"]
   SETTABLE R12 R10 R11
   LOADN R11 1
   SETTABLEKS R11 R10 K8 ["BackgroundTransparency"]

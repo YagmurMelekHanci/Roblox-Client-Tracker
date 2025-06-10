@@ -342,7 +342,7 @@ PROTO_2:
   CALL R3 2 1
   JUMP [+5]
   GETUPVAL R3 2
-  LOADK R5 K2 ["Design"]
+  LOADK R5 K0 ["Ribbon"]
   NAMECALL R3 R3 K1 ["FindFirstChild"]
   CALL R3 2 1
   GETUPVAL R4 3

@@ -79,13 +79,13 @@ PROTO_1:
   CALL R7 2 1
   SETTABLEKS R7 R6 K23 ["SegmentedButton"]
   GETTABLEKS R7 R0 K35 ["subText"]
-  JUMPIFNOT R7 [+55]
+  JUMPIFNOT R7 [+40]
   GETUPVAL R7 1
   LOADK R8 K36 ["TextLabel"]
-  NEWTABLE R9 8 0
+  NEWTABLE R9 4 0
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K11 ["Tag"]
-  LOADK R11 K37 ["Component-TextLabel SubText"]
+  LOADK R11 K37 ["Component-TextLabel GenericModeSelector-Subtext"]
   SETTABLE R11 R9 R10
   GETIMPORT R10 K31 [UDim2.new]
   LOADN R11 1
@@ -94,28 +94,20 @@ PROTO_1:
   SETTABLEKS R10 R9 K16 ["Size"]
   GETTABLEKS R10 R0 K35 ["subText"]
   SETTABLEKS R10 R9 K38 ["Text"]
-  GETIMPORT R10 K41 [Enum.TextXAlignment.Left]
-  SETTABLEKS R10 R9 K39 ["TextXAlignment"]
-  GETIMPORT R10 K44 [Enum.TextYAlignment.Top]
-  SETTABLEKS R10 R9 K42 ["TextYAlignment"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K45 ["TextWrapped"]
-  GETIMPORT R10 K20 [Enum.AutomaticSize.Y]
-  SETTABLEKS R10 R9 K18 ["AutomaticSize"]
   MOVE R10 R1
   CALL R10 0 1
   SETTABLEKS R10 R9 K22 ["LayoutOrder"]
-  DUPTABLE R10 K47 [{"Tooltip"}]
+  DUPTABLE R10 K40 [{"Tooltip"}]
   GETUPVAL R11 1
   GETUPVAL R12 6
-  DUPTABLE R13 K49 [{"ShowDelay", "Text"}]
+  DUPTABLE R13 K42 [{"ShowDelay", "Text"}]
   GETUPVAL R14 7
   CALL R14 0 1
-  SETTABLEKS R14 R13 K48 ["ShowDelay"]
+  SETTABLEKS R14 R13 K41 ["ShowDelay"]
   GETTABLEKS R14 R0 K35 ["subText"]
   SETTABLEKS R14 R13 K38 ["Text"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K46 ["Tooltip"]
+  SETTABLEKS R11 R10 K39 ["Tooltip"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K24 ["SubText"]
   CALL R3 3 -1

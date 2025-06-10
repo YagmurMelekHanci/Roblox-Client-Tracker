@@ -13,9 +13,8 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K10 ["Src"]
   GETTABLEKS R5 R6 K11 ["SharedFlags"]
-  GETTABLEKS R4 R5 K12 ["getFFlagRibbonStyleUpgrades"]
+  GETTABLEKS R4 R5 K12 ["getFFlagRibbonDensityModeStyles"]
   CALL R3 1 1
-  CALL R3 0 1
   MOVE R4 R2
   LOADK R5 K13 [".Component-TabRow"]
   DUPTABLE R6 K16 [{"AutoButtonColor", "Text"}]
@@ -24,6 +23,9 @@ MAIN:
   LOADK R7 K17 [""]
   SETTABLEKS R7 R6 K15 ["Text"]
   NEWTABLE R7 0 4
+  MOVE R9 R3
+  CALL R9 0 1
+  JUMPIF R9 [+23]
   MOVE R8 R2
   LOADK R9 K18 ["> TextLabel"]
   DUPTABLE R10 K24 [{"BackgroundTransparency", "Font", "Text", "TextSize", "LayoutOrder", "TextColor3"}]
@@ -40,6 +42,8 @@ MAIN:
   LOADK R11 K27 ["$SemanticColorContentStandard"]
   SETTABLEKS R11 R10 K23 ["TextColor3"]
   CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
   MOVE R9 R2
   LOADK R10 K28 [":hover"]
   DUPTABLE R11 K30 [{"BackgroundColor3", "BackgroundTransparency"}]
@@ -50,34 +54,24 @@ MAIN:
   CALL R9 2 1
   MOVE R10 R2
   LOADK R11 K33 [".Selected"]
-  JUMPIFNOT R3 [+8]
   DUPTABLE R12 K34 [{"BackgroundTransparency", "BackgroundColor3"}]
   LOADK R13 K35 ["$SemanticColorStatesSelectedTransparency"]
   SETTABLEKS R13 R12 K19 ["BackgroundTransparency"]
   LOADK R13 K36 ["$SemanticColorStatesSelected"]
   SETTABLEKS R13 R12 K29 ["BackgroundColor3"]
-  JUMP [+7]
-  DUPTABLE R12 K30 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R13 K37 ["$SemanticColorActionPrimaryBrandFill"]
-  SETTABLEKS R13 R12 K29 ["BackgroundColor3"]
-  LOADK R13 K38 [0.92]
-  SETTABLEKS R13 R12 K19 ["BackgroundTransparency"]
   CALL R10 2 1
-  JUMPIFNOT R3 [+17]
   MOVE R11 R2
-  LOADK R12 K39 ["::UIPadding"]
-  DUPTABLE R13 K44 [{"PaddingLeft", "PaddingTop", "PaddingRight", "PaddingBottom"}]
-  LOADK R14 K45 ["$GlobalSpace100"]
-  SETTABLEKS R14 R13 K40 ["PaddingLeft"]
-  LOADK R14 K46 ["$GlobalSpace50"]
-  SETTABLEKS R14 R13 K41 ["PaddingTop"]
-  LOADK R14 K45 ["$GlobalSpace100"]
-  SETTABLEKS R14 R13 K42 ["PaddingRight"]
-  LOADK R14 K46 ["$GlobalSpace50"]
-  SETTABLEKS R14 R13 K43 ["PaddingBottom"]
-  CALL R11 2 1
-  JUMP [+1]
-  LOADNIL R11
-  SETLIST R7 R8 4 [1]
+  LOADK R12 K37 ["::UIPadding"]
+  DUPTABLE R13 K42 [{"PaddingLeft", "PaddingTop", "PaddingRight", "PaddingBottom"}]
+  LOADK R14 K43 ["$GlobalSpace100"]
+  SETTABLEKS R14 R13 K38 ["PaddingLeft"]
+  LOADK R14 K44 ["$GlobalSpace50"]
+  SETTABLEKS R14 R13 K39 ["PaddingTop"]
+  LOADK R14 K43 ["$GlobalSpace100"]
+  SETTABLEKS R14 R13 K40 ["PaddingRight"]
+  LOADK R14 K44 ["$GlobalSpace50"]
+  SETTABLEKS R14 R13 K41 ["PaddingBottom"]
+  CALL R11 2 -1
+  SETLIST R7 R8 -1 [1]
   CALL R4 3 -1
   RETURN R4 -1

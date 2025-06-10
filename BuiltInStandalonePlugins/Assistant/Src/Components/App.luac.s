@@ -2,73 +2,55 @@ PROTO_0:
   GETUPVAL R1 0
   GETUPVAL R2 1
   LOADNIL R3
-  NEWTABLE R4 0 1
+  DUPTABLE R4 K1 [{"ContextStack"}]
   GETUPVAL R5 0
   GETUPVAL R7 2
   GETTABLEKS R6 R7 K0 ["ContextStack"]
-  DUPTABLE R7 K2 [{"providers"}]
-  NEWTABLE R8 0 9
+  DUPTABLE R7 K3 [{"providers"}]
+  NEWTABLE R8 0 6
   GETUPVAL R9 0
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K3 ["Components"]
-  GETTABLEKS R11 R12 K4 ["Contexts"]
-  GETTABLEKS R10 R11 K5 ["ConversationContextProvider"]
+  GETTABLEKS R12 R13 K4 ["Components"]
+  GETTABLEKS R11 R12 K5 ["Contexts"]
+  GETTABLEKS R10 R11 K6 ["ConversationContextProvider"]
   CALL R9 1 1
   GETUPVAL R10 0
   GETUPVAL R11 4
   CALL R10 1 1
   GETUPVAL R11 0
   GETUPVAL R15 3
-  GETTABLEKS R14 R15 K3 ["Components"]
-  GETTABLEKS R13 R14 K4 ["Contexts"]
-  GETTABLEKS R12 R13 K6 ["ThreadIdContextProvider"]
+  GETTABLEKS R14 R15 K4 ["Components"]
+  GETTABLEKS R13 R14 K5 ["Contexts"]
+  GETTABLEKS R12 R13 K7 ["ThreadIdContextProvider"]
   CALL R11 1 1
   GETUPVAL R12 0
   GETUPVAL R13 5
   CALL R12 1 1
   GETUPVAL R13 0
   GETUPVAL R17 3
-  GETTABLEKS R16 R17 K3 ["Components"]
-  GETTABLEKS R15 R16 K4 ["Contexts"]
-  GETTABLEKS R14 R15 K7 ["LLMToolFormatContextProvider"]
+  GETTABLEKS R16 R17 K4 ["Components"]
+  GETTABLEKS R15 R16 K5 ["Contexts"]
+  GETTABLEKS R14 R15 K8 ["LLMPackageContextProvider"]
   CALL R13 1 1
   GETUPVAL R14 0
-  GETUPVAL R18 3
-  GETTABLEKS R17 R18 K3 ["Components"]
-  GETTABLEKS R16 R17 K4 ["Contexts"]
-  GETTABLEKS R15 R16 K8 ["LLMProcessEventContextProvider"]
-  CALL R14 1 1
-  GETUPVAL R15 0
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K3 ["Components"]
-  GETTABLEKS R17 R18 K4 ["Contexts"]
-  GETTABLEKS R16 R17 K9 ["LLMRequestContextProvider"]
-  CALL R15 1 1
-  GETUPVAL R16 0
-  GETUPVAL R20 3
-  GETTABLEKS R19 R20 K3 ["Components"]
-  GETTABLEKS R18 R19 K4 ["Contexts"]
-  GETTABLEKS R17 R18 K10 ["LLMSystemMessageContextProvider"]
-  CALL R16 1 1
-  GETUPVAL R17 0
-  GETUPVAL R18 6
-  CALL R17 1 -1
+  GETUPVAL R15 6
+  CALL R14 1 -1
   SETLIST R8 R9 -1 [1]
-  SETTABLEKS R8 R7 K1 ["providers"]
-  DUPTABLE R8 K13 [{"UIListLayout", "MainView"}]
+  SETTABLEKS R8 R7 K2 ["providers"]
+  DUPTABLE R8 K11 [{"UIListLayout", "MainView"}]
   GETUPVAL R9 0
-  LOADK R10 K11 ["UIListLayout"]
-  DUPTABLE R11 K15 [{"FillDirection"}]
-  GETIMPORT R12 K18 [Enum.FillDirection.Vertical]
-  SETTABLEKS R12 R11 K14 ["FillDirection"]
+  LOADK R10 K9 ["UIListLayout"]
+  DUPTABLE R11 K13 [{"FillDirection"}]
+  GETIMPORT R12 K16 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K12 ["FillDirection"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["UIListLayout"]
+  SETTABLEKS R9 R8 K9 ["UIListLayout"]
   GETUPVAL R9 0
   GETUPVAL R10 7
   CALL R9 1 1
-  SETTABLEKS R9 R8 K12 ["MainView"]
-  CALL R5 3 -1
-  SETLIST R4 R5 -1 [1]
+  SETTABLEKS R9 R8 K10 ["MainView"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K0 ["ContextStack"]
   CALL R1 3 -1
   RETURN R1 -1
 

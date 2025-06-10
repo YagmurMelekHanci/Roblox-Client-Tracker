@@ -41,13 +41,13 @@ PROTO_3:
   LOADK R6 K4 ["StyleLink"]
   DUPTABLE R7 K8 [{"StyleSheet"}]
   GETUPVAL R8 5
-  GETUPVAL R9 6
   GETUPVAL R10 6
-  CALL R8 2 1
+  GETTABLEKS R9 R10 K9 ["Parent"]
+  CALL R8 1 1
   SETTABLEKS R8 R7 K7 ["StyleSheet"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K4 ["StyleLink"]
-  NAMECALL R2 R1 K9 ["provide"]
+  NAMECALL R2 R1 K10 ["provide"]
   CALL R2 2 -1
   RETURN R2 -1
 

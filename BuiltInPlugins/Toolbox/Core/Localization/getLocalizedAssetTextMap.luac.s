@@ -150,51 +150,60 @@ PROTO_0:
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
-  GETIMPORT R2 K80 [Enum.AssetType.Torso]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+8]
+  GETIMPORT R2 K80 [Enum.AssetType.EmoteAnimation]
   LOADK R5 K4 ["General"]
-  LOADK R6 K81 ["AssetTypeTorso"]
+  LOADK R6 K81 ["AssetTypeEmoteAnimation"]
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
-  GETIMPORT R2 K83 [Enum.AssetType.RightArm]
+  GETIMPORT R2 K83 [Enum.AssetType.Torso]
   LOADK R5 K4 ["General"]
-  LOADK R6 K84 ["AssetTypeRightArm"]
+  LOADK R6 K84 ["AssetTypeTorso"]
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
-  GETIMPORT R2 K86 [Enum.AssetType.LeftArm]
+  GETIMPORT R2 K86 [Enum.AssetType.RightArm]
   LOADK R5 K4 ["General"]
-  LOADK R6 K87 ["AssetTypeLeftArm"]
+  LOADK R6 K87 ["AssetTypeRightArm"]
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
-  GETIMPORT R2 K89 [Enum.AssetType.LeftLeg]
+  GETIMPORT R2 K89 [Enum.AssetType.LeftArm]
   LOADK R5 K4 ["General"]
-  LOADK R6 K90 ["AssetTypeLeftLeg"]
+  LOADK R6 K90 ["AssetTypeLeftArm"]
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
-  GETIMPORT R2 K92 [Enum.AssetType.RightLeg]
+  GETIMPORT R2 K92 [Enum.AssetType.LeftLeg]
   LOADK R5 K4 ["General"]
-  LOADK R6 K93 ["AssetTypeRightLeg"]
+  LOADK R6 K93 ["AssetTypeLeftLeg"]
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
-  GETIMPORT R2 K95 [Enum.AssetType.DynamicHead]
+  GETIMPORT R2 K95 [Enum.AssetType.RightLeg]
   LOADK R5 K4 ["General"]
-  LOADK R6 K96 ["AssetTypeDynamicHead"]
+  LOADK R6 K96 ["AssetTypeRightLeg"]
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
-  GETIMPORT R2 K98 [Enum.AssetType.EyebrowAccessory]
+  GETIMPORT R2 K98 [Enum.AssetType.DynamicHead]
   LOADK R5 K4 ["General"]
-  LOADK R6 K99 ["AssetTypeEyebrowAccessory"]
+  LOADK R6 K99 ["AssetTypeDynamicHead"]
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
-  GETIMPORT R2 K101 [Enum.AssetType.EyelashAccessory]
+  GETIMPORT R2 K101 [Enum.AssetType.EyebrowAccessory]
   LOADK R5 K4 ["General"]
-  LOADK R6 K102 ["AssetTypeEyelashAccessory"]
+  LOADK R6 K102 ["AssetTypeEyebrowAccessory"]
+  NAMECALL R3 R0 K6 ["getText"]
+  CALL R3 3 1
+  SETTABLE R3 R1 R2
+  GETIMPORT R2 K104 [Enum.AssetType.EyelashAccessory]
+  LOADK R5 K4 ["General"]
+  LOADK R6 K105 ["AssetTypeEyelashAccessory"]
   NAMECALL R3 R0 K6 ["getText"]
   CALL R3 3 1
   SETTABLE R3 R1 R2
@@ -206,5 +215,11 @@ MAIN:
   LOADK R2 K2 ["Toolbox"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_0]
-  RETURN R1 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Core"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagEnableUploadingEmote"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K9 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

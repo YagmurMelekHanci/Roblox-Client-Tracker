@@ -1054,20 +1054,10 @@ PROTO_48:
   MOVE R4 R1
   MOVE R5 R2
   CALL R3 2 1
-  GETUPVAL R5 1
-  CALL R5 0 1
-  JUMPIFNOT R5 [+3]
   NEWTABLE R4 0 0
-  JUMP [+10]
-  GETTABLEKS R4 R0 K1 ["_networkImp"]
-  DUPTABLE R6 K4 [{"assetId", "vote"}]
-  SETTABLEKS R1 R6 K2 ["assetId"]
-  SETTABLEKS R2 R6 K3 ["vote"]
-  NAMECALL R4 R4 K5 ["jsonEncode"]
-  CALL R4 2 1
-  GETUPVAL R5 2
+  GETUPVAL R5 1
   NEWCLOSURE R6 P0
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R0
@@ -1160,31 +1150,13 @@ PROTO_53:
 
 PROTO_54:
   GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+6]
-  GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["constructPostUnvoteUrl"]
   MOVE R3 R1
   CALL R2 1 1
-  JUMP [+6]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["constructPostVoteUrl"]
-  MOVE R3 R1
-  LOADK R4 K2 [""]
-  CALL R2 2 1
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIFNOT R4 [+3]
   NEWTABLE R3 0 0
-  JUMP [+8]
-  GETTABLEKS R3 R0 K3 ["_networkImp"]
-  DUPTABLE R5 K5 [{"assetId"}]
-  SETTABLEKS R1 R5 K4 ["assetId"]
-  NAMECALL R3 R3 K6 ["jsonEncode"]
-  CALL R3 2 1
-  GETUPVAL R4 2
+  GETUPVAL R4 1
   NEWCLOSURE R5 P0
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R0
@@ -1843,75 +1815,80 @@ PROTO_87:
   RETURN R1 -1
 
 PROTO_88:
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K0 ["constructPostUploadAnimationUrl"]
-  CALL R7 0 1
-  GETUPVAL R8 1
-  DUPTABLE R9 K3 [{"request", "fileContent"}]
-  DUPTABLE R10 K6 [{"contentType", "body"}]
-  LOADK R11 K7 ["application/json"]
-  SETTABLEKS R11 R10 K4 ["contentType"]
-  GETTABLEKS R11 R0 K8 ["_networkImp"]
-  DUPTABLE R13 K13 [{"assetType", "displayName", "description", "creationContext"}]
-  GETIMPORT R15 K17 [Enum.AssetType.Animation]
-  GETTABLEKS R14 R15 K18 ["Name"]
-  SETTABLEKS R14 R13 K9 ["assetType"]
-  SETTABLEKS R2 R13 K10 ["displayName"]
-  SETTABLEKS R3 R13 K11 ["description"]
-  DUPTABLE R14 K20 [{"creator"}]
-  DUPTABLE R15 K23 [{"userId", "groupId"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["constructPostUploadAnimationUrl"]
+  CALL R8 0 1
+  GETUPVAL R10 1
+  CALL R10 0 1
+  JUMPIFNOT R10 [+3]
+  GETTABLEKS R9 R6 K1 ["Name"]
+  JUMP [+4]
+  GETIMPORT R10 K5 [Enum.AssetType.Animation]
+  GETTABLEKS R9 R10 K1 ["Name"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K8 [{"request", "fileContent"}]
+  DUPTABLE R12 K11 [{"contentType", "body"}]
+  LOADK R13 K12 ["application/json"]
+  SETTABLEKS R13 R12 K9 ["contentType"]
+  GETTABLEKS R13 R0 K13 ["_networkImp"]
+  DUPTABLE R15 K18 [{"assetType", "displayName", "description", "creationContext"}]
+  SETTABLEKS R9 R15 K14 ["assetType"]
+  SETTABLEKS R2 R15 K15 ["displayName"]
+  SETTABLEKS R3 R15 K16 ["description"]
+  DUPTABLE R16 K20 [{"creator"}]
+  DUPTABLE R17 K23 [{"userId", "groupId"}]
   JUMPIF R5 [+2]
-  MOVE R16 R4
+  MOVE R18 R4
   JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K21 ["userId"]
-  SETTABLEKS R5 R15 K22 ["groupId"]
-  SETTABLEKS R15 R14 K19 ["creator"]
-  SETTABLEKS R14 R13 K12 ["creationContext"]
-  NAMECALL R11 R11 K24 ["jsonEncode"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K5 ["body"]
-  SETTABLEKS R10 R9 K1 ["request"]
-  DUPTABLE R10 K26 [{"contentType", "filename", "body"}]
-  LOADK R11 K27 ["model/x-rbxm"]
-  SETTABLEKS R11 R10 K4 ["contentType"]
-  LOADK R11 K28 ["asset.rbxm"]
-  SETTABLEKS R11 R10 K25 ["filename"]
-  SETTABLEKS R6 R10 K5 ["body"]
-  SETTABLEKS R10 R9 K2 ["fileContent"]
-  CALL R8 1 2
-  DUPTABLE R10 K34 [{"Url", "Method", "Body", "CachePolicy", "Headers"}]
-  SETTABLEKS R7 R10 K29 ["Url"]
-  LOADK R11 K35 ["POST"]
-  SETTABLEKS R11 R10 K30 ["Method"]
-  SETTABLEKS R8 R10 K31 ["Body"]
-  GETIMPORT R11 K38 [Enum.HttpCachePolicy.None]
-  SETTABLEKS R11 R10 K32 ["CachePolicy"]
-  NEWTABLE R11 1 0
-  LOADK R13 K39 ["multipart/form-data; boundary="]
-  MOVE R14 R9
-  CONCAT R12 R13 R14
-  SETTABLEKS R12 R11 K40 ["Content-Type"]
-  SETTABLEKS R11 R10 K33 ["Headers"]
-  GETUPVAL R11 2
-  LOADK R12 K41 ["uploadAnimation"]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K21 ["userId"]
+  SETTABLEKS R5 R17 K22 ["groupId"]
+  SETTABLEKS R17 R16 K19 ["creator"]
+  SETTABLEKS R16 R15 K17 ["creationContext"]
+  NAMECALL R13 R13 K24 ["jsonEncode"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K10 ["body"]
+  SETTABLEKS R12 R11 K6 ["request"]
+  DUPTABLE R12 K26 [{"contentType", "filename", "body"}]
+  LOADK R13 K27 ["model/x-rbxm"]
+  SETTABLEKS R13 R12 K9 ["contentType"]
+  LOADK R13 K28 ["asset.rbxm"]
+  SETTABLEKS R13 R12 K25 ["filename"]
+  SETTABLEKS R7 R12 K10 ["body"]
+  SETTABLEKS R12 R11 K7 ["fileContent"]
+  CALL R10 1 2
+  DUPTABLE R12 K34 [{"Url", "Method", "Body", "CachePolicy", "Headers"}]
+  SETTABLEKS R8 R12 K29 ["Url"]
   LOADK R13 K35 ["POST"]
-  MOVE R14 R7
-  MOVE R15 R10
-  CALL R11 4 0
-  GETTABLEKS R11 R0 K8 ["_networkImp"]
-  MOVE R13 R10
-  NAMECALL R11 R11 K42 ["requestInternal"]
-  CALL R11 2 1
-  NEWCLOSURE R13 P0
+  SETTABLEKS R13 R12 K30 ["Method"]
+  SETTABLEKS R10 R12 K31 ["Body"]
+  GETIMPORT R13 K38 [Enum.HttpCachePolicy.None]
+  SETTABLEKS R13 R12 K32 ["CachePolicy"]
+  NEWTABLE R13 1 0
+  LOADK R15 K39 ["multipart/form-data; boundary="]
+  MOVE R16 R11
+  CONCAT R14 R15 R16
+  SETTABLEKS R14 R13 K40 ["Content-Type"]
+  SETTABLEKS R13 R12 K33 ["Headers"]
+  GETUPVAL R13 3
+  LOADK R14 K41 ["uploadAnimation"]
+  LOADK R15 K35 ["POST"]
+  MOVE R16 R8
+  MOVE R17 R12
+  CALL R13 4 0
+  GETTABLEKS R13 R0 K13 ["_networkImp"]
+  MOVE R15 R12
+  NAMECALL R13 R13 K42 ["requestInternal"]
+  CALL R13 2 1
+  NEWCLOSURE R15 P0
   CAPTURE VAL R0
-  NAMECALL R11 R11 K43 ["andThen"]
-  CALL R11 2 1
-  DUPCLOSURE R13 K44 [PROTO_87]
-  CAPTURE UPVAL U3
-  NAMECALL R11 R11 K45 ["catch"]
-  CALL R11 2 -1
-  RETURN R11 -1
+  NAMECALL R13 R13 K43 ["andThen"]
+  CALL R13 2 1
+  DUPCLOSURE R15 K44 [PROTO_87]
+  CAPTURE UPVAL U4
+  NAMECALL R13 R13 K45 ["catch"]
+  CALL R13 2 -1
+  RETURN R13 -1
 
 PROTO_89:
   GETUPVAL R2 0
@@ -3095,18 +3072,19 @@ MAIN:
   GETTABLEKS R15 R16 K24 ["getFFlagEnableBodyColorSetUploadSupport"]
   CALL R14 1 1
   GETIMPORT R15 K11 [require]
-  GETTABLEKS R17 R1 K12 ["SharedFlags"]
-  GETTABLEKS R16 R17 K25 ["getFFlagToolboxMigrateVoting"]
+  GETTABLEKS R18 R0 K3 ["Core"]
+  GETTABLEKS R17 R18 K16 ["Flags"]
+  GETTABLEKS R16 R17 K25 ["getFFlagEnableUploadingGroupBundles"]
   CALL R15 1 1
   GETIMPORT R16 K11 [require]
   GETTABLEKS R19 R0 K3 ["Core"]
   GETTABLEKS R18 R19 K16 ["Flags"]
-  GETTABLEKS R17 R18 K26 ["getFFlagEnableUploadingGroupBundles"]
+  GETTABLEKS R17 R18 K26 ["getFFlagCheckAvatarAssetPrivacy"]
   CALL R16 1 1
   GETIMPORT R17 K11 [require]
   GETTABLEKS R20 R0 K3 ["Core"]
   GETTABLEKS R19 R20 K16 ["Flags"]
-  GETTABLEKS R18 R19 K27 ["getFFlagCheckAvatarAssetPrivacy"]
+  GETTABLEKS R18 R19 K27 ["getFFlagEnableUploadingEmote"]
   CALL R17 1 1
   GETIMPORT R18 K11 [require]
   GETTABLEKS R21 R0 K28 ["Libs"]
@@ -3303,7 +3281,7 @@ MAIN:
   CAPTURE VAL R27
   CAPTURE VAL R13
   CAPTURE VAL R14
-  CAPTURE VAL R16
+  CAPTURE VAL R15
   CAPTURE VAL R41
   CAPTURE VAL R22
   SETTABLEKS R44 R38 K96 ["postBundleCreationContext"]
@@ -3339,7 +3317,6 @@ MAIN:
   SETTABLEKS R44 R38 K108 ["getVote"]
   DUPCLOSURE R44 K109 [PROTO_48]
   CAPTURE VAL R27
-  CAPTURE VAL R15
   CAPTURE VAL R42
   CAPTURE VAL R41
   SETTABLEKS R44 R38 K110 ["postVote"]
@@ -3354,7 +3331,6 @@ MAIN:
   CAPTURE VAL R41
   SETTABLEKS R44 R38 K114 ["updateSales"]
   DUPCLOSURE R44 K115 [PROTO_54]
-  CAPTURE VAL R15
   CAPTURE VAL R27
   CAPTURE VAL R42
   CAPTURE VAL R41
@@ -3454,6 +3430,7 @@ MAIN:
   SETTABLEKS R45 R38 K157 ["waitForOperation"]
   DUPCLOSURE R45 K158 [PROTO_88]
   CAPTURE VAL R27
+  CAPTURE VAL R17
   CAPTURE VAL R44
   CAPTURE VAL R41
   CAPTURE VAL R22
@@ -3627,7 +3604,7 @@ MAIN:
   CAPTURE VAL R27
   CAPTURE VAL R41
   SETTABLEKS R45 R38 K229 ["getFiatProduct"]
-  MOVE R45 R16
+  MOVE R45 R15
   CALL R45 0 1
   JUMPIFNOT R45 [+6]
   DUPCLOSURE R45 K230 [PROTO_144]
@@ -3635,7 +3612,7 @@ MAIN:
   CAPTURE VAL R42
   CAPTURE VAL R41
   SETTABLEKS R45 R38 K231 ["getAllowedGroupsForAction"]
-  MOVE R45 R17
+  MOVE R45 R16
   CALL R45 0 1
   JUMPIFNOT R45 [+12]
   DUPCLOSURE R45 K232 [PROTO_146]

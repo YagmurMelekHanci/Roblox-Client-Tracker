@@ -246,11 +246,17 @@ PROTO_7:
   GETTABLEKS R3 R4 K5 ["terminate"]
   CALL R3 0 0
   RETURN R0 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K6 ["fromAssetId"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
+  GETIMPORT R3 K8 [Instance.new]
+  LOADK R4 K9 ["Animation"]
+  CALL R3 1 1
+  GETUPVAL R7 1
+  GETTABLEKS R5 R7 K10 ["ANIMATIONID_PREFIX"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K12 [tostring]
+  CALL R6 1 1
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K13 ["AnimationId"]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["currentAnimation"]
   SETTABLEKS R3 R4 K1 ["animationInstance"]
@@ -267,12 +273,12 @@ PROTO_7:
   GETTABLEKS R4 R5 K5 ["terminate"]
   CALL R4 0 1
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K7 ["updateAvatars"]
+  GETTABLEKS R5 R6 K14 ["updateAvatars"]
   CALL R5 0 0
   JUMPIF R4 [+1]
   JUMPIFNOT R2 [+4]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K8 ["playAnimations"]
+  GETTABLEKS R5 R6 K15 ["playAnimations"]
   CALL R5 0 0
   RETURN R0 0
 
@@ -299,10 +305,9 @@ MAIN:
   GETTABLEKS R2 R3 K9 ["AnimatorInterface"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K7 ["Util"]
-  GETTABLEKS R4 R5 K8 ["Interfaces"]
-  GETTABLEKS R3 R4 K10 ["LoadAnimationInterface"]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K10 ["Constants"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R8 R0 K6 ["Src"]

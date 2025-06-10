@@ -1,8 +1,13 @@
 PROTO_0:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["resolve"]
-  LOADNIL R1
-  CALL R0 1 -1
+  GETTABLEKS R0 R1 K0 ["reject"]
+  CALL R0 0 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["reject"]
+  CALL R0 0 -1
   RETURN R0 -1
 
 MAIN:
@@ -27,11 +32,14 @@ MAIN:
   GETTABLEKS R6 R0 K10 ["Src"]
   GETTABLEKS R5 R6 K11 ["Types"]
   CALL R4 1 1
-  DUPTABLE R5 K13 [{"getVersionHistoryAsync"}]
-  DUPCLOSURE R6 K14 [PROTO_0]
+  DUPTABLE R5 K14 [{"getVersionHistory", "saveVersionNotes"}]
+  DUPCLOSURE R6 K15 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLEKS R6 R5 K12 ["getVersionHistoryAsync"]
-  GETTABLEKS R6 R1 K15 ["createContext"]
+  SETTABLEKS R6 R5 K12 ["getVersionHistory"]
+  DUPCLOSURE R6 K16 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K13 ["saveVersionNotes"]
+  GETTABLEKS R6 R1 K17 ["createContext"]
   MOVE R7 R5
   CALL R6 1 -1
   RETURN R6 -1

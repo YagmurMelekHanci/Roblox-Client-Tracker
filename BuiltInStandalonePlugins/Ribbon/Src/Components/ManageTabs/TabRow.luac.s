@@ -34,22 +34,24 @@ PROTO_2:
   GETUPVAL R7 2
   GETTABLEKS R6 R7 K8 ["Tag"]
   GETUPVAL R7 3
-  GETUPVAL R9 4
-  JUMPIFNOT R9 [+2]
-  LOADK R8 K9 ["Component-TabRow Role-Surface X-RowSpace100 X-Fit X-Middle"]
-  JUMP [+1]
-  LOADK R8 K10 ["Component-TabRow Role-Surface X-RowSpace200 X-Pad X-Fit"]
-  GETTABLEKS R10 R0 K11 ["Selected"]
+  LOADK R8 K9 ["Component-TabRow Role-Surface X-Fit X-Middle"]
+  GETUPVAL R10 4
+  CALL R10 0 1
   JUMPIFNOT R10 [+2]
-  LOADK R9 K11 ["Selected"]
-  JUMP [+1]
   LOADNIL R9
-  CALL R7 2 1
+  JUMP [+1]
+  LOADK R9 K10 ["X-RowSpace100"]
+  GETTABLEKS R11 R0 K11 ["Selected"]
+  JUMPIFNOT R11 [+2]
+  LOADK R10 K11 ["Selected"]
+  JUMP [+1]
+  LOADNIL R10
+  CALL R7 3 1
   SETTABLE R7 R5 R6
   DUPTABLE R6 K14 [{"Checkbox", "Text"}]
   GETUPVAL R7 1
   GETUPVAL R8 5
-  DUPTABLE R9 K17 [{"LayoutOrder", "Checked", "OnClick"}]
+  DUPTABLE R9 K17 [{"LayoutOrder", "Checked", "OnClick", "Text"}]
   MOVE R10 R1
   CALL R10 0 1
   SETTABLEKS R10 R9 K3 ["LayoutOrder"]
@@ -58,8 +60,18 @@ PROTO_2:
   NEWCLOSURE R10 P1
   CAPTURE VAL R0
   SETTABLEKS R10 R9 K16 ["OnClick"]
+  GETUPVAL R11 4
+  CALL R11 0 1
+  JUMPIFNOT R11 [+3]
+  GETTABLEKS R10 R2 K13 ["Text"]
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K13 ["Text"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K12 ["Checkbox"]
+  GETUPVAL R8 4
+  CALL R8 0 1
+  JUMPIF R8 [+19]
   GETUPVAL R7 1
   LOADK R8 K18 ["TextLabel"]
   NEWTABLE R9 4 0
@@ -73,6 +85,8 @@ PROTO_2:
   LOADK R11 K19 ["X-Fit"]
   SETTABLE R11 R9 R10
   CALL R7 2 1
+  JUMP [+1]
+  LOADNIL R7
   SETTABLEKS R7 R6 K13 ["Text"]
   CALL R3 3 -1
   RETURN R3 -1
@@ -99,9 +113,8 @@ MAIN:
   GETIMPORT R6 K5 [require]
   GETTABLEKS R9 R0 K14 ["Src"]
   GETTABLEKS R8 R9 K15 ["SharedFlags"]
-  GETTABLEKS R7 R8 K16 ["getFFlagRibbonStyleUpgrades"]
+  GETTABLEKS R7 R8 K16 ["getFFlagRibbonDensityModeStyles"]
   CALL R6 1 1
-  CALL R6 0 1
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K14 ["Src"]
   GETTABLEKS R9 R10 K17 ["Components"]

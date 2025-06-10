@@ -73,12 +73,13 @@ PROTO_10:
   RETURN R0 0
 
 PROTO_11:
-  LOADB R1 1
-  SETTABLEKS R1 R0 K0 ["_didUpload"]
-  GETTABLEKS R1 R0 K1 ["UploadComplete"]
-  GETTABLEKS R3 R0 K2 ["_results"]
-  NAMECALL R1 R1 K3 ["Fire"]
-  CALL R1 2 0
+  LOADB R2 1
+  SETTABLEKS R2 R0 K0 ["_didUpload"]
+  JUMPIFNOT R1 [+7]
+  GETTABLEKS R2 R0 K1 ["UploadComplete"]
+  GETTABLEKS R4 R0 K2 ["_results"]
+  NAMECALL R2 R2 K3 ["Fire"]
+  CALL R2 2 0
   RETURN R0 0
 
 PROTO_12:

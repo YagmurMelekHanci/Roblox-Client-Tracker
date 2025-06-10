@@ -25,77 +25,158 @@ PROTO_1:
   GETIMPORT R5 K5 [assert]
   CALL R5 2 0
   GETTABLEKS R5 R4 K2 ["settings"]
-  GETUPVAL R6 4
-  LOADNIL R7
-  LOADNIL R8
-  FORGPREP R6
-  JUMPIFEQKS R10 K6 ["Body"] [+13]
-  JUMPIFEQKS R10 K7 ["Clothing"] [+11]
-  GETTABLEKS R13 R5 K8 ["navigationBarSettings"]
-  GETTABLEKS R12 R13 K9 ["avatarType"]
-  GETTABLEKS R11 R12 K10 ["value"]
-  GETIMPORT R12 K14 [Enum.GameAvatarType.R6]
-  JUMPIFEQ R11 R12 [+47]
-  NEWCLOSURE R11 P0
+  GETTABLEKS R7 R4 K2 ["settings"]
+  GETTABLEKS R6 R7 K6 ["categoryListExpanded"]
+  LOADN R7 0
+  GETUPVAL R8 4
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  JUMPIFEQKS R12 K7 ["Body"] [+13]
+  JUMPIFEQKS R12 K8 ["Clothing"] [+11]
+  GETTABLEKS R15 R5 K9 ["navigationBarSettings"]
+  GETTABLEKS R14 R15 K10 ["avatarType"]
+  GETTABLEKS R13 R14 K11 ["value"]
+  GETIMPORT R14 K15 [Enum.GameAvatarType.R6]
+  JUMPIFEQ R13 R14 [+39]
+  NEWCLOSURE R13 P0
   CAPTURE VAL R5
-  CAPTURE VAL R10
-  GETUPVAL R12 5
-  GETUPVAL R13 6
-  DUPTABLE R14 K20 [{"name", "layoutOrder", "onClick", "selected", "extraTabbing"}]
-  LOADK R17 K21 ["CategoryList"]
-  MOVE R18 R10
-  NAMECALL R15 R1 K22 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K15 ["name"]
-  MOVE R15 R3
-  CALL R15 0 1
-  SETTABLEKS R15 R14 K16 ["layoutOrder"]
-  SETTABLEKS R11 R14 K17 ["onClick"]
-  GETTABLEKS R16 R5 K23 ["currentSettingsPage"]
-  JUMPIFEQ R16 R10 [+2]
-  LOADB R15 0 +1
-  LOADB R15 1
-  SETTABLEKS R15 R14 K18 ["selected"]
-  LOADB R15 0
-  JUMPIFEQKS R10 K24 ["General"] [+13]
-  GETTABLEKS R18 R5 K8 ["navigationBarSettings"]
-  GETTABLEKS R17 R18 K9 ["avatarType"]
-  GETTABLEKS R16 R17 K10 ["value"]
-  GETIMPORT R17 K14 [Enum.GameAvatarType.R6]
-  JUMPIFNOTEQ R16 R17 [+2]
-  LOADB R15 0 +1
-  LOADB R15 1
-  SETTABLEKS R15 R14 K19 ["extraTabbing"]
-  CALL R12 2 1
-  SETTABLE R12 R2 R10
-  FORGLOOP R6 2 [-61]
-  RETURN R2 1
+  CAPTURE VAL R12
+  GETUPVAL R14 5
+  GETUPVAL R15 6
+  DUPTABLE R16 K22 [{"name", "layoutOrder", "selected", "imageTag", "expanded", "onClick"}]
+  LOADK R19 K23 ["CategoryList"]
+  MOVE R20 R12
+  NAMECALL R17 R1 K24 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K16 ["name"]
+  MOVE R17 R3
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K17 ["layoutOrder"]
+  GETTABLEKS R18 R5 K25 ["currentSettingsPage"]
+  JUMPIFEQ R18 R12 [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  SETTABLEKS R17 R16 K18 ["selected"]
+  GETUPVAL R18 7
+  GETTABLE R17 R18 R12
+  SETTABLEKS R17 R16 K19 ["imageTag"]
+  GETTABLEKS R17 R6 K26 ["enabled"]
+  SETTABLEKS R17 R16 K20 ["expanded"]
+  SETTABLEKS R13 R16 K21 ["onClick"]
+  CALL R14 2 1
+  SETTABLE R14 R2 R12
+  ADDK R7 R7 K27 [1]
+  FORGLOOP R8 2 [-53]
+  MOVE R8 R2
+  MOVE R9 R7
+  RETURN R8 2
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useContext"]
-  GETUPVAL R2 1
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
-  GETTABLEKS R4 R1 K1 ["settings"]
-  JUMPIFNOTEQKNIL R4 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K2 [+4]
-  LOADK R4 K2 ["Settings must not be nil in AvatarSettingsContext"]
-  GETIMPORT R2 K4 [assert]
-  CALL R2 2 0
-  GETUPVAL R2 2
-  GETUPVAL R3 3
-  NEWTABLE R4 1 0
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["Tag"]
-  LOADK R6 K6 ["Component-CategoryList X-Column"]
-  SETTABLE R6 R4 R5
-  GETUPVAL R5 4
-  MOVE R6 R0
-  CALL R5 1 1
-  CALL R2 3 -1
-  RETURN R2 -1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useContext"]
+  GETUPVAL R3 2
+  CALL R2 1 1
+  GETTABLEKS R5 R2 K2 ["settings"]
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K3 [+4]
+  LOADK R5 K3 ["Settings must not be nil in AvatarSettingsContext"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R2 K2 ["settings"]
+  GETTABLEKS R3 R4 K6 ["categoryListExpanded"]
+  GETUPVAL R4 3
+  MOVE R5 R0
+  CALL R4 1 2
+  GETUPVAL R6 4
+  GETUPVAL R7 5
+  NEWTABLE R8 1 0
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K7 ["Tag"]
+  LOADK R10 K8 ["Component-CategoryList"]
+  SETTABLE R10 R8 R9
+  DUPTABLE R9 K12 [{"UISizeConstraint", "CategoryListItems", "ExpandToggle"}]
+  GETUPVAL R10 4
+  LOADK R11 K9 ["UISizeConstraint"]
+  DUPTABLE R12 K14 [{"MinSize"}]
+  GETIMPORT R13 K17 [Vector2.new]
+  LOADN R14 0
+  GETUPVAL R17 6
+  GETTABLEKS R16 R17 K18 ["CATEGORYLIST_ITEM_HEIGHT"]
+  ADDK R17 R5 K19 [1]
+  MUL R15 R16 R17
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K13 ["MinSize"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K9 ["UISizeConstraint"]
+  GETUPVAL R10 4
+  GETUPVAL R11 5
+  NEWTABLE R12 4 0
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K7 ["Tag"]
+  LOADK R14 K20 ["X-Column"]
+  SETTABLE R14 R12 R13
+  GETIMPORT R13 K24 [Enum.AutomaticSize.X]
+  SETTABLEKS R13 R12 K22 ["AutomaticSize"]
+  GETIMPORT R13 K27 [UDim2.fromOffset]
+  LOADN R14 0
+  GETUPVAL R17 6
+  GETTABLEKS R16 R17 K18 ["CATEGORYLIST_ITEM_HEIGHT"]
+  MUL R15 R16 R5
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K28 ["Size"]
+  MOVE R13 R4
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K10 ["CategoryListItems"]
+  GETUPVAL R10 4
+  GETUPVAL R11 7
+  DUPTABLE R12 K36 [{"position", "anchorPoint", "name", "selected", "imageTag", "expanded", "onClick"}]
+  GETIMPORT R13 K38 [UDim2.fromScale]
+  LOADN R14 0
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K29 ["position"]
+  GETIMPORT R13 K17 [Vector2.new]
+  LOADN R14 0
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K30 ["anchorPoint"]
+  LOADK R15 K39 ["CategoryList"]
+  LOADK R16 K40 ["HideSidebar"]
+  NAMECALL R13 R1 K41 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K31 ["name"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K32 ["selected"]
+  GETUPVAL R13 8
+  LOADK R14 K42 ["ToggleSidebarExpandImage"]
+  LOADK R16 K43 ["data-testid="]
+  GETTABLEKS R18 R3 K44 ["enabled"]
+  JUMPIFNOT R18 [+2]
+  LOADK R17 K45 ["CategoryListCollapse"]
+  JUMP [+1]
+  LOADK R17 K46 ["CategoryListExpand"]
+  CONCAT R15 R16 R17
+  GETTABLEKS R17 R3 K44 ["enabled"]
+  JUMPIFNOT R17 [+2]
+  LOADK R16 K47 ["Expanded"]
+  JUMP [+1]
+  LOADK R16 K48 ["Collapsed"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K33 ["imageTag"]
+  GETTABLEKS R13 R3 K44 ["enabled"]
+  SETTABLEKS R13 R12 K34 ["expanded"]
+  GETTABLEKS R13 R3 K49 ["toggle"]
+  SETTABLEKS R13 R12 K35 ["onClick"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K11 ["ExpandToggle"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -120,42 +201,65 @@ MAIN:
   GETTABLEKS R4 R5 K12 ["CategoryListItem"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K13 ["Packages"]
-  GETTABLEKS R5 R6 K14 ["Framework"]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Util"]
+  GETTABLEKS R5 R6 K13 ["Constants"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K13 ["Packages"]
-  GETTABLEKS R6 R7 K15 ["React"]
+  GETTABLEKS R7 R0 K14 ["Packages"]
+  GETTABLEKS R6 R7 K15 ["Framework"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K13 ["Packages"]
-  GETTABLEKS R7 R8 K16 ["ReactUtils"]
+  GETTABLEKS R8 R0 K14 ["Packages"]
+  GETTABLEKS R7 R8 K16 ["React"]
   CALL R6 1 1
-  GETTABLEKS R7 R4 K17 ["ContextServices"]
-  GETTABLEKS R8 R7 K18 ["Localization"]
-  GETTABLEKS R9 R4 K19 ["UI"]
-  GETTABLEKS R10 R9 K20 ["Pane"]
-  GETTABLEKS R11 R6 K21 ["createNextOrder"]
-  GETTABLEKS R12 R5 K22 ["createElement"]
-  NEWTABLE R13 0 5
-  LOADK R14 K23 ["General"]
-  LOADK R15 K24 ["Body"]
-  LOADK R16 K25 ["Movement"]
-  LOADK R17 K26 ["Accessories"]
-  LOADK R18 K27 ["Clothing"]
-  SETLIST R13 R14 5 [1]
-  DUPCLOSURE R14 K28 [PROTO_1]
-  CAPTURE VAL R8
-  CAPTURE VAL R11
-  CAPTURE VAL R5
-  CAPTURE VAL R1
-  CAPTURE VAL R13
-  CAPTURE VAL R12
-  CAPTURE VAL R3
-  DUPCLOSURE R15 K29 [PROTO_2]
-  CAPTURE VAL R5
-  CAPTURE VAL R1
-  CAPTURE VAL R12
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K14 ["Packages"]
+  GETTABLEKS R8 R9 K17 ["ReactUtils"]
+  CALL R7 1 1
+  GETTABLEKS R8 R5 K18 ["ContextServices"]
+  GETTABLEKS R10 R5 K19 ["Styling"]
+  GETTABLEKS R9 R10 K20 ["joinTags"]
+  GETTABLEKS R10 R8 K21 ["Localization"]
+  GETTABLEKS R11 R5 K22 ["UI"]
+  GETTABLEKS R12 R11 K23 ["Pane"]
+  GETTABLEKS R13 R7 K24 ["createNextOrder"]
+  GETTABLEKS R14 R6 K25 ["createElement"]
+  NEWTABLE R15 0 5
+  LOADK R16 K26 ["General"]
+  LOADK R17 K27 ["Body"]
+  LOADK R18 K28 ["Movement"]
+  LOADK R19 K29 ["Accessories"]
+  LOADK R20 K30 ["Clothing"]
+  SETLIST R15 R16 5 [1]
+  DUPTABLE R16 K31 [{"General", "Body", "Movement", "Accessories", "Clothing"}]
+  LOADK R17 K32 ["GeneralCategoryImage data-testid=GeneralCategoryImage"]
+  SETTABLEKS R17 R16 K26 ["General"]
+  LOADK R17 K33 ["BodyCategoryImage data-testid=BodyCategoryImage"]
+  SETTABLEKS R17 R16 K27 ["Body"]
+  LOADK R17 K34 ["MovementCategoryImage data-testid=MovementCategoryImage"]
+  SETTABLEKS R17 R16 K28 ["Movement"]
+  LOADK R17 K35 ["AccessoriesCategoryImage data-testid=AccessoriesCategoryImage"]
+  SETTABLEKS R17 R16 K29 ["Accessories"]
+  LOADK R17 K36 ["ClothingCategoryImage data-testid=ClothingCategoryImage"]
+  SETTABLEKS R17 R16 K30 ["Clothing"]
+  DUPCLOSURE R17 K37 [PROTO_1]
   CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R15
   CAPTURE VAL R14
-  RETURN R15 1
+  CAPTURE VAL R3
+  CAPTURE VAL R16
+  DUPCLOSURE R18 K38 [PROTO_2]
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R17
+  CAPTURE VAL R14
+  CAPTURE VAL R12
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  RETURN R18 1

@@ -16,21 +16,21 @@ PROTO_0:
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K6 ["FoundationProvider"]
   LOADNIL R4
-  DUPTABLE R5 K10 [{"StudioContextProvider"}]
+  DUPTABLE R5 K10 [{"MockNetworkContextProvider"}]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K8 ["createElement"]
   GETUPVAL R7 2
   LOADNIL R8
-  DUPTABLE R9 K12 [{"NetworkContextProvider"}]
+  DUPTABLE R9 K12 [{"MockStudioContextProvider"}]
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K8 ["createElement"]
   GETUPVAL R11 3
   LOADNIL R12
   MOVE R13 R0
   CALL R10 3 1
-  SETTABLEKS R10 R9 K11 ["NetworkContextProvider"]
+  SETTABLEKS R10 R9 K11 ["MockStudioContextProvider"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K9 ["StudioContextProvider"]
+  SETTABLEKS R6 R5 K9 ["MockNetworkContextProvider"]
   CALL R2 3 1
   SETTABLEKS R2 R1 K6 ["FoundationProvider"]
   GETUPVAL R3 4
@@ -81,8 +81,8 @@ MAIN:
   DUPCLOSURE R9 K19 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R1
-  CAPTURE VAL R7
   CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R4
   CAPTURE VAL R8
   RETURN R9 1

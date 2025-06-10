@@ -52,39 +52,44 @@ PROTO_4:
   DUPTABLE R4 K15 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
   LOADK R5 K9 ["$DEPRECATED_MainBackground"]
   SETTABLEKS R5 R4 K6 ["BackgroundColor3"]
-  LOADK R5 K16 ["$SemanticColorPanelBorder"]
-  SETTABLEKS R5 R4 K13 ["BorderColor3"]
-  GETIMPORT R5 K19 [Enum.BorderMode.Inset]
-  SETTABLEKS R5 R4 K14 ["BorderMode"]
   GETUPVAL R6 1
   CALL R6 0 1
   JUMPIFNOT R6 [+2]
-  LOADK R5 K20 ["$BorderMedium"]
+  LOADK R5 K16 ["$SemanticColorDividerTransparency88"]
+  JUMP [+1]
+  LOADK R5 K17 ["$SemanticColorPanelBorder"]
+  SETTABLEKS R5 R4 K13 ["BorderColor3"]
+  GETIMPORT R5 K20 [Enum.BorderMode.Inset]
+  SETTABLEKS R5 R4 K14 ["BorderMode"]
+  GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  LOADK R5 K21 ["$BorderMedium"]
   JUMP [+1]
   LOADN R5 2
   SETTABLEKS R5 R4 K7 ["BorderSizePixel"]
   NAMECALL R2 R1 K11 ["SetProperties"]
   CALL R2 2 0
-  GETUPVAL R2 2
+  GETUPVAL R2 3
   CALL R2 0 1
   JUMPIF R2 [+24]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K3 ["design"]
-  LOADK R4 K21 [".X-Gradient100-Deg0 ::UIGradient"]
+  LOADK R4 K22 [".X-Gradient100-Deg0 ::UIGradient"]
   NAMECALL R2 R2 K5 ["FindFirstChild"]
   CALL R2 2 1
-  LOADK R5 K22 ["Color"]
+  LOADK R5 K23 ["Color"]
   LOADK R6 K9 ["$DEPRECATED_MainBackground"]
-  NAMECALL R3 R2 K23 ["SetProperty"]
+  NAMECALL R3 R2 K24 ["SetProperty"]
   CALL R3 3 0
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K3 ["design"]
-  LOADK R5 K24 [".X-Gradient100-Deg180 ::UIGradient"]
+  LOADK R5 K25 [".X-Gradient100-Deg180 ::UIGradient"]
   NAMECALL R3 R3 K5 ["FindFirstChild"]
   CALL R3 2 1
-  LOADK R6 K22 ["Color"]
+  LOADK R6 K23 ["Color"]
   LOADK R7 K9 ["$DEPRECATED_MainBackground"]
-  NAMECALL R4 R3 K23 ["SetProperty"]
+  NAMECALL R4 R3 K24 ["SetProperty"]
   CALL R4 3 0
   RETURN R0 0
 
@@ -115,46 +120,51 @@ PROTO_5:
   DUPTABLE R4 K15 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
   LOADK R5 K9 ["$SemanticColorSurface100"]
   SETTABLEKS R5 R4 K6 ["BackgroundColor3"]
-  LOADK R5 K16 ["$SemanticColorPanelBorder"]
-  SETTABLEKS R5 R4 K13 ["BorderColor3"]
-  GETIMPORT R5 K19 [Enum.BorderMode.Inset]
-  SETTABLEKS R5 R4 K14 ["BorderMode"]
   GETUPVAL R6 1
   CALL R6 0 1
   JUMPIFNOT R6 [+2]
-  LOADK R5 K20 ["$BorderMedium"]
+  LOADK R5 K16 ["$SemanticColorDividerTransparency88"]
+  JUMP [+1]
+  LOADK R5 K17 ["$SemanticColorPanelBorder"]
+  SETTABLEKS R5 R4 K13 ["BorderColor3"]
+  GETIMPORT R5 K20 [Enum.BorderMode.Inset]
+  SETTABLEKS R5 R4 K14 ["BorderMode"]
+  GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  LOADK R5 K21 ["$BorderMedium"]
   JUMP [+1]
   LOADN R5 2
   SETTABLEKS R5 R4 K7 ["BorderSizePixel"]
   NAMECALL R2 R1 K11 ["SetProperties"]
   CALL R2 2 0
-  GETUPVAL R2 2
+  GETUPVAL R2 3
   CALL R2 0 1
   JUMPIF R2 [+24]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K3 ["design"]
-  LOADK R4 K21 [".X-Gradient100-Deg0 ::UIGradient"]
+  LOADK R4 K22 [".X-Gradient100-Deg0 ::UIGradient"]
   NAMECALL R2 R2 K5 ["FindFirstChild"]
   CALL R2 2 1
-  LOADK R5 K22 ["Color"]
+  LOADK R5 K23 ["Color"]
   LOADK R6 K9 ["$SemanticColorSurface100"]
-  NAMECALL R3 R2 K23 ["SetProperty"]
+  NAMECALL R3 R2 K24 ["SetProperty"]
   CALL R3 3 0
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K3 ["design"]
-  LOADK R5 K24 [".X-Gradient100-Deg180 ::UIGradient"]
+  LOADK R5 K25 [".X-Gradient100-Deg180 ::UIGradient"]
   NAMECALL R3 R3 K5 ["FindFirstChild"]
   CALL R3 2 1
-  LOADK R6 K22 ["Color"]
+  LOADK R6 K23 ["Color"]
   LOADK R7 K9 ["$SemanticColorSurface100"]
-  NAMECALL R4 R3 K23 ["SetProperty"]
+  NAMECALL R4 R3 K24 ["SetProperty"]
   CALL R4 3 0
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K25 ["Floating"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K26 ["Enabled"]
   GETUPVAL R3 4
-  GETTABLEKS R2 R3 K27 ["closeTooltips"]
+  GETTABLEKS R2 R3 K26 ["Floating"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K27 ["Enabled"]
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K28 ["closeTooltips"]
   CALL R2 0 0
   RETURN R0 0
 
@@ -196,22 +206,12 @@ PROTO_8:
   RETURN R0 0
 
 PROTO_9:
-  GETTABLEKS R2 R0 K0 ["AbsoluteSize"]
-  GETTABLEKS R1 R2 K1 ["X"]
   GETUPVAL R2 0
-  SUBK R3 R1 K2 [5]
-  SETTABLEKS R3 R2 K3 ["width"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["Panels"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["floatingUri"]
-  GETIMPORT R5 K8 [Vector2.new]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K3 ["width"]
-  LOADN R7 88
-  CALL R5 2 -1
-  NAMECALL R2 R2 K9 ["SetSizeAsync"]
-  CALL R2 -1 0
+  GETTABLEKS R1 R2 K0 ["resizer"]
+  GETTABLEKS R4 R0 K1 ["AbsoluteSize"]
+  GETTABLEKS R3 R4 K2 ["X"]
+  NAMECALL R1 R1 K3 ["setWidth"]
+  CALL R1 2 0
   RETURN R0 0
 
 PROTO_10:
@@ -233,42 +233,35 @@ PROTO_12:
   GETTABLEKS R2 R3 K0 ["state"]
   GETTABLEKS R1 R2 K1 ["showFloating"]
   NOT R0 R1
-  JUMPIFNOT R0 [+26]
+  JUMPIFNOT R0 [+10]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["Panels"]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K3 ["floatingUri"]
   NAMECALL R1 R1 K4 ["FocusAsync"]
   CALL R1 2 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["Panels"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["floatingUri"]
-  GETIMPORT R4 K7 [Vector2.new]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K8 ["width"]
-  LOADN R6 88
-  CALL R4 2 -1
-  NAMECALL R1 R1 K9 ["SetSizeAsync"]
-  CALL R1 -1 0
   JUMP [+6]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K10 ["Floating"]
+  GETTABLEKS R1 R2 K5 ["Floating"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K11 ["Enabled"]
+  SETTABLEKS R2 R1 K6 ["Enabled"]
   GETUPVAL R1 0
-  DUPTABLE R3 K12 [{"showFloating"}]
+  DUPTABLE R3 K7 [{"showFloating"}]
   SETTABLEKS R0 R3 K1 ["showFloating"]
-  NAMECALL R1 R1 K13 ["setState"]
+  NAMECALL R1 R1 K8 ["setState"]
   CALL R1 2 0
   RETURN R0 0
 
 PROTO_13:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K1 ["showFloating"]
+  JUMPIFNOT R0 [+9]
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["Panels"]
+  GETTABLEKS R0 R1 K2 ["Panels"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["floatingUri"]
-  NAMECALL R0 R0 K2 ["FocusAsync"]
+  GETTABLEKS R2 R3 K3 ["floatingUri"]
+  NAMECALL R0 R0 K4 ["FocusAsync"]
   CALL R0 2 0
   RETURN R0 0
 
@@ -377,241 +370,257 @@ PROTO_17:
   DUPTABLE R6 K19 [{"Category", "ItemId"}]
   LOADK R7 K13 ["Panels"]
   SETTABLEKS R7 R6 K17 ["Category"]
-  LOADK R7 K20 ["Ribbon"]
+  LOADK R7 K20 ["Floating"]
   SETTABLEKS R7 R6 K18 ["ItemId"]
   CALL R4 2 1
-  SETTABLEKS R4 R0 K21 ["panelUri"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K16 ["join"]
-  GETTABLEKS R5 R0 K10 ["pluginUri"]
-  DUPTABLE R6 K19 [{"Category", "ItemId"}]
-  LOADK R7 K13 ["Panels"]
-  SETTABLEKS R7 R6 K17 ["Category"]
-  LOADK R7 K22 ["Floating"]
-  SETTABLEKS R7 R6 K18 ["ItemId"]
-  CALL R4 2 1
-  SETTABLEKS R4 R0 K23 ["floatingUri"]
+  SETTABLEKS R4 R0 K21 ["floatingUri"]
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K16 ["join"]
   GETTABLEKS R5 R0 K10 ["pluginUri"]
   DUPTABLE R6 K19 [{"Category", "ItemId"}]
   LOADK R7 K14 ["Widgets"]
   SETTABLEKS R7 R6 K17 ["Category"]
-  LOADK R7 K20 ["Ribbon"]
+  LOADK R7 K22 ["Ribbon"]
   SETTABLEKS R7 R6 K18 ["ItemId"]
   CALL R4 2 1
-  SETTABLEKS R4 R0 K24 ["widgetUri"]
-  GETTABLEKS R4 R0 K13 ["Panels"]
-  GETTABLEKS R6 R0 K21 ["panelUri"]
-  GETIMPORT R7 K27 [Vector2.new]
-  LOADN R8 0
-  JUMPIFNOT R3 [+2]
-  LOADN R9 129
-  JUMP [+1]
-  LOADN R9 44
-  CALL R7 2 -1
-  NAMECALL R4 R4 K28 ["SetSizeAsync"]
-  CALL R4 -1 0
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K29 ["Localization"]
-  GETTABLEKS R4 R5 K26 ["new"]
-  DUPTABLE R5 K33 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R4 R0 K23 ["widgetUri"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K24 ["new"]
+  MOVE R5 R2
+  CALL R4 1 1
+  SETTABLEKS R4 R0 K25 ["resizer"]
+  GETTABLEKS R4 R0 K25 ["resizer"]
+  MOVE R6 R3
+  LOADB R7 0
+  LOADB R8 1
+  NAMECALL R4 R4 K26 ["update"]
+  CALL R4 4 0
   GETUPVAL R6 3
-  SETTABLEKS R6 R5 K30 ["stringResourceTable"]
+  GETTABLEKS R5 R6 K27 ["Localization"]
+  GETTABLEKS R4 R5 K24 ["new"]
+  DUPTABLE R5 K31 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R6 4
-  SETTABLEKS R6 R5 K31 ["translationResourceTable"]
-  LOADK R6 K20 ["Ribbon"]
-  SETTABLEKS R6 R5 K32 ["pluginName"]
+  SETTABLEKS R6 R5 K28 ["stringResourceTable"]
+  GETUPVAL R6 5
+  SETTABLEKS R6 R5 K29 ["translationResourceTable"]
+  LOADK R6 K22 ["Ribbon"]
+  SETTABLEKS R6 R5 K30 ["pluginName"]
   CALL R4 1 1
-  SETTABLEKS R4 R0 K34 ["localization"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K35 ["Analytics"]
-  GETTABLEKS R4 R5 K26 ["new"]
-  GETUPVAL R5 5
+  SETTABLEKS R4 R0 K32 ["localization"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K33 ["Analytics"]
+  GETTABLEKS R4 R5 K24 ["new"]
+  GETUPVAL R5 6
   CALL R4 1 1
-  SETTABLEKS R4 R0 K36 ["analytics"]
-  GETUPVAL R4 6
+  SETTABLEKS R4 R0 K34 ["analytics"]
+  GETUPVAL R4 7
   CALL R4 0 1
   JUMPIFNOT R4 [+75]
-  GETUPVAL R5 7
-  GETTABLEKS R4 R5 K26 ["new"]
+  GETUPVAL R5 8
+  GETTABLEKS R4 R5 K24 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R0 K37 ["labelsChangedSignal"]
+  SETTABLEKS R4 R0 K35 ["labelsChangedSignal"]
   NEWTABLE R4 0 2
-  DUPTABLE R5 K40 [{"GetCurrentName", "GetNames"}]
-  DUPCLOSURE R6 K41 [PROTO_0]
-  SETTABLEKS R6 R5 K38 ["GetCurrentName"]
-  DUPCLOSURE R6 K42 [PROTO_1]
-  SETTABLEKS R6 R5 K39 ["GetNames"]
-  DUPTABLE R6 K44 [{"GetCurrentName", "GetNames", "Changed"}]
+  DUPTABLE R5 K38 [{"GetCurrentName", "GetNames"}]
+  DUPCLOSURE R6 K39 [PROTO_0]
+  SETTABLEKS R6 R5 K36 ["GetCurrentName"]
+  DUPCLOSURE R6 K40 [PROTO_1]
+  SETTABLEKS R6 R5 K37 ["GetNames"]
+  DUPTABLE R6 K42 [{"GetCurrentName", "GetNames", "Changed"}]
   NEWCLOSURE R7 P2
   CAPTURE VAL R0
-  SETTABLEKS R7 R6 K38 ["GetCurrentName"]
-  DUPCLOSURE R7 K45 [PROTO_3]
-  SETTABLEKS R7 R6 K39 ["GetNames"]
-  GETTABLEKS R7 R0 K37 ["labelsChangedSignal"]
-  SETTABLEKS R7 R6 K43 ["Changed"]
+  SETTABLEKS R7 R6 K36 ["GetCurrentName"]
+  DUPCLOSURE R7 K43 [PROTO_3]
+  SETTABLEKS R7 R6 K37 ["GetNames"]
+  GETTABLEKS R7 R0 K35 ["labelsChangedSignal"]
+  SETTABLEKS R7 R6 K41 ["Changed"]
   SETLIST R4 R5 2 [1]
-  GETUPVAL R5 8
+  GETUPVAL R5 9
   GETTABLEKS R6 R1 K0 ["Plugin"]
   LOADNIL R7
   LOADNIL R8
   MOVE R9 R4
   CALL R5 4 1
-  SETTABLEKS R5 R0 K46 ["design"]
-  GETIMPORT R5 K48 [require]
-  GETUPVAL R9 9
-  GETTABLEKS R8 R9 K49 ["Src"]
-  GETTABLEKS R7 R8 K50 ["Resources"]
-  GETTABLEKS R6 R7 K51 ["GeneralTokens"]
+  SETTABLEKS R5 R0 K44 ["design"]
+  GETIMPORT R5 K46 [require]
+  GETUPVAL R9 10
+  GETTABLEKS R8 R9 K47 ["Src"]
+  GETTABLEKS R7 R8 K48 ["Resources"]
+  GETTABLEKS R6 R7 K49 ["GeneralTokens"]
   CALL R5 1 1
-  GETUPVAL R6 10
+  GETUPVAL R6 11
   LOADNIL R7
   LOADNIL R8
   FORGPREP R6
-  GETIMPORT R11 K48 [require]
-  GETUPVAL R14 9
-  GETTABLEKS R13 R14 K49 ["Src"]
-  GETTABLEKS R12 R13 K50 ["Resources"]
+  GETIMPORT R11 K46 [require]
+  GETUPVAL R14 10
+  GETTABLEKS R13 R14 K47 ["Src"]
+  GETTABLEKS R12 R13 K48 ["Resources"]
   MOVE R14 R10
-  NAMECALL R12 R12 K52 ["FindFirstChild"]
+  NAMECALL R12 R12 K50 ["FindFirstChild"]
   CALL R12 2 -1
   CALL R11 -1 1
   NEWTABLE R14 0 1
   MOVE R15 R5
   SETLIST R14 R15 1 [1]
-  NAMECALL R12 R11 K53 ["SetDerives"]
+  NAMECALL R12 R11 K51 ["SetDerives"]
   CALL R12 2 0
   FORGLOOP R6 2 [-21]
   JUMP [+12]
-  GETUPVAL R4 8
+  GETUPVAL R4 9
   GETTABLEKS R5 R1 K0 ["Plugin"]
   CALL R4 1 1
-  SETTABLEKS R4 R0 K46 ["design"]
-  GETUPVAL R4 8
+  SETTABLEKS R4 R0 K44 ["design"]
+  GETUPVAL R4 9
   GETTABLEKS R5 R1 K0 ["Plugin"]
   CALL R4 1 1
-  SETTABLEKS R4 R0 K54 ["floatingDesign"]
-  GETUPVAL R4 11
-  GETUPVAL R7 9
-  GETTABLEKS R6 R7 K49 ["Src"]
-  GETTABLEKS R5 R6 K55 ["Components"]
+  SETTABLEKS R4 R0 K52 ["floatingDesign"]
+  GETUPVAL R4 12
+  GETUPVAL R7 10
+  GETTABLEKS R6 R7 K47 ["Src"]
+  GETTABLEKS R5 R6 K53 ["Components"]
   CALL R4 1 1
   CALL R4 0 1
-  SETTABLEKS R4 R0 K56 ["theme"]
-  GETUPVAL R5 12
-  GETTABLEKS R4 R5 K26 ["new"]
+  SETTABLEKS R4 R0 K54 ["theme"]
+  GETUPVAL R5 13
+  GETTABLEKS R4 R5 K24 ["new"]
   GETTABLEKS R5 R1 K0 ["Plugin"]
-  NAMECALL R5 R5 K57 ["GetMouse"]
+  NAMECALL R5 R5 K55 ["GetMouse"]
   CALL R5 1 -1
   CALL R4 -1 1
-  SETTABLEKS R4 R0 K58 ["mouse"]
-  GETTABLEKS R4 R0 K58 ["mouse"]
-  LOADK R6 K59 ["Arrow"]
+  SETTABLEKS R4 R0 K56 ["mouse"]
+  GETTABLEKS R4 R0 K56 ["mouse"]
+  LOADK R6 K57 ["Arrow"]
   LOADN R7 0
-  NAMECALL R4 R4 K60 ["__pushCursor"]
+  NAMECALL R4 R4 K58 ["__pushCursor"]
   CALL R4 3 0
+  GETUPVAL R4 14
+  CALL R4 0 1
+  JUMPIFNOT R4 [+31]
+  GETTABLEKS R4 R0 K44 ["design"]
+  LOADK R6 K59 [".Role-Menu"]
+  NAMECALL R4 R4 K50 ["FindFirstChild"]
+  CALL R4 2 1
+  DUPTABLE R7 K64 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
+  JUMPIFNOT R3 [+2]
+  LOADK R8 K65 ["$DEPRECATED_MainBackground"]
+  JUMP [+1]
+  LOADK R8 K66 ["$SemanticColorSurface100"]
+  SETTABLEKS R8 R7 K60 ["BackgroundColor3"]
+  LOADK R8 K67 ["$SemanticColorDividerTransparency88"]
+  SETTABLEKS R8 R7 K61 ["BorderColor3"]
+  GETIMPORT R8 K70 [Enum.BorderMode.Inset]
+  SETTABLEKS R8 R7 K62 ["BorderMode"]
+  GETUPVAL R9 15
+  CALL R9 0 1
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K71 ["$BorderMedium"]
+  JUMP [+1]
+  LOADN R8 2
+  SETTABLEKS R8 R7 K63 ["BorderSizePixel"]
+  NAMECALL R5 R4 K72 ["SetProperties"]
+  CALL R5 2 0
   NEWCLOSURE R4 P4
   CAPTURE VAL R0
-  CAPTURE UPVAL U13
   CAPTURE UPVAL U14
-  SETTABLEKS R4 R0 K61 ["expand"]
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
+  SETTABLEKS R4 R0 K73 ["expand"]
   NEWCLOSURE R4 P5
   CAPTURE VAL R0
-  CAPTURE UPVAL U13
   CAPTURE UPVAL U14
-  CAPTURE VAL R1
   CAPTURE UPVAL U15
-  SETTABLEKS R4 R0 K62 ["compact"]
+  CAPTURE UPVAL U16
+  CAPTURE VAL R1
+  CAPTURE UPVAL U17
+  SETTABLEKS R4 R0 K74 ["compact"]
   NEWCLOSURE R4 P6
   CAPTURE VAL R0
-  CAPTURE UPVAL U16
+  CAPTURE UPVAL U18
   CAPTURE UPVAL U1
-  SETTABLEKS R4 R0 K63 ["onToolChanged"]
-  LOADN R4 0
-  SETTABLEKS R4 R0 K64 ["width"]
+  SETTABLEKS R4 R0 K75 ["onToolChanged"]
   NEWCLOSURE R4 P7
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K65 ["onResize"]
+  SETTABLEKS R4 R0 K76 ["onResize"]
   NEWCLOSURE R4 P8
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K66 ["onToggleLabels"]
+  SETTABLEKS R4 R0 K77 ["onToggleLabels"]
   NEWCLOSURE R4 P9
   CAPTURE VAL R0
   CAPTURE VAL R1
-  SETTABLEKS R4 R0 K67 ["onToggleFloating"]
-  LOADK R6 K68 ["Actions"]
+  SETTABLEKS R4 R0 K78 ["onToggleFloating"]
+  LOADK R6 K79 ["Actions"]
   NAMECALL R4 R2 K12 ["GetPluginComponent"]
   CALL R4 2 1
-  DUPTABLE R7 K74 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
+  DUPTABLE R7 K85 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K16 ["join"]
   GETTABLEKS R9 R0 K10 ["pluginUri"]
   DUPTABLE R10 K19 [{"Category", "ItemId"}]
-  LOADK R11 K68 ["Actions"]
+  LOADK R11 K79 ["Actions"]
   SETTABLEKS R11 R10 K17 ["Category"]
-  LOADK R11 K75 ["ShowHideLabels"]
+  LOADK R11 K86 ["ShowHideLabels"]
   SETTABLEKS R11 R10 K18 ["ItemId"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K69 ["Uri"]
+  SETTABLEKS R8 R7 K80 ["Uri"]
   LOADB R8 1
-  SETTABLEKS R8 R7 K70 ["Enabled"]
+  SETTABLEKS R8 R7 K81 ["Enabled"]
   LOADB R8 1
-  SETTABLEKS R8 R7 K71 ["Exists"]
+  SETTABLEKS R8 R7 K82 ["Exists"]
   LOADB R8 1
-  SETTABLEKS R8 R7 K72 ["Visible"]
-  GETTABLEKS R8 R0 K34 ["localization"]
+  SETTABLEKS R8 R7 K83 ["Visible"]
+  GETTABLEKS R8 R0 K32 ["localization"]
   LOADK R10 K0 ["Plugin"]
-  LOADK R11 K75 ["ShowHideLabels"]
-  NAMECALL R8 R8 K76 ["getText"]
+  LOADK R11 K86 ["ShowHideLabels"]
+  NAMECALL R8 R8 K87 ["getText"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K73 ["Text"]
+  SETTABLEKS R8 R7 K84 ["Text"]
   LOADB R8 1
-  NAMECALL R5 R4 K77 ["CreateAsync"]
+  NAMECALL R5 R4 K88 ["CreateAsync"]
   CALL R5 3 1
   GETTABLEN R6 R5 1
-  GETTABLEKS R8 R0 K66 ["onToggleLabels"]
-  NAMECALL R6 R6 K78 ["Connect"]
+  GETTABLEKS R8 R0 K77 ["onToggleLabels"]
+  NAMECALL R6 R6 K89 ["Connect"]
   CALL R6 2 0
-  DUPTABLE R8 K74 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
+  DUPTABLE R8 K85 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K16 ["join"]
   GETTABLEKS R10 R0 K10 ["pluginUri"]
   DUPTABLE R11 K19 [{"Category", "ItemId"}]
-  LOADK R12 K68 ["Actions"]
+  LOADK R12 K79 ["Actions"]
   SETTABLEKS R12 R11 K17 ["Category"]
-  LOADK R12 K79 ["DockUndockRibbon"]
+  LOADK R12 K90 ["DockUndockRibbon"]
   SETTABLEKS R12 R11 K18 ["ItemId"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K69 ["Uri"]
+  SETTABLEKS R9 R8 K80 ["Uri"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K70 ["Enabled"]
+  SETTABLEKS R9 R8 K81 ["Enabled"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K71 ["Exists"]
+  SETTABLEKS R9 R8 K82 ["Exists"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K72 ["Visible"]
-  GETTABLEKS R9 R0 K34 ["localization"]
+  SETTABLEKS R9 R8 K83 ["Visible"]
+  GETTABLEKS R9 R0 K32 ["localization"]
   LOADK R11 K0 ["Plugin"]
-  LOADK R12 K79 ["DockUndockRibbon"]
-  NAMECALL R9 R9 K76 ["getText"]
+  LOADK R12 K90 ["DockUndockRibbon"]
+  NAMECALL R9 R9 K87 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K73 ["Text"]
+  SETTABLEKS R9 R8 K84 ["Text"]
   LOADB R9 1
-  NAMECALL R6 R4 K77 ["CreateAsync"]
+  NAMECALL R6 R4 K88 ["CreateAsync"]
   CALL R6 3 1
   GETTABLEN R7 R6 1
-  GETTABLEKS R9 R0 K67 ["onToggleFloating"]
-  NAMECALL R7 R7 K78 ["Connect"]
+  GETTABLEKS R9 R0 K78 ["onToggleFloating"]
+  NAMECALL R7 R7 K89 ["Connect"]
   CALL R7 2 0
   LOADNIL R7
-  SETTABLEKS R7 R0 K80 ["toggleTask"]
+  SETTABLEKS R7 R0 K91 ["toggleTask"]
   NEWCLOSURE R7 P10
   CAPTURE VAL R0
-  SETTABLEKS R7 R0 K81 ["onOpen"]
+  SETTABLEKS R7 R0 K92 ["onOpen"]
   NEWCLOSURE R7 P11
   CAPTURE VAL R0
   CAPTURE VAL R1
-  SETTABLEKS R7 R0 K82 ["onClose"]
+  SETTABLEKS R7 R0 K93 ["onClose"]
   RETURN R0 0
 
 PROTO_18:
@@ -769,60 +778,23 @@ PROTO_23:
   GETTABLEKS R4 R0 K0 ["state"]
   GETTABLEKS R3 R4 K3 ["expanded"]
   GETTABLEKS R4 R2 K3 ["expanded"]
-  JUMPIFEQ R3 R4 [+82]
+  JUMPIFEQ R3 R4 [+18]
+  GETTABLEKS R3 R0 K4 ["resizer"]
+  GETTABLEKS R6 R0 K0 ["state"]
+  GETTABLEKS R5 R6 K3 ["expanded"]
+  GETTABLEKS R7 R0 K0 ["state"]
+  GETTABLEKS R6 R7 K1 ["showFloating"]
+  GETTABLEKS R8 R0 K0 ["state"]
+  GETTABLEKS R7 R8 K2 ["showLabels"]
+  NAMECALL R3 R3 K5 ["update"]
+  CALL R3 4 0
   GETTABLEKS R4 R0 K0 ["state"]
   GETTABLEKS R3 R4 K1 ["showFloating"]
-  JUMPIF R3 [+64]
-  GETTABLEKS R4 R0 K0 ["state"]
-  GETTABLEKS R3 R4 K3 ["expanded"]
-  JUMPIFNOT R3 [+59]
-  GETTABLEKS R4 R0 K0 ["state"]
-  GETTABLEKS R3 R4 K2 ["showLabels"]
-  JUMPIFNOT R3 [+27]
-  GETTABLEKS R3 R0 K4 ["Panels"]
-  GETTABLEKS R5 R0 K5 ["panelUri"]
-  GETIMPORT R6 K8 [Vector2.new]
-  LOADN R7 0
-  LOADN R8 129
-  CALL R6 2 -1
-  NAMECALL R3 R3 K9 ["SetSizeAsync"]
-  CALL R3 -1 0
-  GETTABLEKS R3 R0 K4 ["Panels"]
-  GETTABLEKS R5 R0 K10 ["floatingUri"]
-  GETIMPORT R6 K8 [Vector2.new]
-  GETTABLEKS R8 R0 K12 ["width"]
-  ADDK R7 R8 K11 [1]
-  LOADN R8 88
-  CALL R6 2 -1
-  NAMECALL R3 R3 K9 ["SetSizeAsync"]
-  CALL R3 -1 0
-  JUMP [+39]
-  GETTABLEKS R3 R0 K4 ["Panels"]
-  GETTABLEKS R5 R0 K5 ["panelUri"]
-  GETIMPORT R6 K8 [Vector2.new]
-  LOADN R7 0
-  LOADN R8 116
-  CALL R6 2 -1
-  NAMECALL R3 R3 K9 ["SetSizeAsync"]
-  CALL R3 -1 0
-  GETTABLEKS R3 R0 K4 ["Panels"]
-  GETTABLEKS R5 R0 K10 ["floatingUri"]
-  GETIMPORT R6 K8 [Vector2.new]
-  GETTABLEKS R8 R0 K12 ["width"]
-  ADDK R7 R8 K11 [1]
-  LOADN R8 75
-  CALL R6 2 -1
-  NAMECALL R3 R3 K9 ["SetSizeAsync"]
-  CALL R3 -1 0
-  JUMP [+12]
-  GETTABLEKS R3 R0 K4 ["Panels"]
-  GETTABLEKS R5 R0 K5 ["panelUri"]
-  GETIMPORT R6 K8 [Vector2.new]
-  LOADN R7 0
-  LOADN R8 44
-  CALL R6 2 -1
-  NAMECALL R3 R3 K9 ["SetSizeAsync"]
-  CALL R3 -1 0
+  JUMPIF R3 [+7]
+  GETTABLEKS R4 R0 K6 ["props"]
+  GETTABLEKS R3 R4 K7 ["Floating"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K8 ["Enabled"]
   GETUPVAL R3 0
   CALL R3 0 1
   JUMPIFNOT R3 [+13]
@@ -830,8 +802,8 @@ PROTO_23:
   GETTABLEKS R3 R4 K2 ["showLabels"]
   GETTABLEKS R4 R2 K2 ["showLabels"]
   JUMPIFEQ R3 R4 [+6]
-  GETTABLEKS R3 R0 K13 ["labelsChangedSignal"]
-  NAMECALL R3 R3 K14 ["Fire"]
+  GETTABLEKS R3 R0 K9 ["labelsChangedSignal"]
+  NAMECALL R3 R3 K10 ["Fire"]
   CALL R3 1 0
   RETURN R0 0
 
@@ -969,135 +941,147 @@ MAIN:
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K12 ["Src"]
   GETTABLEKS R6 R7 K13 ["SharedFlags"]
-  GETTABLEKS R5 R6 K15 ["getFFlagRibbonMenuTooltipUseBorderToken"]
+  GETTABLEKS R5 R6 K15 ["getFFlagRibbonDensityModeStyles"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K12 ["Src"]
-  GETTABLEKS R7 R8 K16 ["Util"]
-  GETTABLEKS R6 R7 K17 ["AnalyticsHandlers"]
+  GETTABLEKS R7 R8 K13 ["SharedFlags"]
+  GETTABLEKS R6 R7 K16 ["getFFlagRibbonMenuTooltipUseBorderToken"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Packages"]
-  GETTABLEKS R7 R8 K18 ["Framework"]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K17 ["Util"]
+  GETTABLEKS R7 R8 K18 ["AnalyticsHandlers"]
   CALL R6 1 1
-  GETTABLEKS R7 R6 K19 ["Styling"]
-  GETTABLEKS R8 R6 K20 ["Style"]
-  GETTABLEKS R9 R8 K21 ["makeTheme"]
-  GETTABLEKS R11 R6 K13 ["SharedFlags"]
-  GETTABLEKS R10 R11 K22 ["getFFlagStudioStyleSheetSwitcher"]
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R13 R0 K12 ["Src"]
-  GETTABLEKS R12 R13 K23 ["Types"]
-  CALL R11 1 1
-  GETTABLEKS R12 R6 K24 ["ContextServices"]
-  GETTABLEKS R13 R7 K25 ["registerPluginStyles"]
-  GETTABLEKS R14 R12 K26 ["Plugin"]
-  GETTABLEKS R15 R12 K27 ["Focus"]
-  GETTABLEKS R16 R12 K28 ["Mouse"]
-  GETIMPORT R17 K5 [require]
-  GETTABLEKS R20 R0 K12 ["Src"]
-  GETTABLEKS R19 R20 K29 ["Components"]
-  GETTABLEKS R18 R19 K30 ["RibbonDefinitionProvider"]
-  CALL R17 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Packages"]
+  GETTABLEKS R8 R9 K19 ["Framework"]
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K20 ["Styling"]
+  GETTABLEKS R9 R7 K21 ["Style"]
+  GETTABLEKS R10 R9 K22 ["makeTheme"]
+  GETTABLEKS R12 R7 K13 ["SharedFlags"]
+  GETTABLEKS R11 R12 K23 ["getFFlagStudioStyleSheetSwitcher"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R14 R0 K12 ["Src"]
+  GETTABLEKS R13 R14 K24 ["Types"]
+  CALL R12 1 1
+  GETTABLEKS R13 R7 K25 ["ContextServices"]
+  GETTABLEKS R14 R8 K26 ["registerPluginStyles"]
+  GETTABLEKS R15 R13 K27 ["Plugin"]
+  GETTABLEKS R16 R13 K28 ["Focus"]
+  GETTABLEKS R17 R13 K29 ["Mouse"]
   GETIMPORT R18 K5 [require]
   GETTABLEKS R21 R0 K12 ["Src"]
-  GETTABLEKS R20 R21 K29 ["Components"]
-  GETTABLEKS R19 R20 K31 ["TabLocationProvider"]
+  GETTABLEKS R20 R21 K30 ["Components"]
+  GETTABLEKS R19 R20 K31 ["RibbonDefinitionProvider"]
   CALL R18 1 1
   GETIMPORT R19 K5 [require]
   GETTABLEKS R22 R0 K12 ["Src"]
-  GETTABLEKS R21 R22 K29 ["Components"]
-  GETTABLEKS R20 R21 K32 ["AddTools"]
+  GETTABLEKS R21 R22 K30 ["Components"]
+  GETTABLEKS R20 R21 K32 ["TabLocationProvider"]
   CALL R19 1 1
   GETIMPORT R20 K5 [require]
   GETTABLEKS R23 R0 K12 ["Src"]
-  GETTABLEKS R22 R23 K29 ["Components"]
-  GETTABLEKS R21 R22 K33 ["ManageTabs"]
+  GETTABLEKS R22 R23 K30 ["Components"]
+  GETTABLEKS R21 R22 K33 ["AddTools"]
   CALL R20 1 1
+  GETIMPORT R21 K5 [require]
   GETTABLEKS R24 R0 K12 ["Src"]
-  GETTABLEKS R23 R24 K34 ["Resources"]
-  GETTABLEKS R22 R23 K35 ["Localization"]
-  GETTABLEKS R21 R22 K36 ["SourceStrings"]
+  GETTABLEKS R23 R24 K30 ["Components"]
+  GETTABLEKS R22 R23 K34 ["ManageTabs"]
+  CALL R21 1 1
   GETTABLEKS R25 R0 K12 ["Src"]
-  GETTABLEKS R24 R25 K34 ["Resources"]
-  GETTABLEKS R23 R24 K35 ["Localization"]
-  GETTABLEKS R22 R23 K37 ["LocalizedStrings"]
-  GETTABLEKS R23 R12 K38 ["Design"]
-  GETIMPORT R24 K5 [require]
-  GETTABLEKS R27 R0 K12 ["Src"]
-  GETTABLEKS R26 R27 K16 ["Util"]
-  GETTABLEKS R25 R26 K39 ["StudioUri"]
-  CALL R24 1 1
-  GETTABLEKS R26 R6 K16 ["Util"]
-  GETTABLEKS R25 R26 K40 ["Signal"]
-  GETIMPORT R26 K5 [require]
-  GETTABLEKS R28 R0 K6 ["Packages"]
-  GETTABLEKS R27 R28 K41 ["Dash"]
-  CALL R26 1 1
-  GETTABLEKS R27 R26 K42 ["append"]
-  GETTABLEKS R28 R26 K43 ["map"]
-  GETIMPORT R29 K5 [require]
-  GETTABLEKS R32 R0 K12 ["Src"]
-  GETTABLEKS R31 R32 K29 ["Components"]
-  GETTABLEKS R30 R31 K44 ["MainView"]
-  CALL R29 1 1
-  GETIMPORT R30 K5 [require]
-  GETTABLEKS R33 R0 K12 ["Src"]
-  GETTABLEKS R32 R33 K45 ["Hooks"]
-  GETTABLEKS R31 R32 K46 ["TooltipSettings"]
-  CALL R30 1 1
+  GETTABLEKS R24 R25 K35 ["Resources"]
+  GETTABLEKS R23 R24 K36 ["Localization"]
+  GETTABLEKS R22 R23 K37 ["SourceStrings"]
+  GETTABLEKS R26 R0 K12 ["Src"]
+  GETTABLEKS R25 R26 K35 ["Resources"]
+  GETTABLEKS R24 R25 K36 ["Localization"]
+  GETTABLEKS R23 R24 K38 ["LocalizedStrings"]
+  GETTABLEKS R24 R13 K39 ["Design"]
+  GETIMPORT R25 K5 [require]
+  GETTABLEKS R28 R0 K12 ["Src"]
+  GETTABLEKS R27 R28 K17 ["Util"]
+  GETTABLEKS R26 R27 K40 ["StudioUri"]
+  CALL R25 1 1
+  GETTABLEKS R27 R7 K17 ["Util"]
+  GETTABLEKS R26 R27 K41 ["Signal"]
+  GETIMPORT R27 K5 [require]
+  GETTABLEKS R30 R0 K12 ["Src"]
+  GETTABLEKS R29 R30 K17 ["Util"]
+  GETTABLEKS R28 R29 K42 ["RibbonResizer"]
+  CALL R27 1 1
+  GETIMPORT R28 K5 [require]
+  GETTABLEKS R30 R0 K6 ["Packages"]
+  GETTABLEKS R29 R30 K43 ["Dash"]
+  CALL R28 1 1
+  GETTABLEKS R29 R28 K44 ["append"]
+  GETTABLEKS R30 R28 K45 ["map"]
   GETIMPORT R31 K5 [require]
   GETTABLEKS R34 R0 K12 ["Src"]
-  GETTABLEKS R33 R34 K13 ["SharedFlags"]
-  GETTABLEKS R32 R33 K47 ["getFFlagRibbonFixGradientStyleRules"]
+  GETTABLEKS R33 R34 K30 ["Components"]
+  GETTABLEKS R32 R33 K46 ["MainView"]
   CALL R31 1 1
-  GETTABLEKS R32 R1 K48 ["PureComponent"]
-  LOADK R34 K49 ["MainPlugin"]
-  NAMECALL R32 R32 K50 ["extend"]
-  CALL R32 2 1
-  NEWTABLE R33 0 4
-  LOADK R34 K51 ["PluginStylesDarkTheme"]
-  LOADK R35 K52 ["PluginStylesLightTheme"]
-  LOADK R36 K53 ["ShowLabelsTokens"]
-  LOADK R37 K54 ["HideLabelsTokens"]
-  SETLIST R33 R34 4 [1]
-  DUPCLOSURE R34 K55 [PROTO_17]
+  GETIMPORT R32 K5 [require]
+  GETTABLEKS R35 R0 K12 ["Src"]
+  GETTABLEKS R34 R35 K47 ["Hooks"]
+  GETTABLEKS R33 R34 K48 ["TooltipSettings"]
+  CALL R32 1 1
+  GETIMPORT R33 K5 [require]
+  GETTABLEKS R36 R0 K12 ["Src"]
+  GETTABLEKS R35 R36 K13 ["SharedFlags"]
+  GETTABLEKS R34 R35 K49 ["getFFlagRibbonFixGradientStyleRules"]
+  CALL R33 1 1
+  GETTABLEKS R34 R1 K50 ["PureComponent"]
+  LOADK R36 K51 ["MainPlugin"]
+  NAMECALL R34 R34 K52 ["extend"]
+  CALL R34 2 1
+  NEWTABLE R35 0 4
+  LOADK R36 K53 ["PluginStylesDarkTheme"]
+  LOADK R37 K54 ["PluginStylesLightTheme"]
+  LOADK R38 K55 ["ShowLabelsTokens"]
+  LOADK R39 K56 ["HideLabelsTokens"]
+  SETLIST R35 R36 4 [1]
+  DUPCLOSURE R36 K57 [PROTO_17]
   CAPTURE VAL R2
-  CAPTURE VAL R24
-  CAPTURE VAL R12
-  CAPTURE VAL R21
-  CAPTURE VAL R22
-  CAPTURE VAL R5
-  CAPTURE VAL R10
   CAPTURE VAL R25
-  CAPTURE VAL R13
-  CAPTURE VAL R0
-  CAPTURE VAL R33
-  CAPTURE VAL R9
-  CAPTURE VAL R16
-  CAPTURE VAL R4
-  CAPTURE VAL R31
-  CAPTURE VAL R30
-  CAPTURE VAL R28
-  SETTABLEKS R34 R32 K56 ["init"]
-  DUPCLOSURE R34 K57 [PROTO_22]
   CAPTURE VAL R27
-  SETTABLEKS R34 R32 K58 ["didMount"]
-  DUPCLOSURE R34 K59 [PROTO_23]
-  CAPTURE VAL R10
-  SETTABLEKS R34 R32 K60 ["didUpdate"]
-  DUPCLOSURE R34 K61 [PROTO_24]
-  CAPTURE VAL R1
-  CAPTURE VAL R18
-  CAPTURE VAL R29
-  CAPTURE VAL R10
-  CAPTURE VAL R19
-  CAPTURE VAL R20
-  CAPTURE VAL R12
-  CAPTURE VAL R14
-  CAPTURE VAL R15
+  CAPTURE VAL R13
+  CAPTURE VAL R22
   CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R11
+  CAPTURE VAL R26
+  CAPTURE VAL R14
+  CAPTURE VAL R0
+  CAPTURE VAL R35
+  CAPTURE VAL R10
   CAPTURE VAL R17
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R33
+  CAPTURE VAL R32
+  CAPTURE VAL R30
+  SETTABLEKS R36 R34 K58 ["init"]
+  DUPCLOSURE R36 K59 [PROTO_22]
+  CAPTURE VAL R29
+  SETTABLEKS R36 R34 K60 ["didMount"]
+  DUPCLOSURE R36 K61 [PROTO_23]
+  CAPTURE VAL R11
+  SETTABLEKS R36 R34 K62 ["didUpdate"]
+  DUPCLOSURE R36 K63 [PROTO_24]
+  CAPTURE VAL R1
+  CAPTURE VAL R19
+  CAPTURE VAL R31
+  CAPTURE VAL R11
+  CAPTURE VAL R20
+  CAPTURE VAL R21
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  CAPTURE VAL R24
+  CAPTURE VAL R18
   CAPTURE VAL R3
-  SETTABLEKS R34 R32 K62 ["render"]
-  RETURN R32 1
+  SETTABLEKS R36 R34 K64 ["render"]
+  RETURN R34 1
