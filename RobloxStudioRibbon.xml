@@ -32,6 +32,7 @@
       <submenu name="Advanced" text="Studio.App.RobloxRibbonMainWindow.Advanced">
         <addaction name="fileOpenAutoSavesAction"/>
         <addaction name="exportPlaceAction"/>
+        <addaction fflag="DisplayExportAsinStudioMenu" name="exportAsGltfAction"/>
         <addaction name="shortcutHelpAction"/>
         <addaction name="managePluginsAction"/>
         <addaction name="flagEditorAction"/>

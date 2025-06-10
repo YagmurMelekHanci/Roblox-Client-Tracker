@@ -8,6 +8,7 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 Class Capture : Object [NotCreatable] [NotReplicated]
 Class ScreenshotCapture : Capture [NotCreatable] [NotReplicated]
 Class VideoCapture : Capture [NotCreatable] [NotReplicated]
+	Property VideoCapture.FilePath: string {RobloxScriptSecurity} [ReadOnly]
 	Property VideoCapture.TimeLength: number {RobloxScriptSecurity} [ReadOnly]
 Class ConfigSnapshot : Object [NotCreatable] [NotReplicated]
 	Property ConfigSnapshot.Error: Enum.ConfigSnapshotErrorState [ReadOnly]
@@ -791,6 +792,12 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.SearchKeyword: string
 	Property AudioSearchParams.Tag: string
 	Property AudioSearchParams.Title: string
+Class AudioSpeechToText : Instance [NotBrowsable]
+	Property AudioSpeechToText.Enabled: boolean
+	Property AudioSpeechToText.Text: string
+	Property AudioSpeechToText.VoiceDetected: boolean [ReadOnly]
+	Function AudioSpeechToText:GetConnectedWires(pin: string) -> { Instance }
+	Event AudioSpeechToText.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
 Class AudioTextToSpeech : Instance [NotBrowsable]
 	Property AudioTextToSpeech.IsLoaded: boolean [ReadOnly]
 	Property AudioTextToSpeech.Pitch: number
@@ -816,6 +823,7 @@ Class AuroraScriptObject : Instance [NotCreatable] [Deprecated]
 	Property AuroraScriptObject.BehaviorWeak: AuroraScript? {RobloxSecurity} [Deprecated]
 	Property AuroraScriptObject.BoundInstanceWeak: Instance? {RobloxSecurity} [Deprecated]
 	Property AuroraScriptObject.FrameId: number [Deprecated]
+	Property AuroraScriptObject.LODLevel: number [Deprecated]
 	Property AuroraScriptObject.MaxFrequency: number [Hidden] [NotScriptable] [Deprecated]
 Class AuroraScriptService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraScriptService:GetLocalFrameId() -> number [Deprecated] {🧬Safe}
@@ -831,6 +839,7 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraService:IsPredicted(target: Instance) -> boolean [Deprecated]
 	Function AuroraService:SetIncomingReplicationLag(seconds: number) -> () [Deprecated]
 	Function AuroraService:SetPropertyIsInput(target: Instance, propertyName: string, isInput: boolean) -> () [Deprecated]
+	Function AuroraService:ShowDebugVisualizer(state: boolean) -> () [Deprecated]
 	Function AuroraService:StartPrediction(target: Instance) -> () [Deprecated]
 	Function AuroraService:StepPhysics(worldSteps: number, parts: { Instance }?) -> () [Deprecated]
 	Function AuroraService:StopPrediction(target: Instance) -> () [Deprecated]
@@ -1367,6 +1376,7 @@ Class CalloutService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CalloutService:DefineCallout(definitionId: string, title: string, description: string, learnMoreURL: string) -> () {RobloxScriptSecurity}
 	Function CalloutService:DetachCalloutsByDefinitionId(definitionId: string) -> () {RobloxScriptSecurity}
 Class CaptureService : Instance [NotCreatable] [Service]
+	Function CaptureService:CanCaptureVideo() -> boolean {RobloxScriptSecurity}
 	Function CaptureService:CaptureScreenshot(onCaptureReady: (...any) -> ...any) -> ()
 	Function CaptureService:CreatePostAsync(pathArr: { any }, caption: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
@@ -2140,6 +2150,7 @@ Class Dialog : Instance
 	Property Dialog.TriggerDistance: number
 	Property Dialog.TriggerOffset: Vector3
 	Function Dialog:GetCurrentPlayers() -> { Instance }
+	Function Dialog:SetGuiObject(gui: BillboardGui) -> () {RobloxScriptSecurity}
 	Function Dialog:SetPlayerIsUsing(player: Instance, isUsing: boolean) -> () {RobloxScriptSecurity}
 	Function Dialog:SignalDialogChoiceSelected(player: Instance, dialogChoice: Instance) -> () {RobloxScriptSecurity}
 	Event Dialog.DialogChoiceSelected(player: Instance, dialogChoice: Instance)
@@ -2345,7 +2356,7 @@ Class Texture : Decal
 	Property Texture.StudsPerTileU: number
 	Property Texture.StudsPerTileV: number
 Class FacialAgeEstimationService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function FacialAgeEstimationService:InquiryAsync(inquiryId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function FacialAgeEstimationService:InquiryAsync(inquiryRequest: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function FacialAgeEstimationService:IsAvailable() -> boolean {RobloxScriptSecurity}
 Class FacialAnimationRecordingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property FacialAnimationRecordingService.BiometricDataConsent: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -2702,11 +2713,13 @@ Class ScrollingFrame : GuiObject
 	Property ScrollingFrame.AbsoluteWindowSize: Vector2 [ReadOnly] {🧬Unsafe}
 	Property ScrollingFrame.AutomaticCanvasSize: Enum.AutomaticSize
 	Property ScrollingFrame.BottomImage: string
+	Property ScrollingFrame.BottomImageContent: Content
 	Property ScrollingFrame.CanvasPosition: Vector2
 	Property ScrollingFrame.CanvasSize: UDim2
 	Property ScrollingFrame.ElasticBehavior: Enum.ElasticBehavior
 	Property ScrollingFrame.HorizontalScrollBarInset: Enum.ScrollBarInset
 	Property ScrollingFrame.MidImage: string
+	Property ScrollingFrame.MidImageContent: Content
 	Property ScrollingFrame.ScrollBarImageColor3: Color3
 	Property ScrollingFrame.ScrollBarImageTransparency: number
 	Property ScrollingFrame.ScrollBarThickness: number
@@ -2716,6 +2729,7 @@ Class ScrollingFrame : GuiObject
 	Property ScrollingFrame.ScrollingEnabled: boolean
 	Property ScrollingFrame.SmoothScroll: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property ScrollingFrame.TopImage: string
+	Property ScrollingFrame.TopImageContent: Content
 	Property ScrollingFrame.VerticalScrollBarInset: Enum.ScrollBarInset
 	Property ScrollingFrame.VerticalScrollBarPosition: Enum.VerticalScrollBarPosition
 	Function ScrollingFrame:ClearInertialScrolling() -> () {RobloxScriptSecurity}
@@ -3060,6 +3074,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:ForceTenFootInterface(isForced: boolean) -> () {RobloxScriptSecurity}
 	Function GuiService:GetBrickCount() -> number {RobloxScriptSecurity}
 	Function GuiService:GetClosestDialogToPosition(position: Vector3) -> Instance? {RobloxScriptSecurity}
+	Function GuiService:GetClosestVisibleDialogToPosition(position: Vector3) -> Dialog {RobloxScriptSecurity}
 	Function GuiService:GetEmotesMenuOpen() -> boolean
 	Function GuiService:GetErrorCode() -> Enum.ConnectionError {RobloxScriptSecurity}
 	Function GuiService:GetErrorDetails() -> { [string]: any } {RobloxScriptSecurity}
@@ -3601,6 +3616,7 @@ Class InputAction : Instance [NotBrowsable]
 	Property InputAction.BoolState: boolean {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
 	Property InputAction.Direction1DState: number {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
 	Property InputAction.Direction2DState: Vector2 {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
+	Property InputAction.Direction3DState: Vector3 {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
 	Function InputAction:Fire(state: any) -> ()
 	Function InputAction:GetState() -> any
 	Event InputAction.Pressed()
@@ -3613,7 +3629,9 @@ Class InputBinding : Instance [NotBrowsable]
 	Property InputBinding.Scale: number
 	Property InputBinding.UIButton: GuiButton?
 	Property InputBinding.Vector2Scale: Vector2
+	Property InputBinding.Backward: Enum.KeyCode
 	Property InputBinding.Down: Enum.KeyCode
+	Property InputBinding.Forward: Enum.KeyCode
 	Property InputBinding.Left: Enum.KeyCode
 	Property InputBinding.Right: Enum.KeyCode
 	Property InputBinding.Up: Enum.KeyCode
@@ -3903,6 +3921,7 @@ Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property LuaSourceContainer.ScriptGuid: string [Hidden] [NotScriptable]
 	Property LuaSourceContainer.isPlayerScript: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 Class AuroraScript : LuaSourceContainer [Deprecated]
+	Property AuroraScript.AuroraScriptBindingsSerialize: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
 	Property AuroraScript.EnableCulling: boolean {PluginSecurity} [Deprecated]
 	Property AuroraScript.EnableLOD: boolean {PluginSecurity} [Deprecated]
 	Property AuroraScript.LODCriticality: number {PluginSecurity} [Deprecated]
@@ -3911,7 +3930,6 @@ Class AuroraScript : LuaSourceContainer [Deprecated]
 	Function AuroraScript:AddTo(instance: Instance) -> () [Deprecated]
 	Function AuroraScript:IsOnInstance(instance: Instance) -> boolean [Deprecated]
 	Function AuroraScript:RemoveFrom(instance: Instance) -> () [Deprecated]
-	Event AuroraScript.LODUpdate(frameId: number, instance: Instance, lodLevel: number) {RobloxSecurity} [Hidden] [Deprecated]
 	Event AuroraScript.SynchronizeState(frameId: number, instance: Instance, state: { [string]: any }, ingressHeaders: string, ingressArgs: { any }, egressHeaders: string, egressArgs: { any }) {RobloxSecurity} [Hidden] [Deprecated]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property BaseScript.Disabled: boolean
@@ -4191,6 +4209,10 @@ Class MetaBreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event MetaBreakpointManager.MetaBreakpointChanged(breakpoint: MetaBreakpoint) {RobloxScriptSecurity}
 	Event MetaBreakpointManager.MetaBreakpointRemoved(breakpoint: MetaBreakpoint) {RobloxScriptSecurity}
 	Event MetaBreakpointManager.MetaBreakpointSetChanged(breakpoint: MetaBreakpoint, detail: { [string]: any }) {RobloxScriptSecurity}
+Class Moderation : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Moderation:InternalCreateReviewableContentAsync(config: { [string]: any }) -> string [Yields]
+	Function Moderation:InternalRequestReviewableContentReviewAsync(config: { [string]: any }) -> () [Yields]
+	Callback Moderation.InternalProcessReviewableContentEvent(event: { [string]: any }) -> boolean
 Class Mouse : Instance [NotCreatable]
 	Property Mouse.Hit: CFrame [ReadOnly]
 	Property Mouse.Icon: string
@@ -4706,6 +4728,7 @@ Class Flag : Tool [Deprecated]
 	Property Flag.TeamColor: BrickColor [Deprecated]
 Class Status : Model [NotCreatable] [Deprecated]
 Class WorldRoot : Model [NotCreatable]
+	Property WorldRoot.PhysicsStepTime: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function WorldRoot:ArePartsTouchingOthers(partList: { Instance }, overlapIgnored: number? = 0.000199999995) -> boolean
 	Function WorldRoot:Blockcast(cframe: CFrame, size: Vector3, direction: Vector3, params: RaycastParams?) -> RaycastResult? {🧬Safe}
 	Function WorldRoot:BulkMoveTo(partList: { Instance }, cframeList: { any }, eventMode: Enum.BulkMoveMode? = "FireAllEvents") -> ()
@@ -4766,6 +4789,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.TerrainWeldsFixed: boolean [Hidden] [NotScriptable]
 	Property Workspace.TouchEventsUseCollisionGroups: Enum.RolloutState [NotScriptable]
 	Property Workspace.TouchesUseCollisionGroups: boolean [NotScriptable]
+	Property Workspace.UseNewLuauTypeSolver: Enum.RolloutState [NotScriptable]
 	Property Workspace.CurrentCamera: Camera? [NotReplicated]
 	Property Workspace.DistributedGameTime: number [NotReplicated]
 	Property Workspace.InsertPoint: Vector3 [NotReplicated]
@@ -6006,6 +6030,7 @@ Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:CanSendCallInviteAsync(player: Instance) -> boolean [Yields]
 	Function SocialService:CanSendGameInviteAsync(player: Instance, recipientId: number? = 0) -> boolean [Yields]
+	Function SocialService:GetEventRsvpStatusAsync(eventId: string) -> Enum.RsvpStatus [Yields]
 	Function SocialService:GetPartyAsync(partyId: string) -> { any } [Yields]
 	Function SocialService:GetPlayersByPartyId(partyId: string) -> { Instance }
 	Function SocialService:HideSelfView() -> ()
@@ -6014,17 +6039,20 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:InvokeIrisInvitePromptClosed(player: Instance) -> () {RobloxScriptSecurity}
 	Function SocialService:PromptGameInvite(player: Instance, experienceInviteOptions: Instance? = nil) -> ()
 	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> ()
+	Function SocialService:PromptRsvpToEventAsync(eventId: string) -> Enum.RsvpStatus [Yields]
+	Function SocialService:PromptRsvpToEventCompleted(eventId: string, success: boolean, rsvpStatus: Enum.RsvpStatus) -> () {RobloxScriptSecurity}
 	Function SocialService:ShowSelfView(selfViewPosition: Enum.SelfViewPosition? = "LastPosition") -> ()
-	Function SocialService:UpdatePlayerPartyData(partyId: string, isPartyDisabled: boolean? = false) -> () {RobloxScriptSecurity}
+	Function SocialService:UpdatePlayerPartyData(partyId: string) -> () {RobloxScriptSecurity}
 	Event SocialService.CallInviteStateChanged(player: Instance, inviteState: Enum.InviteState)
 	Event SocialService.GameInvitePromptClosed(player: Instance, recipientIds: { any })
 	Event SocialService.IrisInviteInitiated(message: string) {RobloxSecurity} [Hidden]
 	Event SocialService.PhoneBookPromptClosed(player: Instance)
-	Event SocialService.PlayerPartyDataChanged(partyId: string, isPartyDisabled: boolean) {RobloxScriptSecurity}
+	Event SocialService.PlayerPartyDataChanged(partyId: string) {RobloxScriptSecurity}
 	Event SocialService.PromptInviteRequested(player: Instance, experienceInviteOptions: Instance) {RobloxScriptSecurity}
 	Event SocialService.PromptIrisInviteRequested(player: Instance, tag: string) {RobloxScriptSecurity}
 	Event SocialService.SelfViewHidden() {RobloxScriptSecurity}
 	Event SocialService.SelfViewVisible(selfViewPosition: Enum.SelfViewPosition) {RobloxScriptSecurity}
+	Event SocialService.ShowPromptRsvpToEvent(eventId: string) {RobloxScriptSecurity}
 	Callback SocialService.OnCallInviteInvoked(tag: string, callParticipantIds: { any }) -> Instance
 Class Sound : Instance
 	Property Sound.ChannelCount: number {RobloxScriptSecurity} [ReadOnly] [NotBrowsable]
@@ -6925,7 +6953,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.CreateDefaultCommands: boolean {✏️PluginSecurity}
 	Property TextChatService.CreateDefaultTextChannels: boolean {✏️PluginSecurity}
 	Property TextChatService.HasSeenDeprecationDialog: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property TextChatService.isLegacyChatDisabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property TextChatService.IsLegacyChatDisabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function TextChatService:CanUserChatAsync(userId: number) -> boolean [Yields]
 	Function TextChatService:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
 	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } [Yields]
@@ -6979,6 +7007,7 @@ Class TextureGenerationUnwrappingRequest : Instance [NotCreatable] [NotReplicate
 	Function TextureGenerationUnwrappingRequest:ApplyToDataModel(partGroup: TextureGenerationPartGroup) -> TextureGenerationPartGroup {RobloxScriptSecurity}
 	Function TextureGenerationUnwrappingRequest:GetPartGroup() -> TextureGenerationPartGroup {RobloxScriptSecurity}
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property ThirdPartyUserService.FriendCommunicationRestrictionStatus: Enum.ChatRestrictionStatus {RobloxScriptSecurity} [ReadOnly]
 	Function ThirdPartyUserService:GetUserPlatformName() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetVoiceChatRestrictionStatus() -> Enum.ChatRestrictionStatus {RobloxScriptSecurity}
 	Function ThirdPartyUserService:HaveActiveUser() -> boolean {RobloxScriptSecurity}
@@ -9288,6 +9317,7 @@ Enum InputActionType
 	EnumItem InputActionType.Bool : 0
 	EnumItem InputActionType.Direction1D : 1
 	EnumItem InputActionType.Direction2D : 2
+	EnumItem InputActionType.Direction3D : 3
 Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12
@@ -10229,6 +10259,10 @@ Enum RotationOrder
 Enum RotationType
 	EnumItem RotationType.MovementRelative : 0
 	EnumItem RotationType.CameraRelative : 1
+Enum RsvpStatus
+	EnumItem RsvpStatus.None : 0
+	EnumItem RsvpStatus.Going : 1
+	EnumItem RsvpStatus.NotGoing : 2
 Enum RtlTextSupport
 	EnumItem RtlTextSupport.Default : 0
 	EnumItem RtlTextSupport.Disabled : 1

@@ -1,0 +1,3 @@
+Key,Context,Source,en-us
+Studio.CommandBar.Label.RunCommandInStandaloneDM,"Label that informs users that toggling a checkbox would allow them to run a command (of code, in the command bar) within the context of the Standalone Datamodel",Run command in Standalone DataModel,Run command in Standalone DataModel
+Studio.CommandBar.Label.Standalone,"Used as shorthand label referring to ""Standalone DataModel"" within studio.",Standalone,Standalone
