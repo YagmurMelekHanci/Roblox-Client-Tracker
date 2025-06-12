@@ -26731,6 +26731,7 @@ FixPlaceSizeReporting
 FixPlaybackDspDisconnectFrom
 FixPlaybackSpeedZero
 FixPluginDebugGuiServiceContextMenu
+FixPluginPermission
 FixPluginRunContextPseudoDatamodelSet
 FixPropertiesTabFreezeOnDebugger
 FixRakPingTraceReport
@@ -76752,7 +76753,7 @@ WillReturn
 WillSleep_DEPRECATED
 WIN32_LEAN_AND_MEAN
 Win32HardwareSleepListener
-Win64.677.20315
+Win64.677.20554
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled

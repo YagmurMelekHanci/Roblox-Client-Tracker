@@ -7453,6 +7453,7 @@
 [Lua] FFlagFixPlayerGuiSelectionBugOnPromptExit
 [Lua] FFlagFixPlayerGuiSelectionBugOnPromptExitPremium
 [C++] FFlagFixPluginDebugGuiServiceContextMenu
+[C++] FFlagFixPluginPermission
 [C++] FFlagFixPropertiesTabFreezeOnDebugger
 [C++] FFlagFixRapidSoundStopStart
 [C++] FFlagFixRedundantAllocationInAnimator
